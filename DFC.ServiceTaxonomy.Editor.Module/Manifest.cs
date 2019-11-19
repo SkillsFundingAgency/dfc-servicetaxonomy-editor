@@ -5,5 +5,6 @@ using OrchardCore.Modules.Manifest;
     Author = "National Careers Service",
     Website = "http://todo.gov.uk",
     Version = "0.0.1",
-    Description = "todo."
+    Description = "Proof of concept Service Taxonomy Editor.",
+    Category = "Custom"
 )]
