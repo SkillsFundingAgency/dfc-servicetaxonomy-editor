@@ -1,0 +1,2 @@
+#Files that will always have LF line endings on checkout, they should not be converted to CRLF on Windows, eg .sh scripts for us in Docker containers
+*.sh text eol=lf
