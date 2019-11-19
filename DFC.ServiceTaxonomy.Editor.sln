@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Editor.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{343E8BAC-76B1-4928-BC7F-E7E17CC1BEEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Editor.Module", "DFC.ServiceTaxonomy.Editor.Module\DFC.ServiceTaxonomy.Editor.Module.csproj", "{02145773-0A5B-4464-AA17-F4446D74CE2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{343E8BAC-76B1-4928-BC7F-E7E17CC1BEEB}.Release|x64.Build.0 = Release|Any CPU
 		{343E8BAC-76B1-4928-BC7F-E7E17CC1BEEB}.Release|x86.ActiveCfg = Release|Any CPU
 		{343E8BAC-76B1-4928-BC7F-E7E17CC1BEEB}.Release|x86.Build.0 = Release|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Debug|x64.Build.0 = Debug|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Debug|x86.Build.0 = Debug|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Release|x64.ActiveCfg = Release|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Release|x64.Build.0 = Release|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Release|x86.ActiveCfg = Release|Any CPU
+		{02145773-0A5B-4464-AA17-F4446D74CE2E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

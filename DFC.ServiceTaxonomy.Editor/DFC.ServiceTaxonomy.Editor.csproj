@@ -8,4 +8,8 @@
       <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-10004" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DFC.ServiceTaxonomy.Editor.Module\DFC.ServiceTaxonomy.Editor.Module.csproj" />
+    </ItemGroup>
+
 </Project>
