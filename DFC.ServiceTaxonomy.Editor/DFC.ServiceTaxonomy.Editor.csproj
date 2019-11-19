@@ -3,9 +3,5 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
     </PropertyGroup>
-
-    <ItemGroup>
-      <None Remove="Startup.cs~" />
-    </ItemGroup>
     
 </Project>
