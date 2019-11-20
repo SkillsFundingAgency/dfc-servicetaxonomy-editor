@@ -6,7 +6,6 @@
 
     <ItemGroup>
       <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-10004" />
-      <PackageReference Include="OrchardCore.Workflows.Abstractions" Version="1.0.0-rc1-10004" />
     </ItemGroup>
 
     <ItemGroup>
