@@ -1,0 +1,9 @@
+@inherits OrchardCore.DisplayManagement.Razor.RazorPage<TModel>
+@using DFC.ServiceTaxonomy.Editor.Activities
+@using OrchardCore.Workflows.Helpers
+@model OrchardCore.Workflows.ViewModels.ActivityViewModel<SyncToGraphTask>
+
+<header>
+    <h4><i class="fa fa-link"></i>@Model.Activity.GetTitleOrDefault(() => T["Sync To Graph"])</h4>
+</header>
+@* <span>@T["<em>{0}</em>", Model.Activity.Value]</span> *@
