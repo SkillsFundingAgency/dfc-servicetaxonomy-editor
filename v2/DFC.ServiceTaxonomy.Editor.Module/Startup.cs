@@ -1,6 +1,7 @@
 using System;
 using DFC.ServiceTaxonomy.Editor.Module.Activities;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
+using DFC.ServiceTaxonomy.Editor.Module.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<INeoGraphDatabase, NeoGraphDatabase>();
             // no mention of this being necessary in the docs
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
         }

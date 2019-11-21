@@ -13,12 +13,14 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 {
     public class SyncToGraphTask : TaskActivity
     {
-        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer)
+        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, INeoGraphDatabase neoGraphDatabase)
         {
+            _neoGraphDatabase = neoGraphDatabase;
             T = localizer;
         }
 
         private IStringLocalizer T { get; }
+        private readonly INeoGraphDatabase _neoGraphDatabase;
         
         public override string Name => nameof(SyncToGraphTask);
         public override LocalizedString DisplayText => T["Sync content item to Neo4j graph"];
@@ -58,9 +60,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 //                        break;
 //                }
                 
-                //todo: DI, close/dispose, dictionary properties
-                var graphDatabase = new NeoGraphDatabase();
-                await graphDatabase.Merge(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
+                //todo: close/dispose, dictionary properties
+                await _neoGraphDatabase.Merge(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
             }
             
             //todo: create a uri on on create, read-only when editing (and on create prepopulated?)

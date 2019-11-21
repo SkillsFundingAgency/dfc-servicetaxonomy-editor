@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
     
     // https://github.com/neo4j/neo4j-dotnet-driver
     // (not updated for 4 yet: https://neo4j.com/docs/driver-manual/1.7/get-started/)
-    public class NeoGraphDatabase : IDisposable
+    public class NeoGraphDatabase : INeoGraphDatabase, IDisposable
     {
         private readonly IDriver _driver;
         // we'd have to globally add the namespace prefix to neo if we wanted to export to RDF
@@ -41,9 +41,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
                 // https://neo4j.com/docs/cypher-manual/current/clauses/merge/
                 // doesn't support partial matches - would be an issue if we add a field to a content type
 //                IStatementResultCursor cursor = await session.RunAsync($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {propertyName}: {PropertyToCypherLiteral(propertyValue, propertyType)} }}) RETURN n");
-                var ncsNodeLabel = $"{NcsPrefix}{nodeLabel}";
                 // looks like node labels can't be parameterised, nor property names
-                var statement = new Statement($"MERGE (n:{ncsNodeLabel} {{ {NcsPrefix}{propertyName}: $property_value }}) RETURN n",
+                //todo: all properties in single merge statement
+                var statement = new Statement($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {NcsPrefix}{propertyName}: $property_value }}) RETURN n",
                     //a dic of dic or somesuch could be passed in
 //                    new {ncs_node_label = nodeLabel, property_name = propertyName, property_value = propertyValue.ToString()});
                     new {property_value = propertyValue.ToString()});
