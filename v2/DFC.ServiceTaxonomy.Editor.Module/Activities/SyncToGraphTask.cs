@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Editor.Module.Services;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -29,7 +30,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             return Outcomes(T["Done"]);
         }
 
-        public override Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
+        public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
             //how to get created/edited? or do we execute cypher that handles both?
 //            var description = ((ContentItem)workflowContext.Input["ContentItem"]).Get<>();
@@ -47,15 +48,23 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 var firstChild = value.Children<JProperty>().First();
                 var contentFieldDataType = firstChild.Name;
                 var fieldValue = firstChild.Value;
+                NeoPropertyType neoPropertyType;
                 //or dictionary
                 switch (contentFieldDataType)
                 {
-                    case "Html":
+                    //case "Html":
+                    default:
+                        neoPropertyType = NeoPropertyType.String;
                         break;
                 }
+                
+                //todo: DI, close/dispose, dictionary properties
+                var graphDatabase = new NeoGraphDatabase();
+                await graphDatabase.Merge(contentItem.ContentType, key, fieldValue, neoPropertyType);
             }
             
-            return Task.FromResult(Outcomes("Done"));
+            
+            return Outcomes("Done");
         }
     }
 }
