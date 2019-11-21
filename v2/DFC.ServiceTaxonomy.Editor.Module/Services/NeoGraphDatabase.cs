@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Neo4j.Driver;
 
@@ -31,47 +33,74 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
             _driver = GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "ESCO3"));
         }
 
-        //todo: dictionary of properties
-        public async Task Merge(string nodeLabel, string propertyName, object propertyValue) //, NeoPropertyType propertyType) //enum would be better
+        //todo: object value (jtoken -> object)
+        public async Task Merge(string nodeLabel, IEnumerable<(string Name, string Value)> properties)
         {
-            //todo: transaction, parameterisation/construct Statement
-            var session = _driver.AsyncSession(); // <v4 does not support multiple databases : o => o.WithDatabase("ESCO3")); //withDatabase("neo4j"));
+            //todo: just accept a dictionary, so no need to convert
+            var propertyDictionary = properties.ToDictionary(p => p.Name, p => (object)p.Value);
+
+            var parameterisedPropertiesFragment = string.Join(',', properties.Select(p => $"{NcsPrefix}{p.Name}: ${p.Name}"));
+            // param could match namespaced version
+            //var parameterisedPropertiesFragment = string.Join(',', propertyDictionary.Select(kv => $"{kv.Key}: ${p.Name}"));
+            var session = _driver.AsyncSession();
             try
             {
-                // https://neo4j.com/docs/cypher-manual/current/clauses/merge/
-                // doesn't support partial matches - would be an issue if we add a field to a content type
-//                IStatementResultCursor cursor = await session.RunAsync($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {propertyName}: {PropertyToCypherLiteral(propertyValue, propertyType)} }}) RETURN n");
-                // looks like node labels can't be parameterised, nor property names
-                //todo: all properties in single merge statement
-                var statement = new Statement($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {NcsPrefix}{propertyName}: $property_value }}) RETURN n",
-                    //a dic of dic or somesuch could be passed in
-//                    new {ncs_node_label = nodeLabel, property_name = propertyName, property_value = propertyValue.ToString()});
-                    new {property_value = propertyValue.ToString()});
+                var statement = new Statement(
+                    $"MERGE (n:{NcsPrefix}{nodeLabel} {{ {parameterisedPropertiesFragment} }}) RETURN n", propertyDictionary);
+                
                 IStatementResultCursor cursor = await session.RunAsync(statement);
                 var resultSummary = await cursor.ConsumeAsync();
 
                 var x = resultSummary.ResultAvailableAfter;
-                //types: https://neo4j.com/docs/driver-manual/1.7/cypher-values/
             }
             finally
             {
                 await session.CloseAsync();
             }
-
-            //pre 4 example from docs
-//            using (var session = _driver.Session())
-//            {
-//                var greeting = session.WriteTransaction(tx =>
-//                {
-//                    var result = tx.Run("CREATE (a:Greeting) " +
-//                                        "SET a.message = $message " +
-//                                        "RETURN a.message + ', from node ' + id(a)",
-//                        new {message});
-//                    return result.Single()[0].As<string>();
-//                });
-//                Console.WriteLine(greeting);
-//            }
         }
+        
+        //todo: dictionary of properties
+//        public async Task Merge(string nodeLabel, string propertyName, object propertyValue) //, NeoPropertyType propertyType) //enum would be better
+//        {
+//            //todo: transaction, parameterisation/construct Statement
+//            var session = _driver.AsyncSession(); // <v4 does not support multiple databases : o => o.WithDatabase("ESCO3")); //withDatabase("neo4j"));
+//            try
+//            {
+//                // https://neo4j.com/docs/cypher-manual/current/clauses/merge/
+//                // doesn't support partial matches - would be an issue if we add a field to a content type
+////                IStatementResultCursor cursor = await session.RunAsync($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {propertyName}: {PropertyToCypherLiteral(propertyValue, propertyType)} }}) RETURN n");
+//                // looks like node labels can't be parameterised, nor property names
+//                //todo: all properties in single merge statement
+//                
+//                var statement = new Statement($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {NcsPrefix}{propertyName}: $property_value }}) RETURN n",
+//                    //a dic of dic or somesuch could be passed in
+////                    new {ncs_node_label = nodeLabel, property_name = propertyName, property_value = propertyValue.ToString()});
+//                    new {property_value = propertyValue.ToString()});
+//                IStatementResultCursor cursor = await session.RunAsync(statement);
+//                var resultSummary = await cursor.ConsumeAsync();
+//
+//                var x = resultSummary.ResultAvailableAfter;
+//                //types: https://neo4j.com/docs/driver-manual/1.7/cypher-values/
+//            }
+//            finally
+//            {
+//                await session.CloseAsync();
+//            }
+//
+//            //pre 4 example from docs
+////            using (var session = _driver.Session())
+////            {
+////                var greeting = session.WriteTransaction(tx =>
+////                {
+////                    var result = tx.Run("CREATE (a:Greeting) " +
+////                                        "SET a.message = $message " +
+////                                        "RETURN a.message + ', from node ' + id(a)",
+////                        new {message});
+////                    return result.Single()[0].As<string>();
+////                });
+////                Console.WriteLine(greeting);
+////            }
+//        }
         
         public void Dispose()
         {

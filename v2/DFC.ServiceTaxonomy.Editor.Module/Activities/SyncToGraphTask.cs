@@ -38,31 +38,47 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 //            var description = ((ContentItem)workflowContext.Input["ContentItem"]).Get<>();
 //            var description = ((ContentItem)workflowContext.Input["ContentItem"]).Get("Description");
             var contentItem = (ContentItem) workflowContext.Input["ContentItem"];
-            var content = contentItem.Content[contentItem.ContentType];
+            //var content = contentItem.Content[contentItem.ContentType];
+            
+            var properties = ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i =>
+                (Name: i.Name, Value: ((JProperty) i.First().Children().First()).Value.ToString()));
+            
+            await _neoGraphDatabase.Merge(contentItem.ContentType, properties);
 
+//            ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i =>
+//                (Name: i.Name, x: ((JProperty) i.First().Children().First()).Value));
+//            var contentY = ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>()
+//                .Select(i => (Name: i.Name, x: i.First()));
+//            //i.Value.First.))
+//            var contentX = ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i => (i.Name, i.Values()));
+            
             // use title part, or have title field?
             // delete
-            var contentJObject = content as JObject;
-            foreach (var property in contentJObject)
-            {
-                var key = property.Key;
-                var value = property.Value;
-                var firstChild = value.Children<JProperty>().First();
-                var contentFieldDataType = firstChild.Name;
-                var fieldValue = firstChild.Value;
-//                NeoPropertyType neoPropertyType;
-//                //or dictionary
-//                switch (contentFieldDataType)
-//                {
-//                    //case "Html":
-//                    default:
-//                        neoPropertyType = NeoPropertyType.String;
-//                        break;
-//                }
-                
-                //todo: close/dispose, dictionary properties
-                await _neoGraphDatabase.Merge(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
-            }
+//            var contentJObject = content as JObject;
+            
+//            foreach (var property in contentJObject)
+//            {
+//                var key = property.Key;
+//                var value = property.Value;
+//                var firstChild = value.Children<JProperty>().First();
+//                // will be useful if we import into neo using keepCustomDataTypes 
+//                // we can append the datatype to the value, i.e. value^^datatype
+//                // see https://neo4j-labs.github.io/neosemantics/#_handling_custom_data_types
+//                var contentFieldDataType = firstChild.Name;
+//                var fieldValue = firstChild.Value;
+////                NeoPropertyType neoPropertyType;
+////                //or dictionary
+////                switch (contentFieldDataType)
+////                {
+////                    //case "Html":
+////                    default:
+////                        neoPropertyType = NeoPropertyType.String;
+////                        break;
+////                }
+//                
+//                //todo: close/dispose, dictionary properties
+//                await _neoGraphDatabase.Merge(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
+//            }
             
             //todo: create a uri on on create, read-only when editing (and on create prepopulated?)
             
