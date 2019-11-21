@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Editor.Module", "DFC.ServiceTaxonomy.Editor.Module\DFC.ServiceTaxonomy.Editor.Module.csproj", "{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
