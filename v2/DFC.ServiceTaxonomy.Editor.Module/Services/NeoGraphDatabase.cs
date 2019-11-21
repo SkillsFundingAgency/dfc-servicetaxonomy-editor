@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
     public class NeoGraphDatabase : IDisposable
     {
         private readonly IDriver _driver;
+        // we'd have to globally add the namespace prefix to neo if we wanted to export to RDF
 //        private const string NcsPrefix = "https://nationalcareers.service.gov.uk/";
         private const string NcsPrefix = "ncs__";
 
@@ -31,7 +32,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
         }
 
         //todo: dictionary of properties
-        public async Task Merge(string nodeLabel, string propertyName, object propertyValue, NeoPropertyType propertyType) //enum would be better
+        public async Task Merge(string nodeLabel, string propertyName, object propertyValue) //, NeoPropertyType propertyType) //enum would be better
         {
             //todo: transaction, parameterisation/construct Statement
             var session = _driver.AsyncSession(); // <v4 does not support multiple databases : o => o.WithDatabase("ESCO3")); //withDatabase("neo4j"));
@@ -39,8 +40,18 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
             {
                 // https://neo4j.com/docs/cypher-manual/current/clauses/merge/
                 // doesn't support partial matches - would be an issue if we add a field to a content type
-                IStatementResultCursor cursor = await session.RunAsync($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {propertyName}: {PropertyToCypherLiteral(propertyValue, propertyType)} }}) RETURN n");
+//                IStatementResultCursor cursor = await session.RunAsync($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {propertyName}: {PropertyToCypherLiteral(propertyValue, propertyType)} }}) RETURN n");
+                var ncsNodeLabel = $"{NcsPrefix}{nodeLabel}";
+                // looks like node labels can't be parameterised, nor property names
+                var statement = new Statement($"MERGE (n:{ncsNodeLabel} {{ {NcsPrefix}{propertyName}: $property_value }}) RETURN n",
+                    //a dic of dic or somesuch could be passed in
+//                    new {ncs_node_label = nodeLabel, property_name = propertyName, property_value = propertyValue.ToString()});
+                    new {property_value = propertyValue.ToString()});
+                IStatementResultCursor cursor = await session.RunAsync(statement);
                 var resultSummary = await cursor.ConsumeAsync();
+
+                var x = resultSummary.ResultAvailableAfter;
+                //types: https://neo4j.com/docs/driver-manual/1.7/cypher-values/
             }
             finally
             {

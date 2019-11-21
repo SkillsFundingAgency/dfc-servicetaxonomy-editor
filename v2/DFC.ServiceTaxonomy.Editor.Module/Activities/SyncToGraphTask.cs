@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             var content = contentItem.Content[contentItem.ContentType];
 
             // use title part, or have title field?
-            
+            // delete
             var contentJObject = content as JObject;
             foreach (var property in contentJObject)
             {
@@ -48,21 +48,22 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 var firstChild = value.Children<JProperty>().First();
                 var contentFieldDataType = firstChild.Name;
                 var fieldValue = firstChild.Value;
-                NeoPropertyType neoPropertyType;
-                //or dictionary
-                switch (contentFieldDataType)
-                {
-                    //case "Html":
-                    default:
-                        neoPropertyType = NeoPropertyType.String;
-                        break;
-                }
+//                NeoPropertyType neoPropertyType;
+//                //or dictionary
+//                switch (contentFieldDataType)
+//                {
+//                    //case "Html":
+//                    default:
+//                        neoPropertyType = NeoPropertyType.String;
+//                        break;
+//                }
                 
                 //todo: DI, close/dispose, dictionary properties
                 var graphDatabase = new NeoGraphDatabase();
-                await graphDatabase.Merge(contentItem.ContentType, key, fieldValue, neoPropertyType);
+                await graphDatabase.Merge(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
             }
             
+            //todo: create a uri on on create, read-only when editing (and on create prepopulated?)
             
             return Outcomes("Done");
         }
