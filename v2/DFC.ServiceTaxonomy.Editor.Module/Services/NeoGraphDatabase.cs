@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
         }
 
         //todo: object value (jtoken -> object)
-        public async Task Merge(string nodeLabel, IDictionary<string, object> properties)
+        public async Task MergeNode(string nodeLabel, IDictionary<string, object> properties) // todo: string idPropertyName
         {
             var parameterisedPropertiesFragment = string.Join(',', properties.Select(p => $"{NcsPrefix}{p.Key}: ${p.Key}"));
             // param could match namespaced version
@@ -42,6 +42,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
             var session = _driver.AsyncSession();
             try
             {
+                //todo: use merge with set, matching node on uri/id
+                // MERGE (n: {uri: ''}) SET n.prop1 = x, n.prop2 etc.
                 var statement = new Statement($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {parameterisedPropertiesFragment} }}) RETURN n", properties);
                 
                 IStatementResultCursor cursor = await session.RunAsync(statement);
@@ -54,9 +56,17 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
                 await session.CloseAsync();
             }
         }
+
+        public Task MergeRelationship(string sourceNodeLabel,
+            string sourceIdPropertyValue, string destinationIdPropertyValue,
+            string relationshipType,
+            string sourceIdPropertyName = "uri", string destinationIdPropertyName = "uri")
+        {
+            throw new NotImplementedException();
+        }
         
         //todo: dictionary of properties
-//        public async Task Merge(string nodeLabel, string propertyName, object propertyValue) //, NeoPropertyType propertyType) //enum would be better
+//        public async Task MergeNode(string nodeLabel, string propertyName, object propertyValue) //, NeoPropertyType propertyType) //enum would be better
 //        {
 //            //todo: transaction, parameterisation/construct Statement
 //            var session = _driver.AsyncSession(); // <v4 does not support multiple databases : o => o.WithDatabase("ESCO3")); //withDatabase("neo4j"));

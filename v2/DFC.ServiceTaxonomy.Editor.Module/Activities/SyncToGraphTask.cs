@@ -36,15 +36,17 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
     // https://neo4j.com/docs/labs/nsmntx/current/import/
     public class SyncToGraphTask : TaskActivity
     {
-        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, INeoGraphDatabase neoGraphDatabase)
+        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, INeoGraphDatabase neoGraphDatabase, IContentManager contentManager)
         {
             _neoGraphDatabase = neoGraphDatabase;
+            _contentManager = contentManager;
             T = localizer;
         }
 
         private IStringLocalizer T { get; }
         private readonly INeoGraphDatabase _neoGraphDatabase;
-        
+        private readonly IContentManager _contentManager;
+
         public override string Name => nameof(SyncToGraphTask);
         public override LocalizedString DisplayText => T["Sync content item to Neo4j graph"];
 //        public override LocalizedString Category => T["Neo4j"];
@@ -87,7 +89,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                         case "Html":
                             neoType = typeof(string);
                             return (true, new KeyValuePair<string, object>(i.Name, property.Value.ToObject(neoType)));
-                        case "ContentItemIds": //todo
+                        // could just do...
+                            //return (true, new KeyValuePair<string, object>(i.Name, property.Value.ToString()));
+                        case "ContentItemIds": //todo how does content come through when single relationship rather than many
+//                            foreach (var contentId in property.Value)
+//                            {}
+//                            var relationship = _contentManager.GetAsync(property.Value.ToString());
+//                            return (true, new KeyValuePair<string, object>(i.Name, "?"));
+// todo: don't return property, merge relationships immediately
+                            return (false, default);
                         default:
                             return (false, default);
 
@@ -98,7 +108,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 }
                 ));
             
-            await _neoGraphDatabase.Merge(contentItem.ContentType, properties);
+            await _neoGraphDatabase.MergeNode(contentItem.ContentType, properties);
 
 //            ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i =>
 //                (Name: i.Name, x: ((JProperty) i.First().Children().First()).Value));
@@ -132,7 +142,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 ////                }
 //                
 //                //todo: close/dispose, dictionary properties
-//                await _neoGraphDatabase.Merge(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
+//                await _neoGraphDatabase.MergeNode(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
 //            }
             
             //todo: create a uri on on create, read-only when editing (and on create prepopulated?)
