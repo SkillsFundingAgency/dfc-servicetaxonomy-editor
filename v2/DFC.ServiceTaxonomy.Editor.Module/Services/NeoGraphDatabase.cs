@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
     {
         private readonly IDriver _driver;
         // we'd have to globally add the namespace prefix to neo if we wanted to export to RDF
-//        private const string NcsPrefix = "https://nationalcareers.service.gov.uk/";
+//        private const string NcsPrefix = "http://nationalcareers.service.gov.uk/taxonomy#";
         private const string NcsPrefix = "ncs__";
 
         public NeoGraphDatabase()
