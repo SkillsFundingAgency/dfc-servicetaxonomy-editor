@@ -34,19 +34,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
         }
 
         //todo: object value (jtoken -> object)
-        public async Task Merge(string nodeLabel, IEnumerable<(string Name, string Value)> properties)
+        public async Task Merge(string nodeLabel, IDictionary<string, object> properties)
         {
-            //todo: just accept a dictionary, so no need to convert
-            var propertyDictionary = properties.ToDictionary(p => p.Name, p => (object)p.Value);
-
-            var parameterisedPropertiesFragment = string.Join(',', properties.Select(p => $"{NcsPrefix}{p.Name}: ${p.Name}"));
+            var parameterisedPropertiesFragment = string.Join(',', properties.Select(p => $"{NcsPrefix}{p.Key}: ${p.Key}"));
             // param could match namespaced version
             //var parameterisedPropertiesFragment = string.Join(',', propertyDictionary.Select(kv => $"{kv.Key}: ${p.Name}"));
             var session = _driver.AsyncSession();
             try
             {
-                var statement = new Statement(
-                    $"MERGE (n:{NcsPrefix}{nodeLabel} {{ {parameterisedPropertiesFragment} }}) RETURN n", propertyDictionary);
+                var statement = new Statement($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {parameterisedPropertiesFragment} }}) RETURN n", properties);
                 
                 IStatementResultCursor cursor = await session.RunAsync(statement);
                 var resultSummary = await cursor.ConsumeAsync();

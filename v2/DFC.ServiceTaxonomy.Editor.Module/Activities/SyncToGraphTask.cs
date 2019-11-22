@@ -40,8 +40,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             var contentItem = (ContentItem) workflowContext.Input["ContentItem"];
             //var content = contentItem.Content[contentItem.ContentType];
             
-            var properties = ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i =>
-                (Name: i.Name, Value: ((JProperty) i.First().Children().First()).Value.ToString()));
+            var properties = new Dictionary<string,object>(((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i =>
+                new KeyValuePair<string,object>(i.Name, ((JProperty) i.First().Children().First()).Value.ToString())));
             
             await _neoGraphDatabase.Merge(contentItem.ContentType, properties);
 
