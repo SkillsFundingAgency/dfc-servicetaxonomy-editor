@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MoreLinq;
 using DFC.ServiceTaxonomy.Editor.Module.Services;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
@@ -39,9 +41,41 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 //            var description = ((ContentItem)workflowContext.Input["ContentItem"]).Get("Description");
             var contentItem = (ContentItem) workflowContext.Input["ContentItem"];
             //var content = contentItem.Content[contentItem.ContentType];
+
+            var content = (JObject) contentItem.Content;
             
-            var properties = new Dictionary<string,object>(((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i =>
-                new KeyValuePair<string,object>(i.Name, ((JProperty) i.First().Children().First()).Value.ToString())));
+            // if we use title part: ((JObject) contentItem.Content)["TitlePart"]
+            var titlePart = (JObject) content["TitlePart"];
+            var title = titlePart.Values().First().ToString();
+            var properties = new Dictionary<string,object>(content[contentItem.ContentType].Cast<JProperty>().Choose(
+                i =>
+                {
+                    // move into method
+                    var property = (JProperty) i.First.First;
+                    Type neoType;
+                    // map from Orchard Core's types to Neo4j's driver types (which map to cypher type) perhaps add table in comment to show mapping between entered -> orchard -> driver -> cypher -> rdf
+                    // can we always use a string for the neo type
+                    // we might want to map to rdf types (accept flag to say store with type?)
+                    switch (property.Name)
+                    {
+                        case "Value":        // orchard always convert entered value to real 2.0 (float/double/decimal)
+                            //todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real? 
+                            neoType = typeof(long);
+                            return (true, new KeyValuePair<string, object>(i.Name, property.Value.ToObject(neoType)));
+                        case "Text":
+                        case "Html":
+                            neoType = typeof(string);
+                            return (true, new KeyValuePair<string, object>(i.Name, property.Value.ToObject(neoType)));
+                        case "ContentItemIds": //todo
+                        default:
+                            return (false, default);
+
+                    }
+//                    return new KeyValuePair<string, object>(i.Name, property.Value.ToObject(neoType));
+//                    var q = i.First().Children();
+//                    return new KeyValuePair<string, object>(i.Name, ((JProperty) i.First().Children().First()).Value);
+                }
+                ));
             
             await _neoGraphDatabase.Merge(contentItem.ContentType, properties);
 
