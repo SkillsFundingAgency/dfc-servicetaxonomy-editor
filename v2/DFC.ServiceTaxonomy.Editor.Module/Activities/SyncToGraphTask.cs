@@ -119,6 +119,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
             var nodeLabel = NcsPrefix + contentItem.ContentType;
             //todo: combine into 1 call? can't concurrent these - nodes need creating first
+            //todo: transaction is keep as 2 calls
             await _neoGraphDatabase.MergeNode(nodeLabel, setMap);
             await _neoGraphDatabase.MergeRelationships(nodeLabel, "uri", nodeUri, relationships);
             
