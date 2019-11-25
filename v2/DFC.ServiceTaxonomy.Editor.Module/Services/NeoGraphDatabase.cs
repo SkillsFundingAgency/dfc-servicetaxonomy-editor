@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -37,22 +38,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
 
         public async Task MergeNode(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName = "uri")
         {
-            var session = _driver.AsyncSession();
-            try
-            {
-                //todo: remove return?
-                var statement = new Statement($"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN n",
-                    new Dictionary<string,object> {{"properties", propertyMap}});
-                
-                IStatementResultCursor cursor = await session.RunAsync(statement);
-                var resultSummary = await cursor.ConsumeAsync();
-
-                var x = resultSummary.ResultAvailableAfter;
-            }
-            finally
-            {
-                await session.CloseAsync();
-            }
+            await RunStatement(new Statement(
+                $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN n",
+                new Dictionary<string,object> {{"properties", propertyMap}}));
         }
         
         //todo: object value (jtoken -> object)
@@ -79,13 +67,65 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
         //     }
         // }
 
-        public Task MergeRelationship(string sourceNodeLabel,
-            string sourceIdPropertyValue, string destinationIdPropertyValue,
-            string relationshipType,
-            string sourceIdPropertyName = "uri", string destinationIdPropertyName = "uri")
+        // public Task MergeRelationships(string sourceNodeLabel,
+        //     string sourceIdPropertyValue, string destinationIdPropertyValue,
+        //     string relationshipType,
+        //     string sourceIdPropertyName = "uri", string destinationIdPropertyName = "uri")
+        // {
+        //     throw new NotImplementedException();
+        // }
+
+        
+        public Task MergeRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue, IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships)
         {
-            throw new NotImplementedException();
+            //todo: for same task for create/edit, first delete all given relationships between source and dest nodes
+            //todo: bi-directional relationships
+            //todo: rewrite for elegance/perf. selectmany?
+            const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
+            var matchBuilder = new StringBuilder($"match (s:{sourceNodeLabel} {{{sourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+            var mergeBuilder = new StringBuilder();
+            var parameters = new Dictionary<string, Object> {{sourceIdPropertyValueParamName, sourceIdPropertyValue}};
+            int destOrdinal = 0;
+            //todo: better name relationship=> relationships, relationships=>? 
+            foreach (var relationship in relationships)
+            {
+                foreach (var destIdPropertyValue in relationship.Value)
+                {
+                    var destNodeVariable = $"d{++destOrdinal}";
+                    var destIdPropertyValueParamName = $"{destNodeVariable}Value";
+                    matchBuilder.Append($", ({destNodeVariable}:{relationship.Key.destNodeLabel} {{{relationship.Key.destIdPropertyName}:${destIdPropertyValueParamName}}})");
+                    parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
+                    mergeBuilder.Append($"\r\nmerge (s)-[:{relationship.Key.relationshipType}]->({destNodeVariable})");
+                }
+            }
+            
+            
+//             $"match (src:{sourceNodeLabel} {{{sourceIdPropertyName}:$sourceIdPropertyValue}}), ";
+//             var statementString = $@"match (src:{sourceNodeLabel} {{{sourceIdPropertyName}:$sourceIdPropertyValue}}), (a:ncs__Activity {uri:'auri'}), (w:ncs__wank) 
+// merge (jp)-[r:hasActivity]->(a)
+// merge (jp)-[r2:hasSumfink]->(a)
+// merge (jp)-[r3:hasTit]->(w)
+// return jp, r, w, r3, r2, a, type(r), type(r2)";
+//todo: return?
+            return RunStatement(new Statement($"{matchBuilder}\r\n{mergeBuilder} return s", parameters));
         }
+
+        private async Task RunStatement(Statement statement)
+        {
+            var session = _driver.AsyncSession();
+            try
+            {
+                IStatementResultCursor cursor = await session.RunAsync(statement);
+                var resultSummary = await cursor.ConsumeAsync();
+
+                var x = resultSummary.ResultAvailableAfter;
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+        }
+
         
         //todo: dictionary of properties
 //        public async Task MergeNode(string nodeLabel, string propertyName, object propertyValue) //, NeoPropertyType propertyType) //enum would be better
@@ -137,11 +177,11 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
         
         // wrap types up in class?
         // borrow code from client?
-        private string PropertyToCypherLiteral(object value, NeoPropertyType propertyType)
-        {
-            if (propertyType == NeoPropertyType.Number)
-                return value.ToString();
-            return $"'{value}'";
-        }
+        // private string PropertyToCypherLiteral(object value, NeoPropertyType propertyType)
+        // {
+        //     if (propertyType == NeoPropertyType.Number)
+        //         return value.ToString();
+        //     return $"'{value}'";
+        // }
     }
 }
