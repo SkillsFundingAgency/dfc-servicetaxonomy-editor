@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MoreLinq;
 using DFC.ServiceTaxonomy.Editor.Module.Services;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
@@ -58,19 +55,11 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         {
             return Outcomes(T["Done"]);
         }
-//todo: why called twice?
+        
+        //todo: why called twice?
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            //how to get created/edited? or do we execute cypher that handles both?
-//            var description = ((ContentItem)workflowContext.Input["ContentItem"]).Get<>();
-//            var description = ((ContentItem)workflowContext.Input["ContentItem"]).Get("Description");
             var contentItem = (ContentItem) workflowContext.Input["ContentItem"];
-            //var content = contentItem.Content[contentItem.ContentType];
-
-            //var uri = contentItem.Content.UriId.URI.Text.ToString();
-            //var title = contentItem.Content.TitlePart.Title.ToString();
-
-            //var setMap = new JObject();
 
             // custom contentpart that prepopulates, readonly on create {ncsnamespaceconst}{contentItem.ContentType}{generated guid}
             // else, on create content generate the uri here
@@ -82,16 +71,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 {"uri", nodeUri}
             };
 
-            var relationships =
-                new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType),
-                    IEnumerable<string>>();
+            var relationships = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
             
-            // setMap.Add("skos__prefLabel", contentItem.Content.TitlePart.Title.ToString());
-            // // custom contentpart that prepopulates, readonly on create {ncsnamespaceconst}{contentItem.ContentType}{generated guid}
-            // // else, on create content generate the uri here
-            // setMap.Add("uri", contentItem.Content.UriId.URI.Text.ToString());
-            
-            var content = (JObject) contentItem.Content;
             foreach (var field in contentItem.Content[contentItem.ContentType])
             {
                 var fieldTypeAndValue = (JProperty)((JProperty) field).First.First;
@@ -108,12 +89,11 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                         //todo: check for empty list => noop, except for initial delete
                         //todo: relationship type from metadata?
                         string destNodeLabel = string.Empty, relationshipType = string.Empty;
-                        //var relationshipType = $"{NcsPrefix}has{field.Name}";
                         var destUris = new List<string>();
                         foreach (var relatedContentId in fieldTypeAndValue.Value)
-                        { // activity:relatedContent.ContentType
+                        {
                             var relatedContent = await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
-                            var relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString(); //((JObject)relatedContent.Content).GetValue("uri");
+                            var relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString();
                             destUris.Add(relatedContentKey.ToString());
                             
                             //todo: don't repeat
