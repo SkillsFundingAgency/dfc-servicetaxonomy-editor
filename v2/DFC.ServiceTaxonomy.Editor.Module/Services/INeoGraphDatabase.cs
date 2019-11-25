@@ -5,6 +5,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
 {
     public interface INeoGraphDatabase
     {
-        Task MergeNode(string nodeLabel, IDictionary<string, object> properties);
+        Task MergeNode(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName = "uri");
     }
 }

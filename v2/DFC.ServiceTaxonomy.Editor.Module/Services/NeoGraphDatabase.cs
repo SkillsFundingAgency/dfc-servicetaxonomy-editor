@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Neo4j.Driver;
+using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Services
 {
@@ -30,21 +31,18 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
 //            Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
 //                It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
 //                The driver is thread-safe, while the session or the transaction is not thread-safe.
+//todo: add configuration/settings menu item/page so user can enter this
             _driver = GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "ESCO3"));
         }
 
-        //todo: object value (jtoken -> object)
-        public async Task MergeNode(string nodeLabel, IDictionary<string, object> properties) // todo: string idPropertyName
+        public async Task MergeNode(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName = "uri")
         {
-            var parameterisedPropertiesFragment = string.Join(',', properties.Select(p => $"{NcsPrefix}{p.Key}: ${p.Key}"));
-            // param could match namespaced version
-            //var parameterisedPropertiesFragment = string.Join(',', propertyDictionary.Select(kv => $"{kv.Key}: ${p.Name}"));
             var session = _driver.AsyncSession();
             try
             {
-                //todo: use merge with set, matching node on uri/id
-                // MERGE (n: {uri: ''}) SET n.prop1 = x, n.prop2 etc.
-                var statement = new Statement($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {parameterisedPropertiesFragment} }}) RETURN n", properties);
+                //todo: remove return?
+                var statement = new Statement($"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN n",
+                    new Dictionary<string,object> {{"properties", propertyMap}});
                 
                 IStatementResultCursor cursor = await session.RunAsync(statement);
                 var resultSummary = await cursor.ConsumeAsync();
@@ -56,6 +54,30 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
                 await session.CloseAsync();
             }
         }
+        
+        //todo: object value (jtoken -> object)
+        // public async Task MergeNode(string nodeLabel, IDictionary<string, object> properties) // todo: string idPropertyName
+        // {
+        //     var parameterisedPropertiesFragment = string.Join(',', properties.Select(p => $"{NcsPrefix}{p.Key}: ${p.Key}"));
+        //     // param could match namespaced version
+        //     //var parameterisedPropertiesFragment = string.Join(',', propertyDictionary.Select(kv => $"{kv.Key}: ${p.Name}"));
+        //     var session = _driver.AsyncSession();
+        //     try
+        //     {
+        //         //todo: use merge with set, matching node on uri/id
+        //         // MERGE (n: {uri: ''}) SET n.prop1 = x, n.prop2 etc.
+        //         var statement = new Statement($"MERGE (n:{NcsPrefix}{nodeLabel} {{ {parameterisedPropertiesFragment} }}) RETURN n", properties);
+        //         
+        //         IStatementResultCursor cursor = await session.RunAsync(statement);
+        //         var resultSummary = await cursor.ConsumeAsync();
+        //
+        //         var x = resultSummary.ResultAvailableAfter;
+        //     }
+        //     finally
+        //     {
+        //         await session.CloseAsync();
+        //     }
+        // }
 
         public Task MergeRelationship(string sourceNodeLabel,
             string sourceIdPropertyValue, string destinationIdPropertyValue,
