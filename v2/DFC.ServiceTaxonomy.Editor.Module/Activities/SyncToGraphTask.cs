@@ -8,6 +8,8 @@ using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 
+//todo: content delete
+
 namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 {
     // Type mappings
@@ -78,11 +80,21 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 var fieldTypeAndValue = (JProperty)((JProperty) field).First.First;
                 switch (fieldTypeAndValue.Name)
                 {
+                    // we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
+                    // see remarks to view mapping table
+                    // we might also want to map to rdf types here (accept flag to say store with type?)
+                    // will be useful if we import into neo using keepCustomDataTypes 
+                    // we can append the datatype to the value, i.e. value^^datatype
+                    // see https://neo4j-labs.github.io/neosemantics/#_handling_custom_data_types
+
                     case "Text":
                     case "Html":
                         setMap.Add(NcsPrefix+field.Name, fieldTypeAndValue.Value.ToString());
                         break;
                     case "Value":
+                        // orchard always converts entered value to real 2.0 (float/double/decimal)
+                        // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real? 
+
                         setMap.Add(NcsPrefix+field.Name, (long)fieldTypeAndValue.Value.ToObject(typeof(long)));
                         break;
                     case "ContentItemIds":
@@ -112,88 +124,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             
             return Outcomes("Done");
             
-//             // uri from uri id content part : contentItem.Content.UriId.URI.Text.ToString() | title from titlepart: contentItem.Content.TitlePart.Title.ToString()
-//             // if we use title part: ((JObject) contentItem.Content)["TitlePart"]
-//             // var titlePart = (JObject) content["TitlePart"];
-//             // var title = titlePart.Values().First().ToString();
-//             var properties = new Dictionary<string,object>(content[contentItem.ContentType].Cast<JProperty>().Choose(
-//                 i =>
-//                 {
-//                     // move into method
-//                     var property = (JProperty) i.First.First;
-//                     Type neoType;
-//                     // map from Orchard Core's types to Neo4j's driver types (which map to cypher type) perhaps add table in comment to show mapping between entered -> orchard -> driver -> cypher -> rdf
-//                     // can we always use a string for the neo type
-//                     // we might want to map to rdf types (accept flag to say store with type?)
-//                     switch (property.Name)
-//                     {
-//                         case "Value":        // orchard always convert entered value to real 2.0 (float/double/decimal)
-//                             //todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real? 
-//                             neoType = typeof(long);
-//                             return (true, new KeyValuePair<string, object>(i.Name, property.Value.ToObject(neoType)));
-//                         case "Text":
-//                         case "Html":
-//                             neoType = typeof(string);
-//                             return (true, new KeyValuePair<string, object>(i.Name, property.Value.ToObject(neoType)));
-//                         // could just do...
-//                             //return (true, new KeyValuePair<string, object>(i.Name, property.Value.ToString()));
-//                         case "ContentItemIds": //todo how does content come through when single relationship rather than many
-// //                            foreach (var contentId in property.Value)
-// //                            {}
-// //                            var relationship = _contentManager.GetAsync(property.Value.ToString());
-// //                            return (true, new KeyValuePair<string, object>(i.Name, "?"));
-// // todo: don't return property, merge relationships immediately
-//                             return (false, default);
-//                         default:
-//                             return (false, default);
-//
-//                     }
-// //                    return new KeyValuePair<string, object>(i.Name, property.Value.ToObject(neoType));
-// //                    var q = i.First().Children();
-// //                    return new KeyValuePair<string, object>(i.Name, ((JProperty) i.First().Children().First()).Value);
-//                 }
-//                 ));
-//             
-//             await _neoGraphDatabase.MergeNode(contentItem.ContentType, properties);
-
-//            ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i =>
-//                (Name: i.Name, x: ((JProperty) i.First().Children().First()).Value));
-//            var contentY = ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>()
-//                .Select(i => (Name: i.Name, x: i.First()));
-//            //i.Value.First.))
-//            var contentX = ((JObject) contentItem.Content)[contentItem.ContentType].Cast<JProperty>().Select(i => (i.Name, i.Values()));
-            
-            // use title part, or have title field?
-            // delete
-//            var contentJObject = content as JObject;
-            
-//            foreach (var property in contentJObject)
-//            {
-//                var key = property.Key;
-//                var value = property.Value;
-//                var firstChild = value.Children<JProperty>().First();
-//                // will be useful if we import into neo using keepCustomDataTypes 
-//                // we can append the datatype to the value, i.e. value^^datatype
-//                // see https://neo4j-labs.github.io/neosemantics/#_handling_custom_data_types
-//                var contentFieldDataType = firstChild.Name;
-//                var fieldValue = firstChild.Value;
-////                NeoPropertyType neoPropertyType;
-////                //or dictionary
-////                switch (contentFieldDataType)
-////                {
-////                    //case "Html":
-////                    default:
-////                        neoPropertyType = NeoPropertyType.String;
-////                        break;
-////                }
-//                
-//                //todo: close/dispose, dictionary properties
-//                await _neoGraphDatabase.MergeNode(contentItem.ContentType, key, fieldValue); //, neoPropertyType);
-//            }
-            
             //todo: create a uri on on create, read-only when editing (and on create prepopulated?)
-            
-            // return Outcomes("Done");
         }
     }
 }
