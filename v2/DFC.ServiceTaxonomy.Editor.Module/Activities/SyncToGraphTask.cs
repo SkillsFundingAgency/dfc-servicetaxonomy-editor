@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Services;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
@@ -35,11 +38,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
     // https://neo4j.com/docs/labs/nsmntx/current/import/
     public class SyncToGraphTask : TaskActivity
     {
-        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, INeoGraphDatabase neoGraphDatabase, IContentManager contentManager)
+        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, INeoGraphDatabase neoGraphDatabase, IContentManager contentManager, IContentDefinitionManager contentDefinitionManager)
         {
             _neoGraphDatabase = neoGraphDatabase;
             _contentManager = contentManager;
+            _contentDefinitionManager = contentDefinitionManager;
             T = localizer;
+            _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         }
 
         private const string NcsPrefix = "ncs__";
@@ -47,7 +52,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         private IStringLocalizer T { get; }
         private readonly INeoGraphDatabase _neoGraphDatabase;
         private readonly IContentManager _contentManager;
-
+        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly Regex _relationshipTypeRegex;
+        
         public override string Name => nameof(SyncToGraphTask);
         public override LocalizedString DisplayText => T["Sync content item to Neo4j graph"];
 //        public override LocalizedString Category => T["Neo4j"];
@@ -100,7 +107,23 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                     case "ContentItemIds":
                         //todo: check for empty list => noop, except for initial delete
                         //todo: relationship type from metadata?
-                        string destNodeLabel = string.Empty, relationshipType = string.Empty;
+
+                        string relationshipType = null;
+                        var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+                        var contentPartDefinitions 
+                            = contentTypeDefinition.Parts.First(p => p.Name == contentItem.ContentType).PartDefinition.Fields;
+                        var contentPartDefinition = contentPartDefinitions.First(d => d.Name == field.Name);
+                        string contentPartHint = contentPartDefinition.Settings["ContentPickerFieldSettings"]["Hint"]?.ToString();
+                        if (contentPartHint != null)
+                        {
+                            var match = _relationshipTypeRegex.Match(contentPartHint);
+                            if (match.Success)
+                            {
+                                relationshipType = $"{NcsPrefix}{match.Groups[1].Value}";
+                            }
+                        }
+                        
+                        string destNodeLabel = null;
                         var destUris = new List<string>();
                         foreach (var relatedContentId in fieldTypeAndValue.Value)
                         {
@@ -110,7 +133,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                             
                             //todo: don't repeat
                             destNodeLabel = NcsPrefix + relatedContent.ContentType;
-                            relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
+                            if (relationshipType == null)
+                                relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
                         }
                         relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
                         break;
