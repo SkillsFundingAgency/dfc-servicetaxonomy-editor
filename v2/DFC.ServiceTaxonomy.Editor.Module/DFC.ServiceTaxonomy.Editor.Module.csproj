@@ -20,4 +20,9 @@
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc1-*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Views\UriField-Default.Option.cshtml" />
+    <Content Include="Views\UriField.Editor.cshtml" />
+  </ItemGroup>
+
 </Project>
