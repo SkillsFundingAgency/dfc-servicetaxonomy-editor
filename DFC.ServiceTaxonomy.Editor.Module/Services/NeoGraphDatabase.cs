@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
             //todo: add configuration/settings menu item/page so user can enter this
+            //todo: add to settings file
             _driver = GraphDatabase.Driver("bolt://localhost:7687", AuthTokens.Basic("neo4j", "ESCO3"));
         }
 
