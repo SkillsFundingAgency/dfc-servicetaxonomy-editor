@@ -72,6 +72,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 //            return Outcomes(T["Done"], T["Failed"]);
             return Outcomes(T["Done"]);
         }
+        
         //todo: if any of this fails, we need to notify the user and cancel the create/edit in OC's database
         //todo: why called twice?
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
@@ -82,6 +83,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
                 // custom contentpart that prepopulates, readonly on create {ncsnamespaceconst}{contentItem.ContentType}{generated guid}
                 // else, on create content generate the uri here
+
+                // we use the existence of a UriId content part as a marker to indicate that the content item should be synced
+                // so we silently noop if it's not present
+                //todo: switch to custom (pre-populated) uri field
+                var uriId = ((JObject) contentItem.Content)["UriId"];
+                if (uriId == null)
+                    return Outcomes("Done");
 
                 var nodeUri = contentItem.Content.UriId.URI.Text.ToString();
                 var setMap = new Dictionary<string, object>
