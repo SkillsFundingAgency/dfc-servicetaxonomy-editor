@@ -6,7 +6,7 @@
 
 ## Introduction
 
-This project is a headless content management system (CMS) that synchronises content into a graph database. It's being created by the [National Careers Service](https://nationalcareers.service.gov.uk/) to manage careers related content.
+This project is a headless content management system (CMS), that synchronises content into a graph database. It's being created by the [National Careers Service](https://nationalcareers.service.gov.uk/) to manage careers related content.
 
 ### Developer Environment Setup
 
@@ -18,7 +18,7 @@ Download [Neo4j desktop](https://neo4j.com/download/) and install it. todo..
 
 #### Create Content Database
 
-Setup a database to store the content. Any database with a .NET ADO provider is supported. For example, [setup a Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal).
+Setup a database to store the content. Any database with a .NET ADO provider is supported. For example, [setup a Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal). To quickly try it out, you can run a local Sqlite database with no initial setup necessary.
 
 #### Run Website
 
@@ -27,5 +27,8 @@ Clone the [GitHub repo](https://github.com/SkillsFundingAgency/dfc-servicetaxono
 Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the Setup page. Populate the page as follows, and click Finish Setup. (This runs the site using a local Sqlite database.)
 
 ![Service Taxonomy Editor Setup](/Images/EditorSetup.png)
-
 *Note: this step will become unnecessary as the solution evolves.*
+
+Add 'admin' to the end of the address url (https://localhost:44346/admin) to bring up the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
+
+On subsequent launches, use the same admin url. (Again, this will become unnecessary.)
