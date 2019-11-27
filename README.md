@@ -39,6 +39,8 @@ Add 'admin' to the end of the address url (https://localhost:44346/admin) to bri
 
 On subsequent launches, use the same admin url. (Again, this will become unnecessary.)
 
-Currently, you'll need to enable the graph sync feature. Expand 'Configuration' and select Features. Scroll to the 'Graph' category, and enable the Neo4j Graph Sync feature.
+Currently, you'll need to enable some features. Expand 'Configuration' and select 'Features'. Enable the following features
+* Neo4j Graph Sync (Graph category)
+* Workflows (Workflows category)
 
-![Enable Neo4j Graph Sync](/Images/GraphSyncFeature.PNG)
+![Enable Features](/Images/GraphSyncFeature.PNG)
