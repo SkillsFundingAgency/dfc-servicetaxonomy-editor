@@ -26,7 +26,7 @@ That's all you need to do for syncing within the editor to work. To perform inte
 
 Setup a database to store the content. Any database with a .NET ADO provider is supported. For example, [setup a Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal). To quickly try it out, you can run a local Sqlite database with no initial setup necessary.
 
-#### Run Website
+#### Run And Configure Website
 
 Clone the [GitHub repo](https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor) and open the solution DFC.ServiceTaxonomyEditor.sln in your favourite .NET Core supporting IDE, such as [Visual Studio](https://visualstudio.microsoft.com/), [Visual Code](https://code.visualstudio.com/) or [Rider](https://www.jetbrains.com/rider/).
 
@@ -38,3 +38,7 @@ Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the S
 Add 'admin' to the end of the address url (https://localhost:44346/admin) to bring up the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
 
 On subsequent launches, use the same admin url. (Again, this will become unnecessary.)
+
+Currently, you'll need to enable the graph sync feature. Expand 'Configuration' and select Features. Scroll to the 'Graph' category, and enable the Neo4j Graph Sync feature.
+
+![Enable Neo4j Graph Sync](/Images/GraphSyncFeature.PNG)
