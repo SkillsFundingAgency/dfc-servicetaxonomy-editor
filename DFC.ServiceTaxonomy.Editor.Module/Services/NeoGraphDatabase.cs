@@ -8,6 +8,8 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Services
 {
+    //todo: use this for unit tests https://www.nuget.org/packages/xunit.analyzers/
+
     // https://github.com/neo4j/neo4j-dotnet-driver
     // (not updated for 4 yet: https://neo4j.com/docs/driver-manual/1.7/get-started/)
     public class NeoGraphDatabase : INeoGraphDatabase, IDisposable
