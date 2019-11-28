@@ -14,6 +14,8 @@ using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
 
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S1128:Unused \"using\" should be removed", Justification = "only temporary")]
+
 namespace DFC.ServiceTaxonomy.Editor.Module
 {
     public class Startup : StartupBase
@@ -25,13 +27,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             //once we have a custom 1
             //TemplateContext.GlobalMemberAccessStrategy.Register<DisplayUriFieldViewModel>();
         }
-        
+
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<INeoGraphDatabase, NeoGraphDatabase>();
             // no mention of this being necessary in the docs
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
-            
+
             // Uri Field
             // services.AddContentField<UriField>();
             // services.AddScoped<IContentFieldDisplayDriver, UriFieldDisplayDriver>();
@@ -40,10 +42,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module
 
             // what the docs say :-)
             // services.AddSingleton<ContentField, UriField>();
-            // services.AddScoped<IContentFieldDisplayDriver, UriFieldDisplayDriver>();   
+            // services.AddScoped<IContentFieldDisplayDriver, UriFieldDisplayDriver>();
         }
 
-        public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(
                 name: "Home",
