@@ -1,11 +1,13 @@
 using System;
 using DFC.ServiceTaxonomy.Editor.Module.Activities;
+using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
 using DFC.ServiceTaxonomy.Editor.Module.Services;
 using Fluid;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentFields.Fields;
 using OrchardCore.ContentFields.ViewModels;
@@ -30,6 +32,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module
 
         public override void ConfigureServices(IServiceCollection services)
         {
+            var serviceProvider = services.BuildServiceProvider();
+            var configuration = serviceProvider.GetService<IConfiguration>();
+
+            services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
             services.AddSingleton<INeoGraphDatabase, NeoGraphDatabase>();
             // no mention of this being necessary in the docs
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();

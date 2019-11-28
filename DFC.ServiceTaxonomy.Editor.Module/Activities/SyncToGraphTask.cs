@@ -9,6 +9,7 @@ using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
@@ -61,7 +62,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INotifier _notifier;
         private readonly Regex _relationshipTypeRegex;
-        
+
         public override string Name => nameof(SyncToGraphTask);
         public override LocalizedString DisplayText => T["Sync content item to Neo4j graph"];
         public override LocalizedString Category => T["National Careers Service"];
@@ -71,7 +72,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 //            return Outcomes(T["Done"], T["Failed"]);
             return Outcomes(T["Done"]);
         }
-        
+
         //todo: if any of this fails, we need to notify the user and cancel the create/edit in OC's database
         //todo: why called twice?
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
@@ -86,11 +87,11 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 // we use the existence of a UriId content part as a marker to indicate that the content item should be synced
                 // so we silently noop if it's not present
                 //todo: switch to custom (pre-populated) uri field
-                var uriId = ((JObject) contentItem.Content)["UriId"];
+                JToken uriId = ((JObject) contentItem.Content)["UriId"];
                 if (uriId == null)
                     return Outcomes("Done");
 
-                var nodeUri = contentItem.Content.UriId.URI.Text.ToString();
+                string nodeUri = contentItem.Content.UriId.URI.Text.ToString();
                 var setMap = new Dictionary<string, object>
                 {
                     {"skos__prefLabel", contentItem.Content.TitlePart.Title.ToString()},
@@ -105,17 +106,17 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 {
                     if (field == null)
                         continue;
-                    
+
                     var fieldTypeAndValue = (JProperty?)((JProperty) field).First?.First;
                     if (fieldTypeAndValue == null)
                         continue;
-                    
+
                     switch (fieldTypeAndValue.Name)
                     {
                         // we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
                         // see remarks to view mapping table
                         // we might also want to map to rdf types here (accept flag to say store with type?)
-                        // will be useful if we import into neo using keepCustomDataTypes 
+                        // will be useful if we import into neo using keepCustomDataTypes
                         // we can append the datatype to the value, i.e. value^^datatype
                         // see https://neo4j-labs.github.io/neosemantics/#_handling_custom_data_types
 
@@ -125,7 +126,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                             break;
                         case "Value":
                             // orchard always converts entered value to real 2.0 (float/double/decimal)
-                            // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real? 
+                            // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real?
 
                             setMap.Add(NcsPrefix+field.Name, (long)fieldTypeAndValue.Value.ToObject(typeof(long)));
                             break;
@@ -134,28 +135,28 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                             //todo: relationship type from metadata?
 
                             string? relationshipType = null;
-                            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-                            var contentPartDefinitions 
+                            ContentTypeDefinition contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+                            IEnumerable<ContentPartFieldDefinition> contentPartDefinitions
                                 = contentTypeDefinition.Parts.First(p => p.Name == contentItem.ContentType).PartDefinition.Fields;
-                            var contentPartDefinition = contentPartDefinitions.First(d => d.Name == field.Name);
+                            ContentPartFieldDefinition contentPartDefinition = contentPartDefinitions.First(d => d.Name == field.Name);
                             string? contentPartHint = contentPartDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
                             if (contentPartHint != null)
                             {
-                                var match = _relationshipTypeRegex.Match(contentPartHint);
+                                Match match = _relationshipTypeRegex.Match(contentPartHint);
                                 if (match.Success)
                                 {
                                     relationshipType = $"{NcsPrefix}{match.Groups[1].Value}";
                                 }
                             }
-                            
+
                             string? destNodeLabel = null;
                             var destUris = new List<string>();
-                            foreach (var relatedContentId in fieldTypeAndValue.Value)
+                            foreach (JToken relatedContentId in fieldTypeAndValue.Value)
                             {
-                                var relatedContent = await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
-                                var relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString();
+                                ContentItem relatedContent = await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
+                                string relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString();
                                 destUris.Add(relatedContentKey.ToString());
-                                
+
                                 //todo: don't repeat
                                 destNodeLabel = NcsPrefix + relatedContent.ContentType;
                                 if (relationshipType == null)
@@ -167,25 +168,25 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                     }
                 }
 
-                var nodeLabel = NcsPrefix + contentItem.ContentType;
+                string nodeLabel = NcsPrefix + contentItem.ContentType;
                 //todo: combine into 1 call? can't concurrent these - nodes need creating first
                 //todo: transaction is keep as 2 calls
                 await _neoGraphDatabase.MergeNode(nodeLabel, setMap);
                 await _neoGraphDatabase.MergeRelationships(nodeLabel, "uri", nodeUri, relationships);
-                
+
                 return Outcomes("Done");
-                
+
                 //todo: create a uri on on create, read-only when editing (and on create prepopulated?)
             }
             catch (Exception ex)
             {
                 // setting this, but not letting the exception propagate doesn't work
                 //workflowContext.Fault(ex, activityContext);
-                
+
 //                _notifier.Add(new GetProperty<NotifyType>(), new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
 
-                
+
                 // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
                 //return Outcomes("Failed");
                 throw;

@@ -7,6 +7,7 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S1185:Overriding members should do more than simply call the same member in the base class", Justification = "temporary")]
     public class UriFieldDisplayDriver : TextFieldDisplayDriver
     {
         public UriFieldDisplayDriver(IStringLocalizer<TextFieldDisplayDriver> localizer) : base(localizer)
