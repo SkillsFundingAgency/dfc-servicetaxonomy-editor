@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Neo4j.Driver" Version="4.0.0-beta01" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc1-*" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.0.0.9566">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
