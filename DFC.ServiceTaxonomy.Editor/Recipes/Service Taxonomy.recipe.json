@@ -1,0 +1,186 @@
+{
+  "name": "ServiceTaxonomyEditor",
+  "displayName": "Service Taxonomy Editor",
+  "description": "Sets up the Service Taxonomy Editor",
+  "author": "National Careers Service",
+  "website": "",
+  "version": "",
+  "issetuprecipe": true,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "Feature",
+      "enable": [
+        "Application.Default",
+        "DFC.ServiceTaxonomy.Editor",
+        "DFC.ServiceTaxonomy.Editor.Module",
+        "OrchardCore.Settings",
+        "OrchardCore.Admin",
+        "OrchardCore.Liquid",
+        "OrchardCore.Contents",
+        "OrchardCore.ContentTypes",
+        "OrchardCore.Alias",
+        "OrchardCore.Autoroute",
+        "OrchardCore.ContentFields",
+        "OrchardCore.ContentPreview",
+        "OrchardCore.Contents.FileContentDefinition",
+        "OrchardCore.CustomSettings",
+        "OrchardCore.Deployment",
+        "OrchardCore.Deployment.Remote",
+        "OrchardCore.Diagnostics",
+        "OrchardCore.DynamicCache",
+        "OrchardCore.Resources",
+        "OrchardCore.Widgets",
+        "OrchardCore.Features",
+        "OrchardCore.Feeds",
+        "OrchardCore.Flows",
+        "OrchardCore.HomeRoute",
+        "OrchardCore.Html",
+        "OrchardCore.Indexing",
+        "OrchardCore.Scripting",
+        "OrchardCore.Layers",
+        "OrchardCore.Lists",
+        "OrchardCore.Lucene",
+        "OrchardCore.Markdown",
+        "OrchardCore.Media",
+        "OrchardCore.Title",
+        "OrchardCore.Menu",
+        "OrchardCore.Navigation",
+        "OrchardCore.Queries",
+        "OrchardCore.Users",
+        "OrchardCore.Recipes",
+        "OrchardCore.Roles",
+        "OrchardCore.Templates",
+        "OrchardCore.Themes",
+        "OrchardCore.Workflows",
+        "TheAdmin"
+      ],
+      "disable": [
+        "OrchardCore.AdminMenu",
+        "OrchardCore.Apis.GraphQL",
+        "OrchardCore.BackgroundTasks",
+        "OrchardCore.ContentFields.Indexing.SQL",
+        "OrchardCore.Localization",
+        "OrchardCore.ContentLocalization",
+        "OrchardCore.ContentLocalization.ContentCulturePicker",
+        "OrchardCore.DataProtection.Azure",
+        "OrchardCore.Email",
+        "OrchardCore.Facebook",
+        "OrchardCore.Facebook.Login",
+        "OrchardCore.Facebook.Widgets",
+        "OrchardCore.Forms",
+        "OrchardCore.GitHub.Authentication",
+        "OrchardCore.Google.Analytics",
+        "OrchardCore.Google.GoogleAuthentication",
+        "OrchardCore.HealthChecks",
+        "OrchardCore.Https",
+        "OrchardCore.Lucene.ContentPicker",
+        "OrchardCore.Lucene.Worker",
+        "OrchardCore.Media.Cache",
+        "OrchardCore.Media.Azure.Storage",
+        "OrchardCore.Microsoft.Authentication.AzureAD",
+        "OrchardCore.Microsoft.Authentication.MicrosoftAccount",
+        "OrchardCore.MiniProfiler",
+        "OrchardCore.OpenId",
+        "OrchardCore.OpenId.Client",
+        "OrchardCore.OpenId.Management",
+        "OrchardCore.OpenId.Server",
+        "OrchardCore.OpenId.Validation",
+        "OrchardCore.Queries.Sql",
+        "OrchardCore.ReCaptcha",
+        "OrchardCore.ReCaptcha.Users",
+        "OrchardCore.XmlRpc",
+        "OrchardCore.RemotePublishing",
+        "OrchardCore.ResponseCompression",
+        "OrchardCore.ReverseProxy",
+        "OrchardCore.Setup",
+        "OrchardCore.Taxonomies",
+        "OrchardCore.Tenants",
+        "OrchardCore.Tenants.FileProvider",
+        "OrchardCore.Twitter",
+        "OrchardCore.Twitter.Signin",
+        "OrchardCore.Users.Registration",
+        "OrchardCore.Users.ResetPassword",
+        "OrchardCore.Users.TimeZone",
+        "OrchardCore.Workflows.Http",
+        "OrchardCore.Workflows.Timers",
+        "SafeMode",
+        "TheAgencyTheme",
+        "TheBlogTheme",
+        "TheComingSoonTheme",
+        "TheTheme"
+      ]
+    },
+    {
+      "name": "WorkflowType",
+      "data": [
+        {
+          "WorkflowTypeId": "4kz20q1zgypcexsys5tm5cyddy",
+          "Name": "Sync to Graph",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "4a27r34qv24wjz8sj327yvvz5j",
+              "Name": "ContentCreatedEvent",
+              "X": 0,
+              "Y": 0,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "test"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
+              "Name": "ContentUpdatedEvent",
+              "X": 250,
+              "Y": 0,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "test"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4j7rp5wf8a06artv1vs2g01txe",
+              "Name": "SyncToGraphTask",
+              "X": 120,
+              "Y": 280,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "4a27r34qv24wjz8sj327yvvz5j",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4j7rp5wf8a06artv1vs2g01txe"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4j7rp5wf8a06artv1vs2g01txe"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
