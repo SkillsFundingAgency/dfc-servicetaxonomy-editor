@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -7,21 +6,19 @@ using OrchardCore.Logging;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
-    public class Program
+    public static class Program
     {
         public static Task Main(string[] args)
             => BuildHost(args).RunAsync();
 
         public static IHost BuildHost(string[] args)
         {
-            var host = Host.CreateDefaultBuilder(args)
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging => logging.ClearProviders())
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                         .UseNLogWeb()
                         .UseStartup<Startup>())
                 .Build();
-
-            return host;
         }
     }
 }

@@ -19,6 +19,10 @@
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc1-*" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.0.0.9566">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Views
@@ -6,7 +7,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Views
     {
         public void OnGet()
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
