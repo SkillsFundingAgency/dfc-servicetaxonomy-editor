@@ -99,10 +99,18 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 };
 
                 var relationships = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
-                
-                foreach (var field in contentItem.Content[contentItem.ContentType])
+
+                // var fields = contentItem.Content[contentItem.ContentType];
+                // foreach (var field in fields)
+                foreach (dynamic? field in contentItem.Content[contentItem.ContentType])
                 {
-                    var fieldTypeAndValue = (JProperty)((JProperty) field).First.First;
+                    if (field == null)
+                        continue;
+                    
+                    var fieldTypeAndValue = (JProperty?)((JProperty) field).First?.First;
+                    if (fieldTypeAndValue == null)
+                        continue;
+                    
                     switch (fieldTypeAndValue.Name)
                     {
                         // we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
@@ -126,12 +134,12 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                             //todo: check for empty list => noop, except for initial delete
                             //todo: relationship type from metadata?
 
-                            string relationshipType = null;
+                            string? relationshipType = null;
                             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
                             var contentPartDefinitions 
                                 = contentTypeDefinition.Parts.First(p => p.Name == contentItem.ContentType).PartDefinition.Fields;
                             var contentPartDefinition = contentPartDefinitions.First(d => d.Name == field.Name);
-                            string contentPartHint = contentPartDefinition.Settings["ContentPickerFieldSettings"]["Hint"]?.ToString();
+                            string? contentPartHint = contentPartDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
                             if (contentPartHint != null)
                             {
                                 var match = _relationshipTypeRegex.Match(contentPartHint);
@@ -141,7 +149,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                                 }
                             }
                             
-                            string destNodeLabel = null;
+                            string? destNodeLabel = null;
                             var destUris = new List<string>();
                             foreach (var relatedContentId in fieldTypeAndValue.Value)
                             {
@@ -154,7 +162,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                                 if (relationshipType == null)
                                     relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
                             }
-                            relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
+                            if (destNodeLabel != null && relationshipType != null)
+                                relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
                             break;
                     }
                 }
