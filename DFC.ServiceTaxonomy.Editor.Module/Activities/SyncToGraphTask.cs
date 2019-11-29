@@ -146,7 +146,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                                 Match match = _relationshipTypeRegex.Match(contentPartHint);
                                 if (match.Success)
                                 {
-                                    relationshipType = $"{NcsPrefix}{match.Groups[1].Value}";
+                                    relationshipType = $"{match.Groups[1].Value}";
                                 }
                             }
 
