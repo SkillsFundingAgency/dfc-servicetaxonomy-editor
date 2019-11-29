@@ -3,7 +3,7 @@ using DFC.ServiceTaxonomy.Editor.Module.Activities;
 using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
-using DFC.ServiceTaxonomy.Editor.Module.Services;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using Fluid;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;

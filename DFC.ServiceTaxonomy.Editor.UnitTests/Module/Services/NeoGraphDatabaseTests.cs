@@ -1,7 +1,5 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Configuration;
-using DFC.ServiceTaxonomy.Editor.Module.Services;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using Xunit;
 using FakeItEasy;
 using Microsoft.Extensions.Options;

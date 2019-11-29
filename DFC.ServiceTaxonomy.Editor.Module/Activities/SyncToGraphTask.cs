@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Module.Services;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
@@ -171,8 +172,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 string nodeLabel = NcsPrefix + contentItem.ContentType;
 
                 await _neoGraphDatabase.RunWriteStatements(
-                    _neoGraphDatabase.MergeNodeStatement(nodeLabel, setMap),
-                    _neoGraphDatabase.MergeRelationshipsStatement(nodeLabel, "uri", nodeUri, relationships));
+                    StatementGenerator.MergeNodes(nodeLabel, setMap),
+                    StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
 
                 return Outcomes("Done");
 
