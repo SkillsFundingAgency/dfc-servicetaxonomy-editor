@@ -1,489 +1,677 @@
 {
-  "name": "ServiceTaxonomyEditor",
-  "displayName": "Service Taxonomy Editor",
-  "description": "Sets up the Service Taxonomy Editor",
-  "author": "National Careers Service",
-  "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
-  "version": "1.0",
-  "issetuprecipe": true,
-  "categories": [ "default" ],
-  "tags": [ "ncs" ],
+    "name": "ServiceTaxonomyEditor",
+    "displayName": "Service Taxonomy Editor",
+    "description": "Sets up the Service Taxonomy Editor",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": true,
+    "categories": [ "default" ],
+    "tags": [ "ncs" ],
 
-  // The variables are evaluated the first time they are accessed, and reused across steps
-  "variables": {
-    // "now": "[js: new Date().toISOString()]"
-  },
-
-  "steps": [
-    {
-      "name": "feature",
-      "disable": [],
-      "enable": [
-        // SaaS
-        "OrchardCore.HomeRoute",
-        "OrchardCore.Admin",
-        "OrchardCore.Diagnostics",
-        "OrchardCore.DynamicCache",
-        "OrchardCore.Features",
-        "OrchardCore.Navigation",
-        "OrchardCore.Recipes",
-        "OrchardCore.Resources",
-        "OrchardCore.Roles",
-        "OrchardCore.Settings",
-        "OrchardCore.Themes",
-        "OrchardCore.Users",
-
-        // Content Management
-        "OrchardCore.Alias",
-        "OrchardCore.Autoroute",
-        "OrchardCore.Html",
-        "OrchardCore.ContentFields",
-        "OrchardCore.ContentPreview",
-        "OrchardCore.Contents",
-        "OrchardCore.Contents.FileContentDefinition",
-        "OrchardCore.ContentTypes",
-        "OrchardCore.CustomSettings",
-        "OrchardCore.Deployment",
-        "OrchardCore.Deployment.Remote",
-        "OrchardCore.Feeds",
-        "OrchardCore.Flows",
-        "OrchardCore.Indexing",
-        "OrchardCore.Layers",
-        "OrchardCore.Lucene",
-        "OrchardCore.Lists",
-        "OrchardCore.Liquid",
-        "OrchardCore.Markdown",
-        "OrchardCore.Media",
-        "OrchardCore.Menu",
-        "OrchardCore.Queries",
-        "OrchardCore.Title",
-        "OrchardCore.Templates",
-        "OrchardCore.Widgets",
-
-        // Themes
-        "TheAdmin",
-        
-        // Service Taxonomy Editor
-        //todo: do we actually need this one?
-        "DFC.ServiceTaxonomy.Editor",
-        "DFC.ServiceTaxonomy.Editor.Module",
-        "OrchardCore.Workflows"
-      ]
+    // The variables are evaluated the first time they are accessed, and reused across steps
+    "variables": {
+        // "now": "[js: new Date().toISOString()]"
     },
-    {
-      "name": "themes",
-      "admin": "TheAdmin",
-      "site": ""
-    },
-    {
-      "name": "ContentDefinition",
-      "ContentTypes": [
+
+    "steps": [
         {
-          "Name": "JobProfile",
-          "DisplayName": "Job Profile",
-          "Settings": {
-            "ContentTypeSettings": {
-              "Creatable": true,
-              "Listable": true,
-              "Draftable": true,
-              "Versionable": true,
-              "Securable": true
-            },
-            "FullTextAspectSettings": {}
-          },
-          "ContentTypePartDefinitionRecords": [
-            {
-              "PartName": "JobProfile",
-              "Name": "JobProfile",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                }
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
-                }
-              }
-            },
-            {
-              "PartName": "UriId",
-              "Name": "UriId",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "2"
-                }
-              }
-            }
-          ]
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                // SaaS
+                "OrchardCore.HomeRoute",
+                "OrchardCore.Admin",
+                "OrchardCore.Diagnostics",
+                "OrchardCore.DynamicCache",
+                "OrchardCore.Features",
+                "OrchardCore.Navigation",
+                "OrchardCore.Recipes",
+                "OrchardCore.Resources",
+                "OrchardCore.Roles",
+                "OrchardCore.Settings",
+                "OrchardCore.Themes",
+                "OrchardCore.Users",
+
+                // Content Management
+                "OrchardCore.Alias",
+                "OrchardCore.Autoroute",
+                "OrchardCore.Html",
+                "OrchardCore.ContentFields",
+                "OrchardCore.ContentPreview",
+                "OrchardCore.Contents",
+                "OrchardCore.Contents.FileContentDefinition",
+                "OrchardCore.ContentTypes",
+                "OrchardCore.CustomSettings",
+                "OrchardCore.Deployment",
+                "OrchardCore.Deployment.Remote",
+                "OrchardCore.Feeds",
+                "OrchardCore.Flows",
+                "OrchardCore.Indexing",
+                "OrchardCore.Layers",
+                "OrchardCore.Lucene",
+                "OrchardCore.Lists",
+                "OrchardCore.Liquid",
+                "OrchardCore.Markdown",
+                "OrchardCore.Media",
+                "OrchardCore.Menu",
+                "OrchardCore.Queries",
+                "OrchardCore.Title",
+                "OrchardCore.Templates",
+                "OrchardCore.Widgets",
+
+                // Themes
+                "TheAdmin",
+
+                // Service Taxonomy Editor
+                //todo: do we actually need this one?
+                "DFC.ServiceTaxonomy.Editor",
+                "DFC.ServiceTaxonomy.Editor.Module",
+                "OrchardCore.Workflows"
+            ]
         },
         {
-          "Name": "Activity",
-          "DisplayName": "Activity",
-          "Settings": {
-            "ContentTypeSettings": {
-              "Creatable": true,
-              "Listable": true,
-              "Draftable": true,
-              "Versionable": true,
-              "Securable": true
-            },
-            "FullTextAspectSettings": {}
-          },
-          "ContentTypePartDefinitionRecords": [
-            {
-              "PartName": "Activity",
-              "Name": "Activity",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "1"
-                }
-              }
-            },
-            {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
-                }
-              }
-            },
-            {
-              "PartName": "UriId",
-              "Name": "UriId",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "2"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "ContentParts": [
-        {
-          "Name": "CommonPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides an editor for the common properties of a content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
+            "name": "themes",
+            "admin": "TheAdmin",
+            "site": ""
         },
         {
-          "Name": "LiquidPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a Liquid formatted body for your content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "AliasPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a way to define custom aliases for content items."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "AutoroutePart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a custom url for your content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "WidgetsListPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a way to add widgets per content items."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "FlowPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a customizable body for your content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "BagPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Reusable": true,
-              "Description": "Provides a collection behavior for your content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "HtmlBodyPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides an HTML Body for your content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "ListPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Add a list behavior."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "MarkdownBodyPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a Markdown formatted body for your content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "TitlePart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a Title for your content item.",
-              "DefaultPosition": "0"
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "MenuPart",
-          "Settings": {},
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "MenuItemPart",
-          "Settings": {},
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "LinkMenuItemPart",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true,
-              "Description": "Provides a menu link behavior for your content item."
-            }
-          },
-          "ContentPartFieldDefinitionRecords": []
-        },
-        {
-          "Name": "JobProfile",
-          "Settings": {},
-          "ContentPartFieldDefinitionRecords": [
-            {
-              "FieldName": "TextField",
-              "Name": "ESCOOccupationUri",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "ESCO Occupation Uri",
-                  "Position": "0"
-                }
-              }
-            },
-            {
-              "FieldName": "HtmlField",
-              "Name": "Description",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Description",
-                  "Position": "1"
-                }
-              }
-            },
-            {
-              "FieldName": "ContentPickerField",
-              "Name": "DaytoDayActivities",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Day to Day Activities",
-                  "Position": "2"
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "JobProfile",
+                    "DisplayName": "Job Profile",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "JobProfile",
+                            "Name": "JobProfile",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UriId",
+                            "Name": "UriId",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
                 },
-                "ContentPickerFieldSettings": {
-                  "Hint": "Creates relationships of type [:ncs__hasDayToDayActivity].",
-                  "Multiple": true,
-                  "DisplayedContentTypes": [
-                    "Activity"
-                  ]
+                {
+                    "Name": "Activity",
+                    "DisplayName": "Activity",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Activity",
+                            "Name": "Activity",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UriId",
+                            "Name": "UriId",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
                 },
-                "ContentIndexSettings": {}
-              }
-            },
-            {
-              "FieldName": "ContentPickerField",
-              "Name": "JobCategories",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Job Categories",
-                  "Position": "3"
+                {
+                    "Name": "QCFLevel",
+                    "DisplayName": "QCF Level",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "QCFLevel",
+                            "Name": "QCFLevel",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UriId",
+                            "Name": "UriId",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "JobCategory",
+                    "DisplayName": "Job Category",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "JobCategory",
+                            "Name": "JobCategory",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UriId",
+                            "Name": "UriId",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Skill",
+                    "DisplayName": "Skill",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Skill",
+                            "Name": "Skill",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UriId",
+                            "Name": "UriId",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
                 }
-              }
-            },
-            {
-              "FieldName": "ContentPickerField",
-              "Name": "QCFLevel",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "QCF Level",
-                  "Position": "4"
+            ],
+            "ContentParts": [
+                {
+                    "Name": "CommonPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides an editor for the common properties of a content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "LiquidPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Liquid formatted body for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "AliasPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a way to define custom aliases for content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "AutoroutePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a custom url for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "WidgetsListPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a way to add widgets per content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "FlowPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a customizable body for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "BagPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Reusable": true,
+                            "Description": "Provides a collection behavior for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "HtmlBodyPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides an HTML Body for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "ListPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Add a list behavior."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "MarkdownBodyPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Markdown formatted body for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Title for your content item.",
+                            "DefaultPosition": "0"
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "MenuPart",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "MenuItemPart",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "LinkMenuItemPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a menu link behavior for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "JobProfile",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "ESCOOccupationUri",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ESCO Occupation Uri",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "DaytoDayActivities",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Day to Day Activities",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasDayToDayActivity].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Activity"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "JobCategories",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Categories",
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "QCFLevel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "QCF Level",
+                                    "Position": "4"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "SOCCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SOC Code",
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "JobProfileSOCID",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profile SOCID",
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "LinkField",
+                            "Name": "JobProfileUrl",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profile Url",
+                                    "Position": "7"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "UriId",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "URI",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "URI"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "QCFLevel",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "QCFLevel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "QCF Level",
+                                    "Position": "1"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "JobCategory",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "JobProfiles",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profiles",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasJobProfile].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "JobProfile"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Skill",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "ESCOSkillUri",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ESCO Skill Uri",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "1"
+                                }
+                            }
+                        }
+                    ]
                 }
-              }
-            },
-            {
-              "FieldName": "NumericField",
-              "Name": "SOCCode",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "SOC Code",
-                  "Position": "5"
-                }
-              }
-            },
-            {
-              "FieldName": "TextField",
-              "Name": "JobProfileSOCID",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Job Profile SOCID",
-                  "Position": "6"
-                }
-              }
-            },
-            {
-              "FieldName": "LinkField",
-              "Name": "JobProfileUrl",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Job Profile Url",
-                  "Position": "7"
-                }
-              }
-            }
-          ]
+            ]
         },
         {
-          "Name": "UriId",
-          "Settings": {
-            "ContentPartSettings": {
-              "Attachable": true
-            }
-          },
-          "ContentPartFieldDefinitionRecords": [
-            {
-              "FieldName": "TextField",
-              "Name": "URI",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "URI"
+            "name": "WorkflowType",
+            "data": [
+                {
+                    "WorkflowTypeId": "4kz20q1zgypcexsys5tm5cyddy",
+                    "Name": "Sync to Graph",
+                    "IsEnabled": true,
+                    "IsSingleton": false,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
+                            "Name": "ContentUpdatedEvent",
+                            "X": 250,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ContentTypeFilter": [
+                                    "Activity",
+                                    "JobProfile"
+                                ],
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4j7rp5wf8a06artv1vs2g01txe",
+                            "Name": "SyncToGraphTask",
+                            "X": 120,
+                            "Y": 280,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4j7rp5wf8a06artv1vs2g01txe"
+                        }
+                    ]
                 }
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "WorkflowType",
-      "data": [
+            ]
+        },
         {
-          "WorkflowTypeId": "4kz20q1zgypcexsys5tm5cyddy",
-          "Name": "Sync to Graph",
-          "IsEnabled": true,
-          "IsSingleton": false,
-          "DeleteFinishedWorkflows": false,
-          "Activities": [
-            {
-              "ActivityId": "4a27r34qv24wjz8sj327yvvz5j",
-              "Name": "ContentCreatedEvent",
-              "X": 0,
-              "Y": 0,
-              "IsStart": true,
-              "Properties": {
-                "ContentTypeFilter": [
-                  "Activity",
-                  "JobProfile"
-                ],
-                "ActivityMetadata": {
-                  "Title": null
-                }
-              }
-            },
-            {
-              "ActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
-              "Name": "ContentUpdatedEvent",
-              "X": 250,
-              "Y": 0,
-              "IsStart": true,
-              "Properties": {
-                "ContentTypeFilter": [
-                  "Activity",
-                  "JobProfile"
-                ],
-                "ActivityMetadata": {
-                  "Title": null
-                }
-              }
-            },
-            {
-              "ActivityId": "4j7rp5wf8a06artv1vs2g01txe",
-              "Name": "SyncToGraphTask",
-              "X": 120,
-              "Y": 280,
-              "IsStart": false,
-              "Properties": {
-                "ActivityMetadata": {
-                  "Title": null
-                }
-              }
-            }
-          ],
-          "Transitions": [
-            {
-              "Id": 0,
-              "SourceActivityId": "4a27r34qv24wjz8sj327yvvz5j",
-              "SourceOutcomeName": "Done",
-              "DestinationActivityId": "4j7rp5wf8a06artv1vs2g01txe"
-            },
-            {
-              "Id": 0,
-              "SourceActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
-              "SourceOutcomeName": "Done",
-              "DestinationActivityId": "4j7rp5wf8a06artv1vs2g01txe"
-            }
-          ]
+            "name": "Content",
+            "data": []
         }
-      ]
-    }
-  ]
+    ]
 }
