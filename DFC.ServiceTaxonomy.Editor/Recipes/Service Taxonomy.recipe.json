@@ -71,6 +71,14 @@
             ]
         },
         {
+            "name": "settings",
+            "HomeRoute": {
+                "Action": "Index",
+                "Controller": "Admin",
+                "Area": "OrchardCore.Admin"
+            }
+        },
+        {
             "name": "themes",
             "admin": "TheAdmin",
             "site": ""
