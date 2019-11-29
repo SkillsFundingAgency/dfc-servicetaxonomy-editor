@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Module.Services;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
@@ -145,7 +146,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                                 Match match = _relationshipTypeRegex.Match(contentPartHint);
                                 if (match.Success)
                                 {
-                                    relationshipType = $"{NcsPrefix}{match.Groups[1].Value}";
+                                    relationshipType = $"{match.Groups[1].Value}";
                                 }
                             }
 
@@ -169,10 +170,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 }
 
                 string nodeLabel = NcsPrefix + contentItem.ContentType;
-                //todo: combine into 1 call? can't concurrent these - nodes need creating first
-                //todo: transaction is keep as 2 calls
-                await _neoGraphDatabase.MergeNode(nodeLabel, setMap);
-                await _neoGraphDatabase.MergeRelationships(nodeLabel, "uri", nodeUri, relationships);
+//todo: only call merge if any content pickers
+                await _neoGraphDatabase.RunWriteStatements(
+                    StatementGenerator.MergeNodes(nodeLabel, setMap),
+                    StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
 
                 return Outcomes("Done");
 

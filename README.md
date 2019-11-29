@@ -35,11 +35,13 @@ Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the S
 ![Service Taxonomy Editor Setup](/Images/EditorSetup.png)
 *Note: this step will become unnecessary as the solution evolves.*
 
-Add 'admin' to the end of the address url (https://localhost:44346/admin) to bring up the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
+You should then be directed to the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
 
-On subsequent launches, use the same admin url. (Again, this will become unnecessary.)
+#### Manually Configure Website
 
-Currently, you'll need to enable some features. Expand 'Configuration' and select 'Features'. Enable the following features
+If you use the provided recipe to initialise the site (as detailed above), there is no need to manually configure the site. This section is for informational purposes only.
+
+Firstly, you'll need to enable some features. Expand 'Configuration' and select 'Features'. Enable the following features
 * Neo4j Graph Sync (Graph category)
 * Workflows (Workflows category)
 
