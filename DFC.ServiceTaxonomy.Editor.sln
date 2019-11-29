@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Editor.UnitTests", "DFC.ServiceTaxonomy.Editor.UnitTests\DFC.ServiceTaxonomy.Editor.UnitTests.csproj", "{248782F2-4F59-4EC6-8403-7BC6235863E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
