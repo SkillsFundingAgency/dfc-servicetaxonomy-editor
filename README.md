@@ -39,7 +39,11 @@ Add 'admin' to the end of the address url (https://localhost:44346/admin) to bri
 
 On subsequent launches, use the same admin url. (Again, this will become unnecessary.)
 
-Currently, you'll need to enable some features. Expand 'Configuration' and select 'Features'. Enable the following features
+#### Manually Configure Website
+
+If you use the provided recipe to initialise the site (as detailed above), there is no need to manually configure the site. This section is for informational purposes only.
+
+Firstly, you'll need to enable some features. Expand 'Configuration' and select 'Features'. Enable the following features
 * Neo4j Graph Sync (Graph category)
 * Workflows (Workflows category)
 
