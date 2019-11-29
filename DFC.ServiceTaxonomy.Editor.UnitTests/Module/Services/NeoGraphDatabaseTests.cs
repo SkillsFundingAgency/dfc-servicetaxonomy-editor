@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.Editor.UnitTests.Module.Services
 
             var neo4jGraphDatabase = new NeoGraphDatabase(optionsMonitor);
 
-            //await neo4jGraphDatabase.MergeNode("", new Dictionary<string, object>());
+            //await neo4jGraphDatabase.MergeNodeStatement("", new Dictionary<string, object>());
         }
     }
 }

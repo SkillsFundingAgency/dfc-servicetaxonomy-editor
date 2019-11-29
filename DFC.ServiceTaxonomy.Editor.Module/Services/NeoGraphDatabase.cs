@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using Microsoft.Extensions.Options;
 using Neo4j.Driver;
+using OrchardCore.Modules;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Services
 {
@@ -27,14 +29,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
             _driver = GraphDatabase.Driver(neo4jConfiguration.Endpoint.Uri, AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password));
         }
 
-        public async Task MergeNode(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName = "uri")
+        //todo: move these out of NeoGraphDatabase now? CypherGenerator?? CypherStatement.CreateMerge() / Merge()
+        public Statement MergeNodeStatement(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName = "uri")
         {
-            await RunStatement(new Statement(
+            return new Statement(
                 $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN n",
-                new Dictionary<string,object> {{"properties", propertyMap}}));
+                new Dictionary<string,object> {{"properties", propertyMap}});
         }
 
-        public Task MergeRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue, IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships)
+        public Statement MergeRelationshipsStatement(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue, IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships)
         {
             //todo: for same task for create/edit, first delete all given relationships between source and dest nodes
             //todo: bi-directional relationships
@@ -58,25 +61,46 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Services
             }
 
             //todo: return?
-            return RunStatement(new Statement($"{matchBuilder}\r\n{mergeBuilder} return s", parameters));
+            return new Statement($"{matchBuilder}\r\n{mergeBuilder} return s", parameters);
         }
 
-        private async Task RunStatement(Statement statement)
+        public async Task RunWriteStatements(params Statement[] statements)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
             {
-                IStatementResultCursor cursor = await session.RunAsync(statement);
-                //IResultSummary resultSummary =
-                    await cursor.ConsumeAsync();
-
-                //var x = resultSummary.ResultAvailableAfter;
+                // transaction functions auto-retry
+                //todo: configure retry? timeout? etc.
+                await session.WriteTransactionAsync(async tx =>
+                {
+                    foreach (Statement statement in statements)
+                    {
+                        await tx.RunAsync(statement);
+                    }
+                });
             }
             finally
             {
                 await session.CloseAsync();
             }
         }
+
+        // // private async Task RunStatement(Statement statement)
+        // // {
+        // //     IAsyncSession session = _driver.AsyncSession();
+        // //     try
+        // //     {
+        // //         IStatementResultCursor cursor = await session.RunAsync(statement);
+        // //         //IResultSummary resultSummary =
+        // //             await cursor.ConsumeAsync();
+        // //
+        // //         //var x = resultSummary.ResultAvailableAfter;
+        // //     }
+        // //     finally
+        // //     {
+        // //         await session.CloseAsync();
+        // //     }
+        // }
 
         public void Dispose()
         {
