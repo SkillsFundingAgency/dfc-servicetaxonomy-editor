@@ -10,20 +10,23 @@ namespace DFC.ServiceTaxonomy.Editor.UnitTests.Module.Services
 {
     public class NeoGraphDatabaseTests
     {
-        [Fact]
-        public void NothingTest()
+        //todo: autofixture?? AutoFixture, AutoFixture.xUnit2, AutoFakeItEasy. auto on ctor possible?
+
+        private NeoGraphDatabase _neoGraphDatabase;
+
+        public NeoGraphDatabaseTests()
         {
-            //todo: SFA.DAS.Testing?? more general equivalent?
-            //todo: fluentassertions??
-            //todo: autofixture?? AutoFixture, AutoFixture.xUnit2, AutoFakeItEasy
             var optionsMonitor = A.Fake<IOptionsMonitor<Neo4jConfiguration>>();
             var neo4jConfiguration = A.Fake<Neo4jConfiguration>();
             neo4jConfiguration.Endpoint.Uri = "bolt://example.com";
             A.CallTo(() => optionsMonitor.CurrentValue).Returns(neo4jConfiguration);
 
-            var neo4jGraphDatabase = new NeoGraphDatabase(optionsMonitor);
+            _neoGraphDatabase = new NeoGraphDatabase(optionsMonitor);
+        }
 
-            //await neo4jGraphDatabase.MergeNodeStatement("", new Dictionary<string, object>());
+        [Fact]
+        public void NothingTest()
+        {
         }
     }
 }
