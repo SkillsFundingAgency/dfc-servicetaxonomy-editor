@@ -191,6 +191,15 @@
                             "Name": "QCFLevel",
                             "Settings": {
                                 "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
                                     "Position": "0"
                                 }
                             }
@@ -200,7 +209,7 @@
                             "Name": "UriId",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         }
@@ -475,7 +484,15 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Categories",
                                     "Position": "3"
-                                }
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasJobCategory].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "JobCategory"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -485,7 +502,14 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "QCF Level",
                                     "Position": "4"
-                                }
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "[:ncs__requiresQualification]",
+                                    "DisplayedContentTypes": [
+                                        "QCFLevel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -550,16 +574,6 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
                                     "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "NumericField",
-                            "Name": "QCFLevel",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "QCF Level",
-                                    "Position": "1"
                                 }
                             }
                         }
@@ -646,7 +660,10 @@
                             "Properties": {
                                 "ContentTypeFilter": [
                                     "Activity",
-                                    "JobProfile"
+                                    "JobCategory",
+                                    "JobProfile",
+                                    "QCFLevel",
+                                    "Skill"
                                 ],
                                 "ActivityMetadata": {
                                     "Title": null
@@ -728,7 +745,7 @@
                     "ContentItemId": "40ap5fsjbqn01vw4xp9tq7144b",
                     "ContentItemVersionId": "4d6rgz6fc2jp4sxkjgqdt5t2mx",
                     "ContentType": "QCFLevel",
-                    "DisplayText": null,
+                    "DisplayText": "1",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2019-11-29T08:09:38.4515816Z",
@@ -739,9 +756,6 @@
                     "QCFLevel": {
                         "Description": {
                             "Html": null
-                        },
-                        "QCFLevel": {
-                            "Value": 1.0
                         }
                     },
                     "UriId": {
@@ -754,7 +768,7 @@
                     "ContentItemId": "4pe912xftdyf95vvdjrjjacxc6",
                     "ContentItemVersionId": "43wbeqyqxbf62xvm116xezb4cj",
                     "ContentType": "QCFLevel",
-                    "DisplayText": null,
+                    "DisplayText": "2",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2019-11-29T08:10:03.5053198Z",
@@ -765,9 +779,6 @@
                     "QCFLevel": {
                         "Description": {
                             "Html": null
-                        },
-                        "QCFLevel": {
-                            "Value": 2.0
                         }
                     },
                     "UriId": {

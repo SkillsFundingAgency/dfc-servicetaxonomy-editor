@@ -170,7 +170,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 }
 
                 string nodeLabel = NcsPrefix + contentItem.ContentType;
-
+//todo: only call merge if any content pickers
                 await _neoGraphDatabase.RunWriteStatements(
                     StatementGenerator.MergeNodes(nodeLabel, setMap),
                     StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
