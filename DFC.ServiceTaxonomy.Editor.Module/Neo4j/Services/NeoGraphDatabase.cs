@@ -6,7 +6,6 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services
 {
-    //todo: add title to qcflevel rather than numeric (or have both?)
     //todo: create initial esco occupation content type
     //todo: ensure sync to neo when importing data through recipe
 

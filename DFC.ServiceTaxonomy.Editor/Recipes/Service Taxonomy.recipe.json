@@ -504,7 +504,7 @@
                                     "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "[:ncs__requiresQualification]",
+                                    "Hint": "Creates relationships of type [:ncs__requiresQualification].",
                                     "DisplayedContentTypes": [
                                         "QCFLevel"
                                     ]
