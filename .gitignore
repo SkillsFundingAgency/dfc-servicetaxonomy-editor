@@ -9,7 +9,7 @@ local.settings.json
 *.user
 *.userosscache
 *.sln.docstates
-appsettings.*
+appsettings.development.*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
