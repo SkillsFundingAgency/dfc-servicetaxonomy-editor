@@ -10,7 +10,7 @@ parameters:
   ArtifactName: 'DFC.ServiceTaxonomy.Editor'
   WebAppName: ''
 
-jobs:    
+steps:    
 - deployment: DeployTemplate
   pool: 'NCS - CI and CD'
   displayName: "Deploy arm templates"
