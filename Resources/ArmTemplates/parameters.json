@@ -19,6 +19,15 @@
         },
         "Neo4jPassword": {
             "value": "__Neo4jPassword__"
-        }
+        },
+        "SqlElasticPoolName": {
+            "value": "__elasticPoolName__"
+        },
+        "SqlServerName": {
+            "value": "__sharedSqlServerName__"
+        },
+        "SqlResourceGroupName": {
+            "value": "__SharedResourceGroupName__"
+        }        
     }
 }

@@ -21,6 +21,15 @@
         },
         "Neo4jPassword": {
             "type": "securestring"
+        },
+        "SqlElasticPoolName": {
+            "type": "string"
+        },
+        "SqlServerName": {
+            "type": "string"
+        },
+        "SqlResourceGroupName": {
+            "type": "string"
         }
     },
     "variables": {
@@ -29,7 +38,7 @@
         "AppServiceAppInsightsName": "[concat(variables('ResourcePrefix'), '-ai')]",
         "AppServicePlanName": "[if(greater(length(parameters('SharedAppServicePlanName')), 0), parameters('SharedAppServicePlanName'), concat(variables('ResourcePrefix'), '-asp'))]",
         "AppServicePlanResourceGroup": "[if(greater(length(parameters('SharedAppServicePlanResourceGroup')), 0), parameters('SharedAppServicePlanResourceGroup'), resourceGroup().name)]",
-        "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]"        
+        "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]"
     },
     "resources": [
         {
@@ -111,7 +120,31 @@
             "dependsOn": [
                 "[variables('AppServiceAppInsightsName')]"
             ]
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('AppServiceAppInsightsName')]",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('SqlResourceGroupName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'sql-database.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "databaseName": {
+                        "value": "dfc-servicetaxonomy-editor"
+                    },
+                    "sqlServerName": {
+                        "value": "[parameters('SqlServerName')]"
+                    },
+                    "elasticPoolName": {
+                        "value": "[parameters('SqlElasticPoolName')]"
+                    }
+                }
+            }
         }
     ],
-        "outputs": {}
+    "outputs": {}
     }

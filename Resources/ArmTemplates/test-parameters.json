@@ -19,6 +19,15 @@
         },
         "Neo4jPassword": {
             "value": "not-a-real-password"
+        },
+        "SqlElasticPoolName": {
+            "value": "an-elastic-pool"
+        },
+        "SqlServerName": {
+            "value": "a-sql-server"
+        },
+        "SqlResourceGroupName": {
+            "value": "sql-server-rg"
         }
     }
 }

@@ -1,0 +1,70 @@
+parameters:
+  AzureSubscription: ''  
+  PackageFile:  ''
+  ArmTemplateFolder: ''
+  Location: 'West Europe'
+  EnvironmentTag: 'DEV/Test'
+  ParentBusinessTag: ''
+  ServiceOfferingTag: ''
+  ResourceGroup: ''
+  ArtifactName: 'DFC.ServiceTaxonomy.Editor'
+  WebAppName: ''
+
+jobs:    
+- deployment: DeployTemplate
+  pool: 'NCS - CI and CD'
+  displayName: "Deploy arm templates"
+  environment: DEV_SERVICETAXONOMY
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: DownloadBuildArtifacts@0
+          displayName: "Download build artifacts"
+          inputs:
+            buildType: 'current'
+            artifactName: '${{ parameters.ArtifactName }}'
+
+        - template: /AzureDevOpsTemplates/Deploy/JobTemplates/dfc-arm-deploy.yml@dfc-devops
+          parameters:
+            ArmTemplateRoot: '${{ parameters.ArmTemplateFolder }}'
+            ResourceGroup: '${{ parameters.ResourceGroup }}'
+            AzureSubscription: '${{ parameters.AzureSubscription }}'
+            EnvironmentTag: '${{ parameters.EnvironmentTag }}'
+            ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
+            ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
+
+- deployment: DeployGetAllSkills
+  pool: 'NCS - CI and CD'
+  displayName: "Deploy WebApp"
+  environment: DEV_SERVICETAXONOMY
+  dependsOn: 
+  - DeployTemplate
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: DownloadBuildArtifacts@0
+          displayName: "Download build artifacts"
+          inputs:
+            buildType: 'current'
+            artifactName: '${{ parameters.ArtifactName }}'
+
+        - task: AzureRmWebAppDeployment@4
+          displayName: 'Azure App Service Deploy: ${{ parameters.WebAppName }}'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            appType: webApp
+            WebAppName: '${{ parameters.WebAppName }}'
+            Package: "${{ parameters.PackageFile }}"
+            DeployToSlotFlag: true
+            ResourceGroupName: '${{ parameters.ResourceGroup }}'
+            SlotName: staging
+
+        - task: AzureAppServiceManage@0
+          displayName: 'Swap Slots: ${{ parameters.WebAppName }}'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            WebAppName: '${{ parameters.WebAppName }}'
+            ResourceGroupName: '${{ parameters.ResourceGroup }}'
+            SourceSlot: staging

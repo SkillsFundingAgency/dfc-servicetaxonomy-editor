@@ -30,3 +30,28 @@ stages:
         DotNetCoreVersion: '3.1.100-preview3-014645'
         PublishWebApp: true
         TestSuffix: UnitTests
+
+- stage: DeployToDev
+  displayName: Deploy to DEV_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-dev
+  - group: dfc-stax-shared-dev
+  jobs:
+  - job: DeployArmTemplates
+    displayName: "Deploy DFC.ServiceTexonomy.Editor to DEV"
+    steps:
+    - template: JobTemplates/deploy-environment.yaml
+      parameters:
+        AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+        PackageFile:  "$(System.ArtifactsDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+        ArmTemplateFolder: "$(System.ArtifactsDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+        Location: 'West Europe'
+        EnvironmentTag: '$(EnvironmentTag)'
+        ParentBusinessTag: '$(ParentBusiness)'
+        ServiceOfferingTag: '$(ServiceOffering)'
+        ResourceGroup: 'dfc-dev-stax-editor-rg'
+        WebAppName: 'dfc-dev-stax-editor-as'
+
+
