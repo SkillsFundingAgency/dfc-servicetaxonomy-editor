@@ -25,7 +25,7 @@ jobs:
             buildType: 'current'
             artifactName: '${{ parameters.ArtifactName }}'
 
-        - template: /AzureDevOpsTemplates/Deploy/JobTemplates/dfc-arm-deploy.yml@dfc-devops
+        - template: /AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
           parameters:
             ArmTemplateRoot: '${{ parameters.ArmTemplateFolder }}'
             ResourceGroup: '${{ parameters.ResourceGroup }}'
