@@ -28,5 +28,5 @@ stages:
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.100-preview3-014645'
-        PublishWebApp: 'false'
+        PublishWebApp: false
         TestSuffix: UnitTests
