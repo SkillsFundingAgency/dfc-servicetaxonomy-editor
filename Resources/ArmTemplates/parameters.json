@@ -1,0 +1,24 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Environment": {
+            "value": "__ReleaseEnvironmentName__"
+        },
+        "SharedAppServicePlanName": {
+            "value": "__SharedAppServicePlanName__"
+        },
+        "SharedAppServicePlanResourceGroup": {
+            "value": "__appSharedResourceGroup__"
+        },
+        "Neo4jUrl": {
+            "value": "__Neo4jUrl__"
+        },
+        "Neo4jUsername": {
+            "value": "__Neo4jUser__"
+        },
+        "Neo4jPassword": {
+            "value": "__Neo4jPassword__"
+        }
+    }
+}

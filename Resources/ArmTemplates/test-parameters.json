@@ -1,0 +1,24 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Environment": {
+            "value": "dev"
+        },
+        "SharedAppServicePlanName": {
+            "value": "dfc-dev-stax-shared-asp"
+        },
+        "SharedAppServicePlanResourceGroup": {
+            "value": "dfc-dev-stax-shared-rg"
+        },
+        "Neo4jUrl": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUsername": {
+            "value": "not-a-real-username"
+        },
+        "Neo4jPassword": {
+            "value": "not-a-real-password"
+        }
+    }
+}

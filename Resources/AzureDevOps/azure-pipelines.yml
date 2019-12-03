@@ -10,13 +10,13 @@ resources:
 stages:
 - stage: Build
   jobs:
-  # - job: BuildArmTemplates
-  #   displayName: "Build the ARM templates"
-  #   pool: 'NCS - CI and CD'
-  #   steps:
-  #   - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
-  #     parameters:
-  #       ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
+  - job: BuildArmTemplates
+    displayName: "Build the ARM templates"
+    pool: 'NCS - CI and CD'
+    steps:
+    - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
+      parameters:
+        ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
 
   - job: BuildDotNet
     pool: 'NCS - CI and CD'
