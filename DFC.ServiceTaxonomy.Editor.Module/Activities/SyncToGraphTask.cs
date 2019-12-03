@@ -170,10 +170,18 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 }
 
                 string nodeLabel = NcsPrefix + contentItem.ContentType;
-//todo: only call merge if any content pickers
-                await _neoGraphDatabase.RunWriteStatements(
-                    StatementGenerator.MergeNodes(nodeLabel, setMap),
-                    StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
+
+                // could create ienumerable and have 1 call
+                var mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, setMap);
+                if (relationships.Any())
+                {
+                    await _neoGraphDatabase.RunWriteStatements(mergeNodesStatement,
+                        StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
+                }
+                else
+                {
+                    await _neoGraphDatabase.RunWriteStatements(mergeNodesStatement);
+                }
 
                 return Outcomes("Done");
 
