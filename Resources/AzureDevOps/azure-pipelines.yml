@@ -23,7 +23,7 @@ stages:
     displayName: "Build the dotnet core application"
     steps:
   #   - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-dotnetcore-build.yml@dfc-devops
-  #     parametersz:
+  #     parameters:
   #       SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
   #       BuildPlatform: 'any cpu'
   #       BuildConfiguration: 'release'
@@ -32,9 +32,9 @@ stages:
   #       TestSuffix: UnitTests
 
     - task: UseDotNet@2
-      displayName: 'Use .NET Core sdk 3.1.0-preview3'
+      displayName: 'Use .NET Core sdk 3.1.100-preview3-014645'
       inputs:
-        version: '3.1.0-preview3'
+        version: '3.1.100-preview3-014645'
         IncludePreviewVersions: true
 
     - task: gittools.gitversion.gitversion-task.GitVersion@4
