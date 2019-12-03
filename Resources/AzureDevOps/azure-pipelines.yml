@@ -4,7 +4,7 @@ resources:
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.8.1
+    ref: refs/tags/v1.8.2
     endpoint: 'GitHub (ESFA)'
 
 stages:
@@ -22,52 +22,11 @@ stages:
     pool: 'NCS - CI and CD'
     displayName: "Build the dotnet core application"
     steps:
-  #   - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-dotnetcore-build.yml@dfc-devops
-  #     parameters:
-  #       SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
-  #       BuildPlatform: 'any cpu'
-  #       BuildConfiguration: 'release'
-  #       DotNetCoreVersion: '3.1.0-preview3'
-  #       PublishWebApp: 'false'
-  #       TestSuffix: UnitTests
-
-    - task: UseDotNet@2
-      displayName: 'Use .NET Core sdk 3.1.100-preview3-014645'
-      inputs:
-        version: '3.1.100-preview3-014645'
-        IncludePreviewVersions: true
-
-    - task: gittools.gitversion.gitversion-task.GitVersion@4
-      displayName: GitVersion
-      inputs:
-        preferBundledVersion: false
-
-    # task to package a web app
-    - task: DotNetCoreCLI@2
-      displayName: 'Publish - dotnet publish application DFC.ServiceTaxonomy.Editor'
-      inputs:
-        command: 'publish'
-        projects: 'DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj'
-        arguments: '-o "$(build.artifactstagingdirectory)\Artifact\DFC.ServiceTaxonomy.Editor\DeploymentPackages\\" -c "Release"'
-        publishWebProjects: false #set to false as this setting (which defaults to true) will parse the entire repo for web projects
-
-    - task: DotNetCoreCLI@2
-      displayName: 'Test - dotnet test application DFC.ServiceTaxonomy.Editor'
-      inputs:
-        command: test
-        projects: 'DFC.ServiceTaxonomy.Editor.UnitTests\DFC.ServiceTaxonomy.Editor.UnitTests.csproj'
-        arguments: '--configuration Release --collect "Code coverage"'
-
-    - task: CopyFiles@2
-      displayName: 'Copy Files to: $(build.artifactstagingdirectory)\Artifact\DFC.ServiceTaxonomy.Editor\Azure'
-      inputs:
-        sourceFolder: 'Resources'
-        contents: '**'
-        targetFolder: '$(build.artifactstagingdirectory)\Artifact\DFC.ServiceTaxonomy.Editor\Azure'
-
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: DFC.ServiceTaxonomy.Editor'
-      inputs:
-        pathtoPublish: $(build.artifactstagingdirectory)\Artifact\DFC.ServiceTaxonomy.Editor\
-        artifactName: DFC.ServiceTaxonomy.Editor
-        publishLocation: container
+    - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-dotnetcore-build.yml@dfc-devops
+      parameters:
+        SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.100-preview3-014645'
+        PublishWebApp: 'false'
+        TestSuffix: UnitTests
