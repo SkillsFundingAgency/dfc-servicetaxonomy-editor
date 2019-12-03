@@ -1,7 +1,7 @@
 variables:
-    SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
-    BuildPlatform: 'any cpu'
-    BuildConfiguration: 'release'
+  SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
+  BuildPlatform: 'any cpu'
+  BuildConfiguration: 'release'
 
 resources:
   repositories:
@@ -9,5 +9,28 @@ resources:
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.6.12
+    ref: refs/tags/v1.8.1
     endpoint: 'GitHub (ESFA)'
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildArmTemplates
+    displayName: "Build the ARM templates"
+    pool: 'NCS - CI and CD'
+    steps:
+    - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
+      parameters:
+        ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
+  - job: BuildDotNet
+    pool: 'NCS - CI and CD'
+    displayName: "Build the dotnet core application"
+    steps:
+    - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-dotnetcore-build.yml@dfc-devops
+      parameters:
+        SolutionBaseName: '${{ parameters.SolutionBaseName }}'
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.0-preview3'
+        PublishWebApp: 'false'
+        TestSuffix: UnitTests
