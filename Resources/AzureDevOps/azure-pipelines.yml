@@ -39,19 +39,14 @@ stages:
   - group: dfc-shared-dev
   - group: dfc-stax-shared-dev
   jobs:
-  - job: DeployArmTemplates
-    displayName: "Deploy DFC.ServiceTexonomy.Editor to DEV"
-    steps:
-    - template: StepTemplates/deploy-environment.yml
-      parameters:
-        AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
-        PackageFile:  "$(System.ArtifactsDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
-        ArmTemplateFolder: "$(System.ArtifactsDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
-        Location: 'West Europe'
-        EnvironmentTag: '$(EnvironmentTag)'
-        ParentBusinessTag: '$(ParentBusiness)'
-        ServiceOfferingTag: '$(ServiceOffering)'
-        ResourceGroup: 'dfc-dev-stax-editor-rg'
-        WebAppName: 'dfc-dev-stax-editor-as'
-
-
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      PackageFile:  "$(System.ArtifactsDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(System.ArtifactsDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: 'dfc-dev-stax-editor-rg'
+      WebAppName: 'dfc-dev-stax-editor-as'
