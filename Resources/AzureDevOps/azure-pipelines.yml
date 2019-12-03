@@ -1,8 +1,3 @@
-variables:
-  SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
-  BuildPlatform: 'any cpu'
-  BuildConfiguration: 'release'
-
 resources:
   repositories:
   - repository: self
@@ -22,13 +17,14 @@ stages:
     - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
       parameters:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
+
   - job: BuildDotNet
     pool: 'NCS - CI and CD'
     displayName: "Build the dotnet core application"
     steps:
     - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-dotnetcore-build.yml@dfc-devops
       parameters:
-        SolutionBaseName: '${{ parameters.SolutionBaseName }}'
+        SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.0-preview3'
