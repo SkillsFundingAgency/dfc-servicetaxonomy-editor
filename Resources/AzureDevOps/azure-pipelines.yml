@@ -43,8 +43,8 @@ stages:
   - template: JobTemplates/deploy-environment.yml
     parameters:
       AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
-      PackageFile:  "$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
-      ArmTemplateFolder: "$(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
       Location: 'West Europe'
       EnvironmentTag: '$(EnvironmentTag)'
       ParentBusinessTag: '$(ParentBusiness)'
