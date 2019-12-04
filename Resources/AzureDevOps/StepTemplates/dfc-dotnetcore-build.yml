@@ -1,6 +1,5 @@
-# NOTE WELL: 
-# Because we want to deploy a self-contained app here,  I'm copying this from the dfc-devops repo and making
-# the few changes that it needs to test if it works.
+# NOTE WELL: This differs from the versionin dfc-devops due to having to publish a self-contained .net core app
+# Once Azure App Services natively supports dotnet core 3.1, we can go back to using ZIP deploys.
 parameters:
   SolutionBaseName: ''
   BuildPlatform: 'any cpu'
