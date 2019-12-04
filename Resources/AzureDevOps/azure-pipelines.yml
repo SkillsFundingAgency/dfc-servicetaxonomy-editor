@@ -32,6 +32,7 @@ stages:
         TestSuffix: UnitTests
 
 - stage: DeployToDev
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
