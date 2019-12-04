@@ -27,7 +27,7 @@ stages:
         SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.100-preview3-014645'
+        DotNetCoreVersion: '3.1.100'
         PublishWebApp: true
         TestSuffix: UnitTests
 
