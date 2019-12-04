@@ -1,32 +1,51 @@
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
-using OrchardCore.ContentFields.Fields;
+using DFC.ServiceTaxonomy.Editor.Module.Fields;
+using DFC.ServiceTaxonomy.Editor.Module.ViewModels;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S1185:Overriding members should do more than simply call the same member in the base class", Justification = "temporary")]
-    public class UriFieldDisplayDriver : TextFieldDisplayDriver
+    public class UriFieldDisplayDriver : ContentFieldDisplayDriver<UriField>
     {
-        public UriFieldDisplayDriver(IStringLocalizer<TextFieldDisplayDriver> localizer) : base(localizer)
+        public override IDisplayResult Display(UriField field, BuildFieldDisplayContext fieldDisplayContext)
         {
+            return Initialize<DisplayUriFieldViewModel>(GetDisplayShapeType(fieldDisplayContext), model =>
+                {
+                    model.Field = field;
+                    model.Part = fieldDisplayContext.ContentPart;
+                    model.PartFieldDefinition = fieldDisplayContext.PartFieldDefinition;
+                })
+                .Location("Content")
+                .Location("SummaryAdmin", "");
         }
 
-        public override IDisplayResult Display(TextField field, BuildFieldDisplayContext context)
+        public override IDisplayResult Edit(UriField field, BuildFieldEditorContext context)
         {
-            return base.Display(field, context);
+            return Initialize<EditUriFieldViewModel>(GetEditorShapeType(context), model =>
+            {
+                model.Text = field.Text;
+                model.Field = field;
+                model.Part = context.ContentPart;
+                model.PartFieldDefinition = context.PartFieldDefinition;
+            });
         }
 
-        public override IDisplayResult Edit(TextField field, BuildFieldEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(UriField field, IUpdateModel updater, UpdateFieldEditorContext context)
         {
-            return base.Edit(field, context);
-        }
+            if (await updater.TryUpdateModelAsync(field, Prefix, f => f.Text))
+            {
+                //todo:
+                //var settings = context.PartFieldDefinition.GetSettings<UriFieldSettings>();
+                //if (settings.Required && string.IsNullOrWhiteSpace(field.Text))
+                //{
+                //    updater.ModelState.AddModelError(Prefix, T["A value is required for {0}.", context.PartFieldDefinition.DisplayName()]);
+                //}
+            }
 
-        public override Task<IDisplayResult> UpdateAsync(TextField field, IUpdateModel updater, UpdateFieldEditorContext context)
-        {
-            return base.UpdateAsync(field, updater, context);
+            return Edit(field, context);
         }
     }
 }

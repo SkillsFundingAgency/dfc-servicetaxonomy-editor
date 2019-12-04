@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -172,7 +173,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 string nodeLabel = NcsPrefix + contentItem.ContentType;
 
                 // could create ienumerable and have 1 call
-                var mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, setMap);
+                Statement mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, setMap);
                 if (relationships.Any())
                 {
                     await _neoGraphDatabase.RunWriteStatements(mergeNodesStatement,
