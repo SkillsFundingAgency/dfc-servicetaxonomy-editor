@@ -129,7 +129,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'sql-database.json')]",
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'SqlServer/sql-database.json')]",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
