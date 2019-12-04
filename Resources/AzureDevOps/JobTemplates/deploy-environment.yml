@@ -48,6 +48,7 @@ jobs:
             DeployToSlotFlag: true
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
             SlotName: staging
+            UseWebDeploy: true
 
         - task: AzureAppServiceManage@0
           displayName: 'Swap Slots: ${{ parameters.WebAppName }}'
