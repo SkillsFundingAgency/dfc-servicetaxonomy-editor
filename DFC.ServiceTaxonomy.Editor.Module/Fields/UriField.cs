@@ -1,8 +1,9 @@
-using OrchardCore.ContentFields.Fields;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Fields
 {
-    public class UriField : TextField
+    public class UriField : ContentField
     {
+        public string? Text { get; set; }
     }
 }

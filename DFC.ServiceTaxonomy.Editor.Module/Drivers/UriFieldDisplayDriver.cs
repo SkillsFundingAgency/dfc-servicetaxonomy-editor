@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
 using DFC.ServiceTaxonomy.Editor.Module.ViewModels;
@@ -26,7 +27,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
         {
             return Initialize<EditUriFieldViewModel>(GetEditorShapeType(context), model =>
             {
-                model.Text = field.Text;
+                //todo: centralise the ncs prefix
+                model.Text = field.Text ?? $"http://nationalcareers.service.gov.uk/{context.TypePartDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid().ToString("D")}";
                 model.Field = field;
                 model.Part = context.ContentPart;
                 model.PartFieldDefinition = context.PartFieldDefinition;
