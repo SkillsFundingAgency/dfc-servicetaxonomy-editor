@@ -39,6 +39,7 @@ stages:
   - group: dfc-stax-shared-all
   - group: dfc-shared-dev
   - group: dfc-stax-shared-dev
+  - template: VariableTemplates/DevEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
     parameters:
@@ -49,5 +50,5 @@ stages:
       EnvironmentTag: '$(EnvironmentTag)'
       ParentBusinessTag: '$(ParentBusiness)'
       ServiceOfferingTag: '$(ServiceOffering)'
-      ResourceGroup: 'dfc-dev-stax-editor-rg'
+      ResourceGroup: '$(ResourceGroup)'
       WebAppName: 'dfc-dev-stax-editor-as'
