@@ -44,12 +44,6 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - task: DownloadBuildArtifacts@0
-          displayName: "Download build artifacts"
-          inputs:
-            buildType: 'current'
-            artifactName: '${{ parameters.ArtifactName }}'
-
         - task: AzureRmWebAppDeployment@4
           displayName: 'Azure App Service Deploy: ${{ parameters.WebAppName }}'
           inputs:

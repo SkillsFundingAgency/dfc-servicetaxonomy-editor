@@ -22,13 +22,12 @@ stages:
     pool: 'NCS - CI and CD'
     displayName: "Build the dotnet core application"
     steps:
-    - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-dotnetcore-build.yml@dfc-devops
+    - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
         SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.100'
-        PublishWebApp: true
         TestSuffix: UnitTests
 
 - stage: DeployToDev
