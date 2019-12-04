@@ -19,12 +19,6 @@ jobs:
     runOnce:
       deploy:
         steps:
-        - task: DownloadBuildArtifacts@0
-          displayName: "Download build artifacts"
-          inputs:
-            buildType: 'current'
-            artifactName: '${{ parameters.ArtifactName }}'
-
         - template: /AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
           parameters:
             ArmTemplateRoot: '${{ parameters.ArmTemplateFolder }}'
