@@ -123,7 +123,7 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "[variables('AppServiceAppInsightsName')]",
+            "name": "database-dfc-servicetaxonomy-editor",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('SqlResourceGroupName')]",
             "properties": {
