@@ -1,9 +1,7 @@
 variables:
-- name: Environment
-  value: dev
 - name: ReleaseEnvironmentName
   value: dev
 - name: ResourceGroup
   value: dfc-dev-stax-editor-rg
 - name: WebAppName
-  value: dfc-dev-stax-editor
+  value: dfc-dev-stax-editor-as

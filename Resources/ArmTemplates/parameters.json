@@ -6,10 +6,10 @@
             "value": "__ReleaseEnvironmentName__"
         },
         "SharedAppServicePlanName": {
-            "value": "__SharedAppServicePlanName__"
+            "value": "__StaxSharedAppServicePlan__"
         },
         "SharedAppServicePlanResourceGroup": {
-            "value": "__appSharedResourceGroup__"
+            "value": "__StaxSharedResourceGroup__"
         },
         "Neo4jUrl": {
             "value": "__Neo4jUrl__"
