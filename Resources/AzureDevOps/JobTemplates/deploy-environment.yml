@@ -46,3 +46,4 @@ jobs:
             WebAppName: '${{ parameters.WebAppName }}'
             Package: "${{ parameters.PackageFile }}"
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
+            UseWebDeploy: true
