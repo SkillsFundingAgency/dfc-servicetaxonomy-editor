@@ -85,7 +85,7 @@
                         "value": "app"
                     },
                     "deployStagingSlot": {
-                        "value": true
+                        "value": false
                     },
                     "appServiceAppSettings": {
                         "value": [

@@ -45,15 +45,4 @@ jobs:
             appType: webApp
             WebAppName: '${{ parameters.WebAppName }}'
             Package: "${{ parameters.PackageFile }}"
-            DeployToSlotFlag: true
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
-            SlotName: staging
-            UseWebDeploy: true
-
-        - task: AzureAppServiceManage@0
-          displayName: 'Swap Slots: ${{ parameters.WebAppName }}'
-          inputs:
-            azureSubscription: '${{ parameters.AzureSubscription }}'
-            WebAppName: '${{ parameters.WebAppName }}'
-            ResourceGroupName: '${{ parameters.ResourceGroup }}'
-            SourceSlot: staging
