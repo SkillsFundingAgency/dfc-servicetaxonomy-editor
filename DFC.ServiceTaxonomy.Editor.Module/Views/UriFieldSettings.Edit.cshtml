@@ -1,17 +1,16 @@
 ﻿@model DFC.ServiceTaxonomy.Editor.Module.Settings.UriFieldSettings
 
-@*<fieldset class="form-group">
-    <div class="custom-control custom-checkbox">
-        <input asp-for="Required" type="checkbox" class="custom-control-input">
-        <label class="custom-control-label" asp-for="Required">@T["Required"]</label>
-        <span class="hint">— @T["Whether a value is required."]</span>
-    </div>
-</fieldset>
-
 <fieldset class="form-group">
     <div class="row col-sm-6">
-        <label asp-for="Hint">@T["Hint"]</label>
-        <textarea asp-for="Hint" rows="2" class="form-control"></textarea>
-        <span class="hint">@T["The hint text to display for this field on the editor."]</span>
+        <label asp-for="NamespacePrefix">@T["Namespace prefix"]</label>
+        <input asp-for="NamespacePrefix" class="form-control" list="namespace-prefixes" value=""/>
+        @*No aspnetcore tag helper for this yet, compose new component out of bootstrap component, or use 3rd party component? the only ones i've found are not free*@
+        <datalist id="namespace-prefixes">
+            @foreach (string namespacePrefix in Model.NamespacePrefixOptions)
+            {
+                <option>@namespacePrefix</option>
+            }
+        </datalist>
+        <span class="hint">@T["The namespace to use to prefix generated ID's."]</span>
     </div>
-</fieldset>*@
+</fieldset>

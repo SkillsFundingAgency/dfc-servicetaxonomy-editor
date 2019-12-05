@@ -27,8 +27,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
         {
             return Initialize<EditUriFieldViewModel>(GetEditorShapeType(context), model =>
             {
-                //todo: centralise the ncs prefix
-                model.Text = field.Text ?? $"http://nationalcareers.service.gov.uk/{context.TypePartDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid().ToString("D")}";
+                // why is the prefix options empty?
+                //todo: use getsettings? e.g.                 //var settings = context.PartFieldDefinition.GetSettings<UriFieldSettings>();
+
+                model.Text = field.Text ?? $"{context.PartFieldDefinition.Settings["UriFieldSettings"]["NamespacePrefix"]}{context.TypePartDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid():D}";
                 model.Field = field;
                 model.Part = context.ContentPart;
                 model.PartFieldDefinition = context.PartFieldDefinition;

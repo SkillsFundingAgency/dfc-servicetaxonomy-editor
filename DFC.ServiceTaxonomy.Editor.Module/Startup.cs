@@ -27,6 +27,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             TemplateContext.GlobalMemberAccessStrategy.Register<DisplayUriFieldViewModel>();
         }
 
+        //todo: rename UriField to UriIdField
+
         public override void ConfigureServices(IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
@@ -35,6 +37,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
             services.AddSingleton<INeoGraphDatabase, NeoGraphDatabase>();
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
+
+            services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("UriIdField"));
 
             // Uri Field
             services.AddContentField<UriField>();
