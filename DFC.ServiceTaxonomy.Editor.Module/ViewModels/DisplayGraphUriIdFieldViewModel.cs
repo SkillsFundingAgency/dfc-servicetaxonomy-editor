@@ -4,10 +4,10 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
 {
-    public class EditUriFieldViewModel
+    public class DisplayGraphUriIdFieldViewModel
     {
-        public string? Text { get; set; }
-        public UriField? Field { get; set; }
+        public string? Text => Field?.Text;
+        public GraphUriIdField? Field { get; set; }
         public ContentPart? Part { get; set; }
         public ContentPartFieldDefinition? PartFieldDefinition { get; set; }
     }

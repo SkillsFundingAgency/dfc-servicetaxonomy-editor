@@ -10,11 +10,11 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
-    public class UriFieldDisplayDriver : ContentFieldDisplayDriver<UriField>
+    public class GraphUriIdFieldDisplayDriver : ContentFieldDisplayDriver<GraphUriIdField>
     {
-        public override IDisplayResult Display(UriField field, BuildFieldDisplayContext fieldDisplayContext)
+        public override IDisplayResult Display(GraphUriIdField field, BuildFieldDisplayContext fieldDisplayContext)
         {
-            return Initialize<DisplayUriFieldViewModel>(GetDisplayShapeType(fieldDisplayContext), model =>
+            return Initialize<DisplayGraphUriIdFieldViewModel>(GetDisplayShapeType(fieldDisplayContext), model =>
                 {
                     model.Field = field;
                     model.Part = fieldDisplayContext.ContentPart;
@@ -24,20 +24,20 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
                 .Location("SummaryAdmin", "");
         }
 
-        public override IDisplayResult Edit(UriField field, BuildFieldEditorContext context)
+        public override IDisplayResult Edit(GraphUriIdField field, BuildFieldEditorContext context)
         {
-            return Initialize<EditUriFieldViewModel>(GetEditorShapeType(context), model =>
+            return Initialize<EditGraphUriIdFieldViewModel>(GetEditorShapeType(context), model =>
             {
                 // why is the prefix options empty?
 
-                model.Text = field.Text ?? $"{context.PartFieldDefinition.GetSettings<UriFieldSettings>().NamespacePrefix}{context.TypePartDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid():D}";
+                model.Text = field.Text ?? $"{context.PartFieldDefinition.GetSettings<GraphUriIdFieldSettings>().NamespacePrefix}{context.TypePartDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid():D}";
                 model.Field = field;
                 model.Part = context.ContentPart;
                 model.PartFieldDefinition = context.PartFieldDefinition;
             });
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(UriField field, IUpdateModel updater, UpdateFieldEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(GraphUriIdField field, IUpdateModel updater, UpdateFieldEditorContext context)
         {
             await updater.TryUpdateModelAsync(field, Prefix, f => f.Text);
 

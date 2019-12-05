@@ -9,18 +9,18 @@ using OrchardCore.DisplayManagement.Views;
 namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 {
 #pragma warning disable S927 // parameter names should match base declaration and other partial definitions
-    public class UriFieldSettingsDriver : ContentPartFieldDefinitionDisplayDriver<UriField>
+    public class GraphUriIdFieldSettingsDriver : ContentPartFieldDefinitionDisplayDriver<GraphUriIdField>
     {
         private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
 
-        public UriFieldSettingsDriver(IOptionsMonitor<NamespacePrefixConfiguration> namespacePrefixConfiguration)
+        public GraphUriIdFieldSettingsDriver(IOptionsMonitor<NamespacePrefixConfiguration> namespacePrefixConfiguration)
         {
             _namespacePrefixConfiguration = namespacePrefixConfiguration;
         }
 
         public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
         {
-            return Initialize<UriFieldSettings>("UriFieldSettings_Edit", model =>
+            return Initialize<GraphUriIdFieldSettings>("GraphUriIdFieldSettings_Edit", model =>
                 {
                     partFieldDefinition.PopulateSettings(model);
 
@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 
         public override async Task<IDisplayResult> UpdateAsync(ContentPartFieldDefinition partFieldDefinition, UpdatePartFieldEditorContext context)
         {
-            var model = new UriFieldSettings();
+            var model = new GraphUriIdFieldSettings();
 
             await context.Updater.TryUpdateModelAsync(model, Prefix);
 

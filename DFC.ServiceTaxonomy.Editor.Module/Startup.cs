@@ -23,11 +23,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module
     {
         static Startup()
         {
-            TemplateContext.GlobalMemberAccessStrategy.Register<UriField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayUriFieldViewModel>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<GraphUriIdField>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayGraphUriIdFieldViewModel>();
         }
-
-        //todo: rename UriField to UriIdField
 
         public override void ConfigureServices(IServiceCollection services)
         {
@@ -38,15 +36,16 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             services.AddSingleton<INeoGraphDatabase, NeoGraphDatabase>();
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
 
-            services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("UriIdField"));
+            services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphUriIdField"));
 
-            // Uri Field
-            services.AddContentField<UriField>();
-            services.AddScoped<IContentFieldDisplayDriver, UriFieldDisplayDriver>();
-            services.AddScoped<IContentPartFieldDefinitionDisplayDriver, UriFieldSettingsDriver>();
-            // services.AddScoped<IContentFieldIndexHandler, UriFieldIndexHandler>();
-            // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, UriFieldPredefinedListEditorSettingsDriver>();
-            // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, UriFieldHeaderDisplaySettingsDriver>();
+            // Graph Uri Id Field
+            services.AddContentField<GraphUriIdField>();
+            services.AddScoped<IContentFieldDisplayDriver, GraphUriIdFieldDisplayDriver>();
+            services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldSettingsDriver>();
+            //todo: index?
+            // services.AddScoped<IContentFieldIndexHandler, GraphUriIdFieldIndexHandler>();
+            // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldPredefinedListEditorSettingsDriver>();
+            // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldHeaderDisplaySettingsDriver>();
 
         }
 
