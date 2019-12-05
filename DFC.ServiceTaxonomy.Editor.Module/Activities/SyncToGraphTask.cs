@@ -86,14 +86,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 // custom contentpart that prepopulates, readonly on create {ncsnamespaceconst}{contentItem.ContentType}{generated guid}
                 // else, on create content generate the uri here
 
-                // we use the existence of a UriId content part as a marker to indicate that the content item should be synced
+                // we use the existence of a Graph content part as a marker to indicate that the content item should be synced
                 // so we silently noop if it's not present
-                //todo: switch to custom (pre-populated) uri field
-                JToken uriId = ((JObject) contentItem.Content)["UriId"];
-                if (uriId == null)
+                dynamic graph = ((JObject) contentItem.Content)["Graph"];
+                if (graph == null)
                     return Outcomes("Done");
 
-                string nodeUri = contentItem.Content.UriId.URI.Text.ToString();
+                string nodeUri = graph.UriId.Text.ToString();
                 var setMap = new Dictionary<string, object>
                 {
                     {"skos__prefLabel", contentItem.Content.TitlePart.Title.ToString()},
