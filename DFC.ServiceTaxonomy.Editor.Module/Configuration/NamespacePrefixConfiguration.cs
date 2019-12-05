@@ -4,6 +4,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Configuration
 {
     public class NamespacePrefixConfiguration
     {
-        public List<string> NamespacePrefixOptions { get; } = new List<string> { string.Empty };
+        public List<string> NamespacePrefixOptions { get; } = new List<string>();
     }
 }

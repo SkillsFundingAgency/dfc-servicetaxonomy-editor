@@ -17,19 +17,29 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
         {
             _namespacePrefixConfiguration = namespacePrefixConfiguration;
         }
-
+        //todo: don't really want/need user to name field???
         public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
         {
             return Initialize<GraphUriIdFieldSettings>("GraphUriIdFieldSettings_Edit", model =>
                 {
+                    var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
+
+                    //model.NamespacePrefix ??= currentNamespacePrefixConfiguration.NamespacePrefixOptions.FirstOrDefault();
+
                     partFieldDefinition.PopulateSettings(model);
 
-                    var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
+                    //model.NamespacePrefixOptions ??= currentNamespacePrefixConfiguration.NamespacePrefixOptions;
+                    model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
+
+                    //var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
                     // don't preselect the first option (ncs prefix) because of the way the html datalist works
                     //todo: find 3rd party bootstrap component to use instead of datalist (bootstrap itself doesn't support an input with select combo out of the box)
                     //if (model.NamespacePrefix == null && currentNamespacePrefixConfiguration.NamespacePrefixOptions.Any())
                     //    model.NamespacePrefix = currentNamespacePrefixConfiguration.NamespacePrefixOptions.First();
-                    model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
+
+                    //model.NamespacePrefix ??= currentNamespacePrefixConfiguration.NamespacePrefixOptions.FirstOrDefault();
+
+                    //model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
                 })
                 .Location("Content");
         }
@@ -40,16 +50,38 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 
             await context.Updater.TryUpdateModelAsync(model, Prefix);
 
-            context.Builder.WithSettings(model);
-
-            //todo: extract method
-            var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
             // could do with an ordered set
             // namespaceprefix should never be null. throw instead?
-            if (model.NamespacePrefix != null && !currentNamespacePrefixConfiguration.NamespacePrefixOptions.Contains(model.NamespacePrefix))
+            if (model.NamespacePrefix != null)
             {
-                currentNamespacePrefixConfiguration.NamespacePrefixOptions.Add(model.NamespacePrefix);
+                var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
+
+                // if user has entered a new prefix, update the global list of prefixes, so that they get the choice when editing graph uri id fields in new content types
+                // what do we do with pollution in the list, e.g. someone adds an incorrect prefix?
+#pragma warning disable S1066 // Collapsible "if" statements should be merged
+                if (!currentNamespacePrefixConfiguration.NamespacePrefixOptions.Contains(model.NamespacePrefix))
+#pragma warning restore S1066 // Collapsible "if" statements should be merged
+                    currentNamespacePrefixConfiguration.NamespacePrefixOptions.Add(model.NamespacePrefix);
+
+                //if (!model.NamespacePrefixOptions?.Contains(model.NamespacePrefix) ?? false)
+                //    model.NamespacePrefixOptions?.Add(model.NamespacePrefix);
+
+                //partFieldDefinition.PartDefinition.GetSettings<>()
+                //partFieldDefinition.PartDefinition.PopulateSettings();
+                //partFieldDefinition.PopulateSettings();
             }
+
+            // we just (manually) populate a datalist with NamespacePrefixOptions in the view, so we don't get the list back in the model
+            // we could update the model, but we want the prefixes to be global, i.e. if a new content item is created, it should contain the full list of prefixes
+            // so we always populate the model from the global list, instead of storing the current set in the model
+            // note: if the list in the appsettings is updated, we'll probably lose the current global list
+            // we could update appsettings with new prefixes, but if we do that, we'd probably want to allow the user to delete them,
+            // so perhaps we just don't update appsettings in the app service when running ;-)
+
+            // so update the model with the latest global set of prefix options
+            //model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
+
+            context.Builder.WithSettings(model);
 
             return Edit(partFieldDefinition);
         }
