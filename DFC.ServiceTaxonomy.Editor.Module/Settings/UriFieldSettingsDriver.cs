@@ -24,11 +24,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 {
                     partFieldDefinition.PopulateSettings(model);
 
-                    // guard against empty option array in config??
                     var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
                     // don't preselect the first option (ncs prefix) because of the way the html datalist works
                     //todo: find 3rd party bootstrap component to use instead of datalist (bootstrap itself doesn't support an input with select combo out of the box)
-                    //if (model.NamespacePrefix == null)
+                    //if (model.NamespacePrefix == null && currentNamespacePrefixConfiguration.NamespacePrefixOptions.Any())
                     //    model.NamespacePrefix = currentNamespacePrefixConfiguration.NamespacePrefixOptions.First();
                     model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
                 })
