@@ -14,6 +14,15 @@ using OrchardCore.DisplayManagement.Views;
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
     //todo: need to associate a prefix with a content type when loading from a recipe
+    //todo: change sync code to work with this field
+    // ^^ because user gets to name the field, we need a way of picking it out. options:
+    // wrap it in a well known content type
+    // find a way to set the field name
+    // add a property to the field which we can search for, e.g. well known guid/string
+    // rename text property to something more descriptive we can search for
+    // change from a custom field to a custom part (??)
+    //todo: remove uri content part frm recipe
+    //todo: update content types in recipe
     public class GraphUriIdFieldDisplayDriver : ContentFieldDisplayDriver<GraphUriIdField>
     {
         private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
@@ -39,23 +48,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
         {
             return Initialize<EditGraphUriIdFieldViewModel>(GetEditorShapeType(context), model =>
             {
-                // why is the prefix options empty?
-                //var graphUriIdSettings = context.PartFieldDefinition.GetSettings<GraphUriIdFieldSettings>();
-                //if (graphUriIdSettings.NamespacePrefix == null)
-                //{
-                //    var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
-
-                //    // new content item without editing field settings
-                //    //todo: if this works service to do this, as is used by settings driver also. could we do this in settings ctor?
-                //    var defaultGraphUriFieldSettings = new GraphUriIdFieldSettings
-                //    {
-                //        NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions,
-                //        NamespacePrefix = currentNamespacePrefixConfiguration.NamespacePrefixOptions.FirstOrDefault() 
-                //    };
-
-                //    context.PartFieldDefinition.PopulateSettings(defaultGraphUriFieldSettings);
-                //}
-                //model.Text = field.Text ?? $"{context.PartFieldDefinition.GetSettings<GraphUriIdFieldSettings>().NamespacePrefix}{context.TypePartDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid():D}";
                 string namespacePrefix =
                     context.PartFieldDefinition.GetSettings<GraphUriIdFieldSettings>().NamespacePrefix ??
                     _namespacePrefixConfiguration.CurrentValue.NamespacePrefixOptions.FirstOrDefault();
