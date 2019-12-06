@@ -119,8 +119,8 @@
                             }
                         },
                         {
-                            "PartName": "UriId",
-                            "Name": "UriId",
+                            "PartName": "Graph",
+                            "Name": "Graph",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -162,8 +162,8 @@
                             }
                         },
                         {
-                            "PartName": "UriId",
-                            "Name": "UriId",
+                            "PartName": "Graph",
+                            "Name": "Graph",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -205,8 +205,8 @@
                             }
                         },
                         {
-                            "PartName": "UriId",
-                            "Name": "UriId",
+                            "PartName": "Graph",
+                            "Name": "Graph",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -248,8 +248,8 @@
                             }
                         },
                         {
-                            "PartName": "UriId",
-                            "Name": "UriId",
+                            "PartName": "Graph",
+                            "Name": "Graph",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -282,20 +282,20 @@
                             }
                         },
                         {
-                            "PartName": "UriId",
-                            "Name": "UriId",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Graph",
+                            "Name": "Graph",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
                                 }
                             }
                         }
@@ -455,7 +455,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -465,7 +465,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Day to Day Activities",
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasDayToDayActivity].",
@@ -483,7 +483,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Categories",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasJobCategory].",
@@ -501,7 +501,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "QCF Level",
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__requiresQualification].",
@@ -518,7 +518,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "5"
+                                    "Position": "6"
                                 }
                             }
                         },
@@ -528,36 +528,17 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "6"
+                                    "Position": "7"
                                 }
                             }
                         },
                         {
-                            "FieldName": "LinkField",
-                            "Name": "JobProfileUrl",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Profile Url",
-                                    "Position": "7"
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "Name": "UriId",
-                    "Settings": {
-                        "ContentPartSettings": {
-                            "Attachable": true
-                        }
-                    },
-                    "ContentPartFieldDefinitionRecords": [
-                        {
                             "FieldName": "TextField",
-                            "Name": "URI",
+                            "Name": "JobProfileWebsiteUrl",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "URI"
+                                    "DisplayName": "Job Profile Website Url",
+                                    "Position": "1"
                                 }
                             }
                         }
@@ -638,6 +619,27 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "Graph",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Enables the content type to be synced to a graph."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "GraphUriIdField",
+                            "Name": "UriId",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "URI ID",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -698,177 +700,43 @@
             "name": "Content",
             "data": [
                 {
-                    "ContentItemId": "4bbk17zk9dgamxsm7x7pq7wk4v",
-                    "ContentItemVersionId": "4p0qxknexfftaycwctq5vfmacw",
-                    "ContentType": "Activity",
-                    "DisplayText": "Remotely Monitor Childrens Naughtyness or Niceness",
+                    "ContentItemId": "45hs71ab4wesg2ydsezn5142wh",
+                    "ContentItemVersionId": "46ekfrtsxsd0h5vy2my0f0x6m9",
+                    "ContentType": "Skill",
+                    "DisplayText": "Breaking and Entering",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2019-11-29T07:41:43.0952983Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.1151329Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.1151329Z",
+                    "ModifiedUtc": "2019-12-06T08:20:19.2134717Z",
+                    "PublishedUtc": "2019-12-06T08:21:28.7266883Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.2680226Z",
                     "Owner": "admin",
                     "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Remotely Monitor Childrens Naughtyness or Niceness"
-                    },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/Activity/2222222222222"
-                        }
-                    }
-                },
-                {
-                    "ContentItemId": "4sqg438kq6ewz79zt9dm8k0txn",
-                    "ContentItemVersionId": "45vxn6r0wtg8mw13fcz95z57w9",
-                    "ContentType": "Activity",
-                    "DisplayText": "Supervise Elves",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:03:07.9122707Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2438071Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2438071Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Supervise Elves"
-                    },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/Activity/11111111111111111"
-                        }
-                    }
-                },
-                {
-                    "ContentItemId": "40ap5fsjbqn01vw4xp9tq7144b",
-                    "ContentItemVersionId": "4d6rgz6fc2jp4sxkjgqdt5t2mx",
-                    "ContentType": "QCFLevel",
-                    "DisplayText": "1",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:09:38.4515816Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2473741Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2473741Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "QCFLevel": {
-                        "Description": {
-                            "Html": null
-                        }
-                    },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/QCFLevel/11111111111"
-                        }
-                    }
-                },
-                {
-                    "ContentItemId": "4pe912xftdyf95vvdjrjjacxc6",
-                    "ContentItemVersionId": "43wbeqyqxbf62xvm116xezb4cj",
-                    "ContentType": "QCFLevel",
-                    "DisplayText": "2",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:10:03.5053198Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2526064Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2526064Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "QCFLevel": {
-                        "Description": {
-                            "Html": null
-                        }
-                    },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/QCFLevel/22222222"
-                        }
-                    }
-                },
-                {
-                    "ContentItemId": "494fpmxjze5e1va1mjq0kejt4r",
-                    "ContentItemVersionId": "4vyr0fmp1rcakvtyz1q927qe4t",
-                    "ContentType": "JobCategory",
-                    "DisplayText": "Delivery and storage",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:12:02.0799725Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2552542Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2552542Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "JobCategory": {
-                        "Description": {
-                            "Html": "Delivery and storage description"
+                    "Skill": {
+                        "ESCOSkillUri": {
+                            "Text": null
                         },
-                        "JobProfiles": {
-                            "ContentItemIds": []
+                        "Description": {
+                            "Html": "The ability to enter a secured dwelling where a child lives, especially by descending down a chimney."
                         }
                     },
                     "TitlePart": {
-                        "Title": "Delivery and storage"
+                        "Title": "Breaking and Entering"
                     },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/JobCategory/111111111"
-                        }
-                    }
-                },
-                {
-                    "ContentItemId": "42r0z51j28n40y0rwh565v3hmq",
-                    "ContentItemVersionId": "4axfv4afb2fet2shsf89trt8ce",
-                    "ContentType": "Activity",
-                    "DisplayText": "Eat Mince Pies",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:13:01.4407012Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2598114Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2598114Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Eat Mince Pies"
-                    },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/Activity/333333333"
-                        }
-                    }
-                },
-                {
-                    "ContentItemId": "4m5jr4nmhh944t5kn2d1rfsm4f",
-                    "ContentItemVersionId": "46x24dz95a3v841zn145t181cf",
-                    "ContentType": "Activity",
-                    "DisplayText": "Pilot Flying Sleigh",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:13:54.6765233Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2625833Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2625833Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Pilot Flying Sleigh"
-                    },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/Activity/4444444444"
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/skill/c6e2474a-f002-492c-a91c-ef5cbd284485"
                         }
                     }
                 },
                 {
                     "ContentItemId": "48nr8n9kymsn977tjfp1d5qcne",
-                    "ContentItemVersionId": "4n9csevmfp7045g4n0ddrwy65h",
+                    "ContentItemVersionId": "4twn7954gh1zm7vtv0gjr9h7d1",
                     "ContentType": "JobCategory",
                     "DisplayText": "Administration",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:14:31.8928086Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2652779Z",
+                    "ModifiedUtc": "2019-12-06T08:22:12.0627436Z",
+                    "PublishedUtc": "2019-12-06T08:22:24.9444212Z",
                     "CreatedUtc": "2019-11-29T08:42:32.2652779Z",
                     "Owner": "admin",
                     "Author": "admin",
@@ -883,39 +751,237 @@
                     "TitlePart": {
                         "Title": "Administration"
                     },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/JobCategory/22222222"
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobcategory/97face03-da97-4f60-ae01-149b160f8899"
                         }
                     }
                 },
                 {
-                    "ContentItemId": "45hs71ab4wesg2ydsezn5142wh",
-                    "ContentItemVersionId": "4bd9dx7408hvq66ej7tq3m8tc5",
-                    "ContentType": "Skill",
-                    "DisplayText": "Breaking and Entering",
+                    "ContentItemId": "494fpmxjze5e1va1mjq0kejt4r",
+                    "ContentItemVersionId": "4880tb1vfvp5gxw64caejwk9c1",
+                    "ContentType": "JobCategory",
+                    "DisplayText": "Delivery and storage",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2019-11-29T08:18:03.2566379Z",
-                    "PublishedUtc": "2019-11-29T08:42:32.2680226Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2680226Z",
+                    "ModifiedUtc": "2019-12-06T08:22:35.9661533Z",
+                    "PublishedUtc": "2019-12-06T08:22:48.7484008Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.2552542Z",
                     "Owner": "admin",
                     "Author": "admin",
-                    "Skill": {
-                        "ESCOSkillUri": {
-                            "Text": null
-                        },
+                    "JobCategory": {
                         "Description": {
-                            "Html": "The ability to enter a secured dwelling where a child lives, especially by descending down a chimney."
-                        }
-                    },
-                    "UriId": {
-                        "URI": {
-                            "Text": "https://nationalcareers.service.gov.uk/Skill/111111111"
+                            "Html": "Delivery and storage description"
+                        },
+                        "JobProfiles": {
+                            "ContentItemIds": []
                         }
                     },
                     "TitlePart": {
-                        "Title": "Breaking and Entering"
+                        "Title": "Delivery and storage"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobcategory/9114860c-8f39-45d9-b32c-f8c213bdd0ed"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "4bbk17zk9dgamxsm7x7pq7wk4v",
+                    "ContentItemVersionId": "40q9ts31vmxxb6be021km2hg4x",
+                    "ContentType": "Activity",
+                    "DisplayText": "Remotely Monitor Childrens Naughtyness or Niceness",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2019-12-06T08:23:06.9535676Z",
+                    "PublishedUtc": "2019-12-06T08:23:12.9153063Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.1151329Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "Activity": {},
+                    "TitlePart": {
+                        "Title": "Remotely Monitor Childrens Naughtyness or Niceness"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/activity/df15e480-983e-43f2-a5d8-72391de97158"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "40ap5fsjbqn01vw4xp9tq7144b",
+                    "ContentItemVersionId": "4x5810tfzts6600j0r7q1emh5e",
+                    "ContentType": "QCFLevel",
+                    "DisplayText": "1",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2019-12-06T08:24:06.1287433Z",
+                    "PublishedUtc": "2019-12-06T08:24:12.1577405Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.2473741Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "QCFLevel": {
+                        "Description": {
+                            "Html": null
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "1"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/qcflevel/3eb50004-d16a-4895-804e-77025fe9b94c"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "4k9369bhv1pxhxrpxef2h7d3m0",
+                    "ContentItemVersionId": "4y9fdtrbg075220312bea2p4cy",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Santa's Wife",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2019-12-06T08:30:34.6776819Z",
+                    "PublishedUtc": "2019-12-06T08:30:38.0842888Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "JobProfile": {
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/2a04a1df-a3b9-403e-a245-e7f93fdddd44"
+                        },
+                        "Description": {
+                            "Html": "COO of Christmas enterprises"
+                        },
+                        "DaytoDayActivities": {
+                            "ContentItemIds": [
+                                "4sqg438kq6ewz79zt9dm8k0txn",
+                                "4bbk17zk9dgamxsm7x7pq7wk4v"
+                            ]
+                        },
+                        "JobCategories": {
+                            "ContentItemIds": [
+                                "48nr8n9kymsn977tjfp1d5qcne"
+                            ]
+                        },
+                        "QCFLevel": {
+                            "ContentItemIds": [
+                                "40ap5fsjbqn01vw4xp9tq7144b"
+                            ]
+                        },
+                        "SOCCode": {
+                            "Value": 3.0
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "2323"
+                        },
+                        "JobProfileUrl": {
+                            "Url": null,
+                            "Text": null
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "admin-assistant"
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "Santa's Wife"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/037f17e8-7f7a-4e34-8baa-023001c5a148"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "4sqg438kq6ewz79zt9dm8k0txn",
+                    "ContentItemVersionId": "4x43yqjtpyj2swd01my7cz7jwe",
+                    "ContentType": "Activity",
+                    "DisplayText": "Supervise Elves",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2019-12-06T08:30:52.1739097Z",
+                    "PublishedUtc": "2019-12-06T08:30:58.1754417Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.2438071Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "Activity": {},
+                    "TitlePart": {
+                        "Title": "Supervise Elves"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/activity/f279661a-3554-4fb0-881a-b865d56d5e6f"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "42r0z51j28n40y0rwh565v3hmq",
+                    "ContentItemVersionId": "4y8e8w24mtby4xqcwttkwzmyxn",
+                    "ContentType": "Activity",
+                    "DisplayText": "Eat Mince Pies",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2019-12-06T08:31:03.9403391Z",
+                    "PublishedUtc": "2019-12-06T08:31:12.501578Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.2598114Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "Activity": {},
+                    "TitlePart": {
+                        "Title": "Eat Mince Pies"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/activity/83722ca3-7ab2-4f1a-8371-c0ea762cf8a3"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "4m5jr4nmhh944t5kn2d1rfsm4f",
+                    "ContentItemVersionId": "4ar2591f89zy32rxazmgs1c653",
+                    "ContentType": "Activity",
+                    "DisplayText": "Pilot Flying Sleigh",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2019-12-06T08:31:18.7291942Z",
+                    "PublishedUtc": "2019-12-06T08:31:25.4309987Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.2625833Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "Activity": {},
+                    "TitlePart": {
+                        "Title": "Pilot Flying Sleigh"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/activity/363792aa-adea-4037-960e-016f57d6bc27"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "4pe912xftdyf95vvdjrjjacxc6",
+                    "ContentItemVersionId": "4a7y65sd1ra3e4c9wdx2bbdq4m",
+                    "ContentType": "QCFLevel",
+                    "DisplayText": "2",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2019-12-06T08:31:33.9369772Z",
+                    "PublishedUtc": "2019-12-06T08:31:41.057297Z",
+                    "CreatedUtc": "2019-11-29T08:42:32.2526064Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "QCFLevel": {
+                        "Description": {
+                            "Html": null
+                        }
+                    },
+                    "TitlePart": {
+                        "Title": "2"
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/qcflevel/8d1ae0f2-a593-4be0-9690-33cb917e41c3"
+                        }
                     }
                 }
             ]
