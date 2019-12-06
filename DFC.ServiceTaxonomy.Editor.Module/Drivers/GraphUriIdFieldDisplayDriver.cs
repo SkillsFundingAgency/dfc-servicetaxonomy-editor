@@ -14,13 +14,6 @@ using OrchardCore.DisplayManagement.Views;
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
     //todo: need to associate a prefix with a content type when loading from a recipe
-    //todo: change sync code to work with this field
-    // ^^ because user gets to name the field, we need a way of picking it out. options:
-    // wrap it in a well known content type
-    // find a way to set the field name
-    // add a property to the field which we can search for, e.g. well known guid/string
-    // rename text property to something more descriptive we can search for
-    // change from a custom field to a custom part (??)
     //todo: remove uri content part frm recipe
     //todo: update content types in recipe
     public class GraphUriIdFieldDisplayDriver : ContentFieldDisplayDriver<GraphUriIdField>
