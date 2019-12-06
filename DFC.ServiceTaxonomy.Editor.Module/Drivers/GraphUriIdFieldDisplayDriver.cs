@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
                     context.PartFieldDefinition.GetSettings<GraphUriIdFieldSettings>().NamespacePrefix ??
                     _namespacePrefixConfiguration.CurrentValue.NamespacePrefixOptions.FirstOrDefault();
 
-                model.Text = field.Text ?? $"{namespacePrefix}{context.TypePartDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid():D}";
+                model.Text = field.Text ?? $"{namespacePrefix}{context.TypePartDefinition.ContentTypeDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid():D}";
                 model.Field = field;
                 model.Part = context.ContentPart;
                 model.PartFieldDefinition = context.PartFieldDefinition;
