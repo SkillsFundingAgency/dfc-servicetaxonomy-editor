@@ -18,7 +18,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
             _namespacePrefixConfiguration = namespacePrefixConfiguration;
         }
 
-        //todo: don't really want/need user to name field???
         public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
         {
             return Initialize<GraphUriIdFieldSettings>("GraphUriIdFieldSettings_Edit", model =>
