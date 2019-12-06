@@ -14,8 +14,7 @@ using OrchardCore.DisplayManagement.Views;
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
     //todo: need to associate a prefix with a content type when loading from a recipe
-    //todo: remove uri content part frm recipe
-    //todo: update content types in recipe
+    //todo: now custom field is in a content part -> the namespace prefix is at the content part level, rather than content type level, where it needs to be
     public class GraphUriIdFieldDisplayDriver : ContentFieldDisplayDriver<GraphUriIdField>
     {
         private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
