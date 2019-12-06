@@ -15,6 +15,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
     //todo: need to associate a prefix with a content type when loading from a recipe
     //todo: now custom field is in a content part -> the namespace prefix is at the content part level, rather than content type level, where it needs to be
+    // todo: could implement uri id as custom editor for text field, rather than custom field??
+    // could use predefined list editor for namespace, but user can't add to list
     public class GraphUriIdFieldDisplayDriver : ContentFieldDisplayDriver<GraphUriIdField>
     {
         private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
