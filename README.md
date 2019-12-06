@@ -49,4 +49,4 @@ Firstly, you'll need to enable some features. Expand 'Configuration' and select 
 
 ## User Guide
 
-Here's the [user guide](User Documentation/README.md).
+Here's the [user guide](User%20Documentation/README.md).
