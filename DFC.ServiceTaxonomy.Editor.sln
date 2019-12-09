@@ -10,11 +10,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16DF71DE-7DEE-4E45-B613-CABA378B6D14}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		README.md = README.md
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Editor.UnitTests", "DFC.ServiceTaxonomy.Editor.UnitTests\DFC.ServiceTaxonomy.Editor.UnitTests.csproj", "{248782F2-4F59-4EC6-8403-7BC6235863E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor.UnitTests", "DFC.ServiceTaxonomy.Editor.UnitTests\DFC.ServiceTaxonomy.Editor.UnitTests.csproj", "{248782F2-4F59-4EC6-8403-7BC6235863E1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Documentation", "User Documentation", "{3E0A29D0-0E0C-4289-8BD0-C7355D6EBFF9}"
+	ProjectSection(SolutionItems) = preProject
+		User Documentation\README.md = User Documentation\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +42,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3E0A29D0-0E0C-4289-8BD0-C7355D6EBFF9} = {16DF71DE-7DEE-4E45-B613-CABA378B6D14}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B38FA84A-9199-474F-B57A-D4E40B208A6F}

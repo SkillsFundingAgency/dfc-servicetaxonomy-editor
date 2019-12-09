@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -74,25 +75,25 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             return Outcomes(T["Done"]);
         }
 
-        //todo: if any of this fails, we need to notify the user and cancel the create/edit in OC's database
-        //todo: why called twice?
+        //todo: if this fails, we notify the user, but the content still gets added to oc, and oc & the graph are then out-of-sync.
+        // we need to think of the best way to handle it. the event appears to trigger after the content is created (check)
+        // we don't want to remove the content in orchard core, as we don't want the user to have to reenter content
+        // perhaps we could mark the content as not synced (part of the graph content part?), and either the user can retry
+        // (and allow the user to filter by un-synced content)
+        // or we have a facility to check & sync all content in oc
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
             try
             {
                 var contentItem = (ContentItem) workflowContext.Input["ContentItem"];
 
-                // custom contentpart that prepopulates, readonly on create {ncsnamespaceconst}{contentItem.ContentType}{generated guid}
-                // else, on create content generate the uri here
-
-                // we use the existence of a UriId content part as a marker to indicate that the content item should be synced
+                // we use the existence of a Graph content part as a marker to indicate that the content item should be synced
                 // so we silently noop if it's not present
-                //todo: switch to custom (pre-populated) uri field
-                JToken uriId = ((JObject) contentItem.Content)["UriId"];
-                if (uriId == null)
+                dynamic graph = ((JObject) contentItem.Content)["Graph"];
+                if (graph == null)
                     return Outcomes("Done");
 
-                string nodeUri = contentItem.Content.UriId.URI.Text.ToString();
+                string nodeUri = graph.UriId.Text.ToString();
                 var setMap = new Dictionary<string, object>
                 {
                     {"skos__prefLabel", contentItem.Content.TitlePart.Title.ToString()},
@@ -101,8 +102,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
                 var relationships = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
-                // var fields = contentItem.Content[contentItem.ContentType];
-                // foreach (var field in fields)
                 foreach (dynamic? field in contentItem.Content[contentItem.ContentType])
                 {
                     if (field == null)
@@ -172,7 +171,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 string nodeLabel = NcsPrefix + contentItem.ContentType;
 
                 // could create ienumerable and have 1 call
-                var mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, setMap);
+                Statement mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, setMap);
                 if (relationships.Any())
                 {
                     await _neoGraphDatabase.RunWriteStatements(mergeNodesStatement,

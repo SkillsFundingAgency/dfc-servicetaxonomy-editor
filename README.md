@@ -2,17 +2,17 @@
 
 ## Build Status
 
-![Build Status](todo)
+[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20First%20Careers/_apis/build/status/Service%20Taxonomy/dfc-servicetaxonomy-editor?branchName=master)](https://sfa-gov-uk.visualstudio.com/Digital%20First%20Careers/_build/latest?definitionId=1923&branchName=master)
 
 ## Introduction
 
 This project is a headless content management system (CMS), that synchronises content into a graph database. It's being created by the [National Careers Service](https://nationalcareers.service.gov.uk/) to manage careers related content.
 
-### Developer Environment Setup
+## Developer Environment Setup
 
 The solution is built using .NET Core 3.1, a Neo4j database and a RDBMS database. You should be able to develop and run the solution on Windows, macOS or Linux. 'DFC.ServiceTaxonomy.Editor' should be the start up project.
 
-#### Set Up A Neo4j Graph
+### Set Up A Neo4j Graph
 
 Download [Neo4j desktop](https://neo4j.com/download/), install and run it.
 
@@ -28,7 +28,7 @@ To install the ESCO TTL file into Neo4J there are a number of steps that need to
 
 Setup a database to store the content. Any database with a .NET ADO provider is supported. For example, [setup a Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal). To quickly try it out, you can run a local Sqlite database with no initial setup necessary.
 
-#### Run And Configure Website
+### Run And Configure Website
 
 Clone the [GitHub repo](https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor) and open the solution DFC.ServiceTaxonomyEditor.sln in your favourite .NET Core supporting IDE, such as [Visual Studio](https://visualstudio.microsoft.com/), [Visual Code](https://code.visualstudio.com/) or [Rider](https://www.jetbrains.com/rider/).
 
@@ -39,7 +39,7 @@ Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the S
 
 You should then be directed to the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
 
-#### Manually Configure Website
+### Manually Configure Website
 
 If you use the provided recipe to initialise the site (as detailed above), there is no need to manually configure the site. This section is for informational purposes only.
 
@@ -60,3 +60,7 @@ To create a new Content Item you will need to select 'New' from the side menu an
 To view and edit existing 'Content Items you will need to select 'Content' -> 'Content Items' from the side menu which will take you to the 'Manage Content' page. You will then be able to 'Edit', 'View' or 'Delete' items.
 
 ![Enable Features](/Images/ViewAndEditExistingContentItems.png)
+
+## User Guide
+
+Here's the [user guide](User%20Documentation/README.md).

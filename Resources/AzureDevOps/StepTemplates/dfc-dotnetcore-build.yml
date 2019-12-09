@@ -1,0 +1,51 @@
+# NOTE WELL: This differs from the versionin dfc-devops due to having to publish a self-contained .net core app
+# Once Azure App Services natively supports dotnet core 3.1, we can go back to using ZIP deploys.
+parameters:
+  SolutionBaseName: ''
+  BuildPlatform: 'any cpu'
+  BuildConfiguration: 'release'
+  DotNetCoreVersion: ''
+  TestSuffix: Tests
+
+steps:
+ - task: UseDotNet@2
+   displayName: 'Use .NET Core sdk ${{ parameters.DotNetCoreVersion }}'
+   condition: ne('', '${{ parameters.DotNetCoreVersion }}')
+   inputs:
+     version: ${{ parameters.DotNetCoreVersion }}
+     IncludePreviewVersions: ${{ parameters.IncludePreviewVersions }}
+
+ - task: gittools.gitversion.gitversion-task.GitVersion@4
+   displayName: GitVersion
+   inputs:
+     preferBundledVersion: false
+
+ # task to package a web app
+ - task: DotNetCoreCLI@2
+   displayName: 'Publish - dotnet publish application ${{ parameters.SolutionBaseName }}'
+   inputs:
+     command: 'publish'
+     projects: '${{ parameters.SolutionBaseName }}\${{ parameters.SolutionBaseName }}.csproj'
+     arguments: '--self-contained true -r win-x86 --configuration ${{ parameters.BuildConfiguration }} --output $(build.artifactstagingdirectory)\Artifact\${{ parameters.SolutionBaseName }}\DeploymentPackages\'
+     publishWebProjects: false #set to false as this setting (which defaults to true) will parse the entire repo for web projects
+
+ - task: DotNetCoreCLI@2
+   displayName: 'Test - dotnet test application ${{ parameters.SolutionBaseName }}'
+   inputs:
+     command: test
+     projects: '${{ parameters.SolutionBaseName }}.${{ parameters.TestSuffix }}\${{ parameters.SolutionBaseName }}.${{ parameters.TestSuffix }}.csproj'
+     arguments: '--configuration ${{ parameters.BuildConfiguration }} --collect "Code coverage"'
+
+ - task: CopyFiles@2
+   displayName: 'Copy Files to: $(build.artifactstagingdirectory)\Artifact\${{ parameters.SolutionBaseName }}\Azure'
+   inputs:
+     sourceFolder: 'Resources'
+     contents: '**'
+     targetFolder: '$(build.artifactstagingdirectory)\Artifact\${{ parameters.SolutionBaseName }}\Azure'
+
+ - task: PublishBuildArtifacts@1
+   displayName: 'Publish Artifact: ${{ parameters.SolutionBaseName }}'
+   inputs:
+     pathtoPublish: $(build.artifactstagingdirectory)\Artifact\${{ parameters.SolutionBaseName }}\
+     artifactName: ${{ parameters.SolutionBaseName }}
+     publishLocation: container
