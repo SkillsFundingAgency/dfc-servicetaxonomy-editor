@@ -10,7 +10,7 @@ This project is a headless content management system (CMS), that synchronises co
 
 ## Developer Environment Setup
 
-The solution is built using .NET Core 3.1, a Neo4j database and a RDBMS database. You should be able to develop and run the solution on Windows, macOS or Linux.
+The solution is built using .NET Core 3.1, a Neo4j database and a RDBMS database. You should be able to develop and run the solution on Windows, macOS or Linux. 'DFC.ServiceTaxonomy.Editor' should be the start up project.
 
 ### Set Up A Neo4j Graph
 
@@ -22,7 +22,10 @@ Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the pass
 
 That's all you need to do for syncing within the editor to work. To perform interactive queries against the graph, once the graph is Active, click 'Manage' and then on the next page, click 'Open Browser'. If you're unfamiliar with the browser or Neo4j in general, check out the [docs](https://neo4j.com/developer/neo4j-browser/).
 
-### Create Content Database
+Optional Steps:
+To link data to ESCO you will need to install the ESCO TTL file into Neo4J, there are a number of steps that need to be followed and executed, for more information on how to do this view [Neo4J Setup](https://skillsfundingagency.atlassian.net/wiki/spaces/DFC/pages/1491501074/SPIKE+RDF+hosting+-+Neo4j+cluster) on Confluence. (This link is only available to Internal users)
+
+#### Create Content Database
 
 Setup a database to store the content. Any database with a .NET ADO provider is supported. For example, [setup a Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal). To quickly try it out, you can run a local Sqlite database with no initial setup necessary.
 
