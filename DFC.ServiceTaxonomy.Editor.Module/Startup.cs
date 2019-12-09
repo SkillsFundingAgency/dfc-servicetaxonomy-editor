@@ -25,6 +25,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module
         {
             TemplateContext.GlobalMemberAccessStrategy.Register<GraphUriIdField>();
             TemplateContext.GlobalMemberAccessStrategy.Register<DisplayGraphUriIdFieldViewModel>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<GraphLookupField>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayGraphLookupFieldViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)
@@ -47,6 +49,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldPredefinedListEditorSettingsDriver>();
             // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldHeaderDisplaySettingsDriver>();
 
+            // Graph Lookup Field
+            services.AddContentField<GraphLookupField>();
+            services.AddScoped<IContentFieldDisplayDriver, GraphLookupFieldDisplayDriver>();
+            services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphLookupFieldSettingsDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

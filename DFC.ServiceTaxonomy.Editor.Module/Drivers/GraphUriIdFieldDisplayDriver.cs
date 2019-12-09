@@ -13,6 +13,9 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
+    // https://github.com/Lombiq/Orchard-Training-Demo-Module/blob/orchard-core/StartLearningHere.md
+    // https://www.davidhayden.me/blog/develop-a-custom-widget-in-orchard-core-cms
+    //todo: ^^ need to add dependencies into manifest?
     //todo: need to associate a prefix with a content type when loading from a recipe
     //todo: now custom field is in a content part -> the namespace prefix is at the content part level, rather than content type level, where it needs to be
     // todo: could implement uri id as custom editor for text field, rather than custom field??
@@ -21,6 +24,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
     {
         private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
 
+        //todo: more appropriate to use IOptionsSnapshot?
         public GraphUriIdFieldDisplayDriver(IOptionsMonitor<NamespacePrefixConfiguration> namespacePrefixConfiguration)
         {
             _namespacePrefixConfiguration = namespacePrefixConfiguration;
@@ -42,6 +46,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
         {
             return Initialize<EditGraphUriIdFieldViewModel>(GetEditorShapeType(context), model =>
             {
+                // model.Url = context.IsNew ? settings.DefaultUrl : field.Url;
+
                 string namespacePrefix =
                     context.PartFieldDefinition.GetSettings<GraphUriIdFieldSettings>().NamespacePrefix ??
                     _namespacePrefixConfiguration.CurrentValue.NamespacePrefixOptions.FirstOrDefault();
