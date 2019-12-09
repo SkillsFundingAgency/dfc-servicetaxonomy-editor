@@ -10,7 +10,7 @@ This project is a headless content management system (CMS), that synchronises co
 
 ### Developer Environment Setup
 
-The solution is built using .NET Core 3.1, a Neo4j database and a RDBMS database. You should be able to develop and run the solution on Windows, macOS or Linux.
+The solution is built using .NET Core 3.1, a Neo4j database and a RDBMS database. You should be able to develop and run the solution on Windows, macOS or Linux. 'DFC.ServiceTaxonomy.Editor' should be the start up project.
 
 #### Set Up A Neo4j Graph
 
@@ -21,6 +21,8 @@ The project is currently hard coded to connect to a local graph, using the defau
 Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the password to `ESCO3`, select the latest version in the dropdown, then click 'Create'. Once the graph is created, click the 'Start' button.
 
 That's all you need to do for syncing within the editor to work. To perform interactive queries against the graph, once the graph is Active, click 'Manage' and then on the next page, click 'Open Browser'. If you're unfamiliar with the browser or Neo4j in general, check out the [docs](https://neo4j.com/developer/neo4j-browser/).
+
+To install the ESCO TTL file into Neo4J there are a number of steps that need to be followed and executed, for more information on how to do this view [Neo4J Setup](https://skillsfundingagency.atlassian.net/wiki/spaces/DFC/pages/1491501074/SPIKE+RDF+hosting+-+Neo4j+cluster) on Confluence
 
 #### Create Content Database
 
@@ -46,3 +48,15 @@ Firstly, you'll need to enable some features. Expand 'Configuration' and select 
 * Workflows (Workflows category)
 
 ![Enable Features](/Images/GraphSyncFeature.PNG)
+
+#### Create Content Item
+
+To create a new Content Item you will need to select 'New' from the side menu and select a 'Content Type'. Once you have selected a 'Content Type' you are then able to enter the details and either 'Publish', 'Save Draft' or 'Preview' the Content Item.
+
+![Enable Features](/Images/CreateContentType.png)
+
+#### View and Edit Content Item
+
+To view and edit existing 'Content Items you will need to select 'Content' -> 'Content Items' from the side menu which will take you to the 'Manage Content' page. You will then be able to 'Edit', 'View' or 'Delete' items.
+
+![Enable Features](/Images/ViewAndEditExistingContentItems.png)
