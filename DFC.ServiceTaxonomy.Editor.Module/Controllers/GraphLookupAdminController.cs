@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using Microsoft.AspNetCore.Mvc;
+using Neo4j.Driver;
 using OrchardCore.Admin;
 using OrchardCore.ContentFields.ViewModels;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
 {
@@ -15,22 +15,19 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
     public class GraphLookupAdminController : Controller
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IEnumerable<IContentPickerResultProvider> _resultProviders;
+        private readonly INeoGraphDatabase _neoGraphDatabase;
 
-        public GraphLookupAdminController(
-            IContentDefinitionManager contentDefinitionManager,
-            IEnumerable<IContentPickerResultProvider> resultProviders
-            )
+        public GraphLookupAdminController(IContentDefinitionManager contentDefinitionManager, INeoGraphDatabase neoGraphDatabase)
         {
             _contentDefinitionManager = contentDefinitionManager;
-            _resultProviders = resultProviders;
+            _neoGraphDatabase = neoGraphDatabase;
         }
 
-        public Task<IActionResult> SearchLookupNodes(string part, string field, string query)
+        public async Task<IActionResult> SearchLookupNodes(string part, string field, string query)
         {
             if (string.IsNullOrWhiteSpace(part) || string.IsNullOrWhiteSpace(field))
             {
-                return Task.FromResult((IActionResult)BadRequest("Part and field are required parameters"));
+                return BadRequest("Part and field are required parameters");
             }
 
             var partFieldDefinition = _contentDefinitionManager.GetPartDefinition(part)?.Fields
@@ -39,30 +36,24 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
             var fieldSettings = partFieldDefinition?.GetSettings<GraphLookupFieldSettings>();
             if (fieldSettings == null)
             {
-                return Task.FromResult((IActionResult)BadRequest("Unable to find field definition"));
+                return BadRequest("Unable to find field definition");
             }
 
-            var editor = partFieldDefinition.Editor() ?? "Default";
-            var resultProvider = _resultProviders.FirstOrDefault(p => p.Name == editor);
-            if (resultProvider == null)
+            try
             {
-                return Task.FromResult((IActionResult)new ObjectResult(new List<ContentPickerResult>()));
+                //todo: rename to IdFieldName, as needs to be unique??
+                //todo: assumes array of display fields
+                var results = await _neoGraphDatabase.RunReadStatement(
+                    new Statement($"match (n:{fieldSettings.NodeLabel}) where head(n.{fieldSettings.DisplayFieldName}) starts with '{query}' return head(n.{fieldSettings.DisplayFieldName}) as {fieldSettings.DisplayFieldName}, n.{fieldSettings.ValueFieldName} as {fieldSettings.ValueFieldName}"),
+                    r => new VueMultiselectItemViewModel { Id = r[fieldSettings.ValueFieldName].ToString(), DisplayText = r[fieldSettings.DisplayFieldName].ToString() });
+
+                return new ObjectResult(results);
             }
-
-            //var results = await resultProvider.Search(new ContentPickerSearchContext
-            //{
-            //    Query = query,
-            //    ContentTypes = fieldSettings.DisplayedContentTypes,
-            //    PartFieldDefinition = partFieldDefinition
-            //});
-
-            var results = new[]
+            catch (Exception e)
             {
-                new { ContentItemId = "Whistle", DisplayText = "http://esco/skill/123" },
-                new { ContentItemId = "Juggle", DisplayText = "http://esco/skill/456" }
-            };
-
-            return Task.FromResult((IActionResult)new ObjectResult(results.Select(r => new VueMultiselectItemViewModel { Id = r.ContentItemId, DisplayText = r.DisplayText })));
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

@@ -48,7 +48,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 
         public override async Task<IDisplayResult> UpdateAsync(GraphLookupField field, IUpdateModel updater, UpdateFieldEditorContext context)
         {
-            await updater.TryUpdateModelAsync(field, Prefix, f => f.DisplayText, f => f.Value);
+            await updater.TryUpdateModelAsync(field, Prefix,
+                f => f.DisplayText, f => f.Value);
 
             return Edit(field, context);
         }

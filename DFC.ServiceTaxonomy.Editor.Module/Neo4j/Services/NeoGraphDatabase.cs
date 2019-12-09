@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using Microsoft.Extensions.Options;
@@ -23,7 +24,25 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services
             //todo: add configuration/settings menu item/page so user can enter this
             var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
 
+            //todo: pass logger, see https://github.com/neo4j/neo4j-dotnet-driver
             _driver = GraphDatabase.Driver(neo4jConfiguration.Endpoint.Uri, AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password));
+        }
+
+        public async Task<List<T>> RunReadStatement<T>(Statement statement, Func<IRecord, T> operation)
+        {
+            IAsyncSession session = _driver.AsyncSession();
+            try
+            {
+                return await session.ReadTransactionAsync(async tx =>
+                {
+                    IStatementResultCursor result = await tx.RunAsync(statement);
+                    return await result.ToListAsync(operation);
+                });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
         }
 
         public async Task RunWriteStatements(params Statement[] statements)
