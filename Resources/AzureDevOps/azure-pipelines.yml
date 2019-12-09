@@ -1,13 +1,54 @@
-variables:
-    SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
-    BuildPlatform: 'any cpu'
-    BuildConfiguration: 'release'
-
 resources:
   repositories:
   - repository: self
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.6.12
+    ref: refs/tags/v1.8.2
     endpoint: 'GitHub (ESFA)'
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildArmTemplates
+    displayName: "Build the ARM templates"
+    pool: 'NCS - CI and CD'
+    steps:
+    - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
+      parameters:
+        ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
+
+  - job: BuildDotNet
+    pool: 'NCS - CI and CD'
+    displayName: "Build the dotnet core application"
+    steps:
+    - template: StepTemplates/dfc-dotnetcore-build.yml
+      parameters:
+        SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.100'
+        TestSuffix: UnitTests
+
+- stage: DeployToDev
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to DEV_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-dev
+  - group: dfc-stax-shared-dev
+  - template: VariableTemplates/DevEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: DEV_SERVICETAXONOMY
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: 'dfc-dev-stax-editor-as'
