@@ -55,13 +55,23 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphLookupFieldSettingsDriver>();
         }
 
+        //public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+        //{
+        //    routes.MapAreaControllerRoute(
+        //        name: "Home",
+        //        areaName: "DFC.ServiceTaxonomy.Editor.Module",
+        //        pattern: "Home/Index",
+        //        defaults: new { controller = "Home", action = "Index" }
+        //    );
+        //}
+
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(
-                name: "Home",
+                name: "GraphLookup",
                 areaName: "DFC.ServiceTaxonomy.Editor.Module",
-                pattern: "Home/Index",
-                defaults: new { controller = "Home", action = "Index" }
+                pattern: "GraphLookup/SearchLookupNodes",
+                defaults: new { controller = "GraphLookupAdmin", action = "SearchLookupNodes" }
             );
         }
     }
