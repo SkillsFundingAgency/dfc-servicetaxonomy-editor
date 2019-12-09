@@ -1,9 +1,10 @@
 parameters:
   AzureSubscription: ''  
+  Environment: ''
   PackageFile:  ''
   ArmTemplateFolder: ''
   Location: 'West Europe'
-  EnvironmentTag: 'DEV/Test'
+  EnvironmentTag: ''
   ParentBusinessTag: ''
   ServiceOfferingTag: ''
   ResourceGroup: ''
@@ -14,7 +15,7 @@ jobs:
 - deployment: DeployTemplate
   pool: 'NCS - CI and CD'
   displayName: "Deploy arm templates"
-  environment: DEV_SERVICETAXONOMY
+  environment: ${{ parameters.Environment }}
   strategy:
     runOnce:
       deploy:
@@ -31,7 +32,7 @@ jobs:
 - deployment: DeployGetAllSkills
   pool: 'NCS - CI and CD'
   displayName: "Deploy WebApp"
-  environment: DEV_SERVICETAXONOMY
+  environment: ${{ parameters.Environment }}
   dependsOn: 
   - DeployTemplate
   strategy:

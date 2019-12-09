@@ -38,6 +38,7 @@
         "AppServiceAppInsightsName": "[concat(variables('ResourcePrefix'), '-ai')]",
         "AppServicePlanName": "[if(greater(length(parameters('SharedAppServicePlanName')), 0), parameters('SharedAppServicePlanName'), concat(variables('ResourcePrefix'), '-asp'))]",
         "AppServicePlanResourceGroup": "[if(greater(length(parameters('SharedAppServicePlanResourceGroup')), 0), parameters('SharedAppServicePlanResourceGroup'), resourceGroup().name)]",
+        "DatabaseName": "[concat(variables('ResourcePrefix'), '-db')]",
         "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]"
     },
     "resources": [
@@ -123,7 +124,7 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "database-dfc-servicetaxonomy-editor",
+            "name": "[variables('DatabaseName')]",
             "type": "Microsoft.Resources/deployments",
             "resourceGroup": "[parameters('SqlResourceGroupName')]",
             "properties": {
@@ -134,7 +135,7 @@
                 },
                 "parameters": {
                     "databaseName": {
-                        "value": "dfc-servicetaxonomy-editor"
+                        "value": "[variables('DatabaseName')]"
                     },
                     "sqlServerName": {
                         "value": "[parameters('SqlServerName')]"
