@@ -3,19 +3,19 @@
 @using DFC.ServiceTaxonomy.Editor.Module.Settings
 
 @{
-    var settings = Model?.PartFieldDefinition?.Settings.ToObject<GraphLookupFieldSettings>();
+    var settings = Model?.PartFieldDefinition?.Settings["GraphLookupFieldSettings"].ToObject<GraphLookupFieldSettings>();
 }
 
 <fieldset class="form-group">
 
     @*todo vue multiselect*@
     @*todo add to settings editor display text*@
-    <label asp-for="DisplayText">@settings?.NodeLabel</label>
+    <label asp-for="DisplayText">@settings?.NodeLabel @settings.DisplayFieldName</label>
     <input asp-for="DisplayText" class="form-control content-preview-text">
 </fieldset>
 
 <fieldset class="form-group">
     @*todo add to settings editor display text*@
-    <label asp-for="Value">@settings?.DisplayFieldName</label>
+    <label asp-for="Value">@settings?.NodeLabel @settings.ValueFieldName</label>
     <input asp-for="Value" class="form-control content-preview-text" readonly>
 </fieldset>
