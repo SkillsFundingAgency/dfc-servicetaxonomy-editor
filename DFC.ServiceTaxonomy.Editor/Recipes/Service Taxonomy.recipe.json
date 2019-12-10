@@ -101,20 +101,20 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "JobProfile",
-                            "Name": "JobProfile",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "JobProfile",
+                            "Name": "JobProfile",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -440,85 +440,32 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "ESCOOccupationUri",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "ESCO Occupation Uri",
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "HtmlField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Position": "2"
+                                    "Position": "0"
                                 }
                             }
                         },
                         {
-                            "FieldName": "ContentPickerField",
-                            "Name": "DaytoDayActivities",
+                            "FieldName": "TextField",
+                            "Name": "ESCOOccupationUri",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Day to Day Activities",
-                                    "Position": "3"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasDayToDayActivity].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "Activity"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
+                                    "DisplayName": "ESCO Occupation Uri",
+                                    "Position": "1"
+                                }
                             }
                         },
                         {
-                            "FieldName": "ContentPickerField",
-                            "Name": "JobCategories",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Categories",
-                                    "Position": "4"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasJobCategory].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "JobCategory"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "QCFLevel",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "QCF Level",
-                                    "Position": "5"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__requiresQualification].",
-                                    "DisplayedContentTypes": [
-                                        "QCFLevel"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "NumericField",
+                            "FieldName": "TextField",
                             "Name": "SOCCode",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "6"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -528,7 +475,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "7"
+                                    "Position": "3"
                                 }
                             }
                         },
@@ -538,7 +485,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "1"
+                                    "Position": "4"
                                 }
                             }
                         }
@@ -835,60 +782,382 @@
                     }
                 },
                 {
-                    "ContentItemId": "4k9369bhv1pxhxrpxef2h7d3m0",
-                    "ContentItemVersionId": "4y9fdtrbg075220312bea2p4cy",
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
                     "ContentType": "JobProfile",
-                    "DisplayText": "Santa's Wife",
+                    "DisplayText": "3D printing technician",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2019-12-06T08:30:34.6776819Z",
-                    "PublishedUtc": "2019-12-06T08:30:38.0842888Z",
+                    "ModifiedUtc": "2017-01-17T12:33:31Z",
+                    "PublishedUtc": "2017-01-17T12:33:31Z",
                     "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
                     "Owner": "admin",
                     "Author": "admin",
+                    "TitlePart": {
+                        "Title": "3D printing technician"
+                    },
                     "JobProfile": {
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/2a04a1df-a3b9-403e-a245-e7f93fdddd44"
-                        },
                         "Description": {
-                            "Html": "COO of Christmas enterprises"
+                            "Html": "3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories."
                         },
-                        "DaytoDayActivities": {
-                            "ContentItemIds": [
-                                "4sqg438kq6ewz79zt9dm8k0txn",
-                                "4bbk17zk9dgamxsm7x7pq7wk4v"
-                            ]
-                        },
-                        "JobCategories": {
-                            "ContentItemIds": [
-                                "48nr8n9kymsn977tjfp1d5qcne"
-                            ]
-                        },
-                        "QCFLevel": {
-                            "ContentItemIds": [
-                                "40ap5fsjbqn01vw4xp9tq7144b"
-                            ]
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/4cf7be91-fed9-47a7-9ca9-e74c7eb6becb"
                         },
                         "SOCCode": {
-                            "Value": 3.0
+                            "Text": "3122D"
                         },
                         "JobProfileSOCID": {
-                            "Text": "2323"
-                        },
-                        "JobProfileUrl": {
-                            "Url": null,
-                            "Text": null
+                            "Text": "312D"
                         },
                         "JobProfileWebsiteUrl": {
-                            "Text": "admin-assistant"
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/3d-printing-technician"
                         }
-                    },
-                    "TitlePart": {
-                        "Title": "Santa's Wife"
                     },
                     "Graph": {
                         "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/037f17e8-7f7a-4e34-8baa-023001c5a148"
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/c3fc1f41-f523-4061-b3a0-41901866a54b"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Accommodation warden",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2017-01-17T13:33:40Z",
+                    "PublishedUtc": "2017-01-17T13:33:40Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Accommodation warden"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Accommodation wardens manage the day-to-day running of services like sheltered housing, youth hostels and student flats."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/53cdd34e-22f2-41bd-b3c7-de22bf9bbcae"
+                        },
+                        "SOCCode": {
+                            "Text": "6144A"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "6144A"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/accommodation-warden"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/bd2d76e2-1843-424d-9c99-f263269d6e73"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Accounting technician",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2017-01-17T13:13:06Z",
+                    "PublishedUtc": "2017-01-17T13:13:06Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Accounting technician"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Accounting technicians handle day-to-day financial matters in all types of business."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/eda0d957-3c3c-4139-b89a-a18bc9e18897"
+                        },
+                        "SOCCode": {
+                            "Text": "3537A"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "3537A"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/accounting-technician"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/8caf68a6-70a2-4d3b-9ba2-51f952b5dd11"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Acoustics consultant",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2016-07-05T16:18:41Z",
+                    "PublishedUtc": "2016-07-05T16:18:41Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Acoustics consultant"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Acoustics consultants help manage and control noise and vibrations in homes, workplaces and other environments."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/b065b637-5cb5-44d9-8c39-08004b51734e"
+                        },
+                        "SOCCode": {
+                            "Text": "2129A"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "2129A"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/acoustics-consultant"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/f901f7ef-2715-48de-8f3a-249c60467696"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Actor",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2017-01-17T13:01:57Z",
+                    "PublishedUtc": "2017-01-17T13:01:57Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Actor"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Actors use speech, movement and expression to bring characters to life in theatre, film, television and radio."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/26171f39-e85a-448f-bd28-a73a5a99927f"
+                        },
+                        "SOCCode": {
+                            "Text": "3413B"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "3413B"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/actor"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Actuary",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2016-07-05T15:24:23Z",
+                    "PublishedUtc": "2016-07-05T15:24:23Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Actuary"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Actuaries work with companies and government departments, to help them forecast long-term financial costs and investment risks."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/068c2787-58ff-468e-bbb6-c4e5dd6ee482"
+                        },
+                        "SOCCode": {
+                            "Text": "2425A"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "2425A"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/actuary"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Acupuncturist",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2017-02-02T11:40:14Z",
+                    "PublishedUtc": "2017-02-02T11:40:14Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Acupuncturist"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Acupuncturists insert needles into pressure points on clients' bodies to help relieve everyday stresses, and improve their wellbeing."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/2dcb5dad-1902-4051-9023-d725485479a7"
+                        },
+                        "SOCCode": {
+                            "Text": "2229C"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "2229C"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/acupuncturist"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/a7f8662f-b843-4f13-b3ed-f7d62e3bd028"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Admin assistant",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2017-01-17T13:10:16Z",
+                    "PublishedUtc": "2017-01-17T13:10:16Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Admin assistant"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Admin assistants give support to offices by organising meetings, typing documents and updating computer records."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/044d78cc-f62f-4532-83a5-8e04f2889652"
+                        },
+                        "SOCCode": {
+                            "Text": "4159B"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "4159B"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/admin-assistant"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/c8f574c0-7c24-4f01-b90a-95b8214a32fd"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Advertising account executive",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2017-01-17T13:12:13Z",
+                    "PublishedUtc": "2017-01-17T13:12:13Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Advertising account executive"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Advertising account executives provide the link between an advertising agency and its clients."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/4ebf2dae-c326-4627-befe-fbc91410f432"
+                        },
+                        "SOCCode": {
+                            "Text": "3543B"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "3543B"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/advertising-account-executive"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/26095465-aa3c-4f6c-97ce-5a5909141061"
+                        }
+                    }
+                },
+                {
+                    "ContentItemId": "[js:uuid()]",
+                    "ContentItemVersionId": "[js:uuid()]",
+                    "ContentType": "JobProfile",
+                    "DisplayText": "Advertising account planner",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2017-01-24T17:25:32Z",
+                    "PublishedUtc": "2017-01-24T17:25:32Z",
+                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Advertising account planner"
+                    },
+                    "JobProfile": {
+                        "Description": {
+                            "Html": "Advertising account planners develop and plan advertising campaigns to make sure they reach the right audience."
+                        },
+                        "ESCOOccupationUri": {
+                            "Text": "http://data.europa.eu/esco/occupation/e01719f4-d7dd-42fe-b504-93128520f84a"
+                        },
+                        "SOCCode": {
+                            "Text": "3543J"
+                        },
+                        "JobProfileSOCID": {
+                            "Text": "3543J"
+                        },
+                        "JobProfileWebsiteUrl": {
+                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/advertising-account-planner"
+                        }
+                    },
+                    "Graph": {
+                        "UriId": {
+                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/99538110-da2c-4cc0-aad9-ea64ac5f758c"
                         }
                     }
                 },
