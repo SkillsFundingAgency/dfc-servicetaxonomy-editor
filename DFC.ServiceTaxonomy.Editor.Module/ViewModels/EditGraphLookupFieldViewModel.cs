@@ -10,6 +10,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
     {
         public string? ItemIds { get; set; }
 
+        //todo: sprinkle some [BindNever]'s?
+
         public GraphLookupField? Field { get; set; }
         public ContentPart? Part { get; set; }
         public ContentPartFieldDefinition? PartFieldDefinition { get; set; }
