@@ -23,25 +23,6 @@
 
 <style asp-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.min.css" debug-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.css"></style>
 
-
-
-
-@*<fieldset class="form-group">*@
-
-    @*todo vue multiselect*@
-    @*todo add to settings editor display text*@
-    @*<label asp-for="DisplayText">@settings?.NodeLabel @settings?.DisplayFieldName</label>
-    <input asp-for="DisplayText" class="form-control content-preview-text">
-</fieldset>
-
-<fieldset class="form-group">*@
-    @*todo add to settings editor display text*@
-    @*<label asp-for="Value">@settings?.NodeLabel @settings?.ValueFieldName</label>
-    <input asp-for="Value" class="form-control content-preview-text" readonly>
-</fieldset>*@
-
-
-
 @*todo field name in settings*@
 <label asp-for="DisplayText">@settings?.NodeLabel</label>
 
@@ -66,8 +47,9 @@
 
     <fieldset class="form-group">
         <div class="w-xl-50">
-            <input asp-for="DisplayText" type="hidden" v-model="selectedIds" />
-            <vue-multiselect v-model="value" :options="options" track-by="id"
+            @*todo track-by needs oc's vue-multiselect-wrapper.js's arrayOfItems' field named id?*@
+            <input asp-for="ItemIds" type="hidden" v-model="selectedIds"/>
+            <vue-multiselect v-model="value" :options="options" track-by="id" @*track-by="value"*@
                              label="displayText" placeholder="@T["Type to search"]"
                              @@search-change="asyncFind" @@select="onSelect"
                              :searchable="true" :close-on-select="true" :reset-after="true"
