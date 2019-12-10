@@ -56,6 +56,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         }
 
+        //todo: have as setting of activity
         private const string NcsPrefix = "ncs__";
 
         private IStringLocalizer T { get; }

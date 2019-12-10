@@ -60,6 +60,11 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             });
         }
 
+        //todo: need a custom content part with settings on the contenttype/part level
+        // reuse same pattern for uri id field
+        // making a part makes it easier to pick out data in sync
+        // add interface that sync process uses to delegate sync to custom part/field
+
         //todo: don't like new select appearing once selected disabled - nasty!
         // could just add trash can back to get functional first
         // then look to just allow the user to select using the same select
