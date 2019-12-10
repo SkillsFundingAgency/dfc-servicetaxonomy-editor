@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
+using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
+using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using DFC.ServiceTaxonomy.Editor.Module.ViewModels;
-using Microsoft.Extensions.Options;
+using Neo4j.Driver;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.DisplayManagement.ModelBinding;
@@ -14,12 +16,11 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
     //todo: check button to show limit 10 examples? (similar to test connection)
     public class GraphLookupFieldDisplayDriver : ContentFieldDisplayDriver<GraphLookupField>
     {
-        private readonly IOptionsMonitor<Neo4jConfiguration> _neo4JConfiguration;
+        private readonly INeoGraphDatabase _neoGraphDatabase;
 
-        //todo: more appropriate to use IOptionsSnapshot?
-        public GraphLookupFieldDisplayDriver(IOptionsMonitor<Neo4jConfiguration> neo4jConfiguration)
+        public GraphLookupFieldDisplayDriver(INeoGraphDatabase neoGraphDatabase)
         {
-            _neo4JConfiguration = neo4jConfiguration;
+            _neoGraphDatabase = neoGraphDatabase;
         }
 
         public override IDisplayResult Display(GraphLookupField field, BuildFieldDisplayContext fieldDisplayContext)
@@ -30,6 +31,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
                 model.Part = fieldDisplayContext.ContentPart;
                 model.PartFieldDefinition = fieldDisplayContext.PartFieldDefinition;
             })
+                //todo: location?
                 .Location("Content")
                 .Location("SummaryAdmin", "");
         }
@@ -39,8 +41,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             return Initialize<EditGraphLookupFieldViewModel>(GetEditorShapeType(context), model =>
             {
                 // model.Url = context.IsNew ? settings.DefaultUrl : field.Url;
-                //model.DisplayText = "";
-                //model.Value = "";
 
                 model.ItemIds = field.Value;
 
@@ -60,12 +60,12 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             });
         }
 
+        //todo: don't like new select appearing once selected disabled - nasty!
+        // could just add trash can back to get functional first
+        // then look to just allow the user to select using the same select
+        //todo: add display names for node label and display field, then use in field label and hint
         public override async Task<IDisplayResult> UpdateAsync(GraphLookupField field, IUpdateModel updater, UpdateFieldEditorContext context)
         {
-            //await updater.TryUpdateModelAsync(field, Prefix, f => f.Value);
-
-            //return Edit(field, context);
-
             var viewModel = new EditGraphLookupFieldViewModel();
 
             var modelUpdated = await updater.TryUpdateModelAsync(viewModel, Prefix, f => f.ItemIds);
@@ -73,6 +73,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             if (modelUpdated)
             {
                 field.Value = viewModel.ItemIds;
+
+                //todo: here we get the display field from the graph, but it would be better to get it from the model
+                var settings = context.PartFieldDefinition.GetSettings<GraphLookupFieldSettings>();
+
+                var results = await _neoGraphDatabase.RunReadStatement(new Statement(
+                        $"match (n:{settings.NodeLabel} {{{settings.ValueFieldName}:'{field.Value}'}}) return head(n.{settings.DisplayFieldName}) as displayField"),
+                    r => r["displayField"].ToString());
+
+                field.DisplayText = results.First();
             }
 
             return Edit(field, context);

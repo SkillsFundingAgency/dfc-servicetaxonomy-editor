@@ -24,7 +24,7 @@
 <style asp-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.min.css" debug-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.css"></style>
 
 @*todo field name in settings*@
-<label asp-for="DisplayText">@settings?.NodeLabel</label>
+<label asp-for="ItemIds">@settings?.NodeLabel</label>
 
 @*todo don't want a search-url if readonly*@
 <div id="@vueElementId" class="vue-multiselect" data-part="@partName" data-field="@fieldName" data-editor-type="GraphLookup" data-selected-items="@selectedItems" data-tenant-path="@tenantPath" data-search-url="GraphLookup/SearchLookupNodes?part=@partName&field=@fieldName" data-multiple="false">

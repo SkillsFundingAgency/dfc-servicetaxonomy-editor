@@ -10,8 +10,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
     {
         public string? ItemIds { get; set; }
 
-        public string? DisplayText { get; set; }
-        //public string? Value { get; set; }
         public GraphLookupField? Field { get; set; }
         public ContentPart? Part { get; set; }
         public ContentPartFieldDefinition? PartFieldDefinition { get; set; }
