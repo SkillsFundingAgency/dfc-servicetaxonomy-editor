@@ -11,6 +11,8 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
 {
+#pragma warning disable S2479 // Whitespace and control characters in string literals should be explicit
+
     [Admin]
     public class GraphLookupAdminController : Controller
     {
@@ -44,7 +46,14 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
                 //todo: rename to IdFieldName, as needs to be unique??
                 //todo: assumes array of display fields
                 var results = await _neoGraphDatabase.RunReadStatement(
-                    new Statement($"match (n:{fieldSettings.NodeLabel}) where head(n.{fieldSettings.DisplayFieldName}) starts with '{query}' return head(n.{fieldSettings.DisplayFieldName}) as {fieldSettings.DisplayFieldName}, n.{fieldSettings.ValueFieldName} as {fieldSettings.ValueFieldName}"),
+                    //todo: hardcode as names
+                    new Statement(
+$@"match (n:{fieldSettings.NodeLabel})
+where head(n.{fieldSettings.DisplayFieldName}) starts with '{query}'
+return head(n.
+{fieldSettings.DisplayFieldName}) as {fieldSettings.DisplayFieldName}, n.{fieldSettings.ValueFieldName} as {fieldSettings.ValueFieldName}
+order by {fieldSettings.DisplayFieldName}
+limit 50"),
                     r => new VueMultiselectItemViewModel { Id = r[fieldSettings.ValueFieldName].ToString(), DisplayText = r[fieldSettings.DisplayFieldName].ToString() });
 
                 return new ObjectResult(results);
@@ -56,4 +65,5 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
             }
         }
     }
+#pragma warning restore S2479 // Whitespace and control characters in string literals should be explicit
 }

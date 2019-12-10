@@ -5,7 +5,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
 {
     public class DisplayGraphLookupFieldViewModel
-{
+    {
         public string? DisplayText => Field?.DisplayText;
         public string? Value => Field?.Value;
         public GraphLookupField? Field { get; set; }

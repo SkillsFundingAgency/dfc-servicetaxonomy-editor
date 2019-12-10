@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
 using DFC.ServiceTaxonomy.Editor.Module.ViewModels;
@@ -38,18 +39,48 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             return Initialize<EditGraphLookupFieldViewModel>(GetEditorShapeType(context), model =>
             {
                 // model.Url = context.IsNew ? settings.DefaultUrl : field.Url;
-                model.DisplayText = "";
-                model.Value = "";
+                //model.DisplayText = "";
+                //model.Value = "";
+                //model.Field = field;
+                //model.Part = context.ContentPart;
+                //model.PartFieldDefinition = context.PartFieldDefinition;
+
+
+
+                //                model.ItemIds = string.Join(",", field.ContentItemIds);
+                model.ItemIds = field.Value;
+
                 model.Field = field;
                 model.Part = context.ContentPart;
                 model.PartFieldDefinition = context.PartFieldDefinition;
+
+                model.SelectedItems = new List<VueMultiselectItemViewModel>();
+
+                //foreach (var contentItemId in field.ContentItemIds)
+                //{
+                    //var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
+
+                    //if (contentItem == null)
+                    //{
+                    //    continue;
+                    //}
+
+                    if (field.DisplayText != null && field.Value != null)
+                    {
+                        model.SelectedItems.Add(new VueMultiselectItemViewModel
+                        {
+                            Value = field.Value, DisplayText = field.DisplayText
+                        });
+                    }
+                    //}
+
+
             });
         }
 
         public override async Task<IDisplayResult> UpdateAsync(GraphLookupField field, IUpdateModel updater, UpdateFieldEditorContext context)
         {
-            await updater.TryUpdateModelAsync(field, Prefix,
-                f => f.DisplayText, f => f.Value);
+            await updater.TryUpdateModelAsync(field, Prefix, f => f.Value);
 
             return Edit(field, context);
         }
