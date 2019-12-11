@@ -11,6 +11,7 @@
     //var partName = Model?.PartFieldDefinition?.PartDefinition.Name;
     //var fieldName = Model?.PartFieldDefinition?.Name;
     var partName = Model?.PartName;
+    var contentName = Model?.GraphLookupPart?.ContentItem?.ContentType;
     var tenantPath = Context.Request.PathBase.Value;
 //    var vueElementId = $"GraphLookup_{partName}_{fieldName}_{Guid.NewGuid():n}";
     //todo: might want a better prefix, but this will work
@@ -32,7 +33,7 @@
 
 @*todo don't want a search-url if readonly*@
 @*todo what (if any) part of oc uses data-field?*@
-<div id="@vueElementId" class="vue-multiselect" data-part="@partName" @*data-field="@fieldName"*@ data-editor-type="GraphLookup" data-selected-items="@selectedItems" data-tenant-path="@tenantPath" data-search-url="GraphLookup/SearchLookupNodes?part=@partName" data-multiple="false">
+<div id="@vueElementId" class="vue-multiselect" data-part="@partName" @*data-field="@fieldName"*@ data-editor-type="GraphLookup" data-selected-items="@selectedItems" data-tenant-path="@tenantPath" data-search-url="GraphLookup/SearchLookupNodes?part=@partName&content=@contentName" data-multiple="false">
 
     <fieldset class="form-group">
         <ul class="list-group w-xl-50 content-picker-default__list" v-show="arrayOfItems.length" v-cloak>

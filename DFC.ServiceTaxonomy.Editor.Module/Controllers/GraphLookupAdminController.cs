@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
             _neoGraphDatabase = neoGraphDatabase;
         }
 
-        public async Task<IActionResult> SearchLookupNodes(string part, string query)
+        public async Task<IActionResult> SearchLookupNodes(string part, string content, string query)
         {
             if (string.IsNullOrWhiteSpace(part))
             {
@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
 
             //todo: pass in type name
             var settings = _contentDefinitionManager
-                .GetTypeDefinition("testgraphlookuppart")
+                .GetTypeDefinition(content)
                 .Parts.FirstOrDefault(p => p.Name == part)
                 .GetSettings<GraphLookupPartSettings>();
             if (settings == null)
