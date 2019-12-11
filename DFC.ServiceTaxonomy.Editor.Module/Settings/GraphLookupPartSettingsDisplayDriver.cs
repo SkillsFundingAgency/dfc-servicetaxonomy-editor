@@ -21,7 +21,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
             {
                 var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-                //model.Pattern = settings.Pattern;
+                model.DisplayName = settings.DisplayName;
+                model.Description = settings.Description;
 
                 model.NodeLabel = settings.NodeLabel;
                 model.DisplayFieldName = settings.DisplayFieldName;
@@ -35,23 +36,26 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 
         public override async Task<IDisplayResult> UpdateAsync(ContentTypePartDefinition contentTypePartDefinition, UpdateTypePartEditorContext context)
         {
-            //todo: is check strictly necessary? if so can't return null, can't change signature. throw?
-            //if (!string.Equals(nameof(GraphLookupPart), contentTypePartDefinition.PartDefinition.Name))
-            //{
-            //    return default;
-            //}
+            if (!string.Equals(nameof(GraphLookupPart), contentTypePartDefinition.PartDefinition.Name))
+            {
+                return default!;
+            }
 
             var model = new GraphLookupPartSettingsViewModel();
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
+                m => m.DisplayName,
+                m => m.Description,
                 m => m.NodeLabel,
-        m => m.DisplayFieldName,
-        m => m.ValueFieldName,
-        m => m.RelationshipType,
-        m => m.NodesAreReadonly))
+                m => m.DisplayFieldName,
+                m => m.ValueFieldName,
+                m => m.RelationshipType,
+                m => m.NodesAreReadonly))
             {
                 context.Builder.WithSettings(new GraphLookupPartSettings
                 {
+                    DisplayName = model.DisplayName,
+                    Description = model.Description,
                     NodeLabel = model.NodeLabel,
                     DisplayFieldName = model.DisplayFieldName,
                     ValueFieldName = model.ValueFieldName,

@@ -5,7 +5,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
 {
     public class GraphLookupPartSettingsViewModel
     {
-        //todo: these are in settings, where do they belong?
+        public string? DisplayName { get; set; }
+        public string? Description { get; set; }
+
         public string? NodeLabel { get; set; }
         //public List<string>? DisplayFieldName { get; set; }
         public string? DisplayFieldName { get; set; }

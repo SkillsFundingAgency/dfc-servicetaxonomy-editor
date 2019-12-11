@@ -3,6 +3,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 {
     public class GraphLookupPartSettings
     {
+        public string? DisplayName { get; set; }
+        public string? Description { get; set; }
+
         public string? NodeLabel { get; set; }
         //public List<string>? DisplayFieldName { get; set; }
         public string? DisplayFieldName { get; set; }

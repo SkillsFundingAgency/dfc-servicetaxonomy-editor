@@ -29,7 +29,7 @@
 <style asp-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.min.css" debug-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.css"></style>
 
 @*todo field name in settings*@
-<label asp-for="ItemIds">@settings?.NodeLabel</label>
+<label asp-for="ItemIds">@settings?.DisplayName</label>
 
 @*todo don't want a search-url if readonly*@
 @*todo what (if any) part of oc uses data-field?*@
@@ -69,7 +69,7 @@
                     @T["No result found"]
                 </template>
             </vue-multiselect>
-            <span class="hint">Search for and select the @settings?.DisplayFieldName of the @settings?.NodeLabel.</span>
+            <span class="hint">@settings?.Description</span>
         </div>
     </fieldset>
 </div>
