@@ -1,0 +1,151 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Environment": {
+            "type": "string"
+        },
+        "SharedAppServicePlanName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "SharedAppServicePlanResourceGroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "Neo4jUrl": {
+            "type": "string"
+        },
+        "Neo4jUsername": {
+            "type": "string"
+        },
+        "Neo4jPassword": {
+            "type": "securestring"
+        },
+        "SqlElasticPoolName": {
+            "type": "string"
+        },
+        "SqlServerName": {
+            "type": "string"
+        },
+        "SqlResourceGroupName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "BuildingBlocksDfcBaseUrl": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
+        "ResourcePrefix": "[tolower(concat('dfc-', parameters('Environment'), '-stax-editor'))]",        
+        "AppServiceAppInsightsName": "[concat(variables('ResourcePrefix'), '-ai')]",
+        "AppServicePlanName": "[if(greater(length(parameters('SharedAppServicePlanName')), 0), parameters('SharedAppServicePlanName'), concat(variables('ResourcePrefix'), '-asp'))]",
+        "AppServicePlanResourceGroup": "[if(greater(length(parameters('SharedAppServicePlanResourceGroup')), 0), parameters('SharedAppServicePlanResourceGroup'), resourceGroup().name)]",
+        "DatabaseName": "[concat(variables('ResourcePrefix'), '-db')]",
+        "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('AppServiceAppInsightsName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'application-insights.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appInsightsName": {
+                        "value": "[variables('AppServiceAppInsightsName')]"
+                    },
+                    "attachedService": {
+                        "value": ""
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('WebAppName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'app-service.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServiceName": {
+                        "value": "[variables('WebAppName')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[variables('AppServicePlanName')]"
+                    },
+                    "appServicePlanResourceGroup": {
+                        "value": "[variables('AppServicePlanResourceGroup')]"
+                    },
+                    "appServiceType": {
+                        "value": "app"
+                    },
+                    "deployStagingSlot": {
+                        "value": false
+                    },
+                    "appServiceAppSettings": {
+                        "value": [
+                            {
+                                "name": "MSDEPLOY_RENAME_LOCKED_FILES",
+                                "value": "1"
+                            },
+                            {
+                                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                                "value": "[reference(variables('AppServiceAppInsightsName')).outputs.InstrumentationKey.value]"
+                            },
+                            {
+                                "name": "WEBSITE_RUN_FROM_PACKAGE",
+                                "value": "0"
+                            },
+                            {
+                                "name": "Neo4j__Endpoint__Uri",
+                                "value": "[parameters('Neo4jUrl')]"
+                            },
+                            {
+                                "name": "Neo4j__Endpoint__Username",
+                                "value": "[parameters('Neo4jUsername')]"
+                            },
+                            {
+                                "name": "Neo4j__Endpoint__Password",
+                                "value": "[parameters('Neo4jPassword')]"
+                            }
+                        ]
+                    }
+                }
+            },
+            "dependsOn": [
+                "[variables('AppServiceAppInsightsName')]"
+            ]
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[variables('DatabaseName')]",
+            "type": "Microsoft.Resources/deployments",
+            "resourceGroup": "[parameters('SqlResourceGroupName')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'), 'SqlServer/sql-database.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "databaseName": {
+                        "value": "[variables('DatabaseName')]"
+                    },
+                    "sqlServerName": {
+                        "value": "[parameters('SqlServerName')]"
+                    },
+                    "elasticPoolName": {
+                        "value": "[parameters('SqlElasticPoolName')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+    }

@@ -1,0 +1,33 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Environment": {
+            "value": "__ReleaseEnvironmentName__"
+        },
+        "SharedAppServicePlanName": {
+            "value": "__StaxSharedAppServicePlan__"
+        },
+        "SharedAppServicePlanResourceGroup": {
+            "value": "__StaxSharedResourceGroup__"
+        },
+        "Neo4jUrl": {
+            "value": "__Neo4jUrl__"
+        },
+        "Neo4jUsername": {
+            "value": "__Neo4jUser__"
+        },
+        "Neo4jPassword": {
+            "value": "__Neo4jPassword__"
+        },
+        "SqlElasticPoolName": {
+            "value": "__elasticPoolName__"
+        },
+        "SqlServerName": {
+            "value": "__sharedSqlServerName__"
+        },
+        "SqlResourceGroupName": {
+            "value": "__SharedResourceGroupName__"
+        }        
+    }
+}

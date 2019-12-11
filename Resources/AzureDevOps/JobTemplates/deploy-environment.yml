@@ -1,0 +1,50 @@
+parameters:
+  AzureSubscription: ''  
+  Environment: ''
+  PackageFile:  ''
+  ArmTemplateFolder: ''
+  Location: 'West Europe'
+  EnvironmentTag: ''
+  ParentBusinessTag: ''
+  ServiceOfferingTag: ''
+  ResourceGroup: ''
+  ArtifactName: 'DFC.ServiceTaxonomy.Editor'
+  WebAppName: ''
+
+jobs:    
+- deployment: DeployTemplate
+  pool: 'NCS - CI and CD'
+  displayName: "Deploy arm templates"
+  environment: ${{ parameters.Environment }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - template: /AzureDevOpsTemplates/Deploy/StepTemplates/dfc-arm-deploy.yml@dfc-devops
+          parameters:
+            ArmTemplateRoot: '${{ parameters.ArmTemplateFolder }}'
+            ResourceGroup: '${{ parameters.ResourceGroup }}'
+            AzureSubscription: '${{ parameters.AzureSubscription }}'
+            EnvironmentTag: '${{ parameters.EnvironmentTag }}'
+            ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
+            ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
+
+- deployment: DeployGetAllSkills
+  pool: 'NCS - CI and CD'
+  displayName: "Deploy WebApp"
+  environment: ${{ parameters.Environment }}
+  dependsOn: 
+  - DeployTemplate
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        - task: AzureRmWebAppDeployment@4
+          displayName: 'Azure App Service Deploy: ${{ parameters.WebAppName }}'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            appType: webApp
+            WebAppName: '${{ parameters.WebAppName }}'
+            Package: "${{ parameters.PackageFile }}"
+            ResourceGroupName: '${{ parameters.ResourceGroup }}'
+            UseWebDeploy: true
