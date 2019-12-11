@@ -19,14 +19,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Handlers
 
         public override Task UpdatedAsync(UpdateContentContext context, GraphLookupPart part)
         {
-            var settings = GetSettings(part);
-
-            if (!string.IsNullOrEmpty(settings.NodeLabel))
-            {
-                part.Value = "value";
-                part.ContentItem.DisplayText = "todo content item display text";
-                part.Apply();
-            }
+            //todo: what does this handler do?
+            // var settings = GetSettings(part);
+            //
+            // if (!string.IsNullOrEmpty(settings.NodeLabel))
+            // {
+            //     part.Nodes = new (string id, string value)[0];
+            //     part.ContentItem.DisplayText = "todo content item display text";
+            //     part.Apply();
+            // }
 
             return Task.CompletedTask;
         }
