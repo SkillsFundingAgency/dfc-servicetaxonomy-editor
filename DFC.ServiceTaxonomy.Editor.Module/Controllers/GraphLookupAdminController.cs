@@ -21,49 +21,42 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
 
         public GraphLookupAdminController(IContentDefinitionManager contentDefinitionManager, INeoGraphDatabase neoGraphDatabase)
         {
-            _contentDefinitionManager = contentDefinitionManager;
-            _neoGraphDatabase = neoGraphDatabase;
+            _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
+            _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
         }
 
         public async Task<IActionResult> SearchLookupNodes(string part, string content, string query)
         {
-            if (string.IsNullOrWhiteSpace(part))
+            if (string.IsNullOrWhiteSpace(part) || string.IsNullOrWhiteSpace(content))
             {
-                return BadRequest("Part are required parameters");
+                return BadRequest("Part and content are required parameters");
             }
 
-            //todo: pass in type name
             var settings = _contentDefinitionManager
                 .GetTypeDefinition(content)
-                .Parts.FirstOrDefault(p => p.Name == part)
-                .GetSettings<GraphLookupPartSettings>();
+                ?.Parts?.FirstOrDefault(p => p.Name == part)
+                ?.GetSettings<GraphLookupPartSettings>();
             if (settings == null)
             {
                 return BadRequest("Unable to find field settings");
             }
 
-            try
-            {
-                //todo: rename to IdFieldName, as needs to be unique??
-                //todo: assumes array of display fields
-                var results = await _neoGraphDatabase.RunReadStatement(
-                    //todo: hardcode as names
-                    new Statement(
+            //todo: rename to IdFieldName, as needs to be unique??
+            //todo: assumes array of display fields
+
+            const string displayField = "d";
+            const string valueField = "v";
+
+            var results = await _neoGraphDatabase.RunReadStatement(
+                new Statement(
 $@"match (n:{settings.NodeLabel})
 where head(n.{settings.DisplayFieldName}) starts with '{query}'
-return head(n.
-{settings.DisplayFieldName}) as {settings.DisplayFieldName}, n.{settings.ValueFieldName} as {settings.ValueFieldName}
-order by {settings.DisplayFieldName}
+return head(n.{settings.DisplayFieldName}) as {displayField}, n.{settings.ValueFieldName} as {valueField}
+order by {displayField}
 limit 50"),
-                    r => new VueMultiselectItemViewModel { Id = r[settings.ValueFieldName].ToString(), DisplayText = r[settings.DisplayFieldName].ToString() });
+                r => new VueMultiselectItemViewModel { Id = r[valueField].ToString(), DisplayText = r[displayField].ToString() });
 
-                return new ObjectResult(results);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            return new ObjectResult(results);
         }
     }
 #pragma warning restore S2479 // Whitespace and control characters in string literals should be explicit
