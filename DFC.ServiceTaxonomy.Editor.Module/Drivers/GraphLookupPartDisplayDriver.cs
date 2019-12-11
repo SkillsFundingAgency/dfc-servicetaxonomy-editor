@@ -34,10 +34,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 
         public override async Task<IDisplayResult> UpdateAsync(GraphLookupPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
-            //await updater.TryUpdateModelAsync(part, Prefix, t => t.Value, t => t.DisplayText);
-
-            //return Edit(part);
-
             var viewModel = new GraphLookupPartViewModel();
 
             var modelUpdated = await updater.TryUpdateModelAsync(viewModel, Prefix, f => f.ItemIds);

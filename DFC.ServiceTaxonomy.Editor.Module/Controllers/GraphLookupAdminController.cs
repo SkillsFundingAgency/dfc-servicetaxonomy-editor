@@ -25,22 +25,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
             _neoGraphDatabase = neoGraphDatabase;
         }
 
-        //public async Task<IActionResult> SearchLookupNodes(string part, string field, string query)
-        //{
-        //    if (string.IsNullOrWhiteSpace(part) || string.IsNullOrWhiteSpace(field))
-        //    {
-        //        return BadRequest("Part and field are required parameters");
-        //    }
-
-        //    var partFieldDefinition = _contentDefinitionManager.GetPartDefinition(part)?.Fields
-        //        .FirstOrDefault(f => f.Name == field);
-
-        //    var fieldSettings = partFieldDefinition?.GetSettings<GraphLookupFieldSettings>();
-        //    if (fieldSettings == null)
-        //    {
-        //        return BadRequest("Unable to find field definition");
-        //    }
-
         public async Task<IActionResult> SearchLookupNodes(string part, string query)
         {
             if (string.IsNullOrWhiteSpace(part))
