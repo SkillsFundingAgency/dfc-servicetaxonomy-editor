@@ -6,17 +6,13 @@
     var settings = Model?.Settings;
 
     var selectedItems = JsonConvert.SerializeObject(Model?.SelectedItems, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
-    //var partName = Model?.PartFieldDefinition?.PartDefinition.Name;
-    //var fieldName = Model?.PartFieldDefinition?.Name;
-    //var partName = Model?.PartFieldDefinition?.PartDefinition.Name;
-    //var fieldName = Model?.PartFieldDefinition?.Name;
     var partName = Model?.PartName;
     var contentName = Model?.GraphLookupPart?.ContentItem?.ContentType;
     var tenantPath = Context.Request.PathBase.Value;
 //    var vueElementId = $"GraphLookup_{partName}_{fieldName}_{Guid.NewGuid():n}";
     //todo: might want a better prefix, but this will work
     var vueElementId = $"GraphLookup_{Guid.NewGuid():n}";
-    //var multiple = settings.Multiple.ToString().ToLowerInvariant();
+    var multiple = settings?.Multiple.ToString().ToLowerInvariant();
 }
 
 <script asp-src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js" debug-src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js" asp-name="vuejs" at="Foot"></script>
@@ -33,7 +29,7 @@
 
 @*todo don't want a search-url if readonly*@
 @*todo what (if any) part of oc uses data-field?*@
-<div id="@vueElementId" class="vue-multiselect" data-part="@partName" @*data-field="@fieldName"*@ data-editor-type="GraphLookup" data-selected-items="@selectedItems" data-tenant-path="@tenantPath" data-search-url="GraphLookup/SearchLookupNodes?part=@partName&content=@contentName" data-multiple="false">
+<div id="@vueElementId" class="vue-multiselect" data-part="@partName" @*data-field="@fieldName"*@ data-editor-type="GraphLookup" data-selected-items="@selectedItems" data-tenant-path="@tenantPath" data-search-url="GraphLookup/SearchLookupNodes?part=@partName&content=@contentName" data-multiple="@multiple">
 
     <fieldset class="form-group">
         <ul class="list-group w-xl-50 content-picker-default__list" v-show="arrayOfItems.length" v-cloak>
@@ -59,7 +55,7 @@
                              label="displayText" placeholder="@T["Type to search"]"
                              @@search-change="asyncFind" @@select="onSelect"
                              :searchable="true" :close-on-select="true" :reset-after="true"
-                             :show-labels="true" @*:hide-selected="@multiple"*@
+                             :show-labels="true" :hide-selected="@multiple"
                              :disabled="isDisabled"
                              select-label="@T["Select"]" deselect-label="@T["Remove"]">
                 <template slot="option" slot-scope="props">

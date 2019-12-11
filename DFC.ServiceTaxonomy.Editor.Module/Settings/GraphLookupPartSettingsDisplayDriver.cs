@@ -24,6 +24,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 model.DisplayName = settings.DisplayName;
                 model.Description = settings.Description;
 
+                model.Multiple = settings.Multiple;
+
                 model.NodeLabel = settings.NodeLabel;
                 model.DisplayFieldName = settings.DisplayFieldName;
                 model.ValueFieldName = settings.ValueFieldName;
@@ -46,6 +48,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.DisplayName,
                 m => m.Description,
+                m => m.Multiple,
                 m => m.NodeLabel,
                 m => m.DisplayFieldName,
                 m => m.ValueFieldName,
@@ -56,6 +59,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 {
                     DisplayName = model.DisplayName,
                     Description = model.Description,
+                    Multiple = model.Multiple,
                     NodeLabel = model.NodeLabel,
                     DisplayFieldName = model.DisplayFieldName,
                     ValueFieldName = model.ValueFieldName,

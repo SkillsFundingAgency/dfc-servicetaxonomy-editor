@@ -17,6 +17,14 @@
 </fieldset>
 
 <fieldset class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input asp-for="Multiple" type="checkbox" class="custom-control-input">
+        <label class="custom-control-label" asp-for="Multiple">@T["Allow Multiple Nodes"]</label>
+        <span class="hint">— @T["Whether to allow multiple nodes to be selected."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
     <div class="row col-md">
         <label asp-for="NodeLabel">@T["Node Label"]</label>
         <input asp-for="NodeLabel" class="form-control" list="node-labels" />
