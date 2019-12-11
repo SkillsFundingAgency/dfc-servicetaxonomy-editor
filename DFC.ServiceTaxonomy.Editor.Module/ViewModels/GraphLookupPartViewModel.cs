@@ -1,14 +1,19 @@
-﻿using DFC.ServiceTaxonomy.Editor.Module.Parts;
+﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.Editor.Module.Parts;
 using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
 {
     public class GraphLookupPartViewModel
     {
+        //todo: required??
         public string? Value { get; set; }
         public string? DisplayText { get; set; }
+
+        public string? ItemIds { get; set; }
 
         [BindNever]
         public ContentItem? ContentItem { get; set; }
@@ -17,6 +22,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
         public GraphLookupPart? GraphLookupPart { get; set; }
 
         [BindNever]
+        public ContentPartFieldDefinition? PartFieldDefinition { get; set; }
+
+        [BindNever]
         public GraphLookupPartSettings? Settings { get; set; }
+
+        //todo: no need for list?
+        [BindNever]
+        public IList<VueMultiselectItemViewModel>? SelectedItems { get; set; }
     }
 }
