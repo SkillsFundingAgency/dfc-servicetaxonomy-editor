@@ -22,6 +22,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
                 //model.Pattern = settings.Pattern;
+
+                model.NodeLabel = settings.NodeLabel;
+                model.DisplayFieldName = settings.DisplayFieldName;
+                model.ValueFieldName = settings.ValueFieldName;
+                model.RelationshipType = settings.RelationshipType;
+                model.NodesAreReadonly = settings.NodesAreReadonly;
+
                 model.GraphLookupPartSettings = settings;
             }).Location("Content");
         }
@@ -36,9 +43,21 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 
             var model = new GraphLookupPartSettingsViewModel();
 
-            if (await context.Updater.TryUpdateModelAsync(model, Prefix, m => m.NodeLabel))
+            if (await context.Updater.TryUpdateModelAsync(model, Prefix,
+                m => m.NodeLabel,
+        m => m.DisplayFieldName,
+        m => m.ValueFieldName,
+        m => m.RelationshipType,
+        m => m.NodesAreReadonly))
             {
-                context.Builder.WithSettings(new GraphLookupPartSettings { NodeLabel = model.NodeLabel });
+                context.Builder.WithSettings(new GraphLookupPartSettings
+                {
+                    NodeLabel = model.NodeLabel,
+                    DisplayFieldName = model.DisplayFieldName,
+                    ValueFieldName = model.ValueFieldName,
+                    RelationshipType = model.RelationshipType,
+                    NodesAreReadonly = model.NodesAreReadonly
+                });
             }
 
             return Edit(contentTypePartDefinition, context.Updater);

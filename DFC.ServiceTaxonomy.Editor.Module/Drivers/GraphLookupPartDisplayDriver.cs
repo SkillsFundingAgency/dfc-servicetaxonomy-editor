@@ -67,7 +67,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             return contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
         }
 
+#pragma warning disable S1172 // Unused method parameters should be removed
         private void BuildViewModel(GraphLookupPartViewModel model, GraphLookupPart part, BuildPartEditorContext context)
+#pragma warning restore S1172 // Unused method parameters should be removed
         {
             var settings = GetGraphLookupPartSettings(part);
 
@@ -79,7 +81,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             model.GraphLookupPart = part;
             //todo: view needs partname & field name, not whole PartFieldDefinition.
             //todo: check if really needs them, and if so, find them without this...
-            model.PartFieldDefinition = context.TypePartDefinition.PartDefinition.Fields.First(f => f.Name == "todo");
+            //model.PartFieldDefinition = context.TypePartDefinition.PartDefinition.Fields.First(f => f.Name == "todo");
+            model.PartName = context.TypePartDefinition.PartDefinition.Name;
             model.Settings = settings;
 
             model.SelectedItems = new List<VueMultiselectItemViewModel>();

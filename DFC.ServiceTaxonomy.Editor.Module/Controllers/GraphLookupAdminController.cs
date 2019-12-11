@@ -25,20 +25,37 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
             _neoGraphDatabase = neoGraphDatabase;
         }
 
-        public async Task<IActionResult> SearchLookupNodes(string part, string field, string query)
+        //public async Task<IActionResult> SearchLookupNodes(string part, string field, string query)
+        //{
+        //    if (string.IsNullOrWhiteSpace(part) || string.IsNullOrWhiteSpace(field))
+        //    {
+        //        return BadRequest("Part and field are required parameters");
+        //    }
+
+        //    var partFieldDefinition = _contentDefinitionManager.GetPartDefinition(part)?.Fields
+        //        .FirstOrDefault(f => f.Name == field);
+
+        //    var fieldSettings = partFieldDefinition?.GetSettings<GraphLookupFieldSettings>();
+        //    if (fieldSettings == null)
+        //    {
+        //        return BadRequest("Unable to find field definition");
+        //    }
+
+        public async Task<IActionResult> SearchLookupNodes(string part, string query)
         {
-            if (string.IsNullOrWhiteSpace(part) || string.IsNullOrWhiteSpace(field))
+            if (string.IsNullOrWhiteSpace(part))
             {
-                return BadRequest("Part and field are required parameters");
+                return BadRequest("Part are required parameters");
             }
 
-            var partFieldDefinition = _contentDefinitionManager.GetPartDefinition(part)?.Fields
-                .FirstOrDefault(f => f.Name == field);
-
-            var fieldSettings = partFieldDefinition?.GetSettings<GraphLookupFieldSettings>();
-            if (fieldSettings == null)
+            //todo: pass in type name
+            var settings = _contentDefinitionManager
+                .GetTypeDefinition("testgraphlookuppart")
+                .Parts.FirstOrDefault(p => p.Name == part)
+                .GetSettings<GraphLookupPartSettings>();
+            if (settings == null)
             {
-                return BadRequest("Unable to find field definition");
+                return BadRequest("Unable to find field settings");
             }
 
             try
@@ -48,13 +65,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
                 var results = await _neoGraphDatabase.RunReadStatement(
                     //todo: hardcode as names
                     new Statement(
-$@"match (n:{fieldSettings.NodeLabel})
-where head(n.{fieldSettings.DisplayFieldName}) starts with '{query}'
+$@"match (n:{settings.NodeLabel})
+where head(n.{settings.DisplayFieldName}) starts with '{query}'
 return head(n.
-{fieldSettings.DisplayFieldName}) as {fieldSettings.DisplayFieldName}, n.{fieldSettings.ValueFieldName} as {fieldSettings.ValueFieldName}
-order by {fieldSettings.DisplayFieldName}
+{settings.DisplayFieldName}) as {settings.DisplayFieldName}, n.{settings.ValueFieldName} as {settings.ValueFieldName}
+order by {settings.DisplayFieldName}
 limit 50"),
-                    r => new VueMultiselectItemViewModel { Id = r[fieldSettings.ValueFieldName].ToString(), DisplayText = r[fieldSettings.DisplayFieldName].ToString() });
+                    r => new VueMultiselectItemViewModel { Id = r[settings.ValueFieldName].ToString(), DisplayText = r[settings.DisplayFieldName].ToString() });
 
                 return new ObjectResult(results);
             }

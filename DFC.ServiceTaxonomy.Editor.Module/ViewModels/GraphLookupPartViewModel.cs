@@ -3,7 +3,6 @@ using DFC.ServiceTaxonomy.Editor.Module.Parts;
 using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
 {
@@ -21,8 +20,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
         [BindNever]
         public GraphLookupPart? GraphLookupPart { get; set; }
 
+        //[BindNever]
+        //public ContentPartFieldDefinition? PartFieldDefinition { get; set; }
         [BindNever]
-        public ContentPartFieldDefinition? PartFieldDefinition { get; set; }
+        public string? PartName { get; set; }
 
         [BindNever]
         public GraphLookupPartSettings? Settings { get; set; }
