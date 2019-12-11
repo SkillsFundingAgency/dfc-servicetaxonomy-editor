@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Editor.Module.Parts;
 using DFC.ServiceTaxonomy.Editor.Module.ViewModels;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
@@ -11,11 +12,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
     {
         public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition, IUpdateModel updater)
         {
-            //todo: is check strictly necessary? if so can't return null, can't change signature. throw?
-            //if (!string.Equals(nameof(GraphLookupPart), contentTypePartDefinition.PartDefinition.Name))
-            //{
-            //    return default;
-            //}
+            if (!string.Equals(nameof(GraphLookupPart), contentTypePartDefinition.PartDefinition.Name))
+            {
+                return default!;
+            }
 
             return Initialize<GraphLookupPartSettingsViewModel>("GraphLookupPartSettings_Edit", model =>
             {
