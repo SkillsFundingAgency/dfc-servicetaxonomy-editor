@@ -29,6 +29,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Handlers
             //     part.Apply();
             // }
 
+            part.Apply();
+
             return Task.CompletedTask;
         }
 

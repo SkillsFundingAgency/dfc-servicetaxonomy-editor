@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
-{
+{//oc internally throws coz not implementing IShape, but oc own parts don't either
     public class GraphLookupPartViewModel
     {
         //todo: required??
