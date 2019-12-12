@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 
             return results.First();
         }
-
+//todo: why does warning not appear on save, but later when view content items?
 #pragma warning disable S1172 // Unused method parameters should be removed
         private void BuildViewModel(GraphLookupPartViewModel model, GraphLookupPart part, BuildPartEditorContext context)
 #pragma warning restore S1172 // Unused method parameters should be removed

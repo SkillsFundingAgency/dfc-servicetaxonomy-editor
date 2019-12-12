@@ -223,17 +223,20 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         //todo: when revist content type, only newly added nodes come through, not pre-existing ones
         private void AddSyncComponents(dynamic graphLookup, Dictionary<string, object> nodeProperties, Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships, GraphLookupPartSettings settings)
         {
+            JArray nodes = (JArray)graphLookup.Nodes;
+            if (nodes.Count == 0)
+                return;
+
             if (settings.RelationshipType == null)
             {
-                foreach (dynamic? nullableNode in graphLookup.Nodes)
+                foreach (JToken node in nodes)
                 {
-                    dynamic node = nullableNode!;
-                    nodeProperties.Add("todo", node.Id);
+                    nodeProperties.Add("todo", node["Id"].ToString());
                 }
             }
             else
             {
-                nodeRelationships.Add((destNodeLabel:settings.NodeLabel!, destIdPropertyName:settings.ValueFieldName!, relationshipType:settings.RelationshipType!), ((JArray)graphLookup.Nodes).Select(n => n["Id"].ToString()));
+                nodeRelationships.Add((destNodeLabel:settings.NodeLabel!, destIdPropertyName:settings.ValueFieldName!, relationshipType:settings.RelationshipType!), nodes.Select(n => n["Id"].ToString()));
             }
         }
     }
