@@ -62,6 +62,12 @@ namespace DFC.ServiceTaxonomy.Editor.Module
 
             //todo: split content part out into own module
             services.AddScoped<IDataMigration, Migrations>();
+
+            // services.AddScoped<ISyncPartToGraph<GraphLookupPartSettings>, Xxx>();
+            // services.AddScoped<ISyncPartToGraph<GraphLookupPart>, Yyy>();
+            //services.AddScoped<ISyncPartToGraph<GraphLookupPartSettings>, GraphLookupSyncToGraph>();
+            services.AddScoped<ISyncPartToGraph, GraphLookupSyncToGraph>();
+            //services.AddScoped<ISyncPartToGraph, Yyy>();
         }
 
         //public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
