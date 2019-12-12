@@ -8,6 +8,8 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 {
+    //todo: why is updated notifier appearing when start site?
+    //todo: delete from multiple selections
     public class GraphLookupPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
         public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition, IUpdateModel updater)

@@ -39,9 +39,9 @@
                     :key="item.id">
                     <div class="align-items-center align-self-center"><span>{{ item.displayText }}</span> @*<span v-show="!item.hasPublished" class="text-muted small">(@T["Not published"])</span>*@</div>
 
-                    @*<div class="btn-group btn-group-sm align-items-center" role="group">
-                            <button v-on:click="remove(item)" type="button" class="btn btn-secondary content-picker-default__list-item__delete"><i class="fa fa-trash fa-sm" aria-hidden="true"></i></button>
-                        </div>*@
+                    <div class="btn-group btn-group-sm align-items-center" role="group">
+                        <button v-on:click="remove(item)" type="button" class="btn btn-secondary content-picker-default__list-item__delete"><i class="fa fa-trash fa-sm" aria-hidden="true"></i></button>
+                    </div>
                 </li>
             </draggable>
         </ul>
@@ -49,9 +49,8 @@
 
     <fieldset class="form-group">
         <div class="w-xl-50">
-            @*todo track-by needs oc's vue-multiselect-wrapper.js's arrayOfItems' field named id?*@
             <input asp-for="ItemIds" type="hidden" v-model="selectedIds" />
-            <vue-multiselect v-model="value" :options="options" track-by="id" @*track-by="value"*@
+            <vue-multiselect v-model="value" :options="options" track-by="id"
                              label="displayText" placeholder="@T["Type to search"]"
                              @@search-change="asyncFind" @@select="onSelect"
                              :searchable="true" :close-on-select="true" :reset-after="true"
@@ -59,7 +58,7 @@
                              :disabled="isDisabled"
                              select-label="@T["Select"]" deselect-label="@T["Remove"]">
                 <template slot="option" slot-scope="props">
-                    <div v-cloak><span>{{ props.option.displayText }}</span>@*<span class="small ml-2" v-show="!props.option.hasPublished">(@T["Not published"])</span>*@</div>
+                    <div v-cloak><span>{{ props.option.displayText }}</span></div>
                 </template>
                 <template slot="noResult">
                     @T["No result found"]
