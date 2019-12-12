@@ -445,6 +445,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "0"
                                 }
                             }
@@ -501,6 +502,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "0"
                                 }
                             }
@@ -517,6 +519,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "0"
                                 }
                             }
@@ -561,6 +564,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "1"
                                 }
                             }
