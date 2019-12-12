@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
+using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Neo4j.Driver;
@@ -18,7 +19,7 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 
 //todo: content delete
-
+//todo: sometimes whaen launch syncs without doing anything and reports : your xxx draft has been saved. is it when previously stopped during sync or something? when notification has been added before stopping debugging
 namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 {
     // Type mappings
@@ -97,11 +98,27 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 string nodeUri = graph.UriId.Text.ToString();
                 var setMap = new Dictionary<string, object>
                 {
+                    //todo: optional title part
                     {"skos__prefLabel", contentItem.Content.TitlePart.Title.ToString()},
                     {"uri", nodeUri}
                 };
 
                 var relationships = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
+
+                //todo: have part implement IGraphSync and map from content name to service which handles sync for that part
+                dynamic graphLookup = contentItem.Content["GraphLookupPart"];
+                if (graphLookup != null)
+                {
+                    // ContentPartDefinition contentPartDefinition = _contentDefinitionManager.GetPartDefinition("GraphLookupPart");
+                    // var contentPartSettings = contentPartDefinition.GetSettings<ContentPartSettings>();
+
+                    var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+                    var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == "GraphLookupPart");
+                    var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
+
+                    //todo: let sync class get settings if required : abstract base class for settings
+                    AddSyncComponents(graphLookup, setMap, relationships, settings);
+                }
 
                 foreach (dynamic? field in contentItem.Content[contentItem.ContentType])
                 {
@@ -199,6 +216,24 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
                 //return Outcomes("Failed");
                 throw;
+            }
+        }
+
+        //todo: new type(s) for relationships
+        //todo: when revist content type, only newly added nodes come through, not pre-existing ones
+        private void AddSyncComponents(dynamic graphLookup, Dictionary<string, object> nodeProperties, Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships, GraphLookupPartSettings settings)
+        {
+            if (settings.RelationshipType == null)
+            {
+                foreach (dynamic? nullableNode in graphLookup.Nodes)
+                {
+                    dynamic node = nullableNode!;
+                    nodeProperties.Add("todo", node.Id);
+                }
+            }
+            else
+            {
+                nodeRelationships.Add((destNodeLabel:settings.NodeLabel!, destIdPropertyName:settings.ValueFieldName!, relationshipType:settings.RelationshipType!), ((JArray)graphLookup.Nodes).Select(n => n["Id"].ToString()));
             }
         }
     }

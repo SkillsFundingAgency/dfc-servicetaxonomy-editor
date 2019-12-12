@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Editor.Module.Models;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using DFC.ServiceTaxonomy.Editor.Module.Parts;
 using DFC.ServiceTaxonomy.Editor.Module.Settings;
@@ -41,31 +42,20 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             bool modelUpdated = await updater.TryUpdateModelAsync(viewModel, Prefix, f => f.ItemIds);
             if (modelUpdated)
             {
-                //todo: introduce type rather than tuple
-                //todo: rename node display/select text. SelectText & Id?s
                 if (viewModel.ItemIds == null)
                 {
-                    part.Nodes = new (string id, string value)[0];
+                    part.Nodes = new GraphLookupNode[0];
                 }
                 else
                 {
-                    var ids = viewModel.ItemIds.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    string[] ids = viewModel.ItemIds.Split(',', StringSplitOptions.RemoveEmptyEntries);
                     //todo: here we get the display field from the graph, but it would be better to get it from the model
+                    // or if not only make 1 trip
 
                     var settings = GetGraphLookupPartSettings(part);
 
-                    part.Nodes = await Task.WhenAll(ids.Select(async id => (id, value: await GetNodeValue(id, settings))));
+                    part.Nodes = await Task.WhenAll(ids.Select(async id => new GraphLookupNode(id, await GetNodeValue(id, settings))));
                 }
-
-                // part.Value = viewModel.ItemIds;
-                //
-                // var settings = GetGraphLookupPartSettings(part);
-                //
-                // var results = await _neoGraphDatabase.RunReadStatement(new Statement(
-                //         $"match (n:{settings.NodeLabel} {{{settings.ValueFieldName}:'{part.Value}'}}) return head(n.{settings.DisplayFieldName}) as displayField"),
-                //     r => r["displayField"].ToString());
-                //
-                // part.DisplayText = results.First();
             }
 
             return Edit(part, context);
@@ -93,12 +83,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
         {
             var settings = GetGraphLookupPartSettings(part);
 
-            // model.Value = part.Value;
-            // model.DisplayText = part.DisplayText;
-
-            //model.ItemIds = part.Value;
             //todo: rename
-            model.ItemIds = string.Join(",", part.Nodes.Select(n => n.id));
+            model.ItemIds = string.Join(",", part.Nodes.Select(n => n.Id));
             //todo: store id's also, so no need to go back to graph
 
             model.GraphLookupPart = part;
@@ -108,14 +94,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             model.PartName = context.TypePartDefinition.PartDefinition.Name;
             model.Settings = settings;
 
+            //todo: use GraphLookupNode directly
             model.SelectedItems = new List<VueMultiselectItemViewModel>();
 
             foreach (var node in part.Nodes)
             {
                 model.SelectedItems.Add(new VueMultiselectItemViewModel
                 {
-                    Value = node.id,
-                    DisplayText = node.value
+                    Value = node.Id,
+                    DisplayText = node.DisplayText
                 });
             }
         }
