@@ -7,8 +7,8 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
 {
-    public class GraphLookupPartSyncToGraph : ISyncPartToGraph //<GraphLookupPartSettings>
-//    public class GraphLookupPartSyncToGraph : ISyncPartToGraph<GraphLookupPartSettings>
+    public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer //<GraphLookupPartSettings>
+//    public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer<GraphLookupPartSettings>
     {
         public string PartName
         {

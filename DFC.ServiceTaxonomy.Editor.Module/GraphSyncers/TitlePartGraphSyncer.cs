@@ -4,7 +4,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
 {
-    public class TitlePartSyncToGraph : ISyncPartToGraph
+    public class TitlePartGraphSyncer : IContentPartGraphSyncer
     {
         public string PartName
         {

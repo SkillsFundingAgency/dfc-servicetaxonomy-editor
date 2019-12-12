@@ -3,8 +3,8 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 {
-    //public interface ISyncPartToGraph<TPartSettings>
-    public interface ISyncPartToGraph
+    //public interface IContentPartGraphSyncer<TPartSettings>
+    public interface IContentPartGraphSyncer
     {
         string PartName {get;}
 

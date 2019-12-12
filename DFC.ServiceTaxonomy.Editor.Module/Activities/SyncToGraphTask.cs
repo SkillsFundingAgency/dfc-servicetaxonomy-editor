@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, INeoGraphDatabase neoGraphDatabase,
             IContentManager contentManager, IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
-            IEnumerable<ISyncPartToGraph> partSyncers)
+            IEnumerable<IContentPartGraphSyncer> partSyncers)
             //IServiceProvider serviceProvider)
         {
             _neoGraphDatabase = neoGraphDatabase;
@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             T = localizer;
             _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
 
-            // var partSyncers = serviceProvider.GetServices(typeof(ISyncPartToGraph<>));
+            // var partSyncers = serviceProvider.GetServices(typeof(IContentPartGraphSyncer<>));
             // partSyncers[0].
         }
 
@@ -70,7 +70,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INotifier _notifier;
-        private readonly IEnumerable<ISyncPartToGraph> _partSyncers;
+        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly Regex _relationshipTypeRegex;
 
         public override string Name => nameof(SyncToGraphTask);
