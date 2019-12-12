@@ -6,12 +6,12 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
     //public interface ISyncPartToGraph<TPartSettings>
     public interface ISyncPartToGraph
     {
-    string PartName {get;}
+        string PartName {get;}
 
-
+        //todo: new type(s) for relationships
         void AddSyncComponents(dynamic graphLookup, Dictionary<string, object> nodeProperties,
             Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
-    ContentTypePartDefinition contentTypePartDefinition);
-    //            TPartSettings settings);
+            ContentTypePartDefinition contentTypePartDefinition);
+            //  settings);
     }
 }

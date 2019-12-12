@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.Editor.Module.Activities;
 using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
+using DFC.ServiceTaxonomy.Editor.Module.GraphSyncers;
 using DFC.ServiceTaxonomy.Editor.Module.Handlers;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using DFC.ServiceTaxonomy.Editor.Module.Parts;

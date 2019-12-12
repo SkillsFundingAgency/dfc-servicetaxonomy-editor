@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
-using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Neo4j.Driver;
@@ -125,21 +124,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                     }
                 }
 
-                //todo: have part implement IGraphSync and map from content name to service which handles sync for that part
-                // dynamic graphLookup = contentItem.Content["GraphLookupPart"];
-                // if (graphLookup != null)
-                // {
-                //     // ContentPartDefinition contentPartDefinition = _contentDefinitionManager.GetPartDefinition("GraphLookupPart");
-                //     // var contentPartSettings = contentPartDefinition.GetSettings<ContentPartSettings>();
-                //
-                //     var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-                //     var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == "GraphLookupPart");
-                //     var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
-                //
-                //     //todo: let sync class get settings if required : abstract base class for settings
-                //     //AddSyncComponents(graphLookup, setMap, relationships, settings);
-                // }
-
                 foreach (dynamic? field in contentItem.Content[contentItem.ContentType])
                 {
                     if (field == null)
@@ -238,67 +222,5 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 throw;
             }
         }
-
-        //todo: new type(s) for relationships
-        //todo: when revist content type, only newly added nodes come through, not pre-existing ones
-        // private void AddSyncComponents(dynamic graphLookup, Dictionary<string, object> nodeProperties, Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships, GraphLookupPartSettings settings)
-        // {
-        //     JArray nodes = (JArray)graphLookup.Nodes;
-        //     if (nodes.Count == 0)
-        //         return;
-        //
-        //     if (settings.RelationshipType == null)
-        //     {
-        //         foreach (JToken node in nodes)
-        //         {
-        //             nodeProperties.Add("todo", node["Id"].ToString());
-        //         }
-        //     }
-        //     else
-        //     {
-        //         nodeRelationships.Add((destNodeLabel:settings.NodeLabel!, destIdPropertyName:settings.ValueFieldName!, relationshipType:settings.RelationshipType!), nodes.Select(n => n["Id"].ToString()));
-        //     }
-        // }
     }
-
-    public class GraphLookupSyncToGraph : ISyncPartToGraph //<GraphLookupPartSettings>
-//    public class GraphLookupSyncToGraph : ISyncPartToGraph<GraphLookupPartSettings>
-    {
-        public string PartName
-        {
-            get { return "GraphLookupPart"; }
-        }
-
-        public void AddSyncComponents(dynamic graphLookup, Dictionary<string, object> nodeProperties, Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
-//            object todoSettings)
-//            GraphLookupPartSettings settings)
-            ContentTypePartDefinition contentTypePartDefinition)
-        {
-            //var settings = (GraphLookupPartSettings)todoSettings;
-            var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
-
-            JArray nodes = (JArray)graphLookup.Nodes;
-            if (nodes.Count == 0)
-                return;
-
-            if (settings.RelationshipType == null)
-            {
-                foreach (JToken node in nodes)
-                {
-                    nodeProperties.Add("todo", node["Id"].ToString());
-                }
-            }
-            else
-            {
-                nodeRelationships.Add((destNodeLabel:settings.NodeLabel!, destIdPropertyName:settings.ValueFieldName!, relationshipType:settings.RelationshipType!), nodes.Select(n => n["Id"].ToString()));
-            }
-        }
-    }
-
-    // public class Yyy : ISyncPartToGraph //<GraphLookupPart>
-    // {
-    //     public void AddSyncComponents(dynamic graphLookup, Dictionary<string, object> nodeProperties, Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
-    //         object settings) => //GraphLookupPart settings) =>
-    //         throw new NotImplementedException();
-    // }
 }
