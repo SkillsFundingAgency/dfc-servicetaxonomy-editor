@@ -60,15 +60,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             services.AddScoped<IContentPartHandler, GraphLookupPartHandler>();
             services.AddScoped<IContentPartDisplayDriver, GraphLookupPartDisplayDriver>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
+            services.AddScoped<ISyncPartToGraph, GraphLookupPartSyncToGraph>();
 
             //todo: split content part out into own module
             services.AddScoped<IDataMigration, Migrations>();
 
             // services.AddScoped<ISyncPartToGraph<GraphLookupPartSettings>, Xxx>();
             // services.AddScoped<ISyncPartToGraph<GraphLookupPart>, Yyy>();
-            //services.AddScoped<ISyncPartToGraph<GraphLookupPartSettings>, GraphLookupSyncToGraph>();
-            services.AddScoped<ISyncPartToGraph, GraphLookupSyncToGraph>();
-            //services.AddScoped<ISyncPartToGraph, Yyy>();
+            //services.AddScoped<ISyncPartToGraph<GraphLookupPartSettings>, GraphLookupPartSyncToGraph>();
+            services.AddScoped<ISyncPartToGraph, TitlePartSyncToGraph>();
         }
 
         //public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

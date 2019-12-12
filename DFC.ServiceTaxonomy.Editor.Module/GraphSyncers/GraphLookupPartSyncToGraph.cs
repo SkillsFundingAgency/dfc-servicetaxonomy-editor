@@ -7,8 +7,8 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
 {
-    public class GraphLookupSyncToGraph : ISyncPartToGraph //<GraphLookupPartSettings>
-//    public class GraphLookupSyncToGraph : ISyncPartToGraph<GraphLookupPartSettings>
+    public class GraphLookupPartSyncToGraph : ISyncPartToGraph //<GraphLookupPartSettings>
+//    public class GraphLookupPartSyncToGraph : ISyncPartToGraph<GraphLookupPartSettings>
     {
         public string PartName
         {
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
         }
 
         public void AddSyncComponents(
-            dynamic graphLookup,
+            dynamic graphLookupContent,
             Dictionary<string, object> nodeProperties,
             Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition)
@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-            JArray nodes = (JArray)graphLookup.Nodes;
+            JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
                 return;
 

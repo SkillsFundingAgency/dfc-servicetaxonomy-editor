@@ -16,7 +16,7 @@ using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
-
+//todo: part handler called after workflow finishes - can we use that to stop inserts?
 //todo: content delete
 //todo: sometimes whaen launch syncs without doing anything and reports : your xxx draft has been saved. is it when previously stopped during sync or something? when notification has been added before stopping debugging
 namespace DFC.ServiceTaxonomy.Editor.Module.Activities
@@ -101,11 +101,10 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 if (graph == null)
                     return Outcomes("Done");
 
+                //todo: uri syncer
                 string nodeUri = graph.UriId.Text.ToString();
                 var setMap = new Dictionary<string, object>
                 {
-                    //todo: optional title part
-                    {"skos__prefLabel", contentItem.Content.TitlePart.Title.ToString()},
                     {"uri", nodeUri}
                 };
 
@@ -113,14 +112,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
                 foreach (var partSync in _partSyncers)
                 {
-                    dynamic part = contentItem.Content[partSync.PartName];
-                    if (part != null)
+                    dynamic partContent = contentItem.Content[partSync.PartName];
+                    if (partContent != null)
                     {
                         var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
                         var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partSync.PartName);
-                        //var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-                        partSync.AddSyncComponents(part, setMap, relationships, contentTypePartDefinition);
+                        partSync.AddSyncComponents(partContent, setMap, relationships, contentTypePartDefinition);
                     }
                 }
 
