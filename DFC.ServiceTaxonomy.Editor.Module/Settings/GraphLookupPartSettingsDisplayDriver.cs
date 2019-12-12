@@ -8,8 +8,7 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 {
-    //todo: why is updated notifier appearing when start site?
-    //todo: delete from multiple selections
+    //todo: check button to show limit 10 examples? (similar to test connection)
     public class GraphLookupPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
         public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition, IUpdateModel updater)

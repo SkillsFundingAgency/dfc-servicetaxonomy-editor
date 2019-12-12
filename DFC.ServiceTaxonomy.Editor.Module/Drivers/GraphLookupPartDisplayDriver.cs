@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Module.Models;
@@ -16,7 +15,7 @@ using OrchardCore.DisplayManagement.Views;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
 {
-    //todo: gotta support multiple
+    //todo: don't like new disabled select appearing once selected in single select scenario - nasty!
     public class GraphLookupPartDisplayDriver : ContentPartDisplayDriver<GraphLookupPart>
     {
         private readonly INeoGraphDatabase _neoGraphDatabase;
@@ -95,17 +94,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Drivers
             model.PartName = context.TypePartDefinition.PartDefinition.Name;
             model.Settings = settings;
 
-            //todo: use GraphLookupNode directly
-            model.SelectedItems = new List<VueMultiselectItemViewModel>();
-
-            foreach (var node in part.Nodes)
-            {
-                model.SelectedItems.Add(new VueMultiselectItemViewModel
-                {
-                    Value = node.Id,
-                    DisplayText = node.DisplayText
-                });
-            }
+            model.SelectedItems = part.Nodes;
         }
     }
 }

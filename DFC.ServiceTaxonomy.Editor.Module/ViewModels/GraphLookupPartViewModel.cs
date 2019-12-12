@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using DFC.ServiceTaxonomy.Editor.Module.Models;
 using DFC.ServiceTaxonomy.Editor.Module.Parts;
 using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -27,8 +27,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
         [BindNever]
         public GraphLookupPartSettings? Settings { get; set; }
 
-        //todo: no need for list?
         [BindNever]
-        public IList<VueMultiselectItemViewModel>? SelectedItems { get; set; }
+        public GraphLookupNode[]? SelectedItems { get; set; }
     }
 }

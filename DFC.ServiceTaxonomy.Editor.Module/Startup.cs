@@ -31,9 +31,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             TemplateContext.GlobalMemberAccessStrategy.Register<GraphUriIdField>();
             TemplateContext.GlobalMemberAccessStrategy.Register<DisplayGraphUriIdFieldViewModel>();
 
-            TemplateContext.GlobalMemberAccessStrategy.Register<GraphLookupField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayGraphLookupFieldViewModel>();
-
             TemplateContext.GlobalMemberAccessStrategy.Register<GraphLookupPartViewModel>();
         }
 
@@ -56,11 +53,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             // services.AddScoped<IContentFieldIndexHandler, GraphUriIdFieldIndexHandler>();
             // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldPredefinedListEditorSettingsDriver>();
             // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldHeaderDisplaySettingsDriver>();
-
-            // Graph Lookup Field
-            services.AddContentField<GraphLookupField>();
-            services.AddScoped<IContentFieldDisplayDriver, GraphLookupFieldDisplayDriver>();
-            services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphLookupFieldSettingsDriver>();
 
             // Graph Lookup Part
             services.AddContentPart<GraphLookupPart>();
