@@ -13,8 +13,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
 
         public void AddSyncComponents(
             dynamic graphSyncContent,
-            Dictionary<string, object> nodeProperties,
-            Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IDictionary<string, object> nodeProperties,
+            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition)
         {
             nodeProperties.Add("uri", graphSyncContent.UriId.ToString());

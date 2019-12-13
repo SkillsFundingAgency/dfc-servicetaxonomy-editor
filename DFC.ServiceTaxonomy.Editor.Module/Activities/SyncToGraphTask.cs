@@ -99,94 +99,18 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
                 //todo: uri syncer
                 string nodeUri = graph.UriId.Text.ToString();
-                var setMap = new Dictionary<string, object>
+                var nodeProperties = new Dictionary<string, object>
                 {
                     {"uri", nodeUri}
                 };
 
                 var relationships = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
-                AddContentPartSyncComponents(contentItem, setMap, relationships);
+                AddContentPartSyncComponents(contentItem, nodeProperties, relationships);
 
-                foreach (dynamic? field in contentItem.Content[contentItem.ContentType])
-                {
-                    if (field == null)
-                        continue;
+                await AddContentFieldSyncComponents(contentItem, nodeProperties, relationships);
 
-                    var fieldTypeAndValue = (JProperty?)((JProperty) field).First?.First;
-                    if (fieldTypeAndValue == null)
-                        continue;
-
-                    switch (fieldTypeAndValue.Name)
-                    {
-                        // we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
-                        // see remarks to view mapping table
-                        // we might also want to map to rdf types here (accept flag to say store with type?)
-                        // will be useful if we import into neo using keepCustomDataTypes
-                        // we can append the datatype to the value, i.e. value^^datatype
-                        // see https://neo4j-labs.github.io/neosemantics/#_handling_custom_data_types
-
-                        case "Text":
-                        case "Html":
-                            setMap.Add(NcsPrefix+field.Name, fieldTypeAndValue.Value.ToString());
-                            break;
-                        case "Value":
-                            // orchard always converts entered value to real 2.0 (float/double/decimal)
-                            // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real?
-
-                            setMap.Add(NcsPrefix+field.Name, (long)fieldTypeAndValue.Value.ToObject(typeof(long)));
-                            break;
-                        case "ContentItemIds":
-                            //todo: check for empty list => noop, except for initial delete
-                            //todo: relationship type from metadata?
-
-                            string? relationshipType = null;
-                            ContentTypeDefinition contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-                            IEnumerable<ContentPartFieldDefinition> contentPartDefinitions
-                                = contentTypeDefinition.Parts.First(p => p.Name == contentItem.ContentType).PartDefinition.Fields;
-                            ContentPartFieldDefinition contentPartDefinition = contentPartDefinitions.First(d => d.Name == field.Name);
-                            string? contentPartHint = contentPartDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
-                            if (contentPartHint != null)
-                            {
-                                Match match = _relationshipTypeRegex.Match(contentPartHint);
-                                if (match.Success)
-                                {
-                                    relationshipType = $"{match.Groups[1].Value}";
-                                }
-                            }
-
-                            string? destNodeLabel = null;
-                            var destUris = new List<string>();
-                            foreach (JToken relatedContentId in fieldTypeAndValue.Value)
-                            {
-                                ContentItem relatedContent = await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
-                                string relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString();
-                                destUris.Add(relatedContentKey.ToString());
-
-                                //todo: don't repeat
-                                destNodeLabel = NcsPrefix + relatedContent.ContentType;
-                                if (relationshipType == null)
-                                    relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
-                            }
-                            if (destNodeLabel != null && relationshipType != null)
-                                relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
-                            break;
-                    }
-                }
-
-                string nodeLabel = NcsPrefix + contentItem.ContentType;
-
-                // could create ienumerable and have 1 call
-                Statement mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, setMap);
-                if (relationships.Any())
-                {
-                    await _graphDatabase.RunWriteStatements(mergeNodesStatement,
-                        StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
-                }
-                else
-                {
-                    await _graphDatabase.RunWriteStatements(mergeNodesStatement);
-                }
+                await SyncComponentsToGraph(contentItem, nodeProperties, relationships, nodeUri);
 
                 return Outcomes("Done");
 
@@ -206,21 +130,119 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             }
         }
 
+        private async Task SyncComponentsToGraph(
+            ContentItem contentItem,
+            IDictionary<string, object> nodeProperties,
+            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType),IEnumerable<string>> relationships,
+            string nodeUri)
+        {
+            string nodeLabel = NcsPrefix + contentItem.ContentType;
+
+            // could create ienumerable and have 1 call
+            Statement mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, nodeProperties);
+            if (relationships.Any())
+            {
+                await _graphDatabase.RunWriteStatements(mergeNodesStatement,
+                    StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
+            }
+            else
+            {
+                await _graphDatabase.RunWriteStatements(mergeNodesStatement);
+            }
+        }
+
         private void AddContentPartSyncComponents(
             ContentItem contentItem,
-            Dictionary<string, object> nodeProperties,
-            Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships)
+            IDictionary<string, object> nodeProperties,
+            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships)
         {
             foreach (var partSync in _partSyncers)
             {
                 dynamic partContent = contentItem.Content[partSync.PartName];
-                if (partContent != null)
-                {
-                    var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-                    var contentTypePartDefinition =
-                        contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partSync.PartName);
+                if (partContent == null)
+                    continue;
 
-                    partSync.AddSyncComponents(partContent, nodeProperties, relationships, contentTypePartDefinition);
+                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+                var contentTypePartDefinition =
+                    contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partSync.PartName);
+
+                partSync.AddSyncComponents(partContent, nodeProperties, relationships, contentTypePartDefinition);
+            }
+        }
+
+        private async Task AddContentFieldSyncComponents(
+            ContentItem contentItem,
+            IDictionary<string, object> nodeProperties,
+            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships)
+        {
+            foreach (dynamic? field in contentItem.Content[contentItem.ContentType])
+            {
+                if (field == null)
+                    continue;
+
+                var fieldTypeAndValue = (JProperty?) ((JProperty) field).First?.First;
+                if (fieldTypeAndValue == null)
+                    continue;
+
+                switch (fieldTypeAndValue.Name)
+                {
+                    // we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
+                    // see remarks to view mapping table
+                    // we might also want to map to rdf types here (accept flag to say store with type?)
+                    // will be useful if we import into neo using keepCustomDataTypes
+                    // we can append the datatype to the value, i.e. value^^datatype
+                    // see https://neo4j-labs.github.io/neosemantics/#_handling_custom_data_types
+
+                    case "Text":
+                    case "Html":
+                        nodeProperties.Add(NcsPrefix + field.Name, fieldTypeAndValue.Value.ToString());
+                        break;
+                    case "Value":
+                        // orchard always converts entered value to real 2.0 (float/double/decimal)
+                        // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real?
+
+                        nodeProperties.Add(NcsPrefix + field.Name, (long) fieldTypeAndValue.Value.ToObject(typeof(long)));
+                        break;
+                    case "ContentItemIds":
+                        //todo: check for empty list => noop, except for initial delete
+                        //todo: relationship type from metadata?
+
+                        string? relationshipType = null;
+                        ContentTypeDefinition contentTypeDefinition =
+                            _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+                        IEnumerable<ContentPartFieldDefinition> contentPartDefinitions
+                            = contentTypeDefinition.Parts.First(p => p.Name == contentItem.ContentType).PartDefinition.Fields;
+                        ContentPartFieldDefinition contentPartDefinition =
+                            contentPartDefinitions.First(d => d.Name == field.Name);
+                        string? contentPartHint =
+                            contentPartDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
+                        if (contentPartHint != null)
+                        {
+                            Match match = _relationshipTypeRegex.Match(contentPartHint);
+                            if (match.Success)
+                            {
+                                relationshipType = $"{match.Groups[1].Value}";
+                            }
+                        }
+
+                        string? destNodeLabel = null;
+                        var destUris = new List<string>();
+                        foreach (JToken relatedContentId in fieldTypeAndValue.Value)
+                        {
+                            ContentItem relatedContent =
+                                await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
+                            string relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString();
+                            destUris.Add(relatedContentKey.ToString());
+
+                            //todo: don't repeat
+                            destNodeLabel = NcsPrefix + relatedContent.ContentType;
+                            if (relationshipType == null)
+                                relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
+                        }
+
+                        if (destNodeLabel != null && relationshipType != null)
+                            relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
+                        break;
                 }
             }
         }
