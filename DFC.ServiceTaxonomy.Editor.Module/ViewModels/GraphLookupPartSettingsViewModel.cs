@@ -15,6 +15,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
         public string? DisplayFieldName { get; set; }
         public string? ValueFieldName { get; set; }
         public string? RelationshipType { get; set; }
+        public string? PropertyName { get; set; }
         public bool NodesAreReadonly { get; set; }
 
         [BindNever]

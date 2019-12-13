@@ -53,7 +53,15 @@
     <div class="row col-md">
         <label asp-for="RelationshipType">@T["Relationship Type"]</label>
         <input asp-for="RelationshipType" class="form-control" />
-        <span class="hint">@T["If supplied, the type of relationship to create, otherwise the selected node's value field will be stored."]</span>
+        <span class="hint">@T["If supplied, the type of relationship to create."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="PropertyName">@T["Property Name"]</label>
+        <input asp-for="PropertyName" class="form-control" />
+        <span class="hint">@T["If supplied, the name of the property to create."]</span>
     </div>
 </fieldset>
 

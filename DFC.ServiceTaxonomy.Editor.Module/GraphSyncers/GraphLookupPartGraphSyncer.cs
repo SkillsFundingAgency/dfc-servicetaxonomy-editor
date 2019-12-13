@@ -7,8 +7,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
 {
-    public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer //<GraphLookupPartSettings>
-//    public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer<GraphLookupPartSettings>
+    public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer
     {
         public string PartName
         {
@@ -20,7 +19,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
             Dictionary<string, object> nodeProperties,
             Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition)
-//            GraphLookupPartSettings settings)
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
@@ -28,12 +26,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
             if (nodes.Count == 0)
                 return;
 
-            if (settings.RelationshipType == null)
+            if (settings.PropertyName != null)
             {
-                //todo: in settings don't allow multiple and property
-                nodeProperties.Add("todo", nodes.First()["Id"].ToString());
+                //todo: in settings don't allow multiple and property name
+                nodeProperties.Add(settings.PropertyName, nodes.First()["Id"].ToString());
             }
-            else
+
+            if (settings.RelationshipType == null)
             {
                 nodeRelationships.Add(
                     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,

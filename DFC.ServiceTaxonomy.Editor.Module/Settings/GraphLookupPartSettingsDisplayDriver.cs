@@ -31,6 +31,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 model.DisplayFieldName = settings.DisplayFieldName;
                 model.ValueFieldName = settings.ValueFieldName;
                 model.RelationshipType = settings.RelationshipType;
+                model.PropertyName = settings.PropertyName;
                 model.NodesAreReadonly = settings.NodesAreReadonly;
 
                 model.GraphLookupPartSettings = settings;
@@ -54,6 +55,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 m => m.DisplayFieldName,
                 m => m.ValueFieldName,
                 m => m.RelationshipType,
+                m => m.PropertyName,
                 m => m.NodesAreReadonly))
             {
                 context.Builder.WithSettings(new GraphLookupPartSettings
@@ -65,6 +67,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                     DisplayFieldName = model.DisplayFieldName,
                     ValueFieldName = model.ValueFieldName,
                     RelationshipType = model.RelationshipType,
+                    PropertyName = model.PropertyName,
                     NodesAreReadonly = model.NodesAreReadonly
                 });
             }
