@@ -12,23 +12,25 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
 {
     public class GraphLookupPartDisplayDriver : ContentPartDisplayDriver<GraphLookupPart>
     {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        // private readonly INeoGraphDatabase _neoGraphDatabase;
+        // private readonly IContentDefinitionManager _contentDefinitionManager;
+        //
+        // public GraphLookupPartDisplayDriver(INeoGraphDatabase neoGraphDatabase, IContentDefinitionManager contentDefinitionManager)
+        // {
+        //     _neoGraphDatabase = neoGraphDatabase;
+        //     _contentDefinitionManager = contentDefinitionManager;
+        // }
 
-        public GraphLookupPartDisplayDriver(IContentDefinitionManager contentDefinitionManager)
-        {
-            _contentDefinitionManager = contentDefinitionManager;
-        }
+        // public override IDisplayResult Display(GraphLookupPart GraphLookupPart)
+        // {
+        //     return Combine(
+        //         Initialize<GraphLookupPartViewModel>("GraphLookupPart", m => BuildViewModel(m, GraphLookupPart))
+        //             .Location("Detail", "Content:20"),
+        //         Initialize<GraphLookupPartViewModel>("GraphLookupPart_Summary", m => BuildViewModel(m, GraphLookupPart))
+        //             .Location("Summary", "Meta:5")
+        //     );
+        // }
 
-        public override IDisplayResult Display(GraphLookupPart GraphLookupPart)
-        {
-            return Combine(
-                Initialize<GraphLookupPartViewModel>("GraphLookupPart", m => BuildViewModel(m, GraphLookupPart))
-                    .Location("Detail", "Content:20"),
-                Initialize<GraphLookupPartViewModel>("GraphLookupPart_Summary", m => BuildViewModel(m, GraphLookupPart))
-                    .Location("Summary", "Meta:5")
-            );
-        }
-        
         public override IDisplayResult Edit(GraphLookupPart GraphLookupPart)
         {
             return Initialize<GraphLookupPartViewModel>("GraphLookupPart_Edit", m => BuildViewModel(m, GraphLookupPart));
@@ -39,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
             var settings = GetGraphLookupPartSettings(model);
 
             await updater.TryUpdateModelAsync(model, Prefix, t => t.Show);
-            
+
             return Edit(model);
         }
 
