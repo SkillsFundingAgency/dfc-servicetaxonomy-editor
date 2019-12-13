@@ -1,14 +1,16 @@
-﻿using OrchardCore.ContentManagement.Handlers;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.Handlers
 {
+    //todo: bulk publish doesn't sync
     public class GraphLookupPartHandler : ContentPartHandler<GraphLookupPart>
     {
-        public override Task InitializingAsync(InitializingContentContext context, GraphLookupPart part)
+        public override Task UpdatedAsync(UpdateContentContext context, GraphLookupPart part)
         {
-            part.Show = true;
+            part.Apply();
 
             return Task.CompletedTask;
         }

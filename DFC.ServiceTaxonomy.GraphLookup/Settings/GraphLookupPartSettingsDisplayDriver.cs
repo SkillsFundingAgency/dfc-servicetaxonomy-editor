@@ -1,45 +1,84 @@
-using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphLookup.Models;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
-using DFC.ServiceTaxonomy.GraphLookup.Models;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.Settings
 {
-    public class GraphLookupPartSettingsDisplayDriver : ContentPartDefinitionDisplayDriver
+    //todo: check button to show limit 10 examples? (similar to test connection)
+    public class GraphLookupPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
-        public override IDisplayResult Edit(ContentPartDefinition contentPartDefinition)
+        public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition, IUpdateModel updater)
         {
-            if (!String.Equals(nameof(GraphLookupPart), contentPartDefinition.Name))
+            if (!string.Equals(nameof(GraphLookupPart), contentTypePartDefinition.PartDefinition.Name))
             {
-                return null;
+                return default!;
             }
 
             return Initialize<GraphLookupPartSettingsViewModel>("GraphLookupPartSettings_Edit", model =>
             {
-                var settings = contentPartDefinition.GetSettings<GraphLookupPartSettings>();
+                var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-                model.MySetting = settings.MySetting;
+                model.DisplayName = settings.DisplayName;
+                model.Hint = settings.Hint;
+
+                model.Multiple = settings.Multiple;
+
+                model.NodeLabel = settings.NodeLabel;
+                model.DisplayFieldName = settings.DisplayFieldName;
+                model.ValueFieldName = settings.ValueFieldName;
+                model.RelationshipType = settings.RelationshipType;
+                model.PropertyName = settings.PropertyName;
+                model.NodesAreReadonly = settings.NodesAreReadonly;
+
                 model.GraphLookupPartSettings = settings;
             }).Location("Content");
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(ContentPartDefinition contentPartDefinition, UpdatePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(ContentTypePartDefinition contentTypePartDefinition, UpdateTypePartEditorContext context)
         {
-            if (!String.Equals(nameof(GraphLookupPart), contentPartDefinition.Name))
+            if (!string.Equals(nameof(GraphLookupPart), contentTypePartDefinition.PartDefinition.Name))
             {
-                return null;
+                return default!;
             }
 
             var model = new GraphLookupPartSettingsViewModel();
 
-            if (await context.Updater.TryUpdateModelAsync(model, Prefix, m => m.MySetting))
+            if (await context.Updater.TryUpdateModelAsync(model, Prefix,
+                m => m.DisplayName,
+                m => m.Hint,
+                m => m.Multiple,
+                m => m.NodeLabel,
+                m => m.DisplayFieldName,
+                m => m.ValueFieldName,
+                m => m.RelationshipType,
+                m => m.PropertyName,
+                m => m.NodesAreReadonly))
             {
-                context.Builder.WithSettings(new GraphLookupPartSettings { MySetting = model.MySetting });
+                if (!string.IsNullOrEmpty(model.PropertyName) && model.Multiple)
+                {
+                    context.Updater.ModelState.AddModelError(nameof(model.PropertyName), "Setting a property name is only allowed if multiple nodes are not allowed.");
+                }
+                else
+                {
+                    context.Builder.WithSettings(new GraphLookupPartSettings
+                    {
+                        DisplayName = model.DisplayName,
+                        Hint = model.Hint,
+                        Multiple = model.Multiple,
+                        NodeLabel = model.NodeLabel,
+                        DisplayFieldName = model.DisplayFieldName,
+                        ValueFieldName = model.ValueFieldName,
+                        RelationshipType = model.RelationshipType,
+                        PropertyName = model.PropertyName,
+                        NodesAreReadonly = model.NodesAreReadonly
+                    });
+                }
             }
 
-            return Edit(contentPartDefinition);
+            return Edit(contentTypePartDefinition, context.Updater);
         }
     }
 }

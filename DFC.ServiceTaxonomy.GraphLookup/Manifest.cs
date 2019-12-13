@@ -1,11 +1,12 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "DFC.ServiceTaxonomy.GraphLookup",
-    Author = "The Orchard Team",
-    Website = "https://orchardproject.net",
-    Version = "0.0.1",
-    Description = "DFC.ServiceTaxonomy.GraphLookup",
-    Dependencies = new[] { "OrchardCore.Contents" },
-    Category = "Content Management"
+    Name = "Graph Lookup",
+    Author = "National Careers Service",
+    Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
+    Version = "0.0.3",
+    Description = "Graph Lookup Content Part",
+    Category = "Graph",
+    //todo:
+    Dependencies = new string[] {}
 )]

@@ -1,9 +1,82 @@
 @model DFC.ServiceTaxonomy.GraphLookup.Settings.GraphLookupPartSettingsViewModel
 
-<div class="form-group">
-    <div class="row col-lg">
-        <label asp-for="MySetting">@T["Setting"]</label>
-        <input asp-for="MySetting" class="form-control" />
-        <span class="hint">@T["The setting."]</span>
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="DisplayName">@T["Display Name"]</label>
+        <input asp-for="DisplayName" class="form-control" />
+        <span class="hint">@T["Name of the part as it will be displayed in screens. Leave empty to use defaults."]</span>
     </div>
-</div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="Hint">@T["Hint"]</label>
+        <input asp-for="Hint" class="form-control" />
+        <span class="hint">@T["Optionally provide a hint for this part."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="NodeLabel">@T["Node Label"]</label>
+        <input asp-for="NodeLabel" class="form-control" list="node-labels" />
+        @*todo normal select (vue multiselect?) of available node labels*@
+        @*<datalist id="namespace-prefixes">
+                @foreach (string nodeLabel in Model.NodeLabels!)
+                {
+                    <option>@nodeLabel</option>
+                }
+            </datalist>*@
+        <span class="hint">@T["The label to use to lookup nodes."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        @*todo select populated when node label selected*@
+        <label asp-for="DisplayFieldName">@T["Display Field Name"]</label>
+        <input asp-for="DisplayFieldName" class="form-control" />
+        <span class="hint">@T["The field used to search for a node and name the node."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        @*todo select populated when node label selected*@
+        <label asp-for="ValueFieldName">@T["Value Field Name"]</label>
+        <input asp-for="ValueFieldName" class="form-control" />
+        <span class="hint">@T["The field used as an ID when relating to the node, or whose value is stored."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="RelationshipType">@T["Relationship Type"]</label>
+        <input asp-for="RelationshipType" class="form-control" />
+        <span class="hint">@T["If supplied, the type of relationship to create."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="PropertyName">@T["Property Name"]</label>
+        <input asp-for="PropertyName" class="form-control" />
+        <span class="hint">@T["If supplied, the name of the property to create."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input asp-for="Multiple" type="checkbox" class="custom-control-input">
+        <label class="custom-control-label" asp-for="Multiple">@T["Allow Multiple Nodes"]</label>
+        <span class="hint">— @T["Whether to allow multiple nodes to be selected."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input asp-for="NodesAreReadonly" type="checkbox" class="custom-control-input" />
+        <label class="custom-control-label" asp-for="NodesAreReadonly">@T["Readonly Nodes"]</label>
+        <span class="hint">— @T["Are the lookup nodes static, or can they be modified."]</span>
+    </div>
+</fieldset>

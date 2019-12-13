@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
     // https://github.com/neo4j/neo4j-dotnet-driver
     // (not updated for 4 yet: https://neo4j.com/docs/driver-manual/1.7/get-started/)
-    public class NeoGraphDatabase : INeoGraphDatabase, IDisposable
+    public class NeoGraphDatabase : IGraphDatabase, IDisposable
     {
         private readonly IDriver _driver;
 

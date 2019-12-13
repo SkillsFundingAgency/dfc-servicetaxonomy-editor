@@ -5,7 +5,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
-    public interface INeoGraphDatabase
+    public interface IGraphDatabase
     {
         Task<List<T>> RunReadStatement<T>(Statement statement, Func<IRecord, T> operation);
 

@@ -1,26 +1,31 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphLookup.Models;
+using DFC.ServiceTaxonomy.GraphLookup.ViewModels;
+using DFC.ServiceTaxonomy.Neo4j.Services;
+using Neo4j.Driver;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
-using DFC.ServiceTaxonomy.GraphLookup.Models;
-using DFC.ServiceTaxonomy.GraphLookup.Settings;
-using DFC.ServiceTaxonomy.GraphLookup.ViewModels;
+using GraphLookupPartSettings = DFC.ServiceTaxonomy.GraphLookup.Settings.GraphLookupPartSettings;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
 {
     public class GraphLookupPartDisplayDriver : ContentPartDisplayDriver<GraphLookupPart>
     {
-        // private readonly INeoGraphDatabase _neoGraphDatabase;
-        // private readonly IContentDefinitionManager _contentDefinitionManager;
-        //
-        // public GraphLookupPartDisplayDriver(INeoGraphDatabase neoGraphDatabase, IContentDefinitionManager contentDefinitionManager)
-        // {
-        //     _neoGraphDatabase = neoGraphDatabase;
-        //     _contentDefinitionManager = contentDefinitionManager;
-        // }
+        private readonly IGraphDatabase _graphDatabase;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
+        public GraphLookupPartDisplayDriver(IGraphDatabase graphDatabase, IContentDefinitionManager contentDefinitionManager)
+        {
+            _graphDatabase = graphDatabase;
+            _contentDefinitionManager = contentDefinitionManager;
+        }
+
+        //todo: ?
         // public override IDisplayResult Display(GraphLookupPart GraphLookupPart)
         // {
         //     return Combine(
@@ -31,40 +36,73 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
         //     );
         // }
 
-        public override IDisplayResult Edit(GraphLookupPart GraphLookupPart)
+        public override IDisplayResult Edit(GraphLookupPart part, BuildPartEditorContext context)
         {
-            return Initialize<GraphLookupPartViewModel>("GraphLookupPart_Edit", m => BuildViewModel(m, GraphLookupPart));
+            return Initialize<GraphLookupPartViewModel>("GraphLookupPart_Edit", m => BuildViewModel(m, part, context));
         }
 
-        public override async Task<IDisplayResult> UpdateAsync(GraphLookupPart model, IUpdateModel updater)
+        public override async Task<IDisplayResult> UpdateAsync(GraphLookupPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
-            var settings = GetGraphLookupPartSettings(model);
+            var viewModel = new GraphLookupPartViewModel();
 
-            await updater.TryUpdateModelAsync(model, Prefix, t => t.Show);
+            bool modelUpdated = await updater.TryUpdateModelAsync(viewModel, Prefix, f => f.ItemIds);
+            if (modelUpdated)
+            {
+                if (viewModel.ItemIds == null)
+                {
+                    part.Nodes = new GraphLookupNode[0];
+                }
+                else
+                {
+                    string[] ids = viewModel.ItemIds.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    //todo: here we get the display field from the graph, but it would be better to get it from the model
+                    // or if not only make 1 trip
 
-            return Edit(model);
+                    var settings = GetGraphLookupPartSettings(part);
+
+                    part.Nodes = await Task.WhenAll(ids.Select(async id => new GraphLookupNode(id, await GetNodeValue(id, settings))));
+                }
+            }
+
+            //todo: why?
+            return Edit(part, context);
         }
 
-        public GraphLookupPartSettings GetGraphLookupPartSettings(GraphLookupPart part)
+        private GraphLookupPartSettings GetGraphLookupPartSettings(GraphLookupPart part)
         {
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(part.ContentItem.ContentType);
             var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphLookupPart));
-            var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
-
-            return settings;
+            return contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
         }
 
-        private Task BuildViewModel(GraphLookupPartViewModel model, GraphLookupPart part)
+        private async Task<string> GetNodeValue(string id, GraphLookupPartSettings settings)
+        {
+            var results = await _graphDatabase.RunReadStatement(new Statement(
+                    $"match (n:{settings.NodeLabel} {{{settings.ValueFieldName}:'{id}'}}) return head(n.{settings.DisplayFieldName}) as displayField"),
+                r => r["displayField"].ToString());
+
+            return results.First();
+        }
+
+//todo: why does warning not appear on save, but later when view content items?
+#pragma warning disable S1172 // Unused method parameters should be removed
+        private void BuildViewModel(GraphLookupPartViewModel model, GraphLookupPart part, BuildPartEditorContext context)
+#pragma warning restore S1172 // Unused method parameters should be removed
         {
             var settings = GetGraphLookupPartSettings(part);
 
-            model.ContentItem = part.ContentItem;
-            model.MySetting = settings.MySetting;
-            model.Show = part.Show;
+            //todo: rename
+            model.ItemIds = string.Join(",", part.Nodes.Select(n => n.Id));
+            //todo: store id's also, so no need to go back to graph
+
             model.GraphLookupPart = part;
+            //todo: view needs partname & field name, not whole PartFieldDefinition.
+            //todo: check if really needs them, and if so, find them without this...
+            //model.PartFieldDefinition = context.TypePartDefinition.PartDefinition.Fields.First(f => f.Name == "todo");
+            model.PartName = context.TypePartDefinition.PartDefinition.Name;
             model.Settings = settings;
 
-            return Task.CompletedTask;
+            model.SelectedItems = part.Nodes;
         }
     }
 }

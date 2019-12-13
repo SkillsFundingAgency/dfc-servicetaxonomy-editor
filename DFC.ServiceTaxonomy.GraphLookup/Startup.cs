@@ -1,4 +1,5 @@
 using System;
+using DFC.ServiceTaxonomy.Editor.Module.Activities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using DFC.ServiceTaxonomy.GraphLookup.Drivers;
+using DFC.ServiceTaxonomy.GraphLookup.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphLookup.Handlers;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
@@ -21,9 +23,11 @@ namespace DFC.ServiceTaxonomy.GraphLookup
         {
             services.AddContentPart<GraphLookupPart>();
             services.AddScoped<IContentPartDisplayDriver, GraphLookupPartDisplayDriver>();
-            services.AddScoped<IContentPartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
+//            services.AddScoped<IContentPartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
+            services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartHandler, GraphLookupPartHandler>();
+            services.AddScoped<IContentPartGraphSyncer, GraphLookupPartGraphSyncer>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

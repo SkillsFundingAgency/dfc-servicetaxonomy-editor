@@ -1,12 +1,12 @@
-﻿using OrchardCore.ContentManagement.Metadata.Settings;
-using OrchardCore.ContentManagement.Metadata;
+﻿using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
 
 namespace DFC.ServiceTaxonomy.GraphLookup
 {
     public class Migrations : DataMigration
     {
-        IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public Migrations(IContentDefinitionManager contentDefinitionManager)
         {
@@ -17,7 +17,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup
         {
             _contentDefinitionManager.AlterPartDefinition("GraphLookupPart", builder => builder
                 .Attachable()
-                .WithDescription("Provides a GraphLookup part for your content item."));
+                .WithDescription("Lookup node(s) from the graph and create relationships and/or set a property based on the selection.")
+            );
 
             return 1;
         }
