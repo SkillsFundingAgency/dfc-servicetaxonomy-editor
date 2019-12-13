@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Documentation", "User 
 		User Documentation\README.md = User Documentation\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.GraphLookup", "DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj", "{C8CB1064-2262-4DFE-9778-B76163DF0115}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8CB1064-2262-4DFE-9778-B76163DF0115}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
