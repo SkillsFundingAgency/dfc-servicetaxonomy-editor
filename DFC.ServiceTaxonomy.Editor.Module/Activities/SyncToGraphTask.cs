@@ -204,47 +204,52 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                         nodeProperties.Add(NcsPrefix + field.Name, (long) fieldTypeAndValue.Value.ToObject(typeof(long)));
                         break;
                     case "ContentItemIds":
-                        //todo: check for empty list => noop, except for initial delete
-                        //todo: relationship type from metadata?
-
-                        string? relationshipType = null;
-                        ContentTypeDefinition contentTypeDefinition =
-                            _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-                        IEnumerable<ContentPartFieldDefinition> contentPartDefinitions
-                            = contentTypeDefinition.Parts.First(p => p.Name == contentItem.ContentType).PartDefinition.Fields;
-                        ContentPartFieldDefinition contentPartDefinition =
-                            contentPartDefinitions.First(d => d.Name == field.Name);
-                        string? contentPartHint =
-                            contentPartDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
-                        if (contentPartHint != null)
-                        {
-                            Match match = _relationshipTypeRegex.Match(contentPartHint);
-                            if (match.Success)
-                            {
-                                relationshipType = $"{match.Groups[1].Value}";
-                            }
-                        }
-
-                        string? destNodeLabel = null;
-                        var destUris = new List<string>();
-                        foreach (JToken relatedContentId in fieldTypeAndValue.Value)
-                        {
-                            ContentItem relatedContent =
-                                await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
-                            string relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString();
-                            destUris.Add(relatedContentKey.ToString());
-
-                            //todo: don't repeat
-                            destNodeLabel = NcsPrefix + relatedContent.ContentType;
-                            if (relationshipType == null)
-                                relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
-                        }
-
-                        if (destNodeLabel != null && relationshipType != null)
-                            relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
+                        await AddContentPickerFieldSyncComponents(contentItem, relationships, field, fieldTypeAndValue);
                         break;
                 }
             }
+        }
+
+        private async Task AddContentPickerFieldSyncComponents(
+            ContentItem contentItem,
+            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships,
+            dynamic field,
+            JProperty fieldTypeAndValue)
+        {
+            //todo: check for empty list => noop, except for initial delete
+
+            string? relationshipType = null;
+            ContentTypeDefinition contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+            IEnumerable<ContentPartFieldDefinition> contentPartDefinitions
+                = contentTypeDefinition.Parts.First(p => p.Name == contentItem.ContentType).PartDefinition.Fields;
+            ContentPartFieldDefinition contentPartDefinition = contentPartDefinitions.First(d => d.Name == field.Name);
+            string? contentPartHint = contentPartDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
+            if (contentPartHint != null)
+            {
+                Match match = _relationshipTypeRegex.Match(contentPartHint);
+                if (match.Success)
+                {
+                    relationshipType = $"{match.Groups[1].Value}";
+                }
+            }
+
+            string? destNodeLabel = null;
+            var destUris = new List<string>();
+            foreach (JToken relatedContentId in fieldTypeAndValue.Value)
+            {
+                ContentItem relatedContent =
+                    await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
+                string relatedContentKey = relatedContent.Content.UriId.URI.Text.ToString();
+                destUris.Add(relatedContentKey.ToString());
+
+                //todo: don't repeat
+                destNodeLabel = NcsPrefix + relatedContent.ContentType;
+                if (relationshipType == null)
+                    relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
+            }
+
+            if (destNodeLabel != null && relationshipType != null)
+                relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
         }
     }
 }
