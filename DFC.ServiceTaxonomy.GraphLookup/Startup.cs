@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup
 
             routes.MapAreaControllerRoute(
                 name: "GraphLookup",
-                areaName: "DFC.ServiceTaxonomy.Editor.Module",
+                areaName: "DFC.ServiceTaxonomy.GraphLookup",
                 pattern: "GraphLookup/SearchLookupNodes",
                 defaults: new { controller = "GraphLookupAdmin", action = "SearchLookupNodes" }
             );
