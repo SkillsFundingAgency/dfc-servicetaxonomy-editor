@@ -58,18 +58,25 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 m => m.PropertyName,
                 m => m.NodesAreReadonly))
             {
-                context.Builder.WithSettings(new GraphLookupPartSettings
+                if (!string.IsNullOrEmpty(model.PropertyName) && model.Multiple)
                 {
-                    DisplayName = model.DisplayName,
-                    Hint = model.Hint,
-                    Multiple = model.Multiple,
-                    NodeLabel = model.NodeLabel,
-                    DisplayFieldName = model.DisplayFieldName,
-                    ValueFieldName = model.ValueFieldName,
-                    RelationshipType = model.RelationshipType,
-                    PropertyName = model.PropertyName,
-                    NodesAreReadonly = model.NodesAreReadonly
-                });
+                    context.Updater.ModelState.AddModelError(nameof(model.PropertyName), "Setting a property name is only allowed if multiple nodes are not allowed.");
+                }
+                else
+                {
+                    context.Builder.WithSettings(new GraphLookupPartSettings
+                    {
+                        DisplayName = model.DisplayName,
+                        Hint = model.Hint,
+                        Multiple = model.Multiple,
+                        NodeLabel = model.NodeLabel,
+                        DisplayFieldName = model.DisplayFieldName,
+                        ValueFieldName = model.ValueFieldName,
+                        RelationshipType = model.RelationshipType,
+                        PropertyName = model.PropertyName,
+                        NodesAreReadonly = model.NodesAreReadonly
+                    });
+                }
             }
 
             return Edit(contentTypePartDefinition, context.Updater);
