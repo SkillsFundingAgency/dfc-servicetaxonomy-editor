@@ -12,7 +12,7 @@ using OrchardCore.ContentManagement.Metadata;
 namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
 {
 #pragma warning disable S2479 // Whitespace and control characters in string literals should be explicit
-
+//todo: initial load doesn't look like the first 50 ordered!
     [Admin]
     public class GraphLookupAdminController : Controller
     {

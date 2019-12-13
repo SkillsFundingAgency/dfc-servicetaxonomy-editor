@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module
         {
             _contentDefinitionManager.AlterPartDefinition("GraphLookupPart", builder => builder
                 .Attachable()
-                .WithDescription("Allows a lookup and store from a graph.")
+                .WithDescription("Lookup node(s) from the graph and create relationships and/or set a property based on the selection.")
             );
 
             return 1;

@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
                 nodeProperties.Add(settings.PropertyName, nodes.First()["Id"].ToString());
             }
 
-            if (settings.RelationshipType == null)
+            if (settings.RelationshipType != null)
             {
                 nodeRelationships.Add(
                     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
