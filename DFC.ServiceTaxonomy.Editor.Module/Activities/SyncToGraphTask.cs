@@ -113,8 +113,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 await SyncComponentsToGraph(contentItem, nodeProperties, relationships, nodeUri);
 
                 return Outcomes("Done");
-
-                //todo: create a uri on on create, read-only when editing (and on create prepopulated?)
             }
             catch (Exception ex)
             {

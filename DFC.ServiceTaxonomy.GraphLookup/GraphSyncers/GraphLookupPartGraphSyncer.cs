@@ -28,7 +28,6 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                //todo: in settings don't allow multiple and property name
                 nodeProperties.Add(settings.PropertyName, nodes.First()["Id"].ToString());
             }
 
