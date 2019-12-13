@@ -66,6 +66,7 @@
                 // Service Taxonomy Editor
                 //todo: do we actually need this one?
                 "DFC.ServiceTaxonomy.Editor",
+                "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.Editor.Module",
                 "OrchardCore.Workflows"
             ]

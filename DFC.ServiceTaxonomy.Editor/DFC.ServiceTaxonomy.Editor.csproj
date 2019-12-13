@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Editor.Module\DFC.ServiceTaxonomy.Editor.Module.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj" />
   </ItemGroup>
 
 </Project>

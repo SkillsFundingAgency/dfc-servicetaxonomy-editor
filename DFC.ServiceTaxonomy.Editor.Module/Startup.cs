@@ -4,9 +4,7 @@ using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
 using DFC.ServiceTaxonomy.Editor.Module.GraphSyncers;
-using DFC.ServiceTaxonomy.Editor.Module.Handlers;
 using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
-using DFC.ServiceTaxonomy.Editor.Module.Parts;
 using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using DFC.ServiceTaxonomy.Editor.Module.ViewModels;
 using Fluid;
@@ -16,9 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Editors;
-using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
 
@@ -31,8 +27,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             //todo: are these only necessary for fluid?
             TemplateContext.GlobalMemberAccessStrategy.Register<GraphUriIdField>();
             TemplateContext.GlobalMemberAccessStrategy.Register<DisplayGraphUriIdFieldViewModel>();
-
-            TemplateContext.GlobalMemberAccessStrategy.Register<GraphLookupPartViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)
@@ -45,7 +39,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
 
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphUriIdField"));
-
+            
+            services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
+            
             // Graph Uri Id Field
             services.AddContentField<GraphUriIdField>();
             services.AddScoped<IContentFieldDisplayDriver, GraphUriIdFieldDisplayDriver>();
@@ -54,21 +50,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             // services.AddScoped<IContentFieldIndexHandler, GraphUriIdFieldIndexHandler>();
             // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldPredefinedListEditorSettingsDriver>();
             // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldHeaderDisplaySettingsDriver>();
-
-            // Graph Lookup Part
-            services.AddContentPart<GraphLookupPart>();
-            services.AddScoped<IContentPartHandler, GraphLookupPartHandler>();
-            services.AddScoped<IContentPartDisplayDriver, GraphLookupPartDisplayDriver>();
-            services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
-            services.AddScoped<IContentPartGraphSyncer, GraphLookupPartGraphSyncer>();
-
-            //todo: split content part out into own module
-            services.AddScoped<IDataMigration, Migrations>();
-
-            // services.AddScoped<IContentPartGraphSyncer<GraphLookupPartSettings>, Xxx>();
-            // services.AddScoped<IContentPartGraphSyncer<GraphLookupPart>, Yyy>();
-            //services.AddScoped<IContentPartGraphSyncer<GraphLookupPartSettings>, GraphLookupPartGraphSyncer>();
-            services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
         }
 
         //public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
