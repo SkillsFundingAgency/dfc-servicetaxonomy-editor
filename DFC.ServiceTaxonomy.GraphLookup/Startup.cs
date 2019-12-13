@@ -32,7 +32,6 @@ namespace DFC.ServiceTaxonomy.GraphLookup
 
             services.AddContentPart<GraphLookupPart>();
             services.AddScoped<IContentPartDisplayDriver, GraphLookupPartDisplayDriver>();
-//            services.AddScoped<IContentPartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartHandler, GraphLookupPartHandler>();

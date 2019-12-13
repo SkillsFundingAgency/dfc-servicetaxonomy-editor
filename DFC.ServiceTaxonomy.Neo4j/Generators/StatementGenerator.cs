@@ -21,8 +21,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
             if (!relationships.Any()) // could return noop statement instead
                 throw new ArgumentException($"{nameof(MergeRelationships)} called with no relationships");
 
-            //todo: for same task for create/edit, first delete all given relationships between source and dest nodes
-
             //todo: bi-directional relationships
             //todo: rewrite for elegance/perf. selectmany?
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
