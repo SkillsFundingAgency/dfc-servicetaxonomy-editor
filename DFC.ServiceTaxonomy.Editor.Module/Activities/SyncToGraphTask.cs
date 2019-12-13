@@ -137,15 +137,15 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             string nodeLabel = NcsPrefix + contentItem.ContentType;
 
             // could create ienumerable and have 1 call
-            Statement mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, nodeProperties);
+            Query mergeNodesQuery = QueryGenerator.MergeNodes(nodeLabel, nodeProperties);
             if (relationships.Any())
             {
-                await _graphDatabase.RunWriteStatements(mergeNodesStatement,
-                    StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
+                await _graphDatabase.RunWriteQueries(mergeNodesQuery,
+                    QueryGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
             }
             else
             {
-                await _graphDatabase.RunWriteStatements(mergeNodesStatement);
+                await _graphDatabase.RunWriteQueries(mergeNodesQuery);
             }
         }
 

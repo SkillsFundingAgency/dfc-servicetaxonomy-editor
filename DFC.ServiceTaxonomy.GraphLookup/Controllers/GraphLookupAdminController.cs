@@ -46,12 +46,12 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
             const string displayField = "d";
             const string valueField = "v";
 
-            var results = await _neoGraphDatabase.RunReadStatement(
-                new Statement(
+            var results = await _neoGraphDatabase.RunReadQuery(
+                new Query(
 $@"match (n:{settings.NodeLabel})
-where head(n.{settings.DisplayFieldName}) starts with '{query}'
+where toLower(head(n.{settings.DisplayFieldName})) starts with toLower('{query}')
 return head(n.{settings.DisplayFieldName}) as {displayField}, n.{settings.ValueFieldName} as {valueField}
-order by {displayField}
+order by toLower({displayField})
 limit 50"),
                 r => new VueMultiselectItemViewModel { Id = r[valueField].ToString(), DisplayText = r[displayField].ToString() });
 

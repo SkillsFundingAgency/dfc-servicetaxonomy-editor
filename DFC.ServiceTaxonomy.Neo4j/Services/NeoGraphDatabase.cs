@@ -27,14 +27,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _driver = GraphDatabase.Driver(neo4jConfiguration.Endpoint.Uri, AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password));
         }
 
-        public async Task<List<T>> RunReadStatement<T>(Statement statement, Func<IRecord, T> operation)
+        public async Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
             {
                 return await session.ReadTransactionAsync(async tx =>
                 {
-                    IStatementResultCursor result = await tx.RunAsync(statement);
+                    IResultCursor result = await tx.RunAsync(query);
                     return await result.ToListAsync(operation);
                 });
             }
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
-        public async Task RunWriteStatements(params Statement[] statements)
+        public async Task RunWriteQueries(params Query[] queries)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
@@ -53,9 +53,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 //todo: configure retry? timeout? etc.
                 await session.WriteTransactionAsync(async tx =>
                 {
-                    foreach (Statement statement in statements)
+                    foreach (Query query in queries)
                     {
-                        await tx.RunAsync(statement);
+                        await tx.RunAsync(query);
                     }
                 });
             }
