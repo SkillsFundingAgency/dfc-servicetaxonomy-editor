@@ -106,17 +106,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
                 var relationships = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
-                foreach (var partSync in _partSyncers)
-                {
-                    dynamic partContent = contentItem.Content[partSync.PartName];
-                    if (partContent != null)
-                    {
-                        var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-                        var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partSync.PartName);
-
-                        partSync.AddSyncComponents(partContent, setMap, relationships, contentTypePartDefinition);
-                    }
-                }
+                AddContentPartSyncComponents(contentItem, setMap, relationships);
 
                 foreach (dynamic? field in contentItem.Content[contentItem.ContentType])
                 {
@@ -213,6 +203,25 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
                 //return Outcomes("Failed");
                 throw;
+            }
+        }
+
+        private void AddContentPartSyncComponents(
+            ContentItem contentItem,
+            Dictionary<string, object> nodeProperties,
+            Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships)
+        {
+            foreach (var partSync in _partSyncers)
+            {
+                dynamic partContent = contentItem.Content[partSync.PartName];
+                if (partContent != null)
+                {
+                    var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+                    var contentTypePartDefinition =
+                        contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partSync.PartName);
+
+                    partSync.AddSyncComponents(partContent, nodeProperties, relationships, contentTypePartDefinition);
+                }
             }
         }
     }
