@@ -30,10 +30,8 @@ namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
 
             if (settings.RelationshipType == null)
             {
-                foreach (JToken node in nodes)
-                {
-                    nodeProperties.Add("todo", node["Id"].ToString());
-                }
+                //todo: in settings don't allow multiple and property
+                nodeProperties.Add("todo", nodes.First()["Id"].ToString());
             }
             else
             {

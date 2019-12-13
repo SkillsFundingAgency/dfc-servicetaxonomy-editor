@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
                 model.DisplayName = settings.DisplayName;
-                model.Description = settings.Description;
+                model.Hint = settings.Hint;
 
                 model.Multiple = settings.Multiple;
 
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.DisplayName,
-                m => m.Description,
+                m => m.Hint,
                 m => m.Multiple,
                 m => m.NodeLabel,
                 m => m.DisplayFieldName,
@@ -59,7 +59,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                 context.Builder.WithSettings(new GraphLookupPartSettings
                 {
                     DisplayName = model.DisplayName,
-                    Description = model.Description,
+                    Hint = model.Hint,
                     Multiple = model.Multiple,
                     NodeLabel = model.NodeLabel,
                     DisplayFieldName = model.DisplayFieldName,

@@ -6,7 +6,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.ViewModels
     public class GraphLookupPartSettingsViewModel
     {
         public string? DisplayName { get; set; }
-        public string? Description { get; set; }
+        public string? Hint { get; set; }
 
         public bool Multiple { get; set; }
 
