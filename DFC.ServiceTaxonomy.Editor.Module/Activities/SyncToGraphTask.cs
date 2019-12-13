@@ -18,7 +18,7 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 //todo: part handler called after workflow finishes - can we use that to stop inserts?
 //todo: content delete
-//todo: sometimes whaen launch syncs without doing anything and reports : your xxx draft has been saved. is it when previously stopped during sync or something? when notification has been added before stopping debugging
+
 namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 {
     // Type mappings
@@ -48,7 +48,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             IContentManager contentManager, IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
             IEnumerable<IContentPartGraphSyncer> partSyncers)
-            //IServiceProvider serviceProvider)
         {
             _graphDatabase = graphDatabase;
             _contentManager = contentManager;
@@ -57,9 +56,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
             _partSyncers = partSyncers;
             T = localizer;
             _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
-
-            // var partSyncers = serviceProvider.GetServices(typeof(IContentPartGraphSyncer<>));
-            // partSyncers[0].
         }
 
         //todo: have as setting of activity
@@ -213,7 +209,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
 //                _notifier.Add(new GetProperty<NotifyType>(), new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
-
 
                 // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
                 //return Outcomes("Failed");

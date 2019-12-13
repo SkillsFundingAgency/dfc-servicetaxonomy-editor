@@ -27,8 +27,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Settings
                     partFieldDefinition.PopulateSettings(model);
 
                     model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
-
-                    //todo: find 3rd party bootstrap component to use instead of datalist (bootstrap itself doesn't support an input with select combo out of the box)
                 })
                 .Location("Content");
         }
