@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators;
-using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
+using DFC.ServiceTaxonomy.Neo4j.Generators;
+using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Neo4j.Driver;
@@ -44,13 +44,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
     // https://neo4j.com/docs/labs/nsmntx/current/import/
     public class SyncToGraphTask : TaskActivity
     {
-        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, INeoGraphDatabase neoGraphDatabase,
+        public SyncToGraphTask(IStringLocalizer<SyncToGraphTask> localizer, IGraphDatabase graphDatabase,
             IContentManager contentManager, IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
             IEnumerable<IContentPartGraphSyncer> partSyncers)
             //IServiceProvider serviceProvider)
         {
-            _neoGraphDatabase = neoGraphDatabase;
+            _graphDatabase = graphDatabase;
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
             _notifier = notifier;
@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         private const string NcsPrefix = "ncs__";
 
         private IStringLocalizer T { get; }
-        private readonly INeoGraphDatabase _neoGraphDatabase;
+        private readonly IGraphDatabase _graphDatabase;
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INotifier _notifier;
@@ -194,12 +194,12 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
                 Statement mergeNodesStatement = StatementGenerator.MergeNodes(nodeLabel, setMap);
                 if (relationships.Any())
                 {
-                    await _neoGraphDatabase.RunWriteStatements(mergeNodesStatement,
+                    await _graphDatabase.RunWriteStatements(mergeNodesStatement,
                         StatementGenerator.MergeRelationships(nodeLabel, "uri", nodeUri, relationships));
                 }
                 else
                 {
-                    await _neoGraphDatabase.RunWriteStatements(mergeNodesStatement);
+                    await _graphDatabase.RunWriteStatements(mergeNodesStatement);
                 }
 
                 return Outcomes("Done");

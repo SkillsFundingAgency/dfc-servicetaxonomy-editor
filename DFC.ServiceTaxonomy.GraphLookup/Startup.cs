@@ -47,6 +47,13 @@ namespace DFC.ServiceTaxonomy.GraphLookup
                 pattern: "Home/Index",
                 defaults: new { controller = "Home", action = "Index" }
             );
+
+            routes.MapAreaControllerRoute(
+                name: "GraphLookup",
+                areaName: "DFC.ServiceTaxonomy.Editor.Module",
+                pattern: "GraphLookup/SearchLookupNodes",
+                defaults: new { controller = "GraphLookupAdmin", action = "SearchLookupNodes" }
+            );
         }
     }
 }

@@ -1,5 +1,5 @@
-using DFC.ServiceTaxonomy.Editor.Module.Configuration;
-using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
+using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Services;
 using Xunit;
 using FakeItEasy;
 using Microsoft.Extensions.Options;

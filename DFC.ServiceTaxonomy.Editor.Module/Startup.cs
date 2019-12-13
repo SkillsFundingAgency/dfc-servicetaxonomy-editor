@@ -4,9 +4,10 @@ using DFC.ServiceTaxonomy.Editor.Module.Configuration;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.Editor.Module.Fields;
 using DFC.ServiceTaxonomy.Editor.Module.GraphSyncers;
-using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
 using DFC.ServiceTaxonomy.Editor.Module.Settings;
 using DFC.ServiceTaxonomy.Editor.Module.ViewModels;
+using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Services;
 using Fluid;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -35,13 +36,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
-            services.AddSingleton<INeoGraphDatabase, NeoGraphDatabase>();
+            services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
 
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphUriIdField"));
-            
+
             services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
-            
+
             // Graph Uri Id Field
             services.AddContentField<GraphUriIdField>();
             services.AddScoped<IContentFieldDisplayDriver, GraphUriIdFieldDisplayDriver>();
@@ -52,23 +53,13 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldHeaderDisplaySettingsDriver>();
         }
 
-        //public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
-        //{
-        //    routes.MapAreaControllerRoute(
-        //        name: "Home",
-        //        areaName: "DFC.ServiceTaxonomy.Editor.Module",
-        //        pattern: "Home/Index",
-        //        defaults: new { controller = "Home", action = "Index" }
-        //    );
-        //}
-
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(
-                name: "GraphLookup",
+                name: "Home",
                 areaName: "DFC.ServiceTaxonomy.Editor.Module",
-                pattern: "GraphLookup/SearchLookupNodes",
-                defaults: new { controller = "GraphLookupAdmin", action = "SearchLookupNodes" }
+                pattern: "Home/Index",
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

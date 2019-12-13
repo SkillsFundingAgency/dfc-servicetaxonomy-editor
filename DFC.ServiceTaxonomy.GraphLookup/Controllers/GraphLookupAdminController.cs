@@ -1,15 +1,15 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services;
-using DFC.ServiceTaxonomy.Editor.Module.Settings;
+using DFC.ServiceTaxonomy.GraphLookup.Settings;
+using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
 using OrchardCore.Admin;
 using OrchardCore.ContentFields.ViewModels;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
+namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
 {
 #pragma warning disable S2479 // Whitespace and control characters in string literals should be explicit
 //todo: initial load doesn't look like the first 50 ordered!
@@ -17,9 +17,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Controllers
     public class GraphLookupAdminController : Controller
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly INeoGraphDatabase _neoGraphDatabase;
+        private readonly IGraphDatabase _neoGraphDatabase;
 
-        public GraphLookupAdminController(IContentDefinitionManager contentDefinitionManager, INeoGraphDatabase neoGraphDatabase)
+        public GraphLookupAdminController(IContentDefinitionManager contentDefinitionManager, IGraphDatabase neoGraphDatabase)
         {
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
             _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));

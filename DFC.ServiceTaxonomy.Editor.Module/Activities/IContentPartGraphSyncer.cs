@@ -3,7 +3,6 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 {
-    //public interface IContentPartGraphSyncer<TPartSettings>
     public interface IContentPartGraphSyncer
     {
         string PartName {get;}
@@ -12,6 +11,5 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
         void AddSyncComponents(dynamic graphLookupContent, Dictionary<string, object> nodeProperties,
             Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition);
-            //  settings);
     }
 }
