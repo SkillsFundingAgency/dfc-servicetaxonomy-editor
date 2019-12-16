@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.Editor.Module.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    //todo: once we swap graph field to graph sync part
-    public class GraphUriIdFieldGraphSyncer
+    public class GraphSyncPartGraphSyncer
     {
         public string PartName
         {
