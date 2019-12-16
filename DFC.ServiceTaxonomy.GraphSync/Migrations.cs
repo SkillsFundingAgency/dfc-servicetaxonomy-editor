@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
         {
             _contentDefinitionManager.AlterPartDefinition("GraphSyncPart", builder => builder
                 .Attachable()
-                .WithDescription("Provides a GraphSync part for your content item."));
+                .WithDescription("Enables the content type to be synced to a graph."));
 
             return 1;
         }

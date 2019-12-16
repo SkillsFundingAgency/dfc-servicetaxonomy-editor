@@ -124,6 +124,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
+        //todo: content fields are contained in a part, could move into part syncer (with well known name?)
         private async Task AddContentFieldSyncComponents(
             ContentItem contentItem,
             IDictionary<string, object> nodeProperties,
