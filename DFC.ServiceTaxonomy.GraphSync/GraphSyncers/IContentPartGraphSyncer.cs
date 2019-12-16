@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.Editor.Module.Activities
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public interface IContentPartGraphSyncer
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.Editor.Module.Activities;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 

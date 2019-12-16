@@ -1,5 +1,4 @@
 using System;
-using DFC.ServiceTaxonomy.Editor.Module.Activities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +12,7 @@ using DFC.ServiceTaxonomy.GraphLookup.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphLookup.Handlers;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;

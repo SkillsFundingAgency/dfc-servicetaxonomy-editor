@@ -9,9 +9,12 @@ using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
+using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.Modules;
 
@@ -24,6 +27,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var serviceProvider = services.BuildServiceProvider();
             var configuration = serviceProvider.GetService<IConfiguration>();
 
+            services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
+            services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
+
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
             services.AddContentPart<GraphSyncPart>();
@@ -32,6 +38,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartHandler, GraphSyncPartHandler>();
+            services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+
+            services.AddScoped<IGraphSyncer, GraphSyncer>();
+            services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

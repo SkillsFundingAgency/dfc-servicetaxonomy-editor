@@ -3,12 +3,9 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public class GraphSyncPartGraphSyncer
+    public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string PartName
-        {
-            get { return "GraphSyncPart"; }
-        }
+        public string PartName => "GraphSyncPart";
 
         public void AddSyncComponents(
             dynamic graphSyncContent,
@@ -16,7 +13,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            nodeProperties.Add("uri", graphSyncContent.UriId.ToString());
+            nodeProperties.Add(IdPropertyName, IdPropertyValue(graphSyncContent));
         }
+
+        //todo: settable
+        public string IdPropertyName => "uri";
+
+        public string IdPropertyValue(dynamic graphSyncContent) => graphSyncContent.Text.ToString();
     }
 }
