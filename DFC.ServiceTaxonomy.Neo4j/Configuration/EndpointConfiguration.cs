@@ -1,4 +1,4 @@
-namespace DFC.ServiceTaxonomy.Editor.Module.Configuration
+namespace DFC.ServiceTaxonomy.Neo4j.Configuration
 {
     public class EndpointConfiguration
     {

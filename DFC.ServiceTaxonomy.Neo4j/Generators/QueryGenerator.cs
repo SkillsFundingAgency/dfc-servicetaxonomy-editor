@@ -4,24 +4,22 @@ using System.Linq;
 using System.Text;
 using Neo4j.Driver;
 
-namespace DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators
+namespace DFC.ServiceTaxonomy.Neo4j.Generators
 {
-    public static class StatementGenerator
+    public static class QueryGenerator
     {
-        public static Statement MergeNodes(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName = "uri")
+        public static Query MergeNodes(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName = "uri")
         {
-            return new Statement(
+            return new Query(
                 $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN n",
                 new Dictionary<string,object> {{"properties", propertyMap}});
         }
 
-        public static Statement MergeRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
+        public static Query MergeRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
             IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships)
         {
-            if (!relationships.Any()) // could return noop statement instead
+            if (!relationships.Any()) // could return noop query instead
                 throw new ArgumentException($"{nameof(MergeRelationships)} called with no relationships");
-
-            //todo: for same task for create/edit, first delete all given relationships between source and dest nodes
 
             //todo: bi-directional relationships
             //todo: rewrite for elegance/perf. selectmany?
@@ -60,7 +58,7 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Neo4j.Generators
             var existingRelationshipVariablesString = string.Join(',',Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
 
 
-            return new Statement($"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s", parameters);
+            return new Query($"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s", parameters);
         }
     }
 }

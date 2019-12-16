@@ -66,6 +66,7 @@
                 // Service Taxonomy Editor
                 //todo: do we actually need this one?
                 "DFC.ServiceTaxonomy.Editor",
+                "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.Editor.Module",
                 "OrchardCore.Workflows"
             ]
@@ -119,11 +120,30 @@
                             }
                         },
                         {
+                            "PartName": "GraphLookupPart",
+                            "Name": "GraphLookupPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphLookupPartSettings": {
+                                    "DisplayName": "ESCO Occupation Uri",
+                                    "Hint": "Select the ESCO occupation that relates to this job profile.",
+                                    "NodeLabel": "esco__Occupation",
+                                    "DisplayFieldName": "skos__prefLabel",
+                                    "ValueFieldName": "uri",
+                                    "RelationshipType": "ncs__relatedOccupation",
+                                    "NodesAreReadonly": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "PartName": "Graph",
                             "Name": "Graph",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 }
                             }
                         }
@@ -445,17 +465,8 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "ESCOOccupationUri",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "ESCO Occupation Uri",
-                                    "Position": "1"
                                 }
                             }
                         },
@@ -465,7 +476,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "2"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -475,7 +486,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "3"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -485,7 +496,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "4"
+                                    "Position": "3"
                                 }
                             }
                         }
@@ -501,6 +512,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "0"
                                 }
                             }
@@ -517,6 +529,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "0"
                                 }
                             }
@@ -561,6 +574,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
                                     "Position": "1"
                                 }
                             }
@@ -800,9 +814,6 @@
                         "Description": {
                             "Html": "3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/4cf7be91-fed9-47a7-9ca9-e74c7eb6becb"
-                        },
                         "SOCCode": {
                             "Text": "3122D"
                         },
@@ -812,6 +823,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/3d-printing-technician"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/4cf7be91-fed9-47a7-9ca9-e74c7eb6becb",
+                                "DisplayText": "3D printing technician"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -838,9 +857,6 @@
                         "Description": {
                             "Html": "Accommodation wardens manage the day-to-day running of services like sheltered housing, youth hostels and student flats."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/53cdd34e-22f2-41bd-b3c7-de22bf9bbcae"
-                        },
                         "SOCCode": {
                             "Text": "6144A"
                         },
@@ -850,6 +866,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/accommodation-warden"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/53cdd34e-22f2-41bd-b3c7-de22bf9bbcae",
+                                "DisplayText": "accommodation manager"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -876,9 +900,6 @@
                         "Description": {
                             "Html": "Accounting technicians handle day-to-day financial matters in all types of business."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/eda0d957-3c3c-4139-b89a-a18bc9e18897"
-                        },
                         "SOCCode": {
                             "Text": "3537A"
                         },
@@ -888,6 +909,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/accounting-technician"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/eda0d957-3c3c-4139-b89a-a18bc9e18897",
+                                "DisplayText": "accountant"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -914,9 +943,6 @@
                         "Description": {
                             "Html": "Acoustics consultants help manage and control noise and vibrations in homes, workplaces and other environments."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/b065b637-5cb5-44d9-8c39-08004b51734e"
-                        },
                         "SOCCode": {
                             "Text": "2129A"
                         },
@@ -926,6 +952,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/acoustics-consultant"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/b065b637-5cb5-44d9-8c39-08004b51734e",
+                                "DisplayText": "acoustical engineer"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -952,9 +986,6 @@
                         "Description": {
                             "Html": "Actors use speech, movement and expression to bring characters to life in theatre, film, television and radio."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/26171f39-e85a-448f-bd28-a73a5a99927f"
-                        },
                         "SOCCode": {
                             "Text": "3413B"
                         },
@@ -964,6 +995,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/actor"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/26171f39-e85a-448f-bd28-a73a5a99927f",
+                                "DisplayText": "actor/actress"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -990,9 +1029,6 @@
                         "Description": {
                             "Html": "Actuaries work with companies and government departments, to help them forecast long-term financial costs and investment risks."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/068c2787-58ff-468e-bbb6-c4e5dd6ee482"
-                        },
                         "SOCCode": {
                             "Text": "2425A"
                         },
@@ -1002,6 +1038,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/actuary"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/068c2787-58ff-468e-bbb6-c4e5dd6ee482",
+                                "DisplayText": "actuarial consultant"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -1028,9 +1072,6 @@
                         "Description": {
                             "Html": "Acupuncturists insert needles into pressure points on clients' bodies to help relieve everyday stresses, and improve their wellbeing."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/2dcb5dad-1902-4051-9023-d725485479a7"
-                        },
                         "SOCCode": {
                             "Text": "2229C"
                         },
@@ -1040,6 +1081,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/acupuncturist"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/2dcb5dad-1902-4051-9023-d725485479a7",
+                                "DisplayText": "acupuncturist"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -1066,9 +1115,6 @@
                         "Description": {
                             "Html": "Admin assistants give support to offices by organising meetings, typing documents and updating computer records."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/044d78cc-f62f-4532-83a5-8e04f2889652"
-                        },
                         "SOCCode": {
                             "Text": "4159B"
                         },
@@ -1078,6 +1124,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/admin-assistant"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/044d78cc-f62f-4532-83a5-8e04f2889652",
+                                "DisplayText": "administrative assistant"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -1104,9 +1158,6 @@
                         "Description": {
                             "Html": "Advertising account executives provide the link between an advertising agency and its clients."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/4ebf2dae-c326-4627-befe-fbc91410f432"
-                        },
                         "SOCCode": {
                             "Text": "3543B"
                         },
@@ -1116,6 +1167,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/advertising-account-executive"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/4ebf2dae-c326-4627-befe-fbc91410f432",
+                                "DisplayText": "advertising manager"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {
@@ -1142,9 +1201,6 @@
                         "Description": {
                             "Html": "Advertising account planners develop and plan advertising campaigns to make sure they reach the right audience."
                         },
-                        "ESCOOccupationUri": {
-                            "Text": "http://data.europa.eu/esco/occupation/e01719f4-d7dd-42fe-b504-93128520f84a"
-                        },
                         "SOCCode": {
                             "Text": "3543J"
                         },
@@ -1154,6 +1210,14 @@
                         "JobProfileWebsiteUrl": {
                             "Text": "https://nationalcareers.service.gov.uk/job-profiles/advertising-account-planner"
                         }
+                    },
+                    "GraphLookupPart": {
+                        "Nodes": [
+                            {
+                                "Id": "http://data.europa.eu/esco/occupation/e01719f4-d7dd-42fe-b504-93128520f84a",
+                                "DisplayText": "advertising specialist"
+                            }
+                        ]
                     },
                     "Graph": {
                         "UriId": {

@@ -12,13 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc1-*" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.1.0.13383">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -26,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Editor.Module\DFC.ServiceTaxonomy.Editor.Module.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
   </ItemGroup>
 

@@ -1,17 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Module.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using Microsoft.Extensions.Options;
 using Neo4j.Driver;
 
-namespace DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services
+namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
-    //todo: create initial esco occupation content type
     //todo: ensure sync to neo when importing data through recipe
 
     // https://github.com/neo4j/neo4j-dotnet-driver
     // (not updated for 4 yet: https://neo4j.com/docs/driver-manual/1.7/get-started/)
-    public class NeoGraphDatabase : INeoGraphDatabase, IDisposable
+    public class NeoGraphDatabase : IGraphDatabase, IDisposable
     {
         private readonly IDriver _driver;
 
@@ -23,10 +23,28 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services
             //todo: add configuration/settings menu item/page so user can enter this
             var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
 
+            //todo: pass logger, see https://github.com/neo4j/neo4j-dotnet-driver
             _driver = GraphDatabase.Driver(neo4jConfiguration.Endpoint.Uri, AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password));
         }
 
-        public async Task RunWriteStatements(params Statement[] statements)
+        public async Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation)
+        {
+            IAsyncSession session = _driver.AsyncSession();
+            try
+            {
+                return await session.ReadTransactionAsync(async tx =>
+                {
+                    IResultCursor result = await tx.RunAsync(query);
+                    return await result.ToListAsync(operation);
+                });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+        }
+
+        public async Task RunWriteQueries(params Query[] queries)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
@@ -35,9 +53,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Neo4j.Services
                 //todo: configure retry? timeout? etc.
                 await session.WriteTransactionAsync(async tx =>
                 {
-                    foreach (Statement statement in statements)
+                    foreach (Query query in queries)
                     {
-                        await tx.RunAsync(statement);
+                        await tx.RunAsync(query);
                     }
                 });
             }
