@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.GraphLo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Neo4j", "DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj", "{C57D2E7F-F920-4D75-984E-7AE3F28E201A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.GraphSync", "DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj", "{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{C57D2E7F-F920-4D75-984E-7AE3F28E201A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C57D2E7F-F920-4D75-984E-7AE3F28E201A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C57D2E7F-F920-4D75-984E-7AE3F28E201A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
