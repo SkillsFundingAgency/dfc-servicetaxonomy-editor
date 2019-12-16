@@ -6,7 +6,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 {
     public class Migrations : DataMigration
     {
-        IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public Migrations(IContentDefinitionManager contentDefinitionManager)
         {

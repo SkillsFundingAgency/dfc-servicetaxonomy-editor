@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 
         public override async Task<IDisplayResult> UpdateAsync(GraphSyncPart model, IUpdateModel updater)
         {
-            var settings = GetGraphSyncPartSettings(model);
+            //var settings = GetGraphSyncPartSettings(model);
 
             await updater.TryUpdateModelAsync(model, Prefix, t => t.Show);
             

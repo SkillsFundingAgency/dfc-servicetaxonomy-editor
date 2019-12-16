@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+<!--    <Nullable>enable</Nullable>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +16,10 @@
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.1.0.13383">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
