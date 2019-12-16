@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Settings
     //todo: check button to show limit 10 examples? (similar to test connection)
     public class GraphLookupPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
-        public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition, IUpdateModel updater)
+        public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
         {
             if (!string.Equals(nameof(GraphLookupPart), contentTypePartDefinition.PartDefinition.Name))
             {

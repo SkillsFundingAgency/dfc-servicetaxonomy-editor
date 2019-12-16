@@ -1,6 +1,7 @@
 ﻿using OrchardCore.ContentManagement.Handlers;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
@@ -8,7 +9,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     {
         public override Task InitializingAsync(InitializingContentContext context, GraphSyncPart part)
         {
-            part.Show = true;
+            //todo: why not in template code?
+            part.Apply();
 
             return Task.CompletedTask;
         }

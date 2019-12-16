@@ -93,7 +93,9 @@ namespace DFC.ServiceTaxonomy.Editor.Module.Activities
 
                 // we use the existence of a Graph content part as a marker to indicate that the content item should be synced
                 // so we silently noop if it's not present
-                dynamic graph = ((JObject) contentItem.Content)["Graph"];
+                dynamic graph = ((JObject) contentItem.Content)["Graph"];    //todo: GraphSyncPart
+                //todo: text -> id?
+                //todo: why graph sync has tags in features, others don't?
                 if (graph == null)
                     return Outcomes("Done");
 

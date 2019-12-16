@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-<!--    <Nullable>enable</Nullable>-->
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

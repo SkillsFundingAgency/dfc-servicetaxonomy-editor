@@ -4,6 +4,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
     public class GraphSyncPart : ContentPart
     {
-        public bool Show { get; set; }
+        public string? Text { get; set; }
     }
 }

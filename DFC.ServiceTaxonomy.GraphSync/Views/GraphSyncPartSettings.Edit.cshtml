@@ -1,9 +1,16 @@
 @model DFC.ServiceTaxonomy.GraphSync.Settings.GraphSyncPartSettingsViewModel
 
-<div class="form-group">
-    <div class="row col-lg">
-        <label asp-for="MySetting">@T["Setting"]</label>
-        <input asp-for="MySetting" class="form-control" />
-        <span class="hint">@T["The setting."]</span>
+<fieldset class="form-group">
+    <div class="row col-sm-6">
+        <label asp-for="NamespacePrefix">@T["Namespace prefix"]</label>
+        <input asp-for="NamespacePrefix" class="form-control" list="namespace-prefixes" />
+        @*No aspnetcore tag helper for this yet, compose new component out of bootstrap component, or use 3rd party component? the only ones i've found are not free. vue multiselect*@
+        <datalist id="namespace-prefixes">
+            @foreach (string namespacePrefix in Model.NamespacePrefixOptions!)
+            {
+                <option>@namespacePrefix</option>
+            }
+        </datalist>
+        <span class="hint">@T["The namespace to use to prefix generated ID's."]</span>
     </div>
-</div>
+</fieldset>

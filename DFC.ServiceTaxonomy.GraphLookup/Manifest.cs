@@ -8,5 +8,6 @@ using OrchardCore.Modules.Manifest;
     Description = "Graph Lookup Content Part",
     Category = "Graph",
     //todo:
-    Dependencies = new string[] {}
+    Dependencies = new string[] {
+    }
 )]

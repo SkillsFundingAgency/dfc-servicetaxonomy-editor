@@ -1,11 +1,11 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "DFC.ServiceTaxonomy.GraphSync",
-    Author = "The Orchard Team",
-    Website = "https://orchardproject.net",
+    Name = "Graph Sync",
+    Author = "National Careers Service",
+    Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
     Version = "0.0.1",
-    Description = "DFC.ServiceTaxonomy.GraphSync",
-    Dependencies = new[] { "OrchardCore.Contents" },
-    Category = "Content Management"
+    Description = "Graph Sync Content Part",
+    Category = "Graph",
+    Dependencies = new[] { "OrchardCore.Contents" }
 )]

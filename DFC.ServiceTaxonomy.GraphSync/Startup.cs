@@ -1,4 +1,5 @@
 using System;
+using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ using DFC.ServiceTaxonomy.GraphSync.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
+using Microsoft.Extensions.Configuration;
 using OrchardCore.Modules;
 
 namespace DFC.ServiceTaxonomy.GraphSync
@@ -19,9 +21,15 @@ namespace DFC.ServiceTaxonomy.GraphSync
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            var serviceProvider = services.BuildServiceProvider();
+            var configuration = serviceProvider.GetService<IConfiguration>();
+
+            services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
+
             services.AddContentPart<GraphSyncPart>();
             services.AddScoped<IContentPartDisplayDriver, GraphSyncPartDisplayDriver>();
-            services.AddScoped<IContentPartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
+            //services.AddScoped<IContentPartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
+            services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartHandler, GraphSyncPartHandler>();
         }

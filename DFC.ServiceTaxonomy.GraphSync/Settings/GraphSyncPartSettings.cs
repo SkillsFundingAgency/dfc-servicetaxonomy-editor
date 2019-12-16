@@ -1,7 +1,11 @@
-﻿namespace DFC.ServiceTaxonomy.GraphSync.Settings
+﻿using System.Collections.Generic;
+
+namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
     public class GraphSyncPartSettings
     {
-        public string MySetting { get; set; }
+        public string? NamespacePrefix { get; set; }
+        //todo: [BindNever]
+        public List<string>? NamespacePrefixOptions { get; set; }
     }
 }

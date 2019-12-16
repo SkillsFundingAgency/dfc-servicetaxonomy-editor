@@ -1,8 +1,9 @@
 @model GraphSyncPartViewModel
 
-<div class="form-group">
-    <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" asp-for="Show" />
-        <label class="custom-control-label" asp-for="Show">@T["Show"]</label>
-    </div>
-</div>
+<fieldset class="form-group">
+    @* <label asp-for="Text">@Model?.PartFieldDefinition?.DisplayName()</label> *@
+    @* todo more generic, allow setting of field id name to set, display name, and templated id value? *@
+    <label asp-for="Text">Uri Id</label>
+    <input asp-for="Text" class="form-control content-preview-text" readonly>
+    <span class="hint">This URI ID is automatically generated</span>
+</fieldset>
