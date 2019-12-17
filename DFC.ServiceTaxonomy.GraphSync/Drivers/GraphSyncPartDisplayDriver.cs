@@ -44,8 +44,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 
         public override async Task<IDisplayResult> UpdateAsync(GraphSyncPart model, IUpdateModel updater)
         {
-            //var settings = GetGraphSyncPartSettings(model);
-
             await updater.TryUpdateModelAsync(model, Prefix, t => t.Text);
 
             return Edit(model);
@@ -56,36 +54,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
         {
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(part.ContentItem.ContentType);
             var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
-            var settings = contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
-
-            return settings;
+            return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
 
         private Task BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)
         {
-            var settings = GetGraphSyncPartSettings(part);
-
-            // model.Text = part.Text;
-            //
-            // model.ContentItem = part.ContentItem;
-            // // model.MySetting = settings.MySetting;
-            // // model.Show = part.Show;
-            // model.GraphSyncPart = part;
-            // // model.Settings = settings;
-
-
-            string namespacePrefix =
-                //context.PartFieldDefinition.GetSettings<GraphUriIdFieldSettings>().NamespacePrefix ??
-                settings.NamespacePrefix ??
-                _namespacePrefixConfiguration.CurrentValue.NamespacePrefixOptions.FirstOrDefault();
-
-//            model.Text = part.Text ?? $"{namespacePrefix}{context.TypePartDefinition.ContentTypeDefinition.Name.ToLowerInvariant()}/{Guid.NewGuid():D}";
-            model.Text = part.Text ?? $"{namespacePrefix}{part.ContentItem.ContentType.ToLowerInvariant()}/{Guid.NewGuid():D}";
-            // model.Field = field;
-            // model.Part = context.ContentPart;
-            // model.PartFieldDefinition = context.PartFieldDefinition;
+            model.Text = part.Text ?? GenerateUriId(part);
 
             return Task.CompletedTask;
+        }
+
+        private string GenerateUriId(GraphSyncPart part)
+        {
+            var settings = GetGraphSyncPartSettings(part);
+
+            string namespacePrefix = settings.NamespacePrefix ??
+                                     _namespacePrefixConfiguration.CurrentValue.NamespacePrefixOptions.FirstOrDefault();
+
+            return $"{namespacePrefix}{part.ContentItem.ContentType.ToLowerInvariant()}/{Guid.NewGuid():D}";
         }
     }
 }
