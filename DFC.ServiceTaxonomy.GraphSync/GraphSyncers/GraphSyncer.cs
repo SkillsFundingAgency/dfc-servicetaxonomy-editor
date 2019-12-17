@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Neo4j.Driver;
@@ -58,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
-            dynamic graphSyncPartContent = ((JObject) contentItem.Content)["GraphSyncPart"];
+            dynamic graphSyncPartContent = ((JObject) contentItem.Content)[nameof(GraphSyncPart)];
             //todo: text -> id?
             //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
