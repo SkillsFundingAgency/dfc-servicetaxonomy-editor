@@ -77,7 +77,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             JProperty fieldTypeAndValue,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            //todo: check for empty list => noop, except for initial delete
+            //todo: check for empty list => noop, *except for initial delete*
+            JToken firstRelatedContentId = fieldTypeAndValue.Value.FirstOrDefault();
+            if (firstRelatedContentId == default)
+                return;
 
             string? relationshipType = null;
             ContentPartFieldDefinition contentPartFieldDefinition =
@@ -92,27 +95,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 }
             }
 
-            string? destNodeLabel = null;
-            var destUris = new List<string>();
-            foreach (JToken relatedContentId in fieldTypeAndValue.Value)
+            ContentItem firstRelatedContent = await _contentManager.GetAsync(firstRelatedContentId.ToString(), VersionOptions.Latest);
+
+            string destNodeLabel = NcsPrefix + firstRelatedContent.ContentType;
+            if (relationshipType == null)
+                relationshipType = $"{NcsPrefix}has{firstRelatedContent.ContentType}";
+
+            var destUris = new List<string>
             {
-                ContentItem relatedContent =
-                    await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
+                GetSyncId(firstRelatedContent)
+            };
+
+            foreach (JToken relatedContentId in fieldTypeAndValue.Value.Skip(1))
+            {
+                ContentItem relatedContent = await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
 
                 //todo requires 'picked' part has a graph sync part
                 // add to docs & handle picked part not having graph sync part or throw exception
-                string relatedContentKey = _graphSyncPartIdProperty.Value(relatedContent.Content[nameof(GraphSyncPart)]);
 
-                destUris.Add(relatedContentKey);
-
-                //todo: don't repeat
-                destNodeLabel = NcsPrefix + relatedContent.ContentType;
-                if (relationshipType == null)
-                    relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
+                destUris.Add(GetSyncId(relatedContent));
             }
 
-            if (destNodeLabel != null && relationshipType != null)
-                relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destUris);
+            relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destUris);
+        }
+
+        private string GetSyncId(ContentItem pickedContentItem)
+        {
+            return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
 }
