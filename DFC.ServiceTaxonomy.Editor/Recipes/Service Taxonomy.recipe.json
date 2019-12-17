@@ -146,6 +146,9 @@
                                 "ContentTypePartSettings": {
                                     "Position": "3"
                                 }
+                            },
+                            "GraphSyncPartSettings": {
+                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -189,6 +192,9 @@
                                 "ContentTypePartSettings": {
                                     "Position": "2"
                                 }
+                            },
+                            "GraphSyncPartSettings": {
+                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -232,6 +238,9 @@
                                 "ContentTypePartSettings": {
                                     "Position": "2"
                                 }
+                            },
+                            "GraphSyncPartSettings": {
+                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -275,6 +284,9 @@
                                 "ContentTypePartSettings": {
                                     "Position": "2"
                                 }
+                            },
+                            "GraphSyncPartSettings": {
+                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -318,6 +330,9 @@
                                 "ContentTypePartSettings": {
                                     "Position": "2"
                                 }
+                            },
+                            "GraphSyncPartSettings": {
+                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]

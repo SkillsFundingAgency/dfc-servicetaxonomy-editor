@@ -30,17 +30,6 @@ namespace DFC.ServiceTaxonomy.Editor.Module
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
 
             // services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphUriIdField"));
-
-            // services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
-
-            // Graph Uri Id Field
-            // services.AddContentField<GraphUriIdField>();
-            // services.AddScoped<IContentFieldDisplayDriver, GraphUriIdFieldDisplayDriver>();
-            // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldSettingsDriver>();
-            // //todo: index?
-            // // services.AddScoped<IContentFieldIndexHandler, GraphUriIdFieldIndexHandler>();
-            // // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldPredefinedListEditorSettingsDriver>();
-            // // services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GraphUriIdFieldHeaderDisplaySettingsDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
