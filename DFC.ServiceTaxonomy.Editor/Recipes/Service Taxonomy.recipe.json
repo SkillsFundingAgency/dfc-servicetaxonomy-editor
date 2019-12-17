@@ -64,8 +64,6 @@
                 "TheAdmin",
 
                 // Service Taxonomy Editor
-                //todo: do we actually need this one?
-                "DFC.ServiceTaxonomy.Editor",
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
                 "OrchardCore.Workflows"
@@ -602,6 +600,16 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Enables the content type to be synced to a graph."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "GraphLookupPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Lookup node(s) from the graph and create relationships and/or set a property based on the selection."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []

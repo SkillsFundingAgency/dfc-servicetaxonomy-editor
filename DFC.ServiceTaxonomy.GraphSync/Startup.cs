@@ -43,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Syncers
             services.AddScoped<IGraphSyncer, GraphSyncer>();
             services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
+            services.AddScoped<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
 
             // Graph Sync Part
             services.AddContentPart<GraphSyncPart>();
