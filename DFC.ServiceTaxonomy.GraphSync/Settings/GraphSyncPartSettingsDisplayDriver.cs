@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
-    public class GraphSyncPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver //ContentPartDefinitionDisplayDriver
+    public class GraphSyncPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
         private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
 
@@ -17,40 +17,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             _namespacePrefixConfiguration = namespacePrefixConfiguration;
         }
 
-        // public override IDisplayResult Edit(ContentPartDefinition contentPartDefinition)
-        // {
-        //     if (!String.Equals(nameof(GraphSyncPart), contentPartDefinition.Name))
-        //     {
-        //         return null;
-        //     }
-        //
-        //     return Initialize<GraphSyncPartSettingsViewModel>("GraphSyncPartSettings_Edit", model =>
-        //     {
-        //         var settings = contentPartDefinition.GetSettings<GraphSyncPartSettings>();
-        //
-        //         model.MySetting = settings.MySetting;
-        //         model.GraphSyncPartSettings = settings;
-        //     }).Location("Content");
-        // }
-        //
-        // public override async Task<IDisplayResult> UpdateAsync(ContentPartDefinition contentPartDefinition, UpdatePartEditorContext context)
-        // {
-        //     if (!String.Equals(nameof(GraphSyncPart), contentPartDefinition.Name))
-        //     {
-        //         return null;
-        //     }
-        //
-        //     var model = new GraphSyncPartSettingsViewModel();
-        //
-        //     if (await context.Updater.TryUpdateModelAsync(model, Prefix, m => m.MySetting))
-        //     {
-        //         context.Builder.WithSettings(new GraphSyncPartSettings { MySetting = model.MySetting });
-        //     }
-        //
-        //     return Edit(contentPartDefinition);
-        // }
-
-//        public override IDisplayResult Edit(ContentPartDefinition contentPartDefinition, IUpdateModel updater)
         public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
         {
             //todo: contentTypePartDefinition.Name?
@@ -77,8 +43,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 return default!;
             }
 
-        // public override async Task<IDisplayResult> UpdateAsync(ContentPartFieldDefinition partFieldDefinition, UpdatePartFieldEditorContext context)
-        // {
             var model = new GraphSyncPartSettingsViewModel();
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
