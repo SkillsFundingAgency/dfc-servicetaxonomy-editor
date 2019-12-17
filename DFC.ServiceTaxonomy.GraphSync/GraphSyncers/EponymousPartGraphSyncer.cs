@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -12,18 +11,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IContentManager _contentManager;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly Regex _relationshipTypeRegex;
 
         //todo: have as setting of activity, or graph sync content part settings
         private const string NcsPrefix = "ncs__";
 
-        public EponymousPartGraphSyncer(
-            IContentManager contentManager,
-            IContentDefinitionManager contentDefinitionManager)
+        public EponymousPartGraphSyncer(IContentManager contentManager)
         {
             _contentManager = contentManager;
-            _contentDefinitionManager = contentDefinitionManager;
             _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         }
 
