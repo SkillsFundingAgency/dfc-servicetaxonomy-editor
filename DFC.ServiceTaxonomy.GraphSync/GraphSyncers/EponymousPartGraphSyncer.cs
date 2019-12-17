@@ -65,10 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         nodeProperties.Add(NcsPrefix + field.Name, (long) fieldTypeAndValue.Value.ToObject(typeof(long)));
                         break;
                     case "ContentItemIds":
-                        // ContentPickerFieldSettings conterPickerField = contentTypePartDefinition.PartDefinition.Fields
-                        //     .First(f => f.Name == ((JProperty)field).Name).GetSettings<ContentPickerFieldSettings>();
-
-                        await AddContentPickerFieldSyncComponents(nodeRelationships, /*field,*/ fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
+                        await AddContentPickerFieldSyncComponents(nodeRelationships, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
                         break;
                 }
             }
@@ -77,16 +74,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: interface for fields?
         private async Task AddContentPickerFieldSyncComponents(
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships,
-            //dynamic field,
             JProperty fieldTypeAndValue,
             ContentTypePartDefinition contentTypePartDefinition,
             string contentPickerFieldName)
         {
-            //todo: check for empty list => noop, *except for initial delete* -> if none, can't get destnodelabel & relationship type from content. need to get it from settings instead
-
             var fieldDefinitions = contentTypePartDefinition.PartDefinition.Fields;
 
-            ContentPickerFieldSettings contentPickerFieldSettings = fieldDefinitions.First(f => f.Name == contentPickerFieldName).GetSettings<ContentPickerFieldSettings>();
+            ContentPickerFieldSettings contentPickerFieldSettings = fieldDefinitions
+                .First(f => f.Name == contentPickerFieldName).GetSettings<ContentPickerFieldSettings>();
 
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
 
@@ -104,45 +99,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             string destNodeLabel = NcsPrefix + pickedContentType;
 
+            //todo requires 'picked' part has a graph sync part
+            // add to docs & handle picked part not having graph sync part or throw exception
 
-            // JToken firstRelatedContentId = fieldTypeAndValue.Value.FirstOrDefault();
-            // if (firstRelatedContentId == default)
-            //     return;
+            var destIds = await Task.WhenAll(fieldTypeAndValue.Value.Select(async relatedContentId =>
+                GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest))));
 
-            // string? relationshipType = null;
-            // ContentPartFieldDefinition contentPartFieldDefinition = fields.First(d => d.Name == field.Name);
-            // string? contentPartHint = contentPartFieldDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
-            // if (contentPartHint != null)
-            // {
-            //     Match match = _relationshipTypeRegex.Match(contentPartHint);
-            //     if (match.Success)
-            //     {
-            //         relationshipType = $"{match.Groups[1].Value}";
-            //     }
-            // }
-
-            // ContentItem firstRelatedContent = await _contentManager.GetAsync(firstRelatedContentId.ToString(), VersionOptions.Latest);
-            //
-            // string destNodeLabel = NcsPrefix + firstRelatedContent.ContentType;
-            // if (relationshipType == null)
-            //     relationshipType = $"{NcsPrefix}has{firstRelatedContent.ContentType}";
-
-            var destUris = new List<string>();
-            // {
-            //     GetSyncId(firstRelatedContent)
-            // };
-
-            foreach (JToken relatedContentId in fieldTypeAndValue.Value) //.Skip(1))
-            {
-                ContentItem relatedContent = await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
-
-                //todo requires 'picked' part has a graph sync part
-                // add to docs & handle picked part not having graph sync part or throw exception
-
-                destUris.Add(GetSyncId(relatedContent));
-            }
-
-            relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destUris);
+            relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destIds);
         }
 
         private string GetSyncId(ContentItem pickedContentItem)
