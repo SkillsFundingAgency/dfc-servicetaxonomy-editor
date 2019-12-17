@@ -37,15 +37,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
+        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
 
         public GraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
-            IEnumerable<IContentPartGraphSyncer> partSyncers)
+            IEnumerable<IContentPartGraphSyncer> partSyncers,
+            IGraphSyncPartIdProperty graphSyncPartIdProperty)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
             _partSyncers = partSyncers;
+            _graphSyncPartIdProperty = graphSyncPartIdProperty;
         }
 
         //todo: have as setting of activity, or graph sync content part settings
@@ -67,10 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             await AddContentPartSyncComponents(contentItem, nodeProperties, relationships);
 
-            // or inject directly -> will work differently once syncing is delegated
-            // delegate (partial) decision to GraphSyncPartGraphSyncer?
-            var graphSyncPartGraphSyncer = (GraphSyncPartGraphSyncer)_partSyncers.First(s => s.PartName == "GraphSyncPart");
-            await SyncComponentsToGraph(contentItem, nodeProperties, relationships, graphSyncPartGraphSyncer.IdPropertyName, graphSyncPartGraphSyncer.IdPropertyValue(graphSyncPartContent));
+            await SyncComponentsToGraph(contentItem, nodeProperties, relationships, _graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncPartContent));
         }
 
         private async Task AddContentPartSyncComponents(

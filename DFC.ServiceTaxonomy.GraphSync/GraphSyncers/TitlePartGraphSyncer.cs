@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.Title.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class TitlePartGraphSyncer : IContentPartGraphSyncer
     {
-        public string? PartName => "TitlePart";
+        public string? PartName => nameof(TitlePart);
 
         public Task AddSyncComponents(
             dynamic graphLookupContent,

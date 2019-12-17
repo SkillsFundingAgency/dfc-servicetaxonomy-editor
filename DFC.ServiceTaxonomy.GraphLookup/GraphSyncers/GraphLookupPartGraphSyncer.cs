@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using Newtonsoft.Json.Linq;
@@ -10,7 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 {
     public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string? PartName => "GraphLookupPart";
+        public string? PartName => nameof(GraphLookupPart);
 
         public Task AddSyncComponents(
             dynamic graphLookupContent,

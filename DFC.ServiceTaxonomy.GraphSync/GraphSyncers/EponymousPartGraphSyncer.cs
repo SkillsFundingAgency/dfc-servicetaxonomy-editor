@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -11,14 +12,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IContentManager _contentManager;
+        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly Regex _relationshipTypeRegex;
 
         //todo: have as setting of activity, or graph sync content part settings
         private const string NcsPrefix = "ncs__";
 
-        public EponymousPartGraphSyncer(IContentManager contentManager)
+        public EponymousPartGraphSyncer(IContentManager contentManager,
+            IGraphSyncPartIdProperty graphSyncPartIdProperty)
         {
             _contentManager = contentManager;
+            _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         }
 
@@ -97,7 +101,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 //todo requires 'picked' part has a graph sync part
                 // add to docs & handle picked part not having graph sync part or throw exception
-                string relatedContentKey = relatedContent.Content.GraphSyncPart.Text.ToString();
+                string relatedContentKey = _graphSyncPartIdProperty.Value(relatedContent.Content[nameof(GraphSyncPart)]);
+
                 destUris.Add(relatedContentKey);
 
                 //todo: don't repeat
@@ -106,8 +111,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     relationshipType = $"{NcsPrefix}has{relatedContent.ContentType}";
             }
 
-            if (destNodeLabel != null && relationshipType != null)    // todo: don't hardcode uri, belongs to GraphSyncPartGraphSyncer.IdPropertyName
-                relationships.Add((destNodeLabel, "uri", relationshipType), destUris);
+            if (destNodeLabel != null && relationshipType != null)
+                relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destUris);
         }
     }
 }
