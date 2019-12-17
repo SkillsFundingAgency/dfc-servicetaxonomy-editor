@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29519.161
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor", "DFC.ServiceTaxonomy.Editor\DFC.ServiceTaxonomy.Editor.csproj", "{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Editor.Module", "DFC.ServiceTaxonomy.Editor.Module\DFC.ServiceTaxonomy.Editor.Module.csproj", "{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16DF71DE-7DEE-4E45-B613-CABA378B6D14}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -38,10 +36,6 @@ Global
 		{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12E7F029-43F7-4BF2-AC86-B5056D1D4DDF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72986170-64E7-49E3-8EBB-CF2E2CE7FAFC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{248782F2-4F59-4EC6-8403-7BC6235863E1}.Release|Any CPU.ActiveCfg = Release|Any CPU

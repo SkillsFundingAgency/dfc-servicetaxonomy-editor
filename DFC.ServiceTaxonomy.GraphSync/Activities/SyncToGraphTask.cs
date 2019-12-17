@@ -9,10 +9,11 @@ using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
+
 //todo: part handler called after workflow finishes - can we use that to stop inserts?
 //todo: content delete
 
-namespace DFC.ServiceTaxonomy.Editor.Module.Activities
+namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
     public class SyncToGraphTask : TaskActivity
     {

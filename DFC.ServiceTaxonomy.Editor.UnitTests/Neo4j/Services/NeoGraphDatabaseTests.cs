@@ -1,10 +1,10 @@
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
-using Xunit;
 using FakeItEasy;
 using Microsoft.Extensions.Options;
+using Xunit;
 
-namespace DFC.ServiceTaxonomy.Editor.UnitTests.Module.Services
+namespace DFC.ServiceTaxonomy.Editor.UnitTests.Neo4j.Services
 {
     public class NeoGraphDatabaseTests
     {

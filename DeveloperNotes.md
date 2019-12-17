@@ -3,6 +3,7 @@
 * don't like new disabled select appearing once selected in single select scenario - nasty!
 * need to add dependencies into manifest?
 * use predefined list editor for node label?
+* handle graph down/not running better (& quicker)
 
 #Templates
 

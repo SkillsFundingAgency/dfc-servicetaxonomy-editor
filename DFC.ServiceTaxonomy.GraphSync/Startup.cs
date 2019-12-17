@@ -1,4 +1,6 @@
 using System;
+using DFC.ServiceTaxonomy.Editor.Module.Drivers;
+using DFC.ServiceTaxonomy.GraphSync.Activities;
 using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -17,6 +19,7 @@ using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.Modules;
+using OrchardCore.Workflows.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -24,14 +27,24 @@ namespace DFC.ServiceTaxonomy.GraphSync
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            // Configuration
             var serviceProvider = services.BuildServiceProvider();
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
-            services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
-
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
+            // Graph Database
+            services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
+
+            // Sync to graph workflow task
+            services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
+
+            // Syncers
+            services.AddScoped<IGraphSyncer, GraphSyncer>();
+            services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
+
+            // Graph Sync Part
             services.AddContentPart<GraphSyncPart>();
             services.AddScoped<IContentPartDisplayDriver, GraphSyncPartDisplayDriver>();
             //services.AddScoped<IContentPartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
@@ -39,9 +52,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartHandler, GraphSyncPartHandler>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
-
-            services.AddScoped<IGraphSyncer, GraphSyncer>();
-            services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

@@ -5,7 +5,7 @@ using OrchardCore.Modules.Manifest;
     Author = "National Careers Service",
     Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
     Version = "0.0.1",
-    Description = "Graph Sync Content Part",
+    Description = "Enables syncing content to a Neo4j graph.",
     Category = "Graph",
     Dependencies = new[] { "OrchardCore.Contents" }
 )]

@@ -53,6 +53,7 @@ where toLower(head(n.{settings.DisplayFieldName})) starts with toLower('{query}'
 return head(n.{settings.DisplayFieldName}) as {displayField}, n.{settings.ValueFieldName} as {valueField}
 order by toLower({displayField})
 limit 50"),
+                //todo: no need for this anymore?
                 r => new VueMultiselectItemViewModel { Id = r[valueField].ToString(), DisplayText = r[displayField].ToString() });
 
             return new ObjectResult(results);

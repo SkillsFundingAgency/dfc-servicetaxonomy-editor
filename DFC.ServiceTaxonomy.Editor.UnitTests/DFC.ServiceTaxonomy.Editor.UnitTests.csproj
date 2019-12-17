@@ -16,11 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Module\Activities" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DFC.ServiceTaxonomy.Editor.Module\DFC.ServiceTaxonomy.Editor.Module.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
   </ItemGroup>
 
 </Project>
