@@ -35,6 +35,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
 
             foreach (var relationship in relationships)
             {
+                distinctRelationshipTypes[relationship.Key.relationshipType] = relationship.Key.destNodeLabel;
+
                 foreach (string destIdPropertyValue in relationship.Value)
                 {
                     string destNodeVariable = $"d{++ordinal}";
@@ -42,8 +44,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
 
                     nodeMatchBuilder.Append($"\r\nmatch ({destNodeVariable}:{relationship.Key.destNodeLabel} {{{relationship.Key.destIdPropertyName}:${destIdPropertyValueParamName}}})");
                     parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
-
-                    distinctRelationshipTypes[relationship.Key.relationshipType] = relationship.Key.destNodeLabel;
 
                     mergeBuilder.Append($"\r\nmerge (s)-[:{relationship.Key.relationshipType}]->({destNodeVariable})");
                 }
@@ -56,7 +56,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
             }
 
             var existingRelationshipVariablesString = string.Join(',',Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
-
 
             return new Query($"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s", parameters);
         }

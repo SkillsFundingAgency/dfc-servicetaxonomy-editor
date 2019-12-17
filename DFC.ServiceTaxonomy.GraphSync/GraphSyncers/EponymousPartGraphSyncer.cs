@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -64,7 +65,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         nodeProperties.Add(NcsPrefix + field.Name, (long) fieldTypeAndValue.Value.ToObject(typeof(long)));
                         break;
                     case "ContentItemIds":
-                        await AddContentPickerFieldSyncComponents(nodeRelationships, field, fieldTypeAndValue, contentTypePartDefinition);
+                        // ContentPickerFieldSettings conterPickerField = contentTypePartDefinition.PartDefinition.Fields
+                        //     .First(f => f.Name == ((JProperty)field).Name).GetSettings<ContentPickerFieldSettings>();
+
+                        await AddContentPickerFieldSyncComponents(nodeRelationships, /*field,*/ fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
                         break;
                 }
             }
@@ -73,40 +77,62 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: interface for fields?
         private async Task AddContentPickerFieldSyncComponents(
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships,
-            dynamic field,
+            //dynamic field,
             JProperty fieldTypeAndValue,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            string contentPickerFieldName)
         {
             //todo: check for empty list => noop, *except for initial delete* -> if none, can't get destnodelabel & relationship type from content. need to get it from settings instead
-            JToken firstRelatedContentId = fieldTypeAndValue.Value.FirstOrDefault();
-            if (firstRelatedContentId == default)
-                return;
+
+            var fieldDefinitions = contentTypePartDefinition.PartDefinition.Fields;
+
+            ContentPickerFieldSettings contentPickerFieldSettings = fieldDefinitions.First(f => f.Name == contentPickerFieldName).GetSettings<ContentPickerFieldSettings>();
+
+            string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
 
             string? relationshipType = null;
-            ContentPartFieldDefinition contentPartFieldDefinition =
-                contentTypePartDefinition.PartDefinition.Fields.First(d => d.Name == field.Name);
-            string? contentPartHint = contentPartFieldDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
-            if (contentPartHint != null)
+            if (contentPickerFieldSettings.Hint != null)
             {
-                Match match = _relationshipTypeRegex.Match(contentPartHint);
+                Match match = _relationshipTypeRegex.Match(contentPickerFieldSettings.Hint);
                 if (match.Success)
                 {
                     relationshipType = $"{match.Groups[1].Value}";
                 }
             }
-
-            ContentItem firstRelatedContent = await _contentManager.GetAsync(firstRelatedContentId.ToString(), VersionOptions.Latest);
-
-            string destNodeLabel = NcsPrefix + firstRelatedContent.ContentType;
             if (relationshipType == null)
-                relationshipType = $"{NcsPrefix}has{firstRelatedContent.ContentType}";
+                relationshipType = $"{NcsPrefix}has{pickedContentType}";
 
-            var destUris = new List<string>
-            {
-                GetSyncId(firstRelatedContent)
-            };
+            string destNodeLabel = NcsPrefix + pickedContentType;
 
-            foreach (JToken relatedContentId in fieldTypeAndValue.Value.Skip(1))
+
+            // JToken firstRelatedContentId = fieldTypeAndValue.Value.FirstOrDefault();
+            // if (firstRelatedContentId == default)
+            //     return;
+
+            // string? relationshipType = null;
+            // ContentPartFieldDefinition contentPartFieldDefinition = fields.First(d => d.Name == field.Name);
+            // string? contentPartHint = contentPartFieldDefinition.Settings["ContentPickerFieldSettings"]?["Hint"]?.ToString();
+            // if (contentPartHint != null)
+            // {
+            //     Match match = _relationshipTypeRegex.Match(contentPartHint);
+            //     if (match.Success)
+            //     {
+            //         relationshipType = $"{match.Groups[1].Value}";
+            //     }
+            // }
+
+            // ContentItem firstRelatedContent = await _contentManager.GetAsync(firstRelatedContentId.ToString(), VersionOptions.Latest);
+            //
+            // string destNodeLabel = NcsPrefix + firstRelatedContent.ContentType;
+            // if (relationshipType == null)
+            //     relationshipType = $"{NcsPrefix}has{firstRelatedContent.ContentType}";
+
+            var destUris = new List<string>();
+            // {
+            //     GetSyncId(firstRelatedContent)
+            // };
+
+            foreach (JToken relatedContentId in fieldTypeAndValue.Value) //.Skip(1))
             {
                 ContentItem relatedContent = await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest);
 

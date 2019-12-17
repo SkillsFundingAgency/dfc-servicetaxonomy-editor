@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
