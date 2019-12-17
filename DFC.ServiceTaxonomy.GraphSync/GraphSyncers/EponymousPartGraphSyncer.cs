@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             JProperty fieldTypeAndValue,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            //todo: check for empty list => noop, *except for initial delete*
+            //todo: check for empty list => noop, *except for initial delete* -> if none, can't get destnodelabel & relationship type from content. need to get it from settings instead
             JToken firstRelatedContentId = fieldTypeAndValue.Value.FirstOrDefault();
             if (firstRelatedContentId == default)
                 return;
