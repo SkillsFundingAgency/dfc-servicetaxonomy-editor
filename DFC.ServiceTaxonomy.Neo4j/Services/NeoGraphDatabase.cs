@@ -24,6 +24,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
 
             //todo: pass logger, see https://github.com/neo4j/neo4j-dotnet-driver
+            // o => o.WithLogger(logger)
             _driver = GraphDatabase.Driver(neo4jConfiguration.Endpoint.Uri, AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password));
         }
 

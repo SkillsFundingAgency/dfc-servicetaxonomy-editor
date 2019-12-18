@@ -2,7 +2,7 @@
 
 Unit tests will test our code, but without integration tests, we'd have no coverage checking that the graph database is left in the expected state after mutating it.
 
-Unfortunately, whilst Neo4j supports embedding a database for testing when working in Java (Neo4j runs in a JVM), no such support exists for .Net. (The current support in Java is also [deprecated](https://neo4j.com/docs/java-reference/current/tutorials-java-embedded/unit-testing/index.html), with a new mechanism introduced in v4.0, which isn't finalised yet.) [Other mechanisms](https://neo4j.com/blog/dark-side-neo4j-worst-practices/) exist for integration testing, but again they are all Java based.
+Unfortunately, whilst Neo4j supports embedding a database for testing when working in Java (Neo4j runs in a JVM), no such support exists for .Net. (The current support in Java is also [deprecated](https://neo4j.com/docs/java-reference/current/tutorials-java-embedded/unit-testing/index.html), with a new mechanism introduced in v4.0, which isn't finalised yet.) [Other mechanisms](https://neo4j.com/blog/dark-side-neo4j-worst-practices/) exist for integration testing, but again they are all Java based. We could possibly utilise [ikvm8](https://github.com/wwrd/ikvm8), but let's not disappear down that rabbit hole.
 
 As there is great benefit in tests that check the database state, our integration tests will have to work against an externally hosted graph. We don't want to connect to and leave changed the graph we use for running the editor, so we need a mechanism to run our tests without mutating the main graph. Options include:
 

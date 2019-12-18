@@ -35,17 +35,55 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         }
 
         [Fact]
-        public async Task CreateNodeTest()
+        public async Task CreateNode_NoExistingNode_Test()
         {
             const string nodeLabel = "testNode";
             const string idPropertyName = "testProperty";
+            string idPropertyValue = Guid.NewGuid().ToString();
+
             IDictionary<string, object> testProperties = new ReadOnlyDictionary<string, object>(
-                new Dictionary<string, object> {{idPropertyName, Guid.NewGuid().ToString()}});
+                new Dictionary<string, object> {{idPropertyName, idPropertyValue}});
 
             Query query = QueryGenerator.MergeNodes(nodeLabel, testProperties, idPropertyName);
 
             //todo: create test NeoGraphDatabase that keeps trans open, then rollbacks after test?
             await _neoGraphDatabase.RunWriteQueries(query);
+
+            //todo: we could convert to INode here, but if conversion fails, we won't get an assert failing
+            List<IRecord> actualRecords = await _neoGraphDatabase.RunReadQuery(
+                new Query($"match (n:{nodeLabel}) return n"),
+                r => r);
+
+            // note: Records on a result cannot be accessed if the session or transaction where the result is created has been closed. (https://github.com/neo4j/neo4j-dotnet-driver)
+
+            // no decent xUnit support for this sort of thing. use fluentassertions, comparenetobjecs, other?
+            //todo: when this fails, it returns a disgusting assert failure message
+            Assert.Collection(actualRecords, record =>
+            {
+                Assert.Collection(record.Values,
+                    r =>
+                    {
+                        //todo: will need a helper for this
+
+                        // meta assert: check we have the correct variable
+                        Assert.Equal("n", r.Key);
+
+                        INode node = r.Value.As<INode>();
+                        Assert.NotNull(node);
+
+                        Assert.Collection(node.Labels, l =>
+                        {
+                            Assert.Equal(nodeLabel, l);
+                        });
+                        Assert.Collection(node.Properties, p =>
+                        {
+                            Assert.Equal(idPropertyName, p.Key);
+                            Assert.Equal(idPropertyValue, p.Value);
+                        });
+                    });
+            });
         }
+
+        // public async Task ReplaceNodeTest()
     }
 }
