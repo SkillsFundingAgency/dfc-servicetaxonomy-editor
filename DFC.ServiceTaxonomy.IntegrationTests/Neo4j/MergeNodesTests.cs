@@ -1,14 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Generators;
+using KellermanSoftware.CompareNetObjects;
 using Neo4j.Driver;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 {
+    public class ExpectedNode : INode
+    {
+        public long Id { get; set; }
+        public IReadOnlyList<string>? Labels { get; set; }
+        public IReadOnlyDictionary<string, object>? Properties { get; set; }
+
+        public object this[string key] => throw new NotImplementedException();
+        public bool Equals(INode other) => throw new NotImplementedException();
+    }
+
     [Collection("Graph Database Integration")]
     public class MergeNodesTests : GraphDatabaseIntegrationTest
     {
@@ -24,7 +36,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string idPropertyName = "testProperty";
             string idPropertyValue = Guid.NewGuid().ToString();
 
-            IDictionary<string, object> testProperties = new ReadOnlyDictionary<string, object>(
+            //todo: is readonly enough, or should we clone? probably need to clone
+            ReadOnlyDictionary<string, object> testProperties = new ReadOnlyDictionary<string, object>(
                 new Dictionary<string, object> {{idPropertyName, idPropertyValue}});
 
             Query query = QueryGenerator.MergeNodes(nodeLabel, testProperties, idPropertyName);
@@ -42,32 +55,36 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             //todo: ^^ should probably not ignore this!
             //todo: use reactive session?
 
-            // no decent xUnit support for this sort of thing. use fluentassertions, comparenetobjecs, other?
-            //todo: when this fails, it returns a disgusting assert failure message
-            Assert.Collection(actualRecords, record =>
+            //todo: helper that accepts e.g. IEnumerable<ExpectedNode> expectedNodes
+
+            Assert.Single(actualRecords);
+
+            var record = actualRecords.First();
+            Assert.Single(record.Values);
+
+            var value = record.Values.First();
+
+            // meta assert: check we have the correct variable
+            Assert.Equal("n", value.Key);
+
+            INode node = value.Value.As<INode>();
+            Assert.NotNull(node);
+
+            CompareLogic compareLogic = new CompareLogic();
+            compareLogic.Config.IgnoreProperty<ExpectedNode>(n => n.Id);
+            compareLogic.Config.IgnoreObjectTypes = true;
+            compareLogic.Config.SkipInvalidIndexers = true;
+            compareLogic.Config.MaxDifferences = 10;
+
+            INode expectedNode = new ExpectedNode
             {
-                Assert.Collection(record.Values,
-                    r =>
-                    {
-                        //todo: will need a helper for this
+                Labels = new[] {nodeLabel},
+                Properties = testProperties
+            };
 
-                        // meta assert: check we have the correct variable
-                        Assert.Equal("n", r.Key);
+            ComparisonResult comparisonResult = compareLogic.Compare(expectedNode, node);
 
-                        INode node = r.Value.As<INode>();
-                        Assert.NotNull(node);
-
-                        Assert.Collection(node.Labels, l =>
-                        {
-                            Assert.Equal(nodeLabel, l);
-                        });
-                        Assert.Collection(node.Properties, p =>
-                        {
-                            Assert.Equal(idPropertyName, p.Key);
-                            Assert.Equal(idPropertyValue, p.Value);
-                        });
-                    });
-            });
+            Assert.True(comparisonResult.AreEqual, $"Returned node different to expected: {comparisonResult.DifferencesString}");
         }
 
         [Fact]

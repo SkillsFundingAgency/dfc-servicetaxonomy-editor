@@ -9,6 +9,7 @@
     </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CompareNETObjects" Version="4.64.0" />
     <PackageReference Include="FakeItEasy" Version="5.5.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
