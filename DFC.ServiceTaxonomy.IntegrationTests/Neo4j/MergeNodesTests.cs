@@ -1,50 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
-using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Generators;
-using FakeItEasy;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 {
-    public class GraphDatabaseFixture : IDisposable
-    {
-        public TestNeoGraphDatabase GraphTestDatabase { get; }
-
-        public GraphDatabaseFixture()
-        {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false)
-                .AddJsonFile("appsettings.Development.json", optional: true)
-                .Build();
-
-            Neo4jConfiguration neo4jConfiguration = configuration.GetSection("Neo4j").Get<Neo4jConfiguration>();
-
-            var optionsMonitor = A.Fake<IOptionsMonitor<Neo4jConfiguration>>();
-            A.CallTo(() => optionsMonitor.CurrentValue).Returns(neo4jConfiguration);
-
-            GraphTestDatabase = new TestNeoGraphDatabase(optionsMonitor);
-        }
-
-        public void Dispose()
-        {
-            GraphTestDatabase?.Dispose();
-        }
-    }
-
-    [CollectionDefinition("Graph Database Integration")]
-    public class GraphDatabaseIntegrationCollection : ICollectionFixture<GraphDatabaseFixture>
-    {
-    }
-
     //base class?
     [Collection("Graph Database Integration")]
     public class MergeNodesTests : IAsyncLifetime, IDisposable
