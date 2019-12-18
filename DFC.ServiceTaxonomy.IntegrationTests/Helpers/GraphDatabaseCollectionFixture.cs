@@ -7,11 +7,11 @@ using Microsoft.Extensions.Options;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
-    public class GraphDatabaseFixture : IDisposable
+    public class GraphDatabaseCollectionFixture : IDisposable
     {
         public TestNeoGraphDatabase GraphTestDatabase { get; }
 
-        public GraphDatabaseFixture()
+        public GraphDatabaseCollectionFixture()
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

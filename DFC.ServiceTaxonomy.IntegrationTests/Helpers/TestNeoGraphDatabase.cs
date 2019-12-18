@@ -7,12 +7,6 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
-    public interface IGraphDatabaseTestRun : IDisposable /*: IGraphDatabase << currently, but might change it) */
-    {
-        Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation);
-        Task RunWriteQueries(params Query[] queries);
-    }
-
     public class TestNeoGraphDatabase : IDisposable
     {
         private readonly IDriver _driver;
@@ -42,7 +36,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             _driver?.Dispose();
         }
 
-        private class GraphDatabaseTestRun : IGraphDatabaseTestRun, IDisposable
+        private class GraphDatabaseTestRun : IGraphDatabaseTestRun
         {
             private IAsyncSession? _session;
             private IAsyncTransaction? _transaction;
@@ -56,7 +50,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             public async Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation)
             {
                 if (_transaction == null)
-                    throw new Exception("Not Initialised");
+                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
 
                 IResultCursor result = await _transaction.RunAsync(query);
                 return await result.ToListAsync(operation);
@@ -65,7 +59,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             public async Task RunWriteQueries(params Query[] queries)
             {
                 if (_transaction == null)
-                    throw new Exception("Not Initialised");
+                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
 
                 foreach (Query query in queries)
                 {

@@ -9,26 +9,13 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 {
-    //base class?
     [Collection("Graph Database Integration")]
-    public class MergeNodesTests : IAsyncLifetime, IDisposable
+    public class MergeNodesTests : GraphDatabaseIntegrationTest
     {
-        private GraphDatabaseFixture _graphDatabaseFixture;
-        private IGraphDatabaseTestRun? _graphDatabaseTestRun;
-
-        public MergeNodesTests(GraphDatabaseFixture graphDatabaseFixture)
+        public MergeNodesTests(GraphDatabaseCollectionFixture graphDatabaseCollectionFixture)
+            : base(graphDatabaseCollectionFixture)
         {
-            _graphDatabaseFixture = graphDatabaseFixture;
         }
-
-        public async Task InitializeAsync()
-        {
-            _graphDatabaseTestRun = await _graphDatabaseFixture.GraphTestDatabase.StartTestRun();
-        }
-
-        public Task DisposeAsync() => Task.CompletedTask;
-
-        public void Dispose() => _graphDatabaseTestRun?.Dispose();
 
         [Fact]
         public async Task CreateNode_NoExistingNode_Test()
@@ -43,10 +30,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             Query query = QueryGenerator.MergeNodes(nodeLabel, testProperties, idPropertyName);
 
             //todo: create test NeoGraphDatabase that keeps trans open, then rollbacks after test?
-            await _graphDatabaseTestRun!.RunWriteQueries(query);
+            await _graphDatabase.RunWriteQueries(query);
 
             //todo: we could convert to INode here, but if conversion fails, we won't get an assert failing
-            List<IRecord> actualRecords = await _graphDatabaseTestRun.RunReadQuery(
+            List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match (n:{nodeLabel}) return n"),
                 r => r);
 
@@ -83,6 +70,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             });
         }
 
-        // public async Task ReplaceNodeTest()
+        [Fact]
+        public async Task ReplaceNodeTest()
+        {
+            await _graphDatabase.RunWriteQueries(new Query("match (n) return n limit 1"));
+        }
     }
 }
