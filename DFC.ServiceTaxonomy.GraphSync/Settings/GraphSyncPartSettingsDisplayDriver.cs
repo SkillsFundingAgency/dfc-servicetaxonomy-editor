@@ -10,11 +10,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
     public class GraphSyncPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
-        private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
+        private readonly IOptionsSnapshot<NamespacePrefixConfiguration> _namespacePrefixOptions;
 
-        public GraphSyncPartSettingsDisplayDriver(IOptionsMonitor<NamespacePrefixConfiguration> namespacePrefixConfiguration)
+        public GraphSyncPartSettingsDisplayDriver(IOptionsSnapshot<NamespacePrefixConfiguration> namespacePrefixOptions)
         {
-            _namespacePrefixConfiguration = namespacePrefixConfiguration;
+            _namespacePrefixOptions = namespacePrefixOptions;
         }
 
         public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
             return Initialize<GraphSyncPartSettingsViewModel>("GraphSyncPartSettings_Edit", model =>
                 {
-                    var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
+                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.Value;
 
                     contentTypePartDefinition.PopulateSettings(model);
 
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 // namespaceprefix should never be null. throw instead?
                 if (model.NamespacePrefix != null)
                 {
-                    var currentNamespacePrefixConfiguration = _namespacePrefixConfiguration.CurrentValue;
+                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.Value;
 
                     // if user has entered a new prefix, update the global list of prefixes, so that they get the choice when editing graph uri id fields in new content types
                     // what do we do with pollution in the list, e.g. someone adds an incorrect prefix?

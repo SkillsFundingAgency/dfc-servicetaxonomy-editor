@@ -15,15 +15,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 {
     public class GraphSyncPartDisplayDriver : ContentPartDisplayDriver<GraphSyncPart>
     {
-        private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixConfiguration;
+        private readonly IOptionsSnapshot<NamespacePrefixConfiguration> _namespacePrefixOptions;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        //todo: more appropriate to use IOptionsSnapshot?
         public GraphSyncPartDisplayDriver(
-            IOptionsMonitor<NamespacePrefixConfiguration> namespacePrefixConfiguration,
+            IOptionsSnapshot<NamespacePrefixConfiguration> namespacePrefixOptions,
             IContentDefinitionManager contentDefinitionManager)
         {
-            _namespacePrefixConfiguration = namespacePrefixConfiguration;
+            _namespacePrefixOptions = namespacePrefixOptions;
             _contentDefinitionManager = contentDefinitionManager;
         }
 
@@ -69,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
             var settings = GetGraphSyncPartSettings(part);
 
             string namespacePrefix = settings.NamespacePrefix ??
-                                     _namespacePrefixConfiguration.CurrentValue.NamespacePrefixOptions.FirstOrDefault();
+                                     _namespacePrefixOptions.Value.NamespacePrefixOptions.FirstOrDefault();
 
             return $"{namespacePrefix}{part.ContentItem.ContentType.ToLowerInvariant()}/{Guid.NewGuid():D}";
         }
