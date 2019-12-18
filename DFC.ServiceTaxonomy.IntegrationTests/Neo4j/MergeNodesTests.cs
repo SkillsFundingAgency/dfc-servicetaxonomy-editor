@@ -11,16 +11,6 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 {
-    public class ExpectedNode : INode
-    {
-        public long Id { get; set; }
-        public IReadOnlyList<string>? Labels { get; set; }
-        public IReadOnlyDictionary<string, object>? Properties { get; set; }
-
-        public object this[string key] => throw new NotImplementedException();
-        public bool Equals(INode other) => throw new NotImplementedException();
-    }
-
     [Collection("Graph Database Integration")]
     public class MergeNodesTests : GraphDatabaseIntegrationTest
     {
