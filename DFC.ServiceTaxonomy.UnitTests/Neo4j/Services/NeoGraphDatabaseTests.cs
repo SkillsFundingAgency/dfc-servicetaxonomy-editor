@@ -4,7 +4,7 @@ using FakeItEasy;
 using Microsoft.Extensions.Options;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.Editor.UnitTests.Neo4j.Services
+namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 {
     public class NeoGraphDatabaseTests
     {
