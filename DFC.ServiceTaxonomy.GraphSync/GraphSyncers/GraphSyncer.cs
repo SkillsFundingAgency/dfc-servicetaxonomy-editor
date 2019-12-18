@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             string nodeLabel = NcsPrefix + contentItem.ContentType;
 
             // could create ienumerable and have 1 call
-            Query mergeNodesQuery = QueryGenerator.MergeNodes(nodeLabel, nodeProperties);
+            Query mergeNodesQuery = QueryGenerator.MergeNodes(nodeLabel, nodeProperties, sourceIdPropertyName);
             if (relationships.Any())
             {
                 await _graphDatabase.RunWriteQueries(mergeNodesQuery,
