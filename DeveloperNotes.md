@@ -4,6 +4,7 @@
 * need to add dependencies into manifest?
 * use predefined list editor for node label?
 * handle graph down/not running better (& quicker)
+* looks like might be some useful code in the [client](https://github.com/Readify/Neo4jClient), e.g. working with results
 
 #Templates
 

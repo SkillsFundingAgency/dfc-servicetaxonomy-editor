@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         }
 
         [Fact]
-        public async Task CreateNode_NoExistingNode_Test()
+        public async Task MergeNode_NoExistingNode_Test()
         {
             const string nodeLabel = "testNode";
             const string idPropertyName = "testProperty";
@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Dictionary<string, object> {{idPropertyName, idPropertyValue}});
 
             // act
-            Query query = QueryGenerator.MergeNodes(nodeLabel, testProperties, idPropertyName);
+            Query query = QueryGenerator.MergeNode(nodeLabel, testProperties, idPropertyName);
 
             await _graphDatabase.RunWriteQueries(query);
 
@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         }
 
         [Fact]
-        public async Task CreateNode_ExistingNode_Test()
+        public async Task MergeNode_ExistingNode_SameProperties_Test()
         {
             const string nodeLabel = "testNode";
             const string idPropertyName = "id";
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     {"prop2", "prop2OriginalValue"}
                 });
 
-            Query arrangeQuery = QueryGenerator.MergeNodes(nodeLabel, arrangeProperties, idPropertyName);
+            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, arrangeProperties, idPropertyName);
             await _graphDatabase.RunWriteQueries(arrangeQuery);
 
             ReadOnlyDictionary<string, object> actProperties = new ReadOnlyDictionary<string, object>(
@@ -79,17 +79,12 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 });
 
             //act
-            Query actQuery = QueryGenerator.MergeNodes(nodeLabel, actProperties, idPropertyName);
+            Query actQuery = QueryGenerator.MergeNode(nodeLabel, actProperties, idPropertyName);
             await _graphDatabase.RunWriteQueries(actQuery);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match ({nodeVariable}:{nodeLabel}) return n"),
                 r => r);
-
-            // note: Records on a result cannot be accessed if the session or transaction where the result is created has been closed. (https://github.com/neo4j/neo4j-dotnet-driver)
-            // Any query results obtained within a transaction function should be consumed within that function. Transaction functions can return values but these should be derived values rather than raw results. (https://neo4j.com/docs/driver-manual/1.7/sessions-transactions/#driver-transactions)
-            //todo: ^^ should probably not ignore this!
-            //todo: use reactive session?
 
             AssertResult(nodeVariable,new List<ExpectedNode>
             {
@@ -100,5 +95,55 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 }
             }, actualRecords);
         }
+
+        /// <summary>
+        /// MergeNode uses a map to replace all properties on the node.
+        /// </summary>
+        [Fact]
+        public async Task MergeNode_ExistingNode_DifferentProperties_Test()
+        {
+            const string nodeLabel = "testNode";
+            const string idPropertyName = "id";
+            const string nodeVariable = "n";
+            string idPropertyValue = Guid.NewGuid().ToString();
+
+            ReadOnlyDictionary<string, object> arrangeProperties = new ReadOnlyDictionary<string, object>(
+                new Dictionary<string, object>
+                {
+                    {idPropertyName, idPropertyValue},
+                    {"prop2", "prop2OriginalValue"},
+                    {"originalOnlyProp", "originalOnlyPropValue"}
+                });
+
+            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, arrangeProperties, idPropertyName);
+            await _graphDatabase.RunWriteQueriesWithCommit(arrangeQuery);
+
+            ReadOnlyDictionary<string, object> actProperties = new ReadOnlyDictionary<string, object>(
+                new Dictionary<string, object>
+                {
+                    {idPropertyName, idPropertyValue},
+                    {"prop2", "prop2NewValue"},
+                    {"newProp", "newPropValue"}
+                });
+
+            //act
+            Query actQuery = QueryGenerator.MergeNode(nodeLabel, actProperties, idPropertyName);
+            await _graphDatabase.RunWriteQueriesWithCommit(actQuery);
+
+            List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
+                new Query($"match ({nodeVariable}:{nodeLabel}) return n"),
+                r => r);
+
+            AssertResult(nodeVariable,new List<ExpectedNode>
+            {
+                new ExpectedNode
+                {
+                    Labels = new[] {nodeLabel},
+                    Properties = actProperties
+                }
+            }, actualRecords);
+        }
+
+        //todo: multiple labels
     }
 }
