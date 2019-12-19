@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             //todo: ^^ should probably not ignore this!
             //todo: use reactive session?
 
-            AssertResult(nodeVariable,new List<ExpectedNode>
+            AssertResult(nodeVariable,new[]
             {
                 new ExpectedNode
                 {
@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
                 r => r);
 
-            AssertResult(nodeVariable,new List<ExpectedNode>
+            AssertResult(nodeVariable,new[]
             {
                 new ExpectedNode
                 {
@@ -117,7 +117,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
                 r => r);
 
-            AssertResult(nodeVariable,new List<ExpectedNode>
+            AssertResult(nodeVariable,new[]
             {
                 new ExpectedNode
                 {

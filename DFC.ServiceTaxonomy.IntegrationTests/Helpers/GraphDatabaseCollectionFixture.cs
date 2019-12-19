@@ -30,6 +30,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             CompareLogic = new CompareLogic();
             CompareLogic.Config.IgnoreProperty<ExpectedNode>(n => n.Id);
+            CompareLogic.Config.IgnoreProperty<ExpectedRelationship>(r => r.Id);
             CompareLogic.Config.IgnoreObjectTypes = true;
             CompareLogic.Config.SkipInvalidIndexers = true;
             CompareLogic.Config.MaxDifferences = 10;

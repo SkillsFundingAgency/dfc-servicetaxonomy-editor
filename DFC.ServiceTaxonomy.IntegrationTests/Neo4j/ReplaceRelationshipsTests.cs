@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         {
         }
 
-        [Fact]
+        [Fact(Skip="wip")]
         public async Task ReplaceRelationships_CreateSingleNewRelationship_NoExistingRelationships_Test()
         {
             const string sourceNodeLabel = "sourceNodeLabel";
@@ -31,6 +31,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string relationshipType = "relationshipType";
             const string relationshipVariable = "r";
 
+            //todo: needs to return id
             // create source node to create relationship from
             await MergeNode(sourceNodeLabel, sourceIdPropertyName,
                 new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
@@ -48,15 +49,16 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             await _graphDatabase.RunWriteQueries(query);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match (:{sourceNodeLabel} {{{sourceIdPropertyName}:'{sourceIdPropertyValue}'}})-[{relationshipVariable}:{relationshipType}]->(:{destNodeLabel}) return type({relationshipVariable})"),
+                new Query($"match (:{sourceNodeLabel} {{{sourceIdPropertyName}:'{sourceIdPropertyValue}'}})-[{relationshipVariable}:{relationshipType}]->(:{destNodeLabel}) return {relationshipVariable}"),
                 r => r);
 
-            //todo: change to accept object or use generics
-            // AssertResult(relationshipVariable,new List<string>
-            // {
-            //     ""
-            // }, actualRecords);
-            Assert.NotNull(actualRecords);
+            AssertResult(relationshipVariable,new[]
+            {
+                new ExpectedRelationship
+                {
+                    Type = relationshipType
+                }
+            }, actualRecords);
         }
     }
 }

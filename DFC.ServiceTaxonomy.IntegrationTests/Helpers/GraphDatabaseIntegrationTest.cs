@@ -45,14 +45,14 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         /// <summary>
         /// Doesn't support cartesian products!
         /// </summary>
-        protected void AssertResult(string variableName, List<ExpectedNode> expectedNodes, IEnumerable<IRecord> actualRecords)
+        protected void AssertResult(string variableName, IEnumerable<object> expected, IEnumerable<IRecord> actualRecords)
         {
             var actualVariableRecords = actualRecords.Where(r => r.Keys.Contains(variableName)).ToArray();
             int countActualVariableRecords = actualVariableRecords.Length;
 
             if (countActualVariableRecords == 0)
             {
-                Assert.True(expectedNodes.Count == 0, "Expected at least one node, but none returned (no results for variable)");
+                Assert.True(!expected.Any(), "Expected at least one node, but none returned (no results for variable)");
 
                 // expecting empty result, got empty result
                 return;
@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             IEnumerable<object> actualNodes = variableRecord.Values.Select(v => v.Value);
 
-            ComparisonResult comparisonResult = _graphDatabaseCollectionFixture.CompareLogic.Compare(expectedNodes, actualNodes);
+            ComparisonResult comparisonResult = _graphDatabaseCollectionFixture.CompareLogic.Compare(expected, actualNodes);
 
             Assert.True(comparisonResult.AreEqual, $"Returned nodes different to expected: {comparisonResult.DifferencesString}");
         }
