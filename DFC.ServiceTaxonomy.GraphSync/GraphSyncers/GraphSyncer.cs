@@ -109,7 +109,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (relationships.Any())
             {
                 await _graphDatabase.RunWriteQueries(mergeNodesQuery,
-                    QueryGenerator.MergeRelationships(nodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships));
+                    QueryGenerator.ReplaceRelationships(nodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships));
             }
             else
             {

@@ -10,9 +10,9 @@ using Xunit;
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 {
     [Collection("Graph Database Integration")]
-    public class MergeNodesTests : GraphDatabaseIntegrationTest
+    public class MergeNodeTests : GraphDatabaseIntegrationTest
     {
-        public MergeNodesTests(GraphDatabaseCollectionFixture graphDatabaseCollectionFixture)
+        public MergeNodeTests(GraphDatabaseCollectionFixture graphDatabaseCollectionFixture)
             : base(graphDatabaseCollectionFixture)
         {
         }

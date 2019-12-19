@@ -15,11 +15,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
                 new Dictionary<string,object> {{"properties", propertyMap}});
         }
 
-        public static Query MergeRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
+        //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
+        public static Query ReplaceRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
             IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships)
         {
             if (!relationships.Any()) // could return noop query instead
-                throw new ArgumentException($"{nameof(MergeRelationships)} called with no relationships");
+                throw new ArgumentException($"{nameof(ReplaceRelationships)} called with no relationships");
 
             //todo: bi-directional relationships
             //todo: rewrite for elegance/perf. selectmany?
