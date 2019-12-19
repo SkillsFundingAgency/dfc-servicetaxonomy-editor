@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
-using DFC.ServiceTaxonomy.Neo4j.Generators;
 using Neo4j.Driver;
 using Xunit;
 
@@ -58,26 +56,20 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string nodeVariable = "n";
             string idPropertyValue = Guid.NewGuid().ToString();
 
-            ReadOnlyDictionary<string, object> arrangeProperties = new ReadOnlyDictionary<string, object>(
+            await MergeNode(nodeLabel, idPropertyName,
                 new Dictionary<string, object>
                 {
-                    {idPropertyName, idPropertyValue},
-                    {"prop2", "prop2OriginalValue"}
+                    {idPropertyName, idPropertyValue}, {"prop2", "prop2OriginalValue"}
                 });
 
-            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, arrangeProperties);
-            await _graphDatabase.RunWriteQueries(arrangeQuery);
-
-            ReadOnlyDictionary<string, object> actProperties = new ReadOnlyDictionary<string, object>(
+            //act
+            var actProperties = await MergeNode(nodeLabel, idPropertyName,
                 new Dictionary<string, object>
                 {
                     {idPropertyName, idPropertyValue},
                     {"prop2", "prop2NewValue"}
                 });
 
-            //act
-            Query actQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, actProperties);
-            await _graphDatabase.RunWriteQueries(actQuery);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
@@ -104,7 +96,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string nodeVariable = "n";
             string idPropertyValue = Guid.NewGuid().ToString();
 
-            ReadOnlyDictionary<string, object> arrangeProperties = new ReadOnlyDictionary<string, object>(
+            await MergeNode(nodeLabel, idPropertyName,
                 new Dictionary<string, object>
                 {
                     {idPropertyName, idPropertyValue},
@@ -112,20 +104,14 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     {"originalOnlyProp", "originalOnlyPropValue"}
                 });
 
-            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, arrangeProperties);
-            await _graphDatabase.RunWriteQueriesWithCommit(arrangeQuery);
-
-            ReadOnlyDictionary<string, object> actProperties = new ReadOnlyDictionary<string, object>(
+            //act
+            var actProperties = await MergeNode(nodeLabel, idPropertyName,
                 new Dictionary<string, object>
                 {
                     {idPropertyName, idPropertyValue},
                     {"prop2", "prop2NewValue"},
                     {"newProp", "newPropValue"}
                 });
-
-            //act
-            Query actQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, actProperties);
-            await _graphDatabase.RunWriteQueriesWithCommit(actQuery);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
