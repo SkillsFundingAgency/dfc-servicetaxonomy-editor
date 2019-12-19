@@ -32,10 +32,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         /// <summary>
         /// Doesn't support cartesian products!
         /// </summary>
-        protected void AssertResult(string variableName, List<ExpectedNode> expectedNodes, List<IRecord> actualRecords)
+        protected void AssertResult(string variableName, List<ExpectedNode> expectedNodes, IEnumerable<IRecord> actualRecords)
         {
-            var actualVariableRecords = actualRecords.Where(r => r.Keys.Contains(variableName));
-            int countActualVariableRecords = actualVariableRecords.Count();
+            var actualVariableRecords = actualRecords.Where(r => r.Keys.Contains(variableName)).ToArray();
+            int countActualVariableRecords = actualVariableRecords.Length;
 
             if (countActualVariableRecords == 0)
             {
@@ -47,18 +47,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             Assert.True(countActualVariableRecords == 1, "This assert doesn't support cartesian products. Did you mean to return a cartesian product?");
 
-            var variableRecord = actualVariableRecords.First();
+            IRecord variableRecord = actualVariableRecords.First();
 
-            var actualNodes = variableRecord.Values.Select(v => v.Value);
+            IEnumerable<object> actualNodes = variableRecord.Values.Select(v => v.Value);
 
-            //todo: comparelogic is thread safe: create one as part of collection fixture
-            CompareLogic compareLogic = new CompareLogic();
-            compareLogic.Config.IgnoreProperty<ExpectedNode>(n => n.Id);
-            compareLogic.Config.IgnoreObjectTypes = true;
-            compareLogic.Config.SkipInvalidIndexers = true;
-            compareLogic.Config.MaxDifferences = 10;
-
-            ComparisonResult comparisonResult = compareLogic.Compare(expectedNodes, actualNodes);
+            ComparisonResult comparisonResult = _graphDatabaseCollectionFixture.CompareLogic.Compare(expectedNodes, actualNodes);
 
             Assert.True(comparisonResult.AreEqual, $"Returned nodes different to expected: {comparisonResult.DifferencesString}");
         }
