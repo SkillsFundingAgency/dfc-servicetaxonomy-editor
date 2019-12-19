@@ -67,6 +67,20 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 }
             }
 
+            public async Task RunWriteQueriesWithCommit(params Query[] queries)
+            {
+                if (_transaction == null)
+                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
+
+                foreach (Query query in queries)
+                {
+                    await _transaction.RunAsync(query);
+                }
+
+                await _transaction!.CommitAsync();
+                _transaction = await _session!.BeginTransactionAsync();
+            }
+
             public void Dispose()
             {
                 // if you want to see the results of a test in neo's browser...

@@ -9,4 +9,9 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
     {
         Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation);
         Task RunWriteQueries(params Query[] queries);
+
+        /// <summary>
+        /// useful when debugging test arrangements
+        /// </summary>
+        Task RunWriteQueriesWithCommit(params Query[] queries);
     }}
