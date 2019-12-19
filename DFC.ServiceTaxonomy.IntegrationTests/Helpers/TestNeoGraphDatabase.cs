@@ -56,6 +56,18 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 return await result.ToListAsync(operation);
             }
 
+            #pragma warning disable S4144
+            //todo: read/write? can't seems to specify with BeginTransactionAsync? could have 1 read & 1 write transaction? specify write at the session level? remove distinction and just have RunQuery?
+            public async Task<List<T>> RunWriteQuery<T>(Query query, Func<IRecord, T> operation)
+            {
+                if (_transaction == null)
+                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
+
+                IResultCursor result = await _transaction.RunAsync(query);
+                return await result.ToListAsync(operation);
+            }
+            #pragma warning restore S4144
+
             public async Task RunWriteQueries(params Query[] queries)
             {
                 if (_transaction == null)

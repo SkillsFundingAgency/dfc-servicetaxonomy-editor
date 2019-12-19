@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         {
         }
 
-        [Fact(Skip="wip")]
+        [Fact]
         public async Task ReplaceRelationships_CreateSingleNewRelationship_NoExistingRelationships_Test()
         {
             const string sourceNodeLabel = "sourceNodeLabel";
@@ -33,11 +33,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 
             //todo: needs to return id
             // create source node to create relationship from
-            await MergeNode(sourceNodeLabel, sourceIdPropertyName,
+            long sourceNodeId = await MergeNode(sourceNodeLabel, sourceIdPropertyName,
                 new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
 
             // create destination node to create relationship to
-            await MergeNode(destNodeLabel, destIdPropertyName,
+            long destNodeId = await MergeNode(destNodeLabel, destIdPropertyName,
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
             //todo: is readonly enough, or should we clone? probably need to clone
@@ -56,7 +56,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             {
                 new ExpectedRelationship
                 {
-                    Type = relationshipType
+                    Type = relationshipType,
+                    StartNodeId = sourceNodeId,
+                    EndNodeId = destNodeId,
+                    Properties = new Dictionary<string, object>()
                 }
             }, actualRecords);
         }

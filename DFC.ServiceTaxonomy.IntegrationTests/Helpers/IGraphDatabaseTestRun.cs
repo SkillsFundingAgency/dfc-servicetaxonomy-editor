@@ -8,6 +8,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
     public interface IGraphDatabaseTestRun : IDisposable /*: IGraphDatabase << currently, but might change it) */
     {
         Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation);
+        Task<List<T>> RunWriteQuery<T>(Query query, Func<IRecord, T> operation);
         Task RunWriteQueries(params Query[] queries);
 
         /// <summary>

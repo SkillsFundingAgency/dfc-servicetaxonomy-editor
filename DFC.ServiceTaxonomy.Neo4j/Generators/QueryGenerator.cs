@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
         public static Query MergeNode(string nodeLabel, string idPropertyName, IReadOnlyDictionary<string, object> propertyMap)
         {
             return new Query(
-                $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN n",
+                $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN ID(n)",
                 new Dictionary<string,object> {{"properties", propertyMap}});
         }
 
