@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
-using Neo4j.Driver;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
@@ -30,10 +29,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // act
             await MergeNode(nodeLabel, idPropertyName, testProperties);
 
-            List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
-                r => r);
-
             // note: Records on a result cannot be accessed if the session or transaction where the result is created has been closed. (https://github.com/neo4j/neo4j-dotnet-driver)
             // Any query results obtained within a transaction function should be consumed within that function. Transaction functions can return values but these should be derived values rather than raw results. (https://neo4j.com/docs/driver-manual/1.7/sessions-transactions/#driver-transactions)
             //todo: ^^ should probably not ignore this!
@@ -46,7 +41,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     Labels = new[] {nodeLabel},
                     Properties = testProperties
                 }
-            }, actualRecords);
+            }, await AllNodes(nodeLabel, nodeVariable));
         }
 
         [Fact]
@@ -72,10 +67,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             //act
             await MergeNode(nodeLabel, idPropertyName, actProperties);
 
-            List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
-                r => r);
-
             AssertResult(nodeVariable,new[]
             {
                 new ExpectedNode
@@ -83,7 +74,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     Labels = new[] {nodeLabel},
                     Properties = actProperties
                 }
-            }, actualRecords);
+            }, await AllNodes(nodeLabel, nodeVariable));
         }
 
         /// <summary>
@@ -116,10 +107,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             //act
             await MergeNode(nodeLabel, idPropertyName, actProperties);
 
-            List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
-                r => r);
-
             AssertResult(nodeVariable,new[]
             {
                 new ExpectedNode
@@ -127,7 +114,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     Labels = new[] {nodeLabel},
                     Properties = actProperties
                 }
-            }, actualRecords);
+            }, await AllNodes(nodeLabel, nodeVariable));
         }
 
         //todo: multiple labels

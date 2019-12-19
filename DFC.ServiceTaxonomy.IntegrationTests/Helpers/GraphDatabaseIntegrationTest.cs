@@ -37,6 +37,13 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             return result.First();
         }
 
+        protected async Task<List<IRecord>> AllNodes(string label, string variableName)
+        {
+            return await _graphDatabase.RunReadQuery(
+                new Query($"match ({variableName}:{label}) return {variableName}"),
+                r => r);
+        }
+
         /// <summary>
         /// Doesn't support cartesian products!
         /// </summary>
