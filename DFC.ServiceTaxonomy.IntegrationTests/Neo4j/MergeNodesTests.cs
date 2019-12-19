@@ -22,6 +22,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         {
             const string nodeLabel = "testNode";
             const string idPropertyName = "testProperty";
+            const string nodeVariable = "n";
             string idPropertyValue = Guid.NewGuid().ToString();
 
             //todo: is readonly enough, or should we clone? probably need to clone
@@ -32,9 +33,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 
             await _graphDatabase.RunWriteQueries(query);
 
-            //todo: we could convert to INode here, but if conversion fails, we won't get an assert failing
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match (n:{nodeLabel}) return n"),
+                new Query($"match ({nodeVariable}:{nodeLabel}) return n"),
                 r => r);
 
             // note: Records on a result cannot be accessed if the session or transaction where the result is created has been closed. (https://github.com/neo4j/neo4j-dotnet-driver)
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             //todo: ^^ should probably not ignore this!
             //todo: use reactive session?
 
-            AssertResult("n",new List<ExpectedNode>
+            AssertResult(nodeVariable,new List<ExpectedNode>
             {
                 new ExpectedNode
                 {
