@@ -52,6 +52,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string nodeVariable = "n";
             string idPropertyValue = Guid.NewGuid().ToString();
 
+            //todo: arrange without using cut?
             await MergeNode(nodeLabel, idPropertyName,
                 new Dictionary<string, object>
                 {
