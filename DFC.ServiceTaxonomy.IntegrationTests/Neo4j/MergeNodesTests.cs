@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Generators;
-using KellermanSoftware.CompareNetObjects;
 using Neo4j.Driver;
 using Xunit;
 
@@ -32,7 +30,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 
             Query query = QueryGenerator.MergeNodes(nodeLabel, testProperties, idPropertyName);
 
-            //todo: create test NeoGraphDatabase that keeps trans open, then rollbacks after test?
             await _graphDatabase.RunWriteQueries(query);
 
             //todo: we could convert to INode here, but if conversion fails, we won't get an assert failing
@@ -45,36 +42,14 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             //todo: ^^ should probably not ignore this!
             //todo: use reactive session?
 
-            //todo: helper that accepts e.g. IEnumerable<ExpectedNode> expectedNodes
-
-            Assert.Single(actualRecords);
-
-            var record = actualRecords.First();
-            Assert.Single(record.Values);
-
-            var value = record.Values.First();
-
-            // meta assert: check we have the correct variable
-            Assert.Equal("n", value.Key);
-
-            INode node = value.Value.As<INode>();
-            Assert.NotNull(node);
-
-            CompareLogic compareLogic = new CompareLogic();
-            compareLogic.Config.IgnoreProperty<ExpectedNode>(n => n.Id);
-            compareLogic.Config.IgnoreObjectTypes = true;
-            compareLogic.Config.SkipInvalidIndexers = true;
-            compareLogic.Config.MaxDifferences = 10;
-
-            INode expectedNode = new ExpectedNode
+            AssertResult("n",new List<ExpectedNode>
             {
-                Labels = new[] {nodeLabel},
-                Properties = testProperties
-            };
-
-            ComparisonResult comparisonResult = compareLogic.Compare(expectedNode, node);
-
-            Assert.True(comparisonResult.AreEqual, $"Returned node different to expected: {comparisonResult.DifferencesString}");
+                new ExpectedNode
+                {
+                    Labels = new[] {nodeLabel},
+                    Properties = testProperties
+                }
+            }, actualRecords);
         }
 
         [Fact]

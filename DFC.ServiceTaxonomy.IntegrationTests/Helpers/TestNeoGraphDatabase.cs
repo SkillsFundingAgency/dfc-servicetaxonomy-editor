@@ -69,6 +69,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             public void Dispose()
             {
+                // if you want to see the results of a test in neo's browser...
+                //(_transaction!.CommitAsync()).GetAwaiter().GetResult();
                 _session?.CloseAsync();
             }
         }
