@@ -44,6 +44,16 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 r => r);
         }
 
+        protected async Task<List<IRecord>> AllRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
+            string relationshipType,
+            string destNodeLabel,
+            string variableName)
+        {
+            return await _graphDatabase.RunReadQuery(
+                new Query($"match (:{sourceNodeLabel} {{{sourceIdPropertyName}:'{sourceIdPropertyValue}'}})-[{variableName}:{relationshipType}]->(:{destNodeLabel}) return {variableName}"),
+                r => r);
+        }
+
         /// <summary>
         /// Doesn't support cartesian products!
         /// </summary>

@@ -48,10 +48,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             Query query = QueryGenerator.ReplaceRelationships(sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships);
             await _graphDatabase.RunWriteQueries(query);
 
-            List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match (:{sourceNodeLabel} {{{sourceIdPropertyName}:'{sourceIdPropertyValue}'}})-[{relationshipVariable}:{relationshipType}]->(:{destNodeLabel}) return {relationshipVariable}"),
-                r => r);
-
             AssertResult(relationshipVariable,new[]
             {
                 new ExpectedRelationship
@@ -61,7 +57,8 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     EndNodeId = destNodeId,
                     Properties = new Dictionary<string, object>()
                 }
-            }, actualRecords);
+            }, await AllRelationships(sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue,
+                relationshipType, destNodeLabel, relationshipVariable));
         }
     }
 }
