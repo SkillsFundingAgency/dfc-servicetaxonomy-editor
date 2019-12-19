@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Generators;
 using KellermanSoftware.CompareNetObjects;
@@ -31,15 +30,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         public void Dispose() => _graphDatabaseTestRun?.Dispose();
 
-        //todo: params for properties?
-        protected async Task<ReadOnlyDictionary<string, object>> MergeNode(string label, string idPropertyName, IDictionary<string,object> properties)
+        protected async Task MergeNode(string label, string idPropertyName, IReadOnlyDictionary<string,object> properties)
         {
-            ReadOnlyDictionary<string, object> readOnlyProperties = new ReadOnlyDictionary<string, object>(properties);
-
-            Query arrangeQuery = QueryGenerator.MergeNode(label, idPropertyName, readOnlyProperties);
+            Query arrangeQuery = QueryGenerator.MergeNode(label, idPropertyName, properties);
             await _graphDatabase.RunWriteQueries(arrangeQuery);
-
-            return readOnlyProperties;
         }
 
         /// <summary>

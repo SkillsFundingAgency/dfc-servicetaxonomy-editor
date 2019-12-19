@@ -97,8 +97,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task SyncComponentsToGraph(
             ContentItem contentItem,
-            IDictionary<string, object> nodeProperties,
-            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType),IEnumerable<string>> relationships,
+            IReadOnlyDictionary<string, object> nodeProperties,
+            IReadOnlyDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType),IEnumerable<string>> relationships,
             string sourceIdPropertyName,
             string sourceIdPropertyValue)
         {

@@ -24,10 +24,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             string idPropertyValue = Guid.NewGuid().ToString();
 
             //todo: is readonly enough, or should we clone? probably need to clone
+            IReadOnlyDictionary<string,object> testProperties = new Dictionary<string, object>
+                {{idPropertyName, idPropertyValue}};
 
             // act
-            var testProperties = await MergeNode(nodeLabel, idPropertyName,
-                new Dictionary<string, object> {{idPropertyName, idPropertyValue}});
+            await MergeNode(nodeLabel, idPropertyName, testProperties);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
@@ -62,14 +63,14 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     {idPropertyName, idPropertyValue}, {"prop2", "prop2OriginalValue"}
                 });
 
-            //act
-            var actProperties = await MergeNode(nodeLabel, idPropertyName,
-                new Dictionary<string, object>
-                {
-                    {idPropertyName, idPropertyValue},
-                    {"prop2", "prop2NewValue"}
-                });
+            IReadOnlyDictionary<string,object> actProperties = new Dictionary<string, object>
+            {
+                {idPropertyName, idPropertyValue},
+                {"prop2", "prop2NewValue"}
+            };
 
+            //act
+            await MergeNode(nodeLabel, idPropertyName, actProperties);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
@@ -104,14 +105,16 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     {"originalOnlyProp", "originalOnlyPropValue"}
                 });
 
-            //act
-            var actProperties = await MergeNode(nodeLabel, idPropertyName,
+            IReadOnlyDictionary<string,object> actProperties =
                 new Dictionary<string, object>
                 {
                     {idPropertyName, idPropertyValue},
                     {"prop2", "prop2NewValue"},
                     {"newProp", "newPropValue"}
-                });
+                };
+
+            //act
+            await MergeNode(nodeLabel, idPropertyName, actProperties);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
