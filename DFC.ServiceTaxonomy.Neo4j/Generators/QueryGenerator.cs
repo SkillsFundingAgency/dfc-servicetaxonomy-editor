@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
 {
     public static class QueryGenerator
     {
-        public static Query MergeNode(string nodeLabel, IDictionary<string,object> propertyMap, string idPropertyName)
+        public static Query MergeNode(string nodeLabel, string idPropertyName, IDictionary<string, object> propertyMap)
         {
             return new Query(
                 $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN n",

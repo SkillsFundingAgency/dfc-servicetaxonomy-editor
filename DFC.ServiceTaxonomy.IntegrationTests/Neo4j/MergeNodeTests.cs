@@ -26,16 +26,13 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             string idPropertyValue = Guid.NewGuid().ToString();
 
             //todo: is readonly enough, or should we clone? probably need to clone
-            ReadOnlyDictionary<string, object> testProperties = new ReadOnlyDictionary<string, object>(
-                new Dictionary<string, object> {{idPropertyName, idPropertyValue}});
 
             // act
-            Query query = QueryGenerator.MergeNode(nodeLabel, testProperties, idPropertyName);
-
-            await _graphDatabase.RunWriteQueries(query);
+            var testProperties = await MergeNode(nodeLabel, idPropertyName,
+                new Dictionary<string, object> {{idPropertyName, idPropertyValue}});
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match ({nodeVariable}:{nodeLabel}) return n"),
+                new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
                 r => r);
 
             // note: Records on a result cannot be accessed if the session or transaction where the result is created has been closed. (https://github.com/neo4j/neo4j-dotnet-driver)
@@ -68,7 +65,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     {"prop2", "prop2OriginalValue"}
                 });
 
-            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, arrangeProperties, idPropertyName);
+            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, arrangeProperties);
             await _graphDatabase.RunWriteQueries(arrangeQuery);
 
             ReadOnlyDictionary<string, object> actProperties = new ReadOnlyDictionary<string, object>(
@@ -79,11 +76,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 });
 
             //act
-            Query actQuery = QueryGenerator.MergeNode(nodeLabel, actProperties, idPropertyName);
+            Query actQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, actProperties);
             await _graphDatabase.RunWriteQueries(actQuery);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match ({nodeVariable}:{nodeLabel}) return n"),
+                new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
                 r => r);
 
             AssertResult(nodeVariable,new List<ExpectedNode>
@@ -115,7 +112,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                     {"originalOnlyProp", "originalOnlyPropValue"}
                 });
 
-            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, arrangeProperties, idPropertyName);
+            Query arrangeQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, arrangeProperties);
             await _graphDatabase.RunWriteQueriesWithCommit(arrangeQuery);
 
             ReadOnlyDictionary<string, object> actProperties = new ReadOnlyDictionary<string, object>(
@@ -127,11 +124,11 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 });
 
             //act
-            Query actQuery = QueryGenerator.MergeNode(nodeLabel, actProperties, idPropertyName);
+            Query actQuery = QueryGenerator.MergeNode(nodeLabel, idPropertyName, actProperties);
             await _graphDatabase.RunWriteQueriesWithCommit(actQuery);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
-                new Query($"match ({nodeVariable}:{nodeLabel}) return n"),
+                new Query($"match ({nodeVariable}:{nodeLabel}) return {nodeVariable}"),
                 r => r);
 
             AssertResult(nodeVariable,new List<ExpectedNode>

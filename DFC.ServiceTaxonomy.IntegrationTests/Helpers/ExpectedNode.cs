@@ -4,7 +4,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
-    public class ExpectedNode : INode
+    public sealed class ExpectedNode : INode
     {
         public long Id { get; set; }
         public IReadOnlyList<string>? Labels { get; set; }

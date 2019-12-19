@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Neo4j.Generators;
 using KellermanSoftware.CompareNetObjects;
 using Neo4j.Driver;
 using Xunit;
@@ -28,6 +30,17 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         public Task DisposeAsync() => Task.CompletedTask;
 
         public void Dispose() => _graphDatabaseTestRun?.Dispose();
+
+        //todo: params for properties?
+        protected async Task<ReadOnlyDictionary<string, object>> MergeNode(string label, string idPropertyName, IDictionary<string,object> properties)
+        {
+            ReadOnlyDictionary<string, object> readOnlyProperties = new ReadOnlyDictionary<string, object>(properties);
+
+            Query arrangeQuery = QueryGenerator.MergeNode(label, idPropertyName, readOnlyProperties);
+            await _graphDatabase.RunWriteQueries(arrangeQuery);
+
+            return readOnlyProperties;
+        }
 
         /// <summary>
         /// Doesn't support cartesian products!
