@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             }, actualRecords);
         }
 
-        [Fact(Skip="In progress")]
+        [Fact]
         public async Task CreateNode_ExistingNode_Test()
         {
             const string nodeLabel = "testNode";
@@ -80,6 +80,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 
             //act
             Query actQuery = QueryGenerator.MergeNodes(nodeLabel, actProperties, idPropertyName);
+            await _graphDatabase.RunWriteQueries(actQuery);
 
             List<IRecord> actualRecords = await _graphDatabase.RunReadQuery(
                 new Query($"match ({nodeVariable}:{nodeLabel}) return n"),
