@@ -30,12 +30,21 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         public void Dispose() => _graphDatabaseTestRun?.Dispose();
 
-        protected async Task<long> MergeNode(string label, string idPropertyName, IReadOnlyDictionary<string,object> properties)
+        protected async Task<long> MergeNode(MergeNodeCommand mergeNodeCommand)
         {
-            var mergeNodeCommand = new MergeNodeCommand();
-            mergeNodeCommand.Initialise(label, idPropertyName, properties);
-            List<long> result = await _graphDatabase.RunWriteQuery(mergeNodeCommand, r => r.Values.First().Value.As<long>());
+            List<long> result = await _graphDatabase.RunWriteQuery(mergeNodeCommand,
+                r => r.Values.First().Value.As<long>());
             return result.First();
+        }
+
+        protected async Task<long> MergeNode(string label, string idPropertyName, IDictionary<string,object> properties)
+        {
+            return await MergeNode(new MergeNodeCommand
+            {
+                NodeLabel = label,
+                IdPropertyName = idPropertyName,
+                Properties = properties
+            });
         }
 
         protected async Task<List<IRecord>> AllNodes(string label, string variableName)

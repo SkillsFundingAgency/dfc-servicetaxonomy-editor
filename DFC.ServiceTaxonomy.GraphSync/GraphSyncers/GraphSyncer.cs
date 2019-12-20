@@ -71,18 +71,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return;
 
-            //addtransient & private class instance?
-            var nodeProperties = new Dictionary<string, object>();
+            _mergeNodeCommand.NodeLabel = NcsPrefix + contentItem.ContentType;
+            // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
+            _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
+
             var relationships = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
-            await AddContentPartSyncComponents(contentItem, nodeProperties, relationships);
+            await AddContentPartSyncComponents(contentItem, relationships);
 
-            await SyncComponentsToGraph(contentItem, nodeProperties, relationships, _graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncPartContent));
+            await SyncComponentsToGraph(contentItem, relationships, _graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncPartContent));
         }
 
         private async Task AddContentPartSyncComponents(
             ContentItem contentItem,
-            IDictionary<string, object> nodeProperties,
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships)
         {
             foreach (var partSync in _partSyncers)
@@ -97,21 +98,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 var contentTypePartDefinition =
                     contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partName);
 
-                await partSync.AddSyncComponents(partContent, nodeProperties, relationships, contentTypePartDefinition);
+                await partSync.AddSyncComponents(partContent, _mergeNodeCommand.Properties, relationships, contentTypePartDefinition);
             }
         }
 
         private async Task SyncComponentsToGraph(
             ContentItem contentItem,
-            IReadOnlyDictionary<string, object> nodeProperties,
             IReadOnlyDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType),IEnumerable<string>> relationships,
             string sourceIdPropertyName,
             string sourceIdPropertyValue)
         {
             string nodeLabel = NcsPrefix + contentItem.ContentType;
 
-            List<Query> queries = new List<Query>{
-                _mergeNodeCommand.Initialise(nodeLabel, sourceIdPropertyName, nodeProperties)};
+            List<Query> queries = new List<Query> {_mergeNodeCommand.Query};
 
             if (relationships.Any())
             {

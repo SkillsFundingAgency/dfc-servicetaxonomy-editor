@@ -5,6 +5,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 {
     public interface IMergeNodeCommand
     {
-        Query Initialise(string nodeLabel, string idPropertyName, IReadOnlyDictionary<string, object> propertyMap);
+        string? NodeLabel { get; set; }
+        string? IdPropertyName { get; set; }
+        IDictionary<string, object> Properties { get; set; }
+
         Query Query { get; }
     }}

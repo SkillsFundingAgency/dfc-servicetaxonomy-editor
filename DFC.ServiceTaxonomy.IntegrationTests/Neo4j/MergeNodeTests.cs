@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
+using DFC.ServiceTaxonomy.Neo4j.Commands;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
@@ -23,7 +24,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             string idPropertyValue = Guid.NewGuid().ToString();
 
             //todo: is readonly enough, or should we clone? probably need to clone
-            IReadOnlyDictionary<string,object> testProperties = new Dictionary<string, object>
+            Dictionary<string,object> testProperties = new Dictionary<string, object>
                 {{idPropertyName, idPropertyValue}};
 
             // act
@@ -53,13 +54,18 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             string idPropertyValue = Guid.NewGuid().ToString();
 
             //todo: arrange without using cut?
-            await MergeNode(nodeLabel, idPropertyName,
-                new Dictionary<string, object>
+            await MergeNode(new MergeNodeCommand
+            {
+                NodeLabel = nodeLabel,
+                IdPropertyName = idPropertyName,
+                Properties =
                 {
-                    {idPropertyName, idPropertyValue}, {"prop2", "prop2OriginalValue"}
-                });
+                    {idPropertyName, idPropertyValue},
+                    {"prop2", "prop2OriginalValue"}
+                }
+            });
 
-            IReadOnlyDictionary<string,object> actProperties = new Dictionary<string, object>
+            Dictionary<string,object> actProperties = new Dictionary<string, object>
             {
                 {idPropertyName, idPropertyValue},
                 {"prop2", "prop2NewValue"}
@@ -89,15 +95,19 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string nodeVariable = "n";
             string idPropertyValue = Guid.NewGuid().ToString();
 
-            await MergeNode(nodeLabel, idPropertyName,
-                new Dictionary<string, object>
+            await MergeNode(new MergeNodeCommand
+            {
+                NodeLabel = nodeLabel,
+                IdPropertyName = idPropertyName,
+                Properties =
                 {
                     {idPropertyName, idPropertyValue},
                     {"prop2", "prop2OriginalValue"},
                     {"originalOnlyProp", "originalOnlyPropValue"}
-                });
+                }
+            });
 
-            IReadOnlyDictionary<string,object> actProperties =
+            Dictionary<string,object> actProperties =
                 new Dictionary<string, object>
                 {
                     {idPropertyName, idPropertyValue},
