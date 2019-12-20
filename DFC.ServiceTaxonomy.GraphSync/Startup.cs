@@ -15,6 +15,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
+using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // Graph Database
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
+            services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();

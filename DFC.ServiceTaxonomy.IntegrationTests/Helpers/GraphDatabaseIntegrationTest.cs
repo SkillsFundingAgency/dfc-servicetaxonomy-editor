@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Neo4j.Generators;
+using DFC.ServiceTaxonomy.Neo4j.Commands;
 using KellermanSoftware.CompareNetObjects;
 using Neo4j.Driver;
 using Xunit;
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         protected IGraphDatabaseTestRun _graphDatabase => _graphDatabaseTestRun!;
 
-        public GraphDatabaseIntegrationTest(GraphDatabaseCollectionFixture graphDatabaseCollectionFixture)
+        protected GraphDatabaseIntegrationTest(GraphDatabaseCollectionFixture graphDatabaseCollectionFixture)
         {
             _graphDatabaseCollectionFixture = graphDatabaseCollectionFixture;
         }
@@ -32,8 +32,9 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
         protected async Task<long> MergeNode(string label, string idPropertyName, IReadOnlyDictionary<string,object> properties)
         {
-            Query arrangeQuery = QueryGenerator.MergeNode(label, idPropertyName, properties);
-            var result = await _graphDatabase.RunWriteQuery(arrangeQuery, r => r.Values.First().Value.As<long>());
+            var mergeNodeCommand = new MergeNodeCommand();
+            mergeNodeCommand.Initialise(label, idPropertyName, properties);
+            List<long> result = await _graphDatabase.RunWriteQuery(mergeNodeCommand, r => r.Values.First().Value.As<long>());
             return result.First();
         }
 

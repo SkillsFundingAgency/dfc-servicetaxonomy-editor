@@ -8,13 +8,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Generators
 {
     public static class QueryGenerator
     {
-        public static Query MergeNode(string nodeLabel, string idPropertyName, IReadOnlyDictionary<string, object> propertyMap)
-        {
-            return new Query(
-                $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN ID(n)",
-                new Dictionary<string,object> {{"properties", propertyMap}});
-        }
-
         //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
         public static Query ReplaceRelationships(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
             IReadOnlyDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships)

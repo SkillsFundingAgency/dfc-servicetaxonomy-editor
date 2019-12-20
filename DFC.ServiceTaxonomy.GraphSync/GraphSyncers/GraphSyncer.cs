@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Neo4j.Services;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -39,17 +39,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
+        private readonly IMergeNodeCommand _mergeNodeCommand;
 
         public GraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
-            IGraphSyncPartIdProperty graphSyncPartIdProperty)
+            IGraphSyncPartIdProperty graphSyncPartIdProperty,
+            IMergeNodeCommand mergeNodeCommand)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
             _partSyncers = partSyncers;
             _graphSyncPartIdProperty = graphSyncPartIdProperty;
+            _mergeNodeCommand = mergeNodeCommand;
         }
 
         //todo: have as setting of activity, or graph sync content part settings
@@ -105,15 +108,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             string nodeLabel = NcsPrefix + contentItem.ContentType;
 
             // could create ienumerable and have 1 call
-            Query mergeNodesQuery = QueryGenerator.MergeNode(nodeLabel, sourceIdPropertyName, nodeProperties);
+            _mergeNodeCommand.Initialise(nodeLabel, sourceIdPropertyName, nodeProperties);
+
             if (relationships.Any())
             {
-                await _graphDatabase.RunWriteQueries(mergeNodesQuery,
+                await _graphDatabase.RunWriteQueries(_mergeNodeCommand.Query,
                     QueryGenerator.ReplaceRelationships(nodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships));
             }
             else
             {
-                await _graphDatabase.RunWriteQueries(mergeNodesQuery);
+                await _graphDatabase.RunWriteQueries(_mergeNodeCommand.Query);
             }
         }
     }
