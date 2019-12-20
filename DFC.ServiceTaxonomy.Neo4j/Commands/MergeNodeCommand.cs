@@ -12,9 +12,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         private Query? _query;
 
-        public void Initialise(string nodeLabel, string idPropertyName, IReadOnlyDictionary<string, object> propertyMap)
+        public Query Initialise(string nodeLabel, string idPropertyName, IReadOnlyDictionary<string, object> propertyMap)
         {
-            _query = new Query(
+            return _query = new Query(
                 $"MERGE (n:{nodeLabel} {{ {idPropertyName}:'{propertyMap[idPropertyName]}' }}) SET n=$properties RETURN ID(n)",
                 new Dictionary<string,object> {{"properties", propertyMap}});
         }

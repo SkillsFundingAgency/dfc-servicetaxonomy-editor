@@ -5,7 +5,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 {
     public interface IReplaceRelationshipsCommand
     {
-        void Initialise(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
+        Query Initialise(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
             IReadOnlyDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships);
 
         Query Query { get; }

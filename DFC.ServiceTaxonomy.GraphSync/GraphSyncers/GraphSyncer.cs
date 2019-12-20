@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -40,19 +39,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IMergeNodeCommand _mergeNodeCommand;
+        private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
 
         public GraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
-            IMergeNodeCommand mergeNodeCommand)
+            IMergeNodeCommand mergeNodeCommand,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
             _partSyncers = partSyncers;
             _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _mergeNodeCommand = mergeNodeCommand;
+            _replaceRelationshipsCommand = replaceRelationshipsCommand;
         }
 
         //todo: have as setting of activity, or graph sync content part settings
@@ -112,8 +114,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             if (relationships.Any())
             {
-                await _graphDatabase.RunWriteQueries(_mergeNodeCommand.Query,
-                    QueryGenerator.ReplaceRelationships(nodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships));
+                await _graphDatabase.RunWriteQueries(
+                    _mergeNodeCommand.Query,
+                    _replaceRelationshipsCommand.Initialise(nodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships));
             }
             else
             {

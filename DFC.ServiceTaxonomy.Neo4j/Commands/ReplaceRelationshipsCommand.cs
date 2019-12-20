@@ -7,11 +7,13 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
+    //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
+
     public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
     {
         private Query? _query;
 
-        public void Initialise(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
+        public Query Initialise(string sourceNodeLabel, string sourceIdPropertyName, string sourceIdPropertyValue,
             IReadOnlyDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType),IEnumerable<string>> relationships)
         {
             if (!relationships.Any()) // could return noop query instead
@@ -53,7 +55,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
             var existingRelationshipVariablesString = string.Join(',',Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
 
-            _query = new Query($"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s", parameters);
+            return _query = new Query($"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s", parameters);
         }
 
         public Query Query => _query
