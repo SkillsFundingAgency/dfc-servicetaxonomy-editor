@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -109,19 +110,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             string nodeLabel = NcsPrefix + contentItem.ContentType;
 
-            // could create ienumerable and have 1 call
-            _mergeNodeCommand.Initialise(nodeLabel, sourceIdPropertyName, nodeProperties);
+            List<Query> queries = new List<Query>{
+                _mergeNodeCommand.Initialise(nodeLabel, sourceIdPropertyName, nodeProperties)};
 
             if (relationships.Any())
             {
-                await _graphDatabase.RunWriteQueries(
-                    _mergeNodeCommand.Query,
-                    _replaceRelationshipsCommand.Initialise(nodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships));
+                queries.Add(_replaceRelationshipsCommand.Initialise(nodeLabel, sourceIdPropertyName,
+                    sourceIdPropertyValue, relationships));
             }
-            else
-            {
-                await _graphDatabase.RunWriteQueries(_mergeNodeCommand.Query);
-            }
+
+            await _graphDatabase.RunWriteQueries(queries.ToArray());
         }
     }
 }
