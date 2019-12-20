@@ -1,16 +1,12 @@
 using System;
 using System.Collections.Generic;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
-    public interface IMergeNodeCommand
-    {
-        void Initialise(string nodeLabel, string idPropertyName, IReadOnlyDictionary<string, object> propertyMap);
-        Query Query { get; }
-    }
-
     //todo: allow incremental build up, i.e. AddProperty etc.
+    //todo: inject database and add execute?
     public class MergeNodeCommand : IMergeNodeCommand
     {
         private Query? _query;

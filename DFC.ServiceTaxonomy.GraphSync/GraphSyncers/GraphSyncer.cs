@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Generators;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Newtonsoft.Json.Linq;

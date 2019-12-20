@@ -16,6 +16,7 @@ using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
