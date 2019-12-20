@@ -7,6 +7,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
     //todo: allow incremental build up, i.e. AddProperty etc.
     //todo: inject database and add execute?
+    //BUG: adding new namespace prefix doesn't add it to global list
     public class MergeNodeCommand : IMergeNodeCommand
     {
         private Query? _query;
