@@ -47,7 +47,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
             var model = new GraphSyncPartSettingsViewModel();
 
-            //todo: if prefix added, doesn't add to global choice
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.NamespacePrefix))
             {
