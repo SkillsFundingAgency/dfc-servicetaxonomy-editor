@@ -137,8 +137,49 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 relationshipType, destNodeLabel, relationshipVariable));
         }
 
+        [Fact]
+        public async Task ReplaceRelationships_CreateNoNewRelationship_NoExistingRelationships_Test()
+        {
+            const string sourceNodeLabel = "sourceNodeLabel";
+            const string sourceIdPropertyName = "sourceId";
+            string sourceIdPropertyValue = Guid.NewGuid().ToString();
+
+            const string destNodeLabel = "destNodeLabel";
+            const string destIdPropertyName = "destId";
+            string destIdPropertyValue = Guid.NewGuid().ToString();
+
+            const string relationshipType = "relationshipType";
+            const string relationshipVariable = "r";
+
+            //todo: arrange without any of the cut?
+            // create source node to create relationship from
+            await MergeNode(sourceNodeLabel, sourceIdPropertyName,
+                new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
+
+            // create destination node to create relationship to
+            await MergeNode(destNodeLabel, destIdPropertyName,
+                new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
+
+            //todo: is readonly enough, or should we clone? probably need to clone
+            var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
+                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new string[0] }});
+
+            // act
+            Query query = new ReplaceRelationshipsCommand
+            {
+                SourceNodeLabel = sourceNodeLabel,
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = sourceIdPropertyValue,
+                Relationships = relationships
+            };
+            await _graphDatabase.RunWriteQueries(query);
+
+            AssertResult(relationshipVariable,new ExpectedRelationship[0],
+                await AllRelationships(sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue,
+                relationshipType, destNodeLabel, relationshipVariable));
+        }
+
         //todo:
-        //        public async Task ReplaceRelationships_CreateNoNewRelationship_NoExistingRelationships_Test()
         //        public async Task ReplaceRelationships_CreateNoNewRelationship_ExistingRelationship_Test()
 
         //        public async Task ReplaceRelationships_CreateMultipleNewRelationship_NoExistingRelationships_Test()
