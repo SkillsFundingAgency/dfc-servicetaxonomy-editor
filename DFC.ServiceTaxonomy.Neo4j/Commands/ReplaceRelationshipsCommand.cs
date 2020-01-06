@@ -9,7 +9,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
     //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
     //todo: refactor to only create relationships to one dest node label?
-    //todo: needs to support setting no relationships (which should just delete existing. int test to check
 
     public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
     {
