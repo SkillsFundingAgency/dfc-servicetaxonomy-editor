@@ -19,6 +19,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType), IEnumerable<string>> Relationships {  get; set; }
             = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
+        //todo: make dictionary private, and add AddRelationship()?
+
         private Query CreateQuery()
         {
             if (SourceNodeLabel == null)

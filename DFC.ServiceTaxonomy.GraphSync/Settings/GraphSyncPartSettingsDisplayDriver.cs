@@ -31,7 +31,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                     contentTypePartDefinition.PopulateSettings(model);
 
+                    GraphSyncPartSettings graphSyncPartSettings = contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
+
                     model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
+                    model.NamespacePrefix = graphSyncPartSettings.NamespacePrefix;
                 })
                 .Location("Content");
         }
@@ -45,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
             var model = new GraphSyncPartSettingsViewModel();
 
+            //todo: if prefix added, doesn't add to global choice
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.NamespacePrefix))
             {

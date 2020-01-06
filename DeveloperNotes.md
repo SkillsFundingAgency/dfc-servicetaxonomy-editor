@@ -1,5 +1,6 @@
 #ToDo
 
+  \/ create defect
 * when creating relationships using content picker and picked content is not already in the graph, then the sync process fails silently. need to flag an error
 * bulk publishing skips graph sync
 * don't like new disabled select appearing once selected in single select scenario - nasty!
