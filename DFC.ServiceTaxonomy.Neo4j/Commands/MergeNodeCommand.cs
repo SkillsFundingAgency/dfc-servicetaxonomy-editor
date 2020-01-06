@@ -6,7 +6,6 @@ using Neo4j.Driver;
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
     //todo: inject database and add execute?
-    //BUG: adding new namespace prefix doesn't add it to global list
     public class MergeNodeCommand : IMergeNodeCommand
     {
         public string? NodeLabel { get; set; }
