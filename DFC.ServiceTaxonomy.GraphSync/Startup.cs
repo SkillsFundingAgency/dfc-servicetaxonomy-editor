@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IGraphSyncer, GraphSyncer>();
             services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddScoped<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
-            services.AddScoped<IGraphSyncPartIdProperty, GraphSyncPartIdProperty>();
+            services.AddScoped<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
             services.AddScoped<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
             services.AddScoped<IMergeNodeCommand, MergeNodeCommand>();
 

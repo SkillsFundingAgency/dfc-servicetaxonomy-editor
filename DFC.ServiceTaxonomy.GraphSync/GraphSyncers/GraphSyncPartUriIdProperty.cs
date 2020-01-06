@@ -1,7 +1,6 @@
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    //todo: better name
-    public class GraphSyncPartIdProperty : IGraphSyncPartIdProperty
+    public class GraphSyncPartUriIdProperty : IGraphSyncPartIdProperty
     {
         //todo: from settings
         public string Name => "uri";
