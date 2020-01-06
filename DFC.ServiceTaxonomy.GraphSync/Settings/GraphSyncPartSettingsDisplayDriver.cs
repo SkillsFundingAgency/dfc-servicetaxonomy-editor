@@ -66,6 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     // OnChange notification isn't fired, (InvokeChanged is not part of the interface and is private)
                     // not necessarily thread-safe
                     // (IOptionsSnapshot clones the value, so any updates are lost anyway)
+                    // better to update env variable?
 
                     if (!currentNamespacePrefixConfiguration.NamespacePrefixOptions.Contains(model.NamespacePrefix))
                         currentNamespacePrefixConfiguration.NamespacePrefixOptions.Add(model.NamespacePrefix);
