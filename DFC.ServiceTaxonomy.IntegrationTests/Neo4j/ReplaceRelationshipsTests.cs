@@ -45,8 +45,13 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
 
             // act
-            Query query = new ReplaceRelationshipsCommand().Initialise(
-                sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships);
+            Query query = new ReplaceRelationshipsCommand
+            {
+                SourceNodeLabel = sourceNodeLabel,
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = sourceIdPropertyValue,
+                Relationships = relationships
+            };
             await _graphDatabase.RunWriteQueries(query);
 
             AssertResult(relationshipVariable,new[]
@@ -96,8 +101,13 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             var preExistingRelationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
                 new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
 
-            Query preexistingQuery = new ReplaceRelationshipsCommand().Initialise(
-                sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue, preExistingRelationships);
+            Query preexistingQuery = new ReplaceRelationshipsCommand
+            {
+                SourceNodeLabel = sourceNodeLabel,
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = sourceIdPropertyValue,
+                Relationships = preExistingRelationships
+            };
             await _graphDatabase.RunWriteQueries(preexistingQuery);
 
             //todo: is readonly enough, or should we clone? probably need to clone
@@ -105,8 +115,13 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
 
             // act
-            Query query = new ReplaceRelationshipsCommand().Initialise(
-                sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue, relationships);
+            Query query = new ReplaceRelationshipsCommand
+            {
+                SourceNodeLabel = sourceNodeLabel,
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = sourceIdPropertyValue,
+                Relationships = relationships
+            };
             await _graphDatabase.RunWriteQueries(query);
 
             AssertResult(relationshipVariable,new[]
