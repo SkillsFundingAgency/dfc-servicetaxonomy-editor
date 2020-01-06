@@ -10,9 +10,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
     public class GraphSyncPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
-        private readonly IOptionsSnapshot<NamespacePrefixConfiguration> _namespacePrefixOptions;
+        private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixOptions;
 
-        public GraphSyncPartSettingsDisplayDriver(IOptionsSnapshot<NamespacePrefixConfiguration> namespacePrefixOptions)
+        public GraphSyncPartSettingsDisplayDriver(IOptionsMonitor<NamespacePrefixConfiguration> namespacePrefixOptions)
         {
             _namespacePrefixOptions = namespacePrefixOptions;
         }
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
             return Initialize<GraphSyncPartSettingsViewModel>("GraphSyncPartSettings_Edit", model =>
                 {
-                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.Value;
+                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.CurrentValue;
 
                     contentTypePartDefinition.PopulateSettings(model);
 
@@ -56,10 +56,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 // namespaceprefix should never be null. throw instead?
                 if (model.NamespacePrefix != null)
                 {
-                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.Value;
+                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.CurrentValue;
 
-                    // if user has entered a new prefix, update the global list of prefixes, so that they get the choice when editing graph uri id fields in new content types
+                    // if user has entered a new prefix, update the global list of prefixes,
+                    // so that they get the choice when editing graph uri id fields in new content types
+                    // (or at least until the process is restarted, as we don't persist changes to a config source)
                     // what do we do with pollution in the list, e.g. someone adds an incorrect prefix?
+                    //todo: this is a hack - IOptionsMonitor doesn't really support updates:
+                    // OnChange notification isn't fired, (InvokeChanged is not part of the interface and is private)
+                    // not necessarily thread-safe
+                    // (IOptionsSnapshot clones the value, so any updates are lost anyway)
 
                     if (!currentNamespacePrefixConfiguration.NamespacePrefixOptions.Contains(model.NamespacePrefix))
                         currentNamespacePrefixConfiguration.NamespacePrefixOptions.Add(model.NamespacePrefix);
