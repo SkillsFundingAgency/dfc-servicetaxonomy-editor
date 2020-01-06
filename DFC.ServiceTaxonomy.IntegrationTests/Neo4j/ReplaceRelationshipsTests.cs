@@ -241,8 +241,71 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 relationshipType, destNodeLabel, relationshipVariable));
         }
 
+        //todo: complete test
+        [Fact(Skip="Need to improve AssertResult")]
+        public async Task ReplaceRelationships_CreateMultipleNewRelationship_NoExistingRelationships_Test()
+        {
+            const string sourceNodeLabel = "sourceNodeLabel";
+            const string sourceIdPropertyName = "sourceId";
+            string sourceIdPropertyValue = Guid.NewGuid().ToString();
+
+            const string destNodeLabel = "destNodeLabel";
+            const string destIdPropertyName = "destId";
+            string destIdPropertyValue1 = Guid.NewGuid().ToString();
+            string destIdPropertyValue2 = Guid.NewGuid().ToString();
+
+            const string relationshipType = "relationshipType";
+            const string relationshipVariable = "r";
+
+            //todo: arrange without any of the cut?
+            // create source node to create relationship from
+            long sourceNodeId = await MergeNode(sourceNodeLabel, sourceIdPropertyName,
+                new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
+
+            // create first destination node to create relationship to
+            long destNodeId1 = await MergeNode(destNodeLabel, destIdPropertyName,
+                new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue1}});
+
+            // create second destination node to create relationship to
+            long destNodeId2 = await MergeNode(destNodeLabel, destIdPropertyName,
+                new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue2}});
+
+            //todo: is readonly enough, or should we clone? probably need to clone
+            var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
+                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType),
+                    new[] {destIdPropertyValue1, destIdPropertyValue2}}});
+
+            // act
+            Query query = new ReplaceRelationshipsCommand
+            {
+                SourceNodeLabel = sourceNodeLabel,
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = sourceIdPropertyValue,
+                Relationships = relationships
+            };
+            await _graphDatabase.RunWriteQueries(query);
+
+            AssertResult(relationshipVariable,new[]
+            {
+                new ExpectedRelationship
+                {
+                    Type = relationshipType,
+                    StartNodeId = sourceNodeId,
+                    EndNodeId = destNodeId1,
+                    Properties = new Dictionary<string, object>()
+                },
+                new ExpectedRelationship
+                {
+                    Type = relationshipType,
+                    StartNodeId = sourceNodeId,
+                    EndNodeId = destNodeId2,
+                    Properties = new Dictionary<string, object>()
+                }
+            }, await AllRelationships(sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue,
+                relationshipType, destNodeLabel, relationshipVariable));
+        }
+
         //todo:
-        //        public async Task ReplaceRelationships_CreateMultipleNewRelationship_NoExistingRelationships_Test()
         //        public async Task ReplaceRelationships_CreateMultipleNewRelationship_ExistingRelationship_Test()
     }
 }
