@@ -21,7 +21,7 @@
   <ItemGroup>
     <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-*" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.1.0.13383">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0-RC1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
