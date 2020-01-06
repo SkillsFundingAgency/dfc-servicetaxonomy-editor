@@ -19,7 +19,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
         public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
         {
-            //todo: contentTypePartDefinition.Name?
             if (!string.Equals(nameof(GraphSyncPart), contentTypePartDefinition.PartDefinition.Name))
             {
                 return default!;
