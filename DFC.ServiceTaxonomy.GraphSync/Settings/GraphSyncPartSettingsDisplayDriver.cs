@@ -28,8 +28,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 {
                     var currentNamespacePrefixConfiguration = _namespacePrefixOptions.CurrentValue;
 
-                    contentTypePartDefinition.PopulateSettings(model);
-
                     GraphSyncPartSettings graphSyncPartSettings = contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
 
                     model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;

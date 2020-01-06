@@ -142,10 +142,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "3"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
-                            },
-                            "GraphSyncPartSettings": {
-                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -188,10 +188,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
-                            },
-                            "GraphSyncPartSettings": {
-                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -234,10 +234,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
-                            },
-                            "GraphSyncPartSettings": {
-                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -280,10 +280,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
-                            },
-                            "GraphSyncPartSettings": {
-                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
@@ -326,10 +326,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
-                            },
-                            "GraphSyncPartSettings": {
-                                "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                             }
                         }
                     ]
