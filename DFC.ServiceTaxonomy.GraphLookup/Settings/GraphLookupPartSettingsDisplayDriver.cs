@@ -33,7 +33,6 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Settings
                 model.PropertyName = settings.PropertyName;
                 model.NodesAreReadonly = settings.NodesAreReadonly;
 
-                model.GraphLookupPartSettings = settings;
             }).Location("Content");
         }
 
@@ -78,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Settings
                 }
             }
 
-            return Edit(contentTypePartDefinition, context.Updater);
+            return Edit(contentTypePartDefinition);
         }
     }
 }

@@ -3,6 +3,7 @@
 * add database details to graph sync settings?
 * when creating relationships using content picker and picked content is not already in the graph, then the sync process fails silently. need to flag an error
 * bulk publishing skips graph sync
+* in graph lookup, handle situation (as with esco__nodeLiteral) where have 2 nodes, one with language en and 1 with language en-us, which causes duplicate entries
 * don't like new disabled select appearing once selected in single select scenario - nasty!
 * need to add dependencies into manifest?
 * use predefined list editor for node label?

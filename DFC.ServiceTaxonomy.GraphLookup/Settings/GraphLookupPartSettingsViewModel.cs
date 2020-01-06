@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-
+﻿
 namespace DFC.ServiceTaxonomy.GraphLookup.Settings
 {
     public class GraphLookupPartSettingsViewModel
@@ -16,8 +15,5 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Settings
         public string? RelationshipType { get; set; }
         public string? PropertyName { get; set; }
         public bool NodesAreReadonly { get; set; }
-
-        [BindNever]
-        public GraphLookupPartSettings? GraphLookupPartSettings { get; set; }
     }
 }
