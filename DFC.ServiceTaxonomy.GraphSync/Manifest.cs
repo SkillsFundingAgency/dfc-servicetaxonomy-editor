@@ -1,13 +1,11 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "Graph Lookup",
+    Name = "Graph Sync",
     Author = "National Careers Service",
     Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
-    Version = "0.0.3",
-    Description = "Graph Lookup Content Part",
+    Version = "0.0.1",
+    Description = "Enables syncing content to a Neo4j graph.",
     Category = "Graph",
-    //todo:
-    Dependencies = new string[] {
-    }
+    Dependencies = new[] { "OrchardCore.Contents" }
 )]

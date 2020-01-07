@@ -64,10 +64,8 @@
                 "TheAdmin",
 
                 // Service Taxonomy Editor
-                //todo: do we actually need this one?
-                "DFC.ServiceTaxonomy.Editor",
+                "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
-                "DFC.ServiceTaxonomy.Editor.Module",
                 "OrchardCore.Workflows"
             ]
         },
@@ -139,11 +137,14 @@
                             }
                         },
                         {
-                            "PartName": "Graph",
-                            "Name": "Graph",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "3"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -182,11 +183,14 @@
                             }
                         },
                         {
-                            "PartName": "Graph",
-                            "Name": "Graph",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -225,11 +229,14 @@
                             }
                         },
                         {
-                            "PartName": "Graph",
-                            "Name": "Graph",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -268,11 +275,14 @@
                             }
                         },
                         {
-                            "PartName": "Graph",
-                            "Name": "Graph",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -311,11 +321,14 @@
                             }
                         },
                         {
-                            "PartName": "Graph",
-                            "Name": "Graph",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -582,25 +595,24 @@
                     ]
                 },
                 {
-                    "Name": "Graph",
+                    "Name": "GraphSyncPart",
                     "Settings": {
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Enables the content type to be synced to a graph."
                         }
                     },
-                    "ContentPartFieldDefinitionRecords": [
-                        {
-                            "FieldName": "GraphUriIdField",
-                            "Name": "UriId",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "URI ID",
-                                    "Position": "0"
-                                }
-                            }
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "GraphLookupPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Lookup node(s) from the graph and create relationships and/or set a property based on the selection."
                         }
-                    ]
+                    },
+                    "ContentPartFieldDefinitionRecords": []
                 }
             ]
         },
@@ -683,10 +695,8 @@
                     "TitlePart": {
                         "Title": "Breaking and Entering"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/skill/c6e2474a-f002-492c-a91c-ef5cbd284485"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/skill/c6e2474a-f002-492c-a91c-ef5cbd284485"
                     }
                 },
                 {
@@ -712,10 +722,8 @@
                     "TitlePart": {
                         "Title": "Administration"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobcategory/97face03-da97-4f60-ae01-149b160f8899"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobcategory/97face03-da97-4f60-ae01-149b160f8899"
                     }
                 },
                 {
@@ -741,10 +749,8 @@
                     "TitlePart": {
                         "Title": "Delivery and storage"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobcategory/9114860c-8f39-45d9-b32c-f8c213bdd0ed"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobcategory/9114860c-8f39-45d9-b32c-f8c213bdd0ed"
                     }
                 },
                 {
@@ -763,10 +769,8 @@
                     "TitlePart": {
                         "Title": "Remotely Monitor Childrens Naughtyness or Niceness"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/activity/df15e480-983e-43f2-a5d8-72391de97158"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/activity/df15e480-983e-43f2-a5d8-72391de97158"
                     }
                 },
                 {
@@ -789,10 +793,8 @@
                     "TitlePart": {
                         "Title": "1"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/qcflevel/3eb50004-d16a-4895-804e-77025fe9b94c"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/qcflevel/3eb50004-d16a-4895-804e-77025fe9b94c"
                     }
                 },
                 {
@@ -832,10 +834,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/c3fc1f41-f523-4061-b3a0-41901866a54b"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/c3fc1f41-f523-4061-b3a0-41901866a54b"
                     }
                 },
                 {
@@ -875,10 +875,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/bd2d76e2-1843-424d-9c99-f263269d6e73"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/bd2d76e2-1843-424d-9c99-f263269d6e73"
                     }
                 },
                 {
@@ -918,10 +916,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/8caf68a6-70a2-4d3b-9ba2-51f952b5dd11"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/8caf68a6-70a2-4d3b-9ba2-51f952b5dd11"
                     }
                 },
                 {
@@ -961,10 +957,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/f901f7ef-2715-48de-8f3a-249c60467696"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/f901f7ef-2715-48de-8f3a-249c60467696"
                     }
                 },
                 {
@@ -1004,10 +998,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
                     }
                 },
                 {
@@ -1047,10 +1039,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
                     }
                 },
                 {
@@ -1090,10 +1080,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/a7f8662f-b843-4f13-b3ed-f7d62e3bd028"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/a7f8662f-b843-4f13-b3ed-f7d62e3bd028"
                     }
                 },
                 {
@@ -1133,10 +1121,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/c8f574c0-7c24-4f01-b90a-95b8214a32fd"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/c8f574c0-7c24-4f01-b90a-95b8214a32fd"
                     }
                 },
                 {
@@ -1176,10 +1162,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/26095465-aa3c-4f6c-97ce-5a5909141061"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/26095465-aa3c-4f6c-97ce-5a5909141061"
                     }
                 },
                 {
@@ -1219,10 +1203,8 @@
                             }
                         ]
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/jobprofile/99538110-da2c-4cc0-aad9-ea64ac5f758c"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/99538110-da2c-4cc0-aad9-ea64ac5f758c"
                     }
                 },
                 {
@@ -1241,10 +1223,8 @@
                     "TitlePart": {
                         "Title": "Supervise Elves"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/activity/f279661a-3554-4fb0-881a-b865d56d5e6f"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/activity/f279661a-3554-4fb0-881a-b865d56d5e6f"
                     }
                 },
                 {
@@ -1263,10 +1243,8 @@
                     "TitlePart": {
                         "Title": "Eat Mince Pies"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/activity/83722ca3-7ab2-4f1a-8371-c0ea762cf8a3"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/activity/83722ca3-7ab2-4f1a-8371-c0ea762cf8a3"
                     }
                 },
                 {
@@ -1285,10 +1263,8 @@
                     "TitlePart": {
                         "Title": "Pilot Flying Sleigh"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/activity/363792aa-adea-4037-960e-016f57d6bc27"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/activity/363792aa-adea-4037-960e-016f57d6bc27"
                     }
                 },
                 {
@@ -1311,10 +1287,8 @@
                     "TitlePart": {
                         "Title": "2"
                     },
-                    "Graph": {
-                        "UriId": {
-                            "Text": "http://nationalcareers.service.gov.uk/qcflevel/8d1ae0f2-a593-4be0-9690-33cb917e41c3"
-                        }
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/qcflevel/8d1ae0f2-a593-4be0-9690-33cb917e41c3"
                     }
                 }
             ]

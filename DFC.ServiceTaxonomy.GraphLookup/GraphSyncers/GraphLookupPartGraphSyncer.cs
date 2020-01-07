@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.Editor.Module.Activities;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -9,12 +11,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 {
     public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string PartName
-        {
-            get { return "GraphLookupPart"; }
-        }
+        public string? PartName => nameof(GraphLookupPart);
 
-        public void AddSyncComponents(
+        public Task AddSyncComponents(
             dynamic graphLookupContent,
             IDictionary<string, object> nodeProperties,
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
@@ -24,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
-                return;
+                return Task.CompletedTask;
 
             if (settings.PropertyName != null)
             {
@@ -37,6 +36,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
                         relationshipType: settings.RelationshipType!), nodes.Select(n => n["Id"].ToString()));
             }
+
+            return Task.CompletedTask;
         }
     }
 }

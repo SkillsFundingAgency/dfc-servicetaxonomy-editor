@@ -1,0 +1,9 @@
+@model GraphSyncPartViewModel
+
+<fieldset class="form-group">
+    @* <label asp-for="Text">@Model?.PartFieldDefinition?.DisplayName()</label> *@
+    @* todo more generic, allow setting of field id name to set, display name, and templated id value? *@
+    <label asp-for="Text">Uri Id</label>
+    <input asp-for="Text" class="form-control content-preview-text" readonly>
+    <span class="hint">This URI ID is automatically generated</span>
+</fieldset>
