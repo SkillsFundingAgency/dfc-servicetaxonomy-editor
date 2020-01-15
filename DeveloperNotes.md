@@ -4,8 +4,10 @@
 https://github.com/OrchardCMS/OrchardCore/issues/1715
 https://github.com/OrchardCMS/OrchardCore/pull/4771
 
-try with preview packages
-(preview seems to have broken graph lookup - fix)
+with preview packages:
+bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
+confirmation buttons are labelled undefined
+workflow still not triggered :(
 
 * add database details to graph sync settings?
 * when creating relationships using content picker and picked content is not already in the graph, then the sync process fails silently. need to flag an error
