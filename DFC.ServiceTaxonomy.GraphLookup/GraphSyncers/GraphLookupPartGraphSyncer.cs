@@ -27,14 +27,16 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                nodeProperties.Add(settings.PropertyName, nodes.First()["Id"].ToString());
+                //todo: what to do if id null?
+                nodeProperties.Add(settings.PropertyName, nodes.First()["Id"]!.ToString());
             }
 
             if (settings.RelationshipType != null)
             {
                 nodeRelationships.Add(
                     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
-                        relationshipType: settings.RelationshipType!), nodes.Select(n => n["Id"].ToString()));
+                        //todo: what to do if id null?
+                        relationshipType: settings.RelationshipType!), nodes.Select(n => n["Id"]!.ToString()));
             }
 
             return Task.CompletedTask;

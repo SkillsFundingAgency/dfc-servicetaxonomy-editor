@@ -1,5 +1,12 @@
 #ToDo
 
+* Looks like triggering workflows on bulk actions may have been fixed, see...
+https://github.com/OrchardCMS/OrchardCore/issues/1715
+https://github.com/OrchardCMS/OrchardCore/pull/4771
+
+try with preview packages
+(preview seems to have broken graph lookup - fix)
+
 * add database details to graph sync settings?
 * when creating relationships using content picker and picked content is not already in the graph, then the sync process fails silently. need to flag an error
 * bulk publishing skips graph sync

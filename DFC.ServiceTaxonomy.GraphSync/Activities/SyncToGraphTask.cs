@@ -38,7 +38,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
 //            return Outcomes(T["Done"], T["Failed"]);
+#pragma warning disable S3220 // Method calls should not resolve ambiguously to overloads with "params"
             return Outcomes(T["Done"]);
+#pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
         //todo: if this fails, we notify the user, but the content still gets added to oc, and oc & the graph are then out-of-sync.

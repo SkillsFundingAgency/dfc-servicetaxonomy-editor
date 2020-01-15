@@ -56,11 +56,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
             return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
 
-        private Task BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)
+        private void BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)
         {
             model.Text = part.Text ?? GenerateUriId(part);
-
-            return Task.CompletedTask;
         }
 
         private string GenerateUriId(GraphSyncPart part)
