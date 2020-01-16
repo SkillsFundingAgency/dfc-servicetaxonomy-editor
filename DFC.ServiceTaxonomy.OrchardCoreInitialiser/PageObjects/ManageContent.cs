@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support.PageObjects;
 using System;
 using System.Collections.Generic;
@@ -14,12 +14,74 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
         const string publish = "published";
 
         #endregion
-        //ScenarioContext _scenarioContext;
 
-        //public ManageContent(ScenarioContext context)// : base(context)
-        //{
-        //    _scenarioContext = context;
-        //}
+        IWebDriver _webDriver;
+        public ManageContent(IWebDriver driver)
+        {
+            _webDriver = driver;
+        }
+
+        public ManageContent SetFilter(string filter)
+        {
+            try
+            {
+                var databaseList = _webDriver.FindElement(By.Id("Options_SelectedContentType"));
+                var selectElement = new SelectElement(databaseList);
+                selectElement.SelectByValue(filter);
+            }
+            catch (Exception e)
+            {
+
+            }
+            return this;
+        }
+
+        public ManageContent PublishAll(string contentType)
+        {
+            SetFilter(contentType);
+
+            int currentPage = 1;
+            // assume starts on page one of results
+            string baseUrl = _webDriver.Url;
+
+
+
+
+
+            return this;
+        }
+
+
+        public ManageContent GetResultsPage(string filter)
+        {
+            return this;
+        }
+        public ManageContent BulkAction()
+        {
+            // if results on page
+
+            // select all
+
+            // bulk actions--publish
+
+            // increment target page
+
+            // check if new page is valid
+
+
+
+            try
+            {
+                var databaseList = _webDriver.FindElement(By.Id("Options_SelectedContentType"));
+                var selectElement = new SelectElement(databaseList);
+              //  selectElement.SelectByValue(filter);
+            }
+            catch (Exception e)
+            {
+
+            }
+            return this;
+        }
 
         //public ManageContent FindItem( string title)
         //{

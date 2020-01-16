@@ -45,13 +45,13 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 
             
 
-            foreach ( var btn in editButtons)
-            {
-                btn.Click();
-                _webDriver.Navigate().Back();
-                //_webDriver.FindElement(By.LinkText("Delete")).Click();
+            //foreach ( var btn in editButtons)
+            //{
+            //    btn.Click();
+            //    _webDriver.Navigate().Back();
+            //    //_webDriver.FindElement(By.LinkText("Delete")).Click();
 
-            }
+            //}
 
 
         }
