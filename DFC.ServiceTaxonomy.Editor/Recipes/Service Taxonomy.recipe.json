@@ -633,13 +633,7 @@
                             "Y": 0,
                             "IsStart": true,
                             "Properties": {
-                                "ContentTypeFilter": [
-                                    "Activity",
-                                    "JobCategory",
-                                    "JobProfile",
-                                    "QCFLevel",
-                                    "Skill"
-                                ],
+                                "ContentTypeFilter": [],
                                 "ActivityMetadata": {
                                     "Title": null
                                 }
