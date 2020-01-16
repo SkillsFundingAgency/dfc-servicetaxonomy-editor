@@ -1,6 +1,5 @@
 #ToDo
 
-* when bulk publishing, same instance of SyncToGraphTask is reused, so sync fails from 2nd contentitem on as commands are already populated
 * change sync to sync on publish
 
 * with preview packages:
