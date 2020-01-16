@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 
         public StartPage NavigateTo( string sBaseUrl, string sPath)
         {
-            _webDriver.Url = sBaseUrl + "/" + sPath;
+            _webDriver.Navigate().GoToUrl(sBaseUrl + sPath);
             return this;
         }
 
@@ -30,6 +30,12 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
         {
             NavigateTo(sBaseUrl, "OrchardCore.ContentTypes/Admin/List");
             return new ContentTypesAdmin(_webDriver);
+        }
+
+        public ManageContent NavigateToManageContent(string sBaseUrl)
+        {
+            NavigateTo(sBaseUrl, "/Admin/Contents/ContentItems");
+            return new ManageContent(_webDriver);
         }
 
         //public AddActivity NavigateToNewActivity()
