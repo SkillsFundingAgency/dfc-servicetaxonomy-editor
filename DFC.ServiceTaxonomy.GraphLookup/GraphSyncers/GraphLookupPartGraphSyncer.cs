@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,19 +28,26 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                //todo: what to do if id null?
-                nodeProperties.Add(settings.PropertyName, nodes.First()["Id"]!.ToString());
+                nodeProperties.Add(settings.PropertyName, GetId(nodes.First()));
             }
 
             if (settings.RelationshipType != null)
             {
                 nodeRelationships.Add(
                     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
-                        //todo: what to do if id null?
-                        relationshipType: settings.RelationshipType!), nodes.Select(n => n["Id"]!.ToString()));
+                        relationshipType: settings.RelationshipType!), nodes.Select(GetId));
             }
 
             return Task.CompletedTask;
+        }
+
+        private string GetId(JToken jToken)
+        {
+            string? id = jToken["Id"]?.ToString();
+            if (id == null)    // todo: create a GraphSyncException
+                throw new InvalidOperationException("Missing id in GraphLookupPart content.");
+
+            return id;
         }
     }
 }

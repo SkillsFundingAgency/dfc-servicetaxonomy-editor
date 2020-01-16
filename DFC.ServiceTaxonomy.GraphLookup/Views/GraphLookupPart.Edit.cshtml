@@ -8,8 +8,7 @@
     var selectedItems = JsonConvert.SerializeObject(Model?.SelectedItems, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
     var partName = Model?.PartName;
     var contentName = Model?.GraphLookupPart?.ContentItem?.ContentType;
-    var searchUrl = Url.RouteUrl(new { area = "DFC.ServiceTaxonomy.GraphLookup", controller = "GraphLookupAdmin", action = "SearchLookupNodes", part = partName, content= contentName }); //, field = fieldName });
-    //    var vueElementId = $"GraphLookup_{partName}_{fieldName}_{Guid.NewGuid():n}";
+    var searchUrl = Url.RouteUrl(new { area = "DFC.ServiceTaxonomy.GraphLookup", controller = "GraphLookupAdmin", action = "SearchLookupNodes", part = partName, content= contentName });
     //todo: might want a better prefix, but this will work
     var vueElementId = $"GraphLookup_{Guid.NewGuid():n}";
     var multiple = settings?.Multiple.ToString().ToLowerInvariant();
