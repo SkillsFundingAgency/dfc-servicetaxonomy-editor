@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -44,8 +45,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         private string GetId(JToken jToken)
         {
             string? id = jToken["Id"]?.ToString();
-            if (id == null)    // todo: create a GraphSyncException
-                throw new InvalidOperationException("Missing id in GraphLookupPart content.");
+            if (id == null)
+                throw new GraphSyncException("Missing id in GraphLookupPart content.");
 
             return id;
         }
