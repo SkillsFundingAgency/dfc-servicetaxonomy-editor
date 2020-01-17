@@ -12,12 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Admin.Abstractions" Version="1.0.0-rc1-11520" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-11520" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-11520" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-11520" />
-    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-11520" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-11520" />
+    <PackageReference Include="OrchardCore.Admin.Abstractions" Version="1.0.0-rc1-11550" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-11550" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-11550" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-11550" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-11550" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-11550" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0-RC1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
