@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="AddActivity.cs" />
     <Compile Remove="LogonScreen.cs" />
     <Compile Remove="ManageContent.cs" />
@@ -15,14 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mono.Options" Version="6.6.0.161" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="79.0.3945.3600" />
     <PackageReference Include="Selenium.WebDriver.MicrosoftDriver" Version="17.17134.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>
