@@ -8,8 +8,7 @@
     var selectedItems = JsonConvert.SerializeObject(Model?.SelectedItems, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
     var partName = Model?.PartName;
     var contentName = Model?.GraphLookupPart?.ContentItem?.ContentType;
-    var tenantPath = Context.Request.PathBase.Value;
-//    var vueElementId = $"GraphLookup_{partName}_{fieldName}_{Guid.NewGuid():n}";
+    var searchUrl = Url.RouteUrl(new { area = "DFC.ServiceTaxonomy.GraphLookup", controller = "GraphLookupAdmin", action = "SearchLookupNodes", part = partName, content= contentName });
     //todo: might want a better prefix, but this will work
     var vueElementId = $"GraphLookup_{Guid.NewGuid():n}";
     var multiple = settings?.Multiple.ToString().ToLowerInvariant();
@@ -29,9 +28,9 @@
 
 @*todo don't want a search-url if readonly*@
 @*todo what (if any) part of oc uses data-field?*@
-<div id="@vueElementId" class="vue-multiselect" data-part="@partName" @*data-field="@fieldName"*@ data-editor-type="GraphLookup" data-selected-items="@selectedItems" data-tenant-path="@tenantPath" data-search-url="GraphLookup/SearchLookupNodes?part=@partName&content=@contentName" data-multiple="@multiple">
+<div id="@vueElementId" class="vue-multiselect" data-part="@partName" @*data-field="@fieldName"*@ data-editor-type="GraphLookup" data-selected-items="@selectedItems" data-search-url="@searchUrl" data-multiple="@multiple">
 
-    <fieldset class="form-group">
+    <div class="form-group">
         <ul class="list-group w-xl-50 content-picker-default__list" v-show="arrayOfItems.length" v-cloak>
             <draggable v-model="arrayOfItems">
                 <li v-for="(item, i) in arrayOfItems"
@@ -45,9 +44,9 @@
                 </li>
             </draggable>
         </ul>
-    </fieldset>
+    </div>
 
-    <fieldset class="form-group">
+    <div class="form-group">
         <div class="w-xl-50">
             <input asp-for="ItemIds" type="hidden" v-model="selectedIds" />
             <vue-multiselect v-model="value" :options="options" track-by="id"
@@ -66,6 +65,6 @@
             </vue-multiselect>
             <span class="hint">@settings?.Hint</span>
         </div>
-    </fieldset>
+    </div>
 </div>
 <script at="Foot" depends-on="vue-multiselect-wrapper">initVueMultiselect(document.querySelector("#@vueElementId"))</script>

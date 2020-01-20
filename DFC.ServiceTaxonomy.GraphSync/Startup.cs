@@ -39,17 +39,16 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Graph Database
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
+            services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
 
             // Syncers
-            services.AddScoped<IGraphSyncer, GraphSyncer>();
-            services.AddScoped<IContentPartGraphSyncer, TitlePartGraphSyncer>();
-            services.AddScoped<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
-            services.AddScoped<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
-            services.AddScoped<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
-            services.AddScoped<IMergeNodeCommand, MergeNodeCommand>();
+            services.AddTransient<IGraphSyncer, GraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
+            services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
 
             // Graph Sync Part
             services.AddContentPart<GraphSyncPart>();

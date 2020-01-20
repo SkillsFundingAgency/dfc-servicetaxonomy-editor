@@ -9,8 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		README.md = README.md
 		DeveloperNotes.md = DeveloperNotes.md
+		NuGet.config = NuGet.config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.UnitTests", "DFC.ServiceTaxonomy.UnitTests\DFC.ServiceTaxonomy.UnitTests.csproj", "{248782F2-4F59-4EC6-8403-7BC6235863E1}"
@@ -20,13 +21,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User Documentation", "User 
 		User Documentation\README.md = User Documentation\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.GraphLookup", "DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj", "{C8CB1064-2262-4DFE-9778-B76163DF0115}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphLookup", "DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj", "{C8CB1064-2262-4DFE-9778-B76163DF0115}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Neo4j", "DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj", "{C57D2E7F-F920-4D75-984E-7AE3F28E201A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Neo4j", "DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj", "{C57D2E7F-F920-4D75-984E-7AE3F28E201A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.GraphSync", "DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj", "{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphSync", "DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj", "{2CD2FE55-70AC-4F2A-A6BC-D18D52049B7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.IntegrationTests", "DFC.ServiceTaxonomy.IntegrationTests\DFC.ServiceTaxonomy.IntegrationTests.csproj", "{E2592CC5-5E5C-4AB1-A4AC-55D82E3568FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.IntegrationTests", "DFC.ServiceTaxonomy.IntegrationTests\DFC.ServiceTaxonomy.IntegrationTests.csproj", "{E2592CC5-5E5C-4AB1-A4AC-55D82E3568FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1C39E2DF-6511-4179-BA7C-2A12DBC963E3}"
 EndProject
@@ -65,9 +66,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{248782F2-4F59-4EC6-8403-7BC6235863E1} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
 		{3E0A29D0-0E0C-4289-8BD0-C7355D6EBFF9} = {16DF71DE-7DEE-4E45-B613-CABA378B6D14}
 		{E2592CC5-5E5C-4AB1-A4AC-55D82E3568FB} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
-		{248782F2-4F59-4EC6-8403-7BC6235863E1} = {1C39E2DF-6511-4179-BA7C-2A12DBC963E3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B38FA84A-9199-474F-B57A-D4E40B208A6F}

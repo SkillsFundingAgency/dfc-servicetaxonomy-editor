@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -27,17 +29,26 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                nodeProperties.Add(settings.PropertyName, nodes.First()["Id"].ToString());
+                nodeProperties.Add(settings.PropertyName, GetId(nodes.First()));
             }
 
             if (settings.RelationshipType != null)
             {
                 nodeRelationships.Add(
                     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
-                        relationshipType: settings.RelationshipType!), nodes.Select(n => n["Id"].ToString()));
+                        relationshipType: settings.RelationshipType!), nodes.Select(GetId));
             }
 
             return Task.CompletedTask;
+        }
+
+        private string GetId(JToken jToken)
+        {
+            string? id = jToken["Id"]?.ToString();
+            if (id == null)
+                throw new GraphSyncException("Missing id in GraphLookupPart content.");
+
+            return id;
         }
     }
 }

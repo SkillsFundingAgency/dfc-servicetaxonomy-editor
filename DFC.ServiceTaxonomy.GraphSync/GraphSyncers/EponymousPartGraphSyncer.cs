@@ -62,7 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         // orchard always converts entered value to real 2.0 (float/double/decimal)
                         // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real?
 
-                        nodeProperties.Add(NcsPrefix + field.Name, (long) fieldTypeAndValue.Value.ToObject(typeof(long)));
+                        nodeProperties.Add(NcsPrefix + field.Name, (long?) fieldTypeAndValue.Value.ToObject(typeof(long)));
                         break;
                     case "ContentItemIds":
                         await AddContentPickerFieldSyncComponents(nodeRelationships, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);

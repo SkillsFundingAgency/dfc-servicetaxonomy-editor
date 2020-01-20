@@ -628,18 +628,12 @@
                     "Activities": [
                         {
                             "ActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
-                            "Name": "ContentUpdatedEvent",
+                            "Name": "ContentPublishedEvent",
                             "X": 250,
                             "Y": 0,
                             "IsStart": true,
                             "Properties": {
-                                "ContentTypeFilter": [
-                                    "Activity",
-                                    "JobCategory",
-                                    "JobProfile",
-                                    "QCFLevel",
-                                    "Skill"
-                                ],
+                                "ContentTypeFilter": [],
                                 "ActivityMetadata": {
                                     "Title": null
                                 }

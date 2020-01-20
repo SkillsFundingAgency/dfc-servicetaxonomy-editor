@@ -25,17 +25,6 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
             _contentDefinitionManager = contentDefinitionManager;
         }
 
-        //todo: ?
-        // public override IDisplayResult Display(GraphLookupPart GraphLookupPart)
-        // {
-        //     return Combine(
-        //         Initialize<GraphLookupPartViewModel>("GraphLookupPart", m => BuildViewModel(m, GraphLookupPart))
-        //             .Location("Detail", "Content:20"),
-        //         Initialize<GraphLookupPartViewModel>("GraphLookupPart_Summary", m => BuildViewModel(m, GraphLookupPart))
-        //             .Location("Summary", "Meta:5")
-        //     );
-        // }
-
         public override IDisplayResult Edit(GraphLookupPart part, BuildPartEditorContext context)
         {
             return Initialize<GraphLookupPartViewModel>("GraphLookupPart_Edit", m => BuildViewModel(m, part, context));
@@ -64,7 +53,6 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
                 }
             }
 
-            //todo: why?
             return Edit(part, context);
         }
 

@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             public async Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation)
             {
                 if (_transaction == null)
-                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
+                    throw new InvalidOperationException($"{nameof(GraphDatabaseTestRun)} not initialised.");
 
                 IResultCursor result = await _transaction.RunAsync(query);
                 return await result.ToListAsync(operation);
@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             public async Task<List<T>> RunWriteQuery<T>(Query query, Func<IRecord, T> operation)
             {
                 if (_transaction == null)
-                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
+                    throw new InvalidOperationException($"{nameof(GraphDatabaseTestRun)} not initialised.");
 
                 IResultCursor result = await _transaction.RunAsync(query);
                 return await result.ToListAsync(operation);
@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             public async Task RunWriteQueries(params Query[] queries)
             {
                 if (_transaction == null)
-                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
+                    throw new InvalidOperationException($"{nameof(GraphDatabaseTestRun)} not initialised.");
 
                 foreach (Query query in queries)
                 {
@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             public async Task RunWriteQueriesWithCommit(params Query[] queries)
             {
                 if (_transaction == null)
-                    throw new Exception($"{nameof(GraphDatabaseTestRun)} Not Initialised");
+                    throw new InvalidOperationException($"{nameof(GraphDatabaseTestRun)} not initialised.");
 
                 foreach (Query query in queries)
                 {

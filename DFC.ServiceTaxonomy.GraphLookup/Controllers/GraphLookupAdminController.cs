@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
 using OrchardCore.Admin;
-using OrchardCore.ContentFields.ViewModels;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
@@ -53,8 +52,7 @@ where toLower(head(n.{settings.DisplayFieldName})) starts with toLower('{query}'
 return head(n.{settings.DisplayFieldName}) as {displayField}, n.{settings.ValueFieldName} as {valueField}
 order by toLower({displayField})
 limit 50"),
-                //todo: no need for this anymore?
-                r => new VueMultiselectItemViewModel { Id = r[valueField].ToString(), DisplayText = r[displayField].ToString() });
+                r => new { id = r[valueField].ToString(), displayText = r[displayField].ToString() });
 
             return new ObjectResult(results);
         }
