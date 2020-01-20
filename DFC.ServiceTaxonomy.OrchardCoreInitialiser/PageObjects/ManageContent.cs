@@ -27,15 +27,31 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             {
                 var databaseList = _webDriver.FindElement(By.Id("Options_SelectedContentType"));
                 var selectElement = new SelectElement(databaseList);
-                selectElement.SelectByValue(filter);
+                selectElement.SelectByText(filter);
             }
             catch (Exception e)
             {
-
+                throw new Exception("ManageContent: Exception in function SetFilter:\n" , e);
             }
             return this;
         }
 
+        int GetPageRecordCount()
+        {
+            int items = -1;
+            try
+            {
+                var thing = _webDriver.FindElement(By.Id("items"));
+                var val = thing.Text;
+
+                int.TryParse(val.Split(' ')[0], out items);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("ManageContent: Exception in function GetPageRecordCount:\n", e);
+            }
+            return items;
+        }
         public ManageContent PublishAll(string contentType)
         {
             SetFilter(contentType);
@@ -44,10 +60,27 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             // assume starts on page one of results
             string baseUrl = _webDriver.Url;
 
+            while( GetPageRecordCount() > 0)
+            {
+                try
+                {
+                    _webDriver.FindElement(By.Id("select-all")).SendKeys(" ");
+                    _webDriver.FindElement(By.Id("bulk-action-menu-button")).Click();
+                    _webDriver.FindElement(By.LinkText("Publish Now")).Click();
+                    _webDriver.FindElement(By.Id("modalOkButton")).Click();
 
+                    ConfirmPublishedSuccessfully();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("ManageContent: Exception in function PublishAllt:\n", e);
+                }
+               
+                currentPage++;
+                _webDriver.Navigate().GoToUrl(baseUrl + "&page=" + currentPage);
+            }
 
-
-
+            _webDriver.Navigate().GoToUrl(baseUrl);
             return this;
         }
 
@@ -56,106 +89,82 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
         {
             return this;
         }
-        public ManageContent BulkAction()
+
+
+        public ManageContent FindItem(string title)
         {
-            // if results on page
-
-            // select all
-
-            // bulk actions--publish
-
-            // increment target page
-
-            // check if new page is valid
-
-
-
             try
             {
-                var databaseList = _webDriver.FindElement(By.Id("Options_SelectedContentType"));
-                var selectElement = new SelectElement(databaseList);
-              //  selectElement.SelectByValue(filter);
+                _webDriver.FindElement(By.Id("Options_DisplayText")).Clear();
+                _webDriver.FindElement(By.Id("Options_DisplayText")).SendKeys(title);
+                _webDriver.FindElement(By.Id("Options_DisplayText")).SendKeys(Keys.Return);
             }
-            catch (Exception e)
+            catch( Exception e)
             {
-
+                throw new Exception("ManageContent: Exception in function FindItem:\n", e);
             }
             return this;
         }
 
-        //public ManageContent FindItem( string title)
-        //{
-        //    _scenarioContext.GetWebDriver().FindElement(By.Id("Options_DisplayText")).Clear();
-        //    _scenarioContext.GetWebDriver().FindElement(By.Id("Options_DisplayText")).SendKeys(title);
-        //    _scenarioContext.GetWebDriver().FindElement(By.Id("Options_DisplayText")).SendKeys(Keys.Return);
-        //    return this;
-        //}
+        public ManageContent SelectFirstItem()
+        {
+            try
+            {
+                _webDriver.FindElement(By.ClassName("list-group-item"))
+                                     .FindElement(By.LinkText("Edit"))
+                                     .Click();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("ManageContent: Exception in function SelectFirstItem:\n", e);
+            }
+            
 
-        //public ManageContent SelectFirstItem()
-        //{
-        //    _scenarioContext.GetWebDriver().FindElement(By.ClassName("list-group-item"))
-        //                                   .FindElement(By.LinkText("Edit"))
-        //                                   .Click();
-        //    //// RemoteWebElement list  _scenarioContext.GetWebDriver().FindElements(By.ClassName("list-group"));
-        //    //IWebElement element  = _scenarioContext.GetWebDriver().FindElement(By.ClassName("list-group-item"));
+            return this;
+        }
 
-        //    //try
-        //    //{
-        //    //    IWebElement element2 = element.FindElement(By.LinkText("Edit"));
-        //    //    element.FindElement(By.LinkText("Edit")).Click();
-        //    //}
-        //    //catch
-        //    //{
+        public ManageContent DeleteFirstItem()
+        {
 
-        //    //}
-        //    ////.FindElement(By.ClassName("btn btn - primary btn - sm")).Click();
-        //    return this;
-        //}
+            try
+            {
+                _webDriver.FindElement(By.CssSelector(".list-group-item:nth-child(1) .btn-group > .btn"))
+                                               .Click();
+                _webDriver.FindElement(By.LinkText("Delete"))
+                                               .Click();
+            }
+            catch( Exception e)
+            {
+                throw new Exception("ManageContent: Exception in function DeleteFirstItem: :\n", e);
+            }
+            return this;
+        }
 
-        //public ManageContent DeleteFirstItem()
-        //{
+        public bool ConfirmRemovedSuccessfully()
+        {
+            return ConfirmActionSuccess(remove);
+        }
 
-        //    try
-        //    {
+        public bool ConfirmPublishedSuccessfully()
+        {
+            return ConfirmActionSuccess(publish);
+        }
 
+        public bool ConfirmActionSuccess(string action)
+        {
+            bool returnValue = false;
 
-        //        _scenarioContext.GetWebDriver().FindElement(By.CssSelector(".list-group-item:nth-child(1) .btn-group > .btn"))
-        //                                       .Click();
-        //        _scenarioContext.GetWebDriver().FindElement(By.LinkText("Delete"))
-        //                                       .Click();
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //    return this;
-        //}
-
-        //public bool ConfirmRemovedSuccessfully()
-        //{
-        //    return ConfirmActionSuccess(remove);
-        //}
-
-        //public bool ConfirmPublishedSuccessfully()
-        //{
-        //    return ConfirmActionSuccess(publish);
-        //}
-
-        //public bool ConfirmActionSuccess(string action)
-        //{
-        //    bool returnValue = false;
-
-        //    try
-        //    {
-        //        returnValue = _scenarioContext.GetWebDriver().FindElement(By.XPath("/html/body/div[1]/div[3]/div")).Text
-        //                                                     .EndsWith("has been " + action + ".");
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //    return returnValue;
-        //}
+            try
+            {
+                returnValue = _webDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div")).Text
+                                                             .EndsWith("has been " + action + ".");
+            }
+            catch( Exception e)
+            {
+                throw new Exception("ManageContent: Exception in function ConfirmActionSuccess:\n", e);
+            }
+            return returnValue;
+        }
 
 
     }

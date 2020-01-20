@@ -26,15 +26,15 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             return this;
         }
 
-        public ContentTypesAdmin NavitateToContentTypeAdmin(string sBaseUrl)
-        {
-            NavigateTo(sBaseUrl, "OrchardCore.ContentTypes/Admin/List");
-            return new ContentTypesAdmin(_webDriver);
-        }
+        //public ContentTypesAdmin NavitateToContentTypeAdmin(string sBaseUrl)
+        //{
+        //    NavigateTo(sBaseUrl, "OrchardCore.ContentTypes/Admin/List");
+        //    return new ContentTypesAdmin(_webDriver);
+        //}
 
         public ManageContent NavigateToManageContent(string sBaseUrl)
         {
-            NavigateTo(sBaseUrl, "/Admin/Contents/ContentItems");
+            NavigateTo(sBaseUrl, "Admin/Contents/ContentItems");
             return new ManageContent(_webDriver);
         }
 

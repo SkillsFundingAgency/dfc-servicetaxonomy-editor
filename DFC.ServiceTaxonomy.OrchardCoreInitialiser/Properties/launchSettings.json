@@ -2,7 +2,7 @@
   "profiles": {
     "DFC.ServiceTaxonomy.OrchardCoreInitialiser": {
       "commandName": "Project",
-      "commandLineArgs": "/siteName:\\\\\"Site Name\\\\\" /recipeName:\\\\\"Service Taxonomy Editor\\\\\" /databaseType:Sqlite /userName:admin /email:ad@mi.n /password:Password1!"
+      "commandLineArgs": "-n admin -e admin@test.com -p Password1!"
     }
   }
 }

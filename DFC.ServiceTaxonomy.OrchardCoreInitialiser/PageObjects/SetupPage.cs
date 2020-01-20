@@ -10,8 +10,6 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
     class SetupPage
     {
         private IWebDriver _webDriver;
-        //EnvironmentSettings env = new EnvironmentSettings();
-        //private ScenarioContext _scenarioContext;
 
         public SetupPage(IWebDriver driver)
         {
@@ -27,35 +25,44 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 
         public SetupPage enterSiteName(string siteName)
         {
-            _webDriver.FindElement(By.Id("SiteName")).SendKeys(siteName);
+            try
+            {
+                _webDriver.FindElement(By.Id("SiteName")).SendKeys(siteName);
+            }
+            catch ( Exception e)
+            {
+                throw new Exception("Setup page: Unable to enter a value for SiteName", e);
+            }
             return this;
         }
 
-        public SetupPage selectRecipe(string recipeName)
+        public SetupPage selectRecipe(string recipeName )
         {
             try
             {
-                //xpath =//span[contains(.,'Sets up the Service Taxonomy Editor')]
                 _webDriver.FindElement(By.Id("recipeButton")).Click();
-                _webDriver.FindElement(By.XPath("//span[contains(.,'Sets up the Service Taxonomy Editor')]")).Click();
-                //_webDriver.FindElement(By.CssSelector("[recipe-display-name: \"Service Taxonomy Editor\"]")).Click();
+                _webDriver.FindElement(By.XPath("//span[contains(.,'" + recipeName +"')]")).Click();
             }
             catch( Exception e)
             {
-
+                throw new Exception("Setup page: Unable to select a Recipe", e);
             }
-            
-            //var recipeList = _webDriver.FindElement(By.Id("recipeButton"));
-            //var selectElement = new SelectElement(recipeList);
-            //selectElement.SelectByText(recipeName);
             return this;
         }
 
         public SetupPage selectDefaultTimeZone()
         {
-            var timeZone = _webDriver.FindElement(By.Id("SiteTimeZone"));
-            var selectElement = new SelectElement(timeZone);
-            selectElement.SelectByValue("label=(GMT+00) Europe/London (+00:00)");
+            try
+            {
+                var timeZone = _webDriver.FindElement(By.Id("SiteTimeZone"));
+                var selectElement = new SelectElement(timeZone);
+                selectElement.SelectByValue("label=(GMT+00) Europe/London (+00:00)");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in function selectDefaultTimeZone: " + e);
+            }
+
             return this;
         }
 
@@ -69,28 +76,81 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-
+                Console.WriteLine("Exception in function selectDatabase: " + e);
             }
 
             return this;
         }
 
+        public SetupPage enterTablePrefix(string tablePrefix)
+        {
+            try
+            {
+                _webDriver.FindElement(By.Id("TablePrefix")).SendKeys(tablePrefix);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in function enterTablePrefix: " + e);
+            }
+
+            return this;
+        }
+
+        public SetupPage enterConnectionString(string connectionString)
+        {
+            try
+            {
+                _webDriver.FindElement(By.Id("ConnectionString")).SendKeys(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in function enterConnectionString: " + e);
+            }
+
+            return this;
+        }
+
+
         public SetupPage enterUsername(string username)
         {
-            _webDriver.FindElement(By.Id("UserName")).SendKeys(username);
+            try
+            {
+                _webDriver.FindElement(By.Id("UserName")).SendKeys(username);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in function enterUsername: " + e);
+            }
+ 
             return this;
         }
 
         public SetupPage enterEmail(string emailAddress)
         {
-            _webDriver.FindElement(By.Id("Email")).SendKeys(emailAddress);
+            try
+            {
+                _webDriver.FindElement(By.Id("Email")).SendKeys(emailAddress);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in function enterEmail: " + e);
+            }
+ 
             return this;
         }
 
         public SetupPage enterPassword(string password)
         {
-            _webDriver.FindElement(By.Id("Password")).SendKeys(password);
-            _webDriver.FindElement(By.Id("PasswordConfirmation")).SendKeys(password);
+            try
+            {
+                _webDriver.FindElement(By.Id("Password")).SendKeys(password);
+                _webDriver.FindElement(By.Id("PasswordConfirmation")).SendKeys(password);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception in function enterPassword: " + e);
+            }
+ 
             return this;
         }
 
@@ -102,7 +162,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-
+                Console.WriteLine("Exception in function submitForm: " + e);
             }
             
             return this;
