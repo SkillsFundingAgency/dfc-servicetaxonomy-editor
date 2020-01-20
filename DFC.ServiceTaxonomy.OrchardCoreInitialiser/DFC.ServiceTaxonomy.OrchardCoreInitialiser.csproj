@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -11,10 +11,15 @@
     <Compile Remove="ManageContent.cs" />
     <Compile Remove="ModalOKCancel.cs" />
     <Compile Remove="PageBase.cs" />
+    <Compile Remove="PageObjects\AddActivity.cs" />
+    <Compile Remove="PageObjects\ContentTypesAdmin.cs" />
+    <Compile Remove="PageObjects\ModalOKCancel.cs" />
+    <Compile Remove="PageObjects\PageBase.cs" />
     <Compile Remove="StartPage.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mono.Options" Version="6.6.0.161" />
     <PackageReference Include="Selenium.Support" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="79.0.3945.3600" />

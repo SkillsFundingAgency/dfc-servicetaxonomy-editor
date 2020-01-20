@@ -24,14 +24,29 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 
         public LogonScreen enterUsername(string username)
         {
-            _webDriver.FindElement(By.Id("UserName")).SendKeys(username);
+            try
+            {
+                _webDriver.FindElement(By.Id("UserName")).SendKeys(username);
+            }
+            catch( Exception e)
+            {
+                throw new Exception("Error in function EnterUsername:\n", e);
+            }
             return this;
         }
 
         public LogonScreen enterPassword(string password)
         {
-            _webDriver.FindElement(By.Id("Password")).SendKeys(password);
-            _webDriver.FindElement(By.Id("Password")).SendKeys(Keys.Return);
+            try
+            {
+                _webDriver.FindElement(By.Id("Password")).SendKeys(password);
+                _webDriver.FindElement(By.Id("Password")).SendKeys(Keys.Return);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in function enterPassword:\n", e);
+            }
+            
             return this;
         }
 
