@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             string userName = "";
             string email = "";
             string password = "";
+            bool setupAlreadyComplete = false;
             int returnCode = 0;
 
             var p = new OptionSet {
@@ -38,6 +39,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 { "n|username=", "The default user name", n => userName = n },
                 { "e|email=", "The default email address", e => email = e },
                 { "p|password=", "The default password", p => password = p },
+                { "x|excludesetup=", "Setup is already complete, publish only (y/n)", x => setupAlreadyComplete = (x.ToLower().Equals("y")) },
                 { "h|help",     "show this message and exit",                   h => shouldShowHelp = h != null },
             };
 
@@ -101,6 +103,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             Console.WriteLine("userName = " + userName);
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + mask.Substring(1,password.Length));
+            Console.WriteLine("excludeSetup = " + setupAlreadyComplete.ToString());
 
             IWebDriver webDriver= null;
             try
@@ -108,19 +111,24 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                  webDriver = new ChromeDriver(Environment.CurrentDirectory);
 
                 // setup page
-                SetupPage setupPage = new SetupPage(webDriver);
-                setupPage.openPage(uri);
-                setupPage.enterSiteName(siteName);
-                setupPage.selectRecipe(recipeName);
-                setupPage.selectDatabase(databaseType);
-                if(!sqlConnectionString.Equals(string.Empty))
-                    setupPage.enterConnectionString(sqlConnectionString);
-                if(!tablePrefix.Equals(string.Empty))
-                    setupPage.enterTablePrefix(tablePrefix);
-                setupPage.enterUsername(userName);
-                setupPage.enterPassword(password);
-                setupPage.enterEmail(email);
-                setupPage.submitForm();
+                if (!setupAlreadyComplete)
+                {
+                    SetupPage setupPage = new SetupPage(webDriver);
+                    setupPage.openPage(uri);
+                    setupPage.enterSiteName(siteName);
+                    setupPage.selectRecipe(recipeName);
+                    setupPage.selectDatabase(databaseType);
+                    if (!sqlConnectionString.Equals(string.Empty))
+                        setupPage.enterConnectionString(sqlConnectionString);
+                    if (!tablePrefix.Equals(string.Empty))
+                        setupPage.enterTablePrefix(tablePrefix);
+                    setupPage.enterUsername(userName);
+                    setupPage.enterPassword(password);
+                    setupPage.enterEmail(email);
+                    setupPage.submitForm();
+                }
+                else
+                    webDriver.Navigate().GoToUrl(uri);
 
                 //// Logon
                 LogonScreen logonScreen = new LogonScreen(webDriver);
@@ -134,10 +142,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
 
                 // publish all items
                 ManageContent manageContent = startPage.NavigateToManageContent(uri);
-                manageContent.PublishAll("Activity");
-                manageContent.PublishAll("Job Profile");
                 manageContent.PublishAll("Job Category");
-                
+                manageContent.PublishAll("Job Profile");
+
             }
             catch( Exception e)
             {
