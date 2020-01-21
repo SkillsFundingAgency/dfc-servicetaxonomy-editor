@@ -38,6 +38,7 @@ stages:
   - group: dfc-stax-shared-all
   - group: dfc-shared-dev
   - group: dfc-stax-shared-dev
+  - group: 'KeyVault - dfc-dev-shared-kv'
   - template: VariableTemplates/DevEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
