@@ -1,6 +1,7 @@
 Orchard core intialisation tool
 -------------------------------
 Arguments:
+```
   -u, --uri=VALUE            The base url of the orchard core instance.
   -s, --sitename=VALUE       The name of the site
   -r, --recipename=VALUE     The name of the recipe to load during
@@ -15,6 +16,7 @@ Arguments:
   -e, --email=VALUE          The default email address
   -p, --password=VALUE       The default password
   -h, --help                 show this message and exit
+```
   
   
 The following defaults are set:

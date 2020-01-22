@@ -117,7 +117,8 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     setupPage.openPage(uri);
                     setupPage.enterSiteName(siteName);
                     setupPage.selectRecipe(recipeName);
-                    setupPage.selectDatabase(databaseType);
+                    if (!databaseType.Equals(string.Empty))
+                        setupPage.selectDatabase(databaseType);
                     if (!sqlConnectionString.Equals(string.Empty))
                         setupPage.enterConnectionString(sqlConnectionString);
                     if (!tablePrefix.Equals(string.Empty))
