@@ -131,7 +131,10 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     setupPage.enterUsername(userName);
                     setupPage.enterPassword(password);
                     setupPage.enterEmail(email);
-                    Console.WriteLine("SetUpPage completed, submitting form ...");
+                    Console.WriteLine("SetUpPage completed, screenshotting then submitting form ...");
+                    String filepath = String.Format("{0}/OrchardCoreSetupScreenshot-{1}.png", Environment.CurrentDirectory, DateTime.Now.ToString("yyyyMMdd-HHmm"));
+                    Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
+                    screenShot.SaveAsFile(filepath);
                     setupPage.submitForm();
                     //TODO: needs to validate that expected page is returned on Submit otherwise throw exception
                 }
