@@ -55,6 +55,7 @@ namespace GetJobProfiles.RestHttpClient
                 throw CreateClientException(response, await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
 
+            //todo: ReadAsStream
             return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
 
@@ -62,6 +63,7 @@ namespace GetJobProfiles.RestHttpClient
         {
             var resultAsString = await PostAsJson(uri, requestData, cancellationToken).ConfigureAwait(false);
 
+            //todo: DeserializeAsync
             return JsonSerializer.Deserialize<TResponse>(resultAsString);
         }
 

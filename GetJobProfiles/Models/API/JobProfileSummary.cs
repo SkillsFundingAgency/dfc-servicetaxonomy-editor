@@ -1,4 +1,4 @@
-namespace GetJobProfiles.Models
+namespace GetJobProfiles.Models.API
 {
     public class JobProfileSummary
     {
