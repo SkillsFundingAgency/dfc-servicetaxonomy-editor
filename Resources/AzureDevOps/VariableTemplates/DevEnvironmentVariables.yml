@@ -5,3 +5,5 @@ variables:
   value: dfc-dev-stax-editor-rg
 - name: WebAppName
   value: dfc-dev-stax-editor-as
+- name: SqlDatabaseName
+  value: dfc-dev-stax-editor-db

@@ -1,5 +1,6 @@
 variables:
-  SolutionBaseName: 'DFC.ServiceTaxonomy'  
+  SolutionBaseName: 'DFC.ServiceTaxonomy' 
+  EditorAdminUserEmail: 'careersdevops@education.gov.uk' 
 
 resources:
   repositories:
@@ -71,4 +72,38 @@ stages:
       ParentBusinessTag: '$(ParentBusiness)'
       ServiceOfferingTag: '$(ServiceOffering)'
       ResourceGroup: '$(ResourceGroup)'
-      WebAppName: 'dfc-dev-stax-editor-as'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net'
+      SqlDatabaseConnStr: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(WebAppName)-svc;Password=$(OrchardEditorSqlUserPassword);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+
+- stage: DeployToSit
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to SIT_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-sit
+  - group: dfc-stax-shared-sit
+  - group: 'KeyVault - dfc-sit-shared-kv'
+  - template: VariableTemplates/SitEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: SIT_SERVICETAXONOMY
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net'
+      SqlDatabaseConnStr: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(WebAppName)-svc;Password=$(OrchardEditorSqlUserPassword);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)

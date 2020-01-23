@@ -10,9 +10,15 @@ parameters:
   ResourceGroup: ''
   ArtifactName: 'DFC.ServiceTaxonomy.Editor'
   WebAppName: ''
+  OrchardCoreUri: ''
+  SqlDatabaseConnStr: ''
+  SiteName: 'ServiceTaxonomy'
+  EditorAdminUsername: ''
+  EditorAdminUserEmail: ''
+  EditorAdminUserPassword: ''
 
 jobs:    
-- deployment: DeployTemplate
+- deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
   displayName: "Deploy arm templates"
   environment: ${{ parameters.Environment }}
@@ -29,12 +35,14 @@ jobs:
             ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
 
-- deployment: DeployGetAllSkills
+- deployment: DeployEditorTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
   displayName: "Deploy WebApp"
   environment: ${{ parameters.Environment }}
   dependsOn: 
   - DeployTemplate
+  variables:
+    InitialiserWorkingDir: $(System.DefaultWorkingDirectory)\DFC.ServiceTaxonomy.OrchardCoreInitialiser\
   strategy:
     runOnce:
       deploy:
@@ -48,3 +56,11 @@ jobs:
             Package: "${{ parameters.PackageFile }}"
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
             UseWebDeploy: true
+        - task: ExtractFiles@1
+          displayName: 'Extract OrchardCoreInitialiser files'
+          inputs:
+            archiveFilePatterns: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.OrchardCoreInitialiser.DeploymentPackages\DeploymentPackages\DFC.ServiceTaxonomy.OrchardCoreInitialiser.zip'
+            destinationFolder: $(InitialiserWorkingDir)
+        - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --connectionstring="${{ parameters.SqlDatabaseConnStr }}" --databasetype=SqlConnection --sitename=${{ parameters. SiteName }} --recipename="Service Taxonomy Editor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
+          displayName: 'Execute Orchard Core Initialiser'
+          workingDirectory: $(InitialiserWorkingDir)

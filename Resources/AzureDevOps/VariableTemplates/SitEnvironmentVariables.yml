@@ -1,0 +1,9 @@
+variables:
+- name: ReleaseEnvironmentName
+  value: sit
+- name: ResourceGroup
+  value: dfc-sit-stax-editor-rg
+- name: WebAppName
+  value: dfc-sit-stax-editor-as
+- name: SqlDatabaseName
+  value: dfc-sit-stax-editor-db
