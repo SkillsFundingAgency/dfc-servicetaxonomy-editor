@@ -31,11 +31,6 @@ namespace GetJobProfiles
 
             string timestamp = $"{DateTime.UtcNow:O}Z";
 
-            // var jobProfiles = (await Task.WhenAll(summaries
-            //     .Batch(10)
-            //     .Select(async b => await GetAndConvert(client, timestamp, b))))
-            //     .SelectMany(j => j);
-
             IEnumerable<ContentItem> contentItems = Enumerable.Empty<ContentItem>();
             var summaryBatches = summaries.Batch(10);
             foreach (var batch in summaryBatches)
