@@ -12,8 +12,6 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
     class Program
     {
         //static IWebDriver webDriver;
-        static string mask = "###########################################################################################################################";
-
         static void Main(string[] args)
         {
             var shouldShowHelp = false;
@@ -33,7 +31,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 { "u|uri=",    "The base url of the orchard core instance.",                u => uri = u },
                 { "s|sitename=",  "The name of the site",  s => siteName = s },
                 { "r|recipename=", "The name of the recipe to load during initialistation", r => recipeName = r },
-                { "d|databasetype=", "The database type for the installation ( Sql Server | Sqlite | MySql | Postgres )", d => databaseType = d },
+                { "d|databasetype=", "The database type for the installation ( SqlConnection | Sqlite | MySql | Postgres )", d => databaseType = d },
                 { "t|tableprefix=", "The table prefix (not required for Sqlite )", t => tablePrefix = t },
                 { "c|connectionstring=", "The sql connection string (not required for Sqlite )", c => sqlConnectionString = c },
                 { "n|username=", "The default user name", n => userName = n },
@@ -99,10 +97,10 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             Console.WriteLine("recipeName = " + recipeName);
             Console.WriteLine("databaseType = " + databaseType);
             Console.WriteLine("tablePrefix = " + tablePrefix);
-            Console.WriteLine("sqlConnectionString = " + mask.Substring(1, sqlConnectionString.Length));
+            Console.WriteLine("sqlConnectionString = " + new String('#',sqlConnectionString.Length));
             Console.WriteLine("userName = " + userName);
             Console.WriteLine("email = " + email);
-            Console.WriteLine("password = " + mask.Substring(1,password.Length));
+            Console.WriteLine("password = " + new String('#', password.Length));
             Console.WriteLine("excludeSetup = " + setupAlreadyComplete.ToString());
 
             IWebDriver webDriver= null;
@@ -110,6 +108,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             {
                  webDriver = new ChromeDriver(Environment.CurrentDirectory);
 
+                //TODO: test programatically whether setupAlreadyComplete (ie test which landing page is returned)
                 // setup page
                 if (!setupAlreadyComplete)
                 {
@@ -127,6 +126,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     setupPage.enterPassword(password);
                     setupPage.enterEmail(email);
                     setupPage.submitForm();
+                    //TODO: needs to validate that expected page is returned on Submit otherwise throw exception
                 }
                 else
                     webDriver.Navigate().GoToUrl(uri);

@@ -162,6 +162,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
+                //TODO: this should throw
                 Console.WriteLine("Exception in function submitForm: " + e);
             }
             
