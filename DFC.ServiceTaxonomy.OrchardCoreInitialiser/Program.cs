@@ -131,6 +131,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     setupPage.enterUsername(userName);
                     setupPage.enterPassword(password);
                     setupPage.enterEmail(email);
+                    Console.WriteLine("SetUpPage completed, submitting form ...");
                     setupPage.submitForm();
                     //TODO: needs to validate that expected page is returned on Submit otherwise throw exception
                 }
@@ -138,6 +139,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     webDriver.Navigate().GoToUrl(uri);
 
                 //// Logon
+                Console.WriteLine("Initial setup complete, logging on ...");
                 LogonScreen logonScreen = new LogonScreen(webDriver);
                 StartPage startPage = logonScreen.SubmitLogonDetails(uri, userName, password);
 
@@ -148,6 +150,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
 
 
                 // publish all items
+                Console.WriteLine("Logged on, starting Service Taxonomy Editor configuration ...");
                 ManageContent manageContent = startPage.NavigateToManageContent(uri);
                 manageContent.PublishAll("Job Category");
                 manageContent.PublishAll("Job Profile");
