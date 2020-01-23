@@ -109,6 +109,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 ChromeOptions options = new ChromeOptions();
                 if (Environment.GetEnvironmentVariable("System.TeamFoundationCollectionUri") == "https://sfa-gov-uk.visualstudio.com/")
                 {
+                    Console.WriteLine("Running on build server, using headless browser");
                     options.AddArgument("--headless");
                 }
                 
@@ -131,8 +132,8 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     setupPage.enterUsername(userName);
                     setupPage.enterPassword(password);
                     setupPage.enterEmail(email);
-                    Console.WriteLine("SetUpPage completed, screenshotting then submitting form ...");
                     String filepath = String.Format("{0}/OrchardCoreSetupScreenshot-{1}.png", Environment.CurrentDirectory, DateTime.Now.ToString("yyyyMMdd-HHmm"));
+                    Console.WriteLine(String.Format("SetUpPage completed, saving screenshot to {0} and submitting form ...", filepath));
                     Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
                     screenShot.SaveAsFile(filepath);
                     setupPage.submitForm();
