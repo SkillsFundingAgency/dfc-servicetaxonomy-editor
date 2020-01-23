@@ -1,10 +1,13 @@
+variables:
+  SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'  
+
 resources:
   repositories:
   - repository: self
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.8.2
+    ref: refs/tags/v1.10.1
     endpoint: 'GitHub (ESFA)'
 
 stages:
@@ -24,11 +27,17 @@ stages:
     steps:
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
-        SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
+        SolutionBaseName: $(SolutionBaseName)
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.100'
         TestSuffix: UnitTests
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.100'
 
 - stage: DeployToDev
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
