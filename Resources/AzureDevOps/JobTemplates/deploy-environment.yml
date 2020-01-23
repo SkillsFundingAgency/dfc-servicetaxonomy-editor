@@ -16,6 +16,7 @@ parameters:
   EditorAdminUsername: ''
   EditorAdminUserEmail: ''
   EditorAdminUserPassword: ''
+  DotNetCoreVersion: '3.1.100'
 
 jobs:    
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
@@ -61,6 +62,11 @@ jobs:
           inputs:
             archiveFilePatterns: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.OrchardCoreInitialiser.DeploymentPackages\DeploymentPackages\DFC.ServiceTaxonomy.OrchardCoreInitialiser.zip'
             destinationFolder: $(InitialiserWorkingDir)
+        - task: UseDotNet@2
+          displayName: 'Use .NET Core sdk ${{ parameters.DotNetCoreVersion }}'
+          condition: ne('', '${{ parameters.DotNetCoreVersion }}')
+          inputs:
+            version: ${{ parameters.DotNetCoreVersion }}
         - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --connectionstring="${{ parameters.SqlDatabaseConnStr }}" --databasetype=SqlConnection --sitename=${{ parameters. SiteName }} --recipename="Service Taxonomy Editor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
           displayName: 'Execute Orchard Core Initialiser'
           workingDirectory: $(InitialiserWorkingDir)
