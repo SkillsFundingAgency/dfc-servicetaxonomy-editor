@@ -106,7 +106,13 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             IWebDriver webDriver= null;
             try
             {
-                 webDriver = new ChromeDriver(Environment.CurrentDirectory);
+                ChromeOptions options = new ChromeOptions();
+                if (Environment.GetEnvironmentVariable("System.TeamFoundationCollectionUri") == "https://sfa-gov-uk.visualstudio.com/")
+                {
+                    options.AddArgument("--headless");
+                }
+                
+                webDriver = new ChromeDriver(Environment.CurrentDirectory, options);
 
                 //TODO: test programatically whether setupAlreadyComplete (ie test which landing page is returned)
                 // setup page
