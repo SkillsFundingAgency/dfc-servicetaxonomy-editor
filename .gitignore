@@ -266,3 +266,6 @@ __pycache__/
 
 #JetBrains
 .idea/
+
+#generated localization files
+Localization/
