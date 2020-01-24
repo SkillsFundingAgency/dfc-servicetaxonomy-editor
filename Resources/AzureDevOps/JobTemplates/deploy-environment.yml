@@ -86,3 +86,14 @@ jobs:
         - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --sitename=${{ parameters. SiteName }} --recipename="Service Taxonomy Editor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
           displayName: 'Execute Orchard Core Initialiser'
           workingDirectory: $(InitialiserWorkingDir)
+        - task: CopyFiles@2
+          displayName: "Copy OrchardCoreInitialiser PNG output to staging directory"
+          inputs:
+            sourceFolder: $(InitialiserWorkingDir)
+            contents: **\*.png
+            targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish OrchardCoreInitialiser Output'
+          inputs:
+            targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
+            artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output
