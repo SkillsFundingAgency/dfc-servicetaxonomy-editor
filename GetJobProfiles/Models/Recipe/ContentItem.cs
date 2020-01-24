@@ -2,22 +2,22 @@ namespace GetJobProfiles.Models.Recipe
 {
     public class ContentItem
     {
-        public string ContentItemId;
-        public string ContentItemVersionId;
-        public string ContentType;
-        public string DisplayText;
-        public bool Latest;
-        public bool Published;
-        public string ModifiedUtc;
-        public string PublishedUtc;
-        public string CreatedUtc;
-        public string Owner;
-        public string Author;
-        public TitlePart TitlePart;
+        public string ContentItemId { get; set; }
+        public string ContentItemVersionId { get; set; }
+        public string ContentType { get; set; }
+        public string DisplayText { get; set; }
+        public bool Latest { get; set; }
+        public bool Published { get; set; }
+        public string ModifiedUtc { get; set; }
+        public string PublishedUtc { get; set; }
+        public string CreatedUtc { get; set; }
+        public string Owner { get; set; }
+        public string Author { get; set; }
+        public TitlePart TitlePart { get; set; }
     }
 
     public class TitlePart
     {
-        public string Title;
+        public string Title { get; set; }
     }
 }

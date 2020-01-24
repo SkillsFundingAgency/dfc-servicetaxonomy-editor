@@ -5,6 +5,10 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup>
+      <NoWarn>162</NoWarn>
+    </PropertyGroup>
+
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
       <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
