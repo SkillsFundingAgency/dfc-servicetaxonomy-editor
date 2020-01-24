@@ -50,6 +50,7 @@ stages:
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.100'
     - powershell: |
+        New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\
         Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
       displayName: 'PowerShell Script: Copy appsettings.template.json'
     - task: PublishPipelineArtifact@1
