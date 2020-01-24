@@ -69,9 +69,6 @@ jobs:
             azureSubscription: '${{ parameters.AzureSubscription }}'
             WebAppName: '${{ parameters.WebAppName }}'
             package: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.Editor.AppSettings\'
-            enableCustomDeployment: true
-            DeploymentType: auto
-            TakeAppOfflineFlag: false
         - task: ExtractFiles@1
           displayName: 'Extract OrchardCoreInitialiser files'
           inputs:
