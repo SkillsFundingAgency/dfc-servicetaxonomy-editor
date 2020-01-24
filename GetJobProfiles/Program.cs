@@ -70,7 +70,7 @@ namespace GetJobProfiles
 
             string timestamp = $"{DateTime.UtcNow:O}Z";
 
-            IEnumerable<ContentItem> contentItems = Enumerable.Empty<ContentItem>();
+            IEnumerable<JobProfileContentItem> contentItems = Enumerable.Empty<JobProfileContentItem>();
             var summaryBatches = summaries.Batch(10);
             foreach (var batch in summaryBatches)
             {
@@ -89,13 +89,13 @@ namespace GetJobProfiles
             Console.WriteLine(serializedContentItems);
         }
 
-        public static async Task<IEnumerable<ContentItem>> GetAndConvert(RestHttpClient.RestHttpClient client, string timestamp, IEnumerable<JobProfileSummary> jobProfileSummaries)
+        public static async Task<IEnumerable<JobProfileContentItem>> GetAndConvert(RestHttpClient.RestHttpClient client, string timestamp, IEnumerable<JobProfileSummary> jobProfileSummaries)
         {
             var getAndConvertTasks = jobProfileSummaries.Select(s => GetAndConvert(client, timestamp, s));
             return await Task.WhenAll(getAndConvertTasks);
         }
 
-        public static async Task<ContentItem> GetAndConvert(RestHttpClient.RestHttpClient client, string timestamp, JobProfileSummary summary)
+        public static async Task<JobProfileContentItem> GetAndConvert(RestHttpClient.RestHttpClient client, string timestamp, JobProfileSummary summary)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($">>> Fetching {summary.Title} job profile");
@@ -106,7 +106,7 @@ namespace GetJobProfiles
             return ConvertJobProfile(jobProfile, timestamp);
         }
 
-        public static ContentItem ConvertJobProfile(JobProfile jobProfile, string timestamp)
+        public static JobProfileContentItem ConvertJobProfile(JobProfile jobProfile, string timestamp)
         {
             var contentItem = new JobProfileContentItem
             {
@@ -125,7 +125,16 @@ namespace GetJobProfiles
                 TitlePart = new TitlePart
                 {
                     Title = jobProfile.Title
-                }
+                },
+                HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
+                HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
+                //todo:
+                //HtbOtherRequirements = new HtmlField(jobProfile.HowToBecome.MoreInformation.
+                HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
+                //todo:
+                //HtbTitleOptions = jobProfile.
+                //todo: dic of contentid to found content: convert to class and have content as props
+                HtbRegistrations = new ContentPicker()
             };
 
             return contentItem;

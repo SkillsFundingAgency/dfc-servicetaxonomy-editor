@@ -1,4 +1,5 @@
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GetJobProfiles.Models.Recipe
 {
@@ -39,6 +40,11 @@ namespace GetJobProfiles.Models.Recipe
 
     public class HtmlField
     {
+        public HtmlField(string html) => Html = html;
+        //todo: correct array to <p>??
+        //todo: links stored as eg  [basics of 3D printing | https://3dprintingindustry.com/3d-printing-basics-free-beginners-guide] -> convert to <a> (check how oc stores): regex replace
+        public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) => $"{h}<p>{p}</p>");
+
         public string Html { get; set; }
     }
 
