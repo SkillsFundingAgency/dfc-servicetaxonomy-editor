@@ -90,7 +90,7 @@ jobs:
           displayName: "Copy OrchardCoreInitialiser PNG output to staging directory"
           inputs:
             sourceFolder: $(InitialiserWorkingDir)
-            contents: **\*.png
+            contents: '**\*.png'
             targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
         - task: PublishPipelineArtifact@1
           displayName: 'Publish OrchardCoreInitialiser Output'
