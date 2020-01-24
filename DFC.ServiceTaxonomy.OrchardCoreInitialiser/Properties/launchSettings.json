@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "DFC.ServiceTaxonomy.OrchardCoreInitialiser": {
-      "commandName": "Project",
-      "commandLineArgs": "-u https://dfc-dev-stax-editor-as.azurewebsites.net/ -n simon.wren -e admin@test.com -p UKHztY0fr- -x y"
-    }
-  }
-}
