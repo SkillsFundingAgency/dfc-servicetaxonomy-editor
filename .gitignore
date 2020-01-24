@@ -7,6 +7,9 @@ DFC.ServiceTaxonomy.Editor/App_Data/
 # Azure Functions localsettings file
 local.settings.json
 
+#OrchardCore Initaliser local launch settings
+DFC.ServiceTaxonomy.OrchardCoreInitialiser/Properties/launchSettings.json
+
 # User-specific files
 *.suo
 *.user
