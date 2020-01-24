@@ -69,6 +69,8 @@ jobs:
             azureSubscription: '${{ parameters.AzureSubscription }}'
             WebAppName: '${{ parameters.WebAppName }}'
             package: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.Editor.AppSettings\'
+            enableCustomDeployment: true
+            deploymentMethod: zipDeploy
             RemoveAdditionalFilesFlag: false
             ExcludeFilesFromAppDataFlag: false
         - task: ExtractFiles@1
