@@ -73,6 +73,7 @@ jobs:
             deploymentMethod: zipDeploy
             RemoveAdditionalFilesFlag: false
             ExcludeFilesFromAppDataFlag: false
+        ##TO DO: might need to restart app
         - task: ExtractFiles@1
           displayName: 'Extract OrchardCoreInitialiser files'
           inputs:
@@ -87,13 +88,15 @@ jobs:
           displayName: 'Execute Orchard Core Initialiser'
           workingDirectory: $(InitialiserWorkingDir)
         - task: CopyFiles@2
-          displayName: "Copy OrchardCoreInitialiser PNG output to staging directory"
+          displayName: 'Copy OrchardCoreInitialiser PNG output to staging directory'
+          condition: always()
           inputs:
             sourceFolder: $(InitialiserWorkingDir)
             contents: '**\*.png'
             targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
         - task: PublishPipelineArtifact@1
           displayName: 'Publish OrchardCoreInitialiser Output'
+          condition: always()
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output
