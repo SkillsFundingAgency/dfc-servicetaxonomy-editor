@@ -55,7 +55,12 @@ namespace GetJobProfiles.Models.Recipe
 
     public class ContentPicker
     {
-        public string ContentItemIds { get; set; }
+        public ContentPicker(Dictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)
+        {
+            ContentItemIds = contentItems.Select(ci => currentContentItems[ci].id);
+        }
+
+        public IEnumerable<string> ContentItemIds { get; }
     }
 
     public class GraphLookupPart

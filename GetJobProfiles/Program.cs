@@ -19,7 +19,7 @@ namespace GetJobProfiles
         {
             // use these knobs to work around rate-limiting
             const int skip = 0;
-            const int take = 1;
+            const int take = 10;
             const int napTimeMs = 0;
 
             var config = new ConfigurationBuilder()

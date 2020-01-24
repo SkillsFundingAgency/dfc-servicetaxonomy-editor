@@ -6,20 +6,25 @@ using System.Threading.Tasks;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe;
 using MoreLinq;
+using OrchardCore.Entities;
 
 namespace GetJobProfiles
 {
     public class JobProfileConverter
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
+        //todo: ConcurrentDictionary??
+        public Dictionary<string,(string id,string text)> Registrations = new Dictionary<string, (string id, string text)>();
 
         public string Timestamp { get; set; }
 
         private readonly RestHttpClient.RestHttpClient _client;
+        private readonly DefaultIdGenerator _idGenerator;
 
         public JobProfileConverter(RestHttpClient.RestHttpClient client)
         {
             _client = client;
+            _idGenerator = new DefaultIdGenerator();
             Timestamp = $"{DateTime.UtcNow:O}Z";
         }
 
@@ -84,6 +89,20 @@ namespace GetJobProfiles
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
+            //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
+            foreach (var registration in jobProfile.HowToBecome.MoreInformation.Registrations)
+            {
+                // for now add full as title. once we have the full list can plug in current titles
+                Registrations.Add(registration, (_idGenerator.GenerateUniqueId(), registration));
+            }
+
+            //todo:
+            // foreach (var restriction in jobProfile.HowToBecome.MoreInformation.Restrictions)
+            // {
+            //     // for now add full as title. once we have the full list can plug in current titles
+            //     Restrictions.Add(restriction, (_idGenerator.GenerateUniqueId(), restriction));
+            // }
+
             var contentItem = new JobProfileContentItem
             {
                 //DisplayText vs Title
@@ -110,7 +129,7 @@ namespace GetJobProfiles
                 //todo:
                 //HtbTitleOptions = jobProfile.
                 //todo: dic of contentid to found content: convert to class and have content as props
-                HtbRegistrations = new ContentPicker()
+                HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations)
             };
 
             return contentItem;
