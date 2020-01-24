@@ -1,12 +1,12 @@
 {
     "ContentItemId": "4ns9v0ktv1ptd7kycfhf5p46d2",
-    "ContentItemVersionId": "4tgf65g428n7d4a8dbrkwdkp4t",
+    "ContentItemVersionId": "4tp476eb52yvc0bn83y6eb9q4y",
     "ContentType": "JobProfile",
     "DisplayText": "criminal intelligence analyst",
     "Latest": true,
     "Published": true,
-    "ModifiedUtc": "2020-01-24T11:47:02.6706705Z",
-    "PublishedUtc": "2020-01-24T11:47:02.7511218Z",
+    "ModifiedUtc": "2020-01-24T14:36:00.2471659Z",
+    "PublishedUtc": "2020-01-24T14:36:00.5572424Z",
     "CreatedUtc": "2020-01-24T11:47:02.7511218Z",
     "Owner": "admin",
     "Author": "admin",
@@ -27,7 +27,7 @@
             "Text": "url"
         },
         "HtbBodies": {
-            "Html": "<p>bodies</p>"
+            "Html": "<p>bodies</p><p><a href=\"https://nationalcareers.service.gov.uk/\">NCS</a><br></p>"
         },
         "HtbTitleOptions": {
             "Text": "as_defined"
@@ -66,13 +66,13 @@
     "BagPart": {
         "ContentItems": [
             {
-                "ContentItemId": "4skffb7k872dmssfn7r18hjtmh",
+                "ContentItemId": "4bahncxp0rpwz0wtej8jx8zs4t",
                 "ContentItemVersionId": null,
                 "ContentType": "UniversityRoute",
                 "DisplayText": null,
                 "Latest": false,
                 "Published": false,
-                "ModifiedUtc": "2020-01-24T11:47:02.7184007Z",
+                "ModifiedUtc": "2020-01-24T14:36:00.5069123Z",
                 "PublishedUtc": null,
                 "CreatedUtc": null,
                 "Owner": null,
