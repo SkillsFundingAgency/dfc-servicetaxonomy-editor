@@ -11,7 +11,6 @@ parameters:
   ArtifactName: 'DFC.ServiceTaxonomy.Editor'
   WebAppName: ''
   OrchardCoreUri: ''
-  SqlDatabaseConnStr: ''
   SiteName: 'ServiceTaxonomy'
   EditorAdminUsername: ''
   EditorAdminUserEmail: ''
@@ -21,7 +20,7 @@ parameters:
 jobs:    
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
-  displayName: "Deploy arm templates"
+  displayName: "Deploy arm templates to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}
   strategy:
     runOnce:
@@ -38,7 +37,7 @@ jobs:
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
-  displayName: "Deploy WebApp"
+  displayName: "Deploy WebApp to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}
   dependsOn: 
   - DeployArmTemplateTo_${{ parameters.Environment }}
@@ -57,6 +56,22 @@ jobs:
             Package: "${{ parameters.PackageFile }}"
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
             UseWebDeploy: true
+        # Tokenise appsettings.json
+        - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
+          displayName: 'Tokenization: Transform file appsettings.json'
+          inputs:
+            SourcePath: $(Pipeline.Workspace)\DFC.ServiceTaxonomy.Editor.AppSettings
+            TargetFileNames: appsettings.json
+        # Copy App_Data (including appsettings.json) to app serivce
+        - task: AzureRmWebAppDeployment@4
+          displayName: 'Azure App Service Deploy: Copy App_Data'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            WebAppName: '${{ parameters.WebAppName }}'
+            package: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.Editor.AppSettings\'
+            enableCustomDeployment: true
+            DeploymentType: zipDeploy
+            TakeAppOfflineFlag: false
         - task: ExtractFiles@1
           displayName: 'Extract OrchardCoreInitialiser files'
           inputs:
@@ -67,6 +82,6 @@ jobs:
           condition: ne('', '${{ parameters.DotNetCoreVersion }}')
           inputs:
             version: ${{ parameters.DotNetCoreVersion }}
-        - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --connectionstring="${{ parameters.SqlDatabaseConnStr }}" --databasetype=SqlConnection --sitename=${{ parameters. SiteName }} --recipename="Service Taxonomy Editor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
+        - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --sitename=${{ parameters. SiteName }} --recipename="Service Taxonomy Editor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
           displayName: 'Execute Orchard Core Initialiser'
           workingDirectory: $(InitialiserWorkingDir)
