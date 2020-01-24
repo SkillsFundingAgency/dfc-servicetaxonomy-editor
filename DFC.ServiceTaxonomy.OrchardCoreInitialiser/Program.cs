@@ -121,6 +121,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 {
                     SetupPage setupPage = new SetupPage(webDriver);
                     setupPage.openPage(uri);
+                    setupPage.verifyPageLoaded();
                     setupPage.enterSiteName(siteName);
                     setupPage.selectRecipe(recipeName);
                     if (!databaseType.Equals(string.Empty))
@@ -132,12 +133,12 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     setupPage.enterUsername(userName);
                     setupPage.enterPassword(password);
                     setupPage.enterEmail(email);
-                    String filepath = String.Format("{0}/OrchardCoreSetupScreenshot-{1}.png", Environment.CurrentDirectory, DateTime.Now.ToString("yyyyMMdd-HHmm"));
-                    Console.WriteLine(String.Format("SetUpPage completed, saving screenshot to {0} and submitting form ...", filepath));
-                    Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
-                    screenShot.SaveAsFile(filepath);
+
                     setupPage.submitForm();
-                    //TODO: needs to validate that expected page is returned on Submit otherwise throw exception
+                    if (!setupPage.checkSubmissionSuccess())
+                    {
+                        throw new Exception("Setup did not complete succesfully");
+                    };
                 }
                 else
                     webDriver.Navigate().GoToUrl(uri);
@@ -163,6 +164,13 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             catch( Exception e)
             {
                 Console.WriteLine("An error was encountered:\n" + e);
+                if (webDriver != null)
+                {
+                    String filepath = String.Format("{0}/OrchardCoreSetupScreenshot-{1}.png", Environment.CurrentDirectory, DateTime.Now.ToString("yyyyMMdd-HHmm"));
+                    Console.WriteLine(String.Format("saving screenshot to {0}", filepath));
+                    Screenshot screenShot = ((ITakesScreenshot)webDriver).GetScreenshot();
+                    screenShot.SaveAsFile(filepath);
+                }
                 returnCode = -1;
             }
             finally

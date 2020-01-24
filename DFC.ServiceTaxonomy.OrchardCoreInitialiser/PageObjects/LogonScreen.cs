@@ -55,6 +55,12 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             navigateToLoginPage(editorBaseUrl);
             enterUsername(editorUid);
             enterPassword(editorPassword);
+            // check no validation errors
+            var elements = _webDriver.FindElements(By.ClassName("text-danger"));
+            if ( elements.Count > 0)
+            {
+                throw new Exception("Error in function SubmitLogonDetails: " + elements[0].Text);
+            }
             return new StartPage(_webDriver);
         }
     }

@@ -23,6 +23,48 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             return this;
         }
 
+        public SetupPage verifyPageLoaded()
+        {
+            bool bLoaded = false;
+
+            var elements = _webDriver.FindElements(By.ClassName("lead"));
+
+            foreach ( var element in elements)
+            {
+                if (element.Text == "Please answer a few questions to configure your site.")
+                    bLoaded = true;
+            }
+            if (!bLoaded)
+            {
+                throw new Exception("Setup page: Unable to verify that setup page has loaded");
+            }
+            return this;
+        }
+
+
+        public bool checkSubmissionSuccess()
+        {
+            bool bSuccess = false;
+
+            try
+            {
+                var submitButton = _webDriver.FindElement(By.Id("SubmitButton"));
+                bSuccess = (submitButton.Text != "Finish Setup");
+            }
+            catch (Exception e)
+            {
+                if (e.Message.StartsWith("no such element:") )
+                {
+                    bSuccess = true;
+                }
+                else
+                {
+                    throw new Exception("Setup page: error occured in function checkSubmissionSuccess {e}");
+                }
+            }
+            return bSuccess;
+        }
+
         public SetupPage enterSiteName(string siteName)
         {
             try
@@ -60,7 +102,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception in function selectDefaultTimeZone: " + e);
+                throw new Exception("Setup page: Exception in function selectDefaultTimeZone", e);
             }
 
             return this;
@@ -76,7 +118,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception in function selectDatabase: " + e);
+                throw new Exception("Setup page: Exception in function selectDatabase", e);
             }
 
             return this;
@@ -90,7 +132,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception in function enterTablePrefix: " + e);
+                throw new Exception("Setup page: Exception in function enterTablePrefix", e);
             }
 
             return this;
@@ -104,7 +146,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception in function enterConnectionString: " + e);
+                throw new Exception("Setup page: Exception in function enterConnectionString", e);
             }
 
             return this;
@@ -119,7 +161,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception in function enterUsername: " + e);
+                throw new Exception("Setup page: Exception in function enterUsername", e);
             }
  
             return this;
@@ -133,7 +175,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception in function enterEmail: " + e);
+                throw new Exception("Setup page: Exception in function enterEmail", e);
             }
  
             return this;
@@ -148,7 +190,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception in function enterPassword: " + e);
+                throw new Exception("Setup page: Exception in function enterPassword", e);
             }
  
             return this;
@@ -162,8 +204,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                //TODO: this should throw
-                Console.WriteLine("Exception in function submitForm: " + e);
+                throw new Exception("Setup page: Exception in function submitForm", e);
             }
             
             return this;
