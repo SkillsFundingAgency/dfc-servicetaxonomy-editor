@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace GetJobProfiles.Models.Recipe
 {
@@ -40,16 +41,26 @@ namespace GetJobProfiles.Models.Recipe
 
     public class HtmlField
     {
-        public HtmlField(string html) => Html = html;
+        public HtmlField(string html) => Html = WrapInParagraph(ConvertLinks(html));
         //todo: correct array to <p>??
-        //todo: links stored as eg  [basics of 3D printing | https://3dprintingindustry.com/3d-printing-basics-free-beginners-guide] -> convert to <a> (check how oc stores): regex replace
-        // need to add support for >1 link
-        // ([^\]]*)\[([^\|]*)\|([^\]]*)\]([^\[]*)
-        // replace with $1<a href="$3">$2</a>$4
         //todo: how does sitefinity store ul etc?
-        public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) => $"{h}<p>{p}</p>");
+        public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) =>
+            ConvertLinks($"{h}{WrapInParagraph(ConvertLinks(p))}"));
 
         public string Html { get; set; }
+
+        private static readonly Regex LinkRegex = new Regex(@"([^\]]*)\[([^\|]*)\s\|\s([^\]]*)\]([^\[]*)", RegexOptions.Compiled);
+
+        private static string WrapInParagraph(string source)
+        {
+            return $"<p>{source}</p>";
+        }
+
+        private string ConvertLinks(string sitefinityString)
+        {
+            const string replacement = "$1<a href=\"$3\">$2</a>$4";
+            return LinkRegex.Replace(sitefinityString, replacement);
+        }
     }
 
     public class TextField
