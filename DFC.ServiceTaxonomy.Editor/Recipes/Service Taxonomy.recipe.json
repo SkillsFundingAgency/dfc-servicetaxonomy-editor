@@ -147,6 +147,24 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
+                        },
+                        {
+                            "PartName": "BagPart",
+                            "Name": "BagPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "DisplayName": "Entry Routes",
+                                    "Description": "Provides a collection of entry routes."
+                                },
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "CollegeRoute",
+                                        "UniversityRoute",
+                                        "WorkRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -333,6 +351,325 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "UniversityRoute",
+                    "DisplayName": "University Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UniversityRoute",
+                            "Name": "UniversityRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "CollegeRoute",
+                    "DisplayName": "College Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "CollegeRoute",
+                            "Name": "CollegeRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "FurtherInfo",
+                    "DisplayName": "Further Info",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "FurtherInfo",
+                            "Name": "FurtherInfo",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "WorkRoute",
+                    "DisplayName": "Work Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "WorkRoute",
+                            "Name": "WorkRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "Restriction",
+                    "DisplayName": "Restriction",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Restriction",
+                            "Name": "Restriction",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "Registration",
+                    "DisplayName": "Registration",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Registration",
+                            "Name": "Registration",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "RequirementsPrefix",
+                    "DisplayName": "Requirements Prefix",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "RequirementsPrefix",
+                            "Name": "RequirementsPrefix",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "UniversityRequirement",
+                    "DisplayName": "University Requirement",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "UniversityRequirement",
+                            "Name": "UniversityRequirement",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "UniversityLink",
+                    "DisplayName": "University Link",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "UniversityLink",
+                            "Name": "UniversityLink",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "SOCCode",
+                    "DisplayName": "SOC Code",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "SOCCode",
+                            "Name": "SOCCode",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        }
+                    ]
                 }
             ],
             "ContentParts": [
@@ -473,33 +810,12 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "HtmlField",
-                            "Name": "Description",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
-                                    "Editor": "Wysiwyg",
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "SOCCode",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "SOC Code",
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "TextField",
                             "Name": "JobProfileSOCID",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "2"
+                                    "Position": "0"
                                 }
                             }
                         },
@@ -509,8 +825,165 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "3"
+                                    "Position": "1"
                                 }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbBodies",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Professional And Industry Bodies",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "2"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "HtbTitleOptions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Title Options",
+                                    "Editor": "PredefinedList",
+                                    "Position": "3"
+                                },
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "As Defined",
+                                            "value": "as_defined"
+                                        },
+                                        {
+                                            "name": "No Prefix",
+                                            "value": "no_prefix"
+                                        },
+                                        {
+                                            "name": "No Title",
+                                            "value": "no_title"
+                                        },
+                                        {
+                                            "name": "Prefix with 'a'",
+                                            "value": "prefix_with_a"
+                                        },
+                                        {
+                                            "name": "Prefix with 'an'",
+                                            "value": "prefix_with_an"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "as_defined"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbOtherRequirements",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Other Requirements",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "4"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbCareerTips",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Career Tips",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "5"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbFurtherInformation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Further Information",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "6"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "HtbRestrictions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Restrictions",
+                                    "Position": "7"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasHtbRestriction].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Restriction"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "HtbRegistrations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Registrations",
+                                    "Position": "8"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__requiresRegistration].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Registration"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SOCCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SOC Code",
+                                    "Position": "9"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCCode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
                             }
                         }
                     ]
@@ -613,6 +1086,380 @@
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "PreviewPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a way to define the url that is used to render your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "FurtherInfo",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "LinkField",
+                            "Name": "Link",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Link"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "UniversityRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "RelevantSubjects",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Relevant Subjects",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "FurtherInfo",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Further Info",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "RequirementsPrefix",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Requirements Prefix"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "RequirementsPrefix"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Requirements",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Requirements"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "UniversityRequirement"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Links",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Links"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "UniversityLink"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "CollegeRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "RelevantSubjects",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Relevant Subjects",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "FurtherInfo",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Further Info",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "RequirementsPrefix",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Requirements Prefix"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "RequirementsPrefix"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Requirements",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Requirements"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "CollegeRequirement"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Links",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Links"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "CollegeLink"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Restriction",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Registration",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "RequirementsPrefix",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Text",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Text",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "UniversityRequirement",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Text",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Text",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "CollegeRequirement",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Text",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Text",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "UniversityLink",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "LinkField",
+                            "Name": "Link",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Link"
+                                },
+                                "LinkFieldSettings": {
+                                    "Required": true,
+                                    "LinkTextMode": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "CollegeLink",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "LinkField",
+                            "Name": "Link",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Link"
+                                },
+                                "LinkFieldSettings": {
+                                    "Required": true,
+                                    "LinkTextMode": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "SOCCode",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WorkRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -807,12 +1654,6 @@
                         "Title": "3D printing technician"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories."
-                        },
-                        "SOCCode": {
-                            "Text": "3122D"
-                        },
                         "JobProfileSOCID": {
                             "Text": "312D"
                         },
@@ -848,12 +1689,6 @@
                         "Title": "Accommodation warden"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Accommodation wardens manage the day-to-day running of services like sheltered housing, youth hostels and student flats."
-                        },
-                        "SOCCode": {
-                            "Text": "6144A"
-                        },
                         "JobProfileSOCID": {
                             "Text": "6144A"
                         },
@@ -889,12 +1724,6 @@
                         "Title": "Accounting technician"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Accounting technicians handle day-to-day financial matters in all types of business."
-                        },
-                        "SOCCode": {
-                            "Text": "3537A"
-                        },
                         "JobProfileSOCID": {
                             "Text": "3537A"
                         },
@@ -930,12 +1759,6 @@
                         "Title": "Acoustics consultant"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Acoustics consultants help manage and control noise and vibrations in homes, workplaces and other environments."
-                        },
-                        "SOCCode": {
-                            "Text": "2129A"
-                        },
                         "JobProfileSOCID": {
                             "Text": "2129A"
                         },
@@ -971,12 +1794,6 @@
                         "Title": "Actor"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Actors use speech, movement and expression to bring characters to life in theatre, film, television and radio."
-                        },
-                        "SOCCode": {
-                            "Text": "3413B"
-                        },
                         "JobProfileSOCID": {
                             "Text": "3413B"
                         },
@@ -1012,12 +1829,6 @@
                         "Title": "Actuary"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Actuaries work with companies and government departments, to help them forecast long-term financial costs and investment risks."
-                        },
-                        "SOCCode": {
-                            "Text": "2425A"
-                        },
                         "JobProfileSOCID": {
                             "Text": "2425A"
                         },
@@ -1053,12 +1864,6 @@
                         "Title": "Acupuncturist"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Acupuncturists insert needles into pressure points on clients' bodies to help relieve everyday stresses, and improve their wellbeing."
-                        },
-                        "SOCCode": {
-                            "Text": "2229C"
-                        },
                         "JobProfileSOCID": {
                             "Text": "2229C"
                         },
@@ -1094,12 +1899,6 @@
                         "Title": "Admin assistant"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Admin assistants give support to offices by organising meetings, typing documents and updating computer records."
-                        },
-                        "SOCCode": {
-                            "Text": "4159B"
-                        },
                         "JobProfileSOCID": {
                             "Text": "4159B"
                         },
@@ -1135,12 +1934,6 @@
                         "Title": "Advertising account executive"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Advertising account executives provide the link between an advertising agency and its clients."
-                        },
-                        "SOCCode": {
-                            "Text": "3543B"
-                        },
                         "JobProfileSOCID": {
                             "Text": "3543B"
                         },
@@ -1176,12 +1969,6 @@
                         "Title": "Advertising account planner"
                     },
                     "JobProfile": {
-                        "Description": {
-                            "Html": "Advertising account planners develop and plan advertising campaigns to make sure they reach the right audience."
-                        },
-                        "SOCCode": {
-                            "Text": "3543J"
-                        },
                         "JobProfileSOCID": {
                             "Text": "3543J"
                         },
