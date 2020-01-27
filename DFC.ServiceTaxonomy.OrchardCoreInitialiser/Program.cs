@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             string uri = "https://localhost:44346";
             string siteName = "Service Taxonomy Editor";
             string recipeName = "Service Taxonomy Editor";
-            string databaseType = "Sqlite";
+            string databaseType = "";
             string tablePrefix = "";
             string sqlConnectionString = "";
             string userName = "";
