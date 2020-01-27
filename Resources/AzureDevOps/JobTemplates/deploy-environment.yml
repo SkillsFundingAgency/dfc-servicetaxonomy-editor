@@ -73,6 +73,8 @@ jobs:
             deploymentMethod: zipDeploy
             RemoveAdditionalFilesFlag: false
             ExcludeFilesFromAppDataFlag: false
+        - powershell: Start-Sleep -Seconds 20
+          displayName: 'Pause deployment whilst app restarts'
         - task: ExtractFiles@1
           displayName: 'Extract OrchardCoreInitialiser files'
           inputs:
