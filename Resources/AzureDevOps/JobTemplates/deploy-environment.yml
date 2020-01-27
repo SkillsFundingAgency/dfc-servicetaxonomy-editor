@@ -99,4 +99,4 @@ jobs:
           condition: always()
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
-            artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output
+            artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
