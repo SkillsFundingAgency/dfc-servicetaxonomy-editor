@@ -62,7 +62,7 @@ jobs:
           inputs:
             SourcePath: $(Pipeline.Workspace)\DFC.ServiceTaxonomy.Editor.AppSettings
             TargetFileNames: appsettings.json
-        # Copy App_Data (including appsettings.json) to app serivce
+        # Copy App_Data (including appsettings.json) to app serivce.  This file includes the SQL connection string, Orchard currently doesn't support setting this via an Environment Variable
         - task: AzureRmWebAppDeployment@4
           displayName: 'Azure App Service Deploy: Copy App_Data'
           inputs:
@@ -73,7 +73,6 @@ jobs:
             deploymentMethod: zipDeploy
             RemoveAdditionalFilesFlag: false
             ExcludeFilesFromAppDataFlag: false
-        ##TO DO: might need to restart app
         - task: ExtractFiles@1
           displayName: 'Extract OrchardCoreInitialiser files'
           inputs:
