@@ -93,6 +93,7 @@ jobs:
           inputs:
             sourceFolder: $(InitialiserWorkingDir)
             contents: '**\*.png'
+            cleanTargetFolder: true
             targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
         - task: PublishPipelineArtifact@1
           displayName: 'Publish OrchardCoreInitialiser Output'
