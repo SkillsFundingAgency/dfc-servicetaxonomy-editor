@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("StartPage: Logout failed {e}");
+                Console.WriteLine("StartPage: Unable to logout\n" + e);
             }
             return this;
         }

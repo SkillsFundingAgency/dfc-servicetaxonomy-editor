@@ -110,13 +110,11 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
         {
             try
             {
-                _webDriver.FindElement(By.ClassName("list-group-item"))
-                                     .FindElement(By.LinkText("Edit"))
-                                     .Click();
+                _webDriver.FindElement(By.XPath("//button[contains(.,' Log off')]")).Click();
             }
             catch (Exception e)
             {
-                throw new Exception("ManageContent: Exception in function SelectFirstItem:\n", e);
+                Console.WriteLine("ManageContent: Unable to log out:\n"+ e);
             }
 
 
