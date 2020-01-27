@@ -100,3 +100,4 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
+            continueOnError: true
