@@ -38,6 +38,19 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             return new ManageContent(_webDriver);
         }
 
+        public StartPage LogOut()
+        {
+            try
+            {
+                _webDriver.FindElement(By.XPath("//button[contains(.,' Log off')]")).Click();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("StartPage: Unable to logout\n" + e);
+            }
+            return this;
+        }
+
         //public AddActivity NavigateToNewActivity()
         //{
         //    _scenarioContext.GetWebDriver().Url = _scenarioContext.GetEnv().editorBaseUrl + "/Admin/Contents/ContentTypes/Activity/Create";

@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
         static void Main(string[] args)
         {
             var shouldShowHelp = false;
-            string uri = "https://localhost:44346/";
+            string uri = "https://localhost:44346";
             string siteName = "Service Taxonomy Editor";
             string recipeName = "Service Taxonomy Editor";
             string databaseType = "Sqlite";
@@ -24,7 +24,8 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             string userName = "";
             string email = "";
             string password = "";
-            bool setupAlreadyComplete = false;
+            bool runPublishIfAlreadySetUp = false;
+            bool alreadySetup = false;
             int returnCode = 0;
 
             var p = new OptionSet {
@@ -37,7 +38,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 { "n|username=", "The default user name", n => userName = n },
                 { "e|email=", "The default email address", e => email = e },
                 { "p|password=", "The default password", p => password = p },
-                { "x|excludesetup=", "Setup is already complete, publish only (y/n)", x => setupAlreadyComplete = (x.ToLower().Equals("y")) },
+                { "a|alwaysRunPublish=", "If Setup is already complete, publish anyway (y/n)", x => runPublishIfAlreadySetUp = (x.ToLower().Equals("y")) },
                 { "h|help",     "show this message and exit",                   h => shouldShowHelp = h != null },
             };
 
@@ -90,7 +91,11 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 return;
             }
 
-
+            if (!uri.EndsWith("/"))
+            {
+                Console.WriteLine("Adding trailing slash to uri");
+                uri += "/";
+            }
             
             Console.WriteLine("uri = " + uri);
             Console.WriteLine("siteName = " + siteName);
@@ -101,7 +106,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             Console.WriteLine("userName = " + userName);
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + new String('#', password.Length));
-            Console.WriteLine("excludeSetup = " + setupAlreadyComplete.ToString());
+            Console.WriteLine("runPublishIfAlreadySetUp = " + runPublishIfAlreadySetUp.ToString());
 
             IWebDriver webDriver= null;
             try
@@ -115,13 +120,14 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 
                 webDriver = new ChromeDriver(Environment.CurrentDirectory, options);
 
-                //TODO: test programatically whether setupAlreadyComplete (ie test which landing page is returned)
                 // setup page
-                if (!setupAlreadyComplete)
+
+                SetupPage setupPage = new SetupPage(webDriver);
+                setupPage.openPage(uri);
+                alreadySetup = !setupPage.verifyPageLoaded();
+
+                if (!alreadySetup)
                 {
-                    SetupPage setupPage = new SetupPage(webDriver);
-                    setupPage.openPage(uri);
-                    setupPage.verifyPageLoaded();
                     setupPage.enterSiteName(siteName);
                     setupPage.selectRecipe(recipeName);
                     if (!databaseType.Equals(string.Empty))
@@ -148,17 +154,25 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 LogonScreen logonScreen = new LogonScreen(webDriver);
                 StartPage startPage = logonScreen.SubmitLogonDetails(uri, userName, password);
 
+                if (!alreadySetup || runPublishIfAlreadySetUp)
+                {
+                    //// remove content types
+                    //ContentTypesAdmin contentTypesAdmin = startPage.NavitateToContentTypeAdmin(uri);
+                    //contentTypesAdmin.RemoveAllContentTypes();
 
-                //// remove content types
-                //ContentTypesAdmin contentTypesAdmin = startPage.NavitateToContentTypeAdmin(uri);
-                //contentTypesAdmin.RemoveAllContentTypes();
+                    // publish all items
+                    Console.WriteLine("Logged on, starting Service Taxonomy Editor configuration ...");
+                    ManageContent manageContent = startPage.NavigateToManageContent(uri);
+                    manageContent.PublishAll("Job Category");
+                    manageContent.PublishAll("Job Profile");
+                    manageContent.LogOut();
+                }
+                else
+                {
+                    startPage.LogOut();
+                }
 
 
-                // publish all items
-                Console.WriteLine("Logged on, starting Service Taxonomy Editor configuration ...");
-                ManageContent manageContent = startPage.NavigateToManageContent(uri);
-                manageContent.PublishAll("Job Category");
-                manageContent.PublishAll("Job Profile");
 
             }
             catch( Exception e)
