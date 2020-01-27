@@ -23,10 +23,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             return this;
         }
 
-        public SetupPage verifyPageLoaded()
+        public bool verifyPageLoaded()
         {
             bool bLoaded = false;
-
             var elements = _webDriver.FindElements(By.ClassName("lead"));
 
             foreach ( var element in elements)
@@ -34,11 +33,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
                 if (element.Text == "Please answer a few questions to configure your site.")
                     bLoaded = true;
             }
-            if (!bLoaded)
-            {
-                throw new Exception("Setup page: Unable to verify that setup page has loaded");
-            }
-            return this;
+            return bLoaded;
         }
 
 

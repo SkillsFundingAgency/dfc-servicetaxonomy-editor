@@ -106,7 +106,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             return this;
         }
 
-        public ManageContent SelectFirstItem()
+        public ManageContent LogOut()
         {
             try
             {
@@ -117,6 +117,21 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             catch (Exception e)
             {
                 throw new Exception("ManageContent: Exception in function SelectFirstItem:\n", e);
+            }
+
+
+            return this;
+        }
+
+        public ManageContent SelectFirstItem()
+        {
+            try
+            {
+                _webDriver.FindElement(By.XPath("//button[contains(.,' Log off')]")).Click();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ManageContent: Logout failed {e}");
             }
             
 
