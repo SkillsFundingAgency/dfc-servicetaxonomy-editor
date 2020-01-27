@@ -49,6 +49,14 @@ stages:
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.100'
+    - powershell: |
+        New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
+        Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
+      displayName: 'PowerShell Script: Copy appsettings.template.json'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\ 
+        artifactName: $(SolutionBaseName).Editor.AppSettings
 
 - stage: DeployToDev
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -73,8 +81,7 @@ stages:
       ServiceOfferingTag: '$(ServiceOffering)'
       ResourceGroup: '$(ResourceGroup)'
       WebAppName: '$(WebAppName)'
-      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net'
-      SqlDatabaseConnStr: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(WebAppName)-svc;Password=$(OrchardEditorSqlUserPassword);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
@@ -102,8 +109,7 @@ stages:
       ServiceOfferingTag: '$(ServiceOffering)'
       ResourceGroup: '$(ResourceGroup)'
       WebAppName: '$(WebAppName)'
-      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net'
-      SqlDatabaseConnStr: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(WebAppName)-svc;Password=$(OrchardEditorSqlUserPassword);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
