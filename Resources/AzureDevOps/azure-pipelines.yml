@@ -1,11 +1,25 @@
+variables:
+  SolutionBaseName: 'DFC.ServiceTaxonomy' 
+  EditorAdminUserEmail: 'careersdevops@education.gov.uk' 
+
 resources:
   repositories:
   - repository: self
   - repository: dfc-devops
     type: github
     name: SkillsFundingAgency/dfc-devops
-    ref: refs/tags/v1.8.2
+    ref: refs/tags/v1.10.1
     endpoint: 'GitHub (ESFA)'
+
+trigger: 
+  branches:
+    include: 
+    - master
+
+pr:
+  branches:
+    include: 
+    - master
 
 stages:
 - stage: Build
@@ -24,11 +38,25 @@ stages:
     steps:
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
-        SolutionBaseName: 'DFC.ServiceTaxonomy.Editor'
+        SolutionBaseName: $(SolutionBaseName).Editor
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.100'
         TestSuffix: UnitTests
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.100'
+    - powershell: |
+        New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
+        Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
+      displayName: 'PowerShell Script: Copy appsettings.template.json'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\ 
+        artifactName: $(SolutionBaseName).Editor.AppSettings
 
 - stage: DeployToDev
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -52,4 +80,36 @@ stages:
       ParentBusinessTag: '$(ParentBusiness)'
       ServiceOfferingTag: '$(ServiceOffering)'
       ResourceGroup: '$(ResourceGroup)'
-      WebAppName: 'dfc-dev-stax-editor-as'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+
+- stage: DeployToSit
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to SIT_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-sit
+  - group: dfc-stax-shared-sit
+  - group: 'KeyVault - dfc-sit-shared-kv'
+  - template: VariableTemplates/SitEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+      Environment: SIT_SERVICETAXONOMY
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
