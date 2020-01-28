@@ -17,7 +17,9 @@ namespace GetJobProfiles
     {
         static async Task Main(string[] args)
         {
-            // use these knobs to work around rate-limiting
+            var socCodeDictionary = await new SocCodeConverter().Go();
+
+            //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 10;
             const int napTimeMs = 0;
@@ -43,8 +45,6 @@ namespace GetJobProfiles
             //todo: async
             string serializedContentItems = JsonSerializer.Serialize(converter.JobProfiles);
             Console.WriteLine(serializedContentItems);
-
-            await new SocCodeConverter().Go();
         }
     }
 }

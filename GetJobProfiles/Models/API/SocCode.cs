@@ -1,5 +1,6 @@
 ﻿using System;
 using GetJobProfiles.Models.Recipe;
+using OrchardCore.Entities;
 
 namespace GetJobProfiles.Models.API
 {
@@ -11,10 +12,10 @@ namespace GetJobProfiles.Models.API
         public string Unit { get; set; }
         public string Title { get; set; }
 
-        public SocCodeContentItem ToContentItem() => new SocCodeContentItem
+        public SocCodeContentItem ToContentItem(DefaultIdGenerator generator) => new SocCodeContentItem
         {
-            ContentItemId = "[js:uuid()]",
-            ContentItemVersionId = "[js:uuid()]",
+            ContentItemId = generator.GenerateUniqueId(),
+            ContentItemVersionId = generator.GenerateUniqueId(),
             ContentType = "SOCCode",
             DisplayText = Unit,
             Latest = true,
@@ -26,7 +27,7 @@ namespace GetJobProfiles.Models.API
             Author = "[js: parameters('AdminUsername')]",
             GraphSyncPart = new GraphSyncPart
             {
-                Text = "???" //not sure what this needs to be
+                Text = $"http://nationalcareers.service.gov.uk/soccode/{Guid.NewGuid()}"
             },
             TitlePart = new TitlePart
             {
