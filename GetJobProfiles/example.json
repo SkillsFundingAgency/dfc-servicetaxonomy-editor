@@ -1,0 +1,109 @@
+{
+    "ContentItemId": "4ns9v0ktv1ptd7kycfhf5p46d2",
+    "ContentItemVersionId": "4tp476eb52yvc0bn83y6eb9q4y",
+    "ContentType": "JobProfile",
+    "DisplayText": "criminal intelligence analyst",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-01-24T14:36:00.2471659Z",
+    "PublishedUtc": "2020-01-24T14:36:00.5572424Z",
+    "CreatedUtc": "2020-01-24T11:47:02.7511218Z",
+    "Owner": "admin",
+    "Author": "admin",
+    "TitlePart": {
+        "Title": "criminal intelligence analyst"
+    },
+    "JobProfile": {
+        "Description": {
+            "Html": null
+        },
+        "SOCCode": {
+            "Text": "Soccy code"
+        },
+        "JobProfileSOCID": {
+            "Text": "jp soc id"
+        },
+        "JobProfileWebsiteUrl": {
+            "Text": "url"
+        },
+        "HtbBodies": {
+            "Html": "<p>bodies</p><p><a href=\"https://nationalcareers.service.gov.uk/\">NCS</a><br></p>"
+        },
+        "HtbTitleOptions": {
+            "Text": "as_defined"
+        },
+        "HtbOtherRequirements": {
+            "Html": "<p>other requirements</p>"
+        },
+        "HtbCareerTips": {
+            "Html": "<p>career tips</p>"
+        },
+        "HtbFurtherInformation": {
+            "Html": "<p>You can find out more about a career in intelligence from the security agencies:</p><ul><li><a href=\"https://www.gchq-careers.co.uk/index.html\">GCHQ</a></li><li><a href=\"https://www.sis.gov.uk/explore-careers.html\">Secret Intelligence Service MI6</a></li><li><a href=\"https://www.mi5.gov.uk/careers\">Security Service MI5</a></li></ul>"
+        },
+        "HtbRestrictions": {
+            "ContentItemIds": [
+                "477c6756z9sfd47rh03281fwm9"
+            ]
+        },
+        "HtbRegistrations": {
+            "ContentItemIds": [
+                "49jgd4kkkt522r3zr5z1w818ne"
+            ]
+        }
+    },
+    "GraphLookupPart": {
+        "Nodes": [
+            {
+                "Id": "http://data.europa.eu/esco/occupation/4ca8ba6c-dc55-40c0-ae6c-d55c94dd2e03",
+                "DisplayText": "intelligence officer"
+            }
+        ]
+    },
+    "GraphSyncPart": {
+        "Text": "http://nationalcareers.service.gov.uk/jobprofile/334364ce-8ca2-4d73-bea6-20aa232e87ce"
+    },
+    "BagPart": {
+        "ContentItems": [
+            {
+                "ContentItemId": "4bahncxp0rpwz0wtej8jx8zs4t",
+                "ContentItemVersionId": null,
+                "ContentType": "UniversityRoute",
+                "DisplayText": null,
+                "Latest": false,
+                "Published": false,
+                "ModifiedUtc": "2020-01-24T14:36:00.5069123Z",
+                "PublishedUtc": null,
+                "CreatedUtc": null,
+                "Owner": null,
+                "Author": "admin",
+                "UniversityRoute": {
+                    "RelevantSubjects": {
+                        "Html": "<p>You could do a degree in a subject that includes data analysis, for example:</p><ul><li>computing</li><li>maths and statistics</li><li>social science</li><li>psychology</li><li>criminology</li></ul><p>Other subjects may be accepted.</p>"
+                    },
+                    "FurtherInfo": {
+                        "Html": "<p>further info</p>"
+                    },
+                    "RequirementsPrefix": {
+                        "ContentItemIds": [
+                            "4p9cj6rcavebg6mz3efs9d57xp"
+                        ]
+                    },
+                    "Requirements": {
+                        "ContentItemIds": [
+                            "4qd0hxb2405gb0dpp7781b424v"
+                        ]
+                    },
+                    "Links": {
+                        "ContentItemIds": [
+                            "4n92f0gqcpz1w5h0bn2ha52xcw"
+                        ]
+                    }
+                },
+                "GraphSyncPart": {
+                    "Text": "http://nationalcareers.service.gov.uk/universityroute/33853022-34d6-4f51-a450-fa645f94a335"
+                }
+            }
+        ]
+    }
+}
