@@ -121,6 +121,7 @@ namespace GetJobProfiles
                 {
                     Title = jobProfile.Title
                 },
+                JobProfileWebsiteUrl = new JobProfileWebsiteUrl {Text = jobProfile.Url},
                 HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                 HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                 //todo:

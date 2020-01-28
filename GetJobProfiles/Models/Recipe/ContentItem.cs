@@ -22,6 +22,7 @@ namespace GetJobProfiles.Models.Recipe
     public class JobProfileContentItem : ContentItem
     {
         public TitlePart TitlePart { get; set; }
+        public JobProfileWebsiteUrl JobProfileWebsiteUrl { get; set; }
         public HtmlField HtbBodies { get; set; }
         public TextField HtbTitleOptions { get; set; }
         public HtmlField HtbOtherRequirements { get; set; }
@@ -97,5 +98,10 @@ namespace GetJobProfiles.Models.Recipe
     public class BagPart    //todo: multiples??
     {
         public ContentItem[] ContentItems { get; set; }
+    }
+
+    public class JobProfileWebsiteUrl
+    {
+        public string Text { get; set; }
     }
 }
