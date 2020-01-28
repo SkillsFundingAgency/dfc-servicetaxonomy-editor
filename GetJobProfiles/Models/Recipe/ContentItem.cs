@@ -30,6 +30,7 @@ namespace GetJobProfiles.Models.Recipe
         public HtmlField HtbFurtherInformation { get; set; }
         public ContentPicker HtbRestrictions { get; set; }
         public ContentPicker HtbRegistrations { get; set; }
+        public ContentPicker SOCCode { get; set; }
         public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
         public GraphSyncPart GraphSyncPart { get; set; }    // todo: multiple?
         public BagPart BagPart { get; set; }
@@ -78,12 +79,15 @@ namespace GetJobProfiles.Models.Recipe
 
     public class ContentPicker
     {
+        public ContentPicker()
+        {}
+
         public ContentPicker(Dictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)
         {
             ContentItemIds = contentItems.Select(ci => currentContentItems[ci].id);
         }
 
-        public IEnumerable<string> ContentItemIds { get; }
+        public IEnumerable<string> ContentItemIds { get; set; }
     }
 
     public class GraphLookupPart
