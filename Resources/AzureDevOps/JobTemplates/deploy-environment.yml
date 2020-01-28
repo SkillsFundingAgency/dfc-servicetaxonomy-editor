@@ -98,8 +98,7 @@ jobs:
             targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
         - task: PublishPipelineArtifact@1
           displayName: 'Publish OrchardCoreInitialiser Output'
-          condition: always()
+          condition: failed()
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
-            continueOnError: true
