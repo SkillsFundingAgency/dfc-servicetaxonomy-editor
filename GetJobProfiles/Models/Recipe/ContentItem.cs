@@ -35,6 +35,13 @@ namespace GetJobProfiles.Models.Recipe
         public BagPart BagPart { get; set; }
     }
 
+    public class SocCodeContentItem : ContentItem
+    {
+        public TitlePart TitlePart { get; set; }
+        public GraphSyncPart GraphSyncPart { get; set; }
+        public TextField Description { get; set; }
+    }
+
     public class TitlePart
     {
         public string Title { get; set; }

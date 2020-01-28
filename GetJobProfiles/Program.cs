@@ -43,6 +43,8 @@ namespace GetJobProfiles
             //todo: async
             string serializedContentItems = JsonSerializer.Serialize(converter.JobProfiles);
             Console.WriteLine(serializedContentItems);
+
+            await new SocCodeConverter().Go();
         }
     }
 }
