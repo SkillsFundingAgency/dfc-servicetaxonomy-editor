@@ -19,11 +19,13 @@ namespace GetJobProfiles
         public string Timestamp { get; set; }
 
         private readonly RestHttpClient.RestHttpClient _client;
+        private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
-        public JobProfileConverter(RestHttpClient.RestHttpClient client)
+        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary)
         {
             _client = client;
+            _socCodeDictionary = socCodeDictionary;
             _idGenerator = new DefaultIdGenerator();
             Timestamp = $"{DateTime.UtcNow:O}Z";
         }
@@ -130,7 +132,8 @@ namespace GetJobProfiles
                 //todo:
                 //HtbTitleOptions = jobProfile.
                 //todo: dic of contentid to found content: convert to class and have content as props
-                HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations)
+                HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
+                SOCCode = new ContentPicker() { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
             };
 
             return contentItem;
