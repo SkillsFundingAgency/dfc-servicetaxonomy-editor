@@ -10,11 +10,17 @@ parameters:
   ResourceGroup: ''
   ArtifactName: 'DFC.ServiceTaxonomy.Editor'
   WebAppName: ''
+  OrchardCoreUri: ''
+  SiteName: 'ServiceTaxonomy'
+  EditorAdminUsername: ''
+  EditorAdminUserEmail: ''
+  EditorAdminUserPassword: ''
+  DotNetCoreVersion: '3.1.100'
 
 jobs:    
-- deployment: DeployTemplate
+- deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
-  displayName: "Deploy arm templates"
+  displayName: "Deploy arm templates to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}
   strategy:
     runOnce:
@@ -29,12 +35,14 @@ jobs:
             ParentBusinessTag: '${{ parameters.ParentBusinessTag }}'            
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
 
-- deployment: DeployGetAllSkills
+- deployment: DeployEditorTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
-  displayName: "Deploy WebApp"
+  displayName: "Deploy WebApp to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}
   dependsOn: 
-  - DeployTemplate
+  - DeployArmTemplateTo_${{ parameters.Environment }}
+  variables:
+    InitialiserWorkingDir: $(System.DefaultWorkingDirectory)\DFC.ServiceTaxonomy.OrchardCoreInitialiser\
   strategy:
     runOnce:
       deploy:
@@ -48,3 +56,49 @@ jobs:
             Package: "${{ parameters.PackageFile }}"
             ResourceGroupName: '${{ parameters.ResourceGroup }}'
             UseWebDeploy: true
+        # Tokenise appsettings.json
+        - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
+          displayName: 'Tokenization: Transform file appsettings.json'
+          inputs:
+            SourcePath: $(Pipeline.Workspace)\DFC.ServiceTaxonomy.Editor.AppSettings
+            TargetFileNames: appsettings.json
+        # Copy App_Data (including appsettings.json) to app serivce.  This file includes the SQL connection string, Orchard currently doesn't support setting this via an Environment Variable
+        - task: AzureRmWebAppDeployment@4
+          displayName: 'Azure App Service Deploy: Copy App_Data'
+          inputs:
+            azureSubscription: '${{ parameters.AzureSubscription }}'
+            WebAppName: '${{ parameters.WebAppName }}'
+            package: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.Editor.AppSettings\'
+            enableCustomDeployment: true
+            deploymentMethod: zipDeploy
+            RemoveAdditionalFilesFlag: false
+            ExcludeFilesFromAppDataFlag: false
+        - powershell: Start-Sleep -Seconds 20
+          displayName: 'Pause deployment whilst app restarts'
+        - task: ExtractFiles@1
+          displayName: 'Extract OrchardCoreInitialiser files'
+          inputs:
+            archiveFilePatterns: '$(Pipeline.Workspace)\DFC.ServiceTaxonomy.OrchardCoreInitialiser.DeploymentPackages\DeploymentPackages\DFC.ServiceTaxonomy.OrchardCoreInitialiser.zip'
+            destinationFolder: $(InitialiserWorkingDir)
+        - task: UseDotNet@2
+          displayName: 'Use .NET Core sdk ${{ parameters.DotNetCoreVersion }}'
+          condition: ne('', '${{ parameters.DotNetCoreVersion }}')
+          inputs:
+            version: ${{ parameters.DotNetCoreVersion }}
+        - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --sitename=${{ parameters. SiteName }} --recipename="Service Taxonomy Editor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
+          displayName: 'Execute Orchard Core Initialiser'
+          workingDirectory: $(InitialiserWorkingDir)
+        - task: CopyFiles@2
+          displayName: 'Copy OrchardCoreInitialiser PNG output to staging directory'
+          condition: always()
+          inputs:
+            sourceFolder: $(InitialiserWorkingDir)
+            contents: '**\*.png'
+            cleanTargetFolder: true
+            targetFolder: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput
+        - task: PublishPipelineArtifact@1
+          displayName: 'Publish OrchardCoreInitialiser Output'
+          condition: failed()
+          inputs:
+            targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
+            artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
