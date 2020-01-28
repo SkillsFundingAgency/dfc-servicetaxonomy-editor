@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
+    <ProjectReference Include="..\GetJobProfiles\GetJobProfiles.csproj" />
   </ItemGroup>
 
 </Project>
