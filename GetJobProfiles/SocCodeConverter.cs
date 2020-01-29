@@ -24,7 +24,7 @@ namespace GetJobProfiles
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 //read all the rows in the csv
-                var items = csv.GetRecords<SocCode>();
+                SocCode[] items = csv.GetRecords<SocCode>().ToArray();
                 //filter out the ones we don't care about - i.e. the groups and sub groups (no Unit value)
                 var contentItems = items
                     .Where(x => !string.IsNullOrWhiteSpace(x.Unit))
