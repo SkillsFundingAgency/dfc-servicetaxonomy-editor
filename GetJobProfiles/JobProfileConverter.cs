@@ -67,7 +67,7 @@ namespace GetJobProfiles
                 if (napTimeMs == 0)
                     continue;
 
-                Console.WriteLine("Taking a nap");
+                ColorConsole.WriteLine("Taking a nap");
                 Thread.Sleep(napTimeMs);
             }
         }
@@ -80,11 +80,9 @@ namespace GetJobProfiles
 
         private async Task<JobProfileContentItem> GetAndConvert(RestHttpClient.RestHttpClient client, JobProfileSummary summary)
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($">>> Fetching {summary.Title} job profile");
+            ColorConsole.WriteLine($">>> Fetching {summary.Title} job profile", ConsoleColor.DarkYellow);
             var jobProfile = await client.Get<JobProfile>(new Uri(summary.Url, UriKind.Absolute));
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"<<< Fetched {summary.Title} job profile");
+            ColorConsole.WriteLine($"<<< Fetched {summary.Title} job profile", ConsoleColor.Yellow);
 
             return ConvertJobProfile(jobProfile);
         }
@@ -97,8 +95,7 @@ namespace GetJobProfiles
                 // for now add full as title. once we have the full list can plug in current titles
                 if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"Registration '{registration}' already saved");
+                    ColorConsole.WriteLine($"Registration '{registration}' already saved", ConsoleColor.Red);
                 }
             }
 
@@ -127,6 +124,7 @@ namespace GetJobProfiles
                 {
                     Title = jobProfile.Title
                 },
+                Description = new HtmlField(jobProfile.Overview),
                 JobProfileWebsiteUrl = new JobProfileWebsiteUrl {Text = jobProfile.Url},
                 HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                 HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
@@ -137,8 +135,10 @@ namespace GetJobProfiles
                 //HtbTitleOptions = jobProfile.
                 //todo: dic of contentid to found content: convert to class and have content as props
                 HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
-                SOCCode = new ContentPicker() { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
+                SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
             };
+
+            //Console.WriteLine(contentItem.Description.Html);
 
             return contentItem;
         }

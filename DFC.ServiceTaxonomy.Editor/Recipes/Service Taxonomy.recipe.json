@@ -810,12 +810,28 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "TextField",
                             "Name": "JobProfileSOCID",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -825,7 +841,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -836,7 +852,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Professional And Industry Bodies",
                                     "Editor": "Trumbowyg",
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -852,7 +868,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Title Options",
                                     "Editor": "PredefinedList",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
@@ -891,7 +907,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Other Requirements",
                                     "Editor": "Trumbowyg",
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -907,7 +923,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Career Tips",
                                     "Editor": "Trumbowyg",
-                                    "Position": "5"
+                                    "Position": "6"
                                 },
                                 "HtmlFieldSettings": {},
                                 "ContentIndexSettings": {},
@@ -923,7 +939,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "6"
+                                    "Position": "7"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -938,7 +954,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Restrictions",
-                                    "Position": "7"
+                                    "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasHtbRestriction].",
@@ -956,7 +972,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Registrations",
-                                    "Position": "8"
+                                    "Position": "9"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__requiresRegistration].",
@@ -974,7 +990,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "9"
+                                    "Position": "10"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasSocCode].",

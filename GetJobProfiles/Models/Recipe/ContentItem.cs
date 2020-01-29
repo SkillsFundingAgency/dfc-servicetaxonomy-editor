@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +23,7 @@ namespace GetJobProfiles.Models.Recipe
     public class JobProfileContentItem : ContentItem
     {
         public TitlePart TitlePart { get; set; }
+        public HtmlField Description { get; set; }
         public JobProfileWebsiteUrl JobProfileWebsiteUrl { get; set; }
         public HtmlField HtbBodies { get; set; }
         public TextField HtbTitleOptions { get; set; }
@@ -54,7 +54,6 @@ namespace GetJobProfiles.Models.Recipe
     {
         public HtmlField(string html) => Html = WrapInParagraph(ConvertLinks(html));
         //todo: correct array to <p>??
-        //todo: how does sitefinity store ul etc?
         public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) =>
             ConvertLinks($"{h}{WrapInParagraph(ConvertLinks(p))}"));
 
@@ -68,7 +67,6 @@ namespace GetJobProfiles.Models.Recipe
 
         private string ConvertLinks(string sitefinityString)
         {
-            //Console.WriteLine(sitefinityString);
             const string replacement = "$1<a href=\"$3\">$2</a>$4";
             return LinkRegex.Replace(sitefinityString, replacement);
         }
