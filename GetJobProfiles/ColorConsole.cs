@@ -5,7 +5,7 @@ namespace GetJobProfiles
     public static class ColorConsole
     {
         // global kill switch for when you just want your temporary Console.WriteLine to output
-        private const bool Enable = true;
+        private const bool Enable = false;
         public static void WriteLine(string str, ConsoleColor? foreground = null, ConsoleColor? background = null)
         {
             if (!Enable)
