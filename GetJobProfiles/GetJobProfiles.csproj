@@ -22,6 +22,9 @@
       <None Update="appsettings.Development.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="SeedData\day_to_day_activities.csv">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
       <None Update="SeedData\esco_job_profile_map.csv">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
