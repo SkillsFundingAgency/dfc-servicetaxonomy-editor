@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using CsvHelper;
 using GetJobProfiles.Models.API;
 using Newtonsoft.Json;
@@ -19,13 +18,13 @@ namespace GetJobProfiles
             _generator = new DefaultIdGenerator();
         }
 
-        public async Task<Dictionary<string, string>> Go()
+        public Dictionary<string, string> Go()
         {
             using (var reader = new StreamReader(@"SeedData\soc_codes.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 //read all the rows in the csv
-                var items = csv.GetRecords<SocCode>();
+                SocCode[] items = csv.GetRecords<SocCode>().ToArray();
                 //filter out the ones we don't care about - i.e. the groups and sub groups (no Unit value)
                 var contentItems = items
                     .Where(x => !string.IsNullOrWhiteSpace(x.Unit))
