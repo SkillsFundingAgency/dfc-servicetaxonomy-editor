@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using CsvHelper;
 using GetJobProfiles.Models.API;
 using Newtonsoft.Json;
@@ -19,7 +18,7 @@ namespace GetJobProfiles
             _generator = new DefaultIdGenerator();
         }
 
-        public async Task<Dictionary<string, string>> Go()
+        public Dictionary<string, string> Go()
         {
             using (var reader = new StreamReader(@"SeedData\soc_codes.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))

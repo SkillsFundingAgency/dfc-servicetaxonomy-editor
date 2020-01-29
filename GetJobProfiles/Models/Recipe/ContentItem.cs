@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -57,8 +59,7 @@ namespace GetJobProfiles.Models.Recipe
             ConvertLinks($"{h}{WrapInParagraph(ConvertLinks(p))}"));
 
         public string Html { get; set; }
-
-        private static readonly Regex LinkRegex = new Regex(@"([^\]]*)\[([^\|]*)\s\|\s([^\]]*)\]([^\[]*)", RegexOptions.Compiled);
+        private static readonly Regex LinkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
 
         private static string WrapInParagraph(string source)
         {
@@ -67,6 +68,7 @@ namespace GetJobProfiles.Models.Recipe
 
         private string ConvertLinks(string sitefinityString)
         {
+            //Console.WriteLine(sitefinityString);
             const string replacement = "$1<a href=\"$3\">$2</a>$4";
             return LinkRegex.Replace(sitefinityString, replacement);
         }
@@ -82,7 +84,7 @@ namespace GetJobProfiles.Models.Recipe
         public ContentPicker()
         {}
 
-        public ContentPicker(Dictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)
+        public ContentPicker(ConcurrentDictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)
         {
             ContentItemIds = contentItems.Select(ci => currentContentItems[ci].id);
         }

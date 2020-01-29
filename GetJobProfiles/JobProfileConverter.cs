@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,8 +14,7 @@ namespace GetJobProfiles
     public class JobProfileConverter
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
-        //todo: ConcurrentDictionary??
-        public Dictionary<string,(string id,string text)> Registrations = new Dictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
 
         public string Timestamp { get; set; }
 
@@ -95,7 +95,11 @@ namespace GetJobProfiles
             foreach (var registration in jobProfile.HowToBecome.MoreInformation.Registrations)
             {
                 // for now add full as title. once we have the full list can plug in current titles
-                Registrations.Add(registration, (_idGenerator.GenerateUniqueId(), registration));
+                if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Registration '{registration}' already saved");
+                }
             }
 
             //todo:
