@@ -63,6 +63,7 @@ namespace GetJobProfiles
             ""data"":  [
 {AddComma(socCodeContentItems)}
 {AddComma(jobProfileContentItems)}
+{AddComma(dayToDayTaskContentItems)}
 {AddComma(registrationContentItems)}
 {AddComma(restrictionContentItems)}
 {otherRequirementContentItems}
@@ -71,8 +72,6 @@ namespace GetJobProfiles
 ";
 
             //todo:
-            //{AddComma(socCodeContentItems)}
-            //{dayToDayTaskContentItems}
             // what types are required for the personalisation apis?
 
             Console.WriteLine(contentItems);
