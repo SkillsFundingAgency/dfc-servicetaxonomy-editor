@@ -57,12 +57,11 @@ namespace GetJobProfiles
             string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
 
-            //todo: , if not empty
             string contentItems = $@"         {{
             ""name"": ""Content"",
             ""data"":  [
-{AddComma(socCodeContentItems)}
 {AddComma(jobProfileContentItems)}
+{AddComma(socCodeContentItems)}
 {AddComma(dayToDayTaskContentItems)}
 {AddComma(registrationContentItems)}
 {AddComma(restrictionContentItems)}
@@ -70,9 +69,6 @@ namespace GetJobProfiles
             ]
         }}
 ";
-
-            //todo:
-            // what types are required for the personalisation apis?
 
             Console.WriteLine(contentItems);
 
