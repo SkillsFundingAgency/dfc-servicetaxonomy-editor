@@ -4,6 +4,7 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* occupation graph lookup not populated
 * remove activites now we have daytodaytasks?
 * use AddSetupFeatures to plug in one of the solutions from https://github.com/OrchardCMS/OrchardCore/pull/4567 & auto sync at startup
 * add database details to graph sync settings?
