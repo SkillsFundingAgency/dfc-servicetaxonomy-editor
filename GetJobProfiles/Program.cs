@@ -48,21 +48,42 @@ namespace GetJobProfiles
 
             new EscoJobProfileMapper().Map(converter.JobProfiles);
 
-            //todo: async
-            string socCodeContentItems = JsonSerializer.Serialize(socCodeConverter.SocCodeContentItems);
-            string jobProfileContentItems = JsonSerializer.Serialize(converter.JobProfiles);
-            string registrationContentItems = JsonSerializer.Serialize(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string restrictionContentItems = JsonSerializer.Serialize(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string otherRequirementContentItems = JsonSerializer.Serialize(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string dayToDayTaskContentItems = JsonSerializer.Serialize(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+            };
 
-            string contentItems = $"{jobProfileContentItems},\r\n{socCodeContentItems},\r\n{registrationContentItems},\r\n{restrictionContentItems},\r\n{otherRequirementContentItems},\r\n{dayToDayTaskContentItems}";
+            //todo: async
+            string socCodeContentItems = JsonSerializer.Serialize(socCodeConverter.SocCodeContentItems, options);
+            string jobProfileContentItems = JsonSerializer.Serialize(converter.JobProfiles, options);
+            string registrationContentItems = JsonSerializer.Serialize(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), options);
+            string restrictionContentItems = JsonSerializer.Serialize(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), options);
+            string otherRequirementContentItems = JsonSerializer.Serialize(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), options);
+            string dayToDayTaskContentItems = JsonSerializer.Serialize(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), options);
+
+            string contentItems = $@"         {{
+            ""name"": ""Content"",
+            ""data"":  [
+{StripSquareBrackets(jobProfileContentItems)},
+{StripSquareBrackets(socCodeContentItems)},
+{StripSquareBrackets(registrationContentItems)},
+{StripSquareBrackets(restrictionContentItems)},
+{StripSquareBrackets(otherRequirementContentItems)},
+{StripSquareBrackets(dayToDayTaskContentItems)}
+            ]
+        }}
+";
 
             Console.WriteLine(contentItems);
 
             File.WriteAllText(@"D:\contentitems.json", contentItems);
 
             File.WriteAllText(@"D:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+        }
+
+        private static string StripSquareBrackets(string str)
+        {
+            return (str.Length > 6 && str[0] == '[') ? str.Substring(3, str.Length - 6) : str;
         }
     }
 }
