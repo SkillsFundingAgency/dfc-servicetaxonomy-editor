@@ -53,7 +53,7 @@ namespace GetJobProfiles
             // string socCodeContentItems = SerializeContentItems(socCodeConverter.SocCodeContentItems);
             // string jobProfileContentItems = SerializeContentItems(converter.JobProfiles);
             string registrationContentItems = SerializeContentItems(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            // string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
+            string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             // string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             // string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
 
@@ -61,7 +61,8 @@ namespace GetJobProfiles
             string contentItems = $@"         {{
             ""name"": ""Content"",
             ""data"":  [
-{registrationContentItems}
+{AddComma(registrationContentItems)}
+{restrictionContentItems}
             ]
         }}
 ";
@@ -69,7 +70,6 @@ namespace GetJobProfiles
             //todo:
             // {jobProfileContentItems},
             // {socCodeContentItems},
-            // {restrictionContentItems},
             // {otherRequirementContentItems},
             // {dayToDayTaskContentItems}
 
@@ -79,6 +79,11 @@ namespace GetJobProfiles
             File.WriteAllText(@"D:\contentitems.json", contentItems);
 
             File.WriteAllText(@"D:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+        }
+
+        private static string AddComma(string contentItems)
+        {
+            return string.IsNullOrEmpty(contentItems) ? contentItems : $"{contentItems},";
         }
 
         private static string SerializeContentItems(IEnumerable<ContentItem> items)

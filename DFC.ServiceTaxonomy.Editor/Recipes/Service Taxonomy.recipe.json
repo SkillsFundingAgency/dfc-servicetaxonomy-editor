@@ -1738,22 +1738,309 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/registration/6df2088c-b3f5-4756-a5cb-84d9d9b0bdcb"
+                        "Text": "http://nationalcareers.service.gov.uk/registration/d97d502e-1185-4908-8a33-6862abc5abf6"
                     },
-                    "ContentItemId": "4s9daq2c77pyhxfn7cadr3a7mj",
-                    "ContentItemVersionId": "463qkhpkaqc8xsxk0j00ndq3x6",
+                    "ContentItemId": "4b7w996rkss1jzxbeny3qbqccj",
+                    "ContentItemVersionId": "4t40qm0ft22b4stb61wdnyqyw9",
                     "ContentType": "Registration",
                     "DisplayText": "you\u0027ll need to register with the [General Medical Council]",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:16:59.6348887Z",
-                    "PublishedUtc": "2020-01-30T14:16:59.6348887Z",
-                    "CreatedUtc": "2020-01-30T14:16:59.6348887Z",
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass [security checks]"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/government/publications/national-security-vetting-advice-for-people-who-are-being-vetted\u0022\u003Esecurity checks\u003C/a\u003E\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/8be4ac67-3be3-4187-8b54-a8eb704533f9"
+                    },
+                    "ContentItemId": "46cgtzwfaqwbn6cydk0yvwvh5x",
+                    "ContentItemVersionId": "45mhykhx4yxb9s20e7p5cr5e5h",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass [security checks]",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass [background checks]"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Ebackground checks\u003C/a\u003E\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/5e0c521e-1b73-44c0-b0e5-80ca82547a33"
+                    },
+                    "ContentItemId": "4n5dvzjecvxay1fdtx4v9w2dw6",
+                    "ContentItemVersionId": "4qg1rgvcknf0s125hvnx9ft0w6",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass [background checks]",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "have a good level of fitness"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ehave a good level of fitness\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/3801af44-6180-424a-8696-148a31cf3f82"
+                    },
+                    "ContentItemId": "40rxnsh4cfzj648pw7djymrbwc",
+                    "ContentItemVersionId": "4qhdxdp65njg8spqzpf1d4qzn1",
+                    "ContentType": "Restriction",
+                    "DisplayText": "have a good level of fitness",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "have a [Certificate of Competence], if you carry out hazardous tasks like using chainsaws or handling pesticides"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ehave a \u003Ca href=\u0022https://www.nptc.org.uk/qualificationdefault.aspx\u0022\u003ECertificate of Competence\u003C/a\u003E, if you carry out hazardous tasks like using chainsaws or handling pesticides\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/2f34c8c2-34d6-4a6c-8a05-64809f3c35eb"
+                    },
+                    "ContentItemId": "47f8qaah1hbw6263qmhws484m1",
+                    "ContentItemVersionId": "4ty8bsnn9xgrz1jvsjgbzqr85t",
+                    "ContentType": "Restriction",
+                    "DisplayText": "have a [Certificate of Competence], if you carry out hazardous tasks like using chainsaws or handling pesticides",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass a medical check"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass a medical check\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/361fc1a0-8944-4b65-932a-17956d298971"
+                    },
+                    "ContentItemId": "42mxzb5xb5xhm7q44yc81xc6xx",
+                    "ContentItemVersionId": "4a7x5a14wta41ydrxbnrndeemx",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass a medical check",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "be over 18 years of age"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ebe over 18 years of age\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/67737353-8722-4e7e-9637-037d5c1bb3cd"
+                    },
+                    "ContentItemId": "43fnxphyy2x6t7b7zr0wvwm1dc",
+                    "ContentItemVersionId": "4c0w3kcym4nsj52e6s26g75bdj",
+                    "ContentType": "Restriction",
+                    "DisplayText": "be over 18 years of age",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "be over 21 years of age"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ebe over 21 years of age\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/eed04c24-2f00-4715-a669-8bdd0098a69d"
+                    },
+                    "ContentItemId": "4yrfejwtjwg1z7ycmyvedgav4p",
+                    "ContentItemVersionId": "4chm9xtsk63fp2yta68hfdde54",
+                    "ContentType": "Restriction",
+                    "DisplayText": "be over 21 years of age",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass [enhanced background checks]"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Eenhanced background checks\u003C/a\u003E\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/a305bddf-b282-418d-8a66-f2e757d8d432"
+                    },
+                    "ContentItemId": "4vr0pxrvbtfvt7rcd4p3ywstxn",
+                    "ContentItemVersionId": "4zp71dt1p9amn51st8658cdxdd",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass [enhanced background checks]",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "hold a Commercial Pilot Licence (CPL) issued by the [Civil Aviation Authority] (CAA)"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ehold a Commercial Pilot Licence (CPL) issued by the \u003Ca href=\u0022https://www.caa.co.uk/Commercial-Industry/Professional-pilot-licences/\u0022\u003ECivil Aviation Authority\u003C/a\u003E (CAA)\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/248a9158-b5ac-4e15-b181-ed6a01a33b71"
+                    },
+                    "ContentItemId": "4fzq4nsd96bpq1j4kjhe08tang",
+                    "ContentItemVersionId": "4evy80m5cne704et1054wy87cm",
+                    "ContentType": "Restriction",
+                    "DisplayText": "hold a Commercial Pilot Licence (CPL) issued by the [Civil Aviation Authority] (CAA)",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "be a UK citizen"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ebe a UK citizen\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/7d6c4d94-9f28-4f20-b270-09ed894be8fb"
+                    },
+                    "ContentItemId": "47najrv38gstntcc7cy8ky1zx5",
+                    "ContentItemVersionId": "4ehv01jkfnt7rz3021eaxfzznk",
+                    "ContentType": "Restriction",
+                    "DisplayText": "be a UK citizen",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass the [Civil Aviation Authority medical] before you can take a course - the medical includes tests on your fitness, hearing and vision"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass the \u003Ca href=\u0022https://www.caa.co.uk/General-aviation/Pilot-licences/EASA-requirements/Medical/EASA-Part-MED-requirements/\u0022\u003ECivil Aviation Authority medical\u003C/a\u003E before you can take a course - the medical includes tests on your fitness, hearing and vision\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/b4810e22-8618-45c4-8e89-9674fbdd2127"
+                    },
+                    "ContentItemId": "4b5pjrwdqbqxn0rszz5xm7eenc",
+                    "ContentItemVersionId": "46sza1pw3n89q55x4pamjzdkn3",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass the [Civil Aviation Authority medical] before you can take a course - the medical includes tests on your fitness, hearing and vision",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "have a full driving licence"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ehave a full driving licence\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/80a06697-cd82-479f-a28e-13f7a37191cb"
+                    },
+                    "ContentItemId": "4cd3f1ynwss2ttp7hqtbxtcemc",
+                    "ContentItemVersionId": "4hd4qyraz62fwzb95whhkwhsxm",
+                    "ContentType": "Restriction",
+                    "DisplayText": "have a full driving licence",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
                     "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
                     "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
                 }
             ]
         }
-
     ]
 }
