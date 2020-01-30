@@ -118,6 +118,13 @@ namespace GetJobProfiles.Models.Recipe
         }
     }
 
+    public class DayToDayTaskContentItem : TitleHtmlDescriptionContentItem
+    {
+        public DayToDayTaskContentItem(string title, string timestamp, string description) : base("DayToDayTask", title, timestamp, description)
+        {
+        }
+    }
+
     public class OtherRequirementContentItem : TitleHtmlDescriptionContentItem
     {
         public OtherRequirementContentItem(string title, string timestamp, string description) : base("OtherRequirement", title, timestamp, description)
