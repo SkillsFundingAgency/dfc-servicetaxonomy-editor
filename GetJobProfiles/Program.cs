@@ -61,6 +61,8 @@ namespace GetJobProfiles
             Console.WriteLine(contentItems);
 
             File.WriteAllText(@"D:\contentitems.json", contentItems);
+
+            File.WriteAllText(@"D:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
     }
 }

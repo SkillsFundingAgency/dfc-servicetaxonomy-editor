@@ -25,6 +25,11 @@ namespace GetJobProfiles
         private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
+        public List<string> DayToDayTaskExclusions = new List<string>()
+        {
+            "https://dev.api.nationalcareersservice.org.uk/job-profiles/alexander-technique-teacher"
+        };        
+
         public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
         {
             _client = client;
@@ -155,12 +160,7 @@ namespace GetJobProfiles
                 SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
             };
 
-            var blacklist = new[]
-            {
-                "https://dev.api.nationalcareersservice.org.uk/job-profiles/alexander-technique-teacher"
-            };
-
-            if (!blacklist.Contains(jobProfile.Url))
+            if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
             {
                 var searchTerms = new[]
                 {
@@ -170,6 +170,9 @@ namespace GetJobProfiles
                     "like:",
                     "checking:"
                 };
+
+                if (jobProfile.WhatYouWillDo.WYDDayToDayTasks.All(x => !searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase))))
+                    DayToDayTaskExclusions.Add(jobProfile.Url);
 
                 var activities = jobProfile.WhatYouWillDo.WYDDayToDayTasks
                     .Where(x => searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase)))
