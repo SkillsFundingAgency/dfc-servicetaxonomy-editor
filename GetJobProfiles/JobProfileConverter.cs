@@ -92,7 +92,6 @@ namespace GetJobProfiles
         private async Task<JobProfile> Get(RestHttpClient.RestHttpClient client, JobProfileSummary summary)
         {
             ColorConsole.WriteLine($">>> Fetching {summary.Title} job profile", ConsoleColor.DarkYellow);
-            Console.WriteLine(await client.Get(new Uri(summary.Url, UriKind.Absolute)));
             var jobProfile = await client.Get<JobProfile>(new Uri(summary.Url, UriKind.Absolute));
             ColorConsole.WriteLine($"<<< Fetched {summary.Title} job profile", ConsoleColor.Yellow);
 
@@ -113,8 +112,6 @@ namespace GetJobProfiles
 
             foreach (string restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
             {
-                Console.WriteLine(restriction);
-
                 // for now add full as title. once we have the full list can plug in current titles
                 if (!Restrictions.TryAdd(restriction, (_idGenerator.GenerateUniqueId(), restriction)))
                 {
@@ -124,8 +121,6 @@ namespace GetJobProfiles
 
             foreach (string otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
             {
-                Console.WriteLine(otherRequirement);
-
                 // for now add full as title. once we have the full list can plug in current titles
                 if (!OtherRequirements.TryAdd(otherRequirement, (_idGenerator.GenerateUniqueId(), otherRequirement)))
                 {
@@ -176,8 +171,7 @@ namespace GetJobProfiles
                 {
                     if (!DayToDayTasks.TryAdd(activity, (_idGenerator.GenerateUniqueId(), activity)))
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"DayToDayTask '{activity}' already saved");
+                        ColorConsole.WriteLine($"DayToDayTask '{activity}' already saved", ConsoleColor.Red);
                     }
                 }
 

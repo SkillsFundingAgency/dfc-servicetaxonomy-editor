@@ -27,7 +27,7 @@ namespace GetJobProfiles
             //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 0;
-            const int napTimeMs = 10000;
+            const int napTimeMs = 5500;
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
@@ -69,8 +69,6 @@ namespace GetJobProfiles
             ]
         }}
 ";
-
-            Console.WriteLine(contentItems);
 
             File.WriteAllText(@"D:\contentitems.json", contentItems);
 
