@@ -28,7 +28,7 @@ namespace GetJobProfiles
         public List<string> DayToDayTaskExclusions = new List<string>()
         {
             "https://dev.api.nationalcareersservice.org.uk/job-profiles/alexander-technique-teacher"
-        };        
+        };
 
         public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
         {
@@ -132,19 +132,22 @@ namespace GetJobProfiles
 
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
-                Description = new HtmlField(jobProfile.Overview),
-                JobProfileWebsiteUrl = new TextField(jobProfile.Url),
-                HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
-                HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
-                HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
-                //todo:
-                //HtbTitleOptions = jobProfile.
-                //todo: dic of contentid to found content: convert to class and have content as props
-                HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
-                WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
-                WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
-                WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
-                SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
+                EponymousPart = new JobProfilePart
+                {
+                    Description = new HtmlField(jobProfile.Overview),
+                    JobProfileWebsiteUrl = new TextField(jobProfile.Url),
+                    HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
+                    HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
+                    HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
+                    //todo:
+                    //HtbTitleOptions = jobProfile.
+                    //todo: dic of contentid to found content: convert to class and have content as props
+                    HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
+                    WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
+                    WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
+                    WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
+                    SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
+                }
             };
 
             if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
@@ -175,7 +178,7 @@ namespace GetJobProfiles
                     }
                 }
 
-                contentItem.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
+                contentItem.EponymousPart.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
             }
 
             return contentItem;

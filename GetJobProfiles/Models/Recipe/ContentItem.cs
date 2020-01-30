@@ -46,9 +46,19 @@ namespace GetJobProfiles.Models.Recipe
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart("JobProfile");
+
+            DisplayText = TitlePart.Title;
         }
 
         public TitlePart TitlePart { get; set; }
+        public JobProfilePart EponymousPart { get; set; }
+        public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
+        public GraphSyncPart GraphSyncPart { get; set; }
+        public BagPart BagPart { get; set; }
+    }
+
+    public class JobProfilePart
+    {
         public HtmlField Description { get; set; }
         public TextField JobProfileWebsiteUrl { get; set; }
         public HtmlField HtbBodies { get; set; }
@@ -61,9 +71,6 @@ namespace GetJobProfiles.Models.Recipe
         public ContentPicker WitRestrictions { get; set; }
         public ContentPicker WitOtherRequirements { get; set; }
         public ContentPicker SOCCode { get; set; }
-        public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
-        public GraphSyncPart GraphSyncPart { get; set; }
-        public BagPart BagPart { get; set; }
         public ContentPicker DayToDayTasks { get; set; }
     }
 
@@ -74,12 +81,24 @@ namespace GetJobProfiles.Models.Recipe
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart(contentType);
-            Description = new TextField(description);
+            EponymousPart = new TitleTextDescriptionPart
+            {
+                Description = new TextField(description)
+            };
+
+            // update DisplayText with transformed title
+            //todo: transform DisplayText and use that to initialize title?
+            DisplayText = TitlePart.Title;
         }
 
         public TitlePart TitlePart { get; set; }
-        public TextField Description { get; set; }
+        public TitleTextDescriptionPart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
+    }
+
+    public class TitleTextDescriptionPart
+    {
+        public TextField Description { get; set; }
     }
 
     public class TitleHtmlDescriptionContentItem : ContentItem
@@ -89,12 +108,22 @@ namespace GetJobProfiles.Models.Recipe
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart(contentType);
-            Description = new HtmlField(description);
+            EponymousPart = new TitleHtmlDescriptionPart
+            {
+                Description = new HtmlField(description)
+            };
+
+            DisplayText = TitlePart.Title;
         }
 
         public TitlePart TitlePart { get; set; }
-        public HtmlField Description { get; set; }
+        public TitleHtmlDescriptionPart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
+    }
+
+    public class TitleHtmlDescriptionPart
+    {
+        public HtmlField Description { get; set; }
     }
 
     public class SocCodeContentItem : TitleTextDescriptionContentItem

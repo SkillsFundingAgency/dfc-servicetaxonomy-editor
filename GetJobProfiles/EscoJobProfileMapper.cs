@@ -29,7 +29,7 @@ namespace GetJobProfiles
                 foreach (var item in distinctEscoJobProfileMap)
                 {
                     JobProfileContentItem profile = jobProfiles
-                        .SingleOrDefault(x => x.JobProfileWebsiteUrl.Text.Split("/").Last() == item.Url);
+                        .SingleOrDefault(x => x.EponymousPart.JobProfileWebsiteUrl.Text.Split("/").Last() == item.Url);
 
                     if (profile != null)
                     {
