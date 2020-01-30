@@ -126,9 +126,9 @@ namespace GetJobProfiles.Models.Recipe
         public HtmlField Description { get; set; }
     }
 
-    public class SocCodeContentItem : TitleTextDescriptionContentItem
+    public class SocCodeContentItem : TitleHtmlDescriptionContentItem
     {
-        public SocCodeContentItem(string title, string timestamp, string description) : base("SocCode", title, timestamp, description)
+        public SocCodeContentItem(string title, string timestamp, string description) : base("SOCCode", title, timestamp, description)
         {
         }
     }
