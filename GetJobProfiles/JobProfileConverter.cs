@@ -82,18 +82,21 @@ namespace GetJobProfiles
 
         private async Task<IEnumerable<JobProfileContentItem>> GetAndConvert(RestHttpClient.RestHttpClient client, IEnumerable<JobProfileSummary> jobProfileSummaries)
         {
-            var getAndConvertTasks = jobProfileSummaries.Select(s => GetAndConvert(client, s));
-            return await Task.WhenAll(getAndConvertTasks);
+            var getTasks = jobProfileSummaries.Select(s => Get(client, s));
+            var jobProfiles = await Task.WhenAll(getTasks);
+            //todo: log we've excluded a jp, not that we can log the title!
+            return jobProfiles.Where(jp => jp.Title != null)
+                .Select(ConvertJobProfile);
         }
 
-        private async Task<JobProfileContentItem> GetAndConvert(RestHttpClient.RestHttpClient client, JobProfileSummary summary)
+        private async Task<JobProfile> Get(RestHttpClient.RestHttpClient client, JobProfileSummary summary)
         {
             ColorConsole.WriteLine($">>> Fetching {summary.Title} job profile", ConsoleColor.DarkYellow);
             Console.WriteLine(await client.Get(new Uri(summary.Url, UriKind.Absolute)));
             var jobProfile = await client.Get<JobProfile>(new Uri(summary.Url, UriKind.Absolute));
             ColorConsole.WriteLine($"<<< Fetched {summary.Title} job profile", ConsoleColor.Yellow);
 
-            return ConvertJobProfile(jobProfile);
+            return jobProfile;
         }
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)

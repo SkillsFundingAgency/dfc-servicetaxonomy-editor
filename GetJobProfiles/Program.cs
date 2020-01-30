@@ -26,7 +26,7 @@ namespace GetJobProfiles
 
             //use these knobs to work around rate - limiting
             const int skip = 0;
-            const int take = 40;
+            const int take = 0;
             const int napTimeMs = 8000;
 
             var config = new ConfigurationBuilder()
@@ -50,12 +50,12 @@ namespace GetJobProfiles
             new EscoJobProfileMapper().Map(converter.JobProfiles);
 
             //todo: async
-            // string socCodeContentItems = SerializeContentItems(socCodeConverter.SocCodeContentItems);
+            string socCodeContentItems = SerializeContentItems(socCodeConverter.SocCodeContentItems);
             string jobProfileContentItems = SerializeContentItems(converter.JobProfiles);
             string registrationContentItems = SerializeContentItems(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            // string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
+            string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
 
             //todo: , if not empty
             string contentItems = $@"         {{
@@ -70,9 +70,9 @@ namespace GetJobProfiles
 ";
 
             //todo:
-            // {socCodeContentItems},
-            // {dayToDayTaskContentItems}
-
+            //{AddComma(socCodeContentItems)}
+            //{dayToDayTaskContentItems}
+            // what types are required for the personalisation apis?
 
             Console.WriteLine(contentItems);
 
