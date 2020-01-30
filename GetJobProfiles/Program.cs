@@ -54,7 +54,7 @@ namespace GetJobProfiles
             // string jobProfileContentItems = SerializeContentItems(converter.JobProfiles);
             string registrationContentItems = SerializeContentItems(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            // string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
+            string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             // string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
 
             //todo: , if not empty
@@ -62,7 +62,8 @@ namespace GetJobProfiles
             ""name"": ""Content"",
             ""data"":  [
 {AddComma(registrationContentItems)}
-{restrictionContentItems}
+{AddComma(restrictionContentItems)}
+{otherRequirementContentItems}
             ]
         }}
 ";
@@ -70,7 +71,6 @@ namespace GetJobProfiles
             //todo:
             // {jobProfileContentItems},
             // {socCodeContentItems},
-            // {otherRequirementContentItems},
             // {dayToDayTaskContentItems}
 
 

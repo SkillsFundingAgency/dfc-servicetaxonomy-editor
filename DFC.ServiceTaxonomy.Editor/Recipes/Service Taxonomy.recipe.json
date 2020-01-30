@@ -1738,41 +1738,17 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/registration/d97d502e-1185-4908-8a33-6862abc5abf6"
+                        "Text": "http://nationalcareers.service.gov.uk/registration/2bb68277-ccc2-4d73-9463-a8d8fbd6718e"
                     },
-                    "ContentItemId": "4b7w996rkss1jzxbeny3qbqccj",
-                    "ContentItemVersionId": "4t40qm0ft22b4stb61wdnyqyw9",
+                    "ContentItemId": "4j37zzeqjwh1dy7st6eqd03exb",
+                    "ContentItemVersionId": "4cqseqwpjsvcj2z9yrsgrzxrwq",
                     "ContentType": "Registration",
                     "DisplayText": "you\u0027ll need to register with the [General Medical Council]",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "pass [security checks]"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/government/publications/national-security-vetting-advice-for-people-who-are-being-vetted\u0022\u003Esecurity checks\u003C/a\u003E\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/8be4ac67-3be3-4187-8b54-a8eb704533f9"
-                    },
-                    "ContentItemId": "46cgtzwfaqwbn6cydk0yvwvh5x",
-                    "ContentItemVersionId": "45mhykhx4yxb9s20e7p5cr5e5h",
-                    "ContentType": "Restriction",
-                    "DisplayText": "pass [security checks]",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
                     "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
                     "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
                 },
@@ -1786,89 +1762,17 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/5e0c521e-1b73-44c0-b0e5-80ca82547a33"
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/deb183b7-6bda-4333-8489-6854530727b7"
                     },
-                    "ContentItemId": "4n5dvzjecvxay1fdtx4v9w2dw6",
-                    "ContentItemVersionId": "4qg1rgvcknf0s125hvnx9ft0w6",
+                    "ContentItemId": "44eh1pm862tyw5jh16mvpj3amd",
+                    "ContentItemVersionId": "4mpxzjths0arn4emnhs6avg1dq",
                     "ContentType": "Restriction",
                     "DisplayText": "pass [background checks]",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "have a good level of fitness"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Ehave a good level of fitness\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/3801af44-6180-424a-8696-148a31cf3f82"
-                    },
-                    "ContentItemId": "40rxnsh4cfzj648pw7djymrbwc",
-                    "ContentItemVersionId": "4qhdxdp65njg8spqzpf1d4qzn1",
-                    "ContentType": "Restriction",
-                    "DisplayText": "have a good level of fitness",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "have a [Certificate of Competence], if you carry out hazardous tasks like using chainsaws or handling pesticides"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Ehave a \u003Ca href=\u0022https://www.nptc.org.uk/qualificationdefault.aspx\u0022\u003ECertificate of Competence\u003C/a\u003E, if you carry out hazardous tasks like using chainsaws or handling pesticides\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/2f34c8c2-34d6-4a6c-8a05-64809f3c35eb"
-                    },
-                    "ContentItemId": "47f8qaah1hbw6263qmhws484m1",
-                    "ContentItemVersionId": "4ty8bsnn9xgrz1jvsjgbzqr85t",
-                    "ContentType": "Restriction",
-                    "DisplayText": "have a [Certificate of Competence], if you carry out hazardous tasks like using chainsaws or handling pesticides",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "pass a medical check"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Epass a medical check\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/361fc1a0-8944-4b65-932a-17956d298971"
-                    },
-                    "ContentItemId": "42mxzb5xb5xhm7q44yc81xc6xx",
-                    "ContentItemVersionId": "4a7x5a14wta41ydrxbnrndeemx",
-                    "ContentType": "Restriction",
-                    "DisplayText": "pass a medical check",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
                     "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
                     "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
                 },
@@ -1882,137 +1786,17 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/67737353-8722-4e7e-9637-037d5c1bb3cd"
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/ff8e94d3-340a-426d-80ff-76b095ceca53"
                     },
-                    "ContentItemId": "43fnxphyy2x6t7b7zr0wvwm1dc",
-                    "ContentItemVersionId": "4c0w3kcym4nsj52e6s26g75bdj",
+                    "ContentItemId": "46mh8xzytddbrsdejqd9gy7v57",
+                    "ContentItemVersionId": "4r3bga076ctvez33n40dxz1qc2",
                     "ContentType": "Restriction",
                     "DisplayText": "be over 18 years of age",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "be over 21 years of age"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Ebe over 21 years of age\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/eed04c24-2f00-4715-a669-8bdd0098a69d"
-                    },
-                    "ContentItemId": "4yrfejwtjwg1z7ycmyvedgav4p",
-                    "ContentItemVersionId": "4chm9xtsk63fp2yta68hfdde54",
-                    "ContentType": "Restriction",
-                    "DisplayText": "be over 21 years of age",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "pass [enhanced background checks]"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Eenhanced background checks\u003C/a\u003E\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/a305bddf-b282-418d-8a66-f2e757d8d432"
-                    },
-                    "ContentItemId": "4vr0pxrvbtfvt7rcd4p3ywstxn",
-                    "ContentItemVersionId": "4zp71dt1p9amn51st8658cdxdd",
-                    "ContentType": "Restriction",
-                    "DisplayText": "pass [enhanced background checks]",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "hold a Commercial Pilot Licence (CPL) issued by the [Civil Aviation Authority] (CAA)"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Ehold a Commercial Pilot Licence (CPL) issued by the \u003Ca href=\u0022https://www.caa.co.uk/Commercial-Industry/Professional-pilot-licences/\u0022\u003ECivil Aviation Authority\u003C/a\u003E (CAA)\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/248a9158-b5ac-4e15-b181-ed6a01a33b71"
-                    },
-                    "ContentItemId": "4fzq4nsd96bpq1j4kjhe08tang",
-                    "ContentItemVersionId": "4evy80m5cne704et1054wy87cm",
-                    "ContentType": "Restriction",
-                    "DisplayText": "hold a Commercial Pilot Licence (CPL) issued by the [Civil Aviation Authority] (CAA)",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "be a UK citizen"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Ebe a UK citizen\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/7d6c4d94-9f28-4f20-b270-09ed894be8fb"
-                    },
-                    "ContentItemId": "47najrv38gstntcc7cy8ky1zx5",
-                    "ContentItemVersionId": "4ehv01jkfnt7rz3021eaxfzznk",
-                    "ContentType": "Restriction",
-                    "DisplayText": "be a UK citizen",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
-                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
-                },
-                {
-                    "TitlePart": {
-                        "Title": "pass the [Civil Aviation Authority medical] before you can take a course - the medical includes tests on your fitness, hearing and vision"
-                    },
-                    "Restriction": {
-                        "Description": {
-                            "Html": "\u003Cp\u003Epass the \u003Ca href=\u0022https://www.caa.co.uk/General-aviation/Pilot-licences/EASA-requirements/Medical/EASA-Part-MED-requirements/\u0022\u003ECivil Aviation Authority medical\u003C/a\u003E before you can take a course - the medical includes tests on your fitness, hearing and vision\u003C/p\u003E"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/b4810e22-8618-45c4-8e89-9674fbdd2127"
-                    },
-                    "ContentItemId": "4b5pjrwdqbqxn0rszz5xm7eenc",
-                    "ContentItemVersionId": "46sza1pw3n89q55x4pamjzdkn3",
-                    "ContentType": "Restriction",
-                    "DisplayText": "pass the [Civil Aviation Authority medical] before you can take a course - the medical includes tests on your fitness, hearing and vision",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
                     "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
                     "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
                 },
@@ -2026,17 +1810,449 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/restriction/80a06697-cd82-479f-a28e-13f7a37191cb"
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/be80a289-cf0c-4c85-a116-4f3374a3c674"
                     },
-                    "ContentItemId": "4cd3f1ynwss2ttp7hqtbxtcemc",
-                    "ContentItemVersionId": "4hd4qyraz62fwzb95whhkwhsxm",
+                    "ContentItemId": "4y1s8p7dm8kmnzkyk4va1fp64x",
+                    "ContentItemVersionId": "442xjay7y9a1n3331ysr6t6tnt",
                     "ContentType": "Restriction",
                     "DisplayText": "have a full driving licence",
                     "Latest": true,
                     "Published": true,
-                    "ModifiedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "PublishedUtc": "2020-01-30T14:33:08.0088167Z",
-                    "CreatedUtc": "2020-01-30T14:33:08.0088167Z",
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "have a good level of fitness"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ehave a good level of fitness\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/f96b0f09-ee78-4da9-a261-4c6084db8da4"
+                    },
+                    "ContentItemId": "41e7mkyj4261x1e9c4hn7wgx5x",
+                    "ContentItemVersionId": "4rd35h2919sd3vpv0sxjhddcxr",
+                    "ContentType": "Restriction",
+                    "DisplayText": "have a good level of fitness",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "be a UK citizen"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ebe a UK citizen\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/41b296bb-8f69-4fd0-a281-7989a827aafe"
+                    },
+                    "ContentItemId": "40kq26z5h8nr332kwy39vz72xc",
+                    "ContentItemVersionId": "4z8md4hez9bf0sh7gyxcqhkt5h",
+                    "ContentType": "Restriction",
+                    "DisplayText": "be a UK citizen",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "have a [Certificate of Competence], if you carry out hazardous tasks like using chainsaws or handling pesticides"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ehave a \u003Ca href=\u0022https://www.nptc.org.uk/qualificationdefault.aspx\u0022\u003ECertificate of Competence\u003C/a\u003E, if you carry out hazardous tasks like using chainsaws or handling pesticides\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/4e5573d8-0c88-46c5-b770-ffdfdc487705"
+                    },
+                    "ContentItemId": "4332b7zykph39x39g6p7cdqdnq",
+                    "ContentItemVersionId": "4c72g418ekykqs7jcwnh78yd43",
+                    "ContentType": "Restriction",
+                    "DisplayText": "have a [Certificate of Competence], if you carry out hazardous tasks like using chainsaws or handling pesticides",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass [enhanced background checks]"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Eenhanced background checks\u003C/a\u003E\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/be16acb7-c4ce-44f2-9033-18c3b121f130"
+                    },
+                    "ContentItemId": "4ktwyzs043582vcczdxmmwdfmy",
+                    "ContentItemVersionId": "4440q4r9h68c25mkzdrpwk0449",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass [enhanced background checks]",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass [security checks]"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/government/publications/national-security-vetting-advice-for-people-who-are-being-vetted\u0022\u003Esecurity checks\u003C/a\u003E\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/a32e73d9-311b-408a-aa6a-8da054143046"
+                    },
+                    "ContentItemId": "4nsa5rtv01kd852zbd2zgd7bwf",
+                    "ContentItemVersionId": "4x1qxdw740adww101agvctbhnk",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass [security checks]",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass the [Civil Aviation Authority medical] before you can take a course - the medical includes tests on your fitness, hearing and vision"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass the \u003Ca href=\u0022https://www.caa.co.uk/General-aviation/Pilot-licences/EASA-requirements/Medical/EASA-Part-MED-requirements/\u0022\u003ECivil Aviation Authority medical\u003C/a\u003E before you can take a course - the medical includes tests on your fitness, hearing and vision\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/459125a9-dc22-46c8-b3e6-51cc9f759a60"
+                    },
+                    "ContentItemId": "4efjyy17h36204evwt53fkm04j",
+                    "ContentItemVersionId": "4s7c3n4nenp6n5qh5e5az2t9mw",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass the [Civil Aviation Authority medical] before you can take a course - the medical includes tests on your fitness, hearing and vision",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "be over 21 years of age"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ebe over 21 years of age\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/0a7f7a5b-06e9-45d7-9791-2ee9540baee0"
+                    },
+                    "ContentItemId": "49ev915tx8mnmtf63ek06pnnxt",
+                    "ContentItemVersionId": "4d87c980d5vh432ts59wa2shc2",
+                    "ContentType": "Restriction",
+                    "DisplayText": "be over 21 years of age",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "hold a Commercial Pilot Licence (CPL) issued by the [Civil Aviation Authority] (CAA)"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Ehold a Commercial Pilot Licence (CPL) issued by the \u003Ca href=\u0022https://www.caa.co.uk/Commercial-Industry/Professional-pilot-licences/\u0022\u003ECivil Aviation Authority\u003C/a\u003E (CAA)\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/6fc53c28-2455-42f6-8aea-f7e54711d7d0"
+                    },
+                    "ContentItemId": "4qqgwxxnmze3fv6xq0d8jpwyxp",
+                    "ContentItemVersionId": "487z52pm5dnsb5zk16z6smhsdp",
+                    "ContentType": "Restriction",
+                    "DisplayText": "hold a Commercial Pilot Licence (CPL) issued by the [Civil Aviation Authority] (CAA)",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "pass a medical check"
+                    },
+                    "Restriction": {
+                        "Description": {
+                            "Html": "\u003Cp\u003Epass a medical check\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/restriction/3d703a9f-81c9-49f2-b3e1-59898f3d1664"
+                    },
+                    "ContentItemId": "44gppxywkqed343kzs9qhv2k57",
+                    "ContentItemVersionId": "491zgb7y9mdv3z1p15mavsc4xe",
+                    "ContentType": "Restriction",
+                    "DisplayText": "pass a medical check",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "You may need your own transport to get to and from the airport, as public transport may not cover all of your shift times. Some jobs ask for a full UK driving licence."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EYou may need your own transport to get to and from the airport, as public transport may not cover all of your shift times. Some jobs ask for a full UK driving licence.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/9db70823-126f-4aa7-931c-75e3f83a836a"
+                    },
+                    "ContentItemId": "49nmkzyrnarb4vchskbs0mdzdy",
+                    "ContentItemVersionId": "44j1bkj3y02kz1vta97tnr2b4r",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "You may need your own transport to get to and from the airport, as public transport may not cover all of your shift times. Some jobs ask for a full UK driving licence.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "You should be eligible to work in the UK."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EYou should be eligible to work in the UK.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/97eaad5e-0356-4db0-ad3f-d2813007733f"
+                    },
+                    "ContentItemId": "4z4xg07ecdfjq09t1gtah43e5t",
+                    "ContentItemVersionId": "49njztjrz193qtnwmrb7xgjpca",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "You should be eligible to work in the UK.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "You must be prepared to work anywhere in the UK."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EYou must be prepared to work anywhere in the UK.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/a42b456d-7797-48f7-975c-2e63e61b3ca5"
+                    },
+                    "ContentItemId": "4ws1e86wwxh3e41phxr56rnwcm",
+                    "ContentItemVersionId": "4h9wzn3thabkb0y7ph18tgxbc2",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "You must be prepared to work anywhere in the UK.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "Driving other vehicles like lorries, tractors, harvesters and fork lift trucks can also be part of your work. You can find out more about driving specialist vehicles from [GOV.UK]."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EDriving other vehicles like lorries, tractors, harvesters and fork lift trucks can also be part of your work. You can find out more about driving specialist vehicles from \u003Ca href=\u0022https://www.gov.uk/learning-to-drive-a-tractor-or-specialist-vehicle\u0022\u003EGOV.UK\u003C/a\u003E.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/22ba9783-6f60-4eef-9852-ba698fc715c5"
+                    },
+                    "ContentItemId": "4z07dke2bkj1dtsjnk0r5t3cnq",
+                    "ContentItemVersionId": "4z91qt4x4enxr4pd8rb0nzsqxv",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "Driving other vehicles like lorries, tractors, harvesters and fork lift trucks can also be part of your work. You can find out more about driving specialist vehicles from [GOV.UK].",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "You\u0027ll need the [BASIS Certificate in Crop Protection] if you\u0027re advising on or selling pesticides in the UK. This is a legal requirement."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EYou\u0027ll need the \u003Ca href=\u0022http://www.basis-reg.co.uk/Exams-and-Courses/Course-Listing/CourseAreaID/1c1b92d1-eb07-413c-ab2e-b0e0d2325d64\u0022\u003EBASIS Certificate in Crop Protection\u003C/a\u003E if you\u0027re advising on or selling pesticides in the UK. This is a legal requirement.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/93862fbc-9857-4fda-834a-962723b0ac96"
+                    },
+                    "ContentItemId": "4e367e4spymf75fxzc6cnq3ewz",
+                    "ContentItemVersionId": "4cmvev7s3rr7m69t332b7vpr4t",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "You\u0027ll need the [BASIS Certificate in Crop Protection] if you\u0027re advising on or selling pesticides in the UK. This is a legal requirement.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "You\u0027ll usually need to be over 18 to meet shiftwork regulations."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EYou\u0027ll usually need to be over 18 to meet shiftwork regulations.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/8319aed4-26a6-42b4-a17d-2103b5959036"
+                    },
+                    "ContentItemId": "4wpeefhntw7tp32p6xkht6sxd4",
+                    "ContentItemVersionId": "47fjf1c0rr33y09kr224vgyhcb",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "You\u0027ll usually need to be over 18 to meet shiftwork regulations.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "Some employers may prefer you to live near the airport or have your own transport. This is because shifts may be at times when public transport is limited."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003ESome employers may prefer you to live near the airport or have your own transport. This is because shifts may be at times when public transport is limited.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/fde1dcaa-2223-45ca-8bad-a55b7ea595e2"
+                    },
+                    "ContentItemId": "419wchwdk3378wa0zgrnedqpd8",
+                    "ContentItemVersionId": "4w72smrs08cbqr0s267j4ef4mb",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "Some employers may prefer you to live near the airport or have your own transport. This is because shifts may be at times when public transport is limited.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "You\u0027ll normally need your own transport to get to and from the airport, as public transport may not cover all of your shift times."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EYou\u0027ll normally need your own transport to get to and from the airport, as public transport may not cover all of your shift times.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/fedbf4ce-e82d-43ae-bbfd-8ddb9fcadcff"
+                    },
+                    "ContentItemId": "47tj7f0ww0dczytk8c9et9bpwx",
+                    "ContentItemVersionId": "4141mk9n6ph1fr4q46hfc4q2nx",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "You\u0027ll normally need your own transport to get to and from the airport, as public transport may not cover all of your shift times.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
+                    "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
+                },
+                {
+                    "TitlePart": {
+                        "Title": "You may find it useful if you can speak a second language for some jobs."
+                    },
+                    "OtherRequirement": {
+                        "Description": {
+                            "Html": "\u003Cp\u003EYou may find it useful if you can speak a second language for some jobs.\u003C/p\u003E"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "http://nationalcareers.service.gov.uk/otherrequirement/988072a3-a879-4dd9-b047-4b1cba270360"
+                    },
+                    "ContentItemId": "4pms01qc205y14a6d3gvsvx3xg",
+                    "ContentItemVersionId": "41pzf979c3ztkt70g4xxq730c5",
+                    "ContentType": "OtherRequirement",
+                    "DisplayText": "You may find it useful if you can speak a second language for some jobs.",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "PublishedUtc": "2020-01-30T14:42:08.7551054Z",
+                    "CreatedUtc": "2020-01-30T14:42:08.7551054Z",
                     "Owner": "[js: parameters(\u0027AdminUsername\u0027)]",
                     "Author": "[js: parameters(\u0027AdminUsername\u0027)]"
                 }
