@@ -34,7 +34,7 @@ namespace GetJobProfiles
 
             var httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://dev.api.nationalcareersservice.org.uk/job-profiles/"),
+                BaseAddress = new Uri("https://pp.api.nationalcareers.service.gov.uk/job-profiles/"),
                 DefaultRequestHeaders =
                 {
                     {"version", "v1"},
