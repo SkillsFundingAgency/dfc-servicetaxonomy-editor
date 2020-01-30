@@ -51,11 +51,11 @@ namespace GetJobProfiles
             //todo: async
             string socCodeContentItems = JsonSerializer.Serialize(socCodeConverter.SocCodeContentItems);
             string jobProfileContentItems = JsonSerializer.Serialize(converter.JobProfiles);
-            string registrationContentItems = JsonSerializer.Serialize(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key)));
-            string restrictionContentItems = JsonSerializer.Serialize(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key)));
-            string otherRequirementContentItems = JsonSerializer.Serialize(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key)));
+            string registrationContentItems = JsonSerializer.Serialize(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
+            string restrictionContentItems = JsonSerializer.Serialize(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
+            string otherRequirementContentItems = JsonSerializer.Serialize(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
 
-            string contentItems = $"{socCodeContentItems}{jobProfileContentItems}{registrationContentItems}{restrictionContentItems}{otherRequirementContentItems}";
+            string contentItems = $"{jobProfileContentItems},\r\n{socCodeContentItems},\r\n{registrationContentItems},\r\n{restrictionContentItems},\r\n{otherRequirementContentItems}";
 
             Console.WriteLine(contentItems);
 

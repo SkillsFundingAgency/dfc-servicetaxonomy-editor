@@ -11,9 +11,9 @@ namespace GetJobProfiles.Models.Recipe
     {
         private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
 
-        public ContentItem(string contentType, string title, string timestamp)
+        public ContentItem(string contentType, string title, string timestamp, string contentItemId = null)
         {
-            ContentItemId = _generator.GenerateUniqueId(); //"[js:uuid()]";
+            ContentItemId = contentItemId ?? _generator.GenerateUniqueId(); //"[js:uuid()]";
             ContentItemVersionId = _generator.GenerateUniqueId(); //"[js:uuid()]";
             ContentType = contentType;
             DisplayText = title;
@@ -68,8 +68,8 @@ namespace GetJobProfiles.Models.Recipe
 
     public class TitleTextDescriptionContentItem : ContentItem
     {
-        public TitleTextDescriptionContentItem(string contentType, string title, string timestamp, string description)
-            : base(contentType, title, timestamp)
+        public TitleTextDescriptionContentItem(string contentType, string title, string timestamp, string description, string contentItemId = null)
+            : base(contentType, title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart(contentType);
@@ -83,8 +83,8 @@ namespace GetJobProfiles.Models.Recipe
 
     public class TitleHtmlDescriptionContentItem : ContentItem
     {
-        public TitleHtmlDescriptionContentItem(string contentType, string title, string timestamp, string description)
-            : base(contentType, title, timestamp)
+        public TitleHtmlDescriptionContentItem(string contentType, string title, string timestamp, string description, string contentItemId = null)
+            : base(contentType, title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart(contentType);
@@ -105,21 +105,21 @@ namespace GetJobProfiles.Models.Recipe
 
     public class RegistrationContentItem : TitleHtmlDescriptionContentItem
     {
-        public RegistrationContentItem(string title, string timestamp, string description) : base("Registration", title, timestamp, description)
+        public RegistrationContentItem(string title, string timestamp, string description, string contentItemId) : base("Registration", title, timestamp, description, contentItemId)
         {
         }
     }
 
     public class RestrictionContentItem : TitleHtmlDescriptionContentItem
     {
-        public RestrictionContentItem(string title, string timestamp, string description) : base("Restriction", title, timestamp, description)
+        public RestrictionContentItem(string title, string timestamp, string description, string contentItemId) : base("Restriction", title, timestamp, description, contentItemId)
         {
         }
     }
 
     public class OtherRequirementContentItem : TitleHtmlDescriptionContentItem
     {
-        public OtherRequirementContentItem(string title, string timestamp, string description) : base("OtherRequirement", title, timestamp, description)
+        public OtherRequirementContentItem(string title, string timestamp, string description, string contentItemId) : base("OtherRequirement", title, timestamp, description, contentItemId)
         {
         }
     }
