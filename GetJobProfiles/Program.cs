@@ -54,7 +54,7 @@ namespace GetJobProfiles
             string registrationContentItems = JsonSerializer.Serialize(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string restrictionContentItems = JsonSerializer.Serialize(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string otherRequirementContentItems = JsonSerializer.Serialize(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string dayToDayTaskContentItems = JsonSerializer.Serialize(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key)));
+            string dayToDayTaskContentItems = JsonSerializer.Serialize(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
 
             string contentItems = $"{jobProfileContentItems},\r\n{socCodeContentItems},\r\n{registrationContentItems},\r\n{restrictionContentItems},\r\n{otherRequirementContentItems},\r\n{dayToDayTaskContentItems}";
 

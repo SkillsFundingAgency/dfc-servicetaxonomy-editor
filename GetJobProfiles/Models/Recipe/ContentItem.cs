@@ -120,7 +120,7 @@ namespace GetJobProfiles.Models.Recipe
 
     public class DayToDayTaskContentItem : TitleHtmlDescriptionContentItem
     {
-        public DayToDayTaskContentItem(string title, string timestamp, string description) : base("DayToDayTask", title, timestamp, description)
+        public DayToDayTaskContentItem(string title, string timestamp, string description, string contentItemId) : base("DayToDayTask", title, timestamp, description, contentItemId)
         {
         }
     }
