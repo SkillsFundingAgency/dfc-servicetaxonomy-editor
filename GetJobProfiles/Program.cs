@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using GetJobProfiles.Models.Recipe;
 using Microsoft.Extensions.Configuration;
+
+//todo: update existing & create new contenttypes for restrictions, other requirements etc.
 
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
 // and no test job profiles slip through the net
-
-/* we're gonna have to zip/include graph lookup to occupation (which won't come from the job profile api
- *
- */
 
 namespace GetJobProfiles
 {
@@ -18,12 +18,15 @@ namespace GetJobProfiles
     {
         static async Task Main(string[] args)
         {
-            var socCodeDictionary = new SocCodeConverter().Go();
+            string timestamp = $"{DateTime.UtcNow:O}Z";
+
+            var socCodeConverter = new SocCodeConverter();
+            var socCodeDictionary = socCodeConverter.Go(timestamp);
 
             //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 0;
-            const int napTimeMs = 5000;
+            const int napTimeMs = 8000;
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
@@ -40,16 +43,23 @@ namespace GetJobProfiles
             };
             var client = new RestHttpClient.RestHttpClient(httpClient);
 
-            var converter = new JobProfileConverter(client, socCodeDictionary);
+            var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
 
             new EscoJobProfileMapper().Map(converter.JobProfiles);
 
             //todo: async
-            string serializedContentItems = JsonSerializer.Serialize(converter.JobProfiles);
-            Console.WriteLine(serializedContentItems);
+            string socCodeContentItems = JsonSerializer.Serialize(socCodeConverter.SocCodeContentItems);
+            string jobProfileContentItems = JsonSerializer.Serialize(converter.JobProfiles);
+            string registrationContentItems = JsonSerializer.Serialize(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key)));
+            string restrictionContentItems = JsonSerializer.Serialize(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key)));
+            string otherRequirementContentItems = JsonSerializer.Serialize(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key)));
 
-            File.WriteAllText(@"D:\job_profiles.json", serializedContentItems);
+            string contentItems = $"{socCodeContentItems}{jobProfileContentItems}{registrationContentItems}{restrictionContentItems}{otherRequirementContentItems}";
+
+            Console.WriteLine(contentItems);
+
+            File.WriteAllText(@"D:\contentitems.json", contentItems);
         }
     }
 }

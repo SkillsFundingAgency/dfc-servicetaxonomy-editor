@@ -15,6 +15,8 @@ namespace GetJobProfiles
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
         public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string,(string id,string text)> OtherRequirements = new ConcurrentDictionary<string, (string id, string text)>();
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
         public string Timestamp { get; set; }
@@ -23,12 +25,12 @@ namespace GetJobProfiles
         private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
-        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary)
+        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
         {
             _client = client;
             _socCodeDictionary = socCodeDictionary;
             _idGenerator = new DefaultIdGenerator();
-            Timestamp = $"{DateTime.UtcNow:O}Z";
+            Timestamp = timestamp;
         }
 
         public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000)
@@ -68,7 +70,7 @@ namespace GetJobProfiles
                 if (napTimeMs == 0)
                     continue;
 
-                Console.WriteLine("Taking a nap");
+                ColorConsole.WriteLine("Taking a nap");
                 Thread.Sleep(napTimeMs);
             }
         }
@@ -81,11 +83,10 @@ namespace GetJobProfiles
 
         private async Task<JobProfileContentItem> GetAndConvert(RestHttpClient.RestHttpClient client, JobProfileSummary summary)
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($">>> Fetching {summary.Title} job profile");
+            ColorConsole.WriteLine($">>> Fetching {summary.Title} job profile", ConsoleColor.DarkYellow);
+            Console.WriteLine(await client.Get(new Uri(summary.Url, UriKind.Absolute)));
             var jobProfile = await client.Get<JobProfile>(new Uri(summary.Url, UriKind.Absolute));
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"<<< Fetched {summary.Title} job profile");
+            ColorConsole.WriteLine($"<<< Fetched {summary.Title} job profile", ConsoleColor.Yellow);
 
             return ConvertJobProfile(jobProfile);
         }
@@ -93,52 +94,65 @@ namespace GetJobProfiles
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
             //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
-            foreach (var registration in jobProfile.HowToBecome.MoreInformation.Registrations)
+            foreach (var registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
             {
                 // for now add full as title. once we have the full list can plug in current titles
                 if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"Registration '{registration}' already saved");
+                    ColorConsole.WriteLine($"Registration '{registration}' already saved", ConsoleColor.Magenta);
                 }
             }
 
-            //todo:
-            // foreach (var restriction in jobProfile.HowToBecome.MoreInformation.Restrictions)
-            // {
-            //     // for now add full as title. once we have the full list can plug in current titles
-            //     Restrictions.Add(restriction, (_idGenerator.GenerateUniqueId(), restriction));
-            // }
+            foreach (var restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
+            {
+                Console.WriteLine(restriction);
 
-            var contentItem = new JobProfileContentItem
+                // for now add full as title. once we have the full list can plug in current titles
+                if (!Restrictions.TryAdd(restriction, (_idGenerator.GenerateUniqueId(), restriction)))
+                {
+                    ColorConsole.WriteLine($"Restriction '{restriction}' already saved", ConsoleColor.Magenta);
+                }
+            }
+
+            foreach (var otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
+            {
+                Console.WriteLine(otherRequirement);
+
+                // for now add full as title. once we have the full list can plug in current titles
+                if (!OtherRequirements.TryAdd(otherRequirement, (_idGenerator.GenerateUniqueId(), otherRequirement)))
+                {
+                    ColorConsole.WriteLine($"OtherRequirement '{otherRequirement}' already saved", ConsoleColor.Magenta);
+                }
+            }
+
+            var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 //DisplayText vs Title
-                ContentItemId = "[js:uuid()]",
-                ContentItemVersionId = "[js:uuid()]",
-                ContentType = "JobProfile",
-                DisplayText = jobProfile.Title,
-                Latest = true,
-                Published = true,
-                ModifiedUtc = Timestamp,
-                PublishedUtc = Timestamp,
-                CreatedUtc = Timestamp,
-                Owner = "[js: parameters('AdminUsername')]",
-                Author = "[js: parameters('AdminUsername')]",
-                TitlePart = new TitlePart
-                {
-                    Title = jobProfile.Title
-                },
-                JobProfileWebsiteUrl = new JobProfileWebsiteUrl {Text = jobProfile.Url},
+                // ContentItemId = "[js:uuid()]",
+                // ContentItemVersionId = "[js:uuid()]",
+                // ContentType = "JobProfile",
+                // DisplayText = jobProfile.Title,
+                // Latest = true,
+                // Published = true,
+                // ModifiedUtc = Timestamp,
+                // PublishedUtc = Timestamp,
+                // CreatedUtc = Timestamp,
+                // Owner = "[js: parameters('AdminUsername')]",
+                // Author = "[js: parameters('AdminUsername')]",
+                // TitlePart = new TitlePart(jobProfile.Title),
+                Description = new HtmlField(jobProfile.Overview),
+                JobProfileWebsiteUrl = new TextField(jobProfile.Url),
                 HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                 HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
-                //todo:
-                //HtbOtherRequirements = new HtmlField(jobProfile.HowToBecome.MoreInformation.
                 HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
                 //todo:
                 //HtbTitleOptions = jobProfile.
                 //todo: dic of contentid to found content: convert to class and have content as props
                 HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
-                SOCCode = new ContentPicker() { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
+                WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
+                WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
+                WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
+                SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
             };
 
             var blacklist = new[]
