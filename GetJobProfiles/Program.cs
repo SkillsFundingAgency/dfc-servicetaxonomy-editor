@@ -51,7 +51,7 @@ namespace GetJobProfiles
 
             //todo: async
             // string socCodeContentItems = SerializeContentItems(socCodeConverter.SocCodeContentItems);
-            // string jobProfileContentItems = SerializeContentItems(converter.JobProfiles);
+            string jobProfileContentItems = SerializeContentItems(converter.JobProfiles);
             string registrationContentItems = SerializeContentItems(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
@@ -61,6 +61,7 @@ namespace GetJobProfiles
             string contentItems = $@"         {{
             ""name"": ""Content"",
             ""data"":  [
+{AddComma(jobProfileContentItems)}
 {AddComma(registrationContentItems)}
 {AddComma(restrictionContentItems)}
 {otherRequirementContentItems}
@@ -69,7 +70,6 @@ namespace GetJobProfiles
 ";
 
             //todo:
-            // {jobProfileContentItems},
             // {socCodeContentItems},
             // {dayToDayTaskContentItems}
 
