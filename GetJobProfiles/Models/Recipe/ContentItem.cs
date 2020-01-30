@@ -64,6 +64,7 @@ namespace GetJobProfiles.Models.Recipe
         public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
         public GraphSyncPart GraphSyncPart { get; set; }
         public BagPart BagPart { get; set; }
+        public ContentPicker DayToDayTasks { get; set; }
     }
 
     public class TitleTextDescriptionContentItem : ContentItem
@@ -113,6 +114,13 @@ namespace GetJobProfiles.Models.Recipe
     public class RestrictionContentItem : TitleHtmlDescriptionContentItem
     {
         public RestrictionContentItem(string title, string timestamp, string description, string contentItemId) : base("Restriction", title, timestamp, description, contentItemId)
+        {
+        }
+    }
+
+    public class DayToDayTaskContentItem : TitleHtmlDescriptionContentItem
+    {
+        public DayToDayTaskContentItem(string title, string timestamp, string description) : base("DayToDayTask", title, timestamp, description)
         {
         }
     }

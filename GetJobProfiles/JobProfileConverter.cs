@@ -17,12 +17,18 @@ namespace GetJobProfiles
         public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
         public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
         public readonly ConcurrentDictionary<string,(string id,string text)> OtherRequirements = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
         public string Timestamp { get; set; }
 
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly DefaultIdGenerator _idGenerator;
+
+        public List<string> DayToDayTaskExclusions = new List<string>()
+        {
+            "https://dev.api.nationalcareersservice.org.uk/job-profiles/alexander-technique-teacher"
+        };        
 
         public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
         {
@@ -140,6 +146,37 @@ namespace GetJobProfiles
                 WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
                 SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
             };
+
+            if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
+            {
+                var searchTerms = new[]
+                {
+                    "include:",
+                    "be:",
+                    "then:",
+                    "like:",
+                    "checking:"
+                };
+
+                if (jobProfile.WhatYouWillDo.WYDDayToDayTasks.All(x => !searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase))))
+                    DayToDayTaskExclusions.Add(jobProfile.Url);
+
+                var activities = jobProfile.WhatYouWillDo.WYDDayToDayTasks
+                    .Where(x => searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase)))
+                    .SelectMany(a => a.Substring(a.IndexOf(":") + 1).Split(";")).Select(x => x.Trim())
+                    .ToList();
+
+                foreach (var activity in activities)
+                {
+                    if (!DayToDayTasks.TryAdd(activity, (_idGenerator.GenerateUniqueId(), activity)))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"DayToDayTask '{activity}' already saved");
+                    }
+                }
+
+                contentItem.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
+            }
 
             return contentItem;
         }
