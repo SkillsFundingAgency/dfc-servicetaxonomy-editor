@@ -36,6 +36,7 @@ namespace GetJobProfiles.Models.Recipe
         public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
         public GraphSyncPart GraphSyncPart { get; set; }    // todo: multiple?
         public BagPart BagPart { get; set; }
+        public ContentPicker DayToDayTasks { get; set; }
     }
 
     public class SocCodeContentItem : ContentItem

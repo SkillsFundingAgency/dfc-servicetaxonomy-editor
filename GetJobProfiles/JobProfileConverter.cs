@@ -15,6 +15,7 @@ namespace GetJobProfiles
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
         public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
         public string Timestamp { get; set; }
 
@@ -139,6 +140,39 @@ namespace GetJobProfiles
                 HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
                 SOCCode = new ContentPicker() { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
             };
+
+            var blacklist = new[]
+            {
+                "https://dev.api.nationalcareersservice.org.uk/job-profiles/alexander-technique-teacher"
+            };
+
+            if (!blacklist.Contains(jobProfile.Url))
+            {
+                var searchTerms = new[]
+                {
+                    "include:",
+                    "be:",
+                    "then:",
+                    "like:",
+                    "checking:"
+                };
+
+                var activities = jobProfile.WhatYouWillDo.WYDDayToDayTasks
+                    .Where(x => searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase)))
+                    .SelectMany(a => a.Substring(a.IndexOf(":") + 1).Split(";")).Select(x => x.Trim())
+                    .ToList();
+
+                foreach (var activity in activities)
+                {
+                    if (!DayToDayTasks.TryAdd(activity, (_idGenerator.GenerateUniqueId(), activity)))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"DayToDayTask '{activity}' already saved");
+                    }
+                }
+
+                contentItem.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
+            }
 
             return contentItem;
         }
