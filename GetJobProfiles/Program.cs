@@ -47,11 +47,13 @@ namespace GetJobProfiles
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
 
-            new EscoJobProfileMapper().Map(converter.JobProfiles);
+            var jobProfiles = converter.JobProfiles.ToArray();
+
+            new EscoJobProfileMapper().Map(jobProfiles);
 
             //todo: async
             string socCodeContentItems = SerializeContentItems(socCodeConverter.SocCodeContentItems);
-            string jobProfileContentItems = SerializeContentItems(converter.JobProfiles);
+            string jobProfileContentItems = SerializeContentItems(jobProfiles);
             string registrationContentItems = SerializeContentItems(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
@@ -70,9 +72,9 @@ namespace GetJobProfiles
         }}
 ";
 
-            File.WriteAllText(@"D:\contentitems.json", contentItems);
+            File.WriteAllText(@"e:\contentitems.json", contentItems);
 
-            File.WriteAllText(@"D:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
         private static string AddComma(string contentItems)
