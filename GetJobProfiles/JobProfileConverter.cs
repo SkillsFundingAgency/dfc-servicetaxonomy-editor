@@ -93,7 +93,7 @@ namespace GetJobProfiles
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
             //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
-            foreach (var registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
+            foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
             {
                 // for now add full as title. once we have the full list can plug in current titles
                 if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
@@ -102,7 +102,7 @@ namespace GetJobProfiles
                 }
             }
 
-            foreach (var restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
+            foreach (string restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
             {
                 Console.WriteLine(restriction);
 
@@ -113,7 +113,7 @@ namespace GetJobProfiles
                 }
             }
 
-            foreach (var otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
+            foreach (string otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
             {
                 Console.WriteLine(otherRequirement);
 
@@ -126,19 +126,6 @@ namespace GetJobProfiles
 
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
-                //DisplayText vs Title
-                // ContentItemId = "[js:uuid()]",
-                // ContentItemVersionId = "[js:uuid()]",
-                // ContentType = "JobProfile",
-                // DisplayText = jobProfile.Title,
-                // Latest = true,
-                // Published = true,
-                // ModifiedUtc = Timestamp,
-                // PublishedUtc = Timestamp,
-                // CreatedUtc = Timestamp,
-                // Owner = "[js: parameters('AdminUsername')]",
-                // Author = "[js: parameters('AdminUsername')]",
-                // TitlePart = new TitlePart(jobProfile.Title),
                 Description = new HtmlField(jobProfile.Overview),
                 JobProfileWebsiteUrl = new TextField(jobProfile.Url),
                 HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
