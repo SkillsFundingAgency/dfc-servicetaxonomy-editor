@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.Recipe;
 using Microsoft.Extensions.Configuration;
+using MoreLinq;
 
 //todo: update existing & create new contenttypes for restrictions, other requirements etc.
 
@@ -28,6 +29,8 @@ namespace GetJobProfiles
             const int skip = 0;
             const int take = 0;
             const int napTimeMs = 5500;
+            // max number of contentitems in an import recipe
+            const int batchSize = 1000;
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
@@ -51,22 +54,27 @@ namespace GetJobProfiles
 
             new EscoJobProfileMapper().Map(jobProfiles);
 
-            //todo: async
-            string socCodeContentItems = SerializeContentItems(socCodeConverter.SocCodeContentItems);
-            string jobProfileContentItems = SerializeContentItems(jobProfiles);
-            string registrationContentItems = SerializeContentItems(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
-
-            ImportRecipe.Create(@"e:\JobProfiles.zip", WrapInContent(jobProfileContentItems));
-            ImportRecipe.Create(@"e:\SocCodes.zip", WrapInContent(socCodeContentItems));
-            ImportRecipe.Create(@"e:\DayToDayTasks.zip", WrapInContent(dayToDayTaskContentItems));
-            ImportRecipe.Create(@"e:\Registrations.zip", WrapInContent(registrationContentItems));
-            ImportRecipe.Create(@"e:\Restrictions.zip", WrapInContent(restrictionContentItems));
-            ImportRecipe.Create(@"e:\OtherRequirements.zip", WrapInContent(otherRequirementContentItems));
+            BatchSerializeToFiles(jobProfiles, batchSize, "JobProfiles");
+            BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
+            BatchSerializeToFiles(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Registrations");
+            BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
+            BatchSerializeToFiles(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "OtherRequirements");
+            BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
 
             File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+        }
+
+        private static void BatchSerializeToFiles(IEnumerable<ContentItem> contentItems, int batchSize, string filenamePrefix)
+        {
+            const string baseFolder = @"e:\";
+            var batches = contentItems.Batch(batchSize);
+            int batchNumber = 0;
+            foreach (var batchContentItems in batches)
+            {
+                //todo: async?
+                var serializedContentItemBatch = SerializeContentItems(batchContentItems);
+                ImportRecipe.Create($"{baseFolder}{filenamePrefix}{batchNumber++}.zip", WrapInContent(serializedContentItemBatch));
+            }
         }
 
         private static string WrapInContent(string content)
