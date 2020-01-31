@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.Recipe;
@@ -61,47 +59,25 @@ namespace GetJobProfiles
             string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
             string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
 
-            string contentItems = $@"         {{
-            ""name"": ""Content"",
-            ""data"":  [
-{AddComma(jobProfileContentItems)}
-{AddComma(socCodeContentItems)}
-{AddComma(dayToDayTaskContentItems)}
-{AddComma(registrationContentItems)}
-{AddComma(restrictionContentItems)}
-{otherRequirementContentItems}
-            ]
-        }}
-";
-
-            var zip = GetZipArchive(new InMemoryFile
-            {
-                FileName = "recipe.json",
-                Content = contentItems
-            });
-
-            File.WriteAllBytes(@"e:\content.zip", zip);
+            ImportRecipe.Create(@"e:\JobProfiles.zip", WrapInContent(jobProfileContentItems));
+            ImportRecipe.Create(@"e:\SocCodes.zip", WrapInContent(socCodeContentItems));
+            ImportRecipe.Create(@"e:\DayToDayTasks.zip", WrapInContent(dayToDayTaskContentItems));
+            ImportRecipe.Create(@"e:\Registrations.zip", WrapInContent(registrationContentItems));
+            ImportRecipe.Create(@"e:\Restrictions.zip", WrapInContent(restrictionContentItems));
+            ImportRecipe.Create(@"e:\OtherRequirements.zip", WrapInContent(otherRequirementContentItems));
 
             File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
-        private static byte[] GetZipArchive(InMemoryFile file)
+        private static string WrapInContent(string content)
         {
-            byte[] archiveFile;
-            using (var archiveStream = new MemoryStream())
-            {
-                using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
-                {
-                    var zipArchiveEntry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
-                    using var zipStream = zipArchiveEntry.Open();
-                    var contentBytes = Encoding.ASCII.GetBytes(file.Content);
-                    zipStream.Write(contentBytes, 0, contentBytes.Length) ;
-                }
-
-                archiveFile = archiveStream.ToArray();
-            }
-
-            return archiveFile;
+            return $@"         {{
+            ""name"": ""Content"",
+            ""data"":  [
+{content}
+            ]
+        }}
+";
         }
 
         private static string AddComma(string contentItems)
@@ -131,11 +107,5 @@ namespace GetJobProfiles
         {
             return (str.Length > 6 && str[0] == '[') ? str.Substring(3, str.Length - 6) : str;
         }
-    }
-
-    public class InMemoryFile
-    {
-        public string FileName { get; set; }
-        public string Content { get; set; }
     }
 }
