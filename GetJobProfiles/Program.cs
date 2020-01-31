@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.Recipe;
@@ -72,9 +74,34 @@ namespace GetJobProfiles
         }}
 ";
 
-            File.WriteAllText(@"e:\contentitems.json", contentItems);
+            var zip = GetZipArchive(new InMemoryFile
+            {
+                FileName = "recipe.json",
+                Content = contentItems
+            });
+
+            File.WriteAllBytes(@"e:\content.zip", zip);
 
             File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+        }
+
+        private static byte[] GetZipArchive(InMemoryFile file)
+        {
+            byte[] archiveFile;
+            using (var archiveStream = new MemoryStream())
+            {
+                using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
+                {
+                    var zipArchiveEntry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
+                    using var zipStream = zipArchiveEntry.Open();
+                    var contentBytes = Encoding.ASCII.GetBytes(file.Content);
+                    zipStream.Write(contentBytes, 0, contentBytes.Length) ;
+                }
+
+                archiveFile = archiveStream.ToArray();
+            }
+
+            return archiveFile;
         }
 
         private static string AddComma(string contentItems)
@@ -104,5 +131,11 @@ namespace GetJobProfiles
         {
             return (str.Length > 6 && str[0] == '[') ? str.Substring(3, str.Length - 6) : str;
         }
+    }
+
+    public class InMemoryFile
+    {
+        public string FileName { get; set; }
+        public string Content { get; set; }
     }
 }
