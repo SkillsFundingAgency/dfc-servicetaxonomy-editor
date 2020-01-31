@@ -64,7 +64,8 @@ namespace GetJobProfiles
             File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
-        private static void BatchSerializeToFiles(IEnumerable<ContentItem> contentItems, int batchSize, string filenamePrefix)
+        private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix)
+        where T : ContentItem
         {
             const string baseFolder = @"e:\";
             var batches = contentItems.Batch(batchSize);
