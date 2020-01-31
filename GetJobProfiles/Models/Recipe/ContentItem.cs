@@ -22,8 +22,12 @@ namespace GetJobProfiles.Models.Recipe
             ModifiedUtc = timestamp;
             PublishedUtc = timestamp;
             CreatedUtc = timestamp;
-            Owner = "[js: parameters('AdminUsername')]";
-            Author = "[js: parameters('AdminUsername')]";
+            // these parameters not available during non-setup recipe by the looks of it
+            // Owner = "[js: parameters('AdminUsername')]";
+            // Author = "[js: parameters('AdminUsername')]";
+            // these need to match what's been used in the envs
+            Owner = "admin";
+            Author = "admin";
         }
 
         public string ContentItemId { get; set; }
