@@ -73,8 +73,31 @@ namespace GetJobProfiles
             {
                 //todo: async?
                 var serializedContentItemBatch = SerializeContentItems(batchContentItems);
-                ImportRecipe.Create($"{baseFolder}{filenamePrefix}{batchNumber++}.zip", WrapInContent(serializedContentItemBatch));
+                ImportRecipe.Create($"{baseFolder}{filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
             }
+        }
+
+        public static string WrapInNonSetupRecipe(string content)
+        {
+            return $@"{{
+  ""name"": """",
+  ""displayName"": """",
+  ""description"": """",
+  ""author"": """",
+  ""website"": """",
+  ""version"": """",
+  ""issetuprecipe"": false,
+  ""categories"": """",
+  ""tags"": [],
+  ""steps"": [
+    {{
+      ""name"": ""Content"",
+      ""data"": [
+{content}
+      ]
+    }}
+  ]
+}}";
         }
 
         private static string WrapInContent(string content)
