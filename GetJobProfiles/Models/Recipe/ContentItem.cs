@@ -58,6 +58,7 @@ namespace GetJobProfiles.Models.Recipe
         public JobProfilePart EponymousPart { get; set; }
         public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
         public GraphSyncPart GraphSyncPart { get; set; }
+        //todo: need to insert routes here
         public BagPart BagPart { get; set; }
     }
 
@@ -65,17 +66,27 @@ namespace GetJobProfiles.Models.Recipe
     {
         public HtmlField Description { get; set; }
         public TextField JobProfileWebsiteUrl { get; set; }
+        public ContentPicker SOCCode { get; set; }
+
+        #region How To Become
         public HtmlField HtbBodies { get; set; }
+        //todo: this field
         public TextField HtbTitleOptions { get; set; }
-        public HtmlField HtbOtherRequirements { get; set; }
+        // public HtmlField HtbOtherRequirements { get; set; }
         public HtmlField HtbCareerTips { get; set; }
         public HtmlField HtbFurtherInformation { get; set; }
         public ContentPicker HtbRegistrations { get; set; }
+        #endregion How To Become
+
+        #region What It Takes
         public HtmlField WitDigitalSkillsLevel { get; set; }
         public ContentPicker WitRestrictions { get; set; }
         public ContentPicker WitOtherRequirements { get; set; }
-        public ContentPicker SOCCode { get; set; }
+        #endregion What It Takes
+
+        #region What You'll Do
         public ContentPicker DayToDayTasks { get; set; }
+        #endregion What You'll Do
     }
 
     public class TitleTextDescriptionContentItem : ContentItem
