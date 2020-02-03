@@ -9,6 +9,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <NoWarn>NU1603;NU1605</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="wwwroot\" />
     <Folder Include="Localization\" />
@@ -19,8 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc1-11734" />
-    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-11734" />
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc1-11805" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-11805" />
+    <PackageReference Include="TheTheme" Version="1.0.0-rc1-11750" />
+    <PackageReference Include="TheBlogTheme" Version="1.0.0-rc1-11750" />
+    <PackageReference Include="TheComingSoonTheme" Version="1.0.0-rc1-11750" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0.14119">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
