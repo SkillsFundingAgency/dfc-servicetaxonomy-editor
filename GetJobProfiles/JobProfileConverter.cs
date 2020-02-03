@@ -28,7 +28,16 @@ namespace GetJobProfiles
         public List<string> DayToDayTaskExclusions = new List<string>()
         {
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/alexander-technique-teacher",
-            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/diver"
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/diver",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/coroner",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/demolition-operative",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/football-coach",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/head-of-it-(it-director)",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/image-consultant",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/personal-assistant",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/plumber",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/raf-airman-or-airwoman",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/commercial-energy-assessor"
         };
 
         public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
@@ -164,7 +173,22 @@ namespace GetJobProfiles
                     "be:",
                     "then:",
                     "like:",
-                    "checking:"
+                    "checking:",
+                    "time:",
+                    "involve:",
+                    "you’ll:",
+                    "you'll",
+                    ":using",
+                    "usually:",
+                    "in:",
+                    "to:",
+                    "by:",
+                    "with:",
+                    "are:",
+                    "might:",
+                    "could:",
+                    "types:",
+                    "a:"
                 };
 
                 if (jobProfile.WhatYouWillDo.WYDDayToDayTasks.All(x => !searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase))))
