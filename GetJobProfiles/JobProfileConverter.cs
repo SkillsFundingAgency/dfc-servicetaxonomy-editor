@@ -27,7 +27,8 @@ namespace GetJobProfiles
 
         public List<string> DayToDayTaskExclusions = new List<string>()
         {
-            "https://dev.api.nationalcareersservice.org.uk/job-profiles/alexander-technique-teacher"
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/alexander-technique-teacher",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/diver"
         };
 
         public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
@@ -144,7 +145,14 @@ namespace GetJobProfiles
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
                     WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
                     WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
-                    SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
+                    SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
+                    SalaryStarter = new TextField(jobProfile.SalaryStarter),
+                    SalaryExperienced = new TextField(jobProfile.SalaryExperienced),
+                    MinimumHours = new NumericField(jobProfile.MinimumHours),
+                    MaximumHours = new NumericField(jobProfile.MaximumHours),
+                    WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
+                    WorkingPattern = new TextField(jobProfile.WorkingPattern),
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
                 }
             };
 

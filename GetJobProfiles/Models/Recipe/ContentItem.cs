@@ -72,6 +72,13 @@ namespace GetJobProfiles.Models.Recipe
         public ContentPicker WitOtherRequirements { get; set; }
         public ContentPicker SOCCode { get; set; }
         public ContentPicker DayToDayTasks { get; set; }
+        public TextField SalaryStarter { get; set; }
+        public TextField SalaryExperienced { get; set; }
+        public NumericField MinimumHours { get; set; }
+        public NumericField MaximumHours { get; set; }
+        public TextField WorkingHoursDetails { get; set; }
+        public TextField WorkingPattern { get; set; }
+        public TextField WorkingPatternDetails { get; set; }
     }
 
     public class TitleTextDescriptionContentItem : ContentItem
@@ -204,6 +211,13 @@ namespace GetJobProfiles.Models.Recipe
         public TextField(string text) => Text = text;
 
         public string Text { get; set; }
+    }
+
+    public class NumericField
+    {
+        public NumericField(decimal val) => Value = val;
+
+        public decimal Value { get; set; }
     }
 
     public class ContentPicker
