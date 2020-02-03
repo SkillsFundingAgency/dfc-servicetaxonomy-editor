@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.Recipe;
 using Microsoft.Extensions.Configuration;
+using MoreLinq;
 
 //todo: update existing & create new contenttypes for restrictions, other requirements etc.
 
@@ -28,6 +29,8 @@ namespace GetJobProfiles
             const int skip = 0;
             const int take = 0;
             const int napTimeMs = 5500;
+            // max number of contentitems in an import recipe
+            const int batchSize = 1000;
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
@@ -51,30 +54,62 @@ namespace GetJobProfiles
 
             new EscoJobProfileMapper().Map(jobProfiles);
 
-            //todo: async
-            string socCodeContentItems = SerializeContentItems(socCodeConverter.SocCodeContentItems);
-            string jobProfileContentItems = SerializeContentItems(jobProfiles);
-            string registrationContentItems = SerializeContentItems(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string restrictionContentItems = SerializeContentItems(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string otherRequirementContentItems = SerializeContentItems(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)));
-            string dayToDayTaskContentItems = SerializeContentItems(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)));
+            BatchSerializeToFiles(jobProfiles, batchSize, "JobProfiles");
+            BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
+            BatchSerializeToFiles(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Registrations");
+            BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
+            BatchSerializeToFiles(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "OtherRequirements");
+            BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
 
-            string contentItems = $@"         {{
+            File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+        }
+
+        private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix)
+        where T : ContentItem
+        {
+            const string baseFolder = @"e:\";
+            var batches = contentItems.Batch(batchSize);
+            int batchNumber = 0;
+            foreach (var batchContentItems in batches)
+            {
+                //todo: async?
+                var serializedContentItemBatch = SerializeContentItems(batchContentItems);
+                ImportRecipe.Create($"{baseFolder}{filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
+            }
+        }
+
+        public static string WrapInNonSetupRecipe(string content)
+        {
+            return $@"{{
+  ""name"": """",
+  ""displayName"": """",
+  ""description"": """",
+  ""author"": """",
+  ""website"": """",
+  ""version"": """",
+  ""issetuprecipe"": false,
+  ""categories"": """",
+  ""tags"": [],
+  ""steps"": [
+    {{
+      ""name"": ""Content"",
+      ""data"": [
+{content}
+      ]
+    }}
+  ]
+}}";
+        }
+
+        private static string WrapInContent(string content)
+        {
+            return $@"         {{
             ""name"": ""Content"",
             ""data"":  [
-{AddComma(jobProfileContentItems)}
-{AddComma(socCodeContentItems)}
-{AddComma(dayToDayTaskContentItems)}
-{AddComma(registrationContentItems)}
-{AddComma(restrictionContentItems)}
-{otherRequirementContentItems}
+{content}
             ]
         }}
 ";
-
-            File.WriteAllText(@"e:\contentitems.json", contentItems);
-
-            File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
         private static string AddComma(string contentItems)
