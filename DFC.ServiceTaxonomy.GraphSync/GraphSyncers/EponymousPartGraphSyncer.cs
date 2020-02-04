@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (field == null)
                     continue;
 
-                var fieldTypeAndValue = (JProperty?) ((JProperty) field).First?.First;
+                var fieldTypeAndValue = (JProperty?) ((JProperty) field).FirstOrDefault()?.FirstOrDefault();
                 if (fieldTypeAndValue == null)
                     continue;
 
