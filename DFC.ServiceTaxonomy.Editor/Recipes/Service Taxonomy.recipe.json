@@ -929,12 +929,30 @@
                             }
                         },
                         {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SOCCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SOC Code",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCCode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "TextField",
                             "Name": "JobProfileSOCID",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "1"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -944,7 +962,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "2"
+                                    "Position": "3"
                                 }
                             }
                         },
@@ -955,7 +973,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Professional And Industry Bodies",
                                     "Editor": "Trumbowyg",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -971,7 +989,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Title Options",
                                     "Editor": "PredefinedList",
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
@@ -1005,22 +1023,6 @@
                         },
                         {
                             "FieldName": "HtmlField",
-                            "Name": "HtbOtherRequirements",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Other Requirements",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "5"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
                             "Name": "HtbCareerTips",
                             "Settings": {
                                 "ContentPartFieldSettings": {
@@ -1036,13 +1038,31 @@
                             }
                         },
                         {
+                            "FieldName": "ContentPickerField",
+                            "Name": "HtbRegistrations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Registrations",
+                                    "Position": "7"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__requiresRegistration].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Registration"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "HtmlField",
                             "Name": "HtbFurtherInformation",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "7"
+                                    "Position": "8"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -1053,11 +1073,11 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "HtbRestrictions",
+                            "Name": "WitRestrictions",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Restrictions",
-                                    "Position": "8"
+                                    "DisplayName": "What It Takes Restrictions",
+                                    "Position": "9"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasHtbRestriction].",
@@ -1071,35 +1091,17 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "HtbRegistrations",
+                            "Name": "WitOtherRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Registrations",
-                                    "Position": "9"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__requiresRegistration].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "Registration"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "SOCCode",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "SOC Code",
+                                    "DisplayName": "What It Takes Other Requirements",
                                     "Position": "10"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
-                                    "Required": true,
+                                    "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
+                                    "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "SOCCode"
+                                        "OtherRequirement"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -1126,8 +1128,8 @@
                             "Name": "DayToDayTasks",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Day to Day Tasks",
-                                    "Position": "10"
+                                    "DisplayName": "What You'll Do Day to Day Tasks",
+                                    "Position": "12"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Multiple": true,
