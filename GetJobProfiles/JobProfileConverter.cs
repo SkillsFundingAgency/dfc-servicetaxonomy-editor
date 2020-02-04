@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,8 +14,10 @@ namespace GetJobProfiles
     public class JobProfileConverter
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
-        //todo: ConcurrentDictionary??
-        public Dictionary<string,(string id,string text)> Registrations = new Dictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string,(string id,string text)> OtherRequirements = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
         public string Timestamp { get; set; }
 
@@ -22,12 +25,27 @@ namespace GetJobProfiles
         private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
-        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary)
+        public List<string> DayToDayTaskExclusions = new List<string>()
+        {
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/alexander-technique-teacher",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/diver",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/coroner",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/demolition-operative",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/football-coach",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/head-of-it-(it-director)",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/image-consultant",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/personal-assistant",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/plumber",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/raf-airman-or-airwoman",
+            "https://pp.api.nationalcareers.service.gov.uk/job-profiles/commercial-energy-assessor"
+        };
+
+        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
         {
             _client = client;
             _socCodeDictionary = socCodeDictionary;
             _idGenerator = new DefaultIdGenerator();
-            Timestamp = $"{DateTime.UtcNow:O}Z";
+            Timestamp = timestamp;
         }
 
         public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000)
@@ -67,74 +85,130 @@ namespace GetJobProfiles
                 if (napTimeMs == 0)
                     continue;
 
-                Console.WriteLine("Taking a nap");
+                ColorConsole.WriteLine("Taking a nap");
                 Thread.Sleep(napTimeMs);
             }
         }
 
         private async Task<IEnumerable<JobProfileContentItem>> GetAndConvert(RestHttpClient.RestHttpClient client, IEnumerable<JobProfileSummary> jobProfileSummaries)
         {
-            var getAndConvertTasks = jobProfileSummaries.Select(s => GetAndConvert(client, s));
-            return await Task.WhenAll(getAndConvertTasks);
+            var getTasks = jobProfileSummaries.Select(s => Get(client, s));
+            var jobProfiles = await Task.WhenAll(getTasks);
+            //todo: log we've excluded a jp, not that we can log the title!
+            return jobProfiles.Where(jp => jp.Title != null)
+                .Select(ConvertJobProfile);
         }
 
-        private async Task<JobProfileContentItem> GetAndConvert(RestHttpClient.RestHttpClient client, JobProfileSummary summary)
+        private async Task<JobProfile> Get(RestHttpClient.RestHttpClient client, JobProfileSummary summary)
         {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($">>> Fetching {summary.Title} job profile");
+            ColorConsole.WriteLine($">>> Fetching {summary.Title} job profile", ConsoleColor.DarkYellow);
             var jobProfile = await client.Get<JobProfile>(new Uri(summary.Url, UriKind.Absolute));
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"<<< Fetched {summary.Title} job profile");
+            ColorConsole.WriteLine($"<<< Fetched {summary.Title} job profile", ConsoleColor.Yellow);
 
-            return ConvertJobProfile(jobProfile);
+            return jobProfile;
         }
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
             //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
-            foreach (var registration in jobProfile.HowToBecome.MoreInformation.Registrations)
+            foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
             {
                 // for now add full as title. once we have the full list can plug in current titles
-                Registrations.Add(registration, (_idGenerator.GenerateUniqueId(), registration));
+                if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
+                {
+                    ColorConsole.WriteLine($"Registration '{registration}' already saved", ConsoleColor.Magenta);
+                }
             }
 
-            //todo:
-            // foreach (var restriction in jobProfile.HowToBecome.MoreInformation.Restrictions)
-            // {
-            //     // for now add full as title. once we have the full list can plug in current titles
-            //     Restrictions.Add(restriction, (_idGenerator.GenerateUniqueId(), restriction));
-            // }
-
-            var contentItem = new JobProfileContentItem
+            foreach (string restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
             {
-                //DisplayText vs Title
-                ContentItemId = "[js:uuid()]",
-                ContentItemVersionId = "[js:uuid()]",
-                ContentType = "JobProfile",
-                DisplayText = jobProfile.Title,
-                Latest = true,
-                Published = true,
-                ModifiedUtc = Timestamp,
-                PublishedUtc = Timestamp,
-                CreatedUtc = Timestamp,
-                Owner = "[js: parameters('AdminUsername')]",
-                Author = "[js: parameters('AdminUsername')]",
-                TitlePart = new TitlePart
+                // for now add full as title. once we have the full list can plug in current titles
+                if (!Restrictions.TryAdd(restriction, (_idGenerator.GenerateUniqueId(), restriction)))
                 {
-                    Title = jobProfile.Title
-                },
-                JobProfileWebsiteUrl = new JobProfileWebsiteUrl {Text = jobProfile.Url},
-                HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
-                HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
-                //todo:
-                //HtbOtherRequirements = new HtmlField(jobProfile.HowToBecome.MoreInformation.
-                HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
-                //todo:
-                //HtbTitleOptions = jobProfile.
-                //todo: dic of contentid to found content: convert to class and have content as props
-                HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
-                SOCCode = new ContentPicker() { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } }
+                    ColorConsole.WriteLine($"Restriction '{restriction}' already saved", ConsoleColor.Magenta);
+                }
+            }
+
+            foreach (string otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
+            {
+                // for now add full as title. once we have the full list can plug in current titles
+                if (!OtherRequirements.TryAdd(otherRequirement, (_idGenerator.GenerateUniqueId(), otherRequirement)))
+                {
+                    ColorConsole.WriteLine($"OtherRequirement '{otherRequirement}' already saved", ConsoleColor.Magenta);
+                }
+            }
+
+            var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
+            {
+                EponymousPart = new JobProfilePart
+                {
+                    Description = new HtmlField(jobProfile.Overview),
+                    JobProfileWebsiteUrl = new TextField(jobProfile.Url),
+                    HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
+                    HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
+                    HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
+                    //todo:
+                    //HtbTitleOptions = jobProfile.
+                    //todo: dic of contentid to found content: convert to class and have content as props
+                    HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
+                    WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
+                    WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
+                    WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
+                    SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
+                    SalaryStarter = new TextField(jobProfile.SalaryStarter),
+                    SalaryExperienced = new TextField(jobProfile.SalaryExperienced),
+                    MinimumHours = new NumericField(jobProfile.MinimumHours),
+                    MaximumHours = new NumericField(jobProfile.MaximumHours),
+                    WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
+                    WorkingPattern = new TextField(jobProfile.WorkingPattern),
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
+                }
             };
+
+            if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
+            {
+                var searchTerms = new[]
+                {
+                    "include:",
+                    "be:",
+                    "then:",
+                    "like:",
+                    "checking:",
+                    "time:",
+                    "involve:",
+                    "you’ll:",
+                    "you'll",
+                    ":using",
+                    "usually:",
+                    "in:",
+                    "to:",
+                    "by:",
+                    "with:",
+                    "are:",
+                    "might:",
+                    "could:",
+                    "types:",
+                    "a:"
+                };
+
+                if (jobProfile.WhatYouWillDo.WYDDayToDayTasks.All(x => !searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase))))
+                    DayToDayTaskExclusions.Add(jobProfile.Url);
+
+                var activities = jobProfile.WhatYouWillDo.WYDDayToDayTasks
+                    .Where(x => searchTerms.Any(t => x.Contains(t, StringComparison.OrdinalIgnoreCase)))
+                    .SelectMany(a => a.Substring(a.IndexOf(":") + 1).Split(";")).Select(x => x.Trim())
+                    .ToList();
+
+                foreach (var activity in activities)
+                {
+                    if (!DayToDayTasks.TryAdd(activity, (_idGenerator.GenerateUniqueId(), activity)))
+                    {
+                        ColorConsole.WriteLine($"DayToDayTask '{activity}' already saved", ConsoleColor.Red);
+                    }
+                }
+
+                contentItem.EponymousPart.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
+            }
 
             return contentItem;
         }

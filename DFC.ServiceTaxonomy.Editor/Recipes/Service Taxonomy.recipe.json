@@ -552,6 +552,66 @@
                     ]
                 },
                 {
+                    "Name": "Restriction",
+                    "DisplayName": "Restriction",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Restriction",
+                            "Name": "Restriction",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "OtherRequirement",
+                    "DisplayName": "OtherRequirement",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "OtherRequirement",
+                            "Name": "OtherRequirement",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
                     "Name": "RequirementsPrefix",
                     "DisplayName": "Requirements Prefix",
                     "Settings": {
@@ -668,6 +728,49 @@
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
                             "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "DayToDayTask",
+                    "DisplayName": "Day to Day Task",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "DayToDayTask",
+                            "Name": "DayToDayTask",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
                         }
                     ]
                 }
@@ -810,12 +913,46 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SOCCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SOC Code",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCCode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "TextField",
                             "Name": "JobProfileSOCID",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "0"
+                                    "Position": "2"
                                 }
                             }
                         },
@@ -825,7 +962,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "1"
+                                    "Position": "3"
                                 }
                             }
                         },
@@ -836,7 +973,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Professional And Industry Bodies",
                                     "Editor": "Trumbowyg",
-                                    "Position": "2"
+                                    "Position": "4"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -852,7 +989,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Title Options",
                                     "Editor": "PredefinedList",
-                                    "Position": "3"
+                                    "Position": "5"
                                 },
                                 "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
@@ -886,28 +1023,12 @@
                         },
                         {
                             "FieldName": "HtmlField",
-                            "Name": "HtbOtherRequirements",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Other Requirements",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "4"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
                             "Name": "HtbCareerTips",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Career Tips",
                                     "Editor": "Trumbowyg",
-                                    "Position": "5"
+                                    "Position": "6"
                                 },
                                 "HtmlFieldSettings": {},
                                 "ContentIndexSettings": {},
@@ -917,13 +1038,31 @@
                             }
                         },
                         {
+                            "FieldName": "ContentPickerField",
+                            "Name": "HtbRegistrations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Registrations",
+                                    "Position": "7"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__requiresRegistration].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Registration"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "HtmlField",
                             "Name": "HtbFurtherInformation",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "6"
+                                    "Position": "8"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -934,11 +1073,11 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "HtbRestrictions",
+                            "Name": "WitRestrictions",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Restrictions",
-                                    "Position": "7"
+                                    "DisplayName": "What It Takes Restrictions",
+                                    "Position": "9"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasHtbRestriction].",
@@ -952,38 +1091,123 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "HtbRegistrations",
+                            "Name": "WitOtherRequirements",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Registrations",
-                                    "Position": "8"
+                                    "DisplayName": "What It Takes Other Requirements",
+                                    "Position": "10"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__requiresRegistration].",
+                                    "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "Registration"
+                                        "OtherRequirement"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
                             }
                         },
                         {
-                            "FieldName": "ContentPickerField",
-                            "Name": "SOCCode",
+                            "FieldName": "HtmlField",
+                            "Name": "WitDigitalSkillsLevel",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "SOC Code",
-                                    "Position": "9"
+                                    "DisplayName": "What It Takes Digital Skills Level",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "11"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "DayToDayTasks",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "What You'll Do Day to Day Tasks",
+                                    "Position": "12"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
-                                    "Required": true,
+                                    "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "SOCCode"
+                                        "DayToDayTask"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "SalaryStarter",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary Starter",
+                                    "Position": 11
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "SalaryExperienced",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary Experienced",
+                                    "Position": 12
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MinimumHours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Minimum Hours",
+                                    "Position": 13
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MaximumHours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Maximum Hours",
+                                    "Position": 14
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingHoursDetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Hours Details",
+                                    "Position": 15
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingPattern",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Pattern",
+                                    "Position": 16
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingPatternDetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Pattern Details",
+                                    "Position": 17
+                                }
                             }
                         }
                     ]
@@ -1323,6 +1547,48 @@
                     ]
                 },
                 {
+                    "Name": "Restriction",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "OtherRequirement",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "RequirementsPrefix",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
@@ -1460,6 +1726,28 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "DayToDayTask",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -1507,570 +1795,6 @@
                             "DestinationActivityId": "4j7rp5wf8a06artv1vs2g01txe"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "name": "Content",
-            "data": [
-                {
-                    "ContentItemId": "45hs71ab4wesg2ydsezn5142wh",
-                    "ContentItemVersionId": "46ekfrtsxsd0h5vy2my0f0x6m9",
-                    "ContentType": "Skill",
-                    "DisplayText": "Breaking and Entering",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:20:19.2134717Z",
-                    "PublishedUtc": "2019-12-06T08:21:28.7266883Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2680226Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Skill": {
-                        "ESCOSkillUri": {
-                            "Text": null
-                        },
-                        "Description": {
-                            "Html": "The ability to enter a secured dwelling where a child lives, especially by descending down a chimney."
-                        }
-                    },
-                    "TitlePart": {
-                        "Title": "Breaking and Entering"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/skill/c6e2474a-f002-492c-a91c-ef5cbd284485"
-                    }
-                },
-                {
-                    "ContentItemId": "48nr8n9kymsn977tjfp1d5qcne",
-                    "ContentItemVersionId": "4twn7954gh1zm7vtv0gjr9h7d1",
-                    "ContentType": "JobCategory",
-                    "DisplayText": "Administration",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:22:12.0627436Z",
-                    "PublishedUtc": "2019-12-06T08:22:24.9444212Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2652779Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "JobCategory": {
-                        "Description": {
-                            "Html": "Administration description"
-                        },
-                        "JobProfiles": {
-                            "ContentItemIds": []
-                        }
-                    },
-                    "TitlePart": {
-                        "Title": "Administration"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobcategory/97face03-da97-4f60-ae01-149b160f8899"
-                    }
-                },
-                {
-                    "ContentItemId": "494fpmxjze5e1va1mjq0kejt4r",
-                    "ContentItemVersionId": "4880tb1vfvp5gxw64caejwk9c1",
-                    "ContentType": "JobCategory",
-                    "DisplayText": "Delivery and storage",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:22:35.9661533Z",
-                    "PublishedUtc": "2019-12-06T08:22:48.7484008Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2552542Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "JobCategory": {
-                        "Description": {
-                            "Html": "Delivery and storage description"
-                        },
-                        "JobProfiles": {
-                            "ContentItemIds": []
-                        }
-                    },
-                    "TitlePart": {
-                        "Title": "Delivery and storage"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobcategory/9114860c-8f39-45d9-b32c-f8c213bdd0ed"
-                    }
-                },
-                {
-                    "ContentItemId": "4bbk17zk9dgamxsm7x7pq7wk4v",
-                    "ContentItemVersionId": "40q9ts31vmxxb6be021km2hg4x",
-                    "ContentType": "Activity",
-                    "DisplayText": "Remotely Monitor Childrens Naughtyness or Niceness",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:23:06.9535676Z",
-                    "PublishedUtc": "2019-12-06T08:23:12.9153063Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.1151329Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Remotely Monitor Childrens Naughtyness or Niceness"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/activity/df15e480-983e-43f2-a5d8-72391de97158"
-                    }
-                },
-                {
-                    "ContentItemId": "40ap5fsjbqn01vw4xp9tq7144b",
-                    "ContentItemVersionId": "4x5810tfzts6600j0r7q1emh5e",
-                    "ContentType": "QCFLevel",
-                    "DisplayText": "1",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:24:06.1287433Z",
-                    "PublishedUtc": "2019-12-06T08:24:12.1577405Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2473741Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "QCFLevel": {
-                        "Description": {
-                            "Html": null
-                        }
-                    },
-                    "TitlePart": {
-                        "Title": "1"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/qcflevel/3eb50004-d16a-4895-804e-77025fe9b94c"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "3D printing technician",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-01-17T12:33:31Z",
-                    "PublishedUtc": "2017-01-17T12:33:31Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "3D printing technician"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "312D"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/3d-printing-technician"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/4cf7be91-fed9-47a7-9ca9-e74c7eb6becb",
-                                "DisplayText": "3D printing technician"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/c3fc1f41-f523-4061-b3a0-41901866a54b"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Accommodation warden",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-01-17T13:33:40Z",
-                    "PublishedUtc": "2017-01-17T13:33:40Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Accommodation warden"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "6144A"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/accommodation-warden"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/53cdd34e-22f2-41bd-b3c7-de22bf9bbcae",
-                                "DisplayText": "accommodation manager"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/bd2d76e2-1843-424d-9c99-f263269d6e73"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Accounting technician",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-01-17T13:13:06Z",
-                    "PublishedUtc": "2017-01-17T13:13:06Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Accounting technician"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "3537A"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/accounting-technician"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/eda0d957-3c3c-4139-b89a-a18bc9e18897",
-                                "DisplayText": "accountant"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/8caf68a6-70a2-4d3b-9ba2-51f952b5dd11"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Acoustics consultant",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2016-07-05T16:18:41Z",
-                    "PublishedUtc": "2016-07-05T16:18:41Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Acoustics consultant"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "2129A"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/acoustics-consultant"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/b065b637-5cb5-44d9-8c39-08004b51734e",
-                                "DisplayText": "acoustical engineer"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/f901f7ef-2715-48de-8f3a-249c60467696"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Actor",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-01-17T13:01:57Z",
-                    "PublishedUtc": "2017-01-17T13:01:57Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Actor"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "3413B"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/actor"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/26171f39-e85a-448f-bd28-a73a5a99927f",
-                                "DisplayText": "actor/actress"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Actuary",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2016-07-05T15:24:23Z",
-                    "PublishedUtc": "2016-07-05T15:24:23Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Actuary"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "2425A"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/actuary"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/068c2787-58ff-468e-bbb6-c4e5dd6ee482",
-                                "DisplayText": "actuarial consultant"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/802e10b0-3811-4d63-b3f6-dbaa58315e5a"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Acupuncturist",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-02-02T11:40:14Z",
-                    "PublishedUtc": "2017-02-02T11:40:14Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Acupuncturist"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "2229C"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/acupuncturist"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/2dcb5dad-1902-4051-9023-d725485479a7",
-                                "DisplayText": "acupuncturist"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/a7f8662f-b843-4f13-b3ed-f7d62e3bd028"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Admin assistant",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-01-17T13:10:16Z",
-                    "PublishedUtc": "2017-01-17T13:10:16Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Admin assistant"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "4159B"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/admin-assistant"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/044d78cc-f62f-4532-83a5-8e04f2889652",
-                                "DisplayText": "administrative assistant"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/c8f574c0-7c24-4f01-b90a-95b8214a32fd"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Advertising account executive",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-01-17T13:12:13Z",
-                    "PublishedUtc": "2017-01-17T13:12:13Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Advertising account executive"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "3543B"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/advertising-account-executive"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/4ebf2dae-c326-4627-befe-fbc91410f432",
-                                "DisplayText": "advertising manager"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/26095465-aa3c-4f6c-97ce-5a5909141061"
-                    }
-                },
-                {
-                    "ContentItemId": "[js:uuid()]",
-                    "ContentItemVersionId": "[js:uuid()]",
-                    "ContentType": "JobProfile",
-                    "DisplayText": "Advertising account planner",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2017-01-24T17:25:32Z",
-                    "PublishedUtc": "2017-01-24T17:25:32Z",
-                    "CreatedUtc": "2019-12-06T08:25:06.3389632Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "TitlePart": {
-                        "Title": "Advertising account planner"
-                    },
-                    "JobProfile": {
-                        "JobProfileSOCID": {
-                            "Text": "3543J"
-                        },
-                        "JobProfileWebsiteUrl": {
-                            "Text": "https://nationalcareers.service.gov.uk/job-profiles/advertising-account-planner"
-                        }
-                    },
-                    "GraphLookupPart": {
-                        "Nodes": [
-                            {
-                                "Id": "http://data.europa.eu/esco/occupation/e01719f4-d7dd-42fe-b504-93128520f84a",
-                                "DisplayText": "advertising specialist"
-                            }
-                        ]
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/jobprofile/99538110-da2c-4cc0-aad9-ea64ac5f758c"
-                    }
-                },
-                {
-                    "ContentItemId": "4sqg438kq6ewz79zt9dm8k0txn",
-                    "ContentItemVersionId": "4x43yqjtpyj2swd01my7cz7jwe",
-                    "ContentType": "Activity",
-                    "DisplayText": "Supervise Elves",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:30:52.1739097Z",
-                    "PublishedUtc": "2019-12-06T08:30:58.1754417Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2438071Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Supervise Elves"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/activity/f279661a-3554-4fb0-881a-b865d56d5e6f"
-                    }
-                },
-                {
-                    "ContentItemId": "42r0z51j28n40y0rwh565v3hmq",
-                    "ContentItemVersionId": "4y8e8w24mtby4xqcwttkwzmyxn",
-                    "ContentType": "Activity",
-                    "DisplayText": "Eat Mince Pies",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:31:03.9403391Z",
-                    "PublishedUtc": "2019-12-06T08:31:12.501578Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2598114Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Eat Mince Pies"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/activity/83722ca3-7ab2-4f1a-8371-c0ea762cf8a3"
-                    }
-                },
-                {
-                    "ContentItemId": "4m5jr4nmhh944t5kn2d1rfsm4f",
-                    "ContentItemVersionId": "4ar2591f89zy32rxazmgs1c653",
-                    "ContentType": "Activity",
-                    "DisplayText": "Pilot Flying Sleigh",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:31:18.7291942Z",
-                    "PublishedUtc": "2019-12-06T08:31:25.4309987Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2625833Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "Activity": {},
-                    "TitlePart": {
-                        "Title": "Pilot Flying Sleigh"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/activity/363792aa-adea-4037-960e-016f57d6bc27"
-                    }
-                },
-                {
-                    "ContentItemId": "4pe912xftdyf95vvdjrjjacxc6",
-                    "ContentItemVersionId": "4a7y65sd1ra3e4c9wdx2bbdq4m",
-                    "ContentType": "QCFLevel",
-                    "DisplayText": "2",
-                    "Latest": true,
-                    "Published": false,
-                    "ModifiedUtc": "2019-12-06T08:31:33.9369772Z",
-                    "PublishedUtc": "2019-12-06T08:31:41.057297Z",
-                    "CreatedUtc": "2019-11-29T08:42:32.2526064Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "QCFLevel": {
-                        "Description": {
-                            "Html": null
-                        }
-                    },
-                    "TitlePart": {
-                        "Title": "2"
-                    },
-                    "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/qcflevel/8d1ae0f2-a593-4be0-9690-33cb917e41c3"
-                    }
                 }
             ]
         }

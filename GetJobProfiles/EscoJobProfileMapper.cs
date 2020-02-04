@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using CsvHelper;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe;
+using MoreLinq;
 
 namespace GetJobProfiles
 {
@@ -16,15 +18,25 @@ namespace GetJobProfiles
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 //read all the rows in the csv
-                foreach (var item in csv.GetRecords<EscoJobProfileMap>())
+                var escoJobProfileMap = csv.GetRecords<EscoJobProfileMap>().ToArray().OrderBy(jp => jp.Url);
+                var distinctEscoJobProfileMap = escoJobProfileMap.DistinctBy(jp => jp.Url).OrderBy(jp => jp.Url);
+
+                if (escoJobProfileMap.Count() != distinctEscoJobProfileMap.Count())
                 {
-                    var profile = jobProfiles.SingleOrDefault(x => x.JobProfileWebsiteUrl.Text.Contains(item.Url));
+                    ColorConsole.WriteLine($"{escoJobProfileMap.Count() - distinctEscoJobProfileMap.Count()} duplicate job profiles in map", ConsoleColor.Black, ConsoleColor.Red);
+                }
+
+                foreach (var item in distinctEscoJobProfileMap)
+                {
+                    JobProfileContentItem profile = jobProfiles
+                        .SingleOrDefault(x => x.EponymousPart.JobProfileWebsiteUrl.Text.Split("/").Last() == item.Url);
 
                     if (profile != null)
                     {
+                        //todo: allow >1 graphlookuppart in a contenttype
                         profile.GraphLookupPart = new GraphLookupPart
                         {
-                            Nodes = new Node[]
+                            Nodes = new[]
                             {
                                 new Node { DisplayText = item.EscoTitle, Id = item.EscoUri }
                             }

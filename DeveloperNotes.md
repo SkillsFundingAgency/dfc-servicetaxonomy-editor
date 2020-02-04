@@ -4,6 +4,10 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* other requirements is in job profile content type as a html field -> think it should be a content picker
+* currently using specific versions of preview OC packages as all latest breaks builds: this will fail when specific versions of packages disappear from myget. will need to switch back to all latest when all latest works again
+* some descriptions like SOCCode show <p></p>, others don't
+* remove activites now we have daytodaytasks?
 * use AddSetupFeatures to plug in one of the solutions from https://github.com/OrchardCMS/OrchardCore/pull/4567 & auto sync at startup
 * add database details to graph sync settings?
 * when creating relationships using content picker and picked content is not already in the graph, then the sync process fails silently. need to flag an error
