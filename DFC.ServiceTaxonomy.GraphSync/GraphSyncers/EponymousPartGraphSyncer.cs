@@ -80,6 +80,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             var fieldDefinitions = contentTypePartDefinition.PartDefinition.Fields;
 
+            //todo: firstordefault + ? then log and return if null
             ContentPickerFieldSettings contentPickerFieldSettings = fieldDefinitions
                 .First(f => f.Name == contentPickerFieldName).GetSettings<ContentPickerFieldSettings>();
 
