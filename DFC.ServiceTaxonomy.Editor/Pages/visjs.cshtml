@@ -4,6 +4,8 @@
     ViewData["Title"] = "VisJS";
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/css/vex.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/css/vex-theme-default.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" />
 
 <style type="text/css">
@@ -22,8 +24,11 @@
 
 <div id="container"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/js/vex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
 <script type="text/javascript">
+    vex.defaultOptions.className = "vex-theme-default";
+
     var nodes = new vis.DataSet([
         { id: 1, label: 'Baker', type: 'JobProfile' },
         { id: 2, label: 'Tasks', type: 'Group' },
@@ -90,7 +95,26 @@
         edges: edges
     };
 
-    var options = {};
+    var options = {
+        nodes: {
+            //shape: 'circle'
+        },
+        interaction: {
+            dragNodes: false,
+            hover: true
+        }
+    };
 
     var network = new vis.Network(container, data, options);
+
+    network.on("hoverNode", function (parms) {
+        //debugger;
+        var node = data.nodes._data[parms.node];
+        vex.open(JSON.stringify(node));
+    });
+
+
+    network.on("blurNode", function () {
+        vex.closeAll();
+    });
 </script>
