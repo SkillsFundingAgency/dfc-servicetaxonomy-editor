@@ -1,0 +1,96 @@
+﻿@page
+@model DFC.ServiceTaxonomy.Editor.VisjsModel
+@{
+    ViewData["Title"] = "VisJS";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" />
+
+<style type="text/css">
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #container {
+        width: 100vw;
+        height: 100vh;
+        border: 2px solid lightgray;
+        box-sizing: border-box;
+    }
+</style>
+
+<div id="container"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+<script type="text/javascript">
+    var nodes = new vis.DataSet([
+        { id: 1, label: 'Baker', type: 'JobProfile' },
+        { id: 2, label: 'Tasks', type: 'Group' },
+        { id: 3, label: 'making dough', type: 'DayToDayTask' },
+        { id: 4, label: 'making dough', type: 'DayToDayTask' },
+        { id: 5, label: 'making dough', type: 'DayToDayTask' },
+        { id: 6, label: 'making dough', type: 'DayToDayTask' },
+        { id: 7, label: 'making dough', type: 'DayToDayTask' },
+        { id: 8, label: 'making dough', type: 'DayToDayTask' },
+        { id: 9, label: 'making dough', type: 'DayToDayTask' },
+        { id: 10, label: 'making dough', type: 'DayToDayTask' },
+        { id: 11, label: 'making dough', type: 'DayToDayTask' },
+        { id: 12, label: 'making dough', type: 'DayToDayTask' },
+        { id: 13, label: 'Skills', type: 'Group' },
+        { id: 14, label: 'Baking', type: 'Skill' },
+        { id: 15, label: 'Baking', type: 'Skill' },
+        { id: 16, label: 'Baking', type: 'Skill' },
+        { id: 17, label: 'Baking', type: 'Skill' },
+        { id: 18, label: 'Baking', type: 'Skill' },
+        { id: 19, label: 'Baking', type: 'Skill' },
+        { id: 20, label: 'Baking', type: 'Skill' },
+        { id: 21, label: 'Baking', type: 'Skill' },
+        { id: 22, label: 'Baking', type: 'Skill' },
+        { id: 23, label: 'Baking', type: 'Skill' },
+        { id: 24, label: 'baker', type: 'Occupation' },
+        { id: 25, label: 'Salary', type: 'SalaryInfo' },
+        { id: 26, label: '£25,000', type: 'StarterSalary' },
+        { id: 27, label: '£60,000', type: 'ExperiencedSalary' }
+    ]);
+
+    var edges = new vis.DataSet([
+        { from: 1, to: 2 },
+        { from: 1, to: 24 },
+        { from: 1, to: 25 },
+        { from: 25, to: 26 },
+        { from: 25, to: 27 },
+        { from: 2, to: 3 },
+        { from: 2, to: 4 },
+        { from: 2, to: 5 },
+        { from: 2, to: 6 },
+        { from: 2, to: 7 },
+        { from: 2, to: 8 },
+        { from: 2, to: 9 },
+        { from: 2, to: 10 },
+        { from: 2, to: 11 },
+        { from: 2, to: 12 },
+        { from: 1, to: 13 },
+        { from: 13, to: 14 },
+        { from: 13, to: 15 },
+        { from: 13, to: 16 },
+        { from: 13, to: 17 },
+        { from: 13, to: 18 },
+        { from: 13, to: 19 },
+        { from: 13, to: 20 },
+        { from: 13, to: 21 },
+        { from: 13, to: 22 },
+        { from: 13, to: 23 }
+    ]);
+
+    var container = document.getElementById('container');
+
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    var options = {};
+
+    var network = new vis.Network(container, data, options);
+</script>

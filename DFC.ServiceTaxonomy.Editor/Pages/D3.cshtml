@@ -1,0 +1,234 @@
+﻿@page
+@model DFC.ServiceTaxonomy.Editor.D3Model
+@{
+    ViewData["Title"] = "D3";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/css/vex.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/css/vex-theme-default.css">
+<style>
+    /*.nodes {
+        fill: #ccc;
+        stroke: #fff;
+        stroke-width: 2px;
+    }*/
+
+    .links {
+        stroke: #777;
+        stroke-width: 2px;
+    }
+
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    .container {
+        width: 100vw;
+        height: 100vh;
+        overflow: scroll;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<div class="container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/js/vex.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+    vex.defaultOptions.className = "vex-theme-default";
+    
+    var data = {
+        nodes: [
+            { id: 1, text: "Baker", type: "JobProfile" },
+            { id: 16, text: "Daily Tasks", type: "Group" },
+            { id: 2, text: "making dough", type: "DayToDayTask" },
+            { id: 3, text: "keeping production areas clean", type: "DayToDayTask" },
+            { id: 4, text: "baker", type: "EscoOccupation" },
+            { id: 5, text: "making dough", type: "DayToDayTask" },
+            { id: 6, text: "making dough", type: "DayToDayTask" },
+            { id: 7, text: "making dough", type: "DayToDayTask" },
+            { id: 8, text: "making dough", type: "DayToDayTask" },
+            { id: 9, text: "making dough", type: "DayToDayTask" },
+            { id: 10, text: "making dough", type: "DayToDayTask" },
+            { id: 11, text: "making dough", type: "DayToDayTask" },
+            { id: 12, text: "making dough", type: "DayToDayTask" },
+            { id: 13, text: "making dough", type: "DayToDayTask" },
+            { id: 14, text: "making dough", type: "DayToDayTask" },
+            { id: 15, text: "making dough", type: "DayToDayTask" }
+        ],
+        links: [
+            { source: 1, target: 16, type: "TASKS" },
+            { source: 1, target: 4, type: "BELONGS_TO" },
+            { source: 16, target: 2, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 3, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 5, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 6, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 7, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 8, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 9, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 10, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 11, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 12, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 13, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 14, type: "HAS_DAILY_TASK" },
+            { source: 16, target: 15, type: "HAS_DAILY_TASK" }
+        ]
+    };
+
+    const browserHeight = document.body.clientHeight;
+    const browserWidth = document.body.clientWidth;
+    const nodeRadius = 50;
+    const nodeWidth = nodeRadius * 2;
+
+    const simulation = d3.forceSimulation(data.nodes)
+        .force("Y", d3.forceY())
+        .force("charge", d3.forceManyBody().strength(chargeCalc))
+        .force("center", d3.forceCenter(browserWidth / 2, browserHeight / 2))
+        .force('collision', d3.forceCollide().radius(nodeRadius))
+        .force("link", d3.forceLink().id(d => d.id).distance(distCalc))
+        .on("end", calculateSvgSize);
+
+    function distCalc(d) {
+        return d.type === "HAS_DAILY_TASK" ? 200 : 400;
+    }
+
+    function chargeCalc(d) {
+        switch (d.Type) {
+            case "DayToDayTask":
+                return -30;
+                break;
+            default:
+                return -1000;
+        }
+    }
+
+    simulation.stop();
+
+    const svg = d3.select("div.container")
+        .append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+        .append("g")
+            .attr("transform", `translate(0,0)`);
+
+    svg.append("defs").append("marker")
+        .attr("id","arrowhead")
+        .attr("viewBox","0 -5 10 10")
+         .attr("refX",23)
+         .attr("refY",0)
+         .attr("orient","auto")
+            .attr("markerWidth",13)
+            .attr("markerHeight",13)
+            .attr("xoverflow","visible")
+        .append("svg:path")
+        .attr("d", "M 0,-5 L 10 ,0 L 0,5")
+        .attr("fill", "#999")
+        .style("stroke", "none");
+
+    const link = svg.selectAll(".links")
+        .data(data.links)
+        .enter()
+        .append("line")
+        .attr("class", "links")
+        .attr("marker-end", "url(#arrowhead)");
+
+    link.append("title")
+        .text(d => d.type);
+
+    const edgepaths = svg.selectAll(".edgepath")
+        .data(data.links)
+        .enter()
+        .append("path")
+        .attr("class", "edgepath")
+        .attr("fill-opacity", 0)
+        .attr("stroke-opacity", 0)
+        .attr("id", (d, i) => `edgepath${i}`)
+        .style("pointer-events", "none");
+
+    const edgelabels = svg.selectAll(".edgelabel")
+        .data(data.links)
+        .enter()
+        .append("text")
+        .style("pointer-events", "none")
+        .attr("class", "edgelabel")
+        .attr("id", (d, i) => `edgelabel${i}`)
+        .attr("font-size", 10)
+        .attr("fill", "#aaa");
+
+    edgelabels.append("textPath")
+        .attr("xlink:href", (d, i) => `#edgepath${i}`)
+        .style("text-anchor", "middle")
+        .style("pointer-events", "none")
+        .attr("startOffset", "50%")
+        .text(d => d.type);
+
+    const node = svg.selectAll(".nodes")
+        .data(data.nodes)
+        .enter()
+        .append("g")
+        .attr("class", "nodes");
+
+    node.append("circle")
+        .attr("r", nodeRadius)
+        .style("stroke", "grey")
+        .style("stroke-opacity", .3)
+        .style("stroke-width", 2)
+        .style("fill", getNodeFill);
+
+    node.append("title")
+        .text(d => `${d.id}: ${d.type}`);
+
+    node.append("text")
+        .attr("dy", 4)
+        .attr("dx", -15)
+        .text(d => d.text);
+
+    simulation.nodes(data.nodes).on("tick", ticked);
+    simulation.force("link").links(data.links);
+
+    simulation.alpha(1).restart();
+
+    function ticked() {
+        link.attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+        node.attr("transform", d => `translate(${d.x},${d.y})`);
+
+        edgepaths.attr('d', d => 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y);
+    }
+
+    function calculateSvgSize() {
+        const width = (_.maxBy(data.nodes, 'x').x + nodeWidth) - _.minBy(data.nodes, 'x').x;
+        const height = _.maxBy(data.nodes, 'y').y - (_.minBy(data.nodes, 'y').y + nodeWidth);
+
+        if (width > browserWidth) {
+            d3.select("svg").attr("width", `${width}px`);
+        }
+
+        if (height > browserHeight) {
+            d3.select("svg").attr("height", `${height}px`);
+        }
+    }
+
+    function getNodeFill(node) {
+        switch (node.type) {
+            case "DayToDayTask":
+                return "blue";
+                break;
+            case "EscoOccupation":
+                return "green";
+                break;
+            case "Group":
+                return "pink";
+                break;
+            default:
+                return "purple";
+        }
+    }
+</script>
