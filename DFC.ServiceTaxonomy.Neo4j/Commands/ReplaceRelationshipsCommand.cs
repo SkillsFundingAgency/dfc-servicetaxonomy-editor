@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             //todo: bi-directional relationships
             //todo: rewrite for elegance/perf. selectmany?
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-            var nodeMatchBuilder = new StringBuilder($"match (s:{string.Join(';', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+            var nodeMatchBuilder = new StringBuilder($"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
             var existingRelationshipsMatchBuilder = new StringBuilder();
             var mergeBuilder = new StringBuilder();
             var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue}};
