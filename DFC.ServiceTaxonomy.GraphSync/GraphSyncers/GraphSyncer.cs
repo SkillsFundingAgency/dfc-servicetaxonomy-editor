@@ -60,6 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         //todo: have as setting of activity, or graph sync content part settings
         private const string NcsPrefix = "ncs__";
+        private const string CommonNodeLabel = "Resource";
 
         public async Task SyncToGraph(ContentItem contentItem)
         {
@@ -73,7 +74,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
 
-            _mergeNodeCommand.NodeLabel = NcsPrefix + contentItem.ContentType;
+            _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentItem.ContentType);
+            _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
 
             await AddContentPartSyncComponents(contentItem);
@@ -106,7 +108,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (_replaceRelationshipsCommand.Relationships.Any())
             {
                 // doesn't really belong here...
-                _replaceRelationshipsCommand.SourceNodeLabel = _mergeNodeCommand.NodeLabel;
+                _replaceRelationshipsCommand.SourceNodeLabels = _mergeNodeCommand.NodeLabels;
                 _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
                 _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncPartIdProperty.Value(graphSyncPartContent);
 

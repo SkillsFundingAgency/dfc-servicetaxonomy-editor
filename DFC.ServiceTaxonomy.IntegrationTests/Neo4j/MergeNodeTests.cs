@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             //todo: arrange without using cut?
             await MergeNode(new MergeNodeCommand
             {
-                NodeLabel = nodeLabel,
+                NodeLabels = new HashSet<string> {nodeLabel},
                 IdPropertyName = idPropertyName,
                 Properties =
                 {
@@ -88,7 +88,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         /// MergeNode uses a map to replace all properties on the node.
         /// </summary>
         [Fact]
-        public async Task MergeNode_ExistingNode_DifferentProperties_Test()
+        public async Task grMergeNode_ExistingNode_DifferentProperties_Test()
         {
             const string nodeLabel = "testNode";
             const string idPropertyName = "id";
@@ -97,7 +97,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 
             await MergeNode(new MergeNodeCommand
             {
-                NodeLabel = nodeLabel,
+                NodeLabels = new HashSet<string> {nodeLabel},
                 IdPropertyName = idPropertyName,
                 Properties =
                 {

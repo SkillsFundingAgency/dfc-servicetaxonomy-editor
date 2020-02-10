@@ -12,13 +12,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
     public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
     {
-        public string? SourceNodeLabel { get; set; }
+        public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
         public string? SourceIdPropertyValue { get; set; }
         public IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType), IEnumerable<string>> Relationships {  get; set; }
             = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
         //todo: make dictionary private, and add AddRelationship()?
+        //todo: destNodeLabels
         public void AddRelationshipsTo(string relationshipType, string destNodeLabel, string destIdPropertyName, params string[] destIdPropertyValues)
         {
             Relationships.Add((destNodeLabel, destIdPropertyName,  relationshipType), destIdPropertyValues);
@@ -26,19 +27,22 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         private Query CreateQuery()
         {
-            if (SourceNodeLabel == null)
-                throw new InvalidOperationException($"{nameof(SourceNodeLabel)} not supplied");
+            if (SourceNodeLabels == null)
+                throw new InvalidOperationException($"{nameof(SourceNodeLabels)} is null");
+
+            if (!SourceNodeLabels.Any())
+                throw new InvalidOperationException("No source labels");
 
             if (SourceIdPropertyName == null)
-                throw new InvalidOperationException($"{nameof(SourceIdPropertyName)} not supplied");
+                throw new InvalidOperationException($"{nameof(SourceIdPropertyName)} is null");
 
             if (SourceIdPropertyValue == null)
-                throw new InvalidOperationException($"{nameof(SourceIdPropertyValue)} not supplied");
+                throw new InvalidOperationException($"{nameof(SourceIdPropertyValue)} is null");
 
             //todo: bi-directional relationships
             //todo: rewrite for elegance/perf. selectmany?
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-            var nodeMatchBuilder = new StringBuilder($"match (s:{SourceNodeLabel} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+            var nodeMatchBuilder = new StringBuilder($"match (s:{string.Join(';', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
             var existingRelationshipsMatchBuilder = new StringBuilder();
             var mergeBuilder = new StringBuilder();
             var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue}};
