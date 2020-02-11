@@ -37,11 +37,17 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
             return result.First();
         }
 
-        protected async Task<long> MergeNode(string label, string idPropertyName, IDictionary<string,object> properties)
+        protected async Task<long> MergeNode(string label, string idPropertyName, IDictionary<string, object> properties)
+        {
+            return await MergeNode(new[] {label}, idPropertyName, properties);
+        }
+
+        protected async Task<long> MergeNode(IEnumerable<string> labels, string idPropertyName,
+            IDictionary<string,object> properties)
         {
             return await MergeNode(new MergeNodeCommand
             {
-                NodeLabel = label,
+                NodeLabels = new HashSet<string>(labels),
                 IdPropertyName = idPropertyName,
                 Properties = properties
             });
