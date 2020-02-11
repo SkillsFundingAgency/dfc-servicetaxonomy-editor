@@ -108,7 +108,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (_replaceRelationshipsCommand.Relationships.Any())
             {
                 // doesn't really belong here...
-                _replaceRelationshipsCommand.SourceNodeLabels = _mergeNodeCommand.NodeLabels;
+                _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
                 _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
                 _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncPartIdProperty.Value(graphSyncPartContent);
 
