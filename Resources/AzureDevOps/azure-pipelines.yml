@@ -113,3 +113,31 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+
+- stage: DeployToPP
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  displayName: Deploy to PP_SERVICETAXONOMY
+  variables:
+  - group: dfc-shared-all
+  - group: dfc-stax-shared-all
+  - group: dfc-shared-pp
+  - group: dfc-stax-shared-pp
+  - group: 'KeyVault - dfc-pp-shared-kv'
+  - template: VariableTemplates/PPEnvironmentVariables.yml
+  jobs:
+  - template: JobTemplates/deploy-environment.yml
+    parameters:
+      AzureSubscription: 'SFA-DIG-PreProd (931bc9f6-359c-4f65-a753-1ee191a1fd6c)'
+      Environment: PP_SERVICETAXONOMY
+      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+      Location: 'West Europe'
+      EnvironmentTag: '$(EnvironmentTag)'
+      ParentBusinessTag: '$(ParentBusiness)'
+      ServiceOfferingTag: '$(ServiceOffering)'
+      ResourceGroup: '$(ResourceGroup)'
+      WebAppName: '$(WebAppName)'
+      OrchardCoreUri: 'https://$(WebAppName).$(FunctionAppDomain)/'
+      EditorAdminUsername: $(OrchardEditorAdminUserName)
+      EditorAdminUserEmail: $(EditorAdminUserEmail)
+      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
