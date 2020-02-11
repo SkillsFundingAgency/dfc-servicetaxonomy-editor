@@ -21,6 +21,7 @@ confirmation buttons are labelled undefined
 #Templates
 
 dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-* --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json
+dotnet new -i OrchardCore.ProjectTemplates::1.0.0-* --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json
 
 #Workflow Event Triggering
 

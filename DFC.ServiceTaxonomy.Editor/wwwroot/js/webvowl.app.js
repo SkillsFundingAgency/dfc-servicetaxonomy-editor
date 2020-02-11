@@ -8223,7 +8223,13 @@ webvowl.app =
 	  var showLoadingDetails = false;
 	  var visibilityStatus = true;
 
-	  var DEFAULT_JSON_NAME = "simple_no_pos"; // This file is loaded by default
+                //ste:
+        const urlParams = new URLSearchParams(window.location.search);
+        const visualise = urlParams.get('visualise');
+
+        var DEFAULT_JSON_NAME = "url=/visualise/data?fetch=" + visualise;
+
+                // var DEFAULT_JSON_NAME = "url=simple_no_pos"; // This file is loaded by default
 	  var conversion_sessionId;
 
 	  /** variable defs **/
@@ -8440,8 +8446,10 @@ webvowl.app =
 	      case 1:
 	        loadingModule.from_FileUpload(ontologyIdentifierFromURL);
 	        break;
-	      case 2:
-	        loadingModule.from_JSON_URL(ontologyIdentifierFromURL);
+            case 2:
+	          //ste: if works, introduce new scheme
+	        //loadingModule.from_JSON_URL(ontologyIdentifierFromURL);
+                loadingModule.from_GraphVisualiser("test");
 	        break;
 	      case 3:
 	        loadingModule.from_IRI_URL(ontologyIdentifierFromURL);
@@ -8457,6 +8465,21 @@ webvowl.app =
 	  // 2] File Upload
 	  // 3] Load From URL / IRI
 
+                //ste:
+                loadingModule.from_GraphVisualiser = function ( key ){
+                    // d3 now uses fetch, rather than xhr: https://stackoverflow.com/questions/18300942/how-to-load-data-using-xhr-in-d3
+                    // or use jquery?
+
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            loadingModule.directInput(xhttp.responseText);
+                        }
+                    };
+                    xhttp.open("GET", "visualise/data?fetch=" + key, true);
+                    xhttp.send();
+                };
+
 	  loadingModule.from_JSON_URL = function ( fileName ){
 	    var filename = decodeURIComponent(fileName.slice("url=".length));
 	    ontologyIdentifierFromURL = filename;
@@ -8471,7 +8494,9 @@ webvowl.app =
 	    } else {
 	      // involve the o2v conveter;
 	      ontologyMenu.append_message("Retrieving ontology from JSON URL " + filename);
-	      requestServerTimeStampForJSON_URL(ontologyMenu.callbackLoad_JSON_FromURL, ["read?json=" + filename, filename]);
+	      //ste: controller for serving json
+	      //requestServerTimeStampForJSON_URL(ontologyMenu.callbackLoad_JSON_FromURL, ["read?json=" + filename, filename]);
+            ontologyMenu.callbackLoad_JSON_FromURL(["read?json=" + filename, filename, "sessId"]);
 	    }
 	  };
 
