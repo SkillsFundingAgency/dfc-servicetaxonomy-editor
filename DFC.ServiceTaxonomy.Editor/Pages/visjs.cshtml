@@ -4,8 +4,6 @@
     ViewData["Title"] = "VisJS";
 }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/css/vex.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/css/vex-theme-default.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" />
 
 <style type="text/css">
@@ -20,47 +18,59 @@
         border: 2px solid lightgray;
         box-sizing: border-box;
     }
+
+    div.vis-tooltip {
+        padding: 10px 20px;
+        background: white;
+        border: 1px solid ccc;
+        color: #36454F;
+        max-width: 500px;
+        white-space: normal;
+    }
 </style>
 
 <div id="container"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/vex-js@4.1.0/dist/js/vex.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
 <script type="text/javascript">
-    vex.defaultOptions.className = "vex-theme-default";
-
     var nodes = new vis.DataSet([
-        { id: 1, label: 'Baker', type: 'JobProfile' },
-        { id: 2, label: 'Tasks', type: 'Group' },
-        { id: 3, label: 'making dough', type: 'DayToDayTask' },
-        { id: 4, label: 'making dough', type: 'DayToDayTask' },
-        { id: 5, label: 'making dough', type: 'DayToDayTask' },
-        { id: 6, label: 'making dough', type: 'DayToDayTask' },
-        { id: 7, label: 'making dough', type: 'DayToDayTask' },
-        { id: 8, label: 'making dough', type: 'DayToDayTask' },
-        { id: 9, label: 'making dough', type: 'DayToDayTask' },
-        { id: 10, label: 'making dough', type: 'DayToDayTask' },
-        { id: 11, label: 'making dough', type: 'DayToDayTask' },
-        { id: 12, label: 'making dough', type: 'DayToDayTask' },
-        { id: 13, label: 'Skills', type: 'Group' },
-        { id: 14, label: 'Baking', type: 'Skill' },
-        { id: 15, label: 'Baking', type: 'Skill' },
-        { id: 16, label: 'Baking', type: 'Skill' },
-        { id: 17, label: 'Baking', type: 'Skill' },
-        { id: 18, label: 'Baking', type: 'Skill' },
-        { id: 19, label: 'Baking', type: 'Skill' },
-        { id: 20, label: 'Baking', type: 'Skill' },
-        { id: 21, label: 'Baking', type: 'Skill' },
-        { id: 22, label: 'Baking', type: 'Skill' },
-        { id: 23, label: 'Baking', type: 'Skill' },
-        { id: 24, label: 'baker', type: 'Occupation' },
-        { id: 25, label: 'Salary', type: 'SalaryInfo' },
-        { id: 26, label: '£25,000', type: 'StarterSalary' },
-        { id: 27, label: '£60,000', type: 'ExperiencedSalary' }
+        {
+            id: 1,
+            label: 'Baker',
+            type: 'JobProfile',
+            color: '#218380',
+            title: '<h3>Baker</h3><hr /><p><b>Type:</b></p><p>JobProfile</p><p><b>Description:</b></p><p>3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories.</p><p><b>How to become, career tips:</b></p><p>Learn more about the <a href="https://3dprintingindustry.com/3d-printing-basics-free-beginners-guide">basics of 3D printing</a>.</p>'
+        },
+        { id: 2, label: 'Tasks', type: 'Group', color: '#73D2DE' },
+        { id: 3, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 4, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 5, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 6, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 7, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 8, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 9, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 10, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 11, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 12, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
+        { id: 13, label: 'Skills', type: 'Group', color: '#73D2DE' },
+        { id: 14, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 15, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 16, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 17, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 18, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 19, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 20, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 21, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 22, label: 'Baking', type: 'Skill', color: '#73D2DE' },
+        { id: 23, label: 'Baking', type: 'Skill', color: '#73D2DE'},
+        { id: 24, label: 'baker', type: 'Occupation', title: 'ESCO Occupation' },
+        { id: 25, label: 'Salary', type: 'SalaryInfo', color: '#8F2D56' },
+        { id: 26, label: '£25,000', type: 'StarterSalary', color: '#8F2D56', title: 'Starting salary' },
+        { id: 27, label: '£60,000', type: 'ExperiencedSalary', color: '#8F2D56', title: 'Experienced salary' }
     ]);
 
     var edges = new vis.DataSet([
-        { from: 1, to: 2 },
+        { from: 1, to: 2, label: "hasDailyTasks" },
         { from: 1, to: 24 },
         { from: 1, to: 25 },
         { from: 25, to: 26 },
@@ -97,24 +107,21 @@
 
     var options = {
         nodes: {
-            //shape: 'circle'
+            shape: 'circle',
+            color: (node) => node.color,
+            font: {
+                color: 'white'
+            }
+        },
+        edges: {
+            arrows: "to",
+            label: (edge) => edge.label
         },
         interaction: {
             dragNodes: false,
-            hover: true
+            hover: false
         }
     };
 
     var network = new vis.Network(container, data, options);
-
-    network.on("hoverNode", function (parms) {
-        //debugger;
-        var node = data.nodes._data[parms.node];
-        vex.open(JSON.stringify(node));
-    });
-
-
-    network.on("blurNode", function () {
-        vex.closeAll();
-    });
 </script>
