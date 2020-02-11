@@ -8211,7 +8211,8 @@ webvowl.app =
 	  var PREDEFINED = 0,
 	    FILE_UPLOAD = 1,
 	    JSON_URL = 2,
-	    IRI_URL = 3;
+	    IRI_URL = 3,
+        GRAPH_VIZ = 4;
 
 	  var PROGRESS_BAR_ERROR = 0,
 	    PROGRESS_BAR_BUSY = 1,
@@ -8227,7 +8228,7 @@ webvowl.app =
         const urlParams = new URLSearchParams(window.location.search);
         const visualise = urlParams.get('visualise');
 
-        var DEFAULT_JSON_NAME = "url=/visualise/data?fetch=" + visualise;
+        var DEFAULT_JSON_NAME = "viz=" + visualise;
 
                 // var DEFAULT_JSON_NAME = "url=simple_no_pos"; // This file is loaded by default
 	  var conversion_sessionId;
@@ -8454,6 +8455,9 @@ webvowl.app =
 	      case 3:
 	        loadingModule.from_IRI_URL(ontologyIdentifierFromURL);
 	        break;
+            case 4: // no magic nums
+                loadingModule.from_GraphVisualiser(ontologyIdentifierFromURL);
+                break;
 	      default:
 	        console.log("Could not identify loading method , or not IMPLEMENTED YET");
 	    }
@@ -8469,6 +8473,8 @@ webvowl.app =
                 loadingModule.from_GraphVisualiser = function ( key ){
                     // d3 now uses fetch, rather than xhr: https://stackoverflow.com/questions/18300942/how-to-load-data-using-xhr-in-d3
                     // or use jquery?
+
+                    key = decodeURIComponent(key.slice("viz=".length));
 
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
@@ -8938,9 +8944,13 @@ webvowl.app =
 	    var iriKey = "iri=";
 	    var urlKey = "url=";
 	    var fileKey = "file=";
+        //ste:
+          var vizKey = "viz=";
 
 	    var method = -1;
-	    if ( url.substr(0, fileKey.length) === fileKey ) {
+          if ( url.substr(0, vizKey.length) === vizKey ) {
+              method = GRAPH_VIZ;
+          } else if ( url.substr(0, fileKey.length) === fileKey ) {
 	      method = FILE_UPLOAD;
 	    } else if ( url.substr(0, urlKey.length) === urlKey ) {
 	      method = JSON_URL;

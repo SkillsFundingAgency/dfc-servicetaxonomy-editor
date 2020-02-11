@@ -10,11 +10,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-11937" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
   </ItemGroup>
 
 </Project>
