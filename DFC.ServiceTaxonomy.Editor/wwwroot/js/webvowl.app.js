@@ -446,14 +446,14 @@ webvowl.app =
 	  var ua,
 	    re,
 	    rv = -1;
-	  
+
 	  // check for edge
 	  var isEdge = /(?:\b(MS)?IE\s+|\bTrident\/7\.0;.*\s+rv:|\bEdge\/)(\d+)/.test(navigator.userAgent);
 	  if ( isEdge ) {
 	    rv = parseInt("12");
 	    return rv;
 	  }
-	  
+
 	  var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
 	  if ( isIE11 ) {
 	    rv = parseInt("11");
@@ -499,7 +499,7 @@ webvowl.app =
 	    d3.select("#logo").classed("hidden", false);
 	    d3.select("#browserCheck").classed("hidden", true);
 	  }
-	  
+
 	}
 
 	module.exports = showBrowserWarningIfRequired;
@@ -541,8 +541,8 @@ webvowl.app =
 	    loadingModule = __webpack_require__(342)(graph),
 	    warningModule = __webpack_require__(343)(graph),
 	    directInputMod = __webpack_require__(344)(graph),
-	    
-	    
+
+
 	    // Graph modules
 	    colorExternalsSwitch = webvowl.modules.colorExternalsSwitch(graph),
 	    compactNotationSwitch = webvowl.modules.compactNotationSwitch(graph),
@@ -558,8 +558,8 @@ webvowl.app =
 	    statistics = webvowl.modules.statistics(),
 	    subclassFilter = webvowl.modules.subclassFilter(),
 	    setOperatorFilter = webvowl.modules.setOperatorFilter();
-	  
-	  
+
+
 	  app.getOptions = function (){
 	    return webvowl.opts;
 	  };
@@ -567,15 +567,15 @@ webvowl.app =
 	    return webvowl.gr;
 	  };
 	  // app.afterInitializationCallback=undefined;
-	  
-	  
+
+
 	  var executeFileDrop = false;
 	  var wasMessageToShow = false;
 	  var firstTime = false;
-	  
+
 	  function addFileDropEvents( selector ){
 	    var node = d3.select(selector);
-	    
+
 	    node.node().ondragover = function ( e ){
 	      e.preventDefault();
 
@@ -583,11 +583,11 @@ webvowl.app =
 	      // get svg size
 	      var w = graph.options().width();
 	      var h = graph.options().height();
-	      
+
 	      // get event position; (using clientX and clientY);
 	      var cx = e.clientX;
 	      var cy = e.clientY;
-	      
+
 	      if ( firstTime === false ) {
 	        var state = d3.select("#loading-info").classed("hidden");
 	        wasMessageToShow = !state;
@@ -596,18 +596,18 @@ webvowl.app =
 	        var bb=d3.select("#drag_msg").node().getBoundingClientRect();
 	        var hs = bb.height;
 	        var ws = bb.width;
-	        
+
 	        var icon_scale=Math.min(hs,ws);
 	        icon_scale/=100;
-	        
+
 	        d3.select("#drag_icon_group").attr("transform", "translate ( " + 0.25 * ws + " " + 0.25 * hs + ")");
 	        d3.select("#drag_icon").attr("transform","matrix ("+icon_scale+",0,0,"+icon_scale+",0,0)");
 	        d3.select("#drag_icon_drop").attr("transform","matrix ("+icon_scale+",0,0,"+icon_scale+",0,0)");
 	      }
-	      
-	      
+
+
 	      if ( (cx > 0.25 * w && cx < 0.75 * w) && (cy > 0.25 * h && cy < 0.75 * h) ) {
-	        
+
 	        d3.select("#drag_msg_text").node().innerHTML = "Drop it here.";
 	        d3.select("#drag_msg").style("background-color", "#67bc0f");
 	        d3.select("#drag_msg").style("color", "#000000");
@@ -618,21 +618,21 @@ webvowl.app =
 	        //   // .attr("-moz-transform",    "rotate(90)")
 	        //   // .attr("-o-transform",      "rotate(90)")
 	        //   .attr("transform",         "rotate(90)");
-	  
+
 	        d3.select("#drag_icon").classed("hidden",true);
 	        d3.select("#drag_icon_drop").classed("hidden",false);
-	  
-	  
+
+
 	      } else {
 	        d3.select("#drag_msg_text").node().innerHTML = "Drag ontology file here.";
 	        d3.select("#drag_msg").style("background-color", "#fefefe");
 	        d3.select("#drag_msg").style("color", "#000000");
 	        executeFileDrop = false;
-	  
+
 	        d3.select("#drag_icon").classed("hidden",false);
 	        d3.select("#drag_icon_drop").classed("hidden",true);
-	        
-	        
+
+
 	        // d3.select("#drag_svg").transition()
 	        //   .duration(100)
 	        //   // .attr("-webkit-transform", "rotate(0)")
@@ -641,7 +641,7 @@ webvowl.app =
 	        //   .attr("transform",         "rotate(0)");
 	        //
 	      }
-	      
+
 	    };
 	    node.node().ondrop = function ( ev ){
 	      ev.preventDefault();
@@ -662,22 +662,22 @@ webvowl.app =
 	      }
 	      d3.select("#dragDropContainer").classed("hidden", true);
 	    };
-	    
+
 	    node.node().ondragleave = function ( e ){
 	      var w = graph.options().width();
 	      var h = graph.options().height();
-	      
+
 	      // get event position; (using clientX and clientY);
 	      var cx = e.clientX;
 	      var cy = e.clientY;
-	      
+
 	      var hidden = false;
 	      firstTime = false;
-	      
+
 	      if ( cx < 0.1 * w || cx > 0.9 * w ) hidden = true;
 	      if ( cy < 0.1 * h || cy > 0.9 * h ) hidden = true;
 	      d3.select("#dragDropContainer").classed("hidden", hidden);
-	      
+
 	      d3.select("#loading-info").classed("hidden", !wasMessageToShow); // show it again
 	      // check if it should be visible
 	      var should_show=graph.options().loadingModule().getMessageVisibilityStatus();
@@ -685,28 +685,28 @@ webvowl.app =
 	        d3.select("#loading-info").classed("hidden", true); // hide it
 	      }
 	    };
-	    
+
 	  }
-	  
-	  
+
+
 	  app.initialize = function (){
 	    addFileDropEvents(GRAPH_SELECTOR);
-	    
+
 	    window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function ( f ){
 	        return setTimeout(f, 1000 / 60);
 	      }; // simulate calling code 60
 	    window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || function ( requestID ){
 	        clearTimeout(requestID);
 	      }; //fall back
-	    
+
 	    options.graphContainerSelector(GRAPH_SELECTOR);
 	    options.selectionModules().push(focuser);
 	    options.selectionModules().push(selectionDetailDisplayer);
 	    options.selectionModules().push(pickAndPin);
-	    
+
 	    options.filterModules().push(emptyLiteralFilter);
 	    options.filterModules().push(statistics);
-	    
+
 	    options.filterModules().push(nodeDegreeFilter);
 	    options.filterModules().push(datatypeFilter);
 	    options.filterModules().push(objectPropertyFilter);
@@ -716,9 +716,9 @@ webvowl.app =
 	    options.filterModules().push(nodeScalingSwitch);
 	    options.filterModules().push(compactNotationSwitch);
 	    options.filterModules().push(colorExternalsSwitch);
-	    
+
 	    d3.select(window).on("resize", adjustSize);
-	    
+
 	    exportMenu.setup();
 	    gravityMenu.setup();
 	    filterMenu.setup(datatypeFilter, objectPropertyFilter, subclassFilter, disjointFilter, setOperatorFilter, nodeDegreeFilter);
@@ -746,12 +746,12 @@ webvowl.app =
 	      } else {
 	        d3.select("#browserCheck").classed("hidden", true);
 	      }
-	      
+
 	      resetMenu.setup([gravityMenu, filterMenu, modeMenu, focuser, selectionDetailDisplayer, pauseMenu]);
 	      searchMenu.setup();
 	      navigationMenu.setup();
 	      zoomSlider.setup();
-	      
+
 	      // give the options the pointer to the some menus for import and export
 	      options.literalFilter(emptyLiteralFilter);
 	      options.nodeDegreeFilter(nodeDegreeFilter);
@@ -781,34 +781,34 @@ webvowl.app =
 	      options.focuserModule(focuser);
 	      options.colorExternalsModule(colorExternalsSwitch);
 	      options.compactNotationModule(compactNotationSwitch);
-	      
+
 	      ontologyMenu.setup(loadOntologyFromText);
 	      configMenu.setup();
-	      
+
 	      leftSidebar.showSidebar(0);
 	      leftSidebar.hideCollapseButton(true);
-	      
-	      
+
+
 	      graph.start();
-	      
+
 	      var modeOp = d3.select("#modeOfOperationString");
 	      modeOp.style("font-size", "0.6em");
 	      modeOp.style("font-style", "italic");
-	      
+
 	      adjustSize();
 	      var defZoom;
 	      var w = graph.options().width();
 	      var h = graph.options().height();
 	      defZoom = Math.min(w, h) / 1000;
-	      
+
 	      var hideDebugOptions = true;
 	      if ( hideDebugOptions === false ) {
 	        graph.setForceTickFunctionWithFPS();
 	      }
-	      
+
 	      graph.setDefaultZoom(defZoom);
 	      d3.selectAll(".debugOption").classed("hidden", hideDebugOptions);
-	      
+
 	      // prevent backspace reloading event
 	      var htmlBody = d3.select("body");
 	      d3.select(document).on("keydown", function ( e ){
@@ -828,7 +828,7 @@ webvowl.app =
 	        d3.select("#maxLabelWidthvalueLabel").classed("disabledLabelForSlider", setValue);
 	        d3.select("#maxLabelWidthDescriptionLabel").classed("disabledLabelForSlider", setValue);
 	      }
-	      
+
 	      d3.select("#blockGraphInteractions").style("position", "absolute")
 	        .style("top", "0")
 	        .style("background-color", "#bdbdbd")
@@ -844,7 +844,7 @@ webvowl.app =
 	          d3.event.preventDefault();
 	          d3.event.stopPropagation();
 	        });
-	      
+
 	      d3.select("#direct-text-input").on("click", function (){
 	        directInputMod.setDirectInputMode();
 	      });
@@ -855,7 +855,7 @@ webvowl.app =
 	      loadingModule.parseUrlAndLoadOntology(); // loads automatically the ontology provided by the parameters
 	      options.debugMenu(debugMenu);
 	      debugMenu.updateSettings();
-	      
+
 	      // connect the reloadCachedVersionButton
 	      d3.select("#reloadSvgIcon").on("click", function (){
 	        if ( d3.select("#reloadSvgIcon").node().disabled === true ) {
@@ -864,21 +864,21 @@ webvowl.app =
 	        }
 	        d3.select("#reloadCachedOntology").classed("hidden", true);
 	        graph.options().ontologyMenu().reloadCachedOntology();
-	        
+
 	      });
 	      // add the initialized objects
 	      webvowl.opts = options;
 	      webvowl.gr = graph;
-	      
+
 	    }
 	  };
-	  
-	  
+
+
 	  function loadOntologyFromText( jsonText, filename, alternativeFilename ){
 	    d3.select("#reloadCachedOntology").classed("hidden", true);
 	    pauseMenu.reset();
 	    graph.options().navigationMenu().hideAllMenus();
-	    
+
 	    if ( (jsonText === undefined && filename === undefined) || (jsonText.length === 0) ) {
 	      loadingModule.notValidJsonFile();
 	      return;
@@ -899,12 +899,12 @@ webvowl.app =
 	        loadingModule.notValidJsonFile();
 	        return;
 	      }
-	      
+
 	      if ( !filename ) {
 	        // First look if an ontology title exists, otherwise take the alternative filename
 	        var ontologyNames = data.header ? data.header.title : undefined;
 	        var ontologyName = languageTools.textInLanguage(ontologyNames);
-	        
+
 	        if ( ontologyName ) {
 	          filename = ontologyName;
 	        } else {
@@ -912,14 +912,14 @@ webvowl.app =
 	        }
 	      }
 	    }
-	    
-	    
+
+
 	    // check if we have graph data
 	    var classCount = 0;
 	    if ( data.class !== undefined ) {
 	      classCount = data.class.length;
 	    }
-	    
+
 	    var loadEmptyOntologyForEditing = false;
 	    if ( location.hash.indexOf("#new_ontology") !== -1 ) {
 	      loadEmptyOntologyForEditing = true;
@@ -937,63 +937,63 @@ webvowl.app =
 	      graph.options().loadingModule().setPercentMode();
 	      if ( loadEmptyOntologyForEditing === true ) {
 	        graph.editorMode(true);
-	        
+
 	      }
 	      graph.load();
 	      sidebar.updateOntologyInformation(data, statistics);
 	      exportMenu.setFilename(filename);
 	      graph.updateZoomSliderValueFromOutside();
 	      adjustSize();
-	      
+
 	      var flagOfCheckBox = d3.select("#editorModeModuleCheckbox").node().checked;
 	      graph.editorMode(flagOfCheckBox);// update gui
-	      
+
 	    }
 	  }
-	  
+
 	  function adjustSize(){
 	    var graphContainer = d3.select(GRAPH_SELECTOR),
 	      svg = graphContainer.select("svg"),
 	      height = window.innerHeight - 40,
 	      width = window.innerWidth - (window.innerWidth * 0.22);
-	    
+
 	    if ( sidebar.getSidebarVisibility() === "0" ) {
 	      height = window.innerHeight - 40;
 	      width = window.innerWidth;
 	    }
-	    
+
 	    directInputMod.updateLayout();
 	    d3.select("#blockGraphInteractions").style("width", window.innerWidth + "px");
 	    d3.select("#blockGraphInteractions").style("height", window.innerHeight + "px");
-	    
+
 	    d3.select("#WarningErrorMessagesContainer").style("width", width + "px");
 	    d3.select("#WarningErrorMessagesContainer").style("height", height + "px");
-	    
+
 	    d3.select("#WarningErrorMessages").style("max-height", (height - 12) + "px");
-	    
+
 	    graphContainer.style("height", height + "px");
 	    svg.attr("width", width)
 	      .attr("height", height);
-	    
+
 	    options.width(width)
 	      .height(height);
-	    
+
 	    graph.updateStyle();
-	    
+
 	    if ( isTouchDevice() === true ) {
 	      if ( graph.isEditorMode() === true )
 	        d3.select("#modeOfOperationString").node().innerHTML = "touch able device detected";
 	      graph.setTouchDevice(true);
-	      
+
 	    } else {
 	      if ( graph.isEditorMode() === true )
 	        d3.select("#modeOfOperationString").node().innerHTML = "point & click device detected";
 	      graph.setTouchDevice(false);
 	    }
-	    
+
 	    d3.select("#loadingInfo-container").style("height", 0.5 * (height - 80) + "px");
 	    loadingModule.checkForScreenSize();
-	    
+
 	    adjustSliderSize();
 	    // update also the padding options of loading and the logo positions;
 	    var warningDiv = d3.select("#browserCheck");
@@ -1004,7 +1004,7 @@ webvowl.app =
 	      // remove the dynamic padding from the logo element;
 	      d3.select("#logo").style("padding", "10px");
 	    }
-	    
+
 	    // scrollbar tests;
 	    var element = d3.select("#menuElementContainer").node();
 	    var maxScrollLeft = element.scrollWidth - element.clientWidth;
@@ -1020,24 +1020,24 @@ webvowl.app =
 	      rightButton.classed("hidden", true);
 	      leftButton.classed("hidden", true);
 	    }
-	    
+
 	    // adjust height of the leftSidebar element;
 	    editSidebar.updateElementWidth();
-	    
-	    
+
+
 	    var hs = d3.select("#drag_msg").node().getBoundingClientRect().height;
 	    var ws = d3.select("#drag_msg").node().getBoundingClientRect().width;
 	    d3.select("#drag_icon_group").attr("transform", "translate ( " + 0.25 * ws + " " + 0.25 * hs + ")");
-	    
+
 	  }
-	  
+
 	  function adjustSliderSize(){
 	    // TODO: refactor and put this into the slider it self
 	    var height = window.innerHeight - 40;
 	    var fullHeight = height;
 	    var zoomOutPos = height - 30;
 	    var sliderHeight = 150;
-	    
+
 	    // assuming DOM elements are generated in the index.html
 	    // todo: refactor for independent usage of graph and app
 	    if ( fullHeight < 150 ) {
@@ -1052,7 +1052,7 @@ webvowl.app =
 	    d3.select("#zoomOutButton").classed("hidden", false);
 	    d3.select("#zoomInButton").classed("hidden", false);
 	    d3.select("#centerGraphButton").classed("hidden", false);
-	    
+
 	    var zoomInPos = zoomOutPos - 20;
 	    var centerPos = zoomInPos - 20;
 	    if ( fullHeight < 280 ) {
@@ -1063,7 +1063,7 @@ webvowl.app =
 	      d3.select("#centerGraphButton").style("top", centerPos + "px");
 	      return;
 	    }
-	    
+
 	    var sliderPos = zoomOutPos - sliderHeight;
 	    zoomInPos = sliderPos - 20;
 	    centerPos = zoomInPos - 20;
@@ -1073,7 +1073,7 @@ webvowl.app =
 	    d3.select("#centerGraphButton").style("top", centerPos + "px");
 	    d3.select("#zoomSliderParagraph").style("top", sliderPos + "px");
 	  }
-	  
+
 	  function isTouchDevice(){
 	    try {
 	      document.createEvent("TouchEvent");
@@ -1082,20 +1082,20 @@ webvowl.app =
 	      return false;
 	    }
 	  }
-	  
-	  
+
+
 	  function getInternetExplorerVersion(){
 	    var ua,
 	      re,
 	      rv = -1;
-	    
+
 	    // check for edge
 	    var isEdge = /(?:\b(MS)?IE\s+|\bTrident\/7\.0;.*\s+rv:|\bEdge\/)(\d+)/.test(navigator.userAgent);
 	    if ( isEdge ) {
 	      rv = parseInt("12");
 	      return rv;
 	    }
-	    
+
 	    var isIE11 = /Trident.*rv[ :]*11\./.test(navigator.userAgent);
 	    if ( isIE11 ) {
 	      rv = parseInt("11");
@@ -1116,7 +1116,7 @@ webvowl.app =
 	    }
 	    return rv;
 	  }
-	  
+
 	  return app;
 	}
 	;
@@ -1133,7 +1133,7 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var exportMenu = {},
 	    exportSvgButton,
 	    exportFilename,
@@ -1142,16 +1142,16 @@ webvowl.app =
 	    exportTexButton,
 	    copyButton,
 	    exportableJsonText;
-	  
+
 	  var exportTTLModule = __webpack_require__(324)(graph);
-	  
-	  
+
+
 	  String.prototype.replaceAll = function ( search, replacement ){
 	    var target = this;
 	    return target.split(search).join(replacement);
 	  };
-	  
-	  
+
+
 	  /**
 	   * Adds the export button to the website.
 	   */
@@ -1160,16 +1160,16 @@ webvowl.app =
 	      .on("click", exportSvg);
 	    exportJsonButton = d3.select("#exportJson")
 	      .on("click", exportJson);
-	    
+
 	    copyButton = d3.select("#copyBt")
 	      .on("click", copyUrl);
-	    
+
 	    exportTexButton = d3.select("#exportTex")
 	      .on("click", exportTex);
-	    
+
 	    exportTurtleButton = d3.select("#exportTurtle")
 	      .on("click", exportTurtle);
-	    
+
 	    var menuEntry = d3.select("#m_export");
 	    menuEntry.on("mouseover", function (){
 	      var searchMenu = graph.options().searchMenu();
@@ -1191,16 +1191,16 @@ webvowl.app =
 	      // 	// language object -.-
 	      //    ontoTitle.replace(" ","_")
 	      // }
-	      
+
 	      // TODO: show TEXT in warning module?
-	      
-	      
+
+
 	      // // write the data
 	      var dataURI = "data:text/json;charset=utf-8," + encodeURIComponent(result);
-	      
+
 	      exportTurtleButton.attr("href", dataURI)
 	        .attr("download", ontoTitle + ".ttl");
-	      
+
 	      // okay restore old href?
 	      //  exportTurtleButton.attr("href", oldHref);
 	    } else {
@@ -1211,15 +1211,15 @@ webvowl.app =
 	      d3.event.preventDefault(); // prevent the href to be called ( reloads the page otherwise )
 	    }
 	  }
-	  
+
 	  exportMenu.setFilename = function ( filename ){
 	    exportFilename = filename || "export";
 	  };
-	  
+
 	  exportMenu.setJsonText = function ( jsonText ){
 	    exportableJsonText = jsonText;
 	  };
-	  
+
 	  function copyUrl(){
 	    d3.select("#exportedUrl").node().focus();
 	    d3.select("#exportedUrl").node().select();
@@ -1227,11 +1227,11 @@ webvowl.app =
 	    graph.options().navigationMenu().hideAllMenus();
 	    d3.event.preventDefault(); // prevent the href to be called ( reloads the page otherwise )
 	  }
-	  
+
 	  function prepareOptionString( defOpts, currOpts ){
 	    var setOptions = 0;
 	    var optsString = "opts=";
-	    
+
 	    for ( var name in defOpts ) {
 	      // define key and value ;
 	      if ( defOpts.hasOwnProperty(name) ) {// for travis warning
@@ -1249,11 +1249,11 @@ webvowl.app =
 	    }
 	    return optsString;
 	  }
-	  
+
 	  exportMenu.exportAsUrl = function (){
 	    var currObj = {};
 	    currObj.sidebar = graph.options().sidebar().getSidebarVisibility();
-	    
+
 	    // identify default value given by ontology;
 	    var defOntValue = graph.options().filterMenu().getDefaultDegreeValue();
 	    var currentValue = graph.options().filterMenu().getDegreeSliderValue();
@@ -1262,7 +1262,7 @@ webvowl.app =
 	    } else {
 	      currObj.doc = currentValue;
 	    }
-	    
+
 	    currObj.cd = graph.options().classDistance();
 	    currObj.dd = graph.options().datatypeDistance();
 	    if ( graph.editorMode() === true ) {
@@ -1283,7 +1283,7 @@ webvowl.app =
 	    currObj.mode_pnp = String(graph.options().modeMenu().getCheckBoxValue("pickandpinModuleCheckbox"));
 	    currObj.debugFeatures = String(!graph.options().getHideDebugFeatures());
 	    currObj.rect = 0;
-	    
+
 	    var defObj = graph.options().initialConfig();
 	    var optsString = prepareOptionString(defObj, currObj);
 	    var urlString = String(location);
@@ -1291,11 +1291,11 @@ webvowl.app =
 	    // when everything is default then there is nothing to write
 	    if ( optsString.length === 0 ) {
 	      // building up parameter list;
-	      
+
 	      // remove the all options form location
 	      var hashCode = location.hash;
 	      urlString = urlString.split(hashCode)[0];
-	      
+
 	      var lPos = hashCode.lastIndexOf("#");
 	      if ( lPos === -1 ) {
 	        htmlElement = d3.select("#exportedUrl").node();
@@ -1309,7 +1309,7 @@ webvowl.app =
 	      htmlElement.title = urlString + newURL;
 	      return;
 	    }
-	    
+
 	    // generate the options string;
 	    var numParameters = (urlString.match(/#/g) || []).length;
 	    var newUrlString;
@@ -1337,9 +1337,9 @@ webvowl.app =
 	    htmlElement = d3.select("#exportedUrl").node();
 	    htmlElement.value = newUrlString;
 	    htmlElement.title = newUrlString;
-	    
+
 	  };
-	  
+
 	  function exportSvg(){
 	    graph.options().navigationMenu().hideAllMenus();
 	    // Get the d3js SVG element
@@ -1347,53 +1347,53 @@ webvowl.app =
 	      graphSvgCode,
 	      escapedGraphSvgCode,
 	      dataURI;
-	    
+
 	    // inline the styles, so that the exported svg code contains the css rules
 	    inlineVowlStyles();
 	    hideNonExportableElements();
-	    
+
 	    graphSvgCode = graphSvg.attr("version", 1.1)
 	      .attr("xmlns", "http://www.w3.org/2000/svg")
 	      .node().parentNode.innerHTML;
-	    
+
 	    // Insert the reference to VOWL
 	    graphSvgCode = "<!-- Created with WebVOWL (version " + webvowl.version + ")" +
 	      ", http://vowl.visualdataweb.org -->\n" + graphSvgCode;
-	    
+
 	    escapedGraphSvgCode = escapeUnicodeCharacters(graphSvgCode);
 	    //btoa(); Creates a base-64 encoded ASCII string from a "string" of binary data.
 	    dataURI = "data:image/svg+xml;base64," + btoa(escapedGraphSvgCode);
-	    
-	    
+
+
 	    exportSvgButton.attr("href", dataURI)
 	      .attr("download", exportFilename + ".svg");
-	    
+
 	    // remove graphic styles for interaction to go back to normal
 	    removeVowlInlineStyles();
 	    showNonExportableElements();
 	    graph.lazyRefresh();
 	  }
-	  
+
 	  function escapeUnicodeCharacters( text ){
 	    var textSnippets = [],
 	      i, textLength = text.length,
 	      character,
 	      charCode;
-	    
+
 	    for ( i = 0; i < textLength; i++ ) {
 	      character = text.charAt(i);
 	      charCode = character.charCodeAt(0);
-	      
+
 	      if ( charCode < 128 ) {
 	        textSnippets.push(character);
 	      } else {
 	        textSnippets.push("&#" + charCode + ";");
 	      }
 	    }
-	    
+
 	    return textSnippets.join("");
 	  }
-	  
+
 	  function inlineVowlStyles(){
 	    setStyleSensitively(".text", [{ name: "font-family", value: "Helvetica, Arial, sans-serif" }, {
 	      name: "font-size",
@@ -1433,13 +1433,13 @@ webvowl.app =
 	    setStyleSensitively(".nostroke", [{ name: "stroke", value: "none" }]);
 	    setStyleSensitively("marker path", [{ name: "stroke-dasharray", value: "100" }]);
 	  }
-	  
+
 	  function setStyleSensitively( selector, styles ){
 	    var elements = d3.selectAll(selector);
 	    if ( elements.empty() ) {
 	      return;
 	    }
-	    
+
 	    styles.forEach(function ( style ){
 	      elements.each(function (){
 	        var element = d3.select(this);
@@ -1449,11 +1449,11 @@ webvowl.app =
 	      });
 	    });
 	  }
-	  
+
 	  function shouldntChangeInlineCss( element, style ){
 	    return style === "fill" && hasBackgroundColorSet(element);
 	  }
-	  
+
 	  function hasBackgroundColorSet( element ){
 	    var data = element.datum();
 	    if ( data === undefined ) {
@@ -1461,19 +1461,19 @@ webvowl.app =
 	    }
 	    return data.backgroundColor && !!data.backgroundColor();
 	  }
-	  
+
 	  /**
 	   * For example the pin of the pick&pin module should be invisible in the exported graphic.
 	   */
 	  function hideNonExportableElements(){
 	    d3.selectAll(".hidden-in-export").style("display", "none");
 	  }
-	  
+
 	  function removeVowlInlineStyles(){
 	    d3.selectAll(".text, .subtext, .text.instance-count, .external + text .instance-count, .cardinality, .text, .embedded, .class, .object, .disjoint, .objectproperty, .disjointwith, .equivalentproperty, .transitiveproperty, .functionalproperty, .inversefunctionalproperty, .symmetricproperty, .allvaluesfromproperty, .somevaluesfromproperty, .label .datatype, .datatypeproperty, .rdf, .rdfproperty, .literal, .node .datatype, .deprecated, .deprecatedproperty, .external, .externalproperty, path, .nofill, .symbol, .values-from.filled, marker path, .class, path, line, .fineline, .white, .subclass, .subclassproperty, .external + text, .class.hovered, .property.hovered, .cardinality.hovered, .cardinality.focused, circle.pin, .filled.hovered, .filled.focused, .focused, path.hovered, .indirect-highlighting, .feature:hover, .values-from, .class, path, line, .fineline, .dashed, .anonymous, .dotted, rect.focused, circle.focused, .nostroke, marker path")
 	      .each(function (){
 	        var element = d3.select(this);
-	        
+
 	        var inlineStyles = element.node().style;
 	        for ( var styleName in inlineStyles ) {
 	          if ( inlineStyles.hasOwnProperty(styleName) ) {
@@ -1483,37 +1483,37 @@ webvowl.app =
 	            element.style(styleName, null);
 	          }
 	        }
-	        
+
 	        if ( element.datum && element.datum() !== undefined && element.datum().type ) {
 	          if ( element.datum().type() === "rdfs:subClassOf" ) {
 	            element.style("fill", null);
 	          }
 	        }
 	      });
-	    
+
 	    // repair svg icons in the menu;
 	    var scrollContainer = d3.select("#menuElementContainer").node();
 	    var controlElements = scrollContainer.children;
 	    var numEntries = controlElements.length;
-	    
+
 	    for ( var i = 0; i < numEntries; i++ ) {
 	      var currentMenu = controlElements[i].id;
 	      d3.select("#" + currentMenu).select("path").style("stroke-width", "0");
 	      d3.select("#" + currentMenu).select("path").style("fill", "#fff");
 	    }
-	    
+
 	    d3.select("#magnifyingGlass").style("stroke-width", "0");
 	    d3.select("#magnifyingGlass").style("fill", "#666");
-	    
+
 	  }
-	  
+
 	  function showNonExportableElements(){
 	    d3.selectAll(".hidden-in-export").style("display", null);
 	  }
-	  
+
 	  exportMenu.createJSON_exportObject = function (){
 	    var i, j, k; // an index variable for the for-loops
-	    
+
 	    /** get data for exporter **/
 	      if (!graph.options().data()) {return {};} // return an empty json object
 	      // extract onotology information;
@@ -1521,7 +1521,7 @@ webvowl.app =
 	    var ontologyComment = graph.options().data()._comment;
 	    var metaObj = graph.options().getGeneralMetaObject();
 	    var header = graph.options().data().header;
-	    
+
 	    if ( metaObj.iri && metaObj.iri !== header.iri ) {
 	      header.iri = metaObj.iri;
 	    }
@@ -1537,8 +1537,8 @@ webvowl.app =
 	    if ( metaObj.description && metaObj.description !== header.description ) {
 	      header.description = metaObj.description;
 	    }
-	    
-	    
+
+
 	    var exportText = {};
 	    exportText._comment = ontologyComment;
 	    exportText.header = header;
@@ -1547,8 +1547,8 @@ webvowl.app =
 	      exportText.namespace = []; // just an empty namespace array
 	    }
 	    // we do have now the unfiltered data which needs to be transfered to class/classAttribute and property/propertyAttribute
-	    
-	    
+
+
 	    // var classAttributeString='classAttribute:[ \n';
 	    var nodes = unfilteredData.nodes;
 	    var nLen = nodes.length; // hope for compiler unroll
@@ -1560,13 +1560,13 @@ webvowl.app =
 	      classObj.id = nodes[i].id();
 	      classObj.type = nodes[i].type();
 	      classObjects.push(classObj);
-	      
+
 	      // define the attributes object
 	      classAttr.id = nodes[i].id();
 	      classAttr.iri = nodes[i].iri();
 	      classAttr.baseIri = nodes[i].baseIri();
 	      classAttr.label = nodes[i].label();
-	      
+
 	      if ( nodes[i].attributes().length > 0 ) {
 	        classAttr.attributes = nodes[i].attributes();
 	      }
@@ -1579,8 +1579,8 @@ webvowl.app =
 	      if ( nodes[i].description() ) {
 	        classAttr.description = nodes[i].description();
 	      }
-	      
-	      
+
+
 	      if ( nodes[i].individuals().length > 0 ) {
 	        var classIndividualElements = [];
 	        var nIndividuals = nodes[i].individuals();
@@ -1602,7 +1602,7 @@ webvowl.app =
 	        }
 	        classAttr.individuals = classIndividualElements;
 	      }
-	      
+
 	      var equalsForAttributes = undefined;
 	      if ( nodes[i].equivalents().length > 0 ) {
 	        equalsForAttributes = [];
@@ -1614,12 +1614,12 @@ webvowl.app =
 	          equalsForAttributes.push(equals[j].id());
 	          eqObj.type = equals[j].type();
 	          classObjects.push(eqObj);
-	          
+
 	          eqAttr.id = equals[j].id();
 	          eqAttr.iri = equals[j].iri();
 	          eqAttr.baseIri = equals[j].baseIri();
 	          eqAttr.label = equals[j].label();
-	          
+
 	          if ( equals[j].attributes().length > 0 ) {
 	            eqAttr.attributes = equals[j].attributes();
 	          }
@@ -1635,7 +1635,7 @@ webvowl.app =
 	          if ( equals[j].description() ) {
 	            eqAttr.description = equals[j].description();
 	          }
-	          
+
 	          if ( equals[j].individuals().length > 0 ) {
 	            var e_classIndividualElements = [];
 	            var e_nIndividuals = equals[i].individuals();
@@ -1644,7 +1644,7 @@ webvowl.app =
 	              e_indObj.iri = e_nIndividuals[k].iri();
 	              e_indObj.baseIri = e_nIndividuals[k].baseIri();
 	              e_indObj.labels = e_nIndividuals[k].label();
-	              
+
 	              if ( e_nIndividuals[k].annotations() ) {
 	                e_indObj.annotations = e_nIndividuals[k].annotations();
 	              }
@@ -1658,17 +1658,17 @@ webvowl.app =
 	            }
 	            eqAttr.individuals = e_classIndividualElements;
 	          }
-	          
+
 	          classAttributeObjects.push(eqAttr);
 	        }
 	      }
 	      if ( equalsForAttributes && equalsForAttributes.length > 0 ) {
 	        classAttr.equivalent = equalsForAttributes;
 	      }
-	      
+
 	      // classAttr.subClasses=nodes[i].subClasses(); // not needed
 	      // classAttr.instances=nodes[i].instances();
-	      
+
 	      //
 	      // .complement(element.complement)
 	      // .disjointUnion(element.disjointUnion)
@@ -1679,33 +1679,33 @@ webvowl.app =
 	      // .union(element.union)
 	      classAttributeObjects.push(classAttr);
 	    }
-	    
+
 	    /** -- properties -- **/
 	    var properties = unfilteredData.properties;
 	    var pLen = properties.length; // hope for compiler unroll
 	    var propertyObjects = [];
 	    var propertyAttributeObjects = [];
-	    
+
 	    for ( i = 0; i < pLen; i++ ) {
 	      var pObj = {};
 	      var pAttr = {};
 	      pObj.id = properties[i].id();
 	      pObj.type = properties[i].type();
 	      propertyObjects.push(pObj);
-	      
+
 	      // // define the attributes object
 	      pAttr.id = properties[i].id();
 	      pAttr.iri = properties[i].iri();
 	      pAttr.baseIri = properties[i].baseIri();
 	      pAttr.label = properties[i].label();
-	      
+
 	      if ( properties[i].attributes().length > 0 ) {
 	        pAttr.attributes = properties[i].attributes();
 	      }
 	      if ( properties[i].comment() ) {
 	        pAttr.comment = properties[i].comment();
 	      }
-	      
+
 	      if ( properties[i].annotations() ) {
 	        pAttr.annotations = properties[i].annotations();
 	      }
@@ -1721,7 +1721,7 @@ webvowl.app =
 	      if ( properties[i].description() ) {
 	        pAttr.description = properties[i].description();
 	      }
-	      
+
 	      pAttr.domain = properties[i].domain().id();
 	      pAttr.range = properties[i].range().id();
 	      // sub properties;
@@ -1734,7 +1734,7 @@ webvowl.app =
 	        }
 	        pAttr.subproperty = subPropsIdArray;
 	      }
-	      
+
 	      // super properties
 	      if ( properties[i].superproperties() ) {
 	        var superProps = properties[i].superproperties();
@@ -1745,7 +1745,7 @@ webvowl.app =
 	        }
 	        pAttr.superproperty = superPropsIdArray;
 	      }
-	      
+
 	      // check for inverse element
 	      if ( properties[i].inverse() ) {
 	        if ( properties[i].inverse().id )
@@ -1753,17 +1753,17 @@ webvowl.app =
 	      }
 	      propertyAttributeObjects.push(pAttr);
 	    }
-	    
+
 	    exportText.class = classObjects;
 	    exportText.classAttribute = classAttributeObjects;
 	    exportText.property = propertyObjects;
 	    exportText.propertyAttribute = propertyAttributeObjects;
-	    
-	    
+
+
 	    var nodeElements = graph.graphNodeElements();  // get visible nodes
 	    var propElements = graph.graphLabelElements(); // get visible labels
 	    // var jsonObj = JSON.parse(exportableJsonText);	   // reparse the original input json
-	    
+
 	    /** modify comment **/
 	    var comment = exportText._comment;
 	    var additionalString = " [Additional Information added by WebVOWL Exporter Version: " + "1.1.7" + "]";
@@ -1771,7 +1771,7 @@ webvowl.app =
 	    if ( comment.indexOf(additionalString) === -1 ) {
 	      exportText._comment = comment + " [Additional Information added by WebVOWL Exporter Version: " + "1.1.7" + "]";
 	    }
-	    
+
 	    var classAttribute = exportText.classAttribute;
 	    var propAttribute = exportText.propertyAttribute;
 	    /**  remove previously stored variables **/
@@ -1816,7 +1816,7 @@ webvowl.app =
 	    }
 	    /** create the variable for settings and set their values **/
 	    exportText.settings = {};
-	    
+
 	    // Global Settings
 	    var zoom = graph.scaleFactor();
 	    var paused = graph.paused();
@@ -1825,19 +1825,19 @@ webvowl.app =
 	    exportText.settings.global.zoom = zoom.toFixed(2);
 	    exportText.settings.global.translation = translation;
 	    exportText.settings.global.paused = paused;
-	    
+
 	    // shared variable declaration
 	    var cb_text;
 	    var isEnabled;
 	    var cb_obj;
-	    
+
 	    // Gravity Settings
 	    var classDistance = graph.options().classDistance();
 	    var datatypeDistance = graph.options().datatypeDistance();
 	    exportText.settings.gravity = {};
 	    exportText.settings.gravity.classDistance = classDistance;
 	    exportText.settings.gravity.datatypeDistance = datatypeDistance;
-	    
+
 	    // Filter Settings
 	    var fMenu = graph.options().filterMenu();
 	    var fContainer = fMenu.getCheckBoxContainer();
@@ -1854,7 +1854,7 @@ webvowl.app =
 	    exportText.settings.filter = {};
 	    exportText.settings.filter.checkBox = cbCont;
 	    exportText.settings.filter.degreeSliderValue = degreeSliderVal;
-	    
+
 	    // Modes Settings
 	    var mMenu = graph.options().modeMenu();
 	    var mContainer = mMenu.getCheckBoxContainer();
@@ -1871,7 +1871,7 @@ webvowl.app =
 	    exportText.settings.modes = {};
 	    exportText.settings.modes.checkBox = cb_modes;
 	    exportText.settings.modes.colorSwitchState = colorSwitchState;
-	    
+
 	    var exportObj = {};
 	    // todo: [ ] find better way for ordering the objects
 	    // hack for ordering of objects, so settings is after metrics
@@ -1884,10 +1884,10 @@ webvowl.app =
 	    exportObj.classAttribute = exportText.classAttribute;
 	    exportObj.property = exportText.property;
 	    exportObj.propertyAttribute = exportText.propertyAttribute;
-	    
+
 	    return exportObj;
 	  };
-	  
+
 	  function exportJson(){
 	    graph.options().navigationMenu().hideAllMenus();
 	    /**  check if there is data **/
@@ -1897,21 +1897,21 @@ webvowl.app =
 	      d3.event.preventDefault();
 	      return;
 	    }
-	    
+
 	    var exportObj = exportMenu.createJSON_exportObject();
-	    
+
 	    // make a string again;
 	    var exportText = JSON.stringify(exportObj, null, '  ');
 	    // write the data
 	    var dataURI = "data:text/json;charset=utf-8," + encodeURIComponent(exportText);
 	    var jsonExportFileName = exportFilename;
-	    
+
 	    if ( !jsonExportFileName.endsWith(".json") )
 	      jsonExportFileName += ".json";
 	    exportJsonButton.attr("href", dataURI)
 	      .attr("download", jsonExportFileName);
 	  }
-	  
+
 	  var curveFunction = d3.svg.line()
 	    .x(function ( d ){
 	      return d.x;
@@ -1929,7 +1929,7 @@ webvowl.app =
 	    })
 	    .interpolate("cardinal")
 	    .tension(-1);
-	  
+
 	  function exportTex(){
 	    var zoom = graph.scaleFactor();
 	    var grTranslate = graph.translation();
@@ -1958,8 +1958,8 @@ webvowl.app =
 	    comment += " %  \\end{figure} \n";
 	    comment += " %\\end{document} \n";
 	    comment += " %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n";
-	    
-	    
+
+
 	    var texString = comment + "\\definecolor{imageBGCOLOR}{HTML}{FFFFFF} \n" +
 	      "\\definecolor{owlClassColor}{HTML}{AACCFF}\n" +
 	      "\\definecolor{owlObjectPropertyColor}{HTML}{AACCFF}\n" +
@@ -1972,91 +1972,91 @@ webvowl.app =
 	      "\\definecolor{unionColor}{HTML}{6699cc}\n" +
 	      "\\begin{center} \n" +
 	      "\\resizebox{\\linewidth}{!}{\n" +
-	      
+
 	      "\\begin{tikzpicture}[framed]\n" +
 	      "\\clip (" + bbox[0] + "pt , " + bbox[1] + "pt ) rectangle (" + bbox[2] + "pt , " + bbox[3] + "pt);\n" +
 	      "\\tikzstyle{dashed}=[dash pattern=on 4pt off 4pt] \n" +
 	      "\\tikzstyle{dotted}=[dash pattern=on 2pt off 2pt] \n" +
 	      "\\fontfamily{sans-serif}{\\fontsize{12}{12}\\selectfont}\n \n";
-	    
-	    
+
+
 	    texString += "\\tikzset{triangleBlack/.style = {fill=black, draw=black, line width=1pt,scale=0.7,regular polygon, regular polygon sides=3} }\n";
 	    texString += "\\tikzset{triangleWhite/.style = {fill=white, draw=black, line width=1pt,scale=0.7,regular polygon, regular polygon sides=3} }\n";
 	    texString += "\\tikzset{triangleBlue/.style  = {fill=valuesFrom, draw=valuesFrom, line width=1pt,scale=0.7,regular polygon, regular polygon sides=3} }\n";
-	    
+
 	    texString += "\\tikzset{Diamond/.style = {fill=white, draw=black, line width=2pt,scale=1.2,regular polygon, regular polygon sides=4} }\n";
-	    
-	    
+
+
 	    texString += "\\tikzset{Literal/.style={rectangle,align=center,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "black, draw=black, dashed, line width=1pt, fill=owlDatatypeColor, minimum width=80pt,\n" +
 	      "minimum height = 20pt}}\n\n";
-	    
+
 	    texString += "\\tikzset{Datatype/.style={rectangle,align=center,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "black, draw=black, line width=1pt, fill=owlDatatypeColor, minimum width=80pt,\n" +
 	      "minimum height = 20pt}}\n\n";
-	    
-	    
+
+
 	    texString += "\\tikzset{owlClass/.style={circle, inner sep=0mm,align=center, \n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "black, draw=black, line width=1pt, fill=owlClassColor, minimum size=101pt}}\n\n";
-	    
+
 	    texString += "\\tikzset{anonymousClass/.style={circle, inner sep=0mm,align=center, \n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "black, dashed, draw=black, line width=1pt, fill=owlClassColor, minimum size=101pt}}\n\n";
-	    
-	    
+
+
 	    texString += "\\tikzset{owlThing/.style={circle, inner sep=0mm,align=center,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "black, dashed, draw=black, line width=1pt, fill=owlThingColor, minimum size=62pt}}\n\n";
-	    
-	    
+
+
 	    texString += "\\tikzset{owlObjectProperty/.style={rectangle,align=center,\n" +
 	      "inner sep=0mm,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "fill=owlObjectPropertyColor, minimum width=80pt,\n" +
 	      "minimum height = 25pt}}\n\n";
-	    
+
 	    texString += "\\tikzset{rdfProperty/.style={rectangle,align=center,\n" +
 	      "inner sep=0mm,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "fill=rdfPropertyColor, minimum width=80pt,\n" +
 	      "minimum height = 25pt}}\n\n";
-	    
-	    
+
+
 	    texString += "\\tikzset{owlDatatypeProperty/.style={rectangle,align=center,\n" +
 	      "fill=owlDatatypePropertyColor, minimum width=80pt,\n" +
 	      "inner sep=0mm,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "minimum height = 25pt}}\n\n";
-	    
+
 	    texString += "\\tikzset{rdfsSubClassOf/.style={rectangle,align=center,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "inner sep=0mm,\n" +
 	      "fill=imageBGCOLOR, minimum width=80pt,\n" +
 	      "minimum height = 25pt}}\n\n";
-	    
+
 	    texString += "\\tikzset{unionOf/.style={circle, inner sep=0mm,align=center,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "black, draw=black, line width=1pt, fill=unionColor, minimum size=25pt}}\n\n";
-	    
+
 	    texString += "\\tikzset{disjointWith/.style={circle, inner sep=0mm,align=center,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "black, draw=black, line width=1pt, fill=unionColor, minimum size=20pt}}\n\n";
-	    
-	    
+
+
 	    texString += "\\tikzset{owlEquivalentClass/.style={circle,align=center,\n" +
 	      "font={\\fontsize{12pt}{12}\\selectfont \\sffamily },\n" +
 	      "inner sep=0mm,\n" +
 	      "black, solid, draw=black, line width=3pt, fill=owlExternalClassColor, minimum size=101pt,\n" +
 	      "postaction = {draw,line width=1pt, white}}}\n\n";
-	    
+
 	    // draw a bounding box;
-	    
+
 	    // get bbox coordinates;
-	    
-	    
+
+
 	    graph.options().navigationMenu().hideAllMenus();
 	    /**  check if there is data **/
 	    if ( !exportableJsonText ) {
@@ -2065,20 +2065,20 @@ webvowl.app =
 	      d3.event.preventDefault();
 	      return;
 	    }
-	    
+
 	    var i = 0, identifier;
-	    
+
 	    /** get data for exporter **/
 	    var nodeElements = graph.graphNodeElements();  // get visible nodes
 	    var propElements = graph.graphLabelElements(); // get visible labels
 	    var links = graph.graphLinkElements();
-	    
+
 	    // export only nodes;
 	    // draw Links;
 	    for ( i = 0; i < links.length; i++ ) {
 	      var link = links[i];
 	      // console.log("\n****************\nInverstigating Link for property "+link.property().labelForCurrentLanguage());
-	      
+
 	      var prop = link.property();
 	      var dx, dy, px, py, rx, ry;
 	      var colorStr = "black";
@@ -2095,7 +2095,7 @@ webvowl.app =
 	      var ahAngle;
 	      var pathLen;
 	      var markerOffset = 7;
-	      
+
 	      var arrowType = "triangleBlack";
 	      var linkWidth = ",line width=2pt";
 	      if ( prop.linkType ) {
@@ -2108,17 +2108,17 @@ webvowl.app =
 	          //stroke-dasharray: 3;
 	          linkStyle = ", dashed ";
 	        }
-	        
+
 	        if ( prop.linkType() === "values-from" ) {
 	          colorStr = "valuesFrom";
 	        }
-	        
+
 	      }
-	      
+
 	      var startX, startY, endX, endY, normX, normY, lg;
-	      
+
 	      if ( link.layers().length === 1 && !link.loops() ) {
-	        
+
 	        linkDomainIntersection = graph.math().calculateIntersection(link.range(), link.domain(), 1);
 	        linkRangeIntersection = graph.math().calculateIntersection(link.domain(), link.range(), 1);
 	        center = graph.math().calculateCenter(linkDomainIntersection, linkRangeIntersection);
@@ -2128,21 +2128,21 @@ webvowl.app =
 	        py = -center.y;
 	        rx = linkRangeIntersection.x;
 	        ry = -linkRangeIntersection.y;
-	        
-	        
+
+
 	        pathStart = linkDomainIntersection;
 	        curvePoint = center;
 	        pathEnd = linkRangeIntersection;
-	        
+
 	        var nx = rx - px;
 	        var ny = ry - py;
-	        
+
 	        // normalize ;
 	        len = Math.sqrt(nx * nx + ny * ny);
-	        
+
 	        nx = nx / len;
 	        ny = ny / len;
-	        
+
 	        ahAngle = Math.atan2(ny, nx) * (180 / Math.PI);
 	        normX = nx;
 	        normY = ny;
@@ -2166,33 +2166,33 @@ webvowl.app =
 	        rx = pathEnd.x;
 	        ry = -pathEnd.y;
 	      }
-	      
+
 	      texString += "\\draw [" + colorStr + linkStyle + linkWidth + isLoop + "] plot [smooth] coordinates {(" +
 	        dx + "pt, " + dy + "pt) (" + px + "pt, " + py + "pt)  (" + rx + "pt, " + ry + "pt)};\n";
-	      
-	      
+
+
 	      if ( link.property().markerElement() === undefined ) continue;
-	      
+
 	      // add arrow head;
-	      
-	      
+
+
 	      if ( link.property().type() === "owl:someValuesFrom" || link.property().type() === "owl:allValuesFrom" ) {
 	        arrowType = "triangleBlue";
 	      }
-	      
+
 	      lg = link.pathObj();
 	      pathLen = Math.floor(lg.node().getTotalLength());
 	      var p1 = lg.node().getPointAtLength(pathLen - 4);
 	      var p2 = lg.node().getPointAtLength(pathLen);
 	      var markerCenter = lg.node().getPointAtLength(pathLen - 6);
-	      
+
 	      if ( link.property().type() === "setOperatorProperty" ) {
 	        p1 = lg.node().getPointAtLength(4);
 	        p2 = lg.node().getPointAtLength(0);
 	        markerCenter = lg.node().getPointAtLength(8);
 	        arrowType = "Diamond";
 	      }
-	      
+
 	      startX = p1.x;
 	      startY = p1.y;
 	      endX = p2.x;
@@ -2202,7 +2202,7 @@ webvowl.app =
 	      len = Math.sqrt(normX * normX + normY * normY);
 	      normX = normX / len;
 	      normY = normY / len;
-	      
+
 	      ahAngle = -1.0 * Math.atan2(normY, normX) * (180 / Math.PI);
 	      ahAngle -= 90;
 	      if ( link.property().type() === "setOperatorProperty" ) {
@@ -2219,11 +2219,11 @@ webvowl.app =
 	        ry = -1 * ry;
 	        texString += "\\node[" + arrowType + ", rotate=" + ahAngle + "] at (" + rx + "pt, " + ry + "pt)   (marker" + i + ") {};\n ";
 	      }
-	      
+
 	      // if   (link.isLoop()){
 	      //    rotAngle=-10+angle * (180 / Math.PI);
 	      // }
-	      
+
 	      // add cardinality;
 	      var cardinalityText = link.property().generateCardinalityText();
 	      if ( cardinalityText && cardinalityText.length > 0 ) {
@@ -2238,12 +2238,12 @@ webvowl.app =
 	        if ( cardinalityText.indexOf("E") > -1 ) {
 	          cardinalityText = "$\\exists$";
 	        }
-	        
-	        
+
+
 	        texString += "\\node[font={\\fontsize{12pt}{12}\\selectfont \\sffamily },text=" + textColor + "] at (" + cx + "pt, " + cy + "pt)   (cardinalityText" + i + ") {" + cardinalityText + "};\n ";
 	      }
-	      
-	      
+
+
 	      if ( link.property().inverse() ) {
 	        lg = link.pathObj();
 	        pathLen = Math.floor(lg.node().getTotalLength());
@@ -2259,7 +2259,7 @@ webvowl.app =
 	        len = Math.sqrt(normX * normX + normY * normY);
 	        normX = normX / len;
 	        normY = normY / len;
-	        
+
 	        ahAngle = -1.0 * Math.atan2(normY, normX) * (180 / Math.PI);
 	        ahAngle -= 90;
 	        //   console.log("INV>>\n "+link.property().inverse().labelForCurrentLanguage()+ ": "+normX+ " "+normY +"  "+ahAngle);
@@ -2274,13 +2274,13 @@ webvowl.app =
 	          texString += "\\node[" + arrowType + ", rotate=" + ahAngle + "] at (" + rx + "pt, " + ry + "pt)   (INV_marker" + i + ") {};\n ";
 	        }
 	      }
-	      
-	      
+
+
 	    }
-	    
-	    
+
+
 	    nodeElements.each(function ( node ){
-	      
+
 	      px = node.x;
 	      py = -node.y;
 	      identifier = node.labelForCurrentLanguage();
@@ -2289,7 +2289,7 @@ webvowl.app =
 	      var qType = "owlClass";
 	      if ( node.type() === "owl:Thing" || node.type() === "owl:Nothing" )
 	        qType = "owlThing";
-	      
+
 	      if ( node.type() === "owl:equivalentClass" ) {
 	        qType = "owlEquivalentClass";
 	      }
@@ -2302,8 +2302,8 @@ webvowl.app =
 	        if ( txtColor === "rgb(255, 255, 255)" ) {
 	          textColorStr = ", text=white";
 	        }
-	        
-	        
+
+
 	        var tspans = node.textBlock()._textBlock().node().children;
 	        if ( tspans[0] ) {
 	          identifier = tspans[0].innerHTML;
@@ -2328,21 +2328,21 @@ webvowl.app =
 	      if ( node.attributes().indexOf("anonymous") !== -1 ) {
 	        qType = "anonymousClass";
 	      }
-	      
-	      
+
+
 	      if ( node.type() === "owl:unionOf" || node.type() === "owl:complementOf" || node.type() === "owl:disjointUnionOf" || node.type() === "owl:intersectionOf" )
 	        qType = "owlClass";
-	      
+
 	      var bgColorStr = "";
 	      var widthString = "";
-	      
+
 	      if ( node.type() === "rdfs:Literal" || node.type() === "rdfs:Datatype" ) {
 	        var width = node.width();
 	        widthString = ",minimum width=" + width + "pt";
 	      }
 	      else {
 	        widthString = ",minimum size=" + 2 * node.actualRadius() + "pt";
-	        
+
 	      }
 	      if ( node.backgroundColor() ) {
 	        var bgColor = node.backgroundColor();
@@ -2355,7 +2355,7 @@ webvowl.app =
 	        texString += "\\definecolor{Node" + i + "_COLOR}{HTML}{CCCCCC} \n ";
 	        bgColorStr = ", fill=Node" + i + "_COLOR ";
 	      }
-	      
+
 	      var leftPos = px - 7;
 	      var rightPos = px + 7;
 	      var txtOffset = py + 20;
@@ -2394,19 +2394,19 @@ webvowl.app =
 	        texString += "\\node[unionOf   , text=black] at (" + leftPos + "pt, " + py + "pt)   (SymbolNode" + i + ") {};\n";
 	        texString += "\\node[unionOf   , text=black] at (" + rightPos + "pt, " + py + "pt)   (SymbolNode" + i + ") {};\n";
 	        texString += "\\node[unionOf ,fill=none   , text=black] at (" + leftPos + "pt, " + py + "pt)   (SymbolNode" + i + ") {};\n";
-	        
+
 	        // add now the outer colors;
 	        texString += "\\filldraw[even odd rule,fill=owlClassColor,line width=1pt] (" + leftPos + "pt, " + py + "pt) circle (12.5pt)  (" + rightPos + "pt, " + py + "pt) circle (12.5pt);\n ";
-	        
+
 	        // add texts
 	        texString += "\\node[font={\\fontsize{12pt}{12}\\selectfont \\sffamily }" + textColorStr + "] at (" + px + "pt, " + py + "pt)  (intersectionText" + i + ") {$\\cap$};\n";
 	        texString += "\\node[font={\\fontsize{12pt}{12}\\selectfont \\sffamily }" + textColorStr + "] at (" + px + "pt, " + txtOffset + "pt)   (Node_text" + i + ") {" + identifier.replaceAll("_", "\\_ ") + "};\n";
-	        
+
 	      }
-	      
-	      
+
+
 	      i++;
-	      
+
 	    });
 	    for ( i = 0; i < propElements.length; i++ ) {
 	      var correspondingProp = propElements[i].property();
@@ -2425,12 +2425,12 @@ webvowl.app =
 	          textColorStr = ", text=white";
 	        }
 	        var tspans = correspondingProp.textBlock()._textBlock().node().children;
-	        
+
 	        // identifier=node.textBlock()._textBlock().text();
 	        // console.log(tspans);
 	        if ( tspans[0] ) {
 	          identifier = tspans[0].innerHTML;
-	          
+
 	          for ( var t = 1; t < tspans.length; t++ ) {
 	            var spanText = tspans[t].innerHTML;
 	            if ( spanText.indexOf("(") > -1 ) {
@@ -2457,8 +2457,8 @@ webvowl.app =
 	      if ( correspondingProp.type() === "rdf:Property" ) {
 	        qType = "rdfProperty";
 	      }
-	      
-	      
+
+
 	      var bgColorStr = "";
 	      if ( correspondingProp.backgroundColor() ) {
 	        // console.log("Found backGround color");
@@ -2473,12 +2473,12 @@ webvowl.app =
 	        texString += "\\definecolor{property" + i + "_COLOR}{HTML}{CCCCCC} \n ";
 	        bgColorStr = ", fill=property" + i + "_COLOR ";
 	      }
-	      
+
 	      var widthString = "";
 	      var width = correspondingProp.textWidth();
 	      widthString = ",minimum width=" + width + "pt";
-	      
-	      
+
+
 	      // OWL INTERSECTION OF
 	      if ( correspondingProp.type() === "owl:disjointWith" ) {
 	        var leftPos = p_px - 12;
@@ -2494,8 +2494,8 @@ webvowl.app =
 	        texString += "};\n";
 	        continue;
 	      }
-	      
-	      
+
+
 	      if ( correspondingProp.inverse() ) {
 	        var inv_correspondingProp = correspondingProp.inverse();
 	        // create the rendering element for the inverse property;
@@ -2504,9 +2504,9 @@ webvowl.app =
 	        var inv_textColorStr = "";
 	        //console.log(inv_correspondingProp);
 	        //console.log(inv_correspondingProp.textBlock());
-	        
+
 	        if ( inv_correspondingProp.textBlock && inv_correspondingProp.textBlock() ) {
-	          
+
 	          var inv_txtColor = inv_correspondingProp.textBlock()._textBlock().style("fill");
 	          //  console.log("PropertyTextColor="+inv_txtColor);
 	          if ( inv_txtColor === "rgb(0, 0, 0)" ) {
@@ -2516,12 +2516,12 @@ webvowl.app =
 	            inv_textColorStr = ", text=white";
 	          }
 	          var inv_tspans = inv_correspondingProp.textBlock()._textBlock().node().children;
-	          
+
 	          // identifier=node.textBlock()._textBlock().text();
 	          //  console.log(inv_tspans);
 	          if ( inv_tspans[0] ) {
 	            inv_identifier = inv_tspans[0].innerHTML;
-	            
+
 	            for ( var inv_t = 1; inv_t < inv_tspans.length; inv_t++ ) {
 	              var ispanText = inv_tspans[inv_t].innerHTML;
 	              if ( ispanText.indexOf("(") > -1 ) {
@@ -2534,7 +2534,7 @@ webvowl.app =
 	        }
 	        var inv_qType = "owlObjectProperty";
 	        var inv_bgColorStr = "";
-	        
+
 	        if ( inv_correspondingProp.backgroundColor() ) {
 	          //  console.log("Found backGround color");
 	          var inv_bgColor = inv_correspondingProp.backgroundColor();
@@ -2548,10 +2548,10 @@ webvowl.app =
 	          texString += "\\definecolor{inv_property" + i + "_COLOR}{HTML}{CCCCCC} \n ";
 	          inv_bgColorStr = ", fill=inv_property" + i + "_COLOR ";
 	        }
-	        
+
 	        var inv_widthString = "";
 	        var inv_width = inv_correspondingProp.textWidth();
-	        
+
 	        var pOY1 = p_py - 14;
 	        var pOY2 = p_py + 14;
 	        inv_widthString = ",minimum width=" + inv_width + "pt";
@@ -2561,24 +2561,24 @@ webvowl.app =
 	        texString += "% " + inv_widthString + " vs " + widthString + "\n";
 	        texString += "% " + inv_bgColorStr + " vs " + bgColorStr + "\n";
 	        texString += "% " + inv_textColorStr + " vs " + textColorStr + "\n";
-	        
+
 	        texString += "\\node[" + qType + " " + widthString + " " + bgColorStr + " " + textColorStr + "] at (" + p_px + "pt, " + pOY2 + "pt)   (property" + i + ") {" + identifier.replaceAll("_", "\\_ ") + "};\n";
-	        
+
 	      } else {
 	        texString += "\\node[" + qType + " " + widthString + " " + bgColorStr + " " + textColorStr + "] at (" + p_px + "pt, " + p_py + "pt)   (property" + i + ") {" + identifier.replaceAll("_", "\\_ ") + "};\n";
 	      }
 	    }
-	    
+
 	    texString += "\\end{tikzpicture}\n}\n \\end{center}\n";
-	    
+
 	    //   console.log("Tex Output\n"+ texString);
 	    var dataURI = "data:text/json;charset=utf-8," + encodeURIComponent(texString);
 	    exportTexButton.attr("href", dataURI)
 	      .attr("download", exportFilename + ".tex");
-	    
-	    
+
+
 	  }
-	  
+
 	  function calculateRadian( angle ){
 	    angle = angle % 360;
 	    if ( angle < 0 ) {
@@ -2586,11 +2586,11 @@ webvowl.app =
 	    }
 	    return (Math.PI * angle) / 180;
 	  }
-	  
+
 	  function calculateAngle( radian ){
 	    return radian * (180 / Math.PI);
 	  }
-	  
+
 	  return exportMenu;
 	};
 
@@ -2614,7 +2614,7 @@ webvowl.app =
 	  var Map_ID2Node = {};
 	  var Map_ID2Prop = {};
 	  var prefixModule = webvowl.util.prefixTools(graph);
-	  
+
 	  exportTTLModule.requestExport = function (){
 	    prefixModule.updatePrefixModel();
 	    resultingTTLContent = "";
@@ -2624,12 +2624,12 @@ webvowl.app =
 	      Map_ID2Node[currentNodes[i].id()] = currentNodes[i];
 	    }
 	    currentProperties = graph.getPropertyDataForTtlExport();
-	    
+
 	    for ( i = 0; i < currentProperties.length; i++ ) {
 	      Map_ID2Prop[currentProperties[i].id()] = currentProperties[i];
 	    }
-	    
-	    
+
+
 	    prepareHeader();
 	    preparePrefixList();
 	    prepareOntologyDef();
@@ -2644,9 +2644,9 @@ webvowl.app =
 	    if ( property_success === false || class_success === false )
 	      return false;
 	    return true;
-	    
+
 	  };
-	  
+
 	  function preparePrefixRepresentation(){
 	    var i;
 	    var allNodes = graph.getUnfilteredData().nodes;
@@ -2666,12 +2666,12 @@ webvowl.app =
 	        allProps[i].prefixRepresentation = propIRI;
 	    }
 	  }
-	  
+
 	  function exportProperties(){
 	    if ( currentProperties.length === 0 ) return; // we dont need to write that
 	    resultingTTLContent += "###  Property Definitions (Number of Property) " + currentProperties.length + " ###\r\n";
 	    for ( var i = 0; i < currentProperties.length; i++ ) {
-	      
+
 	      resultingTTLContent += "#  --------------------------- Property " + i + "------------------------- \r\n";
 	      var addedElement = extractPropertyDescription(currentProperties[i]);
 	      resultingTTLContent += addedElement;
@@ -2682,8 +2682,8 @@ webvowl.app =
 	    }
 	    return true;
 	  }
-	  
-	  
+
+
 	  function exportClasses(){
 	    if ( currentNodes.length === 0 ) return; // we dont need to write that
 	    resultingTTLContent += "###  Class Definitions (Number of Classes) " + currentNodes.length + " ###\r\n";
@@ -2692,19 +2692,19 @@ webvowl.app =
 	      resultingTTLContent += "#  --------------------------- Class  " + i + "------------------------- \r\n";
 	      var addedElement = extractClassDescription(currentNodes[i]);
 	      resultingTTLContent += addedElement;
-	      
+
 	      if ( addedElement.indexOf("WHYEMPTYNAME") !== -1 ) {
 	        return false;
 	      }
 	    }
 	    return true;
 	  }
-	  
+
 	  function getPresentAttribute( selectedElement, element ){
 	    var attr = selectedElement.attributes();
 	    return (attr.indexOf(element) >= 0);
 	  }
-	  
+
 	  function extractClassDescription( node ){
 	    var subject = node.prefixRepresentation;
 	    var predicate = "rdf:type";
@@ -2717,7 +2717,7 @@ webvowl.app =
 	      object = "owl:Class";
 	    var arrayOfNodes = [];
 	    var arrayOfUnionNodes = [];
-	    
+
 	    if ( node.union() ) {
 	      var union = node.union();
 	      for ( var u = 0; u < union.length; u++ ) {
@@ -2725,7 +2725,7 @@ webvowl.app =
 	        arrayOfUnionNodes.push(u_node);
 	      }
 	    }
-	    
+
 	    if ( node.disjointUnion() ) {
 	      var distUnion = node.disjointUnion();
 	      for ( var du = 0; du < distUnion.length; du++ ) {
@@ -2733,13 +2733,13 @@ webvowl.app =
 	        arrayOfNodes.push(du_node);
 	      }
 	    }
-	    
+
 	    var objectDef = subject + " " + predicate + " " + object;
 	    if ( getPresentAttribute(node, "deprecated") === true ) {
 	      objectDef += ", owl:DeprecatedProperty";
 	    }
 	    // equivalent class handeled using type itself!
-	    
+
 	    // check for equivalent classes;
 	    var indent = getIndent(subject);
 	    objectDef += "; \r\n";
@@ -2752,18 +2752,18 @@ webvowl.app =
 	        eqNode_prefRepresentation = eqIRI;
 	      objectDef += indent + " owl:equivalentClass " + eqNode_prefRepresentation + " ;\r\n";
 	    }
-	    
+
 	    // if (getPresentAttribute(node,"equivalent")===true){
 	    //     objectDef+=", owl:EquivalentClass";
 	    // }
-	    
+
 	    // add Comments
-	    
+
 	    if ( node.commentForCurrentLanguage() ) {
-	      
+
 	      objectDef += indent + " rdfs:comment \"" + node.commentForCurrentLanguage() + "\" ;\r\n";
 	    }
-	    
+
 	    if ( node.annotations() ) {
 	      var annotations = node.annotations();
 	      for ( var an in annotations ) {
@@ -2772,7 +2772,7 @@ webvowl.app =
 	          var anObj = anArrayObj[0];
 	          var an_ident = anObj.identifier;
 	          var an_val = anObj.value;
-	          
+
 	          if ( an_ident === "isDefinedBy" ) {
 	            objectDef += indent + " rdfs:isDefinedBy <" + an_val + "> ;\r\n";
 	          }
@@ -2782,8 +2782,8 @@ webvowl.app =
 	        }
 	      }
 	    }
-	    
-	    
+
+
 	    if ( arrayOfNodes.length > 0 ) {
 	      // add disjoint unionOf
 	      objectDef += indent + " owl:disjointUnionOf (";
@@ -2798,14 +2798,14 @@ webvowl.app =
 	      }
 	      objectDef += ") ;\r\n";
 	    }
-	    
+
 	    if ( arrayOfUnionNodes.length > 0 ) {
 	      // add disjoint unionOf
 	      objectDef += indent + " rdfs:subClassOf [ rdf:type owl:Class ; \r\n";
 	      objectDef += indent + indent + " owl:unionOf ( ";
-	      
+
 	      for ( var uE = 0; uE < arrayOfUnionNodes.length; uE++ ) {
-	        
+
 	        if ( arrayOfUnionNodes[uE] && arrayOfUnionNodes[uE].iri() ) {
 	          var uIri = prefixModule.getPrefixRepresentationForFullURI(arrayOfUnionNodes[uE].iri());
 	          var uNode_prefRepresentation = "";
@@ -2817,11 +2817,11 @@ webvowl.app =
 	        }
 	      }
 	      objectDef += ") ;\r\n";
-	      
-	      
+
+
 	    }
-	    
-	    
+
+
 	    var allProps = graph.getUnfilteredData().properties;
 	    var myProperties = [];
 	    var i;
@@ -2838,11 +2838,11 @@ webvowl.app =
 	        allProps[i].type() === "owl:disjointWith" ) {
 	        myProperties.push(allProps[i]);
 	      }
-	      
+
 	    }
 	    for ( i = 0; i < myProperties.length; i++ ) {
 	      // depending on the property we have to do some things;
-	      
+
 	      // special case
 	      if ( myProperties[i].type() === "owl:someValuesFrom" ) {
 	        objectDef += indent + " rdfs:subClassOf [ rdf:type owl:Restriction ; \r\n";
@@ -2853,7 +2853,7 @@ webvowl.app =
 	        objectDef += indent + "                 ];\r\n";
 	        continue;
 	      }
-	      
+
 	      if ( myProperties[i].type() === "owl:allValuesFrom" ) {
 	        objectDef += indent + " rdfs:subClassOf [ rdf:type owl:Restriction ; \r\n";
 	        objectDef += indent + "                   owl:onProperty " + myProperties[i].prefixRepresentation + ";\r\n";
@@ -2863,33 +2863,33 @@ webvowl.app =
 	        objectDef += indent + "                 ];\r\n";
 	        continue;
 	      }
-	      
+
 	      if ( myProperties[i].range().type() !== "owl:Thing" ) {
 	        objectDef += indent + " " + myProperties[i].prefixRepresentation +
 	          " " + myProperties[i].range().prefixRepresentation + " ;\r\n";
-	        
-	        
+
+
 	      }
 	    }
-	    
-	    
+
+
 	    objectDef += general_Label_languageExtractor(indent, node.label(), "rdfs:label", true);
 	    return objectDef;
-	    
+
 	  }
-	  
+
 	  function extractPropertyDescription( property ){
 	    var subject = property.prefixRepresentation;
 	    if ( subject.length === 0 ) {
 	      console.log("THIS SHOULD NOT HAPPEN");
 	      var propIRI = prefixModule.getPrefixRepresentationForFullURI(property.iri());
 	      console.log("FOUND " + propIRI);
-	      
-	      
+
+
 	    }
 	    var predicate = "rdf:type";
 	    var object = property.type();
-	    
+
 	    var objectDef = subject + " " + predicate + " " + object;
 	    if ( getPresentAttribute(property, "deprecated") === true ) {
 	      objectDef += ", owl:DeprecatedProperty";
@@ -2907,28 +2907,28 @@ webvowl.app =
 	      objectDef += ", owl:TransitiveProperty";
 	    }
 	    var indent = getIndent(subject);
-	    
+
 	    if ( property.inverse() ) {
 	      objectDef += "; \r\n";
 	      objectDef += indent + " owl:inverseOf " + property.inverse().prefixRepresentation;
 	    }
-	    
+
 	    // check for domain and range;
-	    
-	    
+
+
 	    var closeStatement = false;
 	    var domain = property.domain();
 	    var range = property.range();
-	    
-	    
+
+
 	    objectDef += " ;\r\n";
-	    
-	    
+
+
 	    if ( property.commentForCurrentLanguage() ) {
-	      
+
 	      objectDef += indent + " rdfs:comment \"" + property.commentForCurrentLanguage() + "\" ;\r\n";
 	    }
-	    
+
 	    if ( property.superproperties() ) {
 	      var superProps = property.superproperties();
 	      for ( var sP = 0; sP < superProps.length; sP++ ) {
@@ -2951,9 +2951,9 @@ webvowl.app =
 	      //         }
 	      //     }
 	      // }
-	      
+
 	    }
-	    
+
 	    if ( property.annotations() ) {
 	      var annotations = property.annotations();
 	      for ( var an in annotations ) {
@@ -2962,7 +2962,7 @@ webvowl.app =
 	          var anObj = anArrayObj[0];
 	          var an_ident = anObj.identifier;
 	          var an_val = anObj.value;
-	          
+
 	          if ( an_ident === "isDefinedBy" ) {
 	            objectDef += indent + " rdfs:isDefinedBy <" + an_val + "> ;\r\n";
 	          }
@@ -2972,16 +2972,16 @@ webvowl.app =
 	        }
 	      }
 	    }
-	    
-	    
+
+
 	    if ( domain.type() === "owl:Thing" && range.type() === "owl:Thing" ) {
 	      // we do not write domain and range
 	      if ( typeof property.label() !== "object" && property.label().length === 0 ) {
 	        closeStatement = true;
 	      }
 	    }
-	    
-	    
+
+
 	    if ( closeStatement === true ) {
 	      var uobjectDef = objectDef.substring(0, objectDef.length - 2);
 	      objectDef = uobjectDef + " . \r\n";
@@ -2989,8 +2989,8 @@ webvowl.app =
 	    }
 	    // objectDef+="; \r\n";
 	    var labelDescription;
-	    
-	    
+
+
 	    if ( domain.type() === "owl:Thing" && range.type() === "owl:Thing" ) {
 	      labelDescription = general_Label_languageExtractor(indent, property.label(), "rdfs:label", true);
 	      objectDef += labelDescription;
@@ -3005,38 +3005,38 @@ webvowl.app =
 	      if ( range.type() !== "owl:Thing" ) {
 	        objectDef += indent + " rdfs:range " + range.prefixRepresentation + ";\r\n";
 	      }
-	      
+
 	      // close statement now;
-	      
+
 	      var s_needUpdate = objectDef;
 	      var s_lastPtr = s_needUpdate.lastIndexOf(";");
 	      objectDef = s_needUpdate.substring(0, s_lastPtr) + " . \r\n";
 	    }
-	    
+
 	    return objectDef;
-	    
+
 	  }
-	  
-	  
+
+
 	  exportTTLModule.resultingTTL_Content = function (){
 	    return resultingTTLContent;
 	  };
-	  
+
 	  function getIndent( name ){
 	    if ( name === undefined ) {
 	      return "WHYEMPTYNAME?";
 	    }
 	    return new Array(name.length + 1).join(" ");
 	  }
-	  
+
 	  function prepareHeader(){
 	    resultingTTLContent += "#################################################################\r\n";
 	    resultingTTLContent += "###  Generated with the experimental alpha version of the TTL exporter of WebVOWL (version 1.1.7) " +
 	      " http://visualdataweb.de/webvowl/   ###\r\n";
 	    resultingTTLContent += "#################################################################\r\n\r\n";
-	    
+
 	  }
-	  
+
 	  function preparePrefixList(){
 	    var ontoIri = graph.options().getGeneralMetaObjectProperty('iri');
 	    var prefixList = graph.options().prefixList();
@@ -3048,12 +3048,12 @@ webvowl.app =
 	      }
 	    }
 	    prefixDef.push('@base \t\t\t<' + ontoIri + '> .\r\n');
-	    
+
 	    for ( var i = 0; i < prefixDef.length; i++ ) {
 	      resultingTTLContent += prefixDef[i] + '\r\n';
 	    }
 	  }
-	  
+
 	  function prepareOntologyDef(){
 	    var ontoIri = graph.options().getGeneralMetaObjectProperty('iri');
 	    var indent = getIndent('<' + ontoIri + '>');
@@ -3062,21 +3062,21 @@ webvowl.app =
 	      getOntologyDescription(indent) +
 	      getOntologyVersion(indent) +
 	      getOntologyAuthor(indent);
-	    
+
 	    // close the statement;
 	    var s_needUpdate = resultingTTLContent;
 	    var s_lastPtr = s_needUpdate.lastIndexOf(";");
 	    resultingTTLContent = s_needUpdate.substring(0, s_lastPtr) + " . \r\n";
 	  }
-	  
+
 	  function getOntologyTitle( indent ){
 	    return general_languageExtractor(indent, "title", "dc:title");
 	  }
-	  
+
 	  function getOntologyDescription( indent ){
 	    return general_languageExtractor(indent, "description", "dc:description");
 	  }
-	  
+
 	  function getOntologyAuthor( indent ){
 	    var languageElement = graph.options().getGeneralMetaObjectProperty('author');
 	    if ( languageElement ) {
@@ -3097,7 +3097,7 @@ webvowl.app =
 	      return ""; // an empty string
 	    }
 	  }
-	  
+
 	  function getOntologyVersion( indent ){
 	    var languageElement = graph.options().getGeneralMetaObjectProperty('version');
 	    if ( languageElement ) {
@@ -3108,12 +3108,12 @@ webvowl.app =
 	      return general_languageExtractor(indent, "version", "owl:versionInfo");
 	    } else return ""; // an empty string
 	  }
-	  
+
 	  function general_languageExtractor( indent, metaObjectDescription, annotationDescription, endStatement ){
 	    var languageElement = graph.options().getGeneralMetaObjectProperty(metaObjectDescription);
-	    
+
 	    if ( typeof languageElement === 'object' ) {
-	      
+
 	      var resultingLanguages = [];
 	      for ( var name in languageElement ) {
 	        if ( languageElement.hasOwnProperty(name) ) {
@@ -3127,7 +3127,7 @@ webvowl.app =
 	        }
 	      }
 	      // create resulting titles;
-	      
+
 	      var resultingString = "";
 	      for ( var i = 0; i < resultingLanguages.length; i++ ) {
 	        resultingString += resultingLanguages[i];
@@ -3139,7 +3139,7 @@ webvowl.app =
 	      } else {
 	        return resultingString;
 	      }
-	      
+
 	    } else {
 	      if ( endStatement && endStatement === true ) {
 	        var s_needUpdate = indent + " " + annotationDescription + ' "' + languageElement + '"@en; \r\n';
@@ -3149,10 +3149,10 @@ webvowl.app =
 	      return indent + " " + annotationDescription + ' "' + languageElement + '"@en;\r\n';
 	    }
 	  }
-	  
+
 	  function general_Label_languageExtractor( indent, label, annotationDescription, endStatement ){
 	    var languageElement = label;
-	    
+
 	    if ( typeof languageElement === 'object' ) {
 	      var resultingLanguages = [];
 	      for ( var name in languageElement ) {
@@ -3178,7 +3178,7 @@ webvowl.app =
 	      } else {
 	        return resultingString;
 	      }
-	      
+
 	    } else {
 	      if ( endStatement && endStatement === true ) {
 	        var s_needUpdate = indent + " " + annotationDescription + ' "' + languageElement + '"@en; \r\n';
@@ -3188,7 +3188,7 @@ webvowl.app =
 	      return indent + " " + annotationDescription + ' "' + languageElement + '"@en; \r\n';
 	    }
 	  }
-	  
+
 	  return exportTTLModule;
 	};
 
@@ -3205,7 +3205,7 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var filterMenu = {},
 	    checkboxData = [],
 	    menuElement = d3.select("#m_filter"),
@@ -3214,14 +3214,14 @@ webvowl.app =
 	    graphDegreeLevel,
 	    defaultDegreeValue = 0,
 	    degreeSlider;
-	  
+
 	  filterMenu.setDefaultDegreeValue = function ( val ){
 	    defaultDegreeValue = val;
 	  };
 	  filterMenu.getDefaultDegreeValue = function (){
 	    return defaultDegreeValue;
 	  };
-	  
+
 	  filterMenu.getGraphObject = function (){
 	    return graph;
 	  };
@@ -3229,7 +3229,7 @@ webvowl.app =
 	  filterMenu.getCheckBoxContainer = function (){
 	    return checkboxData;
 	  };
-	  
+
 	  filterMenu.getDegreeSliderValue = function (){
 	    return degreeSlider.property("value");
 	  };
@@ -3251,35 +3251,35 @@ webvowl.app =
 	    menuControl.on("mouseleave", function (){
 	      filterMenu.highlightForDegreeSlider(false);
 	    });
-	    
+
 	    addFilterItem(datatypeFilter, "datatype", "Datatype properties", "#datatypeFilteringOption");
 	    addFilterItem(objectPropertyFilter, "objectProperty", "Object properties", "#objectPropertyFilteringOption");
 	    addFilterItem(subclassFilter, "subclass", "Solitary subclasses", "#subclassFilteringOption");
 	    addFilterItem(disjointFilter, "disjoint", "Class disjointness", "#disjointFilteringOption");
 	    addFilterItem(setOperatorFilter, "setoperator", "Set operators", "#setOperatorFilteringOption");
-	    
+
 	    addNodeDegreeFilter(nodeDegreeFilter, nodeDegreeContainer);
 	    addAnimationFinishedListener();
 	  };
-	  
-	  
+
+
 	  function addFilterItem( filter, identifier, pluralNameOfFilteredItems, selector ){
 	    var filterContainer,
 	      filterCheckbox;
-	    
+
 	    filterContainer = d3.select(selector)
 	      .append("div")
 	      .classed("checkboxContainer", true);
-	    
+
 	    filterCheckbox = filterContainer.append("input")
 	      .classed("filterCheckbox", true)
 	      .attr("id", identifier + "FilterCheckbox")
 	      .attr("type", "checkbox")
 	      .property("checked", filter.enabled());
-	    
+
 	    // Store for easier resetting
 	    checkboxData.push({ checkbox: filterCheckbox, defaultState: filter.enabled() });
-	    
+
 	    filterCheckbox.on("click", function ( silent ){
 	      // There might be no parameters passed because of a manual
 	      // invocation when resetting the filters
@@ -3290,63 +3290,63 @@ webvowl.app =
 	        graph.update();
 	      }
 	    });
-	    
+
 	    filterContainer.append("label")
 	      .attr("for", identifier + "FilterCheckbox")
 	      .text(pluralNameOfFilteredItems);
 	  }
-	  
+
 	  function addNodeDegreeFilter( nodeDegreeFilter, container ){
 	    nodeDegreeFilter.setMaxDegreeSetter(function ( maxDegree ){
 	      degreeSlider.attr("max", maxDegree);
 	      setSliderValue(degreeSlider, Math.min(maxDegree, degreeSlider.property("value")));
 	    });
-	    
+
 	    nodeDegreeFilter.setDegreeGetter(function (){
 	      return degreeSlider.property("value");
 	    });
-	    
+
 	    nodeDegreeFilter.setDegreeSetter(function ( value ){
 	      setSliderValue(degreeSlider, value);
 	    });
-	    
+
 	    var sliderContainer,
 	      sliderValueLabel;
-	    
+
 	    sliderContainer = container.append("div")
 	      .classed("distanceSliderContainer", true);
-	    
+
 	    degreeSlider = sliderContainer.append("input")
 	      .attr("id", "nodeDegreeDistanceSlider")
 	      .attr("type", "range")
 	      .attr("min", 0)
 	      .attr("step", 1);
-	    
+
 	    sliderContainer.append("label")
 	      .classed("description", true)
 	      .attr("for", "nodeDegreeDistanceSlider")
 	      .text("Degree of collapsing");
-	    
+
 	    sliderValueLabel = sliderContainer.append("label")
 	      .classed("value", true)
 	      .attr("for", "nodeDegreeDistanceSlider")
 	      .text(0);
-	    
-	    
+
+
 	    degreeSlider.on("change", function ( silent ){
 	      if ( silent !== true ) {
 	        graph.update();
 	        graphDegreeLevel = degreeSlider.property("value");
 	      }
 	    });
-	    
-	    
+
+
 	    degreeSlider.on("input", function (){
 	      var degree = degreeSlider.property("value");
 	      sliderValueLabel.text(degree);
 	    });
-	    
-	    
+
+
 	    // adding wheel events
 	    degreeSlider.on("wheel", handleWheelEvent);
 	    degreeSlider.on("focusout", function (){
@@ -3355,10 +3355,10 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
+
 	  function handleWheelEvent(){
 	    var wheelEvent = d3.event;
-	    
+
 	    var offset;
 	    if ( wheelEvent.deltaY < 0 ) offset = 1;
 	    if ( wheelEvent.deltaY > 0 ) offset = -1;
@@ -3374,11 +3374,11 @@ webvowl.app =
 	    }
 	    d3.event.preventDefault();
 	  }
-	  
+
 	  function setSliderValue( slider, value ){
 	    slider.property("value", value).on("input")();
 	  }
-	  
+
 	  /**
 	   * Resets the filters (and also filtered elements) to their default.
 	   */
@@ -3387,32 +3387,32 @@ webvowl.app =
 	      var checkbox = checkboxData.checkbox,
 	        enabledByDefault = checkboxData.defaultState,
 	        isChecked = checkbox.property("checked");
-	      
+
 	      if ( isChecked !== enabledByDefault ) {
 	        checkbox.property("checked", enabledByDefault);
 	        // Call onclick event handlers programmatically
 	        checkbox.on("click")();
 	      }
 	    });
-	    
+
 	    setSliderValue(degreeSlider, 0);
 	    degreeSlider.on("change")();
 	  };
-	  
+
 	  function addAnimationFinishedListener(){
 	    menuControl.node().addEventListener("animationend", function (){
 	      menuControl.classed("buttonPulse", false);
 	      menuControl.classed("filterMenuButtonHighlight", true);
-	      
+
 	    });
 	  }
-	  
+
 	  filterMenu.killButtonAnimation = function (){
 	    menuControl.classed("buttonPulse", false);
 	    menuControl.classed("filterMenuButtonHighlight", false);
 	  };
-	  
-	  
+
+
 	  filterMenu.highlightForDegreeSlider = function ( enable ){
 	    if ( !arguments.length ) {
 	      enable = true;
@@ -3432,8 +3432,8 @@ webvowl.app =
 	      menuControl.classed("filterMenuButtonHighlight", enable);
 	    }
 	  };
-	  
-	  
+
+
 	  /** importer functions **/
 	  // setting manually the values of the filter
 	  // no update of the gui settings, these are updated in updateSettings
@@ -3446,13 +3446,13 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  filterMenu.getCheckBoxValue = function ( id ){
 	    for ( var i = 0; i < checkboxData.length; i++ ) {
 	      var cbdId = checkboxData[i].checkbox.attr("id");
 	      if ( cbdId === id ) {
 	        return checkboxData[i].checkbox.property("checked");
-	        
+
 	      }
 	    }
 	  };
@@ -3460,11 +3460,11 @@ webvowl.app =
 	  filterMenu.setDegreeSliderValue = function ( val ){
 	    degreeSlider.property("value", val);
 	  };
-	  
+
 	  filterMenu.getDegreeSliderValue = function (){
 	    return degreeSlider.property("value");
 	  };
-	  
+
 	  // update the gui without invoking graph update (calling silent onclick function)
 	  filterMenu.updateSettings = function (){
 	    var silent = true;
@@ -3478,12 +3478,12 @@ webvowl.app =
 	      var checkbox = checkboxData.checkbox;
 	      checkbox.on("click")(silent);
 	    });
-	    
+
 	    degreeSlider.on("input")();
 	    degreeSlider.on("change")();
-	    
+
 	  };
-	  
+
 	  return filterMenu;
 	};
 
@@ -3501,13 +3501,13 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var gravityMenu = {},
 	    sliders = [],
 	    options = graph.graphOptions(),
 	    defaultCharge = options.charge();
-	  
-	  
+
+
 	  /**
 	   * Adds the gravity sliders to the website.
 	   */
@@ -3520,18 +3520,18 @@ webvowl.app =
 	    addDistanceSlider("#classSliderOption", "class", "Class distance", options.classDistance);
 	    addDistanceSlider("#datatypeSliderOption", "datatype", "Datatype distance", options.datatypeDistance);
 	  };
-	  
+
 	  function addDistanceSlider( selector, identifier, label, distanceFunction ){
 	    var defaultLinkDistance = distanceFunction();
-	    
+
 	    var sliderContainer,
 	      sliderValueLabel;
-	    
+
 	    sliderContainer = d3.select(selector)
 	      .append("div")
 	      .datum({ distanceFunction: distanceFunction }) // connect the options-function with the slider
 	      .classed("distanceSliderContainer", true);
-	    
+
 	    var slider = sliderContainer.append("input")
 	      .attr("id", identifier + "DistanceSlider")
 	      .attr("type", "range")
@@ -3539,24 +3539,24 @@ webvowl.app =
 	      .attr("max", 600)
 	      .attr("value", distanceFunction())
 	      .attr("step", 10);
-	    
+
 	    sliderContainer.append("label")
 	      .classed("description", true)
 	      .attr("for", identifier + "DistanceSlider")
 	      .text(label);
-	    
+
 	    sliderValueLabel = sliderContainer.append("label")
 	      .classed("value", true)
 	      .attr("for", identifier + "DistanceSlider")
 	      .text(distanceFunction());
-	    
+
 	    // Store slider for easier resetting
 	    sliders.push(slider);
-	    
+
 	    slider.on("focusout", function (){
 	      graph.updateStyle();
 	    });
-	    
+
 	    slider.on("input", function (){
 	      var distance = slider.property("value");
 	      distanceFunction(distance);
@@ -3564,7 +3564,7 @@ webvowl.app =
 	      sliderValueLabel.text(distance);
 	      graph.updateStyle();
 	    });
-	    
+
 	    // add wheel event to the slider
 	    slider.on("wheel", function (){
 	      var wheelEvent = d3.event;
@@ -3581,15 +3581,15 @@ webvowl.app =
 	      d3.event.preventDefault();
 	    });
 	  }
-	  
+
 	  function adjustCharge( defaultLinkDistance ){
 	    var greaterDistance = Math.max(options.classDistance(), options.datatypeDistance()),
 	      ratio = greaterDistance / defaultLinkDistance,
 	      newCharge = defaultCharge * ratio;
-	    
+
 	    options.charge(newCharge);
 	  }
-	  
+
 	  /**
 	   * Resets the gravity sliders to their default.
 	   */
@@ -3602,8 +3602,8 @@ webvowl.app =
 	      slider.on("input")();
 	    });
 	  };
-	  
-	  
+
+
 	  return gravityMenu;
 	};
 
@@ -3621,14 +3621,14 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var SAME_COLOR_MODE = { text: "Multicolor", type: "same" };
 	  var GRADIENT_COLOR_MODE = { text: "Multicolor", type: "gradient" };
-	  
+
 	  var modeMenu = {},
 	    checkboxes = [],
 	    colorModeSwitch;
-	  
+
 	  var dynamicLabelWidthCheckBox;
 	  // getter and setter for the state of color modes
 	  modeMenu.colorModeState = function ( s ){
@@ -3636,8 +3636,8 @@ webvowl.app =
 	    colorModeSwitch.datum().active = s;
 	    return modeMenu;
 	  };
-	  
-	  
+
+
 	  modeMenu.setDynamicLabelWidth = function ( val ){
 	    dynamicLabelWidthCheckBox.property("checked", val);
 	  };
@@ -3649,7 +3649,7 @@ webvowl.app =
 	  modeMenu.colorModeSwitch = function (){
 	    return colorModeSwitch;
 	  };
-	  
+
 	  /**
 	   * Connects the website with the available graph modes.
 	   */
@@ -3671,20 +3671,20 @@ webvowl.app =
 	    var moduleOptionContainer = d3.select(selector)
 	      .append("div")
 	      .classed("checkboxContainer", true);
-	    
+
 	    var moduleCheckbox = moduleOptionContainer.append("input")
 	      .classed("moduleCheckbox", true)
 	      .attr("id", identifier + "ModuleCheckbox")
 	      .attr("type", "checkbox")
 	      .property("checked", onChangeFunc());
-	    
+
 	    moduleCheckbox.on("click", function ( d ){
 	      var isEnabled = moduleCheckbox.property("checked");
 	      onChangeFunc(isEnabled);
 	      d3.select("#maxLabelWidthSlider").node().disabled = !isEnabled;
 	      d3.select("#maxLabelWidthvalueLabel").classed("disabledLabelForSlider", !isEnabled);
 	      d3.select("#maxLabelWidthDescriptionLabel").classed("disabledLabelForSlider", !isEnabled);
-	      
+
 	      if ( updateLvl > 0 ) {
 	        graph.animateDynamicLabelWidth();
 	        // graph.lazyRefresh();
@@ -3698,21 +3698,21 @@ webvowl.app =
 	        .attr("style", "font-size:10px;padding-top:3px")
 	        .text("(experimental)");
 	    }
-	    
+
 	    dynamicLabelWidthCheckBox = moduleCheckbox;
 	  }
-	  
+
 	  function addCheckBox( identifier, modeName, selector, onChangeFunc ){
 	    var moduleOptionContainer = d3.select(selector)
 	      .append("div")
 	      .classed("checkboxContainer", true);
-	    
+
 	    var moduleCheckbox = moduleOptionContainer.append("input")
 	      .classed("moduleCheckbox", true)
 	      .attr("id", identifier + "ModuleCheckbox")
 	      .attr("type", "checkbox")
 	      .property("checked", onChangeFunc());
-	    
+
 	    moduleCheckbox.on("click", function ( d ){
 	      var isEnabled = moduleCheckbox.property("checked");
 	      onChangeFunc(isEnabled);
@@ -3728,25 +3728,25 @@ webvowl.app =
 	        .text(" (experimental)");
 	    }
 	  }
-	  
+
 	  function addModeItem( module, identifier, modeName, selector, updateGraphOnClick ){
 	    var moduleOptionContainer,
 	      moduleCheckbox;
-	    
+
 	    moduleOptionContainer = d3.select(selector)
 	      .append("div")
 	      .classed("checkboxContainer", true)
 	      .datum({ module: module, defaultState: module.enabled() });
-	    
+
 	    moduleCheckbox = moduleOptionContainer.append("input")
 	      .classed("moduleCheckbox", true)
 	      .attr("id", identifier + "ModuleCheckbox")
 	      .attr("type", "checkbox")
 	      .property("checked", module.enabled());
-	    
+
 	    // Store for easier resetting all modes
 	    checkboxes.push(moduleCheckbox);
-	    
+
 	    moduleCheckbox.on("click", function ( d, silent ){
 	      var isEnabled = moduleCheckbox.property("checked");
 	      d.module.enabled(isEnabled);
@@ -3756,18 +3756,18 @@ webvowl.app =
 	        graph.lazyRefresh();
 	      }
 	    });
-	    
+
 	    moduleOptionContainer.append("label")
 	      .attr("for", identifier + "ModuleCheckbox")
 	      .text(modeName);
-	    
+
 	    return moduleOptionContainer;
 	  }
-	  
+
 	  function addExternalModeSelection( container, colorExternalsMode ){
 	    var button = container.append("button").datum({ active: false }).classed("color-mode-switch", true);
 	    applyColorModeSwitchState(button, colorExternalsMode);
-	    
+
 	    button.on("click", function ( silent ){
 	      var data = button.datum();
 	      data.active = !data.active;
@@ -3777,26 +3777,26 @@ webvowl.app =
 	        graph.lazyRefresh();
 	      }
 	    });
-	    
+
 	    return button;
 	  }
-	  
+
 	  function applyColorModeSwitchState( element, colorExternalsMode ){
 	    var isActive = element.datum().active;
 	    var activeColorMode = getColorModeByState(isActive);
-	    
+
 	    element.classed("active", isActive)
 	      .text(activeColorMode.text);
-	    
+
 	    if ( colorExternalsMode ) {
 	      colorExternalsMode.colorModeType(activeColorMode.type);
 	    }
 	  }
-	  
+
 	  function getColorModeByState( isActive ){
 	    return isActive ? GRADIENT_COLOR_MODE : SAME_COLOR_MODE;
 	  }
-	  
+
 	  /**
 	   * Resets the modes to their default.
 	   */
@@ -3804,29 +3804,29 @@ webvowl.app =
 	    checkboxes.forEach(function ( checkbox ){
 	      var defaultState = checkbox.datum().defaultState,
 	        isChecked = checkbox.property("checked");
-	      
+
 	      if ( isChecked !== defaultState ) {
 	        checkbox.property("checked", defaultState);
 	        // Call onclick event handlers programmatically
 	        checkbox.on("click")(checkbox.datum());
 	      }
-	      
+
 	      // Reset the module that is connected with the checkbox
 	      checkbox.datum().module.reset();
 	    });
-	    
+
 	    // set the switch to active and simulate disabling
 	    colorModeSwitch.datum().active = true;
 	    colorModeSwitch.on("click")();
 	  };
-	  
+
 	  /** importer functions **/
 	  // setting manually the values of the filter
 	  // no update of the gui settings, these are updated in updateSettings
 	  modeMenu.setCheckBoxValue = function ( id, checked ){
 	    for ( var i = 0; i < checkboxes.length; i++ ) {
 	      var cbdId = checkboxes[i].attr("id");
-	      
+
 	      if ( cbdId === id ) {
 	        checkboxes[i].property("checked", checked);
 	        break;
@@ -3841,7 +3841,7 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  modeMenu.setColorSwitchState = function ( state ){
 	    // need the !state because we simulate later a click
 	    modeMenu.colorModeState(!state);
@@ -3851,15 +3851,15 @@ webvowl.app =
 	    modeMenu.colorModeState(!state);
 	    colorModeSwitch.on("click")(true);
 	  };
-	  
-	  
+
+
 	  modeMenu.updateSettingsUsingURL = function (){
 	    var silent = true;
 	    checkboxes.forEach(function ( checkbox ){
 	      checkbox.on("click")(checkbox.datum(), silent);
 	    });
 	  };
-	  
+
 	  modeMenu.updateSettings = function (){
 	    var silent = true;
 	    checkboxes.forEach(function ( checkbox ){
@@ -3881,13 +3881,13 @@ webvowl.app =
 	/* WEBPACK VAR INJECTION */(function(d3) {module.exports = function ( graph ){
 	  var debugMenu = {},
 	    checkboxes = [];
-	  
-	  
+
+
 	  var hoverFlag = false;
 	  var specialCbx;
 	  debugMenu.setup = function (){
 	    var menuEntry = d3.select("#debugMenuHref");
-	    
+
 	    menuEntry.on("mouseover", function (){
 	      if ( hoverFlag === false ) {
 	        var searchMenu = graph.options().searchMenu();
@@ -3896,7 +3896,7 @@ webvowl.app =
 	        if ( graph.editorMode() === false ) {
 	          d3.select("#useAccuracyHelper").style("color", "#979797");
 	          d3.select("#useAccuracyHelper").style("pointer-events", "none");
-	          
+
 	          // regardless the state on which useAccuracyHelper is , we are not in editing mode -> disable it
 	          d3.select("#showDraggerObject").style("color", "#979797");
 	          d3.select("#showDraggerObject").style("pointer-events", "none");
@@ -3910,8 +3910,8 @@ webvowl.app =
 	    menuEntry.on("mouseout", function (){
 	      hoverFlag = false;
 	    });
-	    
-	    
+
+
 	    specialCbx = addCheckBox("useAccuracyHelper", "Use accuracy helper", "#useAccuracyHelper", graph.options().useAccuracyHelper,
 	      function ( enabled, silent ){
 	        if ( !enabled ) {
@@ -3922,7 +3922,7 @@ webvowl.app =
 	          d3.select("#showDraggerObject").style("color", "#2980b9");
 	          d3.select("#showDraggerObject").style("pointer-events", "auto");
 	        }
-	        
+
 	        if ( silent === true ) return;
 	        graph.lazyRefresh();
 	        graph.updateDraggerElements();
@@ -3936,14 +3936,14 @@ webvowl.app =
 	      });
 	    addCheckBox("showFPS_Statistics", "Show rendering statistics", "#showFPS_Statistics", graph.options().showRenderingStatistic,
 	      function ( enabled, silent ){
-	        
+
 	        if ( graph.options().getHideDebugFeatures() === false ) {
 	          d3.select("#FPS_Statistics").classed("hidden", !enabled);
 	        } else {
 	          d3.select("#FPS_Statistics").classed("hidden", true);
 	        }
-	        
-	        
+
+
 	      });
 	    addCheckBox("showModeOfOperation", "Show input modality", "#showModeOfOperation", graph.options().showInputModality,
 	      function ( enabled ){
@@ -3953,11 +3953,11 @@ webvowl.app =
 	          d3.select("#modeOfOperationString").classed("hidden", true);
 	        }
 	      });
-	    
-	    
+
+
 	  };
-	  
-	  
+
+
 	  function addCheckBox( identifier, modeName, selector, onChangeFunc, _callbackFunction ){
 	    var configOptionContainer = d3.select(selector)
 	      .append("div")
@@ -3967,22 +3967,22 @@ webvowl.app =
 	      .attr("id", identifier + "ConfigCheckbox")
 	      .attr("type", "checkbox")
 	      .property("checked", onChangeFunc());
-	    
-	    
+
+
 	    configCheckbox.on("click", function ( silent ){
 	      var isEnabled = configCheckbox.property("checked");
 	      onChangeFunc(isEnabled);
 	      _callbackFunction(isEnabled, silent);
-	      
+
 	    });
 	    checkboxes.push(configCheckbox);
 	    configOptionContainer.append("label")
 	      .attr("for", identifier + "ConfigCheckbox")
 	      .text(modeName);
-	    
+
 	    return configCheckbox;
 	  }
-	  
+
 	  debugMenu.setCheckBoxValue = function ( identifier, value ){
 	    for ( var i = 0; i < checkboxes.length; i++ ) {
 	      var cbdId = checkboxes[i].attr("id");
@@ -3992,7 +3992,7 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  debugMenu.getCheckBoxValue = function ( id ){
 	    for ( var i = 0; i < checkboxes.length; i++ ) {
 	      var cbdId = checkboxes[i].attr("id");
@@ -4001,30 +4001,30 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  debugMenu.updateSettings = function (){
 	    d3.selectAll(".debugOption").classed("hidden", graph.options().getHideDebugFeatures());
-	    
+
 	    var silent = true;
 	    checkboxes.forEach(function ( checkbox ){
 	      checkbox.on("click")(silent);
 	    });
 	    if ( graph.editorMode() === false ) {
-	      
+
 	      d3.select("#useAccuracyHelper").style("color", "#979797");
 	      d3.select("#useAccuracyHelper").style("pointer-events", "none");
-	      
+
 	      // regardless the state on which useAccuracyHelper is , we are not in editing mode -> disable it
 	      d3.select("#showDraggerObject").style("color", "#979797");
 	      d3.select("#showDraggerObject").style("pointer-events", "none");
 	    } else {
-	      
+
 	      d3.select("#useAccuracyHelper").style("color", "#2980b9");
 	      d3.select("#useAccuracyHelper").style("pointer-events", "auto");
 	    }
-	    
+
 	  };
-	  
+
 	  return debugMenu;
 	};
 
@@ -4038,11 +4038,11 @@ webvowl.app =
 	/* WEBPACK VAR INJECTION */(function(d3) {var unescape = __webpack_require__(330);
 
 	module.exports = function ( graph ){
-	  
+
 	  var ontologyMenu = {},
 	    loadingInfo = d3.select("#loading-info"),
 	    loadingProgress = d3.select("#loading-progress"),
-	    
+
 	    ontologyMenuTimeout,
 	    fileToLoad,
 	    stopTimer = false,
@@ -4053,28 +4053,28 @@ webvowl.app =
 	    loadingModule,
 	    loadOntologyFromText;
 	  var currentLoadedOntologyName = "";
-	  
+
 	  String.prototype.beginsWith = function ( string ){
 	    return (this.indexOf(string) === 0);
 	  };
-	  
+
 	  ontologyMenu.getLoadingFunction = function (){
 	    return loadOntologyFromText;
 	  };
-	  
+
 	  ontologyMenu.clearCachedVersion = function (){
 	    if ( cachedConversions[currentLoadedOntologyName] ) {
 	      cachedConversions[currentLoadedOntologyName] = undefined;
 	    }
 	  };
-	  
-	  
+
+
 	  ontologyMenu.reloadCachedOntology = function (){
 	    ontologyMenu.clearCachedVersion();
 	    graph.clearGraphData();
 	    loadingModule.parseUrlAndLoadOntology(false);
 	  };
-	  
+
 	  ontologyMenu.cachedOntology = function ( ontoName ){
 	    currentLoadedOntologyName = ontoName;
 	    if ( cachedConversions[ontoName] ) {
@@ -4096,7 +4096,7 @@ webvowl.app =
 	      }
 	    } else {
 	      graph.showReloadButtonAfterLayoutOptimization(false);
-	      
+
 	    }
 	    return cachedConversions[ontoName];
 	  };
@@ -4104,11 +4104,11 @@ webvowl.app =
 	    cachedConversions[ontoName] = ontoContent;
 	    currentLoadedOntologyName = ontoName;
 	  };
-	  
+
 	  ontologyMenu.getErrorStatus = function (){
 	    return loadingError;
 	  };
-	  
+
 	  ontologyMenu.setup = function ( _loadOntologyFromText ){
 	    loadOntologyFromText = _loadOntologyFromText;
 	    loadingModule = graph.options().loadingModule();
@@ -4117,15 +4117,15 @@ webvowl.app =
 	      var searchMenu = graph.options().searchMenu();
 	      searchMenu.hideSearchEntries();
 	    });
-	    
+
 	    setupConverterButtons();
 	    setupUploadButton();
-	    
+
 	    var descriptionButton = d3.select("#error-description-button").datum({ open: false });
 	    descriptionButton.on("click", function ( data ){
 	      var errorContainer = d3.select("#error-description-container");
 	      var errorDetailsButton = d3.select(this);
-	      
+
 	      // toggle the state
 	      data.open = !data.open;
 	      var descriptionVisible = data.open;
@@ -4136,12 +4136,12 @@ webvowl.app =
 	      }
 	      errorContainer.classed("hidden", !descriptionVisible);
 	    });
-	    
+
 	    setupUriListener();
 	    loadingModule.setOntologyMenu(ontologyMenu);
 	  };
-	  
-	  
+
+
 	  function setupUriListener(){
 	    // reload ontology when hash parameter gets changed manually
 	    d3.select(window).on("hashchange", function (){
@@ -4157,12 +4157,12 @@ webvowl.app =
 	    });
 	    updateNavigationHrefs();
 	  }
-	  
+
 	  ontologyMenu.stopLoadingTimer = function (){
 	    stopTimer = true;
 	    clearTimeout(loadingStatusTimer);
 	  };
-	  
+
 	  /**
 	   * Quick fix: update all anchor tags that are used as buttons because a click on them
 	   * changes the url and this will load an other ontology.
@@ -4170,18 +4170,18 @@ webvowl.app =
 	  function updateNavigationHrefs(){
 	    d3.selectAll("#menuElementContainer > li > a").attr("href", location.hash || "#");
 	  }
-	  
+
 	  ontologyMenu.setIriText = function ( text ){
 	    d3.select("#iri-converter-input").node().value = text;
 	    d3.select("#iri-converter-button").attr("disabled", false);
 	    d3.select("#iri-converter-form").on("submit")();
 	  };
-	  
+
 	  ontologyMenu.clearDetailInformation = function (){
 	    var bpContainer = d3.select("#bulletPoint_container");
 	    var htmlCollection = bpContainer.node().children;
 	    var numEntries = htmlCollection.length;
-	    
+
 	    for ( var i = 0; i < numEntries; i++ ) {
 	      htmlCollection[0].remove();
 	    }
@@ -4196,12 +4196,12 @@ webvowl.app =
 	    div.node().innerHTML = msg;
 	    loadingModule.scrollDownDetails();
 	  }
-	  
+
 	  ontologyMenu.append_message_toLastBulletPoint = function ( msg ){
 	    // forward call
 	    append_message_toLastBulletPoint(msg);
 	  };
-	  
+
 	  ontologyMenu.append_bulletPoint = function ( msg ){
 	    // forward call
 	    append_bulletPoint(msg);
@@ -4216,7 +4216,7 @@ webvowl.app =
 	    }
 	    loadingModule.scrollDownDetails();
 	  }
-	  
+
 	  function append_bulletPoint( msg ){
 	    var bp_container = d3.select("#bulletPoint_container");
 	    var bp = bp_container.append("li");
@@ -4224,24 +4224,24 @@ webvowl.app =
 	    d3.select("#currentLoadingStep").node().innerHTML = msg;
 	    loadingModule.scrollDownDetails();
 	  }
-	  
-	  
+
+
 	  function setupConverterButtons(){
 	    var iriConverterButton = d3.select("#iri-converter-button");
 	    var iriConverterInput = d3.select("#iri-converter-input");
-	    
+
 	    iriConverterInput.on("input", function (){
 	      keepOntologySelectionOpenShortly();
-	      
+
 	      var inputIsEmpty = iriConverterInput.property("value") === "";
 	      iriConverterButton.attr("disabled", inputIsEmpty || undefined);
 	    }).on("click", function (){
 	      keepOntologySelectionOpenShortly();
 	    });
-	    
+
 	    d3.select("#iri-converter-form").on("submit", function (){
 	      var inputName = iriConverterInput.property("value");
-	      
+
 	      // remove first spaces
 	      var clearedName = inputName.replace(/%20/g, " ");
 	      while ( clearedName.beginsWith(" ") ) {
@@ -4268,12 +4268,12 @@ webvowl.app =
 	      return false;
 	    });
 	  }
-	  
+
 	  function setupUploadButton(){
 	    var input = d3.select("#file-converter-input"),
 	      inputLabel = d3.select("#file-converter-label"),
 	      uploadButton = d3.select("#file-converter-button");
-	    
+
 	    input.on("change", function (){
 	      var selectedFiles = input.property("files");
 	      if ( selectedFiles.length <= 0 ) {
@@ -4288,7 +4288,7 @@ webvowl.app =
 	        graph.options().navigationMenu().hideAllMenus();
 	      }
 	    });
-	    
+
 	    uploadButton.on("click", function (){
 	      var selectedFile = input.property("files")[0];
 	      if ( !selectedFile ) {
@@ -4303,7 +4303,7 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
+
 	  function setLoadingStatusInfo( message ){
 	    // check if there is a owl2vowl li item;
 	    var o2vConverterContainer = d3.select("#o2vConverterContainer");
@@ -4334,15 +4334,15 @@ webvowl.app =
 	    }
 	    if ( liForToken )
 	      liForToken.node().innerHTML += "<br>";
-	    
+
 	    loadingModule.scrollDownDetails();
 	  }
-	  
+
 	  ontologyMenu.setLoadingStatusInfo = function ( message ){
 	    // forward call
 	    setLoadingStatusInfo(message);
 	  };
-	  
+
 	  function getLoadingStatusOnceCallBacked( callback, parameter ){
 	    d3.xhr("loadingStatus?sessionId=" + conversion_sessionId, "application/text", function ( error, request ){
 	      if ( error ) {
@@ -4356,7 +4356,7 @@ webvowl.app =
 	      callback(parameter);
 	    });
 	  }
-	  
+
 	  function getLoadingStatusTimeLooped(){
 	    d3.xhr("loadingStatus?sessionId=" + conversion_sessionId, "application/text", function ( error, request ){
 	      if ( error ) {
@@ -4372,7 +4372,7 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
+
 	  function timedLoadingStatusLogger(){
 	    clearTimeout(loadingStatusTimer);
 	    if ( stopTimer === false ) {
@@ -4381,7 +4381,7 @@ webvowl.app =
 	      }, 1000);
 	    }
 	  }
-	  
+
 	  function callbackUpdateLoadingMessage( msg ){
 	    d3.xhr("loadingStatus", "application/text", function ( error, request ){
 	      if ( request !== undefined ) {
@@ -4391,11 +4391,11 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
+
 	  ontologyMenu.setConversionID = function ( id ){
 	    conversion_sessionId = id;
 	  };
-	  
+
 	  ontologyMenu.callbackLoad_Ontology_FromIRI = function ( parameter ){
 	    var relativePath = parameter[0];
 	    var ontoName = parameter[1];
@@ -4419,19 +4419,19 @@ webvowl.app =
 	      }
 	    });
 	  };
-	  
-	  
+
+
 	  ontologyMenu.callbackLoad_Ontology_From_DirectInput = function ( text, parameter ){
 	    var input = text;
 	    var sessionId = parameter[1];
 	    stopTimer = false;
 	    timedLoadingStatusLogger();
-	    
+
 	    var formData = new FormData();
 	    formData.append("input", input);
 	    formData.append("sessionId", sessionId);
 	    var xhr = new XMLHttpRequest();
-	    
+
 	    xhr.open("POST", "directInput", true);
 	    xhr.onload = function (){
 	      clearTimeout(loadingStatusTimer);
@@ -4440,7 +4440,7 @@ webvowl.app =
 	    };
 	    timedLoadingStatusLogger();
 	    xhr.send(formData);
-	    
+
 	  };
 	  function callbackFromIRI_Success( parameter ){
 	    var local_conversionId = parameter[2];
@@ -4451,9 +4451,9 @@ webvowl.app =
 	    }
 	    loadingModule.loadFromOWL2VOWL(parameter[0], parameter[1]);
 	    ontologyMenu.conversionFinished();
-	    
+
 	  }
-	  
+
 	  function callbackFromDirectInput_Success( parameter ){
 	    var local_conversionId = parameter[1];
 	    if ( local_conversionId !== conversion_sessionId ) {
@@ -4463,13 +4463,13 @@ webvowl.app =
 	    }
 	    loadingModule.loadFromOWL2VOWL(parameter[0], "DirectInputConversionID" + local_conversionId);
 	    ontologyMenu.conversionFinished();
-	    
+
 	  }
-	  
+
 	  ontologyMenu.getConversionId = function (){
 	    return conversion_sessionId;
 	  };
-	  
+
 	  ontologyMenu.callbackLoad_JSON_FromURL = function ( parameter ){
 	    var relativePath = parameter[0];
 	    var ontoName = parameter[1];
@@ -4495,7 +4495,7 @@ webvowl.app =
 	      }
 	    });
 	  };
-	  
+
 	  function callbackFromJSON_Success( parameter ){
 	    var local_conversionId = parameter[2];
 	    if ( local_conversionId !== conversion_sessionId ) {
@@ -4504,7 +4504,7 @@ webvowl.app =
 	    }
 	    loadingModule.loadFromOWL2VOWL(parameter[0], parameter[1]);
 	  }
-	  
+
 	  function callbackFromJSON_URL_ERROR( parameter ){
 	    var error = parameter[0];
 	    var request = parameter[1];
@@ -4517,7 +4517,7 @@ webvowl.app =
 	    callbackUpdateLoadingMessage("<br><span style='color:red'> Failed to convert the file.</span> " +
 	      " Ontology could not be loaded.<br>Is it a valid OWL ontology? Please check with <a target=\"_blank\"" +
 	      "href=\"http://visualdataweb.de/validator/\">OWL Validator</a>");
-	    
+
 	    if ( error !== null && error.status === 500 ) {
 	      append_message("<span style='color:red'>Could not find ontology  at the URL</span>");
 	    }
@@ -4527,8 +4527,8 @@ webvowl.app =
 	    graph.handleOnLoadingError();
 	    ontologyMenu.conversionFinished();
 	  }
-	  
-	  
+
+
 	  function callbackFromIRI_URL_ERROR( parameter ){
 	    var error = parameter[0];
 	    var request = parameter[1];
@@ -4541,7 +4541,7 @@ webvowl.app =
 	    callbackUpdateLoadingMessage("<br><span style='color:red'> Failed to convert the file.</span> " +
 	      " Ontology could not be loaded.<br>Is it a valid OWL ontology? Please check with <a target=\"_blank\"" +
 	      "href=\"http://visualdataweb.de/validator/\">OWL Validator</a>");
-	    
+
 	    if ( error !== null && error.status === 500 ) {
 	      append_message("<span style='color:red'>Could not find ontology  at the URL</span>");
 	    }
@@ -4551,9 +4551,9 @@ webvowl.app =
 	    graph.handleOnLoadingError();
 	    ontologyMenu.conversionFinished();
 	  }
-	  
+
 	  function callbackFromDirectInput_ERROR( parameter ){
-	    
+
 	    var error = parameter[0];
 	    var request = parameter[1];
 	    var local_conversionId = parameter[2];
@@ -4570,24 +4570,24 @@ webvowl.app =
 	    if ( request && request.responseText.length === 0 ) {
 	      append_message("<span style='color:red'>Received empty graph</span>");
 	    }
-	    
+
 	    graph.handleOnLoadingError();
 	    ontologyMenu.conversionFinished();
 	  }
-	  
+
 	  ontologyMenu.callbackLoadFromOntology = function ( selectedFile, filename, local_threadId ){
 	    callbackLoadFromOntology(selectedFile, filename, local_threadId);
 	  };
-	  
+
 	  function callbackLoadFromOntology( selectedFile, filename, local_threadId ){
 	    stopTimer = false;
 	    timedLoadingStatusLogger();
-	    
+
 	    var formData = new FormData();
 	    formData.append("ontology", selectedFile);
 	    formData.append("sessionId", local_threadId);
 	    var xhr = new XMLHttpRequest();
-	    
+
 	    xhr.open("POST", "convert", true);
 	    xhr.onload = function (){
 	      clearTimeout(loadingStatusTimer);
@@ -4598,7 +4598,7 @@ webvowl.app =
 	    timedLoadingStatusLogger();
 	    xhr.send(formData);
 	  }
-	  
+
 	  function callbackForConvert( parameter ){
 	    var xhr = parameter[0];
 	    var filename = parameter[1];
@@ -4621,12 +4621,12 @@ webvowl.app =
 	          "<hr>"+niceJSON+ "<hr>"+
 	        "Ontology could not be loaded.<br />Is it a valid OWL ontology? Please check with <a target=\"_blank\"" +
 	        "href=\"http://visualdataweb.de/validator/\">OWL Validator</a>");
-	      
+
 	      graph.handleOnLoadingError();
 	      ontologyMenu.conversionFinished();
 	    }
 	  }
-	  
+
 	  ontologyMenu.conversionFinished = function ( id ){
 	    var local_id = conversion_sessionId;
 	    if ( id ) {
@@ -4642,7 +4642,7 @@ webvowl.app =
 	      }
 	    });
 	  };
-	  
+
 	  function keepOntologySelectionOpenShortly(){
 	    // Events in the menu should not be considered
 	    var ontologySelection = d3.select("#select .toolTipMenu");
@@ -4651,35 +4651,35 @@ webvowl.app =
 	    }).on("keydown", function (){
 	      d3.event.stopPropagation();
 	    });
-	    
+
 	    ontologySelection.style("display", "block");
-	    
+
 	    function disableKeepingOpen(){
 	      ontologySelection.style("display", undefined);
-	      
+
 	      clearTimeout(ontologyMenuTimeout);
 	      d3.select(window).on("click", undefined).on("keydown", undefined);
 	      ontologySelection.on("mouseover", undefined);
 	    }
-	    
+
 	    // Clear the timeout to handle fast calls of this function
 	    clearTimeout(ontologyMenuTimeout);
 	    ontologyMenuTimeout = setTimeout(function (){
 	      disableKeepingOpen();
 	    }, 3000);
-	    
+
 	    // Disable forced open selection on interaction
 	    d3.select(window).on("click", function (){
 	      disableKeepingOpen();
 	    }).on("keydown", function (){
 	      disableKeepingOpen();
 	    });
-	    
+
 	    ontologySelection.on("mouseover", function (){
 	      disableKeepingOpen();
 	    });
 	  }
-	  
+
 	  ontologyMenu.showLoadingStatus = function ( visible ){
 	    if ( visible === true ) {
 	      displayLoadingIndicators();
@@ -4688,17 +4688,17 @@ webvowl.app =
 	      hideLoadingInformations();
 	    }
 	  };
-	  
+
 	  function displayLoadingIndicators(){
 	    d3.select("#layoutLoadingProgressBarContainer").classed("hidden", false);
 	    loadingInfo.classed("hidden", false);
 	    loadingProgress.classed("hidden", false);
 	  }
-	  
+
 	  function hideLoadingInformations(){
 	    loadingInfo.classed("hidden", true);
 	  }
-	  
+
 	  return ontologyMenu;
 	};
 
@@ -4806,11 +4806,11 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var pauseMenu = {},
 	    pauseButton;
-	  
-	  
+
+
 	  /**
 	   * Adds the pause button to the website.
 	   */
@@ -4831,25 +4831,25 @@ webvowl.app =
 	    // Set these properties the first time manually
 	    updatePauseButton();
 	  };
-	  
+
 	  pauseMenu.setPauseValue = function ( value ){
 	    pauseButton.datum().paused = value;
 	    graph.paused(value);
 	    pauseButton.classed("highlighted", value);
 	    updatePauseButton();
 	  };
-	  
+
 	  function updatePauseButton(){
 	    updatePauseButtonClass();
 	    updatePauseButtonText();
 	  }
-	  
+
 	  function updatePauseButtonClass(){
 	    pauseButton.classed("paused", function ( d ){
 	      return d.paused;
 	    });
 	  }
-	  
+
 	  function updatePauseButtonText(){
 	    if ( pauseButton.datum().paused ) {
 	      pauseButton.text("Resume");
@@ -4857,13 +4857,13 @@ webvowl.app =
 	      pauseButton.text("Pause");
 	    }
 	  }
-	  
+
 	  pauseMenu.reset = function (){
 	    // resuming
 	    pauseMenu.setPauseValue(false);
 	  };
-	  
-	  
+
+
 	  return pauseMenu;
 	};
 
@@ -4881,13 +4881,13 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var resetMenu = {},
 	    options = graph.graphOptions(),
 	    resettableModules,
 	    untouchedOptions = webvowl.options();
-	  
-	  
+
+
 	  /**
 	   * Adds the reset button to the website.
 	   * @param _resettableModules modules that can be resetted
@@ -4901,7 +4901,7 @@ webvowl.app =
 	      searchMenu.hideSearchEntries();
 	    });
 	  };
-	  
+
 	  function resetGraph(){
 	    graph.resetSearchHighlight();
 	    graph.options().searchMenu().clearText();
@@ -4911,15 +4911,15 @@ webvowl.app =
 	    options.gravity(untouchedOptions.gravity());
 	    options.linkStrength(untouchedOptions.linkStrength());
 	    graph.reset();
-	    
+
 	    resettableModules.forEach(function ( module ){
 	      module.reset();
 	    });
-	    
+
 	    graph.updateStyle();
 	  }
-	  
-	  
+
+
 	  return resetMenu;
 	};
 
@@ -4948,30 +4948,30 @@ webvowl.app =
 	    labelDictionary,
 	    inputText,
 	    viewStatusOfSearchEntries = false;
-	  
+
 	  var results = [];
 	  var resultID = [];
 	  var c_locate = d3.select("#locateSearchResult");
 	  var c_search = d3.select("#c_search");
 	  var m_search = d3.select("#m_search"); // << dropdown container;
-	  
-	  
+
+
 	  String.prototype.beginsWith = function ( string ){
 	    return (this.indexOf(string) === 0);
 	  };
-	  
+
 	  searchMenu.requestDictionaryUpdate = function (){
 	    dictionaryUpdateRequired = true;
 	    // clear possible pre searched entries
 	    var htmlCollection = m_search.node().children;
 	    var numEntries = htmlCollection.length;
-	    
+
 	    for ( var i = 0; i < numEntries; i++ )
 	      htmlCollection[0].remove();
 	    searchLineEdit.node().value = "";
 	  };
-	  
-	  
+
+
 	  function updateSearchDictionary(){
 	    labelDictionary = graph.getUpdateDictionary();
 	    dictionaryUpdateRequired = false;
@@ -4979,7 +4979,7 @@ webvowl.app =
 	    entryNames = [];
 	    var idList = [];
 	    var stringList = [];
-	    
+
 	    var i;
 	    for ( i = 0; i < labelDictionary.length; i++ ) {
 	      var lEntry = labelDictionary[i].labelForCurrentLanguage();
@@ -4995,13 +4995,13 @@ webvowl.app =
 	        }
 	      }
 	    }
-	    
+
 	    mergedStringsList = [];
 	    mergedIdList = [];
 	    var indexInStringList = -1;
 	    var currentString;
 	    var currentObjectId;
-	    
+
 	    for ( i = 0; i < stringList.length; i++ ) {
 	      if ( i === 0 ) {
 	        // just add the elements
@@ -5024,7 +5024,7 @@ webvowl.app =
 	        mergedIdList[indexInStringList].push(currentObjectId);
 	      }
 	    }
-	    
+
 	    for ( i = 0; i < mergedStringsList.length; i++ ) {
 	      var aString = mergedStringsList[i];
 	      var correspondingIdList = mergedIdList[i];
@@ -5035,12 +5035,12 @@ webvowl.app =
 	      }
 	      idListResult = idListResult.substring(0, idListResult.length - 2);
 	      idListResult = idListResult + " ]";
-	      
+
 	      dictionary.push(aString);
 	      entryNames.push(aString);
 	    }
 	  }
-	  
+
 	  searchMenu.setup = function (){
 	    // clear dictionary;
 	    dictionary = [];
@@ -5049,22 +5049,22 @@ webvowl.app =
 	    searchLineEdit.on("keydown", userNavigation);
 	    searchLineEdit.on("click", toggleSearchEntryView);
 	    searchLineEdit.on("mouseover", hoverSearchEntryView);
-	    
+
 	    c_locate.on("click", function (){
 	      graph.locateSearchResult();
 	    });
-	    
+
 	    c_locate.on("mouseover", function (){
 	      searchMenu.hideSearchEntries();
 	    });
-	    
+
 	  };
-	  
+
 	  function hoverSearchEntryView(){
 	    updateSelectionStatusFlags();
 	    searchMenu.showSearchEntries();
 	  }
-	  
+
 	  function toggleSearchEntryView(){
 	    if ( viewStatusOfSearchEntries ) {
 	      searchMenu.hideSearchEntries();
@@ -5072,24 +5072,24 @@ webvowl.app =
 	      searchMenu.showSearchEntries();
 	    }
 	  }
-	  
+
 	  searchMenu.hideSearchEntries = function (){
 	    m_search.style("display", "none");
 	    viewStatusOfSearchEntries = false;
 	  };
-	  
+
 	  searchMenu.showSearchEntries = function (){
 	    m_search.style("display", "block");
 	    viewStatusOfSearchEntries = true;
 	  };
-	  
+
 	  function ValidURL( str ){
 	    var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
 	    return urlregex.test(str);
-	    
+
 	  }
-	  
-	  
+
+
 	  function updateSelectionStatusFlags(){
 	    if ( searchLineEdit.node().value.length === 0 ) {
 	      createSearchEntries();
@@ -5097,16 +5097,16 @@ webvowl.app =
 	    }
 	    handleAutoCompletion();
 	  }
-	  
+
 	  function userNavigation(){
 	    if ( dictionaryUpdateRequired ) {
 	      updateSearchDictionary();
 	    }
-	    
+
 	    var htmlCollection = m_search.node().children;
 	    var numEntries = htmlCollection.length;
-	    
-	    
+
+
 	    var move = 0;
 	    var i;
 	    var selectedEntry = -1;
@@ -5135,7 +5135,7 @@ webvowl.app =
 	          clearedText = clearedText.substr(0, clearedText.length - 1);
 	        }
 	        var iri = clearedText.replace(/ /g, "%20");
-	        
+
 	        var valid = ValidURL(iri);
 	        // validate url:
 	        if ( valid ) {
@@ -5156,14 +5156,14 @@ webvowl.app =
 	      move = +1;
 	      searchMenu.showSearchEntries();
 	    }
-	    
+
 	    var newSelection = selectedEntry + move;
 	    if ( newSelection !== selectedEntry ) {
-	      
+
 	      if ( newSelection < 0 && selectedEntry <= 0 ) {
 	        htmlCollection[0].setAttribute('class', "dbEntrySelected");
 	      }
-	      
+
 	      if ( newSelection >= numEntries ) {
 	        htmlCollection[selectedEntry].setAttribute('class', "dbEntrySelected");
 	      }
@@ -5174,12 +5174,12 @@ webvowl.app =
 	      }
 	    }
 	  }
-	  
+
 	  searchMenu.getSearchString = function (){
 	    return searchLineEdit.node().value;
 	  };
-	  
-	  
+
+
 	  function clearSearchEntries(){
 	    var htmlCollection = m_search.node().children;
 	    var numEntries = htmlCollection.length;
@@ -5188,15 +5188,15 @@ webvowl.app =
 	    }
 	    results = [];
 	    resultID = [];
-	    
+
 	  }
-	  
+
 	  function createSearchEntries(){
 	    inputText = searchLineEdit.node().value;
 	    var i;
 	    var lc_text = inputText.toLowerCase();
 	    var token;
-	    
+
 	    for ( i = 0; i < dictionary.length; i++ ) {
 	      var tokenElement = dictionary[i];
 	      if ( tokenElement === undefined ) {
@@ -5211,7 +5211,7 @@ webvowl.app =
 	      }
 	    }
 	  }
-	  
+
 	  function measureTextWidth( text, textStyle ){
 	    // Set a default value
 	    if ( !textStyle ) {
@@ -5227,7 +5227,7 @@ webvowl.app =
 	    d.remove();
 	    return w;
 	  }
-	  
+
 	  function cropText( input ){
 	    var maxWidth = 250;
 	    var textStyle = "dbEntry";
@@ -5240,24 +5240,24 @@ webvowl.app =
 	      if ( textWidth <= maxWidth ) {
 	        break;
 	      }
-	      
+
 	      ratio = textWidth / maxWidth;
 	      newTruncatedTextLength = Math.floor(truncatedText.length / ratio);
-	      
+
 	      // detect if nothing changes
 	      if ( truncatedText.length === newTruncatedTextLength ) {
 	        break;
 	      }
-	      
+
 	      truncatedText = truncatedText.substring(0, newTruncatedTextLength);
 	    }
-	    
+
 	    if ( input.length > truncatedText.length ) {
 	      return input.substring(0, truncatedText.length - 6);
 	    }
 	    return input;
 	  }
-	  
+
 	  function createDropDownElements(){
 	    var numEntries;
 	    var copyRes = results;
@@ -5265,14 +5265,14 @@ webvowl.app =
 	    var token;
 	    var newResults = [];
 	    var newResultsIds = [];
-	    
+
 	    var lc_text = searchLineEdit.node().value.toLowerCase();
 	    // set the number of shown results to be maxEntries or less;
 	    numEntries = results.length;
 	    if ( numEntries > maxEntries )
 	      numEntries = maxEntries;
-	    
-	    
+
+
 	    for ( i = 0; i < numEntries; i++ ) {
 	      // search for the best entry
 	      var indexElement = 1000000;
@@ -5292,13 +5292,13 @@ webvowl.app =
 	      newResultsIds.push(resultID[bestElement]);
 	      copyRes[bestElement] = "";
 	    }
-	    
+
 	    // add the results to the entry menu
 	    //******************************************
 	    numEntries = results.length;
 	    if ( numEntries > maxEntries )
 	      numEntries = maxEntries;
-	    
+
 	    var filteredOutElements = 0;
 	    for ( i = 0; i < numEntries; i++ ) {
 	      //add results to the dropdown menu
@@ -5306,12 +5306,12 @@ webvowl.app =
 	      testEntry.setAttribute('elementID', newResultsIds[i]);
 	      testEntry.onclick = handleClick(newResultsIds[i]);
 	      testEntry.setAttribute('class', "dbEntry");
-	      
+
 	      var entries = mergedIdList[newResultsIds[i]];
 	      var eLen = entries.length;
-	      
+
 	      var croppedText = cropText(newResults[i]);
-	      
+
 	      var el0 = entries[0];
 	      var allSame = true;
 	      var nodeMap = graph.getNodeMapForSearch();
@@ -5323,7 +5323,7 @@ webvowl.app =
 	          }
 	        }
 	      }
-	      
+
 	      for ( var a = 0; a < eLen; a++ ) {
 	        if ( el0 !== entries[a] ) {
 	          allSame = false;
@@ -5348,7 +5348,7 @@ webvowl.app =
 	            croppedText += " (" + eLen + ")";
 	        }
 	      }
-	      
+
 	      var searchEntryNode = d3.select(testEntry);
 	      if ( eLen === 1 || allSame === true ) {
 	        if ( nodeMap[entries[0]] === undefined ) {
@@ -5378,49 +5378,49 @@ webvowl.app =
 	      m_search.node().appendChild(testEntry);
 	    }
 	  }
-	  
-	  
+
+
 	  function handleAutoCompletion(){
 	    /**  pre condition: autoCompletion has already a valid text**/
 	    clearSearchEntries();
 	    createSearchEntries();
 	    createDropDownElements();
 	  }
-	  
+
 	  function userInput(){
 	    c_locate.classed("highlighted", false);
 	    c_locate.node().title = "Nothing to locate";
-	    
+
 	    if ( dictionaryUpdateRequired ) {
 	      updateSearchDictionary();
 	    }
 	    graph.resetSearchHighlight();
-	    
+
 	    if ( dictionary.length === 0 ) {
 	      console.log("dictionary is empty");
 	      return;
 	    }
 	    inputText = searchLineEdit.node().value;
-	    
+
 	    clearSearchEntries();
 	    if ( inputText.length !== 0 ) {
 	      createSearchEntries();
 	      createDropDownElements();
 	    }
-	    
+
 	    searchMenu.showSearchEntries();
 	  }
-	  
+
 	  function handleClick( elementId ){
-	    
+
 	    return function (){
 	      var id = elementId;
 	      var correspondingIds = mergedIdList[id];
-	      
+
 	      // autoComplete the text for the user
 	      var autoComStr = entryNames[id];
 	      searchLineEdit.node().value = autoComStr;
-	      
+
 	      graph.resetSearchHighlight();
 	      graph.highLightNodes(correspondingIds);
 	      c_locate.node().title = "Locate search term";
@@ -5430,7 +5430,7 @@ webvowl.app =
 	      searchMenu.hideSearchEntries();
 	    };
 	  }
-	  
+
 	  searchMenu.clearText = function (){
 	    searchLineEdit.node().value = "";
 	    c_locate.classed("highlighted", false);
@@ -5441,7 +5441,7 @@ webvowl.app =
 	      htmlCollection[0].remove();
 	    }
 	  };
-	  
+
 	  return searchMenu;
 	};
 
@@ -5473,13 +5473,13 @@ webvowl.app =
 	    t_scrollRight,
 	    c_select = [],
 	    m_select = [];
-	  
-	  
+
+
 	  function clearAllTimers(){
 	    cancelAnimationFrame(t_scrollLeft);
 	    cancelAnimationFrame(t_scrollRight);
 	  }
-	  
+
 	  function timed_scrollRight(){
 	    scrolLeftValue += 5;
 	    scrollContainer.scrollLeft = scrolLeftValue;
@@ -5489,9 +5489,9 @@ webvowl.app =
 	      return;
 	    }
 	    t_scrollRight = requestAnimationFrame(timed_scrollRight);
-	    
+
 	  }
-	  
+
 	  function timed_scrollLeft(){
 	    scrolLeftValue -= 5;
 	    scrollContainer.scrollLeft = scrolLeftValue;
@@ -5502,29 +5502,29 @@ webvowl.app =
 	    }
 	    t_scrollRight = requestAnimationFrame(timed_scrollLeft);
 	  }
-	  
+
 	  // collect all menu entries and stuff;
 	  function setupControlsAndMenus(){
 	    // HEURISTIC : to match the menus and their controllers we remove the first 2 letters and match
 	    c_select = [];
 	    m_select = [];
-	    
+
 	    var c_temp = [];
 	    var m_temp = [];
 	    var i;
 	    var controlElements = scrollContainer.children;
 	    var numEntries = controlElements.length;
-	    
+
 	    for ( i = 0; i < numEntries; i++ ) {
 	      c_temp.push(controlElements[i].id.slice(2));
 	    }
-	    
+
 	    var menuElements = menuContainer.children;
 	    numEntries = menuElements.length;
 	    for ( i = 0; i < numEntries; i++ ) {
 	      m_temp.push(menuElements[i].id.slice(2));
 	    }
-	    
+
 	    numEntries = controlElements.length;
 	    for ( i = 0; i < numEntries; i++ ) {
 	      c_select[i] = "c_" + c_temp[i];
@@ -5536,12 +5536,12 @@ webvowl.app =
 	      // create custom behavior for click, touch, and hover
 	      d3.select("#" + c_select[i]).on("mouseover", menuElementOnHovered);
 	      d3.select("#" + c_select[i]).on("mouseout", menuElementOutHovered);
-	      
+
 	      d3.select("#" + c_select[i]).on("click", menuElementClicked);
 	      d3.select("#" + c_select[i]).on("touchstart", menuElementTouched);
-	      
+
 	    }
-	    
+
 	    // connect to mouseWheel
 	    d3.select("#menuElementContainer").on("wheel", function (){
 	      var wheelEvent = d3.event;
@@ -5552,13 +5552,13 @@ webvowl.app =
 	      navigationMenu.hideAllMenus();
 	      navigationMenu.updateScrollButtonVisibility();
 	    });
-	    
+
 	    // connect scrollIndicator Buttons;
 	    d3.select("#scrollRightButton").on("mousedown", function (){
 	      scrolLeftValue = scrollContainer.scrollLeft;
 	      navigationMenu.hideAllMenus();
 	      t_scrollRight = requestAnimationFrame(timed_scrollRight);
-	      
+
 	    }).on("touchstart", function (){
 	      scrolLeftValue = scrollContainer.scrollLeft;
 	      navigationMenu.hideAllMenus();
@@ -5566,7 +5566,7 @@ webvowl.app =
 	    }).on("mouseup", clearAllTimers)
 	      .on("touchend", clearAllTimers)
 	      .on("touchcancel", clearAllTimers);
-	    
+
 	    d3.select("#scrollLeftButton").on("mousedown", function (){
 	      scrolLeftValue = scrollContainer.scrollLeft;
 	      navigationMenu.hideAllMenus();
@@ -5578,14 +5578,14 @@ webvowl.app =
 	    }).on("mouseup", clearAllTimers)
 	      .on("touchend", clearAllTimers)
 	      .on("touchcancel", clearAllTimers);
-	    
+
 	    // connect the scroll functionality;
 	    d3.select("#menuElementContainer").on("scroll", function (){
 	      navigationMenu.updateScrollButtonVisibility();
 	      navigationMenu.hideAllMenus();
 	    });
 	  }
-	  
+
 	  function menuElementOnHovered(){
 	    navigationMenu.hideAllMenus();
 	    if ( touchedElement ) {
@@ -5593,11 +5593,11 @@ webvowl.app =
 	    }
 	    showSingleMenu(this.id);
 	  }
-	  
+
 	  function menuElementOutHovered(){
 	    hoveroutedControMenu(this.id);
 	  }
-	  
+
 	  function menuElementClicked(){
 	    var m_element = m_select[c_select.indexOf(this.id)];
 	    if ( m_element ) {
@@ -5611,30 +5611,30 @@ webvowl.app =
 	      }
 	    }
 	  }
-	  
+
 	  function menuElementTouched(){
 	    // it sets a flag that we have touched it,
 	    // since d3. propagates the event for touch as hover and then click, we block the hover event
 	    touchedElement = true;
 	  }
-	  
-	  
+
+
 	  function hoveroutedControMenu( controllerID ){
 	    currentlyHoveredEntry = d3.select("#" + controllerID);
 	    if ( controllerID !== "c_search" ) {
 	      d3.select("#" + controllerID).select("path").style("stroke-width", "0");
 	      d3.select("#" + controllerID).select("path").style("fill", "#fff");
 	    }
-	    
+
 	  }
-	  
+
 	  function showSingleMenu( controllerID ){
 	    currentlyHoveredEntry = d3.select("#" + controllerID).node();
 	    // get the corresponding menu element for this controller
 	    var m_element = m_select[c_select.indexOf(controllerID)];
 	    if ( m_element ) {
 	      if ( controllerID !== "c_search" ) {
-	        
+
 	        d3.select("#" + controllerID).select("path").style("stroke-width", "0");
 	        d3.select("#" + controllerID).select("path").style("fill", "#bdc3c7");
 	      }
@@ -5646,7 +5646,7 @@ webvowl.app =
 	      updateMenuPosition();
 	    }
 	  }
-	  
+
 	  function updateMenuPosition(){
 	    if ( currentlyHoveredEntry ) {
 	      var leftOffset = currentlyHoveredEntry.offsetLeft;
@@ -5662,7 +5662,7 @@ webvowl.app =
 	      // fix priority;
 	      finalOffset = Math.max(0, finalOffset);
 	      currentlyVisibleMenu.style("left", finalOffset + "px");
-	      
+
 	      // // check if outside the viewport
 	      // var menuWidth=currentlyHoveredEntry.getBoundingClientRect().width;
 	      // var bt_width=36;
@@ -5672,11 +5672,11 @@ webvowl.app =
 	      // }
 	    }
 	  }
-	  
+
 	  navigationMenu.hideAllMenus = function (){
 	    d3.selectAll(".toolTipMenu").style("display", "none"); // hiding all menus
 	  };
-	  
+
 	  navigationMenu.updateScrollButtonVisibility = function (){
 	    scrollMax = scrollContainer.scrollWidth - scrollContainer.clientWidth - 2;
 	    if ( scrollContainer.scrollLeft === 0 ) {
@@ -5684,15 +5684,15 @@ webvowl.app =
 	    } else {
 	      leftButton.classed("hidden", false);
 	    }
-	    
+
 	    if ( scrollContainer.scrollLeft > scrollMax ) {
 	      rightButton.classed("hidden", true);
 	    } else {
 	      rightButton.classed("hidden", false);
 	    }
-	    
+
 	  };
-	  
+
 	  navigationMenu.setup = function (){
 	    setupControlsAndMenus();
 	    // make sure that the menu elements follow their controller and also their restrictions
@@ -5704,7 +5704,7 @@ webvowl.app =
 	      navigationMenu.hideAllMenus();
 	    });
 	  };
-	  
+
 	  return navigationMenu;
 	};
 
@@ -5728,14 +5728,14 @@ webvowl.app =
 	    w = graph.options().width(),
 	    h = graph.options().height(),
 	    slider;
-	  
+
 	  defZoom = Math.min(w, h) / 1000;
-	  
+
 	  function clearAllTimers(){
 	    cancelAnimationFrame(t_zoomOut);
 	    cancelAnimationFrame(t_zoomIn);
 	  }
-	  
+
 	  function timed_zoomOut(){
 	    zoomValue = 0.98 * zoomValue;
 	    // fail saves
@@ -5745,7 +5745,7 @@ webvowl.app =
 	    graph.setSliderZoom(zoomValue);
 	    t_zoomOut = requestAnimationFrame(timed_zoomOut);
 	  }
-	  
+
 	  function timed_zoomIn(){
 	    zoomValue = 1.02 * zoomValue;
 	    // fail saves
@@ -5755,7 +5755,7 @@ webvowl.app =
 	    graph.setSliderZoom(zoomValue);
 	    t_zoomIn = requestAnimationFrame(timed_zoomIn);
 	  }
-	  
+
 	  zoomSlider.setup = function (){
 	    slider = d3.select("#zoomSliderParagraph").append("input")
 	      .datum({})
@@ -5769,7 +5769,7 @@ webvowl.app =
 	      .on("input", function (){
 	        zoomSlider.zooming();
 	      });
-	    
+
 	    d3.select("#zoomOutButton").on("mousedown", function (){
 	      graph.options().navigationMenu().hideAllMenus();
 	      zoomValue = graph.scaleFactor();
@@ -5784,7 +5784,7 @@ webvowl.app =
 	      .on("touchend", clearAllTimers)
 	      .on("touchcancel", clearAllTimers)
 	      .attr("title", "zoom out");
-	    
+
 	    d3.select("#zoomInButton").on("mousedown", function (){
 	      graph.options().navigationMenu().hideAllMenus();
 	      zoomValue = graph.scaleFactor();
@@ -5799,34 +5799,34 @@ webvowl.app =
 	      .on("touchend", clearAllTimers)
 	      .on("touchcancel", clearAllTimers)
 	      .attr("title", "zoom in");
-	    
+
 	    d3.select("#centerGraphButton").on("click", function (){
 	      graph.options().navigationMenu().hideAllMenus();
 	      graph.forceRelocationEvent();
 	    }).attr("title", "center graph");
-	    
+
 	  };
-	  
+
 	  zoomSlider.showSlider = function ( val ){
 	    if ( !arguments.length ) return showSlider;
 	    d3.select("#zoomSlider").classed("hidden", !val);
 	    showSlider = val;
 	  };
-	  
+
 	  zoomSlider.zooming = function (){
 	    graph.options().navigationMenu().hideAllMenus();
 	    var zoomValue = slider.property("value");
 	    slider.attr("value", zoomValue);
 	    graph.setSliderZoom(zoomValue);
 	  };
-	  
+
 	  zoomSlider.updateZoomSliderValue = function ( val ){
 	    if ( slider ) {
 	      slider.attr("value", val);
 	      slider.property("value", val);
 	    }
 	  };
-	  
+
 	  return zoomSlider;
 	};
 
@@ -5843,7 +5843,7 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var sidebar = {},
 	    languageTools = webvowl.util.languageTools(),
 	    elementTools = webvowl.util.elementTools(),
@@ -5851,36 +5851,36 @@ webvowl.app =
 	    ontologyInfo,
 	    visibleSidebar = 1,
 	    lastSelectedElement,
-	    
+
 	    detailArea = d3.select("#detailsArea"),
 	    graphArea = d3.select("#canvasArea"),
 	    menuArea = d3.select("#swipeBarContainer"),
 	    collapseButton = d3.select("#sidebarExpandButton");
-	  
+
 	  /**
 	   * Setup the menu bar.
 	   */
-	  
-	  
+
+
 	  function setupCollapsing(){
 	    // adapted version of this example: http://www.normansblog.de/simple-jquery-accordion/
 	    function collapseContainers( containers ){
 	      containers.classed("hidden", true);
 	    }
-	    
+
 	    function expandContainers( containers ){
 	      containers.classed("hidden", false);
 	    }
-	    
+
 	    var triggers = d3.selectAll(".accordion-trigger");
-	    
+
 	    // Collapse all inactive triggers on startup
 	    collapseContainers(d3.selectAll(".accordion-trigger:not(.accordion-trigger-active) + div"));
-	    
+
 	    triggers.on("click", function (){
 	      var selectedTrigger = d3.select(this),
 	        activeTriggers = d3.selectAll(".accordion-trigger-active");
-	      
+
 	      if ( selectedTrigger.classed("accordion-trigger-active") ) {
 	        // Collapse the active (which is also the selected) trigger
 	        collapseContainers(d3.select(selectedTrigger.node().nextElementSibling));
@@ -5895,9 +5895,9 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
+
 	  sidebar.clearOntologyInformation = function (){
-	    
+
 	    d3.select("#title").text("No title available");
 	    d3.select("#about").attr("href", "#").attr("target", "_blank").text("not given");
 	    d3.select("#version").text("--");
@@ -5917,7 +5917,7 @@ webvowl.app =
 	      .text("0");
 	    d3.select("#edgeCount")
 	      .text("0");
-	    
+
 	    // clear selectedNode info
 	    var isTriggerActive = d3.select("#selection-details-trigger").classed("accordion-trigger-active");
 	    if ( isTriggerActive ) {
@@ -5925,9 +5925,9 @@ webvowl.app =
 	      d3.select("#selection-details-trigger").node().click();
 	    }
 	    showSelectionAdvice();
-	    
+
 	  };
-	  
+
 	  /**
 	   * Updates the information of the passed ontology.
 	   * @param data the graph data
@@ -5936,20 +5936,20 @@ webvowl.app =
 	  sidebar.updateOntologyInformation = function ( data, statistics ){
 	    data = data || {};
 	    ontologyInfo = data.header || {};
-	    
+
 	    updateGraphInformation();
 	    displayGraphStatistics(undefined, statistics);
 	    displayMetadata(ontologyInfo.other);
-	    
+
 	    // Reset the sidebar selection
 	    sidebar.updateSelectionInformation(undefined);
-	    
+
 	    setLanguages(ontologyInfo.languages);
 	  };
-	  
+
 	  function setLanguages( languages ){
 	    languages = languages || [];
-	    
+
 	    // Put the default and unset label on top of the selection labels
 	    languages.sort(function ( a, b ){
 	      if ( a === webvowl.util.constants().LANG_IRIBASED ) {
@@ -5964,14 +5964,14 @@ webvowl.app =
 	      }
 	      return a.localeCompare(b);
 	    });
-	    
+
 	    var languageSelection = d3.select("#language")
 	      .on("change", function (){
 	        graph.language(d3.event.target.value);
 	        updateGraphInformation();
 	        sidebar.updateSelectionInformation(lastSelectedElement);
 	      });
-	    
+
 	    languageSelection.selectAll("option").remove();
 	    languageSelection.selectAll("option")
 	      .data(languages)
@@ -5982,14 +5982,14 @@ webvowl.app =
 	      .text(function ( d ){
 	        return d;
 	      });
-	    
+
 	    if ( !trySelectDefaultLanguage(languageSelection, languages, "en") ) {
 	      if ( !trySelectDefaultLanguage(languageSelection, languages, webvowl.util.constants().LANG_UNDEFINED) ) {
 	        trySelectDefaultLanguage(languageSelection, languages, webvowl.util.constants().LANG_IRIBASED);
 	      }
 	    }
 	  }
-	  
+
 	  function trySelectDefaultLanguage( selection, languages, language ){
 	    var langIndex = languages.indexOf(language);
 	    if ( langIndex >= 0 ) {
@@ -5997,10 +5997,10 @@ webvowl.app =
 	      graph.language(language);
 	      return true;
 	    }
-	    
+
 	    return false;
 	  }
-	  
+
 	  function updateGraphInformation(){
 	    var title = languageTools.textInLanguage(ontologyInfo.title, graph.language());
 	    d3.select("#title").text(title || "No title available");
@@ -6015,15 +6015,15 @@ webvowl.app =
 	    } else {
 	      d3.select("#authors").text("--");
 	    }
-	    
+
 	    var description = languageTools.textInLanguage(ontologyInfo.description, graph.language());
 	    d3.select("#description").text(description || "No description available.");
 	  }
-	  
+
 	  function displayGraphStatistics( deliveredMetrics, statistics ){
 	    // Metrics are optional and may be undefined
 	    deliveredMetrics = deliveredMetrics || {};
-	    
+
 	    d3.select("#classCount")
 	      .text(deliveredMetrics.classCount || statistics.classCount());
 	    d3.select("#objectPropertyCount")
@@ -6037,21 +6037,21 @@ webvowl.app =
 	    d3.select("#edgeCount")
 	      .text(statistics.edgeCount());
 	  }
-	  
+
 	  function displayMetadata( metadata ){
 	    var container = d3.select("#ontology-metadata");
 	    container.selectAll("*").remove();
-	    
+
 	    listAnnotations(container, metadata);
-	    
+
 	    if ( container.selectAll(".annotation").size() <= 0 ) {
 	      container.append("p").text("No annotations available.");
 	    }
 	  }
-	  
+
 	  function listAnnotations( container, annotationObject ){
 	    annotationObject = annotationObject || {};  //todo
-	    
+
 	    // Collect the annotations in an array for simpler processing
 	    var annotations = [];
 	    for ( var annotation in annotationObject ) {
@@ -6059,7 +6059,7 @@ webvowl.app =
 	        annotations.push(annotationObject[annotation][0]);
 	      }
 	    }
-	    
+
 	    container.selectAll(".annotation").remove();
 	    container.selectAll(".annotation").data(annotations).enter().append("p")
 	      .classed("annotation", true)
@@ -6072,19 +6072,19 @@ webvowl.app =
 	        appendIriLabel(d3.select(this), d.value, d.type === "iri" ? d.value : undefined);
 	      });
 	  }
-	  
+
 	  /**
 	   * Update the information of the selected node.
 	   * @param selectedElement the selection or null if nothing is selected
 	   */
 	  sidebar.updateSelectionInformation = function ( selectedElement ){
 	    lastSelectedElement = selectedElement;
-	    
+
 	    // Click event was prevented when dragging
 	    if ( d3.event && d3.event.defaultPrevented ) {
 	      return;
 	    }
-	    
+
 	    var isTriggerActive = d3.select("#selection-details-trigger").classed("accordion-trigger-active");
 	    if ( selectedElement && !isTriggerActive ) {
 	      d3.select("#selection-details-trigger").node().click();
@@ -6092,55 +6092,55 @@ webvowl.app =
 	      showSelectionAdvice();
 	      return;
 	    }
-	    
+
 	    if ( elementTools.isProperty(selectedElement) ) {
 	      displayPropertyInformation(selectedElement);
 	    } else if ( elementTools.isNode(selectedElement) ) {
 	      displayNodeInformation(selectedElement);
 	    }
 	  };
-	  
+
 	  function showSelectionAdvice(){
 	    setSelectionInformationVisibility(false, false, true);
 	  }
-	  
+
 	  function setSelectionInformationVisibility( showClasses, showProperties, showAdvice ){
 	    d3.select("#classSelectionInformation").classed("hidden", !showClasses);
 	    d3.select("#propertySelectionInformation").classed("hidden", !showProperties);
 	    d3.select("#noSelectionInformation").classed("hidden", !showAdvice);
 	  }
-	  
+
 	  function displayPropertyInformation( property ){
 	    showPropertyInformations();
-	    
+
 	    setIriLabel(d3.select("#propname"), property.labelForCurrentLanguage(), property.iri());
 	    d3.select("#typeProp").text(property.type());
-	    
+
 	    if ( property.inverse() !== undefined ) {
 	      d3.select("#inverse").classed("hidden", false);
 	      setIriLabel(d3.select("#inverse span"), property.inverse().labelForCurrentLanguage(), property.inverse().iri());
 	    } else {
 	      d3.select("#inverse").classed("hidden", true);
 	    }
-	    
+
 	    var equivalentIriSpan = d3.select("#propEquivUri");
 	    listNodeArray(equivalentIriSpan, property.equivalents());
-	    
+
 	    listNodeArray(d3.select("#subproperties"), property.subproperties());
 	    listNodeArray(d3.select("#superproperties"), property.superproperties());
-	    
+
 	    if ( property.minCardinality() !== undefined ) {
 	      d3.select("#infoCardinality").classed("hidden", true);
 	      d3.select("#minCardinality").classed("hidden", false);
 	      d3.select("#minCardinality span").text(property.minCardinality());
 	      d3.select("#maxCardinality").classed("hidden", false);
-	      
+
 	      if ( property.maxCardinality() !== undefined ) {
 	        d3.select("#maxCardinality span").text(property.maxCardinality());
 	      } else {
 	        d3.select("#maxCardinality span").text("*");
 	      }
-	      
+
 	    } else if ( property.cardinality() !== undefined ) {
 	      d3.select("#minCardinality").classed("hidden", true);
 	      d3.select("#maxCardinality").classed("hidden", true);
@@ -6151,25 +6151,25 @@ webvowl.app =
 	      d3.select("#minCardinality").classed("hidden", true);
 	      d3.select("#maxCardinality").classed("hidden", true);
 	    }
-	    
+
 	    setIriLabel(d3.select("#domain"), property.domain().labelForCurrentLanguage(), property.domain().iri());
 	    setIriLabel(d3.select("#range"), property.range().labelForCurrentLanguage(), property.range().iri());
-	    
+
 	    displayAttributes(property.attributes(), d3.select("#propAttributes"));
-	    
+
 	    setTextAndVisibility(d3.select("#propDescription"), property.descriptionForCurrentLanguage());
 	    setTextAndVisibility(d3.select("#propComment"), property.commentForCurrentLanguage());
-	    
+
 	    listAnnotations(d3.select("#propertySelectionInformation"), property.annotations());
 	  }
-	  
+
 	  function showPropertyInformations(){
 	    setSelectionInformationVisibility(false, true, false);
 	  }
-	  
+
 	  function setIriLabel( element, name, iri ){
 	    var parent = d3.select(element.node().parentNode);
-	    
+
 	    if ( name ) {
 	      element.selectAll("*").remove();
 	      appendIriLabel(element, name, iri);
@@ -6178,10 +6178,10 @@ webvowl.app =
 	      parent.classed("hidden", true);
 	    }
 	  }
-	  
+
 	  function appendIriLabel( element, name, iri ){
 	    var tag;
-	    
+
 	    if ( iri ) {
 	      tag = element.append("a")
 	        .attr("href", iri)
@@ -6192,79 +6192,79 @@ webvowl.app =
 	    }
 	    tag.text(name);
 	  }
-	  
+
 	  function displayAttributes( attributes, textSpan ){
 	    var spanParent = d3.select(textSpan.node().parentNode);
-	    
+
 	    if ( attributes && attributes.length > 0 ) {
 	      // Remove redundant redundant attributes for sidebar
 	      removeElementFromArray("object", attributes);
 	      removeElementFromArray("datatype", attributes);
 	      removeElementFromArray("rdf", attributes);
 	    }
-	    
+
 	    if ( attributes && attributes.length > 0 ) {
 	      textSpan.text(attributes.join(", "));
-	      
+
 	      spanParent.classed("hidden", false);
 	    } else {
 	      spanParent.classed("hidden", true);
 	    }
 	  }
-	  
+
 	  function removeElementFromArray( element, array ){
 	    var index = array.indexOf(element);
 	    if ( index > -1 ) {
 	      array.splice(index, 1);
 	    }
 	  }
-	  
+
 	  function displayNodeInformation( node ){
 	    showClassInformations();
-	    
+
 	    setIriLabel(d3.select("#name"), node.labelForCurrentLanguage(), node.iri());
-	    
+
 	    /* Equivalent stuff. */
 	    var equivalentIriSpan = d3.select("#classEquivUri");
 	    listNodeArray(equivalentIriSpan, node.equivalents());
-	    
+
 	    d3.select("#typeNode").text(node.type());
 	    listNodeArray(d3.select("#individuals"), node.individuals());
-	    
+
 	    /* Disjoint stuff. */
 	    var disjointNodes = d3.select("#disjointNodes");
 	    var disjointNodesParent = d3.select(disjointNodes.node().parentNode);
-	    
+
 	    if ( node.disjointWith() !== undefined ) {
 	      disjointNodes.selectAll("*").remove();
-	      
+
 	      node.disjointWith().forEach(function ( element, index ){
 	        if ( index > 0 ) {
 	          disjointNodes.append("span").text(", ");
 	        }
 	        appendIriLabel(disjointNodes, element.labelForCurrentLanguage(), element.iri());
 	      });
-	      
+
 	      disjointNodesParent.classed("hidden", false);
 	    } else {
 	      disjointNodesParent.classed("hidden", true);
 	    }
-	    
+
 	    displayAttributes(node.attributes(), d3.select("#classAttributes"));
-	    
+
 	    setTextAndVisibility(d3.select("#nodeDescription"), node.descriptionForCurrentLanguage());
 	    setTextAndVisibility(d3.select("#nodeComment"), node.commentForCurrentLanguage());
-	    
+
 	    listAnnotations(d3.select("#classSelectionInformation"), node.annotations());
 	  }
-	  
+
 	  function showClassInformations(){
 	    setSelectionInformationVisibility(true, false, false);
 	  }
-	  
+
 	  function listNodeArray( textSpan, nodes ){
 	    var spanParent = d3.select(textSpan.node().parentNode);
-	    
+
 	    if ( nodes && nodes.length ) {
 	      textSpan.selectAll("*").remove();
 	      nodes.forEach(function ( element, index ){
@@ -6273,13 +6273,13 @@ webvowl.app =
 	        }
 	        appendIriLabel(textSpan, element.labelForCurrentLanguage(), element.iri());
 	      });
-	      
+
 	      spanParent.classed("hidden", false);
 	    } else {
 	      spanParent.classed("hidden", true);
 	    }
 	  }
-	  
+
 	  function setTextAndVisibility( label, value ){
 	    var parentNode = d3.select(label.node().parentNode);
 	    var hasValue = !!value;
@@ -6288,9 +6288,9 @@ webvowl.app =
 	    }
 	    parentNode.classed("hidden", !hasValue);
 	  }
-	  
+
 	  /** Collapsible Sidebar functions; **/
-	  
+
 	  sidebar.showSidebar = function ( val, init ){
 	    // make val to bool
 	    if ( val === 1 ) {
@@ -6301,21 +6301,21 @@ webvowl.app =
 	        detailArea.classed("hidden", !visibleSidebar);
 	        graphArea.style("width", "78%");
 	        graphArea.style("-webkit-animation-name", "none");
-	        
+
 	        menuArea.style("width", "78%");
 	        menuArea.style("-webkit-animation-name", "none");
-	        
+
 	        d3.select("#WarningErrorMessagesContainer").style("width", "78%");
 	        d3.select("#WarningErrorMessagesContainer").style("-webkit-animation-name", "none");
 	      } else {
 	        graphArea.style("width", "78%");
 	        graphArea.style("-webkit-animation-name", "sbCollapseAnimation");
 	        graphArea.style("-webkit-animation-duration", "0.5s");
-	        
+
 	        menuArea.style("width", "78%");
 	        menuArea.style("-webkit-animation-name", "sbCollapseAnimation");
 	        menuArea.style("-webkit-animation-duration", "0.5s");
-	        
+
 	        d3.select("#WarningErrorMessagesContainer").style("width", "78%");
 	        d3.select("#WarningErrorMessagesContainer").style("-webkit-animation-name", "warn_ExpandRightBarAnimation");
 	        d3.select("#WarningErrorMessagesContainer").style("-webkit-animation-duration", "0.5s");
@@ -6326,53 +6326,53 @@ webvowl.app =
 	    if ( val === 0 ) {
 	      visibleSidebar = false;
 	      detailArea.classed("hidden", true);
-	      
+
 	      collapseButton.node().innerHTML = "<";
 	      // adjust the layout
 	      if ( init === true ) {
 	        graphArea.style("width", "100%");
 	        graphArea.style("-webkit-animation-name", "none");
-	        
+
 	        menuArea.style("width", "100%");
 	        menuArea.style("-webkit-animation-name", "none");
-	        
+
 	        d3.select("#WarningErrorMessagesContainer").style("width", "100%");
 	        d3.select("#WarningErrorMessagesContainer").style("-webkit-animation-name", "none");
 	      } else {
 	        graphArea.style("width", "100%");
 	        graphArea.style("-webkit-animation-name", "sbExpandAnimation");
 	        graphArea.style("-webkit-animation-duration", "0.5s");
-	        
+
 	        menuArea.style("width", "100%");
 	        menuArea.style("-webkit-animation-name", "sbExpandAnimation");
 	        menuArea.style("-webkit-animation-duration", "0.5s");
-	        
+
 	        d3.select("#WarningErrorMessagesContainer").style("width", "100%");
 	        d3.select("#WarningErrorMessagesContainer").style("-webkit-animation-name", "warn_CollapseRightBarAnimation");
 	        d3.select("#WarningErrorMessagesContainer").style("-webkit-animation-duration", "0.5s");
-	        
+
 	      }
 	      graph.options().width(window.innerWidth);
 	      graph.updateCanvasContainerSize();
 	      graph.options().navigationMenu().updateScrollButtonVisibility();
 	    }
 	  };
-	  
+
 	  sidebar.isSidebarVisible = function (){
 	    return visibleSidebar;
 	  };
-	  
+
 	  sidebar.updateSideBarVis = function ( init ){
 	    var vis = sidebar.getSidebarVisibility();
 	    sidebar.showSidebar(parseInt(vis), init);
 	  };
-	  
+
 	  sidebar.getSidebarVisibility = function (){
 	    var isHidden = detailArea.classed("hidden");
 	    if ( isHidden === false ) return String(1);
 	    if ( isHidden === true ) return String(0);
 	  };
-	  
+
 	  sidebar.initSideBarAnimation = function (){
 	    graphArea.node().addEventListener("animationend", function (){
 	      detailArea.classed("hidden", !visibleSidebar);
@@ -6380,11 +6380,11 @@ webvowl.app =
 	      graph.options().navigationMenu().updateScrollButtonVisibility();
 	    });
 	  };
-	  
+
 	  sidebar.setup = function (){
 	    setupCollapsing();
 	    sidebar.initSideBarAnimation();
-	    
+
 	    collapseButton.on("click", function (){
 	      graph.options().navigationMenu().hideAllMenus();
 	      var settingValue = parseInt(sidebar.getSidebarVisibility());
@@ -6392,23 +6392,23 @@ webvowl.app =
 	      else                  sidebar.showSidebar(1);
 	    });
 	  };
-	  
-	  
+
+
 	  sidebar.updateShowedInformation = function (){
 	    var editMode = graph.editorMode();
 	    d3.select("#generalDetails").classed("hidden", editMode);
 	    d3.select("#generalDetailsEdit").classed("hidden", !editMode);
-	    
+
 	    // store the meta information in graph.options()
-	    
+
 	    // todo: update edit meta info
 	    graph.options().editSidebar().updateGeneralOntologyInfo();
-	    
+
 	    // todo: update showed meta info;
 	    graph.options().sidebar().updateGeneralOntologyInfo();
-	    
+
 	  };
-	  
+
 	  sidebar.updateGeneralOntologyInfo = function (){
 	    // get it from graph.options
 	    var generalMetaObj = graph.options().getGeneralMetaObject();
@@ -6420,7 +6420,7 @@ webvowl.app =
 	      } else {
 	        d3.select("#title").node().innerHTML = generalMetaObj.title;
 	      }
-	      
+
 	    }
 	    if ( generalMetaObj.hasOwnProperty("iri") ) d3.select("#about").node().innerHTML = generalMetaObj.iri;
 	    if ( generalMetaObj.hasOwnProperty("iri") ) d3.select("#about").node().href = generalMetaObj.iri;
@@ -6436,8 +6436,8 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
-	  
+
+
 	  return sidebar;
 	};
 
@@ -6454,7 +6454,7 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var leftSidebar = {},
 	    languageTools = webvowl.util.languageTools(),
 	    elementTools = webvowl.util.elementTools();
@@ -6466,11 +6466,11 @@ webvowl.app =
 	  var defaultClassSelectionContainers = [];
 	  var defaultDatatypeSelectionContainers = [];
 	  var defaultPropertySelectionContainers = [];
-	  
+
 	  leftSidebar.setup = function (){
 	    setupCollapsing();
 	    leftSidebar.initSideBarAnimation();
-	    
+
 	    collapseButton.on("click", function (){
 	      graph.options().navigationMenu().hideAllMenus();
 	      var settingValue = parseInt(leftSidebar.getSidebarVisibility());
@@ -6478,72 +6478,72 @@ webvowl.app =
 	      else                  leftSidebar.showSidebar(0);
 	      backupVisibility = settingValue;
 	    });
-	    
+
 	    setupSelectionContainers();
 	    d3.select("#WarningErrorMessages").node().addEventListener("animationend", function (){
 	      d3.select("#WarningErrorMessages").style("-webkit-animation-name", "none");
 	    });
-	    
+
 	  };
-	  
+
 	  leftSidebar.hideCollapseButton = function ( val ){
 	    sideBarContainer.classed("hidden", val);
 	  };
-	  
-	  
+
+
 	  function unselectAllElements( container ){
 	    for ( var i = 0; i < container.length; i++ )
 	      container[i].classed("defaultSelected", false);
 	  }
-	  
+
 	  function selectThisDefaultElement( element ){
 	    d3.select(element).classed("defaultSelected", true);
 	  }
-	  
+
 	  function updateDefaultNameInAccordion( element, identifier ){
 	    var elementDescription = "";
 	    if ( identifier === "defaultClass" ) elementDescription = "Class: ";
 	    if ( identifier === "defaultDatatype" ) elementDescription = "Datatype: ";
 	    if ( identifier === "defaultProperty" ) elementDescription = "Property: ";
-	    
+
 	    d3.select("#" + identifier).node().innerHTML = elementDescription + element.innerHTML;
 	    d3.select("#" + identifier).node().title = element.innerHTML;
 	  }
-	  
+
 	  function classSelectorFunction(){
 	    unselectAllElements(defaultClassSelectionContainers);
 	    selectThisDefaultElement(this);
 	    updateDefaultNameInAccordion(this, "defaultClass");
 	  }
-	  
+
 	  function datatypeSelectorFunction(){
 	    unselectAllElements(defaultDatatypeSelectionContainers);
 	    selectThisDefaultElement(this);
 	    updateDefaultNameInAccordion(this, "defaultDatatype");
 	  }
-	  
+
 	  function propertySelectorFunction(){
 	    unselectAllElements(defaultPropertySelectionContainers);
 	    selectThisDefaultElement(this);
 	    updateDefaultNameInAccordion(this, "defaultProperty");
 	  }
-	  
-	  
+
+
 	  function setupSelectionContainers(){
 	    var classContainer = d3.select("#classContainer");
 	    var datatypeContainer = d3.select("#datatypeContainer");
 	    var propertyContainer = d3.select("#propertyContainer");
 	    // create the supported elements
-	    
+
 	    var defaultClass = "owl:Class";
 	    var defaultDatatype = "rdfs:Literal";
 	    var defaultProperty = "owl:objectProperty";
-	    
+
 	    var supportedClasses = graph.options().supportedClasses();
 	    var supportedDatatypes = graph.options().supportedDatatypes();
 	    var supportedProperties = graph.options().supportedProperties();
 	    var i;
-	    
+
 	    for ( i = 0; i < supportedClasses.length; i++ ) {
 	      var aClassSelectionContainer;
 	      aClassSelectionContainer = classContainer.append("div");
@@ -6551,21 +6551,21 @@ webvowl.app =
 	      aClassSelectionContainer.classed("noselect", true);
 	      aClassSelectionContainer.node().id = "selectedClass" + supportedClasses[i];
 	      aClassSelectionContainer.node().innerHTML = supportedClasses[i];
-	      
+
 	      if ( supportedClasses[i] === defaultClass ) {
 	        selectThisDefaultElement(aClassSelectionContainer.node());
 	      }
 	      aClassSelectionContainer.on("click", classSelectorFunction);
 	      defaultClassSelectionContainers.push(aClassSelectionContainer);
 	    }
-	    
+
 	    for ( i = 0; i < supportedDatatypes.length; i++ ) {
 	      var aDTSelectionContainer = datatypeContainer.append("div");
 	      aDTSelectionContainer.classed("containerForDefaultSelection", true);
 	      aDTSelectionContainer.classed("noselect", true);
 	      aDTSelectionContainer.node().id = "selectedDatatype" + supportedDatatypes[i];
 	      aDTSelectionContainer.node().innerHTML = supportedDatatypes[i];
-	      
+
 	      if ( supportedDatatypes[i] === defaultDatatype ) {
 	        selectThisDefaultElement(aDTSelectionContainer.node());
 	      }
@@ -6585,22 +6585,22 @@ webvowl.app =
 	      defaultPropertySelectionContainers.push(aPropSelectionContainer);
 	    }
 	  }
-	  
+
 	  function setupCollapsing(){
 	    // adapted version of this example: http://www.normansblog.de/simple-jquery-accordion/
 	    function collapseContainers( containers ){
 	      containers.classed("hidden", true);
 	    }
-	    
+
 	    function expandContainers( containers ){
 	      containers.classed("hidden", false);
 	    }
-	    
+
 	    var triggers = d3.selectAll(".accordion-trigger");
-	    
+
 	    // Collapse all inactive triggers on startup
 	    // collapseContainers(d3.selectAll(".accordion-trigger:not(.accordion-trigger-active) + div"));
-	    
+
 	    triggers.on("click", function (){
 	      var selectedTrigger = d3.select(this);
 	      if ( selectedTrigger.classed("accordion-trigger-active") ) {
@@ -6617,17 +6617,17 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
-	  
+
+
 	  leftSidebar.isSidebarVisible = function (){
 	    return visibleSidebar;
 	  };
-	  
+
 	  leftSidebar.updateSideBarVis = function ( init ){
 	    var vis = leftSidebar.getSidebarVisibility();
 	    leftSidebar.showSidebar(parseInt(vis), init);
 	  };
-	  
+
 	  leftSidebar.initSideBarAnimation = function (){
 	    sideBarContainer.node().addEventListener("animationend", function (){
 	      sideBarContent.classed("hidden", !visibleSidebar);
@@ -6643,13 +6643,13 @@ webvowl.app =
 	        d3.select("#leftSideBarCollapseButton").style("left", "0px");
 	        d3.select("#WarningErrorMessages").style("left", "0px");
 	        d3.select("#leftSideBarCollapseButton").classed("hidden", false);
-	        
+
 	      }
 	      graph.updateCanvasContainerSize();
 	      graph.options().navigationMenu().updateScrollButtonVisibility();
 	    });
 	  };
-	  
+
 	  leftSidebar.showSidebar = function ( val, init ){
 	    // make val to bool
 	    var collapseButton = d3.select("#leftSideBarCollapseButton");
@@ -6666,7 +6666,7 @@ webvowl.app =
 	        d3.select("#WarningErrorMessages").style("left", "100px");
 	        collapseButton.node().innerHTML = "<";
 	      }
-	      
+
 	      else {
 	        sideBarContainer.style("width", "0px");
 	        d3.select("#WarningErrorMessages").style("left", "0px");
@@ -6674,14 +6674,14 @@ webvowl.app =
 	        d3.select("#leftSideBarCollapseButton").classed("hidden", false);
 	        collapseButton.node().innerHTML = ">";
 	      }
-	      
+
 	      graph.updateCanvasContainerSize();
 	      graph.options().navigationMenu().updateScrollButtonVisibility();
 	      return;
 	    }
-	    
+
 	    d3.select("#leftSideBarCollapseButton").classed("hidden", true);
-	    
+
 	    if ( val === 1 ) {
 	      visibleSidebar = true;
 	      collapseButton.node().innerHTML = "<";
@@ -6689,10 +6689,10 @@ webvowl.app =
 	      sideBarContainer.style("-webkit-animation-name", "l_sbExpandAnimation");
 	      sideBarContainer.style("-webkit-animation-duration", "0.5s");
 	      // prepare the animation;
-	      
+
 	      d3.select("#WarningErrorMessages").style("-webkit-animation-name", "warn_ExpandLeftBarAnimation");
 	      d3.select("#WarningErrorMessages").style("-webkit-animation-duration", "0.5s");
-	      
+
 	    }
 	    if ( val === 0 ) {
 	      visibleSidebar = false;
@@ -6705,15 +6705,15 @@ webvowl.app =
 	      d3.select("#WarningErrorMessages").style("-webkit-animation-duration", "0.5s");
 	      d3.select("#WarningErrorMessages").style("left", "0");
 	    }
-	    
+
 	  };
-	  
+
 	  leftSidebar.getSidebarVisibility = function (){
 	    var isHidden = sideBarContent.classed("hidden");
 	    if ( isHidden === false ) return String(1);
 	    if ( isHidden === true ) return String(0);
 	  };
-	  
+
 	  return leftSidebar;
 	};
 
@@ -6730,17 +6730,17 @@ webvowl.app =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var editSidebar = {},
 	    languageTools = webvowl.util.languageTools(),
 	    elementTools = webvowl.util.elementTools();
-	  
+
 	  var prefixModule = webvowl.util.prefixTools(graph);
 	  var selectedElementForCharacteristics;
 	  var oldPrefix, oldPrefixURL;
 	  var prefix_editMode = false;
-	  
-	  
+
+
 	  editSidebar.clearMetaObjectValue = function (){
 	    d3.select("#titleEditor").node().value = "";
 	    d3.select("#iriEditor").node().value = "";
@@ -6749,8 +6749,8 @@ webvowl.app =
 	    d3.select("#descriptionEditor").node().value = "";
 	    // todo add clear description;
 	  };
-	  
-	  
+
+
 	  editSidebar.updatePrefixUi = function (){
 	    editSidebar.updateElementWidth();
 	    var prefixListContainer = d3.select("#prefixURL_Container");
@@ -6759,14 +6759,14 @@ webvowl.app =
 	    }
 	    setupPrefixList();
 	  };
-	  
+
 	  editSidebar.setup = function (){
 	    setupCollapsing();
 	    setupPrefixList();
 	    setupAddPrefixButton();
 	    setupSupportedDatatypes();
-	    
-	    
+
+
 	    d3.select("#titleEditor")
 	      .on("change", function (){
 	        graph.options().addOrUpdateGeneralObjectEntry("title", d3.select("#titleEditor").node().value);
@@ -6821,11 +6821,11 @@ webvowl.app =
 	      .on("change", function (){
 	        graph.options().addOrUpdateGeneralObjectEntry("description", d3.select("#descriptionEditor").node().value);
 	      });
-	    
+
 	    editSidebar.updateElementWidth();
-	    
+
 	  };
-	  
+
 	  function setupSupportedDatatypes(){
 	    var datatypeEditorSelection = d3.select("#typeEditor_datatype").node();
 	    var supportedDatatypes = ["undefined", "xsd:boolean", "xsd:double", "xsd:integer", "xsd:string"];
@@ -6835,11 +6835,11 @@ webvowl.app =
 	      datatypeEditorSelection.appendChild(optB);
 	    }
 	  }
-	  
+
 	  function highlightDeleteButton( enable, name ){
 	    var deletePath = d3.select("#del_pathFor_" + name);
 	    var deleteRect = d3.select("#del_rectFor_" + name);
-	    
+
 	    if ( enable === false ) {
 	      deletePath.node().style = "stroke: #f00;";
 	      deleteRect.style("cursor", "auto");
@@ -6848,18 +6848,18 @@ webvowl.app =
 	      deleteRect.style("cursor", "pointer");
 	    }
 	  }
-	  
-	  
+
+
 	  function highlightEditButton( enable, name, fill ){
 	    var editPath = d3.select("#pathFor_" + name);
 	    var editRect = d3.select("#rectFor_" + name);
-	    
+
 	    if ( enable === false ) {
 	      if ( fill )
 	        editPath.node().style = "fill: #fff; stroke : #fff; stroke-width : 1px";
 	      else
 	        editPath.node().style = " stroke : #fff; stroke-width : 1px";
-	      
+
 	      editRect.style("cursor", "auto");
 	    } else {
 	      if ( fill )
@@ -6868,13 +6868,13 @@ webvowl.app =
 	        editPath.node().style = "stroke : #ff972d; stroke-width : 1px";
 	      editRect.style("cursor", "pointer");
 	    }
-	    
+
 	  }
-	  
+
 	  function setupAddPrefixButton(){
 	    var btn = d3.select("#addPrefixButton");
 	    btn.on("click", function (){
-	      
+
 	      // check if we are still in editMode?
 	      if ( prefix_editMode === false ) {
 	        // create new line entry;
@@ -6883,7 +6883,7 @@ webvowl.app =
 	        var prefixEditContainer = prefixListContainer.append("div");
 	        prefixEditContainer.classed("prefixIRIElements", true);
 	        prefixEditContainer.node().id = "prefixContainerFor_" + name;
-	        
+
 	        var IconContainer = prefixEditContainer.append("div");
 	        IconContainer.style("position", "absolute");
 	        IconContainer.node().id = "containerFor_" + name;
@@ -6894,7 +6894,7 @@ webvowl.app =
 	        editButton.classed("noselect", true);
 	        //editButton.node().innerHTML = "\u2714";
 	        editButton.node().id = "editButtonFor_" + name;
-	        
+
 	        editButton.node().elementStyle = "save";
 	        editButton.node().selectorName = name;
 	        var editIcon = editButton.append("g");
@@ -6903,12 +6903,12 @@ webvowl.app =
 	        editIcon.node().id = "iconFor_" + name;
 	        editPath.node().id = "pathFor_" + name;
 	        editRect.node().id = "rectFor_" + name;
-	        
+
 	        editIcon.node().selectorName = name;
 	        editPath.node().selectorName = name;
 	        editRect.node().selectorName = name;
 	        IconContainer.node().title = "Save new prefix and IRI";
-	        
+
 	        editPath.classed("editPrefixIcon");
 	        editPath.style("stroke", "#fff");
 	        editPath.style("stroke-width", "1px");
@@ -6917,7 +6917,7 @@ webvowl.app =
 	        editRect.attr("height", "14px");
 	        editRect.style("fill", "#18202A");
 	        editRect.attr("transform", "matrix(1,0,0,1,-3,4)");
-	        
+
 	        editButton.selectAll("g").on("mouseover", function (){
 	          highlightEditButton(true, this.selectorName, true);
 	        });
@@ -6930,7 +6930,7 @@ webvowl.app =
 	        // M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z
 	        editPath.attr("d", "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z");
 	        editPath.attr("transform", "matrix(0.45,0,0,0.45,0,5)");
-	        
+
 	        var prefInput = prefixEditContainer.append("input");
 	        prefInput.classed("prefixInput", true);
 	        prefInput.node().type = "text";
@@ -6938,14 +6938,14 @@ webvowl.app =
 	        prefInput.node().autocomplete = "off";
 	        prefInput.node().value = "";
 	        prefInput.style("margin-left", "14px");
-	        
+
 	        var prefURL = prefixEditContainer.append("input");
 	        prefURL.classed("prefixURL", true);
 	        prefURL.node().type = "text";
 	        prefURL.node().id = "prefixURLFor_" + name;
 	        prefURL.node().autocomplete = "off";
 	        prefURL.node().value = "";
-	        
+
 	        prefInput.node().disabled = false;
 	        prefURL.node().disabled = false;
 	        prefix_editMode = true;
@@ -6962,34 +6962,34 @@ webvowl.app =
 	        deleteIcon.node().id = "del_iconFor_" + name;
 	        deletePath.node().id = "del_pathFor_" + name;
 	        deleteRect.node().id = "del_rectFor_" + name;
-	        
+
 	        deleteIcon.node().selectorName = name;
 	        deletePath.node().selectorName = name;
 	        deleteRect.node().selectorName = name;
-	        
-	        
+
+
 	        deletePath.style("stroke", "#f00");
 	        deleteRect.attr("width", "10px");
 	        deleteRect.attr("height", "14px");
 	        deleteRect.style("fill", "#18202A");
 	        deleteRect.attr("transform", "matrix(1,0,0,1,-3,4)");
-	        
-	        
+
+
 	        deletePath.attr("d", "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z");
 	        deletePath.attr("transform", "matrix(0.45,0,0,0.45,0,5)");
-	        
+
 	        deleteButton.selectAll("g").on("mouseover", function (){
 	          highlightDeleteButton(true, this.selectorName);
 	        });
 	        deleteButton.selectAll("g").on("mouseout", function (){
 	          highlightDeleteButton(false, this.selectorName);
 	        });
-	        
-	        
+
+
 	        // connect the buttons;
 	        editButton.on("click", enablePrefixEdit);
 	        deleteButton.on("click", deletePrefixLine);
-	        
+
 	        editSidebar.updateElementWidth();
 	        // swap focus to prefixInput
 	        prefInput.node().focus();
@@ -6999,11 +6999,11 @@ webvowl.app =
 	      } else {
 	        d3.select("#editButtonFor_emptyPrefixEntry").on("click")(d3.select("#editButtonFor_emptyPrefixEntry").node());
 	      }
-	      
+
 	    });
-	    
+
 	  }
-	  
+
 	  function setupPrefixList(){
 	    if ( graph.isEditorMode() === false ) return;
 	    var prefixListContainer = d3.select("#prefixURL_Container");
@@ -7013,7 +7013,7 @@ webvowl.app =
 	        var prefixEditContainer = prefixListContainer.append("div");
 	        prefixEditContainer.classed("prefixIRIElements", true);
 	        prefixEditContainer.node().id = "prefixContainerFor_" + name;
-	        
+
 	        // create edit button which enables the input fields
 	        var IconContainer = prefixEditContainer.append("div");
 	        IconContainer.style("position", "absolute");
@@ -7026,7 +7026,7 @@ webvowl.app =
 	        IconContainer.node().title = "Edit prefix and IRI";
 	        editButton.node().elementStyle = "save";
 	        editButton.node().selectorName = name;
-	        
+
 	        editButton.node().id = "editButtonFor_" + name;
 	        editButton.node().elementStyle = "edit";
 	        var editIcon = editButton.append("g");
@@ -7035,12 +7035,12 @@ webvowl.app =
 	        editIcon.node().id = "iconFor_" + name;
 	        editPath.node().id = "pathFor_" + name;
 	        editRect.node().id = "rectFor_" + name;
-	        
+
 	        editIcon.node().selectorName = name;
 	        editPath.node().selectorName = name;
 	        editRect.node().selectorName = name;
-	        
-	        
+
+
 	        editPath.classed("editPrefixIcon");
 	        editPath.style("stroke", "#fff");
 	        editPath.style("stroke-width", "1px");
@@ -7048,20 +7048,20 @@ webvowl.app =
 	        editRect.attr("height", "14px");
 	        editRect.style("fill", "#18202A");
 	        editRect.attr("transform", "matrix(1,0,0,1,-3,4)");
-	        
+
 	        editButton.selectAll("g").on("mouseover", function (){
 	          var sender = this;
 	          var fill = false;
 	          var enable = true;
 	          var f_editPath = d3.select("#pathFor_" + sender.selectorName);
 	          var f_editRect = d3.select("#rectFor_" + sender.selectorName);
-	          
+
 	          if ( enable === false ) {
 	            if ( fill )
 	              f_editPath.node().style = "fill: #fff; stroke : #fff; stroke-width : 1px";
 	            else
 	              f_editPath.node().style = " stroke : #fff; stroke-width : 1px";
-	            
+
 	            f_editRect.style("cursor", "auto");
 	          } else {
 	            if ( fill )
@@ -7077,13 +7077,13 @@ webvowl.app =
 	          var enable = false;
 	          var f_editPath = d3.select("#pathFor_" + sender.selectorName);
 	          var f_editRect = d3.select("#rectFor_" + sender.selectorName);
-	          
+
 	          if ( enable === false ) {
 	            if ( fill )
 	              f_editPath.node().style = "fill: #fff; stroke : #fff; stroke-width : 1px";
 	            else
 	              f_editPath.node().style = " stroke : #fff; stroke-width : 1px";
-	            
+
 	            f_editRect.style("cursor", "auto");
 	          } else {
 	            if ( fill )
@@ -7093,10 +7093,10 @@ webvowl.app =
 	            f_editRect.style("cursor", "pointer");
 	          }
 	        });
-	        
+
 	        editPath.attr("d", "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z");
 	        editPath.attr("transform", "matrix(-0.45,0,0,0.45,10,5)");
-	        
+
 	        // create input field for prefix
 	        var prefInput = prefixEditContainer.append("input");
 	        prefInput.classed("prefixInput", true);
@@ -7105,7 +7105,7 @@ webvowl.app =
 	        prefInput.node().autocomplete = "off";
 	        prefInput.node().value = name;
 	        prefInput.style("margin-left", "14px");
-	        
+
 	        // create input field for prefix url
 	        var prefURL = prefixEditContainer.append("input");
 	        prefURL.classed("prefixURL", true);
@@ -7117,7 +7117,7 @@ webvowl.app =
 	        // disable the input fields (already defined elements can be edited later)
 	        prefInput.node().disabled = true;
 	        prefURL.node().disabled = true;
-	        
+
 	        // create the delete button
 	        var deleteContainer = prefixEditContainer.append("div");
 	        deleteContainer.style("float", "right");
@@ -7132,28 +7132,28 @@ webvowl.app =
 	        deleteIcon.node().id = "del_iconFor_" + name;
 	        deletePath.node().id = "del_pathFor_" + name;
 	        deleteRect.node().id = "del_rectFor_" + name;
-	        
+
 	        deleteIcon.node().selectorName = name;
 	        deletePath.node().selectorName = name;
 	        deleteRect.node().selectorName = name;
-	        
-	        
+
+
 	        deletePath.style("stroke", "#f00");
 	        deleteRect.attr("width", "10px");
 	        deleteRect.attr("height", "14px");
 	        deleteRect.style("fill", "#18202A");
 	        deleteRect.attr("transform", "matrix(1,0,0,1,-3,4)");
-	        
-	        
+
+
 	        deletePath.attr("d", "M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z");
 	        deletePath.attr("transform", "matrix(0.45,0,0,0.45,0,5)");
-	        
+
 	        deleteButton.selectAll("g").on("mouseover", function (){
 	          var selector = this;
 	          var enable = true;
 	          var f_deletePath = d3.select("#del_pathFor_" + selector.selectorName);
 	          var f_deleteRect = d3.select("#del_rectFor_" + selector.selectorName);
-	          
+
 	          if ( enable === false ) {
 	            f_deletePath.node().style = "stroke: #f00;";
 	            f_deleteRect.style("cursor", "auto");
@@ -7167,7 +7167,7 @@ webvowl.app =
 	          var enable = false;
 	          var f_deletePath = d3.select("#del_pathFor_" + selector.selectorName);
 	          var f_deleteRect = d3.select("#del_rectFor_" + selector.selectorName);
-	          
+
 	          if ( enable === false ) {
 	            f_deletePath.node().style = "stroke: #f00;";
 	            f_deleteRect.style("cursor", "auto");
@@ -7176,13 +7176,13 @@ webvowl.app =
 	            f_deleteRect.style("cursor", "pointer");
 	          }
 	        });
-	        
-	        
+
+
 	        editButton.on("click", enablePrefixEdit);
 	        deleteButton.on("click", deletePrefixLine);
-	        
+
 	        // EXPERIMENTAL
-	        
+
 	        if ( name === "rdf" ||
 	          name === "rdfs" ||
 	          name === "xsd" || name === "dc" ||
@@ -7196,7 +7196,7 @@ webvowl.app =
 	    }
 	    prefixModule.updatePrefixModel();
 	  }
-	  
+
 	  function deletePrefixLine(){
 	    if ( this.disabled === true ) return;
 	    d3.select("#addPrefixButton").node().innerHTML = "Add Prefix";
@@ -7206,13 +7206,13 @@ webvowl.app =
 	    prefix_editMode = false; // <<TODO make some sanity checks
 	    prefixModule.updatePrefixModel();
 	  }
-	  
+
 	  function enablePrefixEdit( item ){
-	    
+
 	    var agent = this;
 	    if ( item )
 	      agent = item;
-	    
+
 	    if ( agent.disabled === true ) return;
 	    var selector = agent.id.split("_")[1];
 	    var stl = agent.elementStyle;
@@ -7227,38 +7227,38 @@ webvowl.app =
 	      prefix_editMode = true;
 	      if ( d3.select("#containerFor_" + selector).node() )
 	        d3.select("#containerFor_" + selector).node().title = "Save new prefix and IRI";
-	      
+
 	      var editButton = d3.select(agent);
 	      editButton.selectAll("g").on("mouseover", function (){
-	        
+
 	        highlightEditButton(true, agent.selectorName, true);
 	      });
 	      editButton.selectAll("g").on("mouseout", function (){
 	        highlightEditButton(false, agent.selectorName, true);
 	      });
-	      
+
 	      var editPath = d3.select("#pathFor_" + agent.selectorName);
 	      editPath.attr("d", "M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z");
 	      editPath.attr("transform", "matrix(0.45,0,0,0.45,0,5)");
-	      
+
 	      highlightEditButton(true, agent.selectorName, true);
-	      
-	      
+
+
 	    }
 	    if ( stl === "save" ) {
 	      var newPrefixURL = d3.select("#prefixURLFor_" + selector).node().value;
 	      var newPrefix = d3.select("#prefixInputFor_" + selector).node().value;
-	      
-	      
+
+
 	      if ( graph.options().updatePrefix(oldPrefix, newPrefix, oldPrefixURL, newPrefixURL) === true ) {
 	        d3.select("#prefixInputFor_" + newPrefix).node().disabled = true;
 	        d3.select("#prefixURLFor_" + newPrefix).node().disabled = true;
 	        d3.select("#addPrefixButton").node().innerHTML = "Add Prefix";
 	        if ( d3.select("#containerFor_" + selector).node() )
 	          d3.select("#containerFor_" + selector).node().title = "Edit prefix and IRI";
-	        
+
 	        // change the button content
-	        
+
 	        agent.elementStyle = "edit";
 	        prefix_editMode = false;
 	        prefixModule.updatePrefixModel();
@@ -7269,7 +7269,7 @@ webvowl.app =
 	        saveButton.selectAll("g").on("mouseout", function (){
 	          highlightEditButton(false, agent.selectorName, false);
 	        });
-	        
+
 	        var savePath = d3.select("#pathFor_" + agent.selectorName);
 	        savePath.attr("d", "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z");
 	        savePath.attr("transform", "matrix(-0.45,0,0,0.45,10,5)");
@@ -7277,12 +7277,12 @@ webvowl.app =
 	      }
 	    }
 	  }
-	  
+
 	  function changeDatatypeType( element ){
 	    var datatypeEditorSelection = d3.select("#typeEditor_datatype").node();
 	    var givenName = datatypeEditorSelection.value;
 	    var identifier = givenName.split(":")[1];
-	    
+
 	    if ( datatypeEditorSelection.value !== "undefined" ) {
 	      d3.select("#element_iriEditor").node().disabled = true;
 	      d3.select("#element_labelEditor").node().disabled = true;
@@ -7296,18 +7296,18 @@ webvowl.app =
 	    element.iri("http://www.w3.org/2001/XMLSchema#" + identifier);
 	    element.baseIri("http://www.w3.org/2001/XMLSchema#");
 	    element.redrawLabelText();
-	    
+
 	    d3.select("#element_iriEditor").node().value = prefixModule.getPrefixRepresentationForFullURI(element.iri());
 	    d3.select("#element_iriEditor").node().title = element.iri();
 	    d3.select("#element_labelEditor").node().value = element.labelForCurrentLanguage();
 	  }
-	  
-	  
+
+
 	  function identifyExternalCharacteristicForElement( ontoIRI, elementIRI ){
 	    return (elementIRI.indexOf(ontoIRI) === -1);
-	    
+
 	  }
-	  
+
 	  function defaultIriValue( element ){
 	    // get the iri of that element;
 	    if ( graph.options().getGeneralMetaObject().iri ) {
@@ -7316,16 +7316,16 @@ webvowl.app =
 	    }
 	    return false;
 	  }
-	  
+
 	  function getURLFROMPrefixedVersion( element ){
 	    var url = d3.select("#element_iriEditor").node().value;
 	    var base = graph.options().getGeneralMetaObjectProperty("iri");
 	    if ( validURL(url) === false ) {
-	      
+
 	      // make better usability
 	      // try to split element;
 	      var tokens = url.split(":");
-	      
+
 	      //console.log("try to split the input into prefix:name")
 	      console.log("Tokens");
 	      console.log(tokens);
@@ -7343,10 +7343,10 @@ webvowl.app =
 	              "Restoring previous IRI for Element" + element.iri(), 1, false);
 	            d3.select("#element_iriEditor").node().value = element.iri();
 	            return;
-	            
+
 	          }
 	          // check if url is not empty
-	          
+
 	          if ( name.length === 0 ) {
 	            graph.options().warningModule().showWarning("Invalid Element IRI",
 	              "Input IRI is EMPTY",
@@ -7354,7 +7354,7 @@ webvowl.app =
 	            console.log("NO INPUT PROVIDED");
 	            d3.select("#element_iriEditor").node().value = element.iri();
 	            return;
-	            
+
 	          }
 	          url = basePref + name;
 	        }
@@ -7375,13 +7375,13 @@ webvowl.app =
 	    }
 	    return url;
 	  }
-	  
+
 	  function changeIriForElement( element ){
 	    var url = getURLFROMPrefixedVersion(element);
 	    var base = graph.options().getGeneralMetaObjectProperty("iri");
 	    var sanityCheckResult;
 	    if ( elementTools.isNode(element) ) {
-	      
+
 	      sanityCheckResult = graph.checkIfIriClassAlreadyExist(url);
 	      if ( sanityCheckResult === false ) {
 	        element.iri(url);
@@ -7390,10 +7390,10 @@ webvowl.app =
 	        graph.options().warningModule().showWarning("Already seen this class",
 	          "Input IRI: " + url + " for element: " + element.labelForCurrentLanguage() + " already been set",
 	          "Restoring previous IRI for Element : " + element.iri(), 2, false, sanityCheckResult);
-	        
+
 	        editSidebar.updateSelectionInformation(element);
 	        return;
-	        
+
 	      }
 	    }
 	    if ( elementTools.isProperty(element) === true ) {
@@ -7402,12 +7402,12 @@ webvowl.app =
 	        graph.options().warningModule().showWarning("Already seen this property",
 	          "Input IRI: " + url + " for element: " + element.labelForCurrentLanguage() + " already been set",
 	          "Restoring previous IRI for Element : " + element.iri(), 1, false, sanityCheckResult);
-	        
+
 	        editSidebar.updateSelectionInformation(element);
 	        return;
 	      }
 	    }
-	    
+
 	    // if (element.existingPropertyIRI(url)===true){
 	    //     console.log("I Have seen this Particular URL already "+url);
 	    //     graph.options().warningModule().showWarning("Already Seen This one ",
@@ -7417,7 +7417,7 @@ webvowl.app =
 	    //     editSidebar.updateSelectionInformation(element);
 	    //     return;
 	    // }
-	    
+
 	    element.iri(url);
 	    if ( identifyExternalCharacteristicForElement(base, url) === true ) {
 	      addAttribute(element, "external");
@@ -7426,47 +7426,47 @@ webvowl.app =
 	      element.redrawElement();
 	      element.redrawLabelText();
 	      // handle visual selection
-	      
+
 	    } else {
 	      removeAttribute(element, "external");
 	      // background color for external element;
 	      element.backgroundColor(undefined);
 	      element.redrawElement();
 	      element.redrawLabelText();
-	      
+
 	    }
-	    
+
 	    if ( element.focused() ) {
 	      graph.options().focuserModule().handle(element, true); // unfocus
 	      graph.options().focuserModule().handle(element, true); // focus
 	    }
 	    // graph.options().focuserModule().handle(undefined);
-	    
-	    
+
+
 	    d3.select("#element_iriEditor").node().value = prefixModule.getPrefixRepresentationForFullURI(url);
 	    editSidebar.updateSelectionInformation(element);
 	  }
-	  
+
 	  function validURL( str ){
 	    var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
 	    return urlregex.test(str);
 	  }
-	  
-	  
+
+
 	  function changeLabelForElement( element ){
 	    element.label(d3.select("#element_labelEditor").node().value);
 	    element.redrawLabelText();
 	  }
-	  
+
 	  editSidebar.updateEditDeleteButtonIds = function ( oldPrefix, newPrefix ){
 	    d3.select("#prefixInputFor_" + oldPrefix).node().id = "prefixInputFor_" + newPrefix;
 	    d3.select("#prefixURLFor_" + oldPrefix).node().id = "prefixURLFor_" + newPrefix;
 	    d3.select("#deleteButtonFor_" + oldPrefix).node().id = "deleteButtonFor_" + newPrefix;
 	    d3.select("#editButtonFor_" + oldPrefix).node().id = "editButtonFor_" + newPrefix;
-	    
+
 	    d3.select("#prefixContainerFor_" + oldPrefix).node().id = "prefixContainerFor_" + newPrefix;
 	  };
-	  
+
 	  editSidebar.checkForExistingURL = function ( url ){
 	    var i;
 	    var allProps = graph.getUnfilteredData().properties;
@@ -7474,7 +7474,7 @@ webvowl.app =
 	      if ( allProps[i].iri() === url ) return true;
 	    }
 	    return false;
-	    
+
 	  };
 	  editSidebar.checkProperIriChange = function ( element, url ){
 	    console.log("Element changed Label");
@@ -7491,9 +7491,9 @@ webvowl.app =
 	    }
 	    return false;
 	  };
-	  
+
 	  editSidebar.updateSelectionInformation = function ( element ){
-	    
+
 	    if ( element === undefined ) {
 	      // show hint;
 	      d3.select("#selectedElementProperties").classed("hidden", true);
@@ -7505,12 +7505,12 @@ webvowl.app =
 	      d3.select("#selectedElementProperties").classed("hidden", false);
 	      d3.select("#selectedElementPropertiesEmptyHint").classed("hidden", true);
 	      d3.select("#typeEditForm_datatype").classed("hidden", true);
-	      
+
 	      // set the element IRI, and labels
 	      d3.select("#element_iriEditor").node().value = element.iri();
 	      d3.select("#element_labelEditor").node().value = element.labelForCurrentLanguage();
 	      d3.select("#element_iriEditor").node().title = element.iri();
-	      
+
 	      d3.select("#element_iriEditor")
 	        .on("change", function (){
 	          var elementIRI = element.iri();
@@ -7519,7 +7519,7 @@ webvowl.app =
 	            console.log("Iri is identical, nothing has changed!");
 	            return;
 	          }
-	          
+
 	          changeIriForElement(element);
 	        })
 	        .on("keydown", function (){
@@ -7531,7 +7531,7 @@ webvowl.app =
 	            d3.select("#element_iriEditor").node().title = element.iri();
 	          }
 	        });
-	      
+
 	      var forceIRISync = defaultIriValue(element);
 	      d3.select("#element_labelEditor")
 	        .on("change", function (){
@@ -7549,14 +7549,14 @@ webvowl.app =
 	                return;
 	              }
 	            }
-	            
+
 	            if ( elementTools.isNode(element) === true ) {
 	              sanityCheckResult = graph.checkIfIriClassAlreadyExist(url);
 	              if ( sanityCheckResult !== false ) {
 	                graph.options().warningModule().showWarning("Already seen this Class",
 	                  "Input IRI: " + url + " for element: " + element.labelForCurrentLanguage() + " already been set",
 	                  "Restoring previous IRI for Element : " + element.iri(), 2, false, sanityCheckResult);
-	                
+
 	                editSidebar.updateSelectionInformation(element);
 	                return;
 	              }
@@ -7580,19 +7580,19 @@ webvowl.app =
 	                  graph.options().warningModule().showWarning("Already seen this property",
 	                    "Input IRI: " + url + " for element: " + element.labelForCurrentLanguage() + " already been set",
 	                    "Continuing with duplicate property!", 1, false, sanityCheckResult);
-	                  
+
 	                  editSidebar.updateSelectionInformation(element);
 	                  return;
 	                }
 	              }
-	              
+
 	              if ( elementTools.isNode(element) === true ) {
 	                sanityCheckResult = graph.checkIfIriClassAlreadyExist(url);
 	                if ( sanityCheckResult !== false ) {
 	                  graph.options().warningModule().showWarning("Already seen this Class",
 	                    "Input IRI: " + url + " for element: " + element.labelForCurrentLanguage() + " already been set",
 	                    "Restoring previous IRI for Element : " + element.iri(), 2, false, sanityCheckResult);
-	                  
+
 	                  editSidebar.updateSelectionInformation(element);
 	                  return;
 	                }
@@ -7607,7 +7607,7 @@ webvowl.app =
 	            var labelName = d3.select("#element_labelEditor").node().value;
 	            var resourceName = labelName.replaceAll(" ", "_");
 	            var syncedIRI = element.baseIri() + resourceName;
-	            
+
 	            //element.iri(syncedIRI);
 	            d3.select("#element_iriEditor").node().title = element.iri();
 	            d3.select("#element_iriEditor").node().value = prefixModule.getPrefixRepresentationForFullURI(syncedIRI);
@@ -7616,7 +7616,7 @@ webvowl.app =
 	      // check if we are allowed to change IRI OR LABEL
 	      d3.select("#element_iriEditor").node().disabled = false;
 	      d3.select("#element_labelEditor").node().disabled = false;
-	      
+
 	      if ( element.type() === "rdfs:subClassOf" ) {
 	        d3.select("#element_iriEditor").node().value = "http://www.w3.org/2000/01/rdf-schema#subClassOf";
 	        d3.select("#element_iriEditor").node().title = "http://www.w3.org/2000/01/rdf-schema#subClassOf";
@@ -7631,14 +7631,14 @@ webvowl.app =
 	        d3.select("#element_iriEditor").node().disabled = true;
 	        d3.select("#element_labelEditor").node().disabled = true;
 	      }
-	      
+
 	      if ( element.type() === "owl:disjointWith" ) {
 	        d3.select("#element_iriEditor").node().value = "http://www.w3.org/2002/07/owl#disjointWith";
 	        d3.select("#element_iriEditor").node().title = "http://www.w3.org/2002/07/owl#disjointWith";
 	        d3.select("#element_iriEditor").node().disabled = true;
 	        d3.select("#element_labelEditor").node().disabled = true;
 	      }
-	      
+
 	      if ( element.type() === "rdfs:Literal" ) {
 	        d3.select("#element_iriEditor").node().value = "http://www.w3.org/2000/01/rdf-schema#Literal";
 	        d3.select("#element_iriEditor").node().title = "http://www.w3.org/2000/01/rdf-schema#Literal";
@@ -7654,7 +7654,7 @@ webvowl.app =
 	        d3.select("#element_iriEditor").node().title = "http://www.w3.org/2000/01/rdf-schema#Datatype";
 	        d3.select("#element_iriEditor").node().disabled = true;
 	        d3.select("#element_labelEditor").node().disabled = true;
-	        
+
 	        datatypeEditorSelection.node().value = element.dType();
 	        if ( datatypeEditorSelection.node().value === "undefined" ) {
 	          d3.select("#element_iriEditor").node().disabled = true; // always prevent IRI modifications
@@ -7665,7 +7665,7 @@ webvowl.app =
 	          changeDatatypeType(element);
 	        });
 	      }
-	      
+
 	      // add type selector
 	      var typeEditorSelection = d3.select("#typeEditor").node();
 	      var htmlCollection = typeEditorSelection.children;
@@ -7674,7 +7674,7 @@ webvowl.app =
 	      var elementPrototypes = getElementPrototypes(element);
 	      for ( i = 0; i < numEntries; i++ )
 	        typeEditorSelection.removeChild(htmlCollection[0]);
-	      
+
 	      for ( i = 0; i < elementPrototypes.length; i++ ) {
 	        var optA = document.createElement('option');
 	        optA.innerHTML = elementPrototypes[i];
@@ -7685,8 +7685,8 @@ webvowl.app =
 	      d3.select("#typeEditor").on("change", function (){
 	        elementTypeSelectionChanged(element);
 	      });
-	      
-	      
+
+
 	      // add characteristics selection
 	      var needChar = elementNeedsCharacteristics(element);
 	      d3.select("#property_characteristics_Container").classed("hidden", !needChar);
@@ -7698,12 +7698,12 @@ webvowl.app =
 	      d3.select("#element_iriEditor").node().title = fullURI;
 	      editSidebar.updateElementWidth();
 	    }
-	    
+
 	  };
-	  
+
 	  editSidebar.updateGeneralOntologyInfo = function (){
 	    var preferredLanguage = graph && graph.language ? graph.language() : null;
-	    
+
 	    // get it from graph.options
 	    var generalMetaObj = graph.options().getGeneralMetaObject();
 	    if ( generalMetaObj.hasOwnProperty("title") ) {
@@ -7716,10 +7716,10 @@ webvowl.app =
 	    if ( generalMetaObj.hasOwnProperty("iri") ) d3.select("#iriEditor").node().value = generalMetaObj.iri;
 	    if ( generalMetaObj.hasOwnProperty("version") ) d3.select("#versionEditor").node().value = generalMetaObj.version;
 	    if ( generalMetaObj.hasOwnProperty("author") ) d3.select("#authorsEditor").node().value = generalMetaObj.author;
-	    
-	    
+
+
 	    if ( generalMetaObj.hasOwnProperty("description") ) {
-	      
+
 	      if ( typeof generalMetaObj.description === "object" )
 	        d3.select("#descriptionEditor").node().value =
 	          languageTools.textInLanguage(generalMetaObj.description, preferredLanguage);
@@ -7729,7 +7729,7 @@ webvowl.app =
 	    else
 	      d3.select("#descriptionEditor").node().value = "No Description";
 	  };
-	  
+
 	  editSidebar.updateElementWidth = function (){
 	    var height = window.innerHeight - 40;
 	    var lsb_offset = d3.select("#logo").node().getBoundingClientRect().height + 5;
@@ -7737,10 +7737,10 @@ webvowl.app =
 	    d3.select("#containerForLeftSideBar").style("top", lsb_offset + "px");
 	    d3.select("#leftSideBarCollapseButton").style("top", lsb_offset + "px");
 	    d3.select("#containerForLeftSideBar").style("height", lsb_height + "px");
-	    
+
 	    var div_width = d3.select("#generalDetailsEdit").node().getBoundingClientRect().width;
 	    div_width += 10;
-	    
+
 	    var title_labelWidth = d3.select("#titleEditor-label").node().getBoundingClientRect().width + 20;
 	    var iri_labelWidth = d3.select("#iriEditor-label").node().getBoundingClientRect().width + 20;
 	    var version_labelWidth = d3.select("#versionEditor-label").node().getBoundingClientRect().width + 20;
@@ -7751,32 +7751,32 @@ webvowl.app =
 	    maxW = Math.max(maxW, iri_labelWidth);
 	    maxW = Math.max(maxW, version_labelWidth);
 	    maxW = Math.max(maxW, author_labelWidth);
-	    
+
 	    var meta_inputWidth = div_width - maxW - 10;
-	    
+
 	    d3.select("#titleEditor").style("width", meta_inputWidth + "px");
 	    d3.select("#iriEditor").style("width", meta_inputWidth + "px");
 	    d3.select("#versionEditor").style("width", meta_inputWidth + "px");
 	    d3.select("#authorsEditor").style("width", meta_inputWidth + "px");
-	    
-	    
+
+
 	    var elementIri_width = d3.select("#element_iriEditor-label").node().getBoundingClientRect().width + 20;
 	    var elementLabel_width = d3.select("#element_labelEditor-label").node().getBoundingClientRect().width + 20;
 	    var elementType_width = d3.select("#typeEditor-label").node().getBoundingClientRect().width + 20;
 	    var elementDType_width = d3.select("#typeEditor_datatype-label").node().getBoundingClientRect().width + 20;
-	    
+
 	    maxW = 0;
 	    maxW = Math.max(maxW, elementIri_width);
 	    maxW = Math.max(maxW, elementLabel_width);
 	    maxW = Math.max(maxW, elementType_width);
 	    maxW = Math.max(maxW, elementDType_width);
 	    var selectedElement_inputWidth = div_width - maxW - 10;
-	    
+
 	    d3.select("#element_iriEditor").style("width", selectedElement_inputWidth + "px");
 	    d3.select("#element_labelEditor").style("width", selectedElement_inputWidth + "px");
 	    d3.select("#typeEditor").style("width", selectedElement_inputWidth + 4 + "px");
 	    d3.select("#typeEditor_datatype").style("width", selectedElement_inputWidth + 4 + "px");
-	    
+
 	    // update prefix Element width;
 	    var containerWidth = d3.select("#containerForPrefixURL").node().getBoundingClientRect().width;
 	    if ( containerWidth !== 0 ) {
@@ -7787,7 +7787,7 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  function addElementsCharacteristics( element ){
 	    // save selected element for checkbox handler
 	    selectedElementForCharacteristics = element;
@@ -7819,7 +7819,7 @@ webvowl.app =
 	          .append("div")
 	          .classed("checkboxContainer", true)
 	          .style("padding-top", "2px");
-	        
+
 	        filterCheckbox = filterContainer.append("input")
 	          .classed("filterCheckbox", true)
 	          .attr("id", "CharacteristicsCheckbox" + i)
@@ -7830,12 +7830,12 @@ webvowl.app =
 	        filterContainer.append("label")
 	          .attr("for", "CharacteristicsCheckbox" + i)
 	          .text(arrayOfNodeChars[i]);
-	        
+
 	        filterCheckbox.on("click", handleCheckBoxClick);
-	        
+
 	      }
 	    }
-	    
+
 	    else {
 	      // add the deprecated characteristic;
 	      var arrayOfPropertyChars = ["deprecated", "inverse functional", "functional", "transitive"];
@@ -7847,7 +7847,7 @@ webvowl.app =
 	          .append("div")
 	          .classed("checkboxContainer", true)
 	          .style("padding-top", "2px");
-	        
+
 	        filterCheckbox = filterContainer.append("input")
 	          .classed("filterCheckbox", true)
 	          .attr("id", "CharacteristicsCheckbox" + i)
@@ -7858,19 +7858,19 @@ webvowl.app =
 	        filterContainer.append("label")
 	          .attr("for", "CharacteristicsCheckbox" + i)
 	          .text(arrayOfPropertyChars[i]);
-	        
+
 	        filterCheckbox.on("click", handleCheckBoxClick);
-	        
+
 	      }
 	    }
-	    
-	    
+
+
 	  }
-	  
+
 	  function getPresentAttribute( selectedElement, element ){
 	    return (selectedElement.attributes().indexOf(element) >= 0);
 	  }
-	  
+
 	  function handleCheckBoxClick(){
 	    var checked = this.checked;
 	    var char = this.getAttribute("characteristics");
@@ -7884,10 +7884,10 @@ webvowl.app =
 	    // workaround to have the node still be focused as rendering element
 	    selectedElementForCharacteristics.focused(false);
 	    selectedElementForCharacteristics.toggleFocus();
-	    
+
 	  }
-	  
-	  
+
+
 	  function addAttribute( selectedElement, char ){
 	    if ( selectedElement.attributes().indexOf(char) === -1 ) {
 	      // not found add it
@@ -7915,9 +7915,9 @@ webvowl.app =
 	      }
 	      selectedElement.visualAttributes(visAttr);
 	    }
-	    
+
 	  }
-	  
+
 	  function removeAttribute( selectedElement, element ){
 	    var attr = selectedElement.attributes();
 	    var indications = selectedElement.indications();
@@ -7947,8 +7947,8 @@ webvowl.app =
 	      if ( selectedElement.type() === "owl:disjointWith" ) selectedElement.styleClass("disjointwith");
 	    }
 	  }
-	  
-	  
+
+
 	  function elementNeedsCharacteristics( element ){
 	    //TODO: Add more types
 	    if ( element.type() === "owl:Thing" ||
@@ -7957,36 +7957,36 @@ webvowl.app =
 	      element.type() === "rdfs:Datatype" ||
 	      element.type() === "rdfs:disjointWith" )
 	      return false;
-	    
+
 	    // if (element.attributes().indexOf("external")||
 	    //     element.attributes().indexOf("deprecated"))
 	    //     return true;
 	    return true;
-	    
+
 	  }
-	  
+
 	  function elementTypeSelectionChanged( element ){
 	    if ( elementTools.isNode(element) ) {
 	      if ( graph.changeNodeType(element) === false ) {
 	        //restore old value
-	        
+
 	        if ( elementTools.isDatatype(element) === true ) {
-	          
+
 	        }
 	        editSidebar.updateSelectionInformation(element);
 	      }
 	    }
-	    
+
 	    if ( elementTools.isProperty(element) ) {
 	      if ( graph.changePropertyType(element) === false ) {
 	        //restore old value
 	        editSidebar.updateSelectionInformation(element);
-	        
+
 	      }
 	    }
-	    
+
 	  }
-	  
+
 	  function getElementPrototypes( selectedElement ){
 	    var availiblePrototypes = [];
 	    // TODO the text should be also complied with the prefixes loaded into the ontology
@@ -8017,26 +8017,26 @@ webvowl.app =
 	    }
 	    return availiblePrototypes;
 	  }
-	  
-	  
+
+
 	  function setupCollapsing(){
 	    // TODO : Decision , for now I want to have the control over the collapse expand operation of the
 	    // TODO : elements, otherwise the old approach will also randomly collapse other containers
-	    
+
 	    // adapted version of this example: http://www.normansblog.de/simple-jquery-accordion/
 	    function collapseContainers( containers ){
 	      containers.classed("hidden", true);
 	    }
-	    
+
 	    function expandContainers( containers ){
 	      containers.classed("hidden", false);
 	    }
-	    
+
 	    var triggers = d3.selectAll(".accordion-trigger");
-	    
+
 	    // Collapse all inactive triggers on startup
 	    // collapseContainers(d3.selectAll(".accordion-trigger:not(.accordion-trigger-active) + div"));
-	    
+
 	    triggers.on("click", function (){
 	      var selectedTrigger = d3.select(this);
 	      if ( selectedTrigger.classed("accordion-trigger-active") ) {
@@ -8046,7 +8046,7 @@ webvowl.app =
 	      } else {
 	        // Collapse the other trigger ...
 	        // collapseContainers(d3.selectAll(".accordion-trigger-active + div"));
-	        
+
 	        // ... and expand the selected one
 	        expandContainers(d3.select(selectedTrigger.node().nextElementSibling));
 	        selectedTrigger.classed("accordion-trigger-active", true);
@@ -8054,7 +8054,7 @@ webvowl.app =
 	      editSidebar.updateElementWidth();
 	    });
 	  }
-	  
+
 	  return editSidebar;
 	};
 
@@ -8068,28 +8068,28 @@ webvowl.app =
 	/* WEBPACK VAR INJECTION */(function(d3) {module.exports = function ( graph ){
 	  var configMenu = {},
 	    checkboxes = [];
-	  
-	  
+
+
 	  configMenu.setup = function (){
 	    var menuEntry = d3.select("#m_modes");
 	    menuEntry.on("mouseover", function (){
 	      var searchMenu = graph.options().searchMenu();
 	      searchMenu.hideSearchEntries();
 	    });
-	    
+
 	    addCheckBox("showZoomSlider", "Zoom controls", "#zoomSliderOption", graph.options().zoomSlider().showSlider, 0);
 	    addLabelWidthSlider("#maxLabelWidthSliderOption", "maxLabelWidth", "Max label width", graph.options().maxLabelWidth);
 	  };
-	  
-	  
+
+
 	  function addLabelWidthSlider( selector, identifier, label, onChangeFunction ){
 	    var sliderContainer,
 	      sliderValueLabel;
-	    
+
 	    sliderContainer = d3.select(selector)
 	      .append("div")
 	      .classed("distanceSliderContainer", true);
-	    
+
 	    var slider = sliderContainer.append("input")
 	      .attr("id", identifier + "Slider")
 	      .attr("type", "range")
@@ -8107,7 +8107,7 @@ webvowl.app =
 	      .attr("for", identifier + "Slider")
 	      .attr("id", identifier + "valueLabel")
 	      .text(onChangeFunction());
-	    
+
 	    slider.on("input", function (){
 	      var value = slider.property("value");
 	      onChangeFunction(value);
@@ -8115,7 +8115,7 @@ webvowl.app =
 	      if ( graph.options().dynamicLabelWidth() === true )
 	        graph.animateDynamicLabelWidth();
 	    });
-	    
+
 	    // add wheel event to the slider
 	    slider.on("wheel", function (){
 	      if ( slider.node().disabled === true ) return;
@@ -8133,7 +8133,7 @@ webvowl.app =
 	      d3.event.preventDefault();
 	    });
 	  }
-	  
+
 	  function addCheckBox( identifier, modeName, selector, onChangeFunc, updateLvl ){
 	    var configOptionContainer = d3.select(selector)
 	      .append("div")
@@ -8143,8 +8143,8 @@ webvowl.app =
 	      .attr("id", identifier + "ConfigCheckbox")
 	      .attr("type", "checkbox")
 	      .property("checked", onChangeFunc());
-	    
-	    
+
+
 	    configCheckbox.on("click", function ( silent ){
 	      var isEnabled = configCheckbox.property("checked");
 	      onChangeFunc(isEnabled);
@@ -8157,19 +8157,19 @@ webvowl.app =
 	        if ( updateLvl === 2 ) {
 	          graph.update();
 	        }
-	        
+
 	        if ( updateLvl === 3 ) {
 	          graph.updateDraggerElements();
 	        }
 	      }
-	      
+
 	    });
 	    checkboxes.push(configCheckbox);
 	    configOptionContainer.append("label")
 	      .attr("for", identifier + "ConfigCheckbox")
 	      .text(modeName);
 	  }
-	  
+
 	  configMenu.setCheckBoxValue = function ( identifier, value ){
 	    for ( var i = 0; i < checkboxes.length; i++ ) {
 	      var cbdId = checkboxes[i].attr("id");
@@ -8179,7 +8179,7 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  configMenu.getCheckBoxValue = function ( id ){
 	    for ( var i = 0; i < checkboxes.length; i++ ) {
 	      var cbdId = checkboxes[i].attr("id");
@@ -8188,14 +8188,14 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  configMenu.updateSettings = function (){
 	    var silent = true;
 	    checkboxes.forEach(function ( checkbox ){
 	      checkbox.on("click")(silent);
 	    });
 	  };
-	  
+
 	  return configMenu;
 	};
 
@@ -8212,20 +8212,20 @@ webvowl.app =
 	    FILE_UPLOAD = 1,
 	    JSON_URL = 2,
 	    IRI_URL = 3;
-	  
+
 	  var PROGRESS_BAR_ERROR = 0,
 	    PROGRESS_BAR_BUSY = 1,
 	    PROGRESS_BAR_PERCENT = 2,
 	    progressBarMode = 1;
-	  
+
 	  var loadingWasSuccessFul = false;
 	  var missingImportsWarning = false;
 	  var showLoadingDetails = false;
 	  var visibilityStatus = true;
-	  
-	  var DEFAULT_JSON_NAME = "foaf"; // This file is loaded by default
+
+	  var DEFAULT_JSON_NAME = "simple_no_pos"; // This file is loaded by default
 	  var conversion_sessionId;
-	  
+
 	  /** variable defs **/
 	  var loadingModule = {},
 	    menuContainer = d3.select("#loading-info"),
@@ -8234,13 +8234,13 @@ webvowl.app =
 	    closeButton = d3.select("#loadingIndicator_closeButton"),
 	    ontologyMenu,
 	    ontologyIdentifierFromURL;
-	  
+
 	  /** functon defs **/
 	  loadingModule.checkForScreenSize = function (){
 	    // checks for window size and adjusts the loading indicator
 	    var w = graph.options().width(),
 	      h = graph.options().height();
-	    
+
 	    if ( w < 270 ) {
 	      d3.select("#loading-info").classed("hidden", true);
 	    } else {
@@ -8264,34 +8264,34 @@ webvowl.app =
 	      d3.select("#layoutLoadingProgressBarContainer").style("height", "50px");
 	    }
 	  };
-	  
+
 	  loadingModule.getMessageVisibilityStatus = function (){
 	    return visibilityStatus;
 	  };
-	  
+
 	  loadingModule.getProgressBarMode = function (){
 	    return progressBarMode;
 	  };
-	  
+
 	  loadingModule.successfullyLoadedOntology = function (){
 	    return loadingWasSuccessFul;
 	  };
-	  
+
 	  loadingModule.missingImportsWarning = function (){
 	    return missingImportsWarning;
 	  };
-	  
+
 	  loadingModule.setOntologyMenu = function ( m ){
 	    ontologyMenu = m;
 	  };
-	  
+
 	  loadingModule.showErrorDetailsMessage = function (){
 	    loadingModule.showLoadingIndicator();
 	    loadingModule.expandDetails();
 	    d3.select("#loadingIndicator_closeButton").classed("hidden", true);
 	    loadingModule.scrollDownDetails();
 	  };
-	  
+
 	  loadingModule.showWarningDetailsMessage = function (){
 	    d3.select("#currentLoadingStep").style("color", "#ff0");
 	    loadingModule.showLoadingIndicator();
@@ -8299,23 +8299,23 @@ webvowl.app =
 	    d3.select("#loadingIndicator_closeButton").classed("hidden", false);
 	    loadingModule.scrollDownDetails();
 	  };
-	  
+
 	  loadingModule.scrollDownDetails = function (){
 	    var scrollingElement = d3.select("#loadingInfo-container").node();
 	    scrollingElement.scrollTop = scrollingElement.scrollHeight;
 	  };
-	  
+
 	  loadingModule.hideLoadingIndicator = function (){
 	    d3.select("#loading-info").classed("hidden", true);
 	    visibilityStatus = false;
 	  };
-	  
+
 	  loadingModule.showLoadingIndicator = function (){
 	    d3.select("#loading-info").classed("hidden", false);
 	    visibilityStatus = true;
-	    
+
 	  };
-	  
+
 	  /** -- SETUP -- **/
 	  loadingModule.setup = function (){
 	    // create connections for close and details button;
@@ -8325,35 +8325,35 @@ webvowl.app =
 	      loadingInfoContainer.classed("hidden", !showLoadingDetails);
 	      detailsButton.classed("accordion-trigger-active", showLoadingDetails);
 	    });
-	    
+
 	    closeButton.on("click", function (){
 	      menuContainer.classed("hidden", true);
 	    });
 	    loadingModule.setBusyMode();
 	  };
-	  
+
 	  loadingModule.updateSize = function (){
 	    showLoadingDetails = !(loadingInfoContainer.classed("hidden"));
 	    loadingInfoContainer.classed("hidden", !showLoadingDetails);
 	    detailsButton.classed("accordion-trigger-active", showLoadingDetails);
 	  };
-	  
+
 	  loadingModule.getDetailsState = function (){
 	    return showLoadingDetails;
 	  };
-	  
+
 	  loadingModule.expandDetails = function (){
 	    showLoadingDetails = true;
 	    loadingInfoContainer.classed("hidden", !showLoadingDetails);
 	    detailsButton.classed("accordion-trigger-active", showLoadingDetails);
 	  };
-	  
+
 	  loadingModule.collapseDetails = function (){
 	    showLoadingDetails = false;
 	    loadingInfoContainer.classed("hidden", !showLoadingDetails);
 	    detailsButton.classed("accordion-trigger-active", showLoadingDetails);
 	  };
-	  
+
 	  loadingModule.setBusyMode = function (){
 	    d3.select("#currentLoadingStep").style("color", "#fff");
 	    d3.select("#progressBarValue").node().innherHTML = "";
@@ -8361,11 +8361,11 @@ webvowl.app =
 	    d3.select("#progressBarValue").classed("busyProgressBar", true);
 	    progressBarMode = PROGRESS_BAR_BUSY;
 	  };
-	  
+
 	  loadingModule.setSuccessful = function (){
 	    d3.select("#currentLoadingStep").style("color", "#0f0");
 	  };
-	  
+
 	  loadingModule.setErrorMode = function (){
 	    d3.select("#currentLoadingStep").style("color", "#f00");
 	    d3.select("#progressBarValue").style("width", "0%");
@@ -8373,7 +8373,7 @@ webvowl.app =
 	    d3.select("#progressBarValue").node().innherHTML = "";
 	    progressBarMode = PROGRESS_BAR_ERROR;
 	  };
-	  
+
 	  loadingModule.setPercentMode = function (){
 	    d3.select("#currentLoadingStep").style("color", "#fff");
 	    d3.select("#progressBarValue").classed("busyProgressBar", false);
@@ -8381,11 +8381,11 @@ webvowl.app =
 	    d3.select("#progressBarValue").style("width", "0%");
 	    progressBarMode = PROGRESS_BAR_PERCENT;
 	  };
-	  
+
 	  loadingModule.setPercentValue = function ( val ){
 	    d3.select("#progressBarValue").node().innherHTML = val;
 	  };
-	  
+
 	  loadingModule.emptyGraphContentError = function (){
 	    graph.clearGraphData();
 	    ontologyMenu.append_message_toLastBulletPoint("<span style='color:red;'>failed</span>");
@@ -8394,11 +8394,11 @@ webvowl.app =
 	    graph.handleOnLoadingError();
 	    loadingModule.setErrorMode();
 	  };
-	  
+
 	  loadingModule.isThreadCanceled = function (){
-	    
+
 	  };
-	  
+
 	  loadingModule.initializeLoader = function ( storeCache ){
 	    if ( storeCache === true && graph.getCachedJsonObj() !== null ) {
 	      // save cached ontology;
@@ -8417,14 +8417,14 @@ webvowl.app =
 	    d3.select("#loadingIndicator_closeButton").classed("hidden", true);
 	    ontologyMenu.clearDetailInformation();
 	  };
-	  
+
 	  /** ------------------ URL Interpreter -------------- **/
 	  loadingModule.parseUrlAndLoadOntology = function ( storeCache ){
 	    var autoStore = true;
 	    if ( storeCache === false ) {
 	      autoStore = false;
 	    }
-	    
+
 	    graph.clearAllGraphData();
 	    loadingModule.initializeLoader(autoStore);
 	    var urlString = String(location);
@@ -8450,31 +8450,31 @@ webvowl.app =
 	        console.log("Could not identify loading method , or not IMPLEMENTED YET");
 	    }
 	  };
-	  
+
 	  /** ------------------- LOADING --------------------- **/
 	  // the loading module splits into 3 branches
 	  // 1] PresetOntology Loading
 	  // 2] File Upload
 	  // 3] Load From URL / IRI
-	  
+
 	  loadingModule.from_JSON_URL = function ( fileName ){
 	    var filename = decodeURIComponent(fileName.slice("url=".length));
 	    ontologyIdentifierFromURL = filename;
-	    
+
 	    var ontologyContent = "";
 	    if ( ontologyMenu.cachedOntology(filename) ) {
 	      ontologyMenu.append_bulletPoint("Loading already cached ontology: " + filename);
 	      ontologyContent = ontologyMenu.cachedOntology(filename);
 	      loadingWasSuccessFul = true; // cached Ontology should be true;
 	      parseOntologyContent(ontologyContent);
-	      
+
 	    } else {
 	      // involve the o2v conveter;
 	      ontologyMenu.append_message("Retrieving ontology from JSON URL " + filename);
 	      requestServerTimeStampForJSON_URL(ontologyMenu.callbackLoad_JSON_FromURL, ["read?json=" + filename, filename]);
 	    }
 	  };
-	  
+
 	  function requestServerTimeStampForJSON_URL( callback, parameter ){
 	    d3.xhr("serverTimeStamp", "application/text", function ( error, request ){
 	      if ( error ) {
@@ -8488,9 +8488,9 @@ webvowl.app =
 	        callback(parameter);
 	      }
 	    });
-	    
+
 	  }
-	  
+
 	  loadingModule.requestServerTimeStampForDirectInput = function ( callback, text ){
 	    d3.xhr("serverTimeStamp", "application/text", function ( error, request ){
 	      if ( error ) {
@@ -8502,7 +8502,7 @@ webvowl.app =
 	        d3.select("#progressBarValue").style("width", "0%");
 	        d3.select("#progressBarValue").classed("busyProgressBar", false);
 	        d3.select("#progressBarValue").text("0%");
-	        
+
 	      } else {
 	        conversion_sessionId = request.responseText;
 	        ontologyMenu.setConversionID(conversion_sessionId);
@@ -8510,12 +8510,12 @@ webvowl.app =
 	      }
 	    });
 	  };
-	  
+
 	  loadingModule.from_IRI_URL = function ( fileName ){
 	    // owl2vowl converters the given ontology url and returns json file;
 	    var filename = decodeURIComponent(fileName.slice("iri=".length));
 	    ontologyIdentifierFromURL = filename;
-	    
+
 	    var ontologyContent = "";
 	    if ( ontologyMenu.cachedOntology(filename) ) {
 	      ontologyMenu.append_bulletPoint("Loading already cached ontology: " + filename);
@@ -8529,14 +8529,14 @@ webvowl.app =
 	      requestServerTimeStampForIRI_Converte(ontologyMenu.callbackLoad_Ontology_FromIRI, ["convert?iri=" + encoded, filename]);
 	    }
 	  };
-	  
+
 	  loadingModule.fromFileDrop = function ( fileName, file ){
 	    d3.select("#progressBarValue").node().innerHTML = " ";
 	    loadingModule.initializeLoader(false);
-	    
+
 	    ontologyMenu.append_bulletPoint("Retrieving ontology from dropped file: " + fileName);
 	    var ontologyContent = "";
-	    
+
 	    // two options here
 	    //1] Direct Json Upload
 	    if ( fileName.match(/\.json$/) ) {
@@ -8555,8 +8555,8 @@ webvowl.app =
 	      requestServerTimeStamp(ontologyMenu.callbackLoadFromOntology, parameterArray);
 	    }
 	  };
-	  
-	  
+
+
 	  loadingModule.from_FileUpload = function ( fileName ){
 	    loadingModule.setBusyMode();
 	    var filename = decodeURIComponent(fileName.slice("file=".length));
@@ -8567,7 +8567,7 @@ webvowl.app =
 	      ontologyContent = ontologyMenu.cachedOntology(filename);
 	      loadingWasSuccessFul = true; // cached Ontology should be true;
 	      parseOntologyContent(ontologyContent);
-	      
+
 	    } else {
 	      // d3.select("#currentLoadingStep").node().innerHTML="Loading ontology from file "+ filename;
 	      ontologyMenu.append_bulletPoint("Retrieving ontology from file: " + filename);
@@ -8604,20 +8604,20 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  function fallbackForJSON_URL( callback, parameter ){
 	    ontologyMenu.append_message_toLastBulletPoint("<br>Trying to convert with other communication protocol.");
 	    callback(parameter);
-	    
+
 	  }
-	  
+
 	  function fallbackConversion( parameter ){
 	    ontologyMenu.append_message_toLastBulletPoint("<br>Trying to convert with other communication protocol.");
 	    var file = parameter[0];
 	    var name = parameter[1];
 	    var formData = new FormData();
 	    formData.append("ontology", file);
-	    
+
 	    var xhr = new XMLHttpRequest();
 	    xhr.open("POST", "convert", true);
 	    var ontologyContent = "";
@@ -8631,7 +8631,7 @@ webvowl.app =
 	        parseOntologyContent(ontologyContent);
 	      }
 	    };
-	    
+
 	    // check what this thing is doing;
 	    xhr.onreadystatechange = function (){
 	      if ( xhr.readyState === 4 && xhr.status === 0 ) {
@@ -8644,7 +8644,7 @@ webvowl.app =
 	    };
 	    xhr.send(formData);
 	  }
-	  
+
 	  function requestServerTimeStampForIRI_Converte( callback, parameterArray ){
 	    d3.xhr("serverTimeStamp", "application/text", function ( error, request ){
 	      loadingModule.setBusyMode();
@@ -8665,7 +8665,7 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
+
 	  function requestServerTimeStamp( callback, parameterArray ){
 	    d3.xhr("serverTimeStamp", "application/text", function ( error, request ){
 	      if ( error ) {
@@ -8680,20 +8680,20 @@ webvowl.app =
 	      }
 	    });
 	  }
-	  
+
 	  loadingModule.directInput = function ( text ){
 	    ontologyMenu.clearDetailInformation();
 	    parseOntologyContent(text);
 	  };
-	  
+
 	  loadingModule.loadFromOWL2VOWL = function ( ontoContent, filename ){
 	    loadingWasSuccessFul = false;
-	    
+
 	    var old = d3.select("#bulletPoint_container").node().innerHTML;
 	    if ( old.indexOf("(with warnings)") !== -1 ) {
 	      missingImportsWarning = true;
 	    }
-	    
+
 	    if ( ontologyMenu.cachedOntology(ontoContent) ) {
 	      ontologyMenu.append_bulletPoint("Loading already cached ontology: " + filename);
 	      parseOntologyContent(ontoContent);
@@ -8701,12 +8701,12 @@ webvowl.app =
 	      parseOntologyContent(ontoContent);
 	    }
 	  };
-	  
+
 	  loadingModule.from_presetOntology = function ( selectedOntology ){
 	    ontologyMenu.append_bulletPoint("Retrieving ontology: " + selectedOntology);
 	    loadPresetOntology(selectedOntology);
 	  };
-	  
+
 	  function loadPresetOntology( ontology ){
 	    // check if already cached in ontology menu?
 	    var f2r;
@@ -8717,7 +8717,7 @@ webvowl.app =
 	      f2r = "./data/new_ontology.json";
 	      loadingNewOntologyForEditor=true;
 	    }
-	    
+
 	    loadingWasSuccessFul = false;
 	    var ontologyContent = "";
 	    if ( ontologyMenu.cachedOntology(ontology) ) {
@@ -8726,10 +8726,10 @@ webvowl.app =
 	      loadingWasSuccessFul = true; // cached Ontology should be true;
 	      loadingModule.showLoadingIndicator();
 	      parseOntologyContent(ontologyContent);
-	      
+
 	    } else {
 	      // read the file name
-	      
+
 	      var fileToRead = "./data/" + ontology + ".json";
 	      if ( f2r ) {
 	        fileToRead = f2r;
@@ -8797,33 +8797,33 @@ webvowl.app =
 	      });
 	    }
 	  }
-	  
-	  
+
+
 	  /** -- PARSE JSON CONTENT -- **/
 	  function parseOntologyContent( content ){
-	    
+
 	    ontologyMenu.append_bulletPoint("Reading ontology graph ... ");
 	    var _loader = ontologyMenu.getLoadingFunction();
 	    _loader(content, ontologyIdentifierFromURL, "noAlternativeNameYet");
 	  }
-	  
+
 	  loadingModule.notValidJsonFile = function (){
 	    graph.clearGraphData();
 	    ontologyMenu.append_message_toLastBulletPoint(" <span style='color:red;'>failed</span>");
 	    ontologyMenu.append_message_toLastBulletPoint("<br><span style='color:red;'>Error: Received empty graph</span>");
 	    loadingWasSuccessFul = false;
 	    graph.handleOnLoadingError();
-	    
+
 	  };
-	  
+
 	  loadingModule.validJsonFile = function (){
 	    ontologyMenu.append_message_toLastBulletPoint("done");
 	    loadingWasSuccessFul = true;
 	  };
-	  
-	  
+
+
 	  /** --- HELPER FUNCTIONS **/
-	  
+
 	  function identifyParameter( url ){
 	    var numParameters = (url.match(/#/g) || []).length;
 	    // create parameters array
@@ -8842,15 +8842,15 @@ webvowl.app =
 	    }
 	    return paramArray;
 	  }
-	  
-	  
+
+
 	  function loadGraphOptions( parameterArray ){
 	    var optString = "opts=";
-	    
+
 	    function loadDefaultConfig(){
 	      graph.options().setOptionsFromURL(graph.options().defaultConfig(), false);
 	    }
-	    
+
 	    function loadCustomConfig( opts ){
 	      var changeEditingFlag = false;
 	      var defObj = graph.options().defaultConfig();
@@ -8863,7 +8863,7 @@ webvowl.app =
 	      }
 	      graph.options().setOptionsFromURL(defObj, changeEditingFlag);
 	    }
-	    
+
 	    function identifyOptions( paramArray ){
 	      if ( paramArray[0].indexOf(optString) >= 0 ) {
 	        // parse the parameters;
@@ -8876,9 +8876,9 @@ webvowl.app =
 	        loadDefaultConfig();
 	      }
 	    }
-	    
+
 	    function identifyOptionsAndOntology( paramArray ){
-	      
+
 	      if ( paramArray[0].indexOf(optString) >= 0 ) {
 	        // parse the parameters;
 	        var parameterLength = paramArray[0].length;
@@ -8890,7 +8890,7 @@ webvowl.app =
 	      }
 	      ontologyIdentifierFromURL = paramArray[1];
 	    }
-	    
+
 	    switch ( parameterArray.length ) {
 	      case 0:
 	        loadDefaultConfig();
@@ -8907,13 +8907,13 @@ webvowl.app =
 	        ontologyIdentifierFromURL = "ERROR_TO_MANY_INPUT_PARAMETERS";
 	    }
 	  }
-	  
-	  
+
+
 	  function identifyOntologyLoadingMethod( url ){
 	    var iriKey = "iri=";
 	    var urlKey = "url=";
 	    var fileKey = "file=";
-	    
+
 	    var method = -1;
 	    if ( url.substr(0, fileKey.length) === fileKey ) {
 	      method = FILE_UPLOAD;
@@ -8926,7 +8926,7 @@ webvowl.app =
 	    }
 	    return method;
 	  }
-	  
+
 	  return loadingModule;
 	}
 	;
@@ -8947,14 +8947,14 @@ webvowl.app =
 	  var _messageContainers = [];
 	  var _messageContext = [];
 	  var _visibleStatus = [];
-	  
+
 	  var _filterHintId;
 	  var _editorHintId;
 	  var _messageId = -1;
 	  superContainer.style("display", "inline-block");
 	  var cssStyleIndex = 0;
 	  var styleSelectorIndex = 2;
-	  
+
 
 	  // helper for standalone webvowl in chrome
 	  function createCSSSelector( name, rules ){
@@ -8966,22 +8966,22 @@ webvowl.app =
 	    else
 	      style.sheet.insertRule(name + "{" + rules + "}", 0);
 	  }
-	  
-	  
+
+
 	  function findCSS_Index(){
 	    createCSSSelector("@keyframes msg_CollapseAnimation", " 0% { top: 0; } 100% { top: -400px;}");
 	    console.log(document.styleSheets );
 	  }
-	  
+
 	  findCSS_Index();
-	  
+
 	  warningModule.addMessageBox = function (){
-	    
+
 	    // add a container;
 	    _messageId++;
 	    var messageContainer = d3.select("#WarningErrorMessages").append("div");
 	    messageContainer.node().id = "messageContainerId_" + _messageId;
-	    
+
 	    var messageContext = messageContainer.append("div");
 	    messageContext.node().id = "messageContextId_" + _messageId;
 	    messageContext.style("top", "0");
@@ -8990,15 +8990,15 @@ webvowl.app =
 	    //save in array
 	    _messageContainers.push(messageContainer);
 	    _messageContext.push(messageContext);
-	    
+
 	    // add animation to the container
 	    messageContainer.node().addEventListener("animationend", _msgContainer_animationEnd);
-	    
+
 	    // set visible flag that is used in end of animation
 	    _visibleStatus[_messageId] = true;
 	    return _messageId;
 	  };
-	  
+
 	  function _msgContainer_animationEnd(){
 	    var containerId = this.id;
 	    var tokens = containerId.split("_")[1];
@@ -9015,7 +9015,7 @@ webvowl.app =
 	    var c = d3.select(this);
 	    // c.node().removeEventListener("animationend",_msgContainer_animationEnd);
 	  }
-	  
+
 	  warningModule.createMessageContext = function ( id ){
 	    var warningContainer = _messageContext[id];
 	    var moduleContainer = _messageContainers[id];
@@ -9026,36 +9026,36 @@ webvowl.app =
 	    generalHint.node().innerHTML += "Editing mode activated.<br>" +
 	      "You can now modify an existing ontology or create a new one via the <em>ontology</em> menu.<br>" +
 	      "You can save any ontology using the <em>export</em> menu (and exporting it as TTL file).";
-	    
+
 	    generalHint.style("padding", "5px");
 	    generalHint.style("line-height", "1.2em");
 	    generalHint.style("font-size", "1.2em");
-	    
-	    
+
+
 	    var ul = warningContainer.append('ul');
 	    ul.append('li').node().innerHTML = "Create a class with <b>double click / tap</b> on empty canvas area.";
 	    ul.append('li').node().innerHTML = "Edit names with <b>double click / tap</b> on element.</li>";
 	    ul.append('li').node().innerHTML = "Selection of default constructors is provided in the left sidebar.";
 	    ul.append('li').node().innerHTML = "Additional editing functionality is provided in the right sidebar.";
-	    
-	    
+
+
 	    var gotItButton = warningContainer.append("label");
 	    gotItButton.node().id = "killWarningErrorMessages_" + id;
 	    gotItButton.node().innerHTML = "Got It";
 	    gotItButton.on("click", warningModule.closeMessage);
-	    
+
 	    moduleContainer.classed("hidden", false);
 	    moduleContainer.style("-webkit-animation-name", "warn_ExpandAnimation");
 	    moduleContainer.style("-webkit-animation-duration", "0.5s");
 	  };
-	  
+
 	  warningModule.showMessage = function ( id ){
 	    var moduleContainer = _messageContainers[id];
 	    moduleContainer.classed("hidden", false);
 	    moduleContainer.style("-webkit-animation-name", "warn_ExpandAnimation");
 	    moduleContainer.style("-webkit-animation-duration", "0.5s");
 	  };
-	  
+
 	  warningModule.closeMessage = function ( id ){
 	    var nId;
 	    if ( id === undefined ) {
@@ -9072,12 +9072,12 @@ webvowl.app =
 	    var moduleContainer = _messageContainers[nId];
 	    moduleContainer.style("-webkit-animation-name", "warn_CollapseAnimation");
 	    moduleContainer.style("-webkit-animation-duration", "0.5s");
-	    
+
 	    var m_height = moduleContainer.node().getBoundingClientRect().height;
-	    
+
 	    // find my id in the children
 	    var pNode = moduleContainer.node().parentNode;
-	    
+
 	    var followingChildren = [];
 	    var pChild = pNode.children;
 	    var pChild_len = pChild.length;
@@ -9087,12 +9087,12 @@ webvowl.app =
 	      if ( found_me === true ) {
 	        followingChildren.push(pChild[i].id);
 	      }
-	      
+
 	      if ( containerId === pChild[i].id ) {
 	        found_me = true;
 	      }
 	    }
-	    
+
 	    for ( var fc = 0; fc < followingChildren.length; fc++ ) {
 	      var child = d3.select("#" + followingChildren[fc]);
 	      // get the document style and overwrite it;
@@ -9100,23 +9100,23 @@ webvowl.app =
 	      // remove the existing 0% and 100% rules
 	      superCss.deleteRule("0%");
 	      superCss.deleteRule("100%");
-	      
+
 	      superCss.appendRule("0%   {top: 0;}");
 	      superCss.appendRule("100% {top: -" + m_height + "px;");
-	      
+
 	      child.style("-webkit-animation-name", "msg_CollapseAnimation");
 	      child.style("-webkit-animation-duration", "0.5s");
 	      child.node().addEventListener("animationend", _child_animationEnd);
 	    }
 	  };
-	  
+
 	  function _child_animationEnd(){
 	    var c = d3.select(this);
 	    c.style("-webkit-animation-name", "");
 	    c.style("-webkit-animation-duration", "");
 	    c.node().removeEventListener("animationend", _child_animationEnd);
 	  }
-	  
+
 	  warningModule.closeFilterHint = function (){
 	    if ( _messageContainers[_filterHintId] ) {
 	      _messageContainers[_filterHintId].classed("hidden", true);
@@ -9126,7 +9126,7 @@ webvowl.app =
 	      _visibleStatus[_filterHintId] = false;
 	    }
 	  };
-	  
+
 	  warningModule.showEditorHint = function (){
 	    var id = warningModule.addMessageBox();
 	    warningModule.createMessageContext(id);
@@ -9136,8 +9136,8 @@ webvowl.app =
 	    warningModule.showWarning("Can not export ontology", "Detected unsupported ontology axioms, (e.g. owl:Union)", "Ontology is not exported", 1, false);
 	  };
 
-	  
-	  
+
+
 	  warningModule.responseWarning = function ( header, reason, action, callback, parameterArray, forcedWarning ){
 	    var id = warningModule.addMessageBox();
 	    var warningContainer = _messageContext[id];
@@ -9145,7 +9145,7 @@ webvowl.app =
 	    _visibleStatus[id] = true;
 	    d3.select("#blockGraphInteractions").classed("hidden", false);
 	    var graphWidth = 0.5 * graph.options().width();
-	    
+
 	    if ( header.length > 0 ) {
 	      var head = warningContainer.append("div");
 	      head.style("padding", "5px");
@@ -9158,7 +9158,7 @@ webvowl.app =
 	      // some classes
 	      msgHeader.style("display", "inline-flex");
 	      msgHeader.style("max-width", graphWidth + "px");
-	      
+
 	      msgHeader.node().innerHTML = header;
 	    }
 	    if ( reason.length > 0 ) {
@@ -9168,7 +9168,7 @@ webvowl.app =
 	      // some classes
 	      reasonHeader.style("display", "inline-flex");
 	      reasonHeader.style("padding-right", "3px");
-	      
+
 	      reasonHeader.node().innerHTML = "<b>Reason:</b>";
 	      var msgReason = reasonContainer.append("div");
 	      // some classes
@@ -9190,7 +9190,7 @@ webvowl.app =
 	      msgAction.style("max-width", graphWidth + "px");
 	      msgAction.node().innerHTML = action;
 	    }
-	    
+
 	    var gotItButton = warningContainer.append("label");
 	    gotItButton.node().id = "killWarningErrorMessages_" + id;
 	    gotItButton.node().innerHTML = "Continue";
@@ -9211,13 +9211,13 @@ webvowl.app =
 	    moduleContainer.style("-webkit-animation-name", "warn_ExpandAnimation");
 	    moduleContainer.style("-webkit-animation-duration", "0.5s");
 	  };
-	  
+
 	  warningModule.showFilterHint = function (){
 	    var id = warningModule.addMessageBox();
 	    var warningContainer = _messageContext[id];
 	    var moduleContainer = _messageContainers[id];
 	    _visibleStatus[id] = true;
-	    
+
 	    _filterHintId = id;
 	    var generalHint = warningContainer.append('div');
 	    /** Editing mode activated. You can now modify an existing ontology or create a new one via the <em>ontology</em> menu. You can save any ontology using the <em>export</em> menu (and exporting it as TTL file).**/
@@ -9225,56 +9225,56 @@ webvowl.app =
 	      "The number of visualized elements has been automatically reduced.<br>" +
 	      "Use the degree of collapsing slider in the <em>filter</em> menu to adjust the visualization.<br><br>" +
 	      "<em>Note:</em> A performance decrease could be experienced with a growing amount of visual elements in the graph.";
-	    
-	    
+
+
 	    generalHint.style("padding", "5px");
 	    generalHint.style("line-height", "1.2em");
 	    generalHint.style("font-size", "1.2em");
-	    
+
 	    var gotItButton = warningContainer.append("label");
 	    gotItButton.node().id = "killFilterMessages_" + id;
 	    gotItButton.node().innerHTML = "Got It";
 	    gotItButton.on("click", warningModule.closeMessage);
-	    
+
 	    moduleContainer.classed("hidden", false);
 	    moduleContainer.style("-webkit-animation-name", "warn_ExpandAnimation");
 	    moduleContainer.style("-webkit-animation-duration", "0.5s");
 	  };
-	  
+
 	  warningModule.showMultiFileUploadWarning = function (){
 	    var id = warningModule.addMessageBox();
 	    var warningContainer = _messageContext[id];
 	    var moduleContainer = _messageContainers[id];
 	    _visibleStatus[id] = true;
-	    
+
 	    _filterHintId = id;
 	    var generalHint = warningContainer.append('div');
-	    
+
 	    generalHint.node().innerHTML = "Uploading multiple files is not supported.<br>";
-	    
+
 	    generalHint.style("padding", "5px");
 	    generalHint.style("line-height", "1.2em");
 	    generalHint.style("font-size", "1.2em");
-	    
+
 	    var gotItButton = warningContainer.append("label");
 	    gotItButton.node().id = "killFilterMessages_" + id;
 	    gotItButton.node().innerHTML = "Got It";
 	    gotItButton.on("click", warningModule.closeMessage);
-	    
+
 	    moduleContainer.classed("hidden", false);
 	    moduleContainer.style("-webkit-animation-name", "warn_ExpandAnimation");
 	    moduleContainer.style("-webkit-animation-duration", "0.5s");
 	  };
-	  
+
 	  warningModule.showWarning = function ( header, reason, action, type, forcedWarning, additionalOpts ){
 	    var id = warningModule.addMessageBox();
 	    var warningContainer = _messageContext[id];
 	    var moduleContainer = _messageContainers[id];
 	    _visibleStatus[id] = true;
-	    
+
 	    // add new one;
 	    var graphWidth = 0.5 * graph.options().width();
-	    
+
 	    if ( header.length > 0 ) {
 	      var head = warningContainer.append("div");
 	      head.style("padding", "5px");
@@ -9287,7 +9287,7 @@ webvowl.app =
 	      // some classes
 	      msgHeader.style("display", "inline-flex");
 	      msgHeader.style("max-width", graphWidth + "px");
-	      
+
 	      msgHeader.node().innerHTML = header;
 	    }
 	    if ( reason.length > 0 ) {
@@ -9297,7 +9297,7 @@ webvowl.app =
 	      // some classes
 	      reasonHeader.style("display", "inline-flex");
 	      reasonHeader.style("padding-right", "3px");
-	      
+
 	      reasonHeader.node().innerHTML = "<b>Reason:</b>";
 	      var msgReason = reasonContainer.append("div");
 	      // some classes
@@ -9319,7 +9319,7 @@ webvowl.app =
 	      msgAction.style("max-width", graphWidth + "px");
 	      msgAction.node().innerHTML = action;
 	    }
-	    
+
 	    var gotItButton;
 	    if ( type === 1 ) {
 	      gotItButton = warningContainer.append("label");
@@ -9327,7 +9327,7 @@ webvowl.app =
 	      gotItButton.node().innerHTML = "Got It";
 	      gotItButton.on("click", warningModule.closeMessage);
 	    }
-	    
+
 	    if ( type === 2 ) {
 	      gotItButton = warningContainer.append("label");
 	      gotItButton.node().id = "killWarningErrorMessages_" + id;
@@ -9362,7 +9362,7 @@ webvowl.app =
 	    moduleContainer.style("-webkit-animation-duration", "0.5s");
 	    moduleContainer.classed("hidden", false);
 	  };
-	  
+
 	  return warningModule;
 	};
 
@@ -9383,15 +9383,15 @@ webvowl.app =
 	  inputContainer.style("position", "absolute");
 	  var textArea = d3.select("#directInputTextArea");
 	  var visibleContainer = false;
-	  
+
 	  inputContainer.style("border", "1px solid black");
 	  inputContainer.style("padding", "5px");
 	  inputContainer.style("background", "#fff");
-	  
-	  
+
+
 	  // connect upload and close button;
 	  directInputModule.handleDirectUpload = function (){
-	    
+
 	    var text = textArea.node().value;
 	    var jsonOBJ;
 	    try {
@@ -9416,18 +9416,18 @@ webvowl.app =
 	      }
 	    }
 	  };
-	  
+
 	  directInputModule.handleCloseButton = function (){
 	    directInputModule.setDirectInputMode(false);
 	  };
-	  
+
 	  directInputModule.updateLayout = function (){
 	    var w = graph.options().width();
 	    var h = graph.options().height();
 	    textArea.style("width", 0.4 * w + "px");
 	    textArea.style("height", 0.7 * h + "px");
 	  };
-	  
+
 	  directInputModule.setDirectInputMode = function ( val ){
 	    if ( !val ) {
 	      visibleContainer = !visibleContainer;
@@ -9440,11 +9440,11 @@ webvowl.app =
 	    d3.select("#Error_onLoad").classed("hidden", true);
 	    inputContainer.classed("hidden", !visibleContainer);
 	  };
-	  
-	  
+
+
 	  d3.select("#directUploadBtn").on("click", directInputModule.handleDirectUpload);
 	  d3.select("#close_directUploadBtn").on("click", directInputModule.handleCloseButton);
-	  
+
 	  return directInputModule;
 	};
 
