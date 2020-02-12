@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,30 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
+    public class ClassAttribute
+    {
+        public ClassAttribute(string id, string iri, string baseIri, string label, string comment)
+        {
+            Id = id;
+            Iri = iri;
+            BaseIri = baseIri;
+            Label = label;
+            Comment = comment;
+        }
+
+        public string Id { get; set; }
+        public string Iri { get; set; }
+        public string BaseIri { get; set; }
+        public string Label { get; set; }
+        public string Comment { get; set; }
+        public List<string> Attributes { get; set; } = new List<string>();
+        //todo: this form required?
+        //     ""comment"": {{
+        //     ""en"": ""{(string)n.Value.Properties["ncs__Description"]}""
+        // }}"
+    }
+
+
 //     public class Neo4jResponse
 //     {
 //         public string[] Keys { get; set; }
@@ -290,23 +315,45 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 string type = n.Value.Labels.First(l => l != "Resource");
                 //todo: esco currently array
                 string label = (string)n.Value.Properties["skos__prefLabel"];
-                //todo: string array and join?
+
+                // string comment = n.Value.Properties.ContainsKey("ncs__Description")
+                //     ? $@",
+                // ""comment"": {{
+                //     ""en"": ""{(string)n.Value.Properties["ncs__Description"]}""
+                // }}"
+                //     : string.Empty;
 
                 string comment = n.Value.Properties.ContainsKey("ncs__Description")
-                    ? $@",
-                ""comment"": {{
-                    ""en"": ""{(string)n.Value.Properties["ncs__Description"]}""
-                }}"
+                    ? (string)n.Value.Properties["ncs__Description"]
                     : string.Empty;
 
-                return $@"{{
-       ""id"": ""Class{n.Key - minNodeId}"",
-       ""iri"": ""https://nationalcareers.service.gov.uk/test/{type}"",
-       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
-       ""label"": ""{label}""
-       {comment}
-}}";
-        }));
+                var classAttribute = new ClassAttribute(
+                    $"Class{n.Key - minNodeId}",
+                    $"https://nationalcareers.service.gov.uk/test/{type}",
+                    //       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+                    "https://nationalcareers.service.gov.uk/test/",
+                    label,
+                    comment);
+
+                if (type == "ncs__JobProfile")
+                {
+                    classAttribute.Attributes.Add("external");
+                }
+
+                var jsonOptions = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+                return JsonSerializer.Serialize(classAttribute, jsonOptions);
+
+//                 return $@"{{
+//        ""id"": ""Class{n.Key - minNodeId}"",
+//        ""iri"": ""https://nationalcareers.service.gov.uk/test/{type}"",
+//        ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+//        ""label"": ""{label}""
+//        {comment}
+// }}";
+            }));
 
         response.Append("],\"property\": [");
 
