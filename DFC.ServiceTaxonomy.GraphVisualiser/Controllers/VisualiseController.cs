@@ -152,7 +152,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         public async Task<ActionResult> Data([FromQuery] string fetch, [FromQuery] string id)
         {
             //Neo4j.Driver.Internal.Types.Node
-            var nodes = new Dictionary<long,INode>();
+            var nodes = new Dictionary<long, INode>();
             var relationships = new HashSet<IRelationship>();
             fetch = "http://nationalcareers.service.gov.uk/jobprofile/c07791e0-9e78-480f-b4ac-db39e4582496";
             var results = await _neoGraphDatabase.RunReadQuery(
@@ -180,7 +180,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
      ""baseIris"": [
        ""http://www.w3.org/2000/01/rdf-schema""
      ],
-     ""iri"": ""https://nationalcareers.service.gov.uk/test"",
+     ""iri"": ""https://nationalcareers.service.gov.uk/test/"",
      ""title"": ""test"",
      ""description"": {
        ""en"": ""New ontology description""
@@ -272,13 +272,17 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 // todo: center current content item?
 // mark node label to display in graph??
 
-            response.AppendJoin(',', nodes.Select(n => $@"{{
+            response.AppendJoin(',', nodes.Select(n =>
+            {
+                string label = n.Value.Labels.First(l => l != "Resource");
+                return $@"{{
        ""id"": ""{n.Key}"",
-       ""iri"": ""https://nationalcareers.service.gov.uk/testJobProfile"",
+       ""iri"": ""https://nationalcareers.service.gov.uk/test/{label}"",
        ""baseIri"": ""http://visualdataweb.org/newOntology/"",
-       ""label"": ""{n.Value.Labels.First(l => l != "Resource")}""}}"));
+       ""label"": ""{label}""}}";
+        }));
 
-            response.Append("],\"property\": [");
+        response.Append("],\"property\": [");
 
             // {
             //     ""id"": ""objectProperty1"",
@@ -305,7 +309,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
             response.AppendJoin(',', relationships.Select(r => $@"{{
        ""id"": ""{r.Id}"",
-       ""iri"": ""https://nationalcareers.service.gov.uk/testhasOccupation"",
+       ""iri"": ""https://nationalcareers.service.gov.uk/test/{r.Type}"",
        ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
        ""label"": ""{r.Type}"",
        ""attributes"": [
