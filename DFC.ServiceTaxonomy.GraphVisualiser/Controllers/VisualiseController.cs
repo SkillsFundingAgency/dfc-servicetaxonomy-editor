@@ -254,7 +254,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 //       ""type"": ""owl:Class""
 //     }
 
-            response.AppendJoin(',', nodes.Select(n => "{{ \"id\": \"{n.Key}\", \"type\": \"own:Class\" }}"));
+            response.AppendJoin(',', nodes.Select(n => $"{{ \"id\": \"{n.Key}\", \"type\": \"own:Class\" }}"));
 
             response.Append("], \"classAttribute\": [");
 
@@ -276,7 +276,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
        ""id"": ""{n.Key}"",
        ""iri"": ""https://nationalcareers.service.gov.uk/testJobProfile"",
        ""baseIri"": ""http://visualdataweb.org/newOntology/"",
-       ""label"": ""{n.Value.Labels.First(l => l != "Resource")}"""));
+       ""label"": ""{n.Value.Labels.First(l => l != "Resource")}""}}"));
 
             response.Append("],\"property\": [");
 
@@ -315,7 +315,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
        ""range"": ""{r.EndNodeId}""
 }}"));
 
-            response.Append("]}}");
+            response.Append("]}");
 
             return Content(response.ToString(), "application/json");
         }
