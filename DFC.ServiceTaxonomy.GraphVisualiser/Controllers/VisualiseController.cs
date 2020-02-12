@@ -149,185 +149,187 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
         }
 
-        public async Task<ActionResult> Data([FromQuery] string fetch, [FromQuery] string id)
-        {
-            //Neo4j.Driver.Internal.Types.Node
-            var nodes = new Dictionary<long, INode>();
-            var relationships = new HashSet<IRelationship>();
-            fetch = "http://nationalcareers.service.gov.uk/jobprofile/c07791e0-9e78-480f-b4ac-db39e4582496";
-            var results = await _neoGraphDatabase.RunReadQuery(
-                new Query(
-                    $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) return n, d, r"),
-                r =>
-                {
-                    var sourceNode = r["n"].As<INode>();
-                    var destNode = r["d"].As<INode>();
-                    relationships.Add(r["r"].As<IRelationship>());
-
-                    nodes[sourceNode.Id] = sourceNode;
-                    nodes[destNode.Id] = destNode;
-
-                    //todo:
-                    return 0;
-                });
-
-            var response = new StringBuilder(@"{
-   ""_comment"": ""Empty ontology for WebVOWL Editor [Additional Information added by WebVOWL Exporter Version: 1.1.7]"",
-   ""header"": {
-     ""languages"": [
-       ""en""
-     ],
-     ""baseIris"": [
-       ""http://www.w3.org/2000/01/rdf-schema""
-     ],
-     ""iri"": ""https://nationalcareers.service.gov.uk/test/"",
-     ""title"": ""test"",
-     ""description"": {
-       ""en"": ""New ontology description""
-     }
-   },
-   ""namespace"": [],
-   ""settings"": {
-     ""global"": {
-       ""zoom"": ""2.09"",
-       ""translation"": [
-         -1087.15,
-         -750.73
-       ],
-       ""paused"": false
-     },
-     ""gravity"": {
-       ""classDistance"": 200,
-       ""datatypeDistance"": 120
-     },
-     ""filter"": {
-       ""checkBox"": [
-         {
-           ""id"": ""datatypeFilterCheckbox"",
-           ""checked"": false
-         },
-         {
-           ""id"": ""objectPropertyFilterCheckbox"",
-           ""checked"": false
-         },
-         {
-           ""id"": ""subclassFilterCheckbox"",
-           ""checked"": false
-         },
-         {
-           ""id"": ""disjointFilterCheckbox"",
-           ""checked"": true
-         },
-         {
-           ""id"": ""setoperatorFilterCheckbox"",
-           ""checked"": false
-         }
-       ],
-       ""degreeSliderValue"": ""0""
-     },
-     ""modes"": {
-       ""checkBox"": [
-         {
-           ""id"": ""pickandpinModuleCheckbox"",
-           ""checked"": false
-         },
-         {
-           ""id"": ""nodescalingModuleCheckbox"",
-           ""checked"": true
-         },
-         {
-           ""id"": ""compactnotationModuleCheckbox"",
-           ""checked"": false
-         },
-         {
-           ""id"": ""colorexternalsModuleCheckbox"",
-           ""checked"": true
-         }
-       ],
-       ""colorSwitchState"": false
-     }
-   },
-   ""class"": [");
-
-            // {
-//       ""id"": ""Class1"",
-//       ""type"": ""owl:Class""
-//     }
-
-            response.AppendJoin(',', nodes.Select(n => $"{{ \"id\": \"{n.Key}\", \"type\": \"own:Class\" }}"));
-
-            response.Append("], \"classAttribute\": [");
-
-            //     {
-//       ""id"": ""Class1"",
-//       ""iri"": ""https://nationalcareers.service.gov.uk/testJobProfile"",
-//       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
-//       ""label"": ""JobProfile"",
-//         ""pos"": [
-//             864.79,
-//             688.54
-//         ]
-//     },
-
-// todo: center current content item?
-// mark node label to display in graph??
-
-            response.AppendJoin(',', nodes.Select(n =>
-            {
-                string label = n.Value.Labels.First(l => l != "Resource");
-                return $@"{{
-       ""id"": ""{n.Key}"",
-       ""iri"": ""https://nationalcareers.service.gov.uk/test/{label}"",
-       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
-       ""label"": ""{label}""}}";
-        }));
-
-        response.Append("],\"property\": [");
-
-            // {
-            //     ""id"": ""objectProperty1"",
-            //     ""type"": ""owl:ObjectProperty""
-            // }
-
-            response.AppendJoin(',', relationships.Select(r => $@"{{
-            ""id"": ""{r.Id}"",
-            ""type"": ""owl:ObjectProperty""}}"));
-
-            response.Append("], \"propertyAttribute\": [");
-
-            //     {
-//       ""id"": ""objectProperty1"",
-//       ""iri"": ""https://nationalcareers.service.gov.uk/testhasOccupation"",
-//       ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
-//       ""label"": ""hasOccupation"",
-//       ""attributes"": [
-//         ""object""
-//       ],
-//       ""domain"": ""Class1"",
-//       ""range"": ""Class2""
-//     }
-
-            response.AppendJoin(',', relationships.Select(r => $@"{{
-       ""id"": ""{r.Id}"",
-       ""iri"": ""https://nationalcareers.service.gov.uk/test/{r.Type}"",
-       ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
-       ""label"": ""{r.Type}"",
-       ""attributes"": [
-         ""object""
-       ],
-       ""domain"": ""{r.StartNodeId}"",
-       ""range"": ""{r.EndNodeId}""
-}}"));
-
-            response.Append("]}");
-
-            return Content(response.ToString(), "application/json");
-        }
-
-//         public ActionResult Data([FromQuery]string fetch)
+//         public async Task<ActionResult> Data([FromQuery] string fetch, [FromQuery] string id)
 //         {
-//             //return Json();
-//             return Content(@"{
+//             //Neo4j.Driver.Internal.Types.Node
+//             var nodes = new Dictionary<long, INode>();
+//             var relationships = new HashSet<IRelationship>();
+//             fetch = "http://nationalcareers.service.gov.uk/jobprofile/c07791e0-9e78-480f-b4ac-db39e4582496";
+//             var results = await _neoGraphDatabase.RunReadQuery(
+//                 new Query(
+//                     $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) return n, d, r"),
+//                 r =>
+//                 {
+//                     var sourceNode = r["n"].As<INode>();
+//                     var destNode = r["d"].As<INode>();
+//                     relationships.Add(r["r"].As<IRelationship>());
+//
+//                     nodes[sourceNode.Id] = sourceNode;
+//                     nodes[destNode.Id] = destNode;
+//
+//                     //todo:
+//                     return 0;
+//                 });
+//
+//             var minNodeId = nodes.Keys.Min() - 1;
+//             var minRelationshipId = relationships.Min(r => r.Id) - 1;
+//
+//             var response = new StringBuilder(@"{
+//    ""_comment"": ""Empty ontology for WebVOWL Editor [Additional Information added by WebVOWL Exporter Version: 1.1.7]"",
+//    ""header"": {
+//      ""languages"": [
+//        ""en""
+//      ],
+//      ""baseIris"": [
+//        ""http://www.w3.org/2000/01/rdf-schema""
+//      ],
+//      ""iri"": ""https://nationalcareers.service.gov.uk/test/"",
+//      ""title"": ""test"",
+//      ""description"": {
+//        ""en"": ""New ontology description""
+//      }
+//    },
+//    ""namespace"": [],
+//    ""settings"": {
+//      ""global"": {
+//        ""zoom"": ""2.09"",
+//        ""translation"": [
+//          -1087.15,
+//          -750.73
+//        ],
+//        ""paused"": false
+//      },
+//      ""gravity"": {
+//        ""classDistance"": 200,
+//        ""datatypeDistance"": 120
+//      },
+//      ""filter"": {
+//        ""checkBox"": [
+//          {
+//            ""id"": ""datatypeFilterCheckbox"",
+//            ""checked"": false
+//          },
+//          {
+//            ""id"": ""objectPropertyFilterCheckbox"",
+//            ""checked"": false
+//          },
+//          {
+//            ""id"": ""subclassFilterCheckbox"",
+//            ""checked"": false
+//          },
+//          {
+//            ""id"": ""disjointFilterCheckbox"",
+//            ""checked"": true
+//          },
+//          {
+//            ""id"": ""setoperatorFilterCheckbox"",
+//            ""checked"": false
+//          }
+//        ],
+//        ""degreeSliderValue"": ""0""
+//      },
+//      ""modes"": {
+//        ""checkBox"": [
+//          {
+//            ""id"": ""pickandpinModuleCheckbox"",
+//            ""checked"": false
+//          },
+//          {
+//            ""id"": ""nodescalingModuleCheckbox"",
+//            ""checked"": true
+//          },
+//          {
+//            ""id"": ""compactnotationModuleCheckbox"",
+//            ""checked"": false
+//          },
+//          {
+//            ""id"": ""colorexternalsModuleCheckbox"",
+//            ""checked"": true
+//          }
+//        ],
+//        ""colorSwitchState"": false
+//      }
+//    },
+//    ""class"": [");
+//
+//             // {
+// //       ""id"": ""Class1"",
+// //       ""type"": ""owl:Class""
+// //     }
+//
+//             response.AppendJoin(',', nodes.Select(n => $"{{ \"id\": \"Class{n.Key-minNodeId}\", \"type\": \"own:Class\" }}"));
+//
+//             response.Append("], \"classAttribute\": [");
+//
+//             //     {
+// //       ""id"": ""Class1"",
+// //       ""iri"": ""https://nationalcareers.service.gov.uk/testJobProfile"",
+// //       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+// //       ""label"": ""JobProfile"",
+// //         ""pos"": [
+// //             864.79,
+// //             688.54
+// //         ]
+// //     },
+//
+// // todo: center current content item?
+// // mark node label to display in graph??
+//
+//             response.AppendJoin(',', nodes.Select(n =>
+//             {
+//                 string label = n.Value.Labels.First(l => l != "Resource");
+//                 return $@"{{
+//        ""id"": ""Class{n.Key - minNodeId}"",
+//        ""iri"": ""https://nationalcareers.service.gov.uk/test/{label}"",
+//        ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+//        ""label"": ""{label}""}}";
+//         }));
+//
+//         response.Append("],\"property\": [");
+//
+//             // {
+//             //     ""id"": ""objectProperty1"",
+//             //     ""type"": ""owl:ObjectProperty""
+//             // }
+//
+//             response.AppendJoin(',', relationships.Select(r => $@"{{
+//             ""id"": ""objectProperty{r.Id - minRelationshipId}"",
+//             ""type"": ""owl:ObjectProperty""}}"));
+//
+//             response.Append("], \"propertyAttribute\": [");
+//
+//             //     {
+// //       ""id"": ""objectProperty1"",
+// //       ""iri"": ""https://nationalcareers.service.gov.uk/testhasOccupation"",
+// //       ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
+// //       ""label"": ""hasOccupation"",
+// //       ""attributes"": [
+// //         ""object""
+// //       ],
+// //       ""domain"": ""Class1"",
+// //       ""range"": ""Class2""
+// //     }
+//
+//             response.AppendJoin(',', relationships.Select(r => $@"{{
+//        ""id"": ""objectProperty{r.Id - minRelationshipId}"",
+//        ""iri"": ""https://nationalcareers.service.gov.uk/test/{r.Type}"",
+//        ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
+//        ""label"": ""{r.Type}"",
+//        ""attributes"": [
+//          ""object""
+//        ],
+//        ""domain"": ""Class{r.StartNodeId - minNodeId}"",
+//        ""range"": ""Class{r.EndNodeId - minNodeId}""
+// }}"));
+//
+//             response.Append("]}");
+//
+//             return Content(response.ToString(), "application/json");
+//         }
+
+//          public ActionResult Data([FromQuery]string fetch)
+//          {
+//              return Content(@"{
 //   ""_comment"": ""Empty ontology for WebVOWL Editor [Additional Information added by WebVOWL Exporter Version: 1.1.7]"",
 //   ""header"": {
 //     ""languages"": [
@@ -336,7 +338,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 //     ""baseIris"": [
 //       ""http://www.w3.org/2000/01/rdf-schema""
 //     ],
-//     ""iri"": ""https://nationalcareers.service.gov.uk/test"",
+//     ""iri"": ""https://nationalcareers.service.gov.uk/test/"",
 //     ""title"": ""test"",
 //     ""description"": {
 //       ""en"": ""New ontology description""
@@ -406,51 +408,250 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 //   ""class"": [
 //     {
 //       ""id"": ""Class1"",
-//       ""type"": ""owl:Class""
+//       ""type"": ""own:Class""
 //     },
 //     {
 //       ""id"": ""Class2"",
-//       ""type"": ""owl:Class""
+//       ""type"": ""own:Class""
+//     },
+//     {
+//       ""id"": ""Class3"",
+//       ""type"": ""own:Class""
 //     }
 //   ],
 //   ""classAttribute"": [
 //     {
 //       ""id"": ""Class1"",
-//       ""iri"": ""https://nationalcareers.service.gov.uk/testJobProfile"",
+//       ""iri"": ""https://nationalcareers.service.gov.uk/test/ncs__OtherRequirement"",
 //       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
-//       ""label"": ""JobProfile"",
-//         ""pos"": [
-//             864.79,
-//             688.54
-//         ]
+//       ""label"": ""ncs__OtherRequirement""
 //     },
 //     {
 //       ""id"": ""Class2"",
-//       ""iri"": ""https://nationalcareers.service.gov.uk/testOccupation"",
-//       ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
-//       ""label"": ""Occupation""
+//       ""iri"": ""https://nationalcareers.service.gov.uk/test/ncs__JobProfile"",
+//       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+//       ""label"": ""ncs__JobProfile""
+//     },
+//     {
+//       ""id"": ""Class3"",
+//       ""iri"": ""https://nationalcareers.service.gov.uk/test/ncs__SOCCode"",
+//       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+//       ""label"": ""ncs__SOCCode""
 //     }
 //   ],
 //   ""property"": [
 //     {
 //       ""id"": ""objectProperty1"",
 //       ""type"": ""owl:ObjectProperty""
+//     },
+//     {
+//       ""id"": ""objectProperty2"",
+//       ""type"": ""owl:ObjectProperty""
 //     }
 //   ],
 //   ""propertyAttribute"": [
 //     {
 //       ""id"": ""objectProperty1"",
-//       ""iri"": ""https://nationalcareers.service.gov.uk/testhasOccupation"",
+//       ""iri"": ""https://nationalcareers.service.gov.uk/test/ncs__hasSocCode"",
 //       ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
-//       ""label"": ""hasOccupation"",
+//       ""label"": ""ncs__hasSocCode"",
 //       ""attributes"": [
 //         ""object""
 //       ],
-//       ""domain"": ""Class1"",
-//       ""range"": ""Class2""
+//       ""domain"": ""Class2"",
+//       ""range"": ""Class3""
+//     },
+//     {
+//       ""id"": ""objectProperty2"",
+//       ""iri"": ""https://nationalcareers.service.gov.uk/test/ncs__hasWitOtherRequirement"",
+//       ""baseIri"": ""https://nationalcareers.service.gov.uk/test"",
+//       ""label"": ""ncs__hasWitOtherRequirement"",
+//       ""attributes"": [
+//         ""object""
+//       ],
+//       ""domain"": ""Class2"",
+//       ""range"": ""Class1""
 //     }
 //   ]
-// }
-// ", "application/json");        }
-     }
+// }", "application/json");
+//          }
+
+        // public ActionResult Data([FromQuery] string fetch)
+        // {
+        //     return Content(@""
+        //         , "application/json");
+        // }
+
+        public ActionResult Data([FromQuery] string fetch)
+        {
+            return Content(@"{
+  ""_comment"": ""Empty ontology for WebVOWL Editor [Additional Information added by WebVOWL Exporter Version: 1.1.7]"",
+  ""header"": {
+    ""languages"": [
+      ""en""
+    ],
+    ""baseIris"": [
+      ""http://www.w3.org/2000/01/rdf-schema""
+    ],
+    ""iri"": ""http://visualdataweb.org/newOntology/"",
+    ""title"": {
+      ""en"": ""New ontology""
+    },
+    ""description"": {
+      ""en"": ""New ontology description""
+    }
+  },
+  ""namespace"": [],
+  ""settings"": {
+    ""global"": {
+      ""zoom"": ""0.89"",
+      ""translation"": [
+        378.1,
+        44.57
+      ],
+      ""paused"": false
+    },
+    ""gravity"": {
+      ""classDistance"": 200,
+      ""datatypeDistance"": 120
+    },
+    ""filter"": {
+      ""checkBox"": [
+        {
+          ""id"": ""datatypeFilterCheckbox"",
+          ""checked"": false
+        },
+        {
+          ""id"": ""objectPropertyFilterCheckbox"",
+          ""checked"": false
+        },
+        {
+          ""id"": ""subclassFilterCheckbox"",
+          ""checked"": false
+        },
+        {
+          ""id"": ""disjointFilterCheckbox"",
+          ""checked"": true
+        },
+        {
+          ""id"": ""setoperatorFilterCheckbox"",
+          ""checked"": false
+        }
+      ],
+      ""degreeSliderValue"": ""0""
+    },
+    ""modes"": {
+      ""checkBox"": [
+        {
+          ""id"": ""pickandpinModuleCheckbox"",
+          ""checked"": false
+        },
+        {
+          ""id"": ""nodescalingModuleCheckbox"",
+          ""checked"": true
+        },
+        {
+          ""id"": ""compactnotationModuleCheckbox"",
+          ""checked"": false
+        },
+        {
+          ""id"": ""colorexternalsModuleCheckbox"",
+          ""checked"": true
+        }
+      ],
+      ""colorSwitchState"": false
+    }
+  },
+  ""class"": [
+    {
+      ""id"": ""Class1"",
+      ""type"": ""owl:Class""
+    },
+    {
+      ""id"": ""Class2"",
+      ""type"": ""owl:Class""
+    },
+    {
+      ""id"": ""Class3"",
+      ""type"": ""owl:Class""
+    }
+  ],
+  ""classAttribute"": [
+    {
+      ""id"": ""Class1"",
+      ""iri"": ""http://visualdataweb.org/newOntology/JobProfile"",
+      ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+      ""label"": ""JobProfile"",
+      ""pos"": [
+        439.09,
+        194.5
+      ]
+    },
+    {
+      ""id"": ""Class2"",
+      ""iri"": ""http://visualdataweb.org/newOntology/SOCCode"",
+      ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+      ""label"": ""SOCCode"",
+      ""pos"": [
+        751.58,
+        327.24
+      ]
+    },
+    {
+      ""id"": ""Class3"",
+      ""iri"": ""http://visualdataweb.org/newOntology/OtherRequirement"",
+      ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+      ""label"": ""OtherRequirement"",
+      ""pos"": [
+        434.42,
+        533.04
+      ]
+    }
+  ],
+  ""property"": [
+    {
+      ""id"": ""objectProperty1"",
+      ""type"": ""owl:ObjectProperty""
+    },
+    {
+      ""id"": ""objectProperty3"",
+      ""type"": ""owl:ObjectProperty""
+    }
+  ],
+  ""propertyAttribute"": [
+    {
+      ""id"": ""objectProperty1"",
+      ""iri"": ""http://visualdataweb.org/newOntology/hasSOCCode"",
+      ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+      ""label"": ""hasSOCCode"",
+      ""attributes"": [
+        ""object""
+      ],
+      ""domain"": ""Class1"",
+      ""range"": ""Class2"",
+      ""pos"": [
+        595.34,
+        260.87
+      ]
+    },
+    {
+      ""id"": ""objectProperty3"",
+      ""iri"": ""http://visualdataweb.org/newOntology/hasOtherRequirement"",
+      ""baseIri"": ""http://visualdataweb.org/newOntology/"",
+      ""label"": ""hasOtherRequirement"",
+      ""attributes"": [
+        ""object""
+      ],
+      ""domain"": ""Class1"",
+      ""range"": ""Class3"",
+      ""pos"": [
+        436.76,
+        363.77
+      ]
+    }
+  ]
+}"
+                , "application/json");
+        }
+    }
 }
