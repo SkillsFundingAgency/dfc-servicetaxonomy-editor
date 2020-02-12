@@ -20,6 +20,9 @@ using Neo4j.Driver;
 // that allows different behaviour for different types, but in a generic manner
 // we can set up the existing types sensibly, but any added types the user can set themeselves
 
+//todo: add filtermodule so we can create new attributes and e.g. set fill colours
+// base on colorExternalsSwitch
+
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
     public class ClassAttribute
