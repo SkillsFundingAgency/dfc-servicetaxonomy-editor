@@ -10,6 +10,16 @@ using Neo4j.Driver;
 
 // https://localhost:5001/index.html?visualise=theid
 
+//todo:
+// add a custom part that selects the visualisation rule/heuristic
+// e.g. visualizing a job profile, might want to follow all relationship paths until reach another job profile (follow to self)
+// in addition would want to whitelist any esco namespace nodes to occupation and skill (would you want to show skills off occupation when displaying job profile?)
+// have it configurable which namespaces to white/black list & specific labels in either list to white black list?
+// gonna get quite complicated!
+// e.g. for tasks, would probably only want to visualise the task and first degree relationships
+// that allows different behaviour for different types, but in a generic manner
+// we can set up the existing types sensibly, but any added types the user can set themeselves
+
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
     public class ClassAttribute
