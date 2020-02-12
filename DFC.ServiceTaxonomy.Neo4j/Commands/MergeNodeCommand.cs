@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 
@@ -8,20 +9,23 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     //todo: inject database and add execute?
     public class MergeNodeCommand : IMergeNodeCommand
     {
-        public string? NodeLabel { get; set; }
+        public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
         public string? IdPropertyName { get; set; }
         public IDictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
 
         private Query CreateQuery()
         {
-            if (NodeLabel == null)
-                throw new InvalidOperationException($"{nameof(NodeLabel)} not supplied");
+            if (NodeLabels == null)
+                throw new InvalidOperationException($"{nameof(NodeLabels)} is null");
+
+            if (!NodeLabels.Any())
+                throw new InvalidOperationException($"No labels");
 
             if (IdPropertyName == null)
-                throw new InvalidOperationException($"{nameof(IdPropertyName)} not supplied");
+                throw new InvalidOperationException($"{nameof(IdPropertyName)} is null");
 
             return new Query(
-                $"MERGE (n:{NodeLabel} {{ {IdPropertyName}:'{Properties[IdPropertyName]}' }}) SET n=$properties RETURN ID(n)",
+                $"MERGE (n:{string.Join(':',NodeLabels)} {{ {IdPropertyName}:'{Properties[IdPropertyName]}' }}) SET n=$properties RETURN ID(n)",
                 new Dictionary<string,object> {{"properties", Properties}});
         }
 

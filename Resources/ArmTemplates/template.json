@@ -39,7 +39,8 @@
         "AppServicePlanName": "[if(greater(length(parameters('SharedAppServicePlanName')), 0), parameters('SharedAppServicePlanName'), concat(variables('ResourcePrefix'), '-asp'))]",
         "AppServicePlanResourceGroup": "[if(greater(length(parameters('SharedAppServicePlanResourceGroup')), 0), parameters('SharedAppServicePlanResourceGroup'), resourceGroup().name)]",
         "DatabaseName": "[concat(variables('ResourcePrefix'), '-db')]",
-        "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]"
+        "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]",
+        "DatabaseTier": "[if(equals(parameters('SqlElasticPoolName'), ''), 'Standard', 'ElasticPool')]"
     },
     "resources": [
         {
@@ -142,6 +143,9 @@
                     },
                     "elasticPoolName": {
                         "value": "[parameters('SqlElasticPoolName')]"
+                    },
+                    "databaseTier": {
+                        "value": "[variables('DatabaseTier')]"
                     }
                 }
             }

@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // act
             Query query = new ReplaceRelationshipsCommand
             {
-                SourceNodeLabel = sourceNodeLabel,
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
                 SourceIdPropertyValue = sourceIdPropertyValue,
                 Relationships = relationships
@@ -103,7 +103,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 
             Query preexistingQuery = new ReplaceRelationshipsCommand
             {
-                SourceNodeLabel = sourceNodeLabel,
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
                 SourceIdPropertyValue = sourceIdPropertyValue,
                 Relationships = preExistingRelationships
@@ -117,7 +117,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // act
             Query query = new ReplaceRelationshipsCommand
             {
-                SourceNodeLabel = sourceNodeLabel,
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
                 SourceIdPropertyValue = sourceIdPropertyValue,
                 Relationships = relationships
@@ -167,7 +167,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // act
             Query query = new ReplaceRelationshipsCommand
             {
-                SourceNodeLabel = sourceNodeLabel,
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
                 SourceIdPropertyValue = sourceIdPropertyValue,
                 Relationships = relationships
@@ -215,7 +215,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
 
             Query preexistingQuery = new ReplaceRelationshipsCommand
             {
-                SourceNodeLabel = sourceNodeLabel,
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
                 SourceIdPropertyValue = sourceIdPropertyValue,
                 Relationships = preExistingRelationships
@@ -229,7 +229,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // act
             Query query = new ReplaceRelationshipsCommand
             {
-                SourceNodeLabel = sourceNodeLabel,
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
                 SourceIdPropertyValue = sourceIdPropertyValue,
                 Relationships = relationships
@@ -278,7 +278,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // act
             Query query = new ReplaceRelationshipsCommand
             {
-                SourceNodeLabel = sourceNodeLabel,
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
                 SourceIdPropertyValue = sourceIdPropertyValue,
                 Relationships = relationships
