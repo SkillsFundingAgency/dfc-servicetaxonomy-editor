@@ -277,10 +277,12 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
             response.AppendJoin(',', nodes.Select(n =>
             {
-                string label = n.Value.Labels.First(l => l != "Resource");
+                string type = n.Value.Labels.First(l => l != "Resource");
+                //todo: esco currently array
+                string label = (string)n.Value.Properties["skos__prefLabel"];
                 return $@"{{
        ""id"": ""Class{n.Key - minNodeId}"",
-       ""iri"": ""https://nationalcareers.service.gov.uk/test/{label}"",
+       ""iri"": ""https://nationalcareers.service.gov.uk/test/{type}"",
        ""baseIri"": ""http://visualdataweb.org/newOntology/"",
        ""label"": ""{label}""}}";
         }));
