@@ -275,16 +275,37 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 // todo: center current content item?
 // mark node label to display in graph??
 
+// different colour
+            // "attributes": [
+            // "external"
+            //     ],
+
+            //description
+            // "comment": {
+            //     "en": "An automatic tag is a tag that is automatically associated with a resource (e.g. by a tagging system), i.e. it is not entered by a human being."
+            // },
+
             response.AppendJoin(',', nodes.Select(n =>
             {
                 string type = n.Value.Labels.First(l => l != "Resource");
                 //todo: esco currently array
                 string label = (string)n.Value.Properties["skos__prefLabel"];
+                //todo: string array and join?
+
+                string comment = n.Value.Properties.ContainsKey("ncs__Description")
+                    ? $@",
+                ""comment"": {{
+                    ""en"": ""{(string)n.Value.Properties["ncs__Description"]}""
+                }}"
+                    : string.Empty;
+
                 return $@"{{
        ""id"": ""Class{n.Key - minNodeId}"",
        ""iri"": ""https://nationalcareers.service.gov.uk/test/{type}"",
        ""baseIri"": ""http://visualdataweb.org/newOntology/"",
-       ""label"": ""{label}""}}";
+       ""label"": ""{label}""
+       {comment}
+}}";
         }));
 
         response.Append("],\"property\": [");
