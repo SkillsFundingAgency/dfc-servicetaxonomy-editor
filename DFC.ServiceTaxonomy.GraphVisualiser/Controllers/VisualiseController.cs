@@ -20,11 +20,41 @@ using Neo4j.Driver;
 // that allows different behaviour for different types, but in a generic manner
 // we can set up the existing types sensibly, but any added types the user can set themeselves
 
-//todo: add filtermodule so we can create new attributes and e.g. set fill colours
-// base on colorExternalsSwitch
+//todo: (a) either group related nodes of same type together (like neo's browser)
+// or (b) have combined data/schema visualiser
+
+// (a) atm just overriding colour, so layout engine doesn't know anything about type
+// add property to classattribute of type and change renderer
+// or check out all existing owl types and see if can piggy-back or build on any
+
+// (b) e.g. (software developer:jobProfile)--(Tasks)--(coding)
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
+    public class ColourScheme
+    {
+        private static string[] _colours = new[]
+        {
+            "#cc6666",
+            "#66cc66",
+            "#6666cc",
+            "#cccc66",
+            "#66cccc",
+            "#cc66cc",
+        };
+
+        private int _current;
+
+        public string NextColour()
+        {
+            string colour = _colours[_current++];
+            if (_current == _colours.Length)
+                _current = 0;
+            return colour;
+        }
+    }
+
+
     public class ClassAttribute
     {
         public ClassAttribute(string id, string iri, string baseIri, string label, string comment)
@@ -328,6 +358,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             //     "en": "An automatic tag is a tag that is automatically associated with a resource (e.g. by a tagging system), i.e. it is not entered by a human being."
             // },
 
+
+            Dictionary<string, string> typeColours = new Dictionary<string, string>();
+            var colourScheme = new ColourScheme();
+
             response.AppendJoin(',', nodes.Select(n =>
             {
 //                string type = n.Value.Labels.First(l => l != "Resource");
@@ -358,18 +392,26 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 var classAttribute = new ClassAttribute(
                     $"Class{n.Key - minNodeId}",
                     $"https://nationalcareers.service.gov.uk/test/{type}",
-                    //       ""baseIri"": ""http://visualdataweb.org/newOntology/"",
                     "https://nationalcareers.service.gov.uk/test/",
                     label,
                     comment);
 
-                if (type == "ncs__JobProfile")
+                if (typeColours.ContainsKey(type))
                 {
-                    classAttribute.StaxBackgroundColour = "#cc6666";
-                    //classAttribute.Attributes.Add("primary");
-                    // classAttribute.Attributes.Add("external");
-                    // classAttribute.StaxAttributes.Add("primary");
+                    classAttribute.StaxBackgroundColour = typeColours[type];
                 }
+                else
+                {
+                    classAttribute.StaxBackgroundColour = typeColours[type] = colourScheme.NextColour();
+                }
+
+                // if (type == "ncs__JobProfile")
+                // {
+                //     classAttribute.StaxBackgroundColour = staxBackgroundColour;
+                //     //classAttribute.Attributes.Add("primary");
+                //     // classAttribute.Attributes.Add("external");
+                //     // classAttribute.StaxAttributes.Add("primary");
+                // }
 
                 var jsonOptions = new JsonSerializerOptions
                 {
