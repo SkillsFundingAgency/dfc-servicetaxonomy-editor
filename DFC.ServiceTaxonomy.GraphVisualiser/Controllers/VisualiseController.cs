@@ -43,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         public string Comment { get; set; }
         public List<string> Attributes { get; set; } = new List<string>();
 
+        public string StaxBackgroundColour { get; set; }
 //        public List<string> StaxAttributes { get; set; } = new List<string>();
 
 
@@ -364,7 +365,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
                 if (type == "ncs__JobProfile")
                 {
-                    classAttribute.Attributes.Add("primary");
+                    classAttribute.StaxBackgroundColour = "#cc6666";
+                    //classAttribute.Attributes.Add("primary");
                     // classAttribute.Attributes.Add("external");
                     // classAttribute.StaxAttributes.Add("primary");
                 }

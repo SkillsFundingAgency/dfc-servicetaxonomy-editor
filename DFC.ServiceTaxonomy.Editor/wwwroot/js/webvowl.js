@@ -367,9 +367,12 @@ webvowl =
 	      }
 
 	      //ste: inject
-if ( that.indications().indexOf("primary") > -1 ) {
-    bgColor = "#cc6666";
-}
+            if (that.staxBackgroundColour() !== null) {
+                bgColor = that.staxBackgroundColour();
+            }
+// if ( that.indications().indexOf("primary") > -1 ) {
+//     bgColor = "#cc6666";
+// }
 
             if ( rectangularRepresentation === true ) {
 	        renderingElement = drawTools.appendRectangularClass(parentElement, 80, 80, cssClasses, that.labelForCurrentLanguage(), bgColor);
@@ -897,6 +900,9 @@ if ( that.indications().indexOf("primary") > -1 ) {
 	      styleClass,
 	      visible = true,
 
+            //ste:
+            staxBackgroundColour,
+
 	      backupLabel,
 	      // Other
 	      languageTools = __webpack_require__(11)();
@@ -907,6 +913,13 @@ if ( that.indications().indexOf("primary") > -1 ) {
 	      backupLabel = label;
 	    };
 	    // Properties
+
+          this.staxBackgroundColour = function ( p ){
+              if ( !arguments.length ) return staxBackgroundColour;
+              staxBackgroundColour = p;
+              return this;
+          };
+
 	    this.attributes = function ( p ){
 	      if ( !arguments.length ) return attributes;
 	      attributes = p;
@@ -2264,7 +2277,7 @@ if ( that.indications().indexOf("primary") > -1 ) {
 	      }
 	      var cssClasses = that.collectCssClasses();
 	      renderingElement = that.nodeElement().append("g");
-	      
+
 	      if ( that.getRectangularRepresentation() === true ) {
 	        drawTools.appendRectangularClass(renderingElement, 84, 84, ["white", "embedded"]);
 	        drawTools.appendRectangularClass(renderingElement, 80 - CIRCLE_SIZE_DIFFERENCE, 80 - CIRCLE_SIZE_DIFFERENCE, cssClasses, that.labelForCurrentLanguage(), bgColor);
@@ -3312,7 +3325,7 @@ if ( that.indications().indexOf("primary") > -1 ) {
 	        rect.classed("deprecatedproperty", false);
 	      }
 	      rect.style("fill", bgColor);
-	      
+
 	      return rect;
 	    };
 	    this.drawLabel = function ( labelContainer ){
@@ -13531,6 +13544,7 @@ if ( that.indications().indexOf("primary") > -1 ) {
 	            .id(element.id)
 	            .intersection(element.intersection)
 	            .label(element.label)
+                  .staxBackgroundColour(element.staxBackgroundColour)
 	            // .type(element.type) Ignore, because we predefined it
 	            .union(element.union)
 	            .iri(element.iri);
