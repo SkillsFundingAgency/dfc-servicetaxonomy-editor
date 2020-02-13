@@ -902,6 +902,7 @@ webvowl =
 
             //ste:
             staxBackgroundColour,
+            staxProperties,
 
 	      backupLabel,
 	      // Other
@@ -919,6 +920,13 @@ webvowl =
               staxBackgroundColour = p;
               return this;
           };
+
+          this.staxProperties = function ( p ){
+              if ( !arguments.length ) return staxProperties;
+              staxProperties = p;
+              return this;
+          };
+
 
 	    this.attributes = function ( p ){
 	      if ( !arguments.length ) return attributes;
@@ -13545,6 +13553,7 @@ webvowl =
 	            .intersection(element.intersection)
 	            .label(element.label)
                   .staxBackgroundColour(element.staxBackgroundColour)
+                  .staxProperties(element.staxProperties)
 	            // .type(element.type) Ignore, because we predefined it
 	            .union(element.union)
 	            .iri(element.iri);

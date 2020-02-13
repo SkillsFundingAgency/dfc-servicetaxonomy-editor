@@ -6255,10 +6255,29 @@ webvowl.app =
 	    setTextAndVisibility(d3.select("#nodeDescription"), node.descriptionForCurrentLanguage());
 	    setTextAndVisibility(d3.select("#nodeComment"), node.commentForCurrentLanguage());
 
-	    listAnnotations(d3.select("#classSelectionInformation"), node.annotations());
+	    //ste: need something more akin to listannotations?
+          //setTextAndVisibility(d3.select("#nodeProperties"), node.properties());
+          var nodePropertiesSpan = d3.select("#nodeProperties");
+          listStaxProperties(node.staxProperties(), nodePropertiesSpan);
+
+
+          listAnnotations(d3.select("#classSelectionInformation"), node.annotations());
 	  }
 
-	  function showClassInformations(){
+        function listStaxProperties( staxProperties, textSpan ){
+            var spanParent = d3.select(textSpan.node().parentNode);
+
+            //ste: todo
+            if ( staxProperties && staxProperties.length > 0 ) {
+                textSpan.text(staxProperties.join(", "));
+
+                spanParent.classed("hidden", false);
+            } else {
+                spanParent.classed("hidden", true);
+            }
+        }
+
+        function showClassInformations(){
 	    setSelectionInformationVisibility(true, false, false);
 	  }
 

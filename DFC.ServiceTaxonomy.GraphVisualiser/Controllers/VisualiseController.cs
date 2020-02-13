@@ -74,6 +74,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         public List<string> Attributes { get; set; } = new List<string>();
 
         public string StaxBackgroundColour { get; set; }
+        public List<string> StaxProperties { get; set; } = new List<string>();
+
 //        public List<string> StaxAttributes { get; set; } = new List<string>();
 
 
@@ -404,6 +406,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 {
                     classAttribute.StaxBackgroundColour = typeColours[type] = colourScheme.NextColour();
                 }
+
+                classAttribute.StaxProperties.Add("exampleProp:exampleVal");
 
                 // if (type == "ncs__JobProfile")
                 // {
