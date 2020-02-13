@@ -42,6 +42,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         public string Label { get; set; }
         public string Comment { get; set; }
         public List<string> Attributes { get; set; } = new List<string>();
+
+//        public List<string> StaxAttributes { get; set; } = new List<string>();
+
+
         //todo: this form required?
         //     ""comment"": {{
         //     ""en"": ""{(string)n.Value.Properties["ncs__Description"]}""
@@ -192,7 +196,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             //Neo4j.Driver.Internal.Types.Node
             var nodes = new Dictionary<long, INode>();
             var relationships = new HashSet<IRelationship>();
-            fetch = "http://nationalcareers.service.gov.uk/jobprofile/c07791e0-9e78-480f-b4ac-db39e4582496";
+            fetch = "http://nationalcareers.service.gov.uk/jobprofile/1805847e-1ff8-48d7-8215-43ed59446171";
             var results = await _neoGraphDatabase.RunReadQuery(
                 new Query(
                     $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) return n, d, r"),
@@ -325,9 +329,19 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
             response.AppendJoin(',', nodes.Select(n =>
             {
-                string type = n.Value.Labels.First(l => l != "Resource");
-                //todo: esco currently array
-                string label = (string)n.Value.Properties["skos__prefLabel"];
+//                string type = n.Value.Labels.First(l => l != "Resource");
+                string type = n.Value.Labels.First(l => l.StartsWith("ncs__")
+                || l == "esco__Occupation"
+                || l == "esco__Skill");
+                string label;
+                if (type.StartsWith("ncs__"))
+                {
+                    label = (string)n.Value.Properties["skos__prefLabel"];
+                }
+                else
+                {
+                    label = (string)((List<object>)n.Value.Properties["skos__prefLabel"]).First();
+                }
 
                 // string comment = n.Value.Properties.ContainsKey("ncs__Description")
                 //     ? $@",
@@ -350,7 +364,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
                 if (type == "ncs__JobProfile")
                 {
-                    classAttribute.Attributes.Add("external");
+                    classAttribute.Attributes.Add("primary");
+                    // classAttribute.Attributes.Add("external");
+                    // classAttribute.StaxAttributes.Add("primary");
                 }
 
                 var jsonOptions = new JsonSerializerOptions

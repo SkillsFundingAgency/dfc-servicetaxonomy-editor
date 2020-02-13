@@ -149,16 +149,16 @@ webvowl =
 	var RoundNode = __webpack_require__(8);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    this.attributes(["external"])
 	      .type("ExternalClass");
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -172,10 +172,10 @@ webvowl =
 	var drawTools = __webpack_require__(17)();
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseNode.apply(this, arguments);
-	    
+
 	    var that = this,
 	      collapsible = false,
 	      radius = 50,
@@ -185,31 +185,31 @@ webvowl =
 	      rectangularRepresentation = false,
 	      renderingElement,
 	      textBlock;
-	    
+
 	    this.setRectangularRepresentation = function ( val ){
 	      rectangularRepresentation = val;
 	    };
 	    this.getRectangularRepresentation = function (){
 	      return rectangularRepresentation;
 	    };
-	    
+
 	    this.getHalos = function (){
 	      return haloGroupElement;
 	    };
-	    
+
 	    // Properties
 	    this.collapsible = function ( p ){
 	      if ( !arguments.length ) return collapsible;
 	      collapsible = p;
 	      return this;
 	    };
-	    
+
 	    this.textBlock = function ( p ){
 	      if ( !arguments.length ) return textBlock;
 	      textBlock = p;
 	      return this;
 	    };
-	    
+
 	    /**
 	     * This might not be equal to the actual radius, because the instance count is used for its calculation.
 	     * @param p
@@ -220,40 +220,40 @@ webvowl =
 	      radius = p;
 	      return this;
 	    };
-	    
-	    
+
+
 	    // Functions
 	    this.setHoverHighlighting = function ( enable ){
 	      that.nodeElement().selectAll("circle").classed("hovered", enable);
 	    };
-	    
+
 	    this.textWidth = function ( yOffset ){
 	      var availableWidth = this.actualRadius() * 2;
-	      
+
 	      // if the text is not placed in the center of the circle, it can't have the full width
 	      if ( yOffset ) {
 	        var relativeOffset = Math.abs(yOffset) / this.actualRadius();
 	        var isOffsetInsideOfNode = relativeOffset <= 1;
-	        
+
 	        if ( isOffsetInsideOfNode ) {
 	          availableWidth = Math.cos(relativeOffset) * availableWidth;
 	        } else {
 	          availableWidth = 0;
 	        }
 	      }
-	      
+
 	      return availableWidth;
 	    };
-	    
+
 	    this.toggleFocus = function (){
 	      that.focused(!that.focused());
 	      if ( that.nodeElement() )
 	        that.nodeElement().select("circle").classed("focused", that.focused());
 	      graph.resetSearchHighlight();
 	      graph.options().searchMenu().clearText();
-	      
+
 	    };
-	    
+
 	    this.actualRadius = function (){
 	      if ( !graph.options().scaleNodesByIndividuals() || that.individuals().length <= 0 ) {
 	        return that.radius();
@@ -261,15 +261,15 @@ webvowl =
 	        // we could "listen" for radius and maxIndividualCount changes, but this is easier
 	        var MULTIPLIER = 8,
 	          additionalRadius = Math.log(that.individuals().length + 1) * MULTIPLIER + 5;
-	        
+
 	        return that.radius() + additionalRadius;
 	      }
 	    };
-	    
+
 	    this.distanceToBorder = function (){
 	      return that.actualRadius();
 	    };
-	    
+
 	    this.removeHalo = function (){
 	      if ( that.halo() ) {
 	        that.halo(false);
@@ -278,7 +278,7 @@ webvowl =
 	        }
 	      }
 	    };
-	    
+
 	    this.drawHalo = function ( pulseAnimation ){
 	      that.halo(true);
 	      if ( rectangularRepresentation === true ) {
@@ -293,7 +293,7 @@ webvowl =
 	        pulseItem.attr("animationRunning", false);
 	      }
 	    };
-	    
+
 	    /**
 	     * Draws the pin on a round node on a position depending on its radius.
 	     */
@@ -302,10 +302,10 @@ webvowl =
 	      var dx = (-3.5 / 5) * that.actualRadius(),
 	        dy = (-7 / 10) * that.actualRadius();
 	      pinGroupElement = drawTools.drawPin(that.nodeElement(), dx, dy, this.removePin, graph.options().showDraggerObject, graph.options().useAccuracyHelper());
-	      
-	      
+
+
 	    };
-	    
+
 	    /**
 	     * Removes the pin and refreshs the graph to update the force layout.
 	     */
@@ -316,9 +316,9 @@ webvowl =
 	      }
 	      graph.updateStyle();
 	    };
-	    
+
 	    this.drawCollapsingButton = function (){
-	      
+
 	      collapsingGroupElement = that.nodeElement()
 	        .append("g")
 	        .classed("hidden-in-export", true)
@@ -327,27 +327,27 @@ webvowl =
 	            dy = (1 / 2) * that.actualRadius();
 	          return "translate(" + dx + "," + dy + ")";
 	        });
-	      
+
 	      collapsingGroupElement.append("rect")
 	        .classed("class pin feature", true)
 	        .attr("x", 0)
 	        .attr("y", 0)
 	        .attr("width", 40)
 	        .attr("height", 24);
-	      
+
 	      collapsingGroupElement.append("line")
 	        .attr("x1", 13)
 	        .attr("y1", 12)
 	        .attr("x2", 27)
 	        .attr("y2", 12);
-	      
+
 	      collapsingGroupElement.append("line")
 	        .attr("x1", 20)
 	        .attr("y1", 6)
 	        .attr("x2", 20)
 	        .attr("y2", 18);
 	    };
-	    
+
 	    /**
 	     * Draws a circular node.
 	     * @param parentElement the element to which this node will be appended
@@ -356,7 +356,7 @@ webvowl =
 	    this.draw = function ( parentElement, additionalCssClasses ){
 	      var cssClasses = that.collectCssClasses();
 	      that.nodeElement(parentElement);
-	      
+
 	      var bgColor = that.backgroundColor();
 	      if ( bgColor === null ) bgColor = undefined;
 	      if ( that.attributes().indexOf("deprecated") > -1 ) {
@@ -365,14 +365,20 @@ webvowl =
 	      if ( additionalCssClasses instanceof Array ) {
 	        cssClasses = cssClasses.concat(additionalCssClasses);
 	      }
-	      if ( rectangularRepresentation === true ) {
+
+	      //ste: inject
+if ( that.indications().indexOf("primary") > -1 ) {
+    bgColor = "#cc6666";
+}
+
+            if ( rectangularRepresentation === true ) {
 	        renderingElement = drawTools.appendRectangularClass(parentElement, 80, 80, cssClasses, that.labelForCurrentLanguage(), bgColor);
 	      } else {
 	        renderingElement = drawTools.appendCircularClass(parentElement, that.actualRadius(), cssClasses, that.labelForCurrentLanguage(), bgColor);
 	      }
 	      that.postDrawActions(parentElement);
 	    };
-	    
+
 	    this.redrawElement = function (){
 	      renderingElement.remove();
 	      textBlock.remove();
@@ -380,10 +386,10 @@ webvowl =
 	      if ( that.attributes().indexOf("deprecated") > -1 ) {
 	        bgColor = undefined;
 	      }
-	      
+
 	      var cssClasses = that.collectCssClasses();
-	      
-	      if ( rectangularRepresentation === true ) {
+
+            if ( rectangularRepresentation === true ) {
 	        renderingElement = drawTools.appendRectangularClass(that.nodeElement(), 80, 80, cssClasses, that.labelForCurrentLanguage(), bgColor);
 	      } else {
 	        renderingElement = drawTools.appendCircularClass(that.nodeElement(), that.actualRadius(), cssClasses, that.labelForCurrentLanguage(), bgColor);
@@ -395,7 +401,7 @@ webvowl =
 	     */
 	    this.postDrawActions = function (){
 	      that.textBlock(createTextBlock());
-	      
+
 	      that.addMouseListeners();
 	      if ( that.pinned() ) {
 	        that.drawPin();
@@ -407,7 +413,7 @@ webvowl =
 	        that.drawCollapsingButton();
 	      }
 	    };
-	    
+
 	    this.redrawLabelText = function (){
 	      that.textBlock().remove();
 	      that.textBlock(createTextBlock());
@@ -417,28 +423,28 @@ webvowl =
 	      var bgColor = that.backgroundColor();
 	      if ( that.attributes().indexOf("deprecated") > -1 )
 	        bgColor = undefined;
-	      
-	      var textBlock = new CenteringTextElement(that.nodeElement(), bgColor);
-	      
+
+            var textBlock = new CenteringTextElement(that.nodeElement(), bgColor);
+
 	      var equivalentsString = that.equivalentsString();
 	      var suffixForFollowingEquivalents = equivalentsString ? "," : "";
-	      
+
 	      textBlock.addText(that.labelForCurrentLanguage(), "", suffixForFollowingEquivalents);
 	      textBlock.addEquivalents(equivalentsString);
 	      if ( !graph.options().compactNotation() ) {
 	        textBlock.addSubText(that.indicationString());
 	      }
 	      textBlock.addInstanceCount(that.individuals().length);
-	      
+
 	      return textBlock;
 	    }
-	    
+
 	    this.equivalentsString = function (){
 	      var equivalentClasses = that.equivalents();
 	      if ( !equivalentClasses ) {
 	        return;
 	      }
-	      
+
 	      return equivalentClasses
 	        .map(function ( node ){
 	          return node.labelForCurrentLanguage();
@@ -448,7 +454,7 @@ webvowl =
 	  };
 	  o.prototype = Object.create(BaseNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -461,10 +467,10 @@ webvowl =
 	var forceLayoutNodeFunctions = __webpack_require__(13)();
 
 	module.exports = (function (){
-	  
+
 	  var Base = function ( graph ){
 	    BaseElement.apply(this, arguments);
-	    
+
 	    var that = this,
 	      // Basic attributes
 	      complement,
@@ -482,11 +488,11 @@ webvowl =
 	      backupFullIri,
 	      // Element containers
 	      nodeElement;
-	    
+
 	    // array to store my properties; // we will need this also later for semantic zooming stuff
 	    var assignedProperties = [];
 	    that.editingTextElement = false;
-	    
+
 	    this.isPropertyAssignedToThisElement = function ( property ){
 	      // this goes via IRIS
 	      console.log("Element IRI :" + property.iri());
@@ -500,12 +506,12 @@ webvowl =
 	            return true;
 	          if ( property.type() === "owl:disjointWith" && assignedProperties[i].type() === "owl:disjointWith" )
 	            return true;
-	          
+
 	        }
 	      return false;
 	    };
-	    
-	    
+
+
 	    this.existingPropertyIRI = function ( url ){
 	      // this goes via IRIS
 	      for ( var i = 0; i < assignedProperties.length; i++ ) {
@@ -516,13 +522,13 @@ webvowl =
 	      }
 	      return false;
 	    };
-	    
+
 	    this.addProperty = function ( property ){
 	      if ( assignedProperties.indexOf(property) === -1 ) {
 	        assignedProperties.push(property);
 	      }
 	    };
-	    
+
 	    this.removePropertyElement = function ( property ){
 	      // console.log("Calling removing old property!"+ property.iri());
 	      if ( assignedProperties.indexOf(property) !== -1 ) {
@@ -536,7 +542,7 @@ webvowl =
 	    this.copyOtherProperties = function ( otherProperties ){
 	      assignedProperties = otherProperties;
 	    };
-	    
+
 	    this.copyInformation = function ( other ){
 	      console.log(other.labelForCurrentLanguage());
 	      if ( other.type() !== "owl:Thing" )
@@ -553,13 +559,13 @@ webvowl =
 	        that.backupLabel(other.backupLabel());
 	      }
 	    };
-	    
+
 	    this.enableEditing = function ( autoEditing ){
 	      if ( autoEditing === false )
 	        return;
 	      that.raiseDoubleClickEdit(true);
 	    };
-	    
+
 	    this.raiseDoubleClickEdit = function ( forceIRISync ){
 	      d3.selectAll(".foreignelements").remove();
 	      if ( nodeElement === undefined || this.type() === "owl:Thing" || this.type() === "rdfs:Literal" ) {
@@ -569,7 +575,7 @@ webvowl =
 	      if ( fobj !== undefined ) {
 	        nodeElement.selectAll(".foreignelements").remove();
 	      }
-	      
+
 	      backupFullIri = undefined;
 	      graph.options().focuserModule().handle(undefined);
 	      graph.options().focuserModule().handle(that);
@@ -591,7 +597,7 @@ webvowl =
 	          return false;
 	        }) // remove drag operations of text element)
 	        .attr("width", that.textWidth() - 2);
-	      
+
 	      var editText = fobj.append("xhtml:input")
 	        .attr("class", "nodeEditSpan")
 	        .attr("id", that.id())
@@ -600,11 +606,11 @@ webvowl =
 	        .on("dragstart", function (){
 	          return false;
 	        }); // remove drag operations of text element)
-	      
+
 	      var bgColor = '#f00';
 	      var txtWidth = that.textWidth() - 2;
 	      editText.style({
-	        
+
 	        'align': 'center',
 	        'color': 'black',
 	        'width': txtWidth + "px",
@@ -618,8 +624,8 @@ webvowl =
 	      txtNode.select();
 	      that.frozen(true); // << releases the not after selection
 	      that.locked(true);
-	      
-	      
+
+
 	      d3.event.stopPropagation();
 	      // ignoreNodeHoverEvent=true;
 	      // // add some events that relate to this object
@@ -629,8 +635,8 @@ webvowl =
 	      // // remove hover Events for now;
 	      editText.on("mouseout", function (){
 	        d3.event.stopPropagation();
-	        
-	        
+
+
 	      });
 	      editText.on("mousedown", function (){
 	        d3.event.stopPropagation();
@@ -649,12 +655,12 @@ webvowl =
 	            var resourceName = labelName.replaceAll(" ", "_");
 	            var syncedIRI = that.baseIri() + resourceName;
 	            backupFullIri = syncedIRI;
-	            
+
 	            d3.select("#element_iriEditor").node().title = syncedIRI;
 	            d3.select("#element_iriEditor").node().value = graph.options().prefixModule().getPrefixRepresentationForFullURI(syncedIRI);
 	          }
 	          d3.select("#element_labelEditor").node().value = editText.node().value;
-	          
+
 	        })
 	        .on("blur", function (){
 	          that.editingTextElement = false;
@@ -679,7 +685,7 @@ webvowl =
 	              graph.options().warningModule().showWarning("Already seen this class",
 	                "Input IRI: " + backupFullIri + " for element: " + that.labelForCurrentLanguage() + " already been set",
 	                "Restoring previous IRI for Element : " + that.iri(), 2, false, sanityCheckResult);
-	              
+
 	            }
 	          }
 	          if ( graph.isADraggerActive() === false ) {
@@ -688,8 +694,8 @@ webvowl =
 	          }
 	        });	// add a foreiner element to this thing;
 	    };
-	    
-	    
+
+
 	    this.renderType = function ( t ){
 	      if ( !arguments.length ) return rendertype;
 	      rendertype = t;
@@ -701,73 +707,73 @@ webvowl =
 	      complement = p;
 	      return this;
 	    };
-	    
+
 	    this.disjointUnion = function ( p ){
 	      if ( !arguments.length ) return disjointUnion;
 	      disjointUnion = p;
 	      return this;
 	    };
-	    
+
 	    this.disjointWith = function ( p ){
 	      if ( !arguments.length ) return disjointWith;
 	      disjointWith = p;
 	      return this;
 	    };
-	    
+
 	    this.individuals = function ( p ){
 	      if ( !arguments.length ) return individuals;
 	      individuals = p || [];
 	      return this;
 	    };
-	    
+
 	    this.intersection = function ( p ){
 	      if ( !arguments.length ) return intersection;
 	      intersection = p;
 	      return this;
 	    };
-	    
+
 	    this.links = function ( p ){
 	      if ( !arguments.length ) return links;
 	      links = p;
 	      return this;
 	    };
-	    
+
 	    this.maxIndividualCount = function ( p ){
 	      if ( !arguments.length ) return maxIndividualCount;
 	      maxIndividualCount = p;
 	      return this;
 	    };
-	    
+
 	    this.nodeElement = function ( p ){
 	      if ( !arguments.length ) return nodeElement;
 	      nodeElement = p;
 	      return this;
 	    };
-	    
+
 	    this.union = function ( p ){
 	      if ( !arguments.length ) return union;
 	      union = p;
 	      return this;
 	    };
-	    
-	    
+
+
 	    /**
 	     * Returns css classes generated from the data of this object.
 	     * @returns {Array}
 	     */
 	    that.collectCssClasses = function (){
 	      var cssClasses = [];
-	      
+
 	      if ( typeof that.styleClass() === "string" ) {
 	        cssClasses.push(that.styleClass());
 	      }
-	      
+
 	      cssClasses = cssClasses.concat(that.visualAttributes());
-	      
+
 	      return cssClasses;
 	    };
-	    
-	    
+
+
 	    // Reused functions TODO refactor
 	    this.addMouseListeners = function (){
 	      // Empty node
@@ -775,12 +781,12 @@ webvowl =
 	        console.warn(this);
 	        return;
 	      }
-	      
+
 	      that.nodeElement().selectAll("*")
 	        .on("mouseover", onMouseOver)
 	        .on("mouseout", onMouseOut);
 	    };
-	    
+
 	    this.animationProcess = function (){
 	      var animRuns = false;
 	      if ( that.getHalos() ) {
@@ -798,7 +804,7 @@ webvowl =
 	      }
 	      return animRuns;
 	    };
-	    
+
 	    this.foreground = function (){
 	      var selectedNode = that.nodeElement().node(),
 	        nodeContainer = selectedNode.parentNode;
@@ -807,17 +813,17 @@ webvowl =
 	        // Append hovered element as last child to the container list.
 	        nodeContainer.appendChild(selectedNode);
 	      }
-	      
+
 	    };
-	    
+
 	    function onMouseOver(){
 	      if ( that.mouseEntered() || ignoreLocalHoverEvents === true ) {
 	        return;
 	      }
-	      
+
 	      var selectedNode = that.nodeElement().node(),
 	        nodeContainer = selectedNode.parentNode;
-	      
+
 	      // Append hovered element as last child to the container list.
 	      if ( that.animationProcess() === false ) {
 	        nodeContainer.appendChild(selectedNode);
@@ -832,12 +838,12 @@ webvowl =
 	        if ( graph.editorMode() === true && graph.ignoreOtherHoverEvents() === false ) {
 	          graph.activateHoverElements(true, that, true);
 	        }
-	        
+
 	      }
-	      
-	      
+
+
 	    }
-	    
+
 	    function onMouseOut(){
 	      that.setHoverHighlighting(false);
 	      that.mouseEntered(false);
@@ -845,15 +851,15 @@ webvowl =
 	        graph.activateHoverElements(false);
 	      }
 	    }
-	    
-	    
+
+
 	    forceLayoutNodeFunctions.addTo(this);
 	  };
-	  
+
 	  Base.prototype = Object.create(BaseElement.prototype);
 	  Base.prototype.constructor = Base;
-	  
-	  
+
+
 	  return Base;
 	}());
 
@@ -867,7 +873,7 @@ webvowl =
 	 * The base element for all visual elements of webvowl.
 	 */
 	module.exports = (function (){
-	  
+
 	  var Base = function ( graph ){
 	    // Basic attributes
 	    var equivalents = [],
@@ -890,12 +896,12 @@ webvowl =
 	      mouseEntered = false,
 	      styleClass,
 	      visible = true,
-	      
+
 	      backupLabel,
 	      // Other
 	      languageTools = __webpack_require__(11)();
-	    
-	    
+
+
 	    this.backupLabel = function ( label ){
 	      if ( !arguments.length ) return backupLabel;
 	      backupLabel = label;
@@ -906,154 +912,154 @@ webvowl =
 	      attributes = p;
 	      return this;
 	    };
-	    
+
 	    this.annotations = function ( p ){
 	      if ( !arguments.length ) return annotations;
 	      annotations = p;
 	      return this;
 	    };
-	    
+
 	    this.redrawElement = function (){
 	      // TODO: OVERLOADED BY INDIVIDUAL ELEMENTS
 	    };
-	    
+
 	    this.backgroundColor = function ( p ){
 	      if ( !arguments.length ) return backgroundColor;
 	      backgroundColor = p;
 	      return this;
 	    };
-	    
+
 	    this.baseIri = function ( p ){
 	      if ( !arguments.length ) return baseIri;
 	      baseIri = p;
 	      return this;
 	    };
-	    
+
 	    this.comment = function ( p ){
 	      if ( !arguments.length ) return comment;
 	      comment = p;
 	      return this;
 	    };
-	    
+
 	    this.description = function ( p ){
 	      if ( !arguments.length ) return description;
 	      description = p;
 	      return this;
 	    };
-	    
+
 	    this.equivalents = function ( p ){
 	      if ( !arguments.length ) return equivalents;
 	      equivalents = p || [];
 	      return this;
 	    };
-	    
+
 	    this.equivalentBase = function ( p ){
 	      if ( !arguments.length ) return equivalentBase;
 	      equivalentBase = p;
 	      return this;
 	    };
-	    
+
 	    this.focused = function ( p ){
 	      if ( !arguments.length ) return focused;
 	      focused = p;
 	      return this;
 	    };
-	    
+
 	    this.id = function ( p ){
 	      if ( !arguments.length ) return id;
 	      id = p;
 	      return this;
 	    };
-	    
+
 	    this.indications = function ( p ){
 	      if ( !arguments.length ) return indications;
 	      indications = p;
 	      return this;
 	    };
-	    
+
 	    this.iri = function ( p ){
 	      if ( !arguments.length ) return iri;
 	      iri = p;
 	      return this;
 	    };
-	    
+
 	    this.label = function ( p ){
 	      if ( !arguments.length ) return label;
 	      label = p;
 	      return this;
 	    };
-	    
+
 	    this.mouseEntered = function ( p ){
 	      if ( !arguments.length ) return mouseEntered;
 	      mouseEntered = p;
 	      return this;
 	    };
-	    
+
 	    this.styleClass = function ( p ){
 	      if ( !arguments.length ) return styleClass;
 	      styleClass = p;
 	      return this;
 	    };
-	    
+
 	    this.type = function ( p ){
 	      if ( !arguments.length ) return type;
 	      type = p;
 	      return this;
 	    };
-	    
+
 	    this.visible = function ( p ){
 	      if ( !arguments.length ) return visible;
 	      visible = p;
 	      return this;
 	    };
-	    
+
 	    this.visualAttributes = function ( p ){
 	      if ( !arguments.length ) return visualAttributes;
 	      visualAttributes = p;
 	      return this;
 	    };
-	    
-	    
+
+
 	    this.commentForCurrentLanguage = function (){
 	      return languageTools.textInLanguage(this.comment(), graph.language());
 	    };
-	    
+
 	    /**
 	     * @returns {string} the css class of this node..
 	     */
 	    this.cssClassOfNode = function (){
 	      return "node" + this.id();
 	    };
-	    
+
 	    this.descriptionForCurrentLanguage = function (){
 	      return languageTools.textInLanguage(this.description(), graph.language());
 	    };
-	    
+
 	    this.defaultLabel = function (){
 	      return languageTools.textInLanguage(this.label(), "default");
 	    };
-	    
+
 	    this.indicationString = function (){
 	      return this.indications().join(", ");
 	    };
-	    
+
 	    this.labelForCurrentLanguage = function (){
 	      var preferredLanguage = graph && graph.language ? graph.language() : null;
 	      return languageTools.textInLanguage(this.label(), preferredLanguage);
 	    };
 	  };
-	  
+
 	  Base.prototype.constructor = Base;
-	  
+
 	  Base.prototype.equals = function ( other ){
 	    return other instanceof Base && this.id() === other.id();
 	  };
-	  
+
 	  Base.prototype.toString = function (){
 	    return this.labelForCurrentLanguage() + " (" + this.type() + ")";
 	  };
-	  
-	  
+
+
 	  return Base;
 	}());
 
@@ -1068,23 +1074,23 @@ webvowl =
 	 * Encapsulates methods which return a label in a specific language for a preferred language.
 	 */
 	module.exports = (function (){
-	  
+
 	  var languageTools = {};
-	  
-	  
+
+
 	  languageTools.textInLanguage = function ( textObject, preferredLanguage ){
 	    if ( typeof textObject === "undefined" ) {
 	      return undefined;
 	    }
-	    
+
 	    if ( typeof textObject === "string" ) {
 	      return textObject;
 	    }
-	    
+
 	    if ( preferredLanguage && textObject.hasOwnProperty(preferredLanguage) ) {
 	      return textObject[preferredLanguage];
 	    }
-	    
+
 	    var textForLanguage = searchLanguage(textObject, "en");
 	    if ( textForLanguage ) {
 	      return textForLanguage;
@@ -1093,11 +1099,11 @@ webvowl =
 	    if ( textForLanguage ) {
 	      return textForLanguage;
 	    }
-	    
+
 	    return textObject[constants.LANG_IRIBASED];
 	  };
-	  
-	  
+
+
 	  function searchLanguage( textObject, preferredLanguage ){
 	    for ( var language in textObject ) {
 	      if ( language === preferredLanguage && textObject.hasOwnProperty(language) ) {
@@ -1105,7 +1111,7 @@ webvowl =
 	      }
 	    }
 	  }
-	  
+
 	  return function (){
 	    /* Use a function here to keep a consistent style like webvowl.path.to.module()
 	     * despite having just a single languageTools object. */
@@ -1119,12 +1125,12 @@ webvowl =
 /***/ (function(module, exports) {
 
 	module.exports = (function (){
-	  
+
 	  var constants = {};
-	  
+
 	  constants.LANG_IRIBASED = "IRI-based";
 	  constants.LANG_UNDEFINED = "undefined";
-	  
+
 	  return function (){
 	    /* Use a function here to keep a consistent style like webvowl.path.to.module()
 	     * despite having just a single object. */
@@ -1161,7 +1167,7 @@ webvowl =
 	    frozen = false,
 	    halo = false,
 	    pinned = false;
-	  
+
 	  node.locked = function ( p ){
 	    if ( !arguments.length ) {
 	      return locked;
@@ -1170,7 +1176,7 @@ webvowl =
 	    applyFixedLocationAttributes();
 	    return node;
 	  };
-	  
+
 	  node.frozen = function ( p ){
 	    if ( !arguments.length ) {
 	      return frozen;
@@ -1179,7 +1185,7 @@ webvowl =
 	    applyFixedLocationAttributes();
 	    return node;
 	  };
-	  
+
 	  node.halo = function ( p ){
 	    if ( !arguments.length ) {
 	      return halo;
@@ -1188,7 +1194,7 @@ webvowl =
 	    applyFixedLocationAttributes();
 	    return node;
 	  };
-	  
+
 	  node.pinned = function ( p ){
 	    if ( !arguments.length ) {
 	      return pinned;
@@ -1197,7 +1203,7 @@ webvowl =
 	    applyFixedLocationAttributes();
 	    return node;
 	  };
-	  
+
 	  function applyFixedLocationAttributes(){
 	    if ( node.locked() || node.frozen() || node.pinned() ) {
 	      node.fixed = true;
@@ -1221,7 +1227,7 @@ webvowl =
 	  this.storedFullTextLines = [];
 	  this.storedSpanArrays = [];
 	  this.storedStyle = [];
-	  
+
 	}
 
 	CenteringTextElement.prototype = Object.create(AbstractTextElement.prototype);
@@ -1280,17 +1286,17 @@ webvowl =
 	    .attr("x", 0);
 	  this._repositionTextLine(tspan);
 	  this.saveCorrespondingSpan(tspan);
-	  
+
 	  this._repositionTextBlock();
 	};
 
 	CenteringTextElement.prototype._repositionTextLine = function ( tspan ){
 	  var fontSizeProperty = window.getComputedStyle(tspan.node()).getPropertyValue("font-size");
 	  var fontSize = parseFloat(fontSizeProperty);
-	  
+
 	  var siblingCount = this._lineCount() - 1;
 	  var lineDistance = siblingCount > 0 ? this.LINE_DISTANCE : 0;
-	  
+
 	  tspan.attr("dy", fontSize + lineDistance + "px");
 	};
 
@@ -1306,7 +1312,7 @@ webvowl =
 	    this._textBlock().attr("y", 0);
 	    return;
 	  }
-	  
+
 	  var textBlockHeight = this._textBlock().node().getBBox().height;
 	  this._textBlock().attr("y", -textBlockHeight * 0.5 + "px");
 	};
@@ -1345,29 +1351,29 @@ webvowl =
 	  if ( isNaN(maxWidth) || maxWidth <= 0 ) {
 	    return text;
 	  }
-	  
+
 	  var truncatedText = text,
 	    newTruncatedTextLength,
 	    textWidth,
 	    ratio;
-	  
+
 	  while ( true ) {
 	    textWidth = measureTextWidth(truncatedText, textStyle);
 	    if ( textWidth <= maxWidth ) {
 	      break;
 	    }
-	    
+
 	    ratio = textWidth / maxWidth;
 	    newTruncatedTextLength = Math.floor(truncatedText.length / ratio);
-	    
+
 	    // detect if nothing changes
 	    if ( truncatedText.length === newTruncatedTextLength ) {
 	      break;
 	    }
-	    
+
 	    truncatedText = truncatedText.substring(0, newTruncatedTextLength);
 	  }
-	  
+
 	  if ( text.length > truncatedText.length ) {
 	    return text.substring(0, truncatedText.length - 3) + "...";
 	  }
@@ -1392,7 +1398,7 @@ webvowl =
 	    .classed("text", true)
 	    .style("fill", this._getTextColor(backgroundColor))
 	    .attr("text-anchor", "middle");
-	  
+
 	  this._textBlock = function (){
 	    return textBlock;
 	  };
@@ -1431,7 +1437,7 @@ webvowl =
 	  if ( !rawBackgroundColor ) {
 	    return AbstractTextElement.prototype.DARK_TEXT_COLOR;
 	  }
-	  
+
 	  var backgroundColor = d3.rgb(rawBackgroundColor);
 	  if ( calculateLuminance(backgroundColor) > 0.5 ) {
 	    return AbstractTextElement.prototype.DARK_TEXT_COLOR;
@@ -1454,9 +1460,9 @@ webvowl =
 	 * Contains reusable function for drawing nodes.
 	 */
 	module.exports = (function (){
-	  
+
 	  var tools = {};
-	  
+
 	  /**
 	   * Append a circular class node with the passed attributes.
 	   * @param parent the parent element to which the circle will be appended
@@ -1470,14 +1476,14 @@ webvowl =
 	    var circle = parent.append("circle")
 	      .classed("class", true)
 	      .attr("r", radius);
-	    
+
 	    addCssClasses(circle, cssClasses);
 	    addToolTip(circle, tooltip);
 	    addBackgroundColor(circle, backgroundColor);
-	    
+
 	    return circle;
 	  };
-	  
+
 	  function addCssClasses( element, cssClasses ){
 	    if ( cssClasses instanceof Array ) {
 	      cssClasses.forEach(function ( cssClass ){
@@ -1485,19 +1491,19 @@ webvowl =
 	      });
 	    }
 	  }
-	  
+
 	  function addToolTip( element, tooltip ){
 	    if ( tooltip ) {
 	      element.append("title").text(tooltip);
 	    }
 	  }
-	  
+
 	  function addBackgroundColor( element, backgroundColor ){
 	    if ( backgroundColor ) {
 	      element.style("fill", backgroundColor);
 	    }
 	  }
-	  
+
 	  /**
 	   * Appends a rectangular class node with the passed attributes.
 	   * @param parent the parent element to which the rectangle will be appended
@@ -1515,20 +1521,20 @@ webvowl =
 	      .attr("y", -height / 2)
 	      .attr("width", width)
 	      .attr("height", height);
-	    
+
 	    addCssClasses(rectangle, cssClasses);
 	    addToolTip(rectangle, tooltip);
 	    addBackgroundColor(rectangle, backgroundColor);
-	    
+
 	    return rectangle;
 	  };
-	  
+
 	  tools.drawPin = function ( container, dx, dy, onClick, accuraciesHelperFunction, useAccuracyHelper ){
 	    var pinGroupElement = container
 	      .append("g")
 	      .classed("hidden-in-export", true)
 	      .attr("transform", "translate(" + dx + "," + dy + ")");
-	    
+
 	    var base = pinGroupElement.append("circle")
 	      .classed("class pin feature", true)
 	      .attr("r", 12)
@@ -1538,13 +1544,13 @@ webvowl =
 	        }
 	        d3.event.stopPropagation();
 	      });
-	    
+
 	    pinGroupElement.append("line")
 	      .attr("x1", 0)
 	      .attr("x2", 0)
 	      .attr("y1", 12)
 	      .attr("y2", 16);
-	    
+
 	    if ( useAccuracyHelper === true ) {
 	      pinGroupElement.append("circle")
 	        .attr("r", 15)
@@ -1565,29 +1571,29 @@ webvowl =
 	          base.classed("feature_hover", false);
 	        })
 	      ;
-	      
+
 	    }
-	    
-	    
+
+
 	    return pinGroupElement;
 	  };
-	  
+
 	  tools.drawRectHalo = function ( node, width, height, offset ){
 	    var container;
 	    if ( node.nodeElement )
 	      container = node.nodeElement();
 	    else
 	      container = node.labelElement();
-	    
+
 	    if ( !container ) {
 	      // console.log("no container found");
 	      return;
 	    }
-	    
+
 	    var haloGroupElement = container
 	      .append("g")
 	      .classed("hidden-in-export", true);
-	    
+
 	    haloGroupElement.append("rect")
 	      .classed("searchResultA", true)
 	      .attr("x", (-width - offset) / 2)
@@ -1595,7 +1601,7 @@ webvowl =
 	      .attr("width", width + offset)
 	      .attr("height", height + offset);
 	    haloGroupElement.attr("animationRunning", true);
-	    
+
 	    haloGroupElement.node().addEventListener("webkitAnimationEnd", function (){
 	      var test = haloGroupElement.selectAll(".searchResultA");
 	      test.classed("searchResultA", false)
@@ -1608,10 +1614,10 @@ webvowl =
 	        .classed("searchResultB", true);
 	      haloGroupElement.attr("animationRunning", false);
 	    });
-	    
-	    
+
+
 	    return haloGroupElement;
-	    
+
 	  };
 	  tools.drawHalo = function ( container, radius ){
 	    if ( container === undefined ) {
@@ -1619,18 +1625,18 @@ webvowl =
 	      // there is no element to add the halo to;
 	      // this means the node was not rendered previously
 	    }
-	    
+
 	    var haloGroupElement = container
 	      .append("g")
 	      .classed("hidden-in-export", true);
-	    
-	    
+
+
 	    haloGroupElement.append("circle", ":first-child")
 	      .classed("searchResultA", true)
 	      .attr("r", radius + 15);
 	    haloGroupElement.attr("animationRunning", true);
-	    
-	    
+
+
 	    haloGroupElement.node().addEventListener("webkitAnimationEnd", function (){
 	      var test = haloGroupElement.selectAll(".searchResultA");
 	      test.classed("searchResultA", false)
@@ -1645,10 +1651,10 @@ webvowl =
 	        .attr("animationRunning", false);
 	      haloGroupElement.attr("animationRunning", false);
 	    });
-	    
+
 	    return haloGroupElement;
 	  };
-	  
+
 	  return function (){
 	    // Encapsulate into function to maintain default.module.path()
 	    return tools;
@@ -1664,15 +1670,15 @@ webvowl =
 	var RoundNode = __webpack_require__(8);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    this.type("owl:Class");
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -1684,21 +1690,21 @@ webvowl =
 	var SetOperatorNode = __webpack_require__(20);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    SetOperatorNode.apply(this, arguments);
-	    
+
 	    var that = this,
 	      superDrawFunction = that.draw;
-	    
+
 	    this.styleClass("complementof")
 	      .type("owl:complementOf");
-	    
+
 	    this.draw = function ( element ){
 	      superDrawFunction(element);
-	      
+
 	      var symbol = element.append("g").classed("embedded", true);
-	      
+
 	      symbol.append("circle")
 	        .attr("class", "symbol")
 	        .classed("fineline", true)
@@ -1707,16 +1713,16 @@ webvowl =
 	        .attr("class", "nofill")
 	        .attr("d", "m -7,-1.5 12,0 0,6")
 	        .attr("transform", "scale(.5)");
-	      
+
 	      symbol.attr("transform",
 	        "translate(-" + (that.radius() - 15) / 100 + ",-" + (that.radius() - 15) / 100 + ")");
-	      
+
 	      that.postDrawActions();
 	    };
 	  };
 	  o.prototype = Object.create(SetOperatorNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -1731,17 +1737,17 @@ webvowl =
 	var drawTools = __webpack_require__(17)();
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    var that = this,
 	      superHoverHighlightingFunction = that.setHoverHighlighting,
 	      superPostDrawActions = that.postDrawActions;
-	    
+
 	    this.setHoverHighlighting = function ( enable ){
 	      superHoverHighlightingFunction(enable);
-	      
+
 	      // Highlight links pointing to included nodes when hovering the set operator
 	      that.links()
 	        .filter(function ( link ){
@@ -1754,32 +1760,32 @@ webvowl =
 	          link.property().setHighlighting(enable);
 	        });
 	    };
-	    
+
 	    this.draw = function ( element ){
 	      that.nodeElement(element);
-	      
+
 	      drawTools.appendCircularClass(element, that.actualRadius(),
 	        that.collectCssClasses().join(" "),
 	        that.labelForCurrentLanguage(), that.backgroundColor());
 	    };
-	    
+
 	    this.postDrawActions = function (){
 	      superPostDrawActions();
 	      that.textBlock().remove();
-	      
+
 	      var textElement = new AbsoluteTextElement(that.nodeElement(), that.backgroundColor());
-	      
+
 	      var equivalentsString = that.equivalentsString();
 	      var offsetForFollowingEquivalents = equivalentsString ? -30 : -17;
 	      var suffixForFollowingEquivalents = equivalentsString ? "," : "";
 	      textElement.addText(that.labelForCurrentLanguage(), offsetForFollowingEquivalents, "",
 	        suffixForFollowingEquivalents);
-	      
+
 	      textElement.addEquivalents(equivalentsString, -17);
-	      
-	      
+
+
 	      if ( !graph.options().compactNotation() ) {
-	        
+
 	        if ( that.indicationString().length > 0 ) {
 	          textElement.addSubText(that.indicationString(), 17);
 	          textElement.addInstanceCount(that.individuals().length, 30);
@@ -1789,13 +1795,13 @@ webvowl =
 	      } else {
 	        textElement.addInstanceCount(that.individuals().length, 17);
 	      }
-	      
+
 	      that.textBlock(textElement);
 	    };
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -1842,7 +1848,7 @@ webvowl =
 
 	AbsoluteTextElement.prototype.addTextline = function ( text, style, yShift, prefix, postfix ){
 	  var truncatedText = textTools.truncate(text, this._textBlock().datum().textWidth(yShift), style);
-	  
+
 	  var tspan = this._textBlock().append("tspan")
 	    .classed(this.CSS_CLASSES.default, true)
 	    .classed(style, true)
@@ -1854,10 +1860,10 @@ webvowl =
 	AbsoluteTextElement.prototype._repositionTextLine = function ( tspan, yShift ){
 	  var fontSizeProperty = window.getComputedStyle(tspan.node()).getPropertyValue("font-size");
 	  var fontSize = parseFloat(fontSizeProperty);
-	  
+
 	  /* BBox height is not supported in Firefox for tspans and dominant-baseline doesn't work in some SVG editors */
 	  var approximatedShiftForVerticalCentering = (1 / 3) * fontSize;
-	  
+
 	  tspan.attr("y", approximatedShiftForVerticalCentering + (yShift || 0) + "px");
 	};
 
@@ -1882,14 +1888,14 @@ webvowl =
 	BoxArrowLink.prototype.draw = function ( linkGroup, markerContainer ){
 	  var property = this.label().property();
 	  var inverse = this.label().inverse();
-	  
+
 	  createPropertyMarker(markerContainer, property);
 	  if ( inverse ) {
 	    createInverseMarker(markerContainer, inverse);
 	  }
-	  
+
 	  PlainLink.prototype.draw.apply(this, arguments);
-	  
+
 	  // attach the markers to the link
 	  linkGroup.attr("marker-start", "url(#" + property.markerId() + ")");
 	  if ( inverse ) {
@@ -1904,7 +1910,7 @@ webvowl =
 	  inverseMarker.append("path")
 	    .attr("d", "M0,-8L8,0L0,8L-8,0L0,-8L8,0")
 	    .classed(inverse.markerType(), true);
-	  
+
 	  inverse.markerElement(inverseMarker);
 	}
 
@@ -1914,7 +1920,7 @@ webvowl =
 	  marker.append("path")
 	    .attr("d", "M0,-8L8,0L0,8L-8,0L0,-8L8,0")
 	    .classed(property.markerType(), true);
-	  
+
 	  property.markerElement(marker);
 	}
 
@@ -1953,48 +1959,48 @@ webvowl =
 	    loopIndex,
 	    pathEl,
 	    label = new Label(property, this);
-	  
+
 	  var backPart = __webpack_require__(25)(domain, label, this),
 	    frontPart = __webpack_require__(25)(label, range, this);
-	  
-	  
+
+
 	  this.layers = function ( p ){
 	    if ( !arguments.length ) return layers;
 	    layers = p;
 	    return this;
 	  };
-	  
+
 	  this.layerIndex = function ( p ){
 	    if ( !arguments.length ) return layerIndex;
 	    layerIndex = p;
 	    return this;
 	  };
-	  
+
 	  this.loops = function ( p ){
 	    if ( !arguments.length ) return loops;
 	    loops = p;
 	    return this;
 	  };
-	  
+
 	  this.loopIndex = function ( p ){
 	    if ( !arguments.length ) return loopIndex;
 	    loopIndex = p;
 	    return this;
 	  };
-	  
-	  
+
+
 	  this.domain = function (){
 	    return domain;
 	  };
-	  
+
 	  this.label = function (){
 	    return label;
 	  };
-	  
+
 	  this.linkParts = function (){
 	    return [frontPart, backPart];
 	  };
-	  
+
 	  this.range = function (){
 	    return range;
 	  };
@@ -2010,19 +2016,19 @@ webvowl =
 	PlainLink.prototype.draw = function ( linkGroup ){
 	  var property = this.label().property();
 	  var inverse = this.label().inverse();
-	  
+
 	  property.linkGroup(linkGroup);
 	  if ( inverse ) {
 	    inverse.linkGroup(linkGroup);
 	  }
-	  
+
 	  var pathElement = linkGroup.append("path");
 	  pathElement.classed("link-path", true)
 	    .classed(this.domain().cssClassOfNode(), true)
 	    .classed(this.range().cssClassOfNode(), true)
 	    .classed(property.linkType(), true);
 	  this.pathObj(pathElement);
-	  
+
 	};
 
 
@@ -2056,11 +2062,11 @@ webvowl =
 	  this.link = function (){
 	    return link;
 	  };
-	  
+
 	  this.property = function (){
 	    return property;
 	  };
-	  
+
 	  // "Forward" the fixed value set on the property to avoid having to access this container
 	  Object.defineProperty(this, "fixed", {
 	    get: function (){
@@ -2093,17 +2099,17 @@ webvowl =
 	  if ( !other ) {
 	    return false;
 	  }
-	  
+
 	  var instance = other instanceof Label;
 	  var equalProperty = this.property().equals(other.property());
-	  
+
 	  var equalInverse = false;
 	  if ( this.inverse() ) {
 	    equalInverse = this.inverse().equals(other.inverse());
 	  } else if ( !other.inverse() ) {
 	    equalInverse = true;
 	  }
-	  
+
 	  return instance && equalProperty && equalInverse;
 	};
 
@@ -2124,27 +2130,27 @@ webvowl =
 	    domain = _domain,
 	    link = _link,
 	    range = _range;
-	  
+
 	  // Define d3 properties
 	  Object.defineProperties(linkPart, {
 	    "source": { value: domain, writable: true },
 	    "target": { value: range, writable: true }
 	  });
-	  
-	  
+
+
 	  linkPart.domain = function (){
 	    return domain;
 	  };
-	  
+
 	  linkPart.link = function (){
 	    return link;
 	  };
-	  
+
 	  linkPart.range = function (){
 	    return range;
 	  };
-	  
-	  
+
+
 	  return linkPart;
 	};
 
@@ -2156,10 +2162,10 @@ webvowl =
 	var RoundNode = __webpack_require__(8);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    this.attributes(["deprecated"])
 	      .type("owl:DeprecatedClass")
 	      .styleClass("deprecated")
@@ -2167,7 +2173,7 @@ webvowl =
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2179,21 +2185,21 @@ webvowl =
 	var SetOperatorNode = __webpack_require__(20);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    SetOperatorNode.apply(this, arguments);
-	    
+
 	    var that = this,
 	      superDrawFunction = that.draw;
-	    
+
 	    this.styleClass("disjointunionof")
 	      .type("owl:disjointUnionOf");
-	    
+
 	    this.draw = function ( element ){
 	      superDrawFunction(element);
-	      
+
 	      var symbol = element.append("g").classed("embedded", true);
-	      
+
 	      var symbolRadius = 10;
 	      symbol.append("circle")
 	        .attr("class", "symbol")
@@ -2211,15 +2217,15 @@ webvowl =
 	        .attr("class", "link")
 	        .text("1")
 	        .attr("transform", "scale(.7)translate(3,5)");
-	      
+
 	      symbol.attr("transform", "translate(-" + (that.radius() - 15) / 7 + ",-" + (that.radius() - 15) / 100 + ")");
-	      
+
 	      that.postDrawActions();
 	    };
 	  };
 	  o.prototype = Object.create(SetOperatorNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2232,27 +2238,27 @@ webvowl =
 	var drawTools = __webpack_require__(17)();
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    var CIRCLE_SIZE_DIFFERENCE = 4;
 	    var renderingElement;
 	    var that = this,
 	      superActualRadiusFunction = that.actualRadius;
-	    
+
 	    this.styleClass("equivalentclass")
 	      .type("owl:equivalentClass");
-	    
+
 	    this.actualRadius = function (){
 	      return superActualRadiusFunction() + CIRCLE_SIZE_DIFFERENCE;
 	    };
-	    
+
 	    this.redrawElement = function (){
 	      renderingElement.remove();
 	      that.textBlock().remove();
 	      var bgColor = that.backgroundColor();
-	      
+
 	      if ( that.attributes().indexOf("deprecated") > -1 ) {
 	        bgColor = undefined;
 	      }
@@ -2268,14 +2274,14 @@ webvowl =
 	        console.log(that.attributes());
 	        console.log("what is bgColor" + bgColor);
 	        drawTools.appendCircularClass(renderingElement, that.actualRadius() - CIRCLE_SIZE_DIFFERENCE, cssClasses, that.labelForCurrentLanguage(), bgColor);
-	        
+
 	      }
 	      that.postDrawActions(that.nodeElement());
-	      
+
 	    };
 	    this.draw = function ( parentElement ){
 	      var cssClasses = that.collectCssClasses();
-	      
+
 	      that.nodeElement(parentElement);
 	      renderingElement = parentElement.append("g");
 	      var bgColor = that.backgroundColor();
@@ -2289,12 +2295,12 @@ webvowl =
 	      } else {
 	        drawTools.appendCircularClass(renderingElement, that.actualRadius(), ["white", "embedded"]);
 	        drawTools.appendCircularClass(renderingElement, that.actualRadius() - CIRCLE_SIZE_DIFFERENCE, cssClasses, that.labelForCurrentLanguage(), bgColor);
-	        
+
 	      }
-	      
+
 	      that.postDrawActions();
 	    };
-	    
+
 	    /**
 	     * Sets the hover highlighting of this node.
 	     * @param enable
@@ -2305,7 +2311,7 @@ webvowl =
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2317,22 +2323,22 @@ webvowl =
 	var SetOperatorNode = __webpack_require__(20);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    SetOperatorNode.apply(this, arguments);
-	    
+
 	    var that = this,
 	      superDrawFunction = that.draw,
 	      INTERSECTION_BACKGROUND_PATH = createIntersectionPath();
-	    
+
 	    this.styleClass("intersectionof")
 	      .type("owl:intersectionOf");
-	    
+
 	    this.draw = function ( element ){
 	      superDrawFunction(element);
-	      
+
 	      var symbol = element.append("g").classed("embedded", true);
-	      
+
 	      var symbolRadius = 10;
 	      symbol.append("path")
 	        .attr("class", "nostroke")
@@ -2352,33 +2358,33 @@ webvowl =
 	        .attr("d", "m 9,5 c 0,-2 0,-4 0,-6 0,0 0,0 0,0 0,0 0,-1.8 -1,-2.3 -0.7,-0.6 -1.7,-0.8 -2.9," +
 	          "-0.8 -1.2,0 -2,0 -3,0.8 -0.7,0.5 -1,1.4 -1,2.3 0,2 0,4 0,6")
 	        .attr("transform", "scale(.5)translate(5,0)");
-	      
+
 	      symbol.attr("transform",
 	        "translate(-" + (that.radius() - 15) / 7 + ",-" + (that.radius() - 15) / 100 + ")");
-	      
+
 	      that.postDrawActions();
 	    };
-	    
+
 	    function createIntersectionPath(){
 	      var height = 18;
-	      
+
 	      var offsetX = 5;
 	      var offsetY = -(height / 2);
-	      
+
 	      var bezierX = 7;
 	      var bezierY = 5;
 	      var bottomBezierY = height - bezierY;
-	      
+
 	      var startPosition = "M" + offsetX + "," + offsetY;
 	      var rightSide = "c" + bezierX + "," + bezierY + " " + bezierX + "," + bottomBezierY + " 0," + height;
 	      var leftSide = "c" + -bezierX + "," + -bezierY + " " + -bezierX + "," + -bottomBezierY + " 0," + -height;
-	      
+
 	      return startPosition + rightSide + leftSide;
 	    }
 	  };
 	  o.prototype = Object.create(SetOperatorNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2390,17 +2396,17 @@ webvowl =
 	var OwlThing = __webpack_require__(31);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    OwlThing.apply(this, arguments);
-	    
+
 	    this.label("Nothing")
 	      .type("owl:Nothing")
 	      .iri("http://www.w3.org/2002/07/owl#Nothing");
 	  };
 	  o.prototype = Object.create(OwlThing.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2412,24 +2418,24 @@ webvowl =
 	var RoundNode = __webpack_require__(8);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    var superDrawFunction = this.draw;
-	    
+
 	    this.label("Thing")
 	      .type("owl:Thing")
 	      .iri("http://www.w3.org/2002/07/owl#Thing")
 	      .radius(30);
-	    
+
 	    this.draw = function ( element ){
 	      superDrawFunction(element, ["white", "dashed"]);
 	    };
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2441,21 +2447,21 @@ webvowl =
 	var SetOperatorNode = __webpack_require__(20);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    SetOperatorNode.apply(this, arguments);
-	    
+
 	    var that = this,
 	      superDrawFunction = that.draw;
-	    
+
 	    this.styleClass("unionof")
 	      .type("owl:unionOf");
-	    
+
 	    this.draw = function ( element ){
 	      superDrawFunction(element);
-	      
+
 	      var symbol = element.append("g").classed("embedded", true);
-	      
+
 	      var symbolRadius = 10;
 	      symbol.append("circle")
 	        .attr("class", "symbol")
@@ -2473,15 +2479,15 @@ webvowl =
 	        .attr("class", "link")
 	        .attr("d", "m 1,-3 c 0,2 0,4 0,6 0,0 0,0 0,0 0,2 2,3 4,3 2,0 4,-1 4,-3 0,-2 0,-4 0,-6")
 	        .attr("transform", "scale(.5)translate(5,0)");
-	      
+
 	      symbol.attr("transform", "translate(-" + (that.radius() - 15) / 7 + ",-" + (that.radius() - 15) / 100 + ")");
-	      
+
 	      that.postDrawActions();
 	    };
 	  };
 	  o.prototype = Object.create(SetOperatorNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2493,16 +2499,16 @@ webvowl =
 	var RoundNode = __webpack_require__(8);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    this.attributes(["rdf"])
 	      .type("rdfs:Class");
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2514,7 +2520,7 @@ webvowl =
 	var DatatypeNode = __webpack_require__(35);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    DatatypeNode.apply(this, arguments);
 	    var dTypeString = "undefined";
@@ -2524,12 +2530,12 @@ webvowl =
 	    this.dType = function ( val ){
 	      if ( !arguments.length ) return dTypeString;
 	      dTypeString = val;
-	      
+
 	    };
 	  };
 	  o.prototype = Object.create(DatatypeNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2541,13 +2547,13 @@ webvowl =
 	var RectangularNode = __webpack_require__(36);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RectangularNode.apply(this, arguments);
 	  };
 	  o.prototype = Object.create(RectangularNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2562,10 +2568,10 @@ webvowl =
 	var rectangularElementTools = __webpack_require__(37)();
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseNode.apply(this, arguments);
-	    
+
 	    var that = this,
 	      height = 20,
 	      width = 60,
@@ -2577,7 +2583,7 @@ webvowl =
 	      shapeElement,
 	      textBlock,
 	      smallestRadius = height / 2;
-	    
+
 	    that.renderType("rect");
 	    // Properties
 	    this.height = function ( p ){
@@ -2585,64 +2591,64 @@ webvowl =
 	      height = p;
 	      return this;
 	    };
-	    
+
 	    this.width = function ( p ){
 	      if ( !arguments.length ) return width;
 	      width = p;
 	      return this;
 	    };
-	    
+
 	    this.getHalos = function (){
 	      return haloGroupElement;
 	    };
-	    
+
 	    // Functions
 	    // for compatibility reasons // TODO resolve
 	    this.actualRadius = function (){
 	      return smallestRadius;
 	    };
-	    
+
 	    this.distanceToBorder = function ( dx, dy ){
 	      return rectangularElementTools.distanceToBorder(that, dx, dy);
 	    };
-	    
+
 	    this.setHoverHighlighting = function ( enable ){
 	      that.nodeElement().selectAll("rect").classed("hovered", enable);
-	      
+
 	      var haloGroup = that.getHalos();
 	      if ( haloGroup ) {
 	        var test = haloGroup.selectAll(".searchResultA");
 	        test.classed("searchResultA", false);
 	        test.classed("searchResultB", true);
 	      }
-	      
+
 	    };
-	    
-	    
+
+
 	    // overwrite the labelWith;
-	    
-	    
+
+
 	    this.textWidth = function (){
 	      return labelWidth;
 	    };
 	    this.width = function (){
 	      return labelWidth;
 	    };
-	    
+
 	    this.getMyWidth = function (){
 	      // use a simple heuristic
 	      var text = that.labelForCurrentLanguage();
 	      myWidth = measureTextWidth(text, "text") + 20;
-	      
+
 	      // check for sub names;
 	      var indicatorText = that.indicationString();
 	      var indicatorWidth = measureTextWidth(indicatorText, "subtext") + 20;
 	      if ( indicatorWidth > myWidth )
 	        myWidth = indicatorWidth;
-	      
+
 	      return myWidth;
 	    };
-	    
+
 	    this.textWidth = function (){
 	      return that.width();
 	    };
@@ -2661,14 +2667,14 @@ webvowl =
 	      d.remove();
 	      return w;
 	    }
-	    
+
 	    this.toggleFocus = function (){
 	      that.focused(!that.focused());
 	      that.nodeElement().select("rect").classed("focused", that.focused());
 	      graph.resetSearchHighlight();
 	      graph.options().searchMenu().clearText();
 	    };
-	    
+
 	    /**
 	     * Draws the rectangular node.
 	     * @param parentElement the element to which this node will be appended
@@ -2676,26 +2682,26 @@ webvowl =
 	     */
 	    this.draw = function ( parentElement, additionalCssClasses ){
 	      var cssClasses = that.collectCssClasses();
-	      
+
 	      that.nodeElement(parentElement);
-	      
+
 	      if ( additionalCssClasses instanceof Array ) {
 	        cssClasses = cssClasses.concat(additionalCssClasses);
 	      }
-	      
+
 	      // set the value for that.width()
 	      // update labelWidth Value;
 	      if ( graph.options().dynamicLabelWidth() === true ) labelWidth = Math.min(that.getMyWidth(), graph.options().maxLabelWidth());
 	      else                              labelWidth = defaultWidth;
-	      
+
 	      width = labelWidth;
 	      shapeElement = drawTools.appendRectangularClass(parentElement, that.width(), that.height(), cssClasses, that.labelForCurrentLanguage(), that.backgroundColor());
-	      
+
 	      textBlock = new CenteringTextElement(parentElement, that.backgroundColor());
 	      textBlock.addText(that.labelForCurrentLanguage());
-	      
+
 	      that.addMouseListeners();
-	      
+
 	      if ( that.pinned() ) {
 	        that.drawPin();
 	      }
@@ -2703,7 +2709,7 @@ webvowl =
 	        that.drawHalo(false);
 	      }
 	    };
-	    
+
 	    this.drawPin = function (){
 	      that.pinned(true);
 	      // if (graph.options().dynamicLabelWidth()===true) labelWidth=that.getMyWidth();
@@ -2712,11 +2718,11 @@ webvowl =
 	      // console.log("this element label Width is "+labelWidth);
 	      var dx = -0.5 * labelWidth + 5,
 	        dy = -1.1 * height;
-	      
+
 	      pinGroupElement = drawTools.drawPin(that.nodeElement(), dx, dy, this.removePin, graph.options().showDraggerObject, graph.options().useAccuracyHelper());
-	      
+
 	    };
-	    
+
 	    this.removePin = function (){
 	      that.pinned(false);
 	      if ( pinGroupElement ) {
@@ -2724,7 +2730,7 @@ webvowl =
 	      }
 	      graph.updateStyle();
 	    };
-	    
+
 	    this.removeHalo = function (){
 	      that.halo(false);
 	      if ( haloGroupElement ) {
@@ -2732,37 +2738,37 @@ webvowl =
 	        haloGroupElement = null;
 	      }
 	    };
-	    
+
 	    this.drawHalo = function ( pulseAnimation ){
 	      that.halo(true);
-	      
+
 	      var offset = 0;
 	      haloGroupElement = drawTools.drawRectHalo(that, this.width(), this.height(), offset);
-	      
+
 	      if ( pulseAnimation === false ) {
 	        var pulseItem = haloGroupElement.selectAll(".searchResultA");
 	        pulseItem.classed("searchResultA", false);
 	        pulseItem.classed("searchResultB", true);
 	        pulseItem.attr("animationRunning", false);
 	      }
-	      
+
 	      if ( that.pinned() ) {
 	        var selectedNode = pinGroupElement.node();
 	        var nodeContainer = selectedNode.parentNode;
 	        nodeContainer.appendChild(selectedNode);
 	      }
-	      
+
 	    };
-	    
+
 	    this.updateTextElement = function (){
 	      textBlock.updateAllTextElements();
-	      
+
 	    };
-	    
+
 	    this.textBlock = function (){
 	      return textBlock;
 	    };
-	    
+
 	    this.redrawLabelText = function (){
 	      textBlock.remove();
 	      textBlock = new CenteringTextElement(that.nodeElement(), that.backgroundColor());
@@ -2770,7 +2776,7 @@ webvowl =
 	      that.animateDynamicLabelWidth(graph.options().dynamicLabelWidth());
 	      shapeElement.select("title").text(that.labelForCurrentLanguage());
 	    };
-	    
+
 	    this.animateDynamicLabelWidth = function ( dynamic ){
 	      that.removeHalo();
 	      var height = that.height();
@@ -2784,7 +2790,7 @@ webvowl =
 	          .each("end", function (){
 	            that.updateTextElement();
 	          });
-	        
+
 	      } else {
 	        labelWidth = defaultWidth;
 	        that.updateTextElement();
@@ -2793,15 +2799,15 @@ webvowl =
 	          .ease('linear')
 	          .duration(100)
 	          .attr({ x: -labelWidth / 2, y: -height / 2, width: labelWidth, height: height });
-	        
+
 	      }
-	      
+
 	      // for the pin we dont need to differ between different widths -- they are already set
 	      if ( that.pinned() === true && pinGroupElement ) {
-	        
+
 	        var dx = 0.5 * labelWidth - 10,
 	          dy = -1.1 * height;
-	        
+
 	        pinGroupElement.transition()
 	          .tween("attr.translate", function (){
 	          })
@@ -2810,18 +2816,18 @@ webvowl =
 	          .duration(100);
 	      }
 	    };
-	    
+
 	    this.addTextLabelElement = function (){
 	      var parentElement = that.nodeElement();
 	      textBlock = new CenteringTextElement(parentElement, this.backgroundColor());
 	      textBlock.addText(that.labelForCurrentLanguage());
 	    };
-	    
-	    
+
+
 	  };
 	  o.prototype = Object.create(BaseNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2839,11 +2845,11 @@ webvowl =
 	tools.distanceToBorder = function ( rect, dx, dy ){
 	  var width = rect.width(),
 	    height = rect.height();
-	  
+
 	  var innerDistance,
 	    m_link = Math.abs(dy / dx),
 	    m_rect = height / width;
-	  
+
 	  if ( m_link <= m_rect ) {
 	    var timesX = dx / (width / 2),
 	      rectY = dy / timesX;
@@ -2853,7 +2859,7 @@ webvowl =
 	      rectX = dx / timesY;
 	    innerDistance = Math.sqrt(Math.pow(height / 2, 2) + Math.pow(rectX, 2));
 	  }
-	  
+
 	  return innerDistance;
 	};
 
@@ -2865,23 +2871,23 @@ webvowl =
 	var DatatypeNode = __webpack_require__(35);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    DatatypeNode.apply(this, arguments);
-	    
+
 	    var superDrawFunction = this.draw,
 	      superLabelFunction = this.label;
-	    
+
 	    this.attributes(["datatype"])
 	      .label("Literal")
 	      .styleClass("literal")
 	      .type("rdfs:Literal")
 	      .iri("http://www.w3.org/2000/01/rdf-schema#Literal");
-	    
+
 	    this.draw = function ( element ){
 	      superDrawFunction(element, ["dashed"]);
 	    };
-	    
+
 	    this.label = function ( p ){
 	      if ( !arguments.length ) return superLabelFunction();
 	      return this;
@@ -2889,7 +2895,7 @@ webvowl =
 	  };
 	  o.prototype = Object.create(DatatypeNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2901,25 +2907,25 @@ webvowl =
 	var RoundNode = __webpack_require__(8);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    RoundNode.apply(this, arguments);
-	    
+
 	    var superDrawFunction = this.draw;
-	    
+
 	    this.attributes(["rdf"])
 	      .label("Resource")
 	      .radius(30)
 	      .styleClass("rdfsresource")
 	      .type("rdfs:Resource");
-	    
+
 	    this.draw = function ( element ){
 	      superDrawFunction(element, ["rdf", "dashed"]);
 	    };
 	  };
 	  o.prototype = Object.create(RoundNode.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -2961,31 +2967,31 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    var superGenerateCardinalityText = this.generateCardinalityText;
-	    
+
 	    this.linkType("values-from")
 	      .markerType("filled values-from")
 	      .styleClass("allvaluesfromproperty")
 	      .type("owl:allValuesFrom");
-	    
+
 	    this.generateCardinalityText = function (){
 	      var cardinalityText = "A";
-	      
+
 	      var superCardinalityText = superGenerateCardinalityText();
 	      if ( superCardinalityText ) {
 	        cardinalityText += ", " + superCardinalityText;
 	      }
-	      
+
 	      return cardinalityText;
 	    };
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -3004,17 +3010,17 @@ webvowl =
 	var math = __webpack_require__(43)();
 
 	module.exports = (function (){
-	  
+
 	  // Static variables
 	  var labelHeight = 28,
 	    labelWidth = 80,
 	    smallestRadius = labelHeight / 2;
-	  
-	  
+
+
 	  // Constructor, private variables and privileged methods
 	  var Base = function ( graph ){
 	    BaseElement.apply(this, arguments);
-	    
+
 	    var that = this,
 	      // Basic attributes
 	      cardinality,
@@ -3046,18 +3052,18 @@ webvowl =
 	      textElement,
 	      parent_labelObject,
 	      backupFullIri,
-	      
+
 	      redundantProperties = [];
-	    
-	    
+
+
 	    this.existingPropertyIRI = function ( url ){
 	      return graph.options().editSidebar().checkForExistingURL(url);
 	    };
-	    
+
 	    this.getHalos = function (){
 	      return haloGroupElement;
 	    };
-	    
+
 	    this.getPin = function (){
 	      return pinGroupElement;
 	    };
@@ -3070,7 +3076,7 @@ webvowl =
 	        if ( that.inverse() && once !== true ) {
 	          that.inverse().labelObject(lo, true);
 	        }
-	        
+
 	      }
 	    };
 	    this.hide = function ( val ){
@@ -3079,124 +3085,124 @@ webvowl =
 	      if ( that.cardinalityElement() )
 	        that.cardinalityElement().classed("hidden", val);
 	    };
-	    
+
 	    // Properties
 	    this.cardinality = function ( p ){
 	      if ( !arguments.length ) return cardinality;
 	      cardinality = p;
 	      return this;
 	    };
-	    
+
 	    this.cardinalityElement = function ( p ){
 	      if ( !arguments.length ) return cardinalityElement;
 	      cardinalityElement = p;
 	      return this;
 	    };
-	    
+
 	    this.domain = function ( p ){
 	      if ( !arguments.length ) return domain;
 	      domain = p;
 	      return this;
 	    };
-	    
+
 	    this.inverse = function ( p ){
 	      if ( !arguments.length ) return inverse;
 	      inverse = p;
 	      return this;
 	    };
-	    
+
 	    this.labelElement = function ( p ){
 	      if ( !arguments.length ) return labelElement;
 	      labelElement = p;
 	      return this;
 	    };
-	    
+
 	    this.labelVisible = function ( p ){
 	      if ( !arguments.length ) return labelVisible;
 	      labelVisible = p;
 	      return this;
 	    };
-	    
+
 	    this.link = function ( p ){
 	      if ( !arguments.length ) return link;
 	      link = p;
 	      return this;
 	    };
-	    
+
 	    this.linkGroup = function ( p ){
 	      if ( !arguments.length ) return linkGroup;
 	      linkGroup = p;
 	      return this;
 	    };
-	    
+
 	    this.linkType = function ( p ){
 	      if ( !arguments.length ) return linkType;
 	      linkType = p;
 	      return this;
 	    };
-	    
+
 	    this.markerElement = function ( p ){
 	      if ( !arguments.length ) return markerElement;
 	      markerElement = p;
 	      return this;
 	    };
-	    
+
 	    this.markerType = function ( p ){
 	      if ( !arguments.length ) return markerType;
 	      markerType = p;
 	      return this;
 	    };
-	    
+
 	    this.maxCardinality = function ( p ){
 	      if ( !arguments.length ) return maxCardinality;
 	      maxCardinality = p;
 	      return this;
 	    };
-	    
+
 	    this.minCardinality = function ( p ){
 	      if ( !arguments.length ) return minCardinality;
 	      minCardinality = p;
 	      return this;
 	    };
-	    
+
 	    this.range = function ( p ){
 	      if ( !arguments.length ) return range;
 	      range = p;
 	      return this;
 	    };
-	    
+
 	    this.redundantProperties = function ( p ){
 	      if ( !arguments.length ) return redundantProperties;
 	      redundantProperties = p;
 	      return this;
 	    };
-	    
+
 	    this.subproperties = function ( p ){
 	      if ( !arguments.length ) return subproperties;
 	      subproperties = p;
 	      return this;
 	    };
-	    
+
 	    this.superproperties = function ( p ){
 	      if ( !arguments.length ) return superproperties;
 	      superproperties = p;
 	      return this;
 	    };
-	    
-	    
+
+
 	    // Functions
 	    this.distanceToBorder = function ( dx, dy ){
 	      return rectangularElementTools.distanceToBorder(that, dx, dy);
 	    };
-	    
+
 	    this.linkHasMarker = function (){
 	      return linkType !== "dashed";
 	    };
-	    
+
 	    this.markerId = function (){
 	      return "marker" + that.id();
 	    };
-	    
+
 	    this.toggleFocus = function (){
 	      that.focused(!that.focused());
 	      labelElement.select("rect").classed("focused", that.focused());
@@ -3206,19 +3212,19 @@ webvowl =
 	    this.getShapeElement = function (){
 	      return shapeElement;
 	    };
-	    
+
 	    this.textBlock = function (){
 	      return textElement;
 	    };
-	    
+
 	    this.redrawElement = function (){
 	      shapeElement.remove();
 	      textElement.remove();
-	      
+
 	      that.drawLabel(that.labelElement());
 	      that.animateDynamicLabelWidth(graph.options().dynamicLabelWidth());
-	      
-	      
+
+
 	      // shapeElement=this.addRect(that.labelElement());
 	      //
 	      // var equivalentsString = that.equivalentsString();
@@ -3228,9 +3234,9 @@ webvowl =
 	      // textElement.addText(this.labelForCurrentLanguage(), "", suffixForFollowingEquivalents);
 	      // textElement.addEquivalents(equivalentsString);
 	      // textElement.addSubText(this.indicationString());
-	      
+
 	    };
-	    
+
 	    // Reused functions TODO refactor
 	    this.draw = function ( labelGroup ){
 	      function attachLabel( property ){
@@ -3238,43 +3244,43 @@ webvowl =
 	          .datum(property)
 	          .classed("label", true)
 	          .attr("id", property.id());
-	        
+
 	        property.drawLabel(labelContainer);
 	        return labelContainer;
 	      }
-	      
+
 	      if ( !that.labelVisible() ) {
 	        return undefined;
 	      }
 	      if ( graph.options().dynamicLabelWidth() === true ) myWidth = Math.min(that.getMyWidth(), graph.options().maxLabelWidth());
 	      else                              myWidth = defaultWidth;
-	      
+
 	      that.labelElement(attachLabel(that));
 	      // Draw an inverse label and reposition both labels if necessary
 	      if ( that.inverse() ) {
 	        var yTransformation = (that.height() / 2) + 1 /* additional space */;
 	        that.inverse()
 	          .labelElement(attachLabel(that.inverse()));
-	        
+
 	        that.labelElement()
 	          .attr("transform", "translate(" + 0 + ",-" + yTransformation + ")");
 	        that.inverse()
 	          .labelElement()
 	          .attr("transform", "translate(" + 0 + "," + yTransformation + ")");
 	      }
-	      
+
 	      if ( that.pinned() ) {
 	        that.drawPin();
 	      } else if ( that.inverse() && that.inverse().pinned() ) {
 	        that.inverse().drawPin();
 	      }
-	      
+
 	      if ( that.halo() )
 	        that.drawHalo(false);
-	      
+
 	      return that.labelElement();
 	    };
-	    
+
 	    this.addRect = function ( labelContainer ){
 	      var rect = labelContainer.append("rect")
 	        .classed(that.styleClass(), true)
@@ -3289,16 +3295,16 @@ webvowl =
 	        .on("mouseout", function (){
 	          onMouseOut();
 	        });
-	      
+
 	      rect.append("title")
 	        .text(that.labelForCurrentLanguage());
-	      
+
 	      if ( that.visualAttributes() ) {
 	        rect.classed(that.visualAttributes(), true);
 	      }
-	      
+
 	      var bgColor = that.backgroundColor();
-	      
+
 	      if ( that.attributes().indexOf("deprecated") > -1 ) {
 	        bgColor = undefined;
 	        rect.classed("deprecatedproperty", true);
@@ -3311,10 +3317,10 @@ webvowl =
 	    };
 	    this.drawLabel = function ( labelContainer ){
 	      shapeElement = this.addRect(labelContainer);
-	      
+
 	      var equivalentsString = that.equivalentsString();
 	      var suffixForFollowingEquivalents = equivalentsString ? "," : "";
-	      
+
 	      var bgColor = that.backgroundColor();
 	      if ( that.attributes().indexOf("deprecated") > -1 ) {
 	        bgColor = undefined;
@@ -3324,13 +3330,13 @@ webvowl =
 	      textElement.addEquivalents(equivalentsString);
 	      textElement.addSubText(this.indicationString());
 	    };
-	    
+
 	    this.equivalentsString = function (){
 	      var equivalentProperties = that.equivalents();
 	      if ( !equivalentProperties ) {
 	        return;
 	      }
-	      
+
 	      return equivalentProperties
 	        .map(function ( property ){
 	          if ( property === undefined || typeof(property) === "string" ) { // @WORKAROUND
@@ -3340,14 +3346,14 @@ webvowl =
 	        })
 	        .join(", ");
 	    };
-	    
+
 	    this.drawCardinality = function ( container ){
 	      var cardinalityText = this.generateCardinalityText();
-	      
+
 	      if ( cardinalityText ) {
 	        that.cardinalityElement(container);
 	        if ( cardinalityText.indexOf("A") === 0 && cardinalityText.length === 1 ) {
-	          
+
 	          // replacing text elements to svg elements;
 	          container.classed("cardinality", true)
 	            .attr("text-anchor", "middle")
@@ -3379,7 +3385,7 @@ webvowl =
 	        return false;
 	      }
 	    };
-	    
+
 	    this.generateCardinalityText = function (){
 	      if ( that.cardinality() ) {
 	        return that.cardinality();
@@ -3389,7 +3395,7 @@ webvowl =
 	        return minBoundary + ".." + maxBoundary;
 	      }
 	    };
-	    
+
 	    that.setHighlighting = function ( enable ){
 	      if ( that.labelElement && that.labelElement() ) {
 	        that.labelElement().select("rect").classed("hovered", enable);
@@ -3404,20 +3410,20 @@ webvowl =
 	      }
 	      var subAndSuperProperties = getSubAndSuperProperties();
 	      subAndSuperProperties.forEach(function ( property ){
-	        
+
 	        if ( property.labelElement && property.labelElement() ) {
 	          property.labelElement().select("rect")
 	            .classed("indirect-highlighting", enable);
 	        }
-	        
+
 	      });
 	      var inversed = false;
-	      
+
 	      if ( graph.ignoreOtherHoverEvents() === false ) {
 	        if ( that.inverse() ) {
 	          inversed = true;
 	        }
-	        
+
 	        if ( graph.isTouchDevice() === false ) {
 	          graph.activateHoverElementsForProperties(enable, that, inversed);
 	        }
@@ -3434,7 +3440,7 @@ webvowl =
 	        }
 	      }
 	    };
-	    
+
 	    /**
 	     * Combines the sub- and superproperties into a single array, because
 	     * they're often used equivalently.
@@ -3442,17 +3448,17 @@ webvowl =
 	     */
 	    function getSubAndSuperProperties(){
 	      var properties = [];
-	      
+
 	      if ( that.subproperties() ) {
 	        properties = properties.concat(that.subproperties());
 	      }
 	      if ( that.superproperties() ) {
 	        properties = properties.concat(that.superproperties());
 	      }
-	      
+
 	      return properties;
 	    }
-	    
+
 	    /**
 	     * Foregrounds the property, its inverse and the link.
 	     */
@@ -3472,19 +3478,19 @@ webvowl =
 	      }
 	      linkContainer.appendChild(selectedLinkGroup);
 	    };
-	    
+
 	    /**
 	     * Foregrounds the sub- and superproperties of this property.
 	     * This is separated from the foreground-function to prevent endless loops.
 	     */
 	    function foregroundSubAndSuperProperties(){
 	      var subAndSuperProperties = getSubAndSuperProperties();
-	      
+
 	      subAndSuperProperties.forEach(function ( property ){
 	        if ( property.foreground ) property.foreground();
 	      });
 	    }
-	    
+
 	    function onMouseOver(){
 	      if ( that.mouseEntered() || ignoreLocalHoverEvents === true ) {
 	        return;
@@ -3494,38 +3500,38 @@ webvowl =
 	      that.foreground();
 	      foregroundSubAndSuperProperties();
 	    }
-	    
+
 	    function onMouseOut(){
 	      that.mouseEntered(false);
 	      that.setHighlighting(false);
 	    }
-	    
+
 	    this.drawPin = function (){
 	      that.pinned(true);
 	      if ( graph.options().dynamicLabelWidth() === true ) myWidth = that.getMyWidth();
 	      else                              myWidth = defaultWidth;
-	      
+
 	      if ( that.inverse() ) {
 	        // check which element is rendered on top and add a pin to it
 	        var tr_that = that.labelElement().attr("transform");
 	        var tr_inv = that.inverse().labelElement().attr("transform");
-	        
+
 	        var thatY = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(tr_that)[2];
 	        var invY = /translate\(\s*([^\s,)]+)[ ,]([^\s,)]+)/.exec(tr_inv)[2];
-	        
+
 	        if ( thatY < invY )
 	          pinGroupElement = drawTools.drawPin(that.labelElement(), -0.5 * that.width() + 10, -25, this.removePin, graph.options().showDraggerObject, graph.options().useAccuracyHelper());
 	        else
 	          pinGroupElement = drawTools.drawPin(that.inverse().labelElement(), -0.5 * that.inverse().width() + 10, -25, this.removePin, graph.options().showDraggerObject, graph.options().useAccuracyHelper());
-	        
+
 	      }
 	      else {
 	        pinGroupElement = drawTools.drawPin(that.labelElement(), -0.5 * that.width() + 10, -25, this.removePin, graph.options().showDraggerObject, graph.options().useAccuracyHelper());
 	      }
-	      
-	      
+
+
 	    };
-	    
+
 	    /**
 	     * Removes the pin and refreshs the graph to update the force layout.
 	     */
@@ -3536,7 +3542,7 @@ webvowl =
 	      }
 	      graph.updateStyle();
 	    };
-	    
+
 	    this.removeHalo = function (){
 	      that.halo(false);
 	      if ( haloGroupElement ) {
@@ -3544,14 +3550,14 @@ webvowl =
 	        haloGroupElement = null;
 	      }
 	    };
-	    
+
 	    this.animationProcess = function (){
 	      var animRuns = false;
 	      if ( that.getHalos() ) {
 	        var haloGr = that.getHalos();
 	        var haloEls = haloGr.selectAll(".searchResultA");
 	        animRuns = haloGr.attr("animationRunning");
-	        
+
 	        if ( typeof animRuns !== "boolean" ) {
 	          // parse this to a boolean value
 	          animRuns = (animRuns === 'true');
@@ -3563,7 +3569,7 @@ webvowl =
 	      }
 	      return animRuns;
 	    };
-	    
+
 	    this.drawHalo = function ( pulseAnimation ){
 	      that.halo(true);
 	      var offset = 0;
@@ -3601,7 +3607,7 @@ webvowl =
 	        pulseItem.attr("animationRunning", false);
 	      }
 	    };
-	    
+
 	    this.getMyWidth = function (){
 	      var text = that.labelForCurrentLanguage();
 	      myWidth = measureTextWidth(text, "text") + 20;
@@ -3610,10 +3616,10 @@ webvowl =
 	      var indicatorWidth = measureTextWidth(indicatorText, "subtext") + 20;
 	      if ( indicatorWidth > myWidth )
 	        myWidth = indicatorWidth;
-	      
+
 	      return myWidth;
 	    };
-	    
+
 	    function measureTextWidth( text, textStyle ){
 	      // Set a default value
 	      if ( !textStyle ) {
@@ -3629,20 +3635,20 @@ webvowl =
 	      d.remove();
 	      return w;
 	    }
-	    
+
 	    this.textWidth = function (){
 	      return myWidth;
 	    };
 	    this.width = function (){
 	      return myWidth;
 	    };
-	    
+
 	    this.animateDynamicLabelWidth = function ( dynamic ){
 	      that.removeHalo();
 	      if ( shapeElement === undefined ) {// this handles setOperatorProperties which dont have a shapeElement!
 	        return;
 	      }
-	      
+
 	      var h = that.height();
 	      if ( dynamic === true ) {
 	        myWidth = Math.min(that.getMyWidth(), graph.options().maxLabelWidth());
@@ -3675,26 +3681,26 @@ webvowl =
 	          .duration(100);
 	      }
 	    };
-	    
+
 	    this.redrawLabelText = function (){
 	      textElement.remove();
 	      that.addTextLabelElement();
 	      that.animateDynamicLabelWidth(graph.options().dynamicLabelWidth());
 	      shapeElement.select("title").text(that.labelForCurrentLanguage());
 	    };
-	    
+
 	    this.addTextLabelElement = function (){
 	      var labelContainer = that.labelElement();
-	      
+
 	      var equivalentsString = that.equivalentsString();
 	      var suffixForFollowingEquivalents = equivalentsString ? "," : "";
-	      
+
 	      textElement = new CenteringTextElement(labelContainer, this.backgroundColor());
 	      textElement.addText(this.labelForCurrentLanguage(), "", suffixForFollowingEquivalents);
 	      textElement.addEquivalents(equivalentsString);
 	      textElement.addSubText(this.indicationString());
 	    };
-	    
+
 	    this.updateTextElement = function (){
 	      textElement.updateAllTextElements();
 	    };
@@ -3703,7 +3709,7 @@ webvowl =
 	        return;
 	      that.raiseDoubleClickEdit(true);
 	    };
-	    
+
 	    this.raiseDoubleClickEdit = function ( forceIRISync ){
 	      d3.selectAll(".foreignelements").remove();
 	      if ( that.labelElement() === undefined || this.type() === "owl:disjointWith" || this.type() === "rdfs:subClassOf" ) {
@@ -3743,7 +3749,7 @@ webvowl =
 	        .on("dragstart", function (){
 	          return false;
 	        }); // remove drag operations of text element)
-	      
+
 	      var bgColor = '#f00';
 	      var txtWidth = that.textWidth() - 2;
 	      editText.style({
@@ -3760,12 +3766,12 @@ webvowl =
 	      txtNode.select();
 	      if ( d3.event.stopPropagation ) d3.event.stopPropagation();
 	      if ( d3.event.sourceEvent && d3.event.sourceEvent.stopPropagation ) d3.event.sourceEvent.stopPropagation();
-	      
+
 	      // add some events that relate to this object
 	      editText.on("click", function (){
 	        if ( d3.event.stopPropagation ) d3.event.stopPropagation();
 	        if ( d3.event.sourceEvent && d3.event.sourceEvent.stopPropagation ) d3.event.sourceEvent.stopPropagation();
-	        
+
 	      });
 	      // // remove hover Events for now;
 	      editText.on("mouseout", function (){
@@ -3777,7 +3783,7 @@ webvowl =
 	        if ( d3.event.sourceEvent && d3.event.sourceEvent.stopPropagation ) d3.event.sourceEvent.stopPropagation();
 	      })
 	        .on("keydown", function (){
-	          
+
 	          if ( d3.event.keyCode === 13 ) {
 	            this.blur();
 	            that.frozen(false); // << releases the not after selection
@@ -3790,16 +3796,16 @@ webvowl =
 	            var resourceName = labelName.replaceAll(" ", "_");
 	            var syncedIRI = that.baseIri() + resourceName;
 	            backupFullIri = syncedIRI;
-	            
+
 	            d3.select("#element_iriEditor").node().title = syncedIRI;
 	            d3.select("#element_iriEditor").node().value = graph.options().prefixModule().getPrefixRepresentationForFullURI(syncedIRI);
 	          }
 	          d3.select("#element_labelEditor").node().value = editText.node().value;
-	          
+
 	        })
 	        .on("blur", function (){
-	          
-	          
+
+
 	          that.editingTextElement = false;
 	          ignoreLocalHoverEvents = false;
 	          that.labelElement().selectAll("rect").classed("hoveredForEditing", false);
@@ -3812,8 +3818,8 @@ webvowl =
 	          updateHoverElements(true);
 	          graph.showHoverElementsAfterAnimation(that, false);
 	          graph.ignoreOtherHoverEvents(false);
-	          
-	          
+
+
 	          that.frozen(graph.paused());
 	          that.locked(graph.paused());
 	          that.domain().frozen(graph.paused());
@@ -3834,12 +3840,12 @@ webvowl =
 	          graph.options().focuserModule().handle(undefined);
 	          graph.options().focuserModule().handle(that);
 	          graph.updatePropertyDraggerElements(that);
-	          
-	          
+
+
 	        });	// add a foreiner element to this thing;
-	      
+
 	    };
-	    
+
 	    // update hover elements
 	    function updateHoverElements( enable ){
 	      if ( graph.ignoreOtherHoverEvents() === false ) {
@@ -3852,7 +3858,7 @@ webvowl =
 	        }
 	      }
 	    }
-	    
+
 	    that.copyInformation = function ( other ){
 	      that.label(other.label());
 	      that.iri(other.iri());
@@ -3866,28 +3872,28 @@ webvowl =
 	        that.backupLabel(other.backupLabel());
 	      }
 	    };
-	    
+
 	    forceLayoutNodeFunctions.addTo(this);
 	  };
-	  
+
 	  Base.prototype = Object.create(BaseElement.prototype);
 	  Base.prototype.constructor = Base;
-	  
+
 	  Base.prototype.height = function (){
 	    return labelHeight;
 	  };
-	  
+
 	  Base.prototype.width = function (){
 	    return labelWidth;
 	  };
-	  
+
 	  Base.prototype.actualRadius = function (){
 	    return smallestRadius;
 	  };
-	  
+
 	  Base.prototype.textWidth = Base.prototype.width;
-	  
-	  
+
+
 	  return Base;
 	}());
 
@@ -3902,7 +3908,7 @@ webvowl =
 	 * used for WebVOWL.
 	 */
 	module.exports = (function (){
-	  
+
 	  var math = {},
 	    loopFunction = d3.svg.line()
 	      .x(function ( d ){
@@ -3913,8 +3919,8 @@ webvowl =
 	      })
 	      .interpolate("cardinal")
 	      .tension(-1);
-	  
-	  
+
+
 	  /**
 	   * Calculates the normal vector of the path between the two nodes.
 	   * @param source the first node
@@ -3925,126 +3931,126 @@ webvowl =
 	  math.calculateNormalVector = function ( source, target, length ){
 	    var dx = target.x - source.x,
 	      dy = target.y - source.y;
-	    
+
 	    var nx = -dy,
 	      ny = dx;
-	    
+
 	    var vlength = Math.sqrt(nx * nx + ny * ny);
-	    
+
 	    var ratio = vlength !== 0 ? length / vlength : 0;
-	    
+
 	    return { "x": nx * ratio, "y": ny * ratio };
 	  };
-	  
+
 	  /**
 	   * Calculates the path for a link, if it is a loop. Currently only working for circlular nodes.
 	   * @param link the link
 	   * @returns {*}
 	   */
-	  
-	  
-	  
+
+
+
 	  math.getLoopPoints = function ( link ){
 	    var node = link.domain(),
 	      label = link.label();
-	    
+
 	    var fairShareLoopAngle = 360 / link.loops().length,
 	      fairShareLoopAngleWithMargin = fairShareLoopAngle * 0.8,
 	      loopAngle = Math.min(60, fairShareLoopAngleWithMargin);
-	    
+
 	    if ( label.increasedLoopAngle === true )
 	      loopAngle = 120;
-	    
-	    
+
+
 	    var dx = label.x - node.x,
 	      dy = label.y - node.y,
 	      labelRadian = Math.atan2(dy, dx),
 	      labelAngle = calculateAngle(labelRadian);
-	    
+
 	    var startAngle = labelAngle - loopAngle / 2,
 	      endAngle = labelAngle + loopAngle / 2;
-	    
-	    
+
+
 	    var arcFrom = calculateRadian(startAngle),
 	      arcTo = calculateRadian(endAngle),
-	      
+
 	      x1 = Math.cos(arcFrom) * node.actualRadius(),
 	      y1 = Math.sin(arcFrom) * node.actualRadius(),
-	      
+
 	      x2 = Math.cos(arcTo) * node.actualRadius(),
 	      y2 = Math.sin(arcTo) * node.actualRadius(),
-	      
+
 	      fixPoint1 = { "x": node.x + x1, "y": node.y + y1 },
 	      fixPoint2 = { "x": node.x + x2, "y": node.y + y2 };
-	    
+
 	    return [fixPoint1, fixPoint2];
 	  };
 	  math.calculateLoopPath = function ( link ){
 	    var node = link.domain(),
 	      label = link.label();
-	    
-	    
+
+
 	    var fairShareLoopAngle = 360 / link.loops().length,
 	      fairShareLoopAngleWithMargin = fairShareLoopAngle * 0.8,
 	      loopAngle = Math.min(60, fairShareLoopAngleWithMargin);
-	    
+
 	    if ( label.increasedLoopAngle === true )
 	      loopAngle = 120;
-	    
+
 	    var dx = label.x - node.x,
 	      dy = label.y - node.y,
 	      labelRadian = Math.atan2(dy, dx),
 	      labelAngle = calculateAngle(labelRadian);
-	    
+
 	    var startAngle = labelAngle - loopAngle / 2,
 	      endAngle = labelAngle + loopAngle / 2;
-	    
+
 	    var arcFrom = calculateRadian(startAngle),
 	      arcTo = calculateRadian(endAngle),
-	      
+
 	      x1 = Math.cos(arcFrom) * node.actualRadius(),
 	      y1 = Math.sin(arcFrom) * node.actualRadius(),
-	      
+
 	      x2 = Math.cos(arcTo) * node.actualRadius(),
 	      y2 = Math.sin(arcTo) * node.actualRadius(),
-	      
+
 	      fixPoint1 = { "x": node.x + x1, "y": node.y + y1 },
 	      fixPoint2 = { "x": node.x + x2, "y": node.y + y2 };
-	    
+
 	    return loopFunction([fixPoint1, link.label(), fixPoint2]);
 	  };
-	  
+
 	  math.calculateLoopPoints = function ( link ){
 	    var node = link.domain(),
 	      label = link.label();
-	    
+
 	    var fairShareLoopAngle = 360 / link.loops().length,
 	      fairShareLoopAngleWithMargin = fairShareLoopAngle * 0.8,
 	      loopAngle = Math.min(60, fairShareLoopAngleWithMargin);
-	    
+
 	    var dx = label.x - node.x,
 	      dy = label.y - node.y,
 	      labelRadian = Math.atan2(dy, dx),
 	      labelAngle = calculateAngle(labelRadian);
-	    
+
 	    var startAngle = labelAngle - loopAngle / 2,
 	      endAngle = labelAngle + loopAngle / 2;
-	    
+
 	    var arcFrom = calculateRadian(startAngle),
 	      arcTo = calculateRadian(endAngle),
-	      
+
 	      x1 = Math.cos(arcFrom) * node.actualRadius(),
 	      y1 = Math.sin(arcFrom) * node.actualRadius(),
-	      
+
 	      x2 = Math.cos(arcTo) * (node.actualRadius()),
 	      y2 = Math.sin(arcTo) * (node.actualRadius()),
-	      
+
 	      fixPoint1 = { "x": node.x + x1, "y": node.y + y1 },
 	      fixPoint2 = { "x": node.x + x2, "y": node.y + y2 };
-	    
+
 	    return [fixPoint1, link.label(), fixPoint2];
 	  };
-	  
+
 	  /**
 	   * @param angle
 	   * @returns {number} the radian of the angle
@@ -4056,7 +4062,7 @@ webvowl =
 	    }
 	    return (Math.PI * angle) / 180;
 	  }
-	  
+
 	  /**
 	   * @param radian
 	   * @returns {number} the angle of the radian
@@ -4064,7 +4070,7 @@ webvowl =
 	  function calculateAngle( radian ){
 	    return radian * (180 / Math.PI);
 	  }
-	  
+
 	  /**
 	   * Calculates the point where the link between the source and target node
 	   * intersects the border of the target node.
@@ -4077,20 +4083,20 @@ webvowl =
 	    var dx = target.x - source.x,
 	      dy = target.y - source.y,
 	      length = Math.sqrt(dx * dx + dy * dy);
-	    
+
 	    if ( length === 0 ) {
 	      return { x: source.x, y: source.y };
 	    }
-	    
+
 	    var innerDistance = target.distanceToBorder(dx, dy);
-	    
+
 	    var ratio = (length - (innerDistance + additionalDistance)) / length,
 	      x = dx * ratio + source.x,
 	      y = dy * ratio + source.y;
-	    
+
 	    return { x: x, y: y };
 	  };
-	  
+
 	  /**
 	   * Calculates the position between the two points.
 	   * @param firstPoint
@@ -4103,8 +4109,8 @@ webvowl =
 	      y: (firstPoint.y + secondPoint.y) / 2
 	    };
 	  };
-	  
-	  
+
+
 	  return function (){
 	    /* Use a function here to keep a consistent style like webvowl.path.to.module()
 	     * despite having just a single math object. */
@@ -4121,17 +4127,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["datatype"])
 	      .styleClass("datatypeproperty")
 	      .type("owl:DatatypeProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4143,17 +4149,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["deprecated"])
 	      .styleClass("deprecatedproperty")
 	      .type("owl:DeprecatedProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4166,10 +4172,10 @@ webvowl =
 	var CenteringTextElement = __webpack_require__(14);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    var label = "Disjoint With";
 	    var shapeElement;
 	    // Disallow overwriting the label
@@ -4177,28 +4183,28 @@ webvowl =
 	      if ( !arguments.length ) return label;
 	      return this;
 	    };
-	    
+
 	    this.linkType("dashed")
 	      .styleClass("disjointwith")
 	      .type("owl:disjointWith");
-	    
+
 	    this.drawLabel = function ( labelContainer ){
 	      shapeElement = this.addRect(labelContainer);
-	      
+
 	      labelContainer.append("circle")
 	        .classed("symbol", true)
 	        .classed("fineline", true)
 	        .classed("embedded", true)
 	        .attr("cx", -12.5)
 	        .attr("r", 10);
-	      
+
 	      labelContainer.append("circle")
 	        .classed("symbol", true)
 	        .classed("fineline", true)
 	        .classed("embedded", true)
 	        .attr("cx", 12.5)
 	        .attr("r", 10);
-	      
+
 	      var textElement = new CenteringTextElement(labelContainer, this.backgroundColor());
 	      if ( !graph.options().compactNotation() ) {
 	        textElement.addSubText("disjoint");
@@ -4211,11 +4217,11 @@ webvowl =
 	    this.markerElement = function (){
 	      return undefined;
 	    };
-	    
+
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4227,16 +4233,16 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.styleClass("equivalentproperty")
 	      .type("owl:equivalentProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4248,17 +4254,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["functional"])
 	      .styleClass("functionalproperty")
 	      .type("owl:FunctionalProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4270,17 +4276,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["inverse functional"])
 	      .styleClass("inversefunctionalproperty")
 	      .type("owl:InverseFunctionalProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4292,17 +4298,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["object"])
 	      .styleClass("objectproperty")
 	      .type("owl:ObjectProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4316,31 +4322,31 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    var superGenerateCardinalityText = this.generateCardinalityText;
-	    
+
 	    this.linkType("values-from")
 	      .markerType("filled values-from")
 	      .styleClass("somevaluesfromproperty")
 	      .type("owl:someValuesFrom");
-	    
+
 	    this.generateCardinalityText = function (){
 	      var cardinalityText = "E";
-	      
+
 	      var superCardinalityText = superGenerateCardinalityText();
 	      if ( superCardinalityText ) {
 	        cardinalityText += ", " + superCardinalityText;
 	      }
-	      
+
 	      return cardinalityText;
 	    };
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4354,17 +4360,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["symmetric"])
 	      .styleClass("symmetricproperty")
 	      .type("owl:SymmetricProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4376,17 +4382,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["transitive"])
 	      .styleClass("transitiveproperty")
 	      .type("owl:TransitiveProperty");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4398,17 +4404,17 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.attributes(["rdf"])
 	      .styleClass("rdfproperty")
 	      .type("rdf:Property");
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4420,37 +4426,37 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    var that = this,
 	      superDrawFunction = that.draw,
 	      label = "Subclass of";
-	    
+
 	    this.draw = function ( labelGroup ){
 	      that.labelVisible(!graph.options().compactNotation());
 	      return superDrawFunction(labelGroup);
 	    };
-	    
+
 	    // Disallow overwriting the label
 	    this.label = function ( p ){
 	      if ( !arguments.length ) return label;
 	      return this;
 	    };
-	    
+
 	    this.linkType("dotted")
 	      .markerType("white")
 	      .styleClass("subclass")
 	      .type("rdfs:subClassOf");
-	    
+
 	    that.baseIri("http://www.w3.org/2000/01/rdf-schema#");
 	    that.iri("http://www.w3.org/2000/01/rdf-schema#subClassOf");
-	    
+
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4462,10 +4468,10 @@ webvowl =
 	var BaseProperty = __webpack_require__(42);
 
 	module.exports = (function (){
-	  
+
 	  var o = function ( graph ){
 	    BaseProperty.apply(this, arguments);
-	    
+
 	    this.labelVisible(false)
 	      .linkType("dashed")
 	      .markerType("white")
@@ -4474,7 +4480,7 @@ webvowl =
 	  };
 	  o.prototype = Object.create(BaseProperty.prototype);
 	  o.prototype.constructor = o;
-	  
+
 	  return o;
 	}());
 
@@ -4547,7 +4553,7 @@ webvowl =
 	    last_touch_time,
 	    originalD3_dblClickFunction = null,
 	    originalD3_touchZoomFunction = null,
-	    
+
 	    // editing elements
 	    deleteGroupElement,
 	    addDataPropertyGroupElement,
@@ -4562,13 +4568,13 @@ webvowl =
 	    draggingStarted = false,
 	    frozenDomainForPropertyDragger,
 	    frozenRangeForPropertyDragger,
-	    
+
 	    eP = 0, // id for new properties
 	    eN = 0, // id for new Nodes
 	    editMode = true,
 	    debugContainer = d3.select("#FPS_Statistics"),
 	    finishedLoadingSequence = false,
-	    
+
 	    ignoreOtherHoverEvents = false,
 	    forceNotZooming = false,
 	    now, then, // used for fps computation
@@ -4576,7 +4582,7 @@ webvowl =
 	    seenEditorHint = false,
 	    seenFilterWarning = false,
 	    showFilterWarning = false,
-	    
+
 	    keepDetailsCollapsedOnLoading = true,
 	    adjustingGraphSize = false,
 	    showReloadButtonAfterLayoutOptimization = false,
@@ -4588,7 +4594,7 @@ webvowl =
 	  var rangeDragger = __webpack_require__(69)(graph);
 	  var domainDragger = __webpack_require__(70)(graph);
 	  var shadowClone = __webpack_require__(71)(graph);
-	  
+
 	  graph.math = function (){
 	    return math;
 	  };
@@ -4604,11 +4610,11 @@ webvowl =
 	  graph.setGlobalDOF = function ( val ){
 	    global_dof = val;
 	  };
-	  
+
 	  graph.updateZoomSliderValueFromOutside = function (){
 	    graph.options().zoomSlider().updateZoomSliderValue(zoomFactor);
 	  };
-	  
+
 	  graph.setDefaultZoom = function ( val ){
 	    defaultZoom = val;
 	    graph.reset();
@@ -4620,14 +4626,14 @@ webvowl =
 	  graph.graphOptions = function (){
 	    return options;
 	  };
-	  
+
 	  graph.scaleFactor = function (){
 	    return zoomFactor;
 	  };
 	  graph.translation = function (){
 	    return graphTranslation;
 	  };
-	  
+
 	  // Returns the visible nodes
 	  graph.graphNodeElements = function (){
 	    return nodeElements;
@@ -4636,20 +4642,20 @@ webvowl =
 	  graph.graphLabelElements = function (){
 	    return labelNodes;
 	  };
-	  
+
 	  graph.graphLinkElements = function (){
 	    return links;
 	  };
-	  
+
 	  graph.setSliderZoom = function ( val ){
-	    
+
 	    var cx = 0.5 * graph.options().width();
 	    var cy = 0.5 * graph.options().height();
 	    var cp = getWorldPosFromScreen(cx, cy, graphTranslation, zoomFactor);
 	    var sP = [cp.x, cp.y, graph.options().height() / zoomFactor];
 	    var eP = [cp.x, cp.y, graph.options().height() / val];
 	    var pos_intp = d3.interpolateZoom(sP, eP);
-	    
+
 	    graphContainer.attr("transform", transform(sP, cx, cy))
 	      .transition()
 	      .duration(1)
@@ -4665,16 +4671,16 @@ webvowl =
 	        graph.options().zoomSlider().updateZoomSliderValue(zoomFactor);
 	      });
 	  };
-	  
-	  
+
+
 	  graph.setZoom = function ( value ){
 	    zoom.scale(value);
 	  };
-	  
+
 	  graph.setTranslation = function ( translation ){
 	    zoom.translate([translation[0], translation[1]]);
 	  };
-	  
+
 	  graph.options = function (){
 	    return options;
 	  };
@@ -4682,10 +4688,10 @@ webvowl =
 	  graph.getUpdateDictionary = function (){
 	    return parser.getDictionary();
 	  };
-	  
+
 	  graph.language = function ( newLanguage ){
 	    if ( !arguments.length ) return language;
-	    
+
 	    // Just update if the language changes
 	    if ( language !== newLanguage ) {
 	      language = newLanguage || "default";
@@ -4696,20 +4702,20 @@ webvowl =
 	    }
 	    return graph;
 	  };
-	  
-	  
+
+
 	  /** --------------------------------------------------------- **/
 	  /** graph / rendering  related functions                      **/
 	  /** --------------------------------------------------------- **/
-	  
+
 	  // Initializes the graph.
 	  function initializeGraph(){
-	    
+
 	    options.graphContainerSelector(graphContainerSelector);
 	    var moved = false;
 	    force = d3.layout.force()
 	      .on("tick", hiddenRecalculatePositions);
-	    
+
 	    dragBehaviour = d3.behavior.drag()
 	      .origin(function ( d ){
 	        return d;
@@ -4743,8 +4749,8 @@ webvowl =
 	          rangeDragger.updateElement();
 	          rangeDragger.mouseButtonPressed = true;
 	          //  shadowClone.setPosition(d.x, d.y);
-	          
-	          
+
+
 	        } else if ( d.type && d.type() === "Domain_dragger" ) {
 	          graph.ignoreOtherHoverEvents(true);
 	          clearTimeout(delayedHider);
@@ -4756,7 +4762,7 @@ webvowl =
 	          shadowClone.updateElement();
 	          deleteGroupElement.classed("hidden", true);
 	          addDataPropertyGroupElement.classed("hidden", true);
-	          
+
 	          frozenDomainForPropertyDragger.frozen(true);
 	          frozenDomainForPropertyDragger.locked(true);
 	          frozenRangeForPropertyDragger.frozen(true);
@@ -4772,7 +4778,7 @@ webvowl =
 	        }
 	      })
 	      .on("drag", function ( d ){
-	        
+
 	        if ( d.type && d.type() === "Class_dragger" ) {
 	          clearTimeout(delayedHider);
 	          classDragger.setPosition(d3.event.x, d3.event.y);
@@ -4788,7 +4794,7 @@ webvowl =
 	          shadowClone.setPositionDomain(d3.event.x, d3.event.y);
 	          rangeDragger.updateElementViaDomainDragger(d3.event.x, d3.event.y);
 	        }
-	        
+
 	        else {
 	          d.px = d3.event.x;
 	          d.py = d3.event.y;
@@ -4798,7 +4804,7 @@ webvowl =
 	          if ( d.renderType && d.renderType() === "round" ) {
 	            classDragger.setParentNode(d);
 	          }
-	          
+
 	        }
 	      })
 	      .on("dragend", function ( d ){
@@ -4810,7 +4816,7 @@ webvowl =
 	          classDragger.mouseButtonPressed = false;
 	          classDragger.selectedViaTouch(false);
 	          d.setParentNode(d.parentNode());
-	          
+
 	          var draggerEndPos = [nX, nY];
 	          var targetNode = graph.getTargetNode(draggerEndPos);
 	          if ( targetNode ) {
@@ -4839,7 +4845,7 @@ webvowl =
 	            targetRangeNode = null;
 	            console.log("---------------TARGET NODE IS A DATATYPE/ LITERAL ------------");
 	          }
-	          
+
 	          if ( targetRangeNode === null ) {
 	            d.reDrawEverthing();
 	            shadowClone.hideParentProperty(false);
@@ -4860,7 +4866,7 @@ webvowl =
 	          domainDragger.updateElement();
 	          rangeDragger.updateElement();
 	          shadowClone.hideClone(true);
-	          
+
 	          var dX = domainDragger.x;
 	          var dY = domainDragger.y;
 	          var domainDraggerEndPos = [dX, dY];
@@ -4880,7 +4886,7 @@ webvowl =
 	            shadowClone.hideParentProperty(false);
 	          }
 	        }
-	        
+
 	        else {
 	          d.locked(false);
 	          var pnp = graph.options().pickAndPinModule();
@@ -4894,34 +4900,34 @@ webvowl =
 	          }
 	        }
 	      });
-	    
+
 	    // Apply the zooming factor.
 	    zoom = d3.behavior.zoom()
 	      .duration(150)
 	      .scaleExtent([options.minMagnification(), options.maxMagnification()])
 	      .on("zoom", zoomed);
-	    
+
 	    draggerObjectsArray.push(classDragger);
 	    draggerObjectsArray.push(rangeDragger);
 	    draggerObjectsArray.push(domainDragger);
 	    draggerObjectsArray.push(shadowClone);
 	    force.stop();
 	  }
-	  
+
 	  graph.lazyRefresh = function (){
 	    redrawContent();
 	    recalculatePositions();
 	  };
-	  
+
 	  graph.adjustingGraphSize = function ( val ){
 	    adjustingGraphSize = val;
 	  };
-	  
+
 	  graph.showReloadButtonAfterLayoutOptimization = function ( show ){
 	    showReloadButtonAfterLayoutOptimization = show;
 	  };
-	  
-	  
+
+
 	  function hiddenRecalculatePositions(){
 	    finishedLoadingSequence = false;
 	    if ( graph.options().loadingModule().successfullyLoadedOntology() === false ) {
@@ -4940,7 +4946,7 @@ webvowl =
 	      graph.options().loadingModule().setPercentValue(percent);
 	      d3.select("#progressBarValue").style("width", percent);
 	      d3.select("#progressBarValue").node().innerHTML = percent;
-	      
+
 	      if ( value > 0.49 ) {
 	        updateRenderingDuringSimulation = true;
 	        // show graph container;
@@ -4956,15 +4962,15 @@ webvowl =
 	            seenFilterWarning = true;
 	          }
 	        }
-	        
+
 	        if ( initialLoad ) {
 	          if ( graph.paused() === false )
 	            force.resume(); // resume force
 	          initialLoad = false;
-	          
+
 	        }
-	        
-	        
+
+
 	        finishedLoadingSequence = true;
 	        if ( showFPS === true ) {
 	          force.on("tick", recalculatePositionsWithFPS);
@@ -4974,17 +4980,17 @@ webvowl =
 	          force.on("tick", recalculatePositions);
 	          recalculatePositions();
 	        }
-	        
+
 	        if ( centerGraphViewOnLoad === true && force.nodes().length > 0 ) {
 	          if ( force.nodes().length < 10 ) graph.forceRelocationEvent(true); // uses dynamic zoomer;
 	          else graph.forceRelocationEvent();
 	          centerGraphViewOnLoad = false;
 	          // console.log("--------------------------------------")
 	        }
-	        
-	        
+
+
 	        graph.showEditorHintIfNeeded();
-	        
+
 	        if ( graph.options().loadingModule().missingImportsWarning() === false ) {
 	          graph.options().loadingModule().hideLoadingIndicator();
 	          graph.options().ontologyMenu().append_bulletPoint("Successfully loaded ontology");
@@ -4996,20 +5002,20 @@ webvowl =
 	      }
 	    }
 	  }
-	  
+
 	  graph.showEditorHintIfNeeded = function (){
 	    if ( seenEditorHint === false && editMode === true ) {
 	      seenEditorHint = true;
 	      graph.options().warningModule().showEditorHint();
 	    }
 	  };
-	  
+
 	  graph.setForceTickFunctionWithFPS = function (){
 	    showFPS = true;
 	    if ( force && finishedLoadingSequence === true ) {
 	      force.on("tick", recalculatePositionsWithFPS);
 	    }
-	    
+
 	  };
 	  graph.setDefaultForceTickFunction = function (){
 	    showFPS = false;
@@ -5019,31 +5025,31 @@ webvowl =
 	  };
 	  function recalculatePositionsWithFPS(){
 	    // compute the fps
-	    
+
 	    recalculatePositions();
 	    now = Date.now();
 	    var diff = now - then;
 	    var fps = (1000 / (diff)).toFixed(2);
-	    
+
 	    debugContainer.node().innerHTML = "FPS: " + fps + "<br>" + "Nodes: " + force.nodes().length + "<br>" + "Links: " + force.links().length;
 	    then = Date.now();
-	    
+
 	  }
-	  
+
 	  function recalculatePositions(){
 	    // Set node positions
-	    
-	    
+
+
 	    // add switch for edit mode to make this faster;
 	    if ( !editMode ) {
 	      nodeElements.attr("transform", function ( node ){
 	        return "translate(" + node.x + "," + node.y + ")";
 	      });
-	      
+
 	      // Set label group positions
 	      labelGroupElements.attr("transform", function ( label ){
 	        var position;
-	        
+
 	        // force centered positions on single-layered links
 	        var link = label.link();
 	        if ( link.layers().length === 1 && !link.loops() ) {
@@ -5063,36 +5069,36 @@ webvowl =
 	        var curvePoint = l.label();
 	        var pathStart = math.calculateIntersection(curvePoint, l.domain(), 1);
 	        var pathEnd = math.calculateIntersection(curvePoint, l.range(), 1);
-	        
+
 	        return curveFunction([pathStart, curvePoint, pathEnd]);
 	      });
-	      
+
 	      // Set cardinality positions
 	      cardinalityElements.attr("transform", function ( property ){
-	        
+
 	        var label = property.link().label(),
 	          pos = math.calculateIntersection(label, property.range(), CARDINALITY_HDISTANCE),
 	          normalV = math.calculateNormalVector(label, property.range(), CARDINALITY_VDISTANCE);
-	        
+
 	        return "translate(" + (pos.x + normalV.x) + "," + (pos.y + normalV.y) + ")";
 	      });
-	      
-	      
+
+
 	      updateHaloRadius();
 	      return;
 	    }
-	    
+
 	    // TODO: this is Editor redraw function // we need to make this faster!!
-	    
-	    
+
+
 	    nodeElements.attr("transform", function ( node ){
 	      return "translate(" + node.x + "," + node.y + ")";
 	    });
-	    
+
 	    // Set label group positions
 	    labelGroupElements.attr("transform", function ( label ){
 	      var position;
-	      
+
 	      // force centered positions on single-layered links
 	      var link = label.link();
 	      if ( link.layers().length === 1 && !link.loops() ) {
@@ -5118,18 +5124,18 @@ webvowl =
 	          // shadowClone.setPosition(link.property().range().x,link.property().range().y);
 	          // shadowClone.setPositionDomain(link.property().domain().x,link.property().domain().y);
 	        }
-	        
+
 	      }
 	      return "translate(" + label.x + "," + label.y + ")";
 	    });
 	    // Set link paths and calculate additional information
 	    linkPathElements.attr("d", function ( l ){
 	      if ( l.isLoop() ) {
-	        
+
 	        var ptrAr = math.getLoopPoints(l);
 	        l.label().linkRangeIntersection = ptrAr[1];
 	        l.label().linkDomainIntersection = ptrAr[0];
-	        
+
 	        if ( l.property().focused() === true || hoveredPropertyElement !== undefined ) {
 	          rangeDragger.updateElement();
 	          domainDragger.updateElement();
@@ -5149,17 +5155,17 @@ webvowl =
 	      }
 	      return curveFunction([pathStart, curvePoint, pathEnd]);
 	    });
-	    
+
 	    // Set cardinality positions
 	    cardinalityElements.attr("transform", function ( property ){
-	      
+
 	      var label = property.link().label(),
 	        pos = math.calculateIntersection(label, property.range(), CARDINALITY_HDISTANCE),
 	        normalV = math.calculateNormalVector(label, property.range(), CARDINALITY_VDISTANCE);
-	      
+
 	      return "translate(" + (pos.x + normalV.x) + "," + (pos.y + normalV.y) + ")";
 	    });
-	    
+
 	    if ( hoveredNodeElement ) {
 	      setDeleteHoverElementPosition(hoveredNodeElement);
 	      setAddDataPropertyHoverElementPosition(hoveredNodeElement);
@@ -5170,13 +5176,13 @@ webvowl =
 	    if ( hoveredPropertyElement ) {
 	      setDeleteHoverElementPositionProperty(hoveredPropertyElement);
 	    }
-	    
+
 	    updateHaloRadius();
 	  }
-	  
+
 	  graph.updatePropertyDraggerElements = function ( property ){
 	    if ( property.type() !== "owl:DatatypeProperty" ) {
-	      
+
 	      shadowClone.setParentProperty(property);
 	      rangeDragger.setParentProperty(property);
 	      rangeDragger.hideDragger(false);
@@ -5184,7 +5190,7 @@ webvowl =
 	      domainDragger.setParentProperty(property);
 	      domainDragger.hideDragger(false);
 	      domainDragger.addMouseEvents();
-	      
+
 	    }
 	    else {
 	      rangeDragger.hideDragger(true);
@@ -5192,16 +5198,16 @@ webvowl =
 	      shadowClone.hideClone(true);
 	    }
 	  };
-	  
+
 	  function addClickEvents(){
 	    function executeModules( selectedElement ){
 	      options.selectionModules().forEach(function ( module ){
 	        module.handle(selectedElement);
 	      });
 	    }
-	    
+
 	    nodeElements.on("click", function ( clickedNode ){
-	      
+
 	      // manaual double clicker // helper for iphone 6 etc...
 	      if ( touchDevice === true && doubletap() === true ) {
 	        d3.event.stopPropagation();
@@ -5213,18 +5219,18 @@ webvowl =
 	        executeModules(clickedNode);
 	      }
 	    });
-	    
+
 	    nodeElements.on("dblclick", function ( clickedNode ){
-	      
+
 	      d3.event.stopPropagation();
 	      if ( editMode === true ) {
 	        clickedNode.raiseDoubleClickEdit(defaultIriValue(clickedNode));
 	      }
 	    });
-	    
+
 	    labelGroupElements.selectAll(".label").on("click", function ( clickedProperty ){
 	      executeModules(clickedProperty);
-	      
+
 	      // this is for enviroments that do not define dblClick function;
 	      if ( touchDevice === true && doubletap() === true ) {
 	        d3.event.stopPropagation();
@@ -5232,7 +5238,7 @@ webvowl =
 	          clickedProperty.raiseDoubleClickEdit(defaultIriValue(clickedProperty));
 	        }
 	      }
-	      
+
 	      // currently removed the selection of an element to invoke the dragger
 	      // if (editMode===true && clickedProperty.editingTextElement!==true) {
 	      //     return;
@@ -5278,10 +5284,10 @@ webvowl =
 	      if ( editMode === true ) {
 	        clickedProperty.raiseDoubleClickEdit(defaultIriValue(clickedProperty));
 	      }
-	      
+
 	    });
 	  }
-	  
+
 	  function defaultIriValue( element ){
 	    // get the iri of that element;
 	    if ( graph.options().getGeneralMetaObject().iri ) {
@@ -5290,7 +5296,7 @@ webvowl =
 	    }
 	    return false;
 	  }
-	  
+
 	  /** Adjusts the containers current scale and position. */
 	  function zoomed(){
 	    if ( forceNotZooming === true ) {
@@ -5298,8 +5304,8 @@ webvowl =
 	      zoom.scale(zoomFactor);
 	      return;
 	    }
-	    
-	    
+
+
 	    var zoomEventByMWheel = false;
 	    if ( d3.event.sourceEvent ) {
 	      if ( d3.event.sourceEvent.deltaY ) zoomEventByMWheel = true;
@@ -5337,10 +5343,10 @@ webvowl =
 	      .ease('linear')
 	      .duration(250);
 	  }// end of zoomed function
-	  
+
 	  function redrawGraph(){
 	    remove();
-	    
+
 	    graphContainer = d3.selectAll(options.graphContainerSelector())
 	      .append("svg")
 	      .classed("vowlGraph", true)
@@ -5349,7 +5355,7 @@ webvowl =
 	      .call(zoom)
 	      .append("g");
 	    // add touch and double click functions
-	    
+
 	    var svgGraph = d3.selectAll(".vowlGraph");
 	    originalD3_dblClickFunction = svgGraph.on("dblclick.zoom");
 	    originalD3_touchZoomFunction = svgGraph.on("touchstart");
@@ -5360,24 +5366,24 @@ webvowl =
 	    else {
 	      svgGraph.on("dblclick.zoom", originalD3_dblClickFunction);
 	    }
-	    
+
 	  }
-	  
+
 	  function generateEditElements(){
 	    addDataPropertyGroupElement = editContainer.append('g')
 	      .classed("hidden-in-export", true)
 	      .classed("hidden", true)
 	      .classed("addDataPropertyElement", true)
 	      .attr("transform", "translate(" + 0 + "," + 0 + ")");
-	    
-	    
+
+
 	    addDataPropertyGroupElement.append("circle")
 	    // .classed("deleteElement", true)
 	      .attr("r", 12)
 	      .attr("cx", 0)
 	      .attr("cy", 0)
 	      .append("title").text("Add Datatype Property");
-	    
+
 	    addDataPropertyGroupElement.append("line")
 	    // .classed("deleteElementIcon ",true)
 	      .attr("x1", -8)
@@ -5385,7 +5391,7 @@ webvowl =
 	      .attr("x2", 8)
 	      .attr("y2", 0)
 	      .append("title").text("Add Datatype Property");
-	    
+
 	    addDataPropertyGroupElement.append("line")
 	    // .classed("deleteElementIcon",true)
 	      .attr("x1", 0)
@@ -5393,7 +5399,7 @@ webvowl =
 	      .attr("x2", 0)
 	      .attr("y2", 8)
 	      .append("title").text("Add Datatype Property");
-	    
+
 	    if ( graph.options().useAccuracyHelper() ) {
 	      addDataPropertyGroupElement.append("circle")
 	        .attr("r", 15)
@@ -5402,20 +5408,20 @@ webvowl =
 	        .classed("superHiddenElement", true)
 	        .classed("superOpacityElement", !graph.options().showDraggerObject());
 	    }
-	    
-	    
+
+
 	    deleteGroupElement = editContainer.append('g')
 	      .classed("hidden-in-export", true)
 	      .classed("hidden", true)
 	      .classed("deleteParentElement", true)
 	      .attr("transform", "translate(" + 0 + "," + 0 + ")");
-	    
+
 	    deleteGroupElement.append("circle")
 	      .attr("r", 12)
 	      .attr("cx", 0)
 	      .attr("cy", 0)
 	      .append("title").text("Delete This Node");
-	    
+
 	    var crossLen = 5;
 	    deleteGroupElement.append("line")
 	      .attr("x1", -crossLen)
@@ -5423,14 +5429,14 @@ webvowl =
 	      .attr("x2", crossLen)
 	      .attr("y2", crossLen)
 	      .append("title").text("Delete This Node");
-	    
+
 	    deleteGroupElement.append("line")
 	      .attr("x1", crossLen)
 	      .attr("y1", -crossLen)
 	      .attr("x2", -crossLen)
 	      .attr("y2", crossLen)
 	      .append("title").text("Delete This Node");
-	    
+
 	    if ( graph.options().useAccuracyHelper() ) {
 	      deleteGroupElement.append("circle")
 	        .attr("r", 15)
@@ -5439,14 +5445,14 @@ webvowl =
 	        .classed("superHiddenElement", true)
 	        .classed("superOpacityElement", !graph.options().showDraggerObject());
 	    }
-	    
-	    
+
+
 	  }
-	  
+
 	  graph.getUnfilteredData = function (){
 	    return unfilteredData;
 	  };
-	  
+
 	  graph.getClassDataForTtlExport = function (){
 	    var allNodes = unfilteredData.nodes;
 	    var nodeData = [];
@@ -5459,7 +5465,7 @@ webvowl =
 	    }
 	    return nodeData;
 	  };
-	  
+
 	  graph.getPropertyDataForTtlExport = function (){
 	    var propertyData = [];
 	    var allProperties = unfilteredData.properties;
@@ -5468,7 +5474,7 @@ webvowl =
 	      if ( allProperties[i].type() === "owl:ObjectProperty" ||
 	        allProperties[i].type() === "owl:DatatypeProperty" ||
 	        allProperties[i].type() === "owl:ObjectProperty"
-	      
+
 	      ) {
 	        propertyData.push(allProperties[i]);
 	      } else {
@@ -5484,7 +5490,7 @@ webvowl =
 	    }
 	    return propertyData;
 	  };
-	  
+
 	  graph.getAxiomsForTtlExport = function (){
 	    var axioms = [];
 	    var allProperties = unfilteredData.properties;
@@ -5500,12 +5506,12 @@ webvowl =
 	    }
 	    return axioms;
 	  };
-	  
-	  
+
+
 	  graph.getUnfilteredData = function (){
 	    return unfilteredData;
 	  };
-	  
+
 	  graph.getClassDataForTtlExport = function (){
 	    var allNodes = unfilteredData.nodes;
 	    var nodeData = [];
@@ -5518,33 +5524,33 @@ webvowl =
 	    }
 	    return nodeData;
 	  };
-	  
-	  
+
+
 	  function redrawContent(){
 	    var markerContainer;
-	    
+
 	    if ( !graphContainer ) {
 	      return;
 	    }
-	    
+
 	    // Empty the graph container
 	    graphContainer.selectAll("*").remove();
-	    
+
 	    // Last container -> elements of this container overlap others
 	    linkContainer = graphContainer.append("g").classed("linkContainer", true);
 	    cardinalityContainer = graphContainer.append("g").classed("cardinalityContainer", true);
 	    labelContainer = graphContainer.append("g").classed("labelContainer", true);
 	    nodeContainer = graphContainer.append("g").classed("nodeContainer", true);
-	    
+
 	    // adding editing Elements
 	    var draggerPathLayer = graphContainer.append("g").classed("linkContainer", true);
 	    draggerLayer = graphContainer.append("g").classed("editContainer", true);
 	    editContainer = graphContainer.append("g").classed("editContainer", true);
-	    
+
 	    draggerPathLayer.classed("hidden-in-export", true);
 	    editContainer.classed("hidden-in-export", true);
 	    draggerLayer.classed("hidden-in-export", true);
-	    
+
 	    // Add an extra container for all markers
 	    markerContainer = linkContainer.append("defs");
 	    var drElement = draggerLayer.selectAll(".node")
@@ -5568,15 +5574,15 @@ webvowl =
 	      }
 	    });
 	    generateEditElements();
-	    
-	    
+
+
 	    // Add an extra container for all markers
 	    markerContainer = linkContainer.append("defs");
-	    
+
 	    // Draw nodes
-	    
+
 	    if ( classNodes === undefined ) classNodes = [];
-	    
+
 	    nodeElements = nodeContainer.selectAll(".node")
 	      .data(classNodes).enter()
 	      .append("g")
@@ -5588,17 +5594,17 @@ webvowl =
 	    nodeElements.each(function ( node ){
 	      node.draw(d3.select(this));
 	    });
-	    
-	    
+
+
 	    if ( labelNodes === undefined ) labelNodes = [];
-	    
+
 	    // Draw label groups (property + inverse)
 	    labelGroupElements = labelContainer.selectAll(".labelGroup")
 	      .data(labelNodes).enter()
 	      .append("g")
 	      .classed("labelGroup", true)
 	      .call(dragBehaviour);
-	    
+
 	    labelGroupElements.each(function ( label ){
 	      var success = label.draw(d3.select(this));
 	      label.property().labelObject(label);
@@ -5613,7 +5619,7 @@ webvowl =
 	      if ( !this.parentNode ) {
 	        return;
 	      }
-	      
+
 	      if ( elementTools.isRdfsSubClassOf(label.property()) ) {
 	        var parentNode = this.parentNode;
 	        parentNode.insertBefore(this, parentNode.firstChild);
@@ -5625,10 +5631,10 @@ webvowl =
 	      .data(properties).enter()
 	      .append("g")
 	      .classed("cardinality", true);
-	    
+
 	    cardinalityElements.each(function ( property ){
 	      var success = property.drawCardinality(d3.select(this));
-	      
+
 	      // Remove empty groups without a label.
 	      if ( !success ) {
 	        d3.select(this).remove();
@@ -5640,7 +5646,7 @@ webvowl =
 	      .data(links).enter()
 	      .append("g")
 	      .classed("link", true);
-	    
+
 	    linkGroups.each(function ( link ){
 	      link.draw(d3.select(this), markerContainer);
 	    });
@@ -5648,16 +5654,16 @@ webvowl =
 	    // Select the path for direct access to receive a better performance
 	    addClickEvents();
 	  }
-	  
+
 	  function remove(){
 	    if ( graphContainer ) {
 	      // Select the parent element because the graph container is a group (e.g. for zooming)
 	      d3.select(graphContainer.node().parentNode).remove();
 	    }
 	  }
-	  
+
 	  initializeGraph(); // << call the initialization function
-	  
+
 	  graph.updateCanvasContainerSize = function (){
 	    if ( graphContainer ) {
 	      var svgElement = d3.selectAll(".vowlGraph");
@@ -5666,20 +5672,20 @@ webvowl =
 	      graphContainer.attr("transform", "translate(" + graphTranslation + ")scale(" + zoomFactor + ")");
 	    }
 	  };
-	  
+
 	  // Loads all settings, removes the old graph (if it exists) and draws a new one.
 	  graph.start = function (){
 	    force.stop();
 	    loadGraphData(true);
 	    redrawGraph();
 	    graph.update(true);
-	    
+
 	    if ( graph.options().loadingModule().successfullyLoadedOntology() === false ) {
 	      graph.options().loadingModule().setErrorMode();
 	    }
-	    
+
 	  };
-	  
+
 	  // Updates only the style of the graph.
 	  graph.updateStyle = function (){
 	    refreshGraphStyle();
@@ -5689,13 +5695,13 @@ webvowl =
 	      force.start();
 	    }
 	  };
-	  
+
 	  graph.reload = function (){
 	    loadGraphData();
 	    graph.update();
-	    
+
 	  };
-	  
+
 	  graph.load = function (){
 	    force.stop();
 	    loadGraphData();
@@ -5712,7 +5718,7 @@ webvowl =
 	    }
 	    graph.update();
 	  };
-	  
+
 	  graph.fastUpdate = function (){
 	    // fast update function for editor calls;
 	    // -- experimental ;
@@ -5723,9 +5729,9 @@ webvowl =
 	    graph.updatePulseIds(nodeArrayForPulse);
 	    refreshGraphStyle();
 	    updateHaloStyles();
-	    
+
 	  };
-	  
+
 	  graph.getNodeMapForSearch = function (){
 	    return nodeMap;
 	  };
@@ -5754,7 +5760,7 @@ webvowl =
 	      }
 	    }
 	  }
-	  
+
 	  function updateHaloStyles(){
 	    var haloElement;
 	    var halo;
@@ -5769,7 +5775,7 @@ webvowl =
 	          halo.classed("searchResultB", true);
 	        }
 	      }
-	      
+
 	      if ( node.property ) {
 	        haloElement = node.property().getHalos();
 	        if ( haloElement ) {
@@ -5780,7 +5786,7 @@ webvowl =
 	      }
 	    }
 	  }
-	  
+
 	  // Updates the graphs displayed data and style.
 	  graph.update = function ( init ){
 	    var validOntology = graph.options().loadingModule().successfullyLoadedOntology();
@@ -5791,19 +5797,19 @@ webvowl =
 	    if ( validOntology === false ) {
 	      return;
 	    }
-	    
+
 	    keepDetailsCollapsedOnLoading = false;
 	    refreshGraphData();
 	    // update node map
 	    updateNodeMap();
-	    
+
 	    force.start();
 	    redrawContent();
 	    graph.updatePulseIds(nodeArrayForPulse);
 	    refreshGraphStyle();
 	    updateHaloStyles();
 	  };
-	  
+
 	  graph.paused = function ( p ){
 	    if ( !arguments.length ) return paused;
 	    paused = p;
@@ -5821,23 +5827,23 @@ webvowl =
 	    zoom.translate([tx, ty])
 	      .scale(defaultZoom);
 	  };
-	  
-	  
+
+
 	  graph.zoomOut = function (){
-	    
+
 	    var minMag = options.minMagnification(),
 	      maxMag = options.maxMagnification();
 	    var stepSize = (maxMag - minMag) / 10;
 	    var val = zoomFactor - stepSize;
 	    if ( val < minMag ) val = minMag;
-	    
+
 	    var cx = 0.5 * graph.options().width();
 	    var cy = 0.5 * graph.options().height();
 	    var cp = getWorldPosFromScreen(cx, cy, graphTranslation, zoomFactor);
 	    var sP = [cp.x, cp.y, graph.options().height() / zoomFactor];
 	    var eP = [cp.x, cp.y, graph.options().height() / val];
 	    var pos_intp = d3.interpolateZoom(sP, eP);
-	    
+
 	    graphContainer.attr("transform", transform(sP, cx, cy))
 	      .transition()
 	      .duration(250)
@@ -5853,9 +5859,9 @@ webvowl =
 	        updateHaloRadius();
 	        options.zoomSlider().updateZoomSliderValue(zoomFactor);
 	      });
-	    
+
 	  };
-	  
+
 	  graph.zoomIn = function (){
 	    var minMag = options.minMagnification(),
 	      maxMag = options.maxMagnification();
@@ -5868,7 +5874,7 @@ webvowl =
 	    var sP = [cp.x, cp.y, graph.options().height() / zoomFactor];
 	    var eP = [cp.x, cp.y, graph.options().height() / val];
 	    var pos_intp = d3.interpolateZoom(sP, eP);
-	    
+
 	    graphContainer.attr("transform", transform(sP, cx, cy))
 	      .transition()
 	      .duration(250)
@@ -5884,14 +5890,14 @@ webvowl =
 	        updateHaloRadius();
 	        options.zoomSlider().updateZoomSliderValue(zoomFactor);
 	      });
-	    
-	    
+
+
 	  };
-	  
+
 	  /** --------------------------------------------------------- **/
 	  /** -- data related handling                               -- **/
 	  /** --------------------------------------------------------- **/
-	  
+
 	  var cachedJsonOBJ = null;
 	  graph.clearAllGraphData = function (){
 	    if ( graph.graphNodeElements() && graph.graphNodeElements().length > 0 ) {
@@ -5908,7 +5914,7 @@ webvowl =
 	  graph.getCachedJsonObj = function (){
 	    return cachedJsonOBJ;
 	  };
-	  
+
 	  // removes data when data could not be loaded
 	  graph.clearGraphData = function (){
 	    force.stop();
@@ -5918,7 +5924,7 @@ webvowl =
 	    if ( graphContainer )
 	      redrawGraph();
 	  };
-	  
+
 	  function generateDictionary( data ){
 	    var i;
 	    var originalDictionary = [];
@@ -5934,12 +5940,12 @@ webvowl =
 	        originalDictionary.push(props[i]);
 	    }
 	    parser.setDictionary(originalDictionary);
-	    
+
 	    var literFilter = graph.options().literalFilter();
 	    var idsToRemove = literFilter.removedNodes();
 	    var originalDict = parser.getDictionary();
 	    var newDict = [];
-	    
+
 	    // go through the dictionary and remove the ids;
 	    for ( i = 0; i < originalDict.length; i++ ) {
 	      var dictElement = originalDict[i];
@@ -5962,12 +5968,12 @@ webvowl =
 	    }
 	    // tell the parser that the dictionary is updated
 	    parser.setDictionary(newDict);
-	    
+
 	  }
-	  
+
 	  graph.updateProgressBarMode = function (){
 	    var loadingModule = graph.options().loadingModule();
-	    
+
 	    var state = loadingModule.getProgressBarMode();
 	    switch ( state ) {
 	      case  0:
@@ -5983,16 +5989,16 @@ webvowl =
 	        loadingModule.setPercentMode();
 	    }
 	  };
-	  
+
 	  graph.setFilterWarning = function ( val ){
 	    showFilterWarning = val;
 	  };
 	  function loadGraphData( init ){
 	    // reset the locate button and previously selected locations and other variables
-	    
+
 	    var loadingModule = graph.options().loadingModule();
 	    force.stop();
-	    
+
 	    force.nodes([]);
 	    force.links([]);
 	    nodeArrayForPulse = [];
@@ -6001,12 +6007,12 @@ webvowl =
 	    d3.select("#locateSearchResult").classed("highlighted", false);
 	    d3.select("#locateSearchResult").node().title = "Nothing to locate";
 	    graph.clearGraphData();
-	    
+
 	    if ( init ) {
 	      force.stop();
 	      return;
 	    }
-	    
+
 	    showFilterWarning = false;
 	    parser.parse(options.data());
 	    unfilteredData = {
@@ -6016,8 +6022,8 @@ webvowl =
 	    // fixing class and property id counter for the editor
 	    eN = unfilteredData.nodes.length + 1;
 	    eP = unfilteredData.properties.length + 1;
-	    
-	    
+
+
 	    // using the ids of elements if to ensure that loaded elements will not get the same id;
 	    for ( var p = 0; p < unfilteredData.properties.length; p++ ) {
 	      var currentId = unfilteredData.properties[p].id();
@@ -6046,19 +6052,19 @@ webvowl =
 	        }
 	      }
 	    }
-	    
+
 	    initialLoad = true;
 	    graph.options().warningModule().closeFilterHint();
-	    
+
 	    // loading handler
 	    updateRenderingDuringSimulation = true;
 	    var validOntology = graph.options().loadingModule().successfullyLoadedOntology();
 	    if ( graphContainer && validOntology === true ) {
-	      
+
 	      updateRenderingDuringSimulation = false;
 	      graph.options().ontologyMenu().append_bulletPoint("Generating visualization ... ");
 	      loadingModule.setPercentMode();
-	      
+
 	      if ( unfilteredData.nodes.length > 0 ) {
 	        graphContainer.style("opacity", "0");
 	        force.on("tick", hiddenRecalculatePositions);
@@ -6071,7 +6077,7 @@ webvowl =
 	          force.on("tick", recalculatePositions);
 	        }
 	      }
-	      
+
 	      force.start();
 	    } else {
 	      force.stop();
@@ -6132,7 +6138,7 @@ webvowl =
 	    });
 	    // generate dictionary here ;
 	    generateDictionary(unfilteredData);
-	    
+
 	    parser.parseSettings();
 	    graphUpdateRequired = parser.settingsImported();
 	    centerGraphViewOnLoad = true;
@@ -6144,7 +6150,7 @@ webvowl =
 	    graph.options().editSidebar().updatePrefixUi();
 	    graph.options().editSidebar().updateElementWidth();
 	  }
-	  
+
 	  graph.handleOnLoadingError = function (){
 	    force.stop();
 	    graph.clearGraphData();
@@ -6154,25 +6160,25 @@ webvowl =
 	    graph.options().loadingModule().setErrorMode();
 	    graph.options().loadingModule().showErrorDetailsMessage();
 	  };
-	  
+
 	  function quick_refreshGraphData(){
 	    links = linkCreator.createLinks(properties);
 	    labelNodes = links.map(function ( link ){
 	      return link.label();
 	    });
-	    
+
 	    storeLinksOnNodes(classNodes, links);
 	    setForceLayoutData(classNodes, labelNodes, links);
 	  }
-	  
+
 	  //Applies the data of the graph options object and parses it. The graph is not redrawn.
 	  function refreshGraphData(){
 	    var shouldExecuteEmptyFilter = options.literalFilter().enabled();
 	    graph.executeEmptyLiteralFilter();
 	    options.literalFilter().enabled(shouldExecuteEmptyFilter);
-	    
+
 	    var preprocessedData = _.clone(unfilteredData);
-	    
+
 	    // Filter the data
 	    options.filterModules().forEach(function ( module ){
 	      preprocessedData = filterFunction(module, preprocessedData);
@@ -6191,11 +6197,11 @@ webvowl =
 	    //         classNodes[i].setRectangularRepresentation(graph.options().rectangularRepresentation());
 	    // }
 	  }
-	  
+
 	  function filterFunction( module, data, initializing ){
 	    links = linkCreator.createLinks(data.properties);
 	    storeLinksOnNodes(data.nodes, links);
-	    
+
 	    if ( initializing ) {
 	      if ( module.initialize ) {
 	        module.initialize(data.nodes, data.properties);
@@ -6207,8 +6213,8 @@ webvowl =
 	      properties: module.filteredProperties()
 	    };
 	  }
-	  
-	  
+
+
 	  /** --------------------------------------------------------- **/
 	  /** -- force-layout related functions                      -- **/
 	  /** --------------------------------------------------------- **/
@@ -6216,11 +6222,11 @@ webvowl =
 	    for ( var i = 0, nodesLength = nodes.length; i < nodesLength; i++ ) {
 	      var node = nodes[i],
 	        connectedLinks = [];
-	      
+
 	      // look for properties where this node is the domain or range
 	      for ( var j = 0, linksLength = links.length; j < linksLength; j++ ) {
 	        var link = links[j];
-	        
+
 	        if ( link.domain() === node || link.range() === node ) {
 	          connectedLinks.push(link);
 	        }
@@ -6228,20 +6234,20 @@ webvowl =
 	      node.links(connectedLinks);
 	    }
 	  }
-	  
+
 	  function setForceLayoutData( classNodes, labelNodes, links ){
 	    var d3Links = [];
 	    links.forEach(function ( link ){
 	      d3Links = d3Links.concat(link.linkParts());
 	    });
-	    
+
 	    var d3Nodes = [].concat(classNodes).concat(labelNodes);
 	    setPositionOfOldLabelsOnNewLabels(force.nodes(), labelNodes);
-	    
+
 	    force.nodes(d3Nodes)
 	      .links(d3Links);
 	  }
-	  
+
 	  // The label nodes are positioned randomly, because they are created from scratch if the data changes and lose
 	  // their position information. With this hack the position of old labels is copied to the new labels.
 	  function setPositionOfOldLabelsOnNewLabels( oldLabelNodes, labelNodes ){
@@ -6258,14 +6264,14 @@ webvowl =
 	      }
 	    });
 	  }
-	  
+
 	  // Applies all options that don't change the graph data.
 	  function refreshGraphStyle(){
 	    zoom = zoom.scaleExtent([options.minMagnification(), options.maxMagnification()]);
 	    if ( graphContainer ) {
 	      zoom.event(graphContainer);
 	    }
-	    
+
 	    force.charge(function ( element ){
 	      var charge = options.charge();
 	      if ( elementTools.isLabel(element) ) {
@@ -6277,26 +6283,26 @@ webvowl =
 	      .linkDistance(calculateLinkPartDistance)
 	      .gravity(options.gravity())
 	      .linkStrength(options.linkStrength()); // Flexibility of links
-	    
+
 	    force.nodes().forEach(function ( n ){
 	      n.frozen(paused);
 	    });
 	  }
-	  
+
 	  function calculateLinkPartDistance( linkPart ){
 	    var link = linkPart.link();
-	    
+
 	    if ( link.isLoop() ) {
 	      return options.loopDistance();
 	    }
-	    
+
 	    // divide by 2 to receive the length for a single link part
 	    var linkPartDistance = getVisibleLinkDistance(link) / 2;
 	    linkPartDistance += linkPart.domain().actualRadius();
 	    linkPartDistance += linkPart.range().actualRadius();
 	    return linkPartDistance;
 	  }
-	  
+
 	  function getVisibleLinkDistance( link ){
 	    if ( elementTools.isDatatype(link.domain()) || elementTools.isDatatype(link.range()) ) {
 	      return options.datatypeDistance();
@@ -6304,11 +6310,11 @@ webvowl =
 	      return options.classDistance();
 	    }
 	  }
-	  
+
 	  /** --------------------------------------------------------- **/
 	  /** -- animation functions for the nodes --                   **/
 	  /** --------------------------------------------------------- **/
-	  
+
 	  graph.animateDynamicLabelWidth = function (){
 	    var wantedWidth = options.dynamicLabelWidth();
 	    var i;
@@ -6322,8 +6328,8 @@ webvowl =
 	      properties[i].animateDynamicLabelWidth(wantedWidth);
 	    }
 	  };
-	  
-	  
+
+
 	  /** --------------------------------------------------------- **/
 	  /** -- halo and localization functions --                     **/
 	  /** --------------------------------------------------------- **/
@@ -6355,7 +6361,7 @@ webvowl =
 	                  if ( !node.property().getHalos() )
 	                    node.property().drawHalo();
 	                  computeDistanceToCenter(node, false);
-	                  
+
 	                }
 	              }
 	            }
@@ -6365,28 +6371,28 @@ webvowl =
 	      }
 	    }
 	  }
-	  
+
 	  function getScreenCoords( x, y, translate, scale ){
 	    var xn = translate[0] + x * scale;
 	    var yn = translate[1] + y * scale;
 	    return { x: xn, y: yn };
 	  }
-	  
+
 	  function getClickedScreenCoords( x, y, translate, scale ){
 	    var xn = (x - translate[0]) / scale;
 	    var yn = (y - translate[1]) / scale;
 	    return { x: xn, y: yn };
 	  }
-	  
-	  
+
+
 	  function computeDistanceToCenter( node, inverse ){
 	    var container = node;
 	    var w = graph.options().width();
 	    var h = graph.options().height();
 	    var posXY = getScreenCoords(node.x, node.y, graphTranslation, zoomFactor);
-	    
+
 	    var highlightOfInv = false;
-	    
+
 	    if ( inverse && inverse === true ) {
 	      highlightOfInv = true;
 	      posXY = getScreenCoords(node.x, node.y + 20, graphTranslation, zoomFactor);
@@ -6402,11 +6408,11 @@ webvowl =
 	    var defaultRadius;
 	    var offset = 15;
 	    var radius;
-	    
+
 	    if ( node.property && highlightOfInv === true ) {
 	      if ( node.property().inverse() ) {
 	        rectHalo = node.property().inverse().getHalos().select("rect");
-	        
+
 	      } else {
 	        if ( node.property().getHalos() )
 	          rectHalo = node.property().getHalos().select("rect");
@@ -6425,18 +6431,18 @@ webvowl =
 	      }
 	      if ( roundHalo.node() === null ) {
 	        radius = node.property().inverse().width() + 15;
-	        
+
 	        roundHalo = node.property().inverse().getHalos().append("circle")
 	          .classed("searchResultB", true)
 	          .classed("searchResultA", false)
 	          .attr("r", radius + 15);
-	        
+
 	      }
 	      halo = roundHalo; // swap the halo to be round
 	      nodeIsRect = true;
 	      container = node.property().inverse();
 	    }
-	    
+
 	    if ( node.id ) {
 	      if ( !node.getHalos() ) return; // something went wrong before
 	      halo = node.getHalos().select("rect");
@@ -6466,22 +6472,22 @@ webvowl =
 	      if ( !node.property().getHalos() ) return; // something went wrong before
 	      rectHalo = node.property().getHalos().select("rect");
 	      rectHalo.classed("hidden", true);
-	      
+
 	      roundHalo = node.property().getHalos().select("circle");
 	      if ( roundHalo.node() === null ) {
 	        radius = node.property().width();
-	        
+
 	        roundHalo = node.property().getHalos().append("circle")
 	          .classed("searchResultB", true)
 	          .classed("searchResultA", false)
 	          .attr("r", radius + 15);
-	        
+
 	      }
 	      halo = roundHalo; // swap the halo to be round
 	      nodeIsRect = true;
 	      container = node.property();
 	    }
-	    
+
 	    if ( x < 0 || x > w || y < 0 || y > h ) {
 	      // node outside viewport;
 	      // check for quadrant and get the correct boarder point (intersection with viewport)
@@ -6519,31 +6525,31 @@ webvowl =
 	      // compute in pixel coordinates length of difference vector
 	      var borderRadius_x = borderPoint_x - x;
 	      var borderRadius_y = borderPoint_y - y;
-	      
+
 	      var len = borderRadius_x * borderRadius_x + borderRadius_y * borderRadius_y;
 	      len = Math.sqrt(len);
-	      
+
 	      var normedX = borderRadius_x / len;
 	      var normedY = borderRadius_y / len;
-	      
+
 	      len = len + 20; // add 20 px;
-	      
+
 	      // re-normalized vector
 	      var newVectorX = normedX * len + x;
 	      var newVectorY = normedY * len + y;
 	      // compute world coordinates of this point
 	      var wX = (newVectorX - graphTranslation[0]) / zoomFactor;
 	      var wY = (newVectorY - graphTranslation[1]) / zoomFactor;
-	      
+
 	      // compute distance in world coordinates
 	      var dx = wX - node.x;
 	      var dy = wY - node.y;
 	      if ( highlightOfInv === true )
 	        dy = wY - node.y - 20;
-	      
+
 	      if ( highlightOfInv === false && node.property && node.property().inverse() )
 	        dy = wY - node.y + 20;
-	      
+
 	      var newRadius = Math.sqrt(dx * dx + dy * dy);
 	      halo = container.getHalos().select("circle");
 	      // sanity checks and setting new halo radius
@@ -6571,13 +6577,13 @@ webvowl =
 	        //halo.classed("searchResultA", false);
 	        var aCircHalo = container.getHalos().select("circle");
 	        aCircHalo.classed("hidden", true);
-	        
+
 	        container.getHalos().select("rect").classed("hidden", false);
 	        container.getHalos().select("circle").classed("hidden", true);
 	      }
 	    }
 	  }
-	  
+
 	  function transform( p, cx, cy ){
 	    // one iteration step for the locate target animation
 	    zoomFactor = graph.options().height() / p[2];
@@ -6589,30 +6595,30 @@ webvowl =
 	    graph.options().zoomSlider().updateZoomSliderValue(zoomFactor);
 	    return "translate(" + graphTranslation[0] + "," + graphTranslation[1] + ")scale(" + zoomFactor + ")";
 	  }
-	  
+
 	  graph.zoomToElementInGraph = function ( element ){
 	    targetLocationZoom(element);
 	  };
 	  graph.updateHaloRadius = function ( element ){
 	    computeDistanceToCenter(element);
 	  };
-	  
+
 	  function targetLocationZoom( target ){
 	    // store the original information
 	    var cx = 0.5 * graph.options().width();
 	    var cy = 0.5 * graph.options().height();
 	    var cp = getWorldPosFromScreen(cx, cy, graphTranslation, zoomFactor);
 	    var sP = [cp.x, cp.y, graph.options().height() / zoomFactor];
-	    
+
 	    var zoomLevel = Math.max(defaultZoom + 0.5 * defaultZoom, defaultTargetZoom);
 	    var eP = [target.x, target.y, graph.options().height() / zoomLevel];
 	    var pos_intp = d3.interpolateZoom(sP, eP);
-	    
+
 	    var lenAnimation = pos_intp.duration;
 	    if ( lenAnimation > 2500 ) {
 	      lenAnimation = 2500;
 	    }
-	    
+
 	    graphContainer.attr("transform", transform(sP, cx, cy))
 	      .transition()
 	      .duration(lenAnimation)
@@ -6628,7 +6634,7 @@ webvowl =
 	        updateHaloRadius();
 	      });
 	  }
-	  
+
 	  function getWorldPosFromScreen( x, y, translate, scale ){
 	    var temp = scale[0], xn, yn;
 	    if ( temp ) {
@@ -6640,7 +6646,7 @@ webvowl =
 	    }
 	    return { x: xn, y: yn };
 	  }
-	  
+
 	  graph.locateSearchResult = function (){
 	    if ( pulseNodeIds && pulseNodeIds.length > 0 ) {
 	      // move the center of the viewport to this location
@@ -6650,11 +6656,11 @@ webvowl =
 	      locationId = locationId % pulseNodeIds.length;
 	      if ( node.id ) node.foreground();
 	      if ( node.property ) node.property().foreground();
-	      
+
 	      targetLocationZoom(node);
 	    }
 	  };
-	  
+
 	  graph.resetSearchHighlight = function (){
 	    // get all nodes (handle also already filtered nodes )
 	    pulseNodeIds = [];
@@ -6674,7 +6680,7 @@ webvowl =
 	        prop.removeHalo();
 	    }
 	  };
-	  
+
 	  graph.updatePulseIds = function ( nodeIdArray ){
 	    pulseNodeIds = [];
 	    for ( var i = 0; i < nodeIdArray.length; i++ ) {
@@ -6703,9 +6709,9 @@ webvowl =
 	      d3.select("#locateSearchResult").classed("highlighted", false);
 	      d3.select("#locateSearchResult").node().title = "Nothing to locate";
 	    }
-	    
+
 	  };
-	  
+
 	  graph.highLightNodes = function ( nodeIdArray ){
 	    if ( nodeIdArray.length === 0 ) {
 	      return; // nothing to highlight
@@ -6713,7 +6719,7 @@ webvowl =
 	    pulseNodeIds = [];
 	    nodeArrayForPulse = nodeIdArray;
 	    var missedIds = [];
-	    
+
 	    // identify the force id to highlight
 	    for ( var i = 0; i < nodeIdArray.length; i++ ) {
 	      var selectedId = nodeIdArray[i];
@@ -6739,9 +6745,9 @@ webvowl =
 	        missedIds.push(selectedId);
 	      }
 	    }
-	    
+
 	    if ( missedIds.length === nodeIdArray.length ) {
-	      
+
 	    }
 	    // store the highlight on the missed nodes;
 	    var s_nodes = unfilteredData.nodes;
@@ -6771,58 +6777,58 @@ webvowl =
 	    locationId = 0;
 	    updateHaloRadius();
 	  };
-	  
+
 	  graph.hideHalos = function (){
 	    var haloElements = d3.selectAll(".searchResultA,.searchResultB");
 	    haloElements.classed("hidden", true);
 	    return haloElements;
 	  };
-	  
+
 	  function nodeInViewport( node, property ){
-	    
+
 	    var w = graph.options().width();
 	    var h = graph.options().height();
 	    var posXY = getScreenCoords(node.x, node.y, graphTranslation, zoomFactor);
 	    var x = posXY.x;
 	    var y = posXY.y;
-	    
+
 	    var retVal = !(x < 0 || x > w || y < 0 || y > h);
 	    return retVal;
 	  }
-	  
+
 	  graph.getBoundingBoxForTex = function (){
 	    var halos = graph.hideHalos();
 	    var bbox = graphContainer.node().getBoundingClientRect();
 	    halos.classed("hidden", false);
 	    var w = graph.options().width();
 	    var h = graph.options().height();
-	    
+
 	    // get the graph coordinates
 	    var topLeft = getWorldPosFromScreen(0, 0, graphTranslation, zoomFactor);
 	    var botRight = getWorldPosFromScreen(w, h, graphTranslation, zoomFactor);
-	    
-	    
+
+
 	    var t_topLeft = getWorldPosFromScreen(bbox.left, bbox.top, graphTranslation, zoomFactor);
 	    var t_botRight = getWorldPosFromScreen(bbox.right, bbox.bottom, graphTranslation, zoomFactor);
-	    
+
 	    // tighten up the bounding box;
-	    
+
 	    var tX = Math.max(t_topLeft.x, topLeft.x);
 	    var tY = Math.max(t_topLeft.y, topLeft.y);
-	    
+
 	    var bX = Math.min(t_botRight.x, botRight.x);
 	    var bY = Math.min(t_botRight.y, botRight.y);
-	    
-	    
+
+
 	    // tighten further;
 	    var allForceNodes = force.nodes();
 	    var numNodes = allForceNodes.length;
 	    var visibleNodes = [];
 	    var bbx;
-	    
-	    
+
+
 	    var contentBBox = { tx: 1000000000000, ty: 1000000000000, bx: -1000000000000, by: -1000000000000 };
-	    
+
 	    for ( var i = 0; i < numNodes; i++ ) {
 	      var node = allForceNodes[i];
 	      if ( node ) {
@@ -6850,29 +6856,29 @@ webvowl =
 	        }
 	      }
 	    }
-	    
+
 	    var tt_topLeft = getWorldPosFromScreen(contentBBox.tx, contentBBox.ty, graphTranslation, zoomFactor);
 	    var tt_botRight = getWorldPosFromScreen(contentBBox.bx, contentBBox.by, graphTranslation, zoomFactor);
-	    
+
 	    tX = Math.max(tX, tt_topLeft.x);
 	    tY = Math.max(tY, tt_topLeft.y);
-	    
+
 	    bX = Math.min(bX, tt_botRight.x);
 	    bY = Math.min(bY, tt_botRight.y);
 	    // y axis flip for tex
 	    return [tX, -tY, bX, -bY];
-	    
+
 	  };
-	  
+
 	  var updateTargetElement = function (){
 	    var bbox = graphContainer.node().getBoundingClientRect();
-	    
-	    
+
+
 	    // get the graph coordinates
 	    var bboxOffset = 50; // default radius of a node;
 	    var topLeft = getWorldPosFromScreen(bbox.left, bbox.top, graphTranslation, zoomFactor);
 	    var botRight = getWorldPosFromScreen(bbox.right, bbox.bottom, graphTranslation, zoomFactor);
-	    
+
 	    var w = graph.options().width();
 	    if ( graph.options().leftSidebar().isSidebarVisible() === true )
 	      w -= 200;
@@ -6881,20 +6887,20 @@ webvowl =
 	    topLeft.y -= bboxOffset;
 	    botRight.x -= bboxOffset;
 	    botRight.y += bboxOffset;
-	    
+
 	    var g_w = botRight.x - topLeft.x;
 	    var g_h = botRight.y - topLeft.y;
-	    
+
 	    // endpoint position calculations
 	    var posX = 0.5 * (topLeft.x + botRight.x);
 	    var posY = 0.5 * (topLeft.y + botRight.y);
 	    var cx = 0.5 * w,
 	      cy = 0.5 * h;
-	    
+
 	    if ( graph.options().leftSidebar().isSidebarVisible() === true )
 	      cx += 200;
 	    var cp = getWorldPosFromScreen(cx, cy, graphTranslation, zoomFactor);
-	    
+
 	    // zoom factor calculations and fail safes;
 	    var newZoomFactor = 1.0; // fail save if graph and window are squares
 	    //get the smaller one
@@ -6902,8 +6908,8 @@ webvowl =
 	    var b = h / g_h;
 	    if ( a < b ) newZoomFactor = a;
 	    else      newZoomFactor = b;
-	    
-	    
+
+
 	    // fail saves
 	    if ( newZoomFactor > zoom.scaleExtent()[1] ) {
 	      newZoomFactor = zoom.scaleExtent()[1];
@@ -6911,28 +6917,28 @@ webvowl =
 	    if ( newZoomFactor < zoom.scaleExtent()[0] ) {
 	      newZoomFactor = zoom.scaleExtent()[0];
 	    }
-	    
+
 	    // apply Zooming
 	    var sP = [cp.x, cp.y, h / zoomFactor];
 	    var eP = [posX, posY, h / newZoomFactor];
-	    
-	    
+
+
 	    var pos_intp = d3.interpolateZoom(sP, eP);
 	    return [pos_intp, cx, cy];
-	    
+
 	  };
-	  
+
 	  graph.forceRelocationEvent = function ( dynamic ){
 	    // we need to kill the halo to determine the bounding box;
 	    var halos = graph.hideHalos();
 	    var bbox = graphContainer.node().getBoundingClientRect();
 	    halos.classed("hidden", false);
-	    
+
 	    // get the graph coordinates
 	    var bboxOffset = 50; // default radius of a node;
 	    var topLeft = getWorldPosFromScreen(bbox.left, bbox.top, graphTranslation, zoomFactor);
 	    var botRight = getWorldPosFromScreen(bbox.right, bbox.bottom, graphTranslation, zoomFactor);
-	    
+
 	    var w = graph.options().width();
 	    if ( graph.options().leftSidebar().isSidebarVisible() === true )
 	      w -= 200;
@@ -6941,20 +6947,20 @@ webvowl =
 	    topLeft.y -= bboxOffset;
 	    botRight.x -= bboxOffset;
 	    botRight.y += bboxOffset;
-	    
+
 	    var g_w = botRight.x - topLeft.x;
 	    var g_h = botRight.y - topLeft.y;
-	    
+
 	    // endpoint position calculations
 	    var posX = 0.5 * (topLeft.x + botRight.x);
 	    var posY = 0.5 * (topLeft.y + botRight.y);
 	    var cx = 0.5 * w,
 	      cy = 0.5 * h;
-	    
+
 	    if ( graph.options().leftSidebar().isSidebarVisible() === true )
 	      cx += 200;
 	    var cp = getWorldPosFromScreen(cx, cy, graphTranslation, zoomFactor);
-	    
+
 	    // zoom factor calculations and fail safes;
 	    var newZoomFactor = 1.0; // fail save if graph and window are squares
 	    //get the smaller one
@@ -6962,8 +6968,8 @@ webvowl =
 	    var b = h / g_h;
 	    if ( a < b ) newZoomFactor = a;
 	    else      newZoomFactor = b;
-	    
-	    
+
+
 	    // fail saves
 	    if ( newZoomFactor > zoom.scaleExtent()[1] ) {
 	      newZoomFactor = zoom.scaleExtent()[1];
@@ -6971,12 +6977,12 @@ webvowl =
 	    if ( newZoomFactor < zoom.scaleExtent()[0] ) {
 	      newZoomFactor = zoom.scaleExtent()[0];
 	    }
-	    
+
 	    // apply Zooming
 	    var sP = [cp.x, cp.y, h / zoomFactor];
 	    var eP = [posX, posY, h / newZoomFactor];
-	    
-	    
+
+
 	    var pos_intp = d3.interpolateZoom(sP, eP);
 	    var lenAnimation = pos_intp.duration;
 	    if ( lenAnimation > 2500 ) {
@@ -6999,17 +7005,17 @@ webvowl =
 	        if ( dynamic ) {
 	          return;
 	        }
-	        
+
 	        graphContainer.attr("transform", "translate(" + graphTranslation + ")scale(" + zoomFactor + ")");
 	        zoom.translate(graphTranslation);
 	        zoom.scale(zoomFactor);
 	        graph.options().zoomSlider().updateZoomSliderValue(zoomFactor);
-	        
-	        
+
+
 	      });
 	  };
-	  
-	  
+
+
 	  graph.isADraggerActive = function (){
 	    if ( classDragger.mouseButtonPressed === true ||
 	      domainDragger.mouseButtonPressed === true ||
@@ -7018,31 +7024,31 @@ webvowl =
 	    }
 	    return false;
 	  };
-	  
+
 	  /** --------------------------------------------------------- **/
 	  /** -- VOWL EDITOR  create/ edit /delete functions --         **/
 	  /** --------------------------------------------------------- **/
-	  
+
 	  graph.changeNodeType = function ( element ){
-	    
+
 	    var typeString = d3.select("#typeEditor").node().value;
-	    
+
 	    if ( graph.classesSanityCheck(element, typeString) === false ) {
 	      // call reselection to restore previous type selection
 	      graph.options().editSidebar().updateSelectionInformation(element);
 	      return;
 	    }
-	    
+
 	    var prototype = NodePrototypeMap.get(typeString.toLowerCase());
 	    var aNode = new prototype(graph);
-	    
+
 	    aNode.x = element.x;
 	    aNode.y = element.y;
 	    aNode.px = element.x;
 	    aNode.py = element.y;
 	    aNode.id(element.id());
 	    aNode.copyInformation(element);
-	    
+
 	    if ( typeString === "owl:Thing" ) {
 	      aNode.label("Thing");
 	    }
@@ -7055,7 +7061,7 @@ webvowl =
 	        aNode.label("NewClass");
 	      }
 	    }
-	    
+
 	    if ( typeString === "rdfs:Datatype" ) {
 	      if ( aNode.dType() === "undefined" )
 	        aNode.label("undefined");
@@ -7076,7 +7082,7 @@ webvowl =
 	        //  unfilteredData.properties[i].toString();
 	      }
 	    }
-	    
+
 	    // update for fastUpdate:
 	    for ( i = 0; i < properties.length; i++ ) {
 	      if ( properties[i].domain() === element ) {
@@ -7088,7 +7094,7 @@ webvowl =
 	        //  unfilteredData.properties[i].toString();
 	      }
 	    }
-	    
+
 	    var remId = unfilteredData.nodes.indexOf(element);
 	    if ( remId !== -1 )
 	      unfilteredData.nodes.splice(remId, 1);
@@ -7103,39 +7109,39 @@ webvowl =
 	    graph.getUpdateDictionary();
 	    element = null;
 	  };
-	  
-	  
+
+
 	  graph.changePropertyType = function ( element ){
 	    var typeString = d3.select("#typeEditor").node().value;
-	    
+
 	    // create warning
 	    if ( graph.sanityCheckProperty(element.domain(), element.range(), typeString) === false ) return false;
-	    
+
 	    var propPrototype = PropertyPrototypeMap.get(typeString.toLowerCase());
 	    var aProp = new propPrototype(graph);
 	    aProp.copyInformation(element);
 	    aProp.id(element.id());
-	    
+
 	    element.domain().removePropertyElement(element);
 	    element.range().removePropertyElement(element);
 	    aProp.domain(element.domain());
 	    aProp.range(element.range());
-	    
+
 	    if ( element.backupLabel() !== undefined ) {
 	      aProp.label(element.backupLabel());
 	    } else {
 	      aProp.label("newObjectProperty");
 	    }
-	    
+
 	    if ( aProp.type() === "rdfs:subClassOf" ) {
 	      aProp.iri("http://www.w3.org/2000/01/rdf-schema#subClassOf");
 	    } else {
 	      if ( element.iri() === "http://www.w3.org/2000/01/rdf-schema#subClassOf" )
 	        aProp.iri(graph.options().getGeneralMetaObjectProperty('iri') + aProp.id());
-	      
+
 	    }
-	    
-	    
+
+
 	    if ( graph.propertyCheckExistenceChecker(aProp, element.domain(), element.range()) === false ) {
 	      graph.options().editSidebar().updateSelectionInformation(element);
 	      return;
@@ -7144,8 +7150,8 @@ webvowl =
 	    // var ontoIRI="http://someTest.de";
 	    // aProp.baseIri(ontoIRI);
 	    // aProp.iri(aProp.baseIri()+aProp.id());
-	    
-	    
+
+
 	    // add this to the data;
 	    unfilteredData.properties.push(aProp);
 	    if ( properties.indexOf(aProp) === -1 )
@@ -7167,28 +7173,28 @@ webvowl =
 	      aProp.labelObject().y = element.labelObject().y;
 	      aProp.labelObject().py = element.labelObject().py;
 	    }
-	    
+
 	    options.focuserModule().handle(aProp);
 	    element = null;
 	  };
-	  
+
 	  graph.removeEditElements = function (){
 	    // just added to be called form outside
 	    removeEditElements();
 	  };
-	  
+
 	  function removeEditElements(){
 	    rangeDragger.hideDragger(true);
 	    domainDragger.hideDragger(true);
 	    shadowClone.hideClone(true);
-	    
+
 	    classDragger.hideDragger(true);
 	    if ( addDataPropertyGroupElement )
 	      addDataPropertyGroupElement.classed("hidden", true);
 	    if ( deleteGroupElement )
 	      deleteGroupElement.classed("hidden", true);
-	    
-	    
+
+
 	    if ( hoveredNodeElement ) {
 	      if ( hoveredNodeElement.pinned() === false ) {
 	        hoveredNodeElement.locked(graph.paused());
@@ -7201,14 +7207,14 @@ webvowl =
 	        hoveredPropertyElement.frozen(graph.paused());
 	      }
 	    }
-	    
-	    
+
+
 	  }
-	  
+
 	  graph.editorMode = function ( val ){
 	    var create_entry = d3.select("#empty");
 	    var create_container = d3.select("#emptyContainer");
-	    
+
 	    var modeOfOpString = d3.select("#modeOfOperationString").node();
 	    if ( !arguments.length ) {
 	      create_entry.node().checked = editMode;
@@ -7224,17 +7230,17 @@ webvowl =
 	        create_entry.node().disabled = false;
 	        create_entry.style("pointer-events", "auto");
 	      }
-	      
+
 	      return editMode;
 	    }
 	    graph.options().setEditorModeForDefaultObject(val);
-	    
+
 	    // if (seenEditorHint===false  && val===true){
 	    //     seenEditorHint=true;
 	    //     graph.options().warningModule().showEditorHint();
 	    // }
 	    editMode = val;
-	    
+
 	    if ( create_entry ) {
 	      create_entry.classed("disabled", !editMode);
 	      if ( !editMode ) {
@@ -7252,7 +7258,7 @@ webvowl =
 	        create_entry.style("pointer-events", "auto");
 	      }
 	    }
-	    
+
 	    // adjust compact notation
 	    // selector = compactNotationOption;
 	    // box =ModuleCheckbox
@@ -7282,7 +7288,7 @@ webvowl =
 	        d3.select("#compactNotationOption").style("color", "#979797");
 	      }
 	    }
-	    
+
 	    if ( modeOfOpString ) {
 	      if ( touchDevice === true ) {
 	        modeOfOpString.innerHTML = "touch able device detected";
@@ -7291,14 +7297,14 @@ webvowl =
 	      }
 	    }
 	    var svgGraph = d3.selectAll(".vowlGraph");
-	    
+
 	    if ( editMode === true ) {
 	      options.leftSidebar().showSidebar(options.leftSidebar().getSidebarVisibility(), true);
 	      options.leftSidebar().hideCollapseButton(false);
 	      graph.options().editSidebar().updatePrefixUi();
 	      graph.options().editSidebar().updateElementWidth();
 	      svgGraph.on("dblclick.zoom", graph.modified_dblClickFunction);
-	      
+
 	    } else {
 	      svgGraph.on("dblclick.zoom", originalD3_dblClickFunction);
 	      options.leftSidebar().showSidebar(0);
@@ -7308,20 +7314,20 @@ webvowl =
 	    }
 	    options.sidebar().updateShowedInformation();
 	    options.editSidebar().updateElementWidth();
-	    
+
 	  };
-	  
+
 	  function createLowerCasePrototypeMap( prototypeMap ){
 	    return d3.map(prototypeMap.values(), function ( Prototype ){
 	      return new Prototype().type().toLowerCase();
 	    });
 	  }
-	  
+
 	  function createNewNodeAtPosition( pos ){
 	    var aNode, prototype;
 	    var forceUpdate = true;
 	    // create a node of that id;
-	    
+
 	    var typeToCreate = d3.select("#defaultClass").node().title;
 	    prototype = NodePrototypeMap.get(typeToCreate.toLowerCase());
 	    aNode = new prototype(graph);
@@ -7339,7 +7345,7 @@ webvowl =
 	    aNode.py = aNode.y;
 	    aNode.id("Class" + eN++);
 	    // aNode.paused(true);
-	    
+
 	    aNode.baseIri(d3.select("#iriEditor").node().value);
 	    aNode.iri(aNode.baseIri() + aNode.id());
 	    addNewNodeElement(aNode, forceUpdate);
@@ -7348,18 +7354,18 @@ webvowl =
 	    aNode.locked(graph.paused());
 	    aNode.enableEditing(autoEditElement);
 	  }
-	  
-	  
+
+
 	  function addNewNodeElement( element ){
 	    unfilteredData.nodes.push(element);
 	    if ( classNodes.indexOf(element) === -1 )
 	      classNodes.push(element);
-	    
+
 	    generateDictionary(unfilteredData);
 	    graph.getUpdateDictionary();
 	    graph.fastUpdate();
 	  }
-	  
+
 	  graph.getTargetNode = function ( position ){
 	    var dx = position[0];
 	    var dy = position[1];
@@ -7385,14 +7391,14 @@ webvowl =
 	      return tN;
 	    }
 	    else {
-	      
+
 	      if ( minDist > (tN.actualRadius() + 30) )
 	        return null;
 	      else return tN;
-	      
+
 	    }
 	  };
-	  
+
 	  graph.genericPropertySanityCheck = function ( domain, range, typeString, header, action ){
 	    if ( domain === range && typeString === "rdfs:subClassOf" ) {
 	      graph.options().warningModule().showWarning(header,
@@ -7420,7 +7426,7 @@ webvowl =
 	        action, 1, false);
 	      return false;
 	    }
-	    
+
 	    if ( range.type() === "owl:Thing" && typeString === "owl:allValuesFrom" ) {
 	      graph.options().warningModule().showWarning(header,
 	        "owl:allValuesFrom can not be connected to owl:Thing",
@@ -7433,21 +7439,21 @@ webvowl =
 	        action, 1, false);
 	      return false;
 	    }
-	    
+
 	    return true; // we can Change the domain or range
 	  };
-	  
+
 	  graph.checkIfIriClassAlreadyExist = function ( url ){
 	    // search for a class node with this url
 	    var allNodes = unfilteredData.nodes;
 	    for ( var i = 0; i < allNodes.length; i++ ) {
 	      if ( elementTools.isDatatype(allNodes[i]) === true || allNodes[i].type() === "owl:Thing" )
 	        continue;
-	      
+
 	      // now we are a real class;
 	      //get class IRI
 	      var classIRI = allNodes[i].iri();
-	      
+
 	      // this gives me the node for halo
 	      if ( url === classIRI ) {
 	        return allNodes[i];
@@ -7455,15 +7461,15 @@ webvowl =
 	    }
 	    return false;
 	  };
-	  
+
 	  graph.classesSanityCheck = function ( classElement, targetType ){
 	    // this is added due to someValuesFrom properties
 	    // we should not be able to change a classElement to a owl:Thing
 	    // when it has a property attached to it that uses these restrictions
 	    //
-	    
+
 	    if ( targetType === "owl:Class" ) return true;
-	    
+
 	    else {
 	      // collect all properties which have that one as a domain or range
 	      var allProps = unfilteredData.properties;
@@ -7484,17 +7490,17 @@ webvowl =
 	          }
 	        }
 	      }
-	      
-	      
+
+
 	    }
 	    return true;
 	  };
-	  
+
 	  graph.propertyCheckExistenceChecker = function ( property, domain, range ){
 	    var allProps = unfilteredData.properties;
 	    var i;
 	    if ( property.type() === "rdfs:subClassOf" || property.type() === "owl:disjointWith" ) {
-	      
+
 	      for ( i = 0; i < allProps.length; i++ ) {
 	        if ( allProps[i] === property ) continue;
 	        if ( allProps[i].domain() === domain && allProps[i].range() === range && allProps[i].type() === property.type() ) {
@@ -7514,7 +7520,7 @@ webvowl =
 	    }
 	    return true;
 	  };
-	  
+
 	  // graph.checkForTripleDuplicate=function(property){
 	  //     var domain=property.domain();
 	  //     var range=property.range();
@@ -7533,27 +7539,27 @@ webvowl =
 	  //     }
 	  //     return true;
 	  // };
-	  
+
 	  graph.sanityCheckProperty = function ( domain, range, typeString ){
-	    
+
 	    // check for duplicate triple in the element;
-	    
-	    
+
+
 	    if ( typeString === "owl:objectProperty" && graph.options().objectPropertyFilter().enabled() === true ) {
 	      graph.options().warningModule().showWarning("Warning",
 	        "Object properties are filtered out in the visualization!",
 	        "Element not created!", 1, false);
 	      return false;
 	    }
-	    
+
 	    if ( typeString === "owl:disjointWith" && graph.options().disjointPropertyFilter().enabled() === true ) {
 	      graph.options().warningModule().showWarning("Warning",
 	        "owl:disjointWith properties are filtered out in the visualization!",
 	        "Element not created!", 1, false);
 	      return false;
 	    }
-	    
-	    
+
+
 	    if ( domain === range && typeString === "rdfs:subClassOf" ) {
 	      graph.options().warningModule().showWarning("Warning",
 	        "rdfs:subClassOf can not be created as loops (domain == range)",
@@ -7566,7 +7572,7 @@ webvowl =
 	        "Element not created!", 1, false);
 	      return false;
 	    }
-	    
+
 	    if ( domain.type() === "owl:Thing" && typeString === "owl:someValuesFrom" ) {
 	      graph.options().warningModule().showWarning("Warning",
 	        "owl:someValuesFrom can not originate from owl:Thing",
@@ -7579,7 +7585,7 @@ webvowl =
 	        "Element not created!", 1, false);
 	      return false;
 	    }
-	    
+
 	    if ( range.type() === "owl:Thing" && typeString === "owl:allValuesFrom" ) {
 	      graph.options().warningModule().showWarning("Warning",
 	        "owl:allValuesFrom can not be connected to owl:Thing",
@@ -7594,16 +7600,16 @@ webvowl =
 	    }
 	    return true; // we can create a property
 	  };
-	  
+
 	  function createNewObjectProperty( domain, range, draggerEndposition ){
 	    // check type of the property that we want to create;
-	    
+
 	    var defaultPropertyName = d3.select("#defaultProperty").node().title;
-	    
+
 	    // check if we are allow to create that property
 	    if ( graph.sanityCheckProperty(domain, range, defaultPropertyName) === false ) return false;
-	    
-	    
+
+
 	    var propPrototype = PropertyPrototypeMap.get(defaultPropertyName.toLowerCase());
 	    var aProp = new propPrototype(graph);
 	    aProp.id("objectProperty" + eP++);
@@ -7612,27 +7618,27 @@ webvowl =
 	    aProp.label("newObjectProperty");
 	    aProp.baseIri(d3.select("#iriEditor").node().value);
 	    aProp.iri(aProp.baseIri() + aProp.id());
-	    
+
 	    // check for duplicate;
 	    if ( graph.propertyCheckExistenceChecker(aProp, domain, range) === false ) {
 	      // delete aProp;
 	      // hope for garbage collection here -.-
 	      return false;
 	    }
-	    
+
 	    var autoEditElement = false;
-	    
+
 	    if ( defaultPropertyName === "owl:objectProperty" ) {
 	      autoEditElement = true;
 	    }
 	    var pX = 0.49 * (domain.x + range.x);
 	    var pY = 0.49 * (domain.y + range.y);
-	    
+
 	    if ( domain === range ) {
 	      // we use the dragger endposition to determine an angle to put the loop there;
 	      var dirD_x = draggerEndposition[0] - domain.x;
 	      var dirD_y = draggerEndposition[1] - domain.y;
-	      
+
 	      // normalize;
 	      var len = Math.sqrt(dirD_x * dirD_x + dirD_y * dirD_y);
 	      // it should be very hard to set the position on the same sport but why not handling this
@@ -7643,18 +7649,18 @@ webvowl =
 	        nx = 0;
 	        ny = -1;
 	      }
-	      
+
 	      // get domain actual raidus
 	      var offset = 2 * domain.actualRadius() + 50;
 	      pX = domain.x + offset * nx;
 	      pY = domain.y + offset * ny;
 	    }
-	    
+
 	    // add this property to domain and range;
 	    domain.addProperty(aProp);
 	    range.addProperty(aProp);
-	    
-	    
+
+
 	    // add this to the data;
 	    unfilteredData.properties.push(aProp);
 	    if ( properties.indexOf(aProp) === -1 )
@@ -7664,24 +7670,24 @@ webvowl =
 	    aProp.labelObject().px = pX;
 	    aProp.labelObject().y = pY;
 	    aProp.labelObject().py = pY;
-	    
+
 	    aProp.frozen(graph.paused());
 	    aProp.locked(graph.paused());
 	    domain.frozen(graph.paused());
 	    domain.locked(graph.paused());
 	    range.frozen(graph.paused());
 	    range.locked(graph.paused());
-	    
-	    
+
+
 	    generateDictionary(unfilteredData);
 	    graph.getUpdateDictionary();
-	    
+
 	    options.focuserModule().handle(aProp);
 	    graph.activateHoverElementsForProperties(true, aProp, false, touchDevice);
 	    aProp.labelObject().increasedLoopAngle = true;
 	    aProp.enableEditing(autoEditElement);
 	  }
-	  
+
 	  graph.createDataTypeProperty = function ( node ){
 	    // random postion issues;
 	    clearTimeout(nodeFreezer);
@@ -7692,10 +7698,10 @@ webvowl =
 	        "Element not created!", 1, false);
 	      return;
 	    }
-	    
-	    
+
+
 	    var aNode, prototype;
-	    
+
 	    // create a default datatype Node >> HERE LITERAL;
 	    var defaultDatatypeName = d3.select("#defaultDatatype").node().title;
 	    if ( defaultDatatypeName === "rdfs:Literal" ) {
@@ -7710,7 +7716,7 @@ webvowl =
 	      var identifier = "";
 	      if ( defaultDatatypeName === "undefined" ) {
 	        identifier = "undefined";
-	        
+
 	        aNode.label(identifier);
 	        // TODO : HANDLER FOR UNDEFINED DATATYPES!!<<<>>>>>>>>>>>..
 	        aNode.iri("http://www.undefinedDatatype.org/#" + identifier);
@@ -7724,11 +7730,11 @@ webvowl =
 	        aNode.baseIri("http://www.w3.org/2001/XMLSchema#");
 	      }
 	    }
-	    
-	    
+
+
 	    var nX = node.x - node.actualRadius() - 100;
 	    var nY = node.y + node.actualRadius() + 100;
-	    
+
 	    aNode.x = nX;
 	    aNode.y = nY;
 	    aNode.px = aNode.x;
@@ -7738,19 +7744,19 @@ webvowl =
 	    unfilteredData.nodes.push(aNode);
 	    if ( classNodes.indexOf(aNode) === -1 )
 	      classNodes.push(aNode);
-	    
-	    
+
+
 	    // add also the datatype Property to it
 	    var propPrototype = PropertyPrototypeMap.get("owl:datatypeproperty");
 	    var aProp = new propPrototype(graph);
 	    aProp.id("datatypeProperty" + eP++);
-	    
+
 	    // create the connection
 	    aProp.domain(node);
 	    aProp.range(aNode);
 	    aProp.label("newDatatypeProperty");
-	    
-	    
+
+
 	    // TODO: change its base IRI to proper value
 	    var ontoIri = d3.select("#iriEditor").node().value;
 	    aProp.baseIri(ontoIri);
@@ -7762,7 +7768,7 @@ webvowl =
 	    graph.fastUpdate();
 	    generateDictionary(unfilteredData);
 	    graph.getUpdateDictionary();
-	    
+
 	    nodeFreezer = setTimeout(function (){
 	      if ( node && node.frozen() === true && node.pinned() === false && graph.paused() === false ) {
 	        node.frozen(graph.paused());
@@ -7775,7 +7781,7 @@ webvowl =
 	      node.locked(true);
 	    }
 	  };
-	  
+
 	  graph.removeNodesViaResponse = function ( nodesToRemove, propsToRemove ){
 	    var i, remId;
 	    // splice them;
@@ -7804,16 +7810,16 @@ webvowl =
 	    options.focuserModule().handle(undefined);
 	    nodesToRemove = null;
 	    propsToRemove = null;
-	    
+
 	  };
-	  
+
 	  graph.removeNodeViaEditor = function ( node ){
 	    var propsToRemove = [];
 	    var nodesToRemove = [];
 	    var datatypes = 0;
-	    
+
 	    var remId;
-	    
+
 	    nodesToRemove.push(node);
 	    for ( var i = 0; i < unfilteredData.properties.length; i++ ) {
 	      if ( unfilteredData.properties[i].domain() === node || unfilteredData.properties[i].range() === node ) {
@@ -7831,14 +7837,14 @@ webvowl =
 	      if ( datatypes !== 0 ) {
 	        text = "You are about to delete 1 class, " + datatypes + " datatypes  and " + propsToRemove.length + " properties";
 	      }
-	      
-	      
+
+
 	      graph.options().warningModule().responseWarning(
 	        "Removing elements",
 	        text,
 	        "Awaiting response!", graph.removeNodesViaResponse, [nodesToRemove, propsToRemove], false);
-	      
-	      
+
+
 	      //
 	      // if (confirm("Remove :\n"+propsToRemove.length + " properties\n"+nodesToRemove.length+" classes? ")===false){
 	      //     return;
@@ -7873,12 +7879,12 @@ webvowl =
 	      propsToRemove = null;
 	    }
 	  };
-	  
+
 	  graph.removePropertyViaEditor = function ( property ){
 	    property.domain().removePropertyElement(property);
 	    property.range().removePropertyElement(property);
 	    var remId;
-	    
+
 	    if ( property.type().toLocaleLowerCase() === "owl:datatypeproperty" ) {
 	      var datatype = property.range();
 	      remId = unfilteredData.nodes.indexOf(property.range());
@@ -7898,10 +7904,10 @@ webvowl =
 	    if ( property.inverse() ) {
 	      // so we have inverse
 	      property.inverse().inverse(0);
-	      
+
 	    }
-	    
-	    
+
+
 	    hoveredPropertyElement = undefined;
 	    graph.fastUpdate();
 	    generateDictionary(unfilteredData);
@@ -7909,32 +7915,32 @@ webvowl =
 	    options.focuserModule().handle(undefined);
 	    property = null;
 	  };
-	  
+
 	  graph.executeColorExternalsModule = function (){
 	    options.colorExternalsModule().filter(unfilteredData.nodes, unfilteredData.properties);
 	  };
-	  
+
 	  graph.executeCompactNotationModule = function (){
 	    if ( unfilteredData ) {
 	      options.compactNotationModule().filter(unfilteredData.nodes, unfilteredData.properties);
 	    }
-	    
+
 	  };
 	  graph.executeEmptyLiteralFilter = function (){
-	    
+
 	    if ( unfilteredData && unfilteredData.nodes.length > 1 ) {
 	      options.literalFilter().filter(unfilteredData.nodes, unfilteredData.properties);
 	      unfilteredData.nodes = options.literalFilter().filteredNodes();
 	      unfilteredData.properties = options.literalFilter().filteredProperties();
 	    }
-	    
+
 	  };
-	  
-	  
+
+
 	  /** --------------------------------------------------------- **/
 	  /** -- animation functions for the nodes --                   **/
 	  /** --------------------------------------------------------- **/
-	  
+
 	  graph.animateDynamicLabelWidth = function (){
 	    var wantedWidth = options.dynamicLabelWidth();
 	    var i;
@@ -7948,35 +7954,35 @@ webvowl =
 	      properties[i].animateDynamicLabelWidth(wantedWidth);
 	    }
 	  };
-	  
-	  
+
+
 	  /** --------------------------------------------------------- **/
 	  /** -- Touch behaviour functions --                   **/
 	  /** --------------------------------------------------------- **/
-	  
+
 	  graph.setTouchDevice = function ( val ){
 	    touchDevice = val;
 	  };
-	  
+
 	  graph.isTouchDevice = function (){
 	    return touchDevice;
 	  };
-	  
+
 	  graph.modified_dblClickFunction = function (){
-	    
+
 	    d3.event.stopPropagation();
 	    d3.event.preventDefault();
 	    // get position where we want to add the node;
 	    var grPos = getClickedScreenCoords(d3.event.clientX, d3.event.clientY, graph.translation(), graph.scaleFactor());
 	    createNewNodeAtPosition(grPos);
 	  };
-	  
+
 	  function doubletap(){
 	    var touch_time = d3.event.timeStamp;
 	    var numTouchers = 1;
 	    if ( d3.event && d3.event.touches && d3.event.touches.length )
 	      numTouchers = d3.event.touches.length;
-	    
+
 	    if ( touch_time - last_touch_time < 300 && numTouchers === 1 ) {
 	      d3.event.stopPropagation();
 	      if ( editMode === true ) {
@@ -7990,16 +7996,16 @@ webvowl =
 	    last_touch_time = touch_time;
 	    return false;
 	  }
-	  
-	  
+
+
 	  function touchzoomed(){
 	    forceNotZooming = true;
-	    
-	    
+
+
 	    var touch_time = d3.event.timeStamp;
 	    if ( touch_time - last_touch_time < 300 && d3.event.touches.length === 1 ) {
 	      d3.event.stopPropagation();
-	      
+
 	      if ( editMode === true ) {
 	        //graph.modified_dblClickFunction();
 	        d3.event.preventDefault();
@@ -8021,7 +8027,7 @@ webvowl =
 	    if ( originalD3_touchZoomFunction )
 	      originalD3_touchZoomFunction();
 	  }
-	  
+
 	  graph.modified_dblTouchFunction = function ( d ){
 	    d3.event.stopPropagation();
 	    d3.event.preventDefault();
@@ -8032,18 +8038,18 @@ webvowl =
 	    var grPos = getClickedScreenCoords(xy[0][0], xy[0][1], graph.translation(), graph.scaleFactor());
 	    createNewNodeAtPosition(grPos);
 	  };
-	  
+
 	  /** --------------------------------------------------------- **/
 	  /** -- Hover and Selection functions, adding edit elements --  **/
 	  /** --------------------------------------------------------- **/
-	  
+
 	  graph.ignoreOtherHoverEvents = function ( val ){
 	    if ( !arguments.length ) {
 	      return ignoreOtherHoverEvents;
 	    }
 	    else  ignoreOtherHoverEvents = val;
 	  };
-	  
+
 	  function delayedHiddingHoverElements( tbh ){
 	    if ( tbh === true ) return;
 	    if ( hoveredNodeElement ) {
@@ -8072,17 +8078,17 @@ webvowl =
 	          // lazy update
 	          recalculatePositions();
 	        }
-	        
+
 	        if ( hoveredPropertyElement && hoveredPropertyElement.pinned() === false && graph.paused() === false && hoveredPropertyElement.editingTextElement === false ) {
 	          hoveredPropertyElement.frozen(false);
 	          hoveredPropertyElement.locked(false);
 	        }
 	      }, 1000);
 	    }
-	    
+
 	  }
-	  
-	  
+
+
 	  // TODO : experimental code for updating dynamic label with and its hover element
 	  graph.hideHoverPropertyElementsForAnimation = function (){
 	    deleteGroupElement.classed("hidden", true);
@@ -8090,33 +8096,33 @@ webvowl =
 	  graph.showHoverElementsAfterAnimation = function ( property, inversed ){
 	    setDeleteHoverElementPositionProperty(property, inversed);
 	    deleteGroupElement.classed("hidden", false);
-	    
+
 	  };
-	  
+
 	  function editElementHoverOnHidden(){
 	    classDragger.nodeElement.classed("classDraggerNodeHovered", true);
 	    classDragger.nodeElement.classed("classDraggerNode", false);
 	    editElementHoverOn();
 	  }
-	  
+
 	  function editElementHoverOutHidden(){
 	    classDragger.nodeElement.classed("classDraggerNodeHovered", false);
 	    classDragger.nodeElement.classed("classDraggerNode", true);
 	    editElementHoverOut();
 	  }
-	  
+
 	  function editElementHoverOn( touch ){
 	    if ( touch === true ) return;
 	    clearTimeout(delayedHider); // ignore touch behaviour
-	    
+
 	  }
-	  
+
 	  graph.killDelayedTimer = function (){
 	    clearTimeout(delayedHider);
 	    clearTimeout(nodeFreezer);
 	  };
-	  
-	  
+
+
 	  function editElementHoverOut( tbh ){
 	    if ( hoveredNodeElement ) {
 	      if ( graph.ignoreOtherHoverEvents() === true || tbh === true || hoveredNodeElement.editingTextElement === true ) return;
@@ -8129,7 +8135,7 @@ webvowl =
 	          hoveredNodeElement.frozen(false);
 	          hoveredNodeElement.locked(false);
 	        }
-	        
+
 	      }, 1000);
 	    }
 	    if ( hoveredPropertyElement ) {
@@ -8143,17 +8149,17 @@ webvowl =
 	          hoveredPropertyElement.frozen(false);
 	          hoveredPropertyElement.locked(false);
 	        }
-	        
+
 	      }, 1000);
 	    }
 	  }
-	  
+
 	  graph.activateHoverElementsForProperties = function ( val, property, inversed, touchBehaviour ){
 	    if ( editMode === false ) return; // nothing to do;
-	    
+
 	    if ( touchBehaviour === undefined )
 	      touchBehaviour = false;
-	    
+
 	    if ( val === true ) {
 	      clearTimeout(delayedHider);
 	      if ( hoveredPropertyElement ) {
@@ -8162,11 +8168,11 @@ webvowl =
 	          recalculatePositions();
 	        }
 	      }
-	      
+
 	      hoveredPropertyElement = property;
 	      if ( graph.options().drawPropertyDraggerOnHover() === true ) {
-	        
-	        
+
+
 	        if ( property.type() !== "owl:DatatypeProperty" ) {
 	          if ( property.domain() === property.range() ) {
 	            property.labelObject().increasedLoopAngle = true;
@@ -8179,8 +8185,8 @@ webvowl =
 	          domainDragger.setParentProperty(property, inversed);
 	          domainDragger.hideDragger(false);
 	          domainDragger.addMouseEvents();
-	          
-	          
+
+
 	        } else if ( property.type() === "owl:DatatypeProperty" ) {
 	          shadowClone.setParentProperty(property, inversed);
 	          rangeDragger.setParentProperty(property, inversed);
@@ -8202,7 +8208,7 @@ webvowl =
 	          }
 	        }
 	      }
-	      
+
 	      if ( hoveredNodeElement ) {
 	        if ( hoveredNodeElement && hoveredNodeElement.pinned() === false && graph.paused() === false ) {
 	          hoveredNodeElement.frozen(false);
@@ -8226,24 +8232,24 @@ webvowl =
 	      delayedHiddingHoverElements();
 	    }
 	  };
-	  
+
 	  graph.updateDraggerElements = function (){
-	    
+
 	    // set opacity style for all elements
-	    
+
 	    rangeDragger.draggerObject.classed("superOpacityElement", !graph.options().showDraggerObject());
 	    domainDragger.draggerObject.classed("superOpacityElement", !graph.options().showDraggerObject());
 	    classDragger.draggerObject.classed("superOpacityElement", !graph.options().showDraggerObject());
-	    
+
 	    nodeContainer.selectAll(".superHiddenElement").classed("superOpacityElement", !graph.options().showDraggerObject());
 	    labelContainer.selectAll(".superHiddenElement").classed("superOpacityElement", !graph.options().showDraggerObject());
-	    
+
 	    deleteGroupElement.selectAll(".superHiddenElement").classed("superOpacityElement", !graph.options().showDraggerObject());
 	    addDataPropertyGroupElement.selectAll(".superHiddenElement").classed("superOpacityElement", !graph.options().showDraggerObject());
-	    
-	    
+
+
 	  };
-	  
+
 	  function setAddDataPropertyHoverElementPosition( node ){
 	    var delX, delY = 0;
 	    if ( node.renderType() === "round" ) {
@@ -8255,7 +8261,7 @@ webvowl =
 	      addDataPropertyGroupElement.attr("transform", "translate(" + delX + "," + delY + ")");
 	    }
 	  }
-	  
+
 	  function setDeleteHoverElementPosition( node ){
 	    var delX, delY = 0;
 	    if ( node.renderType() === "round" ) {
@@ -8270,7 +8276,7 @@ webvowl =
 	    }
 	    deleteGroupElement.attr("transform", "translate(" + delX + "," + delY + ")");
 	  }
-	  
+
 	  function setDeleteHoverElementPositionProperty( property, inversed ){
 	    if ( property && property.labelElement() ) {
 	      var pos = [property.labelObject().x, property.labelObject().y];
@@ -8288,10 +8294,10 @@ webvowl =
 	    } else {
 	      deleteGroupElement.classed("hidden", true);// hide when there is no property
 	    }
-	    
-	    
+
+
 	  }
-	  
+
 	  graph.activateHoverElements = function ( val, node, touchBehaviour ){
 	    if ( editMode === false ) {
 	      return; // nothing to do;
@@ -8319,13 +8325,13 @@ webvowl =
 	        hoveredPropertyElement.labelObject().increasedLoopAngle = false;
 	        recalculatePositions();
 	        // update the loopAngles;
-	        
+
 	      }
 	      hoveredPropertyElement = undefined;
 	      deleteGroupElement.classed("hidden", false);
 	      setDeleteHoverElementPosition(node);
-	      
-	      
+
+
 	      deleteGroupElement.selectAll("*").on("click", function (){
 	        if ( touchBehaviour && node.focused() === false ) {
 	          graph.options().focuserModule().handle(node);
@@ -8340,13 +8346,13 @@ webvowl =
 	        .on("mouseout", function (){
 	          editElementHoverOut(node, touchBehaviour);
 	        });
-	      
+
 	      addDataPropertyGroupElement.classed("hidden", true);
 	      classDragger.nodeElement.on("mouseover", editElementHoverOn)
 	        .on("mouseout", editElementHoverOut);
 	      classDragger.draggerObject.on("mouseover", editElementHoverOnHidden)
 	        .on("mouseout", editElementHoverOutHidden);
-	      
+
 	      // add the dragger element;
 	      if ( node.renderType() === "round" ) {
 	        classDragger.svgRoot(draggerLayer);
@@ -8370,16 +8376,16 @@ webvowl =
 	          });
 	      } else {
 	        classDragger.hideDragger(true);
-	        
+
 	      }
-	      
+
 	    } else {
 	      delayedHiddingHoverElements(node, touchBehaviour);
-	      
+
 	    }
 	  };
-	  
-	  
+
+
 	  return graph;
 	};
 
@@ -12278,24 +12284,24 @@ webvowl =
 	 */
 	module.exports = (function (){
 	  var linkCreator = {};
-	  
+
 	  /**
 	   * Creates links from the passed properties.
 	   * @param properties
 	   */
 	  linkCreator.createLinks = function ( properties ){
 	    var links = groupPropertiesToLinks(properties);
-	    
+
 	    for ( var i = 0, l = links.length; i < l; i++ ) {
 	      var link = links[i];
-	      
+
 	      countAndSetLayers(link, links);
 	      countAndSetLoops(link, links);
 	    }
-	    
+
 	    return links;
 	  };
-	  
+
 	  /**
 	   * Creates links of properties and - if existing - their inverses.
 	   * @param properties the properties
@@ -12305,38 +12311,38 @@ webvowl =
 	    var links = [],
 	      property,
 	      addedProperties = __webpack_require__(62)();
-	    
+
 	    for ( var i = 0, l = properties.length; i < l; i++ ) {
 	      property = properties[i];
-	      
+
 	      if ( !addedProperties.has(property) ) {
 	        var link = createLink(property);
-	        
+
 	        property.link(link);
 	        if ( property.inverse() ) {
 	          property.inverse().link(link);
 	        }
-	        
+
 	        links.push(link);
-	        
+
 	        addedProperties.add(property);
 	        if ( property.inverse() ) {
 	          addedProperties.add(property.inverse());
 	        }
 	      }
 	    }
-	    
+
 	    return links;
 	  }
-	  
+
 	  function countAndSetLayers( link, allLinks ){
 	    var layer,
 	      layers,
 	      i, l;
-	    
+
 	    if ( typeof link.layers() === "undefined" ) {
 	      layers = [];
-	      
+
 	      // Search for other links that are another layer
 	      for ( i = 0, l = allLinks.length; i < l; i++ ) {
 	        var otherLink = allLinks[i];
@@ -12345,25 +12351,25 @@ webvowl =
 	          layers.push(otherLink);
 	        }
 	      }
-	      
+
 	      // Set the results on each of the layers
 	      for ( i = 0, l = layers.length; i < l; ++i ) {
 	        layer = layers[i];
-	        
+
 	        layer.layerIndex(i);
 	        layer.layers(layers);
 	      }
 	    }
 	  }
-	  
+
 	  function countAndSetLoops( link, allLinks ){
 	    var loop,
 	      loops,
 	      i, l;
-	    
+
 	    if ( typeof link.loops() === "undefined" ) {
 	      loops = [];
-	      
+
 	      // Search for other links that are also loops of the same node
 	      for ( i = 0, l = allLinks.length; i < l; i++ ) {
 	        var otherLink = allLinks[i];
@@ -12371,21 +12377,21 @@ webvowl =
 	          loops.push(otherLink);
 	        }
 	      }
-	      
+
 	      // Set the results on each of the loops
 	      for ( i = 0, l = loops.length; i < l; ++i ) {
 	        loop = loops[i];
-	        
+
 	        loop.loopIndex(i);
 	        loop.loops(loops);
 	      }
 	    }
 	  }
-	  
+
 	  function createLink( property ){
 	    var domain = property.domain();
 	    var range = property.range();
-	    
+
 	    if ( property instanceof OwlDisjointWith ) {
 	      return new PlainLink(domain, range, property);
 	    } else if ( property instanceof SetOperatorProperty ) {
@@ -12393,7 +12399,7 @@ webvowl =
 	    }
 	    return new ArrowLink(domain, range, property);
 	  }
-	  
+
 	  return function (){
 	    // Return a function to keep module interfaces consistent
 	    return linkCreator;
@@ -12421,14 +12427,14 @@ webvowl =
 	ArrowLink.prototype.draw = function ( linkGroup, markerContainer ){
 	  var property = this.label().property();
 	  var inverse = this.label().inverse();
-	  
+
 	  createPropertyMarker(markerContainer, property);
 	  if ( inverse ) {
 	    createInverseMarker(markerContainer, inverse);
 	  }
-	  
+
 	  PlainLink.prototype.draw.apply(this, arguments);
-	  
+
 	  // attach the markers to the link
 	  linkGroup.attr("marker-end", "url(#" + property.markerId() + ")");
 	  if ( inverse ) {
@@ -12447,7 +12453,7 @@ webvowl =
 	  //.attr("d", "M0,-8L12,0L0,8Z")
 	    .attr("d", "M0,0L " + m1X + "," + m1Y + "L" + m2X + "," + m2Y + "L" + 0 + "," + 0)
 	    .classed(property.markerType(), true);
-	  
+
 	  property.markerElement(marker);
 	}
 
@@ -12461,7 +12467,7 @@ webvowl =
 	  //.attr("d", "M12,-8L0,0L12,8Z")
 	    .attr("d", "M0,0L " + -m1X + "," + -m1Y + "L" + -m2X + "," + -m2Y + "L" + 0 + "," + 0)
 	    .classed(inverse.markerType(), true);
-	  
+
 	  inverse.markerElement(inverseMarker);
 	}
 
@@ -12469,7 +12475,7 @@ webvowl =
 	  return markerContainer.append("marker")
 	    .datum(property)
 	    .attr("id", property.markerId())
-	    
+
 	    .attr("viewBox", "-14 -10 28 20")
 	    .attr("markerWidth", 10)
 	    .attr("markerHeight", 10)
@@ -12487,30 +12493,30 @@ webvowl =
 	 * elements by using their id.
 	 */
 	module.exports = function ( array ){
-	  
+
 	  var set = {},
 	    d3Set = d3.set(array);
-	  
+
 	  set.has = function ( webvowlElement ){
 	    return d3Set.has(webvowlElement.id());
 	  };
-	  
+
 	  set.add = function ( webvowlElement ){
 	    return d3Set.add(webvowlElement.id());
 	  };
-	  
+
 	  set.remove = function ( webvowlElement ){
 	    return d3Set.remove(webvowlElement.id());
 	  };
-	  
+
 	  set.empty = function (){
 	    return d3Set.empty();
 	  };
-	  
+
 	  set.size = function (){
 	    return d3Set.size();
 	  };
-	  
+
 	  return set;
 	};
 
@@ -12633,7 +12639,7 @@ webvowl =
 	    hideDebugOptions = true,
 	    nodeDegreeFilter,
 	    debugMenu,
-	    
+
 	    supportedDatatypes = ["rdfs:Literal", "xsd:boolean", "xsd:double", "xsd:integer", "xsd:string", "undefined"],
 	    supportedClasses = ["owl:Thing", "owl:Class", "owl:DeprecatedClass"],
 	    supportedProperties = ["owl:objectProperty",
@@ -12650,19 +12656,19 @@ webvowl =
 	      dc: 'http://purl.org/dc/elements/1.1/#',
 	      xml: 'http://www.w3.org/XML/1998/namespace'
 	    };
-	  
+
 	  options.clearMetaObject = function (){
 	    generalOntologyMetaData = {};
 	  };
 	  options.clearGeneralMetaObject = function (){
 	    generalOntologyMetaData = {};
 	  };
-	  
+
 	  options.debugMenu = function ( val ){
 	    if ( !arguments.length ) return debugMenu;
 	    debugMenu = val;
 	  };
-	  
+
 	  options.getHideDebugFeatures = function (){
 	    return hideDebugOptions;
 	  };
@@ -12680,8 +12686,8 @@ webvowl =
 	    }
 	    options.setHideDebugFeaturesForDefaultObject(hideDebugOptions);
 	  };
-	  
-	  
+
+
 	  options.addOrUpdateGeneralObjectEntry = function ( property, value ){
 	    if ( generalOntologyMetaData.hasOwnProperty(property) ) {
 	      //console.log("Updating Property:"+ property);
@@ -12697,26 +12703,26 @@ webvowl =
 	    }
 	    return true;
 	  };
-	  
+
 	  options.getGeneralMetaObjectProperty = function ( property ){
 	    if ( generalOntologyMetaData.hasOwnProperty(property) ) {
 	      return generalOntologyMetaData[property];
 	    }
 	  };
-	  
+
 	  options.getGeneralMetaObject = function (){
 	    return generalOntologyMetaData;
 	  };
-	  
+
 	  options.addOrUpdateMetaObjectEntry = function ( property, value ){
-	    
+
 	    if ( metadataObject.hasOwnProperty(property) ) {
 	      metadataObject[property] = value;
 	    } else {
 	      metadataObject[property] = value;
 	    }
 	  };
-	  
+
 	  options.getMetaObjectProperty = function ( property ){
 	    if ( metadataObject.hasOwnProperty(property) ) {
 	      return metadataObject[property];
@@ -12725,20 +12731,20 @@ webvowl =
 	  options.getMetaObject = function (){
 	    return metadataObject;
 	  };
-	  
-	  
+
+
 	  options.prefixList = function (){
 	    return prefixList;
 	  };
 	  options.addPrefix = function ( prefix, url ){
 	    prefixList[prefix] = url;
 	  };
-	  
+
 	  function validURL( str ){
 	    var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
 	    return urlregex.test(str);
 	  }
-	  
+
 	  options.updatePrefix = function ( oldPrefix, newPrefix, oldURL, newURL ){
 	    if ( oldPrefix === newPrefix && oldURL === newURL ) {
 	      //	console.log("Nothing to update");
@@ -12752,11 +12758,11 @@ webvowl =
 	        warningModule.showWarning("Invalid Prefix IRI", "Input IRI does not represent an IRI", "You should enter a valid IRI in form of a URL", 1, false);
 	        return false;
 	      }
-	      
+
 	      return false;
 	    }
 	    if ( oldPrefix !== newPrefix && validURL(newURL) === true ) {
-	      
+
 	      // sanity check
 	      if ( prefixList.hasOwnProperty(newPrefix) ) {
 	        //  console.log("Already have this prefix!");
@@ -12768,20 +12774,20 @@ webvowl =
 	      editSidebar.updateEditDeleteButtonIds(oldPrefix, newPrefix);
 	      return true;
 	    }
-	    
+
 	    //	console.log("Is new URL ("+newURL+") valid?  >> "+validURL(newURL));
 	    if ( validURL(newURL) === false ) {
 	      warningModule.showWarning("Invalid Prefix IRI", "Input IRI does not represent an URL", "You should enter a valid URL", 1, false);
-	      
+
 	    }
 	    return false;
 	  };
-	  
+
 	  options.removePrefix = function ( prefix ){
 	    delete prefixList[prefix];
 	  };
-	  
-	  
+
+
 	  options.supportedDatatypes = function (){
 	    return supportedDatatypes;
 	  };
@@ -12791,12 +12797,12 @@ webvowl =
 	  options.supportedProperties = function (){
 	    return supportedProperties;
 	  };
-	  
+
 	  options.datatypeFilter = function ( val ){
 	    if ( !arguments.length ) return datatypeFilter;
 	    datatypeFilter = val;
 	  };
-	  
+
 	  options.showDraggerObject = function ( val ){
 	    if ( !arguments.length ) {
 	      return showDraggerObject;
@@ -12827,12 +12833,12 @@ webvowl =
 	    }
 	    showInputModality = val;
 	  };
-	  
+
 	  options.drawPropertyDraggerOnHover = function ( val ){
 	    if ( !arguments.length ) return drawPropertyDraggerOnHover;
 	    drawPropertyDraggerOnHover = val;
 	  };
-	  
+
 	  options.warningModule = function ( val ){
 	    if ( !arguments.length ) return warningModule;
 	    warningModule = val;
@@ -12845,7 +12851,7 @@ webvowl =
 	    if ( !arguments.length ) return prefixModule;
 	    prefixModule = val;
 	  };
-	  
+
 	  options.focuserModule = function ( val ){
 	    if ( !arguments.length ) return focuserModule;
 	    focuserModule = val;
@@ -12858,7 +12864,7 @@ webvowl =
 	    if ( !arguments.length ) return compactNotationModule;
 	    compactNotationModule = val;
 	  };
-	  
+
 	  options.maxLabelWidth = function ( val ){
 	    if ( !arguments.length ) return maxLabelWidth;
 	    maxLabelWidth = val;
@@ -12887,18 +12893,18 @@ webvowl =
 	    if ( !arguments.length ) return editSidebar;
 	    editSidebar = val;
 	  };
-	  
+
 	  options.zoomSlider = function ( val ){
 	    if ( !arguments.length ) return zoomSlider;
 	    zoomSlider = val;
 	  };
-	  
+
 	  options.graphObject = function ( val ){
 	    if ( !arguments.length ) return graphObject;
 	    graphObject = val;
 	  };
-	  
-	  
+
+
 	  var defaultOptionsConfig = {};
 	  defaultOptionsConfig.sidebar = "1";
 	  defaultOptionsConfig.doc = -1;
@@ -12917,8 +12923,8 @@ webvowl =
 	  defaultOptionsConfig.mode_multiColor = "false";
 	  defaultOptionsConfig.debugFeatures = "false";
 	  defaultOptionsConfig.rect = 0;
-	  
-	  
+
+
 	  options.initialConfig = function (){
 	    var initCfg = {};
 	    initCfg.sidebar = "1";
@@ -12941,14 +12947,14 @@ webvowl =
 	    initCfg.rect = 0;
 	    return initCfg;
 	  };
-	  
+
 	  options.setEditorModeForDefaultObject = function ( val ){
 	    defaultOptionsConfig.editorMode = String(val);
 	  };
 	  options.setHideDebugFeaturesForDefaultObject = function ( val ){
 	    defaultOptionsConfig.debugFeatures = String(!val);
 	  };
-	  
+
 	  function updateConfigObject(){
 	    defaultOptionsConfig.sidebar = options.sidebar().getSidebarVisibility();
 	    defaultOptionsConfig.cd = options.classDistance();
@@ -12966,17 +12972,17 @@ webvowl =
 	    defaultOptionsConfig.mode_pnp = String(options.modeMenu().getCheckBoxValue("pickandpinModuleCheckbox"));
 	    defaultOptionsConfig.rect = 0;
 	  }
-	  
+
 	  options.defaultConfig = function (){
 	    updateConfigObject();
 	    return defaultOptionsConfig;
 	  };
-	  
+
 	  options.exportMenu = function ( val ){
 	    if ( !arguments.length ) return exportMenu;
 	    exportMenu = val;
 	  };
-	  
+
 	  options.rectangularRepresentation = function ( val ){
 	    if ( !arguments.length ) {
 	      return rectangularRep;
@@ -12989,7 +12995,7 @@ webvowl =
 	      }
 	    }
 	  };
-	  
+
 	  options.dynamicLabelWidth = function ( val ){
 	    if ( !arguments.length )
 	      return dynamicLabelWidth;
@@ -13001,161 +13007,161 @@ webvowl =
 	    if ( !arguments.length ) return sidebar;
 	    sidebar = s;
 	    return options;
-	    
+
 	  };
-	  
+
 	  options.navigationMenu = function ( m ){
 	    if ( !arguments.length ) return navigationMenu;
 	    navigationMenu = m;
 	    return options;
-	    
+
 	  };
-	  
+
 	  options.ontologyMenu = function ( m ){
 	    if ( !arguments.length ) return ontologyMenu;
 	    ontologyMenu = m;
 	    return options;
 	  };
-	  
+
 	  options.searchMenu = function ( m ){
 	    if ( !arguments.length ) return searchMenu;
 	    searchMenu = m;
 	    return options;
 	  };
-	  
+
 	  options.resetMenu = function ( m ){
 	    if ( !arguments.length ) return resetMenu;
 	    resetMenu = m;
 	    return options;
 	  };
-	  
+
 	  options.pausedMenu = function ( m ){
 	    if ( !arguments.length ) return pausedMenu;
 	    pausedMenu = m;
 	    return options;
 	  };
-	  
+
 	  options.pickAndPinModule = function ( m ){
 	    if ( !arguments.length ) return pickAndPinModule;
 	    pickAndPinModule = m;
 	    return options;
 	  };
-	  
+
 	  options.gravityMenu = function ( m ){
 	    if ( !arguments.length ) return gravityMenu;
 	    gravityMenu = m;
 	    return options;
 	  };
-	  
+
 	  options.filterMenu = function ( m ){
 	    if ( !arguments.length ) return filterMenu;
 	    filterMenu = m;
 	    return options;
 	  };
-	  
+
 	  options.modeMenu = function ( m ){
 	    if ( !arguments.length ) return modeMenu;
 	    modeMenu = m;
 	    return options;
 	  };
-	  
+
 	  options.charge = function ( p ){
 	    if ( !arguments.length ) return charge;
 	    charge = +p;
 	    return options;
 	  };
-	  
+
 	  options.classDistance = function ( p ){
 	    if ( !arguments.length ) return classDistance;
 	    classDistance = +p;
 	    return options;
 	  };
-	  
+
 	  options.compactNotation = function ( p ){
-	    
+
 	    if ( !arguments.length ) return compactNotation;
 	    compactNotation = p;
 	    return options;
 	  };
-	  
+
 	  options.data = function ( p ){
 	    if ( !arguments.length ) return data;
 	    data = p;
 	    return options;
 	  };
-	  
+
 	  options.datatypeDistance = function ( p ){
 	    if ( !arguments.length ) return datatypeDistance;
 	    datatypeDistance = +p;
 	    return options;
 	  };
-	  
+
 	  options.filterModules = function ( p ){
 	    if ( !arguments.length ) return filterModules;
 	    filterModules = p;
 	    return options;
 	  };
-	  
+
 	  options.graphContainerSelector = function ( p ){
 	    if ( !arguments.length ) return graphContainerSelector;
 	    graphContainerSelector = p;
 	    return options;
 	  };
-	  
+
 	  options.gravity = function ( p ){
 	    if ( !arguments.length ) return gravity;
 	    gravity = +p;
 	    return options;
 	  };
-	  
+
 	  options.height = function ( p ){
 	    if ( !arguments.length ) return height;
 	    height = +p;
 	    return options;
 	  };
-	  
+
 	  options.linkStrength = function ( p ){
 	    if ( !arguments.length ) return linkStrength;
 	    linkStrength = +p;
 	    return options;
 	  };
-	  
+
 	  options.loopDistance = function ( p ){
 	    if ( !arguments.length ) return loopDistance;
 	    loopDistance = p;
 	    return options;
 	  };
-	  
+
 	  options.minMagnification = function ( p ){
 	    if ( !arguments.length ) return minMagnification;
 	    minMagnification = +p;
 	    return options;
 	  };
-	  
+
 	  options.maxMagnification = function ( p ){
 	    if ( !arguments.length ) return maxMagnification;
 	    maxMagnification = +p;
 	    return options;
 	  };
-	  
+
 	  options.scaleNodesByIndividuals = function ( p ){
 	    if ( !arguments.length ) return scaleNodesByIndividuals;
 	    scaleNodesByIndividuals = p;
 	    return options;
 	  };
-	  
+
 	  options.selectionModules = function ( p ){
 	    if ( !arguments.length ) return selectionModules;
 	    selectionModules = p;
 	    return options;
 	  };
-	  
+
 	  options.width = function ( p ){
 	    if ( !arguments.length ) return width;
 	    width = +p;
 	    return options;
 	  };
-	  
+
 	  options.literalFilter = function ( p ){
 	    if ( !arguments.length ) return literalFilter;
 	    literalFilter = p;
@@ -13166,13 +13172,13 @@ webvowl =
 	    nodeDegreeFilter = p;
 	    return options;
 	  };
-	  
+
 	  options.loadingModule = function ( p ){
 	    if ( !arguments.length ) return loadingModule;
 	    loadingModule = p;
 	    return options;
 	  };
-	  
+
 	  // define url loadable options;
 	  // update all set values in the default object
 	  options.setOptionsFromURL = function ( opts, changeEditFlag ){
@@ -13188,14 +13194,14 @@ webvowl =
 	    if ( opts.editorMode ) {
 	      if ( opts.editorMode === "true" ) settingFlag = true;
 	      d3.select("#editorModeModuleCheckbox").node().checked = settingFlag;
-	      
+
 	      if ( changeEditFlag && changeEditFlag === true ) {
 	        graphObject.editorMode(settingFlag);
 	      }
-	      
+
 	      // update config object
 	      defaultOptionsConfig.editorMode = opts.editorMode;
-	      
+
 	    }
 	    if ( opts.cd ) { // class distance
 	      options.classDistance(opts.cd); // class distance
@@ -13206,8 +13212,8 @@ webvowl =
 	      defaultOptionsConfig.cd = opts.cd;
 	    }
 	    if ( opts.cd || opts.dd ) options.gravityMenu().reset(); // reset the values so the slider is updated;
-	    
-	    
+
+
 	    settingFlag = false;
 	    if ( opts.filter_datatypes ) {
 	      if ( opts.filter_datatypes === "true" ) settingFlag = true;
@@ -13222,7 +13228,7 @@ webvowl =
 	      }
 	      defaultOptionsConfig.debugFeatures = opts.debugFeatures;
 	    }
-	    
+
 	    settingFlag = false;
 	    if ( opts.filter_objectProperties ) {
 	      if ( opts.filter_objectProperties === "true" ) settingFlag = true;
@@ -13248,7 +13254,7 @@ webvowl =
 	      defaultOptionsConfig.filter_setOperator = opts.filter_setOperator;
 	    }
 	    filterMenu.updateSettings();
-	    
+
 	    // modesMenu
 	    settingFlag = false;
 	    if ( opts.mode_dynamic ) {
@@ -13262,35 +13268,35 @@ webvowl =
 	    // if (opts.mode_picnpin) {
 	    //     graph.options().filterMenu().setCheckBoxValue("pickandpin ModuleCheckbox", settingFlag);
 	    // }
-	    
+
 	    settingFlag = false;
 	    if ( opts.mode_pnp ) {
 	      if ( opts.mode_pnp === "true" ) settingFlag = true;
 	      modeMenu.setCheckBoxValue("pickandpinModuleCheckbox", settingFlag);
 	      defaultOptionsConfig.mode_pnp = opts.mode_pnp;
 	    }
-	    
+
 	    settingFlag = false;
 	    if ( opts.mode_scaling ) {
 	      if ( opts.mode_scaling === "true" ) settingFlag = true;
 	      modeMenu.setCheckBoxValue("nodescalingModuleCheckbox", settingFlag);
 	      defaultOptionsConfig.mode_scaling = opts.mode_scaling;
 	    }
-	    
+
 	    settingFlag = false;
 	    if ( opts.mode_compact ) {
 	      if ( opts.mode_compact === "true" ) settingFlag = true;
 	      modeMenu.setCheckBoxValue("compactnotationModuleCheckbox", settingFlag);
 	      defaultOptionsConfig.mode_compact = opts.mode_compact;
 	    }
-	    
+
 	    settingFlag = false;
 	    if ( opts.mode_colorExt ) {
 	      if ( opts.mode_colorExt === "true" ) settingFlag = true;
 	      modeMenu.setCheckBoxValue("colorexternalsModuleCheckbox", settingFlag);
 	      defaultOptionsConfig.mode_colorExt = opts.mode_colorExt;
 	    }
-	    
+
 	    settingFlag = false;
 	    if ( opts.mode_multiColor ) {
 	      if ( opts.mode_multiColor === "true" ) settingFlag = true;
@@ -13300,7 +13306,7 @@ webvowl =
 	    modeMenu.updateSettingsUsingURL();
 	    options.rectangularRepresentation(opts.rect);
 	  };
-	  
+
 	  return options;
 	};
 
@@ -13331,26 +13337,26 @@ webvowl =
 	    settingsImportGraphZoomAndTranslation = false,
 	    dictionary = [],
 	    propertyMap;
-	  
+
 	  parser.getDictionary = function (){
 	    return dictionary;
 	  };
-	  
+
 	  parser.setDictionary = function ( d ){
 	    dictionary = d;
 	  };
-	  
+
 	  parser.settingsImported = function (){
 	    return settingsImported;
 	  };
 	  parser.settingsImportGraphZoomAndTranslation = function (){
 	    return settingsImportGraphZoomAndTranslation;
 	  };
-	  
+
 	  parser.parseSettings = function (){
 	    settingsImported = true;
 	    settingsImportGraphZoomAndTranslation = false;
-	    
+
 	    if ( !settingsData ) {
 	      settingsImported = false;
 	      return;
@@ -13362,13 +13368,13 @@ webvowl =
 	        graph.setZoom(zoomFactor);
 	        settingsImportGraphZoomAndTranslation = true;
 	      }
-	      
+
 	      if ( settingsData.global.translation ) {
 	        var translation = settingsData.global.translation;
 	        graph.setTranslation(translation);
 	        settingsImportGraphZoomAndTranslation = true;
 	      }
-	      
+
 	      if ( settingsData.global.paused ) {
 	        var paused = settingsData.global.paused;
 	        graph.options().pausedMenu().setPauseValue(paused);
@@ -13386,10 +13392,10 @@ webvowl =
 	      }
 	      graph.options().gravityMenu().reset(); // reads the options values and sets the gui values
 	    }
-	    
-	    
+
+
 	    // shared variable declaration
-	    
+
 	    var i;
 	    var id;
 	    var checked;
@@ -13411,7 +13417,7 @@ webvowl =
 	      }
 	      graph.options().filterMenu().updateSettings();
 	    }
-	    
+
 	    /** Modes Setting **********************************************************/
 	    if ( settingsData.modes ) {
 	      // checkbox settings
@@ -13433,8 +13439,8 @@ webvowl =
 	    }
 	    graph.updateStyle(); // updates graph representation(setting charges and distances)
 	  };
-	  
-	  
+
+
 	  /**
 	   * Parses the ontology data and preprocesses it (e.g. connecting inverse properties and so on).
 	   * @param ontologyData the loaded ontology json file
@@ -13449,41 +13455,41 @@ webvowl =
 	    dictionary = [];
 	    if ( ontologyData.settings ) settingsData = ontologyData.settings;
 	    else settingsData = undefined;
-	    
+
 	    var classes = combineClasses(ontologyData.class, ontologyData.classAttribute),
 	      datatypes = combineClasses(ontologyData.datatype, ontologyData.datatypeAttribute),
 	      combinedClassesAndDatatypes = classes.concat(datatypes),
 	      unparsedProperties = ontologyData.property || [],
 	      combinedProperties;
-	    
+
 	    // Inject properties for unions, intersections, ...
 	    addSetOperatorProperties(combinedClassesAndDatatypes, unparsedProperties);
 	    combinedProperties = combineProperties(unparsedProperties, ontologyData.propertyAttribute);
 	    classMap = mapElements(combinedClassesAndDatatypes);
 	    propertyMap = mapElements(combinedProperties);
 	    mergeRangesOfEquivalentProperties(combinedProperties, combinedClassesAndDatatypes);
-	    
+
 	    // Process the graph data
 	    convertTypesToIris(combinedClassesAndDatatypes, ontologyData.namespace);
 	    convertTypesToIris(combinedProperties, ontologyData.namespace);
 	    nodes = createNodeStructure(combinedClassesAndDatatypes, classMap);
 	    properties = createPropertyStructure(combinedProperties, classMap, propertyMap);
 	  };
-	  
+
 	  /**
 	   * @return {Array} the preprocessed nodes
 	   */
 	  parser.nodes = function (){
 	    return nodes;
 	  };
-	  
+
 	  /**
 	   * @returns {Array} the preprocessed properties
 	   */
 	  parser.properties = function (){
 	    return properties;
 	  };
-	  
+
 	  /**
 	   * Combines the passed objects with its attributes and prototypes. This also applies
 	   * attributes defined in the base of the prototype.
@@ -13491,11 +13497,11 @@ webvowl =
 	  function combineClasses( baseObjects, attributes ){
 	    var combinations = [];
 	    var prototypeMap = createLowerCasePrototypeMap(nodePrototypeMap);
-	    
+
 	    if ( baseObjects ) {
 	      baseObjects.forEach(function ( element ){
 	        var matchingAttribute;
-	        
+
 	        if ( attributes ) {
 	          // Look for an attribute with the same id and merge them
 	          for ( var i = 0; i < attributes.length; i++ ) {
@@ -13507,13 +13513,13 @@ webvowl =
 	          }
 	          addAdditionalAttributes(element, matchingAttribute);
 	        }
-	        
+
 	        // Then look for a prototype to add its properties
 	        var Prototype = prototypeMap.get(element.type.toLowerCase());
-	        
+
 	        if ( Prototype ) {
 	          addAdditionalAttributes(element, Prototype); // TODO might be unnecessary
-	          
+
 	          var node = new Prototype(graph);
 	          node.annotations(element.annotations)
 	            .baseIri(element.baseIri)
@@ -13546,11 +13552,11 @@ webvowl =
 	              var individualNode = new Prototype(graph);
 	              individualNode.label(individual.labels)
 	                .iri(individual.iri);
-	              
+
 	              node.individuals().push(individualNode);
 	            });
 	          }
-	          
+
 	          if ( element.attributes ) {
 	            var deduplicatedAttributes = d3.set(element.attributes.concat(node.attributes()));
 	            node.attributes(deduplicatedAttributes.values());
@@ -13561,18 +13567,18 @@ webvowl =
 	        }
 	      });
 	    }
-	    
+
 	    return combinations;
 	  }
-	  
+
 	  function combineProperties( baseObjects, attributes ){
 	    var combinations = [];
 	    var prototypeMap = createLowerCasePrototypeMap(propertyPrototypeMap);
-	    
+
 	    if ( baseObjects ) {
 	      baseObjects.forEach(function ( element ){
 	        var matchingAttribute;
-	        
+
 	        if ( attributes ) {
 	          // Look for an attribute with the same id and merge them
 	          for ( var i = 0; i < attributes.length; i++ ) {
@@ -13584,10 +13590,10 @@ webvowl =
 	          }
 	          addAdditionalAttributes(element, matchingAttribute);
 	        }
-	        
+
 	        // Then look for a prototype to add its properties
 	        var Prototype = prototypeMap.get(element.type.toLowerCase());
-	        
+
 	        if ( Prototype ) {
 	          // Create the matching object and set the properties
 	          var property = new Prototype(graph);
@@ -13608,7 +13614,7 @@ webvowl =
 	            .superproperties(element.superproperty)
 	            // .type(element.type) Ignore, because we predefined it
 	            .iri(element.iri);
-	          
+
 	          // adding property position
 	          if ( element.pos ) {
 	            property.x = element.pos[0];
@@ -13621,8 +13627,8 @@ webvowl =
 	            property.pinned(true);
 	            graph.options().pickAndPinModule().addPinnedElement(property);
 	          }
-	          
-	          
+
+
 	          if ( element.attributes ) {
 	            var deduplicatedAttributes = d3.set(element.attributes.concat(property.attributes()));
 	            property.attributes(deduplicatedAttributes.values());
@@ -13631,29 +13637,29 @@ webvowl =
 	        } else {
 	          console.error("Unknown element type: " + element.type);
 	        }
-	        
+
 	      });
 	    }
-	    
+
 	    return combinations;
 	  }
-	  
+
 	  function createLowerCasePrototypeMap( prototypeMap ){
 	    return d3.map(prototypeMap.values(), function ( Prototype ){
 	      return new Prototype().type().toLowerCase();
 	    });
 	  }
-	  
+
 	  function mergeRangesOfEquivalentProperties( properties, nodes ){
 	    // pass clones of arrays into the merger to keep the current functionality of this module
 	    var newNodes = equivalentPropertyMerger.merge(properties.slice(), nodes.slice(), propertyMap, classMap, graph);
-	    
+
 	    // replace all the existing nodes and map the nodes again
 	    nodes.length = 0;
 	    Array.prototype.push.apply(nodes, newNodes);
 	    classMap = mapElements(nodes);
 	  }
-	  
+
 	  /**
 	   * Checks all attributes which have to be rewritten.
 	   * For example:
@@ -13663,33 +13669,33 @@ webvowl =
 	   */
 	  function createNodeStructure( rawNodes, classMap ){
 	    var nodes = [];
-	    
+
 	    // Set the default values
 	    var maxIndividualCount = 0;
 	    rawNodes.forEach(function ( node ){
 	      maxIndividualCount = Math.max(maxIndividualCount, node.individuals().length);
 	      node.visible(true);
 	    });
-	    
+
 	    rawNodes.forEach(function ( node ){
 	      // Merge and connect the equivalent nodes
 	      processEquivalentIds(node, classMap);
-	      
+
 	      attributeParser.parseClassAttributes(node);
-	      
+
 	      node.maxIndividualCount(maxIndividualCount);
 	    });
-	    
+
 	    // Collect all nodes that should be displayed
 	    rawNodes.forEach(function ( node ){
 	      if ( node.visible() ) {
 	        nodes.push(node);
 	      }
 	    });
-	    
+
 	    return nodes;
 	  }
-	  
+
 	  /**
 	   * Sets the disjoint attribute of the nodes if a disjoint label is found.
 	   * @param property
@@ -13698,24 +13704,24 @@ webvowl =
 	    if ( property instanceof OwlDisjointWith === false ) {
 	      return;
 	    }
-	    
+
 	    var domain = property.domain(),
 	      range = property.range();
-	    
+
 	    // Check the domain.
 	    if ( !domain.disjointWith() ) {
 	      domain.disjointWith([]);
 	    }
-	    
+
 	    // Check the range.
 	    if ( !range.disjointWith() ) {
 	      range.disjointWith([]);
 	    }
-	    
+
 	    domain.disjointWith().push(property.range());
 	    range.disjointWith().push(property.domain());
 	  }
-	  
+
 	  /**
 	   * Connect all properties and also their sub- and superproperties.
 	   * We iterate over the rawProperties array because it is way faster than iterating
@@ -13731,7 +13737,7 @@ webvowl =
 	    rawProperties.forEach(function ( property ){
 	      property.visible(true);
 	    });
-	    
+
 	    // Connect properties
 	    rawProperties.forEach(function ( property ){
 	      var domain,
@@ -13739,11 +13745,11 @@ webvowl =
 	        domainObject,
 	        rangeObject,
 	        inverse;
-	      
+
 	      /* Skip properties that have no information about their domain and range, like
 	       inverse properties with optional inverse and optional domain and range attributes */
 	      if ( (property.domain() && property.range()) || property.inverse() ) {
-	        
+
 	        var inversePropertyId = findId(property.inverse());
 	        // Look if an inverse property exists
 	        if ( inversePropertyId ) {
@@ -13753,34 +13759,34 @@ webvowl =
 	            property.inverse(undefined);
 	          }
 	        }
-	        
+
 	        // Either domain and range are set on this property or at the inverse
 	        if ( typeof property.domain() !== "undefined" && typeof property.range() !== "undefined" ) {
 	          domain = findId(property.domain());
 	          range = findId(property.range());
-	          
+
 	          domainObject = classMap[domain];
 	          rangeObject = classMap[range];
 	        } else if ( inverse ) {
 	          // Domain and range need to be switched
 	          domain = findId(inverse.range());
 	          range = findId(inverse.domain());
-	          
+
 	          domainObject = classMap[domain];
 	          rangeObject = classMap[range];
 	        } else {
 	          console.warn("Domain and range not found for property: " + property.id());
 	        }
-	        
+
 	        // Set the references on this property
 	        property.domain(domainObject);
 	        property.range(rangeObject);
-	        
+
 	        // Also set the attributes of the inverse property
 	        if ( inverse ) {
 	          property.inverse(inverse);
 	          inverse.inverse(property);
-	          
+
 	          // Switch domain and range
 	          inverse.domain(rangeObject);
 	          inverse.range(domainObject);
@@ -13790,24 +13796,24 @@ webvowl =
 	      referenceSubOrSuperProperties(property.subproperties());
 	      referenceSubOrSuperProperties(property.superproperties());
 	    });
-	    
+
 	    // Merge equivalent properties and process disjoints.
 	    rawProperties.forEach(function ( property ){
 	      processEquivalentIds(property, propertyMap);
 	      processDisjoints(property);
-	      
+
 	      attributeParser.parsePropertyAttributes(property);
 	    });
 	    // Add additional information to the properties
 	    rawProperties.forEach(function ( property ){
 	      // Properties of merged classes should point to/from the visible equivalent class
 	      var propertyWasRerouted = false;
-	      
+
 	      if ( property.domain() === undefined ) {
 	        console.warn("No Domain was found for id:" + property.id());
 	        return;
 	      }
-	      
+
 	      if ( wasNodeMerged(property.domain()) ) {
 	        property.domain(property.domain().equivalentBase());
 	        propertyWasRerouted = true;
@@ -13822,18 +13828,18 @@ webvowl =
 	      }
 	      // But there should not be two equal properties between the same domain and range
 	      var equalProperty = getOtherEqualProperty(rawProperties, property);
-	      
+
 	      if ( propertyWasRerouted && equalProperty ) {
 	        property.visible(false);
-	        
+
 	        equalProperty.redundantProperties().push(property);
 	      }
-	      
+
 	      // Hide property if source or target node is hidden
 	      if ( !property.domain().visible() || !property.range().visible() ) {
 	        property.visible(false);
 	      }
-	      
+
 	      // Collect all properties that should be displayed
 	      if ( property.visible() ) {
 	        properties.push(property);
@@ -13841,18 +13847,18 @@ webvowl =
 	    });
 	    return properties;
 	  }
-	  
+
 	  function referenceSubOrSuperProperties( subOrSuperPropertiesArray ){
 	    var i, l;
-	    
+
 	    if ( !subOrSuperPropertiesArray ) {
 	      return;
 	    }
-	    
+
 	    for ( i = 0, l = subOrSuperPropertiesArray.length; i < l; ++i ) {
 	      var subOrSuperPropertyId = findId(subOrSuperPropertiesArray[i]);
 	      var subOrSuperProperty = propertyMap[subOrSuperPropertyId];
-	      
+
 	      if ( subOrSuperProperty ) {
 	        // Replace id with object
 	        subOrSuperPropertiesArray[i] = subOrSuperProperty;
@@ -13861,17 +13867,17 @@ webvowl =
 	      }
 	    }
 	  }
-	  
+
 	  function wasNodeMerged( node ){
 	    return !node.visible() && node.equivalentBase();
 	  }
-	  
+
 	  function getOtherEqualProperty( properties, referenceProperty ){
 	    var i, l, property;
-	    
+
 	    for ( i = 0, l = properties.length; i < l; i++ ) {
 	      property = properties[i];
-	      
+
 	      if ( referenceProperty === property ) {
 	        continue;
 	      }
@@ -13879,7 +13885,7 @@ webvowl =
 	        referenceProperty.range() !== property.range() ) {
 	        continue;
 	      }
-	      
+
 	      // Check for an equal IRI, if non existent compare label and type
 	      if ( referenceProperty.iri() && property.iri() ) {
 	        if ( referenceProperty.iri() === property.iri() ) {
@@ -13890,10 +13896,10 @@ webvowl =
 	        return property;
 	      }
 	    }
-	    
+
 	    return undefined;
 	  }
-	  
+
 	  /**
 	   * Generates and adds properties for links to set operators.
 	   * @param classes unprocessed classes
@@ -13904,7 +13910,7 @@ webvowl =
 	      if ( !rangeIds ) {
 	        return;
 	      }
-	      
+
 	      rangeIds.forEach(function ( rangeId, index ){
 	        var property = {
 	          id: "GENERATED-" + operatorType + "-" + domainId + "-" + rangeId + "-" + index,
@@ -13912,11 +13918,11 @@ webvowl =
 	          domain: domainId,
 	          range: rangeId
 	        };
-	        
+
 	        properties.push(property);
 	      });
 	    }
-	    
+
 	    classes.forEach(function ( clss ){
 	      addProperties(clss.id(), clss.complement(), "COMPLEMENT");
 	      addProperties(clss.id(), clss.intersection(), "INTERSECTION");
@@ -13924,7 +13930,7 @@ webvowl =
 	      addProperties(clss.id(), clss.disjointUnion(), "DISJOINTUNION");
 	    });
 	  }
-	  
+
 	  /**
 	   * Replaces the ids of equivalent nodes/properties with the matching objects, cross references them
 	   * and tags them as processed.
@@ -13933,23 +13939,23 @@ webvowl =
 	   */
 	  function processEquivalentIds( element, elementMap ){
 	    var eqIds = element.equivalents();
-	    
+
 	    if ( !eqIds || element.equivalentBase() ) {
 	      return;
 	    }
-	    
+
 	    // Replace ids with the corresponding objects
 	    for ( var i = 0, l = eqIds.length; i < l; ++i ) {
 	      var eqId = findId(eqIds[i]);
 	      var eqObject = elementMap[eqId];
-	      
+
 	      if ( eqObject ) {
 	        // Cross reference both objects
 	        eqObject.equivalents(eqObject.equivalents());
 	        eqObject.equivalents().push(element);
 	        eqObject.equivalentBase(element);
 	        eqIds[i] = eqObject;
-	        
+
 	        // Hide other equivalent nodes
 	        eqObject.visible(false);
 	      } else {
@@ -13957,7 +13963,7 @@ webvowl =
 	      }
 	    }
 	  }
-	  
+
 	  /**
 	   * Tries to convert the type to an iri and sets it.
 	   * @param elements classes or properties
@@ -13970,7 +13976,7 @@ webvowl =
 	      }
 	    });
 	  }
-	  
+
 	  /**
 	   * Creates a map by mapping the array with the passed function.
 	   * @param array the array
@@ -13984,7 +13990,7 @@ webvowl =
 	    }
 	    return map;
 	  }
-	  
+
 	  /**
 	   * Adds the attributes of the additional object to the base object, but doesn't
 	   * overwrite existing ones.
@@ -13996,7 +14002,7 @@ webvowl =
 	  function addAdditionalAttributes( base, addition ){
 	    // Check for an undefined value
 	    addition = addition || {};
-	    
+
 	    for ( var addAttribute in addition ) {
 	      // Add the attribute if it doesn't exist
 	      if ( !(addAttribute in base) && addition.hasOwnProperty(addAttribute) ) {
@@ -14005,7 +14011,7 @@ webvowl =
 	    }
 	    return base;
 	  }
-	  
+
 	  /**
 	   * Replaces the namespace (and the separator) if one exists and returns the new value.
 	   * @param address the address with a namespace in it
@@ -14018,17 +14024,17 @@ webvowl =
 	      return address;
 	    }
 	    var namespaceName = address.substring(0, separatorIndex);
-	    
+
 	    for ( var i = 0, length = namespaces.length; i < length; ++i ) {
 	      var namespace = namespaces[i];
 	      if ( namespaceName === namespace.name ) {
 	        return namespace.iri + address.substring(separatorIndex + 1);
 	      }
 	    }
-	    
+
 	    return address;
 	  }
-	  
+
 	  /**
 	   * Looks whether the passed object is already the id or if it was replaced
 	   * with the object that belongs to the id.
@@ -14047,7 +14053,7 @@ webvowl =
 	      return undefined;
 	    }
 	  }
-	  
+
 	  return parser;
 	};
 
@@ -14070,6 +14076,8 @@ webvowl =
 	    EXTERNAL = "external",
 	    OBJECT = "object",
 	    RDF = "rdf",
+          //ste: Service Taxonomy class indications
+          STE_PRIMARY = "primary",
 	    // Representations
 	    ASYMMETRIC = "asymmetric",
 	    FUNCTIONAL = "functional",
@@ -14084,10 +14092,12 @@ webvowl =
 	      [DEPRECATED, DATATYPE, OBJECT, RDF],
 	      [ANONYMOUS]
 	    ],
-	    CLASS_INDICATIONS = [DEPRECATED, EXTERNAL],
+	    //CLASS_INDICATIONS = [DEPRECATED, EXTERNAL],
+          //ste:
+          CLASS_INDICATIONS = [DEPRECATED, EXTERNAL, STE_PRIMARY],
 	    PROPERTY_INDICATIONS = [ASYMMETRIC, FUNCTIONAL, INVERSE_FUNCTIONAL, IRREFLEXIVE, KEY, REFLEXIVE, SYMMETRIC,
 	      TRANSITIVE];
-	  
+
 	  /**
 	   * Parses and sets the attributes of a class.
 	   * @param clazz
@@ -14096,43 +14106,43 @@ webvowl =
 	    if ( !(clazz.attributes() instanceof Array) ) {
 	      return;
 	    }
-	    
+
 	    parseVisualAttributes(clazz);
 	    parseClassIndications(clazz);
 	  };
-	  
+
 	  function parseVisualAttributes( element ){
 	    VISUAL_ATTRIBUTE_GROUPS.forEach(function ( attributeGroup ){
 	      setVisualAttributeOfGroup(element, attributeGroup);
 	    });
 	  }
-	  
+
 	  function setVisualAttributeOfGroup( element, group ){
 	    var i, l, attribute;
-	    
+
 	    for ( i = 0, l = group.length; i < l; i++ ) {
 	      attribute = group[i];
 	      if ( element.attributes().indexOf(attribute) >= 0 ) {
 	        element.visualAttributes().push(attribute);
-	        
+
 	        // Just a single attribute is possible
 	        break;
 	      }
 	    }
 	  }
-	  
+
 	  function parseClassIndications( clazz ){
 	    var i, l, indication;
-	    
+
 	    for ( i = 0, l = CLASS_INDICATIONS.length; i < l; i++ ) {
 	      indication = CLASS_INDICATIONS[i];
-	      
+
 	      if ( clazz.attributes().indexOf(indication) >= 0 ) {
 	        clazz.indications().push(indication);
 	      }
 	    }
 	  }
-	  
+
 	  /**
 	   * Parses and sets the attributes of a property.
 	   * @param property
@@ -14141,24 +14151,24 @@ webvowl =
 	    if ( !(property.attributes() instanceof Array) ) {
 	      return;
 	    }
-	    
+
 	    parseVisualAttributes(property);
 	    parsePropertyIndications(property);
 	  };
-	  
+
 	  function parsePropertyIndications( property ){
 	    var i, l, indication;
-	    
+
 	    for ( i = 0, l = PROPERTY_INDICATIONS.length; i < l; i++ ) {
 	      indication = PROPERTY_INDICATIONS[i];
-	      
+
 	      if ( property.attributes().indexOf(indication) >= 0 ) {
 	        property.indications().push(indication);
 	      }
 	    }
 	  }
-	  
-	  
+
+
 	  return function (){
 	    // Return a function to keep module interfaces consistent
 	    return attributeParser;
@@ -14188,17 +14198,17 @@ webvowl =
 	  var totalNodeIdsToHide = d3.set();
 	  var processedPropertyIds = d3.set();
 	  var mergeNodes = [];
-	  
+
 	  for ( var i = 0; i < properties.length; i++ ) {
 	    var property = properties[i];
 	    var equivalents = property.equivalents().map(createIdToPropertyMapper(propertyMap));
-	    
+
 	    if ( equivalents.length === 0 || processedPropertyIds.has(property.id()) ) {
 	      continue;
 	    }
-	    
+
 	    var propertyWithEquivalents = equivalents.concat(property);
-	    
+
 	    var mergeNode = findMergeNode(propertyWithEquivalents, nodeMap);
 	    if ( !mergeNode ) {
 	      if ( mergeNode !== undefined ) {
@@ -14206,14 +14216,14 @@ webvowl =
 	        mergeNodes.push(mergeNode);
 	      }
 	    }
-	    
+
 	    var nodeIdsToHide = replaceRangesAndCollectNodesToHide(propertyWithEquivalents, mergeNode, properties,
 	      processedPropertyIds);
 	    for ( var j = 0; j < nodeIdsToHide.length; j++ ) {
 	      totalNodeIdsToHide.add(nodeIdsToHide[j]);
 	    }
 	  }
-	  
+
 	  return filterVisibleNodes(nodes.concat(mergeNodes), totalNodeIdsToHide);
 	};
 
@@ -14227,16 +14237,16 @@ webvowl =
 	function findMergeNode( propertyWithEquivalents, nodeMap ){
 	  var typeMap = mapPropertiesRangesToType(propertyWithEquivalents, nodeMap);
 	  var typeSet = d3.set(typeMap.keys());
-	  
+
 	  // default types are the fallback values and should be ignored for the type determination
 	  typeSet.remove(OBJECT_PROPERTY_DEFAULT_RANGE_TYPE);
 	  typeSet.remove(DATA_PROPERTY_DEFAULT_RANGE_TYPE);
-	  
+
 	  // exactly one type to chose from -> take the node of this type as range
 	  if ( typeSet.size() === 1 ) {
 	    var type = typeSet.values()[0];
 	    var ranges = typeMap.get(type);
-	    
+
 	    if ( ranges.length === 1 ) {
 	      return ranges[0];
 	    }
@@ -14245,42 +14255,42 @@ webvowl =
 
 	function mapPropertiesRangesToType( properties, nodeMap ){
 	  var typeMap = d3.map();
-	  
+
 	  properties.forEach(function ( property ){
 	    if ( property === undefined ) //@ WORKAROUND
 	      return;
-	    
+
 	    var range = nodeMap[property.range()];
 	    var type = range.type();
-	    
+
 	    if ( !typeMap.has(type) ) {
 	      typeMap.set(type, []);
 	    }
-	    
+
 	    typeMap.get(type).push(range);
 	  });
-	  
+
 	  return typeMap;
 	}
 
 	function createDefaultMergeNode( property, graph ){
 	  var range;
-	  
+
 	  if ( elementTools.isDatatypeProperty(property) ) {
 	    range = new RdfsLiteral(graph);
 	  } else {
 	    range = new OwlThing(graph);
 	  }
 	  range.id(PREFIX + property.id());
-	  
+
 	  return range;
 	}
 
 	function replaceRangesAndCollectNodesToHide( propertyWithEquivalents, mergeNode, properties, processedPropertyIds ){
 	  var nodesToHide = [];
-	  
+
 	  propertyWithEquivalents.forEach(function ( property ){
-	    
+
 	    if ( property === undefined || mergeNode === undefined ) // @ WORKAROUND
 	      return;
 	    var oldRangeId = property.range();
@@ -14288,10 +14298,10 @@ webvowl =
 	    if ( !isDomainOrRangeOfOtherProperty(oldRangeId, properties) ) {
 	      nodesToHide.push(oldRangeId);
 	    }
-	    
+
 	    processedPropertyIds.add(property.id());
 	  });
-	  
+
 	  return nodesToHide;
 	}
 
@@ -14302,19 +14312,19 @@ webvowl =
 	      return true;
 	    }
 	  }
-	  
+
 	  return false;
 	}
 
 	function filterVisibleNodes( nodes, nodeIdsToHide ){
 	  var filteredNodes = [];
-	  
+
 	  nodes.forEach(function ( node ){
 	    if ( !nodeIdsToHide.has(node.id()) ) {
 	      filteredNodes.push(node);
 	    }
 	  });
-	  
+
 	  return filteredNodes;
 	}
 
@@ -14340,24 +14350,24 @@ webvowl =
 	  Class_dragger.draggerObject = undefined;
 	  Class_dragger.pathElement = undefined;
 	  Class_dragger.typus = "Class_dragger";
-	  
+
 	  Class_dragger.type = function (){
 	    return Class_dragger.typus;
 	  };
-	  
+
 	  Class_dragger.parentNode = function (){
 	    return Class_dragger.parent;
 	  };
-	  
+
 	  Class_dragger.hideClass_dragger = function ( val ){
 	    Class_dragger.pathElement.classed("hidden", val);
 	    Class_dragger.nodeElement.classed("hidden", val);
 	    Class_dragger.draggerObject.classed("hidden", val);
 	  };
-	  
+
 	  Class_dragger.setParentNode = function ( parentNode ){
 	    Class_dragger.parent = parentNode;
-	    
+
 	    if ( Class_dragger.mouseButtonPressed === false ) {
 	      if ( Class_dragger.parent.actualRadius && Class_dragger.parent.actualRadius() ) {
 	        Class_dragger.x = Class_dragger.parent.x + 10 + Class_dragger.parent.actualRadius();
@@ -14369,12 +14379,12 @@ webvowl =
 	    }
 	    Class_dragger.updateElement();
 	  };
-	  
+
 	  Class_dragger.hideDragger = function ( val ){
 	    if ( Class_dragger.pathElement ) Class_dragger.pathElement.classed("hidden", val);
 	    if ( Class_dragger.nodeElement ) Class_dragger.nodeElement.classed("hidden", val);
 	    if ( Class_dragger.draggerObject ) Class_dragger.draggerObject.classed("hidden", val);
-	    
+
 	  };
 	  /** BASE HANDLING FUNCTIONS ------------------------------------------------- **/
 	  Class_dragger.id = function ( index ){
@@ -14383,11 +14393,11 @@ webvowl =
 	    }
 	    Class_dragger.nodeId = index;
 	  };
-	  
+
 	  Class_dragger.svgPathLayer = function ( layer ){
 	    Class_dragger.pathLayer = layer.append('g');
 	  };
-	  
+
 	  Class_dragger.svgRoot = function ( root ){
 	    if ( !arguments.length )
 	      return Class_dragger.rootElement;
@@ -14395,7 +14405,7 @@ webvowl =
 	    Class_dragger.rootNodeLayer = Class_dragger.rootElement.append('g');
 	    Class_dragger.addMouseEvents();
 	  };
-	  
+
 	  /** DRAWING FUNCTIONS ------------------------------------------------- **/
 	  Class_dragger.drawNode = function (){
 	    Class_dragger.pathElement = Class_dragger.pathLayer.append('line')
@@ -14404,7 +14414,7 @@ webvowl =
 	      .attr("y1", 0)
 	      .attr("x2", 0)
 	      .attr("y2", 0);
-	    
+
 	    // var lineData = [
 	    //     {"x": 0, "y": 0},
 	    //     {"x": 0, "y": 40},
@@ -14412,7 +14422,7 @@ webvowl =
 	    //     {"x": 0, "y": -40},
 	    //     {"x": 0, "y": 0}
 	    // ];
-	    
+
 	    var lineData = [
 	      { "x": -40, "y": 0 }, // start
 	      { "x": -20, "y": -10 },
@@ -14422,8 +14432,8 @@ webvowl =
 	      { "x": -20, "y": 10 },
 	      { "x": -40, "y": 0 }
 	    ];
-	    
-	    
+
+
 	    var lineFunction = d3.svg.line()
 	      .x(function ( d ){
 	        return d.x;
@@ -14435,7 +14445,7 @@ webvowl =
 	    var pathData = "M 20,40 C 0,15 0,-15 20,-40 L -40,0 Z";
 	    // var pathData="M 20,40 C 0,15 0,-15 20,-40 20,-40 -35.22907,-23.905556 -45.113897,0.06313453 -35.22907,20.095453 20,40 20,40 Z";
 	    // var pathData="M 39.107144,51.25 C 0,17.362169 0,-13.75 39.285715,-49.821429 c 0,0 -69.58321,34.511175 -100.714286,50.35714329 C -22.96643,20.324376 39.107144,51.25 39.107144,51.25 Z";
-	    
+
 	    Class_dragger.nodeElement = Class_dragger.rootNodeLayer.append('path').attr("d", pathData);
 	    Class_dragger.nodeElement.classed("classDraggerNode", true);
 	    Class_dragger.draggerObject = Class_dragger.rootNodeLayer.append("circle");
@@ -14446,48 +14456,48 @@ webvowl =
 	        .classed("superHiddenElement", true);
 	      Class_dragger.draggerObject.classed("superOpacityElement", !graph.options().showDraggerObject());
 	    }
-	    
-	    
+
+
 	  };
-	  
+
 	  Class_dragger.updateElement = function (){
-	    
+
 	    // Class_dragger.pathLayer.attr("transform", "translate(" + Class_dragger.x + "," + Class_dragger.y + ")");
 	    // Class_dragger.rootElement.attr("transform", "translate(" + Class_dragger.x + "," + Class_dragger.y + ")");
 	    if ( Class_dragger.pathElement ) {
-	      
+
 	      // compute start point ;
-	      
-	      
+
+
 	      var sX = Class_dragger.parent.x,
 	        sY = Class_dragger.parent.y,
 	        eX = Class_dragger.x,
 	        eY = Class_dragger.y;
-	      
-	      
+
+
 	      // this is used only when you dont have a proper layout ordering;
 	      var dirX = eX - sX;
 	      var dirY = eY - sY;
 	      var len = Math.sqrt((dirX * dirX) + (dirY * dirY));
-	      
+
 	      var nX = dirX / len;
 	      var nY = dirY / len;
-	      
+
 	      var ppX = sX + nX * Class_dragger.parent.actualRadius();
 	      var ppY = sY + nY * Class_dragger.parent.actualRadius();
-	      
+
 	      var ncx = nX * 15;
 	      var ncy = nY * 15;
 	      Class_dragger.draggerObject.attr("cx", ncx)
 	        .attr("cy", ncy);
-	      
+
 	      Class_dragger.pathElement.attr("x1", ppX)
 	        .attr("y1", ppY)
 	        .attr("x2", eX)
 	        .attr("y2", eY);
 	    }
 	    var angle = Math.atan2(Class_dragger.parent.y - Class_dragger.y, Class_dragger.parent.x - Class_dragger.x) * 180 / Math.PI;
-	    
+
 	    Class_dragger.nodeElement.attr("transform", "translate(" + Class_dragger.x + "," + Class_dragger.y + ")" + "rotate(" + angle + ")");
 	    Class_dragger.draggerObject.attr("transform", "translate(" + Class_dragger.x + "," + Class_dragger.y + ")");
 	    // console.log("update Elmenent root element"+Class_dragger.x + "," + Class_dragger.y );
@@ -14496,9 +14506,9 @@ webvowl =
 	    //     return "rotate(" + angle + ")";
 	    // });
 	  };
-	  
+
 	  /** MOUSE HANDLING FUNCTIONS ------------------------------------------------- **/
-	  
+
 	  Class_dragger.addMouseEvents = function (){
 	    // console.log("adding mouse events");
 	    Class_dragger.rootNodeLayer.selectAll("*").on("mouseover", Class_dragger.onMouseOver)
@@ -14510,33 +14520,33 @@ webvowl =
 	      .on("mousedown", Class_dragger.mouseDown)
 	      .on("mouseup", Class_dragger.mouseUp);
 	  };
-	  
+
 	  Class_dragger.mouseDown = function (){
 	    Class_dragger.nodeElement.style("cursor", "move");
 	    Class_dragger.nodeElement.classed("classDraggerNodeHovered", true);
 	    Class_dragger.mouseButtonPressed = true;
 	    console.log("Mouse DOWN from Dragger");
 	  };
-	  
+
 	  Class_dragger.mouseUp = function (){
 	    Class_dragger.nodeElement.style("cursor", "auto");
 	    Class_dragger.mouseButtonPressed = false;
 	    console.log("Mouse UP from Dragger");
 	  };
-	  
-	  
+
+
 	  Class_dragger.mouseEntered = function ( p ){
 	    if ( !arguments.length ) return Class_dragger.mouseEnteredVar;
 	    Class_dragger.mouseEnteredVar = p;
 	    return Class_dragger;
 	  };
-	  
+
 	  Class_dragger.selectedViaTouch = function ( val ){
 	    Class_dragger.nodeElement.classed("classDraggerNode", !val);
 	    Class_dragger.nodeElement.classed("classDraggerNodeHovered", val);
-	    
+
 	  };
-	  
+
 	  Class_dragger.onMouseOver = function (){
 	    if ( Class_dragger.mouseEntered() ) {
 	      return;
@@ -14546,9 +14556,9 @@ webvowl =
 	    var selectedNode = Class_dragger.rootElement.node(),
 	      nodeContainer = selectedNode.parentNode;
 	    nodeContainer.appendChild(selectedNode);
-	    
+
 	    Class_dragger.mouseEntered(true);
-	    
+
 	  };
 	  Class_dragger.onMouseOut = function (){
 	    if ( Class_dragger.mouseButtonPressed === true )
@@ -14557,18 +14567,18 @@ webvowl =
 	    Class_dragger.nodeElement.classed("classDraggerNode", true);
 	    Class_dragger.mouseEntered(false);
 	  };
-	  
+
 	  Class_dragger.setPosition = function ( x, y ){
-	    
+
 	    Class_dragger.x = x;
 	    Class_dragger.y = y;
 	    Class_dragger.updateElement();
 	  };
-	  
+
 	  Class_dragger.setAdditionalClassForClass_dragger = function ( name, val ){
 	    // console.log("Class_dragger should sett the class here")
 	    // Class_dragger.nodeElement.classed(name,val);
-	    
+
 	  };
 	  return Class_dragger;
 	};
@@ -14595,19 +14605,19 @@ webvowl =
 	  Range_dragger.mouseButtonPressed = false;
 	  Range_dragger.nodeElement = undefined;
 	  Range_dragger.draggerObject = undefined;
-	  
+
 	  Range_dragger.pathElement = undefined;
 	  Range_dragger.typus = "Range_dragger";
-	  
+
 	  Range_dragger.type = function (){
 	    return Range_dragger.typus;
 	  };
-	  
+
 	  // TODO: We need the endPoint of the Link here!
 	  Range_dragger.parentNode = function (){
 	    return Range_dragger.parent;
 	  };
-	  
+
 	  Range_dragger.hide_dragger = function ( val ){
 	    Range_dragger.pathElement.classed("hidden", val);
 	    Range_dragger.nodeElement.classed("hidden", val);
@@ -14617,21 +14627,21 @@ webvowl =
 	    if ( Range_dragger.pathElement ) Range_dragger.pathElement.classed("hidden", val);
 	    if ( Range_dragger.nodeElement ) Range_dragger.nodeElement.classed("hidden", val);
 	    if ( Range_dragger.draggerObject ) Range_dragger.draggerObject.classed("hidden", val);
-	    
-	    
+
+
 	  };
-	  
+
 	  Range_dragger.reDrawEverthing = function (){
 	    Range_dragger.setParentProperty(Range_dragger.parent);
 	  };
 	  Range_dragger.updateRange = function ( newRange ){
-	    
+
 	    if ( graph.genericPropertySanityCheck(Range_dragger.parent.domain(), newRange,
 	        Range_dragger.parent.type(),
 	        "Could not update range", "Restoring previous range") === false ) return;
-	    
+
 	    // check for triple duplicates!
-	    
+
 	    if ( graph.propertyCheckExistenceChecker(Range_dragger.parent, Range_dragger.parent.domain(), newRange) === false )
 	      return;
 	    if ( Range_dragger.parent.labelElement() === undefined ) return;
@@ -14642,18 +14652,18 @@ webvowl =
 	      Range_dragger.parent.inverse(null);
 	      prop.range(newRange);
 	    }
-	    
+
 	    else {
 	      Range_dragger.parent.range(newRange);
 	    }
 	    // update the position of the new range
 	    var rX = newRange.x;
 	    var rY = newRange.y;
-	    
+
 	    var dX = Range_dragger.parent.domain().x;
 	    var dY = Range_dragger.parent.domain().y;
-	    
-	    
+
+
 	    // center
 	    var cX = 0.49 * (dX + rX);
 	    var cY = 0.49 * (dY + rY);
@@ -14662,9 +14672,9 @@ webvowl =
 	    Range_dragger.parent.labelElement().px = cX;
 	    Range_dragger.parent.labelElement().y = cY;
 	    Range_dragger.parent.labelElement().py = cY;
-	    
+
 	  };
-	  
+
 	  Range_dragger.setParentProperty = function ( parentProperty, inversed ){
 	    Range_dragger.parent = parentProperty;
 	    var iP;
@@ -14695,11 +14705,11 @@ webvowl =
 	        Range_dragger.y = iP.y;
 	      }
 	    }
-	    
+
 	    Range_dragger.updateElement();
 	  };
-	  
-	  
+
+
 	  /** BASE HANDLING FUNCTIONS ------------------------------------------------- **/
 	  Range_dragger.id = function ( index ){
 	    if ( !arguments.length ) {
@@ -14707,11 +14717,11 @@ webvowl =
 	    }
 	    Range_dragger.nodeId = index;
 	  };
-	  
+
 	  Range_dragger.svgPathLayer = function ( layer ){
 	    Range_dragger.pathLayer = layer.append('g');
 	  };
-	  
+
 	  Range_dragger.svgRoot = function ( root ){
 	    if ( !arguments.length )
 	      return Range_dragger.rootElement;
@@ -14719,7 +14729,7 @@ webvowl =
 	    Range_dragger.rootNodeLayer = Range_dragger.rootElement.append('g');
 	    Range_dragger.addMouseEvents();
 	  };
-	  
+
 	  /** DRAWING FUNCTIONS ------------------------------------------------- **/
 	  Range_dragger.drawNode = function (){
 	    Range_dragger.pathElement = Range_dragger.pathLayer.append('line')
@@ -14728,7 +14738,7 @@ webvowl =
 	      .attr("y1", 0)
 	      .attr("x2", 0)
 	      .attr("y2", 0);
-	    
+
 	    // var lineData = [
 	    //     {"x": 0, "y": 0},
 	    //     {"x": 0, "y": 40},
@@ -14736,7 +14746,7 @@ webvowl =
 	    //     {"x": 0, "y": -40},
 	    //     {"x": 0, "y": 0}
 	    // ];
-	    
+
 	    var lineData = [
 	      { "x": -40, "y": 0 }, // start
 	      { "x": -20, "y": -10 },
@@ -14746,8 +14756,8 @@ webvowl =
 	      { "x": -20, "y": 10 },
 	      { "x": -40, "y": 0 }
 	    ];
-	    
-	    
+
+
 	    var lineFunction = d3.svg.line()
 	      .x(function ( d ){
 	        return d.x;
@@ -14757,7 +14767,7 @@ webvowl =
 	      })
 	      .interpolate("basis-closed");
 	    var pathData = "M 61,40 C 41,15 41,-15 61,-40 L 1,0 Z";
-	    
+
 	    Range_dragger.nodeElement = Range_dragger.rootNodeLayer.append('path').attr("d", pathData);
 	    Range_dragger.nodeElement.classed("classDraggerNode", true);
 	    if ( graph.options().useAccuracyHelper() ) {
@@ -14768,49 +14778,49 @@ webvowl =
 	        .classed("superHiddenElement", true);
 	      Range_dragger.draggerObject.classed("superOpacityElement", !graph.options().showDraggerObject());
 	    }
-	    
-	    
+
+
 	  };
-	  
+
 	  Range_dragger.updateElementViaDomainDragger = function ( x, y ){
-	    
+
 	    var range_x = x;
 	    var range_y = y;
-	    
+
 	    var dex = Range_dragger.parent.range().x;
 	    var dey = Range_dragger.parent.range().y;
-	    
+
 	    var dir_X = x - dex;
 	    var dir_Y = y - dey;
-	    
+
 	    var len = Math.sqrt(dir_X * dir_X + dir_Y * dir_Y);
-	    
+
 	    var nX = dir_X / len;
 	    var nY = dir_Y / len;
-	    
-	    
+
+
 	    var ep_range_x = dex + nX * Range_dragger.parent.range().actualRadius();
 	    var ep_range_y = dey + nY * Range_dragger.parent.range().actualRadius();
-	    
-	    
+
+
 	    var dx = range_x - ep_range_x;
 	    var dy = range_y - ep_range_y;
 	    len = Math.sqrt(dx * dx + dy * dy);
 	    nX = dx / len;
 	    nY = dy / len;
-	    
+
 	    var angle = Math.atan2(ep_range_y - range_y, ep_range_x - range_x) * 180 / Math.PI + 180;
 	    Range_dragger.nodeElement.attr("transform", "translate(" + ep_range_x + "," + ep_range_y + ")" + "rotate(" + angle + ")");
 	    var doX = ep_range_x + nX * 40;
 	    var doY = ep_range_y + nY * 40;
 	    Range_dragger.draggerObject.attr("transform", "translate(" + doX + "," + doY + ")");
-	    
+
 	  };
-	  
-	  
+
+
 	  Range_dragger.updateElement = function (){
 	    if ( Range_dragger.mouseButtonPressed === true || Range_dragger.parent === undefined ) return;
-	    
+
 	    var range = Range_dragger.parent.range();
 	    var iP = Range_dragger.parent.labelObject().linkRangeIntersection;
 	    if ( Range_dragger.parent.labelElement() === undefined ) return;
@@ -14820,11 +14830,11 @@ webvowl =
 	      iP = Range_dragger.parent.labelObject().linkDomainIntersection;
 	      offsetForLoop = -48;
 	    }
-	    
+
 	    if ( iP === undefined ) return;
 	    var range_x = range.x;
 	    var range_y = range.y;
-	    
+
 	    var ep_range_x = iP.x;
 	    var ep_range_y = iP.y;
 	    // offset for dragger object
@@ -14834,22 +14844,22 @@ webvowl =
 	    var nX = dx / len;
 	    var nY = dy / len;
 	    var angle = Math.atan2(ep_range_y - range_y, ep_range_x - range_x) * 180 / Math.PI;
-	    
+
 	    var doX = ep_range_x - nX * 40;
 	    var doY = ep_range_y - nY * 40;
-	    
+
 	    if ( Range_dragger.isLoopProperty === true )
 	      angle -= offsetForLoop;
-	    
-	    
+
+
 	    Range_dragger.nodeElement.attr("transform", "translate(" + ep_range_x + "," + ep_range_y + ")" + "rotate(" + angle + ")");
 	    Range_dragger.draggerObject.attr("transform", "translate(" + doX + "," + doY + ")");
-	    
-	    
+
+
 	  };
-	  
+
 	  /** MOUSE HANDLING FUNCTIONS ------------------------------------------------- **/
-	  
+
 	  Range_dragger.addMouseEvents = function (){
 	    var rootLayer = Range_dragger.rootNodeLayer.selectAll("*");
 	    rootLayer.on("mouseover", Range_dragger.onMouseOver)
@@ -14861,32 +14871,32 @@ webvowl =
 	      .on("mousedown", Range_dragger.mouseDown)
 	      .on("mouseup", Range_dragger.mouseUp);
 	  };
-	  
+
 	  Range_dragger.mouseDown = function (){
 	    Range_dragger.nodeElement.style("cursor", "move");
 	    Range_dragger.nodeElement.classed("classDraggerNodeHovered", true);
 	    Range_dragger.mouseButtonPressed = true;
 	  };
-	  
+
 	  Range_dragger.mouseUp = function (){
 	    Range_dragger.nodeElement.style("cursor", "auto");
 	    Range_dragger.nodeElement.classed("classDraggerNodeHovered", false);
 	    Range_dragger.mouseButtonPressed = false;
 	  };
-	  
-	  
+
+
 	  Range_dragger.mouseEntered = function ( p ){
 	    if ( !arguments.length ) return Range_dragger.mouseEnteredVar;
 	    Range_dragger.mouseEnteredVar = p;
 	    return Range_dragger;
 	  };
-	  
+
 	  Range_dragger.selectedViaTouch = function ( val ){
 	    Range_dragger.nodeElement.classed("classDraggerNode", !val);
 	    Range_dragger.nodeElement.classed("classDraggerNodeHovered", val);
-	    
+
 	  };
-	  
+
 	  Range_dragger.onMouseOver = function (){
 	    if ( Range_dragger.mouseEntered() ) {
 	      return;
@@ -14896,9 +14906,9 @@ webvowl =
 	    var selectedNode = Range_dragger.rootElement.node(),
 	      nodeContainer = selectedNode.parentNode;
 	    nodeContainer.appendChild(selectedNode);
-	    
+
 	    Range_dragger.mouseEntered(true);
-	    
+
 	  };
 	  Range_dragger.onMouseOut = function (){
 	    if ( Range_dragger.mouseButtonPressed === true )
@@ -14907,25 +14917,25 @@ webvowl =
 	    Range_dragger.nodeElement.classed("classDraggerNode", true);
 	    Range_dragger.mouseEntered(false);
 	  };
-	  
+
 	  Range_dragger.setPosition = function ( x, y ){
 	    var range_x = Range_dragger.parent.domain().x;
 	    var range_y = Range_dragger.parent.domain().y;
-	    
+
 	    // var position of the rangeEndPoint
 	    var ep_range_x = x;
 	    var ep_range_y = y;
-	    
+
 	    // offset for dragger object
 	    var dx = range_x - ep_range_x;
 	    var dy = range_y - ep_range_y;
-	    
+
 	    var len = Math.sqrt(dx * dx + dy * dy);
-	    
+
 	    var nX = dx / len;
 	    var nY = dy / len;
-	    
-	    
+
+
 	    var angle = Math.atan2(dy, dx) * 180 / Math.PI;
 	    var doX = ep_range_x + nX * 40;
 	    var doY = ep_range_y + nY * 40;
@@ -14933,11 +14943,11 @@ webvowl =
 	    Range_dragger.draggerObject.attr("transform", "translate(" + doX + "," + doY + ")");
 	    Range_dragger.x = x;
 	    Range_dragger.y = y;
-	    
+
 	  };
-	  
+
 	  Range_dragger.setAdditionalClassForClass_dragger = function ( name, val ){
-	    
+
 	  };
 	  return Range_dragger;
 	};
@@ -14964,41 +14974,41 @@ webvowl =
 	  Domain_dragger.mouseButtonPressed = false;
 	  Domain_dragger.nodeElement = undefined;
 	  Domain_dragger.draggerObject = undefined;
-	  
+
 	  Domain_dragger.pathElement = undefined;
 	  Domain_dragger.typus = "Domain_dragger";
-	  
+
 	  Domain_dragger.type = function (){
 	    return Domain_dragger.typus;
 	  };
-	  
-	  
+
+
 	  // TODO: We need the endPoint of the Link here!
 	  Domain_dragger.parentNode = function (){
 	    return Domain_dragger.parent;
 	  };
-	  
+
 	  Domain_dragger.hide_dragger = function ( val ){
 	    Domain_dragger.pathElement.classed("hidden", val);
 	    Domain_dragger.nodeElement.classed("hidden", val);
 	    Domain_dragger.draggerObject.classed("hidden", val);
 	  };
-	  
+
 	  Domain_dragger.reDrawEverthing = function (){
 	    Domain_dragger.setParentProperty(Domain_dragger.parent);
 	  };
 	  Domain_dragger.updateDomain = function ( newDomain ){
-	    
+
 	    if ( graph.genericPropertySanityCheck(Domain_dragger.parent.range(), newDomain, Domain_dragger.parent.type(),
 	        "Could not update domain", "Restoring previous domain") === false ) {
 	      Domain_dragger.updateElement();
 	      return;
 	    }
-	    
+
 	    if ( graph.propertyCheckExistenceChecker(Domain_dragger.parent, newDomain, Domain_dragger.parent.range()) === false )
 	      return;
-	    
-	    
+
+
 	    if ( Domain_dragger.parent.labelElement() === undefined ) {
 	      Domain_dragger.updateElement();
 	      return;
@@ -15014,13 +15024,13 @@ webvowl =
 	    else {
 	      Domain_dragger.parent.domain(newDomain);
 	    }
-	    
+
 	    // update the position of the new range
 	    var rX = Domain_dragger.parent.range().x;
 	    var rY = Domain_dragger.parent.range().y;
 	    var dX = newDomain.x;
 	    var dY = newDomain.y;
-	    
+
 	    // center
 	    var cX = 0.49 * (dX + rX);
 	    var cY = 0.49 * (dY + rY);
@@ -15030,9 +15040,9 @@ webvowl =
 	    Domain_dragger.parent.labelObject().y = cY;
 	    Domain_dragger.parent.labelObject().py = cY;
 	    Domain_dragger.updateElement();
-	    
+
 	  };
-	  
+
 	  Domain_dragger.setParentProperty = function ( parentProperty, inverted ){
 	    Domain_dragger.invertedProperty = inverted;
 	    var renElem;
@@ -15040,11 +15050,11 @@ webvowl =
 	    Domain_dragger.isLoopProperty = false;
 	    if ( parentProperty.domain() === parentProperty.range() )
 	      Domain_dragger.isLoopProperty = true;
-	    
+
 	    Domain_dragger.parent = parentProperty;
 	    renElem = parentProperty.labelObject();
 	    if ( inverted === true ) {
-	      
+
 	      // this is the lower element
 	      if ( parentProperty.labelElement() && parentProperty.labelElement().attr("transform") === "translate(0,15)" ) {
 	        // console.log("This is the lower element!");
@@ -15072,15 +15082,15 @@ webvowl =
 	      }
 	    }
 	    Domain_dragger.updateElement();
-	    
+
 	  };
-	  
+
 	  Domain_dragger.hideDragger = function ( val ){
 	    if ( Domain_dragger.pathElement ) Domain_dragger.pathElement.classed("hidden", val);
 	    if ( Domain_dragger.nodeElement ) Domain_dragger.nodeElement.classed("hidden", val);
 	    if ( Domain_dragger.draggerObject ) Domain_dragger.draggerObject.classed("hidden", val);
-	    
-	    
+
+
 	  };
 	  /** BASE HANDLING FUNCTIONS ------------------------------------------------- **/
 	  Domain_dragger.id = function ( index ){
@@ -15089,11 +15099,11 @@ webvowl =
 	    }
 	    Domain_dragger.nodeId = index;
 	  };
-	  
+
 	  Domain_dragger.svgPathLayer = function ( layer ){
 	    Domain_dragger.pathLayer = layer.append('g');
 	  };
-	  
+
 	  Domain_dragger.svgRoot = function ( root ){
 	    if ( !arguments.length )
 	      return Domain_dragger.rootElement;
@@ -15101,7 +15111,7 @@ webvowl =
 	    Domain_dragger.rootNodeLayer = Domain_dragger.rootElement.append('g');
 	    Domain_dragger.addMouseEvents();
 	  };
-	  
+
 	  /** DRAWING FUNCTIONS ------------------------------------------------- **/
 	  Domain_dragger.drawNode = function (){
 	    Domain_dragger.pathElement = Domain_dragger.pathLayer.append('line')
@@ -15110,7 +15120,7 @@ webvowl =
 	      .attr("y1", 0)
 	      .attr("x2", 0)
 	      .attr("y2", 0);
-	    
+
 	    var pathData = "M 10,40 C -10,15 -10,-15 10,-40 -8.8233455,-13.641384 -36.711107,-5.1228436 -50,0 -36.696429,4.9079017 -8.6403157,13.745728 10,40 Z";
 	    Domain_dragger.nodeElement = Domain_dragger.rootNodeLayer.append('path').attr("d", pathData);
 	    Domain_dragger.nodeElement.classed("classDraggerNode", true);
@@ -15122,73 +15132,73 @@ webvowl =
 	        .classed("superHiddenElement", true);
 	      Domain_dragger.draggerObject.classed("superOpacityElement", !graph.options().showDraggerObject());
 	    }
-	    
-	    
+
+
 	  };
 	  Domain_dragger.updateElementViaRangeDragger = function ( x, y ){
 	    var range_x = x;
 	    var range_y = y;
-	    
+
 	    var dex = Domain_dragger.parent.domain().x;
 	    var dey = Domain_dragger.parent.domain().y;
-	    
+
 	    var dir_X = x - dex;
 	    var dir_Y = y - dey;
-	    
+
 	    var len = Math.sqrt(dir_X * dir_X + dir_Y * dir_Y);
-	    
+
 	    var nX = dir_X / len;
 	    var nY = dir_Y / len;
-	    
-	    
+
+
 	    var ep_range_x = dex + nX * Domain_dragger.parent.domain().actualRadius();
 	    var ep_range_y = dey + nY * Domain_dragger.parent.domain().actualRadius();
-	    
+
 	    var angle = Math.atan2(ep_range_y - range_y, ep_range_x - range_x) * 180 / Math.PI;
-	    
+
 	    Domain_dragger.nodeElement.attr("transform", "translate(" + ep_range_x + "," + ep_range_y + ")" + "rotate(" + angle + ")");
 	    var dox = ep_range_x + nX * 20;
 	    var doy = ep_range_y + nY * 20;
 	    Domain_dragger.draggerObject.attr("transform", "translate(" + dox + "," + doy + ")");
 	  };
-	  
-	  
+
+
 	  Domain_dragger.updateElement = function (){
 	    if ( Domain_dragger.mouseButtonPressed === true || Domain_dragger.parent === undefined ) return;
-	    
+
 	    var domain = Domain_dragger.parent.domain();
 	    var iP = Domain_dragger.parent.labelObject().linkDomainIntersection;
 	    if ( Domain_dragger.parent.labelElement() === undefined ) return;
 	    if ( Domain_dragger.parent.labelElement().attr("transform") === "translate(0,15)" ) {
 	      Domain_dragger.parent.inverse().domain();
 	      iP = Domain_dragger.parent.labelObject().linkRangeIntersection;
-	      
+
 	    }
 	    var range_x = domain.x;
 	    var range_y = domain.y;
-	    
-	    
+
+
 	    if ( iP === undefined ) return;
 	    var ep_range_x = iP.x;
 	    var ep_range_y = iP.y;
-	    
+
 	    var dx = range_x - ep_range_x;
 	    var dy = range_y - ep_range_y;
 	    var len = Math.sqrt(dx * dx + dy * dy);
-	    
+
 	    var nX = dx / len;
 	    var nY = dy / len;
-	    
+
 	    var dox = ep_range_x - nX * 20;
 	    var doy = ep_range_y - nY * 20;
 	    var angle = Math.atan2(ep_range_y - range_y, ep_range_x - range_x) * 180 / Math.PI + 180;
-	    
+
 	    Domain_dragger.nodeElement.attr("transform", "translate(" + ep_range_x + "," + ep_range_y + ")" + "rotate(" + angle + ")");
 	    Domain_dragger.draggerObject.attr("transform", "translate(" + dox + "," + doy + ")");
 	  };
-	  
+
 	  /** MOUSE HANDLING FUNCTIONS ------------------------------------------------- **/
-	  
+
 	  Domain_dragger.addMouseEvents = function (){
 	    var rootLayer = Domain_dragger.rootNodeLayer.selectAll("*");
 	    rootLayer.on("mouseover", Domain_dragger.onMouseOver)
@@ -15200,32 +15210,32 @@ webvowl =
 	      .on("mousedown", Domain_dragger.mouseDown)
 	      .on("mouseup", Domain_dragger.mouseUp);
 	  };
-	  
+
 	  Domain_dragger.mouseDown = function (){
 	    Domain_dragger.nodeElement.style("cursor", "move");
 	    Domain_dragger.nodeElement.classed("classDraggerNodeHovered", true);
 	    Domain_dragger.mouseButtonPressed = true;
 	  };
-	  
+
 	  Domain_dragger.mouseUp = function (){
 	    Domain_dragger.nodeElement.style("cursor", "auto");
 	    Domain_dragger.nodeElement.classed("classDraggerNodeHovered", false);
 	    Domain_dragger.mouseButtonPressed = false;
 	  };
-	  
-	  
+
+
 	  Domain_dragger.mouseEntered = function ( p ){
 	    if ( !arguments.length ) return Domain_dragger.mouseEnteredVar;
 	    Domain_dragger.mouseEnteredVar = p;
 	    return Domain_dragger;
 	  };
-	  
+
 	  Domain_dragger.selectedViaTouch = function ( val ){
 	    Domain_dragger.nodeElement.classed("classDraggerNode", !val);
 	    Domain_dragger.nodeElement.classed("classDraggerNodeHovered", val);
-	    
+
 	  };
-	  
+
 	  Domain_dragger.onMouseOver = function (){
 	    if ( Domain_dragger.mouseEntered() ) {
 	      return;
@@ -15235,9 +15245,9 @@ webvowl =
 	    var selectedNode = Domain_dragger.rootElement.node(),
 	      nodeContainer = selectedNode.parentNode;
 	    nodeContainer.appendChild(selectedNode);
-	    
+
 	    Domain_dragger.mouseEntered(true);
-	    
+
 	  };
 	  Domain_dragger.onMouseOut = function (){
 	    if ( Domain_dragger.mouseButtonPressed === true )
@@ -15246,40 +15256,40 @@ webvowl =
 	    Domain_dragger.nodeElement.classed("classDraggerNode", true);
 	    Domain_dragger.mouseEntered(false);
 	  };
-	  
+
 	  Domain_dragger.setPosition = function ( x, y ){
 	    var range_x = Domain_dragger.parent.range().x;
 	    var range_y = Domain_dragger.parent.range().y;
-	    
+
 	    // var position of the rangeEndPoint
 	    var ep_range_x = x;
 	    var ep_range_y = y;
-	    
+
 	    // offset for dragger object
 	    var dx = range_x - ep_range_x;
 	    var dy = range_y - ep_range_y;
-	    
+
 	    var len = Math.sqrt(dx * dx + dy * dy);
-	    
+
 	    var nX = dx / len;
 	    var nY = dy / len;
 	    var dox = ep_range_x + nX * 20;
 	    var doy = ep_range_y + nY * 20;
-	    
+
 	    var angle = Math.atan2(range_y - ep_range_y, range_x - ep_range_x) * 180 / Math.PI + 180;
-	    
+
 	    Domain_dragger.nodeElement.attr("transform", "translate(" + ep_range_x + "," + ep_range_y + ")" + "rotate(" + angle + ")");
 	    Domain_dragger.draggerObject.attr("transform", "translate(" + dox + "," + doy + ")");
-	    
+
 	    Domain_dragger.x = x;
 	    Domain_dragger.y = y;
-	    
+
 	  };
-	  
+
 	  Domain_dragger.setAdditionalClassForClass_dragger = function ( name, val ){
 	    // console.log("Class_dragger should sett the class here")
 	    // Class_dragger.nodeElement.classed(name,val);
-	    
+
 	  };
 	  return Domain_dragger;
 	};
@@ -15309,17 +15319,17 @@ webvowl =
 	  ShadowClone.nodeElement = undefined;
 	  ShadowClone.pathElement = undefined;
 	  ShadowClone.typus = "shadowClone";
-	  
-	  
+
+
 	  ShadowClone.type = function (){
 	    return ShadowClone.typus;
 	  };
-	  
+
 	  // TODO: We need the endPoint of the Link here!
 	  ShadowClone.parentNode = function (){
 	    return ShadowClone.parent;
 	  };
-	  
+
 	  ShadowClone.setParentProperty = function ( parentProperty, inverted ){
 	    ShadowClone.invertedProperty = inverted;
 	    ShadowClone.parent = parentProperty;
@@ -15337,7 +15347,7 @@ webvowl =
 	    }
 	    else {
 	      renElment = parentProperty.labelObject();
-	      
+
 	      if ( renElment.linkRangeIntersection && renElment.linkDomainIntersection ) {
 	        var iP_range = renElment.linkRangeIntersection;
 	        var iP_domain = renElment.linkDomainIntersection;
@@ -15346,13 +15356,13 @@ webvowl =
 	        ShadowClone.e_x = iP_range.x;
 	        ShadowClone.e_y = iP_range.y;
 	      }
-	      
+
 	    }
-	    
+
 	    ShadowClone.rootNodeLayer.remove();
 	    ShadowClone.rootNodeLayer = ShadowClone.rootElement.append('g');
 	    ShadowClone.rootNodeLayer.datum(parentProperty);
-	    
+
 	    // ShadowClone.pathElement.remove();
 	    // ShadowClone.pathElement = ShadowClone.pathLayer.append('line');
 	    //
@@ -15369,18 +15379,18 @@ webvowl =
 	      .attr("x2", ShadowClone.s_x)
 	      .attr("y2", ShadowClone.s_y);
 	    ShadowClone.pathElement.classed(parentProperty.linkType(), true);
-	    
+
 	    if ( parentProperty.markerElement() ) {
 	      ShadowClone.markerElement.attr("viewBox", parentProperty.markerElement().attr("viewBox"))
 	        .attr("markerWidth", parentProperty.markerElement().attr("markerWidth"))
 	        .attr("markerHeight", parentProperty.markerElement().attr("markerHeight"))
 	        .attr("orient", parentProperty.markerElement().attr("orient"));
-	      
+
 	      var markerPath = parentProperty.markerElement().select("path");
 	      ShadowClone.markerElement.append("path")
 	        .attr("d", markerPath.attr("d"))
 	        .classed(parentProperty.markerType(), true);
-	      
+
 	      ShadowClone.pathElement.attr("marker-end", "url(#" + "shadowCloneMarker" + ")");
 	      ShadowClone.markerElement.classed("hidden", !elementTools.isDatatypeProperty(parentProperty));
 	    }
@@ -15391,13 +15401,13 @@ webvowl =
 	      .attr("y", -parentProperty.height() / 2)
 	      .attr("width", parentProperty.width())
 	      .attr("height", parentProperty.height());
-	    
+
 	    if ( parentProperty.visualAttributes() ) {
 	      rect.classed(parentProperty.visualAttributes(), true);
 	    }
 	    rect.classed("datatype", false);
 	    var bgColor = parentProperty.backgroundColor();
-	    
+
 	    if ( parentProperty.attributes().indexOf("deprecated") > -1 ) {
 	      bgColor = undefined;
 	      rect.classed("deprecatedproperty", true);
@@ -15405,47 +15415,47 @@ webvowl =
 	      rect.classed("deprecatedproperty", false);
 	    }
 	    rect.style("fill", bgColor);
-	    
+
 	    // add Text;
 	    var equivalentsString = parentProperty.equivalentsString();
 	    var suffixForFollowingEquivalents = equivalentsString ? "," : "";
-	    
-	    
+
+
 	    var textElement = new CenteringTextElement(ShadowClone.rootNodeLayer, bgColor);
 	    textElement.addText(parentProperty.labelForCurrentLanguage(), "", suffixForFollowingEquivalents);
 	    textElement.addEquivalents(equivalentsString);
 	    textElement.addSubText(parentProperty.indicationString());
-	    
-	    
+
+
 	    var cx = 0.5 * (ShadowClone.s_x + ShadowClone.e_x);
 	    var cy = 0.5 * (ShadowClone.s_y + ShadowClone.e_y);
 	    ShadowClone.rootNodeLayer.attr("transform", "translate(" + cx + "," + cy + ")");
 	    ShadowClone.rootNodeLayer.classed("hidden", true);
 	    ShadowClone.pathElement.classed("hidden", true);
-	    
-	    
+
+
 	  };
-	  
+
 	  ShadowClone.hideClone = function ( val ){
 	    if ( ShadowClone.rootNodeLayer ) ShadowClone.rootNodeLayer.classed("hidden", val);
 	    if ( ShadowClone.pathElement ) ShadowClone.pathElement.classed("hidden", val);
 	  };
-	  
+
 	  ShadowClone.hideParentProperty = function ( val ){
-	    
+
 	    var labelObj = ShadowClone.parent.labelObject();
 	    if ( labelObj ) {
 	      if ( ShadowClone.parent.labelElement().attr("transform") === "translate(0,15)" ||
 	        ShadowClone.parent.labelElement().attr("transform") === "translate(0,-15)" )
 	        ShadowClone.parent.inverse().hide(val);
-	      
-	      
+
+
 	    }
 	    ShadowClone.parent.hide(val);
-	    
-	    
+
+
 	  };
-	  
+
 	  /** BASE HANDLING FUNCTIONS ------------------------------------------------- **/
 	  ShadowClone.id = function ( index ){
 	    if ( !arguments.length ) {
@@ -15453,44 +15463,44 @@ webvowl =
 	    }
 	    ShadowClone.nodeId = index;
 	  };
-	  
+
 	  ShadowClone.svgPathLayer = function ( layer ){
 	    ShadowClone.pathLayer = layer.append('g');
 	  };
-	  
+
 	  ShadowClone.svgRoot = function ( root ){
 	    if ( !arguments.length )
 	      return ShadowClone.rootElement;
 	    ShadowClone.rootElement = root;
 	    ShadowClone.rootNodeLayer = ShadowClone.rootElement.append('g');
-	    
+
 	  };
-	  
+
 	  /** DRAWING FUNCTIONS ------------------------------------------------- **/
 	  ShadowClone.drawClone = function (){
 	    ShadowClone.pathElement = ShadowClone.pathLayer.append('line');
-	    
+
 	    ShadowClone.pathElement.attr("x1", 0)
 	      .attr("y1", 0)
 	      .attr("x2", 0)
 	      .attr("y2", 0);
-	    
+
 	  };
-	  
-	  
+
+
 	  ShadowClone.updateElement = function (){
 	    ShadowClone.pathElement.attr("x1", ShadowClone.e_x)
 	      .attr("y1", ShadowClone.e_y)
 	      .attr("x2", ShadowClone.s_x)
 	      .attr("y2", ShadowClone.s_y);
-	    
+
 	    var cx = 0.5 * (ShadowClone.s_x + ShadowClone.e_x);
 	    var cy = 0.5 * (ShadowClone.s_y + ShadowClone.e_y);
 	    ShadowClone.rootNodeLayer.attr("transform", "translate(" + cx + "," + cy + ")");
 	  };
-	  
+
 	  ShadowClone.setInitialPosition = function (){
-	    
+
 	    var renElment = ShadowClone.parent.labelObject();
 	    if ( renElment.linkRangeIntersection && renElment.linkDomainIntersection ) {
 	      var iP_range = renElment.linkRangeIntersection;
@@ -15523,14 +15533,14 @@ webvowl =
 	    // ShadowClone.e_x=dex+nX*ShadowClone.parent.domain().actualRadius();
 	    // ShadowClone.e_y=dey+nY*ShadowClone.parent.domain().actualRadius();
 	    // ShadowClone.updateElement();
-	    
+
 	  };
 	  ShadowClone.setPositionDomain = function ( e_x, e_y ){
-	    
+
 	    var rex = ShadowClone.parent.range().x;
 	    var rey = ShadowClone.parent.range().y;
-	    
-	    
+
+
 	    if ( elementTools.isDatatype(ShadowClone.parent.range()) === true ) {
 	      var intersection = math.calculateIntersection({ x: e_x, y: e_y }, ShadowClone.parent.range(), 0);
 	      ShadowClone.s_x = intersection.x;
@@ -15538,52 +15548,52 @@ webvowl =
 	    } else {
 	      var dir_X = rex - e_x;
 	      var dir_Y = rey - e_y;
-	      
+
 	      var len = Math.sqrt(dir_X * dir_X + dir_Y * dir_Y);
-	      
+
 	      var nX = dir_X / len;
 	      var nY = dir_Y / len;
 	      ShadowClone.s_x = rex - nX * ShadowClone.parent.range().actualRadius();
 	      ShadowClone.s_y = rey - nY * ShadowClone.parent.range().actualRadius();
-	      
+
 	    }
-	    
-	    
+
+
 	    ShadowClone.e_x = e_x;
 	    ShadowClone.e_y = e_y;
 	    ShadowClone.updateElement();
 	  };
-	  
+
 	  ShadowClone.setPosition = function ( s_x, s_y ){
 	    ShadowClone.s_x = s_x;
 	    ShadowClone.s_y = s_y;
-	    
+
 	    // add normalized dir;
-	    
+
 	    var dex = ShadowClone.parent.domain().x;
 	    var dey = ShadowClone.parent.domain().y;
-	    
+
 	    var dir_X = s_x - dex;
 	    var dir_Y = s_y - dey;
-	    
+
 	    var len = Math.sqrt(dir_X * dir_X + dir_Y * dir_Y);
-	    
+
 	    var nX = dir_X / len;
 	    var nY = dir_Y / len;
-	    
-	    
+
+
 	    ShadowClone.e_x = dex + nX * ShadowClone.parent.domain().actualRadius();
 	    ShadowClone.e_y = dey + nY * ShadowClone.parent.domain().actualRadius();
-	    
-	    
+
+
 	    ShadowClone.updateElement();
-	    
-	    
+
+
 	  };
-	  
-	  
+
+
 	  /** MOUSE HANDLING FUNCTIONS ------------------------------------------------- **/
-	  
+
 	  return ShadowClone;
 	};
 
@@ -15597,14 +15607,14 @@ webvowl =
 	module.exports = function ( graph ){
 	  /** variable defs **/
 	  var prefixRepresentationModule = {};
-	  
+
 	  var currentPrefixModel;
-	  
+
 	  prefixRepresentationModule.updatePrefixModel = function (){
 	    currentPrefixModel = graph.options().prefixList();
 	  };
-	  
-	  
+
+
 	  prefixRepresentationModule.validURL = function ( url ){
 	    return validURL(url);
 	  };
@@ -15612,14 +15622,14 @@ webvowl =
 	    var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
 	    return urlregex.test(str);
 	  }
-	  
+
 	  function splitURLIntoBaseAndResource( fullURL ){
 	    var splitedURL = { base: "", resource: "" };
 	    if ( fullURL === undefined ) {
 	      splitedURL = { base: "ERROR", resource: "NOT FOUND" };
 	      return splitedURL;
 	    }
-	    
+
 	    var resource, base;
 	    // check if there is a last hashTag
 	    if ( fullURL.indexOf("#") > -1 ) {
@@ -15643,11 +15653,11 @@ webvowl =
 	    }
 	    return splitedURL;
 	  }
-	  
+
 	  prefixRepresentationModule.getPrefixRepresentationForFullURI = function ( fullURL ){
 	    prefixRepresentationModule.updatePrefixModel();
 	    var splittedURL = splitURLIntoBaseAndResource(fullURL);
-	    
+
 	    // lazy approach , for
 	    // loop over prefix model
 	    for ( var name in currentPrefixModel ) {
@@ -15658,15 +15668,15 @@ webvowl =
 	        }
 	      }
 	    }
-	    
+
 	    if ( splittedURL.base === ":" ) {
 	      return ":" + splittedURL.resource;
 	    }
-	    
+
 	    return fullURL;
 	  };
-	  
-	  
+
+
 	  return prefixRepresentationModule;
 	};
 
@@ -15680,13 +15690,13 @@ webvowl =
 	/* WEBPACK VAR INJECTION */(function(d3) {var _ = __webpack_require__(58);
 
 	module.exports = function (){
-	  
+
 	  var DEFAULT_STATE = true;
 	  var COLOR_MODES = [
 	    { type: "same", range: [d3.rgb("#36C"), d3.rgb("#36C")] },
 	    { type: "gradient", range: [d3.rgb("#36C"), d3.rgb("#EE2867")] } // taken from LD-VOWL
 	  ];
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
@@ -15694,105 +15704,105 @@ webvowl =
 	    filteredNodes,
 	    filteredProperties,
 	    colorModeType = "same";
-	  
-	  
+
+
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    var externalElements = filterExternalElements(nodes.concat(properties));
-	    
+
 	    if ( enabled ) {
 	      setColorsForExternals(externalElements);
 	    } else {
 	      resetBackgroundColors(externalElements);
 	    }
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  function filterExternalElements( elements ){
 	    return elements.filter(function ( element ){
 	      if ( element.visualAttributes().indexOf("deprecated") >= 0 ) {
 	        // deprecated is the only attribute which has preference over external
 	        return false;
 	      }
-	      
+
 	      return element.attributes().indexOf("external") >= 0;
 	    });
 	  }
-	  
+
 	  function setColorsForExternals( elements ){
 	    var iriMap = mapExternalsToBaseUri(elements);
 	    var entries = iriMap.entries();
-	    
+
 	    var colorScale = d3.scale.linear()
 	      .domain([0, entries.length - 1])
 	      .range(_.find(COLOR_MODES, { type: colorModeType }).range)
 	      .interpolate(d3.interpolateHsl);
-	    
+
 	    for ( var i = 0; i < entries.length; i++ ) {
 	      var groupedElements = entries[i].value;
 	      setBackgroundColorForElements(groupedElements, colorScale(i));
 	    }
 	  }
-	  
+
 	  function mapExternalsToBaseUri( elements ){
 	    var map = d3.map();
-	    
+
 	    elements.forEach(function ( element ){
 	      var baseIri = element.baseIri();
-	      
+
 	      if ( !map.has(baseIri) ) {
 	        map.set(baseIri, []);
 	      }
 	      map.get(baseIri).push(element);
 	    });
-	    
+
 	    return map;
 	  }
-	  
+
 	  function setBackgroundColorForElements( elements, backgroundColor ){
 	    elements.forEach(function ( element ){
 	      element.backgroundColor(backgroundColor);
 	    });
 	  }
-	  
+
 	  function resetBackgroundColors( elements ){
 	    console.log("Resetting color");
 	    elements.forEach(function ( element ){
 	      element.backgroundColor(null);
 	    });
 	  }
-	  
+
 	  filter.colorModeType = function ( p ){
 	    if ( !arguments.length ) return colorModeType;
 	    colorModeType = p;
 	    return filter;
 	  };
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
+
 	  filter.reset = function (){
 	    enabled = DEFAULT_STATE;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -15810,17 +15820,17 @@ webvowl =
 
 
 	module.exports = function ( graph ){
-	  
+
 	  var DEFAULT_STATE = false;
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
 	    enabled = DEFAULT_STATE,
 	    filteredNodes,
 	    filteredProperties;
-	  
-	  
+
+
 	  /**
 	   * If enabled, redundant details won't be drawn anymore.
 	   * @param untouchedNodes
@@ -15833,28 +15843,28 @@ webvowl =
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
+
 	  filter.reset = function (){
 	    enabled = DEFAULT_STATE;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -15867,15 +15877,15 @@ webvowl =
 	var filterTools = __webpack_require__(76)();
 
 	module.exports = function (){
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
 	    enabled = false,
 	    filteredNodes,
 	    filteredProperties;
-	  
-	  
+
+
 	  /**
 	   * If enabled, all datatypes and literals including connected properties are filtered.
 	   * @param untouchedNodes
@@ -15884,43 +15894,43 @@ webvowl =
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    if ( this.enabled() ) {
 	      removeDatatypesAndLiterals();
 	    }
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  function removeDatatypesAndLiterals(){
 	    var filteredData = filterTools.filterNodesAndTidy(nodes, properties, isNoDatatypeOrLiteral);
-	    
+
 	    nodes = filteredData.nodes;
 	    properties = filteredData.properties;
 	  }
-	  
+
 	  function isNoDatatypeOrLiteral( node ){
 	    return !elementTools.isDatatype(node);
 	  }
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -15932,9 +15942,9 @@ webvowl =
 	var elementTools = __webpack_require__(63)();
 
 	module.exports = (function (){
-	  
+
 	  var tools = {};
-	  
+
 	  /**
 	   * Filters the passed nodes and removes dangling properties.
 	   * @param nodes
@@ -15946,7 +15956,7 @@ webvowl =
 	    var removedNodes = __webpack_require__(62)(),
 	      cleanedNodes = [],
 	      cleanedProperties = [];
-	    
+
 	    nodes.forEach(function ( node ){
 	      if ( shouldKeepNode(node) ) {
 	        cleanedNodes.push(node);
@@ -15954,7 +15964,7 @@ webvowl =
 	        removedNodes.add(node);
 	      }
 	    });
-	    
+
 	    properties.forEach(function ( property ){
 	      if ( propertyHasVisibleNodes(removedNodes, property) ) {
 	        cleanedProperties.push(property);
@@ -15966,13 +15976,13 @@ webvowl =
 	        }
 	      }
 	    });
-	    
+
 	    return {
 	      nodes: cleanedNodes,
 	      properties: cleanedProperties
 	    };
 	  };
-	  
+
 	  /**
 	   * Returns true, if the domain and the range of this property have not been removed.
 	   * @param removedNodes
@@ -15982,8 +15992,8 @@ webvowl =
 	  function propertyHasVisibleNodes( removedNodes, property ){
 	    return !removedNodes.has(property.domain()) && !removedNodes.has(property.range());
 	  }
-	  
-	  
+
+
 	  return function (){
 	    return tools;
 	  };
@@ -15997,7 +16007,7 @@ webvowl =
 	var OwlDisjointWith = __webpack_require__(46);
 
 	module.exports = function (){
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
@@ -16005,8 +16015,8 @@ webvowl =
 	    enabled = true,
 	    filteredNodes,
 	    filteredProperties;
-	  
-	  
+
+
 	  /**
 	   * If enabled, all disjoint with properties are filtered.
 	   * @param untouchedNodes
@@ -16015,47 +16025,47 @@ webvowl =
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    if ( this.enabled() ) {
 	      removeDisjointWithProperties();
 	    }
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  function removeDisjointWithProperties(){
 	    var cleanedProperties = [],
 	      i, l, property;
-	    
+
 	    for ( i = 0, l = properties.length; i < l; i++ ) {
 	      property = properties[i];
-	      
+
 	      if ( !(property instanceof OwlDisjointWith) ) {
 	        cleanedProperties.push(property);
 	      }
 	    }
-	    
+
 	    properties = cleanedProperties;
 	  }
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -16073,11 +16083,11 @@ webvowl =
 	    if ( d3.event && d3.event.defaultPrevented && forced === undefined ) {
 	      return;
 	    }
-	    
+
 	    if ( focusedElement !== undefined ) {
 	      focusedElement.toggleFocus();
 	    }
-	    
+
 	    if ( focusedElement !== selectedElement && selectedElement ) {
 	      selectedElement.toggleFocus();
 	      focusedElement = selectedElement;
@@ -16102,7 +16112,7 @@ webvowl =
 	      graph.removeEditElements();
 	    }
 	  };
-	  
+
 	  /**
 	   * Removes the focus if an element is focussed.
 	   */
@@ -16112,7 +16122,7 @@ webvowl =
 	      focusedElement = undefined;
 	    }
 	  };
-	  
+
 	  return focuser;
 	};
 
@@ -16127,20 +16137,20 @@ webvowl =
 
 
 	module.exports = function (){
-	  
+
 	  var filter = {},
 	    enabled = true,
 	    filteredNodes,
 	    removedNodes,
 	    filteredProperties;
-	  
+
 	  filter.enabled = function ( val ){
 	    if ( !arguments.length ) {
 	      return enabled;
 	    }
 	    enabled = val;
 	  };
-	  
+
 	  filter.filter = function ( nodes, properties ){
 	    if ( enabled === false ) {
 	      filteredNodes = nodes;
@@ -16154,7 +16164,7 @@ webvowl =
 	    for ( var i = 0; i < properties.length; i++ ) {
 	      // get property range;
 	      var prop = properties[i];
-	      
+
 	      // checking for literals
 	      if ( prop.range() ) {
 	        node = prop.range();
@@ -16175,7 +16185,7 @@ webvowl =
 	          thingUsageMap[node.id()] = 1;
 	        }
 	      }
-	      
+
 	    }
 	    var nodesToRemove = [];
 	    var newNodes = [];
@@ -16201,27 +16211,27 @@ webvowl =
 	        newNodes.push(nodes[i]);
 	      }
 	    }
-	    
+
 	    filteredNodes = newNodes;
 	    filteredProperties = properties;
 	    removedNodes = nodesToRemove;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.removedNodes = function (){
 	    return removedNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -16234,7 +16244,7 @@ webvowl =
 	var filterTools = __webpack_require__(76)();
 
 	module.exports = function ( menu ){
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
@@ -16245,18 +16255,18 @@ webvowl =
 	    degreeGetter,
 	    lastFiltedDegree,
 	    degreeSetter;
-	  
-	  
+
+
 	  var NODE_COUNT_LIMIT_FOR_AUTO_ENABLING = 50;
-	  
-	  
+
+
 	  filter.initialize = function ( nodes, properties ){
 	    lastFiltedDegree = -1;
 	    var maxLinkCount = findMaxLinkCount(nodes);
 	    if ( maxDegreeSetter instanceof Function ) {
 	      maxDegreeSetter(maxLinkCount);
 	    }
-	    
+
 	    menu.setDefaultDegreeValue(findAutoDefaultDegree(nodes, properties, maxLinkCount));
 	    var defaultDegree = findDefaultDegree(maxLinkCount);
 	    if ( degreeSetter instanceof Function ) {
@@ -16264,24 +16274,24 @@ webvowl =
 	      if ( defaultDegree > 0 ) {
 	        menu.highlightForDegreeSlider(true);
 	        menu.getGraphObject().setFilterWarning(true);
-	        
+
 	      }
 	    } else {
 	      console.error("No degree setter function set.");
 	    }
 	  };
-	  
+
 	  function findAutoDefaultDegree( nodes, properties, maxDegree ){
 	    for ( var degree = 0; degree < maxDegree; degree++ ) {
 	      var filteredData = filterByNodeDegree(nodes, properties, degree);
-	      
+
 	      if ( filteredData.nodes.length <= NODE_COUNT_LIMIT_FOR_AUTO_ENABLING ) {
 	        return degree;
 	      }
 	    }
 	    return 0;
 	  }
-	  
+
 	  function findDefaultDegree( maxDegree ){
 	    var globalDegOfFilter = menu.getGraphObject().getGlobalDOF();
 	    if ( globalDegOfFilter >= 0 ) {
@@ -16294,7 +16304,7 @@ webvowl =
 	    }
 	    return menu.getDefaultDegreeValue();
 	  }
-	  
+
 	  /**
 	   * If enabled, all nodes are filter by their node degree.
 	   * @param untouchedNodes
@@ -16303,7 +16313,7 @@ webvowl =
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    if ( this.enabled() ) {
 	      if ( degreeGetter instanceof Function ) {
 	        filterByNodeDegreeAndApply(degreeGetter());
@@ -16311,10 +16321,10 @@ webvowl =
 	        console.error("No degree query function set.");
 	      }
 	    }
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
-	    
+
 	    if ( filteredNodes.length === 0 ) {
 	      degreeSetter(0);
 	      filteredNodes = untouchedNodes;
@@ -16322,68 +16332,68 @@ webvowl =
 	    }
 	    lastFiltedDegree = degreeGetter();
 	  };
-	  
+
 	  function findMaxLinkCount( nodes ){
 	    var maxLinkCount = 0;
 	    for ( var i = 0, l = nodes.length; i < l; i++ ) {
 	      var linksWithoutDatatypes = filterOutDatatypes(nodes[i].links());
-	      
+
 	      maxLinkCount = Math.max(maxLinkCount, linksWithoutDatatypes.length);
 	    }
 	    return maxLinkCount;
 	  }
-	  
+
 	  function filterOutDatatypes( links ){
 	    return links.filter(function ( link ){
 	      return !elementTools.isDatatypeProperty(link.property());
 	    });
 	  }
-	  
+
 	  function filterByNodeDegreeAndApply( minDegree ){
 	    var filteredData = filterByNodeDegree(nodes, properties, minDegree);
 	    nodes = filteredData.nodes;
 	    properties = filteredData.properties;
 	  }
-	  
+
 	  function filterByNodeDegree( nodes, properties, minDegree ){
 	    return filterTools.filterNodesAndTidy(nodes, properties, hasRequiredDegree(minDegree));
 	  }
-	  
+
 	  function hasRequiredDegree( minDegree ){
 	    return function ( node ){
 	      return filterOutDatatypes(node.links()).length >= minDegree;
 	    };
 	  }
-	  
+
 	  filter.setMaxDegreeSetter = function ( _maxDegreeSetter ){
 	    maxDegreeSetter = _maxDegreeSetter;
 	  };
-	  
+
 	  filter.setDegreeGetter = function ( _degreeGetter ){
 	    degreeGetter = _degreeGetter;
 	  };
-	  
+
 	  filter.setDegreeSetter = function ( _degreeSetter ){
 	    degreeSetter = _degreeSetter;
 	  };
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -16398,17 +16408,17 @@ webvowl =
 	 * @returns {{}}
 	 */
 	module.exports = function ( graph ){
-	  
+
 	  var DEFAULT_STATE = true;
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
 	    enabled = DEFAULT_STATE,
 	    filteredNodes,
 	    filteredProperties;
-	  
-	  
+
+
 	  /**
 	   * If enabled, the scaling of nodes according to individuals will be enabled.
 	   * @param untouchedNodes
@@ -16417,34 +16427,34 @@ webvowl =
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    graph.options().scaleNodesByIndividuals(enabled);
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
+
 	  filter.reset = function (){
 	    enabled = DEFAULT_STATE;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -16457,15 +16467,15 @@ webvowl =
 
 
 	module.exports = function (){
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
 	    enabled = false,
 	    filteredNodes,
 	    filteredProperties;
-	  
-	  
+
+
 	  /**
 	   * If enabled, all object properties and things without any other property are filtered.
 	   * @param untouchedNodes
@@ -16474,62 +16484,62 @@ webvowl =
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    if ( this.enabled() ) {
 	      removeObjectProperties();
 	    }
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  function removeObjectProperties(){
 	    properties = properties.filter(isNoObjectProperty);
 	    nodes = nodes.filter(isNoFloatingThing);
 	  }
-	  
+
 	  function isNoObjectProperty( property ){
 	    return !elementTools.isObjectProperty(property);
 	  }
-	  
+
 	  function isNoFloatingThing( node ){
 	    var isNoThing = !elementTools.isThing(node);
 	    var hasNonFilteredProperties = hasPropertiesOtherThanObjectProperties(node, properties);
 	    return isNoThing || hasNonFilteredProperties;
 	  }
-	  
+
 	  function hasPropertiesOtherThanObjectProperties( node, properties ){
 	    for ( var i = 0; i < properties.length; i++ ) {
 	      var property = properties[i];
 	      if ( property.domain() !== node && property.range() !== node ) {
 	        continue;
 	      }
-	      
+
 	      if ( isNoObjectProperty(property) ) {
 	        return true;
 	      }
 	    }
-	    
+
 	    return false;
 	  }
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -16545,7 +16555,7 @@ webvowl =
 	  var pap = {},
 	    enabled = false,
 	    pinnedElements = [];
-	  
+
 	  pap.addPinnedElement = function ( element ){
 	    // check if element is already in list
 	    var indexInArray = pinnedElements.indexOf(element);
@@ -16553,12 +16563,12 @@ webvowl =
 	      pinnedElements.push(element);
 	    }
 	  };
-	  
+
 	  pap.handle = function ( selection, forced ){
 	    if ( !enabled ) {
 	      return;
 	    }
-	    
+
 	    if ( !forced ) {
 	      if ( wasNotDragged() ) {
 	        return;
@@ -16571,27 +16581,27 @@ webvowl =
 	        return;
 	      }
 	    }
-	    
+
 	    if ( !selection.pinned() ) {
 	      selection.drawPin();
 	      pap.addPinnedElement(selection);
 	    }
 	  };
-	  
+
 	  function wasNotDragged(){
 	    return !d3.event.defaultPrevented;
 	  }
-	  
+
 	  function hasNoParallelProperties( property ){
 	    return _.intersection(property.domain().links(), property.range().links()).length === 1;
 	  }
-	  
+
 	  pap.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return pap;
 	  };
-	  
+
 	  pap.reset = function (){
 	    pinnedElements.forEach(function ( element ){
 	      element.removePin();
@@ -16599,7 +16609,7 @@ webvowl =
 	    // Clear the array of stored nodes
 	    pinnedElements.length = 0;
 	  };
-	  
+
 	  return pap;
 	};
 
@@ -24841,20 +24851,20 @@ webvowl =
 	/* WEBPACK VAR INJECTION */(function(d3) {module.exports = function ( handlerFunction ){
 	  var viewer = {},
 	    lastSelectedElement;
-	  
+
 	  viewer.handle = function ( selectedElement ){
 	    // Don't display details on a drag event, which will be prevented
 	    if ( d3.event.defaultPrevented ) {
 	      return;
 	    }
-	    
+
 	    var isSelection = true;
-	    
+
 	    // Deselection of the focused element
 	    if ( lastSelectedElement === selectedElement ) {
 	      isSelection = false;
 	    }
-	    
+
 	    if ( handlerFunction instanceof Function ) {
 	      if ( isSelection ) {
 	        handlerFunction(selectedElement);
@@ -24862,14 +24872,14 @@ webvowl =
 	        handlerFunction(undefined);
 	      }
 	    }
-	    
+
 	    if ( isSelection ) {
 	      lastSelectedElement = selectedElement;
 	    } else {
 	      lastSelectedElement = undefined;
 	    }
 	  };
-	  
+
 	  /**
 	   * Resets the displayed information to its default.
 	   */
@@ -24879,7 +24889,7 @@ webvowl =
 	      lastSelectedElement = undefined;
 	    }
 	  };
-	  
+
 	  return viewer;
 	};
 
@@ -24892,7 +24902,7 @@ webvowl =
 	var SetOperatorNode = __webpack_require__(20);
 
 	module.exports = function (){
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
@@ -24900,8 +24910,8 @@ webvowl =
 	    filteredNodes,
 	    filteredProperties,
 	    filterTools = __webpack_require__(76)();
-	  
-	  
+
+
 	  /**
 	   * If enabled, all set operators including connected properties are filtered.
 	   * @param untouchedNodes
@@ -24910,43 +24920,43 @@ webvowl =
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    if ( this.enabled() ) {
 	      removeSetOperators();
 	    }
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  function removeSetOperators(){
 	    var filteredData = filterTools.filterNodesAndTidy(nodes, properties, isNoSetOperator);
-	    
+
 	    nodes = filteredData.nodes;
 	    properties = filteredData.properties;
 	  }
-	  
+
 	  function isNoSetOperator( node ){
 	    return !(node instanceof SetOperatorNode);
 	  }
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
@@ -24961,7 +24971,7 @@ webvowl =
 	var elementTools = __webpack_require__(63)();
 
 	module.exports = function (){
-	  
+
 	  var statistics = {},
 	    nodeCount,
 	    occurencesOfClassAndDatatypeTypes = {},
@@ -24975,24 +24985,24 @@ webvowl =
 	    totalIndividualCount,
 	    filteredNodes,
 	    filteredProperties;
-	  
-	  
+
+
 	  statistics.filter = function ( classesAndDatatypes, properties ){
 	    resetStoredData();
-	    
+
 	    storeTotalCounts(classesAndDatatypes, properties);
 	    storeClassAndDatatypeCount(classesAndDatatypes);
 	    storePropertyCount(properties);
-	    
+
 	    storeOccurencesOfTypes(classesAndDatatypes, occurencesOfClassAndDatatypeTypes);
 	    storeOccurencesOfTypes(properties, occurencesOfPropertyTypes);
-	    
+
 	    storeTotalIndividualCount(classesAndDatatypes);
-	    
+
 	    filteredNodes = classesAndDatatypes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  function resetStoredData(){
 	    nodeCount = 0;
 	    edgeCount = 0;
@@ -25003,24 +25013,24 @@ webvowl =
 	    propertyCount = 0;
 	    totalIndividualCount = 0;
 	  }
-	  
+
 	  function storeTotalCounts( classesAndDatatypes, properties ){
 	    nodeCount = classesAndDatatypes.length;
-	    
+
 	    var seenProperties = __webpack_require__(62)(), i, l, property;
 	    for ( i = 0, l = properties.length; i < l; i++ ) {
 	      property = properties[i];
 	      if ( !seenProperties.has(property) ) {
 	        edgeCount += 1;
 	      }
-	      
+
 	      seenProperties.add(property);
 	      if ( property.inverse() ) {
 	        seenProperties.add(property.inverse());
 	      }
 	    }
 	  }
-	  
+
 	  function storeClassAndDatatypeCount( classesAndDatatypes ){
 	    // Each datatype should be counted just a single time
 	    var datatypeSet = d3.set(),
@@ -25048,14 +25058,14 @@ webvowl =
 	        newcc = classCount;
 	      }
 	    });
-	    
+
 	    // count things and nothings just a single time
 	    // classCount += hasThing ? 1 : 0;
 	    // classCount += hasNothing ? 1 : 0;
-	    
+
 	    datatypeCount = datatypeSet.size();
 	  }
-	  
+
 	  function storePropertyCount( properties ){
 	    for ( var i = 0, l = properties.length; i < l; i++ ) {
 	      var property = properties[i];
@@ -25075,30 +25085,30 @@ webvowl =
 	    }
 	    propertyCount = objectPropertyCount + datatypePropertyCount;
 	  }
-	  
+
 	  function getExtendedPropertyCount( property ){
 	    // count the property itself
 	    var count = 1;
-	    
+
 	    // and count properties this property represents
 	    count += countElementArray(property.equivalents());
 	    count += countElementArray(property.redundantProperties());
-	    
+
 	    return count;
 	  }
-	  
+
 	  function countElementArray( properties ){
 	    if ( properties ) {
 	      return properties.length;
 	    }
 	    return 0;
 	  }
-	  
+
 	  function storeOccurencesOfTypes( elements, storage ){
 	    elements.forEach(function ( element ){
 	      var type = element.type(),
 	        typeCount = storage[type];
-	      
+
 	      if ( typeof typeCount === "undefined" ) {
 	        typeCount = 0;
 	      } else {
@@ -25107,13 +25117,13 @@ webvowl =
 	      storage[type] = typeCount;
 	    });
 	  }
-	  
+
 	  function storeTotalIndividualCount( nodes ){
 	    var sawIndividuals = {};
 	    var totalCount = 0;
 	    for ( var i = 0, l = nodes.length; i < l; i++ ) {
 	      var individuals = nodes[i].individuals();
-	      
+
 	      var tempCount = 0;
 	      for ( var iA = 0; iA < individuals.length; iA++ ) {
 	        if ( sawIndividuals[individuals[iA].iri()] === undefined ) {
@@ -25125,61 +25135,61 @@ webvowl =
 	    }
 	    totalIndividualCount = totalCount;
 	    sawIndividuals = {}; // clear the object
-	    
+
 	  }
-	  
-	  
+
+
 	  statistics.nodeCount = function (){
 	    return nodeCount;
 	  };
-	  
+
 	  statistics.occurencesOfClassAndDatatypeTypes = function (){
 	    return occurencesOfClassAndDatatypeTypes;
 	  };
-	  
+
 	  statistics.edgeCount = function (){
 	    return edgeCount;
 	  };
-	  
+
 	  statistics.occurencesOfPropertyTypes = function (){
 	    return occurencesOfPropertyTypes;
 	  };
-	  
+
 	  statistics.classCount = function (){
 	    return classCount;
 	  };
-	  
+
 	  statistics.datatypeCount = function (){
 	    return datatypeCount;
 	  };
-	  
+
 	  statistics.datatypePropertyCount = function (){
 	    return datatypePropertyCount;
 	  };
-	  
+
 	  statistics.objectPropertyCount = function (){
 	    return objectPropertyCount;
 	  };
-	  
+
 	  statistics.propertyCount = function (){
 	    return propertyCount;
 	  };
-	  
+
 	  statistics.totalIndividualCount = function (){
 	    return totalIndividualCount;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  statistics.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  statistics.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return statistics;
 	};
 
@@ -25192,15 +25202,15 @@ webvowl =
 	var elementTools = __webpack_require__(63)();
 
 	module.exports = function (){
-	  
+
 	  var filter = {},
 	    nodes,
 	    properties,
 	    enabled = false,
 	    filteredNodes,
 	    filteredProperties;
-	  
-	  
+
+
 	  /**
 	   * If enabled subclasses that have only subclass properties are filtered.
 	   * @param untouchedNodes
@@ -25209,15 +25219,15 @@ webvowl =
 	  filter.filter = function ( untouchedNodes, untouchedProperties ){
 	    nodes = untouchedNodes;
 	    properties = untouchedProperties;
-	    
+
 	    if ( this.enabled() ) {
 	      hideSubclassesWithoutOwnProperties();
 	    }
-	    
+
 	    filteredNodes = nodes;
 	    filteredProperties = properties;
 	  };
-	  
+
 	  function hideSubclassesWithoutOwnProperties(){
 	    var unneededProperties = [],
 	      unneededClasses = [],
@@ -25227,32 +25237,32 @@ webvowl =
 	      property,
 	      i, // index,
 	      l; // length
-	    
-	    
+
+
 	    for ( i = 0, l = properties.length; i < l; i++ ) {
 	      property = properties[i];
 	      if ( elementTools.isRdfsSubClassOf(property) ) {
 	        subclasses.push(property.domain());
 	      }
 	    }
-	    
+
 	    for ( i = 0, l = subclasses.length; i < l; i++ ) {
 	      subclass = subclasses[i];
 	      connectedProperties = findRelevantConnectedProperties(subclass, properties);
-	      
+
 	      // Only remove the node and its properties, if they're all subclassOf properties
 	      if ( areOnlySubclassProperties(connectedProperties) &&
 	        doesNotInheritFromMultipleClasses(subclass, connectedProperties) ) {
-	        
+
 	        unneededProperties = unneededProperties.concat(connectedProperties);
 	        unneededClasses.push(subclass);
 	      }
 	    }
-	    
+
 	    nodes = removeUnneededElements(nodes, unneededClasses);
 	    properties = removeUnneededElements(properties, unneededProperties);
 	  }
-	  
+
 	  /**
 	   * Looks recursively for connected properties. Because just subclasses are relevant,
 	   * we just look recursively for their properties.
@@ -25267,25 +25277,25 @@ webvowl =
 	      property,
 	      i,
 	      l;
-	    
+
 	    for ( i = 0, l = allProperties.length; i < l; i++ ) {
 	      property = allProperties[i];
 	      if ( property.domain() === node ||
 	        property.range() === node ) {
-	        
+
 	        connectedProperties.push(property);
-	        
-	        
+
+
 	        /* Special case: SuperClass <-(1) Subclass <-(2) Subclass ->(3) e.g. Datatype
 	         * We need to find the last property recursively. Otherwise, we would remove the subClassOf
 	         * property (1) because we didn't see the datatype property (3).
 	         */
-	        
+
 	        // Look only for subclass properties, because these are the relevant properties
 	        if ( elementTools.isRdfsSubClassOf(property) ) {
 	          var domain = property.domain();
 	          visitedNodes = visitedNodes || __webpack_require__(62)();
-	          
+
 	          // If we have the range, there might be a nested property on the domain
 	          if ( node === property.range() && !visitedNodes.has(domain) ) {
 	            visitedNodes.add(domain);
@@ -25295,52 +25305,52 @@ webvowl =
 	        }
 	      }
 	    }
-	    
+
 	    return connectedProperties;
 	  }
-	  
+
 	  function areOnlySubclassProperties( connectedProperties ){
 	    var onlySubclassProperties = true,
 	      property,
 	      i,
 	      l;
-	    
+
 	    for ( i = 0, l = connectedProperties.length; i < l; i++ ) {
 	      property = connectedProperties[i];
-	      
+
 	      if ( !elementTools.isRdfsSubClassOf(property) ) {
 	        onlySubclassProperties = false;
 	        break;
 	      }
 	    }
-	    
+
 	    return onlySubclassProperties;
 	  }
-	  
+
 	  function doesNotInheritFromMultipleClasses( subclass, connectedProperties ){
 	    var superClassCount = 0;
-	    
+
 	    for ( var i = 0, l = connectedProperties.length; i < l; i++ ) {
 	      var property = connectedProperties[i];
-	      
+
 	      if ( property.domain() === subclass ) {
 	        superClassCount += 1;
 	      }
-	      
+
 	      if ( superClassCount > 1 ) {
 	        return false;
 	      }
 	    }
-	    
+
 	    return true;
 	  }
-	  
+
 	  function removeUnneededElements( array, removableElements ){
 	    var disjoint = [],
 	      element,
 	      i,
 	      l;
-	    
+
 	    for ( i = 0, l = array.length; i < l; i++ ) {
 	      element = array[i];
 	      if ( removableElements.indexOf(element) === -1 ) {
@@ -25349,24 +25359,24 @@ webvowl =
 	    }
 	    return disjoint;
 	  }
-	  
+
 	  filter.enabled = function ( p ){
 	    if ( !arguments.length ) return enabled;
 	    enabled = p;
 	    return filter;
 	  };
-	  
-	  
+
+
 	  // Functions a filter must have
 	  filter.filteredNodes = function (){
 	    return filteredNodes;
 	  };
-	  
+
 	  filter.filteredProperties = function (){
 	    return filteredProperties;
 	  };
-	  
-	  
+
+
 	  return filter;
 	};
 
