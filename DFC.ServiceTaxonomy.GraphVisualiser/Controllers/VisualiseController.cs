@@ -364,6 +364,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             Dictionary<string, string> typeColours = new Dictionary<string, string>();
             var colourScheme = new ColourScheme();
 
+            const string prefLabel = "skos__prefLabel";
+
             response.AppendJoin(',', nodes.Select(n =>
             {
 //                string type = n.Value.Labels.First(l => l != "Resource");
@@ -373,11 +375,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 string label;
                 if (type.StartsWith("ncs__"))
                 {
-                    label = (string)n.Value.Properties["skos__prefLabel"];
+                    label = (string)n.Value.Properties[prefLabel];
                 }
                 else
                 {
-                    label = (string)((List<object>)n.Value.Properties["skos__prefLabel"]).First();
+                    label = (string)((List<object>)n.Value.Properties[prefLabel]).First();
                 }
 
                 // string comment = n.Value.Properties.ContainsKey("ncs__Description")
@@ -407,7 +409,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                     classAttribute.StaxBackgroundColour = typeColours[type] = colourScheme.NextColour();
                 }
 
-                classAttribute.StaxProperties.Add("exampleProp:exampleVal");
+                classAttribute.StaxProperties = n.Value.Properties.Where(p => p.Key != prefLabel)
+                    .Select(p => $"{p.Key}:{p.Value}").ToList();
 
                 // if (type == "ncs__JobProfile")
                 // {
