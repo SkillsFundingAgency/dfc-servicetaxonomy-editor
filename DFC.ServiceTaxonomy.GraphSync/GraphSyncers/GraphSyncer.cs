@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-//using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -62,17 +61,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private const string NcsPrefix = "ncs__";
         private const string CommonNodeLabel = "Resource";
 
-//        public async Task SyncToGraph(ContentItem contentItem)
-        public async Task SyncToGraph(string contentType, JObject content)
+        public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
-//            dynamic? graphSyncPartContent = ((JObject) contentItem.Content)[nameof(GraphSyncPart)];
             dynamic? graphSyncPartContent = content[nameof(GraphSyncPart)];
             //todo: text -> id?
             //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
-                return;
+                return null;
 
             // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
 
@@ -83,11 +80,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await AddContentPartSyncComponents(contentType, content);
 
             await SyncComponentsToGraph(graphSyncPartContent);
+
+            return _mergeNodeCommand;
         }
 
         private async Task AddContentPartSyncComponents(string contentType, JObject content)
         {
-            foreach (var partSync in _partSyncers)
+            // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
+            string graphSyncPartName = nameof(GraphSyncPart);
+            var partSyncersWithGraphLookupFirst
+                = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
+                    .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
+
+            foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
                 string partName = partSync.PartName ?? contentType;
 

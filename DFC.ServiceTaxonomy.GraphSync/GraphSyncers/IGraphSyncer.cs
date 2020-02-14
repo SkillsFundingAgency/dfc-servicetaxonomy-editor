@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
-//using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public interface IGraphSyncer
     {
-        Task SyncToGraph(string contentType, JObject content);
+        Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content);
     }
 }
