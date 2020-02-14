@@ -1046,7 +1046,7 @@
                                     "Position": "7"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__requiresRegistration].",
+                                    "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Registration"
@@ -1080,7 +1080,7 @@
                                     "Position": "9"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasHtbRestriction].",
+                                    "Hint": "Creates relationships of [:ncs__hasWitRestriction].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Restriction"
@@ -1132,6 +1132,7 @@
                                     "Position": "12"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasDayToDayTask].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "DayToDayTask"
@@ -1378,6 +1379,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -1394,6 +1396,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasUniversityRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "UniversityRequirement"
@@ -1410,6 +1413,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasUniversityLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "UniversityLink"
@@ -1462,6 +1466,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -1478,6 +1483,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasCollegeRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "CollegeRequirement"
@@ -1494,6 +1500,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasCollegeLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "CollegeLink"
