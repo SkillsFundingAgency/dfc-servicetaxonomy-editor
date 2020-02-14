@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
+//using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -62,11 +62,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private const string NcsPrefix = "ncs__";
         private const string CommonNodeLabel = "Resource";
 
-        public async Task SyncToGraph(ContentItem contentItem)
+//        public async Task SyncToGraph(ContentItem contentItem)
+        public async Task SyncToGraph(string contentType, JObject content)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
-            dynamic? graphSyncPartContent = ((JObject) contentItem.Content)[nameof(GraphSyncPart)];
+//            dynamic? graphSyncPartContent = ((JObject) contentItem.Content)[nameof(GraphSyncPart)];
+            dynamic? graphSyncPartContent = content[nameof(GraphSyncPart)];
             //todo: text -> id?
             //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
@@ -74,26 +76,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
 
-            _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentItem.ContentType);
+            _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentType);
             _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
 
-            await AddContentPartSyncComponents(contentItem);
+            await AddContentPartSyncComponents(contentType, content);
 
             await SyncComponentsToGraph(graphSyncPartContent);
         }
 
-        private async Task AddContentPartSyncComponents(ContentItem contentItem)
+        private async Task AddContentPartSyncComponents(string contentType, JObject content)
         {
             foreach (var partSync in _partSyncers)
             {
-                string partName = partSync.PartName ?? contentItem.ContentType;
+                string partName = partSync.PartName ?? contentType;
 
-                dynamic partContent = contentItem.Content[partName];
+                dynamic? partContent = content[partName];
                 if (partContent == null)
                     continue;
 
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
                 var contentTypePartDefinition =
                     contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partName);
 

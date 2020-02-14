@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
-using OrchardCore.ContentManagement;
+using Newtonsoft.Json.Linq;
+//using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public interface IGraphSyncer
     {
-        Task SyncToGraph(ContentItem contentItem);
+        Task SyncToGraph(string contentType, JObject content);
     }
 }
