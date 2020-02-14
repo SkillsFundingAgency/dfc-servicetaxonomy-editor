@@ -229,12 +229,23 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             //Neo4j.Driver.Internal.Types.Node
             var nodes = new Dictionary<long, INode>();
             var relationships = new HashSet<IRelationship>();
-            fetch = "http://nationalcareers.service.gov.uk/jobprofile/1805847e-1ff8-48d7-8215-43ed59446171";
+            //fetch = "http://nationalcareers.service.gov.uk/jobprofile/1805847e-1ff8-48d7-8215-43ed59446171";
+            //fetch = "http://nationalcareers.service.gov.uk/jobprofile/51183020-1d00-4929-9763-666c958c3b37";
+            fetch = "http://nationalcareers.service.gov.uk/jobprofile/69200111-227f-4a97-b7e9-d9d480c83979";
             var results = await _neoGraphDatabase.RunReadQuery(
                 new Query(
-                    $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) return n, d, r"),
+//                    $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) return n, d, r"),
+                $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) optional match (d)-[r1:esco__relatedEssentialSkill|:esco__relatedOptionalSkill]-(d1) return n, d, r, r1, d1"),
+
                 r =>
                 {
+                    var otherNode = r["d1"].As<INode>();
+                    if (otherNode != null)
+                        nodes[otherNode.Id] = otherNode;
+                    var otherRelationship = r["r1"].As<IRelationship>();
+                    if (otherRelationship != null)
+                        relationships.Add(otherRelationship);
+
                     var sourceNode = r["n"].As<INode>();
                     var destNode = r["d"].As<INode>();
                     relationships.Add(r["r"].As<IRelationship>());
