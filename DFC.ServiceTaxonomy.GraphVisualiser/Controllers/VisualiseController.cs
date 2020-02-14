@@ -32,6 +32,8 @@ using Neo4j.Driver;
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
     //todo: colour scheme per relationship prefix, so more obvious what's ncs and what's esco
+    //todo: add namespace esco|ncs under text in node
+    //todo: set relationship width so shows all
     public class ColourScheme
     {
         private static string[] _colours = new[]
@@ -227,6 +229,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         public async Task<ActionResult> Data([FromQuery] string fetch, [FromQuery] string id)
         {
+            long selectedNodeId = -1;
             //Neo4j.Driver.Internal.Types.Node
             var nodes = new Dictionary<long, INode>();
             var relationships = new HashSet<IRelationship>();
@@ -252,6 +255,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                     var destNode = r["d"].As<INode>();
                     relationships.Add(r["r"].As<IRelationship>());
 
+                    selectedNodeId = sourceNode.Id;
                     nodes[sourceNode.Id] = sourceNode;
                     nodes[destNode.Id] = destNode;
 
@@ -345,7 +349,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 //       ""type"": ""owl:Class""
 //     }
 
-            response.AppendJoin(',', nodes.Select(n => $"{{ \"id\": \"Class{n.Key-minNodeId}\", \"type\": \"owl:Class\" }}"));
+            response.AppendJoin(',', nodes.Select(n =>
+                $"{{ \"id\": \"Class{n.Key-minNodeId}\", \"type\": \"owl:{(n.Key==selectedNodeId?"equivalent":"")}Class\" }}"));
 
             response.Append("], \"classAttribute\": [");
 
@@ -427,10 +432,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
                 // if (type == "ncs__JobProfile")
                 // {
-                //     classAttribute.StaxBackgroundColour = staxBackgroundColour;
-                //     //classAttribute.Attributes.Add("primary");
-                //     // classAttribute.Attributes.Add("external");
-                //     // classAttribute.StaxAttributes.Add("primary");
+                // //     classAttribute.StaxBackgroundColour = staxBackgroundColour;
+                // classAttribute.Attributes.Add("primary");
+                // //     // classAttribute.Attributes.Add("external");
+                // //     // classAttribute.StaxAttributes.Add("primary");
                 // }
 
                 var jsonOptions = new JsonSerializerOptions
