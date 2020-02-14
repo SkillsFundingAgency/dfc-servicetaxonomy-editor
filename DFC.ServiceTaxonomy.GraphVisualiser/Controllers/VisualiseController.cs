@@ -31,6 +31,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
+    //todo: colour scheme per relationship prefix, so more obvious what's ncs and what's esco
     public class ColourScheme
     {
         private static string[] _colours = new[]
@@ -231,11 +232,12 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             var relationships = new HashSet<IRelationship>();
             //fetch = "http://nationalcareers.service.gov.uk/jobprofile/1805847e-1ff8-48d7-8215-43ed59446171";
             //fetch = "http://nationalcareers.service.gov.uk/jobprofile/51183020-1d00-4929-9763-666c958c3b37";
-            fetch = "http://nationalcareers.service.gov.uk/jobprofile/69200111-227f-4a97-b7e9-d9d480c83979";
+            //fetch = "http://nationalcareers.service.gov.uk/jobprofile/69200111-227f-4a97-b7e9-d9d480c83979";
+            fetch = "http://nationalcareers.service.gov.uk/jobprofile/fd1d7ab1-5c55-449b-bee4-56deaaacf053";
             var results = await _neoGraphDatabase.RunReadQuery(
                 new Query(
 //                    $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) return n, d, r"),
-                $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) optional match (d)-[r1:esco__relatedEssentialSkill|:esco__relatedOptionalSkill]-(d1) return n, d, r, r1, d1"),
+                $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) optional match (d)-[r1:esco__relatedEssentialSkill|:esco__relatedOptionalSkill|:ncs__hasUniversityLink|:ncs__hasUniversityRequirement]-(d1) return n, d, r, r1, d1"),
 
                 r =>
                 {
