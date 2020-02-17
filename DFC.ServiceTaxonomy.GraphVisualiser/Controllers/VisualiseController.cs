@@ -20,6 +20,9 @@ using Neo4j.Driver;
 // that allows different behaviour for different types, but in a generic manner
 // we can set up the existing types sensibly, but any added types the user can set themeselves
 
+// ^^ instead, add property to bagitem created relationships to say bag or embedded or similar
+// then follow to 1 degree where relationship doesn't have embedded property, with special handling for esco?
+
 //todo: (a) either group related nodes of same type together (like neo's browser)
 // or (b) have combined data/schema visualiser
 
@@ -29,7 +32,7 @@ using Neo4j.Driver;
 
 // (b) e.g. (software developer:jobProfile)--(Tasks)--(coding)
 
-//todo: maxLabelWidth to 180
+//todo: maxLabelWidth to 180 : need to add options support to import json
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
@@ -39,6 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
     // BA9593
 
     //todo: colour scheme per relationship prefix, so more obvious what's ncs and what's esco
+    // ^^ or colour scheme per node with children and the node's children?
     //todo: add namespace esco|ncs under text in node
     //todo: set relationship width so shows all
     public class ColourScheme
@@ -277,9 +281,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             //     ],
 
 
-            var response = new StringBuilder(@"{
-   ""_comment"": ""Empty ontology for WebVOWL Editor [Additional Information added by WebVOWL Exporter Version: 1.1.7]"",
-   ""header"": {
+            var response = new StringBuilder($@"{{
+   ""header"": {{
      ""languages"": [
        ""en""
      ],
@@ -288,66 +291,69 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
      ],
      ""iri"": ""https://nationalcareers.service.gov.uk/test/"",
      ""title"": ""test"",
-     ""description"": {
+     ""description"": {{
        ""en"": ""New ontology description""
-     }
-   },
+     }}
+   }},
    ""namespace"": [],
-   ""settings"": {
-     ""global"": {
+   ""settings"": {{
+     ""global"": {{
        ""paused"": false
-     },
-     ""gravity"": {
+     }},
+     ""gravity"": {{
        ""classDistance"": 200,
        ""datatypeDistance"": 120
-     },
-     ""filter"": {
+     }},
+     ""filter"": {{
        ""checkBox"": [
-         {
+         {{
            ""id"": ""datatypeFilterCheckbox"",
            ""checked"": false
-         },
-         {
+         }},
+         {{
            ""id"": ""objectPropertyFilterCheckbox"",
            ""checked"": false
-         },
-         {
+         }},
+         {{
            ""id"": ""subclassFilterCheckbox"",
            ""checked"": false
-         },
-         {
+         }},
+         {{
            ""id"": ""disjointFilterCheckbox"",
            ""checked"": true
-         },
-         {
+         }},
+         {{
            ""id"": ""setoperatorFilterCheckbox"",
            ""checked"": false
-         }
+         }}
        ],
        ""degreeSliderValue"": ""0""
-     },
-     ""modes"": {
+     }},
+     ""options"": {{
+        ""maxLabelWidth"": 180
+     }},
+     ""modes"": {{
        ""checkBox"": [
-         {
+         {{
            ""id"": ""pickandpinModuleCheckbox"",
            ""checked"": false
-         },
-         {
+         }},
+         {{
            ""id"": ""nodescalingModuleCheckbox"",
            ""checked"": true
-         },
-         {
+         }},
+         {{
            ""id"": ""compactnotationModuleCheckbox"",
            ""checked"": false
-         },
-         {
+         }},
+         {{
            ""id"": ""colorexternalsModuleCheckbox"",
            ""checked"": true
-         }
+         }}
        ],
        ""colorSwitchState"": false
-     }
-   },
+     }}
+   }},
    ""class"": [");
 
             // {
