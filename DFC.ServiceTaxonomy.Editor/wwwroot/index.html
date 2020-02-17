@@ -11,6 +11,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" type="text/css" href="css/webvowl.css" />
     <link rel="stylesheet" type="text/css" href="css/webvowl.app.css" />
+    <link rel="stylesheet" type="text/css" href="css/avgrund.css" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <title>WebVOWL</title>
 </head>
@@ -498,12 +499,18 @@
 
 
         </div>
-
-
     </main>
+    <aside id="class-properties-popup" class="avgrund-popup">
+        <h2 id="class-properties-popup-label">Class label</h2>
+        <p id="class-properties-popup-properties">
+            properties here
+        </p>
+        <button onclick="javascript:Avgrund.hide();">Close</button>
+    </aside>
     <script src="js/d3.min.js"></script>
     <script src="js/webvowl.js"></script>
     <script src="js/webvowl.app.js"></script>
+    <script src="js/avgrund.js"></script>
     <script>
         window.onload = webvowl.app().initialize;
     </script>

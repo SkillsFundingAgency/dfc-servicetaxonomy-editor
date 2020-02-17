@@ -16119,6 +16119,14 @@ webvowl =
 	    }
 	    if ( focusedElement && focusedElement.focused() ) {
 	      graph.options().editSidebar().updateSelectionInformation(focusedElement);
+
+	      //ste:
+            if (focusedElement.type() === "owl:equivalentClass"
+            || focusedElement.type() === "owl:Class") {
+                // d3.select("#class-properties-popup-label").innerHtml = focusedElement.label();
+                Avgrund.show("#class-properties-popup");
+            }
+
 	      if ( elementTools.isProperty(selectedElement) === true ) {
 	        var inversed = false;
 	        if ( selectedElement.inverse() ) {
@@ -16132,7 +16140,11 @@ webvowl =
 	    }
 	    else {
 	      graph.options().editSidebar().updateSelectionInformation(undefined);
-	      graph.removeEditElements();
+
+            //ste:
+            //Avgrund.show( "#class-properties-popup" );
+
+            graph.removeEditElements();
 	    }
 	  };
 
