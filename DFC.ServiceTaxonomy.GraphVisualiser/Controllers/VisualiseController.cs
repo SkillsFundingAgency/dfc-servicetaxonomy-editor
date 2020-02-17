@@ -29,22 +29,26 @@ using Neo4j.Driver;
 
 // (b) e.g. (software developer:jobProfile)--(Tasks)--(coding)
 
+//todo: maxLabelWidth to 180
+
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
+    //esco
+    // FFE5D4
+    // EFC7C2
+    // BA9593
+
     //todo: colour scheme per relationship prefix, so more obvious what's ncs and what's esco
     //todo: add namespace esco|ncs under text in node
     //todo: set relationship width so shows all
     public class ColourScheme
     {
-        private static string[] _colours = new[]
+        private string[] _colours;
+
+        public ColourScheme(string[] colours)
         {
-            "#cc6666",
-            "#66cc66",
-            "#6666cc",
-            "#cccc66",
-            "#66cccc",
-            "#cc66cc",
-        };
+            _colours = colours;
+        }
 
         private int _current;
 
@@ -56,7 +60,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return colour;
         }
     }
-
 
     public class ClassAttribute
     {
@@ -266,6 +269,14 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             var minNodeId = nodes.Keys.Min() - 1;
             var minRelationshipId = relationships.Min(r => r.Id) - 1;
 
+            //from settings global...
+            // ""zoom"": ""2.09"",
+            // ""translation"": [
+            // -1087.15,
+            // -750.73
+            //     ],
+
+
             var response = new StringBuilder(@"{
    ""_comment"": ""Empty ontology for WebVOWL Editor [Additional Information added by WebVOWL Exporter Version: 1.1.7]"",
    ""header"": {
@@ -284,11 +295,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
    ""namespace"": [],
    ""settings"": {
      ""global"": {
-       ""zoom"": ""2.09"",
-       ""translation"": [
-         -1087.15,
-         -750.73
-       ],
        ""paused"": false
      },
      ""gravity"": {
@@ -380,7 +386,22 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
 
             Dictionary<string, string> typeColours = new Dictionary<string, string>();
-            var colourScheme = new ColourScheme();
+            var ncsColourScheme = new ColourScheme(new string[] {
+                     "#A6EBC9",
+                     "#EDFFAB",
+                     "#BCE7FD",
+                     "#C7DFC5",
+                     "#C1DBE3",
+                     "#F3C178",
+                     "#E2DBBE"
+                 });
+
+            var escoColourScheme = new ColourScheme(new string[] {
+                "#FFE5D4",
+                "#EFC7C2",
+                "#BA9593",
+                "#F7EDF0",
+            });
 
             const string prefLabel = "skos__prefLabel";
 
@@ -424,7 +445,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 }
                 else
                 {
-                    classAttribute.StaxBackgroundColour = typeColours[type] = colourScheme.NextColour();
+                    classAttribute.StaxBackgroundColour = typeColours[type] =
+                        type.StartsWith("esco__") ? escoColourScheme.NextColour() : ncsColourScheme.NextColour();
                 }
 
                 classAttribute.StaxProperties = n.Value.Properties.Where(p => p.Key != prefLabel)
