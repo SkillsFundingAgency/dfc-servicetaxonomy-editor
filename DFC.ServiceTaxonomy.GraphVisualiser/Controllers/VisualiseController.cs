@@ -32,15 +32,13 @@ using Neo4j.Driver;
 
 // (b) e.g. (software developer:jobProfile)--(Tasks)--(coding)
 
+//todo: move visualisation into GraphSync module? then could add view graph button to sync part (along with id)
+//todo: on properties pop.up have edit button which links to content edit page
+
 //todo: maxLabelWidth to 180 : need to add options support to import json
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
-    //esco
-    // FFE5D4
-    // EFC7C2
-    // BA9593
-
     //todo: colour scheme per relationship prefix, so more obvious what's ncs and what's esco
     // ^^ or colour scheme per node with children and the node's children?
     //todo: add namespace esco|ncs under text in node
