@@ -1,0 +1,159 @@
+﻿@page
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@model DFC.ServiceTaxonomy.Editor.VisjsModel
+@{
+    ViewData["Title"] = "VisJS";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.css" />
+
+<style type="text/css">
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #container {
+        width: 100vw;
+        height: 100vh;
+        border: 2px solid lightgray;
+        box-sizing: border-box;
+        display: flex;
+    }
+
+    div.vis-tooltip {
+        padding: 10px 20px;
+        background: white;
+        border: 1px solid ccc;
+        color: #36454F;
+        max-width: 500px;
+        white-space: normal;
+    }
+
+    .fit-to-screen {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #efefef;
+        border: 1px solid #ccc;
+        padding: 20px;
+        cursor: pointer;
+        box-shadow: 0 6px 10px 0 #ccc;
+        transition: all 0.1s ease-in-out;
+    }
+
+    .fit-to-screen:hover {
+        box-shadow: 0 6px 14px 0 #ccc;
+        transform: scale(1.05);
+    }
+
+    .legend {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: white;
+    }
+
+    .legend .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .legend .legend-item:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .legend .legend-item .color {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+</style>
+
+<div id="container"></div>
+
+<div class="fit-to-screen">
+    <img src="~/icons/fit-to-screen.svg" />
+</div>
+
+<div class="legend">
+    @foreach (var item in Model.Legend)
+    {
+        <div class="legend-item">
+            <span class="color" style="background-color: @item.Value"></span> @item.Key
+        </div>
+    }
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.js"></script>
+<script type="text/javascript">
+    vex.defaultOptions.className = 'vex-theme-default';
+
+    var nodes = new vis.DataSet(@Html.Raw(JsonConvert.SerializeObject(Model.Nodes, new JsonSerializerSettings { Formatting = Formatting.Indented, ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() } })));
+    var edges = new vis.DataSet(@Html.Raw(JsonConvert.SerializeObject(Model.Edges, new JsonSerializerSettings { Formatting = Formatting.Indented, ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() } })));
+
+    var container = document.getElementById('container');
+
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+
+    var options = {
+        edges: {
+            arrows: "to",
+            smooth: {
+                enabled: true
+            }
+        },
+        interaction: {
+            dragNodes: false,
+            hover: false
+        },
+        layout: {
+            improvedLayout: false,
+            randomSeed: 723100
+        },
+        nodes: {
+            shape: 'circle',
+            widthConstraint: 75
+        },
+        physics: {
+            barnesHut: {
+                avoidOverlap: 0.75
+            }
+        }
+    };
+
+    var network = new vis.Network(container, data, options);
+
+    network.on("doubleClick", (params) => {
+        if (params.nodes.length) {
+            var node = nodes._data[params.nodes[0]];
+            if (node.modalContents) {
+                vex.open({
+                    unsafeContent: node.modalContents
+                });
+            }
+        }
+    });
+
+    $('.fit-to-screen').on('click', () => {
+        network.fit();
+    });
+    
+</script>
