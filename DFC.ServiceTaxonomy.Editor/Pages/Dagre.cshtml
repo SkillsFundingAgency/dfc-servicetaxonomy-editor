@@ -1,0 +1,129 @@
+﻿@page
+@model DFC.ServiceTaxonomy.Editor.DagreModel
+@{
+    ViewData["Title"] = "Dagre";
+}
+
+<style>
+text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+}
+
+.node rect {
+  stroke: #333;
+  fill: #fff;
+}
+
+.edgePath path {
+  stroke: #333;
+  fill: #333;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  pointer-events: none;
+}
+</style>
+
+<svg></svg>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://dagrejs.github.io/project/dagre/latest/dagre.min.js"></script>
+<script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.min.js"></script>
+<script>
+    var g = new dagre.graphlib.Graph().setGraph({});
+
+    g.setDefaultEdgeLabel(function () { return {}; });
+
+    var nodes = [
+        { id: 1, label: 'Baker', type: 'JobProfile' }, //title: '<h3>Baker</h3><hr /><p><b>Type:</b></p><p>JobProfile</p><p><b>Description:</b></p><p>3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories.</p><p><b>How to become, career tips:</b></p><p>Learn more about the <a href="https://3dprintingindustry.com/3d-printing-basics-free-beginners-guide">basics of 3D printing</a>.</p>'
+        { id: 2, label: 'Tasks', type: 'Group' },
+        { id: 3, label: 'making...', type: 'DayToDayTask' },
+        { id: 4, label: 'making...', type: 'DayToDayTask' },
+        { id: 5, label: 'making...', type: 'DayToDayTask' },
+        { id: 6, label: 'making...', type: 'DayToDayTask' },
+        { id: 7, label: 'making...', type: 'DayToDayTask' },
+        { id: 8, label: 'making...', type: 'DayToDayTask' },
+        { id: 9, label: 'making...', type: 'DayToDayTask' },
+        { id: 10, label: 'making...', type: 'DayToDayTask' },
+        { id: 11, label: 'making...', type: 'DayToDayTask' },
+        { id: 12, label: 'making...', type: 'DayToDayTask' },
+        { id: 13, label: 'Skills', type: 'Group' },
+        { id: 14, label: 'Baking', type: 'Skill' },
+        { id: 15, label: 'Baking', type: 'Skill' },
+        { id: 16, label: 'Baking', type: 'Skill' },
+        { id: 17, label: 'Baking', type: 'Skill' },
+        { id: 18, label: 'Baking', type: 'Skill' },
+        { id: 19, label: 'Baking', type: 'Skill' },
+        { id: 20, label: 'Baking', type: 'Skill' },
+        { id: 21, label: 'Baking', type: 'Skill' },
+        { id: 22, label: 'Baking', type: 'Skill' },
+        { id: 23, label: 'Baking', type: 'Skill'},
+        { id: 24, label: 'baker', type: 'Occupation' }, //, title: 'ESCO Occupation' },
+        { id: 25, label: 'Salary', type: 'SalaryInfo' },
+        { id: 26, label: '£25,000', type: 'StarterSalary' },//, title: 'Starting salary' },
+        { id: 27, label: '£60,000', type: 'ExperiencedSalary' } //, title: 'Experienced salary' }
+    ];
+
+    nodes.forEach(node => {
+        node.width = 100;
+        node.height = 100;
+
+        g.setNode(node.id, node);
+    });
+
+    var edges = [
+        { from: 1, to: 2, label: "hasDailyTasks" },
+        { from: 1, to: 24 },
+        { from: 1, to: 25 },
+        { from: 25, to: 26 },
+        { from: 25, to: 27 },
+        { from: 2, to: 3 },
+        { from: 2, to: 4 },
+        { from: 2, to: 5 },
+        { from: 2, to: 6 },
+        { from: 2, to: 7 },
+        { from: 2, to: 8 },
+        { from: 2, to: 9 },
+        { from: 2, to: 10 },
+        { from: 2, to: 11 },
+        { from: 2, to: 12 },
+        { from: 1, to: 13 },
+        { from: 13, to: 14 },
+        { from: 13, to: 15 },
+        { from: 13, to: 16 },
+        { from: 13, to: 17 },
+        { from: 13, to: 18 },
+        { from: 13, to: 19 },
+        { from: 13, to: 20 },
+        { from: 13, to: 21 },
+        { from: 13, to: 22 },
+        { from: 13, to: 23 }
+    ];
+
+    edges.forEach(edge => g.setEdge(edge.from, edge.to));
+
+    dagre.layout(g, { graph: { rankdir: 'L' } });
+
+    var render = new dagreD3.render();
+
+    var svg = d3.select("svg"),
+        inner = svg.append("g");
+
+    svg.attr('width', window.innerWidth).attr('height', window.innerHeight);
+
+    var zoom = d3.zoom()
+        .on("zoom", function() {
+          inner.attr("transform", d3.event.transform);
+        });
+    svg.call(zoom);
+
+    render(inner, g);
+
+    var initialScale = 0.75;
+    svg.call(zoom.transform, d3.zoomIdentity.translate((svg.attr("width") - g.graph().width * initialScale) / 2, 20).scale(initialScale));
+
+    svg.attr('height', g.graph().height * initialScale + 40);
+</script>

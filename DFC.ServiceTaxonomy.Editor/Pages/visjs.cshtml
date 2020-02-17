@@ -1,10 +1,14 @@
 ﻿@page
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
 @model DFC.ServiceTaxonomy.Editor.VisjsModel
 @{
     ViewData["Title"] = "VisJS";
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-default.css" />
 
 <style type="text/css">
     html, body {
@@ -17,6 +21,7 @@
         height: 100vh;
         border: 2px solid lightgray;
         box-sizing: border-box;
+        display: flex;
     }
 
     div.vis-tooltip {
@@ -27,76 +32,79 @@
         max-width: 500px;
         white-space: normal;
     }
+
+    .fit-to-screen {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #efefef;
+        border: 1px solid #ccc;
+        padding: 20px;
+        cursor: pointer;
+        box-shadow: 0 6px 10px 0 #ccc;
+        transition: all 0.1s ease-in-out;
+    }
+
+    .fit-to-screen:hover {
+        box-shadow: 0 6px 14px 0 #ccc;
+        transform: scale(1.05);
+    }
+
+    .legend {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background: white;
+    }
+
+    .legend .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .legend .legend-item:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .legend .legend-item .color {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 </style>
 
 <div id="container"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
-<script type="text/javascript">
-    var nodes = new vis.DataSet([
-        {
-            id: 1,
-            label: 'Baker',
-            type: 'JobProfile',
-            color: '#218380',
-            title: '<h3>Baker</h3><hr /><p><b>Type:</b></p><p>JobProfile</p><p><b>Description:</b></p><p>3D printing technicians manufacture products, including biomedical implants, car parts, aerospace components and fashion accessories.</p><p><b>How to become, career tips:</b></p><p>Learn more about the <a href="https://3dprintingindustry.com/3d-printing-basics-free-beginners-guide">basics of 3D printing</a>.</p>'
-        },
-        { id: 2, label: 'Tasks', type: 'Group', color: '#73D2DE' },
-        { id: 3, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 4, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 5, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 6, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 7, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 8, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 9, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 10, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 11, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 12, label: 'making...', type: 'DayToDayTask', color: '#73D2DE' },
-        { id: 13, label: 'Skills', type: 'Group', color: '#73D2DE' },
-        { id: 14, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 15, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 16, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 17, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 18, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 19, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 20, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 21, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 22, label: 'Baking', type: 'Skill', color: '#73D2DE' },
-        { id: 23, label: 'Baking', type: 'Skill', color: '#73D2DE'},
-        { id: 24, label: 'baker', type: 'Occupation', title: 'ESCO Occupation' },
-        { id: 25, label: 'Salary', type: 'SalaryInfo', color: '#8F2D56' },
-        { id: 26, label: '£25,000', type: 'StarterSalary', color: '#8F2D56', title: 'Starting salary' },
-        { id: 27, label: '£60,000', type: 'ExperiencedSalary', color: '#8F2D56', title: 'Experienced salary' }
-    ]);
+<div class="fit-to-screen">
+    <img src="~/icons/fit-to-screen.svg" />
+</div>
 
-    var edges = new vis.DataSet([
-        { from: 1, to: 2, label: "hasDailyTasks" },
-        { from: 1, to: 24 },
-        { from: 1, to: 25 },
-        { from: 25, to: 26 },
-        { from: 25, to: 27 },
-        { from: 2, to: 3 },
-        { from: 2, to: 4 },
-        { from: 2, to: 5 },
-        { from: 2, to: 6 },
-        { from: 2, to: 7 },
-        { from: 2, to: 8 },
-        { from: 2, to: 9 },
-        { from: 2, to: 10 },
-        { from: 2, to: 11 },
-        { from: 2, to: 12 },
-        { from: 1, to: 13 },
-        { from: 13, to: 14 },
-        { from: 13, to: 15 },
-        { from: 13, to: 16 },
-        { from: 13, to: 17 },
-        { from: 13, to: 18 },
-        { from: 13, to: 19 },
-        { from: 13, to: 20 },
-        { from: 13, to: 21 },
-        { from: 13, to: 22 },
-        { from: 13, to: 23 }
-    ]);
+<div class="legend">
+    @foreach (var item in Model.Legend)
+    {
+        <div class="legend-item">
+            <span class="color" style="background-color: @item.Value"></span> @item.Key
+        </div>
+    }
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.js"></script>
+<script type="text/javascript">
+    vex.defaultOptions.className = 'vex-theme-default';
+
+    var nodes = new vis.DataSet(@Html.Raw(JsonConvert.SerializeObject(Model.Nodes, new JsonSerializerSettings { Formatting = Formatting.Indented, ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() } })));
+    var edges = new vis.DataSet(@Html.Raw(JsonConvert.SerializeObject(Model.Edges, new JsonSerializerSettings { Formatting = Formatting.Indented, ContractResolver = new DefaultContractResolver { NamingStrategy = new CamelCaseNamingStrategy() } })));
 
     var container = document.getElementById('container');
 
@@ -106,22 +114,46 @@
     };
 
     var options = {
-        nodes: {
-            shape: 'circle',
-            color: (node) => node.color,
-            font: {
-                color: 'white'
-            }
-        },
         edges: {
             arrows: "to",
-            label: (edge) => edge.label
+            smooth: {
+                enabled: true
+            }
         },
         interaction: {
             dragNodes: false,
             hover: false
+        },
+        layout: {
+            improvedLayout: false,
+            randomSeed: 723100
+        },
+        nodes: {
+            shape: 'circle',
+            widthConstraint: 75
+        },
+        physics: {
+            barnesHut: {
+                avoidOverlap: 0.75
+            }
         }
     };
 
     var network = new vis.Network(container, data, options);
+
+    network.on("doubleClick", (params) => {
+        if (params.nodes.length) {
+            var node = nodes._data[params.nodes[0]];
+            if (node.modalContents) {
+                vex.open({
+                    unsafeContent: node.modalContents
+                });
+            }
+        }
+    });
+
+    $('.fit-to-screen').on('click', () => {
+        network.fit();
+    });
+    
 </script>
