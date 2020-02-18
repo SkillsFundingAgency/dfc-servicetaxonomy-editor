@@ -108,8 +108,17 @@ namespace GetJobProfiles
             return jobProfile;
         }
 
+        private void ConvertAcademicEntryRoute(AcademicEntryRoute route)
+        {
+
+        }
+
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
+            ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship);
+            ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.College);
+            ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.University);
+
             //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
             foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
             {
@@ -176,7 +185,7 @@ namespace GetJobProfiles
                     "checking:",
                     "time:",
                     "involve:",
-                    "you’ll:",
+                    "youï¿½ll:",
                     "you'll",
                     ":using",
                     "usually:",
