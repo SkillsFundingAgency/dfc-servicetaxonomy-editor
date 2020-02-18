@@ -14,6 +14,17 @@ using MoreLinq;
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
 // and no test job profiles slip through the net
 
+//todo: model as is, suggest list of improvements
+// if improvement can be hidden behind api, can make change
+// suggested improvements:
+// extract course
+// single list to select entry requirements
+// split requirements into 2 parts, ie 4 gcses / including engligh, maths
+// ^^ also remove the postfix for advanced apprenticeship, if can infer (or infer after other changes)
+// link to actual apprenticeship framework (and then have entry requirements off that)?
+// split into intermediate apprenticeship / advanced apprenticeship (could still display under 1 section with auto generation of some existing text)
+
+
 namespace GetJobProfiles
 {
     static class Program
