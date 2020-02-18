@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GetJobProfiles.Models.Recipe;
 using Xunit;
 
@@ -32,6 +33,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.Utilities.GetJobProfiles.Recipe
         {
             var htmlField = new HtmlField(source);
             Assert.Equal(expected, htmlField.Html);
+        }
+
+        [Theory]
+        [InlineData("<p>You'll spend 2 years as a student officer before becoming a police constable. You'll then decide whether you want to specialise in a particular area of policing. You could consider:<ul><li>Criminal Investigation Department (CID), anti-fraud or road traffic</li><li>drugs or firearms</li><li>counter-terrorism</li><li>air support or underwater search</li><li>dog-handling or mounted policing</li></ul></p><p>With experience you may be able to apply for promotion to sergeant, inspector, chief inspector or higher.</p><p>In the CID you'll also have the title of detective added to your rank - for example, detective sergeant or detective chief inspector.</p>", new[] { "You'll spend 2 years as a student officer before becoming a police constable. You'll then decide whether you want to specialise in a particular area of policing. You could consider:Criminal Investigation Department (CID), anti-fraud or road traffic; drugs or firearms; counter-terrorism; air support or underwater search; dog-handling or mounted policing", "With experience you may be able to apply for promotion to sergeant, inspector, chief inspector or higher.", "In the CID you'll also have the title of detective added to your rank - for example, detective sergeant or detective chief inspector." })]
+        public void HtmlListSubstitutionTests(string expected, IEnumerable<string> source)
+        {
+            var field = new HtmlField(source);
+            Assert.Equal(expected, field.Html);
         }
     }
 }
