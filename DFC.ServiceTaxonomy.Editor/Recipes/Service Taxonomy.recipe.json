@@ -160,7 +160,11 @@
                                     "ContainedContentTypes": [
                                         "CollegeRoute",
                                         "UniversityRoute",
-                                        "WorkRoute"
+                                        "ApprenticeshipRoute",
+                                        "WorkRoute",
+                                        "VolunteeringRoute",
+                                        "DirectRoute",
+                                        "OtherRoute"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
@@ -478,6 +482,114 @@
                         {
                             "PartName": "WorkRoute",
                             "Name": "WorkRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "VolunteeringRoute",
+                    "DisplayName": "Volunteering Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "VolunteeringRoute",
+                            "Name": "VolunteeringRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "DirectRoute",
+                    "DisplayName": "Direct Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "DirectRoute",
+                            "Name": "DirectRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "OtherRoute",
+                    "DisplayName": "Other Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "OtherRoute",
+                            "Name": "OtherRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
@@ -1708,6 +1820,69 @@
                 },
                 {
                     "Name": "WorkRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "VolunteeringRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "DirectRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "OtherRoute",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
