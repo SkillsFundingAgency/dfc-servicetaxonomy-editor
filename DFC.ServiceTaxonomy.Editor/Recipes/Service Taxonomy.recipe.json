@@ -160,6 +160,7 @@
                                     "ContainedContentTypes": [
                                         "CollegeRoute",
                                         "UniversityRoute",
+                                        "ApprenticeshipRoute",
                                         "WorkRoute"
                                     ]
                                 },
@@ -426,6 +427,43 @@
                     ]
                 },
                 {
+                    "Name": "ApprenticeshipRoute",
+                    "DisplayName": "Apprenticeship Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ApprenticeshipRoute",
+                            "Name": "ApprenticeshipRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
                     "Name": "FurtherInfo",
                     "DisplayName": "Further Info",
                     "Settings": {
@@ -672,6 +710,66 @@
                     ]
                 },
                 {
+                    "Name": "CollegeRequirement",
+                    "DisplayName": "College Requirement",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "CollegeRequirement",
+                            "Name": "CollegeRequirement",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "ApprenticeshipRequirement",
+                    "DisplayName": "Apprenticeship Requirement",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ApprenticeshipRequirement",
+                            "Name": "ApprenticeshipRequirement",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
                     "Name": "UniversityLink",
                     "DisplayName": "University Link",
                     "Settings": {
@@ -687,6 +785,66 @@
                         {
                             "PartName": "UniversityLink",
                             "Name": "UniversityLink",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "CollegeLink",
+                    "DisplayName": "College Link",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "CollegeLink",
+                            "Name": "CollegeLink",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {}
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {}
+                        }
+                    ]
+                },
+                {
+                    "Name": "ApprenticeshipLink",
+                    "DisplayName": "Apprenticeship Link",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ApprenticeshipLink",
+                            "Name": "ApprenticeshipLink",
                             "Settings": {}
                         },
                         {
@@ -1512,6 +1670,93 @@
                     ]
                 },
                 {
+                    "Name": "ApprenticeshipRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "RelevantSubjects",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Relevant Subjects",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "FurtherInfo",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Further Info",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "RequirementsPrefix",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Requirements Prefix"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "RequirementsPrefix"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Requirements",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Requirements"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipRequirement].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipRequirement"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Links",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Links"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipLink].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipLink"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "Restriction",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
@@ -1659,6 +1904,27 @@
                     ]
                 },
                 {
+                    "Name": "ApprenticeshipRequirement",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Text",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Text",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "UniversityLink",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
@@ -1680,6 +1946,26 @@
                 },
                 {
                     "Name": "CollegeLink",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "LinkField",
+                            "Name": "Link",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Link"
+                                },
+                                "LinkFieldSettings": {
+                                    "Required": true,
+                                    "LinkTextMode": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "ApprenticeshipLink",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

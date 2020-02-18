@@ -4,6 +4,10 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* wayne's install crashed with localisation issue, that wen't away when (all) localisation features were enabled.
+^^ unable to reproduce on mine (with loc features disabled). need to figure out why. probably need to add approp. localisation feature as dependency of our custom modules that use localisation? or add it as an enabled features in the startup recipe
+probably when run under gb culture
+* use new spreadsheet to set titles
 * other requirements is in job profile content type as a html field -> think it should be a content picker
 * currently using specific versions of preview OC packages as all latest breaks builds: this will fail when specific versions of packages disappear from myget. will need to switch back to all latest when all latest works again
 * some descriptions like SOCCode show <p></p>, others don't
@@ -20,7 +24,7 @@ confirmation buttons are labelled undefined
 
 #Templates
 
-dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-* --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json
+dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json
 
 #Workflow Event Triggering
 
