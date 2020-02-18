@@ -94,6 +94,7 @@ namespace GetJobProfiles.Models.Recipe
         public TextField WorkingHoursDetails { get; set; }
         public TextField WorkingPattern { get; set; }
         public TextField WorkingPatternDetails { get; set; }
+        public HtmlField CareerPathAndProgression { get; set; }
     }
 
     public class TitleTextDescriptionContentItem : ContentItem
@@ -201,13 +202,14 @@ namespace GetJobProfiles.Models.Recipe
 
     public class HtmlField
     {
-        public HtmlField(string html) => Html = WrapInParagraph(ConvertLinks(html));
+        public HtmlField(string html) => Html = ConvertLists(WrapInParagraph(ConvertLinks(html)));
         //todo: correct array to <p>??
         public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) =>
-            ConvertLinks($"{h}{WrapInParagraph(ConvertLinks(p))}"));
+            ConvertLinks($"{h}{ConvertLists(WrapInParagraph(ConvertLinks(p)))}"));
 
         public string Html { get; set; }
         private static readonly Regex LinkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
+        private static readonly Regex ListRegex = new Regex(@"(?<!https:)(?<!http:)(?<=:).*;.*?(?=</p>)", RegexOptions.Compiled);
 
         private static string WrapInParagraph(string source)
         {
@@ -218,6 +220,23 @@ namespace GetJobProfiles.Models.Recipe
         {
             const string replacement = "$1<a href=\"$3\">$2</a>$4";
             return LinkRegex.Replace(sitefinityString, replacement);
+        }
+
+        private string ConvertLists(string source)
+        {
+            var match = ListRegex.Match(source);
+
+            if (match.Success)
+            {
+                Console.WriteLine(source);
+
+                var listItems = match.Value.Split(";").Select(x => x.Trim().TrimEnd('.')).ToList();
+                var replacement = $"<ul><li>{string.Join("</li><li>", listItems)}</li></ul>";
+
+                return source.Replace(match.Value, replacement);
+            }
+
+            return source;
         }
     }
 
