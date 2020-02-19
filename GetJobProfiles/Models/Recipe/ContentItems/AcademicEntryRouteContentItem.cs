@@ -2,17 +2,40 @@
 using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 
-namespace GetJobProfiles.Models.Recipe
+namespace GetJobProfiles.Models.Recipe.ContentItems
 {
+    public class ApprenticeshipRouteFactory : RouteFactory
+    {
+        public ApprenticeshipRouteContentItem CreateApprenticeshipRoute(AcademicEntryRoute entryRoute, string title,
+            string timestamp, string contentItemId = null)
+        {
+
+            var route = new ApprenticeshipRouteContentItem(entryRoute, title, timestamp, contentItemId);
+            AddContentPickers(entryRoute, route);
+            return route;
+        }
+    }
+
+    public class CollegeRouteFactory : RouteFactory
+    {
+        public CollegeRouteContentItem CreateCollegeRoute(AcademicEntryRoute entryRoute, string title,
+            string timestamp, string contentItemId = null)
+        {
+
+            var route = new CollegeRouteContentItem(entryRoute, title, timestamp, contentItemId);
+            AddContentPickers(entryRoute, route);
+            return route;
+        }
+    }
+
     public class UniversityRouteFactory : RouteFactory
     {
         public UniversityRouteContentItem CreateUniversityRoute(AcademicEntryRoute entryRoute, string title,
             string timestamp, string contentItemId = null)
         {
-
-            var universityRoute = new UniversityRouteContentItem(entryRoute, title, timestamp, contentItemId);
-            AddContentPickers(entryRoute, universityRoute);
-            return universityRoute;
+            var route = new UniversityRouteContentItem(entryRoute, title, timestamp, contentItemId);
+            AddContentPickers(entryRoute, route);
+            return route;
         }
     }
 
@@ -31,9 +54,9 @@ namespace GetJobProfiles.Models.Recipe
             contentItem.Links = Links.CreateContentPicker(entryRoute.FurtherInformation);
         }
 
-        public ContentPickerFactory RequirementsPrefixes { get; set; }    //todo: simple string instead?
-        public ContentPickerFactory Requirements { get; set; }
-        public ContentPickerFactory Links { get; set; }
+        public ContentPickerFactory RequirementsPrefixes { get; set; } = new ContentPickerFactory();
+        public ContentPickerFactory Requirements { get; set; } = new ContentPickerFactory();
+        public ContentPickerFactory Links { get; set; } = new ContentPickerFactory();
     }
 
     public class UniversityRouteContentItem : AcademicEntryRouteContentItem

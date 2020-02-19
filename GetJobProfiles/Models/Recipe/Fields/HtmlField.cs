@@ -20,13 +20,13 @@ namespace GetJobProfiles.Models.Recipe.Fields
             return $"<p>{source}</p>";
         }
 
-        private string ConvertLinks(string sitefinityString)
+        public static string ConvertLinks(string sitefinityString)
         {
             const string replacement = "$1<a href=\"$3\">$2</a>$4";
             return LinkRegex.Replace(sitefinityString, replacement);
         }
 
-        private string ConvertLists(string source)
+        public static string ConvertLists(string source)
         {
             var match = ListRegex.Match(source);
 

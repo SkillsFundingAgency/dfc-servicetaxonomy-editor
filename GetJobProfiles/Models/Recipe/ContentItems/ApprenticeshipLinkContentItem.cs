@@ -2,7 +2,8 @@
 {
     public class ApprenticeshipLinkContentItem : AcademicEntryRouteLinkContentItem
     {
-        public ApprenticeshipLinkContentItem(string title, string timestamp, string contentItemId) : base("ApprenticeshipLink", title, timestamp, contentItemId)
+        public ApprenticeshipLinkContentItem(string title, string sitefinityLink, string timestamp, string contentItemId)
+            : base("ApprenticeshipLink", title, sitefinityLink, timestamp, contentItemId)
         {
         }
     }

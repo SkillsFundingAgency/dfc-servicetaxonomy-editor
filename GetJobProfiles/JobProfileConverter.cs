@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using MoreLinq;
@@ -22,6 +23,8 @@ namespace GetJobProfiles
         //todo: convert to factory?
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
+        public readonly ApprenticeshipRouteFactory ApprenticeshipRoutes = new ApprenticeshipRouteFactory();
+        public readonly CollegeRouteFactory CollegeRoutes = new CollegeRouteFactory();
         public readonly UniversityRouteFactory UniversityRoutes = new UniversityRouteFactory();
 
         public string Timestamp { get; set; }
@@ -160,23 +163,18 @@ namespace GetJobProfiles
             if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
             {
                 //todo: don't think academic entry routes require a title. hardcode display text?
-                contentItem.BagPart.ContentItems.Add(new ApprenticeshipRouteContentItem(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, "todo", Timestamp ));
+                contentItem.BagPart.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, "todo", Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
             {
-                contentItem.BagPart.ContentItems.Add(new CollegeRouteContentItem(jobProfile.HowToBecome.EntryRoutes.College, "todo", Timestamp ));
+                contentItem.BagPart.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, "todo", Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
             {
-                //contentItem.BagPart.ContentItems.Add(new UniversityRouteContentItem(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp ));
                 contentItem.BagPart.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp));
             }
-
-            // ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, contentItem.BagPart);
-            // ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.College, contentItem.BagPart);
-            // ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.University, contentItem.BagPart);
 
             if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
             {

@@ -2,7 +2,8 @@
 {
     public class CollegeLinkContentItem : AcademicEntryRouteLinkContentItem
     {
-        public CollegeLinkContentItem(string title, string timestamp, string contentItemId) : base("CollegeLink", title, timestamp, contentItemId)
+        public CollegeLinkContentItem(string title, string sitefinityLink, string timestamp, string contentItemId)
+            : base("CollegeLink", title, sitefinityLink, timestamp, contentItemId)
         {
         }
     }

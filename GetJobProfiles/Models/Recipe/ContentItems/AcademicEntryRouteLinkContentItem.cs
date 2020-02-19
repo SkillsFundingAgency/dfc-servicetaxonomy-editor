@@ -5,10 +5,12 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 {
     public class AcademicEntryRouteLinkContentItem : ContentItem
     {
-        public AcademicEntryRouteLinkContentItem(string contentType, string title, string timestamp, string contentItemId) : base(contentType, title, timestamp, contentItemId)
+        public AcademicEntryRouteLinkContentItem(string contentType, string title, string sitefinityUrl, string timestamp, string contentItemId) : base(contentType, title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart(contentType);
+
+            Link = new LinkField(sitefinityUrl);
         }
 
         public LinkField Link { get; set; }
