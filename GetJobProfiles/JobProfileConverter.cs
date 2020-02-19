@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using MoreLinq;
 using OrchardCore.Entities;
@@ -122,7 +123,8 @@ namespace GetJobProfiles
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
-            //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
+            //todo: use spreadsheet for titles
+            //todo: create PickableContentCollection class?
             foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
             {
                 // for now add full as title. once we have the full list can plug in current titles

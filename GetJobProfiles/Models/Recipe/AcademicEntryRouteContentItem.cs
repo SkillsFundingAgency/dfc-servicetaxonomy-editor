@@ -1,4 +1,5 @@
 ﻿using GetJobProfiles.Models.API;
+using GetJobProfiles.Models.Recipe.Fields;
 
 namespace GetJobProfiles.Models.Recipe
 {
@@ -31,6 +32,8 @@ namespace GetJobProfiles.Models.Recipe
         public AcademicEntryRouteContentItem(string contentType, AcademicEntryRoute entryRoute, string title, string timestamp, string contentItemId = null)
             : base(contentType, title, timestamp, contentItemId)
         {
+            RelevantSubjects = new HtmlField(entryRoute.RelevantSubjects);
+            FurtherInfo = new HtmlField(entryRoute.FurtherInformation);
         }
 
         public HtmlField RelevantSubjects { get; set; }

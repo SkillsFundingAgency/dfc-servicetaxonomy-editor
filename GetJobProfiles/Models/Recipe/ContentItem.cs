@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using OrchardCore.Entities;
 
@@ -218,19 +218,6 @@ namespace GetJobProfiles.Models.Recipe
         public NumericField(decimal val) => Value = val;
 
         public decimal Value { get; set; }
-    }
-
-    public class ContentPicker
-    {
-        public ContentPicker()
-        {}
-
-        public ContentPicker(ConcurrentDictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)
-        {
-            ContentItemIds = contentItems?.Select(ci => currentContentItems[ci].id) ?? new string[0];
-        }
-
-        public IEnumerable<string> ContentItemIds { get; set; }
     }
 
     public class GraphLookupPart
