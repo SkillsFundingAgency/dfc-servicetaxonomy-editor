@@ -209,7 +209,7 @@ namespace GetJobProfiles.Models.Recipe
 
         public string Html { get; set; }
         private static readonly Regex LinkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
-        private static readonly Regex ListRegex = new Regex(@"(?<!https:)(?<!http:)(?<=:).*;.*?(?=</p>)", RegexOptions.Compiled);
+        private static readonly Regex ListRegex = new Regex(@"(?<!https:)(?<!http:)(?<=:)(?!.*:).*;.*?(?=</p>)", RegexOptions.Compiled);
 
         private static string WrapInParagraph(string source)
         {
@@ -228,8 +228,6 @@ namespace GetJobProfiles.Models.Recipe
 
             if (match.Success)
             {
-                Console.WriteLine(source);
-
                 var listItems = match.Value.Split(";").Select(x => x.Trim().TrimEnd('.')).ToList();
                 var replacement = $"<ul><li>{string.Join("</li><li>", listItems)}</li></ul>";
 
