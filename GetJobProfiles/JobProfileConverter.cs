@@ -19,7 +19,10 @@ namespace GetJobProfiles
         public readonly ContentPickerFactory Registrations = new ContentPickerFactory();
         public readonly ContentPickerFactory Restrictions = new ContentPickerFactory();
         public readonly ContentPickerFactory OtherRequirements = new ContentPickerFactory();
+        //todo: convert to factory?
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
+
+        public readonly UniversityRouteFactory UniversityRoutes = new UniversityRouteFactory();
 
         public string Timestamp { get; set; }
 
@@ -27,7 +30,7 @@ namespace GetJobProfiles
         private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
-        public List<string> DayToDayTaskExclusions = new List<string>()
+        public List<string> DayToDayTaskExclusions = new List<string>
         {
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/alexander-technique-teacher",
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/diver",
@@ -166,7 +169,8 @@ namespace GetJobProfiles
 
             if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
             {
-                contentItem.BagPart.ContentItems.Add(new UniversityRouteContentItem(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp ));
+                //contentItem.BagPart.ContentItems.Add(new UniversityRouteContentItem(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp ));
+                contentItem.BagPart.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp));
             }
 
             // ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, contentItem.BagPart);

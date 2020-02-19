@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.ContentItems;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 
@@ -73,6 +74,8 @@ namespace GetJobProfiles
             BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
             BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
+            BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
+            //BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "UniversityLinks");
 
             File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }

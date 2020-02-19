@@ -3,6 +3,38 @@ using GetJobProfiles.Models.Recipe.Fields;
 
 namespace GetJobProfiles.Models.Recipe
 {
+    public class UniversityRouteFactory : RouteFactory
+    {
+        public UniversityRouteContentItem CreateUniversityRoute(AcademicEntryRoute entryRoute, string title,
+            string timestamp, string contentItemId = null)
+        {
+
+            var universityRoute = new UniversityRouteContentItem(entryRoute, title, timestamp, contentItemId);
+            AddContentPickers(entryRoute, universityRoute);
+            return universityRoute;
+        }
+    }
+
+    public class RouteFactory
+    {
+        // public RouteFactory(AcademicEntryRoute entryRoute)
+        // {
+        //
+        // }
+
+        protected void AddContentPickers(AcademicEntryRoute entryRoute, AcademicEntryRouteContentItem contentItem)
+        {
+            //todo: contenttype should have predetermined string field. thought already done that???
+            //contentItem.RequirementsPrefix = RequirementsPrefixes.CreateContentPicker(entryRoute.EntryRequirementPreface);
+            contentItem.Requirements = Requirements.CreateContentPicker(entryRoute.EntryRequirements);
+            contentItem.Links = Links.CreateContentPicker(entryRoute.FurtherInformation);
+        }
+
+        public ContentPickerFactory RequirementsPrefixes { get; set; }    //todo: simple string instead?
+        public ContentPickerFactory Requirements { get; set; }
+        public ContentPickerFactory Links { get; set; }
+    }
+
     public class UniversityRouteContentItem : AcademicEntryRouteContentItem
     {
         public UniversityRouteContentItem(AcademicEntryRoute entryRoute, string title, string timestamp, string contentItemId = null)
