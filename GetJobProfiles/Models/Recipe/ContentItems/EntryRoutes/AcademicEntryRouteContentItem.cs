@@ -90,6 +90,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
         {
             RelevantSubjects = new HtmlField(entryRoute.RelevantSubjects);
             FurtherInfo = new HtmlField(entryRoute.FurtherInformation);
+            GraphSyncPart = new GraphSyncPart(contentType);
         }
 
         public HtmlField RelevantSubjects { get; set; }
