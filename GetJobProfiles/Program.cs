@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.Recipe;
 using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 

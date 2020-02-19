@@ -2,7 +2,7 @@
 using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 
-namespace GetJobProfiles.Models.Recipe.ContentItems
+namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
 {
     public class ApprenticeshipRouteFactory : RouteFactory
     {

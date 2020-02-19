@@ -9,7 +9,7 @@ namespace GetJobProfiles.Models.API
         public string Url;
         public string Soc;
         public string ONetOccupationalCode;
-        public string AlternativeTitle; // only 1?
+        public string AlternativeTitle; // csv. we'll probably ignore these, and serve up esco's alt labels instead
         public string Overview;
         public string SalaryStarter;
         public string SalaryExperienced;
@@ -40,19 +40,19 @@ namespace GetJobProfiles.Models.API
         public AcademicEntryRoute University;
         public AcademicEntryRoute College;
         public AcademicEntryRoute Apprenticeship;
-        public string[] Work;                    // appears could just be string?
-        public string[] Volunteering;                    // appears could just be string?
-        public string[] DirectApplication;                    // appears could just be string?
-        public string[] OtherRoutes;                    // appears could just be string?
+        public string[] Work;
+        public string[] Volunteering;
+        public string[] DirectApplication;
+        public string[] OtherRoutes;
     }
 
     public class AcademicEntryRoute
     {
-        public string[] RelevantSubjects;        // appears could be just string?
+        public string[] RelevantSubjects;
         public string[] FurtherInformation;
         public string EntryRequirementPreface;
-        public string[] EntryRequirements;        // real array
-        public string[] AdditionalInformation;    // real array, each string "[anchor test : url]"
+        public string[] EntryRequirements;
+        public string[] AdditionalInformation;
 
         public bool IsEmpty()
         {

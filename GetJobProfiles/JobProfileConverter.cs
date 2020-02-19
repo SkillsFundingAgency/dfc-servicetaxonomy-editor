@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe;
-using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
 using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using MoreLinq;
@@ -116,17 +116,6 @@ namespace GetJobProfiles
             return jobProfile;
         }
 
-        // private void ConvertAcademicEntryRoute(AcademicEntryRoute route, BagPart bag, Func<>)
-        // // where T : AcademicEntryRouteContentItem, new()
-        // {
-        //     if (route.IsEmpty())
-        //         return;
-        //
-        //     //todo: don't want switch, nor create if not necessary
-        //     bag.ContentItems.Add(new UniversityRouteContentItem());
-        //     //if (route)
-        // }
-
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
             //todo: use spreadsheet for titles
@@ -175,6 +164,32 @@ namespace GetJobProfiles
             {
                 contentItem.BagPart.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp));
             }
+
+            //todo: helper?
+            if (jobProfile.HowToBecome.EntryRoutes.Work.Any())
+            {
+                //todo: need to look up title from spreadsheet. temp use first string
+                contentItem.BagPart.ContentItems.Add(new WorkRouteContentItem(jobProfile.HowToBecome.EntryRoutes.Work.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.Work));
+            }
+
+            if (jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
+            {
+                //todo: need to look up title from spreadsheet. temp use first string
+                contentItem.BagPart.ContentItems.Add(new VolunteeringRouteContentItem(jobProfile.HowToBecome.EntryRoutes.Volunteering.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.Volunteering));
+            }
+
+            if (jobProfile.HowToBecome.EntryRoutes.DirectApplication.Any())
+            {
+                //todo: need to look up title from spreadsheet. temp use first string
+                contentItem.BagPart.ContentItems.Add(new DirectRouteContentItem(jobProfile.HowToBecome.EntryRoutes.DirectApplication.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.DirectApplication));
+            }
+
+            if (jobProfile.HowToBecome.EntryRoutes.OtherRoutes.Any())
+            {
+                //todo: need to look up title from spreadsheet. temp use first string
+                contentItem.BagPart.ContentItems.Add(new OtherRouteContentItem(jobProfile.HowToBecome.EntryRoutes.OtherRoutes.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
+            }
+
 
             if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
             {

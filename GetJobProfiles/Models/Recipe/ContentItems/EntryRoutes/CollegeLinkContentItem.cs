@@ -1,4 +1,4 @@
-﻿namespace GetJobProfiles.Models.Recipe.ContentItems
+﻿namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
 {
     public class CollegeLinkContentItem : AcademicEntryRouteLinkContentItem
     {
