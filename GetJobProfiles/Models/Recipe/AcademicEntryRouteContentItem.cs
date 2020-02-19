@@ -1,5 +1,6 @@
 ﻿using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.Fields;
+using GetJobProfiles.Models.Recipe.Parts;
 
 namespace GetJobProfiles.Models.Recipe
 {

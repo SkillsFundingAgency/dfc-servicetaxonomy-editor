@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.Fields;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Utilities.GetJobProfiles.Recipe

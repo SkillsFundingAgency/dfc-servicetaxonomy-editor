@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using OrchardCore.Entities;
@@ -183,75 +179,5 @@ namespace GetJobProfiles.Models.Recipe
         public OtherRequirementContentItem(string title, string timestamp, string description, string contentItemId) : base("OtherRequirement", title, timestamp, description, contentItemId)
         {
         }
-    }
-
-    public class HtmlField
-    {
-        public HtmlField(string html) => Html = ConvertLists(WrapInParagraph(ConvertLinks(html)));
-        //todo: correct array to <p>??
-        public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) =>
-            ConvertLinks($"{h}{ConvertLists(WrapInParagraph(ConvertLinks(p)))}"));
-
-        public string Html { get; set; }
-        private static readonly Regex LinkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
-        private static readonly Regex ListRegex = new Regex(@"(?<!https:)(?<!http:)(?<=:)(?!.*:).*;.*?(?=</p>)", RegexOptions.Compiled);
-
-        private static string WrapInParagraph(string source)
-        {
-            return $"<p>{source}</p>";
-        }
-
-        private string ConvertLinks(string sitefinityString)
-        {
-            const string replacement = "$1<a href=\"$3\">$2</a>$4";
-            return LinkRegex.Replace(sitefinityString, replacement);
-        }
-
-        private string ConvertLists(string source)
-        {
-            var match = ListRegex.Match(source);
-
-            if (match.Success)
-            {
-                var listItems = match.Value.Split(";").Select(x => x.Trim().TrimEnd('.')).ToList();
-                var replacement = $"<ul><li>{string.Join("</li><li>", listItems)}</li></ul>";
-
-                return source.Replace(match.Value, replacement);
-            }
-
-            return source;
-        }
-    }
-
-    public class TextField
-    {
-        public TextField(string text) => Text = text;
-
-        public string Text { get; set; }
-    }
-
-    public class NumericField
-    {
-        public NumericField(decimal val) => Value = val;
-
-        public decimal Value { get; set; }
-    }
-
-    public class GraphLookupPart
-    {
-        public Node[] Nodes { get; set; }
-    }
-
-    public class Node
-    {
-        public string Id { get; set; }
-        public string DisplayText { get; set; }
-    }
-
-    public class GraphSyncPart
-    {
-        public GraphSyncPart(string contentType) => Text = $"http://nationalcareers.service.gov.uk/{contentType.ToLowerInvariant()}/{Guid.NewGuid()}";
-
-        public string Text { get; set; }
     }
 }
