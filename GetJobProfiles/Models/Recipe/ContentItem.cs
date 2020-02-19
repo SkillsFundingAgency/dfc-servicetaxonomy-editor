@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using GetJobProfiles.Models.Recipe.Parts;
 using OrchardCore.Entities;
 
 namespace GetJobProfiles.Models.Recipe
@@ -183,22 +184,6 @@ namespace GetJobProfiles.Models.Recipe
         }
     }
 
-    public class TitlePart
-    {
-        public TitlePart(string title) => Title = ConvertLinks(title);
-
-        public string Title { get; set; }
-
-        // same as regex in HtmlField
-        private static readonly Regex LinkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
-
-        private string ConvertLinks(string sitefinityString)
-        {
-            const string replacement = "$1[$2]$4";
-            return LinkRegex.Replace(sitefinityString, replacement);
-        }
-    }
-
     public class HtmlField
     {
         public HtmlField(string html) => Html = WrapInParagraph(ConvertLinks(html));
@@ -264,10 +249,5 @@ namespace GetJobProfiles.Models.Recipe
         public GraphSyncPart(string contentType) => Text = $"http://nationalcareers.service.gov.uk/{contentType.ToLowerInvariant()}/{Guid.NewGuid()}";
 
         public string Text { get; set; }
-    }
-
-    public class BagPart    //todo: multiples??
-    {
-        public ContentItem[] ContentItems { get; set; }
     }
 }

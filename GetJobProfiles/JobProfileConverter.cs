@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.Parts;
 using MoreLinq;
 using OrchardCore.Entities;
 
@@ -108,17 +109,19 @@ namespace GetJobProfiles
             return jobProfile;
         }
 
-        private void ConvertAcademicEntryRoute(AcademicEntryRoute route)
-        {
-
-        }
+        // private void ConvertAcademicEntryRoute(AcademicEntryRoute route, BagPart bag, Func<>)
+        // // where T : AcademicEntryRouteContentItem, new()
+        // {
+        //     if (route.IsEmpty())
+        //         return;
+        //
+        //     //todo: don't want switch, nor create if not necessary
+        //     bag.ContentItems.Add(new UniversityRouteContentItem());
+        //     //if (route)
+        // }
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
-            ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship);
-            ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.College);
-            ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.University);
-
             //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
             foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
             {
@@ -159,6 +162,7 @@ namespace GetJobProfiles
                     //todo:
                     //HtbTitleOptions = jobProfile.
                     //todo: dic of contentid to found content: convert to class and have content as props
+
                     HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
                     WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
@@ -171,8 +175,29 @@ namespace GetJobProfiles
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
                     WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
-                }
+                },
+                BagPart = new BagPart()
             };
+
+            if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
+            {
+                //todo: don't think academic entry routes require a title. hardcode display text?
+                contentItem.BagPart.ContentItems.Add(new ApprenticeshipRouteContentItem(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, "todo", Timestamp ));
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
+            {
+                contentItem.BagPart.ContentItems.Add(new CollegeRouteContentItem(jobProfile.HowToBecome.EntryRoutes.College, "todo", Timestamp ));
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
+            {
+                contentItem.BagPart.ContentItems.Add(new UniversityRouteContentItem(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp ));
+            }
+
+            // ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, contentItem.BagPart);
+            // ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.College, contentItem.BagPart);
+            // ConvertAcademicEntryRoute(jobProfile.HowToBecome.EntryRoutes.University, contentItem.BagPart);
 
             if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
             {

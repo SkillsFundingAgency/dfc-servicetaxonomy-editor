@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace GetJobProfiles.Models.API
 {
     public class JobProfile
@@ -51,6 +53,15 @@ namespace GetJobProfiles.Models.API
         public string EntryRequirementPreface;
         public string[] EntryRequirements;        // real array
         public string[] AdditionalInformation;    // real array, each string "[anchor test : url]"
+
+        public bool IsEmpty()
+        {
+            return !RelevantSubjects.Any()
+                   && !FurtherInformation.Any()
+                   && EntryRequirementPreface != null
+                   && !EntryRequirements.Any()
+                   && !AdditionalInformation.Any();
+        }
     }
 
     public class MoreInformation
