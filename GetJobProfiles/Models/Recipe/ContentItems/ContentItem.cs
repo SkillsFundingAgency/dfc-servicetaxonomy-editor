@@ -145,39 +145,4 @@ namespace GetJobProfiles.Models.Recipe
     {
         public HtmlField Description { get; set; }
     }
-
-    public class SocCodeContentItem : TitleHtmlDescriptionContentItem
-    {
-        public SocCodeContentItem(string title, string timestamp, string description) : base("SOCCode", title, timestamp, description)
-        {
-        }
-    }
-
-    public class RegistrationContentItem : TitleHtmlDescriptionContentItem
-    {
-        public RegistrationContentItem(string title, string timestamp, string description, string contentItemId) : base("Registration", title, timestamp, description, contentItemId)
-        {
-        }
-    }
-
-    public class RestrictionContentItem : TitleHtmlDescriptionContentItem
-    {
-        public RestrictionContentItem(string title, string timestamp, string description, string contentItemId) : base("Restriction", title, timestamp, description, contentItemId)
-        {
-        }
-    }
-
-    public class DayToDayTaskContentItem : TitleHtmlDescriptionContentItem
-    {
-        public DayToDayTaskContentItem(string title, string timestamp, string description, string contentItemId) : base("DayToDayTask", title, timestamp, description, contentItemId)
-        {
-        }
-    }
-
-    public class OtherRequirementContentItem : TitleHtmlDescriptionContentItem
-    {
-        public OtherRequirementContentItem(string title, string timestamp, string description, string contentItemId) : base("OtherRequirement", title, timestamp, description, contentItemId)
-        {
-        }
-    }
 }
