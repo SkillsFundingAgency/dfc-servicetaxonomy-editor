@@ -161,7 +161,8 @@ namespace GetJobProfiles
                     MaximumHours = new NumericField(jobProfile.MaximumHours),
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
-                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
+                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
                 }
             };
 
