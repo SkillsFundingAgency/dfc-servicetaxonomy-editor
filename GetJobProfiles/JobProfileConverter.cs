@@ -151,7 +151,8 @@ namespace GetJobProfiles
                     MaximumHours = new NumericField(jobProfile.MaximumHours),
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
-                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
+                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
                 },
                 BagPart = new BagPart()
             };
@@ -188,7 +189,7 @@ namespace GetJobProfiles
                     "checking:",
                     "time:",
                     "involve:",
-                    "you�ll:",
+                    "you’ll:",
                     "you'll",
                     ":using",
                     "usually:",
