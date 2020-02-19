@@ -16,8 +16,10 @@ namespace GetJobProfiles
     public class JobProfileConverter
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
-        public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
-        public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
+        //public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
+        //public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ContentPickerFactory Registrations = new ContentPickerFactory();
+        public readonly ContentPickerFactory Restrictions = new ContentPickerFactory();
         public readonly ConcurrentDictionary<string,(string id,string text)> OtherRequirements = new ConcurrentDictionary<string, (string id, string text)>();
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
@@ -125,23 +127,23 @@ namespace GetJobProfiles
         {
             //todo: use spreadsheet for titles
             //todo: create PickableContentCollection class?
-            foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
-            {
-                // for now add full as title. once we have the full list can plug in current titles
-                if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
-                {
-                    ColorConsole.WriteLine($"Registration '{registration}' already saved", ConsoleColor.Magenta);
-                }
-            }
+            // foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
+            // {
+            //     // for now add full as title. once we have the full list can plug in current titles
+            //     if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
+            //     {
+            //         ColorConsole.WriteLine($"Registration '{registration}' already saved", ConsoleColor.Magenta);
+            //     }
+            // }
 
-            foreach (string restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
-            {
-                // for now add full as title. once we have the full list can plug in current titles
-                if (!Restrictions.TryAdd(restriction, (_idGenerator.GenerateUniqueId(), restriction)))
-                {
-                    ColorConsole.WriteLine($"Restriction '{restriction}' already saved", ConsoleColor.Magenta);
-                }
-            }
+            // foreach (string restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
+            // {
+            //     // for now add full as title. once we have the full list can plug in current titles
+            //     if (!Restrictions.TryAdd(restriction, (_idGenerator.GenerateUniqueId(), restriction)))
+            //     {
+            //         ColorConsole.WriteLine($"Restriction '{restriction}' already saved", ConsoleColor.Magenta);
+            //     }
+            // }
 
             foreach (string otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
             {
@@ -165,9 +167,11 @@ namespace GetJobProfiles
                     //HtbTitleOptions = jobProfile.
                     //todo: dic of contentid to found content: convert to class and have content as props
 
-                    HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
+                    //HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
+                    HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations),
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
-                    WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
+                    //WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
+                    WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
                     WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
                     SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),

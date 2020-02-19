@@ -29,6 +29,8 @@ namespace GetJobProfiles
 {
     static class Program
     {
+        public const string OutputBasePath = @"i:\JobProfiles\";
+
         static async Task Main(string[] args)
         {
             string timestamp = $"{DateTime.UtcNow:O}";
@@ -38,7 +40,7 @@ namespace GetJobProfiles
 
             //use these knobs to work around rate - limiting
             const int skip = 0;
-            const int take = 0;
+            const int take = 30;
             const int napTimeMs = 5500;
             // max number of contentitems in an import recipe
             const int batchSize = 1000;
@@ -67,25 +69,26 @@ namespace GetJobProfiles
 
             BatchSerializeToFiles(jobProfiles, batchSize, "JobProfiles");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
-            BatchSerializeToFiles(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Registrations");
-            BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
+            //BatchSerializeToFiles(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Registrations");
+            //BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
+            BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Registrations");
+            BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             BatchSerializeToFiles(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "OtherRequirements");
             BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
 
-            File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
         private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix)
         where T : ContentItem
         {
-            const string baseFolder = @"e:\";
             var batches = contentItems.Batch(batchSize);
             int batchNumber = 0;
             foreach (var batchContentItems in batches)
             {
                 //todo: async?
                 var serializedContentItemBatch = SerializeContentItems(batchContentItems);
-                ImportRecipe.Create($"{baseFolder}{filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
+                ImportRecipe.Create($"{OutputBasePath}{filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
             }
         }
 
