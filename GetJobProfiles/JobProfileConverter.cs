@@ -16,11 +16,9 @@ namespace GetJobProfiles
     public class JobProfileConverter
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
-        //public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
-        //public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
         public readonly ContentPickerFactory Registrations = new ContentPickerFactory();
         public readonly ContentPickerFactory Restrictions = new ContentPickerFactory();
-        public readonly ConcurrentDictionary<string,(string id,string text)> OtherRequirements = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ContentPickerFactory OtherRequirements = new ContentPickerFactory();
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
         public string Timestamp { get; set; }
@@ -126,33 +124,6 @@ namespace GetJobProfiles
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
             //todo: use spreadsheet for titles
-            //todo: create PickableContentCollection class?
-            // foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
-            // {
-            //     // for now add full as title. once we have the full list can plug in current titles
-            //     if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
-            //     {
-            //         ColorConsole.WriteLine($"Registration '{registration}' already saved", ConsoleColor.Magenta);
-            //     }
-            // }
-
-            // foreach (string restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
-            // {
-            //     // for now add full as title. once we have the full list can plug in current titles
-            //     if (!Restrictions.TryAdd(restriction, (_idGenerator.GenerateUniqueId(), restriction)))
-            //     {
-            //         ColorConsole.WriteLine($"Restriction '{restriction}' already saved", ConsoleColor.Magenta);
-            //     }
-            // }
-
-            foreach (string otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
-            {
-                // for now add full as title. once we have the full list can plug in current titles
-                if (!OtherRequirements.TryAdd(otherRequirement, (_idGenerator.GenerateUniqueId(), otherRequirement)))
-                {
-                    ColorConsole.WriteLine($"OtherRequirement '{otherRequirement}' already saved", ConsoleColor.Magenta);
-                }
-            }
 
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
@@ -165,14 +136,11 @@ namespace GetJobProfiles
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
                     //todo:
                     //HtbTitleOptions = jobProfile.
-                    //todo: dic of contentid to found content: convert to class and have content as props
 
-                    //HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
                     HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations),
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
-                    //WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
                     WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
-                    WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
+                    WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
                     SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
                     SalaryExperienced = new TextField(jobProfile.SalaryExperienced),

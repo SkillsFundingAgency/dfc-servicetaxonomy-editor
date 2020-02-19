@@ -69,11 +69,9 @@ namespace GetJobProfiles
 
             BatchSerializeToFiles(jobProfiles, batchSize, "JobProfiles");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
-            //BatchSerializeToFiles(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Registrations");
-            //BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
             BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Registrations");
             BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
-            BatchSerializeToFiles(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "OtherRequirements");
+            BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
             BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
 
             File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
