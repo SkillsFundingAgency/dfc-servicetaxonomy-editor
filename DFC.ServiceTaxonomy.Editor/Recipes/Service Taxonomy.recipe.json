@@ -1,4 +1,4 @@
-{
+﻿{
     "name": "ServiceTaxonomyEditor",
     "displayName": "Service Taxonomy Editor",
     "description": "Sets up the Service Taxonomy Editor",
@@ -1168,7 +1168,11 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Minimum Hours",
                                     "Position": "15"
-                                }
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -1178,7 +1182,11 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Maximum Hours",
                                     "Position": "16"
-                                }
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
