@@ -4,6 +4,10 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* existing api returns LastUpdatedDate. to replicate that we'll have to 1) import LastUpdatedDate from api into the recipe, 2) update the graph sync code to store the contentitems lastmodified date into the graph
+* publishing/syncing a jp complains about minimum hours must be an integer when min hours not a whole number
+* no university links!
+* use JobProfileWebsiteUrl as uri
 * job categories are returned by the search api, but not by the get job profile api. we'll still need to import them. we could import them from the spreadsheet (JobCategory->JobProfileCategories)
 * current job profile api search uses word stems : we might have to whitelist array properties, poss convert alt labels to separate nodes. but does fts support word stems anyway?
 * need a LinkField syncer

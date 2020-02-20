@@ -8,9 +8,9 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories
     {
         protected void AddContentPickers(AcademicEntryRoute entryRoute, AcademicEntryRouteContentItem contentItem)
         {
-            contentItem.RequirementsPrefix = RequirementsPrefixes.CreateContentPicker(entryRoute.EntryRequirementPreface);
-            contentItem.Requirements = Requirements.CreateContentPicker(entryRoute.EntryRequirements);
-            contentItem.Links = Links.CreateContentPicker(entryRoute.AdditionalInformation);
+            contentItem.EponymousPart.RequirementsPrefix = RequirementsPrefixes.CreateContentPicker(entryRoute.EntryRequirementPreface);
+            contentItem.EponymousPart.Requirements = Requirements.CreateContentPicker(entryRoute.EntryRequirements);
+            contentItem.EponymousPart.Links = Links.CreateContentPicker(entryRoute.AdditionalInformation);
         }
 
         // there are some route specific prefixes (e.g. To do this apprenticeship, you'll need:), but generally

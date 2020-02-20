@@ -10,17 +10,27 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
         public AcademicEntryRouteContentItem(string contentType, AcademicEntryRoute entryRoute, string title, string timestamp, string contentItemId = null)
             : base(contentType, title, timestamp, contentItemId)
         {
-            RelevantSubjects = new HtmlField(entryRoute.RelevantSubjects);
-            FurtherInfo = new HtmlField(entryRoute.FurtherInformation);
+            EponymousPart = new AcademicEntryRoutePart
+            {
+                RelevantSubjects = new HtmlField(entryRoute.RelevantSubjects),
+                FurtherInfo = new HtmlField(entryRoute.FurtherInformation)
+            };
             GraphSyncPart = new GraphSyncPart(contentType);
         }
 
+        //todo: might need to have an EponymousBagPart to pick up the correct content type name (or somesuch)
+        //todo: prob gonna have to add json polymorphic converter too
+        public AcademicEntryRoutePart EponymousPart { get; set; }
+        public GraphSyncPart GraphSyncPart { get; set; }
+    }
+
+    public class AcademicEntryRoutePart
+    {
         public HtmlField RelevantSubjects { get; set; }
         public HtmlField FurtherInfo { get; set; }
         public ContentPicker RequirementsPrefix { get; set; }    //todo: just string?
         public ContentPicker Requirements { get; set; }
         public ContentPicker Links { get; set; }
-        public GraphSyncPart GraphSyncPart { get; set; }
     }
 }
 
