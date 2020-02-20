@@ -85,7 +85,7 @@ namespace GetJobProfiles.Models.API
     public class WhatYouWillDo
     {
         public string[] WYDDayToDayTasks;        // just a string?
-        public WorkingEnvironment workingEnvironment;
+        public WorkingEnvironment WorkingEnvironment;
     }
 
     public class WorkingEnvironment
