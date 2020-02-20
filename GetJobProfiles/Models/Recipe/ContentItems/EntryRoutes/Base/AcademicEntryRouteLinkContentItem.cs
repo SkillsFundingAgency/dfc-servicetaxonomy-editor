@@ -1,7 +1,8 @@
-﻿using GetJobProfiles.Models.Recipe.Fields;
+﻿using GetJobProfiles.Models.Recipe.ContentItems.Base;
+using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 
-namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
+namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
 {
     public class AcademicEntryRouteLinkContentItem : ContentItem
     {

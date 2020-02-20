@@ -1,4 +1,6 @@
-﻿namespace GetJobProfiles.Models.Recipe.ContentItems
+﻿using GetJobProfiles.Models.Recipe.ContentItems.Base;
+
+namespace GetJobProfiles.Models.Recipe.ContentItems
 {
     public class RegistrationContentItem : TitleHtmlDescriptionContentItem
     {

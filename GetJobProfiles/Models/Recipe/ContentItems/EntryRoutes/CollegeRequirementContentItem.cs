@@ -1,4 +1,6 @@
-﻿namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
+﻿using GetJobProfiles.Models.Recipe.ContentItems.Base;
+
+namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
 {
     public class CollegeRequirementContentItem : TitleHtmlDescriptionContentItem
     {

@@ -6,9 +6,10 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.JsonHelpers;
-using GetJobProfiles.Models.Recipe;
 using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.ContentItems.Base;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 
