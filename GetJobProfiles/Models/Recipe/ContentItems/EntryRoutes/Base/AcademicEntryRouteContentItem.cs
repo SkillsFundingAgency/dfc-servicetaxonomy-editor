@@ -7,8 +7,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
 {
     public class AcademicEntryRouteContentItem : ContentItem
     {
-        public AcademicEntryRouteContentItem(string contentType, AcademicEntryRoute entryRoute, string title, string timestamp, string contentItemId = null)
-            : base(contentType, title, timestamp, contentItemId)
+        public AcademicEntryRouteContentItem(string contentType, AcademicEntryRoute entryRoute, string timestamp, string contentItemId = null)
+            : base(contentType, null, timestamp, contentItemId)
         {
             EponymousPart = new AcademicEntryRoutePart
             {

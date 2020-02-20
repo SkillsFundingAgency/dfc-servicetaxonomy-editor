@@ -6,8 +6,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
 {
     public class UniversityRouteContentItem : AcademicEntryRouteContentItem
     {
-        public UniversityRouteContentItem(AcademicEntryRoute entryRoute, string title, string timestamp, string contentItemId = null)
-            : base("UniversityRoute", entryRoute, title, timestamp, contentItemId)
+        public UniversityRouteContentItem(AcademicEntryRoute entryRoute, string timestamp, string contentItemId = null)
+            : base("UniversityRoute", entryRoute, timestamp, contentItemId)
         {
         }
 

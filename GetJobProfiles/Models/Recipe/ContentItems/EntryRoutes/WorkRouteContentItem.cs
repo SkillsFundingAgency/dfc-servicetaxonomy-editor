@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using GetJobProfiles.Models.Recipe.ContentItems.Base;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base;
 
 namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
 {
-    public class WorkRouteContentItem : TitleHtmlDescriptionContentItem
+    public class WorkRouteContentItem : EntryRouteContentItem
     {
-        public WorkRouteContentItem(string title, string timestamp, IEnumerable<string> description)
-            : base("WorkRoute", title, timestamp, description)
+        public WorkRouteContentItem(string timestamp, IEnumerable<string> description)
+            : base("WorkRoute", timestamp, description)
         {
         }
 
         [JsonPropertyName("WorkRoute")]
-        public override TitleHtmlDescriptionPart EponymousPart {
+        public override EntryRoutePart EponymousPart {
             get { return base.EponymousPart; }
             set { base.EponymousPart = value; }
         }

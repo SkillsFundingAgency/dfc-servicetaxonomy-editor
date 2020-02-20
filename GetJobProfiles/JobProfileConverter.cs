@@ -154,42 +154,38 @@ namespace GetJobProfiles
             if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
             {
                 //todo: don't think academic entry routes require a title. hardcode display text?
-                contentItem.BagPart.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, "todo", Timestamp));
+                contentItem.BagPart.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, null, Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
             {
-                contentItem.BagPart.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, "todo", Timestamp));
+                contentItem.BagPart.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, null, Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
             {
-                contentItem.BagPart.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, "todo", Timestamp));
+                contentItem.BagPart.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, null, Timestamp));
             }
 
             //todo: helper?
             if (jobProfile.HowToBecome.EntryRoutes.Work.Any())
             {
-                //todo: need to look up title from spreadsheet. temp use first string
-                contentItem.BagPart.ContentItems.Add(new WorkRouteContentItem(jobProfile.HowToBecome.EntryRoutes.Work.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.Work));
+                contentItem.BagPart.ContentItems.Add(new WorkRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Work));
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
             {
-                //todo: need to look up title from spreadsheet. temp use first string
-                contentItem.BagPart.ContentItems.Add(new VolunteeringRouteContentItem(jobProfile.HowToBecome.EntryRoutes.Volunteering.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.Volunteering));
+                contentItem.BagPart.ContentItems.Add(new VolunteeringRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Volunteering));
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.DirectApplication.Any())
             {
-                //todo: need to look up title from spreadsheet. temp use first string
-                contentItem.BagPart.ContentItems.Add(new DirectRouteContentItem(jobProfile.HowToBecome.EntryRoutes.DirectApplication.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.DirectApplication));
+                contentItem.BagPart.ContentItems.Add(new DirectRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.DirectApplication));
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.OtherRoutes.Any())
             {
-                //todo: need to look up title from spreadsheet. temp use first string
-                contentItem.BagPart.ContentItems.Add(new OtherRouteContentItem(jobProfile.HowToBecome.EntryRoutes.OtherRoutes.First(), Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
+                contentItem.BagPart.ContentItems.Add(new OtherRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
             }
 
 

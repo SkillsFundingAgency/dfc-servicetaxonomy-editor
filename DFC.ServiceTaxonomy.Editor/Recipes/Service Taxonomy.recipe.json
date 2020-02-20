@@ -368,20 +368,11 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
-                }
-              }
-            },
-            {
               "PartName": "UniversityRoute",
               "Name": "UniversityRoute",
               "Settings": {
                 "ContentTypePartSettings": {
-                  "Position": "1"
+                  "Position": "0"
                 }
               }
             },
@@ -405,20 +396,11 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
-                }
-              }
-            },
-            {
               "PartName": "CollegeRoute",
               "Name": "CollegeRoute",
               "Settings": {
                 "ContentTypePartSettings": {
-                  "Position": "1"
+                  "Position": "0"
                 }
               }
             },
@@ -442,20 +424,11 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
-              "Settings": {
-                "ContentTypePartSettings": {
-                  "Position": "0"
-                }
-              }
-            },
-            {
               "PartName": "ApprenticeshipRoute",
               "Name": "ApprenticeshipRoute",
               "Settings": {
                 "ContentTypePartSettings": {
-                  "Position": "1"
+                  "Position": "0"
                 }
               }
             },
@@ -508,8 +481,8 @@
           },
           "ContentTypePartDefinitionRecords": [
             {
-              "PartName": "TitlePart",
-              "Name": "TitlePart",
+              "PartName": "WorkRoute",
+              "Name": "WorkRoute",
               "Settings": {
                 "ContentTypePartSettings": {
                   "Position": "0"
@@ -517,119 +490,83 @@
               }
             },
             {
-              "PartName": "WorkRoute",
-              "Name": "WorkRoute",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {}
-                        }
-                    ]
-                },
-                {
-                    "Name": "VolunteeringRoute",
-                    "DisplayName": "Volunteering Route",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        }
-                    },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "VolunteeringRoute",
-                            "Name": "VolunteeringRoute",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {}
-                        }
-                    ]
-                },
-                {
-                    "Name": "DirectRoute",
-                    "DisplayName": "Direct Route",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        }
-                    },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "DirectRoute",
-                            "Name": "DirectRoute",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {}
-                        }
-                    ]
-                },
-                {
-                    "Name": "OtherRoute",
-                    "DisplayName": "Other Route",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        }
-                    },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "OtherRoute",
-                            "Name": "OtherRoute",
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {}
+            }
+          ]
+        },
+        {
+          "Name": "VolunteeringRoute",
+          "DisplayName": "Volunteering Route",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "VolunteeringRoute",
+              "Name": "VolunteeringRoute",
               "Settings": {
                 "ContentTypePartSettings": {
-                  "Position": "1"
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {}
+            }
+          ]
+        },
+        {
+          "Name": "DirectRoute",
+          "DisplayName": "Direct Route",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "DirectRoute",
+              "Name": "DirectRoute",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            },
+            {
+              "PartName": "GraphSyncPart",
+              "Name": "GraphSyncPart",
+              "Settings": {}
+            }
+          ]
+        },
+        {
+          "Name": "OtherRoute",
+          "DisplayName": "Other Route",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Draftable": true,
+              "Versionable": true,
+              "Securable": true
+            }
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "OtherRoute",
+              "Name": "OtherRoute",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
                 }
               }
             },
