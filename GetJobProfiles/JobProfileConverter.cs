@@ -204,7 +204,7 @@ namespace GetJobProfiles
                     "checking:",
                     "time:",
                     "involve:",
-                    "you�ll:",
+                    "you’ll:",
                     "you'll",
                     ":using",
                     "usually:",
