@@ -4,6 +4,8 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* job categories are returned by the search api, but not by the get job profile api. we'll still need to import them. we could import them from the spreadsheet (JobCategory->JobProfileCategories)
+* current job profile api search uses word stems : we might have to whitelist array properties, poss convert alt labels to separate nodes. but does fts support word stems anyway?
 * need a LinkField syncer
 * other requirements is in job profile content type as a html field -> think it should be a content picker
 * currently using specific versions of preview OC packages as all latest breaks builds: this will fail when specific versions of packages disappear from myget. will need to switch back to all latest when all latest works again
