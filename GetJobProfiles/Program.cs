@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
+using GetJobProfiles.JsonHelpers;
 using GetJobProfiles.Models.Recipe;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
@@ -139,19 +140,19 @@ namespace GetJobProfiles
 
         private static string SerializeContentItems(IEnumerable<ContentItem> items)
         {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-
             if (!items.Any())
                 return "";
 
             var first = items.First();
 
-            options.PropertyNamingPolicy = new ContentItemJsonNamingPolicy(first.ContentType);
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = new ContentItemJsonNamingPolicy(first.ContentType),
+                Converters = { new PolymorphicWriteOnlyJsonConverter<ContentItem>() }
+            };
 
-            string itemsWithSquareBrackets = JsonSerializer.Serialize(items, items.GetType(), options);
+            string itemsWithSquareBrackets = JsonSerializer.Serialize(items, options);
             return StripSquareBrackets(itemsWithSquareBrackets);
         }
 
