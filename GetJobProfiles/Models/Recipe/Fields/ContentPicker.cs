@@ -12,6 +12,14 @@ namespace GetJobProfiles.Models.Recipe.Fields
 
         public readonly ConcurrentDictionary<string,string> IdLookup = new ConcurrentDictionary<string, string>();
 
+        public ContentPicker CreateContentPicker(string sourceContent)
+        {
+            if (sourceContent == null)
+                return new ContentPicker {ContentItemIds = Enumerable.Empty<string>()};
+
+            return CreateContentPicker(new[] {sourceContent});
+        }
+
         public ContentPicker CreateContentPicker(IEnumerable<string> sourceContent)
         {
             foreach (string content in sourceContent ?? Enumerable.Empty<string>())

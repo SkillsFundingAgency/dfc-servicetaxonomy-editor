@@ -82,6 +82,7 @@ namespace GetJobProfiles
             BatchSerializeToFiles(converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "CollegeLinks");
             BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
             BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "UniversityLinks");
+            BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key,r.Value)), batchSize, "RequirementsPrefixes");
 
             File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
@@ -94,7 +95,7 @@ namespace GetJobProfiles
             foreach (var batchContentItems in batches)
             {
                 //todo: async?
-                var serializedContentItemBatch = SerializeContentItems(batchContentItems);
+                string serializedContentItemBatch = SerializeContentItems(batchContentItems);
                 ImportRecipe.Create($"{OutputBasePath}{filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
             }
         }

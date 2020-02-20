@@ -58,7 +58,7 @@ namespace GetJobProfiles.Models.API
         {
             return !RelevantSubjects.Any()
                    && !FurtherInformation.Any()
-                   && EntryRequirementPreface != null
+                   && EntryRequirementPreface == null
                    && !EntryRequirements.Any()
                    && !AdditionalInformation.Any();
         }

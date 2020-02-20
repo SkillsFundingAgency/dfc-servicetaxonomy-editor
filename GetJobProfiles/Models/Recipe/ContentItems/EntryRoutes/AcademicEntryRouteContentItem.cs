@@ -9,7 +9,6 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
         public ApprenticeshipRouteContentItem CreateApprenticeshipRoute(AcademicEntryRoute entryRoute, string title,
             string timestamp, string contentItemId = null)
         {
-
             var route = new ApprenticeshipRouteContentItem(entryRoute, title, timestamp, contentItemId);
             AddContentPickers(entryRoute, route);
             return route;
@@ -21,7 +20,6 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
         public CollegeRouteContentItem CreateCollegeRoute(AcademicEntryRoute entryRoute, string title,
             string timestamp, string contentItemId = null)
         {
-
             var route = new CollegeRouteContentItem(entryRoute, title, timestamp, contentItemId);
             AddContentPickers(entryRoute, route);
             return route;
@@ -41,20 +39,16 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
 
     public class RouteFactory
     {
-        // public RouteFactory(AcademicEntryRoute entryRoute)
-        // {
-        //
-        // }
-
         protected void AddContentPickers(AcademicEntryRoute entryRoute, AcademicEntryRouteContentItem contentItem)
         {
-            //todo: contenttype should have predetermined string field. thought already done that???
-            //contentItem.RequirementsPrefix = RequirementsPrefixes.CreateContentPicker(entryRoute.EntryRequirementPreface);
+            contentItem.RequirementsPrefix = RequirementsPrefixes.CreateContentPicker(entryRoute.EntryRequirementPreface);
             contentItem.Requirements = Requirements.CreateContentPicker(entryRoute.EntryRequirements);
             contentItem.Links = Links.CreateContentPicker(entryRoute.AdditionalInformation);
         }
 
-        public ContentPickerFactory RequirementsPrefixes { get; set; } = new ContentPickerFactory();
+        // there are some route specific prefixes (e.g. To do this apprenticeship, you'll need:), but generally
+        // there's a small shared set of prefixes, so we don't want route specific sets
+        public static ContentPickerFactory RequirementsPrefixes { get; set; } = new ContentPickerFactory();
         public ContentPickerFactory Requirements { get; set; } = new ContentPickerFactory();
         public ContentPickerFactory Links { get; set; } = new ContentPickerFactory();
     }
