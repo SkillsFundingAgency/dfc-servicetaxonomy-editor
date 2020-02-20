@@ -86,6 +86,9 @@ namespace GetJobProfiles.Models.Recipe
 
         #region What You'll Do
         public ContentPicker DayToDayTasks { get; set; }
+        public ContentPicker WydWorkingEnvironment { get; set; }
+        public ContentPicker WydWorkingLocation { get; set; }
+        public ContentPicker WydWorkingUniform { get; set; }
         #endregion What You'll Do
         public TextField SalaryStarter { get; set; }
         public TextField SalaryExperienced { get; set; }
@@ -177,6 +180,27 @@ namespace GetJobProfiles.Models.Recipe
         }
     }
 
+    public class WorkingEnvironmentContentItem : TitleHtmlDescriptionContentItem
+    {
+        public WorkingEnvironmentContentItem(string title, string timestamp, string description, string contentItemId) : base("WorkingEnvironment", title, timestamp, description, contentItemId)
+        {
+        }
+    }
+
+    public class WorkingLocationContentItem : TitleHtmlDescriptionContentItem
+    {
+        public WorkingLocationContentItem(string title, string timestamp, string description, string contentItemId) : base("WorkingLocation", title, timestamp, description, contentItemId)
+        {
+        }
+    }
+
+    public class WorkingUniformContentItem : TitleHtmlDescriptionContentItem
+    {
+        public WorkingUniformContentItem(string title, string timestamp, string description, string contentItemId) : base("WorkingUniform", title, timestamp, description, contentItemId)
+        {
+        }
+    }
+
     public class OtherRequirementContentItem : TitleHtmlDescriptionContentItem
     {
         public OtherRequirementContentItem(string title, string timestamp, string description, string contentItemId) : base("OtherRequirement", title, timestamp, description, contentItemId)
@@ -260,6 +284,13 @@ namespace GetJobProfiles.Models.Recipe
         public ContentPicker(ConcurrentDictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)
         {
             ContentItemIds = contentItems?.Select(ci => currentContentItems[ci].id) ?? new string[0];
+        }
+
+        public ContentPicker(ConcurrentDictionary<string, (string id, string text)> currentContentItems, string contentItem)
+        {
+            ContentItemIds = string.IsNullOrWhiteSpace(contentItem)
+                ? new string[0]
+                : new string[] { currentContentItems[contentItem].id };
         }
 
         public IEnumerable<string> ContentItemIds { get; set; }
