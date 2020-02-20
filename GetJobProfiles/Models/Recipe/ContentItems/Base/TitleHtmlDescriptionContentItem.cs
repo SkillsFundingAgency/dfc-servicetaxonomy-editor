@@ -34,7 +34,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.Base
         }
 
         public TitlePart TitlePart { get; set; }
-        public TitleHtmlDescriptionPart EponymousPart { get; set; }
+        public virtual TitleHtmlDescriptionPart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
     }
 

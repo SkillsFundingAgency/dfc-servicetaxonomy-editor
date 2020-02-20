@@ -20,7 +20,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
 
         //todo: might need to have an EponymousBagPart to pick up the correct content type name (or somesuch)
         //todo: prob gonna have to add json polymorphic converter too
-        public AcademicEntryRoutePart EponymousPart { get; set; }
+        public virtual AcademicEntryRoutePart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
     }
 
