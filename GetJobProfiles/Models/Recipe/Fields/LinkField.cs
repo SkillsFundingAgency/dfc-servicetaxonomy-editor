@@ -9,8 +9,8 @@ namespace GetJobProfiles.Models.Recipe.Fields
         public LinkField(string sitefinityString)
         {
             var match = _sitefinityLinkRegex.Match(sitefinityString);
-            Url = match.Groups[1].Value.Trim();
-            Text = match.Groups[2].Value.Trim();
+            Url = match.Groups[2].Value.Trim();
+            Text = match.Groups[1].Value.Trim();
         }
 
         public LinkField(string url, string text)

@@ -4,6 +4,7 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* need a LinkField syncer
 * other requirements is in job profile content type as a html field -> think it should be a content picker
 * currently using specific versions of preview OC packages as all latest breaks builds: this will fail when specific versions of packages disappear from myget. will need to switch back to all latest when all latest works again
 * some descriptions like SOCCode show <p></p>, others don't
