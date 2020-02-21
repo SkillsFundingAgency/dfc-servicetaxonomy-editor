@@ -61,27 +61,30 @@ namespace GetJobProfiles
             Timestamp = timestamp;
         }
 
-        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000)
+        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string testProfileTitle = null)
         {
             var summaries = (await _client.Get<JobProfileSummary[]>("summary"))
                 .Where(s => s.Title != null
-                            && s.Title != "Api Test Profile"
-                            && s.Title != "Jas test"
-                            && s.Title != "Ismail Test Profile"
-                            && s.Title != "Auditor Hari Test"
-                            && s.Title != "Blacksmith LJ IC Test"
-                            && s.Title != "Electrical engineering technician -test"
-                            && s.Title != "GP - Karl"
-                            && s.Title != "mktest"
-                            && s.Title != "mktest1"
-                            && s.Title != "Test 2"
-                            && s.Title != "Test jP Hari"
-                            && s.Title != "Vehicle body repairer - Test"
-                            && s.Title != "Wedding planner Testing "
-                            && s.Title != "Welly designer Amended"
-                            && s.Title != "Zookeeper_ilyas1"
-                            && s.Title != "This is my patched breadcrumb title"
-                            && s.Title != "Technical brewer - GSR3");
+                            && (testProfileTitle == null || s.Title == testProfileTitle));
+                // filter dev env crap
+                // .Where(s => s.Title != null
+                //             && s.Title != "Api Test Profile"
+                //             && s.Title != "Jas test"
+                //             && s.Title != "Ismail Test Profile"
+                //             && s.Title != "Auditor Hari Test"
+                //             && s.Title != "Blacksmith LJ IC Test"
+                //             && s.Title != "Electrical engineering technician -test"
+                //             && s.Title != "GP - Karl"
+                //             && s.Title != "mktest"
+                //             && s.Title != "mktest1"
+                //             && s.Title != "Test 2"
+                //             && s.Title != "Test jP Hari"
+                //             && s.Title != "Vehicle body repairer - Test"
+                //             && s.Title != "Wedding planner Testing "
+                //             && s.Title != "Welly designer Amended"
+                //             && s.Title != "Zookeeper_ilyas1"
+                //             && s.Title != "This is my patched breadcrumb title"
+                //             && s.Title != "Technical brewer - GSR3");
 
             if (skip > 0)
                 summaries = summaries.Skip(skip);

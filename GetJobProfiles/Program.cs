@@ -69,6 +69,7 @@ namespace GetJobProfiles
 
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
+            //await converter.Go(skip, take, napTimeMs, "Baker");
 
             var jobProfiles = converter.JobProfiles.ToArray();
 
