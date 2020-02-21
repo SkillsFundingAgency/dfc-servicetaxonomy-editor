@@ -48,6 +48,7 @@ namespace GetJobProfiles
             const int napTimeMs = 5500;
             // max number of contentitems in an import recipe
             const int batchSize = 1000;
+            const int jobProfileBatchSize = 200;
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
@@ -73,7 +74,7 @@ namespace GetJobProfiles
 
             new EscoJobProfileMapper().Map(jobProfiles);
 
-            BatchSerializeToFiles(jobProfiles, batchSize, "JobProfiles");
+            BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
             BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Registrations");
             BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
