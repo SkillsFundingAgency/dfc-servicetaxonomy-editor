@@ -14,7 +14,7 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
 
         public ContentPicker CreateContentPicker(string sourceContent)
         {
-            if (sourceContent == null)
+            if (string.IsNullOrEmpty(sourceContent))
                 return new ContentPicker {ContentItemIds = Enumerable.Empty<string>()};
 
             return CreateContentPicker(new[] {sourceContent});
