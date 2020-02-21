@@ -33,7 +33,7 @@ namespace GetJobProfiles
 {
     static class Program
     {
-        public const string OutputBasePath = @"i:\JobProfiles\";
+        private static string OutputBasePath;
 
         static async Task Main(string[] args)
         {
@@ -52,6 +52,8 @@ namespace GetJobProfiles
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .Build();
+
+            OutputBasePath = config["OutputBasePath"];
 
             var httpClient = new HttpClient
             {
