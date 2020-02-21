@@ -46,7 +46,11 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 
         #region What You'll Do
         public ContentPicker DayToDayTasks { get; set; }
+        public ContentPicker WydWorkingEnvironment { get; set; }
+        public ContentPicker WydWorkingLocation { get; set; }
+        public ContentPicker WydWorkingUniform { get; set; }
         #endregion What You'll Do
+
         public TextField SalaryStarter { get; set; }
         public TextField SalaryExperienced { get; set; }
         public NumericField MinimumHours { get; set; }

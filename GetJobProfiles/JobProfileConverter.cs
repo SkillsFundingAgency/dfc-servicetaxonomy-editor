@@ -22,6 +22,9 @@ namespace GetJobProfiles
         public readonly ContentPickerFactory Registrations = new ContentPickerFactory();
         public readonly ContentPickerFactory Restrictions = new ContentPickerFactory();
         public readonly ContentPickerFactory OtherRequirements = new ContentPickerFactory();
+        public readonly ContentPickerFactory WorkingEnvironments = new ContentPickerFactory();
+        public readonly ContentPickerFactory WorkingLocations = new ContentPickerFactory();
+        public readonly ContentPickerFactory WorkingUniforms = new ContentPickerFactory();
         //todo: convert to factory?
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
@@ -146,7 +149,10 @@ namespace GetJobProfiles
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
                     WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
-                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
+                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression),
+                    WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment),
+                    WydWorkingLocation = WorkingLocations.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location),
+                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform),
                 },
                 BagPart = new BagPart()
             };

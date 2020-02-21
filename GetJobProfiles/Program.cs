@@ -79,6 +79,9 @@ namespace GetJobProfiles
             BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
             BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
+            BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
+            BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
+            BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
             BatchSerializeToFiles(converter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "ApprenticeshipRequirements");
             BatchSerializeToFiles(converter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "ApprenticeshipLinks");
             BatchSerializeToFiles(converter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "CollegeRequirements");
