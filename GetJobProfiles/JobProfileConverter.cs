@@ -123,8 +123,6 @@ namespace GetJobProfiles
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
-            //todo: use spreadsheet for titles
-
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart

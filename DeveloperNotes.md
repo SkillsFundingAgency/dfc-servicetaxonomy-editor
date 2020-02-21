@@ -4,6 +4,7 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* use titles from spreadsheet for imported content items
 * existing api returns LastUpdatedDate. to replicate that we'll have to update the graph sync code to store the contentitems lastmodified date into the graph
   probably need a part to surface the content modified date in the ui and sync it to the db
 * use JobProfileWebsiteUrl as uri
