@@ -159,7 +159,6 @@ namespace GetJobProfiles
 
             if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
             {
-                //todo: don't think academic entry routes require a title. hardcode display text?
                 contentItem.BagPart.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, null, Timestamp));
             }
 
