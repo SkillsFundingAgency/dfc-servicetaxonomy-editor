@@ -26,7 +26,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
     {
         public HtmlField RelevantSubjects { get; set; }
         public HtmlField FurtherInfo { get; set; }
-        public ContentPicker RequirementsPrefix { get; set; }    //todo: just string?
+        public ContentPicker RequirementsPrefix { get; set; }
         public ContentPicker Requirements { get; set; }
         public ContentPicker Links { get; set; }
     }
