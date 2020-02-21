@@ -44,7 +44,7 @@ namespace GetJobProfiles
 
             //use these knobs to work around rate - limiting
             const int skip = 0;
-            const int take = 30;
+            const int take = 0;
             const int napTimeMs = 5500;
             // max number of contentitems in an import recipe
             const int batchSize = 1000;
