@@ -18,7 +18,10 @@ namespace GetJobProfiles
         public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
         public readonly ConcurrentDictionary<string,(string id,string text)> OtherRequirements = new ConcurrentDictionary<string, (string id, string text)>();
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
-
+        public readonly ConcurrentDictionary<string, (string id, string text)> WorkingEnvironments = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string, (string id, string text)> WorkingLocations = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ConcurrentDictionary<string, (string id, string text)> WorkingUniforms = new ConcurrentDictionary<string, (string id, string text)>();
+        
         public string Timestamp { get; set; }
 
         private readonly RestHttpClient.RestHttpClient _client;
@@ -138,6 +141,25 @@ namespace GetJobProfiles
                 }
             }
 
+            var workEnvironment = jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment;
+            var workLocation = jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location;
+            var workUniform = jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform;
+
+            if (!string.IsNullOrWhiteSpace(workEnvironment) && !WorkingEnvironments.TryAdd(workEnvironment, (_idGenerator.GenerateUniqueId(), workEnvironment)))
+            {
+                ColorConsole.WriteLine($"WorkingEnvironment '{workEnvironment}' already saved", ConsoleColor.Magenta);
+            }
+
+            if (!string.IsNullOrWhiteSpace(workLocation) && !WorkingLocations.TryAdd(workLocation, (_idGenerator.GenerateUniqueId(), workLocation)))
+            {
+                ColorConsole.WriteLine($"WorkingLocation '{workLocation}' already saved", ConsoleColor.Magenta);
+            }
+
+            if (!string.IsNullOrWhiteSpace(workUniform) && !WorkingUniforms.TryAdd(workUniform, (_idGenerator.GenerateUniqueId(), workUniform)))
+            {
+                ColorConsole.WriteLine($"WorkingUniform '{workUniform}' already saved", ConsoleColor.Magenta);
+            }
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart
@@ -161,7 +183,11 @@ namespace GetJobProfiles
                     MaximumHours = new NumericField(jobProfile.MaximumHours),
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
-                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
+                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression),
+                    WydWorkingEnvironment = new ContentPicker(WorkingEnvironments, workEnvironment),
+                    WydWorkingLocation = new ContentPicker(WorkingLocations, workLocation),
+                    WydWorkingUniform = new ContentPicker(WorkingUniforms, workUniform)
                 }
             };
 

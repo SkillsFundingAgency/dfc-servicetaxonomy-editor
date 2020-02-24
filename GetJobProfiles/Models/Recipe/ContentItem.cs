@@ -86,6 +86,9 @@ namespace GetJobProfiles.Models.Recipe
 
         #region What You'll Do
         public ContentPicker DayToDayTasks { get; set; }
+        public ContentPicker WydWorkingEnvironment { get; set; }
+        public ContentPicker WydWorkingLocation { get; set; }
+        public ContentPicker WydWorkingUniform { get; set; }
         #endregion What You'll Do
         public TextField SalaryStarter { get; set; }
         public TextField SalaryExperienced { get; set; }
@@ -94,6 +97,7 @@ namespace GetJobProfiles.Models.Recipe
         public TextField WorkingHoursDetails { get; set; }
         public TextField WorkingPattern { get; set; }
         public TextField WorkingPatternDetails { get; set; }
+        public HtmlField CareerPathAndProgression { get; set; }
     }
 
     public class TitleTextDescriptionContentItem : ContentItem
@@ -176,6 +180,27 @@ namespace GetJobProfiles.Models.Recipe
         }
     }
 
+    public class WorkingEnvironmentContentItem : TitleHtmlDescriptionContentItem
+    {
+        public WorkingEnvironmentContentItem(string title, string timestamp, string description, string contentItemId) : base("WorkingEnvironment", title, timestamp, description, contentItemId)
+        {
+        }
+    }
+
+    public class WorkingLocationContentItem : TitleHtmlDescriptionContentItem
+    {
+        public WorkingLocationContentItem(string title, string timestamp, string description, string contentItemId) : base("WorkingLocation", title, timestamp, description, contentItemId)
+        {
+        }
+    }
+
+    public class WorkingUniformContentItem : TitleHtmlDescriptionContentItem
+    {
+        public WorkingUniformContentItem(string title, string timestamp, string description, string contentItemId) : base("WorkingUniform", title, timestamp, description, contentItemId)
+        {
+        }
+    }
+
     public class OtherRequirementContentItem : TitleHtmlDescriptionContentItem
     {
         public OtherRequirementContentItem(string title, string timestamp, string description, string contentItemId) : base("OtherRequirement", title, timestamp, description, contentItemId)
@@ -201,13 +226,14 @@ namespace GetJobProfiles.Models.Recipe
 
     public class HtmlField
     {
-        public HtmlField(string html) => Html = WrapInParagraph(ConvertLinks(html));
+        public HtmlField(string html) => Html = ConvertLists(WrapInParagraph(ConvertLinks(html)));
         //todo: correct array to <p>??
         public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) =>
-            ConvertLinks($"{h}{WrapInParagraph(ConvertLinks(p))}"));
+            ConvertLinks($"{h}{ConvertLists(WrapInParagraph(ConvertLinks(p)))}"));
 
         public string Html { get; set; }
         private static readonly Regex LinkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
+        private static readonly Regex ListRegex = new Regex(@"(?<!https:)(?<!http:)(?<=:)(?!.*:).*;.*?(?=</p>)", RegexOptions.Compiled);
 
         private static string WrapInParagraph(string source)
         {
@@ -218,6 +244,21 @@ namespace GetJobProfiles.Models.Recipe
         {
             const string replacement = "$1<a href=\"$3\">$2</a>$4";
             return LinkRegex.Replace(sitefinityString, replacement);
+        }
+
+        private string ConvertLists(string source)
+        {
+            var match = ListRegex.Match(source);
+
+            if (match.Success)
+            {
+                var listItems = match.Value.Split(";").Select(x => x.Trim().TrimEnd('.')).ToList();
+                var replacement = $"<ul><li>{string.Join("</li><li>", listItems)}</li></ul>";
+
+                return source.Replace(match.Value, replacement);
+            }
+
+            return source;
         }
     }
 
@@ -243,6 +284,13 @@ namespace GetJobProfiles.Models.Recipe
         public ContentPicker(ConcurrentDictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)
         {
             ContentItemIds = contentItems?.Select(ci => currentContentItems[ci].id) ?? new string[0];
+        }
+
+        public ContentPicker(ConcurrentDictionary<string, (string id, string text)> currentContentItems, string contentItem)
+        {
+            ContentItemIds = string.IsNullOrWhiteSpace(contentItem)
+                ? new string[0]
+                : new string[] { currentContentItems[contentItem].id };
         }
 
         public IEnumerable<string> ContentItemIds { get; set; }

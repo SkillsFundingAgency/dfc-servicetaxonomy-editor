@@ -1,4 +1,4 @@
-{
+﻿{
     "name": "ServiceTaxonomyEditor",
     "displayName": "Service Taxonomy Editor",
     "description": "Sets up the Service Taxonomy Editor",
@@ -932,6 +932,135 @@
                             }
                         }
                     ]
+                },
+                {
+                    "Name": "WorkingEnvironment",
+                    "DisplayName": "Working Environment",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "WorkingEnvironment",
+                            "Name": "WorkingEnvironment",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WorkingLocation",
+                    "DisplayName": "Working Location",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "WorkingLocation",
+                            "Name": "WorkingLocation",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WorkingUniform",
+                    "DisplayName": "Working Uniform",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "WorkingUniform",
+                            "Name": "WorkingUniform",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
                 }
             ],
             "ContentParts": [
@@ -1301,12 +1430,60 @@
                             }
                         },
                         {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WydWorkingEnvironment",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "What You'll Do Working Environment",
+                                    "Position": "13"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "DisplayedContentTypes": [
+                                        "WorkingEnvironment"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WydWorkingLocation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "What You'll Do Working Location",
+                                    "Position": "14"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "DisplayedContentTypes": [
+                                        "WorkingLocation"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WydWorkingUniform",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "What You'll Do Working Uniform",
+                                    "Position": "15"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "DisplayedContentTypes": [
+                                        "WorkingUniform"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "TextField",
                             "Name": "SalaryStarter",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary Starter",
-                                    "Position": "13"
+                                    "Position": "16"
                                 }
                             }
                         },
@@ -1316,7 +1493,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary Experienced",
-                                    "Position": "14"
+                                    "Position": "17"
                                 }
                             }
                         },
@@ -1326,8 +1503,12 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Minimum Hours",
-                                    "Position": "15"
-                                }
+                                    "Position": "18"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -1336,8 +1517,12 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Maximum Hours",
-                                    "Position": "16"
-                                }
+                                    "Position": "19"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -1346,7 +1531,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Hours Details",
-                                    "Position": "17"
+                                    "Position": "20"
                                 }
                             }
                         },
@@ -1356,7 +1541,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Pattern",
-                                    "Position": "18"
+                                    "Position": "21"
                                 }
                             }
                         },
@@ -1366,8 +1551,24 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Pattern Details",
-                                    "Position": "19"
+                                    "Position": "22"
                                 }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "CareerPathAndProgression",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Career Path And Progression",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "23"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
                             }
                         }
                     ]
@@ -2023,6 +2224,72 @@
                 },
                 {
                     "Name": "DayToDayTask",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WorkingEnvironment",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WorkingLocation",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WorkingUniform",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {

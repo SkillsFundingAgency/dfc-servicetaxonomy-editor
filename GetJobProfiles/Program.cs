@@ -60,14 +60,17 @@ namespace GetJobProfiles
             BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
             BatchSerializeToFiles(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "OtherRequirements");
             BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
+            BatchSerializeToFiles(converter.WorkingEnvironments.Select(x => new WorkingEnvironmentContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "WorkingEnvironments");
+            BatchSerializeToFiles(converter.WorkingLocations.Select(x => new WorkingLocationContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "WorkingLocations");
+            BatchSerializeToFiles(converter.WorkingUniforms.Select(x => new WorkingUniformContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "WorkingUniforms");
 
-            File.WriteAllText(@"e:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            File.WriteAllText(@"D:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
         private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix)
         where T : ContentItem
         {
-            const string baseFolder = @"e:\";
+            const string baseFolder = @"D:\";
             var batches = contentItems.Batch(batchSize);
             int batchNumber = 0;
             foreach (var batchContentItems in batches)
