@@ -16,12 +16,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
 
-        // private readonly IGraphSyncer _graphSyncer;
         public string? PartName => nameof(BagPart);
 
         public BagPartGraphSyncer(
             IGraphDatabase graphDatabase,
-            IServiceProvider serviceProvider) // todo: circular dependency IGraphSyncer graphSyncer)
+            IServiceProvider serviceProvider)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
