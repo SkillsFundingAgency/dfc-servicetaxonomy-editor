@@ -118,11 +118,34 @@
                             }
                         },
                         {
+                            "PartName": "BagPart",
+                            "Name": "EntryRoutes",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2",
+                                    "DisplayName": "How To Become Entry Routes",
+                                    "Description": "‏‏‎ ‎"
+                                },
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "ApprenticeshipRoute",
+                                        "CollegeRoute",
+                                        "DirectRoute",
+                                        "OtherRoute",
+                                        "UniversityRoute",
+                                        "VolunteeringRoute",
+                                        "WorkRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "PartName": "GraphLookupPart",
                             "Name": "GraphLookupPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "GraphLookupPartSettings": {
                                     "DisplayName": "ESCO Occupation Uri",
@@ -141,33 +164,11 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
-                            }
-                        },
-                        {
-                            "PartName": "BagPart",
-                            "Name": "EntryRoutes",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "DisplayName": "How To Become Entry Routes",
-                                    "Description": "‏‏‎ ‎"
-                                },
-                                "BagPartSettings": {
-                                    "ContainedContentTypes": [
-                                        "ApprenticeshipRoute",
-                                        "CollegeRoute",
-                                        "DirectRoute",
-                                        "OtherRoute",
-                                        "UniversityRoute",
-                                        "VolunteeringRoute",
-                                        "WorkRoute"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
                             }
                         }
                     ]
