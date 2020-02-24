@@ -122,7 +122,7 @@
                             "Name": "EntryRoutes",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2",
+                                    "Position": "7",
                                     "DisplayName": "How To Become Entry Routes",
                                     "Description": "‏‏‎ ‎"
                                 },
@@ -145,7 +145,7 @@
                             "Name": "GraphLookupPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "27"
                                 },
                                 "GraphLookupPartSettings": {
                                     "DisplayName": "ESCO Occupation Uri",
@@ -164,7 +164,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "28"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
@@ -1511,7 +1511,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
                                     "Editor": "Trumbowyg",
-                                    "Position": "0"
+                                    "Position": "2"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -1526,7 +1526,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "1"
+                                    "Position": "3"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasSocCode].",
@@ -1544,7 +1544,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "2"
+                                    "Position": "4"
                                 }
                             }
                         },
@@ -1554,24 +1554,8 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "3"
+                                    "Position": "5"
                                 }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "HtbBodies",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Professional And Industry Bodies",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "4"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -1581,7 +1565,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Title Options",
                                     "Editor": "PredefinedList",
-                                    "Position": "5"
+                                    "Position": "6"
                                 },
                                 "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
@@ -1614,28 +1598,12 @@
                             }
                         },
                         {
-                            "FieldName": "HtmlField",
-                            "Name": "HtbCareerTips",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Career Tips",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "6"
-                                },
-                                "HtmlFieldSettings": {},
-                                "ContentIndexSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "ContentPickerField",
                             "Name": "HtbRegistrations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Registrations",
-                                    "Position": "7"
+                                    "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
@@ -1649,12 +1617,44 @@
                         },
                         {
                             "FieldName": "HtmlField",
+                            "Name": "HtbCareerTips",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Career Tips",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "9"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbBodies",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Professional And Industry Bodies",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "10"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
                             "Name": "HtbFurtherInformation",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "8"
+                                    "Position": "11"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -1669,7 +1669,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What It Takes Restrictions",
-                                    "Position": "9"
+                                    "Position": "12"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasWitRestriction].",
@@ -1687,7 +1687,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What It Takes Other Requirements",
-                                    "Position": "10"
+                                    "Position": "13"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
@@ -1706,7 +1706,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What It Takes Digital Skills Level",
                                     "Editor": "Trumbowyg",
-                                    "Position": "11"
+                                    "Position": "14"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -1721,7 +1721,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Day to Day Tasks",
-                                    "Position": "12"
+                                    "Position": "15"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasDayToDayTask].",
@@ -1739,7 +1739,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Working Environment",
-                                    "Position": "13"
+                                    "Position": "16"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "DisplayedContentTypes": [
@@ -1755,7 +1755,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Working Location",
-                                    "Position": "14"
+                                    "Position": "17"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "DisplayedContentTypes": [
@@ -1771,7 +1771,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Working Uniform",
-                                    "Position": "15"
+                                    "Position": "18"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "DisplayedContentTypes": [
@@ -1787,7 +1787,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary Starter",
-                                    "Position": "16"
+                                    "Position": "19"
                                 }
                             }
                         },
@@ -1797,7 +1797,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary Experienced",
-                                    "Position": "17"
+                                    "Position": "20"
                                 }
                             }
                         },
@@ -1807,7 +1807,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Minimum Hours",
-                                    "Position": "18"
+                                    "Position": "21"
                                 },
                                 "NumericFieldSettings": {
                                     "Scale": 1
@@ -1821,7 +1821,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Maximum Hours",
-                                    "Position": "19"
+                                    "Position": "22"
                                 },
                                 "NumericFieldSettings": {
                                     "Scale": 1
@@ -1835,7 +1835,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Hours Details",
-                                    "Position": "20"
+                                    "Position": "23"
                                 }
                             }
                         },
@@ -1845,7 +1845,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Pattern",
-                                    "Position": "21"
+                                    "Position": "24"
                                 }
                             }
                         },
@@ -1855,7 +1855,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Pattern Details",
-                                    "Position": "22"
+                                    "Position": "25"
                                 }
                             }
                         },
@@ -1866,7 +1866,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Career Path And Progression",
                                     "Editor": "Trumbowyg",
-                                    "Position": "23"
+                                    "Position": "26"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
