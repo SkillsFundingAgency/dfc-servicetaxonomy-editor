@@ -62,6 +62,27 @@ namespace GetJobProfiles.Models.Recipe
         public BagPart BagPart { get; set; }
     }
 
+    public class JobCategoryContentItem : ContentItem
+    {
+        public JobCategoryContentItem(string title, string timestamp)
+            : base("JobCategory", title, timestamp)
+        {
+            TitlePart = new TitlePart(title);
+            GraphSyncPart = new GraphSyncPart("JobCategory");
+            DisplayText = TitlePart.Title;
+        }
+
+        public TitlePart TitlePart { get; set; }
+        public JobCategoryPart EponymousPart { get; set; }
+        public GraphSyncPart GraphSyncPart { get; set; }
+    }
+
+    public class JobCategoryPart
+    {
+        public HtmlField Description { get; set; }
+        public ContentPicker JobProfiles { get; set; }
+    }
+
     public class JobProfilePart
     {
         public HtmlField Description { get; set; }

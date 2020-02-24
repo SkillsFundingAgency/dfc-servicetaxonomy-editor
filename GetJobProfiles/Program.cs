@@ -24,7 +24,7 @@ namespace GetJobProfiles
 
             var socCodeConverter = new SocCodeConverter();
             var socCodeDictionary = socCodeConverter.Go(timestamp);
-
+            
             //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 0;
@@ -54,8 +54,12 @@ namespace GetJobProfiles
 
             new EscoJobProfileMapper().Map(jobProfiles);
 
+            var jobCategoryImporter = new JobCategoryImporter();
+            jobCategoryImporter.Import(timestamp, jobProfiles);
+
             BatchSerializeToFiles(jobProfiles, batchSize, "JobProfiles");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
+            BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
             BatchSerializeToFiles(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Registrations");
             BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
             BatchSerializeToFiles(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "OtherRequirements");
