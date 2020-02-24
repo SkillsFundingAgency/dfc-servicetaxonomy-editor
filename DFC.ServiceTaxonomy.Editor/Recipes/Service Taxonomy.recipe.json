@@ -150,21 +150,21 @@
                         },
                         {
                             "PartName": "BagPart",
-                            "Name": "BagPart",
+                            "Name": "EntryRoutes",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "DisplayName": "Entry Routes",
-                                    "Description": "Provides a collection of entry routes."
+                                    "DisplayName": "How To Become Entry Routes",
+                                    "Description": "‏‏‎ ‎"
                                 },
                                 "BagPartSettings": {
                                     "ContainedContentTypes": [
-                                        "CollegeRoute",
-                                        "UniversityRoute",
                                         "ApprenticeshipRoute",
-                                        "WorkRoute",
-                                        "VolunteeringRoute",
+                                        "CollegeRoute",
                                         "DirectRoute",
-                                        "OtherRoute"
+                                        "OtherRoute",
+                                        "UniversityRoute",
+                                        "VolunteeringRoute",
+                                        "WorkRoute"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
