@@ -4,6 +4,8 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* republishing not doesn't sync due to constraint:
+    Sync to graph failed: An item with the same key has already been added. Key: uri
 * wayne's install crashed with localisation issue, that wen't away when (all) localisation features were enabled.
 ^^ unable to reproduce on mine (with loc features disabled). need to figure out why. probably need to add approp. localisation feature as dependency of our custom modules that use localisation? or add it as an enabled features in the startup recipe
 probably when run under gb culture

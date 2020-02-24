@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
+//using DFC.ServiceTaxonomy.GraphSync.Models;
+//using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
@@ -14,15 +19,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
 
         public string? PartName => nameof(BagPart);
 
         public BagPartGraphSyncer(
             IGraphDatabase graphDatabase,
+            IContentDefinitionManager contentDefinitionManager,
             IServiceProvider serviceProvider)
         {
             _graphDatabase = graphDatabase;
+            _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
         }
 
@@ -36,8 +44,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 var graphSyncer = _serviceProvider.GetRequiredService<IGraphSyncer>();
 
-                IMergeNodeCommand? mergeNodeCommand = await graphSyncer.SyncToGraph(
-                    contentItem!["ContentType"]!.ToString(), contentItem!);
+                string contentType = contentItem!["ContentType"]!.ToString();
+                IMergeNodeCommand? mergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!);
                 // only sync the content type contained in the bag if it has a graph lookup part
                 if (mergeNodeCommand == null)
                     continue;
@@ -60,7 +68,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // also, might want 1 relationships for all content types, i.e. ncs__hasEntryRoute (name in content type also contains how to become)
                 // or 1 relationship per content type, e.g. ncs__hasUniversityRoute
                 // can we add something to the contained content for the relationship?
-                string relationshipType = "ncs__hasBagPart";
+
+                var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
+                string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
+                if (string.IsNullOrEmpty(relationshipType)) //todo: throw or default?
+                    relationshipType = "ncs__hasBagPart";
 
                 //todo: hackalert! destNodeLabel should be a set of labels
                 string destNodeLabel = mergeNodeCommand.NodeLabels.First(l => l != "Resource");
@@ -71,6 +83,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 await _graphDatabase.RunWriteQueries(replaceRelationshipsCommand.Query);
             }
+        }
+
+        private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
+        {
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
+            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
+            return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
     }
 }
