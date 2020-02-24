@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.JsonHelpers
 {
     public class ContentItemJsonNamingPolicy : JsonNamingPolicy
     {
