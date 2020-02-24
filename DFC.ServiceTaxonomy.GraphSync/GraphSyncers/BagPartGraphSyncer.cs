@@ -48,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // will probably have to either: make sure graph sync part is run first
                 // ^^ probably best to dupe idpropertyvalue in the command and ignore from properties collection (special case)
                 // or let part syncers supply int priority/order <- not nice, better if syncers totally independent of each other (low coupling)
+                // ^^ add to graph sync part settings: bag content item relationship
                 //todo: helper on IReplaceRelationshipsCommand for this?
                 //todo: major hackalert!!!
                 replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(new[] {"ncs__JobProfile"});
