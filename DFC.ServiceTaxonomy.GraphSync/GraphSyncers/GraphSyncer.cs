@@ -98,23 +98,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 string partName = partSync.PartName ?? contentType;
 
-                //todo: this will only work for a single named part per content type!
-
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
-                var contentTypePartDefinition =
-                    contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partName);
+                var contentTypePartDefinitions =
+                    contentTypeDefinition.Parts.Where(p => p.PartDefinition.Name == partName);
 
-                if (contentTypePartDefinition == null)
+                if (!contentTypePartDefinitions.Any())
                     continue;
 
-                string namedPartName = contentTypePartDefinition.Name;
+                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
+                {
+                    string namedPartName = contentTypePartDefinition.Name;
 
-                dynamic? partContent = content[namedPartName];
-                if (partContent == null)
-                    continue;    //todo: throw??
+                    dynamic? partContent = content[namedPartName];
+                    if (partContent == null)
+                        continue; //todo: throw??
 
-                await partSync.AddSyncComponents(partContent, _mergeNodeCommand.Properties, _replaceRelationshipsCommand.Relationships, contentTypePartDefinition);
+                    await partSync.AddSyncComponents(partContent, _mergeNodeCommand.Properties,
+                        _replaceRelationshipsCommand.Relationships, contentTypePartDefinition);
+                }
             }
         }
 
