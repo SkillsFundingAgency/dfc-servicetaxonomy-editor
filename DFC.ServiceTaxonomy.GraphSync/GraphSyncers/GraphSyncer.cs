@@ -77,14 +77,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
 
-            await AddContentPartSyncComponents(contentType, content);
+            var partQueries = await AddContentPartSyncComponents(contentType, content);
 
-            await SyncComponentsToGraph(graphSyncPartContent);
+            await SyncComponentsToGraph(graphSyncPartContent, partQueries);
 
             return _mergeNodeCommand;
         }
 
-        private async Task AddContentPartSyncComponents(string contentType, JObject content)
+        private async Task<List<Query>> AddContentPartSyncComponents(string contentType, JObject content)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -93,6 +93,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
 
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
+
+            List<Query> partQueries = new List<Query>();
 
             foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
@@ -114,13 +116,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    await partSync.AddSyncComponents(partContent, _mergeNodeCommand.Properties,
-                        _replaceRelationshipsCommand.Relationships, contentTypePartDefinition);
+                    partQueries.AddRange(await partSync.AddSyncComponents(partContent, _mergeNodeCommand.Properties,
+                        _replaceRelationshipsCommand.Relationships, contentTypePartDefinition));
                 }
             }
+
+            return partQueries;
         }
 
-        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent)
+        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<Query> partQueries)
         {
             List<Query> queries = new List<Query> {_mergeNodeCommand.Query};
 
@@ -133,6 +137,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 queries.Add(_replaceRelationshipsCommand.Query);
             }
+
+            // part queries have to come after the main sync queries
+            queries.AddRange(partQueries);
 
             await _graphDatabase.RunWriteQueries(queries.ToArray());
         }
