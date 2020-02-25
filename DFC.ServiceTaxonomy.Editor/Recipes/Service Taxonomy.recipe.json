@@ -6,14 +6,16 @@
     "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     "version": "1.0",
     "issetuprecipe": true,
-    "categories": [ "default" ],
-    "tags": [ "ncs" ],
-
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
     // The variables are evaluated the first time they are accessed, and reused across steps
     "variables": {
         // "now": "[js: new Date().toISOString()]"
     },
-
     "steps": [
         {
             "name": "feature",
@@ -33,7 +35,6 @@
                 "OrchardCore.Settings",
                 "OrchardCore.Themes",
                 "OrchardCore.Users",
-
                 // Content Management
                 "OrchardCore.Alias",
                 "OrchardCore.Autoroute",
@@ -60,10 +61,8 @@
                 "OrchardCore.Title",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
-
                 // Themes
                 "TheAdmin",
-
                 // Service Taxonomy Editor
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
@@ -119,11 +118,34 @@
                             }
                         },
                         {
+                            "PartName": "BagPart",
+                            "Name": "EntryRoutes",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "7",
+                                    "DisplayName": "How To Become Entry Routes",
+                                    "Description": "‏‏‎ ‎"
+                                },
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "ApprenticeshipRoute",
+                                        "CollegeRoute",
+                                        "DirectRoute",
+                                        "OtherRoute",
+                                        "UniversityRoute",
+                                        "VolunteeringRoute",
+                                        "WorkRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "PartName": "GraphLookupPart",
                             "Name": "GraphLookupPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "27"
                                 },
                                 "GraphLookupPartSettings": {
                                     "DisplayName": "ESCO Occupation Uri",
@@ -142,30 +164,11 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "28"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
-                            }
-                        },
-                        {
-                            "PartName": "BagPart",
-                            "Name": "BagPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "DisplayName": "Entry Routes",
-                                    "Description": "Provides a collection of entry routes."
-                                },
-                                "BagPartSettings": {
-                                    "ContainedContentTypes": [
-                                        "CollegeRoute",
-                                        "UniversityRoute",
-                                        "ApprenticeshipRoute",
-                                        "WorkRoute"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
                             }
                         }
                     ]
@@ -366,8 +369,8 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
+                            "PartName": "UniversityRoute",
+                            "Name": "UniversityRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
@@ -375,18 +378,16 @@
                             }
                         },
                         {
-                            "PartName": "UniversityRoute",
-                            "Name": "UniversityRoute",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {}
                         }
                     ]
                 },
@@ -403,8 +404,8 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
+                            "PartName": "CollegeRoute",
+                            "Name": "CollegeRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
@@ -412,18 +413,16 @@
                             }
                         },
                         {
-                            "PartName": "CollegeRoute",
-                            "Name": "CollegeRoute",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {}
                         }
                     ]
                 },
@@ -440,8 +439,8 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
+                            "PartName": "ApprenticeshipRoute",
+                            "Name": "ApprenticeshipRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
@@ -449,18 +448,16 @@
                             }
                         },
                         {
-                            "PartName": "ApprenticeshipRoute",
-                            "Name": "ApprenticeshipRoute",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {}
                         }
                     ]
                 },
@@ -478,19 +475,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "FurtherInfo",
-                            "Name": "FurtherInfo",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "FurtherInfo",
+                            "Name": "FurtherInfo",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -506,8 +518,8 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
+                            "PartName": "WorkRoute",
+                            "Name": "WorkRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
@@ -515,18 +527,118 @@
                             }
                         },
                         {
-                            "PartName": "WorkRoute",
-                            "Name": "WorkRoute",
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "VolunteeringRoute",
+                    "DisplayName": "Volunteering Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "VolunteeringRoute",
+                            "Name": "VolunteeringRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
                                 }
                             }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "DirectRoute",
+                    "DisplayName": "Direct Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "DirectRoute",
+                            "Name": "DirectRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "OtherRoute",
+                    "DisplayName": "Other Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        }
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "OtherRoute",
+                            "Name": "OtherRoute",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -544,19 +656,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "Restriction",
-                            "Name": "Restriction",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Restriction",
+                            "Name": "Restriction",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -574,19 +701,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "Registration",
-                            "Name": "Registration",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Registration",
+                            "Name": "Registration",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -604,19 +746,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "Restriction",
-                            "Name": "Restriction",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Restriction",
+                            "Name": "Restriction",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -634,19 +791,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "OtherRequirement",
-                            "Name": "OtherRequirement",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "OtherRequirement",
+                            "Name": "OtherRequirement",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -664,19 +836,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "RequirementsPrefix",
-                            "Name": "RequirementsPrefix",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "RequirementsPrefix",
+                            "Name": "RequirementsPrefix",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -694,19 +881,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "UniversityRequirement",
-                            "Name": "UniversityRequirement",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UniversityRequirement",
+                            "Name": "UniversityRequirement",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -724,19 +926,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "CollegeRequirement",
-                            "Name": "CollegeRequirement",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "CollegeRequirement",
+                            "Name": "CollegeRequirement",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -754,19 +971,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "ApprenticeshipRequirement",
-                            "Name": "ApprenticeshipRequirement",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ApprenticeshipRequirement",
+                            "Name": "ApprenticeshipRequirement",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -784,19 +1016,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "UniversityLink",
-                            "Name": "UniversityLink",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "UniversityLink",
+                            "Name": "UniversityLink",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -814,19 +1061,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "CollegeLink",
-                            "Name": "CollegeLink",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "CollegeLink",
+                            "Name": "CollegeLink",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -844,19 +1106,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "ApprenticeshipLink",
-                            "Name": "ApprenticeshipLink",
-                            "Settings": {}
-                        },
-                        {
                             "PartName": "TitlePart",
                             "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "ApprenticeshipLink",
+                            "Name": "ApprenticeshipLink",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -874,19 +1151,34 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
                             "PartName": "SOCCode",
                             "Name": "SOCCode",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
                         },
                         {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
-                            "Settings": {}
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {}
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
                         }
                     ]
                 },
@@ -905,6 +1197,15 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
                             "PartName": "DayToDayTask",
                             "Name": "DayToDayTask",
                             "Settings": {
@@ -919,15 +1220,9 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -971,6 +1266,9 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -1014,6 +1312,9 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -1057,6 +1358,9 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
                                 }
                             }
                         }
@@ -1207,7 +1511,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
                                     "Editor": "Trumbowyg",
-                                    "Position": "0"
+                                    "Position": "2"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -1222,7 +1526,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "1"
+                                    "Position": "3"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasSocCode].",
@@ -1240,7 +1544,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "2"
+                                    "Position": "4"
                                 }
                             }
                         },
@@ -1250,24 +1554,8 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "3"
+                                    "Position": "5"
                                 }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "HtbBodies",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Professional And Industry Bodies",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "4"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -1277,7 +1565,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Title Options",
                                     "Editor": "PredefinedList",
-                                    "Position": "5"
+                                    "Position": "6"
                                 },
                                 "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
@@ -1310,28 +1598,12 @@
                             }
                         },
                         {
-                            "FieldName": "HtmlField",
-                            "Name": "HtbCareerTips",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Career Tips",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "6"
-                                },
-                                "HtmlFieldSettings": {},
-                                "ContentIndexSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "ContentPickerField",
                             "Name": "HtbRegistrations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Registrations",
-                                    "Position": "7"
+                                    "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
@@ -1345,12 +1617,44 @@
                         },
                         {
                             "FieldName": "HtmlField",
+                            "Name": "HtbCareerTips",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Career Tips",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "9"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbBodies",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How To Become Professional And Industry Bodies",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "10"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
                             "Name": "HtbFurtherInformation",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "8"
+                                    "Position": "11"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -1365,7 +1669,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What It Takes Restrictions",
-                                    "Position": "9"
+                                    "Position": "12"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasWitRestriction].",
@@ -1383,7 +1687,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What It Takes Other Requirements",
-                                    "Position": "10"
+                                    "Position": "13"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
@@ -1402,7 +1706,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What It Takes Digital Skills Level",
                                     "Editor": "Trumbowyg",
-                                    "Position": "11"
+                                    "Position": "14"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -1417,7 +1721,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Day to Day Tasks",
-                                    "Position": "12"
+                                    "Position": "15"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__hasDayToDayTask].",
@@ -1435,7 +1739,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Working Environment",
-                                    "Position": "13"
+                                    "Position": "16"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "DisplayedContentTypes": [
@@ -1451,7 +1755,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Working Location",
-                                    "Position": "14"
+                                    "Position": "17"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "DisplayedContentTypes": [
@@ -1467,7 +1771,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "What You'll Do Working Uniform",
-                                    "Position": "15"
+                                    "Position": "18"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "DisplayedContentTypes": [
@@ -1483,7 +1787,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary Starter",
-                                    "Position": "16"
+                                    "Position": "19"
                                 }
                             }
                         },
@@ -1493,7 +1797,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Salary Experienced",
-                                    "Position": "17"
+                                    "Position": "20"
                                 }
                             }
                         },
@@ -1503,7 +1807,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Minimum Hours",
-                                    "Position": "18"
+                                    "Position": "21"
                                 },
                                 "NumericFieldSettings": {
                                     "Scale": 1
@@ -1517,7 +1821,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Maximum Hours",
-                                    "Position": "19"
+                                    "Position": "22"
                                 },
                                 "NumericFieldSettings": {
                                     "Scale": 1
@@ -1531,7 +1835,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Hours Details",
-                                    "Position": "20"
+                                    "Position": "23"
                                 }
                             }
                         },
@@ -1541,7 +1845,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Pattern",
-                                    "Position": "21"
+                                    "Position": "24"
                                 }
                             }
                         },
@@ -1551,7 +1855,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Working Pattern Details",
-                                    "Position": "22"
+                                    "Position": "25"
                                 }
                             }
                         },
@@ -1562,7 +1866,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Career Path And Progression",
                                     "Editor": "Trumbowyg",
-                                    "Position": "23"
+                                    "Position": "26"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -2203,6 +2507,69 @@
                 },
                 {
                     "Name": "WorkRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "VolunteeringRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "DirectRoute",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "OtherRoute",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
