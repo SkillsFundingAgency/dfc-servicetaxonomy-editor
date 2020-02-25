@@ -38,10 +38,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             long destNodeId = await MergeNode(destNodeLabel, destIdPropertyName,
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
-            // //todo: is readonly enough, or should we clone? probably need to clone
-            // var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-            //     new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
-
             // act
             var command = new ReplaceRelationshipsCommand
             {
@@ -85,7 +81,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string relationshipType = "relationshipType";
             const string relationshipVariable = "r";
 
-            //todo: needs to return id
             // create source node to create relationship from
             long sourceNodeId = await MergeNode(sourceNodeLabel, sourceIdPropertyName,
                 new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
@@ -99,10 +94,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
             // create pre-existing relationships
-            // //todo: don't use cut for arrangement
-            // var preExistingRelationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-            //     new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
-
             var preexistingQuery = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
@@ -113,10 +104,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(preexistingQuery);
-
-            // //todo: is readonly enough, or should we clone? probably need to clone
-            // var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-            //     new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
 
             // act
             //todo: change dest node?
@@ -167,10 +154,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             await MergeNode(destNodeLabel, destIdPropertyName,
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
-            // //todo: is readonly enough, or should we clone? probably need to clone
-            // var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-            //     new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new string[0] }});
-
             // act
             var query = new ReplaceRelationshipsCommand
             {
@@ -204,7 +187,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string relationshipType = "relationshipType";
             const string relationshipVariable = "r";
 
-            //todo: needs to return id
             // create source node to create relationship from
             await MergeNode(sourceNodeLabel, sourceIdPropertyName,
                 new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
@@ -218,10 +200,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
             // create pre-existing relationships
-            //todo: don't use cut for arrangement
-            // var preExistingRelationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-            //     new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
-
             var preexistingQuery = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
@@ -232,10 +210,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(preexistingQuery);
-
-            // //todo: is readonly enough, or should we clone? probably need to clone
-            // var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-            //     new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new string[0] }});
 
             // act
             var query = new ReplaceRelationshipsCommand
@@ -282,11 +256,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // create second destination node to create relationship to
             long destNodeId2 = await MergeNode(destNodeLabel, destIdPropertyName,
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue2}});
-
-            // //todo: is readonly enough, or should we clone? probably need to clone
-            // var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-            //     new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType),
-            //         new[] {destIdPropertyValue1, destIdPropertyValue2}}});
 
             // act
             var query = new ReplaceRelationshipsCommand

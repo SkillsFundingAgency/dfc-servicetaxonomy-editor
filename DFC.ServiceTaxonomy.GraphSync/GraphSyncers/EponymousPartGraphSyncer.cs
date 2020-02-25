@@ -79,7 +79,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         //todo: interface for fields?
         private async Task AddContentPickerFieldSyncComponents(
-            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             JProperty fieldTypeAndValue,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -113,7 +112,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var destIds = await Task.WhenAll(fieldTypeAndValue.Value.Select(async relatedContentId =>
                 GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest))));
 
-            //relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destIds);
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 new[] {destNodeLabel},
