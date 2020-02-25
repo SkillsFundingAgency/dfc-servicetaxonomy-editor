@@ -16,7 +16,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         //source properties belong in here really, unless rename class
 
-        public Relationship(string relationshipType, IDictionary<string, object>? properties, IEnumerable<string> destinationNodeLabels, string destinationNodeIdPropertyName, IEnumerable<string> destinationNodeIdPropertyValues)
+        public Relationship(string relationshipType, IDictionary<string, object>? properties,
+            IEnumerable<string> destinationNodeLabels, string destinationNodeIdPropertyName,
+            IEnumerable<string> destinationNodeIdPropertyValues)
         {
             RelationshipType = relationshipType;
             Properties = properties;
@@ -25,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             DestinationNodeIdPropertyValues = destinationNodeIdPropertyValues;
         }
 
-        public string RelationshipType { get; }    // RelationshipType, not type to differentiate from System.Type
+        public string RelationshipType { get; } // RelationshipType, not type to differentiate from System.Type
 
         public IDictionary<string, object>? Properties { get; }
 
@@ -42,8 +44,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
         public string? SourceIdPropertyValue { get; set; }
-        // public IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType), IEnumerable<string>> Relationships {  get; set; }
-        //     = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
         public IEnumerable<Relationship> Relationships
         {
@@ -52,9 +52,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
 
-        public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels, string destIdPropertyName, params string[] destIdPropertyValues)
+        public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
+            string destIdPropertyName, params string[] destIdPropertyValues)
         {
-            RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName, destIdPropertyValues));
+            RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
+                destIdPropertyValues));
         }
 
         private Query CreateQuery()
@@ -74,14 +76,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             //todo: bi-directional relationships
             //todo: rewrite for elegance/perf. selectmany?
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-            var nodeMatchBuilder = new StringBuilder($"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+            var nodeMatchBuilder =
+                new StringBuilder(
+                    $"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
             var existingRelationshipsMatchBuilder = new StringBuilder();
             var mergeBuilder = new StringBuilder();
             var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue}};
             int ordinal = 0;
             //todo: better name relationship=> relationships, relationships=>?
 
-            var distinctRelationshipTypeToDestNode = new HashSet<(string type,string labels)>();
+            var distinctRelationshipTypeToDestNode = new HashSet<(string type, string labels)>();
 
             foreach (var relationship in RelationshipsList)
             {
@@ -95,7 +99,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     string destNodeVariable = $"d{++ordinal}";
                     string destIdPropertyValueParamName = $"{destNodeVariable}Value";
 
-                    nodeMatchBuilder.Append($"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
+                    nodeMatchBuilder.Append(
+                        $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
                     parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
 
                     mergeBuilder.Append($"\r\nmerge (s)-[:{relationship.RelationshipType}]->({destNodeVariable})");
@@ -105,12 +110,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             ordinal = 0;
             foreach (var relationshipTypeToDestNode in distinctRelationshipTypeToDestNode)
             {
-                existingRelationshipsMatchBuilder.Append($"\r\noptional match (s)-[r{++ordinal}:{relationshipTypeToDestNode.type}]->(:{relationshipTypeToDestNode.labels})");
+                existingRelationshipsMatchBuilder.Append(
+                    $"\r\noptional match (s)-[r{++ordinal}:{relationshipTypeToDestNode.type}]->(:{relationshipTypeToDestNode.labels})");
             }
 
-            string existingRelationshipVariablesString = string.Join(',',Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
+            string existingRelationshipVariablesString =
+                string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
 
-            return new Query($"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s", parameters);
+            return new Query(
+                $"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s",
+                parameters);
         }
 
         public Query Query => CreateQuery();

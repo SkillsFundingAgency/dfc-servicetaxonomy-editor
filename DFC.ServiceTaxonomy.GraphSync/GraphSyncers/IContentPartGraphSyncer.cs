@@ -13,8 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: new type(s) for relationships
         Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
-            IDictionary<string, object> nodeProperties,
-            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition);
     }

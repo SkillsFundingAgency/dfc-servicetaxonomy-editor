@@ -14,12 +14,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
-            IDictionary<string, object> nodeProperties,
-            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            nodeProperties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
+            mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
 
             return Task.FromResult(Enumerable.Empty<Query>());
         }

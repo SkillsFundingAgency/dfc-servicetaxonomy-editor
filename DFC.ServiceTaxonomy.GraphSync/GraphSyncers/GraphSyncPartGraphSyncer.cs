@@ -21,11 +21,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphSyncContent,
-            IDictionary<string, object> nodeProperties,
+            IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            nodeProperties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
+            mergeNodeCommand.Properties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
 
             return Task.FromResult(Enumerable.Empty<Query>());
         }

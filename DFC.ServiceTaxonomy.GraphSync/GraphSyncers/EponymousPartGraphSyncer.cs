@@ -36,8 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<IEnumerable<Query>> AddSyncComponents(
             dynamic content,
-            IDictionary<string, object> nodeProperties,
-            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
@@ -61,14 +60,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                     case "Text":
                     case "Html":
-                        nodeProperties.Add(NcsPrefix + field.Name, fieldTypeAndValue.Value.ToString());
+                        mergeNodeCommand.Properties.Add(NcsPrefix + field.Name, fieldTypeAndValue.Value.ToString());
                         break;
                     case "Value":
                         // orchard always converts entered value to real 2.0 (float)
                         // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real?
 
                         if (fieldTypeAndValue.Value.Type == JTokenType.Float)
-                            nodeProperties.Add(NcsPrefix + field.Name, (decimal?) fieldTypeAndValue.Value.ToObject(typeof(decimal)));
+                            mergeNodeCommand.Properties.Add(NcsPrefix + field.Name, (decimal?) fieldTypeAndValue.Value.ToObject(typeof(decimal)));
                         break;
                     case "ContentItemIds":
                         await AddContentPickerFieldSyncComponents(replaceRelationshipsCommand, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);

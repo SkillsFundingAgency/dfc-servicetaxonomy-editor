@@ -37,8 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
-            IDictionary<string, object> nodeProperties,
-            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
@@ -51,9 +50,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string contentType = contentItem!["ContentType"]!.ToString();
                 //todo: if we want to support nested bags, would have to return queries also
                 //document nested bags in xmldoc
-                IMergeNodeCommand? mergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!);
+                IMergeNodeCommand? containedContentMergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!);
                 // only sync the content type contained in the bag if it has a graph lookup part
-                if (mergeNodeCommand == null)
+                if (containedContentMergeNodeCommand == null)
                     continue;
 
                 var delayedReplaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
@@ -63,29 +62,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // ^^ probably best to dupe idpropertyvalue in the command and ignore from properties collection (special case)
                 // or let part syncers supply int priority/order <- not nice, better if syncers totally independent of each other (low coupling)
                 // ^^ add to graph sync part settings: bag content item relationship
-                //todo: helper on IReplaceRelationshipsCommand for this?
                 //todo: won't work for nested bags?
+                //todo: pick out of create node command?
                 delayedReplaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(
                     new[] {NcsPrefix + contentTypePartDefinition.ContentTypeDefinition.Name});
                 //todo: get from correct graph sync settings
                 delayedReplaceRelationshipsCommand.SourceIdPropertyName = _graphSyncPartIdProperty.Name;
-                delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)nodeProperties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
+                delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
                 var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
                 string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                 if (string.IsNullOrEmpty(relationshipType))
                     relationshipType = "ncs__hasBagPart";
 
-                //todo: hackalert! destNodeLabel should be a set of labels
-                //string destNodeLabel = mergeNodeCommand.NodeLabels.First(l => l != "Resource");
                 //todo: more thought to null handling
-                //replaceRelationshipsCommand.Relationships.Add((destNodeLabel, mergeNodeCommand.IdPropertyName!, relationshipType),
                 //todo: the types should match. string[] to object[]?
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
-                    mergeNodeCommand.NodeLabels,
-                    mergeNodeCommand.IdPropertyName!,
-                    (string)mergeNodeCommand.Properties[mergeNodeCommand.IdPropertyName!]);
+                    containedContentMergeNodeCommand.NodeLabels,
+                    containedContentMergeNodeCommand.IdPropertyName!,
+                    (string)containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
 
                 queries.Add(delayedReplaceRelationshipsCommand.Query);
             }

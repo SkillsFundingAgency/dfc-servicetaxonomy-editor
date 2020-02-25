@@ -18,8 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
         public Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
-            IDictionary<string, object> nodeProperties,
-            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
@@ -31,15 +30,12 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                nodeProperties.Add(settings.PropertyName, GetId(nodes.First()));
+                mergeNodeCommand.Properties.Add(settings.PropertyName, GetId(nodes.First()));
             }
 
             if (settings.RelationshipType != null)
             {
                 //todo: settings should contains destnodelabels
-                // nodeRelationships.Add(
-                //     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
-                //         relationshipType: settings.RelationshipType!), nodes.Select(GetId));
                 replaceRelationshipsCommand.AddRelationshipsTo(
                     settings.RelationshipType!,
                     new[] {settings.NodeLabel!},
