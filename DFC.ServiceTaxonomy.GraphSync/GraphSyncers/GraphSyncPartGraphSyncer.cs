@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using Neo4j.Driver;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -16,14 +18,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public string? PartName => nameof(GraphSyncPart);
 
-        public Task AddSyncComponents(
+        public Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphSyncContent,
             IDictionary<string, object> nodeProperties,
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition)
         {
             nodeProperties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
-            return Task.CompletedTask;
+
+            return Task.FromResult(Enumerable.Empty<Query>());
         }
     }
 }

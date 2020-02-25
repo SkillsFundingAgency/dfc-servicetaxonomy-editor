@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
-//using DFC.ServiceTaxonomy.GraphSync.Models;
-//using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -21,7 +19,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: have as setting (add prefix to namespace settings?)
         private const string NcsPrefix = "ncs__";
 
-        private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IServiceProvider _serviceProvider;
@@ -29,28 +26,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public string? PartName => nameof(BagPart);
 
         public BagPartGraphSyncer(
-            IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IServiceProvider serviceProvider)
         {
-            _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
             _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _serviceProvider = serviceProvider;
         }
 
-        public async Task AddSyncComponents(
+        public async Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
             IDictionary<string, object> nodeProperties,
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition)
         {
+            var queries = new List<Query>();
+
             foreach (JObject? contentItem in graphLookupContent.ContentItems)
             {
                 var graphSyncer = _serviceProvider.GetRequiredService<IGraphSyncer>();
 
                 string contentType = contentItem!["ContentType"]!.ToString();
+                //todo: if we want to support nested bags, would have to return queries also
+                //document nested bags in xmldoc
                 IMergeNodeCommand? mergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!);
                 // only sync the content type contained in the bag if it has a graph lookup part
                 if (mergeNodeCommand == null)
@@ -82,8 +81,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     //todo: the types should match. string[] to object[]?
                     new[] {(string)mergeNodeCommand.Properties[mergeNodeCommand.IdPropertyName!]});
 
-                await _graphDatabase.RunWriteQueries(replaceRelationshipsCommand.Query);
+                //await _graphDatabase.RunWriteQueries(replaceRelationshipsCommand.Query);
+                queries.Add(replaceRelationshipsCommand.Query);
+
+                //todo: won;t the root not be created until after trying to create relationship to it??
             }
+
+            return queries;
         }
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)

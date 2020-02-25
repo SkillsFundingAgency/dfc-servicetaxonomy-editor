@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
-        public Task AddSyncComponents(
+        public Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
             IDictionary<string, object> nodeProperties,
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
-                return Task.CompletedTask;
+                return Task.FromResult(Enumerable.Empty<Query>());
 
             if (settings.PropertyName != null)
             {
@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                         relationshipType: settings.RelationshipType!), nodes.Select(GetId));
             }
 
-            return Task.CompletedTask;
+            return Task.FromResult(Enumerable.Empty<Query>());
         }
 
         private string GetId(JToken jToken)

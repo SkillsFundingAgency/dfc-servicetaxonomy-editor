@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -32,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         /// </summary>
         public string? PartName => null;
 
-        public async Task AddSyncComponents(dynamic content, IDictionary<string, object> nodeProperties,
+        public async Task<IEnumerable<Query>> AddSyncComponents(dynamic content, IDictionary<string, object> nodeProperties,
             IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
             ContentTypePartDefinition contentTypePartDefinition)
         {
@@ -70,6 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         break;
                 }
             }
+            return Enumerable.Empty<Query>();
         }
 
         //todo: interface for fields?
