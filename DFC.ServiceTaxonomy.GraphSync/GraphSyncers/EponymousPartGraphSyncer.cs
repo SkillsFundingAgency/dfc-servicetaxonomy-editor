@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -33,8 +34,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         /// </summary>
         public string? PartName => null;
 
-        public async Task<IEnumerable<Query>> AddSyncComponents(dynamic content, IDictionary<string, object> nodeProperties,
-            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+        public async Task<IEnumerable<Query>> AddSyncComponents(
+            dynamic content,
+            IDictionary<string, object> nodeProperties,
+            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
             foreach (dynamic? field in content)
@@ -67,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                             nodeProperties.Add(NcsPrefix + field.Name, (decimal?) fieldTypeAndValue.Value.ToObject(typeof(decimal)));
                         break;
                     case "ContentItemIds":
-                        await AddContentPickerFieldSyncComponents(nodeRelationships, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
+                        await AddContentPickerFieldSyncComponents(replaceRelationshipsCommand, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
                         break;
                 }
             }
@@ -76,7 +80,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         //todo: interface for fields?
         private async Task AddContentPickerFieldSyncComponents(
-            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships,
+            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
             JProperty fieldTypeAndValue,
             ContentTypePartDefinition contentTypePartDefinition,
             string contentPickerFieldName)
@@ -109,7 +114,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var destIds = await Task.WhenAll(fieldTypeAndValue.Value.Select(async relatedContentId =>
                 GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest))));
 
-            relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destIds);
+            //relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destIds);
+            replaceRelationshipsCommand.AddRelationshipsTo(
+                relationshipType,
+                new[] {destNodeLabel},
+                _graphSyncPartIdProperty.Name,
+                destIds);
         }
 
         private string GetSyncId(ContentItem pickedContentItem)

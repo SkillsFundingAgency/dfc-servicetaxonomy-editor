@@ -38,7 +38,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public async Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
             IDictionary<string, object> nodeProperties,
-            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
             var queries = new List<Query>();
@@ -55,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (mergeNodeCommand == null)
                     continue;
 
-                var replaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
+                var delayedReplaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
                 //todo: instead of passing nodeProperties (and nodeRelationships) pass the node (& relationship) command
                 // can then pick these out of the node command
                 // will probably have to either: make sure graph sync part is run first
@@ -64,10 +65,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // ^^ add to graph sync part settings: bag content item relationship
                 //todo: helper on IReplaceRelationshipsCommand for this?
                 //todo: won't work for nested bags?
-                replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(new[] {NcsPrefix + contentTypePartDefinition.ContentTypeDefinition.Name});
+                delayedReplaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(
+                    new[] {NcsPrefix + contentTypePartDefinition.ContentTypeDefinition.Name});
                 //todo: get from correct graph sync settings
-                replaceRelationshipsCommand.SourceIdPropertyName = _graphSyncPartIdProperty.Name;
-                replaceRelationshipsCommand.SourceIdPropertyValue = (string?)nodeProperties[replaceRelationshipsCommand.SourceIdPropertyName];
+                delayedReplaceRelationshipsCommand.SourceIdPropertyName = _graphSyncPartIdProperty.Name;
+                delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)nodeProperties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
                 var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
                 string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
@@ -75,16 +77,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     relationshipType = "ncs__hasBagPart";
 
                 //todo: hackalert! destNodeLabel should be a set of labels
-                string destNodeLabel = mergeNodeCommand.NodeLabels.First(l => l != "Resource");
+                //string destNodeLabel = mergeNodeCommand.NodeLabels.First(l => l != "Resource");
                 //todo: more thought to null handling
-                replaceRelationshipsCommand.Relationships.Add((destNodeLabel, mergeNodeCommand.IdPropertyName!, relationshipType),
-                    //todo: the types should match. string[] to object[]?
-                    new[] {(string)mergeNodeCommand.Properties[mergeNodeCommand.IdPropertyName!]});
+                //replaceRelationshipsCommand.Relationships.Add((destNodeLabel, mergeNodeCommand.IdPropertyName!, relationshipType),
+                //todo: the types should match. string[] to object[]?
+                delayedReplaceRelationshipsCommand.AddRelationshipsTo(
+                    relationshipType,
+                    mergeNodeCommand.NodeLabels,
+                    mergeNodeCommand.IdPropertyName!,
+                    (string)mergeNodeCommand.Properties[mergeNodeCommand.IdPropertyName!]);
 
-                //await _graphDatabase.RunWriteQueries(replaceRelationshipsCommand.Query);
-                queries.Add(replaceRelationshipsCommand.Query);
-
-                //todo: won;t the root not be created until after trying to create relationship to it??
+                queries.Add(delayedReplaceRelationshipsCommand.Query);
             }
 
             return queries;

@@ -117,7 +117,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         continue; //todo: throw??
 
                     partQueries.AddRange(await partSync.AddSyncComponents(partContent, _mergeNodeCommand.Properties,
-                        _replaceRelationshipsCommand.Relationships, contentTypePartDefinition));
+                        _replaceRelationshipsCommand, contentTypePartDefinition));
                 }
             }
 

@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -18,7 +19,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         public Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
             IDictionary<string, object> nodeProperties,
-            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            //IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
@@ -34,9 +36,15 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.RelationshipType != null)
             {
-                nodeRelationships.Add(
-                    (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
-                        relationshipType: settings.RelationshipType!), nodes.Select(GetId));
+                //todo: settings should contains destnodelabels
+                // nodeRelationships.Add(
+                //     (destNodeLabel: settings.NodeLabel!, destIdPropertyName: settings.ValueFieldName!,
+                //         relationshipType: settings.RelationshipType!), nodes.Select(GetId));
+                replaceRelationshipsCommand.AddRelationshipsTo(
+                    settings.RelationshipType!,
+                    new[] {settings.NodeLabel!},
+                    settings.ValueFieldName!,
+                    nodes.Select(GetId).ToArray());
             }
 
             return Task.FromResult(Enumerable.Empty<Query>());
