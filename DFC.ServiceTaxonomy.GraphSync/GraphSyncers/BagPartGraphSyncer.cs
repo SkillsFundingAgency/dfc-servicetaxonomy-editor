@@ -63,12 +63,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 replaceRelationshipsCommand.SourceIdPropertyName = "uri";
                 replaceRelationshipsCommand.SourceIdPropertyValue = (string?)nodeProperties[replaceRelationshipsCommand.SourceIdPropertyName];
 
-                //todo: hackalert! pick relationshiptype from hint
-                // no hint for bag (or named bag parts)
-                // also, might want 1 relationships for all content types, i.e. ncs__hasEntryRoute (name in content type also contains how to become)
-                // or 1 relationship per content type, e.g. ncs__hasUniversityRoute
-                // can we add something to the contained content for the relationship?
-
                 var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
                 string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                 if (string.IsNullOrEmpty(relationshipType)) //todo: throw or default?
