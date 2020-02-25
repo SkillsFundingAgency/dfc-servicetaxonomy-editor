@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -16,22 +17,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
-        //todo: have as setting (add prefix to namespace settings?)
-        private const string NcsPrefix = "ncs__";
-
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IServiceProvider _serviceProvider;
 
         public string? PartName => nameof(BagPart);
 
-        public BagPartGraphSyncer(
-            IContentDefinitionManager contentDefinitionManager,
-            IGraphSyncPartIdProperty graphSyncPartIdProperty,
-            IServiceProvider serviceProvider)
+        public BagPartGraphSyncer(IContentDefinitionManager contentDefinitionManager, IServiceProvider serviceProvider)
         {
             _contentDefinitionManager = contentDefinitionManager;
-            _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _serviceProvider = serviceProvider;
         }
 
@@ -49,25 +42,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 string contentType = contentItem!["ContentType"]!.ToString();
                 //todo: if we want to support nested bags, would have to return queries also
-                //document nested bags in xmldoc
                 IMergeNodeCommand? containedContentMergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!);
                 // only sync the content type contained in the bag if it has a graph lookup part
                 if (containedContentMergeNodeCommand == null)
                     continue;
 
                 var delayedReplaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
-                //todo: instead of passing nodeProperties (and nodeRelationships) pass the node (& relationship) command
-                // can then pick these out of the node command
-                // will probably have to either: make sure graph sync part is run first
-                // ^^ probably best to dupe idpropertyvalue in the command and ignore from properties collection (special case)
-                // or let part syncers supply int priority/order <- not nice, better if syncers totally independent of each other (low coupling)
-                // ^^ add to graph sync part settings: bag content item relationship
-                //todo: won't work for nested bags?
-                //todo: pick out of create node command?
-                delayedReplaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(
-                    new[] {NcsPrefix + contentTypePartDefinition.ContentTypeDefinition.Name});
-                //todo: get from correct graph sync settings
-                delayedReplaceRelationshipsCommand.SourceIdPropertyName = _graphSyncPartIdProperty.Name;
+                delayedReplaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(mergeNodeCommand.NodeLabels);
+
+                if (mergeNodeCommand.IdPropertyName == null)
+                    throw new GraphSyncException($"Supplied merge node command has null {nameof(mergeNodeCommand.IdPropertyName)}");
+                delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
                 delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
                 var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
