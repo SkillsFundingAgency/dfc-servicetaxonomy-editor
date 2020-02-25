@@ -7,7 +7,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -99,41 +98,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 string partName = partSync.PartName ?? contentType;
 
-                dynamic? partContent = content[partName];
-                if (partContent == null)
-                {
-                    // we've either hit a part's content item and there's no associated part syncer
-                    // or we've hit a named bag part
-                    //todo: find a better way to identify a named bag part : this will only work if there is a max of 1 named bag part in the content type
-                    if (partName != nameof(BagPart))
-                        continue;
-
-                    //todo: don't need to check already processed content
-                    foreach (JToken partContentJToken in content.Values())
-                    {
-                        // when we've recursed into a bag, each value is a propert, rather than a part
-                        if (partContentJToken.HasValues && partContentJToken["ContentItems"] != null)
-                        {
-                            partContent = partContentJToken;
-                            partName = partContentJToken.Path;
-                            break;
-                        }
-                    }
-                    // either we're checking for a bagpart and didn't find a likely candidate
-                    // or there's no bag part in this contenttype
-                    // we have to skip this part, in case there's no bag part in the type
-                    // but it does mean we silently ignore (not sync) a bagpart if we can't find approp. data
-                    //todo: get and check the contenttype definition
-                    if (partContent == null)
-                        continue;
-                        //throw new GraphSyncException("Couldn't find content for named BagPart.");
-                }
+                //todo: this will only work for a single named part per content type!
 
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
-                // we look for the name, so at least for this line, we support >1 named bag parts :-)
                 var contentTypePartDefinition =
-                    contentTypeDefinition.Parts.FirstOrDefault(p => p.Name == partName);
+                    contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == partName);
+
+                if (contentTypePartDefinition == null)
+                    continue;
+
+                string namedPartName = contentTypePartDefinition.Name;
+
+                dynamic? partContent = content[namedPartName];
+                if (partContent == null)
+                    continue;    //todo: throw??
 
                 await partSync.AddSyncComponents(partContent, _mergeNodeCommand.Properties, _replaceRelationshipsCommand.Relationships, contentTypePartDefinition);
             }
