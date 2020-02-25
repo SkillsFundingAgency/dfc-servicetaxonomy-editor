@@ -18,8 +18,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
+        //todo: have as setting (add prefix to namespace settings?)
+        private const string NcsPrefix = "ncs__";
+
         private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IServiceProvider _serviceProvider;
 
         public string? PartName => nameof(BagPart);
@@ -27,10 +31,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public BagPartGraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
+            IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IServiceProvider serviceProvider)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
+            _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _serviceProvider = serviceProvider;
         }
 
@@ -58,14 +64,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // or let part syncers supply int priority/order <- not nice, better if syncers totally independent of each other (low coupling)
                 // ^^ add to graph sync part settings: bag content item relationship
                 //todo: helper on IReplaceRelationshipsCommand for this?
-                //todo: major hackalert!!!
-                replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(new[] {"ncs__JobProfile"});
-                replaceRelationshipsCommand.SourceIdPropertyName = "uri";
+                //todo: won't work for nested bags?
+                replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(new[] {NcsPrefix + contentTypePartDefinition.ContentTypeDefinition.Name});
+                //todo: get from correct graph sync settings
+                replaceRelationshipsCommand.SourceIdPropertyName = _graphSyncPartIdProperty.Name;
                 replaceRelationshipsCommand.SourceIdPropertyValue = (string?)nodeProperties[replaceRelationshipsCommand.SourceIdPropertyName];
 
                 var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
                 string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
-                if (string.IsNullOrEmpty(relationshipType)) //todo: throw or default?
+                if (string.IsNullOrEmpty(relationshipType))
                     relationshipType = "ncs__hasBagPart";
 
                 //todo: hackalert! destNodeLabel should be a set of labels
