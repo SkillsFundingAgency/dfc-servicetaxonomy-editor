@@ -3,6 +3,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -32,8 +34,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         /// </summary>
         public string? PartName => null;
 
-        public async Task AddSyncComponents(dynamic content, IDictionary<string, object> nodeProperties,
-            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> nodeRelationships,
+        public async Task<IEnumerable<Query>> AddSyncComponents(
+            dynamic content,
+            IMergeNodeCommand mergeNodeCommand,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
             foreach (dynamic? field in content)
@@ -56,25 +60,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                     case "Text":
                     case "Html":
-                        nodeProperties.Add(NcsPrefix + field.Name, fieldTypeAndValue.Value.ToString());
+                        mergeNodeCommand.Properties.Add(NcsPrefix + field.Name, fieldTypeAndValue.Value.ToString());
                         break;
                     case "Value":
                         // orchard always converts entered value to real 2.0 (float)
                         // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real?
 
                         if (fieldTypeAndValue.Value.Type == JTokenType.Float)
-                            nodeProperties.Add(NcsPrefix + field.Name, (decimal?) fieldTypeAndValue.Value.ToObject(typeof(decimal)));
+                            mergeNodeCommand.Properties.Add(NcsPrefix + field.Name, (decimal?) fieldTypeAndValue.Value.ToObject(typeof(decimal)));
                         break;
                     case "ContentItemIds":
-                        await AddContentPickerFieldSyncComponents(nodeRelationships, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
+                        await AddContentPickerFieldSyncComponents(replaceRelationshipsCommand, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
                         break;
                 }
             }
+            return Enumerable.Empty<Query>();
         }
 
         //todo: interface for fields?
         private async Task AddContentPickerFieldSyncComponents(
-            IDictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>> relationships,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
             JProperty fieldTypeAndValue,
             ContentTypePartDefinition contentTypePartDefinition,
             string contentPickerFieldName)
@@ -107,10 +112,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var destIds = await Task.WhenAll(fieldTypeAndValue.Value.Select(async relatedContentId =>
                 GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest))));
 
-            relationships.Add((destNodeLabel, _graphSyncPartIdProperty.Name, relationshipType), destIds);
+            replaceRelationshipsCommand.AddRelationshipsTo(
+                relationshipType,
+                new[] {destNodeLabel},
+                _graphSyncPartIdProperty.Name,
+                destIds);
         }
 
-        private string GetSyncId(ContentItem pickedContentItem)
+        private object GetSyncId(ContentItem pickedContentItem)
         {
             return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }

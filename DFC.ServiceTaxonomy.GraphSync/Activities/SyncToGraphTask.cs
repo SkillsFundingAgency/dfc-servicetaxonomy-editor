@@ -53,7 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         {
             try
             {
-                await _graphSyncer.SyncToGraph((ContentItem) workflowContext.Input["ContentItem"]);
+                var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
+                await _graphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content);
 
                 return Outcomes("Done");
             }

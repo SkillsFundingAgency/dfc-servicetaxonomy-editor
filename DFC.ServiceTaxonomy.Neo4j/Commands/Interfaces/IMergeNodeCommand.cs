@@ -9,5 +9,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         string? IdPropertyName { get; set; }
         IDictionary<string, object> Properties { get; set; }
 
+        void CheckIsValid();
+
         Query Query { get; }
     }}

@@ -6,6 +6,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
     public class GraphSyncPartSettingsViewModel
     {
         public string? NamespacePrefix { get; set; }
+        public string? BagPartContentItemRelationshipType { get; set; }
 
         [BindNever]
         public List<string>? NamespacePrefixOptions { get; set; }
