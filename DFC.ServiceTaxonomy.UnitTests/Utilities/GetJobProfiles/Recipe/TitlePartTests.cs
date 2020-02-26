@@ -1,4 +1,4 @@
-using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.Parts;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Utilities.GetJobProfiles.Recipe

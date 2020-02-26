@@ -1,4 +1,4 @@
-﻿using GetJobProfiles.Models.Recipe;
+﻿using GetJobProfiles.Models.Recipe.ContentItems;
 
 namespace GetJobProfiles.Models.API
 {

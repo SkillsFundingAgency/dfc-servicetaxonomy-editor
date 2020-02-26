@@ -5,7 +5,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.JsonHelpers;
+using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.ContentItems.Base;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 
@@ -14,10 +18,23 @@ using MoreLinq;
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
 // and no test job profiles slip through the net
 
+//todo: model as is, suggest list of improvements
+// if improvement can be hidden behind api, can make change
+// suggested improvements:
+// extract course
+// single list to select entry requirements
+// split requirements into 2 parts, ie 4 gcses / including engligh, maths
+// ^^ also remove the postfix for advanced apprenticeship, if can infer (or infer after other changes)
+// link to actual apprenticeship framework (and then have entry requirements off that)?
+// split into intermediate apprenticeship / advanced apprenticeship (could still display under 1 section with auto generation of some existing text)
+
+
 namespace GetJobProfiles
 {
     static class Program
     {
+        private static string OutputBasePath;
+
         static async Task Main(string[] args)
         {
             string timestamp = $"{DateTime.UtcNow:O}";
@@ -31,10 +48,13 @@ namespace GetJobProfiles
             const int napTimeMs = 5500;
             // max number of contentitems in an import recipe
             const int batchSize = 1000;
+            const int jobProfileBatchSize = 200;
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .Build();
+
+            OutputBasePath = config["OutputBasePath"];
 
             var httpClient = new HttpClient
             {
@@ -49,35 +69,42 @@ namespace GetJobProfiles
 
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
+            //await converter.Go(skip, take, napTimeMs, "Baker");
 
             var jobProfiles = converter.JobProfiles.ToArray();
 
             new EscoJobProfileMapper().Map(jobProfiles);
 
-            BatchSerializeToFiles(jobProfiles, batchSize, "JobProfiles");
+            BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
-            BatchSerializeToFiles(converter.Registrations.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Registrations");
-            BatchSerializeToFiles(converter.Restrictions.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "Restrictions");
-            BatchSerializeToFiles(converter.OtherRequirements.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value.id)), batchSize, "OtherRequirements");
+            BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Registrations");
+            BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
+            BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
             BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
-            BatchSerializeToFiles(converter.WorkingEnvironments.Select(x => new WorkingEnvironmentContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "WorkingEnvironments");
-            BatchSerializeToFiles(converter.WorkingLocations.Select(x => new WorkingLocationContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "WorkingLocations");
-            BatchSerializeToFiles(converter.WorkingUniforms.Select(x => new WorkingUniformContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "WorkingUniforms");
+            BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
+            BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
+            BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
+            BatchSerializeToFiles(converter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "ApprenticeshipRequirements");
+            BatchSerializeToFiles(converter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "ApprenticeshipLinks");
+            BatchSerializeToFiles(converter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "CollegeRequirements");
+            BatchSerializeToFiles(converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "CollegeLinks");
+            BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
+            BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "UniversityLinks");
+            BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key,r.Value)), batchSize, "RequirementsPrefixes");
 
-            File.WriteAllText(@"D:\manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
         private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix)
         where T : ContentItem
         {
-            const string baseFolder = @"D:\";
             var batches = contentItems.Batch(batchSize);
             int batchNumber = 0;
             foreach (var batchContentItems in batches)
             {
                 //todo: async?
-                var serializedContentItemBatch = SerializeContentItems(batchContentItems);
-                ImportRecipe.Create($"{baseFolder}{filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
+                string serializedContentItemBatch = SerializeContentItems(batchContentItems);
+                ImportRecipe.Create($"{OutputBasePath}{filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
             }
         }
 
@@ -122,19 +149,19 @@ namespace GetJobProfiles
 
         private static string SerializeContentItems(IEnumerable<ContentItem> items)
         {
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
-
             if (!items.Any())
                 return "";
 
             var first = items.First();
 
-            options.PropertyNamingPolicy = new ContentItemJsonNamingPolicy(first.ContentType);
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = new ContentItemJsonNamingPolicy(first.ContentType),
+                Converters = { new PolymorphicWriteOnlyJsonConverter<ContentItem>() }
+            };
 
-            string itemsWithSquareBrackets = JsonSerializer.Serialize(items, items.GetType(), options);
+            string itemsWithSquareBrackets = JsonSerializer.Serialize(items, options);
             return StripSquareBrackets(itemsWithSquareBrackets);
         }
 
