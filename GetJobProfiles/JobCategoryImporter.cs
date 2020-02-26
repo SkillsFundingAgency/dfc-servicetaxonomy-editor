@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.Fields;
+using GetJobProfiles.Models.Recipe.Parts;
 using NPOI.XSSF.UserModel;
 
 namespace GetJobProfiles

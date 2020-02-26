@@ -48,8 +48,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
             var results = await _neoGraphDatabase.RunReadQuery(
                 new Query(
 $@"match (n:{settings.NodeLabel})
-where toLower(head(n.{settings.DisplayFieldName})) starts with toLower('{query}')
-return head(n.{settings.DisplayFieldName}) as {displayField}, n.{settings.ValueFieldName} as {valueField}
+where toLower(n.{settings.DisplayFieldName}) starts with toLower('{query}')
+return n.{settings.DisplayFieldName} as {displayField}, n.{settings.ValueFieldName} as {valueField}
 order by toLower({displayField})
 limit 50"),
                 r => new { id = r[valueField].ToString(), displayText = r[displayField].ToString() });

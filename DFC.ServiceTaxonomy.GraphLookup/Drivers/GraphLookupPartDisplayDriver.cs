@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
         private async Task<string> GetNodeValue(string id, GraphLookupPartSettings settings)
         {
             var results = await _graphDatabase.RunReadQuery(new Query(
-                    $"match (n:{settings.NodeLabel} {{{settings.ValueFieldName}:'{id}'}}) return head(n.{settings.DisplayFieldName}) as displayField"),
+                    $"match (n:{settings.NodeLabel} {{{settings.ValueFieldName}:'{id}'}}) return n.{settings.DisplayFieldName} as displayField"),
                 r => r["displayField"].ToString());
 
             return results.First();

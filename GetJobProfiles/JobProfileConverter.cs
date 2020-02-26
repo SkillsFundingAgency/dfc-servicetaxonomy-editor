@@ -5,7 +5,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.API;
-using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
+using GetJobProfiles.Models.Recipe.Fields;
+using GetJobProfiles.Models.Recipe.Fields.Factories;
+using GetJobProfiles.Models.Recipe.Parts;
 using MoreLinq;
 using OrchardCore.Entities;
 
@@ -14,21 +19,26 @@ namespace GetJobProfiles
     public class JobProfileConverter
     {
         public IEnumerable<JobProfileContentItem> JobProfiles { get; private set; } = Enumerable.Empty<JobProfileContentItem>();
-        public readonly ConcurrentDictionary<string,(string id,string text)> Registrations = new ConcurrentDictionary<string, (string id, string text)>();
-        public readonly ConcurrentDictionary<string,(string id,string text)> Restrictions = new ConcurrentDictionary<string, (string id, string text)>();
-        public readonly ConcurrentDictionary<string,(string id,string text)> OtherRequirements = new ConcurrentDictionary<string, (string id, string text)>();
+        public readonly ContentPickerFactory Registrations = new ContentPickerFactory();
+        public readonly ContentPickerFactory Restrictions = new ContentPickerFactory();
+        public readonly ContentPickerFactory OtherRequirements = new ContentPickerFactory();
+        public readonly ContentPickerFactory WorkingEnvironments = new ContentPickerFactory();
+        public readonly ContentPickerFactory WorkingLocations = new ContentPickerFactory();
+        public readonly ContentPickerFactory WorkingUniforms = new ContentPickerFactory();
+        //todo: convert to factory?
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
-        public readonly ConcurrentDictionary<string, (string id, string text)> WorkingEnvironments = new ConcurrentDictionary<string, (string id, string text)>();
-        public readonly ConcurrentDictionary<string, (string id, string text)> WorkingLocations = new ConcurrentDictionary<string, (string id, string text)>();
-        public readonly ConcurrentDictionary<string, (string id, string text)> WorkingUniforms = new ConcurrentDictionary<string, (string id, string text)>();
-        
+
+        public readonly ApprenticeshipRouteFactory ApprenticeshipRoutes = new ApprenticeshipRouteFactory();
+        public readonly CollegeRouteFactory CollegeRoutes = new CollegeRouteFactory();
+        public readonly UniversityRouteFactory UniversityRoutes = new UniversityRouteFactory();
+
         public string Timestamp { get; set; }
 
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
-        public List<string> DayToDayTaskExclusions = new List<string>()
+        public List<string> DayToDayTaskExclusions = new List<string>
         {
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/alexander-technique-teacher",
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/diver",
@@ -51,27 +61,30 @@ namespace GetJobProfiles
             Timestamp = timestamp;
         }
 
-        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000)
+        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string testProfileTitle = null)
         {
             var summaries = (await _client.Get<JobProfileSummary[]>("summary"))
                 .Where(s => s.Title != null
-                            && s.Title != "Api Test Profile"
-                            && s.Title != "Jas test"
-                            && s.Title != "Ismail Test Profile"
-                            && s.Title != "Auditor Hari Test"
-                            && s.Title != "Blacksmith LJ IC Test"
-                            && s.Title != "Electrical engineering technician -test"
-                            && s.Title != "GP - Karl"
-                            && s.Title != "mktest"
-                            && s.Title != "mktest1"
-                            && s.Title != "Test 2"
-                            && s.Title != "Test jP Hari"
-                            && s.Title != "Vehicle body repairer - Test"
-                            && s.Title != "Wedding planner Testing "
-                            && s.Title != "Welly designer Amended"
-                            && s.Title != "Zookeeper_ilyas1"
-                            && s.Title != "This is my patched breadcrumb title"
-                            && s.Title != "Technical brewer - GSR3");
+                            && (testProfileTitle == null || s.Title == testProfileTitle));
+                // filter dev env crap
+                // .Where(s => s.Title != null
+                //             && s.Title != "Api Test Profile"
+                //             && s.Title != "Jas test"
+                //             && s.Title != "Ismail Test Profile"
+                //             && s.Title != "Auditor Hari Test"
+                //             && s.Title != "Blacksmith LJ IC Test"
+                //             && s.Title != "Electrical engineering technician -test"
+                //             && s.Title != "GP - Karl"
+                //             && s.Title != "mktest"
+                //             && s.Title != "mktest1"
+                //             && s.Title != "Test 2"
+                //             && s.Title != "Test jP Hari"
+                //             && s.Title != "Vehicle body repairer - Test"
+                //             && s.Title != "Wedding planner Testing "
+                //             && s.Title != "Welly designer Amended"
+                //             && s.Title != "Zookeeper_ilyas1"
+                //             && s.Title != "This is my patched breadcrumb title"
+                //             && s.Title != "Technical brewer - GSR3");
 
             if (skip > 0)
                 summaries = summaries.Skip(skip);
@@ -113,53 +126,6 @@ namespace GetJobProfiles
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
-            //todo: might need access to internal api's to fetch these sort of things: title doesn't come through job profile api
-            foreach (string registration in jobProfile.HowToBecome.MoreInformation.Registrations ?? Enumerable.Empty<string>())
-            {
-                // for now add full as title. once we have the full list can plug in current titles
-                if (!Registrations.TryAdd(registration, (_idGenerator.GenerateUniqueId(), registration)))
-                {
-                    ColorConsole.WriteLine($"Registration '{registration}' already saved", ConsoleColor.Magenta);
-                }
-            }
-
-            foreach (string restriction in jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions ?? Enumerable.Empty<string>())
-            {
-                // for now add full as title. once we have the full list can plug in current titles
-                if (!Restrictions.TryAdd(restriction, (_idGenerator.GenerateUniqueId(), restriction)))
-                {
-                    ColorConsole.WriteLine($"Restriction '{restriction}' already saved", ConsoleColor.Magenta);
-                }
-            }
-
-            foreach (string otherRequirement in jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements ?? Enumerable.Empty<string>())
-            {
-                // for now add full as title. once we have the full list can plug in current titles
-                if (!OtherRequirements.TryAdd(otherRequirement, (_idGenerator.GenerateUniqueId(), otherRequirement)))
-                {
-                    ColorConsole.WriteLine($"OtherRequirement '{otherRequirement}' already saved", ConsoleColor.Magenta);
-                }
-            }
-
-            var workEnvironment = jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment;
-            var workLocation = jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location;
-            var workUniform = jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform;
-
-            if (!string.IsNullOrWhiteSpace(workEnvironment) && !WorkingEnvironments.TryAdd(workEnvironment, (_idGenerator.GenerateUniqueId(), workEnvironment)))
-            {
-                ColorConsole.WriteLine($"WorkingEnvironment '{workEnvironment}' already saved", ConsoleColor.Magenta);
-            }
-
-            if (!string.IsNullOrWhiteSpace(workLocation) && !WorkingLocations.TryAdd(workLocation, (_idGenerator.GenerateUniqueId(), workLocation)))
-            {
-                ColorConsole.WriteLine($"WorkingLocation '{workLocation}' already saved", ConsoleColor.Magenta);
-            }
-
-            if (!string.IsNullOrWhiteSpace(workUniform) && !WorkingUniforms.TryAdd(workUniform, (_idGenerator.GenerateUniqueId(), workUniform)))
-            {
-                ColorConsole.WriteLine($"WorkingUniform '{workUniform}' already saved", ConsoleColor.Magenta);
-            }
-
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart
@@ -171,11 +137,11 @@ namespace GetJobProfiles
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
                     //todo:
                     //HtbTitleOptions = jobProfile.
-                    //todo: dic of contentid to found content: convert to class and have content as props
-                    HtbRegistrations = new ContentPicker(Registrations, jobProfile.HowToBecome.MoreInformation.Registrations),
+
+                    HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations),
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
-                    WitRestrictions = new ContentPicker(Restrictions, jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
-                    WitOtherRequirements = new ContentPicker(OtherRequirements, jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
+                    WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
+                    WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
                     SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
                     SalaryExperienced = new TextField(jobProfile.SalaryExperienced),
@@ -185,11 +151,49 @@ namespace GetJobProfiles
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
                     WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
                     CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression),
-                    WydWorkingEnvironment = new ContentPicker(WorkingEnvironments, workEnvironment),
-                    WydWorkingLocation = new ContentPicker(WorkingLocations, workLocation),
-                    WydWorkingUniform = new ContentPicker(WorkingUniforms, workUniform)
-                }
+                    WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment),
+                    WydWorkingLocation = WorkingLocations.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location),
+                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform),
+                },
+                BagPart = new BagPart()
             };
+
+            if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
+            {
+                contentItem.BagPart.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, null, Timestamp));
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
+            {
+                contentItem.BagPart.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, null, Timestamp));
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
+            {
+                contentItem.BagPart.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, null, Timestamp));
+            }
+
+            //todo: helper?
+            if (jobProfile.HowToBecome.EntryRoutes.Work.Any())
+            {
+                contentItem.BagPart.ContentItems.Add(new WorkRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Work));
+            }
+
+            if (jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
+            {
+                contentItem.BagPart.ContentItems.Add(new VolunteeringRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Volunteering));
+            }
+
+            if (jobProfile.HowToBecome.EntryRoutes.DirectApplication.Any())
+            {
+                contentItem.BagPart.ContentItems.Add(new DirectRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.DirectApplication));
+            }
+
+            if (jobProfile.HowToBecome.EntryRoutes.OtherRoutes.Any())
+            {
+                contentItem.BagPart.ContentItems.Add(new OtherRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
+            }
+
 
             if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
             {
@@ -202,7 +206,7 @@ namespace GetJobProfiles
                     "checking:",
                     "time:",
                     "involve:",
-                    "you’ll:",
+                    "youâ€™ll:",
                     "you'll",
                     ":using",
                     "usually:",
