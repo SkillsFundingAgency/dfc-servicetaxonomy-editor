@@ -3,39 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Types;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
     //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
     //todo: refactor to only create relationships to one dest node label?
-
-    // relationshiptocreate? as opposed to the driver's returned relationship
-    //todo: interface?
-    public class Relationship
-    {
-        //source properties belong in here really, unless rename class
-
-        public Relationship(string relationshipType, IDictionary<string, object>? properties,
-            IEnumerable<string> destinationNodeLabels, string destinationNodeIdPropertyName,
-            IEnumerable<object> destinationNodeIdPropertyValues)
-        {
-            RelationshipType = relationshipType;
-            Properties = properties;
-            DestinationNodeLabels = destinationNodeLabels;
-            DestinationNodeIdPropertyName = destinationNodeIdPropertyName;
-            DestinationNodeIdPropertyValues = destinationNodeIdPropertyValues;
-        }
-
-        public string RelationshipType { get; } // RelationshipType, not type to differentiate from System.Type
-
-        public IDictionary<string, object>? Properties { get; }
-
-        public IEnumerable<string> DestinationNodeLabels { get; }
-
-        public string DestinationNodeIdPropertyName { get; }
-        public IEnumerable<object> DestinationNodeIdPropertyValues { get; }
-    }
 
     public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
     {
