@@ -47,6 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Syncers
             services.AddTransient<IGraphSyncer, GraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
 

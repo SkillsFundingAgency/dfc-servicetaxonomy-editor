@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
-using Neo4j.Driver;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
@@ -40,19 +38,19 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             long destNodeId = await MergeNode(destNodeLabel, destIdPropertyName,
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
-            //todo: is readonly enough, or should we clone? probably need to clone
-            var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
-
             // act
-            Query query = new ReplaceRelationshipsCommand
+            var command = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = sourceIdPropertyValue,
-                Relationships = relationships
+                SourceIdPropertyValue = sourceIdPropertyValue
             };
-            await _graphDatabase.RunWriteQueries(query);
+            command.AddRelationshipsTo(
+                relationshipType,
+                new[] {destNodeLabel},
+                destIdPropertyName,
+                destIdPropertyValue);
+            await _graphDatabase.RunWriteQueries(command);
 
             AssertResult(relationshipVariable,new[]
             {
@@ -83,7 +81,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string relationshipType = "relationshipType";
             const string relationshipVariable = "r";
 
-            //todo: needs to return id
             // create source node to create relationship from
             long sourceNodeId = await MergeNode(sourceNodeLabel, sourceIdPropertyName,
                 new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
@@ -97,31 +94,28 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
             // create pre-existing relationships
-            //todo: don't use cut for arrangement
-            var preExistingRelationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
-
-            Query preexistingQuery = new ReplaceRelationshipsCommand
+            var preexistingQuery = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = sourceIdPropertyValue,
-                Relationships = preExistingRelationships
+                SourceIdPropertyValue = sourceIdPropertyValue
             };
+
+            preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+
             await _graphDatabase.RunWriteQueries(preexistingQuery);
 
-            //todo: is readonly enough, or should we clone? probably need to clone
-            var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
-
             // act
-            Query query = new ReplaceRelationshipsCommand
+            //todo: change dest node?
+            var query = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = sourceIdPropertyValue,
-                Relationships = relationships
+                SourceIdPropertyValue = sourceIdPropertyValue
             };
+
+            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+
             await _graphDatabase.RunWriteQueries(query);
 
             AssertResult(relationshipVariable,new[]
@@ -160,18 +154,16 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             await MergeNode(destNodeLabel, destIdPropertyName,
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
-            //todo: is readonly enough, or should we clone? probably need to clone
-            var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new string[0] }});
-
             // act
-            Query query = new ReplaceRelationshipsCommand
+            var query = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = sourceIdPropertyValue,
-                Relationships = relationships
+                SourceIdPropertyValue = sourceIdPropertyValue
             };
+
+            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName);
+
             await _graphDatabase.RunWriteQueries(query);
 
             AssertResult(relationshipVariable,new ExpectedRelationship[0],
@@ -195,7 +187,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             const string relationshipType = "relationshipType";
             const string relationshipVariable = "r";
 
-            //todo: needs to return id
             // create source node to create relationship from
             await MergeNode(sourceNodeLabel, sourceIdPropertyName,
                 new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
@@ -209,31 +200,27 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
 
             // create pre-existing relationships
-            //todo: don't use cut for arrangement
-            var preExistingRelationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new[] {destIdPropertyValue}}});
-
-            Query preexistingQuery = new ReplaceRelationshipsCommand
+            var preexistingQuery = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = sourceIdPropertyValue,
-                Relationships = preExistingRelationships
+                SourceIdPropertyValue = sourceIdPropertyValue
             };
+
+            preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+
             await _graphDatabase.RunWriteQueries(preexistingQuery);
 
-            //todo: is readonly enough, or should we clone? probably need to clone
-            var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType), new string[0] }});
-
             // act
-            Query query = new ReplaceRelationshipsCommand
+            var query = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = sourceIdPropertyValue,
-                Relationships = relationships
+                SourceIdPropertyValue = sourceIdPropertyValue
             };
+
+            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName);
+
             await _graphDatabase.RunWriteQueries(query);
 
             AssertResult(relationshipVariable,new ExpectedRelationship[0],
@@ -270,19 +257,17 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             long destNodeId2 = await MergeNode(destNodeLabel, destIdPropertyName,
                 new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue2}});
 
-            //todo: is readonly enough, or should we clone? probably need to clone
-            var relationships = new ReadOnlyDictionary<(string,string,string),IEnumerable<string>>(
-                new Dictionary<(string,string,string),IEnumerable<string>> {{(destNodeLabel, destIdPropertyName, relationshipType),
-                    new[] {destIdPropertyValue1, destIdPropertyValue2}}});
-
             // act
-            Query query = new ReplaceRelationshipsCommand
+            var query = new ReplaceRelationshipsCommand
             {
                 SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = sourceIdPropertyValue,
-                Relationships = relationships
+                SourceIdPropertyValue = sourceIdPropertyValue
             };
+
+            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName,
+                destIdPropertyValue1, destIdPropertyValue2);
+
             await _graphDatabase.RunWriteQueries(query);
 
             AssertResult(relationshipVariable,new[]

@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public string? IdPropertyName { get; set; }
         public IDictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
 
-        private Query CreateQuery()
+        public void CheckIsValid()
         {
             if (NodeLabels == null)
                 throw new InvalidOperationException($"{nameof(NodeLabels)} is null");
@@ -23,9 +23,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
             if (IdPropertyName == null)
                 throw new InvalidOperationException($"{nameof(IdPropertyName)} is null");
+        }
+
+        private Query CreateQuery()
+        {
+            CheckIsValid();
 
             return new Query(
-                $"MERGE (n:{string.Join(':',NodeLabels)} {{ {IdPropertyName}:'{Properties[IdPropertyName]}' }}) SET n=$properties RETURN ID(n)",
+                $"MERGE (n:{string.Join(':',NodeLabels)} {{ {IdPropertyName}:'{Properties[IdPropertyName!]}' }}) SET n=$properties RETURN ID(n)",
                 new Dictionary<string,object> {{"properties", Properties}});
         }
 
