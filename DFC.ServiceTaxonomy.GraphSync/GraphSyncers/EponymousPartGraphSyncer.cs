@@ -45,7 +45,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (field == null)
                     continue;
 
-                var fieldTypeAndValue = (JProperty?) ((JProperty) field).FirstOrDefault()?.FirstOrDefault();
+                JToken? renameMe = ((JProperty)field).FirstOrDefault();
+                JProperty? fieldTypeAndValue = (JProperty?) renameMe?.FirstOrDefault();
                 if (fieldTypeAndValue == null)
                     continue;
 
@@ -68,6 +69,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                         if (fieldTypeAndValue.Value.Type == JTokenType.Float)
                             mergeNodeCommand.Properties.Add(NcsPrefix + field.Name, (decimal?) fieldTypeAndValue.Value.ToObject(typeof(decimal)));
+                        break;
+                    case "Url":    // can we rely on Url always being the first property?
+                        const string linkUrlPostfix = "_url";
+                        const string linkTextPostfix = "_text";
+                        mergeNodeCommand.Properties.Add($"{NcsPrefix}{field.Name}{linkUrlPostfix}", fieldTypeAndValue.Value.ToString());
+                        JProperty? linkTextTypeAndValue = (JProperty?) renameMe.Skip(1).FirstOrDefault();
+                        mergeNodeCommand.Properties.Add($"{NcsPrefix}{field.Name}{linkTextPostfix}", linkTextTypeAndValue!.Value.ToString());
                         break;
                     case "ContentItemIds":
                         await AddContentPickerFieldSyncComponents(replaceRelationshipsCommand, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
