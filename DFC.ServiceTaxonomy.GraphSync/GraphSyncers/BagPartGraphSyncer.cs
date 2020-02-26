@@ -28,7 +28,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
         }
 
-        //todo: relationships to nodes more than 1 level deep aren't created
         public async Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
@@ -44,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string contentType = contentItem!["ContentType"]!.ToString();
                 //todo: if we want to support nested bags, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!);
-                // only sync the content type contained in the bag if it has a graph lookup part
+                // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
 
