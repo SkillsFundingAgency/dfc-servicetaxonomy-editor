@@ -60,13 +60,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (string.IsNullOrEmpty(relationshipType))
                     relationshipType = "ncs__hasBagPart";
 
-                //todo: more thought to null handling
                 //todo: the types should match. string[] to object[]?
+
+                if (containedContentMergeNodeCommand.IdPropertyName == null)
+                    throw new GraphSyncException($"Merge node command from bag contained content has null {nameof(containedContentMergeNodeCommand.IdPropertyName)}");
+
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
                     containedContentMergeNodeCommand.NodeLabels,
-                    containedContentMergeNodeCommand.IdPropertyName!,
-                    (string)containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
+                    containedContentMergeNodeCommand.IdPropertyName,
+                    (string)containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName]);
 
                 queries.Add(delayedReplaceRelationshipsCommand.Query);
             }
