@@ -39,8 +39,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
     public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
     {
-        //todo: ctor with source properties?
-
         public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
         public string? SourceIdPropertyValue { get; set; }
@@ -74,7 +72,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 throw new InvalidOperationException($"{nameof(SourceIdPropertyValue)} is null");
 
             //todo: bi-directional relationships
-            //todo: rewrite for elegance/perf. selectmany?
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
             var nodeMatchBuilder =
                 new StringBuilder(
