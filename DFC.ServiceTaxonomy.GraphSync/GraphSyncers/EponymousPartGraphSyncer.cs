@@ -110,47 +110,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                             break;
                     }
                 }
-
-                //alternatively, have dic of key to look for and commandiaye
-
-                // int _ = (fieldTypeAndValue.Name, linkTextTypeAndValue?.Name) switch
-                // {
-                //     ("Text", null) => throw new Exception(),
-                //     (_, _) => throw new Exception()
-                // };
-
-                //alternatively, have dic of key to look for and commandiaye
-                // switch (fieldTypeAndValue.Name)
-                // {
-                //     // we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
-                //     // see remarks to view mapping table
-                //     // we might also want to map to rdf types here (accept flag to say store with type?)
-                //     // will be useful if we import into neo using keepCustomDataTypes
-                //     // we can append the datatype to the value, i.e. value^^datatype
-                //     // see https://neo4j-labs.github.io/neosemantics/#_handling_custom_data_types
-                //
-                //     case "Text":
-                //     case "Html":
-                //         mergeNodeCommand.Properties.Add(NcsPrefix + field.Name, fieldTypeAndValue.Value.ToString());
-                //         break;
-                //     case "Value":
-                //         // orchard always converts entered value to real 2.0 (float)
-                //         // todo: how to decide whether to convert to driver/cypher's long/integer or float/float? metadata field to override default of int to real?
-                //
-                //         if (fieldTypeAndValue.Value.Type == JTokenType.Float)
-                //             mergeNodeCommand.Properties.Add(NcsPrefix + field.Name, (decimal?) fieldTypeAndValue.Value.ToObject(typeof(decimal)));
-                //         break;
-                //     case "Url":    // can we rely on Url always being the first property?
-                //         const string linkUrlPostfix = "_url";
-                //         const string linkTextPostfix = "_text";
-                //         mergeNodeCommand.Properties.Add($"{NcsPrefix}{field.Name}{linkUrlPostfix}", fieldTypeAndValue.Value.ToString());
-                //         JProperty? linkTextTypeAndValue = (JProperty?) renameMe.Skip(1).FirstOrDefault();
-                //         mergeNodeCommand.Properties.Add($"{NcsPrefix}{field.Name}{linkTextPostfix}", linkTextTypeAndValue!.Value.ToString());
-                //         break;
-                //     case "ContentItemIds":
-                //         await AddContentPickerFieldSyncComponents(replaceRelationshipsCommand, fieldTypeAndValue, contentTypePartDefinition, ((JProperty)field).Name);
-                //         break;
-                // }
             }
             return Enumerable.Empty<Query>();
         }
