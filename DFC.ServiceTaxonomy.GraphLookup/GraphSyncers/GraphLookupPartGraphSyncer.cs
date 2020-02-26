@@ -46,13 +46,10 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.FromResult(Enumerable.Empty<Query>());
         }
 
-        private string GetId(JToken jToken)
+        private object GetId(JToken jToken)
         {
-            string? id = jToken["Id"]?.ToString();
-            if (id == null)
+            return jToken["Id"]?.ToString() ??
                 throw new GraphSyncException("Missing id in GraphLookupPart content.");
-
-            return id;
         }
     }
 }

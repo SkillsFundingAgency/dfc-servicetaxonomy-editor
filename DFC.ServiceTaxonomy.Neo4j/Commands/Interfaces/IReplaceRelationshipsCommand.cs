@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         IEnumerable<Relationship> Relationships { get; }
 
         void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels, string destIdPropertyName,
-            params string[] destIdPropertyValues);
+            params object[] destIdPropertyValues);
 
         Query Query { get; }
     }

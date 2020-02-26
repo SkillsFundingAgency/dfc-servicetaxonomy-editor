@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public Relationship(string relationshipType, IDictionary<string, object>? properties,
             IEnumerable<string> destinationNodeLabels, string destinationNodeIdPropertyName,
-            IEnumerable<string> destinationNodeIdPropertyValues)
+            IEnumerable<object> destinationNodeIdPropertyValues)
         {
             RelationshipType = relationshipType;
             Properties = properties;
@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public IEnumerable<string> DestinationNodeLabels { get; }
 
         public string DestinationNodeIdPropertyName { get; }
-        public IEnumerable<string> DestinationNodeIdPropertyValues { get; }
+        public IEnumerable<object> DestinationNodeIdPropertyValues { get; }
     }
 
     public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
 
         public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
-            string destIdPropertyName, params string[] destIdPropertyValues)
+            string destIdPropertyName, params object[] destIdPropertyValues)
         {
             RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
                 destIdPropertyValues));

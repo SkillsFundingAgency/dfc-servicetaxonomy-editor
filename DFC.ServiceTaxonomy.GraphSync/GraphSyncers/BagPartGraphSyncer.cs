@@ -28,6 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
         }
 
+        //todo: relationships to nodes more than 1 level deep aren't created
         public async Task<IEnumerable<Query>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
@@ -62,13 +63,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (string.IsNullOrEmpty(relationshipType))
                     relationshipType = "ncs__hasBagPart";
 
-                //todo: the types should match. string[] to object[]?
-
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
-                    (string)containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
+                    containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
 
                 queries.Add(delayedReplaceRelationshipsCommand.Query);
             }

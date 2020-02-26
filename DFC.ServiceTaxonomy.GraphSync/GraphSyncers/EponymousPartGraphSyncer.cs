@@ -119,7 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 destIds);
         }
 
-        private string GetSyncId(ContentItem pickedContentItem)
+        private object GetSyncId(ContentItem pickedContentItem)
         {
             return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }

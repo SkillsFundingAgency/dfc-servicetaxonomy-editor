@@ -4,6 +4,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         string Name { get; }
 
-        string Value(dynamic graphSyncContent);
+        object Value(dynamic graphSyncContent);
     }
 }
