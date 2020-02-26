@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                             AddTextOrHtmlProperties(mergeNodeCommand, field.Name, firstProperty.Value);
                             break;
                         case "Value":
-                            AddNumericProperties(mergeNodeCommand, field.Name, firstProperty.Value);
+                            AddNumericProperties(mergeNodeCommand, field.Name, firstProperty.Value, contentTypePartDefinition);
                             break;
                         case "ContentItemIds":
                             await AddContentPickerFieldSyncComponents(replaceRelationshipsCommand, field.Name, firstProperty, contentTypePartDefinition);
@@ -120,19 +120,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         }
 
-        private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
+        private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
         {
             // orchard always converts entered value to real 2.0 (float)
-            // todo: convert to driver/cypher's long/integer or float/float depending on scale set on numeric field?
 
-            if (propertyValue.Type == JTokenType.Float)
-            {
-                decimal? value = (decimal?)propertyValue.ToObject(typeof(decimal));
-                if (value == null)    //todo: ok??
-                    return;
+            // type is null is user hasn't entered a value
+            if (propertyValue.Type != JTokenType.Float)
+                return;
 
-                mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, value);
-            }
+            decimal? value = (decimal?)propertyValue.ToObject(typeof(decimal));
+            if (value == null)    //todo: ok??
+                return;
+
+            var fieldDefinition = contentTypePartDefinition.PartDefinition.Fields.First(f => f.Name == fieldName);
+            var fieldSettings = fieldDefinition.GetSettings<NumericFieldSettings>();
+//todo: ints still x.0 in neo's browser
+            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, fieldSettings.Scale == 0 ? (int)value : value);
         }
 
         private static void AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
