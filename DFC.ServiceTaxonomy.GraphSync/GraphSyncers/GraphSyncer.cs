@@ -10,28 +10,6 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    // Type mappings
-    // -------------
-    // OC UI Field Type | OC Content | Neo Driver    | Cypher     | NSMNTX postfix | RDF             | Notes
-    // Boolean            ?            see notes       Boolean                       xsd:boolean       neo docs say driver is boolean. do they mean Boolean or bool?
-    // Content Picker
-    // Date
-    // Date Time
-    // Html               Html         string          String
-    // Link
-    // Markdown
-    // Media
-    // Numeric            Value        long            Integer                       xsd:integer       \ OC UI has only numeric, which it presents as a real in content. do we always consistently map to a long or float, or allow user to differentiate with metadata?
-    // Numeric            Value        float           Float                                           / (RDF supports xsd:int & xsd:integer, are they different or synonyms)
-    // Text               Text         string          String                        xsd:string        no need to specify in RDF - default?
-    // Time
-    // Youtube
-    //
-    // see
-    // https://github.com/neo4j/neo4j-dotnet-driver
-    // https://www.w3.org/2011/rdf-wg/wiki/XSD_Datatypes
-    // https://neo4j.com/docs/labs/nsmntx/current/import/
-
     public class GraphSyncer : IGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
