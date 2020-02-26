@@ -6,5 +6,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public interface IGraphSyncer
     {
         Task SyncToGraph(ContentItem contentItem);
+        Task DeleteFromGraph(ContentItem contentItem);
     }
 }

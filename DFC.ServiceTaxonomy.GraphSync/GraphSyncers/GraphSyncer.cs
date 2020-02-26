@@ -41,6 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
+        private readonly IDeleteNodeCommand _deleteNodeCommand;
 
         public GraphSyncer(
             IGraphDatabase graphDatabase,
@@ -48,7 +49,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand)
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            IDeleteNodeCommand deleteNodeCommand)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
@@ -56,6 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
+            _deleteNodeCommand = deleteNodeCommand;
         }
 
         //todo: have as setting of activity, or graph sync content part settings
@@ -81,6 +84,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await AddContentPartSyncComponents(contentItem);
 
             await SyncComponentsToGraph(graphSyncPartContent);
+        }
+
+        public async Task DeleteFromGraph(ContentItem contentItem)
+        {
+            _deleteNodeCommand.ContentType = contentItem.ContentType;
+            _deleteNodeCommand.Uri = contentItem.Content.GraphSyncPart.Text;
+
+            await _graphDatabase.RunWriteQueries(_deleteNodeCommand.Query);
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
