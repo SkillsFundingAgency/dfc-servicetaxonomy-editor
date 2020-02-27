@@ -8,6 +8,7 @@ using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -42,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IDeleteNodeCommand _deleteNodeCommand;
+        private readonly ISession _session;
 
         public GraphSyncer(
             IGraphDatabase graphDatabase,
@@ -50,7 +52,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IDeleteNodeCommand deleteNodeCommand)
+            IDeleteNodeCommand deleteNodeCommand,
+            ISession session)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
@@ -59,6 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _deleteNodeCommand = deleteNodeCommand;
+            _session = session;
         }
 
         //todo: have as setting of activity, or graph sync content part settings
@@ -91,7 +95,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand.ContentType = contentItem.ContentType;
             _deleteNodeCommand.Uri = contentItem.Content.GraphSyncPart.Text;
 
-            await _graphDatabase.RunWriteQueries(_deleteNodeCommand.Query);
+            try
+            {
+                //TODO : check if there are any incoming relationships to the node being deleted
+                await _graphDatabase.RunWriteQueries(_deleteNodeCommand.Query);
+            }
+            //TODO : check what exceptions are thrown from the GraphDB abstraction
+            catch
+            {
+                //this forces a rollback of the currect OC operation db transaction.
+                //however, it doesn't notify the UI that the operation failed, so it still displays a success message
+                //TODO : find out how to hide the success message!!!
+                _session.Cancel();
+
+                throw;
+            }
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
