@@ -97,17 +97,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             try
             {
-                //TODO : check if there are any incoming relationships to the node being deleted
                 await _graphDatabase.RunWriteQueries(_deleteNodeCommand.Query);
             }
-            //TODO : check what exceptions are thrown from the GraphDB abstraction
+            //TODO : specify which exceptions to handle?
             catch
             {
-                //this forces a rollback of the currect OC operation db transaction.
-                //however, it doesn't notify the UI that the operation failed, so it still displays a success message
-                //TODO : find out how to hide the success message!!!
+                //this forces a rollback of the currect OC db transaction
                 _session.Cancel();
-
                 throw;
             }
         }

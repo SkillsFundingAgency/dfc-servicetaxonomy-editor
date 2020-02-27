@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             if (string.IsNullOrWhiteSpace(Uri))
                 throw new InvalidOperationException($"{nameof(Uri)} is null");
 
-            return new Query($"MATCH (n:ncs__{ContentType} {{ uri:'{Uri}' }}) DETACH DELETE n");
+            return new Query($"MATCH (n:ncs__{ContentType} {{ uri:'{Uri}' }})-[r]->() DELETE n, r");
         }
 
         public Query Query => CreateQuery();

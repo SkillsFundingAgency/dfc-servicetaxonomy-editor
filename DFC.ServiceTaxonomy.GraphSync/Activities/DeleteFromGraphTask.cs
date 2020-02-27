@@ -37,18 +37,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-//            return Outcomes(T["Done"], T["Failed"]);
 #pragma warning disable S3220 // Method calls should not resolve ambiguously to overloads with "params"
             return Outcomes(T["Done"]);
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
-        //todo: if this fails, we notify the user, but the content still gets added to oc, and oc & the graph are then out-of-sync.
-        // we need to think of the best way to handle it. the event appears to trigger after the content is created (check)
-        // we don't want to remove the content in orchard core, as we don't want the user to have to reenter content
-        // perhaps we could mark the content as not synced (part of the graph content part?), and either the user can retry
-        // (and allow the user to filter by un-synced content)
-        // or we have a facility to check & sync all content in oc
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
             try
@@ -59,14 +52,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             }
             catch (Exception ex)
             {
-                // setting this, but not letting the exception propagate doesn't work
-                //workflowContext.Fault(ex, activityContext);
-
-//                _notifier.Add(new GetProperty<NotifyType>(), new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
+                //TODO : the exception message isn't very user friendly, need to use something better?
+                //TODO : find out how to hide the success message, the notifier doesn't provide a means of clearing the existing notifications
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteFromGraphTask), $"Delete from graph failed: {ex.Message}"));
-
-                // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
-                //return Outcomes("Failed");
                 throw;
             }
         }
