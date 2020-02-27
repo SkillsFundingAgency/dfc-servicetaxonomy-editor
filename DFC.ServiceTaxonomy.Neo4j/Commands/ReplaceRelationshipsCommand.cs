@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Types;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
@@ -15,14 +16,19 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
         public string? SourceIdPropertyValue { get; set; }
-        public IDictionary<(string destNodeLabel,string destIdPropertyName,string relationshipType), IEnumerable<string>> Relationships {  get; set; }
-            = new Dictionary<(string destNodeLabel, string destIdPropertyName, string relationshipType), IEnumerable<string>>();
 
-        //todo: make dictionary private, and add AddRelationship()?
-        //todo: destNodeLabels
-        public void AddRelationshipsTo(string relationshipType, string destNodeLabel, string destIdPropertyName, params string[] destIdPropertyValues)
+        public IEnumerable<Relationship> Relationships
         {
-            Relationships.Add((destNodeLabel, destIdPropertyName,  relationshipType), destIdPropertyValues);
+            get { return RelationshipsList; }
+        }
+
+        private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
+
+        public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
+            string destIdPropertyName, params object[] destIdPropertyValues)
+        {
+            RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
+                destIdPropertyValues));
         }
 
         private Query CreateQuery()
@@ -40,42 +46,51 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 throw new InvalidOperationException($"{nameof(SourceIdPropertyValue)} is null");
 
             //todo: bi-directional relationships
-            //todo: rewrite for elegance/perf. selectmany?
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-            var nodeMatchBuilder = new StringBuilder($"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+            var nodeMatchBuilder =
+                new StringBuilder(
+                    $"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
             var existingRelationshipsMatchBuilder = new StringBuilder();
             var mergeBuilder = new StringBuilder();
             var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue}};
             int ordinal = 0;
             //todo: better name relationship=> relationships, relationships=>?
 
-            var distinctRelationshipTypes = new Dictionary<string,string>();
+            var distinctRelationshipTypeToDestNode = new HashSet<(string type, string labels)>();
 
-            foreach (var relationship in Relationships)
+            foreach (var relationship in RelationshipsList)
             {
-                distinctRelationshipTypes[relationship.Key.relationshipType] = relationship.Key.destNodeLabel;
+                string destNodeLabels = string.Join(':', relationship.DestinationNodeLabels.OrderBy(l => l));
+                // different types could have different dest node labels
+                // add unit/integration tests for this ^^ scenario
+                distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
 
-                foreach (string destIdPropertyValue in relationship.Value)
+                foreach (string destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
                 {
                     string destNodeVariable = $"d{++ordinal}";
                     string destIdPropertyValueParamName = $"{destNodeVariable}Value";
 
-                    nodeMatchBuilder.Append($"\r\nmatch ({destNodeVariable}:{relationship.Key.destNodeLabel} {{{relationship.Key.destIdPropertyName}:${destIdPropertyValueParamName}}})");
+                    nodeMatchBuilder.Append(
+                        $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
                     parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
 
-                    mergeBuilder.Append($"\r\nmerge (s)-[:{relationship.Key.relationshipType}]->({destNodeVariable})");
+                    mergeBuilder.Append($"\r\nmerge (s)-[:{relationship.RelationshipType}]->({destNodeVariable})");
                 }
             }
 
             ordinal = 0;
-            foreach (var relationshipTypeToDestNodeLabel in distinctRelationshipTypes)
+            foreach (var relationshipTypeToDestNode in distinctRelationshipTypeToDestNode)
             {
-                existingRelationshipsMatchBuilder.Append($"\r\noptional match (s)-[r{++ordinal}:{relationshipTypeToDestNodeLabel.Key}]->(:{relationshipTypeToDestNodeLabel.Value})");
+                existingRelationshipsMatchBuilder.Append(
+                    $"\r\noptional match (s)-[r{++ordinal}:{relationshipTypeToDestNode.type}]->(:{relationshipTypeToDestNode.labels})");
             }
 
-            string existingRelationshipVariablesString = string.Join(',',Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
+            string existingRelationshipVariablesString =
+                string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
 
-            return new Query($"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s", parameters);
+            return new Query(
+                $"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s",
+                parameters);
         }
 
         public Query Query => CreateQuery();

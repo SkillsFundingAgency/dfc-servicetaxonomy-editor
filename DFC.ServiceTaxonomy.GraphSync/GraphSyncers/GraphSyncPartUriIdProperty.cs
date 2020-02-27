@@ -1,3 +1,5 @@
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class GraphSyncPartUriIdProperty : IGraphSyncPartIdProperty
@@ -5,6 +7,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: from settings
         public string Name => "uri";
 
-        public string Value(dynamic graphSyncContent) => graphSyncContent.Text.ToString();
+        public object Value(dynamic graphSyncContent) => graphSyncContent.Text.ToString();
     }
 }

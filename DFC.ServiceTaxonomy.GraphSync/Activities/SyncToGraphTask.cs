@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
@@ -11,7 +11,6 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 
 //todo: part handler called after workflow finishes - can we use that to stop inserts?
-//todo: content delete
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -53,7 +52,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         {
             try
             {
-                await _graphSyncer.SyncToGraph((ContentItem) workflowContext.Input["ContentItem"]);
+                var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
+                await _graphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content);
 
                 return Outcomes("Done");
             }

@@ -385,7 +385,8 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbUniversityRoute"
                                 }
                             }
                         }
@@ -420,7 +421,8 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbCollegeRoute"
                                 }
                             }
                         }
@@ -455,7 +457,8 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbApprenticeshipRoute"
                                 }
                             }
                         }
@@ -534,7 +537,8 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbWorkRoute"
                                 }
                             }
                         }
@@ -568,7 +572,8 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbVolunteeringRoute"
                                 }
                             }
                         }
@@ -602,7 +607,8 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbDirectRoute"
                                 }
                             }
                         }
@@ -636,7 +642,8 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbOtherRoute"
                                 }
                             }
                         }
