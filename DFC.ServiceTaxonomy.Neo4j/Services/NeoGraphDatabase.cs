@@ -15,7 +15,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     {
         private readonly IDriver _driver;
 
-        public NeoGraphDatabase(IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions)
+        public NeoGraphDatabase(
+            IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
+            ILogger logger)
         {
             // Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
@@ -23,9 +25,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             //todo: add configuration/settings menu item/page so user can enter this
             var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
 
-            //todo: pass logger, see https://github.com/neo4j/neo4j-dotnet-driver
-            // o => o.WithLogger(logger)
-            _driver = GraphDatabase.Driver(neo4jConfiguration.Endpoint.Uri, AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password));
+            _driver = GraphDatabase.Driver(
+                neo4jConfiguration.Endpoint.Uri,
+                AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password),
+                o => o.WithLogger(logger));
         }
 
         public async Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation)

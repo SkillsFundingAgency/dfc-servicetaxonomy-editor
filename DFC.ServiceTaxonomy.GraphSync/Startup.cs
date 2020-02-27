@@ -19,8 +19,10 @@ using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Log;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
+using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
 
@@ -38,6 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
             // Graph Database
+            services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
