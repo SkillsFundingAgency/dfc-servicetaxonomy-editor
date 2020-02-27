@@ -4,18 +4,17 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
-    //todo: inject database and add execute?
     public class DeleteNodeCommand : IDeleteNodeCommand
     {
-        public string ContentType { get; set; } = string.Empty;
-        public string Uri { get; set; } = string.Empty;
+        public string? ContentType { get; set; }
+        public string? Uri { get; set; }
 
         private Query CreateQuery()
         {
-            if (string.IsNullOrWhiteSpace(ContentType))
+            if (ContentType == null)
                 throw new InvalidOperationException($"{nameof(ContentType)} is null");
 
-            if (string.IsNullOrWhiteSpace(Uri))
+            if (Uri == null)
                 throw new InvalidOperationException($"{nameof(Uri)} is null");
 
             return new Query($"MATCH (n:ncs__{ContentType} {{ uri:'{Uri}' }})-[r]->() DELETE n, r");
