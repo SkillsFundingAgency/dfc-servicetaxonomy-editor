@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
@@ -20,16 +20,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public DeleteFromGraphTask(
             IGraphSyncer graphSyncer,
             IStringLocalizer<DeleteFromGraphTask> localizer,
-            INotifier notifier)
+            INotifier notifier,
+            IContentDefinitionManager contentDefinitionManager)
         {
             _graphSyncer = graphSyncer;
             _notifier = notifier;
             T = localizer;
+            _contentDefinitionManager = contentDefinitionManager;            
         }
 
         private IStringLocalizer T { get; }
         private readonly IGraphSyncer _graphSyncer;
         private readonly INotifier _notifier;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public override string Name => nameof(DeleteFromGraphTask);
         public override LocalizedString DisplayText => T["Delete content item from Neo4j graph"];
@@ -44,17 +47,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
+            var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
+
             try
             {
-                await _graphSyncer.DeleteFromGraph((ContentItem) workflowContext.Input["ContentItem"]);
+                await _graphSyncer.DeleteFromGraph(contentItem);
 
                 return Outcomes("Done");
             }
-            catch (Exception ex)
+            catch
             {
-                //TODO : the exception message isn't very user friendly, need to use something better?
+                var contentType = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
                 //TODO : find out how to hide the success message, the notifier doesn't provide a means of clearing the existing notifications
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteFromGraphTask), $"Delete from graph failed: {ex.Message}"));
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteFromGraphTask), $"The {contentType} could not be removed because the associated node could not be deleted from the graph."));
                 throw;
             }
         }
