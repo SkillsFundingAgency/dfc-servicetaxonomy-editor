@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class SyncToGraphTask : TaskActivity
     {
         public SyncToGraphTask(
-            IGraphSyncer graphSyncer,
+            IUpsertGraphSyncer graphSyncer,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         }
 
         private IStringLocalizer T { get; }
-        private readonly IGraphSyncer _graphSyncer;
+        private readonly IUpsertGraphSyncer _graphSyncer;
         private readonly INotifier _notifier;
 
         public override string Name => nameof(SyncToGraphTask);

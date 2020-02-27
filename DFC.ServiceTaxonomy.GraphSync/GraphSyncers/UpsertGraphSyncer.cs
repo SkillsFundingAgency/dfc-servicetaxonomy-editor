@@ -8,7 +8,6 @@ using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -34,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // https://www.w3.org/2011/rdf-wg/wiki/XSD_Datatypes
     // https://neo4j.com/docs/labs/nsmntx/current/import/
 
-    public class GraphSyncer : IGraphSyncer
+    public class UpsertGraphSyncer : IUpsertGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -42,18 +41,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
-        private readonly IDeleteNodeCommand _deleteNodeCommand;
-        private readonly ISession _session;
 
-        public GraphSyncer(
+        public UpsertGraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IDeleteNodeCommand deleteNodeCommand,
-            ISession session)
+            IReplaceRelationshipsCommand replaceRelationshipsCommand)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
@@ -61,8 +56,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
-            _deleteNodeCommand = deleteNodeCommand;
-            _session = session;
         }
 
         //todo: have as setting of activity, or graph sync content part settings
@@ -88,27 +81,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await AddContentPartSyncComponents(contentItem);
 
             await SyncComponentsToGraph(graphSyncPartContent);
-        }
-
-        public async Task DeleteFromGraph(ContentItem contentItem)
-        {
-            if (contentItem.Content.GraphSyncPart == null)
-                return;
-
-            _deleteNodeCommand.ContentType = contentItem.ContentType;
-            _deleteNodeCommand.Uri = contentItem.Content.GraphSyncPart.Text;
-
-            try
-            {
-                await _graphDatabase.RunWriteQueries(_deleteNodeCommand.Query);
-            }
-            //TODO : specify which exceptions to handle?
-            catch
-            {
-                //this forces a rollback of the currect OC db transaction
-                _session.Cancel();
-                throw;
-            }
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)

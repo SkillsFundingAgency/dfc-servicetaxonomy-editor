@@ -3,9 +3,8 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public interface IGraphSyncer
+    public interface IDeleteGraphSyncer
     {
-        Task SyncToGraph(ContentItem contentItem);
         Task DeleteFromGraph(ContentItem contentItem);
     }
 }

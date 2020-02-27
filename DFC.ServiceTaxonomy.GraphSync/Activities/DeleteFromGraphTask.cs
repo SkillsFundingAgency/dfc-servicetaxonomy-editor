@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class DeleteFromGraphTask : TaskActivity
     {
         public DeleteFromGraphTask(
-            IGraphSyncer graphSyncer,
+            IDeleteGraphSyncer graphSyncer,
             IStringLocalizer<DeleteFromGraphTask> localizer,
             INotifier notifier,
             IContentDefinitionManager contentDefinitionManager)
@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         }
 
         private IStringLocalizer T { get; }
-        private readonly IGraphSyncer _graphSyncer;
+        private readonly IDeleteGraphSyncer _graphSyncer;
         private readonly INotifier _notifier;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 

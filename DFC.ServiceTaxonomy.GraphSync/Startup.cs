@@ -47,7 +47,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
 
             // Syncers
-            services.AddTransient<IGraphSyncer, GraphSyncer>();
+            services.AddTransient<IUpsertGraphSyncer, UpsertGraphSyncer>();
+            services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
