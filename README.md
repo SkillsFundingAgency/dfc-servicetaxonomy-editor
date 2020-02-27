@@ -56,6 +56,8 @@ Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the S
 
 You should then be directed to the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
 
+To import the National Careers Service Job Profiles, todo
+
 ### Manually Configure Website
 
 If you use the provided recipe to initialise the site (as detailed above), there is no need to manually configure the site. This section is for informational purposes only.
