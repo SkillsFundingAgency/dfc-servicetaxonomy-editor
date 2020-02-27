@@ -155,45 +155,44 @@ namespace GetJobProfiles
                     WydWorkingLocation = WorkingLocations.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location),
                     WydWorkingUniform = WorkingUniforms.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform),
                 },
-                BagPart = new BagPart()
+                EntryRoutes = new BagPart()
             };
 
             if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
             {
-                contentItem.BagPart.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, null, Timestamp));
+                contentItem.EntryRoutes.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
             {
-                contentItem.BagPart.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, null, Timestamp));
+                contentItem.EntryRoutes.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
             {
-                contentItem.BagPart.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, null, Timestamp));
+                contentItem.EntryRoutes.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, Timestamp));
             }
 
             //todo: helper?
             if (jobProfile.HowToBecome.EntryRoutes.Work.Any())
             {
-                contentItem.BagPart.ContentItems.Add(new WorkRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Work));
+                contentItem.EntryRoutes.ContentItems.Add(new WorkRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Work));
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
             {
-                contentItem.BagPart.ContentItems.Add(new VolunteeringRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Volunteering));
+                contentItem.EntryRoutes.ContentItems.Add(new VolunteeringRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Volunteering));
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.DirectApplication.Any())
             {
-                contentItem.BagPart.ContentItems.Add(new DirectRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.DirectApplication));
+                contentItem.EntryRoutes.ContentItems.Add(new DirectRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.DirectApplication));
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.OtherRoutes.Any())
             {
-                contentItem.BagPart.ContentItems.Add(new OtherRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
+                contentItem.EntryRoutes.ContentItems.Add(new OtherRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
             }
-
 
             if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
             {
