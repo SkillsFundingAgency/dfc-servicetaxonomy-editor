@@ -155,7 +155,7 @@ namespace GetJobProfiles
                     WydWorkingLocation = WorkingLocations.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location),
                     WydWorkingUniform = WorkingUniforms.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform),
                 },
-                BagPart = new BagPart()
+                BagPart = new BagPart("EntryRoutes")
             };
 
             if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())

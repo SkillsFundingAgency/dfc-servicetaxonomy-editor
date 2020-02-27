@@ -5,7 +5,11 @@ namespace GetJobProfiles.Models.Recipe.Parts
 {
     public class BagPart
     {
-        //can oc support >1 bagparts in a content type?
+        public BagPart(string name = null)
+        {
+            //todo: serialize part with given name
+        }
+
         public List<ContentItem> ContentItems { get; set; } = new List<ContentItem>();
     }
 }
