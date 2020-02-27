@@ -19,7 +19,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         public JobProfilePart EponymousPart { get; set; }
         public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
         public GraphSyncPart GraphSyncPart { get; set; }
-        public BagPart BagPart { get; set; }
+        public BagPart EntryRoutes { get; set; }
     }
 
     public class JobProfilePart
