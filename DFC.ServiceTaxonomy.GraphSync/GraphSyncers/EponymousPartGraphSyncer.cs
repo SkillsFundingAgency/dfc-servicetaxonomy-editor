@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     /// Link               Url+Text     string+string   String+String
     /// Markdown
     /// Media
-    /// Numeric            Value        long            Integer                       xsd:integer       \ OC UI has only numeric, which it presents as a real in content. currently we map to decimal. we could check the field's scale and map appropriately
+    /// Numeric            Value        long            Integer                       xsd:integer       \ OC always present numeric as floats. we check the fields scale to decide whether to store an int or a float
     /// Numeric            Value        float           Float                                           / (RDF supports xsd:int & xsd:integer, are they different or synonyms)
     /// Text               Text         string          String                        xsd:string        no need to specify in RDF - default?
     /// Time
@@ -118,13 +118,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private static void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
         {
             mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, propertyValue.ToString());
-
         }
 
         private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
         {
-            // orchard always converts entered value to real 2.0 (float)
-
             // type is null is user hasn't entered a value
             if (propertyValue.Type != JTokenType.Float)
                 return;
@@ -135,8 +132,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var fieldDefinition = contentTypePartDefinition.PartDefinition.Fields.First(f => f.Name == fieldName);
             var fieldSettings = fieldDefinition.GetSettings<NumericFieldSettings>();
-//todo: ints still x.0 in neo's browser
-            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, fieldSettings.Scale == 0 ? (int)value : value);
+
+            string propertyName = $"{NcsPrefix}{fieldName}";
+            if (fieldSettings.Scale == 0)
+            {
+                mergeNodeCommand.Properties.Add(propertyName, (int)value);
+            }
+            else
+            {
+                mergeNodeCommand.Properties.Add(propertyName, value);
+            }
         }
 
         private static void AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
