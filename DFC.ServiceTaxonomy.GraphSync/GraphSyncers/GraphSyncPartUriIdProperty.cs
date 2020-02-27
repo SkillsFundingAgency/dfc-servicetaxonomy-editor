@@ -1,3 +1,5 @@
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class GraphSyncPartUriIdProperty : IGraphSyncPartIdProperty
