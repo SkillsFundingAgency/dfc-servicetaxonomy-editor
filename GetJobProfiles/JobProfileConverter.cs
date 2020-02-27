@@ -160,17 +160,17 @@ namespace GetJobProfiles
 
             if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
             {
-                contentItem.EntryRoutes.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, null, Timestamp));
+                contentItem.EntryRoutes.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
             {
-                contentItem.EntryRoutes.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, null, Timestamp));
+                contentItem.EntryRoutes.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, Timestamp));
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
             {
-                contentItem.EntryRoutes.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, null, Timestamp));
+                contentItem.EntryRoutes.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, Timestamp));
             }
 
             //todo: helper?
