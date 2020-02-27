@@ -43,8 +43,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 string contentType = contentItem!["ContentType"]!.ToString();
 
-                DateTime createdDate = DateTime.Parse(contentItem["CreatedDate"]!.ToString());
-                DateTime modifiedDate = DateTime.Parse(contentItem["ModifiedDate"]!.ToString());
+                DateTime? createdDate = contentItem["CreatedUtc"] != null ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
+                DateTime? modifiedDate = contentItem["ModifiedUtc"] != null ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
 
                 //todo: if we want to support nested bags, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!, createdDate, modifiedDate);
