@@ -122,7 +122,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
         {
-            // type is null is user hasn't entered a value
+            // type is null if user hasn't entered a value
             if (propertyValue.Type != JTokenType.Float)
                 return;
 
