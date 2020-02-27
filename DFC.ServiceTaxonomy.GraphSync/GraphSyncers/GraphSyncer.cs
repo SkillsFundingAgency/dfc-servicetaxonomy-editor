@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private const string NcsPrefix = "ncs__";
         private const string CommonNodeLabel = "Resource";
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content)
+        public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content, DateTime? createdUtc, DateTime? modifiedUtc)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -55,6 +56,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentType);
             _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
+
+            //Add created and modified dates to all content items
+            if (createdUtc.HasValue)
+                _mergeNodeCommand.Properties.Add(NcsPrefix + "CreatedDate", createdUtc.Value);
+
+            if (modifiedUtc.HasValue)
+                _mergeNodeCommand.Properties.Add(NcsPrefix + "ModifiedDate", modifiedUtc.Value);
 
             var partQueries = await AddContentPartSyncComponents(contentType, content);
 
