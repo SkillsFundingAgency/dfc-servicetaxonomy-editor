@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
@@ -56,12 +55,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
 
             // Graph Sync Part
-            services.AddContentPart<GraphSyncPart>();
-            services.AddScoped<IContentPartDisplayDriver, GraphSyncPartDisplayDriver>();
-            //services.AddScoped<IContentPartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
+            services.AddContentPart<GraphSyncPart>()
+                .UseDisplayDriver<GraphSyncPartDisplayDriver>()
+                .AddHandler<GraphSyncPartHandler>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IContentPartHandler, GraphSyncPartHandler>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
         }
 

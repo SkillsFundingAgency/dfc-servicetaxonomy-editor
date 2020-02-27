@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using DFC.ServiceTaxonomy.GraphLookup.Drivers;
@@ -35,11 +34,11 @@ namespace DFC.ServiceTaxonomy.GraphLookup
             services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
 
-            services.AddContentPart<GraphLookupPart>();
-            services.AddScoped<IContentPartDisplayDriver, GraphLookupPartDisplayDriver>();
+            services.AddContentPart<GraphLookupPart>()
+                .UseDisplayDriver<GraphLookupPartDisplayDriver>()
+                .AddHandler<GraphLookupPartHandler>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IContentPartHandler, GraphLookupPartHandler>();
             services.AddScoped<IContentPartGraphSyncer, GraphLookupPartGraphSyncer>();
         }
 
