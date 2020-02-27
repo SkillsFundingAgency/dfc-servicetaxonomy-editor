@@ -92,6 +92,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task DeleteFromGraph(ContentItem contentItem)
         {
+            if (contentItem.Content.GraphSyncPart == null)
+                return;
+
             _deleteNodeCommand.ContentType = contentItem.ContentType;
             _deleteNodeCommand.Uri = contentItem.Content.GraphSyncPart.Text;
 
