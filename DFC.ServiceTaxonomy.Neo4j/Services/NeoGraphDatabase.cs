@@ -1,24 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
+using ILogger = Neo4j.Driver.ILogger;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
-    //todo: ensure sync to neo when importing data through recipe
-
     // https://github.com/neo4j/neo4j-dotnet-driver
-    // (not updated for 4 yet: https://neo4j.com/docs/driver-manual/1.7/get-started/)
+    // https://neo4j.com/docs/driver-manual/4.0/
     public class NeoGraphDatabase : IGraphDatabase, IDisposable
     {
+        private readonly ILogger<NeoGraphDatabase> _logger;
         private readonly IDriver _driver;
 
         public NeoGraphDatabase(
             IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
-            ILogger logger)
+            ILogger neoLogger,
+            ILogger<NeoGraphDatabase> logger)
         {
+            _logger = logger;
             // Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
@@ -28,7 +32,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _driver = GraphDatabase.Driver(
                 neo4jConfiguration.Endpoint.Uri,
                 AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password),
-                o => o.WithLogger(logger));
+                o => o.WithLogger(neoLogger));
         }
 
         public async Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation)
@@ -61,6 +65,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                     {
                         IResultCursor result = await tx.RunAsync(query);
                         await result.ToListAsync(r => r.Keys);
+                        var resultSummary = await result.ConsumeAsync();
+
+                        _logger.LogInformation($"Query result available after: {resultSummary.ResultAvailableAfter}, consumed after: {resultSummary.ResultConsumedAfter}");
+
+                        if (resultSummary.Notifications.Any())
+                        {
+                            _logger.LogWarning(
+                                $"Query had notifications{Environment.NewLine}:{string.Join(Environment.NewLine, resultSummary.Notifications)}");
+                        }
                     }
                 });
             }

@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
             //todo: we might want to actually log
             var logger = new NeoLogger(new NullLogger<NeoLogger>());
 
-            _neoGraphDatabase = new NeoGraphDatabase(optionsMonitor, logger);
+            _neoGraphDatabase = new NeoGraphDatabase(optionsMonitor, logger, new NullLogger<NeoGraphDatabase>());
         }
 
         [Fact]
