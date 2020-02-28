@@ -52,22 +52,28 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
-        public async Task RunWriteQueries(params Query[] queries)
+        public async Task<List<(List<IRecord> records, IResultSummary resultSummary)>> RunWriteQueries(params Query[] queries)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
             {
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
+
+                var results = new List<(List<IRecord>, IResultSummary)>();
+
                 await session.WriteTransactionAsync(async tx =>
                 {
                     foreach (Query query in queries)
                     {
                         IResultCursor result = await tx.RunAsync(query);
-                        await result.ToListAsync(r => r.Keys);
+
+                        var records = await result.ToListAsync(r => r);
                         var resultSummary = await result.ConsumeAsync();
 
                         _logger.LogInformation($"Query result available after: {resultSummary.ResultAvailableAfter}, consumed after: {resultSummary.ResultConsumedAfter}");
+
+                        results.Add((records, resultSummary));
 
                         if (resultSummary.Notifications.Any())
                         {
@@ -76,6 +82,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                         }
                     }
                 });
+
+                return results;
             }
             finally
             {

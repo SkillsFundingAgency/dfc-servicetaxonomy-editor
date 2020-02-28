@@ -37,5 +37,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public Query Query => CreateQuery();
 
         public static implicit operator Query(MergeNodeCommand c) => c.Query;
+
+        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
+        {
+            // nothing yet
+            // validation can check return from query and/or counters are in range in result summary and/or notifications
+        }
     }
 }

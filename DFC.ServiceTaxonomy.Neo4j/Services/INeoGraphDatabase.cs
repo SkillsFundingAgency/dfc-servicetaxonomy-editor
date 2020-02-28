@@ -12,6 +12,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         /// <summary>
         /// Run queries, in order, within a write transaction. No results returned.
         /// </summary>
-        Task RunWriteQueries(params Query[] queries);
+        Task<List<(List<IRecord> records, IResultSummary resultSummary)>> RunWriteQueries(params Query[] queries);
     }
 }

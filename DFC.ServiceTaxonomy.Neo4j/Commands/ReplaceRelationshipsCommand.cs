@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 destIdPropertyValues));
         }
 
-        private Query CreateQuery()
+        public void CheckIsValid()
         {
             if (SourceNodeLabels == null)
                 throw new InvalidOperationException($"{nameof(SourceNodeLabels)} is null");
@@ -44,6 +44,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
             if (SourceIdPropertyValue == null)
                 throw new InvalidOperationException($"{nameof(SourceIdPropertyValue)} is null");
+        }
+
+        private Query CreateQuery()
+        {
+            CheckIsValid();
 
             //todo: bi-directional relationships
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
@@ -52,7 +57,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     $"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
             var existingRelationshipsMatchBuilder = new StringBuilder();
             var mergeBuilder = new StringBuilder();
-            var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue}};
+            var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue!}};
             int ordinal = 0;
             //todo: better name relationship=> relationships, relationships=>?
 
@@ -96,5 +101,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public Query Query => CreateQuery();
 
         public static implicit operator Query(ReplaceRelationshipsCommand c) => c.Query;
+
+        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
+        {
+            // nothing yet
+            // validation can check return from query and/or counters are in range in result summary and/or notifications
+        }
     }
 }

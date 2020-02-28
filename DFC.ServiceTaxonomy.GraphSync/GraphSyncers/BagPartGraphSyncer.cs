@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -29,13 +28,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<IEnumerable<Query>> AddSyncComponents(
+        public async Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            var queries = new List<Query>();
+            var delayedCommands = new List<ICommand>();
 
             foreach (JObject? contentItem in graphLookupContent.ContentItems)
             {
@@ -69,10 +68,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
 
-                queries.Add(delayedReplaceRelationshipsCommand.Query);
+                delayedCommands.Add(delayedReplaceRelationshipsCommand);
             }
 
-            return queries;
+            return delayedCommands;
         }
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)

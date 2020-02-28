@@ -6,12 +6,16 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Logging;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+    //todo: have to refactor sync. currently with bags, a single sync will occur in multiple transactions
+    // fo if a validation fails for example, the graph will be left in an incomplete synced state
+    // need to gather up all commands, then execute them in a single transaction
+    // giving the commands the opportunity to validate the results before the transaction is committed
+    // so any validation failure rolls back the whole sync operation
     public class GraphSyncer : IGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
@@ -62,14 +66,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
 
-            var partQueries = await AddContentPartSyncComponents(contentType, content);
+            List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
 
-            await SyncComponentsToGraph(graphSyncPartContent, partQueries);
+            await SyncComponentsToGraph(graphSyncPartContent, partCommands);
 
             return _mergeNodeCommand;
         }
 
-        private async Task<List<Query>> AddContentPartSyncComponents(string contentType, JObject content)
+        private async Task<List<ICommand>> AddContentPartSyncComponents(string contentType, JObject content)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -79,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
 
-            List<Query> partQueries = new List<Query>();
+            List<ICommand> partCommands = new List<ICommand>();
 
             foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
@@ -101,17 +105,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    partQueries.AddRange(await partSync.AddSyncComponents(partContent, _mergeNodeCommand,
+                    partCommands.AddRange(await partSync.AddSyncComponents(partContent, _mergeNodeCommand,
                         _replaceRelationshipsCommand, contentTypePartDefinition));
                 }
             }
 
-            return partQueries;
+            return partCommands;
         }
 
-        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<Query> partQueries)
+        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<ICommand> partCommands)
         {
-            List<Query> queries = new List<Query> {_mergeNodeCommand.Query};
+            List<ICommand> commands  = new List<ICommand> {_mergeNodeCommand};
 
             if (_replaceRelationshipsCommand.Relationships.Any())
             {
@@ -120,13 +124,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
                 _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncPartIdProperty.Value(graphSyncPartContent);
 
-                queries.Add(_replaceRelationshipsCommand.Query);
+                commands.Add(_replaceRelationshipsCommand);
             }
 
             // part queries have to come after the main sync queries
-            queries.AddRange(partQueries);
+            commands.AddRange(partCommands);
 
-            await _graphDatabase.RunWriteQueries(queries.ToArray());
+            var results = await _graphDatabase.RunWriteQueries(commands.Select(c => c.Query).ToArray());
+
+            int currentResultIndex = -1;
+            foreach (ICommand command in commands)
+            {
+                var currentResult = results[++currentResultIndex];
+                command.ValidateResults(currentResult.records, currentResult.resultSummary);
+            }
         }
     }
 }

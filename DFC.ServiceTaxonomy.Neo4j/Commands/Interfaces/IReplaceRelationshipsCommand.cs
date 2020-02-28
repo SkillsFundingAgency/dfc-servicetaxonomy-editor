@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Neo4j.Types;
-using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 {
-    public interface IReplaceRelationshipsCommand
+    public interface IReplaceRelationshipsCommand : ICommand
     {
         HashSet<string> SourceNodeLabels { get; set; }
         string? SourceIdPropertyName { get; set; }
@@ -14,7 +13,5 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 
         void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels, string destIdPropertyName,
             params object[] destIdPropertyValues);
-
-        Query Query { get; }
     }
 }
