@@ -59,7 +59,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 {
                     foreach (Query query in queries)
                     {
-                        await tx.RunAsync(query);
+                        IResultCursor result = await tx.RunAsync(query);
+                        await result.ToListAsync(r => r.Keys);
                     }
                 });
             }
