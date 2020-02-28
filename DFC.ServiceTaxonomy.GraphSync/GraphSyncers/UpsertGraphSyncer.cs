@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<Query> partQueries)
         {
-            List<Query> queries = new List<Query> {_mergeNodeCommand.Query};
+            List<Query> queries = new List<Query> { _mergeNodeCommand.Query };
 
             if (_replaceRelationshipsCommand.Relationships.Any())
             {
