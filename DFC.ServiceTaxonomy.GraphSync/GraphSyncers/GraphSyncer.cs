@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
@@ -19,6 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
+        private readonly ILogger<GraphSyncer> _logger;
 
         public GraphSyncer(
             IGraphDatabase graphDatabase,
@@ -26,7 +28,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand)
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            ILogger<GraphSyncer> logger)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
@@ -34,6 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
+            _logger = logger;
         }
 
         //todo: have as setting of activity, or graph sync content part settings
@@ -49,6 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
                 return null;
+
+            _logger.LogInformation($"Syncing {contentType}");
 
             // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
 
