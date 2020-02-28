@@ -20,11 +20,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
         }
 
         public string RelationshipType { get; } // RelationshipType, not type to differentiate from System.Type
-
         public IDictionary<string, object>? Properties { get; }
-
         public IEnumerable<string> DestinationNodeLabels { get; }
-
         public string DestinationNodeIdPropertyName { get; }
         public IEnumerable<object> DestinationNodeIdPropertyValues { get; }
     }

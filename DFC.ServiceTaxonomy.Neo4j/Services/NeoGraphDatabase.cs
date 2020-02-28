@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
@@ -52,7 +53,24 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
-        public async Task<List<(List<IRecord> records, IResultSummary resultSummary)>> RunWriteQueries(params Query[] queries)
+        // public async Task<List<T>> RunReadCommand<T>(ICommand command)
+        // {
+        //     IAsyncSession session = _driver.AsyncSession();
+        //     try
+        //     {
+        //         return await session.ReadTransactionAsync(async tx =>
+        //         {
+        //             IResultCursor result = await tx.RunAsync(command.Query);
+        //             return await result.ToListAsync(command.ResultOperation);
+        //         });
+        //     }
+        //     finally
+        //     {
+        //         await session.CloseAsync();
+        //     }
+        // }
+
+        public async Task RunWriteCommands(params ICommand[] commands)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
@@ -60,30 +78,26 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
 
-                var results = new List<(List<IRecord>, IResultSummary)>();
-
                 await session.WriteTransactionAsync(async tx =>
                 {
-                    foreach (Query query in queries)
+                    foreach (ICommand command in commands)
                     {
-                        IResultCursor result = await tx.RunAsync(query);
+                        IResultCursor result = await tx.RunAsync(command.Query);
 
                         var records = await result.ToListAsync(r => r);
                         var resultSummary = await result.ConsumeAsync();
 
                         _logger.LogInformation($"Query result available after: {resultSummary.ResultAvailableAfter}, consumed after: {resultSummary.ResultConsumedAfter}");
 
-                        results.Add((records, resultSummary));
-
                         if (resultSummary.Notifications.Any())
                         {
                             _logger.LogWarning(
                                 $"Query had notifications{Environment.NewLine}:{string.Join(Environment.NewLine, resultSummary.Notifications)}");
                         }
+
+                        command.ValidateResults(records, resultSummary);
                     }
                 });
-
-                return results;
             }
             finally
             {

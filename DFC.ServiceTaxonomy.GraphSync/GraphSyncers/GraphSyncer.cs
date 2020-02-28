@@ -130,14 +130,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // part queries have to come after the main sync queries
             commands.AddRange(partCommands);
 
-            var results = await _graphDatabase.RunWriteQueries(commands.Select(c => c.Query).ToArray());
-
-            int currentResultIndex = -1;
-            foreach (ICommand command in commands)
-            {
-                var currentResult = results[++currentResultIndex];
-                command.ValidateResults(currentResult.records, currentResult.resultSummary);
-            }
+            await _graphDatabase.RunWriteCommands(commands.ToArray());
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Types;
 using Neo4j.Driver;
 
@@ -106,6 +107,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         {
             // nothing yet
             // validation can check return from query and/or counters are in range in result summary and/or notifications
+
+            //todo: lof query (doesn't work!) Query was: {resultSummary.Query}.
+            int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
+            if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
+                throw new CommandValidationException($"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
         }
     }
 }

@@ -10,7 +10,6 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
 {
-#pragma warning disable S2479 // Whitespace and control characters in string literals should be explicit
     [Admin]
     public class GraphLookupAdminController : Controller
     {
@@ -57,5 +56,4 @@ limit 50"),
             return new ObjectResult(results);
         }
     }
-#pragma warning restore S2479 // Whitespace and control characters in string literals should be explicit
 }
