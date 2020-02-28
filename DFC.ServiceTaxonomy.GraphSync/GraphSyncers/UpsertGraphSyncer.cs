@@ -11,7 +11,7 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public class GraphSyncer : IGraphSyncer
+    public class UpsertGraphSyncer : IUpsertGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
 
-        public GraphSyncer(
+        public UpsertGraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<Query> partQueries)
         {
-            List<Query> queries = new List<Query> {_mergeNodeCommand.Query};
+            List<Query> queries = new List<Query> { _mergeNodeCommand.Query };
 
             if (_replaceRelationshipsCommand.Relationships.Any())
             {
