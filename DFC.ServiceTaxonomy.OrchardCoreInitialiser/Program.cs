@@ -128,7 +128,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
 
                 if (!alreadySetup)
                 {
-                    Console.WriteLine("Initial configuration not completed, configuring site and database");
+                    Console.WriteLine("Initial configuration not completed, configuring site and checking database configuration");
                     setupPage.enterSiteName(siteName);
                     setupPage.selectRecipe(recipeName);
                     if (!databaseType.Equals(string.Empty))
