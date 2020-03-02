@@ -128,12 +128,19 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
 
                 if (!alreadySetup)
                 {
+                    Console.WriteLine("Initial configuration not completed, configuring site and database");
                     setupPage.enterSiteName(siteName);
                     setupPage.selectRecipe(recipeName);
                     if (!databaseType.Equals(string.Empty))
+                    {
+                        Console.WriteLine(String.Format("Setting database type to {0}", databaseType));
                         setupPage.selectDatabase(databaseType);
+                    }
                     if (!sqlConnectionString.Equals(string.Empty))
+                    {
+                        Console.WriteLine("Setting SQL Connection String");
                         setupPage.enterConnectionString(sqlConnectionString);
+                    }
                     if (!tablePrefix.Equals(string.Empty))
                         setupPage.enterTablePrefix(tablePrefix);
                     setupPage.enterUsername(userName);
@@ -147,7 +154,11 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     };
                 }
                 else
+                {
+                    Console.WriteLine(string.Format("Initial configuration already completed, navigating to {0}", uri));
                     webDriver.Navigate().GoToUrl(uri);
+                }
+                    
 
                 //// Logon
                 Console.WriteLine("Initial setup complete, logging on ...");
