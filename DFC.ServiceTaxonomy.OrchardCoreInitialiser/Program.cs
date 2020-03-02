@@ -112,7 +112,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             try
             {
                 ChromeOptions options = new ChromeOptions();
-                if (Environment.GetEnvironmentVariable("System.TeamFoundationCollectionUri") == "https://sfa-gov-uk.visualstudio.com/")
+                if (Environment.GetEnvironmentVariable("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI") == "https://sfa-gov-uk.visualstudio.com/")
                 {
                     Console.WriteLine("Running on build server, using headless browser");
                     options.AddArgument("--headless");
