@@ -39,12 +39,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (JObject? contentItem in graphLookupContent.ContentItems)
             {
-                var graphSyncer = _serviceProvider.GetRequiredService<IGraphSyncer>();
+                var graphSyncer = _serviceProvider.GetRequiredService<IUpsertGraphSyncer>();
 
                 string contentType = contentItem!["ContentType"]!.ToString();
 
-                DateTime? createdDate = contentItem["CreatedUtc"] != null ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
-                DateTime? modifiedDate = contentItem["ModifiedUtc"] != null ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
+                DateTime? createdDate = !string.IsNullOrEmpty(contentItem["CreatedUtc"]!.ToString()) ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
+                DateTime? modifiedDate = !string.IsNullOrEmpty(contentItem["ModifiedUtc"]!.ToString()) ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
 
                 //todo: if we want to support nested bags, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!, createdDate, modifiedDate);
