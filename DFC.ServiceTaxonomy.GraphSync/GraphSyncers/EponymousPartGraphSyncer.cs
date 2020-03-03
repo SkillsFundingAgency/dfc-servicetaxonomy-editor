@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -76,11 +77,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     continue;
 
                 JToken? fieldContent = ((JProperty)field).FirstOrDefault();
-                JProperty? firstProperty = (JProperty?) fieldContent?.FirstOrDefault();
+                JProperty? firstProperty = (JProperty?)fieldContent?.FirstOrDefault();
                 if (firstProperty == null)
                     continue;
 
-                JProperty? secondProperty = (JProperty?) fieldContent.Skip(1).FirstOrDefault();
+                JProperty? secondProperty = (JProperty?)fieldContent.Skip(1).FirstOrDefault();
                 string? secondName = secondProperty?.Name;
 
                 if (secondName == null)
@@ -189,14 +190,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                new[] {destNodeLabel},
+                new[] { destNodeLabel },
                 _graphSyncPartIdProperty.Name,
-                destIds);
+                destIds.Where(x => !string.IsNullOrEmpty(x.ToString())).Select(z => z).ToArray());
         }
 
-        private object GetSyncId(ContentItem pickedContentItem)
+        private object? GetSyncId(ContentItem pickedContentItem)
         {
-            return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            try
+            {
+                return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }
