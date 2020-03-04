@@ -34,17 +34,29 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public void CheckIsValid()
         {
-            if (SourceNodeLabels == null)
-                throw new InvalidOperationException($"{nameof(SourceNodeLabels)} is null");
+            List<string> validationErrors = new List<string>();
 
             if (!SourceNodeLabels.Any())
-                throw new InvalidOperationException("No source labels");
+                validationErrors.Add($"Missing {nameof(SourceNodeLabels)}.");
 
             if (SourceIdPropertyName == null)
-                throw new InvalidOperationException($"{nameof(SourceIdPropertyName)} is null");
+                validationErrors.Add($"{nameof(SourceIdPropertyName)} is null.");
 
             if (SourceIdPropertyValue == null)
-                throw new InvalidOperationException($"{nameof(SourceIdPropertyValue)} is null");
+                validationErrors.Add($"{nameof(SourceIdPropertyValue)} is null.");
+
+            foreach (var relationship in RelationshipsList)
+            {
+                var relationshipValidationErrors = relationship.ValidationErrors;
+                if (relationshipValidationErrors.Any())
+                {
+                    validationErrors.Add($"{relationship.RelationshipType??"<Null Type>"} relationship invalid ({string.Join(",", relationshipValidationErrors)})");
+                }
+            }
+
+            if (validationErrors.Any())
+                throw new InvalidOperationException(@$"{nameof(ReplaceRelationshipsCommand)} not valid:
+{string.Join(Environment.NewLine, validationErrors)}");
         }
 
         private Query CreateQuery()
@@ -101,12 +113,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
             string existingRelationshipsVariablesString = AllVariablesString(existingRelationshipVariableBase, ordinal);
 
+            string returnString = mergeBuilder.Length > 0 ? $"return {newRelationshipsVariablesString}" : string.Empty;
+
             return new Query(
 $@"{nodeMatchBuilder}
 {existingRelationshipsMatchBuilder}
 delete {existingRelationshipsVariablesString}
 {mergeBuilder}
-return {newRelationshipsVariablesString}",
+{returnString}",
                 parameters);
         }
 
@@ -119,22 +133,30 @@ return {newRelationshipsVariablesString}",
 
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
-            // nothing yet
-            // validation can check return from query and/or counters are in range in result summary and/or notifications
+            //todo: log query (doesn't work!) Query was: {resultSummary.Query}.
+            //todo: validate deletes?
 
-            //todo: lof query (doesn't work!) Query was: {resultSummary.Query}.
             int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
             if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
                 throw new CommandValidationException($"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+
+            if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
+                return;
 
             var createdRelationships = records?.FirstOrDefault()?.Values?.Values.Cast<IRelationship>();
             if (createdRelationships == null)
                 throw new CommandValidationException("New relationships not returned.");
 
             // could store variable name to type dic and use that to check instead
-            var expectedRelationshipTypes = RelationshipsList.Select(r => r.RelationshipType).OrderBy(t => t);
+            var expectedRelationshipTypes = RelationshipsList
+                .Where(r => r.DestinationNodeIdPropertyValues.Any())
+                .Select(r => r.RelationshipType)
+                .OrderBy(t => t);
 
-            var actualRelationshipTypes = createdRelationships.Select(r => r.Type).OrderBy(t => t);
+            var actualRelationshipTypes = createdRelationships
+                .Select(r => r.Type)
+                .OrderBy(t => t);
+
             if (!Enumerable.SequenceEqual(expectedRelationshipTypes, actualRelationshipTypes))
                 throw new CommandValidationException($"Relationship types creates ({string.Join(",", actualRelationshipTypes)}) does not match expected ({string.Join(",", expectedRelationshipTypes)})");
 

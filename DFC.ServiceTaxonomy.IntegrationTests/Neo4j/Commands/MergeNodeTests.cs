@@ -5,8 +5,10 @@ using DFC.ServiceTaxonomy.IntegrationTests.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
+namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
 {
+    //todo: when acting call on ValidateResults on command
+
     [Collection("Graph Database Integration")]
     public class MergeNodeTests : GraphDatabaseIntegrationTest
     {
@@ -30,9 +32,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
             // act
             await MergeNode(nodeLabel, idPropertyName, testProperties);
 
-            // note: Records on a result cannot be accessed if the session or transaction where the result is created has been closed. (https://github.com/neo4j/neo4j-dotnet-driver)
-            // Any query results obtained within a transaction function should be consumed within that function. Transaction functions can return values but these should be derived values rather than raw results. (https://neo4j.com/docs/driver-manual/1.7/sessions-transactions/#driver-transactions)
-            //todo: ^^ should probably not ignore this!
             //todo: use reactive session?
 
             AssertResult(nodeVariable,new[]
@@ -88,7 +87,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j
         /// MergeNode uses a map to replace all properties on the node.
         /// </summary>
         [Fact]
-        public async Task grMergeNode_ExistingNode_DifferentProperties_Test()
+        public async Task MergeNode_ExistingNode_DifferentProperties_Test()
         {
             const string nodeLabel = "testNode";
             const string idPropertyName = "id";

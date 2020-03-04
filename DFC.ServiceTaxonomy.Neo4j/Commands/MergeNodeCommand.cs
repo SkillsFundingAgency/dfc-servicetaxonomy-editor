@@ -16,20 +16,24 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public void CheckIsValid()
         {
-            if (NodeLabels == null)
-                throw new InvalidOperationException($"{nameof(NodeLabels)} is null");
+            List<string> validationErrors = new List<string>();
 
             if (!NodeLabels.Any())
-                throw new InvalidOperationException($"No labels");
+                validationErrors.Add($"Missing {nameof(NodeLabels)}.");
 
             if (IdPropertyName == null)
-                throw new InvalidOperationException($"{nameof(IdPropertyName)} is null");
+                throw new InvalidOperationException($"{nameof(IdPropertyName)} is null.");
+
+            if (validationErrors.Any())
+                throw new InvalidOperationException(@$"{nameof(MergeNodeCommand)} not valid:
+{string.Join(Environment.NewLine, validationErrors)}");
         }
 
         private Query CreateQuery()
         {
             CheckIsValid();
 
+            // Query gracefully handles case when Properties == null
             return new Query(
                 $"MERGE (n:{string.Join(':',NodeLabels)} {{ {IdPropertyName}:'{Properties[IdPropertyName!]}' }}) SET n=$properties RETURN ID(n)",
                 new Dictionary<string,object> {{"properties", Properties}});
@@ -42,11 +46,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         //todo: throw or combine all validation errors and throw aggregateexception, return errors?
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
-            // nothing yet
-            // validation can check return from query and/or counters are in range in result summary and/or notifications
-
-            //todo: update query to return better validation failure indicator
-
             int expectedPropertyCount = Properties.Count, expectedLabelsAdded;
             switch (resultSummary.Counters.NodesCreated)
             {
