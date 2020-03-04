@@ -51,11 +51,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         {
             CheckIsValid();
 
+            const string sourceNodeVariableName = "s";
+            const string destinationNodeVariableBase = "d";
+            const string existingRelationshipVariableBase = "er";
+            const string newRelationshipVariableBase = "nr";
+
             //todo: bi-directional relationships
             const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
             var nodeMatchBuilder =
                 new StringBuilder(
-                    $"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+                    $"match ({sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
             var existingRelationshipsMatchBuilder = new StringBuilder();
             var mergeBuilder = new StringBuilder();
             var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue!}};
@@ -73,31 +78,40 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
                 foreach (string destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
                 {
-                    string destNodeVariable = $"d{++ordinal}";
+                    string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
+                    string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
                     string destIdPropertyValueParamName = $"{destNodeVariable}Value";
 
                     nodeMatchBuilder.Append(
                         $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
                     parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
 
-                    mergeBuilder.Append($"\r\nmerge (s)-[:{relationship.RelationshipType}]->({destNodeVariable})");
+                    mergeBuilder.Append($"\r\nmerge ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable})");
                 }
             }
+
+            string newRelationshipsVariablesString = AllVariablesString(newRelationshipVariableBase, ordinal);
 
             ordinal = 0;
             foreach ((string type, string labels) in distinctRelationshipTypeToDestNode)
             {
                 existingRelationshipsMatchBuilder.Append(
-                    $"\r\noptional match (s)-[r{++ordinal}:{type}]->(:{labels})");
+                    $"\r\noptional match ({sourceNodeVariableName})-[{existingRelationshipVariableBase}{++ordinal}:{type}]->(:{labels})");
             }
 
-            string existingRelationshipVariablesString =
-                string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
+            string existingRelationshipsVariablesString = AllVariablesString(existingRelationshipVariableBase, ordinal);
 
             return new Query(
-                $"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s",
+$@"{nodeMatchBuilder}
+{existingRelationshipsMatchBuilder}
+delete {existingRelationshipsVariablesString}
+{mergeBuilder}
+return {newRelationshipsVariablesString}",
                 parameters);
         }
+
+        private static string AllVariablesString(string variableBase, int ordinal) =>
+            string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"{variableBase}{o}"));
 
         public Query Query => CreateQuery();
 
@@ -113,7 +127,20 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
                 throw new CommandValidationException($"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
 
-            //todo: return relationships instead and check those
+            var createdRelationships = records?.FirstOrDefault()?.Values?.Values.Cast<IRelationship>();
+            if (createdRelationships == null)
+                throw new CommandValidationException("New relationships not returned.");
+
+            // could store variable name to type dic and use that to check instead
+            var expectedRelationshipTypes = RelationshipsList.Select(r => r.RelationshipType).OrderBy(t => t);
+
+            var actualRelationshipTypes = createdRelationships.Select(r => r.Type).OrderBy(t => t);
+            if (!Enumerable.SequenceEqual(expectedRelationshipTypes, actualRelationshipTypes))
+                throw new CommandValidationException($"Relationship types creates ({string.Join(",", actualRelationshipTypes)}) does not match expected ({string.Join(",", expectedRelationshipTypes)})");
+
+            var firstStartNodeId = createdRelationships.First().StartNodeId;
+            if (!createdRelationships.Skip(1).All(r => r.StartNodeId == firstStartNodeId))
+                throw new CommandValidationException("Not all created relationships have the same source node.");
         }
     }
 }
