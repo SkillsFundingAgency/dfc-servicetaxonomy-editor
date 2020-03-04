@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 validationErrors.Add($"Missing {nameof(NodeLabels)}.");
 
             if (IdPropertyName == null)
-                throw new InvalidOperationException($"{nameof(IdPropertyName)} is null.");
+                validationErrors.Add($"{nameof(IdPropertyName)} is null.");
 
             if (validationErrors.Any())
                 throw new InvalidOperationException(@$"{nameof(MergeNodeCommand)} not valid:
