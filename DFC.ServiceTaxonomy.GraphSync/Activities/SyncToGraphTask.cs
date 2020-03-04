@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class SyncToGraphTask : TaskActivity
     {
         public SyncToGraphTask(
-            IGraphSyncer graphSyncer,
+            IUpsertGraphSyncer graphSyncer,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         }
 
         private IStringLocalizer T { get; }
-        private readonly IGraphSyncer _graphSyncer;
+        private readonly IUpsertGraphSyncer _graphSyncer;
         private readonly INotifier _notifier;
 
         public override string Name => nameof(SyncToGraphTask);
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             try
             {
                 var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
-                await _graphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content);
+                await _graphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content, contentItem.CreatedUtc, contentItem.ModifiedUtc);
 
                 return Outcomes("Done");
             }

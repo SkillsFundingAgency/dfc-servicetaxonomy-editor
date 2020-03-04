@@ -42,13 +42,16 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
+            services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
+            services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
 
             // Syncers
-            services.AddTransient<IGraphSyncer, GraphSyncer>();
+            services.AddTransient<IUpsertGraphSyncer, UpsertGraphSyncer>();
+            services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();

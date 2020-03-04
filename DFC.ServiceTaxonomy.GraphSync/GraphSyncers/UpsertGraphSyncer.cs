@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // need to gather up all commands, then execute them in a single transaction
     // giving the commands the opportunity to validate the results before the transaction is committed
     // so any validation failure rolls back the whole sync operation
-    public class GraphSyncer : IGraphSyncer
+    public class UpsertGraphSyncer : IUpsertGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -24,16 +25,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
-        private readonly ILogger<GraphSyncer> _logger;
+        private readonly ILogger<UpsertGraphSyncer> _logger;
 
-        public GraphSyncer(
+        public UpsertGraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ILogger<GraphSyncer> logger)
+            ILogger<UpsertGraphSyncer> logger)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
@@ -48,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private const string NcsPrefix = "ncs__";
         private const string CommonNodeLabel = "Resource";
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content)
+        public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content, DateTime? createdUtc, DateTime? modifiedUtc)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -65,6 +66,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentType);
             _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
+
+            //Add created and modified dates to all content items
+            if (createdUtc.HasValue)
+                _mergeNodeCommand.Properties.Add(NcsPrefix + "CreatedDate", createdUtc.Value);
+
+            if (modifiedUtc.HasValue)
+                _mergeNodeCommand.Properties.Add(NcsPrefix + "ModifiedDate", modifiedUtc.Value);
 
             List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
 
