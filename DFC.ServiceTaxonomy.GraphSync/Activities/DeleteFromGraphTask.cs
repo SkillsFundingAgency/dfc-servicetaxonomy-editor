@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             _graphSyncer = graphSyncer;
             _notifier = notifier;
             T = localizer;
-            _contentDefinitionManager = contentDefinitionManager;            
+            _contentDefinitionManager = contentDefinitionManager;
         }
 
         private IStringLocalizer T { get; }
