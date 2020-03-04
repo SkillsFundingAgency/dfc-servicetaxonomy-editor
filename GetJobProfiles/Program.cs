@@ -69,27 +69,25 @@ namespace GetJobProfiles
             var client = new RestHttpClient.RestHttpClient(httpClient);
 
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
-            //await converter.Go(skip, take, napTimeMs);
-            await converter.Go(skip, take, napTimeMs, "Baker");
+            await converter.Go(skip, take, napTimeMs);
+            //await converter.Go(skip, take, napTimeMs, "Baker");
 
             var jobProfiles = converter.JobProfiles.ToArray();
 
             new EscoJobProfileMapper().Map(jobProfiles);
 
-            //var jobCategoryImporter = new JobCategoryImporter();
-            //jobCategoryImporter.Import(timestamp, jobProfiles);
+            var jobCategoryImporter = new JobCategoryImporter();
+            jobCategoryImporter.Import(timestamp, jobProfiles);
 
-            
-
-            //BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
-            //BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
-            //BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
             var qcfLevelBuilder = new QCFLevelBuilder();
             qcfLevelBuilder.Build(timestamp);
 
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
-            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary);
+            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles, socCodeDictionary);
 
+            BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
+            BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
+            BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
             BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
             BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, "ApprenticeshipStandards");
             BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, "ApprenticeshipStandardRoutes");

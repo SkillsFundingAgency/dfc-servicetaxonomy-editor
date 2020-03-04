@@ -1606,25 +1606,11 @@
                         },
                         {
                             "FieldName": "NumericField",
-                            "Name": "Level",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Apprenticeship Level",
-                                    "Position": "2"
-                                },
-                                "NumericFieldSettings": {
-                                    "Scale": 1
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "NumericField",
                             "Name": "MaximumFunding",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Maximum Funding Amount (£)",
-                                    "Position": "3"
+                                    "Position": "1"
                                 },
                                 "NumericFieldSettings": {
                                     "Scale": 1
@@ -1638,7 +1624,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "LARS Code",
-                                    "Position": "4"
+                                    "Position": "2"
                                 },
                                 "NumericFieldSettings": {
                                     "Scale": 1
@@ -1652,7 +1638,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Duration in Months",
-                                    "Position": "5"
+                                    "Position": "3"
                                 },
                                 "NumericFieldSettings": {
                                     "Scale": 1
@@ -1666,7 +1652,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Apprenticeship Standard Routes",
-                                    "Position": "6"
+                                    "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs_hasApprenticeshipStandardRoute].",
@@ -1685,7 +1671,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "QCF Level",
-                                    "Position": "6"
+                                    "Position": "5"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs_hasQCFLevel].",

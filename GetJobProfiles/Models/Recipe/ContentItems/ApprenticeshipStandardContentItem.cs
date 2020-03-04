@@ -5,8 +5,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 {
     public class ApprenticeshipStandardContentItem : ContentItem
     {
-        public ApprenticeshipStandardContentItem(string title, string timestamp)
-            : base("ApprenticeshipStandard", title, timestamp)
+        public ApprenticeshipStandardContentItem(string title, string timestamp, string contentItemId = null)
+            : base("ApprenticeshipStandard", title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
             GraphSyncPart = new GraphSyncPart("ApprenticeshipStandard");
