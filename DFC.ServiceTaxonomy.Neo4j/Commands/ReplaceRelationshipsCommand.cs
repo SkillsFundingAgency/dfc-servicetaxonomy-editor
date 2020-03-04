@@ -85,10 +85,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             }
 
             ordinal = 0;
-            foreach (var relationshipTypeToDestNode in distinctRelationshipTypeToDestNode)
+            foreach ((string type, string labels) in distinctRelationshipTypeToDestNode)
             {
                 existingRelationshipsMatchBuilder.Append(
-                    $"\r\noptional match (s)-[r{++ordinal}:{relationshipTypeToDestNode.type}]->(:{relationshipTypeToDestNode.labels})");
+                    $"\r\noptional match (s)-[r{++ordinal}:{type}]->(:{labels})");
             }
 
             string existingRelationshipVariablesString =
@@ -112,6 +112,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
             if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
                 throw new CommandValidationException($"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+
+            //todo: return relationships instead and check those
         }
     }
 }

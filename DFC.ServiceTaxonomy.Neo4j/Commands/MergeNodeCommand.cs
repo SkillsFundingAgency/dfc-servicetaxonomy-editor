@@ -67,6 +67,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
             if (resultSummary.Counters.LabelsAdded != expectedLabelsAdded)
                 throw new CommandValidationException($"Expected {expectedLabelsAdded} to be added, but {resultSummary.Counters.LabelsAdded} were actually added.");
+
+            long? nodeId = records?.FirstOrDefault()?.Values.Values.FirstOrDefault()?.As<long?>();
+            if (nodeId == null)
+                throw new CommandValidationException($"Id of created node not returned");
+
+            //todo: log id?
         }
     }
 }
