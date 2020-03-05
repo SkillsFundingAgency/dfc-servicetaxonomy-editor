@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
@@ -37,7 +38,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             return new Query($"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})-[r]->() DELETE n, r");
         }
 
-        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary) => throw new NotImplementedException();
+        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
+        {
+            if (resultSummary.Counters.NodesDeleted != 1)
+                throw new CommandValidationException($"Expecting 1 node to be deleted, but {resultSummary.Counters.NodesDeleted} were actually deleted.");
+
+            //todo: check number of relationships deleted?
+        }
 
         public Query Query => CreateQuery();
 
