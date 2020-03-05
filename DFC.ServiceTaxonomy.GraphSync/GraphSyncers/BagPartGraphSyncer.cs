@@ -13,7 +13,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {

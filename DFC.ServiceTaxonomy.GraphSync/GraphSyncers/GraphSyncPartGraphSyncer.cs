@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
     {
