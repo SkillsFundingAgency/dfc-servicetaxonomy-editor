@@ -53,8 +53,9 @@ namespace GetJobProfiles
                     },
                     QCFLevel = new ContentPicker
                     {
-                        ContentItemIds = new List<string> { qcfLevelDictionary[standard.Level.ToString()] }
-                    }
+                        ContentItemIds = standard.Level.HasValue ? new List<string> { qcfLevelDictionary[standard.Level.ToString()] } : new List<string>()
+                    },
+                    Type = new TextField(standard.Type)
                 }
             });
 
@@ -91,14 +92,14 @@ namespace GetJobProfiles
                     var status = row.GetCell(statusIndex).StringCellValue;
 
                     //What to do if a Job Profile has a standard that's not approved? -- Will not associate at the moment
-                    if (status.Equals("Approved for delivery", StringComparison.OrdinalIgnoreCase))
+                    if (status.Equals("Approved for delivery", StringComparison.InvariantCultureIgnoreCase))
                     {
                         var name = this.CleanseStandardName(row.GetCell(nameIndex).StringCellValue);
                         var reference = row.GetCell(referenceIndex).StringCellValue;
-                        var level = row.GetCell(levelIndex).CellType == NPOI.SS.UserModel.CellType.Numeric ? row.GetCell(levelIndex).NumericCellValue : 0;
-                        var maximumFunding = row.GetCell(maximumFundingIndex).CellType == NPOI.SS.UserModel.CellType.Numeric ? row.GetCell(maximumFundingIndex).NumericCellValue : 0;
+                        var level = row.GetCell(levelIndex).CellType == CellType.Numeric ? row.GetCell(levelIndex).NumericCellValue : 0;
+                        var maximumFunding = row.GetCell(maximumFundingIndex).CellType == CellType.Numeric ? row.GetCell(maximumFundingIndex).NumericCellValue : 0;
                         var typicalDuration = row.GetCell(typicalDurationIndex).NumericCellValue;
-                        var larsCode = row.GetCell(larsCodeIndex).CellType == NPOI.SS.UserModel.CellType.Numeric ? row.GetCell(larsCodeIndex).NumericCellValue : 0;
+                        var larsCode = row.GetCell(larsCodeIndex).CellType == CellType.Numeric ? row.GetCell(larsCodeIndex).NumericCellValue : 0;
                         var route = row.GetCell(routeIndex).StringCellValue;
 
                         var apprenticeshipStandard = new ApprenticeshipStandard
@@ -118,6 +119,18 @@ namespace GetJobProfiles
                 }
             }
 
+            BuildFrameworks(apprenticeshipStandardList);
+
+            return apprenticeshipStandardList;
+        }
+
+        /// <summary>
+        /// Add frameworks into the Standards collection
+        /// </summary>
+        /// <param name="apprenticeshipStandardList"></param>
+        private static void BuildFrameworks(List<ApprenticeshipStandard> apprenticeshipStandardList)
+        {
+            //Load frameworks where standards are empty
             using (var reader = new StreamReader(@"SeedData\job_profiles.xlsx"))
             {
                 var workbook = new XSSFWorkbook(reader.BaseStream);
@@ -154,8 +167,6 @@ namespace GetJobProfiles
                     }
                 }
             }
-
-            return apprenticeshipStandardList;
         }
 
         /// <summary>

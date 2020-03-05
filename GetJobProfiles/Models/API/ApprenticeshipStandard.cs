@@ -8,7 +8,7 @@ namespace GetJobProfiles.Models.API
     {
         public string Name { get; set; }
         public string Reference { get; set; }
-        public int Level { get; set; }
+        public int? Level { get; set; }
         public int LARSCode { get; set; }
         public int MaximumFunding { get; set; }
         public int Duration { get; set; }
