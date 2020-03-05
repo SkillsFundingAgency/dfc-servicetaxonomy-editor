@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -187,26 +186,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var destIds = await Task.WhenAll(contentItemIdsProperty.Value.Select(async relatedContentId =>
                 GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest))));
 
-            if (destIds.Any())
-            {
-                replaceRelationshipsCommand.AddRelationshipsTo(
-                    relationshipType,
-                    new[] { destNodeLabel },
-                    _graphSyncPartIdProperty.Name,
-                    destIds.Where(x => !string.IsNullOrEmpty(x.ToString())).Select(z => z).ToArray());
-            }
+            replaceRelationshipsCommand.AddRelationshipsTo(
+                relationshipType,
+                new[] { destNodeLabel },
+                _graphSyncPartIdProperty.Name,
+                destIds);
         }
 
-        private object? GetSyncId(ContentItem pickedContentItem)
+        private object GetSyncId(ContentItem pickedContentItem)
         {
-            try
-            {
-                return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
 }
