@@ -37,23 +37,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 o => o.WithLogger(neoLogger));
         }
 
-        public async Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation)
-        {
-            IAsyncSession session = _driver.AsyncSession();
-            try
-            {
-                return await session.ReadTransactionAsync(async tx =>
-                {
-                    IResultCursor result = await tx.RunAsync(query);
-                    return await result.ToListAsync(operation);
-                });
-            }
-            finally
-            {
-                await session.CloseAsync();
-            }
-        }
-
         public async Task<List<T>> RunReadQuery<T>(IQuery<T> query)
         {
             IAsyncSession session = _driver.AsyncSession();
