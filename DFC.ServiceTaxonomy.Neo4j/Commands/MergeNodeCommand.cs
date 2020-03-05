@@ -43,7 +43,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public static implicit operator Query(MergeNodeCommand c) => c.Query;
 
-        //todo: throw or combine all validation errors and throw aggregateexception, return errors?
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
             int expectedPropertyCount = Properties.Count, expectedLabelsAdded;

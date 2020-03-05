@@ -16,8 +16,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
-        //todo: object
-        public string? SourceIdPropertyValue { get; set; }
+        public object? SourceIdPropertyValue { get; set; }
 
         public IEnumerable<Relationship> Relationships
         {

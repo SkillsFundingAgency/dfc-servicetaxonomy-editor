@@ -13,8 +13,6 @@ using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 
-//todo: update existing & create new contenttypes for restrictions, other requirements etc.
-
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
 // and no test job profiles slip through the net
 
@@ -41,7 +39,7 @@ namespace GetJobProfiles
 
             var socCodeConverter = new SocCodeConverter();
             var socCodeDictionary = socCodeConverter.Go(timestamp);
-            
+
             //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 0;

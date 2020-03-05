@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
     {
         HashSet<string> SourceNodeLabels { get; set; }
         string? SourceIdPropertyName { get; set; }
-        string? SourceIdPropertyValue { get; set; }
+        object? SourceIdPropertyValue { get; set; }
 
         IEnumerable<Relationship> Relationships { get; }
 

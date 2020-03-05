@@ -10,15 +10,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
         public string? IdPropertyName { get; set; }
-        //todo: object
-        public string? IdPropertyValue { get; set; }
-
-        private Query CreateQuery()
-        {
-            CheckIsValid();
-
-            return new Query($"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})-[r]->() DELETE n, r");
-        }
+        public object? IdPropertyValue { get; set; }
 
         public void CheckIsValid()
         {
@@ -36,6 +28,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             if (validationErrors.Any())
                 throw new InvalidOperationException(@$"{nameof(DeleteNodeCommand)} not valid:
 {string.Join(Environment.NewLine, validationErrors)}");
+        }
+
+        private Query CreateQuery()
+        {
+            CheckIsValid();
+
+            return new Query($"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})-[r]->() DELETE n, r");
         }
 
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary) => throw new NotImplementedException();

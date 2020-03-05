@@ -6,6 +6,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
     {
         HashSet<string> NodeLabels { get; set; }
         string? IdPropertyName { get; set; }
-        string? IdPropertyValue { get; set; }
+        object? IdPropertyValue { get; set; }
     }
 }
