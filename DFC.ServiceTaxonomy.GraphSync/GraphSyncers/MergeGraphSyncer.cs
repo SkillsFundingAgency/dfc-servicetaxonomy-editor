@@ -27,6 +27,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
+        //todo: have as setting of activity, or graph sync content part settings
+        private const string NcsPrefix = "ncs__";
+        private const string CommonNodeLabel = "Resource";
+
         public MergeGraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
@@ -44,10 +48,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _logger = logger;
         }
-
-        //todo: have as setting of activity, or graph sync content part settings
-        private const string NcsPrefix = "ncs__";
-        private const string CommonNodeLabel = "Resource";
 
         public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content, DateTime? createdUtc, DateTime? modifiedUtc)
         {

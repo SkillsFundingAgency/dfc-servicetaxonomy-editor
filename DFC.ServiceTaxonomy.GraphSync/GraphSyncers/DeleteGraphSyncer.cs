@@ -17,6 +17,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ISession _session;
         private readonly ILogger<DeleteGraphSyncer> _logger;
 
+        //todo: have as setting of activity, or graph sync content part settings
+        private const string NcsPrefix = "ncs__";
+
         public DeleteGraphSyncer(
             IGraphDatabase graphDatabase,
             IDeleteNodeCommand deleteNodeCommand,
@@ -38,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation($"Sync: deleting {contentItem.ContentType}");
 
-            _deleteNodeCommand.NodeLabels = new HashSet<string> {contentItem.ContentType};
+            _deleteNodeCommand.NodeLabels = new HashSet<string> {NcsPrefix + contentItem.ContentType};
             _deleteNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
             _deleteNodeCommand.IdPropertyValue = _graphSyncPartIdProperty.Value(contentItem.Content.GraphSyncPart);
 
