@@ -10,7 +10,7 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     /// <remarks>
     /// we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)

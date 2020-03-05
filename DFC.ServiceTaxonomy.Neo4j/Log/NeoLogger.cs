@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Log
 
         public void Info(string message, params object[] args) => _logger.LogInformation(message, args);
 
+        //todo: have setting to selectively log debug lines (e.g. starts with "RUN")
         public void Debug(string message, params object[] args) => _logger.LogDebug(message, args);
 
         public void Trace(string message, params object[] args) => _logger.LogTrace(message, args);
