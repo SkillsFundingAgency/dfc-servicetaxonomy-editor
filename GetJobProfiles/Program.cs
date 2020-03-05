@@ -15,8 +15,6 @@ using GetJobProfiles.Models.Recipe.Fields;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 
-//todo: update existing & create new contenttypes for restrictions, other requirements etc.
-
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
 // and no test job profiles slip through the net
 
