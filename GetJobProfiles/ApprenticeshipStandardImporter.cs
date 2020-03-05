@@ -159,6 +159,7 @@ namespace GetJobProfiles
                                 Type = "Framework"
                             };
 
+                            //Only add frameworks that don't already exist in the list
                             if (!apprenticeshipStandardList.Any(x => x.Type == "Framework" && x.Name == framework))
                             {
                                 apprenticeshipStandardList.Add(apprenticeshipStandard);
@@ -195,16 +196,14 @@ namespace GetJobProfiles
                     var cleansedStandards = CleanseStandardName(standards);
                     var splitStandards = cleansedStandards.Split(',').ToList();
 
+                    //Standards take precedent over frameworks, only add frameworks if there are no standards
                     if (!splitStandards.Any() && !string.IsNullOrEmpty(frameworks))
                     {
                         splitStandards.AddRange(frameworks.Split(','));
                     }
 
-
                     jobProfileStandards.Add(jobProfileDescription, splitStandards.ToArray());
                 }
-
-                var nonFoundStandardOrFramework = new List<string>();
 
                 foreach (var jobProfile in jobProfiles)
                 {
@@ -225,10 +224,6 @@ namespace GetJobProfiles
                                 {
                                     jobProfileStandardContentIds.Add(standardContentId);
                                 }
-                                else
-                                {
-                                    nonFoundStandardOrFramework.Add(standard);
-                                }
                             }
                         }
 
@@ -239,8 +234,6 @@ namespace GetJobProfiles
                         }
                     }
                 }
-
-                Console.WriteLine(JsonConvert.SerializeObject(nonFoundStandardOrFramework));
             }
         }
 
