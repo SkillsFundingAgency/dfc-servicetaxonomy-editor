@@ -68,6 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
 
             //Add created and modified dates to all content items
+            //todo: store as neo's DateTime? especially if api doesn't match the string format
             if (createdUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(NcsPrefix + "CreatedDate", createdUtc.Value);
 

@@ -35,7 +35,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         {
             CheckIsValid();
 
-            return new Query($"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})-[r]->() DELETE n, r");
+            return new Query(
+$@"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})
+OPTIONAL MATCH (n)-[r]->()
+DELETE n, r");
         }
 
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)

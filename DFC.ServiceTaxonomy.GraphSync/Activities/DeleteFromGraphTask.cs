@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override string Name => nameof(DeleteFromGraphTask);
         public override LocalizedString DisplayText => T["Delete content item from Neo4j graph"];
-        public override LocalizedString Category => T["National Careers Service"];
+        public override LocalizedString Category => T["Graph"];
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
