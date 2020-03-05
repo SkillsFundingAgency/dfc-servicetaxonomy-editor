@@ -12,6 +12,7 @@ namespace GetJobProfiles.Models.API
         public int LARSCode { get; set; }
         public int MaximumFunding { get; set; }
         public int Duration { get; set; }
-        public string[] Route { get; internal set; }
+        public string[] Route { get; set; }
+        public string Type { get; set; }
     }
 }

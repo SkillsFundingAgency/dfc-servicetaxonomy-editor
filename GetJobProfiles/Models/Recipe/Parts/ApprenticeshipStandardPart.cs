@@ -14,5 +14,6 @@ namespace GetJobProfiles.Models.Recipe.Parts
         public NumericField Duration { get; set; }
         public ContentPicker ApprenticeshipStandardRoutes { get; set; }
         public ContentPicker QCFLevel { get; set; }
+        public TextField Type { get; set; }
     }
 }

@@ -1647,6 +1647,20 @@
                             }
                         },
                         {
+                            "FieldName": "TextField",
+                            "Name": "Type",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Standard or Framework",
+                                    "Position": "3"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "ContentPickerField",
                             "Name": "ApprenticeshipStandardRoutes",
                             "Settings": {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Security;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.JsonHelpers;
@@ -57,7 +58,10 @@ namespace GetJobProfiles
 
             OutputBasePath = config["OutputBasePath"];
 
-            var httpClient = new HttpClient
+            var httpClientHandler = new HttpClientHandler();
+            httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+            var httpClient = new HttpClient(httpClientHandler)
             {
                 BaseAddress = new Uri("https://pp.api.nationalcareers.service.gov.uk/job-profiles/"),
                 DefaultRequestHeaders =
@@ -66,11 +70,12 @@ namespace GetJobProfiles
                     {"Ocp-Apim-Subscription-Key", config["Ocp-Apim-Subscription-Key"]}
                 }
             };
+
             var client = new RestHttpClient.RestHttpClient(httpClient);
 
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
-            //await converter.Go(skip, take, napTimeMs, "Baker");
+            //await converter.Go(skip, take, napTimeMs, "Electronics engineer");
 
             var jobProfiles = converter.JobProfiles.ToArray();
 
@@ -83,7 +88,7 @@ namespace GetJobProfiles
             qcfLevelBuilder.Build(timestamp);
 
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
-            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles, socCodeDictionary);
+            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
             BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");

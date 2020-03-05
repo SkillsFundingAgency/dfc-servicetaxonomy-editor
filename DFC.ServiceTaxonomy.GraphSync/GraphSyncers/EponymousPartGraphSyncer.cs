@@ -188,11 +188,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var destIds = await Task.WhenAll(contentItemIdsProperty.Value.Select(async relatedContentId =>
                 GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest))));
 
-            replaceRelationshipsCommand.AddRelationshipsTo(
-                relationshipType,
-                new[] { destNodeLabel },
-                _graphSyncPartIdProperty.Name,
-                destIds.Where(x => !string.IsNullOrEmpty(x.ToString())).Select(z => z).ToArray());
+            if (destIds.Any())
+            {
+                replaceRelationshipsCommand.AddRelationshipsTo(
+                    relationshipType,
+                    new[] { destNodeLabel },
+                    _graphSyncPartIdProperty.Name,
+                    destIds.Where(x => !string.IsNullOrEmpty(x.ToString())).Select(z => z).ToArray());
+            }
         }
 
         private object? GetSyncId(ContentItem pickedContentItem)
