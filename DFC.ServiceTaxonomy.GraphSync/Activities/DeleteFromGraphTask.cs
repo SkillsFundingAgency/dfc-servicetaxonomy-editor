@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
@@ -11,32 +11,31 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 
 //todo: part handler called after workflow finishes - can we use that to stop inserts?
-//todo: content delete
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
     public class DeleteFromGraphTask : TaskActivity
     {
         public DeleteFromGraphTask(
-            IDeleteGraphSyncer graphSyncer,
+            IDeleteGraphSyncer deleteGraphSyncer,
             IStringLocalizer<DeleteFromGraphTask> localizer,
             INotifier notifier,
             IContentDefinitionManager contentDefinitionManager)
         {
-            _graphSyncer = graphSyncer;
+            _deleteGraphSyncer = deleteGraphSyncer;
             _notifier = notifier;
             T = localizer;
-            _contentDefinitionManager = contentDefinitionManager;            
+            _contentDefinitionManager = contentDefinitionManager;
         }
 
         private IStringLocalizer T { get; }
-        private readonly IDeleteGraphSyncer _graphSyncer;
+        private readonly IDeleteGraphSyncer _deleteGraphSyncer;
         private readonly INotifier _notifier;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public override string Name => nameof(DeleteFromGraphTask);
         public override LocalizedString DisplayText => T["Delete content item from Neo4j graph"];
-        public override LocalizedString Category => T["National Careers Service"];
+        public override LocalizedString Category => T["Graph"];
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
@@ -51,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             try
             {
-                await _graphSyncer.DeleteFromGraph(contentItem);
+                await _deleteGraphSyncer.DeleteFromGraph(contentItem);
 
                 return Outcomes("Done");
             }
