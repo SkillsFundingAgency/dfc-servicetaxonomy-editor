@@ -56,7 +56,7 @@ namespace GetJobProfiles
 
             OutputBasePath = config["OutputBasePath"];
 
-            var httpClient = new HttpClient()
+            var httpClient = new HttpClient
             {
                 BaseAddress = new Uri("https://pp.api.nationalcareers.service.gov.uk/job-profiles/"),
                 DefaultRequestHeaders =
@@ -67,7 +67,6 @@ namespace GetJobProfiles
             };
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
-
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
             //await converter.Go(skip, take, napTimeMs, "Baker");
