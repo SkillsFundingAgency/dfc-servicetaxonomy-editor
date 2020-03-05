@@ -56,10 +56,7 @@ namespace GetJobProfiles
 
             OutputBasePath = config["OutputBasePath"];
 
-            var httpClientHandler = new HttpClientHandler();
-            httpClientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-
-            var httpClient = new HttpClient(httpClientHandler)
+            var httpClient = new HttpClient()
             {
                 BaseAddress = new Uri("https://pp.api.nationalcareers.service.gov.uk/job-profiles/"),
                 DefaultRequestHeaders =
@@ -73,7 +70,7 @@ namespace GetJobProfiles
 
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
-            //await converter.Go(skip, take, napTimeMs, "Electronics engineer");
+            //await converter.Go(skip, take, napTimeMs, "Baker");
 
             var jobProfiles = converter.JobProfiles.ToArray();
 
