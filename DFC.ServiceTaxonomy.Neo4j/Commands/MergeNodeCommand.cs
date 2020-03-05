@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
             // Query gracefully handles case when Properties == null
             return new Query(
-                $"MERGE (n:{string.Join(':',NodeLabels)} {{ {IdPropertyName}:'{Properties[IdPropertyName!]}' }}) SET n=$properties RETURN ID(n)",
+                $"MERGE (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{Properties[IdPropertyName!]}'}}) SET n=$properties RETURN ID(n)",
                 new Dictionary<string,object> {{"properties", Properties}});
         }
 

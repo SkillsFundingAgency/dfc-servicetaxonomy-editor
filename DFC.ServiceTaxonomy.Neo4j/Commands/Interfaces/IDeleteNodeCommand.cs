@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 {
     public interface IDeleteNodeCommand : ICommand
     {
-        string? ContentType { get; set; }
-        string? Uri { get; set; }
+        HashSet<string> NodeLabels { get; set; }
+        string? IdPropertyName { get; set; }
+        string? IdPropertyValue { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // need to gather up all commands, then execute them in a single transaction
     // giving the commands the opportunity to validate the results before the transaction is committed
     // so any validation failure rolls back the whole sync operation
-    public class UpsertGraphSyncer : IUpsertGraphSyncer
+    public class MergeGraphSyncer : IMergeGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -25,16 +25,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
-        private readonly ILogger<UpsertGraphSyncer> _logger;
+        private readonly ILogger<MergeGraphSyncer> _logger;
 
-        public UpsertGraphSyncer(
+        public MergeGraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncPartIdProperty graphSyncPartIdProperty,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ILogger<UpsertGraphSyncer> logger)
+            ILogger<MergeGraphSyncer> logger)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
@@ -59,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return null;
 
-            _logger.LogInformation($"Syncing {contentType}");
+            _logger.LogInformation($"Sync: merging {contentType}");
 
             // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
 

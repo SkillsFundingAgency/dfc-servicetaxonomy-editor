@@ -8,27 +8,30 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
     public class DeleteNodeCommand : IDeleteNodeCommand
     {
-        //todo: needs to be         public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
-        public string? ContentType { get; set; }
-        //todo: needs to be IdPropertyName & IdPropertyValue
-        public string? Uri { get; set; }
+        public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
+        public string? IdPropertyName { get; set; }
+        //todo: object
+        public string? IdPropertyValue { get; set; }
 
         private Query CreateQuery()
         {
             CheckIsValid();
 
-            return new Query($"MATCH (n:ncs__{ContentType} {{ uri:'{Uri}' }})-[r]->() DELETE n, r");
+            return new Query($"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})-[r]->() DELETE n, r");
         }
 
         public void CheckIsValid()
         {
             List<string> validationErrors = new List<string>();
 
-            if (ContentType == null)
-                validationErrors.Add($"{nameof(ContentType)} is null.");
+            if (!NodeLabels.Any())
+                validationErrors.Add($"Missing {nameof(NodeLabels)}.");
 
-            if (Uri == null)
-                validationErrors.Add($"{nameof(Uri)} is null.");
+            if (IdPropertyName == null)
+                validationErrors.Add($"{nameof(IdPropertyName)} is null.");
+
+            if (IdPropertyValue == null)
+                validationErrors.Add($"{nameof(IdPropertyValue)} is null.");
 
             if (validationErrors.Any())
                 throw new InvalidOperationException(@$"{nameof(DeleteNodeCommand)} not valid:

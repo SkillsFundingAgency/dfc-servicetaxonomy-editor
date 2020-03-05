@@ -17,17 +17,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class SyncToGraphTask : TaskActivity
     {
         public SyncToGraphTask(
-            IUpsertGraphSyncer upsertGraphSyncer,
+            IMergeGraphSyncer mergeGraphSyncer,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
-            _upsertGraphSyncer = upsertGraphSyncer;
+            _mergeGraphSyncer = mergeGraphSyncer;
             _notifier = notifier;
             T = localizer;
         }
 
         private IStringLocalizer T { get; }
-        private readonly IUpsertGraphSyncer _upsertGraphSyncer;
+        private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private readonly INotifier _notifier;
 
         public override string Name => nameof(SyncToGraphTask);
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             try
             {
                 var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
-                await _upsertGraphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content, contentItem.CreatedUtc, contentItem.ModifiedUtc);
+                await _mergeGraphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content, contentItem.CreatedUtc, contentItem.ModifiedUtc);
 
                 return Outcomes("Done");
             }
