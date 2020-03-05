@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphLookup.Queries;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
-using Neo4j.Driver;
 using OrchardCore.Admin;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -38,20 +38,11 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
                 return BadRequest("Unable to find field settings");
             }
 
-            //todo: rename to IdFieldName, as needs to be unique??
-            //todo: assumes array of display fields
-
-            const string displayField = "d";
-            const string valueField = "v";
-
-            var results = await _neoGraphDatabase.RunReadQuery(
-                new Query(
-$@"match (n:{settings.NodeLabel})
-where toLower(n.{settings.DisplayFieldName}) starts with toLower('{query}')
-return n.{settings.DisplayFieldName} as {displayField}, n.{settings.ValueFieldName} as {valueField}
-order by toLower({displayField})
-limit 50"),
-                r => new { id = r[valueField].ToString(), displayText = r[displayField].ToString() });
+            var results = await _neoGraphDatabase.RunReadQuery(new LookupQuery(
+                    query,
+                    settings.NodeLabel!,        //todo: check can these be null (when no values entered in settings)?
+                    settings.DisplayFieldName!,
+                    settings.ValueFieldName!));
 
             return new ObjectResult(results);
         }

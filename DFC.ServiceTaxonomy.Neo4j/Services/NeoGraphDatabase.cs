@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
@@ -53,22 +54,22 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
-        // public async Task<List<T>> RunReadCommand<T>(ICommand command)
-        // {
-        //     IAsyncSession session = _driver.AsyncSession();
-        //     try
-        //     {
-        //         return await session.ReadTransactionAsync(async tx =>
-        //         {
-        //             IResultCursor result = await tx.RunAsync(command.Query);
-        //             return await result.ToListAsync(command.ResultOperation);
-        //         });
-        //     }
-        //     finally
-        //     {
-        //         await session.CloseAsync();
-        //     }
-        // }
+        public async Task<List<T>> RunReadQuery<T>(IQuery<T> query)
+        {
+            IAsyncSession session = _driver.AsyncSession();
+            try
+            {
+                return await session.ReadTransactionAsync(async tx =>
+                {
+                    IResultCursor result = await tx.RunAsync(query.Query);
+                    return await result.ToListAsync(query.ProcessRecord);
+                });
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+        }
 
         public async Task RunWriteCommands(params ICommand[] commands)
         {

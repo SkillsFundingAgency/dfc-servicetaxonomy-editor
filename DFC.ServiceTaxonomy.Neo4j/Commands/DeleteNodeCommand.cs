@@ -31,15 +31,20 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {string.Join(Environment.NewLine, validationErrors)}");
         }
 
-        private Query CreateQuery()
+        public Query Query
         {
-            CheckIsValid();
+            get
+            {
+                CheckIsValid();
 
-            return new Query(
+                return new Query(
 $@"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})
 OPTIONAL MATCH (n)-[r]->()
 DELETE n, r");
+            }
         }
+
+        public static implicit operator Query(DeleteNodeCommand c) => c.Query;
 
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
@@ -48,9 +53,5 @@ DELETE n, r");
 
             //todo: check number of relationships deleted?
         }
-
-        public Query Query => CreateQuery();
-
-        public static implicit operator Query(DeleteNodeCommand c) => c.Query;
     }
 }
