@@ -13,7 +13,7 @@ using OrchardCore.ContentManagement.Metadata;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     //todo: have to refactor sync. currently with bags, a single sync will occur in multiple transactions
-    // fo if a validation fails for example, the graph will be left in an incomplete synced state
+    // so if a validation fails for example, the graph will be left in an incomplete synced state
     // need to gather up all commands, then execute them in a single transaction
     // giving the commands the opportunity to validate the results before the transaction is committed
     // so any validation failure rolls back the whole sync operation
