@@ -1649,9 +1649,25 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Standard or Framework",
+                                    "Editor": "PredefinedList",
                                     "Position": "3"
                                 },
-                                "ContentIndexSettings": {}
+                                "ContentIndexSettings": {},
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "Standard",
+                                            "value": "Standard"
+                                        },
+                                        {
+                                            "name": "Framework",
+                                            "value": "Framework"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "Standard"
+                                }
                             }
                         },
                         {
