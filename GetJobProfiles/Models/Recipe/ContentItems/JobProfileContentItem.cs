@@ -59,5 +59,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         public TextField WorkingPattern { get; set; }
         public TextField WorkingPatternDetails { get; set; }
         public HtmlField CareerPathAndProgression { get; set; }
+
+        public ContentPicker ApprenticeshipStandards { get; set; }
     }
 }

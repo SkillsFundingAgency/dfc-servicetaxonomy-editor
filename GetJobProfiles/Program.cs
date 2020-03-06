@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Security;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.JsonHelpers;
@@ -10,6 +11,7 @@ using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.ContentItems.Base;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
+using GetJobProfiles.Models.Recipe.Fields;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 
@@ -63,8 +65,8 @@ namespace GetJobProfiles
                     {"Ocp-Apim-Subscription-Key", config["Ocp-Apim-Subscription-Key"]}
                 }
             };
-            var client = new RestHttpClient.RestHttpClient(httpClient);
 
+            var client = new RestHttpClient.RestHttpClient(httpClient);
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs);
             //await converter.Go(skip, take, napTimeMs, "Baker");
@@ -76,9 +78,18 @@ namespace GetJobProfiles
             var jobCategoryImporter = new JobCategoryImporter();
             jobCategoryImporter.Import(timestamp, jobProfiles);
 
+            var qcfLevelBuilder = new QCFLevelBuilder();
+            qcfLevelBuilder.Build(timestamp);
+
+            var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
+            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
+
             BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
             BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
+            BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
+            BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, "ApprenticeshipStandards");
+            BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, "ApprenticeshipStandardRoutes");
             BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Registrations");
             BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
@@ -92,7 +103,7 @@ namespace GetJobProfiles
             BatchSerializeToFiles(converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "CollegeLinks");
             BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
             BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "UniversityLinks");
-            BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key,r.Value)), batchSize, "RequirementsPrefixes");
+            BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "RequirementsPrefixes");
 
             File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
