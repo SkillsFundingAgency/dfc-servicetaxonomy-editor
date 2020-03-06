@@ -56,7 +56,14 @@ Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the S
 
 You should then be directed to the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
 
-To import the National Careers Service Job Profiles, todo
+To import the National Careers Service Job Profiles, import the files from the output of "GetJobProfiles" utility in the following order:
+
+- QCF Levels
+- Apprenticeship Standard Routes
+- Apprenticeship Standards
+- Everything except Job Profiles and Job Categories
+- Job Profiles
+- Job Categories
 
 ### Manually Configure Website
 
