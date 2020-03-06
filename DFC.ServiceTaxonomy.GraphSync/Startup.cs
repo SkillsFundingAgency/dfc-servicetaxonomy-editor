@@ -25,6 +25,8 @@ using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
+using OrchardCore.ContentManagement.Metadata;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -65,6 +67,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+
+            //Hide Orchard Core Content Definition Manager and use our own
+            services.AddTransient<IContentDefinitionManager, CustomContentDefinitionManager>();
+            services.AddActivity<ContentTypeUpdated, ContentTypeUpdatedEventDisplay>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

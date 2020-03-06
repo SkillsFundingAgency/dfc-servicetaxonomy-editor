@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CompareNETObjects" Version="4.65.0" />
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
+    <PackageReference Include="ObjectsComparer" Version="1.4.1" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
