@@ -8,6 +8,7 @@ using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
+using System.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -16,15 +17,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public GetContentItemsTask(
             ISession session,
             IStringLocalizer<GetContentItemsTask> localizer,
+            IContentManager contentManager,
             INotifier notifier)
         {
             _notifier = notifier;
             _session = session;
             T = localizer;
+            _contentManager = contentManager;
         }
 
         private IStringLocalizer T { get; }
         private readonly ISession _session;
+        private readonly IContentManager _contentManager;
         private readonly INotifier _notifier;
 
         public override string Name => nameof(GetContentItemsTask);
@@ -39,45 +43,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
-        //todo: if this fails, we notify the user, but the content still gets added to oc, and oc & the graph are then out-of-sync.
-        // we need to think of the best way to handle it. the event appears to trigger after the content is created (check)
-        // we don't want to remove the content in orchard core, as we don't want the user to have to reenter content
-        // perhaps we could mark the content as not synced (part of the graph content part?), and either the user can retry
-        // (and allow the user to filter by un-synced content)
-        // or we have a facility to check & sync all content in oc
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            var query = _session.Query<ContentItem, ContentItemIndex>(x=>x.ContentType == "ApprenticeshipStandard");
+            var contentTypeToSync = workflowContext.Input["ContentType"].ToString();
+            var fieldsToAdd = workflowContext.Input["Added"] as List<string>;
+            var fieldsToRemove = workflowContext.Input["Removed"] as List<string>;
+            var query = _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == contentTypeToSync);
 
-            foreach(var result in await query.ListAsync())
-#pragma warning disable S108 // Nested blocks of code should not be left empty
+            List<ContentItem> itemsToUpdate = new List<ContentItem>();
+
+            if (fieldsToRemove.Any() || fieldsToAdd.Any())
             {
-                
+                foreach (var result in await query.ListAsync())
+                {
+                    itemsToUpdate.Add(await _contentManager.GetAsync(result.ContentItemId));
+                }
             }
-#pragma warning restore S108 // Nested blocks of code should not be left empty
+
+            foreach (var fieldToRemove in fieldsToRemove!)
+            {
+                //Note, this doesn't work:
+                var itemsToProcess = itemsToUpdate.Where(x => x.Content[fieldToRemove]);
+                foreach (var item in itemsToProcess)
+                {
+                    //For now, publish content change to trigger Sync to graph pipeline....
+                    await _contentManager.PublishAsync(item);
+                }
+            }
 
             await Task.Delay(0);
             return Outcomes("Done");
-
-            //try
-            //{
-            //    var contentType = (ContentTypeDefinition)workflowContext.Input["ContentTypeDefinition"];
-            //    await _contentDefinitionManager.GetPartDefinition(contentItem.ContentType, contentItem.Content, contentItem.CreatedUtc, contentItem.ModifiedUtc);
-
-            //    return Outcomes("Done");
-            //}
-            //catch (Exception ex)
-            //{
-            //    // setting this, but not letting the exception propagate doesn't work
-            //    //workflowContext.Fault(ex, activityContext);
-
-            //    //                _notifier.Add(new GetProperty<NotifyType>(), new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
-            //    _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
-
-            //    // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
-            //    //return Outcomes("Failed");
-            //    throw;
-            //}
         }
     }
 }
+
