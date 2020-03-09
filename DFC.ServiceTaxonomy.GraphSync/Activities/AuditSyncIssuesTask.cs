@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Localization;
 using Neo4j.Driver;
@@ -24,14 +24,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public AuditSyncIssuesTask(
             ISession session,
             IGraphDatabase graphDatabase,
-            IUpsertGraphSyncer upsertGraphSyncer,
+            IMergeGraphSyncer mergeGraphSyncer,
             IStringLocalizer<AuditSyncIssuesTask> localizer,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers)
         {
             _session = session;
             _graphDatabase = graphDatabase;
-            _upsertGraphSyncer = upsertGraphSyncer;
+            _mergeGraphSyncer = mergeGraphSyncer;
             T = localizer;
             _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
             _syncFailedContentItems = new List<ContentItem>();
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         private readonly ISession _session;
         private readonly IGraphDatabase _graphDatabase;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
-        private readonly IUpsertGraphSyncer _upsertGraphSyncer;
+        private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private IStringLocalizer T { get; }
 
         public override string Name => nameof(AuditSyncIssuesTask);
@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             {
                 try
                 {
-                    await _upsertGraphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content,
+                    await _mergeGraphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content,
                         contentItem.CreatedUtc, contentItem.ModifiedUtc);
 
                     _syncFailedContentItems.Remove(contentItem);
@@ -106,7 +106,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         private async Task CheckIfContentItemSynced(ContentItem contentItem)
         {
-            var results = await _graphDatabase.RunReadQuery(new Query($"match (s:ncs__{contentItem.ContentType} {{ uri: '{contentItem.Content.GraphSyncPart.Text}' }})-[r]->(d) return s, r, d"), result => result);
+            var results = await _graphDatabase.RunReadQuery(new MatchNodeWithAllOutgoingRelationshipsQuery(contentItem.ContentType, contentItem.Content.GraphSyncPart.Text));
 
             if (results == null || !results.Any())
             {
