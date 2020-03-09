@@ -87,7 +87,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 
         public void StorePartDefinition(ContentPartDefinition contentPartDefinition)
         {
-            //var serializerSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
             var addedFields = new List<string>();
             var removedFields = new List<string>();
 
@@ -118,38 +117,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                 }
             }
 
-            _workflowManager.TriggerEventAsync(nameof(ContentTypeUpdatedEvent), new { Added = addedFields, Removed = removedFields }, contentPartDefinition.Name);
+            _workflowManager.TriggerEventAsync(nameof(ContentTypeUpdatedEvent), new { ContentType = contentPartDefinition.Name, Added = addedFields, Removed = removedFields }, contentPartDefinition.Name).GetAwaiter().GetResult();
         }
 
         public void StoreTypeDefinition(ContentTypeDefinition contentTypeDefinition)
         {
-            //var serializerSettings = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+            var addedFields = new List<string>();
+            var removedFields = new List<string>();
 
+            var existingDefinition = this.GetTypeDefinition(contentTypeDefinition.Name);
 
-            //var existingDefinition = this.GetTypeDefinition(contentTypeDefinition.Name);
+            foreach (var partField in contentTypeDefinition.Parts.SelectMany(z => z.PartDefinition.Fields))
+            {
+                var existingField = existingDefinition.Parts.SelectMany(z => z.PartDefinition.Fields).FirstOrDefault(x => x.Name == partField.Name);
+
+                if (existingField == null)
+                {
+                    //New field has been added
+                    addedFields.Add(partField.Name);
+                }
+
+            }
+
+            foreach (var partField in existingDefinition.Parts.SelectMany(z => z.PartDefinition.Fields))
+            {
+                var newField = contentTypeDefinition.Parts.SelectMany(z => z.PartDefinition.Fields).FirstOrDefault(x => x.Name == partField.Name);
+
+                if (newField == null)
+                {
+                    //Old field has been removed
+                    removedFields.Add(partField.Name);
+                }
+            }
+
             _ocContentDefinitionManager.StoreTypeDefinition(contentTypeDefinition);
-
-            //foreach (var part in existingdefinition.parts)
-            //{
-            //    var newparttocompare = contenttypedefinition.parts.firstordefault(x => x.name == part.name).partdefinition;
-
-            //    var diff = finddiff(jsonconvert.serializeobject(part.partdefinition.fields, serializersettings), jsonconvert.serializeobject(newparttocompare.fields, serializersettings));
-
-
-            //}
-
-
-            try
-            {
-
-                _workflowManager.TriggerEventAsync(nameof(ContentTypeUpdatedEvent), new { NewDefinition = contentTypeDefinition, OldDefinition = contentTypeDefinition }, contentTypeDefinition.Name).GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-#pragma warning disable S1481 // Unused local variables should be removed
-                var a = _ocContentDefinitionManager.GetPartDefinition(ex.Message);
-#pragma warning restore S1481 // Unused local variables should be removed
-            }
+            _workflowManager.TriggerEventAsync(nameof(ContentTypeUpdatedEvent), new { ContentType = contentTypeDefinition.Name, Added = addedFields, Removed = removedFields }, contentTypeDefinition.Name).GetAwaiter().GetResult();
         }
 
     }
