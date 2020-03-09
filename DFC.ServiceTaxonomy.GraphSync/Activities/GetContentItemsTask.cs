@@ -9,6 +9,7 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -62,12 +63,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             foreach (var fieldToRemove in fieldsToRemove!)
             {
-                //Note, this doesn't work:
-                var itemsToProcess = itemsToUpdate.Where(x => x.Content[fieldToRemove]);
-                foreach (var item in itemsToProcess)
+                foreach (var obj in itemsToUpdate)
                 {
-                    //For now, publish content change to trigger Sync to graph pipeline....
-                    await _contentManager.PublishAsync(item);
+                    if (obj != null)
+                    {
+                        //TODO: Update ContentItem to remove field and publish
+
+                        //For now, publish content change to trigger Sync to graph pipeline....
+                        await _contentManager.PublishAsync(obj);
+                    }
                 }
             }
 
