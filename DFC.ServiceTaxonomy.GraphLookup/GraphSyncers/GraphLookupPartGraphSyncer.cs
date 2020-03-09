@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
@@ -44,6 +45,32 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             }
 
             return Task.FromResult(Enumerable.Empty<Query>());
+        }
+
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition, IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        {
+            var nodes = (JArray)contentItem.Content.GraphLookupPart.Nodes;
+            var relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+
+            foreach (var n in nodes)
+            {
+                var destNode = destNodes.SingleOrDefault(x => (string)x.Properties["uri"] == (string)n["Id"]!);
+
+                if (destNode == null)
+                {
+                    return Task.FromResult(false);
+                }
+
+                var relationship = relationships.SingleOrDefault(x =>
+                    x.Type == relationshipType && x.EndNodeId == destNode.Id);
+
+                if (relationship == null)
+                {
+                    return Task.FromResult(false);
+                }
+            }
+
+            return Task.FromResult(true);
         }
 
         private object GetId(JToken jToken)

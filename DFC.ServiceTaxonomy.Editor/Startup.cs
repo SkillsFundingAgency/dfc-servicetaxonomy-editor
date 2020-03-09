@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
 namespace DFC.ServiceTaxonomy.Editor
 {
     public class Startup
@@ -11,7 +10,7 @@ namespace DFC.ServiceTaxonomy.Editor
         {
             services.AddOrchardCms();
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -19,7 +18,6 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
             app.UseOrchardCore();
         }
     }

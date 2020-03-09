@@ -46,6 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
+            services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
 
             // Syncers
             services.AddTransient<IUpsertGraphSyncer, UpsertGraphSyncer>();

@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
@@ -78,6 +79,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             return queries;
         }
+
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition,
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes) =>
+            throw new NotImplementedException();
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
