@@ -27,6 +27,7 @@ using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
 using OrchardCore.ContentManagement.Metadata;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using Microsoft.Extensions.Localization;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -69,8 +70,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
             //Hide Orchard Core Content Definition Manager and use our own
+            services.AddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
             services.AddTransient<IContentDefinitionManager, CustomContentDefinitionManager>();
-            services.AddActivity<ContentTypeUpdated, ContentTypeUpdatedEventDisplay>();
+            services.AddActivity<ContentTypeUpdatedEvent, ContentTypeUpdatedEventDisplay>();
+            services.AddActivity<GetContentItemsTask, GetContentItemsTaskDisplay>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

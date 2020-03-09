@@ -6,8 +6,10 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Environment.Cache;
-using OrchardCore.Workflows.Services;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.Activities;
+using System;
+using OrchardCore.Workflows.Services;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 {
@@ -116,7 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                 }
             }
 
-            _workflowManager.TriggerEventAsync("ContentPartUpdated", new { Added = addedFields, Removed = removedFields }, contentPartDefinition.Name).GetAwaiter().GetResult();
+            _workflowManager.TriggerEventAsync(nameof(ContentTypeUpdatedEvent), new { Added = addedFields, Removed = removedFields }, contentPartDefinition.Name);
         }
 
         public void StoreTypeDefinition(ContentTypeDefinition contentTypeDefinition)
@@ -137,10 +139,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             //}
 
 
+            try
+            {
 
-
-            _workflowManager.TriggerEventAsync("ContentTypeUpdated", new { NewDefinition = contentTypeDefinition, OldDefinition = contentTypeDefinition }, contentTypeDefinition.Name).GetAwaiter().GetResult();
-
+                _workflowManager.TriggerEventAsync(nameof(ContentTypeUpdatedEvent), new { NewDefinition = contentTypeDefinition, OldDefinition = contentTypeDefinition }, contentTypeDefinition.Name).GetAwaiter().GetResult();
+            }
+            catch (Exception ex)
+            {
+#pragma warning disable S1481 // Unused local variables should be removed
+                var a = _ocContentDefinitionManager.GetPartDefinition(ex.Message);
+#pragma warning restore S1481 // Unused local variables should be removed
+            }
         }
 
     }

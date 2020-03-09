@@ -16,12 +16,16 @@ namespace DFC.ServiceTaxonomy.Editor
             return Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging => logging.ClearProviders())
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
-                        .UseNLogWeb()
+                        .UseNLogWeb().ConfigureLogging(logging =>
+                        {
+                            logging.ClearProviders();
+                            logging.AddConsole();
+                        })
                         //todo: remove theme's we don't need
                         // .UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey,
-                            //"TheComingSoonTheme;TheBlogTheme;TheTheme")
-                            // "{TheComingSoonTheme;TheBlogTheme;TheTheme}")
-                            // "TheComingSoonTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")
+                        //"TheComingSoonTheme;TheBlogTheme;TheTheme")
+                        // "{TheComingSoonTheme;TheBlogTheme;TheTheme}")
+                        // "TheComingSoonTheme, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null")
                         .UseStartup<Startup>())
                 .Build();
         }
