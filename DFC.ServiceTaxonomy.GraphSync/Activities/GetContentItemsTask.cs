@@ -9,7 +9,6 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
