@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -17,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
-        public Task<IEnumerable<Query>> AddSyncComponents(
+        public Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -25,9 +24,11 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
+            var emptyResult = Task.FromResult(Enumerable.Empty<ICommand>());
+
             JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
-                return Task.FromResult(Enumerable.Empty<Query>());
+                return emptyResult;
 
             if (settings.PropertyName != null)
             {
@@ -44,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     nodes.Select(GetId).ToArray());
             }
 
-            return Task.FromResult(Enumerable.Empty<Query>());
+            return emptyResult;
         }
 
         public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition, IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)

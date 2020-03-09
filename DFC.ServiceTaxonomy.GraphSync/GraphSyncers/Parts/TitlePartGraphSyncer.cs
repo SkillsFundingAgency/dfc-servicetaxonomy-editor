@@ -9,13 +9,13 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class TitlePartGraphSyncer : IContentPartGraphSyncer
     {
         public string? PartName => nameof(TitlePart);
 
-        public Task<IEnumerable<Query>> AddSyncComponents(
+        public Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
 
-            return Task.FromResult(Enumerable.Empty<Query>());
+            return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
         public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node,

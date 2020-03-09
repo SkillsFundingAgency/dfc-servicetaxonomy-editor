@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
@@ -17,22 +17,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class SyncToGraphTask : TaskActivity
     {
         public SyncToGraphTask(
-            IUpsertGraphSyncer graphSyncer,
+            IMergeGraphSyncer mergeGraphSyncer,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
-            _graphSyncer = graphSyncer;
+            _mergeGraphSyncer = mergeGraphSyncer;
             _notifier = notifier;
             T = localizer;
         }
 
         private IStringLocalizer T { get; }
-        private readonly IUpsertGraphSyncer _graphSyncer;
+        private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private readonly INotifier _notifier;
 
         public override string Name => nameof(SyncToGraphTask);
         public override LocalizedString DisplayText => T["Sync content item to Neo4j graph"];
-        public override LocalizedString Category => T["National Careers Service"];
+        public override LocalizedString Category => T["Graph"];
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             try
             {
                 var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
-                await _graphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content, contentItem.CreatedUtc, contentItem.ModifiedUtc);
+                await _mergeGraphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content, contentItem.CreatedUtc, contentItem.ModifiedUtc);
 
                 return Outcomes("Done");
             }

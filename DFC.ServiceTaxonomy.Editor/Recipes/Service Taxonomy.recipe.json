@@ -312,6 +312,89 @@
                     ]
                 },
                 {
+                    "Name": "ApprenticeshipStandard",
+                    "DisplayName": "Apprenticeship Standard",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ApprenticeshipStandard",
+                            "Name": "ApprenticeshipStandard",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "ApprenticeshipStandardRoute",
+                    "DisplayName": "Apprenticeship Standard Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "Skill",
                     "DisplayName": "Skill",
                     "Settings": {
@@ -1508,6 +1591,125 @@
                     "ContentPartFieldDefinitionRecords": []
                 },
                 {
+                    "Name": "ApprenticeshipStandard",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Reference",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Reference",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MaximumFunding",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Maximum Funding Amount (£)",
+                                    "Position": "1"
+                                },
+                                "NumericFieldSettings": {
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "LARSCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "LARS Code",
+                                    "Position": "2"
+                                },
+                                "NumericFieldSettings": {
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Duration",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Duration in Months",
+                                    "Position": "3"
+                                },
+                                "NumericFieldSettings": {
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Type",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Standard or Framework",
+                                    "Editor": "PredefinedList",
+                                    "Position": "3"
+                                },
+                                "ContentIndexSettings": {},
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "Standard",
+                                            "value": "Standard"
+                                        },
+                                        {
+                                            "name": "Framework",
+                                            "value": "Framework"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "Standard"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipStandardRoutes",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Standard Routes",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs_hasApprenticeshipStandardRoute].",
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipStandardRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "QCFLevel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "QCF Level",
+                                    "Position": "5"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs_hasQCFLevel].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "QCFLevel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "JobProfile",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
@@ -1878,6 +2080,24 @@
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipStandards",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Standards",
+                                    "Position": "27"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipStandard"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }

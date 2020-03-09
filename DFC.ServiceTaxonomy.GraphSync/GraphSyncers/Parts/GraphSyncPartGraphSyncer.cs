@@ -9,7 +9,7 @@ using Neo4j.Driver;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
     {
@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public string? PartName => nameof(GraphSyncPart);
 
-        public Task<IEnumerable<Query>> AddSyncComponents(
+        public Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphSyncContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             mergeNodeCommand.Properties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
 
-            return Task.FromResult(Enumerable.Empty<Query>());
+            return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
         public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition,

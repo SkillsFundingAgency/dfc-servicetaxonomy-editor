@@ -8,14 +8,13 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
@@ -30,25 +29,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<IEnumerable<Query>> AddSyncComponents(
+        public async Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            var queries = new List<Query>();
+            var delayedCommands = new List<ICommand>();
 
             foreach (JObject? contentItem in graphLookupContent.ContentItems)
             {
-                var graphSyncer = _serviceProvider.GetRequiredService<IGraphSyncer>();
+                var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 string contentType = contentItem!["ContentType"]!.ToString();
 
-                DateTime? createdDate = contentItem["CreatedUtc"] != null ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
-                DateTime? modifiedDate = contentItem["ModifiedUtc"] != null ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
+                DateTime? createdDate = !string.IsNullOrEmpty(contentItem["CreatedUtc"]!.ToString()) ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
+                DateTime? modifiedDate = !string.IsNullOrEmpty(contentItem["ModifiedUtc"]!.ToString()) ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
 
                 //todo: if we want to support nested bags, would have to return queries also
-                IMergeNodeCommand? containedContentMergeNodeCommand = await graphSyncer.SyncToGraph(contentType, contentItem!, createdDate, modifiedDate);
+                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(contentType, contentItem!, createdDate, modifiedDate);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -74,10 +73,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
 
-                queries.Add(delayedReplaceRelationshipsCommand.Query);
+                delayedCommands.Add(delayedReplaceRelationshipsCommand);
             }
 
-            return queries;
+            return delayedCommands;
         }
 
         public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition,
