@@ -25,6 +25,13 @@ using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
+using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
+using System.Linq;
+using OrchardCore.ContentTypes.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Custom;
+using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -49,6 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
+            services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
 
             // Syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
@@ -65,6 +73,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+
+            services.AddTransient<IContentDefinitionManager, CustomContentDefinitionManager>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
