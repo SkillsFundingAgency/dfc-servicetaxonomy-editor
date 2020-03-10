@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 
@@ -13,40 +16,47 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     public class CypherStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
-        private readonly ICustomCommand _customCommand;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<CypherStep> _logger;
+
+        private const string StepName = "Cypher";
 
         public CypherStep(
             IGraphDatabase graphDatabase,
-            ICustomCommand customCommand)
+            IServiceProvider serviceProvider,
+            ILogger<CypherStep> logger)
         {
             _graphDatabase = graphDatabase;
-            _customCommand = customCommand;
+            _serviceProvider = serviceProvider;
+            _logger = logger;
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
-            if (!string.Equals(context.Name, "Cypher", StringComparison.OrdinalIgnoreCase))
-            {
+            if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
-            }
 
             var step = context.Step.ToObject<CypherStepModel>();
-            //todo: how do other steps handle errors (invalid recipe etc.)?
-            if (step == null) //todo: throw? at least log!
-                return;
 
-            //todo: support query array in step, or have multiple steps?
-            _customCommand.Command = step.Command;
+            foreach (string? command in step!.Commands ?? Enumerable.Empty<string?>())
+            {
+                if (command == null)
+                    continue;
 
-            //todo: validate, if not ok handle gracefully
+                _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {command}");
 
-            await _graphDatabase.Run(_customCommand);
+                var customCommand = _serviceProvider.GetRequiredService<ICustomCommand>();
+
+                customCommand.Command = command;
+
+                await _graphDatabase.Run(customCommand);
+            }
         }
 
         #pragma warning disable S3459
         private class CypherStepModel
         {
-            public string? Command { get; set; }
+            public string[]? Commands { get; set; }
         }
         #pragma warning restore S3459
     }
