@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.DisplayManagement.Notify;
@@ -31,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         private readonly INotifier _notifier;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public override string Name => nameof(DeleteFromGraphTask);
+        public override string Name => nameof(DeleteContentTypeFromGraphTask);
         public override LocalizedString DisplayText => T["Delete content type from Neo4j graph"];
         public override LocalizedString Category => T["Graph"];
 
@@ -44,22 +46,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            await Task.Delay(0);
-            //var typeToDelete = workflowContext.Input["ContentType"].ToString();
+            var typeToDelete = workflowContext.Input["ContentType"].ToString();
 
-            //try
-            //{
-                //await _deleteGraphSyncer.DeleteFromGraph(contentItem);
+            if (string.IsNullOrWhiteSpace(typeToDelete))
+                throw new InvalidOperationException($"No Content Type passed to {nameof(DeleteContentTypeFromGraphTask)}");
+
+            try
+            {
+                //Delete all nodes by type
+                await _deleteGraphSyncer.DeleteNodesByType(typeToDelete);
 
                 return Outcomes("Done");
-            //}
-            //catch
-            //{
-            //   // var contentType = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
-            //    //TODO : find out how to hide the success message, the notifier doesn't provide a means of clearing the existing notifications
-            //    _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteFromGraphTask), $"The {contentType} could not be removed because the associated node could not be deleted from the graph."));
-            //    throw;
-            //}
+            }
+            catch
+            {
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask), $"The {typeToDelete} could not be removed because the associated node could not be deleted from the graph. Most likely due to {typeToDelete} having incoming relationships."));
+                throw;
+            }
         }
     }
 }

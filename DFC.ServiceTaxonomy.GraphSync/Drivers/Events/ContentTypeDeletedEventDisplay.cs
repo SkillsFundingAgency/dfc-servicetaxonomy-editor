@@ -14,15 +14,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers.Events
         public override IDisplayResult Display(ContentTypeDeletedEvent model)
         {
             return Combine(
-                  Shape("ContentTypeDeletedEventDisplay_Fields_Thumbnail", new ContentTypeDeletedEventViewModel(model)).Location("Thumbnail", "Content"),
-                  Factory("ContentTypeDeletedEventDisplay_Fields_Design", ctx =>
-                  {
-                      var shape = new ContentTypeDeletedEventViewModel();
-                      shape.Activity = model;
+                 Shape("ContentTypeDeletedEventDisplay_Fields_Thumbnail", new ContentTypeDeletedEventViewModel(model)).Location("Thumbnail", "Content"),
+                 Factory("ContentTypeDeletedEventDisplay_Fields_Design", ctx =>
+                 {
+                     var shape = new ContentTypeDeletedEventViewModel();
+                     shape.Activity = model;
 
-                      return shape;
-                  }).Location("Design", "Content")
-              );
+                     return shape;
+                 }).Location("Design", "Content")
+             );
         }
     }
 }

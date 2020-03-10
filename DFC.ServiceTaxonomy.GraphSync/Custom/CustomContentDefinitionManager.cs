@@ -33,11 +33,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Custom
             var typeDefinition = _ocContentDefinitionManager.GetTypeDefinition(name);
 
             //Part being deleted is also type.
-            if(typeDefinition != null)
+            if (typeDefinition != null)
             {
-                _workflowManager.TriggerEventAsync(nameof(ContentTypeDeletedEvent), new { ContentTypeDefinition = name }, name);
+                _workflowManager.TriggerEventAsync(nameof(ContentTypeDeletedEvent), new { ContentType = name }, name).GetAwaiter().GetResult();
             }
-            //_ocContentDefinitionManager.DeletePartDefinition(name);
+            else
+            {
+                _ocContentDefinitionManager.DeletePartDefinition(name);
+            }
         }
 
         public void DeleteTypeDefinition(string name)

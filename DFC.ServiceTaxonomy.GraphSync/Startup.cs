@@ -27,9 +27,6 @@ using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
 using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
-using System.Linq;
-using OrchardCore.ContentTypes.Services;
-using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Custom;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -51,12 +48,15 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
+            services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
+            services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
             services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
+            services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
 
             // Syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
