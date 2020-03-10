@@ -206,25 +206,6 @@
                             }
                         },
                         {
-                            "PartName": "GraphLookupPart",
-                            "Name": "GraphLookupPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "27"
-                                },
-                                "GraphLookupPartSettings": {
-                                    "DisplayName": "ESCO Occupation Uri",
-                                    "Hint": "Select the ESCO occupation that relates to this job profile.",
-                                    "NodeLabel": "esco__Occupation",
-                                    "DisplayFieldName": "skos__prefLabel",
-                                    "ValueFieldName": "uri",
-                                    "RelationshipType": "ncs__relatedOccupation",
-                                    "NodesAreReadonly": true
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
                             "Settings": {
