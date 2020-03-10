@@ -227,9 +227,10 @@ namespace GetJobProfiles
                             }
                         }
 
+                        jobProfile.EponymousPart.ApprenticeshipStandards = new ContentPicker();
+
                         if (jobProfileStandardContentIds.Any())
                         {
-                            jobProfile.EponymousPart.ApprenticeshipStandards = new ContentPicker();
                             jobProfile.EponymousPart.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds;
                         }
                     }
