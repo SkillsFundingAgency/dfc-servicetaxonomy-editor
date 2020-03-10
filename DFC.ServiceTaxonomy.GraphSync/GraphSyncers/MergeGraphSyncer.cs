@@ -139,7 +139,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // part queries have to come after the main sync queries
             commands.AddRange(partCommands);
 
-            await _graphDatabase.RunWriteCommands(commands.ToArray());
+            await _graphDatabase.Run(commands.ToArray());
         }
     }
 }

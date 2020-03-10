@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 o => o.WithLogger(neoLogger));
         }
 
-        public async Task<List<T>> RunReadQuery<T>(IQuery<T> query)
+        public async Task<List<T>> Run<T>(IQuery<T> query)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
-        public async Task RunWriteCommands(params ICommand[] commands)
+        public async Task Run(params ICommand[] commands)
         {
             IAsyncSession session = _driver.AsyncSession();
             try
