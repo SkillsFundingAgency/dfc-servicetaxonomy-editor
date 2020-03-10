@@ -1,0 +1,43 @@
+﻿{
+    "name": "CypherQueries",
+    "displayName": "Cypher Queries",
+    "description": "Sets up the Cypher Queries",
+    "author": "National Careers Service",
+    "website": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    "version": "1.0",
+    "issetuprecipe": true,
+    "categories": [
+        "default"
+    ],
+    "tags": [
+        "ncs"
+    ],
+    // The variables are evaluated the first time they are accessed, and reused across steps
+    "variables": {
+        // "now": "[js: new Date().toISOString()]"
+    },
+    "steps": [
+        {
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                "DFC.ServiceTaxonomy.Cypher"
+            ]
+        },
+        {
+            "name": "queries",
+            "queries": [
+                {
+                    // Common properties
+                    "Name": "GetSkillsGapForOccupationAndGivenSkills",
+                    "Source": "Cypher",
+                    "IsReadonly": true,
+                    "Schema": null,
+                    "Template": "MATCH (s:esco__Skill)-[r:esco__isEssentialSkillFor|esco__isOptionalSkillFor]->(o:esco__Occupation)--(j:ncs__JobProfile)-[:ncs__hasSocCode]-(soc:ncs__SOCCode)\r\n\r\n\tWHERE s.uri in $skillList \r\nOPTIONAL MATCH (o)<-[:esco__isEssentialSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n    WITH \r\n    \tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingEssentialSkills \r\nOPTIONAL MATCH (o)<-[:esco__isOptionalSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n\tWITH \r\n\t\tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingOptionalSkills, \r\n        MatchingEssentialSkills \r\nMATCH (j:ncs__JobProfile) -- (o)<-[:esco__isEssentialSkillFor]-(sa) \r\n\tWHERE MatchingOptionalSkills + MatchingEssentialSkills >= $minimumMatchingSkills \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        j.skos__prefLabel as JobProfile, \r\n        j.uri as JobProfileUri, \r\n        j.ncs__Description as JobProfileDescription \r\nOPTIONAL MATCH (j:ncs__JobProfile) -- (o)<-[:esco__isOptionalSkillFor]-(sa) \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllOptionalSkills, \r\n        AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        JobProfile, \r\n        JobProfileUri, \r\n        JobProfileDescription \r\nRETURN { \r\n\tmatchingOccupations: collect({\r\n    \turi:o.uri, \r\n        occupation:o.skos__prefLabel, \r\n        jobProfileTitle:JobProfile, \r\n        jobProfileUri:JobProfileUri, \r\n        jobProfileDescription:JobProfileDescription, \r\n        matchingEssentialSkills:MatchingEssentialSkills, \r\n        matchingOptionalSkills:MatchingOptionalSkills, \r\n        socCode:soc.skos__prefLabel, \r\n        totalOccupationEssentialSkills:AllEssentialSkills, \r\n        totalOccupationOptionalSkills:AllOptionalSkills, \r\n        lastModified:o.dct__modified\r\n\t})\r\n} as results",
+                    "Parameters": "{\r\n\t\"minimumMatchingSkills\": 2,\r\n    \"skillList\": [\r\n    \t\"http://data.europa.eu/esco/skill/f98e06f5-a09a-4356-b6a8-d55a7d3c5356\",\r\n    \t\"http://data.europa.eu/esco/skill/98eb1f3b-3480-416b-bd4b-811946f7e347\"\r\n\t]\r\n}",
+                    "ResultModelType": "TestResultModel"
+                }
+            ]
+        }
+    ]
+}

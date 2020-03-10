@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Cypher\DFC.ServiceTaxonomy.Cypher.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
   </ItemGroup>
