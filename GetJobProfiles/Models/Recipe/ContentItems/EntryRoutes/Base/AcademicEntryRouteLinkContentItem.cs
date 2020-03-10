@@ -14,11 +14,19 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
 
             GraphSyncPart = new GraphSyncPart(contentType);
 
-            Link = new LinkField(sitefinityUrl);
+            EponymousPart = new AcademicEntryRouteLinkPart
+            {
+                Link = new LinkField(sitefinityUrl)
+            };
         }
 
-        public LinkField Link { get; set; }
+        public AcademicEntryRouteLinkPart EponymousPart { get; set; }
         public TitlePart TitlePart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
+    }
+
+    public class AcademicEntryRouteLinkPart
+    {
+        public LinkField Link { get; set; }
     }
 }
