@@ -7,11 +7,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
     public interface IGraphDatabase
     {
-        Task<List<T>> RunReadQuery<T>(IQuery<T> query);
+        Task<List<T>> Run<T>(IQuery<T> query);
 
         /// <summary>
         /// Run queries, in order, within a write transaction. No results returned.
         /// </summary>
-        Task RunWriteCommands(params ICommand[] commands);
+        Task Run(params ICommand[] commands);
     }
 }
