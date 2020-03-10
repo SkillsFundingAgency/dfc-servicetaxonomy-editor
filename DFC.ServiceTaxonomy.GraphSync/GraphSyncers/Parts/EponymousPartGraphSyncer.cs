@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     /// <remarks>
     /// we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
@@ -64,7 +63,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         /// </summary>
         public string? PartName => null;
 
-        public async Task<IEnumerable<Query>> AddSyncComponents(
+        public async Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -76,11 +75,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     continue;
 
                 JToken? fieldContent = ((JProperty)field).FirstOrDefault();
-                JProperty? firstProperty = (JProperty?) fieldContent?.FirstOrDefault();
+                JProperty? firstProperty = (JProperty?)fieldContent?.FirstOrDefault();
                 if (firstProperty == null)
                     continue;
 
-                JProperty? secondProperty = (JProperty?) fieldContent.Skip(1).FirstOrDefault();
+                JProperty? secondProperty = (JProperty?)fieldContent.Skip(1).FirstOrDefault();
                 string? secondName = secondProperty?.Name;
 
                 if (secondName == null)
@@ -112,7 +111,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     }
                 }
             }
-            return Enumerable.Empty<Query>();
+            return Enumerable.Empty<ICommand>();
         }
 
         private static void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
@@ -189,7 +188,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                new[] {destNodeLabel},
+                new[] { destNodeLabel },
                 _graphSyncPartIdProperty.Name,
                 destIds);
         }

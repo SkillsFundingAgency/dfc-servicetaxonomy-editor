@@ -7,20 +7,22 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
-using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Log;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
+using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Workflows.Helpers;
 
@@ -38,6 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
             // Graph Database
+            services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
@@ -48,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
 
             // Syncers
-            services.AddTransient<IUpsertGraphSyncer, UpsertGraphSyncer>();
+            services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
@@ -56,12 +59,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
 
             // Graph Sync Part
-            services.AddContentPart<GraphSyncPart>();
-            services.AddScoped<IContentPartDisplayDriver, GraphSyncPartDisplayDriver>();
-            //services.AddScoped<IContentPartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
+            services.AddContentPart<GraphSyncPart>()
+                .UseDisplayDriver<GraphSyncPartDisplayDriver>()
+                .AddHandler<GraphSyncPartHandler>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IContentPartHandler, GraphSyncPartHandler>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
         }
 

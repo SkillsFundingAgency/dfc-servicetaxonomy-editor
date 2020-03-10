@@ -14,13 +14,16 @@
       <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
       <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
       <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
       <PackageReference Include="morelinq" Version="3.3.2" />
       <PackageReference Include="OrchardCore.Infrastructure" Version="1.0.0-rc1-*" />
     </ItemGroup>
 
     <ItemGroup>
       <None Update="appsettings.Development.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="SeedData\ApprenticeshipStandards.xlsx">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="SeedData\esco_job_profile_map.csv">
