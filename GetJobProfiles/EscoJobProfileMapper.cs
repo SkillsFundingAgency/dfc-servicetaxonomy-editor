@@ -34,7 +34,7 @@ namespace GetJobProfiles
 
                     if (profile != null)
                     {
-                        //todo: allow >1 graphlookuppart in a contenttype
+                        //todo: allow >1 graphlookuppart in a contenttype: change graphlookup to named part
                         profile.GraphLookupPart = new GraphLookupPart
                         {
                             Nodes = new[]

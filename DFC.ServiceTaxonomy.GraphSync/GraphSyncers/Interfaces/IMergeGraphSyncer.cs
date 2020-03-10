@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
-    public interface IGraphSyncer
+    public interface IMergeGraphSyncer
     {
         Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content, DateTime? createdUtc, DateTime? modifiedUtc);
     }

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IDeleteGraphSyncer
     {
