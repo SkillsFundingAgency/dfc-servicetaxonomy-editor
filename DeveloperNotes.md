@@ -4,6 +4,19 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* if sync fails on create/update, inform user, mark visually as not synced, have task on timer to reattempt sync of any content items tagged as not synced (unless can think of a less messy way)
+* use titles from spreadsheet for imported content items
+* existing api returns LastUpdatedDate. to replicate that we'll have to update the graph sync code to store the contentitems lastmodified date into the graph
+  probably need a part to surface the content modified date in the ui and sync it to the db
+* use JobProfileWebsiteUrl as uri
+* job categories are returned by the search api, but not by the get job profile api. we'll still need to import them. we could import them from the spreadsheet (JobCategory->JobProfileCategories)
+* current job profile api search uses word stems : we might have to whitelist array properties, poss convert alt labels to separate nodes. but does fts support word stems anyway?
+* need a LinkField syncer
+* republishing not doesn't sync due to constraint:
+    Sync to graph failed: An item with the same key has already been added. Key: uri
+* wayne's install crashed with localisation issue, that wen't away when (all) localisation features were enabled.
+^^ unable to reproduce on mine (with loc features disabled). need to figure out why. probably need to add approp. localisation feature as dependency of our custom modules that use localisation? or add it as an enabled features in the startup recipe
+probably when run under gb culture
 * other requirements is in job profile content type as a html field -> think it should be a content picker
 * currently using specific versions of preview OC packages as all latest breaks builds: this will fail when specific versions of packages disappear from myget. will need to switch back to all latest when all latest works again
 * some descriptions like SOCCode show <p></p>, others don't
@@ -20,8 +33,7 @@ confirmation buttons are labelled undefined
 
 #Templates
 
-dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-* --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json
-dotnet new -i OrchardCore.ProjectTemplates::1.0.0-* --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json
+dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https://www.myget.org/F/orchardcore-preview/api/v3/index.json
 
 #Workflow Event Triggering
 

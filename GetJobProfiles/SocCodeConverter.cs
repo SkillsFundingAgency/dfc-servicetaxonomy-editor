@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using GetJobProfiles.Models.API;
-using GetJobProfiles.Models.Recipe;
+using GetJobProfiles.Models.Recipe.ContentItems;
 
 namespace GetJobProfiles
 {

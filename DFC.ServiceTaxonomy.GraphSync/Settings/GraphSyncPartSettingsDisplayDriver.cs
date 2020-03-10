@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                     model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
                     model.NamespacePrefix = graphSyncPartSettings.NamespacePrefix;
+                    model.BagPartContentItemRelationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                 })
                 .Location("Content");
         }
@@ -46,7 +47,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             var model = new GraphSyncPartSettingsViewModel();
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
-                m => m.NamespacePrefix))
+                m => m.NamespacePrefix,
+                m => m.BagPartContentItemRelationshipType))
             {
                 // could do with an ordered set
                 // namespaceprefix should never be null. throw instead?
@@ -75,7 +77,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 // we could update appsettings with new prefixes, but if we do that, we'd probably want to allow the user to delete them,
                 // so perhaps we just don't update appsettings in the app service when running ;-)
 
-                context.Builder.WithSettings(new GraphSyncPartSettings {NamespacePrefix = model.NamespacePrefix});
+                context.Builder.WithSettings(new GraphSyncPartSettings
+                {
+                    NamespacePrefix = model.NamespacePrefix,
+                    BagPartContentItemRelationshipType = model.BagPartContentItemRelationshipType
+                });
             }
 
             return Edit(contentTypePartDefinition);

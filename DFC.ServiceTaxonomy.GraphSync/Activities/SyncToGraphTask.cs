@@ -11,14 +11,13 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 
 //todo: part handler called after workflow finishes - can we use that to stop inserts?
-//todo: content delete
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
     public class SyncToGraphTask : TaskActivity
     {
         public SyncToGraphTask(
-            IGraphSyncer graphSyncer,
+            IUpsertGraphSyncer graphSyncer,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
@@ -28,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         }
 
         private IStringLocalizer T { get; }
-        private readonly IGraphSyncer _graphSyncer;
+        private readonly IUpsertGraphSyncer _graphSyncer;
         private readonly INotifier _notifier;
 
         public override string Name => nameof(SyncToGraphTask);
@@ -53,7 +52,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         {
             try
             {
-                await _graphSyncer.SyncToGraph((ContentItem) workflowContext.Input["ContentItem"]);
+                var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
+                await _graphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content, contentItem.CreatedUtc, contentItem.ModifiedUtc);
 
                 return Outcomes("Done");
             }

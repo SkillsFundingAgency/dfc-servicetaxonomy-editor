@@ -12,6 +12,7 @@ using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
@@ -39,14 +40,18 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Graph Database
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
+            services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
+            services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
 
             // Syncers
-            services.AddTransient<IGraphSyncer, GraphSyncer>();
+            services.AddTransient<IUpsertGraphSyncer, UpsertGraphSyncer>();
+            services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
 
