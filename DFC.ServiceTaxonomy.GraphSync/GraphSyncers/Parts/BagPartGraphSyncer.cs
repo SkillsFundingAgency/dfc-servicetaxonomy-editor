@@ -80,9 +80,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return delayedCommands;
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition,
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node,
+            ContentTypePartDefinition contentTypePartDefinition,
             IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes) =>
-            throw new NotImplementedException();
+            Task.FromResult(true);
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {

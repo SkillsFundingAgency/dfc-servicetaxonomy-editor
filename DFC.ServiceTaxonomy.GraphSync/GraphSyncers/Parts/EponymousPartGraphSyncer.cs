@@ -169,8 +169,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 }
                 else
                 {
-                    var contentItemValue = value["Text"] ?? value["Html"] ?? value["Value"];
-                    var nodePropertyValue = node.Properties[$"ncs__{field.Name}"];
+                    var contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"];
+                    node.Properties.TryGetValue($"ncs__{field.Name}", out var nodePropertyValue);
 
                     if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))
                     {
