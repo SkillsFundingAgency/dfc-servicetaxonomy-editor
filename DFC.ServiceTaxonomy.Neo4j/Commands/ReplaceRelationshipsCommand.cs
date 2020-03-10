@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 destIdPropertyValues));
         }
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
             List<string> validationErrors = new List<string>();
 
@@ -54,16 +54,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 }
             }
 
-            if (validationErrors.Any())
-                throw new InvalidOperationException(@$"{nameof(ReplaceRelationshipsCommand)} not valid:
-{string.Join(Environment.NewLine, validationErrors)}");
+            return validationErrors;
         }
 
         public Query Query
         {
             get
             {
-                CheckIsValid();
+                this.CheckIsValid();
 
                 const string sourceNodeVariableName = "s";
                 const string destinationNodeVariableBase = "d";

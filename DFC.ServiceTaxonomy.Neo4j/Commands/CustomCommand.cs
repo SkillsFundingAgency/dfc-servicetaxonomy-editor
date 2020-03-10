@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 
@@ -9,19 +8,21 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         public string? Command { get; set; }
 
-
-        //todo: change to ValidationErrors, return errors & don't throw. throw in query if any validation errors returned
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
+            var errors = new List<string>();
+
             if (Command == null)
-                throw new InvalidOperationException($"{nameof(Command)} is null.");
+                errors.Add($"{nameof(Command)} is null.");
+
+            return errors;
         }
 
         public Query Query
         {
             get
             {
-                CheckIsValid();
+                this.CheckIsValid();
                 return new Query(Command);
             }
         }
@@ -31,5 +32,4 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             // empty
         }
     }
-
 }

@@ -7,12 +7,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
     {
         /// <summary>
         /// Check if the command's state is valid, i.e. it contains everything required to generate its query.
-        /// Throw InvalidOperationException if the state is not valid.
         /// </summary>
-        void CheckIsValid();
+        /// <returns>List of validation failed messages.</returns>
+        List<string> ValidationErrors();
 
         /// <summary>
         /// Return the Neo4J query that will satisfy the command.
+        /// Throws InvalidOperationException if the state is not valid.
         /// </summary>
         Query Query { get; }
 
