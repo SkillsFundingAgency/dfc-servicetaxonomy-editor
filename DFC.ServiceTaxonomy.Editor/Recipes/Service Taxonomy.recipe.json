@@ -86,6 +86,71 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
+                    "Name": "Occupation",
+                    "DisplayName": "Occupation",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphLookupPart",
+                            "Name": "GraphLookupPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "GraphLookupPartSettings": {
+                                    "DisplayName": "ESCO Occupation",
+                                    "Hint": "Select the ESCO occupation that relates to this occupation.",
+                                    "NodeLabel": "esco__Occupation",
+                                    "DisplayFieldName": "skos__prefLabel",
+                                    "ValueFieldName": "uri",
+                                    "RelationshipType": "ncs__relatedEscoOccupation",
+                                    "NodesAreReadonly": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "Occupation",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "JobProfile",
                     "DisplayName": "Job Profile",
                     "Settings": {
@@ -1713,6 +1778,24 @@
                     "Name": "JobProfile",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "The occupation associated with this job profile.",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasOccupation].",
+                                    "Multiple": false,
+                                    "DisplayedContentTypes": [
+                                        "Occupation"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
                         {
                             "FieldName": "HtmlField",
                             "Name": "Description",
