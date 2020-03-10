@@ -1680,7 +1680,7 @@
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs_hasApprenticeshipStandardRoute].",
-                                    "Required": true,
+                                    "Required": false,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "ApprenticeshipStandardRoute"
@@ -1699,7 +1699,7 @@
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs_hasQCFLevel].",
-                                    "Required": true,
+                                    "Required": false,
                                     "DisplayedContentTypes": [
                                         "QCFLevel"
                                     ]
