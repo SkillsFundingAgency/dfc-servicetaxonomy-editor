@@ -9,21 +9,26 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
     public class GetContentItemsTask : TaskActivity
     {
+        readonly ITypeActivatorFactory<ContentPart> _contentPartFactory;
+
         public GetContentItemsTask(
             ISession session,
             IStringLocalizer<GetContentItemsTask> localizer,
             IContentManager contentManager,
-            INotifier notifier)
+            INotifier notifier,
+             ITypeActivatorFactory<ContentPart> contentPartFactory)
         {
             _notifier = notifier;
             _session = session;
             T = localizer;
             _contentManager = contentManager;
+            _contentPartFactory = contentPartFactory;
         }
 
         private IStringLocalizer T { get; }
@@ -62,15 +67,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             foreach (var fieldToRemove in fieldsToRemove!)
             {
+                //var activator = _contentPartFactory.GetTypeActivator(contentTypeToSync);
+           
                 foreach (var obj in itemsToUpdate)
                 {
-                    if (obj != null)
-                    {
+                    //var part = obj.ContentItem.Get(activator.Type, fieldToRemove) as ContentPart;
+                    //obj.Apply(new ContentElement(""));
+                    //if (part != null)
+                    //{
+                       
                         //TODO: Update ContentItem to remove field and publish
 
                         //For now, publish content change to trigger Sync to graph pipeline....
                         await _contentManager.PublishAsync(obj);
-                    }
+                    //}
                 }
             }
 
