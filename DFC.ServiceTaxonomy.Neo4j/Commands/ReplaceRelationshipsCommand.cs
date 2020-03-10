@@ -150,10 +150,13 @@ delete {existingRelationshipsVariablesString}
         {
             //todo: log query (doesn't work!) Query was: {resultSummary.Query}.
             //todo: validate deletes?
+            //todo: if the relationship's don't match, we should query the graph and log exact details of what's missing
+            // we should only query if the quick tests have failed, otherwise we'll slow down import a lot if we queried after every update
 
             int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
             if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
                 throw new CommandValidationException($"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+
 
             if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
                 return;
@@ -162,6 +165,7 @@ delete {existingRelationshipsVariablesString}
             if (createdRelationships == null)
                 throw new CommandValidationException("New relationships not returned.");
 
+            //todo: make sure fix gets into master (needs RelationshipType for each id value in each relationship)
             // could store variable name to type dic and use that to check instead
             var expectedRelationshipTypes = RelationshipsList
                 .Where(r => r.DestinationNodeIdPropertyValues.Any())
