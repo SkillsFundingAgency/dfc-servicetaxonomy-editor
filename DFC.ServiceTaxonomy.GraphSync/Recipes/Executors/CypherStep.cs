@@ -1,46 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
-using Neo4j.Driver;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
-    public interface ICustomCommand : ICommand
-    {
-        public string? Command { get; set; }
-    }
-
-    public class CustomCommand : ICustomCommand
-    {
-        public string? Command { get; set; }
-
-
-        //todo: change to ValidationErrors, return errors & don't throw. throw in query if any validation errors returned
-        public void CheckIsValid()
-        {
-            if (Command == null)
-                throw new InvalidOperationException($"{nameof(Command)} is null.");
-        }
-
-        public Query Query
-        {
-            get
-            {
-                CheckIsValid();
-                return new Query(Command);
-            }
-        }
-
-        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
-        {
-            // empty
-        }
-    }
-
     /// <summary>
     /// This recipe step enables cypher queries to be executed.
     /// </summary>
