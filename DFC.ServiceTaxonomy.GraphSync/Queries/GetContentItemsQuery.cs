@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
 using Neo4j.Driver;
 using OrchardCore.ContentManagement;
@@ -30,7 +29,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
         }
         public ContentItem ProcessRecord(IRecord record)
         {
-            throw new NotImplementedException();
+            //todo: which metadata properties should we expect the query to supply, and which to fill in?
+            // fill in any that are null, e.g. Owner, Author etc.
+            return new ContentItem();
         }
     }
 }
