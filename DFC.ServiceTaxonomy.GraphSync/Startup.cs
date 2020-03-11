@@ -77,6 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             services.AddTransient<IContentDefinitionManager, CustomContentDefinitionManager>();
             services.AddTransient<IOrchardCoreContentDefinitionManager, OrchardCoreContentDefinitionManager>();
+            services.AddTransient<IContentDefinitionStore, CustomFileContentDefinitionStore>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

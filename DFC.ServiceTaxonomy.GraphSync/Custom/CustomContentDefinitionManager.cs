@@ -9,6 +9,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Environment.Cache;
 using OrchardCore.Workflows.Services;
+using System.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Custom
 {
@@ -32,22 +33,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Custom
 
         public void DeletePartDefinition(string name)
         {
-            var typeDefinition = _ocContentDefinitionManager.GetTypeDefinition(name);
-
-            //Part being deleted is also type.
-            if (typeDefinition != null)
-            {
-                _workflowManager.TriggerEventAsync(nameof(ContentTypeDeletedEvent), new { ContentType = name }, name).GetAwaiter().GetResult();
-            }
-            else
-            {
-                _ocContentDefinitionManager.DeletePartDefinition(name);
-            }
+            _ocContentDefinitionManager.DeletePartDefinition(name);
         }
 
         public void DeleteTypeDefinition(string name)
         {
-            //_ocContentDefinitionManager.DeleteTypeDefinition(name);
+            var typeBeingDeleted = GetTypeDefinition(name);
+
+            if (typeBeingDeleted.Parts.Any(x => x.Name == "GraphSyncPart"))
+            {
+                //_ocContentDefinitionManager.DeleteTypeDefinition(name);
+                _workflowManager.TriggerEventAsync(nameof(ContentTypeDeletedEvent), new { ContentType = name }, name).GetAwaiter().GetResult();
+            }
+            else
+            {
+                _ocContentDefinitionManager.DeleteTypeDefinition(name);
+            }
         }
 
         public ContentPartDefinition GetPartDefinition(string name)

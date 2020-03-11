@@ -58,9 +58,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
                 return Outcomes("Done");
             }
-            catch
+            catch(Exception ex)
             {
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask), $"The {typeToDelete} could not be removed because the associated node could not be deleted from the graph. Most likely due to {typeToDelete} having incoming relationships."));
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask), $"Error: {ex.Message} The {typeToDelete} could not be removed because the associated node could not be deleted from the graph. Most likely due to {typeToDelete} having incoming relationships."));
                 throw;
             }
         }
