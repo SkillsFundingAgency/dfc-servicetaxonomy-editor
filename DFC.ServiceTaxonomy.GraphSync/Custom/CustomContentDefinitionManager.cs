@@ -42,7 +42,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Custom
 
             if (typeBeingDeleted.Parts.Any(x => x.Name == "GraphSyncPart"))
             {
-                //_ocContentDefinitionManager.DeleteTypeDefinition(name);
                 _workflowManager.TriggerEventAsync(nameof(ContentTypeDeletedEvent), new { ContentType = name }, name).GetAwaiter().GetResult();
             }
             else

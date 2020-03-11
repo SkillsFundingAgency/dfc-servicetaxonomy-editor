@@ -10,7 +10,6 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentTypes.Events;
 using OrchardCore.DisplayManagement.Notify;
-using OrchardCore.Modules;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
@@ -66,24 +65,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             try
             {
-                // first remove all attached parts
-                var typeDefinition = _contentDefinitionManager.LoadTypeDefinition(typeToDelete);
-                var partDefinitions = typeDefinition.Parts.ToArray();
-                foreach (var partDefinition in partDefinitions)
-                {
-                    _contentDefinitionManager.AlterTypeDefinition(typeDefinition.Name, typeBuilder => typeBuilder.RemovePart(partDefinition.Name));
+                //// first remove all attached parts
+                //var typeDefinition = _contentDefinitionManager.LoadTypeDefinition(typeToDelete);
+                //var partDefinitions = typeDefinition.Parts.ToArray();
+                //foreach (var partDefinition in partDefinitions)
+                //{
+                //    _contentDefinitionManager.AlterTypeDefinition(typeDefinition.Name, typeBuilder => typeBuilder.RemovePart(partDefinition.Name));
 
-                    // delete the part if it's its own part
-                    if (partDefinition.PartDefinition.Name == typeDefinition.Name)
-                    {
-                        RemovePart(partDefinition.Name);
-                    }
-                }
+                //    // delete the part if it's its own part
+                //    if (partDefinition.PartDefinition.Name == typeDefinition.Name)
+                //    {
+                //        RemovePart(partDefinition.Name);
+                //    }
+                //}
 
-                _contentDefinitionManager.DeleteTypeDefinition(typeDefinition.Name);
+                //_contentDefinitionManager.DeleteTypeDefinition(typeDefinition.Name);
 
 
-                _contentDefinitionEventHandlers.Invoke((handler, context) => handler.ContentTypeRemoved(context), new ContentTypeRemovedContext { ContentTypeDefinition = typeDefinition }, Logger);
+                //_contentDefinitionEventHandlers.Invoke((handler, context) => handler.ContentTypeRemoved(context), new ContentTypeRemovedContext { ContentTypeDefinition = typeDefinition }, Logger);
+
+                _contentDefinitionManager.DeleteTypeDefinition(typeToDelete);
 
                 return Outcomes("Done");
             }

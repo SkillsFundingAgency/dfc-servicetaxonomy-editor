@@ -30,6 +30,8 @@ using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
 using DFC.ServiceTaxonomy.GraphSync.Custom;
 using OrchardCore.ContentManagement.Metadata;
 using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
+using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -75,9 +77,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
+            //Content Definition Managers
             services.AddTransient<IContentDefinitionManager, CustomContentDefinitionManager>();
             services.AddTransient<IOrchardCoreContentDefinitionManager, OrchardCoreContentDefinitionManager>();
-            services.AddTransient<IContentDefinitionStore, CustomFileContentDefinitionStore>();
+
+            //Notifiers
+            services.AddScoped<INotifier, CustomNotifier>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
