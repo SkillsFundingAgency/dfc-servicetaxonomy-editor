@@ -15,6 +15,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
@@ -42,7 +43,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
             // Recipe Steps
-            services.AddRecipeExecutionStep<CypherStep>();
+            services.AddRecipeExecutionStep<CypherCommandStep>();
+            services.AddRecipeExecutionStep<CypherToContentStep>();
 
             // Graph Database
             services.AddTransient<ILogger, NeoLogger>();
@@ -51,6 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
+            services.AddTransient<IGetContentItemsQuery, GetContentItemsQuery>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
