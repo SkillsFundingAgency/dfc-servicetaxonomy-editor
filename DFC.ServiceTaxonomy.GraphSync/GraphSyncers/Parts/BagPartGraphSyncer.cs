@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
+using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Neo4j.Driver;
