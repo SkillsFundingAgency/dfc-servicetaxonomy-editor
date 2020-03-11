@@ -10,6 +10,8 @@ using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Environment.Cache;
 using OrchardCore.Workflows.Services;
 using System.Linq;
+using OrchardCore.DisplayManagement.Notify;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Custom
 {
@@ -17,23 +19,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.Custom
     {
         private readonly IOrchardCoreContentDefinitionManager _ocContentDefinitionManager;
         private readonly IWorkflowManager _workflowManager;
+        private readonly INotifier _notifier;
 
         public CustomContentDefinitionManager(
             ISignal signal,
             IContentDefinitionStore contentDefinitionStore,
             IOrchardCoreContentDefinitionManager orchardCoreDefinitionManager,
             IMemoryCache memoryCache,
-            IWorkflowManager workflowManager)
+            IWorkflowManager workflowManager,
+            INotifier notifier)
         {
             _ocContentDefinitionManager = orchardCoreDefinitionManager;
             _workflowManager = workflowManager;
+            _notifier = notifier;
         }
 
         public IChangeToken ChangeToken => throw new System.NotImplementedException();
 
         public void DeletePartDefinition(string name)
         {
-            _ocContentDefinitionManager.DeletePartDefinition(name);
+            //If part name is content type name, could be an overall delete
+            var typeBeingDeleted = GetTypeDefinition(name);
+
+            if (typeBeingDeleted == null)
+            {
+                _ocContentDefinitionManager.DeletePartDefinition(name);
+            }
+            else
+            {
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(CustomContentDefinitionManager), $"Error: Part name {name} could not be deleted. Deleting the named part for a Content Type can only be performed by deleting the Content Type itself."));
+            }
         }
 
         public void DeleteTypeDefinition(string name)
