@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
         {
             get
             {
-                return new Query($"match (s:ncs__{ContentType} {{ uri: '{Uri}' }})-[r]->(d) return s, r, d");
+                return new Query($"match (s:ncs__{ContentType} {{ uri: '{Uri}' }}) optional match (s)-[r]->(d) return s, r, d");
             }
         }
 
