@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
@@ -48,26 +49,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 var getContentItemsQuery = _serviceProvider.GetRequiredService<IGetContentItemsQuery>();
 
-                await _graphDatabase.Run(getContentItemsQuery);
+                getContentItemsQuery.QueryStatement = cypherToContent.Query;
 
+                List<ContentItem> contentItems = await _graphDatabase.Run(getContentItemsQuery);
 
+                foreach (ContentItem contentItem in contentItems)
+                {
+                    // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
+                    contentItem.Id = 0;
+                    await _contentManager.CreateAsync(contentItem);
 
-                //// Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                //contentItem.Id = 0;
-                //await _contentManager.CreateAsync(contentItem);
-
-                //// Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-                //// Should not be necessary if IContentManager had an Import method
-                //contentItem.ModifiedUtc = modifiedUtc;
-                //contentItem.PublishedUtc = publishedUtc;
-
+                    // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
+                    // Should not be necessary if IContentManager had an Import method
+                    //contentItem.ModifiedUtc = modifiedUtc;
+                    //contentItem.PublishedUtc = publishedUtc;
+                }
             }
         }
 
         public class CypherToContentModel
         {
             public string? Query { get; set; }
-            public string? ContentItemType { get; set; }
+            // could return it from the query, then the query could create different types if it really wanted to
+            //public string? ContentItemType { get; set; }
         }
 
         //todo: better names!

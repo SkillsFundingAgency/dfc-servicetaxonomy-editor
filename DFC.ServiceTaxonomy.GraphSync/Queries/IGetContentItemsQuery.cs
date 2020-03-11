@@ -5,5 +5,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
     interface IGetContentItemsQuery : IQuery<ContentItem>
     {
+        public string? QueryStatement { get; set; }
     }
 }
