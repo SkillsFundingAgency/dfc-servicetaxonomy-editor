@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Primitives;
 using OrchardCore.ContentManagement;
@@ -13,16 +14,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Custom
 {
     public class CustomContentDefinitionManager : IContentDefinitionManager
     {
-        private readonly ContentDefinitionManager _ocContentDefinitionManager;
+        private readonly IOrchardCoreContentDefinitionManager _ocContentDefinitionManager;
         private readonly IWorkflowManager _workflowManager;
 
         public CustomContentDefinitionManager(
             ISignal signal,
             IContentDefinitionStore contentDefinitionStore,
+            IOrchardCoreContentDefinitionManager orchardCoreDefinitionManager,
             IMemoryCache memoryCache,
             IWorkflowManager workflowManager)
         {
-            _ocContentDefinitionManager = new ContentDefinitionManager(signal, contentDefinitionStore, memoryCache);
+            _ocContentDefinitionManager = orchardCoreDefinitionManager;
             _workflowManager = workflowManager;
         }
 

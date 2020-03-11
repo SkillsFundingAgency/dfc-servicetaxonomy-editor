@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentTypes.Events;
 using OrchardCore.DisplayManagement.Notify;
+using OrchardCore.Modules;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
@@ -19,16 +24,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public DeleteContentTypeTask(
             IStringLocalizer<DeleteFromGraphTask> localizer,
             INotifier notifier,
-            IContentDefinitionManager contentDefinitionManager)
+            IOrchardCoreContentDefinitionManager contentDefinitionManager,
+            IEnumerable<IContentDefinitionEventHandler> contentDefinitionEventHandlers,
+            ILogger<DeleteContentTypeTask> logger,
+            IContentDefinitionStore contentDefinitionStore)
         {
             _notifier = notifier;
             T = localizer;
             _contentDefinitionManager = contentDefinitionManager;
+            _contentDefinitionEventHandlers = contentDefinitionEventHandlers;
+            Logger = logger;
+            _contentDefinitionStore = contentDefinitionStore;
         }
 
         private IStringLocalizer T { get; }
         private readonly INotifier _notifier;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IOrchardCoreContentDefinitionManager _contentDefinitionManager;
+        private readonly IEnumerable<IContentDefinitionEventHandler> _contentDefinitionEventHandlers;
+        private readonly IContentDefinitionStore _contentDefinitionStore;
+
+        public ILogger Logger { get; }
 
         public override string Name => nameof(DeleteContentTypeTask);
         public override LocalizedString DisplayText => T["Delete content type from Orchard Core"];
@@ -66,7 +81,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 }
 
                 _contentDefinitionManager.DeleteTypeDefinition(typeDefinition.Name);
-                
+
+
+                _contentDefinitionEventHandlers.Invoke((handler, context) => handler.ContentTypeRemoved(context), new ContentTypeRemovedContext { ContentTypeDefinition = typeDefinition }, Logger);
+
                 return Outcomes("Done");
             }
             catch
