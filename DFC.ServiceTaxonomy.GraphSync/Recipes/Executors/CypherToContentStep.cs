@@ -57,31 +57,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 getContentItemsQuery.QueryStatement = cypherToContent.Query;
 
                 getContentItemsQuery.QueryStatement =
-                //                    @"with toLower('baker') as lowerlabel
-                //match (o:esco__Occupation)
-                //where toLower(o.skos__prefLabel) contains lowerlabel or
-                //case toLower('false')
-                //when 'true' then
-                //any(alt in o.skos__altLabel where toLower(alt) contains lowerlabel)
-                //else
-                //false
-                //end
-                //with { occupations:collect(
-                //{
-                //uri:o.uri,
-                //occupation:o.skos__prefLabel,
-                //alternativeLabels:o.skos__altLabel,
-                //lastModified:o.dct__modified,
-                //matches:
-                //{
-                //occupation:[preflab in o.skos__prefLabel where toLower(preflab) contains lowerlabel],
-                //alternativeLabels:[altlab in o.skos__altLabel where toLower(altlab) contains lowerlabel]
-                //}
-                //}
-                //)} as occupations
-                //return occupations";
-
-                //todo: altLabels {"ContentItemIds"...
                 @"MATCH (o:esco__Occupation)
 where o.skos__prefLabel starts with '3D'
 WITH collect({ ContentType: ""Occupation"", GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
