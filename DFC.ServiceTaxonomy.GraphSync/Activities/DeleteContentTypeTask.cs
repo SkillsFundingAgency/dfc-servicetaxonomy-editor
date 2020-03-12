@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentTypes.Events;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
@@ -23,14 +20,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public DeleteContentTypeTask(
             IStringLocalizer<DeleteFromGraphTask> localizer,
             INotifier notifier,
-            IOrchardCoreContentDefinitionManager contentDefinitionManager,
+            IOrchardCoreContentDefinitionService contentDefinitionService,
             IEnumerable<IContentDefinitionEventHandler> contentDefinitionEventHandlers,
             ILogger<DeleteContentTypeTask> logger,
             IContentDefinitionStore contentDefinitionStore)
         {
             _notifier = notifier;
             T = localizer;
-            _contentDefinitionManager = contentDefinitionManager;
+            _contentDefinitionService = contentDefinitionService;
             _contentDefinitionEventHandlers = contentDefinitionEventHandlers;
             Logger = logger;
             _contentDefinitionStore = contentDefinitionStore;
@@ -38,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         private IStringLocalizer T { get; }
         private readonly INotifier _notifier;
-        private readonly IOrchardCoreContentDefinitionManager _contentDefinitionManager;
+        private readonly IOrchardCoreContentDefinitionService _contentDefinitionService;
         private readonly IEnumerable<IContentDefinitionEventHandler> _contentDefinitionEventHandlers;
         private readonly IContentDefinitionStore _contentDefinitionStore;
 
@@ -55,9 +52,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
-        public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
+        public override ActivityExecutionResult Execute(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            await Task.Delay(0);
             var typeToDelete = workflowContext.Input["ContentType"].ToString();
 
             if (string.IsNullOrWhiteSpace(typeToDelete))
@@ -65,26 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             try
             {
-                //// first remove all attached parts
-                //var typeDefinition = _contentDefinitionManager.LoadTypeDefinition(typeToDelete);
-                //var partDefinitions = typeDefinition.Parts.ToArray();
-                //foreach (var partDefinition in partDefinitions)
-                //{
-                //    _contentDefinitionManager.AlterTypeDefinition(typeDefinition.Name, typeBuilder => typeBuilder.RemovePart(partDefinition.Name));
-
-                //    // delete the part if it's its own part
-                //    if (partDefinition.PartDefinition.Name == typeDefinition.Name)
-                //    {
-                //        RemovePart(partDefinition.Name);
-                //    }
-                //}
-
-                //_contentDefinitionManager.DeleteTypeDefinition(typeDefinition.Name);
-
-
-                //_contentDefinitionEventHandlers.Invoke((handler, context) => handler.ContentTypeRemoved(context), new ContentTypeRemovedContext { ContentTypeDefinition = typeDefinition }, Logger);
-
-                _contentDefinitionManager.DeleteTypeDefinition(typeToDelete);
+                _contentDefinitionService.RemoveType(typeToDelete, true);
 
                 return Outcomes("Done");
             }
@@ -93,30 +70,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask), $"The {typeToDelete} could not be removed from Orchard Core."));
                 throw;
             }
-        }
-
-        private void RemovePart(string name)
-        {
-            var partDefinition = _contentDefinitionManager.LoadPartDefinition(name);
-
-            if (partDefinition == null)
-            {
-                // Couldn't find this named part, ignore it
-                return;
-            }
-
-            var fieldDefinitions = partDefinition.Fields.ToArray();
-            foreach (var fieldDefinition in fieldDefinitions)
-            {
-                RemoveFieldFromPart(fieldDefinition.Name, name);
-            }
-
-            _contentDefinitionManager.DeletePartDefinition(name);
-        }
-
-        private void RemoveFieldFromPart(string fieldName, string partName)
-        {
-            _contentDefinitionManager.AlterPartDefinition(partName, typeBuilder => typeBuilder.RemoveField(fieldName));
         }
     }
 }
