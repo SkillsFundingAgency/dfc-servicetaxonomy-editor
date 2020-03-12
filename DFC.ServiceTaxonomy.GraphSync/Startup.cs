@@ -77,15 +77,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
-            //Content Definition Managers
-            //services.AddTransient<IContentDefinitionManager, CustomContentDefinitionManager>();
-            //services.AddTransient<IOrchardCoreContentDefinitionManager, OrchardCoreContentDefinitionManager>();
-
             //Notifiers
             services.AddScoped<INotifier, CustomNotifier>();
 
-            //var serviceDescriptor = services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IContentDefinitionService));
-            //services.Remove(serviceDescriptor);
+            //Services
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.AddScoped<IContentDefinitionService, CustomContentDefinitionService>();
         }

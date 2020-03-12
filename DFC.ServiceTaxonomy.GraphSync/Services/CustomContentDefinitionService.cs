@@ -13,14 +13,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
     public class CustomContentDefinitionService : IContentDefinitionService
     {
-        private readonly IOrchardCoreContentDefinitionService _contentDefinitionService;
         private readonly IWorkflowManager _workflowManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IOrchardCoreContentDefinitionService _orchardCoreContentDefinitionService;
 
         public CustomContentDefinitionService(IOrchardCoreContentDefinitionService contentDefinitionService, IWorkflowManager workflowManager, IContentDefinitionManager contentDefinitionManager, IOrchardCoreContentDefinitionService orchardCoreContentDefinitionService)
         {
-            _contentDefinitionService = contentDefinitionService;
             _workflowManager = workflowManager;
             _contentDefinitionManager = contentDefinitionManager;
             _orchardCoreContentDefinitionService = orchardCoreContentDefinitionService;
@@ -28,122 +26,122 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
         public void AddFieldToPart(string fieldName, string fieldTypeName, string partName)
         {
-            _contentDefinitionService.AddFieldToPart(fieldName, fieldTypeName, partName);
+            _orchardCoreContentDefinitionService.AddFieldToPart(fieldName, fieldTypeName, partName);
         }
 
         public void AddFieldToPart(string fieldName, string displayName, string fieldTypeName, string partName)
         {
-            _contentDefinitionService.AddFieldToPart(fieldTypeName, displayName, fieldTypeName, partName);
+            _orchardCoreContentDefinitionService.AddFieldToPart(fieldTypeName, displayName, fieldTypeName, partName);
         }
 
         public EditPartViewModel AddPart(CreatePartViewModel partViewModel)
         {
-            return _contentDefinitionService.AddPart(partViewModel);
+            return _orchardCoreContentDefinitionService.AddPart(partViewModel);
         }
 
         public void AddPartToType(string partName, string typeName)
         {
-            _contentDefinitionService.AddPartToType(partName, typeName);
+            _orchardCoreContentDefinitionService.AddPartToType(partName, typeName);
         }
 
         public void AddReusablePartToType(string name, string displayName, string description, string partName, string typeName)
         {
-            _contentDefinitionService.AddReusablePartToType(name, displayName, description, partName, typeName);
+            _orchardCoreContentDefinitionService.AddReusablePartToType(name, displayName, description, partName, typeName);
         }
 
         public ContentTypeDefinition AddType(string name, string displayName)
         {
-            return _contentDefinitionService.AddType(name, displayName);
+            return _orchardCoreContentDefinitionService.AddType(name, displayName);
         }
 
         public void AlterField(EditPartViewModel partViewModel, EditFieldViewModel fieldViewModel)
         {
-            _contentDefinitionService.AlterField(partViewModel, fieldViewModel);
+            _orchardCoreContentDefinitionService.AlterField(partViewModel, fieldViewModel);
         }
 
         public void AlterPartFieldsOrder(ContentPartDefinition partDefinition, string[] fieldNames)
         {
-            _contentDefinitionService.AlterPartFieldsOrder(partDefinition, fieldNames);
+            _orchardCoreContentDefinitionService.AlterPartFieldsOrder(partDefinition, fieldNames);
         }
 
         public void AlterTypePart(EditTypePartViewModel partViewModel)
         {
-            _contentDefinitionService.AlterTypePart(partViewModel);
+            _orchardCoreContentDefinitionService.AlterTypePart(partViewModel);
         }
 
         public void AlterTypePartsOrder(ContentTypeDefinition typeDefinition, string[] partNames)
         {
-            _contentDefinitionService.AlterTypePartsOrder(typeDefinition, partNames);
+            _orchardCoreContentDefinitionService.AlterTypePartsOrder(typeDefinition, partNames);
         }
 
         public string GenerateContentTypeNameFromDisplayName(string displayName)
         {
-            return _contentDefinitionService.GenerateContentTypeNameFromDisplayName(displayName);
+            return _orchardCoreContentDefinitionService.GenerateContentTypeNameFromDisplayName(displayName);
         }
 
         public string GenerateFieldNameFromDisplayName(string partName, string displayName)
         {
-            return _contentDefinitionService.GenerateFieldNameFromDisplayName(partName, displayName);
+            return _orchardCoreContentDefinitionService.GenerateFieldNameFromDisplayName(partName, displayName);
         }
 
         public IEnumerable<Type> GetFields()
         {
-            return _contentDefinitionService.GetFields();
+            return _orchardCoreContentDefinitionService.GetFields();
         }
 
         public EditPartViewModel GetPart(string name)
         {
-            return _contentDefinitionService.GetPart(name);
+            return _orchardCoreContentDefinitionService.GetPart(name);
         }
 
         public IEnumerable<EditPartViewModel> GetParts(bool metadataPartsOnly)
         {
-            return _contentDefinitionService.GetParts(metadataPartsOnly);
+            return _orchardCoreContentDefinitionService.GetParts(metadataPartsOnly);
         }
 
         public EditTypeViewModel GetType(string name)
         {
-            return _contentDefinitionService.GetType(name);
+            return _orchardCoreContentDefinitionService.GetType(name);
         }
 
         public IEnumerable<EditTypeViewModel> GetTypes()
         {
-            return _contentDefinitionService.GetTypes();
+            return _orchardCoreContentDefinitionService.GetTypes();
         }
 
         public EditPartViewModel LoadPart(string name)
         {
-            return _contentDefinitionService.LoadPart(name);
+            return _orchardCoreContentDefinitionService.LoadPart(name);
         }
 
         public IEnumerable<EditPartViewModel> LoadParts(bool metadataPartsOnly)
         {
-            return _contentDefinitionService.LoadParts(metadataPartsOnly);
+            return _orchardCoreContentDefinitionService.LoadParts(metadataPartsOnly);
         }
 
         public EditTypeViewModel LoadType(string name)
         {
-            return _contentDefinitionService.LoadType(name);
+            return _orchardCoreContentDefinitionService.LoadType(name);
         }
 
         public IEnumerable<EditTypeViewModel> LoadTypes()
         {
-            return _contentDefinitionService.LoadTypes();
+            return _orchardCoreContentDefinitionService.LoadTypes();
         }
 
         public void RemoveFieldFromPart(string fieldName, string partName)
         {
-            _contentDefinitionService.RemoveFieldFromPart(fieldName, partName);
+            _orchardCoreContentDefinitionService.RemoveFieldFromPart(fieldName, partName);
         }
 
         public void RemovePart(string name)
         {
-            _contentDefinitionService.RemovePart(name);
+            _orchardCoreContentDefinitionService.RemovePart(name);
         }
 
         public void RemovePartFromType(string partName, string typeName)
         {
-            _contentDefinitionService.RemovePartFromType(partName, typeName);
+            _orchardCoreContentDefinitionService.RemovePartFromType(partName, typeName);
         }
 
         public void RemoveType(string name, bool deleteContent)

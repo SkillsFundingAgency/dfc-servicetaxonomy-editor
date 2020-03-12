@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities.Events
 
         protected IWorkflowScriptEvaluator ScriptEvaluator { get; }
 
-        public override LocalizedString Category => new LocalizedString("Content Type", "Content Type");
+        public override LocalizedString Category => S["Content Type"];
 
         public override string Name => nameof(ContentTypeDeletedEvent);
 

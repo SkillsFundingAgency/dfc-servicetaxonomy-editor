@@ -40,8 +40,6 @@ namespace DFC.ServiceTaxonomy.GraphLookup
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphLookupPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartGraphSyncer, GraphLookupPartGraphSyncer>();
-
-
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

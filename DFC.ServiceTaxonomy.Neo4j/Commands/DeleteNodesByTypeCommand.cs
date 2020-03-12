@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 CheckIsValid();
 
                 return new Query(
-$@"MATCH (n:{string.Join(':',NodeLabels)})
+$@"MATCH (n:{string.Join(':', NodeLabels)})
 OPTIONAL MATCH (n)-[r]->()
 DELETE n, r");
             }
@@ -39,10 +39,7 @@ DELETE n, r");
 
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
-            //if (resultSummary.Counters.NodesDeleted != 1)
-            //    throw new CommandValidationException($"Expecting 1 node to be deleted, but {resultSummary.Counters.NodesDeleted} were actually deleted.");
-
-            //todo: check number of relationships deleted?
+            //todo: What validation is possible here?
         }
     }
 }
