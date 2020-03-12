@@ -105,6 +105,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 1
                                 }
                             }
                         },
@@ -151,6 +155,10 @@
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 1
                                 }
                             }
                         },

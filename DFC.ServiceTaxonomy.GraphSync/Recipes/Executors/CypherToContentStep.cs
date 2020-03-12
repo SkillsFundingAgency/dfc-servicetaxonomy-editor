@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 var getContentItemsQuery = _serviceProvider.GetRequiredService<IGetContentItemsQuery>();
 
                 getContentItemsQuery.QueryStatement = queries.Query;
-
+//todo: cypher to create OccupationLabels first
                 getContentItemsQuery.QueryStatement =
                 @"MATCH (o:esco__Occupation)
 where o.skos__prefLabel starts with '3D'
