@@ -70,7 +70,7 @@ AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentIte
                 {
                     ContentItem? contentItem = token.ToObject<ContentItem>();
 
-                    if (contentItem == null)
+                    if (contentItem?.Content == null)
                     {
                         _logger.LogWarning("encountered bollox");
                         continue;
@@ -79,7 +79,21 @@ AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentIte
 // either _contentManager.New or get at json of results
 
                     // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                    contentItem.Id = 0;
+                    //contentItem.Id = 0;
+
+                    string? title = contentItem.Content.TitlePart?.Title;
+                    if (title != null)
+                    {
+                        contentItem.DisplayText = title;
+                    }
+
+                    contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
+                    //these get set when version id is 0
+                    // contentItem.Latest = true;
+                    // contentItem.Published = true;
+                    contentItem.Owner = "admin";
+                    contentItem.Author = "admin";
+
                     await _contentManager.CreateAsync(contentItem);
 
                     // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
