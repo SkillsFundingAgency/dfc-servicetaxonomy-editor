@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
     // match (n:esco__Occupation)
     // unwind n.skos__altLabel as altLabels
-    // create (al:ncs__OccupationLabel {skos__prefLabel: altLabels})
+    // create (al:ncs__OccupationLabel {skos__prefLabel: altLabels, uri: "http://nationalcareers.service.gov.uk/OccupationLabel/" + apoc.create.uuid()})
     // create (n)-[:ncs__hasAltLabel]->(al)
 
     class CypherToContentStep : IRecipeStepHandler
