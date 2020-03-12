@@ -12,6 +12,11 @@ using OrchardCore.Recipes.Services;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
+    // match (n:esco__Occupation)
+    // unwind n.skos__altLabel as altLabels
+    // create (al:ncs__Label {ncs__label: altLabels})
+    // create (n)-[:ncs__hasAltLabel]->(al)
+
     class CypherToContentStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
@@ -78,9 +83,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 //todo: altLabels {"ContentItemIds"...
                 @"MATCH (o:esco__Occupation)
-where head(o.skos__prefLabel) starts with '3D'
-WITH collect({ uri:o.uri, occupation:o.skos__prefLabel, 
-altLabels:[(o)-[:ncs__hasAltLabel]->(l) | ""GetContentItemId(""+l.ncs__label+"")]
+where o.skos__prefLabel starts with '3D'
+WITH collect({ GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
+AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__Label\\"", \\""ncs__label\\"",\\""'+l.ncs__label+'\\"")']}
 })  as occupations return occupations";
 
                 //todo: how to handle content picker ids? not in graph
