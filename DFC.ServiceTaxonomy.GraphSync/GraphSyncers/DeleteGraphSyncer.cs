@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             try
             {
-                await _graphDatabase.RunWriteCommands(_deleteNodesByTypeCommand);
+                await _graphDatabase.Run(_deleteNodesByTypeCommand);
             }
             //TODO : specify which exceptions to handle?
             catch

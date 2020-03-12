@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         {
             get
             {
-                CheckIsValid();
+                this.CheckIsValid();
 
                 return new Query(
 $@"MATCH (n:{string.Join(':', NodeLabels)})
@@ -40,6 +40,11 @@ DELETE n, r");
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
             //todo: What validation is possible here?
+        }
+
+        public List<string> ValidationErrors()
+        {
+            return new List<string>();
         }
     }
 }
