@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
@@ -83,7 +84,7 @@ return { ContentType: ""OccupationLabel"", GraphSyncPart:{Text:l.uri}, TitlePart
 
                 var contentItemJObjects = contentItemsUnflattened.SelectMany(cil => cil);
 
-                foreach (var token in contentItemJObjects)
+                foreach (JObject token in contentItemJObjects)
                 {
                     ContentItem? contentItem = token.ToObject<ContentItem>();
 
