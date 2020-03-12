@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             try
             {
-                await _graphDatabase.RunWriteCommands(_deleteNodeCommand);
+                await _graphDatabase.Run(_deleteNodeCommand);
             }
             //TODO : specify which exceptions to handle?
             catch

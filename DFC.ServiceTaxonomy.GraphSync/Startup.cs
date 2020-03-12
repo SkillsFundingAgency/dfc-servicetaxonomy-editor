@@ -15,6 +15,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -24,6 +25,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
+using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
 using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
@@ -46,6 +48,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
+            // Recipe Steps
+            services.AddRecipeExecutionStep<CypherStep>();
+
             // Graph Database
             services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
@@ -53,6 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
             services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
+            services.AddTransient<ICustomCommand, CustomCommand>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
