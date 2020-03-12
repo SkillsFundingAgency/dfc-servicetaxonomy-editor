@@ -62,7 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             if (string.IsNullOrWhiteSpace(typeToDelete))
                 throw new ArgumentNullException($"No Content Type passed to {nameof(DeleteContentTypeFromGraphTask)}");
 
-            return typeToDelete.ToString();
+            return typeToDelete;
         }
     }
 }
