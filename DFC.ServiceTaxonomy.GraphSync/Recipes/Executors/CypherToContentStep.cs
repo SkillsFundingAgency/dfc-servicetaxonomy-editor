@@ -84,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 //todo: altLabels {"ContentItemIds"...
                 @"MATCH (o:esco__Occupation)
 where o.skos__prefLabel starts with '3D'
-WITH collect({ GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
+WITH collect({ ContentType: ""Occupation"", GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
 AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__Label\\"", \\""ncs__label\\"",\\""'+l.ncs__label+'\\"")']}
 })  as occupations return occupations";
 
