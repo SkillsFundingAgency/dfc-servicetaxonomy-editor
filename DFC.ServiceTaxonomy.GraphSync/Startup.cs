@@ -84,9 +84,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
             //Notifiers
+            services.Remove<INotifier>();
             services.AddScoped<INotifier, CustomNotifier>();
 
             //Services
+            services.Remove<IContentDefinitionService>();
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.AddScoped<IContentDefinitionService, CustomContentDefinitionService>();
         }
