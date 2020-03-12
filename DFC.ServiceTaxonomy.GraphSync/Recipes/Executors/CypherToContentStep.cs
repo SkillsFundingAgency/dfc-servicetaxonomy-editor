@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
     // match (n:esco__Occupation)
     // unwind n.skos__altLabel as altLabels
-    // create (al:ncs__Label {ncs__label: altLabels})
+    // create (al:ncs__OccupationLabel {skos__prefLabel: altLabels})
     // create (n)-[:ncs__hasAltLabel]->(al)
 
     class CypherToContentStep : IRecipeStepHandler
@@ -37,6 +37,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _logger = logger;
         }
 
+        //todo: occupation in job profile bag : readonly
+        //todo: replace calls in result. use expressions? or just regex??
+
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
@@ -59,7 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 @"MATCH (o:esco__Occupation)
 where o.skos__prefLabel starts with '3D'
 WITH collect({ ContentType: ""Occupation"", GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
-AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__Label\\"", \\""ncs__label\\"",\\""'+l.ncs__label+'\\"")']}
+AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__OccupationLabel\\"", \\""skos__prefLabel\\"",\\""'+l.skos__prefLabel+'\\"")']}
 })  as occupations return occupations";
 
                 var contentItemsUnflattened = await _graphDatabase.Run(getContentItemsQuery);
