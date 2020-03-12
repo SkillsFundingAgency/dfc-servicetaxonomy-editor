@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
         private readonly IContentManager _contentManager;
+        private readonly IContentItemIdGenerator _idGenerator;
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
@@ -29,11 +30,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
             IContentManager contentManager,
+            IContentItemIdGenerator idGenerator,
             ILogger<CypherToContentStep> logger)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
             _contentManager = contentManager;
+            _idGenerator = idGenerator;
             _logger = logger;
         }
 
@@ -100,6 +103,8 @@ return { ContentType: ""OccupationLabel"", GraphSyncPart:{Text:l.uri}, TitlePart
                     {
                         contentItem.DisplayText = title;
                     }
+
+                    contentItem.ContentItemId = _idGenerator.GenerateUniqueId(contentItem);
 
                     contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
                     //these get set when version id is 0

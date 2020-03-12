@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
 using Neo4j.Driver;
 using Newtonsoft.Json;
@@ -39,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
             // return ((List<object>)record.Values.Values.First())
             //     .Cast<Dictionary<string, object>>();
 
-            var values = JsonConvert.SerializeObject(record.Values.Values.First());
+            var values = JsonConvert.SerializeObject(record.Values.Values);
             //#pragma warning disable S1481
             List<JObject> nodes = JsonConvert.DeserializeObject<List<JObject>>(values);
 
