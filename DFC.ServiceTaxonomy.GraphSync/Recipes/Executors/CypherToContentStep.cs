@@ -128,8 +128,6 @@ return { ContentType: ""OccupationLabel"", GraphSyncPart:{Text:l.uri}, TitlePart
         public class CypherToContentModel
         {
             public string? Query { get; set; }
-            // could return it from the query, then the query could create different types if it really wanted to
-            //public string? ContentItemType { get; set; }
         }
 
         //todo: better names!
