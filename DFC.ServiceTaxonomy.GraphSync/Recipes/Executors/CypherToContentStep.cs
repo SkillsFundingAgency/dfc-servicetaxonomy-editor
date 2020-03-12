@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
@@ -45,16 +44,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             var step = context.Step.ToObject<CypherToContentStepModel>();
 
-            foreach (var cypherToContent in step!.CypherToContent ?? Enumerable.Empty<CypherToContentModel?>())
+            foreach (var queries in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
             {
-                if (cypherToContent == null)
+                if (queries == null)
                     continue;
 
                 _logger.LogInformation($"{StepName} step");
 
                 var getContentItemsQuery = _serviceProvider.GetRequiredService<IGetContentItemsQuery>();
 
-                getContentItemsQuery.QueryStatement = cypherToContent.Query;
+                getContentItemsQuery.QueryStatement = queries.Query;
 
                 getContentItemsQuery.QueryStatement =
                 @"MATCH (o:esco__Occupation)
@@ -63,14 +62,22 @@ WITH collect({ ContentType: ""Occupation"", GraphSyncPart:{Text:o.uri}, TitlePar
 AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__Label\\"", \\""ncs__label\\"",\\""'+l.ncs__label+'\\"")']}
 })  as occupations return occupations";
 
-                //todo: how to handle content picker ids? not in graph
-                //tokens? e.g. [GetContentId(contenttypename,fieldname,fieldproperty)]
-                //[GetContentId("ncs__label", "uri", "http//yadda")
+                var contentItemsUnflattened = await _graphDatabase.Run(getContentItemsQuery);
 
-                List<ContentItem> contentItems = await _graphDatabase.Run(getContentItemsQuery);
+                var contentItemJObjects = contentItemsUnflattened.SelectMany(cil => cil);
 
-                foreach (ContentItem contentItem in contentItems)
+                foreach (var token in contentItemJObjects)
                 {
+                    ContentItem? contentItem = token.ToObject<ContentItem>();
+
+                    if (contentItem == null)
+                    {
+                        _logger.LogWarning("encountered bollox");
+                        continue;
+                    }
+
+// either _contentManager.New or get at json of results
+
                     // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
                     contentItem.Id = 0;
                     await _contentManager.CreateAsync(contentItem);
@@ -93,7 +100,7 @@ AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentIte
         //todo: better names!
         public class CypherToContentStepModel
         {
-            public CypherToContentModel[]? CypherToContent { get; set; }
+            public CypherToContentModel[]? Queries { get; set; }
         }
     }
 }

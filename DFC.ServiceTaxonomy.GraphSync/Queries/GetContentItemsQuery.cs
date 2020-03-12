@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
 using Neo4j.Driver;
-using OrchardCore.ContentManagement;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+//using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
@@ -27,11 +30,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
                 return new Query(QueryStatement);
             }
         }
-        public ContentItem ProcessRecord(IRecord record)
+        public List<JObject> ProcessRecord(IRecord record)
         {
             //todo: which metadata properties should we expect the query to supply, and which to fill in?
             // fill in any that are null, e.g. Owner, Author etc.
-            return new ContentItem();
+            //probably not the place to fill those in here
+
+            // return ((List<object>)record.Values.Values.First())
+            //     .Cast<Dictionary<string, object>>();
+
+            var values = JsonConvert.SerializeObject(record.Values.Values.First());
+            //#pragma warning disable S1481
+            List<JObject> nodes = JsonConvert.DeserializeObject<List<JObject>>(values);
+
+            return nodes;
+//             var dynamicnodes = JsonConvert.DeserializeObject<List<dynamic>>(values);
+// #pragma warning restore S1481
+//
+//             return Enumerable.Empty<Dictionary<string, object>>();
         }
     }
 }
