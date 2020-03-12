@@ -11,8 +11,6 @@ using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 
-//todo: part handler called after workflow finishes - can we use that to stop inserts?
-
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
     public class DeleteContentTypeTask : TaskActivity
@@ -67,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             }
             catch
             {
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask), $"The {typeToDelete} could not be removed from Orchard Core."));
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeTask), $"The {typeToDelete} could not be removed."));
                 throw;
             }
         }
