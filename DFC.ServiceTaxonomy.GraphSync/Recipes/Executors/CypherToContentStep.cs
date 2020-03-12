@@ -98,6 +98,8 @@ return { ContentType: ""OccupationLabel"", GraphSyncPart:{Text:l.uri}, TitlePart
                     // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
                     //contentItem.Id = 0;
 
+                    //should we allow the query to override any of these values?
+
                     string? title = contentItem.Content.TitlePart?.Title;
                     if (title != null)
                     {
