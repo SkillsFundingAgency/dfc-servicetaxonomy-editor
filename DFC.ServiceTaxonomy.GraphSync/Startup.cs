@@ -34,6 +34,7 @@ using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.ContentTypes.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -84,13 +85,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
             //Notifiers
-            services.Remove<INotifier>();
-            services.AddScoped<INotifier, CustomNotifier>();
+            services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
 
             //Services
-            services.Remove<IContentDefinitionService>();
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
-            services.AddScoped<IContentDefinitionService, CustomContentDefinitionService>();
+            services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

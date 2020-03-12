@@ -10,16 +10,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
             List<string> validationErrors = new List<string>();
 
             if (!NodeLabels.Any())
                 validationErrors.Add($"Missing {nameof(NodeLabels)}.");
 
-            if (validationErrors.Any())
-                throw new InvalidOperationException(@$"{nameof(DeleteNodesByTypeCommand)} not valid:
-{string.Join(Environment.NewLine, validationErrors)}");
+            return validationErrors;
         }
 
         public Query Query
@@ -40,11 +38,6 @@ DELETE n, r");
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
             //todo: What validation is possible here?
-        }
-
-        public List<string> ValidationErrors()
-        {
-            return new List<string>();
         }
     }
 }
