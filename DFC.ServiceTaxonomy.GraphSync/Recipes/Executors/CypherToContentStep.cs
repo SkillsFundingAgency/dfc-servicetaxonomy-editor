@@ -61,8 +61,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 var getContentItemsQuery = _serviceProvider.GetRequiredService<IGetContentItemsQuery>();
 
                 getContentItemsQuery.QueryStatement = queries.Query;
-//todo: cypher to create OccupationLabels first
-                getContentItemsQuery.QueryStatement =
 //                 @"MATCH (o:esco__Occupation)
 // where o.skos__prefLabel starts with '3D'
 // WITH collect({ ContentType: ""Occupation"", GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
@@ -75,10 +73,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 // AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__OccupationLabel\\"", \\""skos__prefLabel\\"",\\""'+l.skos__prefLabel+'\\"")']}
 // }";
 
-//todo: need to create uri's for these
-                    @"match (l:ncs__OccupationLabel)
-where l.skos__prefLabel starts with '3D'
-return { ContentType: ""OccupationLabel"", GraphSyncPart:{Text:l.uri}, TitlePart:{Title:l.skos__prefLabel}}";
 
                 var contentItemsUnflattened = await _graphDatabase.Run(getContentItemsQuery);
 
