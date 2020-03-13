@@ -10,6 +10,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using OrchardCore.ContentManagement.Records;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
@@ -39,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
     public interface IContentHelper
     {
-        string GetContentItemId(string contentType, string lookupField, string lookupValue);
+        Task<string> GetContentItemIdByDisplayText(string contentType, string displayText);
     }
 
     public class ContentHelper : IContentHelper
@@ -51,9 +52,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _session = session;
         }
 
-        public string GetContentItemId(string contentType, string lookupField, string lookupValue)
+        public async Task<string> GetContentItemIdByDisplayText(string contentType, string displayText) //string lookupField, string lookupValue)
         {
-            return "123";
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+
+            query = query.With<ContentItemIndex>(x => x.DisplayText.Contains(displayText));
+
+            // ???
+            query = query.With<ContentItemIndex>(x => x.Published);
+
+            //check content type exists? or just let query fail?
+            // var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(model.Options.SelectedContentType);
+            // if (contentTypeDefinition == null)
+            //     return NotFound();
+
+            query = query.With<ContentItemIndex>(x => x.ContentType == contentType);
+
+            ContentItem contentItem = await query.FirstOrDefaultAsync();
+
+            return contentItem.ContentItemId;
         }
     }
 
@@ -94,7 +111,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
 #pragma warning disable S1481
 
-            var substitutionToken = await CSharpScript.EvaluateAsync<string>("Content.GetContentItemId(\"OccupationLabel\", \"skos__prefLabel\", \"3D animation specialist\")", globals: _cypherToContentCSharpScriptGlobals);
+            var substitutionToken = await CSharpScript.EvaluateAsync<string>("await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"3D animation specialist\")", globals: _cypherToContentCSharpScriptGlobals);
 
 #pragma warning restore S1481
 
