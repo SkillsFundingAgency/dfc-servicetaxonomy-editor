@@ -231,7 +231,8 @@ namespace GetJobProfiles
                         
                         if (jobProfileStandardContentIds.Any())
                         {
-                            jobProfile.EponymousPart.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds;
+                            //TODO : check for duplicates to report?
+                            jobProfile.EponymousPart.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds.Distinct();
                         }
                     }
                 }

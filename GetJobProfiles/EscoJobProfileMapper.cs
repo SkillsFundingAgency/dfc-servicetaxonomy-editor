@@ -13,6 +13,26 @@ namespace GetJobProfiles
 {
     public class EscoJobProfileMapper
     {
+        private readonly string[] _exclusions = new string[]
+        {
+            "arts-administrator",
+            "colour-therapist",
+            "dental-therapist",
+            "design-and-development-engineer",
+            "digital-delivery-manager",
+            "drone-pilot",
+            "education-technician",
+            "fence-installer",
+            "financial-services-customer-adviser",
+            "lock-keeper",
+            "photographic-stylist",
+            "road-traffic-accident-investigator",
+            "royal-navy-rating",
+            "sonographer",
+            "speech-and-language-therapy-assistant",
+            "tv-or-film-production-runner"
+        };
+
         public void Map(IEnumerable<JobProfileContentItem> jobProfiles)
         {
             using (var reader = new StreamReader(@"SeedData\esco_job_profile_map.csv"))
@@ -34,17 +54,24 @@ namespace GetJobProfiles
 
                     if (profile != null)
                     {
-                        var title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First();
-                        var uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First();
-
-                        //todo: allow >1 graphlookuppart in a contenttype: change graphlookup to named part
-                        profile.GraphLookupPart = new GraphLookupPart
+                        if (_exclusions.Contains(item.Url))
                         {
-                            Nodes = new[]
+                            profile.GraphLookupPart = new GraphLookupPart();
+                        }
+                        else
+                        {
+                            var title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
+                            var uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
+
+                            //todo: allow > 1 graphlookuppart in a contenttype: change graphlookup to named part
+                            profile.GraphLookupPart = new GraphLookupPart
                             {
-                                new Node { DisplayText = title, Id = uri }
-                            }
-                        };
+                                Nodes = new[]
+                                {
+                                    new Node { DisplayText = title, Id = uri }
+                                }
+                            };
+                        }
                     }
                 }
             }
