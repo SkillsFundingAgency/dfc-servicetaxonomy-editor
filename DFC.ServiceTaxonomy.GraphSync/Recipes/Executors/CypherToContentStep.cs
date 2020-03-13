@@ -107,10 +107,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         }
 
         //todo: occupation in job profile bag : readonly
-        //todo: replace calls in result. use expressions? or just regex??
-        //todo: will need setting on graph sync to say existing node/readonly/don't sync node
-        //^^ but why is it currently failing?
-        //todo: why is sync not trying to create relationships?
+        //todo: why is sync not creating relationships? -> need to add prefix into graph sync settings, as occupation isn't ncs__!
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
