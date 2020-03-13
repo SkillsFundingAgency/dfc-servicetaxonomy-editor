@@ -1,0 +1,21 @@
+﻿{
+    "name": "",
+    "displayName": "",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherToContent",
+            "queries": [
+                {
+                    "query": "MATCH (o:esco__Occupation)\r\nreturn { ContentType: 'Occupation', GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},\r\nAlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\"ncs__OccupationLabel\", \"skos__prefLabel\",\"'+l.skos__prefLabel+'\")']}\r\n}"
+                }
+            ]
+        }
+    ]
+}
