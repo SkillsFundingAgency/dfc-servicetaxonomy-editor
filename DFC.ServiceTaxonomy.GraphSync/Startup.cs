@@ -15,6 +15,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -24,10 +25,16 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
+using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
-using OrchardCore.ContentManagement.Metadata;
-using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using Microsoft.Extensions.Localization;
+using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
+using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
+using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
+using OrchardCore.DisplayManagement.Notify;
+using OrchardCore.ContentTypes.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -42,16 +49,26 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
             services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
+            // Recipe Steps
+            services.AddRecipeExecutionStep<CypherStep>();
+
             // Graph Database
             services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
+            services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
+            services.AddTransient<ICustomCommand, CustomCommand>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
+            services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
+            services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
+            services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
+            services.AddActivity<ContentTypeUpdatedEvent, ContentTypeUpdatedEventDisplay>();
+            services.AddActivity<GetContentItemsTask, GetContentItemsTaskDisplay>();
 
             // Syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
@@ -69,11 +86,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
-            //Hide Orchard Core Content Definition Manager and use our own
-            services.AddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
-            services.AddTransient<IContentDefinitionManager, CustomContentDefinitionManager>();
-            services.AddActivity<ContentTypeUpdatedEvent, ContentTypeUpdatedEventDisplay>();
-            services.AddActivity<GetContentItemsTask, GetContentItemsTaskDisplay>();
+            //Notifiers
+            services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
+
+            //Services
+            services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
+            services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

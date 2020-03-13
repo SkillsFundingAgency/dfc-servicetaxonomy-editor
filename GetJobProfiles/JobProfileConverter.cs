@@ -126,12 +126,14 @@ namespace GetJobProfiles
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
+            var builder = new UriBuilder(jobProfile.Url);
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart
                 {
                     Description = new HtmlField(jobProfile.Overview),
-                    JobProfileWebsiteUrl = new TextField(jobProfile.Url),
+                    JobProfileWebsiteUrl = new TextField(builder.Path),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
@@ -153,7 +155,7 @@ namespace GetJobProfiles
                     CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression),
                     WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment),
                     WydWorkingLocation = WorkingLocations.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location),
-                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform),
+                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform)
                 },
                 EntryRoutes = new BagPart()
             };

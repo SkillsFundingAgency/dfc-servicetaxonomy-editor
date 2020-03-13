@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public string? IdPropertyName { get; set; }
         public object? IdPropertyValue { get; set; }
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
             List<string> validationErrors = new List<string>();
 
@@ -26,16 +26,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             if (IdPropertyValue == null)
                 validationErrors.Add($"{nameof(IdPropertyValue)} is null.");
 
-            if (validationErrors.Any())
-                throw new InvalidOperationException(@$"{nameof(DeleteNodeCommand)} not valid:
-{string.Join(Environment.NewLine, validationErrors)}");
+            return validationErrors;
         }
 
         public Query Query
         {
             get
             {
-                CheckIsValid();
+                this.CheckIsValid();
 
                 return new Query(
 $@"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})

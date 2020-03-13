@@ -75,11 +75,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     continue;
 
                 JToken? fieldContent = ((JProperty)field).FirstOrDefault();
-                JProperty? firstProperty = (JProperty?) fieldContent?.FirstOrDefault();
+                JProperty? firstProperty = (JProperty?)fieldContent?.FirstOrDefault();
                 if (firstProperty == null)
                     continue;
 
-                JProperty? secondProperty = (JProperty?) fieldContent.Skip(1).FirstOrDefault();
+                JProperty? secondProperty = (JProperty?)fieldContent.Skip(1).FirstOrDefault();
                 string? secondName = secondProperty?.Name;
 
                 if (secondName == null)
@@ -188,7 +188,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                new[] {destNodeLabel},
+                new[] { destNodeLabel },
                 _graphSyncPartIdProperty.Name,
                 destIds);
         }
