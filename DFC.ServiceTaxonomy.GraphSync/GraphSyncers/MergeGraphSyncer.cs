@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Logging;
@@ -75,9 +76,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (modifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(NcsPrefix + "ModifiedDate", modifiedUtc.Value);
 
+            //todo: pass to part syncers? (bagpart uses currently)
+            var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
+
             List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
 
-            await SyncComponentsToGraph(graphSyncPartContent, partCommands);
+            await SyncComponentsToGraph(graphSyncPartContent, partCommands, graphSyncPartSettings.PreexistingNode);
 
             return _mergeNodeCommand;
         }
@@ -122,9 +126,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return partCommands;
         }
 
-        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<ICommand> partCommands)
+        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<ICommand> partCommands, bool preexistingNode)
         {
-            List<ICommand> commands  = new List<ICommand> {_mergeNodeCommand};
+            List<ICommand> commands = new List<ICommand>();
+
+            if (!preexistingNode)
+            {
+                commands.Add(_mergeNodeCommand);
+            }
 
             if (_replaceRelationshipsCommand.Relationships.Any())
             {
@@ -140,6 +149,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             commands.AddRange(partCommands);
 
             await _graphDatabase.Run(commands.ToArray());
+        }
+
+        private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
+        {
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
+            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
+            return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
     }
 }

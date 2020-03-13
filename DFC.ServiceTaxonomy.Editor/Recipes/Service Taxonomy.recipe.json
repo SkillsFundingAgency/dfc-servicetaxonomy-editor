@@ -129,7 +129,8 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://data.europa.eu/esco/occupation/"
+                                    "NamespacePrefix": "http://data.europa.eu/esco/occupation/",
+                                    "PreexistingNode": true
                                 }
                             }
                         }

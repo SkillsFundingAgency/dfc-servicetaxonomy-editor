@@ -143,7 +143,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     if (contentItem?.Content == null)
                     {
-                        _logger.LogWarning("encountered bollox");
+                        _logger.LogWarning("Missing content, unable to import.");
                         continue;
                     }
 

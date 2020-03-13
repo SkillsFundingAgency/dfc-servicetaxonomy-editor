@@ -45,6 +45,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
             _deleteNodeCommand.IdPropertyValue = _graphSyncPartIdProperty.Value(contentItem.Content.GraphSyncPart);
 
+            //todo: if preexistingnode set, just delete the relationships, not the node itself
+
             try
             {
                 await _graphDatabase.Run(_deleteNodeCommand);

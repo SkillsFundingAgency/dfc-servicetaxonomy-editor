@@ -33,6 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
                     model.NamespacePrefix = graphSyncPartSettings.NamespacePrefix;
                     model.BagPartContentItemRelationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
+                    model.PreexistingNode = graphSyncPartSettings.PreexistingNode;
                 })
                 .Location("Content");
         }
@@ -48,7 +49,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.NamespacePrefix,
-                m => m.BagPartContentItemRelationshipType))
+                m => m.BagPartContentItemRelationshipType,
+                m => m.PreexistingNode))
             {
                 // could do with an ordered set
                 // namespaceprefix should never be null. throw instead?
@@ -80,7 +82,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 context.Builder.WithSettings(new GraphSyncPartSettings
                 {
                     NamespacePrefix = model.NamespacePrefix,
-                    BagPartContentItemRelationshipType = model.BagPartContentItemRelationshipType
+                    BagPartContentItemRelationshipType = model.BagPartContentItemRelationshipType,
+                    PreexistingNode = model.PreexistingNode
                 });
             }
 
