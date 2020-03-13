@@ -207,6 +207,8 @@ namespace GetJobProfiles
 
                 foreach (var jobProfile in jobProfiles)
                 {
+                    jobProfile.EponymousPart.ApprenticeshipStandards = new ContentPicker();
+
                     var jobProfileStandardContentIds = new List<string>();
 
                     var applicableJobProfileStandards = jobProfileStandards.ContainsKey(jobProfile.TitlePart.Title) ? jobProfileStandards[jobProfile.TitlePart.Title] : null;
@@ -226,9 +228,7 @@ namespace GetJobProfiles
                                 }
                             }
                         }
-
-                        jobProfile.EponymousPart.ApprenticeshipStandards = new ContentPicker();
-
+                        
                         if (jobProfileStandardContentIds.Any())
                         {
                             jobProfile.EponymousPart.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds;

@@ -34,12 +34,15 @@ namespace GetJobProfiles
 
                     if (profile != null)
                     {
+                        var title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First();
+                        var uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First();
+
                         //todo: allow >1 graphlookuppart in a contenttype: change graphlookup to named part
                         profile.GraphLookupPart = new GraphLookupPart
                         {
                             Nodes = new[]
                             {
-                                new Node { DisplayText = item.EscoTitle, Id = item.EscoUri }
+                                new Node { DisplayText = title, Id = uri }
                             }
                         };
                     }
