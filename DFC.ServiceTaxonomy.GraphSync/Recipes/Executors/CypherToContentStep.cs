@@ -10,6 +10,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
@@ -18,15 +19,38 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     // create (al:ncs__OccupationLabel:Resource {skos__prefLabel: altLabels, uri: "http://nationalcareers.service.gov.uk/OccupationLabel/" + apoc.create.uuid()})
     // create (n)-[:ncs__hasAltLabel]->(al)
 
-    #pragma warning disable S1104
-    public class Globals
+    public interface ICypherToContentCSharpScriptGlobals
     {
-        public ContentHelper Content = new ContentHelper();
+        public IContentHelper Content { get; set; }
+    }
+
+    #pragma warning disable S1104
+    public class CypherToContentCSharpScriptGlobals : ICypherToContentCSharpScriptGlobals
+    {
+        //interface??
+        public IContentHelper Content { get; set; }
+
+        public CypherToContentCSharpScriptGlobals(IContentHelper contentHelper)
+        {
+            Content = contentHelper;
+        }
     }
     #pragma warning restore S1104
 
-    public class ContentHelper
+    public interface IContentHelper
     {
+        string GetContentItemId(string contentType, string lookupField, string lookupValue);
+    }
+
+    public class ContentHelper : IContentHelper
+    {
+        private readonly ISession _session;
+
+        public ContentHelper(ISession session)
+        {
+            _session = session;
+        }
+
         public string GetContentItemId(string contentType, string lookupField, string lookupValue)
         {
             return "123";
@@ -39,6 +63,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IServiceProvider _serviceProvider;
         private readonly IContentManager _contentManager;
         private readonly IContentItemIdGenerator _idGenerator;
+        private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
@@ -48,12 +73,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IServiceProvider serviceProvider,
             IContentManager contentManager,
             IContentItemIdGenerator idGenerator,
+            ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             ILogger<CypherToContentStep> logger)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
             _contentManager = contentManager;
             _idGenerator = idGenerator;
+            _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _logger = logger;
         }
 
@@ -65,11 +92,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
 
-            var globals = new Globals();
-
 #pragma warning disable S1481
 
-            var substitutionToken = await CSharpScript.EvaluateAsync<string>("Content.GetContentItemId(\"OccupationLabel\", \"skos__prefLabel\", \"3D animation specialist\")", globals: globals);
+            var substitutionToken = await CSharpScript.EvaluateAsync<string>("Content.GetContentItemId(\"OccupationLabel\", \"skos__prefLabel\", \"3D animation specialist\")", globals: _cypherToContentCSharpScriptGlobals);
 
 #pragma warning restore S1481
 
