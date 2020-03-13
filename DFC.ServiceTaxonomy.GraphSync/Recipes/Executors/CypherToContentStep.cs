@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
@@ -10,6 +11,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Newtonsoft.Json;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
 
@@ -124,17 +126,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 _logger.LogInformation($"{StepName} step");
 
-                var getContentItemsQuery = _serviceProvider.GetRequiredService<IGetContentItemsQuery>();
+                var getContentItemsAsJsonQuery = _serviceProvider.GetRequiredService<IGetContentItemsAsJsonQuery>();
 
-                getContentItemsQuery.QueryStatement = queries.Query;
+                getContentItemsAsJsonQuery.QueryStatement = queries.Query;
 
-                var contentItemsUnflattened = await _graphDatabase.Run(getContentItemsQuery);
+                var contentItemsJson = await _graphDatabase.Run(getContentItemsAsJsonQuery);
 
-                var contentItemJObjects = contentItemsUnflattened.SelectMany(cil => cil);
+                var contentItemJObjects = contentItemsJson.Select(ci => JsonConvert.DeserializeObject<List<JObject>>(ci))
+                    .SelectMany(cijo => cijo);
 
-                foreach (JObject token in contentItemJObjects)
+                foreach (JObject contentJObject in contentItemJObjects)
                 {
-                    ContentItem? contentItem = token.ToObject<ContentItem>();
+                    ContentItem? contentItem = contentJObject.ToObject<ContentItem>();
 
                     if (contentItem?.Content == null)
                     {

@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
-            services.AddTransient<IGetContentItemsQuery, GetContentItemsQuery>();
+            services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonAsJsonQuery>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();

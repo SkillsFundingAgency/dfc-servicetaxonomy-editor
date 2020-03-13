@@ -2,12 +2,11 @@
 using DFC.ServiceTaxonomy.Neo4j.Queries;
 using Neo4j.Driver;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
     //todo: rename, doesn't get contentitems!
-    class GetContentItemsQuery : IGetContentItemsQuery
+    class GetContentItemsAsJsonAsJsonQuery : IGetContentItemsAsJsonQuery
     {
         public string? QueryStatement { get; set; }
 
@@ -29,10 +28,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
                 return new Query(QueryStatement);
             }
         }
-        public List<JObject> ProcessRecord(IRecord record)
+        public string ProcessRecord(IRecord record)
         {
-            string values = JsonConvert.SerializeObject(record.Values.Values);
-            return JsonConvert.DeserializeObject<List<JObject>>(values);
+            return JsonConvert.SerializeObject(record.Values.Values);
+            // string values = JsonConvert.SerializeObject(record.Values.Values);
+            // return JsonConvert.DeserializeObject<List<JObject>>(values);
         }
     }
 }
