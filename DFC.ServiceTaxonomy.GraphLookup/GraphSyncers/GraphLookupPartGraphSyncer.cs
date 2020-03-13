@@ -17,6 +17,13 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
+        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
+
+        public GraphLookupPartGraphSyncer(IGraphSyncPartIdProperty graphSyncPartIdProperty)
+        {
+            _graphSyncPartIdProperty = graphSyncPartIdProperty;
+        }
+
         public Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
@@ -49,14 +56,14 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return emptyResult;
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition, IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode sourceNode, ContentTypePartDefinition contentTypePartDefinition, IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
         {
             var nodes = (JArray)contentItem.Content.GraphLookupPart.Nodes;
             var relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
 
-            foreach (var n in nodes)
+            foreach (var node in nodes)
             {
-                var destNode = destNodes.SingleOrDefault(x => (string)x.Properties["uri"] == (string)n["Id"]!);
+                var destNode = destNodes.SingleOrDefault(x => (string)x.Properties[_graphSyncPartIdProperty.Name] == (string)node[nameof(GraphLookupNode.Id)]!);
 
                 if (destNode == null)
                 {

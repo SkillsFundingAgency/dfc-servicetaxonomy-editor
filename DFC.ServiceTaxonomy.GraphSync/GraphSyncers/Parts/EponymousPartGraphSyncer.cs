@@ -50,17 +50,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private readonly IContentManager _contentManager;
         private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly Regex _relationshipTypeRegex;
-        private readonly ISession _session;
 
         //todo: have as setting of activity, or graph sync content part settings
         private const string NcsPrefix = "ncs__";
 
         public EponymousPartGraphSyncer(IContentManager contentManager,
-            IGraphSyncPartIdProperty graphSyncPartIdProperty, ISession session)
+            IGraphSyncPartIdProperty graphSyncPartIdProperty)
         {
             _contentManager = contentManager;
             _graphSyncPartIdProperty = graphSyncPartIdProperty;
-            _session = session;
             _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         }
 
@@ -145,13 +143,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     {
                         var contentItemId = (string)item!;
 
-                        var destContentItem = await _session
-                            .Query<ContentItem, ContentItemIndex>(x =>
-                                x.ContentItemId == contentItemId).FirstOrDefaultAsync();
+                        var destContentItem = await _contentManager.GetAsync(contentItemId);
 
                         var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
 
-                        var destNode = destNodes.SingleOrDefault(n => (string)n.Properties["uri"] == destUri);
+                        var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[_graphSyncPartIdProperty.Name] == destUri);
 
                         if (destNode == null)
                         {
@@ -169,7 +165,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 }
                 else
                 {
-                    var contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"];
+                    var contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"] ?? value?["Url"];
                     node.Properties.TryGetValue($"ncs__{field.Name}", out var nodePropertyValue);
 
                     if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))

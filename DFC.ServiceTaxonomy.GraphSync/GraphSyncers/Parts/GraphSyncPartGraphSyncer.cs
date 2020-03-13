@@ -33,11 +33,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition,
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode node, 
             IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
         {
-            var uri = node.Properties["uri"];
-            return Task.FromResult(Convert.ToString(uri) == Convert.ToString(contentItem.Content.GraphSyncPart.Text));
+            var uri = node.Properties[_graphSyncPartIdProperty.Name];
+            return Task.FromResult(Convert.ToString(uri) == _graphSyncPartIdProperty.Value(contentItem.Content.GraphSyncPart));
         }
     }
 }

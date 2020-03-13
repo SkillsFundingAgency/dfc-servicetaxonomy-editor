@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Localization;
@@ -37,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             _syncFailedContentItems = new List<ContentItem>();
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()
-                .Where(x => x.Parts.Any(p => p.Name == "GraphSyncPart"))
+                .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
         }
 
@@ -49,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override string Name => nameof(AuditSyncIssuesTask);
         public override LocalizedString DisplayText => T["Identify sync issues and retry"];
-        public override LocalizedString Category => T["National Careers Service"];
+        public override LocalizedString Category => T["Graph"];
 
         private readonly List<ContentItem> _syncFailedContentItems;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
@@ -129,7 +130,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                         partSyncer = _partSyncers["Eponymous"];
                     }
 
-                    if (!await partSyncer.VerifySyncComponent(contentItem, sourceNode, part, relationships, destNodes))
+                    if (!await partSyncer.VerifySyncComponent(contentItem, part, sourceNode, relationships, destNodes))
                     {
                         _syncFailedContentItems.Add(contentItem);
                         break;
