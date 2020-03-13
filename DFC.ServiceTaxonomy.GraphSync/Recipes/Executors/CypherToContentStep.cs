@@ -61,18 +61,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 var getContentItemsQuery = _serviceProvider.GetRequiredService<IGetContentItemsQuery>();
 
                 getContentItemsQuery.QueryStatement = queries.Query;
-//                 @"MATCH (o:esco__Occupation)
-// where o.skos__prefLabel starts with '3D'
-// WITH collect({ ContentType: ""Occupation"", GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
-// AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__OccupationLabel\\"", \\""skos__prefLabel\\"",\\""'+l.skos__prefLabel+'\\"")']}
-// })  as occupations return occupations";
-
-//                     @"MATCH (o:esco__Occupation)
-// where o.skos__prefLabel starts with '3D'
-// return { ContentType: ""Occupation"", GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},
-// AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | 'GetContentItemId(\\""ncs__OccupationLabel\\"", \\""skos__prefLabel\\"",\\""'+l.skos__prefLabel+'\\"")']}
-// }";
-
 
                 var contentItemsUnflattened = await _graphDatabase.Run(getContentItemsQuery);
 
