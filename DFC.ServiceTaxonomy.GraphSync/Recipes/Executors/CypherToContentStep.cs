@@ -9,15 +9,31 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
     // match (n:esco__Occupation)
     // unwind n.skos__altLabel as altLabels
-    // create (al:ncs__OccupationLabel {skos__prefLabel: altLabels, uri: "http://nationalcareers.service.gov.uk/OccupationLabel/" + apoc.create.uuid()})
+    // create (al:ncs__OccupationLabel:Resource {skos__prefLabel: altLabels, uri: "http://nationalcareers.service.gov.uk/OccupationLabel/" + apoc.create.uuid()})
     // create (n)-[:ncs__hasAltLabel]->(al)
 
-    class CypherToContentStep : IRecipeStepHandler
+    #pragma warning disable S1104
+    public class Globals
+    {
+        public ContentHelper Content = new ContentHelper();
+    }
+    #pragma warning restore S1104
+
+    public class ContentHelper
+    {
+        public string GetContentItemId(string contentType, string lookupField, string lookupValue)
+        {
+            return "123";
+        }
+    }
+
+    public class CypherToContentStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
@@ -48,6 +64,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
+
+            var globals = new Globals();
+
+#pragma warning disable S1481
+
+            var substitutionToken = await CSharpScript.EvaluateAsync<string>("Content.GetContentItemId(\"OccupationLabel\", \"skos__prefLabel\", \"3D animation specialist\")", globals: globals);
+
+#pragma warning restore S1481
 
             var step = context.Step.ToObject<CypherToContentStepModel>();
 
