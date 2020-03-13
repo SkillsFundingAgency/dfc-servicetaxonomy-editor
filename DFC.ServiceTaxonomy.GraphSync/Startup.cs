@@ -28,6 +28,14 @@ using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
+using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
+using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
+using OrchardCore.DisplayManagement.Notify;
+using OrchardCore.ContentTypes.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -53,6 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
+            services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonAsJsonQuery>();
@@ -60,6 +69,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
+            services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
+            services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
+            services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
 
             // Syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
@@ -76,6 +88,13 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
             services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+
+            //Notifiers
+            services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
+
+            //Services
+            services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
+            services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

@@ -3123,7 +3123,66 @@
                             "DestinationActivityId": "4e1pzdgtnww4e5jt4w4cac5qma"
                         }
                     ]
+                },
+				{
+          "WorkflowTypeId": "4wwrjw1kq3qffwgqp7x02spad1",
+          "Name": "Delete Content Type From Graph",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "4pgvhb6xk73gkxq4684vqnkrnx",
+              "Name": "ContentTypeDeletedEvent",
+              "X": 0,
+              "Y": 0,
+              "IsStart": true,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": "Content Type Deleted"
                 }
+              }
+            },
+            {
+              "ActivityId": "4gwyw81gep9nkx25mp30adpdd6",
+              "Name": "DeleteContentTypeFromGraphTask",
+              "X": 320,
+              "Y": 190,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": "Delete Nodes from Graph"
+                }
+              }
+            },
+            {
+              "ActivityId": "447bt5h88dam1wpewrt6y7jcdt",
+              "Name": "DeleteContentTypeTask",
+              "X": 730,
+              "Y": 190,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": "Delete Content Type from Orchard Core"
+                }
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "4pgvhb6xk73gkxq4684vqnkrnx",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4gwyw81gep9nkx25mp30adpdd6"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4gwyw81gep9nkx25mp30adpdd6",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "447bt5h88dam1wpewrt6y7jcdt"
+            }
+          ]
+        }
             ]
         }
     ]
