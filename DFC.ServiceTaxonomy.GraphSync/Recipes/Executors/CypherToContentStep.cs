@@ -73,7 +73,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             ContentItem contentItem = await query.FirstOrDefaultAsync();
 
-            return $"\"{contentItem.ContentItemId}\"";
+//            return $"\"{contentItem.ContentItemId}\"";
+            //where are the other quotes coming from?
+            return $"{contentItem.ContentItemId}";
         }
     }
 
@@ -106,7 +108,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
         //todo: occupation in job profile bag : readonly
         //todo: replace calls in result. use expressions? or just regex??
-
+        //todo: will need setting on graph sync to say existing node/readonly/don't sync node
+        //^^ but why is it currently failing?
+        //todo: why is sync not trying to create relationships?
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
