@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
@@ -72,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             ContentItem contentItem = await query.FirstOrDefaultAsync();
 
-            return contentItem.ContentItemId;
+            return $"\"{contentItem.ContentItemId}\"";
         }
     }
 
@@ -111,12 +112,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
 
-#pragma warning disable S1481
-
-            var substitutionToken = await CSharpScript.EvaluateAsync<string>("await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"3D animation specialist\")", globals: _cypherToContentCSharpScriptGlobals);
-
-#pragma warning restore S1481
-
             var step = context.Step.ToObject<CypherToContentStepModel>();
 
             foreach (var queries in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
@@ -130,9 +125,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 getContentItemsAsJsonQuery.QueryStatement = queries.Query;
 
-                var contentItemsJson = await _graphDatabase.Run(getContentItemsAsJsonQuery);
+                var contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
 
-                var contentItemJObjects = contentItemsJson.Select(ci => JsonConvert.DeserializeObject<List<JObject>>(ci))
+                var contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
+
+                var contentItemJObjects = contentItemsJson
+                    .Select(JsonConvert.DeserializeObject<List<JObject>>)
                     .SelectMany(cijo => cijo);
 
                 foreach (JObject contentJObject in contentItemJObjects)
@@ -175,6 +173,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     //contentItem.PublishedUtc = publishedUtc;
                 }
             }
+        }
+
+        private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
+        private string ReplaceCSharpHelpers(string recipeFragment)
+        {
+            return _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
+        }
+
+        private async Task<string> EvaluateCSharp(string code)
+        {
+//#pragma warning disable S1481
+
+            //"await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"3D animation specialist\")"
+
+            // can't see how to get json.net to unescape value strings!
+            code = code.Replace("\\\"", "\"");
+
+            return await CSharpScript.EvaluateAsync<string>(code, globals: _cypherToContentCSharpScriptGlobals);
+
+//#pragma warning restore S1481
+
         }
 
         public class CypherToContentModel
