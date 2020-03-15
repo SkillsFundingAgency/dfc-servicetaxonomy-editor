@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<bool> VerifySyncComponent(
             ContentItem contentItem,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode node,
+            INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destNodes);
     }

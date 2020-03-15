@@ -26,11 +26,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node,
-            ContentTypePartDefinition contentTypePartDefinition, IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes)
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
         {
-            var prefLabel = node.Properties["skos__prefLabel"];
+            var prefLabel = sourceNode.Properties["skos__prefLabel"];
             return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(contentItem.Content.TitlePart.Title));
         }
     }

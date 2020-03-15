@@ -55,8 +55,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             return emptyResult;
         }
-
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode sourceNode, ContentTypePartDefinition contentTypePartDefinition, IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
         {
             var nodes = (JArray)contentItem.Content.GraphLookupPart.Nodes;
             var relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;

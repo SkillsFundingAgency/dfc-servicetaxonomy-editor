@@ -11,11 +11,10 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
-using OrchardCore.ContentManagement.Records;
-using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
+    /// <summary>Summary to make the build work</summary>
     /// <remarks>
     /// we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
     /// we might also want to map to rdf types here (accept flag to say store with type?)
@@ -118,7 +117,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Enumerable.Empty<ICommand>();
         }
 
-        public async Task<bool> VerifySyncComponent(ContentItem contentItem, INode node, ContentTypePartDefinition contentTypePartDefinition,
+        public async Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
             IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
         {
             foreach (var field in contentTypePartDefinition.PartDefinition.Fields)
@@ -166,7 +165,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 else
                 {
                     var contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"] ?? value?["Url"];
-                    node.Properties.TryGetValue($"ncs__{field.Name}", out var nodePropertyValue);
+                    sourceNode.Properties.TryGetValue($"ncs__{field.Name}", out var nodePropertyValue);
 
                     if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))
                     {

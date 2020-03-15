@@ -4,10 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Queries;
-using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.Localization;
-using Neo4j.Driver;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -24,17 +22,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     {
         public AuditSyncIssuesTask(
             ISession session,
-            IGraphDatabase graphDatabase,
             IMergeGraphSyncer mergeGraphSyncer,
             IStringLocalizer<AuditSyncIssuesTask> localizer,
             IContentDefinitionManager contentDefinitionManager,
-            IEnumerable<IContentPartGraphSyncer> partSyncers)
+            IGraphSyncValidator graphSyncValidator)
         {
             _session = session;
-            _graphDatabase = graphDatabase;
             _mergeGraphSyncer = mergeGraphSyncer;
+            _graphSyncValidator = graphSyncValidator;
             T = localizer;
-            _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
             _syncFailedContentItems = new List<ContentItem>();
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()
@@ -43,9 +39,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         }
 
         private readonly ISession _session;
-        private readonly IGraphDatabase _graphDatabase;
-        private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
+        private readonly IGraphSyncValidator _graphSyncValidator;
         private IStringLocalizer T { get; }
 
         public override string Name => nameof(AuditSyncIssuesTask);
@@ -76,7 +71,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             foreach (var contentItem in contentItems)
             {
-                await CheckIfContentItemSynced(contentItem);
+                if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
+                {
+                    _syncFailedContentItems.Add(contentItem);
+                }
             }
 
             for (int i = 0; i < _syncFailedContentItems.Count; i++)
@@ -90,7 +88,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
                     _syncFailedContentItems.RemoveAt(i);
 
-                    await CheckIfContentItemSynced(contentItem);
+                    if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
+                    {
+                        _syncFailedContentItems.Add(contentItem);
+                    }
                 }
                 catch
                 {
@@ -105,38 +106,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             await _session.CommitAsync();
 
             return Outcomes("Done");
-        }
-
-        private async Task CheckIfContentItemSynced(ContentItem contentItem)
-        {
-            var results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(contentItem.ContentType, (string)contentItem.Content.GraphSyncPart.Text));
-
-            if (results == null || !results.Any())
-            {
-                _syncFailedContentItems.Add(contentItem);
-            }
-            else
-            {
-                var contentDefinition = _contentTypes[contentItem.ContentType];
-
-                var sourceNode = results.Select(x => x[0]).Cast<INode>().First();
-                var relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
-                var destNodes = results.Select(x => x[2]).Cast<INode>().ToList();
-
-                foreach (var part in contentDefinition.Parts)
-                {
-                    if (!_partSyncers.TryGetValue(part.PartDefinition.Name, out var partSyncer))
-                    {
-                        partSyncer = _partSyncers["Eponymous"];
-                    }
-
-                    if (!await partSyncer.VerifySyncComponent(contentItem, part, sourceNode, relationships, destNodes))
-                    {
-                        _syncFailedContentItems.Add(contentItem);
-                        break;
-                    }
-                }
-            }
         }
     }
 

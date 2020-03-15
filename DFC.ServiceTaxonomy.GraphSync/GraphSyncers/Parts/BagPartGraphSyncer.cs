@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -81,10 +82,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return delayedCommands;
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, INode node,
+        public async Task<bool> VerifySyncComponent(
+            ContentItem contentItem,
             ContentTypePartDefinition contentTypePartDefinition,
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes) =>
-            Task.FromResult(true);
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destNodes)
+        {
+            var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
+
+            var contentItems = contentItem.Content[contentTypePartDefinition.Name]["ContentItems"].ToObject<IEnumerable<ContentItem>>();
+
+            foreach (var bagPartContentItem in contentItems)
+            {
+                if (await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
