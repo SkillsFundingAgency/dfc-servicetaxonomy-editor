@@ -125,13 +125,15 @@ namespace GetJobProfiles
         }
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
-        {
+        {   
+            var uri = new Uri(jobProfile.Url);
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart
                 {
                     Description = new HtmlField(jobProfile.Overview),
-                    JobProfileWebsiteUrl = new TextField(jobProfile.Url),
+                    JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
