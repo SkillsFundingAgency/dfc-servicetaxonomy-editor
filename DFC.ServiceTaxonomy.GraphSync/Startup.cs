@@ -29,6 +29,8 @@ using OrchardCore.Modules;
 using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
