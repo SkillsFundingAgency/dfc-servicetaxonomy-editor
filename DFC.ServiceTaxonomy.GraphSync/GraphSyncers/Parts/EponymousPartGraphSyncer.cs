@@ -178,7 +178,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 relationshipType = _graphSyncHelper!.RelationshipType(pickedContentType);
 
             //todo: do we always want to add Resource, or pass a bool?
-            IEnumerable<string> destNodeLabels = _graphSyncHelper!.NodeLabels(pickedContentType);
+            IEnumerable<string> destNodeLabels = await _graphSyncHelper!.NodeLabels(pickedContentType);
 
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception

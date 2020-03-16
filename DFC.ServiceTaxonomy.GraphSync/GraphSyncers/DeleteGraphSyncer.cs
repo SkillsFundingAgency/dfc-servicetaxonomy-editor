@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphSyncHelper.ContentType = contentType;
 
-            _deleteNodesByTypeCommand.NodeLabels.UnionWith(_graphSyncHelper.NodeLabels(contentType));
+            _deleteNodesByTypeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels(contentType));
 
             try
             {

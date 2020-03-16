@@ -64,26 +64,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            string nodeLabel = string.IsNullOrEmpty(GraphSyncPartSettings!.NodeNameTransform)
-                               || GraphSyncPartSettings!.NodeNameTransform == "Value"
-                               || GraphSyncPartSettings!.NodeNameTransform == "$\"{Value}\""
-                ? _contentType!
-                : await Transform(GraphSyncPartSettings!.NodeNameTransform, _contentType!);
+            string nodeLabel = await TransformOrDefault(GraphSyncPartSettings!.NodeNameTransform, _contentType!);
 
             return new[] {nodeLabel, CommonNodeLabel};
         }
 
-        private async Task<string> Transform(string transformCode, string untransformedValue)
+        public async Task<IEnumerable<string>> NodeLabels(string contentType)
         {
-            _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
-            return await CSharpScript.EvaluateAsync<string>(transformCode, globals: _graphSyncHelperCSharpScriptGlobals);
-        }
+            //todo: need graphsyncsettings of contentType!
 
-        public IEnumerable<string> NodeLabels(string contentType)
-        {
-            //todo: Transform
-            string NcsPrefix = "ncs__";
-            return new[] {NcsPrefix + contentType, CommonNodeLabel};
+            string nodeLabel = await TransformOrDefault(GraphSyncPartSettings!.NodeNameTransform, contentType);
+
+            return new[] {nodeLabel, CommonNodeLabel};
         }
 
         public string RelationshipType(string destinationContentType)
@@ -121,6 +113,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             if (_contentType == null)
                 throw new InvalidOperationException($"You must set {nameof(ContentType)} before calling.");
+        }
+
+        private async Task<string> TransformOrDefault(string? transformCode, string value)
+        {
+            return string.IsNullOrEmpty(transformCode)
+               || transformCode == "Value"
+               || transformCode == "$\"{Value}\""
+                ? value
+                : await Transform(transformCode, value);
+        }
+
+        private async Task<string> Transform(string transformCode, string untransformedValue)
+        {
+            _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
+            return await CSharpScript.EvaluateAsync<string>(transformCode, globals: _graphSyncHelperCSharpScriptGlobals);
         }
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
