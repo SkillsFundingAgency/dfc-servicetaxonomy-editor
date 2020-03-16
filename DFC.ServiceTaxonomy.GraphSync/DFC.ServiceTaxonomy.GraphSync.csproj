@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.4.0" />
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentTypes" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
@@ -31,5 +32,4 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
   </ItemGroup>
-
 </Project>
