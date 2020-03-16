@@ -17,9 +17,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         GraphSyncPartSettings GraphSyncPartSettings { get; }
 
         Task<IEnumerable<string>> NodeLabels();
-        string PropertyName(string name);
+        Task<string> PropertyName(string name);
         string IdPropertyName { get; }
-        string? IdPropertyValue(dynamic graphSyncContent);
+        Task<string> IdPropertyValue(dynamic graphSyncContent);
 
         Task<IEnumerable<string>> NodeLabels(string contentType);
         string RelationshipType(string destinationContentType);

@@ -12,6 +12,9 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
+    // we want to avoid async void
+    #pragma warning disable S3241
+
     /// <remarks>
     /// we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
     /// we might also want to map to rdf types here (accept flag to say store with type?)
@@ -111,12 +114,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Enumerable.Empty<ICommand>();
         }
 
-        private void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
+        private async Task AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
         {
-            mergeNodeCommand.Properties.Add(_graphSyncHelper!.PropertyName(fieldName), propertyValue.ToString());
+            mergeNodeCommand.Properties.Add(await _graphSyncHelper!.PropertyName(fieldName), propertyValue.ToString());
         }
 
-        private void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
+        private async Task AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
         {
             // type is null if user hasn't entered a value
             if (propertyValue.Type != JTokenType.Float)
@@ -129,7 +132,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             var fieldDefinition = contentTypePartDefinition.PartDefinition.Fields.First(f => f.Name == fieldName);
             var fieldSettings = fieldDefinition.GetSettings<NumericFieldSettings>();
 
-            string propertyName = _graphSyncHelper!.PropertyName(fieldName);
+            string propertyName = await _graphSyncHelper!.PropertyName(fieldName);
             if (fieldSettings.Scale == 0)
             {
                 mergeNodeCommand.Properties.Add(propertyName, (int)value);
@@ -140,11 +143,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        private void AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
+        private async Task AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
         {
             const string linkUrlPostfix = "_url", linkTextPostfix = "_text";
 
-            string basePropertyName = _graphSyncHelper!.PropertyName(fieldName);
+            string basePropertyName = await _graphSyncHelper!.PropertyName(fieldName);
             mergeNodeCommand.Properties.Add($"{basePropertyName}{linkUrlPostfix}", url);
             mergeNodeCommand.Properties.Add($"{basePropertyName}{linkTextPostfix}", text);
         }
@@ -198,4 +201,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return _graphSyncHelper!.IdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
+    #pragma warning restore S3241
 }

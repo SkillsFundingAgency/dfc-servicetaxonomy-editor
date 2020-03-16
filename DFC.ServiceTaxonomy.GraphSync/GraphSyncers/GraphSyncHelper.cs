@@ -21,7 +21,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private string? _contentType;
-        //todo: make this public if everything that needs it doesn't get moved into here?
         private GraphSyncPartSettings? _graphSyncPartSettings;
 
         //todo: from config CommonNodeLabels
@@ -58,8 +57,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-
-        // property instead?
         public async Task<IEnumerable<string>> NodeLabels()
         {
             CheckPreconditions();
@@ -71,9 +68,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<IEnumerable<string>> NodeLabels(string contentType)
         {
-            //todo: need graphsyncsettings of contentType!
+            var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
 
-            string nodeLabel = await TransformOrDefault(GraphSyncPartSettings!.NodeNameTransform, contentType);
+            string nodeLabel = await TransformOrDefault(graphSyncPartSettings.NodeNameTransform, contentType);
 
             return new[] {nodeLabel, CommonNodeLabel};
         }
@@ -85,12 +82,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return $"{NcsPrefix}has{destinationContentType}";
         }
 
-        public string PropertyName(string name)
+        public async Task<string> PropertyName(string name)
         {
-            //todo: PropertyNameTransform
-            string NcsPrefix = "ncs__";
+            CheckPreconditions();
 
-            return NcsPrefix + name;
+            return await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name);
         }
 
         public string IdPropertyName
@@ -103,10 +99,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        public string? IdPropertyValue(dynamic graphSyncContent)
+        public async Task<string> IdPropertyValue(dynamic graphSyncContent)
         {
-            //todo: IdPropertyValueTransform
-            return graphSyncContent.Text.ToString();
+            CheckPreconditions();
+
+            //todo: null?
+            return await TransformOrDefault(GraphSyncPartSettings!.IdPropertyValueTransform, graphSyncContent.Text.ToString());
         }
 
         private void CheckPreconditions()

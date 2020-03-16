@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Logging;
@@ -66,10 +65,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //Add created and modified dates to all content items
             //todo: store as neo's DateTime? especially if api doesn't match the string format
             if (createdUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(_graphSyncHelper.PropertyName("CreatedDate"), createdUtc.Value);
+                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("CreatedDate"), createdUtc.Value);
 
             if (modifiedUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(_graphSyncHelper.PropertyName("ModifiedDate"), modifiedUtc.Value);
+                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), modifiedUtc.Value);
 
             List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
 
