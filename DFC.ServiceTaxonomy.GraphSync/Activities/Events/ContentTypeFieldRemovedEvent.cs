@@ -6,18 +6,18 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using OrchardCore.Workflows.Services;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Activities
+namespace DFC.ServiceTaxonomy.GraphSync.Activities.Events
 {
-    public class ContentTypeUpdatedEvent : Activity, IEvent
+    public class ContentTypeFieldRemovedEvent : Activity, IEvent
     {
-        public ContentTypeUpdatedEvent(IContentDefinitionManager contentDefinitionManager, IWorkflowScriptEvaluator scriptEvaluator, IStringLocalizer<ContentTypeUpdatedEvent> localizer)
+        public ContentTypeFieldRemovedEvent(IContentDefinitionManager contentDefinitionManager, IWorkflowScriptEvaluator scriptEvaluator, IStringLocalizer<ContentTypeFieldRemovedEvent> localizer)
         {
             ContentDefinitionManager = contentDefinitionManager;
             ScriptEvaluator = scriptEvaluator;
             S = localizer;
         }
 
-        protected IStringLocalizer<ContentTypeUpdatedEvent> S { get; }
+        protected IStringLocalizer<ContentTypeFieldRemovedEvent> S { get; }
 
         protected IContentDefinitionManager ContentDefinitionManager { get; }
 
@@ -25,9 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override LocalizedString Category => new LocalizedString("Content Type", "Content Type");
 
-        public override string Name => nameof(ContentTypeUpdatedEvent);
+        public override string Name => nameof(ContentTypeFieldRemovedEvent);
 
-        public override LocalizedString DisplayText => S["Content Type Updated"];
+        public override LocalizedString DisplayText => S["Content Type Field Removed"];
 
 #pragma warning disable S3220 // Method calls should not resolve ambiguously to overloads with "params"
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext) => Outcomes(S["Done"]);

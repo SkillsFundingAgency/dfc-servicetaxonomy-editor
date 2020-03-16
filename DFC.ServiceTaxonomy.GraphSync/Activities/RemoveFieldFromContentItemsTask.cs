@@ -8,20 +8,21 @@ using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
-using System.Linq;
-using Newtonsoft.Json.Linq;
+using OrchardCore.ContentTypes.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
-    public class GetContentItemsTask : TaskActivity
+    public class RemoveFieldFromContentItemsTask : TaskActivity
     {
         readonly ITypeActivatorFactory<ContentPart> _contentPartFactory;
 
-        public GetContentItemsTask(
+        public RemoveFieldFromContentItemsTask(
             ISession session,
-            IStringLocalizer<GetContentItemsTask> localizer,
+            IStringLocalizer<RemoveFieldFromContentItemsTask> localizer,
             IContentManager contentManager,
             INotifier notifier,
+            IOrchardCoreContentDefinitionService contentDefinitionService,
              ITypeActivatorFactory<ContentPart> contentPartFactory)
         {
             _notifier = notifier;
@@ -29,15 +30,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             T = localizer;
             _contentManager = contentManager;
             _contentPartFactory = contentPartFactory;
+            _contentDefinitionService = contentDefinitionService;
         }
 
         private IStringLocalizer T { get; }
         private readonly ISession _session;
         private readonly IContentManager _contentManager;
+        private readonly IOrchardCoreContentDefinitionService _contentDefinitionService;
         private readonly INotifier _notifier;
 
-        public override string Name => nameof(GetContentItemsTask);
-        public override LocalizedString DisplayText => T["Get content items by Content Type"];
+        public override string Name => nameof(RemoveFieldFromContentItemsTask);
+        public override LocalizedString DisplayText => T["Remove field from a Content Type and Publish"];
         public override LocalizedString Category => T["Content"];
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
@@ -51,40 +54,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
             var contentTypeToSync = workflowContext.Input["ContentType"].ToString();
-            var fieldsToAdd = workflowContext.Input["Added"] as List<string>;
-            var fieldsToRemove = workflowContext.Input["Removed"] as List<string>;
+            var fieldToRemove = workflowContext.Input["RemovedField"].ToString();
+
+            _contentDefinitionService.RemoveFieldFromPart(fieldToRemove, contentTypeToSync);
+
             var query = _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == contentTypeToSync);
 
-            List<ContentItem> itemsToUpdate = new List<ContentItem>();
-
-            if (fieldsToRemove.Any() || fieldsToAdd.Any())
+            foreach (var contentItem in await query.ListAsync())
             {
-                foreach (var result in await query.ListAsync())
-                {
-                    itemsToUpdate.Add(await _contentManager.GetAsync(result.ContentItemId));
-                }
+                var item = await _contentManager.GetAsync(contentItem.ContentItemId);
+                await _contentManager.(item);
             }
 
-            foreach (var fieldToRemove in fieldsToRemove!)
-            {
-                //var activator = _contentPartFactory.GetTypeActivator(contentTypeToSync);
-           
-                foreach (var obj in itemsToUpdate)
-                {
-                    //var part = obj.ContentItem.Get(activator.Type, fieldToRemove) as ContentPart;
-                    //obj.Apply(new ContentElement(""));
-                    //if (part != null)
-                    //{
-                       
-                        //TODO: Update ContentItem to remove field and publish
-
-                        //For now, publish content change to trigger Sync to graph pipeline....
-                        await _contentManager.PublishAsync(obj);
-                    //}
-                }
-            }
-
-            await Task.Delay(0);
             return Outcomes("Done");
         }
     }
