@@ -11,15 +11,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
     {
-        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
+        private readonly IGraphSyncHelper _graphSyncHelper;
 
-        public GraphSyncPartGraphSyncer(IGraphSyncPartIdProperty graphSyncPartIdProperty)
+        public GraphSyncPartGraphSyncer(IGraphSyncHelper graphSyncHelper)
         {
-            _graphSyncPartIdProperty = graphSyncPartIdProperty;
+            _graphSyncHelper = graphSyncHelper;
         }
 
         public string? PartName => nameof(GraphSyncPart);
 
+        //todo: pass IGraphSyncHelper instead of GraphSyncPartSettings
         public Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphSyncContent,
             IMergeNodeCommand mergeNodeCommand,
@@ -27,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             GraphSyncPartSettings graphSyncPartSettings)
         {
-            mergeNodeCommand.Properties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
+            mergeNodeCommand.Properties.Add(_graphSyncHelper.IdPropertyName, _graphSyncHelper.IdPropertyValue(graphSyncContent));
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
