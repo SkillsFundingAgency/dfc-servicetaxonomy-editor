@@ -28,8 +28,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
-        //todo: have as setting of activity, or graph sync content part settings
-        private const string NcsPrefix = "ncs__";
         private const string CommonNodeLabel = "Resource";
 
         public MergeGraphSyncer(
@@ -64,7 +62,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
 
-            _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentType);
+            //todo: class for GraphSyncSomething to contain this type of stuff
+            string nodeLabel = string.IsNullOrEmpty(graphSyncPartSettings.NodeNameTransform)
+                               || graphSyncPartSettings.NodeNameTransform == "val"
+                ? contentType
+                : "todo";
+
+            string NcsPrefix = "ncs__";
+
+            _mergeNodeCommand.NodeLabels.Add(nodeLabel);
             _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
             _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
 
