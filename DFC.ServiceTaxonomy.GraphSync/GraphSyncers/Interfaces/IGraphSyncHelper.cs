@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         string? IdPropertyValue(dynamic graphSyncContent);
 
         IEnumerable<string> NodeLabels(string contentType);
+        string RelationshipType(string destinationContentType);
     }
     #pragma warning restore S4136
 }

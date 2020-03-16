@@ -69,6 +69,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return new[] {NcsPrefix + contentType, CommonNodeLabel};
         }
 
+        public string RelationshipType(string destinationContentType)
+        {
+            //todo: add transform for default relationshipname to settings
+            string NcsPrefix = "ncs__";
+            return $"{NcsPrefix}has{destinationContentType}";
+        }
+
         public string PropertyName(string name)
         {
             //todo: PropertyNameTransform

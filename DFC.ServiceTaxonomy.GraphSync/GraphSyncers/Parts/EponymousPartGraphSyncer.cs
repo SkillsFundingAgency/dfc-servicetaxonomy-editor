@@ -45,17 +45,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IContentManager _contentManager;
-        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
+        private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly Regex _relationshipTypeRegex;
 
-        //todo: have as setting of activity, or graph sync content part settings
-        private const string NcsPrefix = "ncs__";
-
-        public EponymousPartGraphSyncer(IContentManager contentManager,
-            IGraphSyncPartIdProperty graphSyncPartIdProperty)
+        public EponymousPartGraphSyncer(
+            IContentManager contentManager,
+            IGraphSyncHelper graphSyncHelper)
         {
             _contentManager = contentManager;
-            _graphSyncPartIdProperty = graphSyncPartIdProperty;
+            _graphSyncHelper = graphSyncHelper;
             _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         }
 
@@ -116,12 +114,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Enumerable.Empty<ICommand>();
         }
 
-        private static void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
+        private void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
         {
-            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, propertyValue.ToString());
+            mergeNodeCommand.Properties.Add(_graphSyncHelper.PropertyName(fieldName), propertyValue.ToString());
         }
 
-        private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
+        private void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
         {
             // type is null if user hasn't entered a value
             if (propertyValue.Type != JTokenType.Float)
@@ -134,7 +132,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             var fieldDefinition = contentTypePartDefinition.PartDefinition.Fields.First(f => f.Name == fieldName);
             var fieldSettings = fieldDefinition.GetSettings<NumericFieldSettings>();
 
-            string propertyName = $"{NcsPrefix}{fieldName}";
+            string propertyName = _graphSyncHelper.PropertyName(fieldName);
             if (fieldSettings.Scale == 0)
             {
                 mergeNodeCommand.Properties.Add(propertyName, (int)value);
@@ -145,12 +143,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        private static void AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
+        private void AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
         {
             const string linkUrlPostfix = "_url", linkTextPostfix = "_text";
 
-            mergeNodeCommand.Properties.Add($"{NcsPrefix}{fieldName}{linkUrlPostfix}", url);
-            mergeNodeCommand.Properties.Add($"{NcsPrefix}{fieldName}{linkTextPostfix}", text);
+            string basePropertyName = _graphSyncHelper.PropertyName(fieldName);
+            mergeNodeCommand.Properties.Add($"{basePropertyName}{linkUrlPostfix}", url);
+            mergeNodeCommand.Properties.Add($"{basePropertyName}{linkTextPostfix}", text);
         }
 
         //todo: interface for fields?
@@ -168,6 +167,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
 
+            //todo: move this code into graphsynchelper?
             string? relationshipType = null;
             if (contentPickerFieldSettings.Hint != null)
             {
@@ -178,9 +178,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 }
             }
             if (relationshipType == null)
-                relationshipType = $"{NcsPrefix}has{pickedContentType}";
+                relationshipType = _graphSyncHelper.RelationshipType(pickedContentType);
 
-            string destNodeLabel = NcsPrefix + pickedContentType;
+            //todo: do we always want to add Resource, or pass a bool?
+            IEnumerable<string> destNodeLabels = _graphSyncHelper.NodeLabels(pickedContentType);
 
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
@@ -190,14 +191,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                new[] { destNodeLabel },
-                _graphSyncPartIdProperty.Name,
+                destNodeLabels,
+                _graphSyncHelper.IdPropertyName,
                 destIds);
         }
 
         private object GetSyncId(ContentItem pickedContentItem)
         {
-            return _graphSyncPartIdProperty.Value(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            return _graphSyncHelper.IdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
 }
