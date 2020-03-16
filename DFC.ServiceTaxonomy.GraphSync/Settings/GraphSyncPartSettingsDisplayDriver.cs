@@ -39,6 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     // have esco/neosemantics/rdf as global helper? could have namespace prefixes in there
                     model.NodeNameTransform = graphSyncPartSettings.NodeNameTransform;
                     model.PropertyNameTransform = graphSyncPartSettings.PropertyNameTransform;
+                    model.CreateRelationshipType = graphSyncPartSettings.CreateRelationshipType;
                     model.IdPropertyName = graphSyncPartSettings.IdPropertyName;
                     //replace NamespacePrefix with this
                     model.IdPropertyValueTransform = graphSyncPartSettings.IdPropertyValueTransform;
@@ -61,6 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 m => m.PreexistingNode,
                 m => m.NodeNameTransform,
                 m => m.PropertyNameTransform,
+                m => m.CreateRelationshipType,
                 m => m.IdPropertyName,
                 m => m.IdPropertyValueTransform))
             {
@@ -98,6 +100,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     PreexistingNode = model.PreexistingNode,
                     NodeNameTransform = model.NodeNameTransform,
                     PropertyNameTransform = model.PropertyNameTransform,
+                    CreateRelationshipType = model.CreateRelationshipType,
                     IdPropertyName = model.IdPropertyName,
                     IdPropertyValueTransform = model.IdPropertyValueTransform
                 });

@@ -178,7 +178,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 }
             }
             if (relationshipType == null)
-                relationshipType = _graphSyncHelper!.RelationshipType(pickedContentType);
+                relationshipType = await _graphSyncHelper!.RelationshipType(pickedContentType);
 
             //todo: do we always want to add Resource, or pass a bool?
             IEnumerable<string> destNodeLabels = await _graphSyncHelper!.NodeLabels(pickedContentType);

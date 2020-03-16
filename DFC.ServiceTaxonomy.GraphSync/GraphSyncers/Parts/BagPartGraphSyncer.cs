@@ -58,9 +58,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
                 //todo: move this code into graphSyncHelper
+                //todo: what if want different relationships for same contenttype in different bags!
                 string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
                 if (string.IsNullOrEmpty(relationshipType))
-                    relationshipType = graphSyncHelper.RelationshipType(nameof(BagPart));
+                    relationshipType = await graphSyncHelper.RelationshipType(contentType);
 
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,

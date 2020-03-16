@@ -48,6 +48,14 @@
 
 <fieldset class="form-group">
     <div class="row col-md">
+        <label asp-for="CreateRelationshipType">@T["Create relationship type"]</label>
+        <input asp-for="CreateRelationshipType" class="form-control" />
+        <span class="hint">@T["C# code to create the relationship type (a variable named 'Value' contains the content type of the destination)."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
         <label asp-for="IdPropertyName">@T["ID property name"]</label>
         <input asp-for="IdPropertyName" class="form-control" />
         <span class="hint">@T["The name (key) of the ID property on the node."]</span>

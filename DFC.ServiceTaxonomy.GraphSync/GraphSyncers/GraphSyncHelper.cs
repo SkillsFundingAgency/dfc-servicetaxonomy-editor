@@ -75,11 +75,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return new[] {nodeLabel, CommonNodeLabel};
         }
 
-        public string RelationshipType(string destinationContentType)
+        // should only be used for fallbacks
+        //todo: should we support fallback, or insist on relationship type being specified. don't need to set value as is in recipe
+        public async Task<string> RelationshipType(string destinationContentType)
         {
-            //todo: add transform for default relationshipname to settings
-            string NcsPrefix = "ncs__";
-            return $"{NcsPrefix}has{destinationContentType}";
+            CheckPreconditions();
+
+            //todo: check how this is called and if graphsync settings is valid
+
+            var graphSyncPartSettings = GetGraphSyncPartSettings(destinationContentType);
+
+            return string.IsNullOrEmpty(destinationContentType)
+                ? $"has{destinationContentType}"
+                : await Transform(graphSyncPartSettings.CreateRelationshipType!, destinationContentType);
         }
 
         public async Task<string> PropertyName(string name)
@@ -103,8 +111,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            //todo: null?
-            return await TransformOrDefault(GraphSyncPartSettings!.IdPropertyValueTransform, graphSyncContent.Text.ToString());
+            //todo: null Text.ToString()?
+            //todo: pass selected prefix, or remove prefix and specify in transform?? <= latter
+
+            return await TransformOrDefault(
+                GraphSyncPartSettings!.IdPropertyValueTransform,
+                graphSyncContent.Text.ToString());
         }
 
         private void CheckPreconditions()

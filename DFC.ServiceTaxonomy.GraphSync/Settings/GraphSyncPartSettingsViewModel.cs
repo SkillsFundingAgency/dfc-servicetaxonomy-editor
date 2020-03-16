@@ -10,6 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public bool PreexistingNode { get; set; }
         public string? NodeNameTransform { get; set; }
         public string? PropertyNameTransform { get; set; }
+        public string? CreateRelationshipType { get; set; }    //or RelationshipTypeTransform for consistency?
         public string? IdPropertyName { get; set; }
         public string? IdPropertyValueTransform { get; set; }
 
