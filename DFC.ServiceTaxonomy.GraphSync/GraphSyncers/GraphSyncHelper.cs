@@ -12,15 +12,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class GraphSyncHelper : IGraphSyncHelper
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private string? _contentType;
         //todo: make this public if everything that needs it doesn't get moved into here?
         private GraphSyncPartSettings? _graphSyncPartSettings;
-        private string? _contentType;
 
         //todo: from config CommonNodeLabels
         private const string CommonNodeLabel = "Resource";
 
-        public GraphSyncHelper(
-            IContentDefinitionManager contentDefinitionManager)
+        public GraphSyncHelper(IContentDefinitionManager contentDefinitionManager)
         {
             _contentDefinitionManager = contentDefinitionManager;
         }
@@ -38,20 +37,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        // property instead?
-        public IEnumerable<string> NodeLabels
+        public GraphSyncPartSettings GraphSyncPartSettings
         {
             get
             {
                 CheckPreconditions();
 
-                string nodeLabel = string.IsNullOrEmpty(_graphSyncPartSettings!.NodeNameTransform)
-                                   || _graphSyncPartSettings!.NodeNameTransform == "val"
-                    ? _contentType!
-                    : "todo";
-
-                return new[] {nodeLabel, CommonNodeLabel};
+                return _graphSyncPartSettings!;
             }
+        }
+
+
+        // property instead?
+        public IEnumerable<string> NodeLabels()
+        {
+            CheckPreconditions();
+
+            //todo:
+            string nodeLabel = string.IsNullOrEmpty(GraphSyncPartSettings!.NodeNameTransform)
+                               || GraphSyncPartSettings!.NodeNameTransform == "val"
+                ? _contentType!
+                : "todo";
+
+            return new[] {nodeLabel, CommonNodeLabel};
+        }
+
+        public IEnumerable<string> NodeLabels(string contentType)
+        {
+            //todo: Transform
+            string NcsPrefix = "ncs__";
+            return new[] {NcsPrefix + contentType, CommonNodeLabel};
         }
 
         public string PropertyName(string name)
@@ -68,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 CheckPreconditions();
 
-                return _graphSyncPartSettings!.IdPropertyName ?? "UserId";
+                return GraphSyncPartSettings!.IdPropertyName ?? "UserId";
             }
         }
 
