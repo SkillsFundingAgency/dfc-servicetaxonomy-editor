@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
@@ -18,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
-            GraphSyncPartSettings graphSyncPartSettings)
+            IGraphSyncHelper graphSyncHelper)
         {
             //todo: configurable??
             mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());

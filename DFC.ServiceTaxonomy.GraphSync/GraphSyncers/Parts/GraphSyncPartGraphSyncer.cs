@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -11,13 +10,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
     {
-        private readonly IGraphSyncHelper _graphSyncHelper;
-
-        public GraphSyncPartGraphSyncer(IGraphSyncHelper graphSyncHelper)
-        {
-            _graphSyncHelper = graphSyncHelper;
-        }
-
         public string? PartName => nameof(GraphSyncPart);
 
         //todo: pass IGraphSyncHelper instead of GraphSyncPartSettings
@@ -26,9 +18,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
-            GraphSyncPartSettings graphSyncPartSettings)
+            IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.Properties.Add(_graphSyncHelper.IdPropertyName, _graphSyncHelper.IdPropertyValue(graphSyncContent));
+            mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName, graphSyncHelper.IdPropertyValue(graphSyncContent));
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }

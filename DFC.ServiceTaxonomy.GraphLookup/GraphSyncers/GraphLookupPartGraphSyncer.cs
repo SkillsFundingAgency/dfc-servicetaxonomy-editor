@@ -5,7 +5,6 @@ using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -21,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
-            GraphSyncPartSettings graphSyncPartSettings)
+            IGraphSyncHelper graphSyncHelper)
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 

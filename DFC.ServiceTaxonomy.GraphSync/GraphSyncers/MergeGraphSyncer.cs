@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation($"Sync: merging {contentType}");
 
-            var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
+            _graphSyncHelper.ContentType = contentType;
 
             _mergeNodeCommand.NodeLabels.UnionWith(_graphSyncHelper.NodeLabels());
             _mergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName;
@@ -71,17 +71,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (modifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(_graphSyncHelper.PropertyName("ModifiedDate"), modifiedUtc.Value);
 
-            List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content, graphSyncPartSettings);
+            List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
 
-            await SyncComponentsToGraph(graphSyncPartContent, partCommands, graphSyncPartSettings.PreexistingNode);
+            await SyncComponentsToGraph(graphSyncPartContent, partCommands);
 
             return _mergeNodeCommand;
         }
 
         private async Task<List<ICommand>> AddContentPartSyncComponents(
             string contentType,
-            JObject content,
-            GraphSyncPartSettings graphSyncPartSettings)
+            JObject content)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -119,7 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                             _mergeNodeCommand,
                             _replaceRelationshipsCommand,
                             contentTypePartDefinition,
-                            graphSyncPartSettings));
+                            _graphSyncHelper));
                 }
             }
 
@@ -128,12 +127,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task SyncComponentsToGraph(
             dynamic graphSyncPartContent,
-            IEnumerable<ICommand> partCommands,
-            bool preexistingNode)
+            IEnumerable<ICommand> partCommands)
         {
             List<ICommand> commands = new List<ICommand>();
 
-            if (!preexistingNode)
+            if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
             {
                 commands.Add(_mergeNodeCommand);
             }
@@ -152,14 +150,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             commands.AddRange(partCommands);
 
             await _graphDatabase.Run(commands.ToArray());
-        }
-
-        //todo: this will probably go
-        private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
-        {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
-            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
-            return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
     }
 }

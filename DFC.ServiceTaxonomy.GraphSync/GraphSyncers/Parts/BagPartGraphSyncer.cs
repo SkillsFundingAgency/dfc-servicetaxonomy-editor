@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
@@ -16,14 +14,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
 
         public string? PartName => nameof(BagPart);
 
-        public BagPartGraphSyncer(IContentDefinitionManager contentDefinitionManager, IServiceProvider serviceProvider)
+        public BagPartGraphSyncer(IServiceProvider serviceProvider)
         {
-            _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
         }
 
@@ -32,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
-            GraphSyncPartSettings graphSyncPartSettings)
+            IGraphSyncHelper graphSyncHelper)
         {
             var delayedCommands = new List<ICommand>();
 
@@ -61,9 +57,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
                 delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
-                string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
+                //todo: move this code into graphSyncHelper
+                string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
                 if (string.IsNullOrEmpty(relationshipType))
-                    relationshipType = "ncs__hasBagPart";
+                    relationshipType = graphSyncHelper.RelationshipType(nameof(BagPart));
 
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
