@@ -2,6 +2,6 @@
 {
     public interface ICypherToContentCSharpScriptGlobals
     {
-        public IContentHelper Content { get; set; }
+        public IContentHelper Content { get; }
     }
 }

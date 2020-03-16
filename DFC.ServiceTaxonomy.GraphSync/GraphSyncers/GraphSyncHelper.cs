@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+    // we group methods by whether they work off the set ContentType property, or pass in a contentType
+#pragma warning disable S4136
+
     //todo: better name
     public class GraphSyncHelper : IGraphSyncHelper
     {
+        //todo: gotta be careful about lifetimes. might have to injectiserviceprovider
+        private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private string? _contentType;
         //todo: make this public if everything that needs it doesn't get moved into here?
@@ -19,8 +27,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: from config CommonNodeLabels
         private const string CommonNodeLabel = "Resource";
 
-        public GraphSyncHelper(IContentDefinitionManager contentDefinitionManager)
+        public GraphSyncHelper(
+            IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
+            IContentDefinitionManager contentDefinitionManager)
         {
+            _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
         }
 
@@ -49,17 +60,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
 
         // property instead?
-        public IEnumerable<string> NodeLabels()
+        public async Task<IEnumerable<string>> NodeLabels()
         {
             CheckPreconditions();
 
             //todo:
             string nodeLabel = string.IsNullOrEmpty(GraphSyncPartSettings!.NodeNameTransform)
-                               || GraphSyncPartSettings!.NodeNameTransform == "val"
+                               || GraphSyncPartSettings!.NodeNameTransform == "Value"
                 ? _contentType!
-                : "todo";
+                : await Transform(GraphSyncPartSettings!.NodeNameTransform, _contentType!);
 
             return new[] {nodeLabel, CommonNodeLabel};
+        }
+
+        private async Task<string> Transform(string transformCode, string untransformedValue)
+        {
+            _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
+            return await CSharpScript.EvaluateAsync<string>(transformCode, globals: _graphSyncHelperCSharpScriptGlobals);
         }
 
         public IEnumerable<string> NodeLabels(string contentType)
@@ -113,4 +130,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
     }
+
+#pragma warning restore S4136
 }

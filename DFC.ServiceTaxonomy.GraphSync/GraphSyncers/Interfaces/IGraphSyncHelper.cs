@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
@@ -15,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         GraphSyncPartSettings GraphSyncPartSettings { get; }
 
-        IEnumerable<string> NodeLabels();
+        Task<IEnumerable<string>> NodeLabels();
         string PropertyName(string name);
         string IdPropertyName { get; }
         string? IdPropertyValue(dynamic graphSyncContent);

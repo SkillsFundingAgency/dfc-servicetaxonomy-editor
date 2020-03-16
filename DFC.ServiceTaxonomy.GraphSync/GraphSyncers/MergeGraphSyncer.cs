@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphSyncHelper.ContentType = contentType;
 
-            _mergeNodeCommand.NodeLabels.UnionWith(_graphSyncHelper.NodeLabels());
+            _mergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
             _mergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName;
 
             //Add created and modified dates to all content items
