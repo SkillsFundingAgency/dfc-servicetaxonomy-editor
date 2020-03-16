@@ -12,6 +12,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
         public string? IdPropertyName { get; set; }
         public object? IdPropertyValue { get; set; }
+        //todo: rename command : DeleteNodeAndOutgoingRelationshipsCommand
+        public bool DeleteNode { get; set; }
 
         public List<string> ValidationErrors()
         {
@@ -38,7 +40,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 return new Query(
 $@"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'}})
 OPTIONAL MATCH (n)-[r]->()
-DELETE n, r");
+DELETE {(DeleteNode ? "n, r" : "r")}");
             }
         }
 

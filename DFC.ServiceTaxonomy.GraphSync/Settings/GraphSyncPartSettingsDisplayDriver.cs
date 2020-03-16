@@ -30,10 +30,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                     GraphSyncPartSettings graphSyncPartSettings = contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
 
+                    //todo: use taxonomy? -> pass in, & config?
                     model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
                     model.NamespacePrefix = graphSyncPartSettings.NamespacePrefix;
                     model.BagPartContentItemRelationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                     model.PreexistingNode = graphSyncPartSettings.PreexistingNode;
+                    // pass in name/value. best same for all?
+                    // have esco/neosemantics/rdf as global helper? could have namespace prefixes in there
+                    model.NodeNameTransform = graphSyncPartSettings.NodeNameTransform;
+                    model.PropertyNameTransform = graphSyncPartSettings.PropertyNameTransform;
+                    model.IdPropertyName = graphSyncPartSettings.IdPropertyName;
+                    //replace NamespacePrefix with this
+                    model.IdPropertyValueTransform = graphSyncPartSettings.IdPropertyValueTransform;
                 })
                 .Location("Content");
         }
@@ -50,7 +58,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.NamespacePrefix,
                 m => m.BagPartContentItemRelationshipType,
-                m => m.PreexistingNode))
+                m => m.PreexistingNode,
+                m => m.NodeNameTransform,
+                m => m.PropertyNameTransform,
+                m => m.IdPropertyName,
+                m => m.IdPropertyValueTransform))
             {
                 // could do with an ordered set
                 // namespaceprefix should never be null. throw instead?
@@ -83,7 +95,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 {
                     NamespacePrefix = model.NamespacePrefix,
                     BagPartContentItemRelationshipType = model.BagPartContentItemRelationshipType,
-                    PreexistingNode = model.PreexistingNode
+                    PreexistingNode = model.PreexistingNode,
+                    NodeNameTransform = model.NodeNameTransform,
+                    PropertyNameTransform = model.PropertyNameTransform,
+                    IdPropertyName = model.IdPropertyName,
+                    IdPropertyValueTransform = model.IdPropertyValueTransform
                 });
             }
 

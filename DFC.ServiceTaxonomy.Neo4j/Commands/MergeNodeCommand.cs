@@ -27,6 +27,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             return validationErrors;
         }
 
+        //todo: pass back if node was created or updated and use that to better validate
         public Query Query
         {
             get

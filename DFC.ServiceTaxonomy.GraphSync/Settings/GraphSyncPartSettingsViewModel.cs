@@ -8,6 +8,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public string? NamespacePrefix { get; set; }
         public string? BagPartContentItemRelationshipType { get; set; }
         public bool PreexistingNode { get; set; }
+        public string? NodeNameTransform { get; set; }
+        public string? PropertyNameTransform { get; set; }
+        public string? IdPropertyName { get; set; }
+        public string? IdPropertyValueTransform { get; set; }
 
         [BindNever]
         public List<string>? NamespacePrefixOptions { get; set; }

@@ -29,4 +29,39 @@
         <label class="custom-control-label" asp-for="PreexistingNode">@T["Preexisting node"]</label>
         <span class="hint">— @T["Check if the containing content type represents a node already in the graph. If selected, the existing node will not be modified (but relationships will still be created)."]</span>
     </div>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="NodeNameTransform">@T["Node name transform"]</label>
+        <input asp-for="NodeNameTransform" class="form-control" />
+        <span class="hint">@T["If supplied, c# code to transform the node name (accessible through the variable named 'val')."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="PropertyNameTransform">@T["Property name transform"]</label>
+        <input asp-for="PropertyNameTransform" class="form-control" />
+        <span class="hint">@T["If supplied, c# code to transform property names (accessible through the variable named 'val')."]</span>
+    </div>
+</fieldset>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="IdPropertyName">@T["ID property name"]</label>
+        <input asp-for="IdPropertyName" class="form-control" />
+        <span class="hint">@T["The name (key) of the ID property on the node."]</span>
+    </div>
+
+<fieldset class="form-group">
+    <div class="row col-md">
+        <label asp-for="IdPropertyValueTransform">@T["ID value transform"]</label>
+        <input asp-for="IdPropertyValueTransform" class="form-control" />
+        <span class="hint">@T["If supplied, c# code to transform ID values (accessible through the variable named 'val')."]</span>
+    </div>
+</fieldset>
+
+</fieldset>
+
+
 </fieldset>
