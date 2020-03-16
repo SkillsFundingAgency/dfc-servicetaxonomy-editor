@@ -113,6 +113,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             //todo: null Text.ToString()?
             //todo: pass selected prefix, or remove prefix and specify in transform?? <= latter
+            //todo: remove prefix select & property
 
             return await TransformOrDefault(
                 GraphSyncPartSettings!.IdPropertyValueTransform,
