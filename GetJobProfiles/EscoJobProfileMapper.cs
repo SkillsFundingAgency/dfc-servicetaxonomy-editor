@@ -46,32 +46,19 @@ namespace GetJobProfiles
                 {
                     ColorConsole.WriteLine($"{escoJobProfileMap.Count() - distinctEscoJobProfileMap.Count()} duplicate job profiles in map", ConsoleColor.Black, ConsoleColor.Red);
                 }
-
+                
                 foreach (var item in distinctEscoJobProfileMap)
                 {
                     JobProfileContentItem profile = jobProfiles
                         .SingleOrDefault(x => x.EponymousPart.JobProfileWebsiteUrl.Text.Split("/").Last() == item.Url);
 
-                    if (profile != null)
+                    if (profile != null && !_exclusions.Contains(item.Url))
                     {
-                        if (_exclusions.Contains(item.Url))
-                        {
-                            profile.GraphLookupPart = new GraphLookupPart();
-                        }
-                        else
-                        {
-                            var title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
-                            var uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
+                        var title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
+                        var uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
 
-                            //todo: allow > 1 graphlookuppart in a contenttype: change graphlookup to named part
-                            profile.GraphLookupPart = new GraphLookupPart
-                            {
-                                Nodes = new[]
-                                {
-                                    new Node { DisplayText = title, Id = uri }
-                                }
-                            };
-                        }
+                        //todo: allow > 1 graphlookuppart in a contenttype: change graphlookup to named part
+                        profile.GraphLookupPart.Nodes = new[] {new Node {DisplayText = title, Id = uri}};
                     }
                 }
             }
