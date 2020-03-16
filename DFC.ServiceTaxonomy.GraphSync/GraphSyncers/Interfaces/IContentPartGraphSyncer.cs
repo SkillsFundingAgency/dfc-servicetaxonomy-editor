@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -13,6 +14,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition);
+            ContentTypePartDefinition contentTypePartDefinition,
+            GraphSyncPartSettings graphSyncPartSettings);
     }
 }

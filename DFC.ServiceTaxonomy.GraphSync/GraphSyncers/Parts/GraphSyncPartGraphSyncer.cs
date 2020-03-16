@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -23,7 +24,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             dynamic graphSyncContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            GraphSyncPartSettings graphSyncPartSettings)
         {
             mergeNodeCommand.Properties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
 

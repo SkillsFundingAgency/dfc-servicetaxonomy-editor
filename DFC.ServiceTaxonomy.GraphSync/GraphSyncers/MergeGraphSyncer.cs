@@ -62,7 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation($"Sync: merging {contentType}");
 
-            // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
+            var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
 
             _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentType);
             _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
@@ -76,17 +76,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (modifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(NcsPrefix + "ModifiedDate", modifiedUtc.Value);
 
-            //todo: pass to part syncers? (bagpart uses currently)
-            var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
-
-            List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
+            List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content, graphSyncPartSettings);
 
             await SyncComponentsToGraph(graphSyncPartContent, partCommands, graphSyncPartSettings.PreexistingNode);
 
             return _mergeNodeCommand;
         }
 
-        private async Task<List<ICommand>> AddContentPartSyncComponents(string contentType, JObject content)
+        private async Task<List<ICommand>> AddContentPartSyncComponents(
+            string contentType,
+            JObject content,
+            GraphSyncPartSettings graphSyncPartSettings)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -118,8 +118,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    partCommands.AddRange(await partSync.AddSyncComponents(partContent, _mergeNodeCommand,
-                        _replaceRelationshipsCommand, contentTypePartDefinition));
+                    partCommands.AddRange(
+                        await partSync.AddSyncComponents(
+                            partContent,
+                            _mergeNodeCommand,
+                            _replaceRelationshipsCommand,
+                            contentTypePartDefinition,
+                            graphSyncPartSettings));
                 }
             }
 

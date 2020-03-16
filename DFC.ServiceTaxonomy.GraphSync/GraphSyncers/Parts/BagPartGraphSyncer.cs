@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -33,7 +31,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            GraphSyncPartSettings graphSyncPartSettings)
         {
             var delayedCommands = new List<ICommand>();
 
@@ -62,7 +61,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
                 delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
-                var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
                 string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                 if (string.IsNullOrEmpty(relationshipType))
                     relationshipType = "ncs__hasBagPart";
@@ -77,13 +75,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
 
             return delayedCommands;
-        }
-
-        private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
-        {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
-            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
-            return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
     }
 }

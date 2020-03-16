@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -67,7 +68,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            GraphSyncPartSettings graphSyncPartSettings)
         {
             foreach (dynamic? field in content)
             {
