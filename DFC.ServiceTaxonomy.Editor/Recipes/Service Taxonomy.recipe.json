@@ -130,8 +130,11 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://data.europa.eu/esco/occupation/",
-                                    "PreexistingNode": true
-                                }
+                                    "PreexistingNode": true,
+                                    "NodeNameTransform": "$\"esco__{Value}\"",
+                                    "IdPropertyName": "uri"
+                                },
+                                "ContentIndexSettings": {}
                             }
                         }
                     ]
