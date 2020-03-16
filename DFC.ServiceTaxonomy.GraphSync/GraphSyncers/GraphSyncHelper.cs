@@ -64,9 +64,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            //todo:
             string nodeLabel = string.IsNullOrEmpty(GraphSyncPartSettings!.NodeNameTransform)
                                || GraphSyncPartSettings!.NodeNameTransform == "Value"
+                               || GraphSyncPartSettings!.NodeNameTransform == "$\"{Value}\""
                 ? _contentType!
                 : await Transform(GraphSyncPartSettings!.NodeNameTransform, _contentType!);
 
