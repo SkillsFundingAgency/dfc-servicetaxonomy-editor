@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.4.0" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes" Version="1.0.0-rc1-*" />

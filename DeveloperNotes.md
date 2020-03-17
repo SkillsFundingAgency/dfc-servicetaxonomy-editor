@@ -11,7 +11,6 @@ confirmation buttons are labelled undefined
 * use JobProfileWebsiteUrl as uri
 * job categories are returned by the search api, but not by the get job profile api. we'll still need to import them. we could import them from the spreadsheet (JobCategory->JobProfileCategories)
 * current job profile api search uses word stems : we might have to whitelist array properties, poss convert alt labels to separate nodes. but does fts support word stems anyway?
-* need a LinkField syncer
 * republishing not doesn't sync due to constraint:
     Sync to graph failed: An item with the same key has already been added. Key: uri
 * wayne's install crashed with localisation issue, that wen't away when (all) localisation features were enabled.

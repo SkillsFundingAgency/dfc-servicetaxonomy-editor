@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MoreLinq;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -32,6 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
+        private const int CreateContentBatchSize = 10;
 
         public CypherToContentStep(
             IGraphDatabase graphDatabase,
@@ -48,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _logger = logger;
         }
-
+//todo: new recipes in importer in order
         //todo: occupation in job profile bag : readonly
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
@@ -68,54 +70,64 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 getContentItemsAsJsonQuery.QueryStatement = queries.Query;
 
-                var contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
+                List<string> contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
 
-                var contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
+                IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
 
-                var contentItemJObjects = contentItemsJson
+                var contentItemJObjectsBatches = contentItemsJson
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
-                    .SelectMany(cijo => cijo);
+                    .SelectMany(cijo => cijo)
+                    .Batch(CreateContentBatchSize);
+//todo: would using rx be faster?
+//todo: parallel foreach?
 
-                foreach (JObject contentJObject in contentItemJObjects)
+                foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
                 {
-                    ContentItem? contentItem = contentJObject.ToObject<ContentItem>();
+                    var createContentItemTasks = contentJObjectBatch.Select(CreateContentItem);
 
-                    if (contentItem?.Content == null)
-                    {
-                        _logger.LogWarning("Missing content, unable to import.");
-                        continue;
-                    }
+                    await Task.WhenAll(createContentItemTasks);
+                }
+            }
+        }
+
+        private async Task CreateContentItem(JObject contentJObject)
+        {
+            ContentItem? contentItem = contentJObject.ToObject<ContentItem>();
+
+            if (contentItem?.Content == null)
+            {
+                _logger.LogWarning("Missing content, unable to import.");
+                return;
+            }
 
 // either _contentManager.New or get at json of results
 
-                    // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                    //contentItem.Id = 0;
+            // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
+            //contentItem.Id = 0;
 
-                    //should we allow the query to override any of these values?
+            //should we allow the query to override any of these values?
 
-                    string? title = contentItem.Content.TitlePart?.Title;
-                    if (title != null)
-                    {
-                        contentItem.DisplayText = title;
-                    }
-
-                    contentItem.ContentItemId = _idGenerator.GenerateUniqueId(contentItem);
-
-                    contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
-                    //these get set when version id is 0
-                    // contentItem.Latest = true;
-                    // contentItem.Published = true;
-                    contentItem.Owner = "admin";
-                    contentItem.Author = "admin";
-
-                    await _contentManager.CreateAsync(contentItem);
-
-                    // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-                    // Should not be necessary if IContentManager had an Import method
-                    //contentItem.ModifiedUtc = modifiedUtc;
-                    //contentItem.PublishedUtc = publishedUtc;
-                }
+            string? title = contentItem.Content.TitlePart?.Title;
+            if (title != null)
+            {
+                contentItem.DisplayText = title;
             }
+
+            contentItem.ContentItemId = _idGenerator.GenerateUniqueId(contentItem);
+
+            contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
+            //these get set when version id is 0
+            // contentItem.Latest = true;
+            // contentItem.Published = true;
+            contentItem.Owner = "admin";
+            contentItem.Author = "admin";
+
+            await _contentManager.CreateAsync(contentItem);
+
+            // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
+            // Should not be necessary if IContentManager had an Import method
+            //contentItem.ModifiedUtc = modifiedUtc;
+            //contentItem.PublishedUtc = publishedUtc;
         }
 
         private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
@@ -136,7 +148,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         {
             public string? Query { get; set; }
         }
-
+//todo: setting whether serial or parallel (or parallel by default and multiple recipes for serial) and split label create across queries to speed up import (or wait until 1 recipe to import multiple recipes for parallalisation?)
         //todo: better names!
         public class CypherToContentStepModel
         {
