@@ -70,10 +70,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //Add created and modified dates to all content items
             //todo: store as neo's DateTime? especially if api doesn't match the string format
             if (createdUtc.HasValue)
-                _mergeNodeCommand.Properties[NcsPrefix + "CreatedDate"] = createdUtc.Value;
+                _mergeNodeCommand.Properties.Add(NcsPrefix + "CreatedDate", createdUtc.Value);
 
             if (modifiedUtc.HasValue)
-                _mergeNodeCommand.Properties[NcsPrefix + "ModifiedDate"] = modifiedUtc.Value;
+                _mergeNodeCommand.Properties.Add(NcsPrefix + "ModifiedDate", modifiedUtc.Value);
 
             List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
 

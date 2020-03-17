@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                mergeNodeCommand.Properties[settings.PropertyName] = GetId(nodes.First());
+                mergeNodeCommand.Properties.Add(settings.PropertyName, GetId(nodes.First()));
             }
 
             if (settings.RelationshipType != null)

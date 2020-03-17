@@ -179,7 +179,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         private static void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
         {
-            mergeNodeCommand.Properties[NcsPrefix + fieldName] = propertyValue.ToString();
+            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, propertyValue.ToString());
         }
 
         private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
@@ -198,11 +198,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             string propertyName = $"{NcsPrefix}{fieldName}";
             if (fieldSettings.Scale == 0)
             {
-                mergeNodeCommand.Properties[propertyName] = (int)value;
+                mergeNodeCommand.Properties.Add(propertyName, (int)value);
             }
             else
             {
-                mergeNodeCommand.Properties[propertyName] = value;
+                mergeNodeCommand.Properties.Add(propertyName, value);
             }
         }
 
@@ -210,8 +210,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             const string linkUrlPostfix = "_url", linkTextPostfix = "_text";
 
-            mergeNodeCommand.Properties[$"{NcsPrefix}{fieldName}{linkUrlPostfix}"] = url;
-            mergeNodeCommand.Properties[$"{NcsPrefix}{fieldName}{linkTextPostfix}"] = text;
+            mergeNodeCommand.Properties.Add($"{NcsPrefix}{fieldName}{linkUrlPostfix}", url);
+            mergeNodeCommand.Properties.Add($"{NcsPrefix}{fieldName}{linkTextPostfix}", text);
         }
 
         //todo: interface for fields?
