@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.Editor
         {
             services.AddOrchardCms();
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -18,7 +18,6 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseStaticFiles();
             app.UseOrchardCore();
         }
     }
