@@ -1,7 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
-using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,7 +49,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
-            services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
             // Recipe Steps
             services.AddRecipeExecutionStep<CypherCommandStep>();

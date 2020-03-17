@@ -19,10 +19,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<IEnumerable<string>> NodeLabels();
         Task<string> PropertyName(string name);
         string IdPropertyName { get; }
-        Task<string> IdPropertyValue(dynamic graphSyncContent);
+        Task<string> GenerateIdPropertyValue();
 
         Task<IEnumerable<string>> NodeLabels(string contentType);
         Task<string> RelationshipType(string destinationContentType);
+
+        string GetIdPropertyValue(dynamic graphSyncContent);
     }
     #pragma warning restore S4136
 }

@@ -107,17 +107,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        public async Task<string> IdPropertyValue(dynamic graphSyncContent)
+        //todo: rename other methods, Generate?
+        public async Task<string> GenerateIdPropertyValue()
         {
             CheckPreconditions();
 
-            //todo: null Text.ToString()?
-            //todo: pass selected prefix, or remove prefix and specify in transform?? <= latter
-            //todo: remove prefix select & property
-
             return await TransformOrDefault(
-                GraphSyncPartSettings!.IdPropertyValueTransform,
-                graphSyncContent.Text.ToString());
+                GraphSyncPartSettings!.GenerateIdPropertyValue,
+                _contentType!);
+        }
+
+        public string GetIdPropertyValue(dynamic graphSyncContent)
+        {
+            //todo: null Text.ToString()?
+
+            //todo: need way to support id values of types other than text
+            return graphSyncContent.Text.ToString();
         }
 
         private void CheckPreconditions()

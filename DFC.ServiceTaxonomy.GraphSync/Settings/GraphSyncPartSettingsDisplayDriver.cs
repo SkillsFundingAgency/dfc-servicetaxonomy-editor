@@ -1,22 +1,13 @@
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.DisplayManagement.Views;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using Microsoft.Extensions.Options;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
     public class GraphSyncPartSettingsDisplayDriver : ContentTypePartDefinitionDisplayDriver
     {
-        private readonly IOptionsMonitor<NamespacePrefixConfiguration> _namespacePrefixOptions;
-
-        public GraphSyncPartSettingsDisplayDriver(IOptionsMonitor<NamespacePrefixConfiguration> namespacePrefixOptions)
-        {
-            _namespacePrefixOptions = namespacePrefixOptions;
-        }
-
         public override IDisplayResult Edit(ContentTypePartDefinition contentTypePartDefinition)
         {
             if (!string.Equals(nameof(GraphSyncPart), contentTypePartDefinition.PartDefinition.Name))
@@ -26,23 +17,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
             return Initialize<GraphSyncPartSettingsViewModel>("GraphSyncPartSettings_Edit", model =>
                 {
-                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.CurrentValue;
-
                     GraphSyncPartSettings graphSyncPartSettings = contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
 
-                    //todo: use taxonomy? -> pass in, & config?
-                    model.NamespacePrefixOptions = currentNamespacePrefixConfiguration.NamespacePrefixOptions;
-                    model.NamespacePrefix = graphSyncPartSettings.NamespacePrefix;
                     model.BagPartContentItemRelationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                     model.PreexistingNode = graphSyncPartSettings.PreexistingNode;
-                    // pass in name/value. best same for all?
-                    // have esco/neosemantics/rdf as global helper? could have namespace prefixes in there
                     model.NodeNameTransform = graphSyncPartSettings.NodeNameTransform;
                     model.PropertyNameTransform = graphSyncPartSettings.PropertyNameTransform;
                     model.CreateRelationshipType = graphSyncPartSettings.CreateRelationshipType;
                     model.IdPropertyName = graphSyncPartSettings.IdPropertyName;
-                    //replace NamespacePrefix with this
-                    model.IdPropertyValueTransform = graphSyncPartSettings.IdPropertyValueTransform;
+                    model.GenerateIdPropertyValue = graphSyncPartSettings.GenerateIdPropertyValue;
                 })
                 .Location("Content");
         }
@@ -57,52 +40,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             var model = new GraphSyncPartSettingsViewModel();
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
-                m => m.NamespacePrefix,
                 m => m.BagPartContentItemRelationshipType,
                 m => m.PreexistingNode,
                 m => m.NodeNameTransform,
                 m => m.PropertyNameTransform,
                 m => m.CreateRelationshipType,
                 m => m.IdPropertyName,
-                m => m.IdPropertyValueTransform))
+                m => m.GenerateIdPropertyValue))
             {
-                // could do with an ordered set
-                // namespaceprefix should never be null. throw instead?
-                if (model.NamespacePrefix != null)
-                {
-                    var currentNamespacePrefixConfiguration = _namespacePrefixOptions.CurrentValue;
-
-                    // if user has entered a new prefix, update the global list of prefixes,
-                    // so that they get the choice when editing graph uri id fields in new content types
-                    // (or at least until the process is restarted, as we don't persist changes to a config source)
-                    // what do we do with pollution in the list, e.g. someone adds an incorrect prefix?
-                    //todo: this is a hack - IOptionsMonitor doesn't really support updates:
-                    // OnChange notification isn't fired, (InvokeChanged is not part of the interface and is private)
-                    // not necessarily thread-safe
-                    // (IOptionsSnapshot clones the value, so any updates are lost anyway)
-                    // better to update env variable?
-
-                    if (!currentNamespacePrefixConfiguration.NamespacePrefixOptions.Contains(model.NamespacePrefix))
-                        currentNamespacePrefixConfiguration.NamespacePrefixOptions.Add(model.NamespacePrefix);
-                }
-
-                // we just (manually) populate a datalist with NamespacePrefixOptions in the view, so we don't get the list back in the model
-                // we could update the model, but we want the prefixes to be global, i.e. if a new content item is created, it should contain the full list of prefixes
-                // so we always populate the model from the global list, instead of storing the current set in the model
-                // note: if the list in the appsettings is updated, we'll probably lose the current global list
-                // we could update appsettings with new prefixes, but if we do that, we'd probably want to allow the user to delete them,
-                // so perhaps we just don't update appsettings in the app service when running ;-)
-
                 context.Builder.WithSettings(new GraphSyncPartSettings
                 {
-                    NamespacePrefix = model.NamespacePrefix,
                     BagPartContentItemRelationshipType = model.BagPartContentItemRelationshipType,
                     PreexistingNode = model.PreexistingNode,
                     NodeNameTransform = model.NodeNameTransform,
                     PropertyNameTransform = model.PropertyNameTransform,
                     CreateRelationshipType = model.CreateRelationshipType,
                     IdPropertyName = model.IdPropertyName,
-                    IdPropertyValueTransform = model.IdPropertyValueTransform
+                    GenerateIdPropertyValue = model.GenerateIdPropertyValue
                 });
             }
 

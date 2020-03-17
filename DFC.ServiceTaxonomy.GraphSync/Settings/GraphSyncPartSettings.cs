@@ -3,7 +3,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
     public class GraphSyncPartSettings
     {
-        public string? NamespacePrefix { get; set; }
         //todo: probably better to just have RelationshipType and use that for both bag and non-bag and don't lift from hint
         public string? BagPartContentItemRelationshipType { get; set; }
         public bool PreexistingNode { get; set; }
@@ -11,6 +10,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public string? PropertyNameTransform { get; set; }
         public string? CreateRelationshipType { get; set; }    //or RelationshipTypeTransform for consistency?
         public string? IdPropertyName { get; set; }
-        public string? IdPropertyValueTransform { get; set; }
+        public string? GenerateIdPropertyValue { get; set; }
     }
 }

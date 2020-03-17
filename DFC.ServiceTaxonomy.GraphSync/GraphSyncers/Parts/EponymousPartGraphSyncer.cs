@@ -198,7 +198,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         private object GetSyncId(ContentItem pickedContentItem)
         {
-            return _graphSyncHelper!.IdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            return _graphSyncHelper!.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
     #pragma warning restore S3241
