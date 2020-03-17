@@ -44,7 +44,7 @@ namespace GetJobProfiles
                                 .Where(jp => jobCategoryDictionary.Where(dict => dict.Value.Any(val => val == category)).Select(dict => dict.Key).Any(uri => jp.EponymousPart.JobProfileWebsiteUrl.Text.EndsWith(uri)))
                                 .Select(jp => jp.ContentItemId)
                         },
-                        WebsiteURI = new TextField($"/job-categories/{category.Replace(' ', '-')}")
+                        WebsiteURI = new TextField($"/job-categories/{category.ToLower().Replace(' ', '-')}")
                     }
                 });
             }
