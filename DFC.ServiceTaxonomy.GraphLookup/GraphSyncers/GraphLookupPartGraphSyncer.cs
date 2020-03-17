@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                mergeNodeCommand.Properties.Add(settings.PropertyName, GetId(nodes.First()));
+                mergeNodeCommand.Properties[settings.PropertyName] = GetId(nodes.First());
             }
 
             if (settings.RelationshipType != null)
@@ -59,24 +59,30 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
             IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
         {
-            var nodes = (JArray)contentItem.Content.GraphLookupPart.Nodes;
-            var relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+            GraphLookupPart graphLookupPart = contentItem.Content.GraphLookupPart.ToObject<GraphLookupPart>();
 
-            foreach (var node in nodes)
+            if (graphLookupPart != null)
             {
-                var destNode = destNodes.SingleOrDefault(x => (string)x.Properties[_graphSyncPartIdProperty.Name] == (string)node[nameof(GraphLookupNode.Id)]!);
+                var relationshipType =
+                    (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
 
-                if (destNode == null)
+                foreach (var node in graphLookupPart.Nodes)
                 {
-                    return Task.FromResult(false);
-                }
+                    var destNode = destNodes.SingleOrDefault(x =>
+                        (string)x.Properties[_graphSyncPartIdProperty.Name] == node.Id);
 
-                var relationship = relationships.SingleOrDefault(x =>
-                    x.Type == relationshipType && x.EndNodeId == destNode.Id);
+                    if (destNode == null)
+                    {
+                        return Task.FromResult(false);
+                    }
 
-                if (relationship == null)
-                {
-                    return Task.FromResult(false);
+                    var relationship = relationships.SingleOrDefault(x =>
+                        x.Type == relationshipType && x.EndNodeId == destNode.Id);
+
+                    if (relationship == null)
+                    {
+                        return Task.FromResult(false);
+                    }
                 }
             }
 

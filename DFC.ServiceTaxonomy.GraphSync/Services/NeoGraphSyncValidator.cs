@@ -50,6 +50,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
                 var relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
                 var destNodes = results.Select(x => x[2]).Cast<INode>().ToList();
 
+                //for some reason sometimes we get an array with a single null element
+                relationships.RemoveAll(x => x == null);
+
                 foreach (var part in contentDefinition.Parts)
                 {
                     if (!_partSyncers.TryGetValue(part.PartDefinition.Name, out var partSyncer))

@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
+            mergeNodeCommand.Properties["skos__prefLabel"] = graphLookupContent.Title.ToString();
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }

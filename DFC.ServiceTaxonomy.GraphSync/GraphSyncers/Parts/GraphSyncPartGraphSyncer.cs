@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition)
         {
-            mergeNodeCommand.Properties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
+            mergeNodeCommand.Properties[_graphSyncPartIdProperty.Name] = _graphSyncPartIdProperty.Value(graphSyncContent);
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
