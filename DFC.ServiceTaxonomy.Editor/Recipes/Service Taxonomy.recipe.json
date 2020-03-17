@@ -185,7 +185,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -275,7 +276,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -323,7 +325,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -371,7 +374,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -419,7 +423,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -467,7 +472,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -506,7 +512,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -554,7 +561,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -591,7 +599,8 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "BagPartContentItemRelationshipType": "ncs__hasHtbUniversityRoute",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -629,7 +638,8 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "BagPartContentItemRelationshipType": "ncs__hasHtbCollegeRoute",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -667,7 +677,8 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "BagPartContentItemRelationshipType": "ncs__hasHtbApprenticeshipRoute",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -714,7 +725,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -751,7 +763,8 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "BagPartContentItemRelationshipType": "ncs__hasHtbWorkRoute",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -788,7 +801,8 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "BagPartContentItemRelationshipType": "ncs__hasHtbVolunteeringRoute",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -825,7 +839,8 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "BagPartContentItemRelationshipType": "ncs__hasHtbDirectRoute",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -862,7 +877,8 @@
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "BagPartContentItemRelationshipType": "ncs__hasHtbOtherRoute",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -909,7 +925,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -956,7 +973,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1003,7 +1021,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1050,7 +1069,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1097,7 +1117,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1144,7 +1165,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1191,7 +1213,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1238,7 +1261,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1285,7 +1309,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1332,7 +1357,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1379,7 +1405,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1426,7 +1453,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1474,7 +1502,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1522,7 +1551,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1570,7 +1600,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
@@ -1618,7 +1649,8 @@
                                 "GraphSyncPartSettings": {
                                     "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
                                     "NodeNameTransform": "$\"ncs__{Value}\"",
-                                    "IdPropertyName": "uri"
+                                    "IdPropertyName": "uri",
+                                    "PropertyName": "$\"ncs__{Value}\""
                                 }
                             }
                         }
