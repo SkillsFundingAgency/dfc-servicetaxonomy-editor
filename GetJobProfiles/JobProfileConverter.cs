@@ -196,7 +196,11 @@ namespace GetJobProfiles
                 contentItem.EntryRoutes.ContentItems.Add(new OtherRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
             }
 
-            if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
+            if (DayToDayTaskExclusions.Contains(jobProfile.Url))
+            {
+                contentItem.EponymousPart.DayToDayTasks = new ContentPicker();
+            }
+            else
             {
                 var searchTerms = new[]
                 {

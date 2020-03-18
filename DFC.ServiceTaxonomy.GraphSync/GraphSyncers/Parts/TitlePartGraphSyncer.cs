@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Neo4j.Driver;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
 
@@ -21,6 +24,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
+        }
+
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        {
+            var prefLabel = sourceNode.Properties["skos__prefLabel"];
+            return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(contentItem.Content.TitlePart.Title));
         }
     }
 }

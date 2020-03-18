@@ -28,7 +28,7 @@ namespace GetJobProfiles
                 {
                     var row = sheet.GetRow(i);
                     var categories = row.GetCell(categoriesColumnIndex).StringCellValue.Split(",");
-                    var uri = row.GetCell(uriColumnIndex).StringCellValue;
+                    var uri = row.GetCell(uriColumnIndex).StringCellValue.TrimStart('/');
 
                     jobCategoryDictionary.Add(uri, categories);
                 }

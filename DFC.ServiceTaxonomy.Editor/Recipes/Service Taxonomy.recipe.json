@@ -66,6 +66,7 @@
                 // Service Taxonomy Editor
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
+                "DFC.ServiceTaxonomy.GraphVisualiser",
                 "OrchardCore.Workflows"
             ]
         },
