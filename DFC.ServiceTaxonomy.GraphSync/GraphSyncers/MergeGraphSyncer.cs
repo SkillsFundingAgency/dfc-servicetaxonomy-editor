@@ -58,6 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (content.ContainsKey("DontSync"))
             {
                 //todo: this doesn't remove it from oc, just the copy we have, so the content item never gets synced subsequently
+                // have part for our own metadata and use ContentItemExtensions to manipulate it?
                 content.Remove("DontSync");
                 return null;
             }
