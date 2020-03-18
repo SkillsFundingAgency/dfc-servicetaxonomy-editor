@@ -56,8 +56,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
         //todo: new recipes in importer in order
         //todo: occupation in job profile bag : readonly
-        //todo: need to disable graph sync when creating content items from graph. can't do it globally, as not single user
         //todo: why can't GraphSyncPartDisplayDriver injectGraphSyncHelper?
+        //todo: might need to split occupationlabel recipes up, i.e. \r\norder by l.uri\r\nskip 0 limit 100
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
