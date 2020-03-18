@@ -10,7 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Content Remove="Views\ContentPreview.Button.cshtml" />
+    <Content Remove="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
+    <Content Remove="Views\_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ContentPreview.Button.cshtml" />
+    <EmbeddedResource Include="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
+    <EmbeddedResource Include="Views\_ViewImports.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Localization\" />
   </ItemGroup>
 
@@ -32,6 +43,14 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\.placeholder">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
