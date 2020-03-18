@@ -58,6 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         //todo: occupation in job profile bag : readonly
         //todo: why can't GraphSyncPartDisplayDriver injectGraphSyncHelper?
         //todo: might need to split occupationlabel recipes up, i.e. \r\norder by l.uri\r\nskip 0 limit 100
+        //todo: need to add validation, at least to detect when import same thing twice!
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
@@ -84,10 +85,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 var contentItemJObjects = contentItemsJson
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
-                    .SelectMany(cijo => cijo)
-                    .ToArray();
+                    .SelectMany(cijo => cijo);
 
-                _logger.LogInformation($"Content for {contentItemJObjects.Length} items retrieved");
+                //takes too long
+                //     .ToArray();
+                //
+                // _logger.LogInformation($"Content for {contentItemJObjects.Length} items retrieved");
 
                 var contentItemJObjectsBatches = contentItemJObjects
                     .Batch(CreateContentBatchSize);
@@ -106,7 +109,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     await Task.WhenAll(createContentItemTasks);
                 }
 
-                _logger.LogInformation($"Created {contentItemJObjects.Length} content items in {stopwatch.Elapsed}");
+//                _logger.LogInformation($"Created {contentItemJObjects.Length} content items in {stopwatch.Elapsed}");
+//                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
+                _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
             }
         }
 
