@@ -165,9 +165,15 @@ delete {existingRelationshipsVariablesString}
 
             //todo: make sure fix gets into master (needs RelationshipType for each id value in each relationship)
             // could store variable name to type dic and use that to check instead
-            var expectedRelationshipTypes = RelationshipsList
-                .Where(r => r.DestinationNodeIdPropertyValues.Any())
-                .Select(r => r.RelationshipType)
+            List<string> unorderedExpectedRelationshipTypes = new List<string>();
+            foreach (var relationship in RelationshipsList)
+            {
+                foreach (var idValue in relationship.DestinationNodeIdPropertyValues)
+                {
+                    unorderedExpectedRelationshipTypes.Add(relationship.RelationshipType);
+                }
+            }
+            var expectedRelationshipTypes = unorderedExpectedRelationshipTypes
                 .OrderBy(t => t);
 
             var actualRelationshipTypes = createdRelationships

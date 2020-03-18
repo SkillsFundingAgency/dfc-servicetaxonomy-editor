@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -112,6 +113,69 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 }
             }
             return Enumerable.Empty<ICommand>();
+        }
+
+        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        {
+            //todo: this
+            return Task.FromResult(false);
+
+            // foreach (var field in contentTypePartDefinition.PartDefinition.Fields)
+            // {
+            //     JObject value = contentItem.Content[contentItem.ContentType][field.Name];
+            //
+            //     if (field.FieldDefinition.Name == "ContentPickerField")
+            //     {
+            //         var relationshipType = $"ncs__has{field.Settings["ContentPickerFieldSettings"]!["DisplayedContentTypes"]![0]}";
+            //         var contentItemIds = (JArray)value["ContentItemIds"]!;
+            //
+            //         var contentCount = contentItemIds.Count;
+            //         //TODO : need to ignore case for hasSocCode vs hasSOCCode - need to make sure these line up!
+            //         var relationshipCount = relationships.Count(x => string.Equals(x.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
+            //
+            //         if (contentCount != relationshipCount)
+            //         {
+            //             return false;
+            //         }
+            //
+            //         foreach (var item in contentItemIds)
+            //         {
+            //             var contentItemId = (string)item!;
+            //
+            //             var destContentItem = await _contentManager.GetAsync(contentItemId);
+            //
+            //             var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
+            //
+            //             var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[_graphSyncPartIdProperty.Name] == destUri);
+            //
+            //             if (destNode == null)
+            //             {
+            //                 return false;
+            //             }
+            //
+            //             var relationship = relationships.SingleOrDefault(x =>
+            //                 string.Equals(x.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && x.EndNodeId == destNode.Id);
+            //
+            //             if (relationship == null)
+            //             {
+            //                 return false;
+            //             }
+            //         }
+            //     }
+            //     else
+            //     {
+            //         var contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"] ?? value?["Url"];
+            //         sourceNode.Properties.TryGetValue($"ncs__{field.Name}", out var nodePropertyValue);
+            //
+            //         if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))
+            //         {
+            //             return false;
+            //         }
+            //     }
+            // }
+            //
+            // return true;
         }
 
         private async Task AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)

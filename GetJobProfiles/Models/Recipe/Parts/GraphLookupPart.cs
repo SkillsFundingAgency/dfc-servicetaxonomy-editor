@@ -2,7 +2,7 @@
 {
     public class GraphLookupPart
     {
-        public Node[] Nodes { get; set; }
+        public Node[] Nodes { get; set; } = new Node[0];
     }
 
     public class Node

@@ -1,0 +1,19 @@
+﻿@using OrchardCore.ContentManagement
+@using DFC.ServiceTaxonomy.GraphSync.Models
+@inject IContentManager ContentManager
+
+@{
+    ContentItem contentItem = Model.ContentItem;
+    var graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)].Value;
+    var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
+}
+
+@if (hasPublished && graphSyncPartText != null)
+{
+    <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
+       asp-controller="Visualise"
+       asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace"
+       asp-route-visualise="@graphSyncPartText"
+       target="_blank"
+       class="publish-button btn btn-info">@T["Visualise (last published)"]</a>
+}

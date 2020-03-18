@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Neo4j.Driver;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
@@ -15,5 +17,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper);
+
+        Task<bool> VerifySyncComponent(
+            ContentItem contentItem,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destNodes);
     }
 }
