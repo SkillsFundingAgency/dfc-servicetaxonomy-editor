@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en-us">
+﻿<!DOCTYPE html>
+<html lang="en-gb">
 
 <head>
     <meta charset="utf-8" />
@@ -9,10 +9,11 @@
     <meta name="robots" content="noindex,nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" type="text/css" href="css/webvowl.css" />
-    <link rel="stylesheet" type="text/css" href="css/webvowl.app.css" />
-    <link rel="stylesheet" type="text/css" href="css/avgrund.css" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="~/DFC.ServiceTaxonomy.GraphVisualiser/css/webvowl.css" />
+    <link rel="stylesheet" type="text/css" href="~/DFC.ServiceTaxonomy.GraphVisualiser/css/webvowl.app.css" />
+    <link rel="stylesheet" type="text/css" href="~/DFC.ServiceTaxonomy.GraphVisualiser/css/avgrund.css" />
+    <link rel="stylesheet" type="text/css" href="~/DFC.ServiceTaxonomy.GraphVisualiser/css/overrides.css" />
+    <link rel="icon" href="~/DFC.ServiceTaxonomy.GraphVisualiser/favicon.ico" type="image/x-icon" />
     <title>WebVOWL</title>
 </head>
 
@@ -30,8 +31,10 @@
             </div>
 
             <div id="logo" class="noselect">
-                <h2>WebVOWL
-                    <br> <span>1.1.7</span>
+                <h2>
+                    WebVOWL
+                    <br>
+                    <span>1.1.7</span>
                 </h2>
             </div>
 
@@ -41,7 +44,8 @@
                     <div class="hidden">Loading ontology...</div>
                     <div id="layoutLoadingProgressBarContainer" style="padding-bottom: 0;	white-space: nowrap;	overflow: hidden;	text-overflow: ellipsis;">
                         <h4 id="currentLoadingStep" style="margin: 0;font-style: italic; padding-bottom:0 ;	white-space: nowrap;	overflow: hidden;	text-overflow: ellipsis;">
-                            Layout optimization</h4>
+                            Layout optimization
+                        </h4>
                         <div id="progressBarContext">
                             <div id="progressBarValue" class="busyProgressBar"></div>
                         </div>
@@ -102,15 +106,18 @@
                 <div id="leftSideBar">
                     <div id="leftSideBarContent" class="hidden">
                         <h2 id="leftHeader">Default Element</h2>
-                        <h3 class=" selectedDefaultElement accordion-trigger noselect accordion-trigger-active" id="defaultClass" title="owl:Class">Class: owl:Class
+                        <h3 class=" selectedDefaultElement accordion-trigger noselect accordion-trigger-active" id="defaultClass" title="owl:Class">
+                            Class: owl:Class
                         </h3>
                         <div id="classContainer" class="accordion-container ">
                         </div>
-                        <h3 class="selectedDefaultElement accordion-trigger noselect accordion-trigger-active" title="owl:objectProperty" id="defaultProperty">Property: owl:objectProperty
+                        <h3 class="selectedDefaultElement accordion-trigger noselect accordion-trigger-active" title="owl:objectProperty" id="defaultProperty">
+                            Property: owl:objectProperty
                         </h3>
                         <div id="propertyContainer" class="accordion-container ">
                         </div>
-                        <h3 class="selectedDefaultElement accordion-trigger noselect accordion-trigger-active" title="rdfs:Literal" id="defaultDatatype">Datatype: rdfs:Literal
+                        <h3 class="selectedDefaultElement accordion-trigger noselect accordion-trigger-active" title="rdfs:Literal" id="defaultDatatype">
+                            Datatype: rdfs:Literal
                         </h3>
                         <div id="datatypeContainer" class="accordion-container ">
                         </div>
@@ -137,8 +144,10 @@
                         </form>
                         <div class="converter-form">
                             <input class="hidden" type="file" id="file-converter-input" autocomplete="off">
-                            <label class="truncate" id="file-converter-label" for="file-converter-input">Select ontology
-                                file</label>
+                            <label class="truncate" id="file-converter-label" for="file-converter-input">
+                                Select ontology
+                                file
+                            </label>
                             <button type="submit" id="file-converter-button" disabled>
                                 Upload
                             </button>
@@ -159,9 +168,11 @@
                 <ul id="m_export" class="toolTipMenu noselect">
                     <li><a href="#" download id="exportJson">Export as JSON</a></li>
                     <li><a href="#" download id="exportSvg">Export as SVG</a></li>
-                    <li><a href="#" download id="exportTex">Export as TeX <label style="font-size: 10px">(alpha)</label></a>
+                    <li>
+                        <a href="#" download id="exportTex">Export as TeX <label style="font-size: 10px">(alpha)</label></a>
                     </li>
-                    <li><a href="#" download id="exportTurtle">Export as TTL <label style="font-size: 10px">(alpha)</label></a>
+                    <li>
+                        <a href="#" download id="exportTurtle">Export as TTL <label style="font-size: 10px">(alpha)</label></a>
                     </li>
 
                     <li class="option" id="emptyLiHover">
@@ -213,12 +224,16 @@
                 <!--About Menu-->
                 <ul id="m_about" class="toolTipMenu">
                     <li><a href="license.txt" target="_blank">MIT License &copy; 2014-2019</a></li>
-                    <li id="credits" class="option">WebVOWL Developers:<br />
+                    <li id="credits" class="option">
+                        WebVOWL Developers:<br />
                         Vincent Link, Steffen Lohmann, Eduard Marbach, Stefan Negru, Vitalis Wiens
                     </li>
 
-                    <li><a href="http://vowl.visualdataweb.org/webvowl.html#releases" target="_blank">
-                            Version: 1.1.7<br />(release history)</a></li>
+                    <li>
+                        <a href="http://vowl.visualdataweb.org/webvowl.html#releases" target="_blank">
+                            Version: 1.1.7<br />(release history)
+                        </a>
+                    </li>
 
                     <li><a href="http://purl.org/vowl/" target="_blank">VOWL Specification &raquo;</a></li>
                 </ul>
@@ -238,7 +253,8 @@
                         <input class="searchInputText" type="text" id="search-input-text" placeholder="Search">
                     </li>
                     <li id="c_locate">
-                        <a style="padding: 0 8px 5px 8px;" draggable="false" title="Nothing to locate, enter search term." href="#" id="locateSearchResult">&#8982;
+                        <a style="padding: 0 8px 5px 8px;" draggable="false" title="Nothing to locate, enter search term." href="#" id="locateSearchResult">
+                            &#8982;
                         </a>
                     </li>
                     <li id="c_select">
@@ -250,9 +266,11 @@
                                         </path>
                                     </g>
                                 </svg>
-                            </i> Ontology</a>
+                            </i> Ontology
+                        </a>
                     </li>
-                    <li id="c_export"><a draggable="false" href="#">
+                    <li id="c_export">
+                        <a draggable="false" href="#">
                             <i>
                                 <svg viewBox="0 0 24 24" class="menuElementSvgElement">
                                     <g>
@@ -260,8 +278,11 @@
                                         </path>
                                     </g>
                                 </svg>
-                            </i> Export</a></li>
-                    <li id="c_filter"><a draggable="false" href="#">
+                            </i> Export
+                        </a>
+                    </li>
+                    <li id="c_filter">
+                        <a draggable="false" href="#">
                             <i>
                                 <svg viewBox="0 0 24 24" class="menuElementSvgElement">
                                     <g>
@@ -269,8 +290,11 @@
                                         </path>
                                     </g>
                                 </svg>
-                            </i>Filter</a></li>
-                    <li id="c_config"><a draggable="false" href="#">
+                            </i>Filter
+                        </a>
+                    </li>
+                    <li id="c_config">
+                        <a draggable="false" href="#">
                             <i>
                                 <svg viewBox="0 0 24 24" class="menuElementSvgElement">
                                     <g>
@@ -278,9 +302,11 @@
                                         </path>
                                     </g>
                                 </svg>
-                            </i>Options</a>
+                            </i>Options
+                        </a>
                     </li>
-                    <li id="c_modes"><a draggable="false" href="#">
+                    <li id="c_modes">
+                        <a draggable="false" href="#">
                             <i>
                                 <svg viewBox="0 0 24 24" class="menuElementSvgElement">
                                     <g>
@@ -288,8 +314,11 @@
                                         </path>
                                     </g>
                                 </svg>
-                            </i>Modes</a></li>
-                    <li id="c_reset"><a draggable="false" id="reset-button" href="#" type="reset">
+                            </i>Modes
+                        </a>
+                    </li>
+                    <li id="c_reset">
+                        <a draggable="false" id="reset-button" href="#" type="reset">
                             <i>
                                 <svg viewBox="0 0 24 24" class="menuElementSvgElement">
                                     <g>
@@ -297,10 +326,14 @@
                                         </path>
                                     </g>
                                 </svg>
-                            </i>Reset</a></li>
-                    <li id="c_pause"><a draggable="false" id="pause-button" href="#" style="padding: 9px 8px 12px 8px;">Pause</a>
+                            </i>Reset
+                        </a>
                     </li>
-                    <li id="c_debug" class="debugOption"><a id="debugMenuHref" draggable="false" href="#">
+                    <li id="c_pause">
+                        <a draggable="false" id="pause-button" href="#" style="padding: 9px 8px 12px 8px;">Pause</a>
+                    </li>
+                    <li id="c_debug" class="debugOption">
+                        <a id="debugMenuHref" draggable="false" href="#">
                             <i>
                                 <svg viewBox="0 0 24 24" class="menuElementSvgElement">
                                     <g>
@@ -309,8 +342,11 @@
                                     </g>
                                 </svg>
                             </i>
-                            Debug</a></li>
-                    <li id="c_about"><a draggable="false" href="#">
+                            Debug
+                        </a>
+                    </li>
+                    <li id="c_about">
+                        <a draggable="false" href="#">
                             <i>
                                 <svg viewBox="0 0 24 24" class="menuElementSvgElement">
                                     <g>
@@ -319,7 +355,9 @@
                                     </g>
                                 </svg>
                             </i>
-                            About</a></li>
+                            About
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="noselect" id="scrollRightButton"></div>
@@ -404,7 +442,8 @@
                                 <select id="typeEditor_datatype" class="dropdownMenuClass"></select>
                             </form>
                         </div>
-                        <div class="textLineEditWithLabel" id="property_characteristics_Container"> Characteristics:
+                        <div class="textLineEditWithLabel" id="property_characteristics_Container">
+                            Characteristics:
                             <div id="property_characteristics_Selection" style="padding-top:2px;"></div>
                         </div>
 
@@ -507,10 +546,10 @@
         </p>
         <button onclick="javascript:Avgrund.hide();">Close</button>
     </aside>
-    <script src="js/d3.min.js"></script>
-    <script src="js/webvowl.js"></script>
-    <script src="js/webvowl.app.js"></script>
-    <script src="js/avgrund.js"></script>
+    <script src="~/DFC.ServiceTaxonomy.GraphVisualiser/js/d3.min.js"></script>
+    <script src="~/DFC.ServiceTaxonomy.GraphVisualiser/js/webvowl.js"></script>
+    <script src="~/DFC.ServiceTaxonomy.GraphVisualiser/js/webvowl.app.js"></script>
+    <script src="~/DFC.ServiceTaxonomy.GraphVisualiser/js/avgrund.js"></script>
     <script>
         window.onload = webvowl.app().initialize;
     </script>

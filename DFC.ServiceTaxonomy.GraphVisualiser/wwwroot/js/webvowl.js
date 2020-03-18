@@ -16124,7 +16124,7 @@ webvowl =
             if (focusedElement.type() === "owl:equivalentClass"
             || focusedElement.type() === "owl:Class") {
                 // d3.select("#class-properties-popup-label").innerHtml = focusedElement.label();
-                Avgrund.show("#class-properties-popup");
+                // Avgrund.show("#class-properties-popup");
             }
 
 	      if ( elementTools.isProperty(selectedElement) === true ) {

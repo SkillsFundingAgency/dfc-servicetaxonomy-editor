@@ -6,20 +6,64 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\css\webvowl.app.css" />
+    <EmbeddedResource Remove="wwwroot\js\webvowl.app.js" />
+    <EmbeddedResource Remove="wwwroot\webvowls\sample.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\webvowl.app.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\webvowl.app.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <None Include="wwwroot\webvowls\sample.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-11937" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="wwwroot\css\avgrund.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </EmbeddedResource>
+    <EmbeddedResource Update="wwwroot\css\webvowl.css">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </EmbeddedResource>
+    <EmbeddedResource Update="wwwroot\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </EmbeddedResource>
+    <EmbeddedResource Update="wwwroot\js\avgrund.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </EmbeddedResource>
+    <EmbeddedResource Update="wwwroot\js\d3.min.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </EmbeddedResource>
+    <EmbeddedResource Update="wwwroot\js\webvowl.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </EmbeddedResource>
+    <EmbeddedResource Update="wwwroot\license.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

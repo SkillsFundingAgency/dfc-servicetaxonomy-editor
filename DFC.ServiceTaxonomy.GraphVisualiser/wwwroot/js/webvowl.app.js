@@ -8494,14 +8494,14 @@ webvowl.app =
                     // or use jquery?
 
                     key = decodeURIComponent(key.slice("viz=".length));
-
+                   
                     var xhttp = new XMLHttpRequest();
-                    xhttp.onreadystatechange = function() {
+                    xhttp.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             loadingModule.directInput(xhttp.responseText);
                         }
                     };
-                    xhttp.open("GET", "visualise/data?fetch=" + key, true);
+                    xhttp.open("GET", "/visualise/data?uri=" + key, true);
                     xhttp.send();
                 };
 

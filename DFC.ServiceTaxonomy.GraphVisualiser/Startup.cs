@@ -1,4 +1,5 @@
 using System;
+using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Builder;
@@ -18,17 +19,24 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
-            // Graph Database
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
+            services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
+            services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(
                 name: "Visualise",
-                areaName: "DFC.ServiceTaxonomy.GraphVisualiser",
-                pattern: "Visualise/Data",
-                defaults: new { controller = "Visualise", action = "Data" }
+                areaName: typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace,
+                pattern: $"Visualise/{nameof(Controllers.VisualiseController.Data)}",
+                defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.Data) }
+            );
+            routes.MapAreaControllerRoute(
+                name: "WebVOWL",
+                areaName: typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace,
+                pattern: $"Visualise/{nameof(Controllers.VisualiseController.Viewer)}",
+                defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.Viewer) }
             );
         }
     }
