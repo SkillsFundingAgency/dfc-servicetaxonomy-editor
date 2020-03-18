@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using GetJobProfiles.Models.Recipe.ContentItems;
@@ -42,7 +43,8 @@ namespace GetJobProfiles
                             ContentItemIds = jobProfiles
                                 .Where(jp => jobCategoryDictionary.Where(dict => dict.Value.Any(val => val == category)).Select(dict => dict.Key).Any(uri => jp.EponymousPart.JobProfileWebsiteUrl.Text.EndsWith(uri)))
                                 .Select(jp => jp.ContentItemId)
-                        }
+                        },
+                        WebsiteURI = new TextField($"/job-categories/{category.ToLower().Replace(' ', '-')}")
                     }
                 });
             }
