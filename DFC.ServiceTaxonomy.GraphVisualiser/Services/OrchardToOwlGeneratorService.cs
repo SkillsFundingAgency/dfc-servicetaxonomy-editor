@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
+using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Owl;
+using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Flows.Models;
@@ -14,6 +16,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         private const string NcsJobProfile = "JobProfile";
 
         private IEnumerable<ContentTypeDefinition> contentTypeDefinitions;
+
+        public OrchardToOwlGeneratorService(IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel) : base(owlDataGeneratorConfigModel) { }
 
         public OwlDataModel CreateOwlDataModels(IEnumerable<ContentTypeDefinition> contentTypeDefinitions)
         {
@@ -29,9 +33,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 Header = CreateHeader(),
                 Settings = CreateSettings(),
                 Class = nodeDataModels.Select(n => CreateClass(n, selectedContentTypeDefinition.Name)).ToList(),
-                ClassAttribute = nodeDataModels.Select(n => CreateClassAttribute(n)).ToList(),
-                Property = relationshipDataModels.Select(r => CreateProperty(r)).ToList(),
-                PropertyAttribute = relationshipDataModels.Select(r => CreatePropertyAttribute(r)).ToList(),
+                ClassAttribute = nodeDataModels.Select(CreateClassAttribute).ToList(),
+                Property = relationshipDataModels.Select(CreateProperty).ToList(),
+                PropertyAttribute = relationshipDataModels.Select(CreatePropertyAttribute).ToList(),
             };
 
             return result;

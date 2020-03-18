@@ -1,23 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
+using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Owl;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public abstract class OwlDataGeneratorService
     {
-        private const string DefaultLanguage = "en";
-        private const string NamespaceName = "NCSnamespace";
-        private const string NamespaceIri = "https://nationalcareers.service.gov.uk";
-        private const string HeaderIri = "https://nationalcareers.service.gov.uk/test/";
-        private const string HeaderAuthor = "National Careers Service";
-        private const string HeaderVersion = "0.0.1(alpha)";
-        private const string DescriptionLabel = "NationalCareersService-ServiceTaxonomy";
-
         private readonly Dictionary<string, string> typeColours = new Dictionary<string, string>();
 
-        protected IEnumerable<NodeDataModel> nodeDataModels = new List<NodeDataModel>();
-        protected IEnumerable<RelationshipDataModel> relationshipDataModels = new List<RelationshipDataModel>();
+        private readonly OwlDataGeneratorConfigModel OwlDataGeneratorConfigModel;
 
         private readonly ColourScheme ncsColourScheme = new ColourScheme(new string[] {
                      "#A6EBC9",
@@ -36,14 +29,23 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 "#F7EDF0",
             });
 
+        protected IEnumerable<NodeDataModel> nodeDataModels = new List<NodeDataModel>();
+
+        protected IEnumerable<RelationshipDataModel> relationshipDataModels = new List<RelationshipDataModel>();
+
+        protected OwlDataGeneratorService(Microsoft.Extensions.Options.IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel)
+        {
+            OwlDataGeneratorConfigModel = owlDataGeneratorConfigModel?.CurrentValue ?? throw new ArgumentNullException(nameof(owlDataGeneratorConfigModel));
+        }
+
         protected List<Namespace> CreateNamespaces()
         {
             var result = new List<Namespace>
             {
                 new Namespace
                 {
-                    Name = NamespaceName,
-                    Iri = NamespaceIri,
+                    Name = OwlDataGeneratorConfigModel.NamespaceName,
+                    Iri = OwlDataGeneratorConfigModel.NamespaceIri,
                 },
             };
 
@@ -54,11 +56,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         {
             var result = new Header
             {
-                Languages = new List<string> { DefaultLanguage },
+                Languages = new List<string> { OwlDataGeneratorConfigModel.DefaultLanguage },
                 Title = CreateDescription(),
-                Iri = HeaderIri,
-                Version = HeaderVersion,
-                Author = new List<string> { HeaderAuthor, },
+                Iri = OwlDataGeneratorConfigModel.HeaderIri,
+                Version = OwlDataGeneratorConfigModel.HeaderVersion,
+                Author = new List<string> { OwlDataGeneratorConfigModel.HeaderAuthor, },
                 Description = CreateDescription(),
             };
 
@@ -69,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         {
             var result = new Description
             {
-                En = DescriptionLabel,
+                En = OwlDataGeneratorConfigModel.DescriptionLabel,
             };
 
             return result;

@@ -41,9 +41,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
                 var cypherQuery = new StringBuilder();
 
                 cypherQuery.Append($"MATCH (s {{{MatchPropertyName}:'{MatchPropertyValue}'}})");
-                cypherQuery.Append($"OPTIONAL MATCH (s {{{MatchPropertyName}:'{MatchPropertyValue}'}})-[r1]-(d1)");
+                cypherQuery.Append($"OPTIONAL MATCH (s)-[r1]-(d1)");
                 cypherQuery.Append("RETURN s,r1,d1");
-                //cypherQuery.Append($"OPTIONAL MATCH (s {{{MatchPropertyName}:'{MatchPropertyValue}'}})-[r1]-(d1)-[r2]-(d2)");
+                //cypherQuery.Append($"OPTIONAL MATCH (s)-[r1]-(d1)-[r2]-(d2)");
                 //cypherQuery.Append("RETURN s,r1,d1,r2,d2");
 
                 return new Query(cypherQuery.ToString());
@@ -63,28 +63,28 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
             SelectedNodeId = sourceNode.Id;
 
             string sourceLabel = sourceNode.Properties.ContainsKey(SourcePropertyName) ? sourceNode.Properties[SourcePropertyName].ToString() : string.Empty;
-            string result = $"{sourceLabel}";
+            string result = sourceLabel;
 
             if (relationship != null)
             {
                 Relationships.Add(relationship);
-                result += $" - [{relationship.Type}";
+                result += $" - [{relationship.Type}]";
             }
             if (destNode != null)
             {
                 Nodes[destNode.Id] = destNode;
-                result += $" - " + (destNode.Properties.ContainsKey(DestPropertyName) ? destNode.Properties[DestPropertyName].ToString() : string.Empty);
+                result += " - " + (destNode.Properties.ContainsKey(DestPropertyName) ? destNode.Properties[DestPropertyName].ToString() : string.Empty);
             }
 
             //if (relationship2 != null)
             //{
             //    Relationships.Add(relationship2);
-            //    result += $" - [{relationship2.Type}";
+            //    result += $" - [{relationship2.Type}]";
             //}
             //if (destNode2 != null)
             //{
             //    Nodes[destNode2.Id] = destNode2;
-            //    result += $" - " + (destNode2.Properties.ContainsKey(DestPropertyName) ? destNode2.Properties[DestPropertyName].ToString() : string.Empty);
+            //    result += " - " + (destNode2.Properties.ContainsKey(DestPropertyName) ? destNode2.Properties[DestPropertyName].ToString() : string.Empty);
             //}
 
             return result;

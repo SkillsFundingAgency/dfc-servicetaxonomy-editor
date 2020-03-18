@@ -1,4 +1,5 @@
 using System;
+using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
@@ -18,7 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             var serviceProvider = services.BuildServiceProvider();
             var configuration = serviceProvider.GetService<IConfiguration>();
 
-            services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
+            services.Configure<OwlDataGeneratorConfigModel>(configuration.GetSection(nameof(OwlDataGeneratorConfigModel)));
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
