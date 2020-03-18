@@ -9,6 +9,16 @@
     var hasDraft = contentItem.HasDraft();
 }
 
+@if (hasPublished && graphSyncPartText != null)
+{
+    <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
+       asp-controller="Visualise"
+       asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace"
+       asp-route-visualise="@graphSyncPartText"
+       target="_blank"
+       class="btn btn-info btn-sm">@T["Visualise (last published)"]</a>
+}
+
 <div class="btn-group">
     <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         @T["Actions"]
@@ -33,17 +43,12 @@
             <a asp-action="Unpublish" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" itemprop="UnsafeUrl RemoveUrl" data-title=@T["Unpublish"] data-message=@T["Are you sure you want to unpublish this item?"] data-ok-text="@T["Yes"]" data-cancel-text="@T["No"]" data-ok-class="btn-primary" class="dropdown-item btn-sm">@T["Unpublish"]</a>
         }
 
-        @if (hasPublished && graphSyncPartText != null)
-        {
-            <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)" asp-controller="Visualise" asp-route-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace" asp-route-visualise="@graphSyncPartText" itemprop="url" class="dropdown-item btn-sm" target="_blank">@T["Visualise"]</a>
-        }
-
         @if (hasDraft || hasPublished)
         {
             <a remove-for="@contentItem" class="dropdown-item btn-sm" asp-route-returnUrl="@FullRequestPath" itemprop="RemoveUrl UnsafeUrl" data-title="@T["Delete"]" data-message="@T["Are you sure you want to delete this content item?"]">@T["Delete"]</a>
         }
         @*
-        TODO: User permissions to display or not display.
+            TODO: User permissions to display or not display.
         *@
         <a asp-action="Clone" asp-controller="Admin" asp-route-area="OrchardCore.Contents" asp-route-contentItemId="@contentItem.ContentItemId" asp-route-returnUrl="@FullRequestPath" itemprop="UnsafeUrl" class="dropdown-item btn-sm">@T["Clone"]</a>
     </div>
