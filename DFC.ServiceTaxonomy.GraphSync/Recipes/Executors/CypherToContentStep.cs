@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,6 +19,13 @@ using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
+    //todo: it was graph sync that done it, aka graph sync is slow! optimise it
+
+    // creating OccupationLabels : conclusion => noise!
+    // # content items : batch size : time
+    // 100 :  1 : 00:00:00.3099636
+    // 100 :  5 : 00:00:00.3161795
+    // 100 : 50 : 00:00:00.3081626
     public class CypherToContentStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
@@ -28,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
-        private const int CreateContentBatchSize = 10;
+        private const int CreateContentBatchSize = 50;
 
         public CypherToContentStep(
             IGraphDatabase graphDatabase,
@@ -45,8 +53,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _logger = logger;
         }
-//todo: new recipes in importer in order
+
+        //todo: new recipes in importer in order
         //todo: occupation in job profile bag : readonly
+        //todo: need to disable graph sync when creating content items from graph. can't do it globally, as not single user
+        //todo: why can't GraphSyncPartDisplayDriver injectGraphSyncHelper?
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
@@ -65,15 +76,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 getContentItemsAsJsonQuery.QueryStatement = queries.Query;
 
+                _logger.LogInformation($"Executing query to retrieve content for items:\r\n{queries.Query}");
+
                 List<string> contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
 
                 IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
 
-                var contentItemJObjectsBatches = contentItemsJson
+                var contentItemJObjects = contentItemsJson
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
                     .SelectMany(cijo => cijo)
+                    .ToArray();
+
+                _logger.LogInformation($"Content for {contentItemJObjects.Length} items retrieved");
+
+                var contentItemJObjectsBatches = contentItemJObjects
                     .Batch(CreateContentBatchSize);
-//todo: would using rx be faster?
+
+                _logger.LogInformation($"Creating content items in batches of {CreateContentBatchSize}");
+
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
+//todo: would using rx be faster? <- slowness is adding to oc db, bot reading from neo
 //todo: parallel foreach?
 
                 foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
@@ -82,6 +105,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     await Task.WhenAll(createContentItemTasks);
                 }
+
+                _logger.LogInformation($"Created {contentItemJObjects.Length} content items in {stopwatch.Elapsed}");
             }
         }
 
@@ -116,6 +141,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             // contentItem.Published = true;
             contentItem.Owner = "admin";
             contentItem.Author = "admin";
+
+            //contentItem.Author = $"{StepName}:admin";
+            contentItem.Content.DontSync = true;
 
             await _contentManager.CreateAsync(contentItem);
 

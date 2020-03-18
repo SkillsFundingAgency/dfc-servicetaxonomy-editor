@@ -55,6 +55,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return null;
 
+            if (content.ContainsKey("DontSync"))
+            {
+                content.Remove("DontSync");
+                return null;
+            }
+
             _logger.LogInformation($"Sync: merging {contentType}");
 
             _graphSyncHelper.ContentType = contentType;
