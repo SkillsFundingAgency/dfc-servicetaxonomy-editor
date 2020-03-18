@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
     //todo: rename, doesn't get contentitems!
-    class GetContentItemsAsJsonAsJsonQuery : IGetContentItemsAsJsonQuery
+    class GetContentItemsAsJsonQuery : IGetContentItemsAsJsonQuery
     {
         public string? QueryStatement { get; set; }
 

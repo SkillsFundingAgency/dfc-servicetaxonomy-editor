@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
-            services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonAsJsonQuery>();
+            services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
             services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
 

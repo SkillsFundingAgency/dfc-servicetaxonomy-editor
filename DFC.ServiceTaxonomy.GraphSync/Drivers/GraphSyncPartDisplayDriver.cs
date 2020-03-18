@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
@@ -10,9 +10,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 {
     public class GraphSyncPartDisplayDriver : ContentPartDisplayDriver<GraphSyncPart>
     {
-        private readonly GraphSyncHelper _graphSyncHelper;
+        private readonly IGraphSyncHelper _graphSyncHelper;
 
-        public GraphSyncPartDisplayDriver(GraphSyncHelper graphSyncHelper)
+        public GraphSyncPartDisplayDriver(IGraphSyncHelper graphSyncHelper)
         {
             _graphSyncHelper = graphSyncHelper;
         }
