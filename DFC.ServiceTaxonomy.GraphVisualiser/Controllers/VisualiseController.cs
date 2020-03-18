@@ -8,7 +8,8 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.ContentManagement.Metadata;
 
-// https://localhost:5001/index.html?visualise=theid
+// visualise -> https://localhost:44346/Visualise/Viewer?visualise=<the graph sync part url>
+// ontology -> https://localhost:44346/Visualise/Viewer?visualise=
 
 //todo:
 // add a custom part that selects the visualisation rule/heuristic
