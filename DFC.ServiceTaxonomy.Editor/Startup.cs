@@ -29,6 +29,8 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
+            //todo: check if static files fixes visualisation
+
             app.UseOrchardCore();
         }
     }
