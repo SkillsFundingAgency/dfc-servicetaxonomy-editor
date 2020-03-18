@@ -18,11 +18,6 @@ using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
-    // match (n:esco__Occupation)
-    // unwind n.skos__altLabel as altLabels
-    // create (al:ncs__OccupationLabel:Resource {skos__prefLabel: altLabels, uri: "http://nationalcareers.service.gov.uk/OccupationLabel/" + apoc.create.uuid()})
-    // create (n)-[:ncs__hasAltLabel]->(al)
-
     public class CypherToContentStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
