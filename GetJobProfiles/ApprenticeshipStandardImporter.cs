@@ -207,6 +207,8 @@ namespace GetJobProfiles
 
                 foreach (var jobProfile in jobProfiles)
                 {
+                    jobProfile.EponymousPart.ApprenticeshipStandards = new ContentPicker();
+
                     var jobProfileStandardContentIds = new List<string>();
 
                     var applicableJobProfileStandards = jobProfileStandards.ContainsKey(jobProfile.TitlePart.Title) ? jobProfileStandards[jobProfile.TitlePart.Title] : null;
@@ -226,11 +228,11 @@ namespace GetJobProfiles
                                 }
                             }
                         }
-
+                        
                         if (jobProfileStandardContentIds.Any())
                         {
-                            jobProfile.EponymousPart.ApprenticeshipStandards = new ContentPicker();
-                            jobProfile.EponymousPart.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds;
+                            //TODO : check for duplicates to report?
+                            jobProfile.EponymousPart.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds.Distinct();
                         }
                     }
                 }

@@ -5,10 +5,14 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
+using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
@@ -76,6 +80,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
 
             return delayedCommands;
+        }
+
+        public async Task<bool> VerifySyncComponent(
+            ContentItem contentItem,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destNodes)
+        {
+            var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
+
+            var contentItems = contentItem.Content[contentTypePartDefinition.Name]["ContentItems"].ToObject<IEnumerable<ContentItem>>();
+
+            foreach (var bagPartContentItem in contentItems)
+            {
+                if (await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)

@@ -7,5 +7,5 @@ using OrchardCore.Modules.Manifest;
     Version = "0.0.1",
     Description = "Enables syncing content to a Neo4j graph.",
     Category = "Graph",
-    Dependencies = new[] { "OrchardCore.Contents" }
+    Dependencies = new[] { "OrchardCore.Contents", "OrchardCore.ContentTypes" }
 )]
