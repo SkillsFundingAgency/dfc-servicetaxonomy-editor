@@ -2,6 +2,6 @@
 {
     public partial class Description
     {
-        public string En { get; set; }
+        public string? En { get; set; }
     }
 }
