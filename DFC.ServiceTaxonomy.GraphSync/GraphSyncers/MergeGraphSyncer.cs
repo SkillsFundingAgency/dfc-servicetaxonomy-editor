@@ -52,6 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public async Task<IMergeNodeCommand?> SyncToGraph(
             string contentType,
             string contentItemId,
+            string contentItemVersionId,
             JObject content,
             DateTime? createdUtc,
             DateTime? modifiedUtc)
@@ -65,10 +66,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return null;
 
             //string contentItemId = content["ContentItemId"]!.ToString();
-            string? disableSyncContentItemId = _memoryCache.Get<string>($"DisableSync_{contentItemId}");
-            if (disableSyncContentItemId != null)
+            string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItemVersionId}");
+            if (disableSyncContentItemVersionId != null)
             {
-                _logger.LogInformation($"Not syncing {contentType}:{contentItemId} as syncing has been disabled for it");
+                _logger.LogInformation($"Not syncing {contentType}:{contentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
                 return null;
             }
             // if (content.ContainsKey("DontSync"))

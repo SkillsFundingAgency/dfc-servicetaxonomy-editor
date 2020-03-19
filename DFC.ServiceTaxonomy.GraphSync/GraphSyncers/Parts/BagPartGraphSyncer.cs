@@ -41,13 +41,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 string contentType = contentItem!["ContentType"]!.ToString();
                 string contentItemId = contentItem!["ContentItemId"]!.ToString();
+                string contentItemVersionId = contentItem!["ContentItemVersionId"]!.ToString();
 
                 DateTime? createdDate = !string.IsNullOrEmpty(contentItem["CreatedUtc"]!.ToString()) ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
                 DateTime? modifiedDate = !string.IsNullOrEmpty(contentItem["ModifiedUtc"]!.ToString()) ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
 
                 //todo: if we want to support nested bags, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(
-                    contentType, contentItemId, contentItem!, createdDate, modifiedDate);
+                    contentType,
+                    contentItemId,
+                    contentItemVersionId,
+                    contentItem!,
+                    createdDate,
+                    modifiedDate);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;

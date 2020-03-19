@@ -4,6 +4,7 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* titles (for picking) on esco skills??
 * if sync fails on create/update, inform user, mark visually as not synced, have task on timer to reattempt sync of any content items tagged as not synced (unless can think of a less messy way)
 * use titles from spreadsheet for imported content items
 * existing api returns LastUpdatedDate. to replicate that we'll have to update the graph sync code to store the contentitems lastmodified date into the graph

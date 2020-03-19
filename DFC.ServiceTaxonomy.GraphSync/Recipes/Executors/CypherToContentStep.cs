@@ -144,7 +144,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
 
             contentItem.ContentItemId = _idGenerator.GenerateUniqueId(contentItem);
-
+            contentItem.ContentItemVersionId = _idGenerator.GenerateUniqueId(contentItem);
+            contentItem.Published = true;
+            contentItem.Latest = true;
             contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
             //these get set when version id is 0
             // contentItem.Latest = true;
@@ -152,16 +154,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             contentItem.Owner = "admin";
             contentItem.Author = "admin";
 
-            //contentItem.Author = $"{StepName}:admin";
-            //contentItem.Content.DontSync = true;
-
             //could put contenttype in there for extra safety!?
             //todo: prepopulate ContentItemVersionId instead of just id, that should eliminate completely
             // the change of a false-positive disabled sync
             // (syncing when unnecessary is fine, as its only an optimisation and will still leave the graph correct)
             //todo: write up a bit about this
-            string cacheKey = $"DisableSync_{contentItem.ContentItemId}";
-            _memoryCache.Set(cacheKey, contentItem.ContentItemId,
+            string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
+            _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
                 new TimeSpan(0, 1, 0));
                 //new TimeSpan(0, 0, 5));
 
