@@ -67,17 +67,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
-            var graphSyncPartSettings = _graphSyncHelper.GraphSyncPartSettings;
-
-            string nodeLabel = string.IsNullOrEmpty(graphSyncPartSettings.NodeNameTransform)
-                               || graphSyncPartSettings.NodeNameTransform == "val"
-                ? contentItem.ContentType
-                : "todo";
-
-            _deleteNodeCommand.NodeLabels = new HashSet<string> {nodeLabel};
+            _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName;
             _deleteNodeCommand.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
-            _deleteNodeCommand.DeleteNode = !graphSyncPartSettings.PreexistingNode;
+            _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
 
             try
             {
