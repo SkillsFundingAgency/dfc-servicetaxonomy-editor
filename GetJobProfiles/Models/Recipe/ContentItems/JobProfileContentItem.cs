@@ -17,7 +17,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 
         public TitlePart TitlePart { get; set; }
         public JobProfilePart EponymousPart { get; set; }
-        public GraphLookupPart GraphLookupPart { get; set; }    // todo: multiple?
+        public GraphLookupPart GraphLookupPart { get; set; } = new GraphLookupPart();    // todo: multiple?
         public GraphSyncPart GraphSyncPart { get; set; }
         public BagPart EntryRoutes { get; set; }
     }

@@ -1,4 +1,6 @@
-﻿using OrchardCore.ContentManagement.Metadata.Settings;
+﻿using System;
+using DFC.ServiceTaxonomy.GraphSync.Activities;
+using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data.Migration;
 
@@ -20,6 +22,15 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 .WithDescription("Enables the content type to be synced to a graph."));
 
             return 1;
+        }
+
+        public int UpdateFrom1()
+        {
+            SchemaBuilder.CreateTable(nameof(AuditSyncLog), table => table
+                .Column<DateTime?>("LastSynced")
+            );
+
+            return 2;
         }
     }
 }

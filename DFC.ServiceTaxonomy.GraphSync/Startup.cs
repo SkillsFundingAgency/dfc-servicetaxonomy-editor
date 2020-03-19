@@ -67,6 +67,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
             services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
             services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
+            services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
             services.AddActivity<ContentTypeFieldRemovedEvent, ContentTypeFieldRemovedEventDisplay>();
             services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
 
@@ -77,6 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
+            services.AddTransient<IGraphSyncValidator, NeoGraphSyncValidator>();
 
             // Graph Sync Part
             services.AddContentPart<GraphSyncPart>()
