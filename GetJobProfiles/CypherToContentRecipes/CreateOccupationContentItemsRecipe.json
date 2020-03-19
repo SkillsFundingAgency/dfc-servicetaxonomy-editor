@@ -13,7 +13,7 @@
             "name": "CypherToContent",
             "queries": [
                 {
-                    "query": "MATCH (o:esco__Occupation)\r\nreturn { ContentType: 'Occupation', GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},\r\nOccupation:\r\n{AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']}\r\n}\r\n}\r\norder by o.uri\r\nskip 0 limit 50"
+                    "query": "MATCH (o:esco__Occupation)\r\nreturn { ContentType: 'Occupation', GraphSyncPart:{Text:o.uri}, TitlePart:{Title:o.skos__prefLabel},\r\nOccupation:\r\n{AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']}\r\n}\r\n}\r\norder by o.uri\r\nskip [token:skip] limit [token:limit]"
                 }
             ]
         }
