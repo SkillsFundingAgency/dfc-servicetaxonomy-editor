@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
-    //todo: rename, doesn't get contentitems!
     class GetContentItemsAsJsonQuery : IGetContentItemsAsJsonQuery
     {
         public string? QueryStatement { get; set; }
@@ -31,8 +30,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
         public string ProcessRecord(IRecord record)
         {
             return JsonConvert.SerializeObject(record.Values.Values);
-            // string values = JsonConvert.SerializeObject(record.Values.Values);
-            // return JsonConvert.DeserializeObject<List<JObject>>(values);
         }
     }
 }
