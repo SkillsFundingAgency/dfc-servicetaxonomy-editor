@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Security;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.JsonHelpers;
@@ -14,6 +13,7 @@ using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
 using GetJobProfiles.Models.Recipe.Fields;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
+using NPOI.XSSF.UserModel;
 
 // when we run this for real, we should run it against prod (or preprod), so that we get the current real details,
 // and no test job profiles slip through the net
@@ -35,6 +35,10 @@ namespace GetJobProfiles
     {
         private static string OutputBasePath;
         private static int FileIndex = 1;
+
+        private static Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
+        private static List<object> _matchingTitles = new List<object>();
+        private static List<object> _missingTitles = new List<object>();
 
         static async Task Main(string[] args)
         {
@@ -85,32 +89,36 @@ namespace GetJobProfiles
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
             apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
+            ProcessLionelsSpreadsheet();
+
             BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
             BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, "ApprenticeshipStandardRoutes");
             BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, "ApprenticeshipStandards");
             BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "RequirementsPrefixes");
-            BatchSerializeToFiles(converter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "ApprenticeshipLinks");
-            BatchSerializeToFiles(converter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "ApprenticeshipRequirements");
-            BatchSerializeToFiles(converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "CollegeLinks");
-            BatchSerializeToFiles(converter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "CollegeRequirements");
-            BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(r.Key, r.Key, timestamp, r.Value)), batchSize, "UniversityLinks");
-            BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
+            BatchSerializeToFiles(converter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(GetTitle("ApprenticeshipLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "ApprenticeshipLinks");
+            BatchSerializeToFiles(converter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(GetTitle("ApprenticeshipRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "ApprenticeshipRequirements");
+            BatchSerializeToFiles(converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(GetTitle("CollegeLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "CollegeLinks");
+            BatchSerializeToFiles(converter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(GetTitle("CollegeRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "CollegeRequirements");
+            BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(GetTitle("UniversityLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "UniversityLinks");
+            BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(GetTitle("UniversityRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
             BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
             BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
-            BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Registrations");
-            BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "Restrictions");
+            BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), batchSize, "Registrations");
+            BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
-            BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
-            BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
-            BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(x.Key, timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
+            BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
+            BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
+            BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
             BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
-            File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            File.WriteAllText($"{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            File.WriteAllText($"{OutputBasePath}content_titles_summary.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
+            File.WriteAllText($"{OutputBasePath}matching_content_titles.json", JsonSerializer.Serialize(_matchingTitles));
+            File.WriteAllText($"{OutputBasePath}missing_content_titles.json", JsonSerializer.Serialize(_missingTitles));
         }
 
-        private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix)
-        where T : ContentItem
+        private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix) where T : ContentItem
         {
             var batches = contentItems.Batch(batchSize);
             int batchNumber = 0;
@@ -182,6 +190,70 @@ namespace GetJobProfiles
         private static string StripSquareBrackets(string str)
         {
             return (str.Length > 6 && str[0] == '[') ? str.Substring(3, str.Length - 6) : str;
+        }
+
+        private static string GetTitle(string key, string title)
+        {
+            if (title.StartsWith("[") && title.EndsWith("]") && title.Contains("|"))
+            {
+                title = title.Trim('[', ']').Split('|').First().Trim();
+            }
+            else if (title.Contains("[") && title.Contains("|") && title.Contains("]"))
+            {
+                title = HtmlField.ConvertLinks(title);
+            }
+
+            var matchingTitle = _contentItemTitles[key].SingleOrDefault(x => x.Item2 == title);
+
+            if (matchingTitle == null)
+            {
+                _missingTitles.Add(new {Type = key, ExistingTitle = title});
+            }
+            else
+            {
+                _matchingTitles.Add(new {Type = key, ExistingTitle = title});
+            }
+
+            return matchingTitle?.Item1 ?? title;
+        }
+
+        private static void ProcessLionelsSpreadsheet()
+        {
+            _contentItemTitles.Add("Uniform", ProcessContentType("Uniform", "Title", "Description"));
+            _contentItemTitles.Add("Location", ProcessContentType("Location", "Title", "Description"));
+            _contentItemTitles.Add("Environment", ProcessContentType("Environment", "Title", "Description"));
+            _contentItemTitles.Add("ApprenticeshipLink", ProcessContentType("ApprenticeshipLink", "Title", "Text"));
+            _contentItemTitles.Add("ApprenticeshipRequirement", ProcessContentType("ApprenticeshipRequirement", "Title", "Info"));
+            _contentItemTitles.Add("CollegeLink", ProcessContentType("CollegeLink", "Title", "Text"));
+            _contentItemTitles.Add("CollegeRequirement", ProcessContentType("CollegeRequirement", "Title", "Info"));
+            _contentItemTitles.Add("UniversityLink", ProcessContentType("UniversityLink", "Title", "Text"));
+            _contentItemTitles.Add("UniversityRequirement", ProcessContentType("UniversityRequirement", "Title", "Info"));
+            _contentItemTitles.Add("Restriction", ProcessContentType("Restriction", "Title", "Info"));
+            _contentItemTitles.Add("Registration", ProcessContentType("Registration", "Title", "Info"));
+        }
+
+        private static List<Tuple<string, string>> ProcessContentType(string excelSheet, string columnOneName, string columnTwoName)
+        {
+            using (var reader = new StreamReader(@"SeedData\job_profiles.xlsx"))
+            {
+                var workbook = new XSSFWorkbook(reader.BaseStream);
+                var sheet = workbook.GetSheet(excelSheet);
+                var columnOneIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == columnOneName).ColumnIndex;
+                var columnTwoIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == columnTwoName).ColumnIndex;
+
+                var results = new List<Tuple<string, string>>();
+
+                for (int i = 1; i <= sheet.LastRowNum; i++)
+                {
+                    var row = sheet.GetRow(i);
+                    var item1 = row.GetCell(columnOneIndex).StringCellValue;
+                    var item2 = row.GetCell(columnTwoIndex).StringCellValue;
+
+                    results.Add(new Tuple<string, string>(item1, item2));
+                }
+
+                return results;
+            }
         }
     }
 }
