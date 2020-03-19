@@ -61,8 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
         //todo: new recipes in importer in order
         //todo: occupation in job profile bag : readonly
-        //todo: why can't GraphSyncPartDisplayDriver injectGraphSyncHelper?
-        //todo: might need to split occupationlabel recipes up, i.e. \r\norder by l.uri\r\nskip 0 limit 100
+        //todo: might need to split occupation recipes up, i.e. \r\norder by l.uri\r\nskip 0 limit 100
         //todo: need to add validation, at least to detect when import same thing twice!
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
@@ -92,20 +91,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
                     .SelectMany(cijo => cijo);
 
-                //takes too long
-                //     .ToArray();
-                //
-                // _logger.LogInformation($"Content for {contentItemJObjects.Length} items retrieved");
-
                 var contentItemJObjectsBatches = contentItemJObjects
                     .Batch(CreateContentBatchSize);
 
                 _logger.LogInformation($"Creating content items in batches of {CreateContentBatchSize}");
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
-
-//todo: would using rx be faster? <- slowness is adding to oc db, bot reading from neo
-//todo: parallel foreach?
 
                 foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
                 {
@@ -114,7 +105,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     await Task.WhenAll(createContentItemTasks);
                 }
 
-//                _logger.LogInformation($"Created {contentItemJObjects.Length} content items in {stopwatch.Elapsed}");
+                //todo: log this, but ensure no double enumeration
 //                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
                 _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
             }
@@ -130,13 +121,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 return;
             }
 
-// either _contentManager.New or get at json of results
-
-            // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-            //contentItem.Id = 0;
-
-            //should we allow the query to override any of these values?
-
             string? title = contentItem.Content.TitlePart?.Title;
             if (title != null)
             {
@@ -145,26 +129,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             contentItem.ContentItemId = _idGenerator.GenerateUniqueId(contentItem);
             contentItem.ContentItemVersionId = _idGenerator.GenerateUniqueId(contentItem);
-            contentItem.Published = true;
-            contentItem.Latest = true;
+            contentItem.Published = contentItem.Latest = true;
             contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
-            //these get set when version id is 0
-            // contentItem.Latest = true;
-            // contentItem.Published = true;
-            contentItem.Owner = "admin";
-            contentItem.Author = "admin";
+            contentItem.Owner = contentItem.Author = "admin";
 
-            //could put contenttype in there for extra safety!?
-            //todo: prepopulate ContentItemVersionId instead of just id, that should eliminate completely
-            // the change of a false-positive disabled sync
-            // (syncing when unnecessary is fine, as its only an optimisation and will still leave the graph correct)
-            //todo: write up a bit about this
+            //todo: could put contenttype in there for extra safety!? overkill?
+
+            // if the cache expires before the sync gets called, that's fine as its only an optimisation
+            // to not sync the content item. if it's synced, the graph will still be correct
+            // (we're essentially skipping a no-op)
+            // what we want to avoid, is _not_ syncing when we should
+            // that's why we use ContentItemVersionId, instead of ContentItemId
             string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
             _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
                 new TimeSpan(0, 1, 0));
                 //new TimeSpan(0, 0, 5));
 
-            //todo: log adding content type + id?
+            //todo: log adding content type + id? how would we (easily) get the contenttype??
 
             await _contentManager.CreateAsync(contentItem);
 
