@@ -29,10 +29,6 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
-            //todo: check if static files fixes visualisation
-            //todo: add analyser to vis project
-            //todo: check if running from vs fixes views issue
-
             app.UseOrchardCore();
         }
     }

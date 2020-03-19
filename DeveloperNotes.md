@@ -4,6 +4,9 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* check if static files fixes visualisation
+* add analyser to vis project
+* check if running from vs fixes views issue
 * order content type in editor alphabetically (or programmatically)
 * titles (for picking) on esco skills??
 * if sync fails on create/update, inform user, mark visually as not synced, have task on timer to reattempt sync of any content items tagged as not synced (unless can think of a less messy way)
