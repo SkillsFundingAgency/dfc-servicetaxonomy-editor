@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
@@ -25,6 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
+        private readonly IMemoryCache _memoryCache;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         public MergeGraphSyncer(
@@ -34,6 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IGraphSyncHelper graphSyncHelper,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            IMemoryCache memoryCache,
             ILogger<MergeGraphSyncer> logger)
         {
             _graphDatabase = graphDatabase;
@@ -42,10 +45,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncHelper = graphSyncHelper;
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
+            _memoryCache = memoryCache;
             _logger = logger;
         }
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content, DateTime? createdUtc, DateTime? modifiedUtc)
+        public async Task<IMergeNodeCommand?> SyncToGraph(
+            string contentType,
+            string contentItemId,
+            JObject content,
+            DateTime? createdUtc,
+            DateTime? modifiedUtc)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -55,13 +64,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return null;
 
-            if (content.ContainsKey("DontSync"))
+            //string contentItemId = content["ContentItemId"]!.ToString();
+            string? disableSyncContentItemId = _memoryCache.Get<string>($"DisableSync_{contentItemId}");
+            if (disableSyncContentItemId != null)
             {
-                //todo: this doesn't remove it from oc, just the copy we have, so the content item never gets synced subsequently
-                // have part for our own metadata and use ContentItemExtensions to manipulate it?
-                content.Remove("DontSync");
+                _logger.LogInformation($"Not syncing {contentType}:{contentItemId} as syncing has been disabled for it");
                 return null;
             }
+            // if (content.ContainsKey("DontSync"))
+            // {
+            //     //todo: this doesn't remove it from oc, just the copy we have, so the content item never gets synced subsequently
+            //     // have part for our own metadata and use ContentItemExtensions to manipulate it?
+            //     content.Remove("DontSync");
+            //     return null;
+            // }
 
             _logger.LogInformation($"Sync: merging {contentType}");
 

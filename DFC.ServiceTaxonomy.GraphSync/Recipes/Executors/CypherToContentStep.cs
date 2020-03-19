@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MoreLinq;
@@ -21,11 +22,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
     //todo: it was graph sync that done it, aka graph sync is slow! optimise it
 
-    // creating OccupationLabels : conclusion => noise!
+    // creating OccupationLabels, sqllite db : conclusion => noise!
     // # content items : batch size : time
     // 100 :  1 : 00:00:00.3099636
     // 100 :  5 : 00:00:00.3161795
     // 100 : 50 : 00:00:00.3081626
+    //todo: try using azure sql
     public class CypherToContentStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
@@ -33,6 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IContentManager _contentManager;
         private readonly IContentItemIdGenerator _idGenerator;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
+        private readonly IMemoryCache _memoryCache;
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
@@ -44,6 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IContentManager contentManager,
             IContentItemIdGenerator idGenerator,
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
+            IMemoryCache memoryCache,
             ILogger<CypherToContentStep> logger)
         {
             _graphDatabase = graphDatabase;
@@ -51,6 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _contentManager = contentManager;
             _idGenerator = idGenerator;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
+            _memoryCache = memoryCache;
             _logger = logger;
         }
 
@@ -148,7 +153,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             contentItem.Author = "admin";
 
             //contentItem.Author = $"{StepName}:admin";
-            contentItem.Content.DontSync = true;
+            //contentItem.Content.DontSync = true;
+
+            //could put contenttype in there for extra safety!?
+            //todo: prepopulate ContentItemVersionId instead of just id, that should eliminate completely
+            // the change of a false-positive disabled sync
+            // (syncing when unnecessary is fine, as its only an optimisation and will still leave the graph correct)
+            //todo: write up a bit about this
+            string cacheKey = $"DisableSync_{contentItem.ContentItemId}";
+            _memoryCache.Set(cacheKey, contentItem.ContentItemId,
+                new TimeSpan(0, 1, 0));
+                //new TimeSpan(0, 0, 5));
+
+            //todo: log adding content type + id?
 
             await _contentManager.CreateAsync(contentItem);
 
