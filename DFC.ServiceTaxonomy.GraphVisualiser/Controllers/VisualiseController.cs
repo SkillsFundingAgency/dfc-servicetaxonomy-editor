@@ -69,7 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         {
             if (string.IsNullOrWhiteSpace(uri))
             {
-                return await GetOntology();
+                return GetOntology();
             }
             else
             {
@@ -77,11 +77,17 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             }
         }
 
-        public async Task<ActionResult> GetOntology()
+        public ActionResult GetOntology()
         {
             var contentTypeDefinitions = ContentDefinitionManager.ListTypeDefinitions();
 
             var owlDataModel = OrchardToOwlGeneratorService.CreateOwlDataModels(contentTypeDefinitions);
+
+            if (owlDataModel == null)
+            {
+                return NotFound();
+            }
+
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);

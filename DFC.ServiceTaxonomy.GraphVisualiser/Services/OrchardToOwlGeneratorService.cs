@@ -15,30 +15,35 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
     {
         private const string NcsJobProfile = "JobProfile";
 
-        private IEnumerable<ContentTypeDefinition> contentTypeDefinitions;
+        private IEnumerable<ContentTypeDefinition> contentTypeDefinitions= Enumerable.Empty<ContentTypeDefinition>();
 
         public OrchardToOwlGeneratorService(IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel) : base(owlDataGeneratorConfigModel) { }
 
-        public OwlDataModel CreateOwlDataModels(IEnumerable<ContentTypeDefinition> contentTypeDefinitions)
+        public OwlDataModel? CreateOwlDataModels(IEnumerable<ContentTypeDefinition> contentTypeDefinitions)
         {
             this.contentTypeDefinitions = contentTypeDefinitions;
 
             var selectedContentTypeDefinition = GetContentTypeDefinition(NcsJobProfile);
 
-            TransformData(selectedContentTypeDefinition);
-
-            var result = new OwlDataModel
+            if (selectedContentTypeDefinition != null)
             {
-                Namespace = CreateNamespaces(),
-                Header = CreateHeader(),
-                Settings = CreateSettings(),
-                Class = nodeDataModels.Select(n => CreateClass(n, selectedContentTypeDefinition.Name)).ToList(),
-                ClassAttribute = nodeDataModels.Select(CreateClassAttribute).ToList(),
-                Property = relationshipDataModels.Select(CreateProperty).ToList(),
-                PropertyAttribute = relationshipDataModels.Select(CreatePropertyAttribute).ToList(),
-            };
+                TransformData(selectedContentTypeDefinition);
 
-            return result;
+                var result = new OwlDataModel
+                {
+                    Namespace = CreateNamespaces(),
+                    Header = CreateHeader(),
+                    Settings = CreateSettings(),
+                    Class = nodeDataModels.Select(n => CreateClass(n, selectedContentTypeDefinition.Name)).ToList(),
+                    ClassAttribute = nodeDataModels.Select(CreateClassAttribute).ToList(),
+                    Property = relationshipDataModels.Select(CreateProperty).ToList(),
+                    PropertyAttribute = relationshipDataModels.Select(CreatePropertyAttribute).ToList(),
+                };
+
+                return result;
+            }
+
+            return null;
         }
 
         private void TransformData(ContentTypeDefinition contentTypeDefinition)
@@ -61,11 +66,15 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 foreach (var name in bagPartSettings.ContainedContentTypes)
                 {
                     var bagContentTypeDefinition = GetContentTypeDefinition(name);
-                    var partId = $"Part{bagContentTypeDefinition.Name}";
 
-                    nodeModels.Add(TransformContentTypeDefinitionToNode(bagContentTypeDefinition, nodeModels.Count + 1, partId));
+                    if (bagContentTypeDefinition != null)
+                    {
+                        var partId = $"Part{bagContentTypeDefinition.Name}";
 
-                    relationshipModels.Add(TransformContentTypeDefinitionToRelationship(bagContentTypeDefinition, linkedName, $"Part{bagContentTypeDefinition.Name}"));
+                        nodeModels.Add(TransformContentTypeDefinitionToNode(bagContentTypeDefinition, nodeModels.Count + 1, partId));
+
+                        relationshipModels.Add(TransformContentTypeDefinitionToRelationship(bagContentTypeDefinition, linkedName, $"Part{bagContentTypeDefinition.Name}"));
+                    }
                 }
             }
 
@@ -128,7 +137,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             return relationshipDataModel;
         }
 
-        private ContentTypeDefinition GetContentTypeDefinition(string name)
+        private ContentTypeDefinition? GetContentTypeDefinition(string name)
         {
             var result = contentTypeDefinitions?.FirstOrDefault(f => f.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 

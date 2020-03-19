@@ -2,9 +2,9 @@
 {
     public class RelationshipDataModel
     {
-        public string Id { get; set; }
-        public string Label { get; set; }
-        public string Domain { get; set; }
-        public string Range { get; set; }
+        public string Id { get; set; } = string.Empty;
+        public string Label { get; set; } = string.Empty;
+        public string Domain { get; set; } = string.Empty;
+        public string Range { get; set; } = string.Empty;
     }
 }
