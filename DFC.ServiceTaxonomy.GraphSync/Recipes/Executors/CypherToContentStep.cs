@@ -141,8 +141,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             // that's why we use ContentItemVersionId, instead of ContentItemId
             string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
             _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
-                new TimeSpan(0, 1, 0));
-                //new TimeSpan(0, 0, 5));
+                new TimeSpan(0, 0, 30));
 
             //todo: log adding content type + id? how would we (easily) get the contenttype??
 
@@ -172,8 +171,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         {
             public string? Query { get; set; }
         }
-//todo: setting whether serial or parallel (or parallel by default and multiple recipes for serial) and split label create across queries to speed up import (or wait until 1 recipe to import multiple recipes for parallalisation?)
-        //todo: better names!
+
+        //todo: setting whether serial or parallel (or parallel by default and multiple recipes for serial) and split label create across queries to speed up import (or wait until 1 recipe to import multiple recipes for parallalisation?)
         public class CypherToContentStepModel
         {
             public CypherToContentModel[]? Queries { get; set; }
