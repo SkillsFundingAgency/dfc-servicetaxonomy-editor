@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.Editor
 
             //todo: check if static files fixes visualisation
             //todo: add analyser to vis project
-            //todo: add     <Nullable>enable</Nullable> && <TreatWarningsAsErrors>true</TreatWarningsAsErrors> to vis project
+            //todo: check if running from vs fixes views issue
 
             app.UseOrchardCore();
         }

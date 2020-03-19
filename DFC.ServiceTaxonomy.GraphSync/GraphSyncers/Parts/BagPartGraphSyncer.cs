@@ -91,7 +91,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes)
+            IEnumerable<INode> destNodes,
+            IGraphSyncHelper graphSyncHelper)
         {
             var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
 

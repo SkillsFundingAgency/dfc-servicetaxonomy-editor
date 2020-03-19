@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 
         public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes, IGraphSyncHelper graphSyncHelper)
         {
             var prefLabel = sourceNode.Properties["skos__prefLabel"];
             return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(contentItem.Content.TitlePart.Title));

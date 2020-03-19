@@ -50,36 +50,35 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return emptyResult;
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        public Task<bool> VerifySyncComponent(
+            ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes, IGraphSyncHelper graphSyncHelper)
         {
-            //todo: this
-            // GraphLookupPart graphLookupPart = contentItem.Content.GraphLookupPart.ToObject<GraphLookupPart>();
-            //
-            // if (graphLookupPart != null)
-            // {
-            //     var relationshipType =
-            //         (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
-            //
-            //     foreach (var node in graphLookupPart.Nodes)
-            //     {
-            //         var destNode = destNodes.SingleOrDefault(x =>
-            //             (string)x.Properties[_graphSyncPartIdProperty.Name] == node.Id);
-            //
-            //         if (destNode == null)
-            //         {
-            //             return Task.FromResult(false);
-            //         }
-            //
-            //         var relationship = relationships.SingleOrDefault(x =>
-            //             x.Type == relationshipType && x.EndNodeId == destNode.Id);
-            //
-            //         if (relationship == null)
-            //         {
-            //             return Task.FromResult(false);
-            //         }
-            //     }
-            // }
+            GraphLookupPart graphLookupPart = contentItem.Content.GraphLookupPart.ToObject<GraphLookupPart>();
+
+            if (graphLookupPart != null)
+            {
+                var relationshipType =
+                 (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+
+                foreach (var node in graphLookupPart.Nodes)
+                {
+                    var destNode = destNodes.SingleOrDefault(x =>
+                        (string)x.Properties[graphSyncHelper.IdPropertyName] == node.Id);
+
+                    if (destNode == null)
+                    {
+                        return Task.FromResult(false);
+                    }
+
+                    var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
+
+                    if (relationship == null)
+                    {
+                        return Task.FromResult(false);
+                    }
+                }
+            }
 
             return Task.FromResult(true);
         }

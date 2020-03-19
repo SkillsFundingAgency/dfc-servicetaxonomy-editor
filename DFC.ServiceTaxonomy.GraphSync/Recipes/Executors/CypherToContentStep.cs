@@ -87,6 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
 
+                //todo: still slow even after disabling graph sync, need to speed it up more
                 var contentItemJObjects = contentItemsJson
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
                     .SelectMany(cijo => cijo);
