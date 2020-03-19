@@ -203,7 +203,7 @@ namespace GetJobProfiles
                 title = HtmlField.ConvertLinks(title);
             }
 
-            var matchingTitle = _contentItemTitles[key].SingleOrDefault(x => x.Item2 == title);
+            var matchingTitle = _contentItemTitles[key].SingleOrDefault(x => x.Item2.Trim().Equals(title.Trim(), StringComparison.InvariantCultureIgnoreCase));
 
             if (matchingTitle == null)
             {
@@ -234,7 +234,7 @@ namespace GetJobProfiles
 
         private static List<Tuple<string, string>> ProcessContentType(string excelSheet, string columnOneName, string columnTwoName)
         {
-            using (var reader = new StreamReader(@"SeedData\job_profiles.xlsx"))
+            using (var reader = new StreamReader(@"SeedData\job_profiles_updated.xlsx"))
             {
                 var workbook = new XSSFWorkbook(reader.BaseStream);
                 var sheet = workbook.GetSheet(excelSheet);
