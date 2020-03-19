@@ -62,8 +62,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
 
             SelectedNodeId = sourceNode.Id;
 
-            string sourceLabel = sourceNode.Properties.ContainsKey(SourcePropertyName) ? sourceNode.Properties[SourcePropertyName].ToString() : string.Empty;
-            string result = sourceLabel;
+            string? sourceLabel = sourceNode.Properties.ContainsKey(SourcePropertyName) ? sourceNode.Properties[SourcePropertyName].ToString() : string.Empty;
+            string result = sourceLabel ?? string.Empty;
 
             if (relationship != null)
             {
