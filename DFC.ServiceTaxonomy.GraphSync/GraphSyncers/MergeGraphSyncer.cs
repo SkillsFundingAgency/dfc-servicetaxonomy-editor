@@ -65,20 +65,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return null;
 
-            //string contentItemId = content["ContentItemId"]!.ToString();
             string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItemVersionId}");
             if (disableSyncContentItemVersionId != null)
             {
                 _logger.LogInformation($"Not syncing {contentType}:{contentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
                 return null;
             }
-            // if (content.ContainsKey("DontSync"))
-            // {
-            //     //todo: this doesn't remove it from oc, just the copy we have, so the content item never gets synced subsequently
-            //     // have part for our own metadata and use ContentItemExtensions to manipulate it?
-            //     content.Remove("DontSync");
-            //     return null;
-            // }
 
             _logger.LogInformation($"Sync: merging {contentType}");
 
