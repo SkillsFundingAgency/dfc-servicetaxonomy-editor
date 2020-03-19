@@ -4,7 +4,7 @@
 
 @{
     ContentItem contentItem = Model.ContentItem;
-    var graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)].Value;
+    string? graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value;
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
 }
 
