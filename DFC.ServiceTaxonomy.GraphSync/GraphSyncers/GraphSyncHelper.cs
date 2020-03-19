@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -143,7 +144,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private async Task<string> Transform(string transformCode, string untransformedValue)
         {
             _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
-            return await CSharpScript.EvaluateAsync<string>(transformCode, globals: _graphSyncHelperCSharpScriptGlobals);
+            return await CSharpScript.EvaluateAsync<string>(transformCode,
+                ScriptOptions.Default.WithImports("System"),
+                _graphSyncHelperCSharpScriptGlobals);
         }
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)

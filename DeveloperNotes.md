@@ -4,6 +4,7 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* order content type in editor alphabetically (or programmatically)
 * titles (for picking) on esco skills??
 * if sync fails on create/update, inform user, mark visually as not synced, have task on timer to reattempt sync of any content items tagged as not synced (unless can think of a less messy way)
 * use titles from spreadsheet for imported content items
