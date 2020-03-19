@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using OrchardCore.ContentManagement;
@@ -23,7 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
 
             query = query.With<ContentItemIndex>(x => x.DisplayText.Contains(displayText));
 
-            // ???
             query = query.With<ContentItemIndex>(x => x.Published);
 
             //check content type exists? or just let query fail?
@@ -38,8 +36,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
             if (contentItem == null) //todo: what exception?
                 throw new InvalidDataException($"Unable to get content item of type '{contentType}' with DisplayText '{displayText}'.");
 
-//            return $"\"{contentItem.ContentItemId}\"";
-            //where are the other quotes coming from?
             return $"{contentItem.ContentItemId}";
         }
     }
