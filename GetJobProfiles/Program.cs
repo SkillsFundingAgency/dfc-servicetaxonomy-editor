@@ -109,7 +109,7 @@ namespace GetJobProfiles
             BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
-            File.WriteAllText("{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            File.WriteAllText($"{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
         }
 
         private static void CopyRecipe(string recipePath, string recipeFilename)
