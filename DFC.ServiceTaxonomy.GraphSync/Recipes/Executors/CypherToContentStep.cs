@@ -59,9 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _logger = logger;
         }
 
-        //todo: new recipes in importer in order
         //todo: occupation in job profile bag : readonly
-        //todo: might need to split occupation recipes up, i.e. \r\norder by l.uri\r\nskip 0 limit 100
         //todo: need to add validation, at least to detect when import same thing twice!
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
