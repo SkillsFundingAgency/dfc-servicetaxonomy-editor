@@ -56,11 +56,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         {
             var result = new Header
             {
-                Languages = new List<string> { OwlDataGeneratorConfigModel.DefaultLanguage },
+                Languages = new List<string> { OwlDataGeneratorConfigModel.DefaultLanguage! },
                 Title = CreateDescription(),
-                Iri = OwlDataGeneratorConfigModel.HeaderIri,
-                Version = OwlDataGeneratorConfigModel.HeaderVersion,
-                Author = new List<string> { OwlDataGeneratorConfigModel.HeaderAuthor, },
+                Iri = OwlDataGeneratorConfigModel.HeaderIri!,
+                Version = OwlDataGeneratorConfigModel.HeaderVersion!,
+                Author = new List<string> { OwlDataGeneratorConfigModel.HeaderAuthor!, },
                 Description = CreateDescription(),
             };
 
@@ -134,7 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             var result = new Class
             {
                 Id = nodeDataModel.Id,
-                Type = $"owl:{(nodeDataModel.Id.Equals("Class" + selectedNode) ? "equivalent" : string.Empty)}Class",
+                Type = $"owl:{(nodeDataModel.Id!.Equals("Class" + selectedNode) ? "equivalent" : string.Empty)}Class",
             };
 
             return result;
@@ -149,7 +149,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                 BaseIri = "https://nationalcareers.service.gov.uk/test/",
                 Label = nodeDataModel.Label,
                 Comment = nodeDataModel.Comment,
-                StaxBackgroundColour = GetNextColour(nodeDataModel.Type),
+                StaxBackgroundColour = GetNextColour(nodeDataModel.Type!),
                 StaxProperties = nodeDataModel.StaxProperties,
             };
 
