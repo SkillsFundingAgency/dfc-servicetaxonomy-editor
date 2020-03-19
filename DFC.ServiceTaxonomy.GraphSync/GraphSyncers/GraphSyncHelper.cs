@@ -15,7 +15,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
 #pragma warning disable S4136
 
-    //todo: better name
     public class GraphSyncHelper : IGraphSyncHelper
     {
         //todo: gotta be careful about lifetimes. might have to injectiserviceprovider
@@ -81,8 +80,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public async Task<string> RelationshipType(string destinationContentType)
         {
             CheckPreconditions();
-
-            //todo: check how this is called and if graphsync settings is valid
 
             var graphSyncPartSettings = GetGraphSyncPartSettings(destinationContentType);
 
