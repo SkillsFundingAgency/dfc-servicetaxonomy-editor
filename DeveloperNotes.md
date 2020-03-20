@@ -4,6 +4,8 @@
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 confirmation buttons are labelled undefined
 
+* have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings
+* in cyphertocontent step, improve parallelisation, work off ratio to cores?
 * check if static files fixes visualisation
 * add analyser to vis project
 * check if running from vs fixes views issue
