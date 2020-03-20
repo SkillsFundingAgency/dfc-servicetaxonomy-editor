@@ -83,8 +83,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 {
                     var contentItem = _syncFailedContentItems[i];
 
-                    await _mergeGraphSyncer.SyncToGraph(contentItem.ContentType, contentItem.Content,
-                        contentItem.CreatedUtc, contentItem.ModifiedUtc);
+                    await _mergeGraphSyncer.SyncToGraph(
+                        contentItem.ContentType,
+                        contentItem.ContentItemId,
+                        contentItem.ContentItemVersionId,
+                        contentItem.Content,
+                        contentItem.CreatedUtc,
+                        contentItem.ModifiedUtc);
 
                     _syncFailedContentItems.RemoveAt(i);
 

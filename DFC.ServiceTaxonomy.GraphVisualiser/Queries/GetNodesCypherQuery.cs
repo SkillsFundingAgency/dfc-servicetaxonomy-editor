@@ -27,9 +27,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
             SelectedNodeId = -1;
         }
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
-            // nothing to check, all properties are non-nullable
+            return new List<string>();
         }
 
         public Query Query

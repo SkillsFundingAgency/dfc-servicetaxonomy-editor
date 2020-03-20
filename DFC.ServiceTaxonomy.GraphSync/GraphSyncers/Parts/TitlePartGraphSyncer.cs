@@ -19,15 +19,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper)
         {
+            //todo: configurable??
             mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
         public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes, IGraphSyncHelper graphSyncHelper)
         {
             var prefLabel = sourceNode.Properties["skos__prefLabel"];
             return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(contentItem.Content.TitlePart.Title));

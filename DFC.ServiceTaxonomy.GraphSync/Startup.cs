@@ -1,7 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
-using DFC.ServiceTaxonomy.GraphSync.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +14,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
@@ -28,6 +28,8 @@ using OrchardCore.Modules;
 using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
@@ -47,10 +49,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
-            services.Configure<NamespacePrefixConfiguration>(configuration.GetSection("GraphSync"));
 
             // Recipe Steps
-            services.AddRecipeExecutionStep<CypherStep>();
+            services.AddRecipeExecutionStep<CypherCommandStep>();
+            services.AddRecipeExecutionStep<CypherToContentStep>();
+            services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
+            services.AddTransient<IContentHelper, ContentHelper>();
 
             // Graph Database
             services.AddTransient<ILogger, NeoLogger>();
@@ -60,6 +64,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
+            services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
+            services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
+            services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
 
             // Sync to graph workflow task
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
@@ -75,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
-            services.AddTransient<IGraphSyncPartIdProperty, GraphSyncPartUriIdProperty>();
+            services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
             services.AddTransient<IGraphSyncValidator, NeoGraphSyncValidator>();
 
             // Graph Sync Part

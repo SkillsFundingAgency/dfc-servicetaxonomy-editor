@@ -87,6 +87,113 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
+                    "Name": "Occupation",
+                    "DisplayName": "Occupation",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 1
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Occupation",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "PreexistingNode": true,
+                                    "NodeNameTransform": "$\"esco__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/occupation/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "OccupationLabel",
+                    "DisplayName": "Occupation Label",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 1
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "OccupationLabel",
+                            "Name": "OccupationLabel",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "JobProfile",
                     "DisplayName": "Job Profile",
                     "Settings": {
@@ -168,7 +275,10 @@
                                     "Position": "28"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -214,7 +324,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -260,7 +373,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -306,7 +422,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -352,7 +471,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -389,7 +511,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -435,7 +560,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -469,8 +597,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbUniversityRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbUniversityRoute",
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -505,8 +636,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbCollegeRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbCollegeRoute",
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -541,8 +675,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbApprenticeshipRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbApprenticeshipRoute",
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -587,7 +724,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -621,8 +761,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbWorkRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbWorkRoute",
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -656,8 +799,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbVolunteeringRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbVolunteeringRoute",
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -691,8 +837,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbDirectRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbDirectRoute",
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -726,8 +875,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbOtherRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbOtherRoute",
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -772,7 +924,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -817,7 +972,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -862,7 +1020,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -907,7 +1068,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -952,7 +1116,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -997,7 +1164,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1042,7 +1212,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1087,7 +1260,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1132,7 +1308,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1177,7 +1356,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1222,7 +1404,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1267,7 +1452,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1313,7 +1501,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1359,7 +1550,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1405,7 +1599,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1451,7 +1648,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{Value}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{Value.ToLowerInvariant()}/{Guid.NewGuid():D}\""
                                 }
                             }
                         }
@@ -1703,6 +1903,30 @@
                                     "Required": false,
                                     "DisplayedContentTypes": [
                                         "QCFLevel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Occupation",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "AlternativeLabels",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alternative Labels",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
                                     ]
                                 },
                                 "ContentIndexSettings": {}

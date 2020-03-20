@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
@@ -22,34 +23,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphDatabase _graphDatabase;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
-        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
+        private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
+        private readonly IMemoryCache _memoryCache;
         private readonly ILogger<MergeGraphSyncer> _logger;
-
-        //todo: have as setting of activity, or graph sync content part settings
-        private const string NcsPrefix = "ncs__";
-        private const string CommonNodeLabel = "Resource";
 
         public MergeGraphSyncer(
             IGraphDatabase graphDatabase,
             IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
-            IGraphSyncPartIdProperty graphSyncPartIdProperty,
+            IGraphSyncHelper graphSyncHelper,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            IMemoryCache memoryCache,
             ILogger<MergeGraphSyncer> logger)
         {
             _graphDatabase = graphDatabase;
             _contentDefinitionManager = contentDefinitionManager;
             _partSyncers = partSyncers;
-            _graphSyncPartIdProperty = graphSyncPartIdProperty;
+            _graphSyncHelper = graphSyncHelper;
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
+            _memoryCache = memoryCache;
             _logger = logger;
         }
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(string contentType, JObject content, DateTime? createdUtc, DateTime? modifiedUtc)
+        public async Task<IMergeNodeCommand?> SyncToGraph(
+            string contentType,
+            string contentItemId,
+            string contentItemVersionId,
+            JObject content,
+            DateTime? createdUtc,
+            DateTime? modifiedUtc)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -59,21 +65,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphSyncPartContent == null)
                 return null;
 
+            string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItemVersionId}");
+            if (disableSyncContentItemVersionId != null)
+            {
+                _logger.LogInformation($"Not syncing {contentType}:{contentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
+                return null;
+            }
+
             _logger.LogInformation($"Sync: merging {contentType}");
 
-            // could inject _graphSyncPartIdProperty into mergeNodeCommand, but should we?
+            _graphSyncHelper.ContentType = contentType;
 
-            _mergeNodeCommand.NodeLabels.Add(NcsPrefix + contentType);
-            _mergeNodeCommand.NodeLabels.Add(CommonNodeLabel);
-            _mergeNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
+            _mergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
+            _mergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName;
 
             //Add created and modified dates to all content items
             //todo: store as neo's DateTime? especially if api doesn't match the string format
             if (createdUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(NcsPrefix + "CreatedDate", createdUtc.Value);
+                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("CreatedDate"), createdUtc.Value);
 
             if (modifiedUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(NcsPrefix + "ModifiedDate", modifiedUtc.Value);
+                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), modifiedUtc.Value);
 
             List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
 
@@ -82,7 +94,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return _mergeNodeCommand;
         }
 
-        private async Task<List<ICommand>> AddContentPartSyncComponents(string contentType, JObject content)
+        private async Task<List<ICommand>> AddContentPartSyncComponents(
+            string contentType,
+            JObject content)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -114,24 +128,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    partCommands.AddRange(await partSync.AddSyncComponents(partContent, _mergeNodeCommand,
-                        _replaceRelationshipsCommand, contentTypePartDefinition));
+                    partCommands.AddRange(
+                        await partSync.AddSyncComponents(
+                            partContent,
+                            _mergeNodeCommand,
+                            _replaceRelationshipsCommand,
+                            contentTypePartDefinition,
+                            _graphSyncHelper));
                 }
             }
 
             return partCommands;
         }
 
-        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent, List<ICommand> partCommands)
+        private async Task SyncComponentsToGraph(
+            dynamic graphSyncPartContent,
+            IEnumerable<ICommand> partCommands)
         {
-            List<ICommand> commands  = new List<ICommand> {_mergeNodeCommand};
+            List<ICommand> commands = new List<ICommand>();
+
+            if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+            {
+                commands.Add(_mergeNodeCommand);
+            }
 
             if (_replaceRelationshipsCommand.Relationships.Any())
             {
                 // doesn't really belong here...
                 _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
                 _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
-                _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncPartIdProperty.Value(graphSyncPartContent);
+                _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent);
 
                 commands.Add(_replaceRelationshipsCommand);
             }

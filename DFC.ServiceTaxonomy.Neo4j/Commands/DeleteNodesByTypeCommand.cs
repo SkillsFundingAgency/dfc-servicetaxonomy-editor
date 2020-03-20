@@ -26,6 +26,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             {
                 this.CheckIsValid();
 
+                //todo: optionally delete node
+
                 return new Query(
 $@"MATCH (n:{string.Join(':', NodeLabels)})
 OPTIONAL MATCH (n)-[r]->()
