@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Activities\ContentUpdated\**" />
+    <EmbeddedResource Remove="Activities\ContentUpdated\**" />
+    <None Remove="Activities\ContentUpdated\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -32,9 +38,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Activities\ContentUpdated\" />
   </ItemGroup>
 </Project>

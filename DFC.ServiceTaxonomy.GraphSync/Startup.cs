@@ -70,6 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
             services.AddActivity<ContentTypeFieldRemovedEvent, ContentTypeFieldRemovedEventDisplay>();
             services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
+            services.AddActivity<PublishContentTypeContentItemsTask, PublishContentTypeContentItemsTaskDisplay>();
 
             // Syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
