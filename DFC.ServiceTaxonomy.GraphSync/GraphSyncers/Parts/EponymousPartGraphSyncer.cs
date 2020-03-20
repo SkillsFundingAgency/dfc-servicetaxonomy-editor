@@ -79,8 +79,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 JToken? fieldContent = ((JProperty)field).FirstOrDefault();
                 JProperty? firstProperty = (JProperty?)fieldContent?.FirstOrDefault();
+
+                string? keyName = ((JProperty)field).Name;
+
                 if (firstProperty == null)
                     continue;
+
+                if (!contentTypePartDefinition.PartDefinition.Fields.Any(z => z.Name.Equals(keyName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    firstProperty.Value = JValue.Parse("{}");
+                }
 
                 JProperty? secondProperty = (JProperty?)fieldContent.Skip(1).FirstOrDefault();
                 string? secondName = secondProperty?.Name;
@@ -179,7 +187,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         private static void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
         {
-            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, propertyValue.ToString());
+#pragma warning disable CS8604 // Possible null reference argument.
+            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, propertyValue.ToString() != "{}" ? propertyValue.ToString() : null);
+#pragma warning restore CS8604 // Possible null reference argument.
         }
 
         private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)

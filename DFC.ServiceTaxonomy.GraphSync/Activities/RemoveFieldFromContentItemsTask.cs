@@ -2,14 +2,13 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Records;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
-using OrchardCore.ContentTypes.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using OrchardCore.ContentManagement.Records;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -58,12 +57,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             _contentDefinitionService.RemoveFieldFromPart(fieldToRemove, contentTypeToSync);
 
+            await _session.FlushAsync();
             var query = _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == contentTypeToSync);
 
             foreach (var contentItem in await query.ListAsync())
             {
                 var item = await _contentManager.GetAsync(contentItem.ContentItemId);
-                await _contentManager.(item);
+                item.Published = false;
+                await _contentManager.PublishAsync(item);
             }
 
             return Outcomes("Done");
