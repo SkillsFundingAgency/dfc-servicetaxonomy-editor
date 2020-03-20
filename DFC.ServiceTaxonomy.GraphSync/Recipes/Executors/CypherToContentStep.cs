@@ -68,18 +68,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             var step = context.Step.ToObject<CypherToContentStepModel>();
 
-            foreach (var queries in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
+            foreach (CypherToContentModel? cypherToContent in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
             {
-                if (queries == null)
+                if (cypherToContent == null)
                     continue;
 
                 _logger.LogInformation($"{StepName} step");
 
                 var getContentItemsAsJsonQuery = _serviceProvider.GetRequiredService<IGetContentItemsAsJsonQuery>();
 
-                getContentItemsAsJsonQuery.QueryStatement = queries.Query;
+                getContentItemsAsJsonQuery.QueryStatement = cypherToContent.Query;
 
-                _logger.LogInformation($"Executing query to retrieve content for items:\r\n{queries.Query}");
+                _logger.LogInformation($"Executing query to retrieve content for items:\r\n{cypherToContent.Query}");
 
                 List<string> contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
 
@@ -99,7 +99,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
                 {
-                    var createContentItemTasks = contentJObjectBatch.Select(CreateContentItem);
+                    var createContentItemTasks = contentJObjectBatch
+                        .Select(jo => CreateContentItem(jo, cypherToContent.SyncBackRequired));
 
                     await Task.WhenAll(createContentItemTasks);
                 }
@@ -110,7 +111,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
         }
 
-        private async Task CreateContentItem(JObject contentJObject)
+        private async Task CreateContentItem(JObject contentJObject, bool syncBackRequired)
         {
             ContentItem? contentItem = contentJObject.ToObject<ContentItem>();
 
@@ -139,9 +140,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             // (we're essentially skipping a no-op)
             // what we want to avoid, is _not_ syncing when we should
             // that's why we use ContentItemVersionId, instead of ContentItemId
-            string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
-            _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
-                new TimeSpan(0, 0, 30));
+            if (!syncBackRequired)
+            {
+                string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
+                _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
+                    new TimeSpan(0, 0, 30));
+            }
 
             //todo: log adding content type + id? how would we (easily) get the contenttype??
 
@@ -170,6 +174,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         public class CypherToContentModel
         {
             public string? Query { get; set; }
+            public bool SyncBackRequired { get; set; }
         }
 
         //todo: setting whether serial or parallel (or parallel by default and multiple recipes for serial) and split label create across queries to speed up import (or wait until 1 recipe to import multiple recipes for parallalisation?)
