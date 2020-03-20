@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.Localization;
+using MoreLinq.Extensions;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -25,13 +26,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             IMergeGraphSyncer mergeGraphSyncer,
             IStringLocalizer<AuditSyncIssuesTask> localizer,
             IContentDefinitionManager contentDefinitionManager,
-            IGraphSyncValidator graphSyncValidator)
+            IGraphSyncValidator graphSyncValidator,
+            IDeleteGraphSyncer deleteGraphSyncer)
         {
             _session = session;
             _mergeGraphSyncer = mergeGraphSyncer;
             _graphSyncValidator = graphSyncValidator;
+            _deleteGraphSyncer = deleteGraphSyncer;
             T = localizer;
             _syncFailedContentItems = new List<ContentItem>();
+            _deleteSyncFailedContentItems = new List<ContentItem>();
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
@@ -41,6 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         private readonly ISession _session;
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private readonly IGraphSyncValidator _graphSyncValidator;
+        private readonly IDeleteGraphSyncer _deleteGraphSyncer;
         private IStringLocalizer T { get; }
 
         public override string Name => nameof(AuditSyncIssuesTask);
@@ -48,6 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public override LocalizedString Category => T["Graph"];
 
         private readonly List<ContentItem> _syncFailedContentItems;
+        private readonly List<ContentItem> _deleteSyncFailedContentItems;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
@@ -104,13 +110,59 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 }
             }
 
-            //anything left in the syncFailedContentItems collection is still failing to sync - report this somehow
+            await CheckDeletedContentItems();
 
-            log.LastSynced = timestamp;
-            _session.Save(log);
-            await _session.CommitAsync();
+            for (int i = 0; i < _deleteSyncFailedContentItems.Count; i++)
+            {
+                try
+                {
+                    var contentItem = _deleteSyncFailedContentItems[i];
+
+                    await _deleteGraphSyncer.DeleteFromGraph(contentItem);
+
+                    _deleteSyncFailedContentItems.RemoveAt(i);
+
+                    if (!await _deleteGraphSyncer.VerifyDeletion(contentItem))
+                    {
+                        _deleteSyncFailedContentItems.Add(contentItem);
+                    }
+                }
+                catch
+                {
+                    //I don't want to do anything here, why won't this build without this comment?
+                }
+            }
+
+            //anything left in the collections are still failing to sync - report this somehow
+
+            if (!_syncFailedContentItems.Any())
+            {
+                log.LastSynced = timestamp;
+                _session.Save(log);
+                await _session.CommitAsync();
+            }
 
             return Outcomes("Done");
+        }
+
+        private async Task CheckDeletedContentItems()
+        {
+            var contentItems = await _session
+                .Query<ContentItem, ContentItemIndex>(x => !x.Published && !x.Latest)
+                .ListAsync();
+
+            foreach (var contentItem in contentItems.DistinctBy(x => x.ContentItemId).ToList())
+            {
+                var items = await _session
+                    .Query<ContentItem, ContentItemIndex>(x => x.ContentItemId == contentItem.ContentItemId)
+                    .OrderBy(x => x.CreatedUtc)
+                    .ListAsync();
+
+                if (items.All(x => !x.Published && !x.Latest) && !await _deleteGraphSyncer.VerifyDeletion(contentItem))
+                {
+                    _deleteSyncFailedContentItems.Add(contentItem);
+                }
+            }
         }
     }
 

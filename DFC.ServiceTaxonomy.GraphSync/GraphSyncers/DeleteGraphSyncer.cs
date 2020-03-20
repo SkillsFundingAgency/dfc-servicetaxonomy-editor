@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Logging;
@@ -56,6 +58,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _session.Cancel();
                 throw;
             }
+        }
+
+        public async Task<bool> VerifyDeletion(ContentItem contentItem)
+        {
+            var result = await _graphDatabase.Run(
+                new MatchNodeWithAllOutgoingRelationshipsQuery(contentItem.ContentType,
+                    (string)contentItem.Content.GraphSyncPart.Text));
+
+            return !(result is object && result.Any());
         }
 
         public async Task DeleteFromGraph(ContentItem contentItem)

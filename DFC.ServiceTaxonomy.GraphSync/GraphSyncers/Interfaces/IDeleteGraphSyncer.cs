@@ -7,5 +7,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         Task DeleteFromGraph(ContentItem contentItem);
         Task DeleteNodesByType(string contentType);
+        Task<bool> VerifyDeletion(ContentItem contentItem);
     }
 }
