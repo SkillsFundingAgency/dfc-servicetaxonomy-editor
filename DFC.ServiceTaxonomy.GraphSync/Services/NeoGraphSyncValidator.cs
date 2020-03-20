@@ -55,12 +55,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
             foreach (var part in contentDefinition.Parts)
             {
-                if (!_partSyncers.TryGetValue(part.PartDefinition.Name, out var partSyncer))
+                string partname = part.PartDefinition.Name;
+                if (!_partSyncers.TryGetValue(partname, out var partSyncer))
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
 
-                if (!await partSyncer.VerifySyncComponent(contentItem, part, sourceNode, relationships, destNodes, _graphSyncHelper))
+                dynamic? partContent = contentItem.Content[partname];
+                if (partContent == null)
+                    continue; //todo: throw??
+
+                if (!await partSyncer.VerifySyncComponent(partContent, part, sourceNode, relationships, destNodes, _graphSyncHelper))
                     return false;
             }
 

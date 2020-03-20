@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -27,12 +26,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes, IGraphSyncHelper graphSyncHelper)
+        public Task<bool> VerifySyncComponent(
+            dynamic content,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destNodes,
+            IGraphSyncHelper graphSyncHelper)
         {
             object id = sourceNode.Properties[graphSyncHelper.IdPropertyName];
             //todo: should we convert to string?
-            return Task.FromResult(Convert.ToString(id) == graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart));
+            return Task.FromResult(Convert.ToString(id) == graphSyncHelper.GetIdPropertyValue(content));
         }
     }
 }

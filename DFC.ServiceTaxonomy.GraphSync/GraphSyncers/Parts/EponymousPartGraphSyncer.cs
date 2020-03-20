@@ -117,7 +117,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 //todo: pass just content like method above
         public async Task<bool> VerifySyncComponent(
-            ContentItem contentItem,
+            dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -126,7 +126,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             foreach (ContentPartFieldDefinition field in contentTypePartDefinition.PartDefinition.Fields)
             {
-                JObject value = contentItem.Content[contentItem.ContentType][field.Name];
+                JObject value = content[field.Name];
 
                 if (field.FieldDefinition.Name == "ContentPickerField")
                 {

@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using OrchardCore.ContentManagement;
@@ -33,8 +33,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
 
             ContentItem contentItem = await query.FirstOrDefaultAsync();
 
-            if (contentItem == null) //todo: what exception?
-                throw new InvalidDataException($"Unable to get content item of type '{contentType}' with DisplayText '{displayText}'.");
+            if (contentItem == null)
+            {
+                #pragma warning disable S112
+                //todo: best exception?
+                throw new Exception($"Unable to get content item of type '{contentType}' with DisplayText '{displayText}'.");
+                #pragma warning restore S112
+            }
 
             return $"{contentItem.ContentItemId}";
         }

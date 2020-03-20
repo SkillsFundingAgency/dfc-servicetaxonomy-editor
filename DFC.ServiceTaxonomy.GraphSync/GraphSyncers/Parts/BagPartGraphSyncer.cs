@@ -84,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 
         public async Task<bool> VerifySyncComponent(
-            ContentItem contentItem,
+            dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -93,7 +93,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
 
-            var contentItems = contentItem.Content[contentTypePartDefinition.Name]["ContentItems"].ToObject<IEnumerable<ContentItem>>();
+            var contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
 
             foreach (var bagPartContentItem in contentItems)
             {
