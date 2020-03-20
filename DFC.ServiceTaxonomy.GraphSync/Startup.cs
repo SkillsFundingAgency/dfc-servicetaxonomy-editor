@@ -83,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            services.AddTransient<IGraphSyncValidator, NeoGraphSyncValidator>();
+            services.AddTransient<IGraphSyncValidator, GraphSyncValidator>();
 
             // Graph Sync Part
             services.AddContentPart<GraphSyncPart>()

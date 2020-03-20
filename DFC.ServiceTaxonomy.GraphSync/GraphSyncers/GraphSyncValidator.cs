@@ -11,16 +11,16 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Services
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public class NeoGraphSyncValidator : IGraphSyncValidator
+    public class GraphSyncValidator : IGraphSyncValidator
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
 
-        public NeoGraphSyncValidator(
+        public GraphSyncValidator(
             IContentDefinitionManager contentDefinitionManager,
             IGraphDatabase graphDatabase,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
         }
-//todo: move to GraphSyncers?
+
         public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem)
         {
             var results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(contentItem.ContentType, (string)contentItem.Content.GraphSyncPart.Text));
