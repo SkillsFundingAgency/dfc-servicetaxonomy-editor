@@ -16,11 +16,7 @@ namespace DFC.ServiceTaxonomy.Editor
             return Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(logging => logging.ClearProviders())
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
-                        .UseNLogWeb().ConfigureLogging(logging =>
-                        {
-                            logging.ClearProviders();
-                            logging.AddConsole();
-                        })
+                        .UseNLogWeb()
                         //todo: remove theme's we don't need
                         // .UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey,
                         //"TheComingSoonTheme;TheBlogTheme;TheTheme")
