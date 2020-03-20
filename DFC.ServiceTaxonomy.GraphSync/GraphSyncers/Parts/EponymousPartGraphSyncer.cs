@@ -128,55 +128,61 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             {
                 JObject value = content[field.Name];
 
-                if (field.FieldDefinition.Name == "ContentPickerField")
+                switch (field.FieldDefinition.Name)
                 {
-                    ContentPickerFieldSettings contentPickerFieldSettings = field.GetSettings<ContentPickerFieldSettings>();
+                    case "ContentPickerField":
+                        ContentPickerFieldSettings contentPickerFieldSettings = field.GetSettings<ContentPickerFieldSettings>();
 
-                    string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings);
+                        string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings);
 
-                    var relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
+                        var relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
 
-                    var contentItemIds = (JArray)value["ContentItemIds"]!;
-                    if (contentItemIds.Count != relationshipCount)
-                    {
-                        return false;
-                    }
-
-                    foreach (JToken item in contentItemIds)
-                    {
-                        var contentItemId = (string)item!;
-
-                        var destContentItem = await _contentManager.GetAsync(contentItemId);
-
-                        var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
-
-                        var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destUri);
-
-                        if (destNode == null)
+                        var contentItemIds = (JArray)value["ContentItemIds"]!;
+                        if (contentItemIds.Count != relationshipCount)
                         {
                             return false;
                         }
 
-                        var relationship = relationships.SingleOrDefault(r =>
-                            string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && r.EndNodeId == destNode.Id);
+                        foreach (JToken item in contentItemIds)
+                        {
+                            var contentItemId = (string)item!;
 
-                        if (relationship == null)
+                            var destContentItem = await _contentManager.GetAsync(contentItemId);
+
+                            var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
+
+                            var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destUri);
+
+                            if (destNode == null)
+                            {
+                                return false;
+                            }
+
+                            var relationship = relationships.SingleOrDefault(r =>
+                                string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && r.EndNodeId == destNode.Id);
+
+                            if (relationship == null)
+                            {
+                                return false;
+                            }
+                        }
+                        break;
+                    case "LinkField":
+                        //todo:
+                        // JToken? urlField = value?["Url"];
+                        // JToken? textField = value?["Text"];
+                        break;
+                    default:
+                        //todo: will probably need code for each field
+                        JToken? contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"];
+                        string propertyName = await graphSyncHelper.PropertyName(field.Name);
+                        sourceNode.Properties.TryGetValue(propertyName, out var nodePropertyValue);
+
+                        if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))
                         {
                             return false;
                         }
-                    }
-                }
-                else
-                {
-                    //todo: postfix url & text for link fields?
-                    var contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"] ?? value?["Url"];
-                    string propertyName = await graphSyncHelper.PropertyName(field.Name);
-                    sourceNode.Properties.TryGetValue(propertyName, out var nodePropertyValue);
-
-                    if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))
-                    {
-                        return false;
-                    }
+                        break;
                 }
             }
 

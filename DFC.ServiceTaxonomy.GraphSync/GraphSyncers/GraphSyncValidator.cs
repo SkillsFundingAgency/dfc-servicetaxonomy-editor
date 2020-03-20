@@ -37,7 +37,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem)
         {
-            var results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(contentItem.ContentType, (string)contentItem.Content.GraphSyncPart.Text));
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            List<IRecord> results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(
+                await _graphSyncHelper.NodeLabels(),
+                _graphSyncHelper.IdPropertyName,
+                _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart)));
 
             if (results == null || !results.Any())
                 return false;
