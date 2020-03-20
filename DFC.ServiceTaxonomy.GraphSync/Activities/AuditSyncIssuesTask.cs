@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             _graphSyncValidator = graphSyncValidator;
             T = localizer;
             _syncFailedContentItems = new List<ContentItem>();
-            _contentTypes = contentDefinitionManager
+            _contentTypes = contentDefinitionManager        //todo: don't calc these in ctor, check at sync val time, also ctor get called many times, not always when executing
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
@@ -70,7 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 .ListAsync();
 
             foreach (var contentItem in contentItems)
-            {
+            { //todo: do we need a new _graphSyncValidator each time?
                 if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
                 {
                     _syncFailedContentItems.Add(contentItem);
