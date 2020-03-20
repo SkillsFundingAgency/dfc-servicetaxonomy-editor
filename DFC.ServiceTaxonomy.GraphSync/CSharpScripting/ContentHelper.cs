@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using OrchardCore.ContentManagement;
@@ -21,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
         {
             var query = _session.Query<ContentItem, ContentItemIndex>();
 
-            query = query.With<ContentItemIndex>(x => string.Equals(x.DisplayText, displayText, StringComparison.CurrentCultureIgnoreCase));
+            query = query.With<ContentItemIndex>(x => x.DisplayText == displayText);
 
             query = query.With<ContentItemIndex>(x => x.Published);
 
