@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using OrchardCore.ContentManagement;
@@ -16,11 +17,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
             _session = session;
         }
 
-        public async Task<string> GetContentItemIdByDisplayText(string contentType, string displayText) //string lookupField, string lookupValue)
+        public async Task<string> GetContentItemIdByDisplayText(string contentType, string displayText)
         {
             var query = _session.Query<ContentItem, ContentItemIndex>();
 
-            query = query.With<ContentItemIndex>(x => x.DisplayText.Contains(displayText));
+            query = query.With<ContentItemIndex>(x => string.Equals(x.DisplayText, displayText, StringComparison.CurrentCultureIgnoreCase));
 
             query = query.With<ContentItemIndex>(x => x.Published);
 
