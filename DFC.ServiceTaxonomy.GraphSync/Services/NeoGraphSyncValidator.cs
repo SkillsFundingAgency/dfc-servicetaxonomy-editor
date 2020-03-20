@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
         }
-
+//todo: move to GraphSyncers?
         public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem)
         {
             var results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(contentItem.ContentType, (string)contentItem.Content.GraphSyncPart.Text));
@@ -43,6 +43,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
                 return false;
 
             var contentDefinition = _contentTypes[contentItem.ContentType];
+
+            _graphSyncHelper.ContentType = contentItem.ContentType;
 
             var sourceNode = results.Select(x => x[0]).Cast<INode>().First();
             var relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
