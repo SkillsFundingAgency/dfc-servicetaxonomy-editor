@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         // should only be used for fallbacks
         //todo: should we support fallback, or insist on relationship type being specified. don't need to set value as is in recipe
-        public async Task<string> RelationshipType(string destinationContentType)
+        public async Task<string> RelationshipTypeDefault(string destinationContentType)
         {
             CheckPreconditions();
 

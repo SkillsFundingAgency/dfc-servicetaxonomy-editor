@@ -115,7 +115,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
             return Enumerable.Empty<ICommand>();
         }
-
+//todo: pass just content like method above
         public async Task<bool> VerifySyncComponent(
             ContentItem contentItem,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -124,26 +124,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IEnumerable<INode> destNodes,
             IGraphSyncHelper graphSyncHelper)
         {
-            foreach (var field in contentTypePartDefinition.PartDefinition.Fields)
+            foreach (ContentPartFieldDefinition field in contentTypePartDefinition.PartDefinition.Fields)
             {
                 JObject value = contentItem.Content[contentItem.ContentType][field.Name];
 
                 if (field.FieldDefinition.Name == "ContentPickerField")
                 {
-                    //todo:
-                    var relationshipType = $"ncs__has{field.Settings["ContentPickerFieldSettings"]!["DisplayedContentTypes"]![0]}";
+                    ContentPickerFieldSettings contentPickerFieldSettings = field.GetSettings<ContentPickerFieldSettings>();
+
+                    string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings);
+
+                    var relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
+
                     var contentItemIds = (JArray)value["ContentItemIds"]!;
-
-                    var contentCount = contentItemIds.Count;
-                    //TODO : need to ignore case for hasSocCode vs hasSOCCode - need to make sure these line up!
-                    var relationshipCount = relationships.Count(x => string.Equals(x.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
-
-                    if (contentCount != relationshipCount)
+                    if (contentItemIds.Count != relationshipCount)
                     {
                         return false;
                     }
 
-                    foreach (var item in contentItemIds)
+                    foreach (JToken item in contentItemIds)
                     {
                         var contentItemId = (string)item!;
 
@@ -158,8 +157,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                             return false;
                         }
 
-                        var relationship = relationships.SingleOrDefault(x =>
-                            string.Equals(x.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && x.EndNodeId == destNode.Id);
+                        var relationship = relationships.SingleOrDefault(r =>
+                            string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && r.EndNodeId == destNode.Id);
 
                         if (relationship == null)
                         {
@@ -169,9 +168,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 }
                 else
                 {
+                    //todo: postfix url & text for link fields?
                     var contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"] ?? value?["Url"];
-                    //todo:
-                    sourceNode.Properties.TryGetValue($"ncs__{field.Name}", out var nodePropertyValue);
+                    string propertyName = await graphSyncHelper.PropertyName(field.Name);
+                    sourceNode.Properties.TryGetValue(propertyName, out var nodePropertyValue);
 
                     if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))
                     {
@@ -234,22 +234,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentPickerFieldSettings contentPickerFieldSettings = fieldDefinitions
                 .First(f => f.Name == fieldName).GetSettings<ContentPickerFieldSettings>();
 
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings);
+
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-
-            //todo: move this code into graphsynchelper?
-            string? relationshipType = null;
-            if (contentPickerFieldSettings.Hint != null)
-            {
-                Match match = _relationshipTypeRegex.Match(contentPickerFieldSettings.Hint);
-                if (match.Success)
-                {
-                    relationshipType = $"{match.Groups[1].Value}";
-                }
-            }
-            if (relationshipType == null)
-                relationshipType = await _graphSyncHelper!.RelationshipType(pickedContentType);
-
-            //todo: do we always want to add Resource, or pass a bool?
             IEnumerable<string> destNodeLabels = await _graphSyncHelper!.NodeLabels(pickedContentType);
 
             //todo requires 'picked' part has a graph sync part
@@ -263,6 +250,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 destNodeLabels,
                 _graphSyncHelper!.IdPropertyName,
                 destIds);
+        }
+
+        private async Task<string> RelationshipTypeContentPicker(ContentPickerFieldSettings contentPickerFieldSettings)
+        {
+            //todo: handle multiple types
+            string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
+
+            string? relationshipType = null;
+            if (contentPickerFieldSettings.Hint != null)
+            {
+                Match match = _relationshipTypeRegex.Match(contentPickerFieldSettings.Hint);
+                if (match.Success)
+                {
+                    relationshipType = $"{match.Groups[1].Value}";
+                }
+            }
+
+            if (relationshipType == null)
+                relationshipType = await _graphSyncHelper!.RelationshipTypeDefault(pickedContentType);
+
+            return relationshipType;
         }
 
         private object GetSyncId(ContentItem pickedContentItem)

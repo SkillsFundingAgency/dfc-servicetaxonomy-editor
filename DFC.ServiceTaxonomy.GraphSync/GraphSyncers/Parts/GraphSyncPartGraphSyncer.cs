@@ -16,13 +16,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public string? PartName => nameof(GraphSyncPart);
 
         public Task<IEnumerable<ICommand>> AddSyncComponents(
-            dynamic graphSyncContent,
+            dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName, graphSyncHelper.GetIdPropertyValue(graphSyncContent));
+            mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName, graphSyncHelper.GetIdPropertyValue(content));
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }

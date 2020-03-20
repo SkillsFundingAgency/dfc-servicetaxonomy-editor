@@ -16,14 +16,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public string? PartName => nameof(TitlePart);
 
         public Task<IEnumerable<ICommand>> AddSyncComponents(
-            dynamic graphLookupContent,
+            dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
             //todo: configurable??
-            mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
+            mergeNodeCommand.Properties.Add("skos__prefLabel", content.Title.ToString());
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }

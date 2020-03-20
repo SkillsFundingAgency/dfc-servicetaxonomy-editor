@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 
         public async Task<IEnumerable<ICommand>> AddSyncComponents(
-            dynamic graphLookupContent,
+            dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             var delayedCommands = new List<ICommand>();
 
-            foreach (JObject? contentItem in graphLookupContent.ContentItems)
+            foreach (JObject? contentItem in content.ContentItems)
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
@@ -68,11 +68,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
                 delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
-                //todo: move this code into graphSyncHelper
-                //todo: what if want different relationships for same contenttype in different bags!
-                string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
-                if (string.IsNullOrEmpty(relationshipType))
-                    relationshipType = await graphSyncHelper.RelationshipType(contentType);
+                graphSyncHelper.ContentType = contentType;
+                string relationshipType = await RelationshipType(graphSyncHelper);
 
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
@@ -112,6 +109,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
 
             return true;
+        }
+
+        private async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
+        {
+            //todo: what if want different relationships for same contenttype in different bags!
+            string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
+            if (string.IsNullOrEmpty(relationshipType))
+                relationshipType = await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
+
+            return relationshipType;
         }
     }
 }

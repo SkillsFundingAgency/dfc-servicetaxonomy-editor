@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<string> GenerateIdPropertyValue();
 
         Task<IEnumerable<string>> NodeLabels(string contentType);
-        Task<string> RelationshipType(string destinationContentType);
+        Task<string> RelationshipTypeDefault(string destinationContentType);
 
         string GetIdPropertyValue(dynamic graphSyncContent);
     }

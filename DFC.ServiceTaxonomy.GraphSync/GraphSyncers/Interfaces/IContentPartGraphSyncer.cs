@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         string? PartName {get;}
 
         Task<IEnumerable<ICommand>> AddSyncComponents(
-            dynamic graphLookupContent,
+            dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
