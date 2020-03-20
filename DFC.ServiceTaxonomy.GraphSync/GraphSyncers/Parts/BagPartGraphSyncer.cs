@@ -93,20 +93,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
 
-            var contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
+            IEnumerable<ContentItem> contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
 
-            foreach (var bagPartContentItem in contentItems)
+            foreach (ContentItem bagPartContentItem in contentItems)
             {
-                //todo: foreach will never iterate
-                if (await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
-                {
-                    return true;
-                }
-                else
-                {
+                if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
                     return false;
-                }
             }
+
+            //todo: need to check relationships
 
             return true;
         }
