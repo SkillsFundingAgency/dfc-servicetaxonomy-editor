@@ -16,7 +16,9 @@ parameters:
   EditorAdminUserEmail: ''
   EditorAdminUserPassword: ''
   DotNetCoreVersion: '3.1.100'
-
+  DFCAzureDevOpsProjectGuid: ''
+  DfcServiceTaxonomyTestsBuildId: ''
+ 
 jobs:    
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
@@ -102,3 +104,12 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
+        - task: DownloadPipelineArtifact@2
+          displayName: Download dfc-servicetaxonomy-tests artifact
+          condition: eq(${{ parameters.EnvironmentTag }}, 'Dev/Test')
+          inputs:
+            source: specific
+            project: ${{ parameters.DFCAzureDevOpsProjectGuid }}
+            pipeline: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
+            runVersion: latestFromBranch
+            runBranch: 'refs/heads/master'
