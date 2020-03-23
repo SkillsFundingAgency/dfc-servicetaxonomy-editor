@@ -51,13 +51,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
             //for some reason sometimes we get an array with a single null element
             relationships.RemoveAll(x => x == null);
 
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
             foreach (var part in contentDefinition.Parts)
             {
                 if (!_partSyncers.TryGetValue(part.PartDefinition.Name, out var partSyncer))
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
-
+                
                 if (!await partSyncer.VerifySyncComponent(contentItem, part, sourceNode, relationships, destNodes, _graphSyncHelper))
                     return false;
             }
