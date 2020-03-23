@@ -116,7 +116,7 @@ jobs:
             runBranch: 'refs/heads/NCSD-3120-AddAppSettings'
         - task: ExtractFiles@1
           inputs:
-            archiveFilePatterns: 'DFC.ServiceTaxonomy.TestSuite.zip' 
+            archiveFilePatterns: '$(Pipeline.Workspace)/DFC.ServiceTaxonomy.TestSuite.DeploymentPackages/DeploymentPackages/DFC.ServiceTaxonomy.TestSuite.zip' 
             destinationFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/
             cleanDestinationFolder: true
         - pwsh: Copy-Item -Path $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings-template.json -Destination $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
