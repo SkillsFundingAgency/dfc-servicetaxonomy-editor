@@ -104,46 +104,10 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
-        - task: DownloadPipelineArtifact@2
-          displayName: Download dfc-servicetaxonomy-tests artifact
-          condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY')
-          inputs:
-            source: specific
-            project: ${{ parameters.DFCAzureDevOpsProjectGuid }}
-            pipeline: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
-            runVersion: latestFromBranch
-            #TO DO: revert to master branch
-            runBranch: 'refs/heads/NCSD-3120-AddAppSettings'
-        - task: ExtractFiles@1
-          displayName: Extract TestSuite artifact
-          condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY')
-          inputs:
-            archiveFilePatterns: '$(Pipeline.Workspace)/DFC.ServiceTaxonomy.TestSuite.DeploymentPackages/DeploymentPackages/DFC.ServiceTaxonomy.TestSuite.zip' 
-            destinationFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/
-            cleanDestinationFolder: true
-        - pwsh: Copy-Item -Path $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings-template.json -Destination $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
-          displayName: Rename appsettings-template file
-          condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY')
-        - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
-          displayName: 'Tokenization: Transform file appsettings.json'
-          condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY')
-          inputs:
-            SourcePath: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
-            TargetFileNames: appsettings.json
-        - task: VSTest@2
-          displayName: 'VsTest - run TestSuite'
-          condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY')
-          inputs:
-            testAssemblyVer2: |
-              **\DFC.ServiceTaxonomy.TestSuite.dll
-              !**\*TestAdapter.dll
-              !**\obj\**
-            testFiltercriteria: '"TestCategory=Editor"'
-        - task: DeleteFiles@1
-          displayName: 'Delete tokenised parameters.json file'
-          inputs:
-            SourceFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite
-            Contents: appsettings.json
-          condition: always()
+        - template: StepTemplates\run-functional-tests.yml
+          parameters:
+            DFCAzureDevOpsProjectGuid: ${{ parameters.DFCAzureDevOpsProjectGuid }}
+            DfcServiceTaxonomyTestsBuildId: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
+            Environment: ${{ parameters.Environment }}
         
             
