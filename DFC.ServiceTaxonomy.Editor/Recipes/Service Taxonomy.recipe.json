@@ -1614,6 +1614,7 @@
                                     "Position": "1"
                                 },
                                 "NumericFieldSettings": {
+                                    "Scale": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -1627,6 +1628,7 @@
                                     "Position": "2"
                                 },
                                 "NumericFieldSettings": {
+                                    "Scale": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -1640,6 +1642,7 @@
                                     "Position": "3"
                                 },
                                 "NumericFieldSettings": {
+                                    "Scale": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -3066,6 +3069,65 @@
                             "SourceActivityId": "4gwyw81gep9nkx25mp30adpdd6",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "447bt5h88dam1wpewrt6y7jcdt"
+                        }
+                    ]
+                },
+                {
+                    "WorkflowTypeId": "4kpfxdbyraj82rd2qtmt7nznm3",
+                    "Name": "Delete Field From Graph",
+                    "IsEnabled": true,
+                    "IsSingleton": false,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4db6e0txbdtyzxk6dgv8h2z2nb",
+                            "Name": "ContentTypeFieldRemovedEvent",
+                            "X": 0,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Field Deleted from Content Type"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "47k35ysvf16ebv24tnt7ma8rmp",
+                            "Name": "RemoveFieldFromContentItemsTask",
+                            "X": 220,
+                            "Y": 210,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Remove field from Content Type"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "459fr3zpagjmaxbn6wx7dc2hmb",
+                            "Name": "PublishContentTypeContentItemsTask",
+                            "X": 560,
+                            "Y": 210,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Publish Content Items by Content Type"
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4db6e0txbdtyzxk6dgv8h2z2nb",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "47k35ysvf16ebv24tnt7ma8rmp"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "47k35ysvf16ebv24tnt7ma8rmp",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "459fr3zpagjmaxbn6wx7dc2hmb"
                         }
                     ]
                 }

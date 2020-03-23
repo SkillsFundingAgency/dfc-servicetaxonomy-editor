@@ -59,7 +59,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     throw new CommandValidationException($"Expecting no more than 1 node to be created.");
             }
 
-            if (resultSummary.Counters.PropertiesSet != expectedPropertyCount)
+            //Only check property counts on creation of a new node
+            if (resultSummary.Counters.NodesCreated > 0 && resultSummary.Counters.PropertiesSet != expectedPropertyCount)
                 throw new CommandValidationException($"Expecting {expectedPropertyCount} properties to have been set, but {resultSummary.Counters.PropertiesSet} were actually set.");
 
             if (resultSummary.Counters.LabelsAdded != expectedLabelsAdded)

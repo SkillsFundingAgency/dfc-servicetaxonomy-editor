@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                     {
                         IResultCursor result = await tx.RunAsync(command.Query);
 
-                        //var records = await result.ToListAsync(r => r);
+                        var records = await result.ToListAsync(r => r);
                         var resultSummary = await result.ConsumeAsync();
 
                         _logger.LogInformation($"Query result available after: {resultSummary.ResultAvailableAfter}, consumed after: {resultSummary.ResultConsumedAfter}");
@@ -79,7 +79,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                                 $"Query had notifications{Environment.NewLine}:{string.Join(Environment.NewLine, resultSummary.Notifications)}");
                         }
 
-                        //command.ValidateResults(records, resultSummary);
+                        command.ValidateResults(records, resultSummary);
                     }
                 });
             }

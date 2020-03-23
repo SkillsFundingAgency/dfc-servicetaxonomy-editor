@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
 using OrchardCore.DisplayManagement.Notify;
@@ -8,8 +7,9 @@ using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using OrchardCore.ContentManagement.Records;
 using System;
+using System.Threading.Tasks;
+using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public RemoveFieldFromContentItemsTask(
             ISession session,
             IStringLocalizer<RemoveFieldFromContentItemsTask> localizer,
-            IContentManager contentManager,
+            IContentDefinitionManager contentManager,
             INotifier notifier,
             IOrchardCoreContentDefinitionService contentDefinitionService,
              ITypeActivatorFactory<ContentPart> contentPartFactory)
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         private IStringLocalizer T { get; }
         private readonly ISession _session;
-        private readonly IContentManager _contentManager;
+        private readonly IContentDefinitionManager _contentManager;
         private readonly IOrchardCoreContentDefinitionService _contentDefinitionService;
         private readonly INotifier _notifier;
 
@@ -51,8 +51,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
-        public override ActivityExecutionResult Execute(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
+        public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
+            await Task.Delay(0);
             var contentTypeToSync = workflowContext.Input["ContentType"].ToString();
             if (string.IsNullOrWhiteSpace(contentTypeToSync))
                 throw new ArgumentException($"Content Type not passed to {Name}");
@@ -62,7 +63,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 throw new ArgumentException($"RemovedField not passed to {Name}");
 
             _contentDefinitionService.RemoveFieldFromPart(fieldToRemove, contentTypeToSync);
-
+            
+            var b = _contentManager.GetPartDefinition(contentTypeToSync);
+            if(b == null)
+            {
+                throw new InvalidCastException();
+            }
             return Outcomes("Done");
         }
     }

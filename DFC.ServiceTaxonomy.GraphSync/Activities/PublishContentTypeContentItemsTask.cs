@@ -16,13 +16,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         public PublishContentTypeContentItemsTask(
             ISession session,
             IStringLocalizer<RemoveFieldFromContentItemsTask> localizer,
-            IContentManager contentManager,
-             ITypeActivatorFactory<ContentPart> contentPartFactory)
+            IContentManager contentManager)
         {
             _session = session;
             T = localizer;
             _contentManager = contentManager;
-            _contentPartFactory = contentPartFactory;
         }
 
         private IStringLocalizer T { get; }
@@ -59,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             return Outcomes("Done");
         }
 
-        private static string GetContentTypeFromWorkflowContext(WorkflowExecutionContext workflowContext)
+        private string GetContentTypeFromWorkflowContext(WorkflowExecutionContext workflowContext)
         {
             var contentTypeToSync = workflowContext.Input["ContentType"].ToString();
 

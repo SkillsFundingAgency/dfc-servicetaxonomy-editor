@@ -87,7 +87,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 if (!contentTypePartDefinition.PartDefinition.Fields.Any(z => z.Name.Equals(keyName, StringComparison.OrdinalIgnoreCase)))
                 {
-                    firstProperty.Value = JValue.Parse("{}");
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+                    mergeNodeCommand.Properties.Add(NcsPrefix + keyName, null);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+                    continue;
                 }
 
                 JProperty? secondProperty = (JProperty?)fieldContent.Skip(1).FirstOrDefault();
@@ -187,15 +190,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         private static void AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
         {
-#pragma warning disable CS8604 // Possible null reference argument.
-            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, propertyValue.ToString() != "{}" ? propertyValue.ToString() : null);
-#pragma warning restore CS8604 // Possible null reference argument.
+            mergeNodeCommand.Properties.Add(NcsPrefix + fieldName, propertyValue.ToString());
         }
 
         private static void AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
         {
+            var permittedNumericPropertyTypes = new List<JTokenType>() { JTokenType.Float, JTokenType.Integer };
+
             // type is null if user hasn't entered a value
-            if (propertyValue.Type != JTokenType.Float)
+            if (!permittedNumericPropertyTypes.Contains(propertyValue.Type))
                 return;
 
             decimal? value = (decimal?)propertyValue.ToObject(typeof(decimal));
