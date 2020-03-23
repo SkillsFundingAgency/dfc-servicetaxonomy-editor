@@ -10,6 +10,7 @@ bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in 
   then provide helper to get from content or graph. bag items are embedded, MoveIntoBag() that embeds then deletes? or get from graph at that point??
 * have sync field interface & for initial sync get field definition like resync
 * use custom command in integration test, so as not to arrange using code under test + add integration tests for new queries
+  ask devopts to add int tests to cd
 * in cyphertocontent step, improve parallelisation, work off ratio to cores?
 * check if static files fixes visualisation
 * add analyser to vis project

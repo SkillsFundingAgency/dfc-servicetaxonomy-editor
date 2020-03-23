@@ -49,6 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
+        const string _linkUrlPostfix = "_url", _linkTextPostfix = "_text";
         private readonly IContentManager _contentManager;
         private IGraphSyncHelper? _graphSyncHelper;
 
@@ -126,7 +127,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             foreach (ContentPartFieldDefinition field in contentTypePartDefinition.PartDefinition.Fields)
             {
-                JObject value = content[field.Name];
+                JObject contentItemField = content[field.Name];
 
                 switch (field.FieldDefinition.Name)
                 {
@@ -135,9 +136,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                         string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings);
 
-                        var relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
+                        int relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
 
-                        var contentItemIds = (JArray)value["ContentItemIds"]!;
+                        var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
                         if (contentItemIds.Count != relationshipCount)
                         {
                             return false;
@@ -168,17 +169,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         }
                         break;
                     case "LinkField":
-                        //todo:
-                        // JToken? urlField = value?["Url"];
-                        // JToken? textField = value?["Text"];
+                        string nodeBasePropertyName = await graphSyncHelper.PropertyName(field.Name);
+
+                        JToken? contentItemUrlFieldValue = contentItemField?["Url"];
+                        string nodeUrlPropertyName = $"{nodeBasePropertyName}{_linkUrlPostfix}";
+                        sourceNode.Properties.TryGetValue(nodeUrlPropertyName, out object? nodeUrlPropertyValue);
+
+                        if (Convert.ToString(contentItemUrlFieldValue) != Convert.ToString(nodeUrlPropertyValue))
+                        {
+                            return false;
+                        }
+
+                        JToken? contentItemTextFieldValue = contentItemField?["Text"];
+                        string nodeTextPropertyName = $"{nodeBasePropertyName}{_linkTextPostfix}";
+                        sourceNode.Properties.TryGetValue(nodeTextPropertyName, out object? nodeTextPropertyValue);
+
+                        if (Convert.ToString(contentItemTextFieldValue) != Convert.ToString(nodeTextPropertyValue))
+                        {
+                            return false;
+                        }
+
                         break;
                     default:
                         //todo: will probably need code for each field
-                        JToken? contentItemValue = value?["Text"] ?? value?["Html"] ?? value?["Value"];
-                        string propertyName = await graphSyncHelper.PropertyName(field.Name);
-                        sourceNode.Properties.TryGetValue(propertyName, out var nodePropertyValue);
+                        JToken? contentItemFieldValue = contentItemField?["Text"] ?? contentItemField?["Html"] ?? contentItemField?["Value"];
+                        string nodePropertyName = await graphSyncHelper.PropertyName(field.Name);
+                        sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
-                        if (Convert.ToString(contentItemValue) != Convert.ToString(nodePropertyValue))
+                        if (Convert.ToString(contentItemFieldValue) != Convert.ToString(nodePropertyValue))
                         {
                             return false;
                         }
@@ -220,11 +238,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         private async Task AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
         {
-            const string linkUrlPostfix = "_url", linkTextPostfix = "_text";
-
             string basePropertyName = await _graphSyncHelper!.PropertyName(fieldName);
-            mergeNodeCommand.Properties.Add($"{basePropertyName}{linkUrlPostfix}", url);
-            mergeNodeCommand.Properties.Add($"{basePropertyName}{linkTextPostfix}", text);
+            mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkUrlPostfix}", url);
+            mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkTextPostfix}", text);
         }
 
         //todo: interface for fields?
