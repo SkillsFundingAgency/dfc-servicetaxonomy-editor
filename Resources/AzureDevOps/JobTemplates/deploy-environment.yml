@@ -106,7 +106,7 @@ jobs:
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
         - task: DownloadPipelineArtifact@2
           displayName: Download dfc-servicetaxonomy-tests artifact
-          condition: (${{ parameters.Environment }}, 'DEV_SERVICETAXONOMY')
+          condition: in(${{ parameters.Environment }}, 'DEV_SERVICETAXONOMY')
           inputs:
             source: specific
             project: ${{ parameters.DFCAzureDevOpsProjectGuid }}
