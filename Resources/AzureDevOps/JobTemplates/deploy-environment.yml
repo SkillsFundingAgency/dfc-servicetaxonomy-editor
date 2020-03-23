@@ -118,4 +118,13 @@ jobs:
           inputs:
             archiveFilePatterns: 'DFC.ServiceTaxonomy.TestSuite.zip' 
             destinationFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/
-            cleanDestinationFolder: true 
+            cleanDestinationFolder: true
+        - pwsh: Copy-Item -Path $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings-template.json -Destination $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
+          displayname: Rename appsettings-template file
+        - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
+          displayName: 'Tokenization: Transform file appsettings.json'
+          inputs:
+            SourcePath: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
+            TargetFileNames: appsettings.json
+        
+            
