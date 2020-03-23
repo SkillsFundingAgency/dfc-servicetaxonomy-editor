@@ -69,20 +69,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             var log = (await _session.Query<AuditSyncLog>().FirstOrDefaultAsync()) ??
                       new AuditSyncLog() {LastSynced = DateTime.MinValue};
 
-            var contentItems = await _session
-                //do we only care about the latest published items?
-                .Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType.IsIn(_contentTypes.Keys) && x.Latest && x.Published && (x.CreatedUtc >= log.LastSynced ||  x.ModifiedUtc >= log.LastSynced))
-                .ListAsync();
+            await CheckCreatedOrUpdatedContentItems(log);
 
-            foreach (var contentItem in contentItems)
+            await ResyncCreateOrUpdateFailures();
+
+            await CheckDeletedContentItems();
+
+            await ResyncDeleteFailures();
+
+            //anything left in the collections are still failing to sync - report this somehow
+
+            if (!_syncFailedContentItems.Any())
             {
-                if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
-                {
-                    _syncFailedContentItems.Add(contentItem);
-                }
+                log.LastSynced = timestamp;
+                _session.Save(log);
+                await _session.CommitAsync();
             }
 
+            return Outcomes("Done");
+        }
+
+        private async Task ResyncCreateOrUpdateFailures()
+        {
             for (int i = 0; i < _syncFailedContentItems.Count; i++)
             {
                 try
@@ -109,9 +117,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                     //I don't want to do anything here, why won't this build without this comment?
                 }
             }
+        }
 
-            await CheckDeletedContentItems();
-
+        private async Task ResyncDeleteFailures()
+        {
             for (int i = 0; i < _deleteSyncFailedContentItems.Count; i++)
             {
                 try
@@ -132,17 +141,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                     //I don't want to do anything here, why won't this build without this comment?
                 }
             }
+        }
 
-            //anything left in the collections are still failing to sync - report this somehow
+        private async Task CheckCreatedOrUpdatedContentItems(AuditSyncLog log)
+        {
+            var contentItems = await _session
+                //do we only care about the latest published items?
+                .Query<ContentItem, ContentItemIndex>(x =>
+                    x.ContentType.IsIn(_contentTypes.Keys) && x.Latest && x.Published &&
+                    (x.CreatedUtc >= log.LastSynced || x.ModifiedUtc >= log.LastSynced))
+                .ListAsync();
 
-            if (!_syncFailedContentItems.Any())
+            foreach (var contentItem in contentItems)
             {
-                log.LastSynced = timestamp;
-                _session.Save(log);
-                await _session.CommitAsync();
+                if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
+                {
+                    _syncFailedContentItems.Add(contentItem);
+                }
             }
-
-            return Outcomes("Done");
         }
 
         private async Task CheckDeletedContentItems()
