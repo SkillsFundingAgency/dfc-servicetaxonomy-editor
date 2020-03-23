@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             await ResyncDeleteFailures();
 
-            //anything left in the collections are still failing to sync - report this somehow
+            //TODO : anything left in the collections are still failing to sync - report this somehow
 
             if (!_syncFailedContentItems.Any())
             {
