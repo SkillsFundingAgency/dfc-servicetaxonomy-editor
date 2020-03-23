@@ -109,5 +109,4 @@ jobs:
             DFCAzureDevOpsProjectGuid: ${{ parameters.DFCAzureDevOpsProjectGuid }}
             DfcServiceTaxonomyTestsBuildId: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
             Environment: ${{ parameters.Environment }}
-        
-            
+            TestTag: Editor

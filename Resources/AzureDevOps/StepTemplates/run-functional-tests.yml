@@ -2,6 +2,7 @@ parameters:
   DFCAzureDevOpsProjectGuid:
   DfcServiceTaxonomyTestsBuildId:
   Environment: 
+  TestTag:
 
 steps:
 - task: DownloadPipelineArtifact@2
@@ -38,7 +39,7 @@ steps:
       **\DFC.ServiceTaxonomy.TestSuite.dll
       !**\*TestAdapter.dll
       !**\obj\**
-    testFiltercriteria: '"TestCategory=Editor"'
+    testFiltercriteria: '"TestCategory=${{ parameters.TestTag }}"'
 - task: DeleteFiles@1
   displayName: 'Delete tokenised parameters.json file'
   inputs:
