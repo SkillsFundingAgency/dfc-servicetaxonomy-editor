@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.ToString(CultureInfo.CurrentCulture));
         }
 
-        public Task<bool> VerifySyncComponent(
+        public async Task<bool> VerifySyncComponent(
             JObject contentItemField,
             ContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
@@ -36,7 +36,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<INode> destNodes,
             IGraphSyncHelper graphSyncHelper)
         {
-            throw new NotImplementedException();
+            //todo: helper for this
+            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
+            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+
+            JToken? contentItemFieldValue = contentItemField?["Html"];
+
+            return Convert.ToString(contentItemFieldValue) == Convert.ToString(nodePropertyValue);
         }
     }
 }
