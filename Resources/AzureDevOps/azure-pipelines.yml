@@ -76,7 +76,7 @@ stages:
       PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
       ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
       Location: 'West Europe'
-      EnvironmentTag: '$(EnvironmentTag)'
+      EnvironmentTag: '${{ variables.EnvironmentTag }}'
       ParentBusinessTag: '$(ParentBusiness)'
       ServiceOfferingTag: '$(ServiceOffering)'
       ResourceGroup: '$(ResourceGroup)'
