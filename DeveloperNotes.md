@@ -2,16 +2,19 @@
 
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
-confirmation buttons are labelled undefined
+
+* have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings. a predefined set can then be optimised for
+  add content type as a global variable, for use in the id
 
 * need to add support to have occupation in jp's bag (or content picker), one way would be to wrap the current content step and add c# support,
   then provide helper to get from content or graph. bag items are embedded, MoveIntoBag() that embeds then deletes? or get from graph at that point??
-* have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings
+* have sync field interface & for initial sync get field definition like resync
+* use custom command in integration test, so as not to arrange using code under test + add integration tests for new queries
 * in cyphertocontent step, improve parallelisation, work off ratio to cores?
 * check if static files fixes visualisation
 * add analyser to vis project
-* order content type in editor alphabetically (or programmatically)
 * titles (for picking) on esco skills??
+
 * job categories are returned by the search api, but not by the get job profile api. we'll still need to import them. we could import them from the spreadsheet (JobCategory->JobProfileCategories)
 * current job profile api search uses word stems : we might have to whitelist array properties, poss convert alt labels to separate nodes. but does fts support word stems anyway?
 * republishing not doesn't sync due to constraint:
@@ -23,11 +26,15 @@ confirmation buttons are labelled undefined
 * add database details to graph sync settings?
 * when creating relationships using content picker and picked content is not already in the graph, then the sync process fails silently. need to flag an error
 * in graph lookup, handle situation (as with esco__nodeLiteral) where have 2 nodes, one with language en and 1 with language en-us, which causes duplicate entries
-* don't like new disabled select appearing once selected in single select scenario - nasty!
 * need to add dependencies into manifest?
 * use predefined list editor for node label?
 * handle graph down/not running better (& quicker)
 * looks like might be some useful code in the [client](https://github.com/Readify/Neo4jClient), e.g. working with results
+
+##ToDo UI Improvements
+
+* order content type in editor alphabetically (or programmatically)
+* don't like new disabled select appearing once selected in single select scenario - nasty!
 
 #Templates
 
