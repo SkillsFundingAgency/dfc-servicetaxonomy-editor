@@ -33,12 +33,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            //todo: firstordefault + ? then log and return if null
             ContentPickerFieldSettings contentPickerFieldSettings =
                 contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
-//todo: support multiple pickable content types
+
+            //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
             IEnumerable<string> destNodeLabels = await graphSyncHelper.NodeLabels(pickedContentType);
 

@@ -31,7 +31,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public Task<bool> VerifySyncComponent(
             JObject contentItemField,
-            //ContentTypePartDefinition contentTypePartDefinition,
             ContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,

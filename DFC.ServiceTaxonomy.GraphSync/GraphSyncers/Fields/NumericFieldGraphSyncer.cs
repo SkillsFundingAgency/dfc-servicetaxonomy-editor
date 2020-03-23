@@ -20,20 +20,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
-        {//todo: null value comes as empty string
+        {
             JValue? value = (JValue?)contentItemField["Value"];
             if (value == null || !value.HasValues)
                 return;
 
-            // // type is null if user hasn't entered a value
-            // if (propertyValue.Type != JTokenType.Float)
-            //     return;
-            //
-            // decimal? value = (decimal?)propertyValue.ToObject(typeof(decimal));
-            // if (value == null)    //todo: ok??
-            //     return;
-
-            //var fieldDefinition = contentTypePartDefinition.PartDefinition.Fields.First(f => f.Name == fieldName);
             var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
 
             string propertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
@@ -49,7 +40,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public Task<bool> VerifySyncComponent(
             JObject contentItemField,
-            //ContentTypePartDefinition contentTypePartDefinition,
             ContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,

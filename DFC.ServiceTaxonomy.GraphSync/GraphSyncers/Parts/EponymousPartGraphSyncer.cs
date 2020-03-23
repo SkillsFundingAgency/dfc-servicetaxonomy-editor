@@ -94,58 +94,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-//             foreach (ContentPartFieldDefinition field in contentTypePartDefinition.PartDefinition.Fields)
-//             {
-//                 //todo: is it a JObject or a JProperty? why here property, jav object?
-//                 JObject? contentItemField = content[field.Name];
-//                 if (contentItemField == null)
-//                     continue;
-//
-//
-//                 #pragma warning disable S1481
-//                 JToken? fieldContent = contentItemField.FirstOrDefault<JToken?>();
-// //                JToken? fieldContent = contentItemField.FirstOrDefault();
-//                 //JToken? fieldContent = contentItemField.FirstOrDefault();
-//                 // JProperty? firstProperty = contentItemField.FirstOrDefault<JProperty?>();
-//                 // if (firstProperty == null)
-//                 //     continue;
-//                 //
-//                 // JProperty? secondProperty = (JProperty?)fieldContent.Skip(1).FirstOrDefault();
-//                 // string? secondName = secondProperty?.Name;
-//                 //
-//                 // if (secondName == null)
-//                 // {
-//                 //     switch (firstProperty.Name)
-//                 //     {
-//                 //         case "Text":
-//                 //         case "Html":
-//                 //             await AddTextOrHtmlProperties(mergeNodeCommand, contentItemField.Name, firstProperty.Value);
-//                 //             break;
-//                 //         case "Value":
-//                 //             await AddNumericProperties(mergeNodeCommand, contentItemField.Name, firstProperty.Value, contentTypePartDefinition);
-//                 //             break;
-//                 //         case "ContentItemIds":
-//                 //             await AddContentPickerFieldSyncComponents(replaceRelationshipsCommand, contentItemField.Name, firstProperty, contentTypePartDefinition);
-//                 //             break;
-//                 //     }
-//                 // }
-//                 // else
-//                 // {
-//                 //     switch (firstProperty.Name)
-//                 //     {
-//                 //         case "Url" when secondName == "Text":
-//                 //             await AddLinkProperties(mergeNodeCommand, contentItemField.Name, firstProperty.Name, secondProperty!.Value.ToString());
-//                 //             break;
-//                 //         case "Text" when secondName == "Url":
-//                 //             await AddLinkProperties(mergeNodeCommand, contentItemField.Name, secondProperty!.Value.ToString(), firstProperty.Name);
-//                 //             break;
-//                 //     }
-//                 // }
-//             }
-//
-//             return Task.FromResult(Enumerable.Empty<ICommand>());
-//         }
-
         public Task<bool> VerifySyncComponent(
             dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -237,73 +185,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             // return true;
         }
 
-        // private async Task AddTextOrHtmlProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue)
-        // {
-        //     mergeNodeCommand.Properties.Add(await _graphSyncHelper!.PropertyName(fieldName), propertyValue.ToString());
-        // }
-        //
-        // private async Task AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
-        // {
-        //     // type is null if user hasn't entered a value
-        //     if (propertyValue.Type != JTokenType.Float)
-        //         return;
-        //
-        //     decimal? value = (decimal?)propertyValue.ToObject(typeof(decimal));
-        //     if (value == null)    //todo: ok??
-        //         return;
-        //
-        //     var fieldDefinition = contentTypePartDefinition.PartDefinition.Fields.First(f => f.Name == fieldName);
-        //     var fieldSettings = fieldDefinition.GetSettings<NumericFieldSettings>();
-        //
-        //     string propertyName = await _graphSyncHelper!.PropertyName(fieldName);
-        //     if (fieldSettings.Scale == 0)
-        //     {
-        //         mergeNodeCommand.Properties.Add(propertyName, (int)value);
-        //     }
-        //     else
-        //     {
-        //         mergeNodeCommand.Properties.Add(propertyName, value);
-        //     }
-        // }
-
-        // private async Task AddLinkProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, string url, string text)
-        // {
-        //     string basePropertyName = await _graphSyncHelper!.PropertyName(fieldName);
-        //     mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkUrlPostfix}", url);
-        //     mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkTextPostfix}", text);
-        // }
-
-        //todo: interface for fields?
-        // private async Task AddContentPickerFieldSyncComponents(
-        //     IReplaceRelationshipsCommand replaceRelationshipsCommand,
-        //     string fieldName,
-        //     JProperty contentItemIdsProperty,
-        //     ContentTypePartDefinition contentTypePartDefinition)
-        // {
-        //     var fieldDefinitions = contentTypePartDefinition.PartDefinition.Fields;
-        //
-        //     //todo: firstordefault + ? then log and return if null
-        //     ContentPickerFieldSettings contentPickerFieldSettings = fieldDefinitions
-        //         .First(f => f.Name == fieldName).GetSettings<ContentPickerFieldSettings>();
-        //
-        //     string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings);
-        //
-        //     string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-        //     IEnumerable<string> destNodeLabels = await _graphSyncHelper!.NodeLabels(pickedContentType);
-        //
-        //     //todo requires 'picked' part has a graph sync part
-        //     // add to docs & handle picked part not having graph sync part or throw exception
-        //
-        //     var destIds = await Task.WhenAll(contentItemIdsProperty.Value.Select(async relatedContentId =>
-        //         GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest))));
-        //
-        //     replaceRelationshipsCommand.AddRelationshipsTo(
-        //         relationshipType,
-        //         destNodeLabels,
-        //         _graphSyncHelper!.IdPropertyName,
-        //         destIds);
-        // }
-        //
         // private async Task<string> RelationshipTypeContentPicker(ContentPickerFieldSettings contentPickerFieldSettings)
         // {
         //     //todo: handle multiple types
