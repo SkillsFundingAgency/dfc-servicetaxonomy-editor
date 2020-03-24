@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
 
@@ -24,8 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            // todo: check for Type.Null? see what happens when no title given
-            mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, content.Title.ToString());
+            JValue titleValue = content.Title;
+            if (titleValue.Type != JTokenType.Null)
+                mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, titleValue.As<string>());
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }

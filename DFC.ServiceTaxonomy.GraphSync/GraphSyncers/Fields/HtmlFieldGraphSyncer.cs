@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -22,10 +21,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IGraphSyncHelper graphSyncHelper)
         {
             JValue? value = (JValue?)contentItemField["Html"];
-            if (value == null)
+            if (value == null || value.Type == JTokenType.Null)
                 return;
 
-            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.ToString(CultureInfo.CurrentCulture));
+            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
         }
 
         public async Task<bool> VerifySyncComponent(

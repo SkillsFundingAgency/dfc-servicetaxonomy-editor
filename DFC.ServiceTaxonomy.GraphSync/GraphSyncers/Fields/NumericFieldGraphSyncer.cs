@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IGraphSyncHelper graphSyncHelper)
         {
             JValue? value = (JValue?)contentItemField["Value"];
-            if (value == null || !value.HasValues)
+            if (value == null || value.Type == JTokenType.Null)
                 return;
 
             var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
@@ -29,11 +29,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string propertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
             if (fieldSettings.Scale == 0)
             {
-                mergeNodeCommand.Properties.Add(propertyName, (int)value);
+                mergeNodeCommand.Properties.Add(propertyName, value.As<int>());
             }
             else
             {
-                mergeNodeCommand.Properties.Add(propertyName, (decimal)value);
+                mergeNodeCommand.Properties.Add(propertyName, value.As<float>());
             }
         }
 
