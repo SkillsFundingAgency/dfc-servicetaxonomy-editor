@@ -8,12 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Activities\ContentUpdated\**" />
-    <EmbeddedResource Remove="Activities\ContentUpdated\**" />
-    <None Remove="Activities\ContentUpdated\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
