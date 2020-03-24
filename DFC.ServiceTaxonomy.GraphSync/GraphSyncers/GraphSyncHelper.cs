@@ -100,7 +100,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            return await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name, _contentType!);
+            return GraphSyncPartSettings!.PropertyNameTransform switch
+            {
+                "$\"ncs__{Value}\"" => $"ncs__{name}",
+                _ => await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name, _contentType!)
+            };
         }
 
         public string IdPropertyName
@@ -120,17 +124,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             string newGuid = Guid.NewGuid().ToString("D");
 
-            switch (GraphSyncPartSettings!.GenerateIdPropertyValue)
+            return GraphSyncPartSettings!.GenerateIdPropertyValue switch
             {
-                case "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\"":
-                    return $"http://data.europa.eu/esco/occupation/{_contentType!.ToLowerInvariant()}/{newGuid}";
-                case "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\"":
-                    return $"http://nationalcareers.service.gov.uk/{_contentType!.ToLowerInvariant()}/{newGuid}";
-                default:
-                    return await TransformOrDefault(
-                        GraphSyncPartSettings!.GenerateIdPropertyValue,
-                        newGuid, _contentType!);
-            }
+                "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\"" =>
+                $"http://data.europa.eu/esco/occupation/{_contentType!.ToLowerInvariant()}/{newGuid}",
+
+                "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\"" =>
+                $"http://nationalcareers.service.gov.uk/{_contentType!.ToLowerInvariant()}/{newGuid}",
+
+                _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
+            };
         }
 
         public string GetIdPropertyValue(dynamic graphSyncContent)
