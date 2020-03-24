@@ -87,7 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 if (!contentTypePartDefinition.PartDefinition.Fields.Any(z => z.Name.Equals(keyName, StringComparison.OrdinalIgnoreCase)))
                 {
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-                    mergeNodeCommand.Properties.Add(NcsPrefix + keyName, null);
+                    mergeNodeCommand.Properties.Add(await _graphSyncHelper!.PropertyName(keyName), null);
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
                     continue;
                 }
