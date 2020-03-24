@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -38,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
-        public Task<bool> VerifySyncComponent(
+        public async Task<bool> VerifySyncComponent(
             JObject contentItemField,
             ContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
@@ -46,7 +45,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<INode> destNodes,
             IGraphSyncHelper graphSyncHelper)
         {
-            throw new NotImplementedException();
+            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
+            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+
+            JToken? contentItemFieldValue = contentItemField?["Value"];
+
+            if (contentItemFieldValue == null || !contentItemFieldValue.HasValues)
+                return false;
+
+            switch (nodePropertyValue)
+            {
+                case int i:
+                    return contentItemFieldValue.Type == JTokenType.Integer && i == contentItemFieldValue.As<int>();
+                case float f:
+                    //todo: do we need to do this? if so set tolerance from scale settings
+                    //todo: ude decimal instead?
+                    //return contentItemFieldValue.Type == JTokenType.Float && Math.Abs(f - contentItemFieldValue.As<float>()) < 0.0001;
+                    return contentItemFieldValue.Type == JTokenType.Float && f == contentItemFieldValue.As<float>();
+                default:
+                    //todo: log $"Found unexpected type {contentItemFieldValue.Type} in {contentPartFieldDefinition.Name} {FieldName}");
+                    return false;
+            }
         }
     }
 }
