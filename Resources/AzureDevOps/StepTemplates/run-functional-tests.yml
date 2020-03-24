@@ -13,8 +13,7 @@ steps:
     project: ${{ parameters.DFCAzureDevOpsProjectGuid }}
     pipeline: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
     runVersion: latestFromBranch
-    #TO DO: revert to master branch
-    runBranch: 'refs/heads/NCSD-3120-AddAppSettings'
+    runBranch: 'refs/heads/master'
 - task: ExtractFiles@1
   displayName: Extract TestSuite artifact
   condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')
