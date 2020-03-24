@@ -61,20 +61,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            string nodeLabel = await TransformOrDefault(
-                GraphSyncPartSettings!.NodeNameTransform,
-                _contentType!, _contentType!);
-
-            return new[] {nodeLabel, CommonNodeLabel};
+            return await NodeLabels(GraphSyncPartSettings!, _contentType!);
         }
 
         public async Task<IEnumerable<string>> NodeLabels(string contentType)
         {
             var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
 
-            string nodeLabel = await TransformOrDefault(
-                graphSyncPartSettings.NodeNameTransform,
-                contentType, contentType);
+            return await NodeLabels(graphSyncPartSettings, contentType);
+        }
+
+        private async Task<IEnumerable<string>> NodeLabels(GraphSyncPartSettings graphSyncPartSettings, string contentType)
+        {
+            string nodeLabel = graphSyncPartSettings.NodeNameTransform switch
+            {
+                "$\"ncs__{ContentType}\"" => "ncs__{contentType}",
+                "$\"esco__{ContentType}\"" => "esco__{contentType!}",
+                _ => await TransformOrDefault(graphSyncPartSettings.NodeNameTransform, contentType, contentType)
+            };
 
             return new[] {nodeLabel, CommonNodeLabel};
         }
@@ -114,9 +118,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            return await TransformOrDefault(
-                GraphSyncPartSettings!.GenerateIdPropertyValue,
-                Guid.NewGuid().ToString("D"), _contentType!);
+            string newGuid = Guid.NewGuid().ToString("D");
+
+            switch (GraphSyncPartSettings!.GenerateIdPropertyValue)
+            {
+                case "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\"":
+                    return $"http://data.europa.eu/esco/occupation/{_contentType!.ToLowerInvariant()}/{newGuid}";
+                case "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\"":
+                    return $"http://nationalcareers.service.gov.uk/{_contentType!.ToLowerInvariant()}/{newGuid}";
+                default:
+                    return await TransformOrDefault(
+                        GraphSyncPartSettings!.GenerateIdPropertyValue,
+                        newGuid, _contentType!);
+            }
         }
 
         public string GetIdPropertyValue(dynamic graphSyncContent)
