@@ -209,7 +209,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             var fieldSettings = fieldDefinition.GetSettings<NumericFieldSettings>();
 
             string propertyName = $"{NcsPrefix}{fieldName}";
-            if (fieldSettings.Scale == 0)
+            if (fieldSettings.Scale == 0 || propertyValue.Type == JTokenType.Integer)
             {
                 mergeNodeCommand.Properties.Add(propertyName, (int)value);
             }
