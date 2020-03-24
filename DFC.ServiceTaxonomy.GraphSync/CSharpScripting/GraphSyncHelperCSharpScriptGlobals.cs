@@ -7,6 +7,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
         public IContentHelper Content { get; }
         public IServiceTaxonomyHelper ServiceTaxonomy { get; }    // put namespace in here, or global?
         public string? Value { get; set; }
+        public string? ContentType { get; set; }
 
         public GraphSyncHelperCSharpScriptGlobals(
             IContentHelper contentHelper,
