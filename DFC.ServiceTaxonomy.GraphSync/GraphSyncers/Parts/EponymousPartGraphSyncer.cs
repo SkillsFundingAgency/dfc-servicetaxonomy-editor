@@ -7,14 +7,10 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    // we want to avoid async void
-    #pragma warning disable S3241
-
     /// <remarks>
     /// we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
     /// we might also want to map to rdf types here (accept flag to say store with type?)
@@ -46,17 +42,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     /// </remarks>
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
-        // private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
-        // const string _linkUrlPostfix = "_url", _linkTextPostfix = "_text";
-
-        private readonly IContentManager _contentManager;
         private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldGraphSyncer;
 
-        public EponymousPartGraphSyncer(
-            IContentManager contentManager,
-            IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer)
+        public EponymousPartGraphSyncer(IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer)
         {
-            _contentManager = contentManager;
             _contentFieldGraphSyncer = contentFieldGraphSyncer;
         }
 
@@ -134,114 +123,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
 
             return true;
-
-            // foreach (ContentPartFieldDefinition field in contentTypePartDefinition.PartDefinition.Fields)
-            // {
-            //     JObject contentItemField = content[field.Name];
-            //
-            //     switch (field.FieldDefinition.Name)
-            //     {
-            //         case "ContentPickerField":
-            //             ContentPickerFieldSettings contentPickerFieldSettings = field.GetSettings<ContentPickerFieldSettings>();
-            //
-            //             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings);
-            //
-            //             int relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
-            //
-            //             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
-            //             if (contentItemIds.Count != relationshipCount)
-            //             {
-            //                 return false;
-            //             }
-            //
-            //             foreach (JToken item in contentItemIds)
-            //             {
-            //                 var contentItemId = (string)item!;
-            //
-            //                 var destContentItem = await _contentManager.GetAsync(contentItemId);
-            //
-            //                 var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
-            //
-            //                 var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destUri);
-            //
-            //                 if (destNode == null)
-            //                 {
-            //                     return false;
-            //                 }
-            //
-            //                 var relationship = relationships.SingleOrDefault(r =>
-            //                     string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && r.EndNodeId == destNode.Id);
-            //
-            //                 if (relationship == null)
-            //                 {
-            //                     return false;
-            //                 }
-            //             }
-            //             break;
-            //         // case "LinkField":
-            //         //     string nodeBasePropertyName = await graphSyncHelper.PropertyName(field.Name);
-            //         //
-            //         //     JToken? contentItemUrlFieldValue = contentItemField?["Url"];
-            //         //     string nodeUrlPropertyName = $"{nodeBasePropertyName}{_linkUrlPostfix}";
-            //         //     sourceNode.Properties.TryGetValue(nodeUrlPropertyName, out object? nodeUrlPropertyValue);
-            //         //
-            //         //     if (Convert.ToString(contentItemUrlFieldValue) != Convert.ToString(nodeUrlPropertyValue))
-            //         //     {
-            //         //         return false;
-            //         //     }
-            //         //
-            //         //     JToken? contentItemTextFieldValue = contentItemField?["Text"];
-            //         //     string nodeTextPropertyName = $"{nodeBasePropertyName}{_linkTextPostfix}";
-            //         //     sourceNode.Properties.TryGetValue(nodeTextPropertyName, out object? nodeTextPropertyValue);
-            //         //
-            //         //     if (Convert.ToString(contentItemTextFieldValue) != Convert.ToString(nodeTextPropertyValue))
-            //         //     {
-            //         //         return false;
-            //         //     }
-            //         //
-            //         //     break;
-            //         default:
-            //             //todo: will probably need code for each field
-            //             JToken? contentItemFieldValue = contentItemField?["Text"] ?? contentItemField?["Html"] ?? contentItemField?["Value"];
-            //             string nodePropertyName = await graphSyncHelper.PropertyName(field.Name);
-            //             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
-            //
-            //             if (Convert.ToString(contentItemFieldValue) != Convert.ToString(nodePropertyValue))
-            //             {
-            //                 return false;
-            //             }
-            //             break;
-            //     }
-            // }
-            //
-            // return true;
         }
-
-        // private async Task<string> RelationshipTypeContentPicker(ContentPickerFieldSettings contentPickerFieldSettings)
-        // {
-        //     //todo: handle multiple types
-        //     string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-        //
-        //     string? relationshipType = null;
-        //     if (contentPickerFieldSettings.Hint != null)
-        //     {
-        //         Match match = _relationshipTypeRegex.Match(contentPickerFieldSettings.Hint);
-        //         if (match.Success)
-        //         {
-        //             relationshipType = $"{match.Groups[1].Value}";
-        //         }
-        //     }
-        //
-        //     if (relationshipType == null)
-        //         relationshipType = await _graphSyncHelper!.RelationshipTypeDefault(pickedContentType);
-        //
-        //     return relationshipType;
-        // }
-        //
-        // private object GetSyncId(ContentItem pickedContentItem)
-        // {
-        //     return _graphSyncHelper!.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
-        // }
     }
-    #pragma warning restore S3241
 }
