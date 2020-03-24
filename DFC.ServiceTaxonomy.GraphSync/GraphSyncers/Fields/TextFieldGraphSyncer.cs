@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             //todo: helper for this?
             JValue? value = (JValue?)contentItemField["Text"];
-            if (value == null || !value.HasValues)
+            if (value == null)
                 return;
 
             mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.ToString(CultureInfo.CurrentCulture));

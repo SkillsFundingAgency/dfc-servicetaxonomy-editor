@@ -29,12 +29,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
             TitlePartGraphSyncer = new TitlePartGraphSyncer();
         }
 
-        //[Fact]
+        [Fact]
         public async Task AddSyncComponents_TitleInContent_TitleAddedToMergeNodeCommandsProperties()
         {
             const string title = "title";
 
-            Content = new JObject();
+            Content = JObject.Parse($"{{\"Title\": \"{title}\"}}");
+
+            //todo: best way to do this?
+            MergeNodeCommand.Properties = new Dictionary<string, object>();
+
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
