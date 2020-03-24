@@ -74,26 +74,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
-                ContentPartFieldDefinition contentPartFieldDefinition = contentTypePartDefinition.PartDefinition.Fields
-                    .FirstOrDefault(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
+                IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
+                    contentTypePartDefinition.PartDefinition.Fields
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
 
-                if (contentPartFieldDefinition == null)
-                    continue;
+                foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
+                {
+                    JObject? contentItemField = content[contentPartFieldDefinition.Name];
+                    if (contentItemField == null)
+                        continue;
 
-                JObject? contentItemField = content[contentPartFieldDefinition.Name];
-                if (contentItemField == null)
-                    continue;
+                    //todo: might need another level of indirection to be able to test this method :*(
+                    IContentPartFieldDefinition contentPartFieldDefinitionWrapper
+                        = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
 
-                //todo: might need another level of indirection to be able to test this method :*(
-                IContentPartFieldDefinition contentPartFieldDefinitionWrapper
-                    = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
-
-                contentFieldGraphSyncer.AddSyncComponents(
-                    contentItemField,
-                    mergeNodeCommand,
-                    replaceRelationshipsCommand,
-                    contentPartFieldDefinitionWrapper,
-                    graphSyncHelper);
+                    contentFieldGraphSyncer.AddSyncComponents(
+                        contentItemField,
+                        mergeNodeCommand,
+                        replaceRelationshipsCommand,
+                        contentPartFieldDefinitionWrapper,
+                        graphSyncHelper);
+                }
             }
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
@@ -109,25 +110,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
-                ContentPartFieldDefinition contentPartFieldDefinition = contentTypePartDefinition.PartDefinition.Fields
-                    .FirstOrDefault(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
+                IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
+                    contentTypePartDefinition.PartDefinition.Fields
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
 
-                if (contentPartFieldDefinition == null)
-                    continue;
-
-                JObject? contentItemField = content[contentPartFieldDefinition.Name];
-                if (contentItemField == null)
-                    continue;
-
-                if (!await contentFieldGraphSyncer.VerifySyncComponent(
-                    contentItemField,
-                    contentPartFieldDefinition,
-                    sourceNode,
-                    relationships,
-                    destNodes,
-                    graphSyncHelper))
+                foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    return false;
+                    JObject? contentItemField = content[contentPartFieldDefinition.Name];
+                    if (contentItemField == null)
+                        continue;
+
+                    if (!await contentFieldGraphSyncer.VerifySyncComponent(
+                        contentItemField,
+                        contentPartFieldDefinition,
+                        sourceNode,
+                        relationships,
+                        destNodes,
+                        graphSyncHelper))
+                    {
+                        return false;
+                    }
                 }
             }
 

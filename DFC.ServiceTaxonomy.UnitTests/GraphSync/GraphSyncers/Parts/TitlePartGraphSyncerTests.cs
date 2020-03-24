@@ -47,18 +47,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 
-        // not approp for title
-        // [Fact]
-        // public async Task AddSyncComponents_NoTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
-        // {
-        //     Content = JObject.Parse("{}");
-        //
-        //     await CallAddSyncComponents();
-        //
-        //     IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
-        //     Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
-        // }
-
         [Fact]
         public async Task AddSyncComponents_NullTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
         {
