@@ -115,6 +115,8 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
 
 - stage: DeployToPP
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -143,3 +145,5 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
