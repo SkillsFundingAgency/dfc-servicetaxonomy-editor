@@ -86,6 +86,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 var destContentItem = await _contentManager.GetAsync(contentItemId);
 
+                //todo: rename var
                 var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
 
                 var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destUri);

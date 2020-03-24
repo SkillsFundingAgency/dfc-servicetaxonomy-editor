@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -83,6 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return delayedCommands;
         }
 
+        //todo: in all verifies, log reason verification fails
         public async Task<bool> VerifySyncComponent(
             dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -91,17 +93,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IEnumerable<INode> destNodes,
             IGraphSyncHelper graphSyncHelper)
         {
-            var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
-
             IEnumerable<ContentItem> contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
+
+            Dictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
 
             foreach (ContentItem bagPartContentItem in contentItems)
             {
+                var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
+
                 if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
                     return false;
+
+                // check expected relationship is in graph
+                var bagContentGraphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+
+                //todo: check elsewhere where we set the graphsynchelper's content type (it will hang around)
+                bagContentGraphSyncValidator.ContentType = bagPartContentItem.ContentType;
+                string expectedRelationship = await RelationshipType(bagContentGraphSyncValidator);
+
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(expectedRelationship, out int currentCount);
+                expectedRelationshipCounts[expectedRelationship] = ++currentCount;
+
+                //todo: check relationships dest id and dest nodes
             }
 
-            //todo: need to check relationships
+            // check there aren't any more relationships of each type than there should be
+            foreach ((string relationship, int relationshipsInDbCount) in expectedRelationshipCounts)
+            {
+                int relationshipsInGraphCount = relationships.Count(r => string.Equals(r.Type, relationship, StringComparison.CurrentCultureIgnoreCase));
+
+                if (relationshipsInDbCount != relationshipsInGraphCount)
+                    return false;
+            }
 
             return true;
         }
