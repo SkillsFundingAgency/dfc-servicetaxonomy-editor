@@ -88,7 +88,6 @@ stages:
       DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
 
-
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to SIT_SERVICETAXONOMY
