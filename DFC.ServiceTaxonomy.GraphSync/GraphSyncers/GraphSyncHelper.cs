@@ -112,7 +112,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             return await TransformOrDefault(
                 GraphSyncPartSettings!.GenerateIdPropertyValue,
-                _contentType!);
+                Guid.NewGuid().ToString("D"));
         }
 
         public string GetIdPropertyValue(dynamic graphSyncContent)
