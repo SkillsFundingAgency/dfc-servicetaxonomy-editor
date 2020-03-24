@@ -65,9 +65,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Data([FromQuery] string uri)
+        public async Task<ActionResult> Data([FromQuery] string? uri)
         {
-            if (string.IsNullOrWhiteSpace(uri))
+            if (string.IsNullOrWhiteSpace(uri) || uri.Equals("null"))
             {
                 return GetOntology();
             }

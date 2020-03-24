@@ -1,0 +1,15 @@
+﻿variables:
+- name: OwlDataGeneratorDefaultLanguage
+  value: en
+- name: OwlDataGeneratorDefaultNamespace
+  value: NCSnamespace
+- name: OwlDataGeneratorNamespaceUri
+  value: https://nationalcareers.service.gov.uk
+- name: OwlDataGeneratorHeaderUri
+  value: https://nationalcareers.service.gov.uk/test/
+- name: OwlDataGeneratorHeaderAuthor
+  value: 'National Careers Service'
+- name: OwlDataGeneratorHeaderVersion
+  value: '0.0.1(alpha)'
+- name: OwlDataGeneratorDescription
+  value: NationalCareersService-ServiceTaxonomy
