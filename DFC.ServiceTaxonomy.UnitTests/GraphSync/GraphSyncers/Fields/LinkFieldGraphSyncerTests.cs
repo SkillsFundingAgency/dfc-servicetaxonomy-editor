@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public LinkFieldGraphSyncer TextFieldGraphSyncer { get; set; }
+        public LinkFieldGraphSyncer LinkFieldGraphSyncer { get; set; }
 
         const string _fieldName = "TestField";
 
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
 
-            TextFieldGraphSyncer = new LinkFieldGraphSyncer();
+            LinkFieldGraphSyncer = new LinkFieldGraphSyncer();
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 
         private async Task CallAddSyncComponents()
         {
-            await TextFieldGraphSyncer.AddSyncComponents(
+            await LinkFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,

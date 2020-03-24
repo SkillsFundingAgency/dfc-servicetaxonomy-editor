@@ -6,23 +6,23 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
-using Xunit;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 {
-    public class TextFieldGraphSyncerTests
+    public class ContentPickerFieldGraphSyncerTests
     {
         public JObject? ContentItemField { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
-        //todo: could probably create a real one of these, rather than wrapping a real one
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
+        public ContentPickerFieldGraphSyncer ContentPickerFieldGraphSyncer { get; set; }
+        public IContentManager ContentManager { get; set; }
 
         const string _fieldName = "TestField";
 
-        public TextFieldGraphSyncerTests()
+        public ContentPickerFieldGraphSyncerTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?
@@ -36,41 +36,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
 
-            TextFieldGraphSyncer = new TextFieldGraphSyncer();
+            ContentManager = A.Fake<IContentManager>();
+
+            ContentPickerFieldGraphSyncer = new ContentPickerFieldGraphSyncer(ContentManager);
         }
-
-        [Fact]
-        public async Task AddSyncComponents_TextInContent_TextAddedToMergeNodeCommandsProperties()
-        {
-            const string text = "abc";
-
-            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
-
-            await CallAddSyncComponents();
-
-            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{_fieldName, text}};
-
-            Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
-        }
-
-        [Fact]
-        public async Task AddSyncComponents_NullTextInContent_TextNotAddedToMergeNodeCommandsProperties()
-        {
-            ContentItemField = JObject.Parse("{\"Text\": null}");
-
-            await CallAddSyncComponents();
-
-            IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
-            Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
-        }
-
-        //todo: assert that nothing else is done to the commands
-        //todo: assert that graphsynchelper's contenttype is not set
 
         private async Task CallAddSyncComponents()
         {
-            await TextFieldGraphSyncer.AddSyncComponents(
+            await ContentPickerFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
