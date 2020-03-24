@@ -136,9 +136,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
             if (typeBeingUpdated != null && typeBeingUpdated.Parts.Any(x => x.Name == "GraphSyncPart"))
             {
                 _contentDefinitionManager.AlterPartDefinition(partName, x => x.RemoveField(fieldName));
-                //_orchardCoreContentDefinitionService.RemoveFieldFromPart(fieldName, partName);
                 _workflowManager.TriggerEventAsync(nameof(ContentTypeFieldRemovedEvent), new { ContentType = typeBeingUpdated.Name, RemovedField = fieldName }, typeBeingUpdated.Name).GetAwaiter().GetResult();
+                return;
             }
+
+            _contentDefinitionManager.AlterPartDefinition(partName, x => x.RemoveField(fieldName));
         }
 
         public void RemovePart(string name)
