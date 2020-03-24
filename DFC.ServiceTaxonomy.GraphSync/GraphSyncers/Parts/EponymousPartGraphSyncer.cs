@@ -190,8 +190,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         private async Task AddNumericProperties(IMergeNodeCommand mergeNodeCommand, string fieldName, JToken propertyValue, ContentTypePartDefinition contentTypePartDefinition)
         {
+            var permittedNumericPropertyTypes = new List<JTokenType>() { JTokenType.Float, JTokenType.Integer };
+
             // type is null if user hasn't entered a value
-            if (propertyValue.Type != JTokenType.Float)
+            if (!permittedNumericPropertyTypes.Contains(propertyValue.Type))
                 return;
 
             decimal? value = (decimal?)propertyValue.ToObject(typeof(decimal));
@@ -202,7 +204,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             var fieldSettings = fieldDefinition.GetSettings<NumericFieldSettings>();
 
             string propertyName = await _graphSyncHelper!.PropertyName(fieldName);
-            if (fieldSettings.Scale == 0)
+            if (fieldSettings.Scale == 0 || propertyValue.Type == JTokenType.Integer)
             {
                 mergeNodeCommand.Properties.Add(propertyName, (int)value);
             }
