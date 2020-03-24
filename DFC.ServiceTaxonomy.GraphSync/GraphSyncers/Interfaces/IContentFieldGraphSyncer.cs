@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -15,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             JObject contentItemField,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentPartFieldDefinition contentPartFieldDefinition,
+            IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper);
 
         Task<bool> VerifySyncComponent(

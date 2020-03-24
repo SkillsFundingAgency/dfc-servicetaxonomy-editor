@@ -22,8 +22,4 @@
     <ProjectReference Include="..\GetJobProfiles\GetJobProfiles.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="GraphSync\GraphSyncers\Fields" />
-  </ItemGroup>
-
 </Project>

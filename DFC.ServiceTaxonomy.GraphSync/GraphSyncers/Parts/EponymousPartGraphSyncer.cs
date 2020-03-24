@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -82,11 +84,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 if (contentItemField == null)
                     continue;
 
+                //todo: might need another level of indirection to be able to test this method :*(
+                IContentPartFieldDefinition contentPartFieldDefinitionWrapper
+                    = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
+
                 contentFieldGraphSyncer.AddSyncComponents(
                     contentItemField,
                     mergeNodeCommand,
                     replaceRelationshipsCommand,
-                    contentPartFieldDefinition,
+                    contentPartFieldDefinitionWrapper,
                     graphSyncHelper);
             }
 

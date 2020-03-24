@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             JObject contentItemField,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentPartFieldDefinition contentPartFieldDefinition,
+            IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
             //todo: helper for this?
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             if (value == null || value.Type == JTokenType.Null)
                 return;
 
-            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.ToString(CultureInfo.CurrentCulture));
+            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
         }
 
         public async Task<bool> VerifySyncComponent(
