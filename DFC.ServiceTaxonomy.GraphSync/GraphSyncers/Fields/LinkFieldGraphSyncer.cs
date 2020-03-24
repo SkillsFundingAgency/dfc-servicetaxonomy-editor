@@ -26,16 +26,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             string basePropertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
 
-            //check what we get if no value entered. should we fail sync if null?
-            string? url = contentItemField[_urlFieldKey]?.ToString();
-            //todo:             if (value == null || !value.HasValues)
+            JValue? value = (JValue?)contentItemField[_urlFieldKey];
+            if (value != null && value.Type != JTokenType.Null)
+                mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkUrlPostfix}", value.As<string>());
 
-            if (url != null)
-                mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkUrlPostfix}", url);
-
-            string? text = contentItemField[_textFieldKey]?.ToString();
-            if (text != null)
-                mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkTextPostfix}", text);
+            value = (JValue?)contentItemField[_textFieldKey];
+            if (value != null && value.Type != JTokenType.Null)
+                mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkTextPostfix}", value.As<string>());
         }
 
         public async Task<bool> VerifySyncComponent(
