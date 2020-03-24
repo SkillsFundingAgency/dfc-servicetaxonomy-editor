@@ -24,6 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
+            // todo: check for Type.Null? see what happens when no title given
             mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, content.Title.ToString());
 
             return Task.FromResult(Enumerable.Empty<ICommand>());

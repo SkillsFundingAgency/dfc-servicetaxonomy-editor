@@ -17,11 +17,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public IContentPartGraphSyncer TitlePartGraphSyncer { get; set; }
+        public TitlePartGraphSyncer TitlePartGraphSyncer { get; set; }
 
         public TitlePartGraphSyncerTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
+            //todo: best way to do this?
+            MergeNodeCommand.Properties = new Dictionary<string, object>();
+
             ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
@@ -36,9 +39,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
 
             Content = JObject.Parse($"{{\"Title\": \"{title}\"}}");
 
-            //todo: best way to do this?
-            MergeNodeCommand.Properties = new Dictionary<string, object>();
-
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
@@ -46,6 +46,30 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
+
+        // not approp for title
+        // [Fact]
+        // public async Task AddSyncComponents_NoTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
+        // {
+        //     Content = JObject.Parse("{}");
+        //
+        //     await CallAddSyncComponents();
+        //
+        //     IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
+        //     Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
+        // }
+
+        //check empty behaviou
+        // [Fact]
+        // public async Task AddSyncComponents_NullTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
+        // {
+        //     Content = JObject.Parse("{\"Title\": null}");
+        //
+        //     await CallAddSyncComponents();
+        //
+        //     IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
+        //     Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
+        // }
 
         private async Task CallAddSyncComponents()
         {
