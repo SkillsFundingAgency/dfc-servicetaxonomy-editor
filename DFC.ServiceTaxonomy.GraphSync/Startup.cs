@@ -35,6 +35,8 @@ using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.ContentTypes.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
+using DFC.ServiceTaxonomy.GraphSync.Managers;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -95,6 +97,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //Services
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
+
+            //Managers
+            services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
