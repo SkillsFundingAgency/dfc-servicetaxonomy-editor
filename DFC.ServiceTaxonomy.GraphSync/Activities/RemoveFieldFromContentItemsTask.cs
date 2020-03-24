@@ -45,31 +45,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            //            return Outcomes(T["Done"], T["Failed"]);
 #pragma warning disable S3220 // Method calls should not resolve ambiguously to overloads with "params"
             return Outcomes(T["Done"]);
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
-            await Task.Delay(0);
-            var contentTypeToSync = workflowContext.Input["ContentType"].ToString();
-            if (string.IsNullOrWhiteSpace(contentTypeToSync))
-                throw new ArgumentException($"Content Type not passed to {Name}");
-
-            var fieldToRemove = workflowContext.Input["RemovedField"].ToString();
-            if (string.IsNullOrWhiteSpace(fieldToRemove))
-                throw new ArgumentException($"RemovedField not passed to {Name}");
+            string? contentTypeToSync, fieldToRemove;
+            ValidateParameters(workflowContext, out contentTypeToSync, out fieldToRemove);
 
             _contentDefinitionService.RemoveFieldFromPart(fieldToRemove, contentTypeToSync);
-            
+
             var b = _contentManager.GetPartDefinition(contentTypeToSync);
-            if(b == null)
+            if (b == null)
             {
                 throw new InvalidCastException();
             }
             return Outcomes("Done");
+        }
+
+        private void ValidateParameters(WorkflowExecutionContext workflowContext, out string? contentTypeToSync, out string? fieldToRemove)
+        {
+            contentTypeToSync = workflowContext.Input["ContentType"].ToString();
+            if (string.IsNullOrWhiteSpace(contentTypeToSync))
+                throw new ArgumentException($"Content Type not passed to {Name}");
+
+            fieldToRemove = workflowContext.Input["RemovedField"].ToString();
+            if (string.IsNullOrWhiteSpace(fieldToRemove))
+                throw new ArgumentException($"RemovedField not passed to {Name}");
         }
     }
 }
