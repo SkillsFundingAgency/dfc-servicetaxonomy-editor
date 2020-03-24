@@ -6,6 +6,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public interface IOrchardToOwlGeneratorService
     {
-        OwlDataModel CreateOwlDataModels(IEnumerable<ContentTypeDefinition> contentTypeDefinitions);
+        OwlDataModel? CreateOwlDataModels(IEnumerable<ContentTypeDefinition> contentTypeDefinitions);
     }
 }

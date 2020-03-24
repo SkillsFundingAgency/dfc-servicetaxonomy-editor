@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
@@ -21,14 +17,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
 
         public string? PartName => nameof(BagPart);
 
-        public BagPartGraphSyncer(IContentDefinitionManager contentDefinitionManager, IServiceProvider serviceProvider)
+        public BagPartGraphSyncer(IServiceProvider serviceProvider)
         {
-            _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
         }
 
@@ -36,7 +30,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper)
         {
             var delayedCommands = new List<ICommand>();
 
@@ -45,12 +40,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 string contentType = contentItem!["ContentType"]!.ToString();
+                string contentItemId = contentItem!["ContentItemId"]!.ToString();
+                string contentItemVersionId = contentItem!["ContentItemVersionId"]!.ToString();
 
                 DateTime? createdDate = !string.IsNullOrEmpty(contentItem["CreatedUtc"]!.ToString()) ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
                 DateTime? modifiedDate = !string.IsNullOrEmpty(contentItem["ModifiedUtc"]!.ToString()) ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
 
                 //todo: if we want to support nested bags, would have to return queries also
-                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(contentType, contentItem!, createdDate, modifiedDate);
+                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(
+                    contentType,
+                    contentItemId,
+                    contentItemVersionId,
+                    contentItem!,
+                    createdDate,
+                    modifiedDate);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -65,10 +68,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
                 delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
-                var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
-                string? relationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
+                //todo: move this code into graphSyncHelper
+                //todo: what if want different relationships for same contenttype in different bags!
+                string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
                 if (string.IsNullOrEmpty(relationshipType))
-                    relationshipType = "ncs__hasBagPart";
+                    relationshipType = await graphSyncHelper.RelationshipType(contentType);
 
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
@@ -87,7 +91,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes)
+            IEnumerable<INode> destNodes,
+            IGraphSyncHelper graphSyncHelper)
         {
             var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
 
@@ -95,6 +100,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             foreach (var bagPartContentItem in contentItems)
             {
+                //todo: foreach will never iterate
                 if (await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
                 {
                     return true;
@@ -106,13 +112,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
 
             return true;
-        }
-
-        private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
-        {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
-            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
-            return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
     }
 }

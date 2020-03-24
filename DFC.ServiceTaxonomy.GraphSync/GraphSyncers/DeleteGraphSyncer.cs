@@ -13,36 +13,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IDeleteNodeCommand _deleteNodeCommand;
+        private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IDeleteNodesByTypeCommand _deleteNodesByTypeCommand;
-        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
         private readonly ISession _session;
         private readonly ILogger<DeleteGraphSyncer> _logger;
-
-        //todo: have as setting of activity, or graph sync content part settings
-        private const string NcsPrefix = "ncs__";
 
         public DeleteGraphSyncer(
             IGraphDatabase graphDatabase,
             IDeleteNodesByTypeCommand deleteNodesByTypeCommand,
             IDeleteNodeCommand deleteNodeCommand,
-            IGraphSyncPartIdProperty graphSyncPartIdProperty,
+            IGraphSyncHelper graphSyncHelper,
             ISession session,
             ILogger<DeleteGraphSyncer> logger)
         {
             _graphDatabase = graphDatabase;
             _deleteNodeCommand = deleteNodeCommand;
+            _graphSyncHelper = graphSyncHelper;
             _deleteNodesByTypeCommand = deleteNodesByTypeCommand;
-            _graphSyncPartIdProperty = graphSyncPartIdProperty;
             _session = session;
             _logger = logger;
         }
 
-        public async Task DeleteNodesByType(string nodeType)
+        public async Task DeleteNodesByType(string contentType)
         {
-            if (string.IsNullOrWhiteSpace(nodeType))
+            if (string.IsNullOrWhiteSpace(contentType))
                 return;
 
-            _deleteNodesByTypeCommand.NodeLabels = new HashSet<string> { NcsPrefix + nodeType };
+            _logger.LogInformation($"Sync: deleting all nodes of {contentType}");
+
+            _graphSyncHelper.ContentType = contentType;
+
+            _deleteNodesByTypeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels(contentType));
 
             try
             {
@@ -55,8 +56,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _session.Cancel();
                 throw;
             }
-
-            _logger.LogInformation($"Sync: deleting all nodes of {nodeType}");
         }
 
         public async Task DeleteFromGraph(ContentItem contentItem)
@@ -66,18 +65,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation($"Sync: deleting {contentItem.ContentType}");
 
-            _deleteNodeCommand.NodeLabels = new HashSet<string> { NcsPrefix + contentItem.ContentType };
-            _deleteNodeCommand.IdPropertyName = _graphSyncPartIdProperty.Name;
-            _deleteNodeCommand.IdPropertyValue = _graphSyncPartIdProperty.Value(contentItem.Content.GraphSyncPart);
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
+            _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName;
+            _deleteNodeCommand.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
+            _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
 
             try
             {
                 await _graphDatabase.Run(_deleteNodeCommand);
             }
-            //TODO : specify which exceptions to handle?
             catch
             {
-                //this forces a rollback of the currect OC db transaction
+                //this forces a rollback of the current OC db transaction
                 _session.Cancel();
                 throw;
             }

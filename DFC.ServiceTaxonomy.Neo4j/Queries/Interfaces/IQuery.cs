@@ -1,4 +1,5 @@
-﻿using Neo4j.Driver;
+﻿using System.Collections.Generic;
+using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces
 {
@@ -6,12 +7,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces
     {
         /// <summary>
         /// Check if the query's state is valid, i.e. it contains everything required to generate its Neo4J query.
-        /// Throw InvalidOperationException if the state is not valid.
         /// </summary>
-        void CheckIsValid();
+        /// <returns>List of validation failed messages.</returns>
+        List<string> ValidationErrors();
 
         /// <summary>
         /// Return the Neo4J query that will satisfy the query.
+        /// Throws InvalidOperationException if the state is not valid.
         /// </summary>
         Query Query { get; }
 

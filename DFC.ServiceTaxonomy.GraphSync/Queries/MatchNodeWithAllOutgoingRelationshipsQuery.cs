@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
@@ -14,15 +15,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
             Uri = uri;
         }
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
-            // nothing to check, all properties are non-nullable
+            return new List<string>();
         }
 
         public Query Query
         {
             get
             {
+                //todo: remove hardcoding
                 return new Query($"match (s:ncs__{ContentType} {{ uri: '{Uri}' }}) optional match (s)-[r]->(d) return s, r, d");
             }
         }

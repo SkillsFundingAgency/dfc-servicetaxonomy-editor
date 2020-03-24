@@ -51,6 +51,8 @@ Make sure the password matches the password you created the graph with. This fil
 
 Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the Setup page. Populate the page as follows, and click Finish Setup. (This runs the site using a local Sqlite database.)
 
+If you choose to use a SQL Server or Azure SQL database, ensure that the connection string enables multiple active result sets (MARS), by including `MultipleActiveResultSets=True`.
+
 ![Service Taxonomy Editor Setup](/Images/EditorSetup.png)
 *Note: this step will become unnecessary as the solution evolves.*
 

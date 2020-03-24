@@ -27,9 +27,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
             SelectedNodeId = -1;
         }
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
-            // nothing to check, all properties are non-nullable
+            return new List<string>();
         }
 
         public Query Query
@@ -62,8 +62,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
 
             SelectedNodeId = sourceNode.Id;
 
-            string sourceLabel = sourceNode.Properties.ContainsKey(SourcePropertyName) ? sourceNode.Properties[SourcePropertyName].ToString() : string.Empty;
-            string result = sourceLabel;
+            string? sourceLabel = sourceNode.Properties.ContainsKey(SourcePropertyName) ? sourceNode.Properties[SourcePropertyName].ToString() : string.Empty;
+            string result = sourceLabel ?? string.Empty;
 
             if (relationship != null)
             {

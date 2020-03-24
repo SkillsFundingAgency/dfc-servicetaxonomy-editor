@@ -2,10 +2,10 @@
 {
     public partial class Settings
     {
-        public Global Global { get; set; }
-        public Gravity Gravity { get; set; }
-        public Filter Filter { get; set; }
-        public Options Options { get; set; }
-        public Modes Modes { get; set; }
+        public Global Global { get; set; } = new Global();
+        public Gravity Gravity { get; set; } = new Gravity();
+        public Filter Filter { get; set; } = new Filter();
+        public Options Options { get; set; } = new Options();
+        public Modes Modes { get; set; } = new Modes();
     }
 }

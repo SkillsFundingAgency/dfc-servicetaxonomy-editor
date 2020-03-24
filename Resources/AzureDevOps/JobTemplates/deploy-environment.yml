@@ -16,7 +16,9 @@ parameters:
   EditorAdminUserEmail: ''
   EditorAdminUserPassword: ''
   DotNetCoreVersion: '3.1.100'
-
+  DFCAzureDevOpsProjectGuid: ''
+  DfcServiceTaxonomyTestsBuildId: ''
+ 
 jobs:    
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
   pool: 'NCS - CI and CD'
@@ -102,3 +104,9 @@ jobs:
           inputs:
             targetPath: $(Pipeline.Workspace)\OrchardCoreInitialiserOutput\ 
             artifactName: DFC.ServiceTaxonomy.OrchardCoreInitialiser.Output.${{ parameters.Environment }}
+        - template: ..\StepTemplates\run-functional-tests.yml
+          parameters:
+            DFCAzureDevOpsProjectGuid: ${{ parameters.DFCAzureDevOpsProjectGuid }}
+            DfcServiceTaxonomyTestsBuildId: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
+            Environment: ${{ parameters.Environment }}
+            TestTag: Editor

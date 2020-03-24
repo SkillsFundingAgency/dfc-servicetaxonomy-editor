@@ -15,13 +15,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition);
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper);
 
         Task<bool> VerifySyncComponent(
             ContentItem contentItem,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes);
+            IEnumerable<INode> destNodes,
+            IGraphSyncHelper graphSyncHelper);
     }
 }
