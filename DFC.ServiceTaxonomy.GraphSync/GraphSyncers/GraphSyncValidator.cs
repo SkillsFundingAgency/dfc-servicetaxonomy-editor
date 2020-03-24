@@ -49,8 +49,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var contentDefinition = _contentTypes[contentItem.ContentType];
 
-            _graphSyncHelper.ContentType = contentItem.ContentType;
-
             var sourceNode = results.Select(x => x[0]).Cast<INode>().First();
             var relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
             var destNodes = results.Select(x => x[2]).Cast<INode>().ToList();

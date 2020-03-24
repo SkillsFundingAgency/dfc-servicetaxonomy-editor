@@ -69,8 +69,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
                 delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
 
-                graphSyncHelper.ContentType = contentType;
-                string relationshipType = await RelationshipType(graphSyncHelper);
+                var bagContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+
+                bagContentItemGraphSyncHelper.ContentType = contentType;
+                string relationshipType = await RelationshipType(bagContentItemGraphSyncHelper);
 
                 delayedReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
@@ -107,7 +109,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 // check expected relationship is in graph
                 var bagContentGraphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
 
-                //todo: check elsewhere where we set the graphsynchelper's content type (it will hang around)
                 bagContentGraphSyncValidator.ContentType = bagPartContentItem.ContentType;
                 string expectedRelationship = await RelationshipType(bagContentGraphSyncValidator);
 
