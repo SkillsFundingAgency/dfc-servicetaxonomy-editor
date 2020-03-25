@@ -26,6 +26,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            app.UseStaticFiles();
+
             routes.MapAreaControllerRoute(
                 name: "Visualise",
                 areaName: typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace,

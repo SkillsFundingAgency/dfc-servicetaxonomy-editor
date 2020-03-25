@@ -10,14 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\ContentPreview.Button.cshtml" />
-    <Content Remove="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
+    <Content Remove="Views\XX ContentPreview.Button.cshtml" />
+    <Content Remove="Views\XX Contents-Button-Actions.SummaryAdmin.cshtml" />
     <Content Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Views\ContentPreview.Button.cshtml" />
-    <EmbeddedResource Include="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
+    <EmbeddedResource Include="Views\XX ContentPreview.Button.cshtml" />
+    <EmbeddedResource Include="Views\XX Contents-Button-Actions.SummaryAdmin.cshtml" />
     <EmbeddedResource Include="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
