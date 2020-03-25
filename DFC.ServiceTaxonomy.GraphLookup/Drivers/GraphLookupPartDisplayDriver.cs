@@ -66,6 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
         private async Task<string?> GetNodeValue(string id, GraphLookupPartSettings settings)
         {
             //todo: check if settings can be null
+            //todo: interface and get from service provider
             var results = await _graphDatabase.Run(new GetPropertyOnNodeQuery(
                 settings.NodeLabel!,
                 settings.ValueFieldName!,

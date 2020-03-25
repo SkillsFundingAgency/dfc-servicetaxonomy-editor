@@ -3,8 +3,10 @@
 @inject IContentManager ContentManager
 
 @{
+    #nullable enable
+
     ContentItem contentItem = Model.ContentItem;
-    var graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)].Value;
+    string? graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value;
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
 }
 
@@ -12,7 +14,7 @@
 {
     <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
        asp-controller="Visualise"
-       asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace"
+       asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
        asp-route-visualise="@graphSyncPartText"
        target="_blank"
        class="publish-button btn btn-info">@T["Visualise (last published)"]</a>

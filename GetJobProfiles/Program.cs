@@ -10,7 +10,6 @@ using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.ContentItems.Base;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
-using GetJobProfiles.Models.Recipe.Fields;
 using Microsoft.Extensions.Configuration;
 using MoreLinq;
 using NPOI.XSSF.UserModel;
@@ -54,6 +53,7 @@ namespace GetJobProfiles
             // max number of contentitems in an import recipe
             const int batchSize = 1000;
             const int jobProfileBatchSize = 200;
+            const int occupationsBatchSize = 300;
 
             var config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
@@ -89,6 +89,12 @@ namespace GetJobProfiles
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
             apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
+            const string cypherToContentRecipesPath = "CypherToContentRecipes";
+            CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodesRecipe.json");
+            CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodesRecipe.json");
+            CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json");
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize);
+            
             ProcessLionelsSpreadsheet();
 
             BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
@@ -116,6 +122,43 @@ namespace GetJobProfiles
             File.WriteAllText($"{OutputBasePath}content_titles_summary.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
             File.WriteAllText($"{OutputBasePath}matching_content_titles.json", JsonSerializer.Serialize(_matchingTitles));
             File.WriteAllText($"{OutputBasePath}missing_content_titles.json", JsonSerializer.Serialize(_missingTitles));
+        }
+
+        private static void CopyRecipe(string recipePath, string recipeFilename)
+        {
+            File.Copy(Path.Combine(recipePath, recipeFilename), $"{OutputBasePath}{FileIndex++:00}. {recipeFilename}");
+        }
+
+        private static async Task BatchRecipes(string recipePath, string recipeFilename, int batchSize)
+        {
+            const int totalOccupations = 2942;
+            int skip = 0;
+
+            var tokens = new Dictionary<string, string>
+            {
+                {"skip", skip.ToString()},
+                {"limit", batchSize.ToString()}
+            };
+
+            do
+            {
+                await CopyRecipeWithTokenisation(recipePath, recipeFilename, tokens);
+
+                skip += batchSize;
+                tokens["skip"] = skip.ToString();
+
+            } while (skip < totalOccupations);
+        }
+
+        private static async Task CopyRecipeWithTokenisation(string recipePath, string recipeFilename, IDictionary<string, string> tokens)
+        {
+            string recipe = await File.ReadAllTextAsync(Path.Combine(recipePath, recipeFilename));
+            foreach ((string key, string value) in tokens)
+            {
+                recipe = recipe.Replace($"[token:{key}]", value);
+            }
+
+            await File.WriteAllTextAsync($"{OutputBasePath}{FileIndex++:00}. {recipeFilename}", recipe);
         }
 
         private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix) where T : ContentItem

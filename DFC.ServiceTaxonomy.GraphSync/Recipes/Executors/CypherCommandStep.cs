@@ -11,20 +11,20 @@ using OrchardCore.Recipes.Services;
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
     /// <summary>
-    /// This recipe step enables cypher queries to be executed.
+    /// This recipe step enables cypher commands to be executed.
     /// </summary>
-    public class CypherStep : IRecipeStepHandler
+    public class CypherCommandStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<CypherStep> _logger;
+        private readonly ILogger<CypherCommandStep> _logger;
 
-        private const string StepName = "Cypher";
+        private const string StepName = "CypherCommand";
 
-        public CypherStep(
+        public CypherCommandStep(
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
-            ILogger<CypherStep> logger)
+            ILogger<CypherCommandStep> logger)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
 
-            var step = context.Step.ToObject<CypherStepModel>();
+            var step = context.Step.ToObject<CypherCommandStepModel>();
 
             foreach (string? command in step!.Commands ?? Enumerable.Empty<string?>())
             {
@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         }
 
         #pragma warning disable S3459
-        private class CypherStepModel
+        private class CypherCommandStepModel
         {
             public string[]? Commands { get; set; }
         }

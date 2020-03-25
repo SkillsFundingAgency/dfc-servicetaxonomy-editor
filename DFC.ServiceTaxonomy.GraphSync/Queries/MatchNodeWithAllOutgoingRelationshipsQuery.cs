@@ -1,29 +1,32 @@
-﻿using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
     public class MatchNodeWithAllOutgoingRelationshipsQuery : IQuery<IRecord>
     {
-        private string ContentType { get; }
-        private string Uri { get; }
+        private IEnumerable<string> NodeLabels { get; }
+        private string IdPropertyName { get; }
+        private object IdPropertyValue { get; }
 
-        public MatchNodeWithAllOutgoingRelationshipsQuery(string contentType, string uri)
+        public MatchNodeWithAllOutgoingRelationshipsQuery(IEnumerable<string> nodeLabels, string idPropertyName, object idPropertyValue)
         {
-            ContentType = contentType;
-            Uri = uri;
+            NodeLabels = nodeLabels;
+            IdPropertyName = idPropertyName;
+            IdPropertyValue = idPropertyValue;
         }
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
-            // nothing to check, all properties are non-nullable
+            return new List<string>();
         }
 
         public Query Query
         {
             get
             {
-                return new Query($"match (s:ncs__{ContentType} {{ uri: '{Uri}' }}) optional match (s)-[r]->(d) return s, r, d");
+                return new Query($"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}}) optional match (s)-[r]->(d) return s, r, d");
             }
         }
 

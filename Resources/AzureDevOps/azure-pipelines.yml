@@ -67,6 +67,7 @@ stages:
   - group: dfc-shared-dev
   - group: dfc-stax-shared-dev
   - group: 'KeyVault - dfc-dev-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
   - template: VariableTemplates/DevEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
@@ -85,6 +86,8 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -95,6 +98,7 @@ stages:
   - group: dfc-shared-sit
   - group: dfc-stax-shared-sit
   - group: 'KeyVault - dfc-sit-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
   - template: VariableTemplates/SitEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
@@ -113,6 +117,8 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
 
 - stage: DeployToPP
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -123,6 +129,7 @@ stages:
   - group: dfc-shared-pp
   - group: dfc-stax-shared-pp
   - group: 'KeyVault - dfc-pp-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
   - template: VariableTemplates/PPEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
@@ -141,3 +148,5 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)

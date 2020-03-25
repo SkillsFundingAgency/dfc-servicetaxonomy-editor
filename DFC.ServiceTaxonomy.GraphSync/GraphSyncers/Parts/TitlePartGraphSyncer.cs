@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
-using OrchardCore.ContentManagement;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
 
@@ -15,22 +15,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string? PartName => nameof(TitlePart);
 
+        //todo: configurable??
+        private const string _nodeTitlePropertyName = "skos__prefLabel";
+
         public Task<IEnumerable<ICommand>> AddSyncComponents(
-            dynamic graphLookupContent,
+            dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.Properties.Add("skos__prefLabel", graphLookupContent.Title.ToString());
+            JValue titleValue = content.Title;
+            if (titleValue.Type != JTokenType.Null)
+                mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, titleValue.As<string>());
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        public Task<bool> VerifySyncComponent(
+            dynamic content,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destNodes,
+            IGraphSyncHelper graphSyncHelper)
         {
-            var prefLabel = sourceNode.Properties["skos__prefLabel"];
-            return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(contentItem.Content.TitlePart.Title));
+            object prefLabel = sourceNode.Properties[_nodeTitlePropertyName];
+            return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(content.Title));
         }
     }
 }

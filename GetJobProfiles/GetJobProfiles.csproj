@@ -38,6 +38,18 @@
       <None Update="SeedData\soc_codes.csv">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="CypherToContentRecipes\CreateOccupationContentItemsRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

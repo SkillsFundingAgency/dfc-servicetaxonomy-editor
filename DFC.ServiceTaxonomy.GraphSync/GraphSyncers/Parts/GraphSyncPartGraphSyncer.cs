@@ -6,38 +6,37 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
     {
-        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
-
-        public GraphSyncPartGraphSyncer(IGraphSyncPartIdProperty graphSyncPartIdProperty)
-        {
-            _graphSyncPartIdProperty = graphSyncPartIdProperty;
-        }
-
         public string? PartName => nameof(GraphSyncPart);
 
         public Task<IEnumerable<ICommand>> AddSyncComponents(
-            dynamic graphSyncContent,
+            dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.Properties.Add(_graphSyncPartIdProperty.Name, _graphSyncPartIdProperty.Value(graphSyncContent));
+            mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName, graphSyncHelper.GetIdPropertyValue(content));
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode, 
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+        public Task<bool> VerifySyncComponent(
+            dynamic content,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destNodes,
+            IGraphSyncHelper graphSyncHelper)
         {
-            var uri = sourceNode.Properties[_graphSyncPartIdProperty.Name];
-            return Task.FromResult(Convert.ToString(uri) == _graphSyncPartIdProperty.Value(contentItem.Content.GraphSyncPart));
+            object id = sourceNode.Properties[graphSyncHelper.IdPropertyName];
+            //todo: should we convert to string?
+            return Task.FromResult(Convert.ToString(id) == graphSyncHelper.GetIdPropertyValue(content));
         }
     }
 }

@@ -38,6 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
                 return BadRequest("Unable to find field settings");
             }
 
+            //todo: interface and get from service provider
             var results = await _neoGraphDatabase.Run(new LookupQuery(
                     query,
                     settings.NodeLabel!,        //todo: check can these be null (when no values entered in settings)?

@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
@@ -17,18 +16,12 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
-        private readonly IGraphSyncPartIdProperty _graphSyncPartIdProperty;
-
-        public GraphLookupPartGraphSyncer(IGraphSyncPartIdProperty graphSyncPartIdProperty)
-        {
-            _graphSyncPartIdProperty = graphSyncPartIdProperty;
-        }
-
         public Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper)
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
@@ -55,34 +48,36 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             return emptyResult;
         }
-        
-        public Task<bool> VerifySyncComponent(ContentItem contentItem, ContentTypePartDefinition contentTypePartDefinition, INode sourceNode,
-            IEnumerable<IRelationship> relationships, IEnumerable<INode> destNodes)
+
+        public Task<bool> VerifySyncComponent(
+            dynamic content,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destNodes,
+            IGraphSyncHelper graphSyncHelper)
         {
-            GraphLookupPart graphLookupPart = contentItem.Content.GraphLookupPart.ToObject<GraphLookupPart>();
+            GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
+            if (graphLookupPart == null)
+                throw new GraphSyncException("Missing GraphLookupPart in content");
 
-            if (graphLookupPart != null)
+            string relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+
+            foreach (var node in graphLookupPart.Nodes)
             {
-                var relationshipType =
-                    (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+                var destNode = destNodes.SingleOrDefault(x =>
+                    (string)x.Properties[graphSyncHelper.IdPropertyName] == node.Id);
 
-                foreach (var node in graphLookupPart.Nodes)
+                if (destNode == null)
                 {
-                    var destNode = destNodes.SingleOrDefault(x =>
-                        (string)x.Properties[_graphSyncPartIdProperty.Name] == node.Id);
+                    return Task.FromResult(false);
+                }
 
-                    if (destNode == null)
-                    {
-                        return Task.FromResult(false);
-                    }
+                var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
 
-                    var relationship = relationships.SingleOrDefault(x =>
-                        x.Type == relationshipType && x.EndNodeId == destNode.Id);
-
-                    if (relationship == null)
-                    {
-                        return Task.FromResult(false);
-                    }
+                if (relationship == null)
+                {
+                    return Task.FromResult(false);
                 }
             }
 

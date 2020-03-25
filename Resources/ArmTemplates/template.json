@@ -30,6 +30,27 @@
         },
         "SqlResourceGroupName": {
             "type": "string"
+        },
+        "OwlDataGeneratorDefaultLanguage": {
+            "type": "string"
+        },
+        "OwlDataGeneratorDefaultNamespace": {
+            "type": "string"
+        },
+        "OwlDataGeneratorNamespaceUri": {
+            "type": "string"
+        },
+        "OwlDataGeneratorHeaderUri": {
+            "type": "string"
+        },
+        "OwlDataGeneratorHeaderAuthor": {
+            "type": "string"
+        },
+        "OwlDataGeneratorHeaderVersion": {
+            "type": "string"
+        },
+        "OwlDataGeneratorDescription": {
+            "type": "string"
         }
     },
     "variables": {
@@ -114,6 +135,34 @@
                             {
                                 "name": "Neo4j__Endpoint__Password",
                                 "value": "[parameters('Neo4jPassword')]"
+                            },
+                            {
+                                "name": "OwlDataGeneratorConfigModel__DefaultLanguage",
+                                "value": "[parameters('OwlDataGeneratorDefaultLanguage')]"
+                            },
+                            {
+                                "name": "OwlDataGeneratorConfigModel__NamespaceName",
+                                "value": "[parameters('OwlDataGeneratorDefaultNamespace')]"
+                            },
+                            {
+                                "name": "OwlDataGeneratorConfigModel__NamespaceIri",
+                                "value": "[parameters('OwlDataGeneratorNamespaceUri')]"
+                            },
+                            {
+                                "name": "OwlDataGeneratorConfigModel__HeaderIri",
+                                "value": "[parameters('OwlDataGeneratorHeaderUri')]"
+                            },
+                            {
+                                "name": "OwlDataGeneratorConfigModel__HeaderAuthor",
+                                "value": "[parameters('OwlDataGeneratorHeaderAuthor')]"
+                            },
+                            {
+                                "name": "OwlDataGeneratorConfigModel__HeaderVersion",
+                                "value": "[parameters('OwlDataGeneratorHeaderVersion')]"
+                            },
+                            {
+                                "name": "OwlDataGeneratorConfigModel__DescriptionLabel",
+                                "value": "[parameters('OwlDataGeneratorDescription')]"
                             }
                         ]
                     }

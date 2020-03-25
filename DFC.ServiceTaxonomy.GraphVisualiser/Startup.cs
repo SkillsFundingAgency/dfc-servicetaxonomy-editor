@@ -1,7 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
-using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -25,8 +24,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
         }
 
-        public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+        public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            app.UseStaticFiles();
+
             routes.MapAreaControllerRoute(
                 name: "Visualise",
                 areaName: typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace,

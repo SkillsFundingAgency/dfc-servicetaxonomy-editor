@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.Queries
@@ -23,9 +24,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Queries
             PropertyName = propertyName;
         }
 
-        public void CheckIsValid()
+        public List<string> ValidationErrors()
         {
-            // nothing to check, all properties are non-nullable
+            return new List<string>();
         }
 
         public Query Query
