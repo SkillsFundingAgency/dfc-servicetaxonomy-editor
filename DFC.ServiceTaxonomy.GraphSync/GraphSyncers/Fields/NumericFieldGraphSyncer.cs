@@ -12,7 +12,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
     public class NumericFieldGraphSyncer : IContentFieldGraphSyncer
     {
-        public string FieldName => "NumericField";
+        public string FieldTypeName => "NumericField";
+
+        private const string ContentKey = "Value";
 
         public async Task AddSyncComponents(
             JObject contentItemField,
@@ -21,21 +23,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            JValue? value = (JValue?)contentItemField["Value"];
+            JValue? value = (JValue?)contentItemField?[ContentKey];
             if (value == null || value.Type == JTokenType.Null)
                 return;
 
             var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
 
             string propertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
-            if (fieldSettings.Scale == 0)
-            {
-                mergeNodeCommand.Properties.Add(propertyName, value.As<int>());
-            }
-            else
-            {
-                mergeNodeCommand.Properties.Add(propertyName, value.As<decimal>());
-            }
+            mergeNodeCommand.Properties.Add(propertyName,
+                fieldSettings.Scale == 0 ? value.As<int>() : value.As<decimal>());
         }
 
         public async Task<bool> VerifySyncComponent(
@@ -49,24 +45,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
-            JToken? contentItemFieldValue = contentItemField?["Value"];
-
+            JToken? contentItemFieldValue = contentItemField[ContentKey];
             if (contentItemFieldValue == null || !contentItemFieldValue.HasValues)
+            {
+                return nodePropertyValue == null;
+            }
+
+            if (nodePropertyValue == null)
                 return false;
 
-            switch (nodePropertyValue)
+            var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
+
+            if (fieldSettings.Scale == 0)
             {
-                case int i:
-                    return contentItemFieldValue.Type == JTokenType.Integer && i == contentItemFieldValue.As<int>();
-                case float f:
-                    //todo: do we need to do this? if so set tolerance from scale settings
-                    //todo: ude decimal instead?
-                    //return contentItemFieldValue.Type == JTokenType.Float && Math.Abs(f - contentItemFieldValue.As<float>()) < 0.0001;
-                    return contentItemFieldValue.Type == JTokenType.Float && f == contentItemFieldValue.As<float>();
-                default:
-                    //todo: log $"Found unexpected type {contentItemFieldValue.Type} in {contentPartFieldDefinition.Name} {FieldName}");
-                    return false;
+                return contentItemFieldValue.Type == JTokenType.Integer && (int)nodePropertyValue == contentItemFieldValue.As<int>();
             }
+
+            return contentItemFieldValue.Type == JTokenType.Float && (decimal)nodePropertyValue == contentItemFieldValue.As<decimal>();
+
+            // switch (nodePropertyValue)
+            // {
+            //     case int i:
+            //         return contentItemFieldValue.Type == JTokenType.Integer && i == contentItemFieldValue.As<int>();
+            //     case float f:
+            //         //todo: do we need to do this? if so set tolerance from scale settings
+            //         //todo: ude decimal instead?
+            //         //return contentItemFieldValue.Type == JTokenType.Float && Math.Abs(f - contentItemFieldValue.As<float>()) < 0.0001;
+            //         return contentItemFieldValue.Type == JTokenType.Float && f == contentItemFieldValue.As<decimal>();
+            //     default:
+            //         //todo: log $"Found unexpected type {contentItemFieldValue.Type} in {contentPartFieldDefinition.Name} {FieldName}");
+            //         return false;
+            // }
         }
     }
 }

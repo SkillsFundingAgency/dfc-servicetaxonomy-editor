@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
@@ -10,9 +9,11 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
-    public class HtmlFieldGraphSyncer : IContentFieldGraphSyncer
+    public class HtmlFieldGraphSyncer : FieldGraphSyncer, IContentFieldGraphSyncer
     {
-        public string FieldName => "HtmlField";
+        public string FieldTypeName => "HtmlField";
+
+        private const string ContentKey = "Html";
 
         public async Task AddSyncComponents(
             JObject contentItemField,
@@ -21,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            JValue? value = (JValue?)contentItemField["Html"];
+            JValue? value = (JValue?)contentItemField[ContentKey];
             if (value == null || value.Type == JTokenType.Null)
                 return;
 
@@ -36,13 +37,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<INode> destNodes,
             IGraphSyncHelper graphSyncHelper)
         {
-            //todo: helper for this
             string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
-            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
-            JToken? contentItemFieldValue = contentItemField?["Html"];
+            return StringContentPropertyMatchesNodeProperty(
+                ContentKey,
+                contentItemField,
+                nodePropertyName,
+                sourceNode);
 
-            return Convert.ToString(contentItemFieldValue) == Convert.ToString(nodePropertyValue);
+            // //todo: helper for this?
+            // string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
+            // sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+            //
+            // JValue? contentItemFieldValue = (JValue?)contentItemField?[ContentKey];
+            // if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
+            // {
+            //     return nodePropertyValue == null;
+            // }
+            //
+            // if (nodePropertyValue == null)
+            //     return false;
+            //
+            // return contentItemFieldValue.As<string>() == (string)nodePropertyValue;
         }
     }
 }

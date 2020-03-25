@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
                     contentTypePartDefinition.PartDefinition.Fields
-                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
@@ -101,7 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
                     contentTypePartDefinition.PartDefinition.Fields
-                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {

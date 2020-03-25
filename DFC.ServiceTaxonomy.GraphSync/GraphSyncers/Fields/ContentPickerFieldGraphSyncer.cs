@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
     public class ContentPickerFieldGraphSyncer : IContentFieldGraphSyncer
     {
-        public string FieldName => "ContentPickerField";
+        public string FieldTypeName => "ContentPickerField";
 
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IContentManager _contentManager;

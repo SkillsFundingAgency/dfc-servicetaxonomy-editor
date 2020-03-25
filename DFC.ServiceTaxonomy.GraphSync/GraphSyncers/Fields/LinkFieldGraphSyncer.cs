@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
@@ -10,12 +9,12 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
-    public class LinkFieldGraphSyncer : IContentFieldGraphSyncer
+    public class LinkFieldGraphSyncer : FieldGraphSyncer, IContentFieldGraphSyncer
     {
-        public string FieldName => "LinkField";
+        public string FieldTypeName => "LinkField";
 
-        private const string _urlFieldKey = "Url", _textFieldKey = "Text";
-        private const string _linkUrlPostfix = "_url", _linkTextPostfix = "_text";
+        private const string UrlFieldKey = "Url", TextFieldKey = "Text";
+        private const string LinkUrlPostfix = "_url", LinkTextPostfix = "_text";
 
         public async Task AddSyncComponents(
             JObject contentItemField,
@@ -26,13 +25,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             string basePropertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
 
-            JValue? value = (JValue?)contentItemField[_urlFieldKey];
+            JValue? value = (JValue?)contentItemField[UrlFieldKey];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkUrlPostfix}", value.As<string>());
+                mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkUrlPostfix}", value.As<string>());
 
-            value = (JValue?)contentItemField[_textFieldKey];
+            value = (JValue?)contentItemField[TextFieldKey];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add($"{basePropertyName}{_linkTextPostfix}", value.As<string>());
+                mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
         public async Task<bool> VerifySyncComponent(
@@ -45,21 +44,50 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             string nodeBasePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 
-            JToken? contentItemUrlFieldValue = contentItemField?[_urlFieldKey];
-            string nodeUrlPropertyName = $"{nodeBasePropertyName}{_linkUrlPostfix}";
-            sourceNode.Properties.TryGetValue(nodeUrlPropertyName, out object? nodeUrlPropertyValue);
+            string nodeUrlPropertyName = $"{nodeBasePropertyName}{LinkUrlPostfix}";
 
-            if (Convert.ToString(contentItemUrlFieldValue) != Convert.ToString(nodeUrlPropertyValue))
+            if (!StringContentPropertyMatchesNodeProperty(
+                UrlFieldKey,
+                contentItemField,
+                nodeUrlPropertyName,
+                sourceNode))
+            {
                 return false;
+            }
 
-            JToken? contentItemTextFieldValue = contentItemField?[_textFieldKey];
-            string nodeTextPropertyName = $"{nodeBasePropertyName}{_linkTextPostfix}";
-            sourceNode.Properties.TryGetValue(nodeTextPropertyName, out object? nodeTextPropertyValue);
+            string nodeTextPropertyName = $"{nodeBasePropertyName}{LinkTextPostfix}";
 
-            if (Convert.ToString(contentItemTextFieldValue) != Convert.ToString(nodeTextPropertyValue))
-                return false;
+            return StringContentPropertyMatchesNodeProperty(
+                TextFieldKey,
+                contentItemField,
+                nodeTextPropertyName,
+                sourceNode);
 
-            return true;
+            // string nodeUrlPropertyName = $"{nodeBasePropertyName}{_linkUrlPostfix}";
+            // sourceNode.Properties.TryGetValue(nodeUrlPropertyName, out object? nodeUrlPropertyValue);
+            //
+            // // if (Convert.ToString(contentItemUrlFieldValue) != Convert.ToString(nodeUrlPropertyValue))
+            // //     return false;
+            //
+            // JToken? contentItemUrlFieldValue = contentItemField?[_urlFieldKey];
+            // if (contentItemUrlFieldValue == null || contentItemUrlFieldValue.Type == JTokenType.Null)
+            // {
+            //     return nodeUrlPropertyValue == null;
+            // }
+            //
+            // if (nodeUrlPropertyValue == null)
+            //     return false;
+            //
+            // return contentItemUrlFieldValue.As<string>() == (string)nodeUrlPropertyValue;
+            //
+            // JToken? contentItemTextFieldValue = contentItemField?[_textFieldKey];
+            // string nodeTextPropertyName = $"{nodeBasePropertyName}{_linkTextPostfix}";
+            // sourceNode.Properties.TryGetValue(nodeTextPropertyName, out object? nodeTextPropertyValue);
+            //
+            // if (Convert.ToString(contentItemTextFieldValue) != Convert.ToString(nodeTextPropertyValue))
+            //     return false;
+            //
+            // return true;
         }
     }
 }
