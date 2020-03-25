@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Exception;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
@@ -33,8 +33,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
 
             ContentItem contentItem = await query.FirstOrDefaultAsync();
 
-            if (contentItem == null) //todo: what exception?
-                throw new InvalidDataException($"Unable to get content item of type '{contentType}' with DisplayText '{displayText}'.");
+            if (contentItem == null)
+            {
+                throw new ContentHelperException($"Unable to get content item of type '{contentType}' with DisplayText '{displayText}'.");
+            }
 
             return $"{contentItem.ContentItemId}";
         }

@@ -31,6 +31,7 @@ using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
@@ -88,7 +89,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            services.AddTransient<IGraphSyncValidator, NeoGraphSyncValidator>();
+            services.AddTransient<IGraphSyncValidator, GraphSyncValidator>();
+            services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, LinkFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, ContentPickerFieldGraphSyncer>();
 
             // Graph Sync Part
             services.AddContentPart<GraphSyncPart>()
