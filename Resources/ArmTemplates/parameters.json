@@ -28,6 +28,27 @@
         },
         "SqlResourceGroupName": {
             "value": "__SharedResourceGroupName__"
-        }        
+        },
+        "OwlDataGeneratorDefaultLanguage": {
+            "value": "__OwlDataGeneratorDefaultLanguage__"
+        },
+        "OwlDataGeneratorDefaultNamespace": {
+            "value": "__OwlDataGeneratorDefaultNamespace__"
+        },
+        "OwlDataGeneratorNamespaceUri": {
+            "value": "__OwlDataGeneratorNamespaceUri__"
+        },
+        "OwlDataGeneratorHeaderUri": {
+            "value": "__OwlDataGeneratorHeaderUri__"
+        },
+        "OwlDataGeneratorHeaderAuthor": {
+            "value": "__OwlDataGeneratorHeaderAuthor__"
+        },
+        "OwlDataGeneratorHeaderVersion": {
+            "value": "__OwlDataGeneratorHeaderVersion__"
+        },
+        "OwlDataGeneratorDescription": {
+            "value": "__OwlDataGeneratorDescription__"
+        }
     }
 }

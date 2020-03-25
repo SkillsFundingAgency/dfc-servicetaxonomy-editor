@@ -8,19 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="wwwroot\css\overrides.css" />
     <EmbeddedResource Remove="wwwroot\css\webvowl.app.css" />
+    <EmbeddedResource Remove="wwwroot\css\webvowl.css" />
+    <EmbeddedResource Remove="wwwroot\js\d3.min.js" />
     <EmbeddedResource Remove="wwwroot\js\webvowl.app.js" />
+    <EmbeddedResource Remove="wwwroot\js\webvowl.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\css\webvowl.app.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\js\webvowl.app.js">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <Content Include="wwwroot\css\overrides.css" />
+    <Content Include="wwwroot\css\webvowl.app.css" />
+    <Content Include="wwwroot\css\webvowl.css" />
+    <Content Include="wwwroot\js\d3.min.js" />
+    <Content Include="wwwroot\js\webvowl.app.js" />
+    <Content Include="wwwroot\js\webvowl.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,16 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="wwwroot\css\webvowl.css">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </EmbeddedResource>
     <EmbeddedResource Update="wwwroot\favicon.ico">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </EmbeddedResource>
-    <EmbeddedResource Update="wwwroot\js\d3.min.js">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </EmbeddedResource>
-    <EmbeddedResource Update="wwwroot\js\webvowl.js">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </EmbeddedResource>
     <EmbeddedResource Update="wwwroot\license.txt">
