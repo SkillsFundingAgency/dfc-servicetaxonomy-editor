@@ -134,7 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         {
             var typeBeingUpdated = _contentDefinitionManager.GetTypeDefinition(partName);
 
-            if (typeBeingUpdated != null && typeBeingUpdated.Parts.Any(x => x.Name == "GraphSyncPart"))
+            if (typeBeingUpdated != null && typeBeingUpdated.Parts.Any(x => x.Name == nameof(GraphSyncPart))
             {
                 _contentDefinitionManager.AlterPartDefinition(partName, x => x.RemoveField(fieldName));
                 _workflowManager.TriggerEventAsync(nameof(ContentTypeFieldRemovedEvent), new { ContentType = typeBeingUpdated.Name, RemovedField = fieldName }, typeBeingUpdated.Name).GetAwaiter().GetResult();
