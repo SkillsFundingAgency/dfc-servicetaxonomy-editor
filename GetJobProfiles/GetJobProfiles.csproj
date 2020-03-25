@@ -32,6 +32,9 @@
       <None Update="SeedData\job_profiles.xlsx">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="SeedData\job_profiles_updated.xlsx">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
       <None Update="SeedData\soc_codes.csv">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
