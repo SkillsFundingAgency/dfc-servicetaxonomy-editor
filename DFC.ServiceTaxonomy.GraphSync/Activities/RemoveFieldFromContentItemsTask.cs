@@ -59,11 +59,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             _contentDefinitionService.RemoveFieldFromPart(fieldToRemove, contentTypeToSync);
 
-            var b = _contentManager.GetPartDefinition(contentTypeToSync);
-            if (b == null)
-            {
-                throw new InvalidCastException();
-            }
             return Outcomes("Done");
         }
 
