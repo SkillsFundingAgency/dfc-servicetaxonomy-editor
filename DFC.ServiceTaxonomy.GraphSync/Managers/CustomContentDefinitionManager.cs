@@ -99,6 +99,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Managers
         private ContentDefinitionRecord LoadContentDefinitionRecord() =>
             _contentDefinitionStore.LoadContentDefinitionAsync().GetAwaiter().GetResult();
 
+        //TODO: Handle pragma warnings in Build methods. Lifted directly from OC
         private ContentTypeDefinition Build(ContentTypeDefinitionRecord source, IList<ContentPartDefinitionRecord> partDefinitionRecords)
         {
             if (source == null)
