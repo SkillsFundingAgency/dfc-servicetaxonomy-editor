@@ -8,6 +8,7 @@ using OrchardCore.Workflows.Services;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
 using OrchardCore.ContentManagement.Metadata;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
@@ -157,7 +158,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         {
             var typeBeingDeleted = _contentDefinitionManager.GetTypeDefinition(name);
 
-            if (typeBeingDeleted.Parts.Any(x => x.Name == "GraphSyncPart"))
+            if (typeBeingDeleted.Parts.Any(x => x.Name == nameof(GraphSyncPart)))
             {
                 _workflowManager.TriggerEventAsync(nameof(ContentTypeDeletedEvent), new { ContentType = name }, name).GetAwaiter().GetResult();
             }
