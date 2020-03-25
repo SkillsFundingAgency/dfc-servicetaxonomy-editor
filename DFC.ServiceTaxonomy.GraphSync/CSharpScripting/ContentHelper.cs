@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Exception;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
@@ -35,10 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
 
             if (contentItem == null)
             {
-                #pragma warning disable S112
-                //todo: best exception?
-                throw new Exception($"Unable to get content item of type '{contentType}' with DisplayText '{displayText}'.");
-                #pragma warning restore S112
+                throw new ContentHelperException($"Unable to get content item of type '{contentType}' with DisplayText '{displayText}'.");
             }
 
             return $"{contentItem.ContentItemId}";
