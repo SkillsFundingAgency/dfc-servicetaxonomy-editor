@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -61,17 +62,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         {
             _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered");
 
-             //todo: don't calc these in ctor, check at sync val time, also ctor get called many times, not always when executing
              var contentTypes = _contentDefinitionManager
                  .ListTypeDefinitions()
                  .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                  .ToDictionary(x => x.Name);
 
              var timestamp = DateTime.UtcNow;
-             var log = (await _session.Query<AuditSyncLog>().FirstOrDefaultAsync()) ??
-                       new AuditSyncLog {LastSynced = DateTime.MinValue};
+             var log = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
+                       new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
 
-             //todo: do we want to load 10s thousands at once??
+             //todo: do we want to load 10s thousands at once?? load content type at a time?? batch them up??
              var contentItems = await _session
                  //do we only care about the latest published items?
                  .Query<ContentItem, ContentItemIndex>(x =>
