@@ -15,8 +15,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
     public class RemoveFieldFromContentItemsTask : TaskActivity
     {
-        readonly ITypeActivatorFactory<ContentPart> _contentPartFactory;
-
         public RemoveFieldFromContentItemsTask(
             ISession session,
             IStringLocalizer<RemoveFieldFromContentItemsTask> localizer,
@@ -25,19 +23,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             IOrchardCoreContentDefinitionService contentDefinitionService,
              ITypeActivatorFactory<ContentPart> contentPartFactory)
         {
-            _notifier = notifier;
-            _session = session;
             T = localizer;
-            _contentManager = contentManager;
-            _contentPartFactory = contentPartFactory;
             _contentDefinitionService = contentDefinitionService;
         }
 
         private IStringLocalizer T { get; }
-        private readonly ISession _session;
-        private readonly IContentDefinitionManager _contentManager;
         private readonly IOrchardCoreContentDefinitionService _contentDefinitionService;
-        private readonly INotifier _notifier;
 
         public override string Name => nameof(RemoveFieldFromContentItemsTask);
         public override LocalizedString DisplayText => T["Remove field from a Content Type"];
