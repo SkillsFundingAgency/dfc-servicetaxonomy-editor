@@ -15,7 +15,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     // we want to avoid async void
-    #pragma warning disable S3241
+#pragma warning disable S3241
 
     /// <remarks>
     /// we map from Orchard Core's types to Neo4j's driver types (which map to cypher type)
@@ -283,5 +283,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return _graphSyncHelper!.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
-    #pragma warning restore S3241
+#pragma warning restore S3241
 }
