@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             }
             catch
             {
-                var contentType = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
+                string contentType = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
                 //TODO : find out how to hide the success message, the notifier doesn't provide a means of clearing the existing notifications
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteFromGraphTask), $"The {contentType} could not be removed because the associated node could not be deleted from the graph."));
                 throw;

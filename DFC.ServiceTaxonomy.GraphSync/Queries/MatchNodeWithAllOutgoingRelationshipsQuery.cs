@@ -6,13 +6,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
     public class MatchNodeWithAllOutgoingRelationshipsQuery : IQuery<IRecord>
     {
-        private string ContentType { get; }
-        private string Uri { get; }
+        private IEnumerable<string> NodeLabels { get; }
+        private string IdPropertyName { get; }
+        private object IdPropertyValue { get; }
 
-        public MatchNodeWithAllOutgoingRelationshipsQuery(string contentType, string uri)
+        public MatchNodeWithAllOutgoingRelationshipsQuery(IEnumerable<string> nodeLabels, string idPropertyName, object idPropertyValue)
         {
-            ContentType = contentType;
-            Uri = uri;
+            NodeLabels = nodeLabels;
+            IdPropertyName = idPropertyName;
+            IdPropertyValue = idPropertyValue;
         }
 
         public List<string> ValidationErrors()
@@ -24,8 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
         {
             get
             {
-                //todo: remove hardcoding
-                return new Query($"match (s:ncs__{ContentType} {{ uri: '{Uri}' }}) optional match (s)-[r]->(d) return s, r, d");
+                return new Query($"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}}) optional match (s)-[r]->(d) return s, r, d");
             }
         }
 

@@ -61,38 +61,50 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            string nodeLabel = await TransformOrDefault(GraphSyncPartSettings!.NodeNameTransform, _contentType!);
-
-            return new[] {nodeLabel, CommonNodeLabel};
+            return await NodeLabels(GraphSyncPartSettings!, _contentType!);
         }
 
         public async Task<IEnumerable<string>> NodeLabels(string contentType)
         {
             var graphSyncPartSettings = GetGraphSyncPartSettings(contentType);
 
-            string nodeLabel = await TransformOrDefault(graphSyncPartSettings.NodeNameTransform, contentType);
+            return await NodeLabels(graphSyncPartSettings, contentType);
+        }
+
+        private async Task<IEnumerable<string>> NodeLabels(GraphSyncPartSettings graphSyncPartSettings, string contentType)
+        {
+            string nodeLabel = graphSyncPartSettings.NodeNameTransform switch
+            {
+                "$\"ncs__{ContentType}\"" => $"ncs__{contentType}",
+                "$\"esco__{ContentType}\"" => $"esco__{contentType}",
+                _ => await TransformOrDefault(graphSyncPartSettings.NodeNameTransform, contentType, contentType)
+            };
 
             return new[] {nodeLabel, CommonNodeLabel};
         }
 
         // should only be used for fallbacks
-        //todo: should we support fallback, or insist on relationship type being specified. don't need to set value as is in recipe
-        public async Task<string> RelationshipType(string destinationContentType)
+        public async Task<string> RelationshipTypeDefault(string destinationContentType)
         {
             CheckPreconditions();
 
             var graphSyncPartSettings = GetGraphSyncPartSettings(destinationContentType);
 
-            return string.IsNullOrEmpty(destinationContentType)
-                ? $"has{destinationContentType}"
-                : await Transform(graphSyncPartSettings.CreateRelationshipType!, destinationContentType);
+            return await TransformOrDefault(
+                graphSyncPartSettings.CreateRelationshipType,
+                $"has{destinationContentType}",
+                destinationContentType);
         }
 
         public async Task<string> PropertyName(string name)
         {
             CheckPreconditions();
 
-            return await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name);
+            return GraphSyncPartSettings!.PropertyNameTransform switch
+            {
+                "$\"ncs__{Value}\"" => $"ncs__{name}",
+                _ => await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name, _contentType!)
+            };
         }
 
         public string IdPropertyName
@@ -110,9 +122,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             CheckPreconditions();
 
-            return await TransformOrDefault(
-                GraphSyncPartSettings!.GenerateIdPropertyValue,
-                _contentType!);
+            string newGuid = Guid.NewGuid().ToString("D");
+
+            return GraphSyncPartSettings!.GenerateIdPropertyValue switch
+            {
+                "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\"" =>
+                $"http://data.europa.eu/esco/occupation/{_contentType!.ToLowerInvariant()}/{newGuid}",
+
+                "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\"" =>
+                $"http://nationalcareers.service.gov.uk/{_contentType!.ToLowerInvariant()}/{newGuid}",
+
+                _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
+            };
         }
 
         public string GetIdPropertyValue(dynamic graphSyncContent)
@@ -129,18 +150,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 throw new InvalidOperationException($"You must set {nameof(ContentType)} before calling.");
         }
 
-        private async Task<string> TransformOrDefault(string? transformCode, string value)
+        private async Task<string> TransformOrDefault(string? transformCode, string value, string contentType)
         {
             return string.IsNullOrEmpty(transformCode)
                || transformCode == "Value"
                || transformCode == "$\"{Value}\""
                 ? value
-                : await Transform(transformCode, value);
+                : await Transform(transformCode, value, contentType);
         }
 
-        private async Task<string> Transform(string transformCode, string untransformedValue)
+        private async Task<string> Transform(string transformCode, string untransformedValue, string contentType)
         {
             _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
+            _graphSyncHelperCSharpScriptGlobals.ContentType = contentType;
+
             return await CSharpScript.EvaluateAsync<string>(transformCode,
                 ScriptOptions.Default.WithImports("System"),
                 _graphSyncHelperCSharpScriptGlobals);

@@ -11,16 +11,16 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Services
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public class NeoGraphSyncValidator : IGraphSyncValidator
+    public class GraphSyncValidator : IGraphSyncValidator
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
 
-        public NeoGraphSyncValidator(
+        public GraphSyncValidator(
             IContentDefinitionManager contentDefinitionManager,
             IGraphDatabase graphDatabase,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
@@ -37,7 +37,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
         public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem)
         {
-            var results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(contentItem.ContentType, (string)contentItem.Content.GraphSyncPart.Text));
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            List<IRecord> results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(
+                await _graphSyncHelper.NodeLabels(),
+                _graphSyncHelper.IdPropertyName,
+                _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart)));
 
             if (results == null || !results.Any())
                 return false;
@@ -53,12 +58,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
             foreach (var part in contentDefinition.Parts)
             {
-                if (!_partSyncers.TryGetValue(part.PartDefinition.Name, out var partSyncer))
+                string partname = part.PartDefinition.Name;
+                if (!_partSyncers.TryGetValue(partname, out var partSyncer))
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
 
-                if (!await partSyncer.VerifySyncComponent(contentItem, part, sourceNode, relationships, destNodes, _graphSyncHelper))
+                dynamic? partContent = contentItem.Content[partname];
+                if (partContent == null)
+                    continue; //todo: throw??
+
+                if (!await partSyncer.VerifySyncComponent(partContent, part, sourceNode, relationships, destNodes, _graphSyncHelper))
                     return false;
             }
 
