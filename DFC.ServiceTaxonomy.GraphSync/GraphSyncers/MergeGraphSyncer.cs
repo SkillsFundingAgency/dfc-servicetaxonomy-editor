@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
@@ -21,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
         private readonly IGraphDatabase _graphDatabase;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly ICustomContentDefintionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IMergeNodeCommand _mergeNodeCommand;
@@ -31,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public MergeGraphSyncer(
             IGraphDatabase graphDatabase,
-            IContentDefinitionManager contentDefinitionManager,
+            ICustomContentDefintionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
             IMergeNodeCommand mergeNodeCommand,

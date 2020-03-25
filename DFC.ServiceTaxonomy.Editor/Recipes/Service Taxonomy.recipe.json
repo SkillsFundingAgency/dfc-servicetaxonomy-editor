@@ -1816,6 +1816,7 @@
                                     "Position": "1"
                                 },
                                 "NumericFieldSettings": {
+                                    "Scale": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -1829,6 +1830,7 @@
                                     "Position": "2"
                                 },
                                 "NumericFieldSettings": {
+                                    "Scale": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -1842,6 +1844,7 @@
                                     "Position": "3"
                                 },
                                 "NumericFieldSettings": {
+                                    "Scale": 0
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -3296,34 +3299,45 @@
                     ]
                 },
                 {
-                    "WorkflowTypeId": "4hw6br5f7fnkdv8syssnqedkcs",
-                    "Name": "Sync Validation",
+                    "WorkflowTypeId": "4kpfxdbyraj82rd2qtmt7nznm3",
+                    "Name": "Delete Field From Graph",
                     "IsEnabled": true,
-                    "IsSingleton": true,
+                    "IsSingleton": false,
                     "DeleteFinishedWorkflows": false,
                     "Activities": [
                         {
-                            "ActivityId": "4ds5z2jqrskbhypepw3j11834k",
-                            "Name": "TimerEvent",
+                            "ActivityId": "4db6e0txbdtyzxk6dgv8h2z2nb",
+                            "Name": "ContentTypeFieldRemovedEvent",
                             "X": 0,
                             "Y": 0,
                             "IsStart": true,
                             "Properties": {
                                 "ActivityMetadata": {
-                                    "Title": "Every day at 1am"
-                                },
-                                "CronExpression": "0 1 * * *"
+                                    "Title": "Field Deleted from Content Type"
+                                }
                             }
                         },
                         {
-                            "ActivityId": "4mvaxsfc5ntc90s0pbs7xtds4x",
-                            "Name": "AuditSyncIssuesTask",
-                            "X": 0,
-                            "Y": 170,
+                            "ActivityId": "47k35ysvf16ebv24tnt7ma8rmp",
+                            "Name": "RemoveFieldFromContentItemsTask",
+                            "X": 220,
+                            "Y": 210,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
-                                    "Title": null
+                                    "Title": "Remove field from Content Type"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "459fr3zpagjmaxbn6wx7dc2hmb",
+                            "Name": "PublishContentTypeContentItemsTask",
+                            "X": 560,
+                            "Y": 210,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Publish Content Items by Content Type"
                                 }
                             }
                         }
@@ -3331,9 +3345,15 @@
                     "Transitions": [
                         {
                             "Id": 0,
-                            "SourceActivityId": "4ds5z2jqrskbhypepw3j11834k",
+                            "SourceActivityId": "4db6e0txbdtyzxk6dgv8h2z2nb",
                             "SourceOutcomeName": "Done",
-                            "DestinationActivityId": "4mvaxsfc5ntc90s0pbs7xtds4x"
+                            "DestinationActivityId": "47k35ysvf16ebv24tnt7ma8rmp"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "47k35ysvf16ebv24tnt7ma8rmp",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "459fr3zpagjmaxbn6wx7dc2hmb"
                         }
                     ]
                 }

@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-//            return Outcomes(T["Done"], T["Failed"]);
+            //            return Outcomes(T["Done"], T["Failed"]);
 #pragma warning disable S3220 // Method calls should not resolve ambiguously to overloads with "params"
             return Outcomes(T["Done"]);
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 // setting this, but not letting the exception propagate doesn't work
                 //workflowContext.Fault(ex, activityContext);
 
-//                _notifier.Add(new GetProperty<NotifyType>(), new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
+                //                _notifier.Add(new GetProperty<NotifyType>(), new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Sync to graph failed: {ex.Message}"));
 
                 // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
