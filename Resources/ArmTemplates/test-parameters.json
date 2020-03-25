@@ -28,6 +28,27 @@
         },
         "SqlResourceGroupName": {
             "value": "dfc-dev-shared-rg"
+        },
+        "OwlDataGeneratorDefaultLanguage": {
+            "value": "en"
+        },
+        "OwlDataGeneratorDefaultNamespace": {
+            "value": "NCSnamespace"
+        },
+        "OwlDataGeneratorNamespaceUri": {
+            "value": "https://nationalcareers.service.gov.uk"
+        },
+        "OwlDataGeneratorHeaderUri": {
+            "value": "https://nationalcareers.service.gov.uk/test/"
+        },
+        "OwlDataGeneratorHeaderAuthor": {
+            "value": "National Careers Service"
+        },
+        "OwlDataGeneratorHeaderVersion": {
+            "value": "0.0.1(alpha)"
+        },
+        "OwlDataGeneratorDescription": {
+            "value": "NationalCareersService-ServiceTaxonomy"
         }
     }
 }
