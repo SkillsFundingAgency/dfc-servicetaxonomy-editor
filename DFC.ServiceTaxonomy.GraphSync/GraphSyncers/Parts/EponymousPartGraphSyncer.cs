@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
@@ -43,10 +45,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldGraphSyncer;
+        private readonly ILogger<EponymousPartGraphSyncer> _logger;
 
-        public EponymousPartGraphSyncer(IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer)
+        public EponymousPartGraphSyncer(
+            IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer,
+            IServiceProvider serviceProvider,
+            ILogger<EponymousPartGraphSyncer> logger)
         {
             _contentFieldGraphSyncer = contentFieldGraphSyncer;
+            _logger = logger;
         }
 
         /// <summary>
@@ -119,6 +126,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         destinationNodes,
                         graphSyncHelper))
                     {
+                        //todo: would be good to log graphsyncpart id : can log that in consumer when this returns false
+                        _logger.LogWarning($"Sync validation failed. Field type: {contentFieldGraphSyncer.FieldTypeName}, field: {contentPartFieldDefinition.Name}");
                         return false;
                     }
                 }

@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -17,6 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ILogger<ValidateGraphSync> _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
 
@@ -24,10 +26,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IContentDefinitionManager contentDefinitionManager,
             IGraphDatabase graphDatabase,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            ILogger<ValidateGraphSync> logger)
         {
             _graphDatabase = graphDatabase;
             _graphSyncHelper = graphSyncHelper;
+            _logger = logger;
             _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()
@@ -39,10 +43,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
+            string contentItemId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
+
             List<IRecord> results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(
                 await _graphSyncHelper.NodeLabels(),
                 _graphSyncHelper.IdPropertyName,
-                _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart)));
+                contentItemId));
 
             if (results == null || !results.Any())
                 return false;
@@ -71,11 +77,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (partContent == null)
                     continue; //todo: throw??
 
-                if (!await partSyncer.VerifySyncComponent(partContent, part, sourceNode, relationships, destinationNodes, _graphSyncHelper))
+                if (!await partSyncer.VerifySyncComponent(
+                    partContent, part,
+                    sourceNode, relationships, destinationNodes,
+                    _graphSyncHelper))
+                {
+                    LogValidationFailure(contentItemId, contentItem, partName, partContent, sourceNode);
                     return false;
+                }
             }
 
             return true;
+        }
+
+        private void LogValidationFailure(string contentItemId, ContentItem contentItem, string partName, dynamic partContent, INode sourceNode)
+        {
+            _logger.LogWarning($@"Sync validation failed.
+Content type: '{contentItem.ContentType}'
+Content item ID: '{contentItemId}'
+Content part type name: 'todo'
+             name '{partName}'
+             content: '{partContent}'
+Source node ID: {sourceNode.Id}
+            labels: ':{string.Join(":", sourceNode.Labels)}'
+            properties: '{string.Join(",", sourceNode.Properties.Select(p => $"{p.Key}={p.Value}"))}'");
         }
     }
 }

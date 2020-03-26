@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
         }
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(
+            public async Task<IMergeNodeCommand?> SyncToGraph(
             string contentType,
             string contentItemId,
             string contentItemVersionId,
