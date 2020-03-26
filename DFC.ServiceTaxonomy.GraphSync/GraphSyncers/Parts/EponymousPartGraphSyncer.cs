@@ -102,7 +102,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
                     contentTypePartDefinition.PartDefinition.Fields
                         .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
-
+//why didn't bag part get hit?
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
                     JObject? contentItemField = content[contentPartFieldDefinition.Name];

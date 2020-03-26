@@ -30,8 +30,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
 
             string propertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
-            mergeNodeCommand.Properties.Add(propertyName,
-                fieldSettings.Scale == 0 ? value.As<int>() : value.As<decimal>());
+            if (fieldSettings.Scale == 0)
+            {
+                mergeNodeCommand.Properties.Add(propertyName, value.As<int>());
+            }
+            else
+            {
+                mergeNodeCommand.Properties.Add(propertyName, value.As<decimal>());
+            }
         }
 
         public async Task<bool> VerifySyncComponent(
@@ -39,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);

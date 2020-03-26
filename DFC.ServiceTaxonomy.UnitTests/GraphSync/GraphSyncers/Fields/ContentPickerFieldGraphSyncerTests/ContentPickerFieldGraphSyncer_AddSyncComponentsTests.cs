@@ -8,9 +8,9 @@ using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPickerFieldGraphSyncerTests
 {
-    public class ContentPickerFieldGraphSyncerTests
+    public class ContentPickerFieldGraphSyncer_AddSyncComponentsTests
     {
         public JObject? ContentItemField { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 
         const string _fieldName = "TestField";
 
-        public ContentPickerFieldGraphSyncerTests()
+        public ContentPickerFieldGraphSyncer_AddSyncComponentsTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?

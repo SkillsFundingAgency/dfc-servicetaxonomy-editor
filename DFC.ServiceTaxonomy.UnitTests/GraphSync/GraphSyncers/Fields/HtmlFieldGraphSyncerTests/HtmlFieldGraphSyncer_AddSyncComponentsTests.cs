@@ -8,20 +8,21 @@ using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldGraphSyncerTests
 {
-    public class LinkFieldGraphSyncerTests
+    //todo: factor out common code in tests
+    public class HtmlFieldGraphSyncer_AddSyncComponentsTests
     {
         public JObject? ContentItemField { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public LinkFieldGraphSyncer LinkFieldGraphSyncer { get; set; }
+        public HtmlFieldGraphSyncer HtmlFieldGraphSyncer { get; set; }
 
         const string _fieldName = "TestField";
 
-        public LinkFieldGraphSyncerTests()
+        public HtmlFieldGraphSyncer_AddSyncComponentsTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?
@@ -35,56 +36,28 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
 
-            LinkFieldGraphSyncer = new LinkFieldGraphSyncer();
+            HtmlFieldGraphSyncer = new HtmlFieldGraphSyncer();
         }
 
         [Fact]
-        public async Task AddSyncComponents_LinkTextInContent_LinkTextAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_HtmlInContent_HtmlAddedToMergeNodeCommandsProperties()
         {
-            const string text = "abc";
-            string expectedFieldName = $"{_fieldName}_text";
+            const string html = "<p>abc</p>";
 
-            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
+            ContentItemField = JObject.Parse($"{{\"Html\": \"{html}\"}}");
 
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{expectedFieldName, text}};
+                {{_fieldName, html}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 
         [Fact]
-        public async Task AddSyncComponents_NullLinkTextInContent_LinkTextNotAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_NullHtmlInContent_HtmlNotAddedToMergeNodeCommandsProperties()
         {
-            ContentItemField = JObject.Parse("{\"Text\": null}");
-
-            await CallAddSyncComponents();
-
-            IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
-            Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
-        }
-
-        [Fact]
-        public async Task AddSyncComponents_LinkUrlInContent_LinkUrlAddedToMergeNodeCommandsProperties()
-        {
-            const string url = "https://example.com/";
-            string expectedFieldName = $"{_fieldName}_url";
-
-            ContentItemField = JObject.Parse($"{{\"Url\": \"{url}\"}}");
-
-            await CallAddSyncComponents();
-
-            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{expectedFieldName, url}};
-
-            Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
-        }
-
-        [Fact]
-        public async Task AddSyncComponents_NullLinkUrlInContent_LinkUrlNotAddedToMergeNodeCommandsProperties()
-        {
-            ContentItemField = JObject.Parse("{\"Url\": null}");
+            ContentItemField = JObject.Parse("{\"Html\": null}");
 
             await CallAddSyncComponents();
 
@@ -97,7 +70,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 
         private async Task CallAddSyncComponents()
         {
-            await LinkFieldGraphSyncer.AddSyncComponents(
+            await HtmlFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,

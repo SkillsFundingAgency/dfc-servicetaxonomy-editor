@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
@@ -73,32 +73,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
 
-            int relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
+            IRelationship[] actualRelationships = relationships
+                .Where(r => r.Type == relationshipType)
+                .ToArray();
 
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
-            if (contentItemIds.Count != relationshipCount)
+            if (contentItemIds.Count != actualRelationships.Length)
             {
                 return false;
             }
 
             foreach (JToken item in contentItemIds)
             {
-                var contentItemId = (string)item!;
+                string contentItemId = (string)item!;
 
-                var destContentItem = await _contentManager.GetAsync(contentItemId);
+                ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
 
-                //todo: rename var
-                var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
+                string destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destUri);
-
+                INode destNode = destinationNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
                 if (destNode == null)
                 {
                     return false;
                 }
 
-                var relationship = relationships.SingleOrDefault(r =>
-                    string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && r.EndNodeId == destNode.Id);
+                var relationship = actualRelationships.SingleOrDefault(r =>
+                    r.Type == relationshipType && r.EndNodeId == destNode.Id);
 
                 if (relationship == null)
                 {
