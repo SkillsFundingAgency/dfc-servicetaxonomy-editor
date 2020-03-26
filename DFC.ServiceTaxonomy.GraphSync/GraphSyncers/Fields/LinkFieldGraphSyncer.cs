@@ -62,32 +62,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 contentItemField,
                 nodeTextPropertyName,
                 sourceNode);
-
-            // string nodeUrlPropertyName = $"{nodeBasePropertyName}{_linkUrlPostfix}";
-            // sourceNode.Properties.TryGetValue(nodeUrlPropertyName, out object? nodeUrlPropertyValue);
-            //
-            // // if (Convert.ToString(contentItemUrlFieldValue) != Convert.ToString(nodeUrlPropertyValue))
-            // //     return false;
-            //
-            // JToken? contentItemUrlFieldValue = contentItemField?[_urlFieldKey];
-            // if (contentItemUrlFieldValue == null || contentItemUrlFieldValue.Type == JTokenType.Null)
-            // {
-            //     return nodeUrlPropertyValue == null;
-            // }
-            //
-            // if (nodeUrlPropertyValue == null)
-            //     return false;
-            //
-            // return contentItemUrlFieldValue.As<string>() == (string)nodeUrlPropertyValue;
-            //
-            // JToken? contentItemTextFieldValue = contentItemField?[_textFieldKey];
-            // string nodeTextPropertyName = $"{nodeBasePropertyName}{_linkTextPostfix}";
-            // sourceNode.Properties.TryGetValue(nodeTextPropertyName, out object? nodeTextPropertyValue);
-            //
-            // if (Convert.ToString(contentItemTextFieldValue) != Convert.ToString(nodeTextPropertyValue))
-            //     return false;
-            //
-            // return true;
         }
     }
 }

@@ -44,21 +44,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 contentItemField,
                 nodePropertyName,
                 sourceNode);
-
-            // //todo: helper for this?
-            // string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
-            // sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
-            //
-            // JValue? contentItemFieldValue = (JValue?)contentItemField?[ContentKey];
-            // if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
-            // {
-            //     return nodePropertyValue == null;
-            // }
-            //
-            // if (nodePropertyValue == null)
-            //     return false;
-            //
-            // return contentItemFieldValue.As<string>() == (string)nodePropertyValue;
         }
     }
 }
