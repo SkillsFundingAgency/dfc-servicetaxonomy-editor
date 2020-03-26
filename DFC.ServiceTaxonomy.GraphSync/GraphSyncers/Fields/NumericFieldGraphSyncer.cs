@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Numerics;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
@@ -6,7 +8,6 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -32,17 +33,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string propertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
             if (fieldSettings.Scale == 0)
             {
-                mergeNodeCommand.Properties.Add(propertyName, value.As<int>());
+                mergeNodeCommand.Properties.Add(propertyName, (int)value);
             }
             else
             {
-                mergeNodeCommand.Properties.Add(propertyName, value.As<decimal>());
+                //todo: check this
+                mergeNodeCommand.Properties.Add(propertyName, (decimal)value);
             }
         }
 
-        public async Task<bool> VerifySyncComponent(
-            JObject contentItemField,
-            ContentPartFieldDefinition contentPartFieldDefinition,
+        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+            IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
@@ -64,10 +65,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             if (fieldSettings.Scale == 0)
             {
-                return contentItemFieldValue.Type == JTokenType.Integer && (int)nodePropertyValue == contentItemFieldValue.As<int>();
+                //todo: think we only currently need to support JTokenType.Integer coz the import util doesn't generate values the same way as OC
+                // if (contentItemFieldValue.Type == JTokenType.Float
+                //     || contentItemFieldValue.Type == JTokenType.Integer)
+
+                return nodePropertyValue is int nodePropertyValueInt
+                       && nodePropertyValueInt == (int)contentItemFieldValue;
+
+                // if (nodePropertyValue is int nodePropertyValueInt)
+                //     return nodePropertyValueInt == (int)contentItemFieldValue;
+                //
+                // return false;
+                //bool nodePropertyValueIsWholeNumber = Math.Abs(nodePropertyValue % 1) <= Double.Epsilon * 100;
             }
 
-            return contentItemFieldValue.Type == JTokenType.Float && (decimal)nodePropertyValue == contentItemFieldValue.As<decimal>();
+            // think we only currently need to support JTokenType.Integer coz the import util doesn't generate values the same way as OC
+            //todo: fix importer
+            // return (contentItemFieldValue.Type == JTokenType.Float || contentItemFieldValue.Type == JTokenType.Integer)
+            //        && (decimal)nodePropertyValue == (decimal)contentItemFieldValue;
+
+            float allowableDifference = 1f / (float)BigInteger.Pow(10, fieldSettings.Scale + 2);
+
+            return nodePropertyValue is float nodePropertyValueFloat
+                && Math.Abs(nodePropertyValueFloat - (float)contentItemFieldValue) <= allowableDifference;
 
             // switch (nodePropertyValue)
             // {

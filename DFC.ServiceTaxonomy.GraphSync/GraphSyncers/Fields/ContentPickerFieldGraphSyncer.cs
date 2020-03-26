@@ -11,7 +11,6 @@ using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -60,9 +59,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 destIds);
         }
 
-        public async Task<bool> VerifySyncComponent(
-            JObject contentItemField,
-            ContentPartFieldDefinition contentPartFieldDefinition,
+        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+            IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,

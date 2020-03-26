@@ -18,9 +18,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
+        public NumericFieldSettings NumericFieldSettings { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public NumericFieldGraphSyncer NumericFieldGraphSyncer { get; set; }
-        public NumericFieldSettings NumericFieldSettings { get; set; }
 
         const string _fieldName = "TestField";
 

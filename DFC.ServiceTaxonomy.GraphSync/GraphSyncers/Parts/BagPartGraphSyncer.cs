@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             IEnumerable<ContentItem> contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();

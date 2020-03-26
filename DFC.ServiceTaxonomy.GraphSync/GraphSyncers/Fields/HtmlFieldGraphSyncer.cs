@@ -5,7 +5,6 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -29,9 +28,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(
-            JObject contentItemField,
-            ContentPartFieldDefinition contentPartFieldDefinition,
+        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+            IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,

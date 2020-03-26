@@ -93,7 +93,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
@@ -108,12 +108,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     if (contentItemField == null)
                         continue;
 
+                    IContentPartFieldDefinition contentPartFieldDefinitionWrapper
+                        = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
+
                     if (!await contentFieldGraphSyncer.VerifySyncComponent(
                         contentItemField,
-                        contentPartFieldDefinition,
+                        contentPartFieldDefinitionWrapper,
                         sourceNode,
                         relationships,
-                        destNodes,
+                        destinationNodes,
                         graphSyncHelper))
                     {
                         return false;
