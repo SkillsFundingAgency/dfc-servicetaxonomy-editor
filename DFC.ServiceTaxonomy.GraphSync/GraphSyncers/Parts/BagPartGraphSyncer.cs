@@ -87,8 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         }
 
         //todo: in all verifies, log reason verification fails
-        public async Task<bool> VerifySyncComponent(
-            dynamic content,
+        public async Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -101,7 +100,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             foreach (ContentItem bagPartContentItem in contentItems)
             {
-                var graphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncValidator>();
+                var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateGraphSync>();
 
                 if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
                     return false;

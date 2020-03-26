@@ -26,13 +26,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             IMergeGraphSyncer mergeGraphSyncer,
             IStringLocalizer<AuditSyncIssuesTask> localizer,
             IContentDefinitionManager contentDefinitionManager,
-            IGraphSyncValidator graphSyncValidator,
+            IValidateGraphSync validateGraphSync,
             ILogger<AuditSyncIssuesTask> logger)
         {
             _session = session;
             _mergeGraphSyncer = mergeGraphSyncer;
             _contentDefinitionManager = contentDefinitionManager;
-            _graphSyncValidator = graphSyncValidator;
+            _validateGraphSync = validateGraphSync;
             _logger = logger;
             T = localizer;
             _syncFailedContentItems = new List<ContentItem>();
@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         private readonly ISession _session;
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IGraphSyncValidator _graphSyncValidator;
+        private readonly IValidateGraphSync _validateGraphSync;
         private readonly ILogger _logger;
         private IStringLocalizer T { get; }
 
@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
              foreach (var contentItem in contentItems)
              {
                  //todo: do we need a new _graphSyncValidator each time?
-                 if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
+                 if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
                  {
                      _syncFailedContentItems.Add(contentItem);
                  }
@@ -103,7 +103,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
                      _syncFailedContentItems.RemoveAt(i);
 
-                     if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
+                     if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
                      {
                          _syncFailedContentItems.Add(contentItem);
                      }

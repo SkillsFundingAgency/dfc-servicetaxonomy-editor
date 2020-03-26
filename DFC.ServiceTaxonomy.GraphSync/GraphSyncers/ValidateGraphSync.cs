@@ -13,14 +13,14 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public class GraphSyncValidator : IGraphSyncValidator
+    public class ValidateGraphSync : IValidateGraphSync
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
 
-        public GraphSyncValidator(
+        public ValidateGraphSync(
             IContentDefinitionManager contentDefinitionManager,
             IGraphDatabase graphDatabase,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
@@ -49,26 +49,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var contentDefinition = _contentTypes[contentItem.ContentType];
 
-            var sourceNode = results.Select(x => x[0]).Cast<INode>().First();
-            var relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
-            var destNodes = results.Select(x => x[2]).Cast<INode>().ToList();
+            INode? sourceNode = results.Select(x => x[0]).Cast<INode?>().FirstOrDefault();
+            if (sourceNode == null)
+                return false;
+
+            List<IRelationship> relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
+            List<INode> destinationNodes = results.Select(x => x[2]).Cast<INode>().ToList();
 
             //for some reason sometimes we get an array with a single null element
             relationships.RemoveAll(x => x == null);
 
             foreach (var part in contentDefinition.Parts)
             {
-                string partname = part.PartDefinition.Name;
-                if (!_partSyncers.TryGetValue(partname, out var partSyncer))
+                string partName = part.PartDefinition.Name;
+                if (!_partSyncers.TryGetValue(partName, out var partSyncer))
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
 
-                dynamic? partContent = contentItem.Content[partname];
+                dynamic? partContent = contentItem.Content[partName];
                 if (partContent == null)
                     continue; //todo: throw??
 
-                if (!await partSyncer.VerifySyncComponent(partContent, part, sourceNode, relationships, destNodes, _graphSyncHelper))
+                if (!await partSyncer.VerifySyncComponent(partContent, part, sourceNode, relationships, destinationNodes, _graphSyncHelper))
                     return false;
             }
 

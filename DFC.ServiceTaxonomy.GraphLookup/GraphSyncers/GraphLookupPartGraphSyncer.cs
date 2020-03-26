@@ -49,8 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return emptyResult;
         }
 
-        public Task<bool> VerifySyncComponent(
-            dynamic content,
+        public Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,

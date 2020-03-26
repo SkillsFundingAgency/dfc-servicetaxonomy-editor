@@ -44,16 +44,42 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         }
 
         [Fact]
-        public async Task VerifySyncComponent_NodeAndPropertyCorrect_ReturnsTrue()
+        public async Task VerifySyncComponent_PropertyCorrect_ReturnsTrue()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
             SourceNodeProperties.Add(_fieldName, text);
 
-            bool verifiedOk = await CallVerifySyncComponent();
+            bool verified = await CallVerifySyncComponent();
 
-            Assert.True(verifiedOk);
+            Assert.True(verified);
+        }
+
+        // no need to check for missing source node, that'll be handled in ValidateGraphSync
+
+        [Fact]
+        public async Task VerifySyncComponent_PropertyMissing_ReturnsFalse()
+        {
+            const string text = "abc";
+            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
+
+            bool verified = await CallVerifySyncComponent();
+
+            Assert.False(verified);
+        }
+
+        [Fact]
+        public async Task VerifySyncComponent_PropertyDifferent_ReturnsFalse()
+        {
+            const string text = "abc";
+            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
+
+            SourceNodeProperties.Add(_fieldName, "some_other_value");
+
+            bool verified = await CallVerifySyncComponent();
+
+            Assert.False(verified);
         }
 
         private async Task<bool> CallVerifySyncComponent()
