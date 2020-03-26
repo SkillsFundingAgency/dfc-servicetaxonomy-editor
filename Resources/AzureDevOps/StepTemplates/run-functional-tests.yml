@@ -3,12 +3,11 @@ parameters:
   DfcServiceTaxonomyTestsBuildId:
   Environment: 
   TestTag:
-  AllowedEnvironments: "'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY'"
 
 steps:
 - task: DownloadPipelineArtifact@2
   displayName: Download dfc-servicetaxonomy-tests artifact
-  condition: in('${{ parameters.Environment }}', ${{ parameters.AllowedEnvironments}})
+  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')
   inputs:
     source: specific
     project: ${{ parameters.DFCAzureDevOpsProjectGuid }}
@@ -17,23 +16,23 @@ steps:
     runBranch: 'refs/heads/master'
 - task: ExtractFiles@1
   displayName: Extract TestSuite artifact
-  condition: in('${{ parameters.Environment }}', ${{ parameters.AllowedEnvironments}})
+  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')
   inputs:
     archiveFilePatterns: '$(Pipeline.Workspace)/DFC.ServiceTaxonomy.TestSuite.DeploymentPackages/DeploymentPackages/DFC.ServiceTaxonomy.TestSuite.zip' 
     destinationFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/
     cleanDestinationFolder: true
 - pwsh: Copy-Item -Path $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings-template.json -Destination $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
   displayName: Rename appsettings-template file
-  condition: in('${{ parameters.Environment }}', ${{ parameters.AllowedEnvironments}})
+  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')
 - task: esfadevops.Tokenization.custom-build-task.Tokenization@0
   displayName: 'Tokenization: Transform file appsettings.json'
-  condition: in('${{ parameters.Environment }}', ${{ parameters.AllowedEnvironments}})
+  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')
   inputs:
     SourcePath: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
     TargetFileNames: appsettings.json
 - task: VSTest@2
   displayName: 'VsTest - run TestSuite'
-  condition: in('${{ parameters.Environment }}', ${{ parameters.AllowedEnvironments}})
+  condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')
   inputs:
     testAssemblyVer2: |
       **\DFC.ServiceTaxonomy.TestSuite.dll
