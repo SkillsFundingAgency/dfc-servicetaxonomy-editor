@@ -10,6 +10,28 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="CypherToContentRecipes\CreateOccupationContentItemsRecipe.json" />
+      <None Remove="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json" />
+      <None Remove="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json" />
+      <None Remove="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="CypherToContentRecipes\CreateOccupationContentItemsRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="CsvHelper" Version="13.0.0" />
       <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
       <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
