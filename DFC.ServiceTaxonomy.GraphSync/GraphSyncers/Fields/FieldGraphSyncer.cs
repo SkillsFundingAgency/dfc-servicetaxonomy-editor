@@ -16,7 +16,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string nodePropertyName,
             INode sourceNode)
         {
-            //string nodePropertyName = await graphSyncHelper.PropertyName(fieldName); //contentPartFieldDefinition.Name);
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
             JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];

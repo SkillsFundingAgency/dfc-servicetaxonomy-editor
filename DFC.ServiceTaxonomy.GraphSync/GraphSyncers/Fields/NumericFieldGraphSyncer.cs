@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
             JToken? contentItemFieldValue = contentItemField[ContentKey];
-            if (contentItemFieldValue == null || !contentItemFieldValue.HasValues)
+            if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
                 return nodePropertyValue == null;
             }

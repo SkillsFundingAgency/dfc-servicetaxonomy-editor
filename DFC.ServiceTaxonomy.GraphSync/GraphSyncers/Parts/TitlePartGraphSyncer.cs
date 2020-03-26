@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destNodes,
             IGraphSyncHelper graphSyncHelper)
-        {
+        {//todo: distinguish between null and empty string : use new helper? or part helper?
             object prefLabel = sourceNode.Properties[_nodeTitlePropertyName];
             return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(content.Title));
         }
