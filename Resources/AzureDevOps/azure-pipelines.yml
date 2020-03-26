@@ -57,6 +57,12 @@ stages:
       inputs:
         targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\ 
         artifactName: $(SolutionBaseName).Editor.AppSettings
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).IntegrationTests
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.100'
 
 - stage: DeployToDev
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
