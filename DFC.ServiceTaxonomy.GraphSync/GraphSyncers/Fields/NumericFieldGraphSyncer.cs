@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
@@ -69,11 +68,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                        && nodePropertyValueInt == (int)contentItemFieldValue;
             }
 
-            // calculate allowable tollerance from scale setting
-            float allowableDifference = 1f / (float)BigInteger.Pow(10, fieldSettings.Scale + 2);
+            // calculate allowable tolerance from scale setting
+            double allowableDifference = 1d / Math.Pow(10d, fieldSettings.Scale + 2);
 
-            return nodePropertyValue is float nodePropertyValueFloat
-                && Math.Abs(nodePropertyValueFloat - (float)contentItemFieldValue) <= allowableDifference;
+            return nodePropertyValue is double nodePropertyValueFloat
+                && Math.Abs(nodePropertyValueFloat - (double)contentItemFieldValue) <= allowableDifference;
         }
     }
 }

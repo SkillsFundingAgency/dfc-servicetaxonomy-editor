@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public async Task VerifySyncComponent_ScaleMoreThan0PropertyCorrect_ReturnsTrue()
         {
             const string valueContent = "123.0";
-            const float valueProperty = 123f;
+            const double valueProperty = 123d;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
@@ -126,13 +126,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             Assert.False(verified);
         }
 
-        //todo: think neo will return float (check)
         // even though values are equivalent, types are different, so we fail validation
         [Fact]
         public async Task VerifySyncComponent_PropertyDecimalValueScale0ValueEquivalent_ReturnsFalse()
         {
             const string valueContent = "123.0";
-            const float valueProperty = 123f;
+            const double valueProperty = 123d;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
@@ -149,7 +148,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public async Task VerifySyncComponent_PropertyDecimalValueScale0PropertyValueMorePrecise_ReturnsFalse()
         {
             const string valueContent = "123.0";
-            const float valueProperty = 123.4f;
+            const double valueProperty = 123.4d;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
