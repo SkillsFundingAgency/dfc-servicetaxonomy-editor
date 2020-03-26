@@ -3,7 +3,7 @@ parameters:
   DfcServiceTaxonomyTestsBuildId:
   Environment: 
   TestTag:
-  AllowedEnvironments: 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY'
+  AllowedEnvironments: "'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY'"
 
 steps:
 - task: DownloadPipelineArtifact@2
