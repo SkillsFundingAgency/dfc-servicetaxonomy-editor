@@ -43,7 +43,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         public async Task AddSyncComponents_TextInContent_TextAddedToMergeNodeCommandsProperties()
         {
             const string text = "abc";
-
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
             await CallAddSyncComponents();

@@ -6,6 +6,7 @@ using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
+using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldGraphSyncerTests
 {
@@ -14,6 +15,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         public JObject? ContentItemField { get; set; }
         public ContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public INode SourceNode { get; set; }
+        public Dictionary<string, object> SourceNodeProperties { get; set; }
         public IEnumerable<IRelationship> Relationships { get; set; }
         public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
@@ -29,6 +31,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             ContentPartFieldDefinition = new ContentPartFieldDefinition(null, _fieldName, null);
 
             SourceNode = A.Fake<INode>();
+            SourceNodeProperties = new Dictionary<string, object>();
+            A.CallTo(() => SourceNode.Properties).Returns(SourceNodeProperties);
+
             Relationships = new IRelationship[0];
             DestinationNodes = new INode[0];
 
@@ -38,9 +43,22 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             TextFieldGraphSyncer = new TextFieldGraphSyncer();
         }
 
-        private async Task CallVerifySyncComponent()
+        [Fact]
+        public async Task VerifySyncComponent_NodeAndPropertyCorrect_ReturnsTrue()
         {
-            await TextFieldGraphSyncer.VerifySyncComponent(
+            const string text = "abc";
+            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
+
+            SourceNodeProperties.Add(_fieldName, text);
+
+            bool verifiedOk = await CallVerifySyncComponent();
+
+            Assert.True(verifiedOk);
+        }
+
+        private async Task<bool> CallVerifySyncComponent()
+        {
+            return await TextFieldGraphSyncer.VerifySyncComponent(
                 ContentItemField!,
                 ContentPartFieldDefinition,
                 SourceNode,
