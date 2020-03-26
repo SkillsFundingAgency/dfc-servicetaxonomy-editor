@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -19,12 +20,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<BagPartGraphSyncer> _logger;
 
         public string? PartName => nameof(BagPart);
 
-        public BagPartGraphSyncer(IServiceProvider serviceProvider)
+        public BagPartGraphSyncer(IServiceProvider serviceProvider,
+                ILogger<BagPartGraphSyncer> logger)
         {
             _serviceProvider = serviceProvider;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<ICommand>> AddSyncComponents(
@@ -86,7 +90,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return delayedCommands;
         }
 
-        //todo: in all verifies, log reason verification fails
         public async Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
@@ -106,25 +109,44 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     return false;
 
                 // check expected relationship is in graph
-                var bagContentGraphSyncValidator = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                var bagContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
 
-                bagContentGraphSyncValidator.ContentType = bagPartContentItem.ContentType;
-                string expectedRelationship = await RelationshipType(bagContentGraphSyncValidator);
+                bagContentGraphSyncHelper.ContentType = bagPartContentItem.ContentType;
+                string expectedRelationshipType = await RelationshipType(bagContentGraphSyncHelper);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.TryGetValue(expectedRelationship, out int currentCount);
-                expectedRelationshipCounts[expectedRelationship] = ++currentCount;
+                expectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
+                expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
-                //todo: check relationships dest id and dest nodes
+                string destinationId = graphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
+
+                INode destinationNode = destinationNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
+                if (destinationNode == null)
+                {
+                    _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
+                    return false;
+                }
+
+                var relationship = relationships.SingleOrDefault(r =>
+                    r.Type == expectedRelationshipType && r.EndNodeId == destinationNode.Id);
+
+                if (relationship == null)
+                {
+                    _logger.LogWarning($"Sync validation failed. Relationship of type {expectedRelationshipType} with end node ID {destinationNode.Id} not found");
+                    return false;
+                }
             }
 
             // check there aren't any more relationships of each type than there should be
-            foreach ((string relationship, int relationshipsInDbCount) in expectedRelationshipCounts)
+            foreach ((string relationshipType, int relationshipsInDbCount) in expectedRelationshipCounts)
             {
-                int relationshipsInGraphCount = relationships.Count(r => string.Equals(r.Type, relationship, StringComparison.CurrentCultureIgnoreCase));
+                int relationshipsInGraphCount = relationships.Count(r => r.Type == relationshipType);
 
                 if (relationshipsInDbCount != relationshipsInGraphCount)
+                {
+                    _logger.LogWarning($"Sync validation failed. Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}");
                     return false;
+                }
             }
 
             return true;

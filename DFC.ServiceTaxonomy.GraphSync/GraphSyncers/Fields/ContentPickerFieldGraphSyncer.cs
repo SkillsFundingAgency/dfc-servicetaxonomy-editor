@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -20,10 +21,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IContentManager _contentManager;
+        private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
-        public ContentPickerFieldGraphSyncer(IContentManager contentManager)
+        public ContentPickerFieldGraphSyncer(
+            IContentManager contentManager,
+            ILogger<ContentPickerFieldGraphSyncer> logger)
         {
             _contentManager = contentManager;
+            _logger = logger;
         }
 
         public async Task AddSyncComponents(
@@ -78,6 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
             if (contentItemIds.Count != actualRelationships.Length)
             {
+                _logger.LogWarning($"Sync validation failed. Expecting {actualRelationships.Length} relationships of type {relationshipType} in graph, but found {contentItemIds.Count}");
                 return false;
             }
 
@@ -92,6 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 INode destNode = destinationNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
                 if (destNode == null)
                 {
+                    _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
                     return false;
                 }
 
@@ -100,6 +107,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 if (relationship == null)
                 {
+                    _logger.LogWarning($"Sync validation failed. Relationship of type {relationshipType} with end node ID {destNode.Id} not found");
                     return false;
                 }
             }
