@@ -1925,11 +1925,29 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Alternative Labels",
-                                    "Position": "0"
+                                    "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
                                     "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "PreferredLabel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Preferred Label",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationship of type [:ncs__hasPrefLabel].",
+                                    "Multiple": false,
                                     "DisplayedContentTypes": [
                                         "OccupationLabel"
                                     ]
