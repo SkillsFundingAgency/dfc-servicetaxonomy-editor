@@ -1,4 +1,5 @@
 ﻿using System;
+//using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -90,22 +91,48 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
                     .SelectMany(cijo => cijo);
 
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
+                // batched up created on different threads
+
+                // //ratio to cores
+                // int CreateContentBatchSize = 8;
+                //
                 // var contentItemJObjectsBatches = contentItemJObjects
                 //     .Batch(CreateContentBatchSize);
                 //
                 // _logger.LogInformation($"Creating content items in batches of {CreateContentBatchSize}");
                 //
-                // Stopwatch stopwatch = Stopwatch.StartNew();
-                //
                 // foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
                 // {
+                //     // looks like can't call CreateAsync on non-ui threads
                 //     var createContentItemTasks = contentJObjectBatch
-                //         .Select(jo => CreateContentItem(jo, cypherToContent.SyncBackRequired));
+                //         .Select(jo => Task.Run(() => CreateContentItem(jo, cypherToContent.SyncBackRequired)));
                 //
                 //     await Task.WhenAll(createContentItemTasks);
                 // }
 
-                Stopwatch stopwatch = Stopwatch.StartNew();
+                // parallel preparation of content items, very slight speed up, but not worth the extra complexity
+
+//
+//                 ConcurrentQueue<ContentItem> contentItems = new ConcurrentQueue<ContentItem>();
+// //quicker to reuse contentitem? CreateAsync is the bottleneck, and that doesn't seem to work off the ui thread :(
+//                 var prepareContentItemTasks = Task.Run(() => Parallel.ForEach(contentItemJObjects, contentItemJObject =>
+//                 {
+//                     ContentItem? contentItem = PrepareContentItem(contentItemJObject);
+//                     if (contentItem != null)
+//                         contentItems.Enqueue(contentItem);
+//                 }));
+//
+//                 bool contentItemAvailable;
+//                 do
+//                 {
+//                     contentItemAvailable = contentItems.TryDequeue(out ContentItem? preparedContentItem);
+//                     if (contentItemAvailable)
+//                         await CreateContentItem(preparedContentItem!, cypherToContent.SyncBackRequired);
+//                 } while (!prepareContentItemTasks.IsCompleted || contentItemAvailable);
+
+                // simple 1 at a time, not batched
 
                 foreach (JObject contentJObject in contentItemJObjects)
                 {
@@ -116,6 +143,52 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 //                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
                 _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
             }
+        }
+
+        private ContentItem? PrepareContentItem(JObject contentJObject)
+        {
+            ContentItem? contentItem = contentJObject.ToObject<ContentItem>();
+
+            if (contentItem?.Content == null)
+            {
+                _logger.LogWarning("Missing content, unable to import.");
+                return null;
+            }
+
+            string? title = contentItem.Content.TitlePart?.Title;
+            if (title != null)
+            {
+                contentItem.DisplayText = title;
+            }
+
+            contentItem.ContentItemId = _idGenerator.GenerateUniqueId(contentItem);
+            contentItem.ContentItemVersionId = _idGenerator.GenerateUniqueId(contentItem);
+            contentItem.Published = contentItem.Latest = true;
+            contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
+            contentItem.Owner = contentItem.Author = "admin";
+
+            return contentItem;
+        }
+
+        private async Task CreateContentItem(ContentItem contentItem, bool syncBackRequired)
+        {
+            //todo: could put contenttype in there for extra safety!? overkill?
+
+            // if the cache expires before the sync gets called, that's fine as its only an optimisation
+            // to not sync the content item. if it's synced, the graph will still be correct
+            // (we're essentially skipping a no-op)
+            // what we want to avoid, is _not_ syncing when we should
+            // that's why we use ContentItemVersionId, instead of ContentItemId
+            if (!syncBackRequired)
+            {
+                string cacheKey = $"DisableSync_{contentItem.ContentItemVersionId}";
+                _memoryCache.Set(cacheKey, contentItem.ContentItemVersionId,
+                    new TimeSpan(0, 0, 30));
+            }
+
+            //todo: log adding content type + id? how would we (easily) get the contenttype??
+
+            await _contentManager.CreateAsync(contentItem);
         }
 
         private async Task CreateContentItem(JObject contentJObject, bool syncBackRequired)
