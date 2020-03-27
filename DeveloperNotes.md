@@ -5,7 +5,6 @@ bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in 
 
 * have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings.
 
-* output an import report
 * change importer to set float (ie 123.0) values for numeric field to match orchard core
 * change import to use md5 hash of content for id guid
 * remove "syncBackRequired": true from CreateOccupationContentItemsRecipe.json (check)
