@@ -93,9 +93,38 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
+                var preparedContentItems = contentItemJObjects
+                    .Select(PrepareContentItem)
+                    .Where(i => i != null)
+                    .Select(i => i!);
+
+                foreach (ContentItem preparedContentItem in preparedContentItems)
+                {
+                    await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
+                }
+
+                // batched up async, CreateAsync kabooms
+
+                //ratio to cores
+                // int CreateContentBatchSize = 8;
+                //
+                // var contentItemJObjectsBatches = contentItemJObjects
+                //     .Batch(CreateContentBatchSize);
+                //
+                // _logger.LogInformation($"Creating content items in batches of {CreateContentBatchSize}");
+                //
+                // foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
+                // {
+                //     // looks like can't call CreateAsync on non-ui threads
+                //     var createContentItemTasks = contentJObjectBatch
+                //         .Select(jo => CreateContentItem(jo, cypherToContent.SyncBackRequired));
+                //
+                //     await Task.WhenAll(createContentItemTasks);
+                // }
+
                 // batched up created on different threads
 
-                // //ratio to cores
+                // // //ratio to cores
                 // int CreateContentBatchSize = 8;
                 //
                 // var contentItemJObjectsBatches = contentItemJObjects
@@ -134,10 +163,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 // simple 1 at a time, not batched
 
-                foreach (JObject contentJObject in contentItemJObjects)
-                {
-                    await CreateContentItem(contentJObject, cypherToContent.SyncBackRequired);
-                }
+                // foreach (JObject contentJObject in contentItemJObjects)
+                // {
+                //     await CreateContentItem(contentJObject, cypherToContent.SyncBackRequired);
+                // }
 
                 //todo: log this, but ensure no double enumeration
 //                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
