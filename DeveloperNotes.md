@@ -38,6 +38,7 @@ bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in 
 
 * order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
+* collapsible sections on content page
 
 #Templates
 
