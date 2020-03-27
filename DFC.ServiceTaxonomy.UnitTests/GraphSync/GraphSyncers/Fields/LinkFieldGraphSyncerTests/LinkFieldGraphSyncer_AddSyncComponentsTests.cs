@@ -8,21 +8,20 @@ using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
 {
-    public class TextFieldGraphSyncerTests
+    public class LinkFieldGraphSyncer_AddSyncComponentsTests
     {
         public JObject? ContentItemField { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
-        //todo: could probably create a real one of these, rather than wrapping a real one
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
+        public LinkFieldGraphSyncer LinkFieldGraphSyncer { get; set; }
 
         const string _fieldName = "TestField";
 
-        public TextFieldGraphSyncerTests()
+        public LinkFieldGraphSyncer_AddSyncComponentsTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?
@@ -36,28 +35,56 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
 
-            TextFieldGraphSyncer = new TextFieldGraphSyncer();
+            LinkFieldGraphSyncer = new LinkFieldGraphSyncer();
         }
 
         [Fact]
-        public async Task AddSyncComponents_TextInContent_TextAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_LinkTextInContent_LinkTextAddedToMergeNodeCommandsProperties()
         {
             const string text = "abc";
+            string expectedFieldName = $"{_fieldName}_text";
 
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{_fieldName, text}};
+                {{expectedFieldName, text}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 
         [Fact]
-        public async Task AddSyncComponents_NullTextInContent_TextNotAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_NullLinkTextInContent_LinkTextNotAddedToMergeNodeCommandsProperties()
         {
             ContentItemField = JObject.Parse("{\"Text\": null}");
+
+            await CallAddSyncComponents();
+
+            IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
+            Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
+        }
+
+        [Fact]
+        public async Task AddSyncComponents_LinkUrlInContent_LinkUrlAddedToMergeNodeCommandsProperties()
+        {
+            const string url = "https://example.com/";
+            string expectedFieldName = $"{_fieldName}_url";
+
+            ContentItemField = JObject.Parse($"{{\"Url\": \"{url}\"}}");
+
+            await CallAddSyncComponents();
+
+            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
+                {{expectedFieldName, url}};
+
+            Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
+        }
+
+        [Fact]
+        public async Task AddSyncComponents_NullLinkUrlInContent_LinkUrlNotAddedToMergeNodeCommandsProperties()
+        {
+            ContentItemField = JObject.Parse("{\"Url\": null}");
 
             await CallAddSyncComponents();
 
@@ -70,7 +97,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 
         private async Task CallAddSyncComponents()
         {
-            await TextFieldGraphSyncer.AddSyncComponents(
+            await LinkFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,

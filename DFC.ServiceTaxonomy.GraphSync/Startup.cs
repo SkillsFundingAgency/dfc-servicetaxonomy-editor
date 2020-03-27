@@ -38,6 +38,8 @@ using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.ContentTypes.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
+using DFC.ServiceTaxonomy.GraphSync.Managers;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -76,6 +78,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
             services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
             services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
+            services.AddActivity<ContentTypeFieldRemovedEvent, ContentTypeFieldRemovedEventDisplay>();
+            services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
+            services.AddActivity<PublishContentTypeContentItemsTask, PublishContentTypeContentItemsTaskDisplay>();
 
             // Syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
@@ -84,7 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            services.AddTransient<IGraphSyncValidator, GraphSyncValidator>();
+            services.AddTransient<IValidateGraphSync, ValidateGraphSync>();
             services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
@@ -105,6 +110,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //Services
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
+
+            //Managers
+            services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

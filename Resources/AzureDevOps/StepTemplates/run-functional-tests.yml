@@ -2,6 +2,7 @@ parameters:
   DFCAzureDevOpsProjectGuid:
   DfcServiceTaxonomyTestsBuildId:
   Environment: 
+  TestArtifactBranch:
   TestTag:
 
 steps:
@@ -13,7 +14,7 @@ steps:
     project: ${{ parameters.DFCAzureDevOpsProjectGuid }}
     pipeline: ${{ parameters.DfcServiceTaxonomyTestsBuildId }}
     runVersion: latestFromBranch
-    runBranch: 'refs/heads/master'
+    runBranch: ${{ parameters.TestArtifactBranch }}
 - task: ExtractFiles@1
   displayName: Extract TestSuite artifact
   condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')

@@ -3,7 +3,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
 {
-    public interface IGraphSyncValidator
+    public interface IValidateGraphSync
     {
         Task<bool> CheckIfContentItemSynced(ContentItem contentItem);
     }

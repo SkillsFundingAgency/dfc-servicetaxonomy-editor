@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MoreLinq;
+//using MoreLinq;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
-        private const int CreateContentBatchSize = 50;
+        //private const int CreateContentBatchSize = 50;
 
         public CypherToContentStep(
             IGraphDatabase graphDatabase,
@@ -90,19 +90,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
                     .SelectMany(cijo => cijo);
 
-                var contentItemJObjectsBatches = contentItemJObjects
-                    .Batch(CreateContentBatchSize);
-
-                _logger.LogInformation($"Creating content items in batches of {CreateContentBatchSize}");
+                // var contentItemJObjectsBatches = contentItemJObjects
+                //     .Batch(CreateContentBatchSize);
+                //
+                // _logger.LogInformation($"Creating content items in batches of {CreateContentBatchSize}");
+                //
+                // Stopwatch stopwatch = Stopwatch.StartNew();
+                //
+                // foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
+                // {
+                //     var createContentItemTasks = contentJObjectBatch
+                //         .Select(jo => CreateContentItem(jo, cypherToContent.SyncBackRequired));
+                //
+                //     await Task.WhenAll(createContentItemTasks);
+                // }
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
-                foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
+                foreach (JObject contentJObject in contentItemJObjects)
                 {
-                    var createContentItemTasks = contentJObjectBatch
-                        .Select(jo => CreateContentItem(jo, cypherToContent.SyncBackRequired));
-
-                    await Task.WhenAll(createContentItemTasks);
+                    await CreateContentItem(contentJObject, cypherToContent.SyncBackRequired);
                 }
 
                 //todo: log this, but ensure no double enumeration
