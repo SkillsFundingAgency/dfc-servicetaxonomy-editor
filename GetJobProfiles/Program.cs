@@ -33,6 +33,9 @@ namespace GetJobProfiles
 {
     static class Program
     {
+        // to delete all the ncs nodes and relationships in the graph, run..
+        // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
+
         private static string OutputBasePath;
         private static int FileIndex = 1;
 
@@ -95,7 +98,7 @@ namespace GetJobProfiles
             CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json");
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize);
-            
+
             ProcessLionelsSpreadsheet();
 
             BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
