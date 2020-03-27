@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 // batched up async, CreateAsync kabooms: SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK__Document__3214EC07C3A68634'. Cannot insert duplicate key in object 'dbo.Document'
 
-                //ratio to cores
+                ////todo: ratio to cores
                 // int CreateContentBatchSize = 8;
                 //
                 // var contentItemJObjectsBatches = contentItemJObjects
@@ -123,7 +123,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 // batched up created on different threads
 
-                // // //ratio to cores
+                ////todo: ratio to cores
                 // int CreateContentBatchSize = 8;
                 //
                 // var contentItemJObjectsBatches = contentItemJObjects
