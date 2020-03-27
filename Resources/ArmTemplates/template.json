@@ -2,7 +2,20 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "CustomHostName": {
+            "type": "string",
+            "defaultValue": ""
+        },
         "Environment": {
+            "type": "string"
+        },
+        "KeyVaultCertificateName": {
+            "type": "string"
+        },
+        "KeyVaultName": {
+            "type": "string"
+        },
+        "KeyVaultResourceGroup": {
             "type": "string"
         },
         "SharedAppServicePlanName": {
@@ -107,6 +120,12 @@
                     "appServiceType": {
                         "value": "app"
                     },
+                    "customHostName": {
+                        "value": "[parameters('CustomHostName')]"
+                    },
+                    "certificateThumbprint": {
+                        "value": "[if(greater(length(parameters('CustomHostName')),0), reference('skillscareers-certificate').outputs.certificateThumbprint.value, '')]"
+                    },
                     "deployStagingSlot": {
                         "value": false
                     },
@@ -171,6 +190,36 @@
             "dependsOn": [
                 "[variables('AppServiceAppInsightsName')]"
             ]
+        },
+        {
+            "name": "editor-certificate",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "condition": "[greater(length(parameters('CustomHostName')),0)]",
+            "dependsOn": [
+                "[variables('AppServicePlanName')]"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'),'certificate.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "keyVaultName": {
+                        "value": "[parameters('KeyVaultName')]"
+                    },
+                    "keyVaultCertificateName": {
+                        "value": "[parameters('KeyVaultCertificateName')]"
+                    },
+                    "keyVaultResourceGroup": {
+                        "value": "[parameters('KeyVaultResourceGroup')]"
+                    },
+                    "serverFarmId": {
+                        "value": "[resourceId('Microsoft.Web/serverfarms', variables('AppServicePlanName'))]"
+                    }
+                }
+            }
         },
         {
             "apiVersion": "2017-05-10",
