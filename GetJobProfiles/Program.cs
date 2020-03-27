@@ -92,10 +92,11 @@ namespace GetJobProfiles
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodesRecipe.json");
+            CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json");
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize);
-            
+
             ProcessLionelsSpreadsheet();
 
             BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
