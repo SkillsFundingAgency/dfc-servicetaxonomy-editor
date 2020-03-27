@@ -36,7 +36,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
             else
             {
-                //todo: check this
                 mergeNodeCommand.Properties.Add(propertyName, (decimal)value);
             }
         }
