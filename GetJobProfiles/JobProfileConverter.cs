@@ -61,11 +61,25 @@ namespace GetJobProfiles
             Timestamp = timestamp;
         }
 
-        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string testProfileTitle = null)
+        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string jobProfilesToImportCsv = null)
         {
-            var summaries = (await _client.Get<JobProfileSummary[]>("summary"))
-                .Where(s => s.Title != null
-                            && (testProfileTitle == null || s.Title == testProfileTitle));
+            IEnumerable<JobProfileSummary> summaries;
+            if (!string.IsNullOrWhiteSpace(jobProfilesToImportCsv) && jobProfilesToImportCsv != "*")
+            {
+                string[] jobProfilesToImportUntrimmed = jobProfilesToImportCsv.Split(",");
+                HashSet<string> jobProfilesToImport = new HashSet<string>(
+                    jobProfilesToImportUntrimmed.Select(jp => jp.Trim().ToLowerInvariant()));
+
+                summaries = (await _client.Get<JobProfileSummary[]>("summary"))
+                    .Where(s => s.Title != null
+                                && jobProfilesToImport.Contains(s.Title.ToLowerInvariant()));
+            }
+            else
+            {
+                summaries = (await _client.Get<JobProfileSummary[]>("summary"))
+                    .Where(s => s.Title != null);
+            }
+
                 // filter dev env crap
                 // .Where(s => s.Title != null
                 //             && s.Title != "Api Test Profile"
@@ -125,7 +139,7 @@ namespace GetJobProfiles
         }
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
-        {   
+        {
             var uri = new Uri(jobProfile.Url);
 
             if (!string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform) && (!jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform?.StartsWith("You may need to wear ") ?? true))

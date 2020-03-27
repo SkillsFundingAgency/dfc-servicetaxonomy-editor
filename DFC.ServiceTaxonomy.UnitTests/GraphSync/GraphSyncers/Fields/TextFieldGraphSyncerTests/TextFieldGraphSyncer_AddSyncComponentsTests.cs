@@ -6,25 +6,23 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentFields.Settings;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldGraphSyncerTests
 {
-    //todo: factor out common code in tests
-    public class NumericFieldGraphSyncerTests
+    public class TextFieldGraphSyncer_AddSyncComponentsTests
     {
         public JObject? ContentItemField { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
+        //todo: could probably create a real one of these, rather than wrapping a real one
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public NumericFieldGraphSyncer NumericFieldGraphSyncer { get; set; }
-        public NumericFieldSettings NumericFieldSettings { get; set; }
+        public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
 
         const string _fieldName = "TestField";
 
-        public NumericFieldGraphSyncerTests()
+        public TextFieldGraphSyncer_AddSyncComponentsTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?
@@ -34,57 +32,31 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
             A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
-            NumericFieldSettings = new NumericFieldSettings();
-            A.CallTo(() => ContentPartFieldDefinition.GetSettings<NumericFieldSettings>()).Returns(NumericFieldSettings);
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
 
-            NumericFieldGraphSyncer = new NumericFieldGraphSyncer();
+            TextFieldGraphSyncer = new TextFieldGraphSyncer();
         }
 
         [Fact]
-        public async Task AddSyncComponents_Scale0NumericInContent_IntAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_TextInContent_TextAddedToMergeNodeCommandsProperties()
         {
-            const string value = "123.0";
-            const int expectedValue = 123;
-
-            //todo: JValue's type is being set to Object. code under test doesn't rely on it being Float like within oc, but should arrange as close to oc as possible
-            //todo: make sure type is set correctly in all unit tests
-            ContentItemField = JObject.Parse($"{{\"Value\": {value}}}");
-
-            NumericFieldSettings.Scale = 0;
+            const string text = "abc";
+            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{_fieldName, expectedValue}};
+                {{_fieldName, text}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 
         [Fact]
-        public async Task AddSyncComponents_Scale1NumericInContent_DecimalAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_NullTextInContent_TextNotAddedToMergeNodeCommandsProperties()
         {
-            const string value = "123.4";
-            const decimal expectedValue = 123.4m;
-
-            ContentItemField = JObject.Parse($"{{\"Value\": {value}}}");
-
-            NumericFieldSettings.Scale = 1;
-
-            await CallAddSyncComponents();
-
-            IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{_fieldName, expectedValue}};
-
-            Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
-        }
-
-        [Fact]
-        public async Task AddSyncComponents_NullNumericInContent_NumericNotAddedToMergeNodeCommandsProperties()
-        {
-            ContentItemField = JObject.Parse("{\"Value\": null}");
+            ContentItemField = JObject.Parse("{\"Text\": null}");
 
             await CallAddSyncComponents();
 
@@ -97,7 +69,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 
         private async Task CallAddSyncComponents()
         {
-            await NumericFieldGraphSyncer.AddSyncComponents(
+            await TextFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,

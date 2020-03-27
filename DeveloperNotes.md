@@ -3,18 +3,17 @@
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 
-* have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings. a predefined set can then be optimised for
-  add content type as a global variable, for use in the id
+* have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings.
 
 * output an import report
+* change importer to set float (ie 123.0) values for numeric field to match orchard core
+* change import to use md5 hash of content for id guid
+* remove "syncBackRequired": true from CreateOccupationContentItemsRecipe.json (check)
 * unit tests!!
-* looks like new cypher steps don't work against azure sql
-* add preflabel as node and relationship
+* add preflabel as node and relationship - tom is doing
 * need to add support to have occupation in jp's bag (or content picker), one way would be to wrap the current content step and add c# support,
   then provide helper to get from content or graph. bag items are embedded, MoveIntoBag() that embeds then deletes? or get from graph at that point??
-* have sync field interface & for initial sync get field definition like resync
-* use custom command in integration test, so as not to arrange using code under test + add integration tests for new queries
-  ask devopts to add int tests to cd
+* use custom command in integration test, so as not to arrange using code under test + add integration tests for new queries + integration tests at graph sync and validation levels
 * in cyphertocontent step, improve parallelisation, work off ratio to cores?
 * check if static files fixes visualisation
 * add analyser to vis project
@@ -40,6 +39,7 @@ bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in 
 
 * order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
+* collapsible sections on content page
 
 #Templates
 
