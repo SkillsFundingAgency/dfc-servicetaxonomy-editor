@@ -124,7 +124,7 @@
                         "value": "[parameters('CustomHostName')]"
                     },
                     "certificateThumbprint": {
-                        "value": "[if(greater(length(parameters('CustomHostName')),0), reference('skillscareers-certificate').outputs.certificateThumbprint.value, '')]"
+                        "value": "[if(greater(length(parameters('CustomHostName')),0), reference('editor-certificate').outputs.certificateThumbprint.value, '')]"
                     },
                     "deployStagingSlot": {
                         "value": false
