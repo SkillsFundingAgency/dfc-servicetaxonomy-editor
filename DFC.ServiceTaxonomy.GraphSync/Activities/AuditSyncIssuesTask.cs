@@ -58,64 +58,70 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered");
+            #pragma warning disable CS0162
+            if (false)
+            {
+                _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered");
 
-            IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
-                .ListTypeDefinitions()
-                .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
+                IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
+                    .ListTypeDefinitions()
+                    .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
 
-             DateTime timestamp = DateTime.UtcNow;
-             AuditSyncLog auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
-                       new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
+                DateTime timestamp = DateTime.UtcNow;
+                AuditSyncLog auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
+                                            new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
 
-             foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
-             {
-                 //todo: do we want to batch up content items of type?
-                 IEnumerable<ContentItem> contentTypeContentItems = await _session
-                     //do we only care about the latest published items?
-                     .Query<ContentItem, ContentItemIndex>(x =>
-                         x.ContentType == contentTypeDefinition.Name
-                         && x.Latest && x.Published
-                         && (x.CreatedUtc >= auditSyncLog.LastSynced || x.ModifiedUtc >= auditSyncLog.LastSynced))
-                     .ListAsync();
+                foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
+                {
+                    //todo: do we want to batch up content items of type?
+                    IEnumerable<ContentItem> contentTypeContentItems = await _session
+                        //do we only care about the latest published items?
+                        .Query<ContentItem, ContentItemIndex>(x =>
+                            x.ContentType == contentTypeDefinition.Name
+                            && x.Latest && x.Published
+                            && (x.CreatedUtc >= auditSyncLog.LastSynced || x.ModifiedUtc >= auditSyncLog.LastSynced))
+                        .ListAsync();
 
-                 if (!contentTypeContentItems.Any())
-                     continue;
+                    if (!contentTypeContentItems.Any())
+                        continue;
 
-                 List<ContentItem> syncFailedContentItems = new List<ContentItem>();
+                    List<ContentItem> syncFailedContentItems = new List<ContentItem>();
 
-                 foreach (ContentItem contentItem in contentTypeContentItems)
-                 {
-                     //todo: do we need a new _validateGraphSync each time? don't think we do
-                     if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
-                     {
-                         syncFailedContentItems.Add(contentItem);
-                     }
-                 }
+                    foreach (ContentItem contentItem in contentTypeContentItems)
+                    {
+                        //todo: do we need a new _validateGraphSync each time? don't think we do
+                        if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
+                        {
+                            syncFailedContentItems.Add(contentItem);
+                        }
+                    }
 
-                 _logger.LogWarning($"{syncFailedContentItems} content items of type {contentTypeDefinition.Name} failed validation. Attempting to resync them");
+                    _logger.LogWarning(
+                        $"{syncFailedContentItems} content items of type {contentTypeDefinition.Name} failed validation. Attempting to resync them");
 
-                 // if this throws should we carry on?
-                 foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
-                 {
-                     var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                    // if this throws should we carry on?
+                    foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
+                    {
+                        var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                     await mergeGraphSyncer.SyncToGraph(
-                         failedSyncContentItem.ContentType,
-                         failedSyncContentItem.ContentItemId,
-                         failedSyncContentItem.ContentItemVersionId,
-                         failedSyncContentItem.Content,
-                         failedSyncContentItem.CreatedUtc,
-                         failedSyncContentItem.ModifiedUtc);
+                        await mergeGraphSyncer.SyncToGraph(
+                            failedSyncContentItem.ContentType,
+                            failedSyncContentItem.ContentItemId,
+                            failedSyncContentItem.ContentItemVersionId,
+                            failedSyncContentItem.Content,
+                            failedSyncContentItem.CreatedUtc,
+                            failedSyncContentItem.ModifiedUtc);
 
-                     // do we want to double check sync was ok?
-                     //if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
-                 }
-             }
+                        // do we want to double check sync was ok?
+                        //if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
+                    }
+                }
 
-             auditSyncLog.LastSynced = timestamp;
-             _session.Save(auditSyncLog);
-             await _session.CommitAsync();
+                auditSyncLog.LastSynced = timestamp;
+                _session.Save(auditSyncLog);
+                await _session.CommitAsync();
+            }
+            #pragma warning restore CS0162
 
             return Outcomes("Done");
         }
