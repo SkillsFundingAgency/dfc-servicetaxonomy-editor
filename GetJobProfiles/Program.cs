@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using GetJobProfiles.JsonHelpers;
@@ -38,6 +39,7 @@ namespace GetJobProfiles
 
         private static string OutputBasePath;
         private static int FileIndex = 1;
+        private static StringBuilder ImportReport = new StringBuilder();
 
         private static Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static List<object> _matchingTitles = new List<object>();
@@ -124,6 +126,7 @@ namespace GetJobProfiles
             BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
+            File.WriteAllText($"{OutputBasePath}content items count.txt", ImportReport.ToString());
             File.WriteAllText($"{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
             File.WriteAllText($"{OutputBasePath}content_titles_summary.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
             File.WriteAllText($"{OutputBasePath}matching_content_titles.json", JsonSerializer.Serialize(_matchingTitles));
@@ -169,13 +172,19 @@ namespace GetJobProfiles
 
         private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix) where T : ContentItem
         {
+            ImportReport.AppendLine($"{filenamePrefix}: Total {contentItems.Count()}");
+
             var batches = contentItems.Batch(batchSize);
             int batchNumber = 0;
             foreach (var batchContentItems in batches)
             {
                 //todo: async?
                 string serializedContentItemBatch = SerializeContentItems(batchContentItems);
-                ImportRecipe.Create($"{OutputBasePath}{FileIndex++:00}. {filenamePrefix}{batchNumber++}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
+
+                string filenameWithBatchNumber = $"{filenamePrefix}{batchNumber++}";
+                ImportReport.AppendLine($"    {filenameWithBatchNumber}: {batchContentItems.Count()}");
+
+                ImportRecipe.Create($"{OutputBasePath}{FileIndex++:00}. {filenameWithBatchNumber}.zip", WrapInNonSetupRecipe(serializedContentItemBatch));
             }
         }
 
