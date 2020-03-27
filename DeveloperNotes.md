@@ -6,6 +6,7 @@ bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in 
 * have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings. a predefined set can then be optimised for
   add content type as a global variable, for use in the id
 
+* output an import report
 * unit tests!!
 * looks like new cypher steps don't work against azure sql
 * add preflabel as node and relationship
