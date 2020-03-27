@@ -3,19 +3,19 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "CustomHostName": {
-            "value": ""
+            "value": "editor-foo.servicetaxonomy.nationalcareersservice.org.uk"
         },
         "Environment": {
             "value": "dev"
         },
         "KeyVaultCertificateName": {
-            "value": ""
+            "value": "editor-foo-servicetaxonomy-nationalcareersservice-org-uk"
         },
         "KeyVaultName": {
-            "value": ""
+            "value": "dfc-foo-shared-kv"
         },
         "KeyVaultResourceGroup": {
-            "value": ""
+            "value": "dfc-foo-shared-rg"
         },
         "SharedAppServicePlanName": {
             "value": "dfc-dev-stax-shared-asp"
