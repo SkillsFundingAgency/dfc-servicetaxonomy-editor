@@ -115,7 +115,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 //
                 // foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
                 // {
-                //     // looks like can't call CreateAsync on non-ui threads
                 //     var createContentItemTasks = contentJObjectBatch
                 //         .Select(jo => CreateContentItem(jo, cypherToContent.SyncBackRequired));
                 //
