@@ -75,15 +75,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<string> foundDestinationNodeIds =
                 foundDestinationContentItems.Select(ci => GetNodeId(ci, graphSyncHelper));
 
-            // object[] foundDestinationNodeIds = (object[])destinationNodeIds
-            //     .Where(i => i != null);
-            //
-            // if (foundDestinationNodeIds.Length != contentItemIds.Count)
-            // {
-            //     //todo: when we encounter a graph sync error during import what's the best way to handle it?
-            //     throw new GraphSyncException($"{mergeNodeCommand}");
-            // }
-
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 destNodeLabels,
@@ -165,41 +156,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return relationshipType;
         }
 
-        private async Task<ContentItem?> GetContentItemFromContentItemId(string contentItemId)
-        {
-            // GetAsync should be returning ContentItem?
-            return await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
-        }
-
-        // private async Task<ContentItem> GetNodeIdFromContentItemIdJToken(JToken contentItemIdJToken, IGraphSyncHelper graphSyncHelper)
-        // {
-        //     string contentItemId = contentItemIdJToken.ToString();
-        //
-        //     // GetAsync should be returning ContentItem?
-        //     ContentItem? contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
-        //     if (contentItem == null)
-        //         throw new GraphSyncException($"Content item with id '{contentItemId}' not found in the database.");
-        //
-        //     return contentItem;
-        // }
-
         private string GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
         {
             return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
-
-        // private async Task<object?> GetNodeIdFromContentItemIdJToken(JToken contentIdJToken, IGraphSyncHelper graphSyncHelper)
-        // {
-        //     // GetAsync should be returning ContentItem?
-        //     ContentItem? contentItem =
-        //         await _contentManager.GetAsync(contentIdJToken.ToString(), VersionOptions.Latest);
-        //
-        //     return contentItem == null ? null : GetNodeId(contentItem, graphSyncHelper);
-        // }
-        //
-        // private object? GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
-        // {
-        //     return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
-        // }
     }
 }
