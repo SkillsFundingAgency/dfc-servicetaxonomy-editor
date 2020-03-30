@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
         public void AddFieldToPart(string fieldName, string displayName, string fieldTypeName, string partName)
         {
-            _orchardCoreContentDefinitionService.AddFieldToPart(fieldTypeName, displayName, fieldTypeName, partName);
+            _orchardCoreContentDefinitionService.AddFieldToPart(fieldName, displayName, fieldTypeName, partName);
         }
 
         public EditPartViewModel AddPart(CreatePartViewModel partViewModel)
