@@ -5,9 +5,12 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
-    <StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">/DFC.ServiceTaxonomy.GraphVisualiser</StaticWebAssetBasePath>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">/DFC.ServiceTaxonomy.GraphVisualiser</StaticWebAssetBasePath>
+  </PropertyGroup>
+  
   <ItemGroup>
     <EmbeddedResource Remove="wwwroot\css\overrides.css" />
     <EmbeddedResource Remove="wwwroot\css\webvowl.app.css" />
