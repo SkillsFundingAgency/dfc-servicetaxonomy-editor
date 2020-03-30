@@ -3,11 +3,8 @@
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 
-* have named sets of graph sync settings in config, selectable to set all graph sync settings, or custom, where user can enter any settings.
-
 * change importer to set float (ie 123.0) values for numeric field to match orchard core
 * change import to use md5 hash of content for id guid
-* remove "syncBackRequired": true from CreateOccupationContentItemsRecipe.json (check)
 * unit tests!!
 * add preflabel as node and relationship - tom is doing
 * need to add support to have occupation in jp's bag (or content picker), one way would be to wrap the current content step and add c# support,

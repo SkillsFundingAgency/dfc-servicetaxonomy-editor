@@ -3,16 +3,20 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Routing;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-//using MoreLinq;
+using MoreLinq;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -21,14 +25,10 @@ using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
-    //todo: it was graph sync that done it, aka graph sync is slow! optimise it
+    //todo: utilise innerrecipres? see https://github.com/OrchardCMS/OrchardCore/blob/6cddd9f9904ff117ba82587f39fc76f49fac3cc3/src/OrchardCore/OrchardCore.Recipes.Core/Services/RecipeExecutor.cs
+    //what does recipe step do?
+//todo: https://github.com/OrchardCMS/OrchardCore/blob/6cddd9f9904ff117ba82587f39fc76f49fac3cc3/src/OrchardCore.Modules/OrchardCore.Recipes/RecipeSteps/RecipesStep.cs
 
-    // creating OccupationLabels, sqllite db : conclusion => noise!
-    // # content items : batch size : time
-    // 100 :  1 : 00:00:00.3099636
-    // 100 :  5 : 00:00:00.3161795
-    // 100 : 50 : 00:00:00.3081626
-    //todo: try using azure sql
     public class CypherToContentStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
@@ -98,10 +98,49 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Where(i => i != null)
                     .Select(i => i!);
 
-                foreach (ContentItem preparedContentItem in preparedContentItems)
-                {
-                    await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
-                }
+                int CreateContentBatchSize = 8;
+
+                var preparedContentItemsBatches = preparedContentItems
+                    .Batch(CreateContentBatchSize);
+
+                //poc
+                //todo: if works, keep n batches processing at once, avoid httpclient (ProcessRequestAsync? https://stackoverflow.com/questions/50407760/programmatically-invoking-the-asp-net-core-request-pipeline)
+                // (if use httpclient wil have to set authentication headers and anti forgery token)
+
+                var handler = new HttpClientHandler();
+                handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+
+                HttpClient httpClient = new HttpClient(handler);
+                var client = new GetJobProfiles.RestHttpClient.RestHttpClient(httpClient);
+
+                var first8 = preparedContentItemsBatches.Take(8);
+
+                var first8Tasks = first8.Select(b =>
+                    {
+                        string contentBatchJson = JsonConvert.SerializeObject(b);
+                        string batchRecipe = WrapInNonSetupRecipe(contentBatchJson);
+                        #pragma warning disable S1075
+                        //return client.PostAsJson("https://127.0.0.1:5001/Admin/OrchardCore.Deployment/Import/Import", batchRecipe);
+
+                        // var accessor = _serviceProvider.GetService<IHttpContextAccessor>();
+                        // var generator = _serviceProvider.GetService<LinkGenerator>();
+                        //
+                        // var url = generator.GetUriByRouteValues(accessor.HttpContext, "Home", new {});
+                        //var url = urlHelper.RouteUrl("Home"); //new { area = "DFC.ServiceTaxonomy.GraphSync", controller = "Home", action = "Index" });
+
+                        return client.PostAsJson("https://127.0.0.1:5001/GraphSync/Index", batchRecipe);
+
+
+
+#pragma warning restore S1075
+                    });
+
+                await Task.WhenAll(first8Tasks);
+
+                // foreach (ContentItem preparedContentItem in preparedContentItems)
+                // {
+                //     await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
+                // }
 
                 // batched up async, CreateAsync kabooms: SqlException (0x80131904): Violation of PRIMARY KEY constraint 'PK__Document__3214EC07C3A68634'. Cannot insert duplicate key in object 'dbo.Document'
 
@@ -171,6 +210,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 //                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
                 _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
             }
+        }
+
+        public static string WrapInNonSetupRecipe(string content)
+        {
+            return $@"{{
+  ""name"": """",
+  ""displayName"": """",
+  ""description"": """",
+  ""author"": """",
+  ""website"": """",
+  ""version"": """",
+  ""issetuprecipe"": false,
+  ""categories"": """",
+  ""tags"": [],
+  ""steps"": [
+    {{
+      ""name"": ""Content"",
+      ""data"": [
+{content}
+      ]
+    }}
+  ]
+}}";
         }
 
         private ContentItem? PrepareContentItem(JObject contentJObject)
