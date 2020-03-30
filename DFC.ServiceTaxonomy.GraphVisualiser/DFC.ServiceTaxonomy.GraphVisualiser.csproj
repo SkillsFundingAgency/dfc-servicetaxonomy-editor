@@ -7,10 +7,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">/DFC.ServiceTaxonomy.GraphVisualiser</StaticWebAssetBasePath>
-  </PropertyGroup>
-
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
