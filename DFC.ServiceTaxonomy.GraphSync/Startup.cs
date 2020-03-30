@@ -118,7 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(
-                name: "GraphSync",
+                name: "Home",
                 areaName: "DFC.ServiceTaxonomy.GraphSync",
                 pattern: "Home/Index",
                 defaults: new { controller = "Home", action = "Index" }
