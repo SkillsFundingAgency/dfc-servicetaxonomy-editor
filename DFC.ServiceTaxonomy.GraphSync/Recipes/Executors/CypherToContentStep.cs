@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-//using MoreLinq;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -20,14 +19,13 @@ using Newtonsoft.Json;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
-    //todo: it was graph sync that done it, aka graph sync is slow! optimise it
+    //todo: we need to speed up import
+    // as the session isn't thread safe within a request, we could send requests to ourselves
+    // we might be able to avoid going over the loopback address
+    // (see ProcessRequestAsync? https://stackoverflow.com/questions/50407760/programmatically-invoking-the-asp-net-core-request-pipeline)
+    // if we have to go via loopback, we'll have to set authentication headers and anti forgery token
+    // and keep n batches processing at once
 
-    // creating OccupationLabels, sqllite db : conclusion => noise!
-    // # content items : batch size : time
-    // 100 :  1 : 00:00:00.3099636
-    // 100 :  5 : 00:00:00.3161795
-    // 100 : 50 : 00:00:00.3081626
-    //todo: try using azure sql
     public class CypherToContentStep : IRecipeStepHandler
     {
         private readonly IGraphDatabase _graphDatabase;
@@ -59,7 +57,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _logger = logger;
         }
 
-        //todo: occupation in job profile bag : readonly
         //todo: need to add validation, at least to detect when import same thing twice!
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
@@ -85,31 +82,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
 
-                //todo: still slow even after disabling graph sync, need to speed it up more
                 var contentItemJObjects = contentItemsJson
                     .Select(JsonConvert.DeserializeObject<List<JObject>>)
                     .SelectMany(cijo => cijo);
 
-                // var contentItemJObjectsBatches = contentItemJObjects
-                //     .Batch(CreateContentBatchSize);
-                //
-                // _logger.LogInformation($"Creating content items in batches of {CreateContentBatchSize}");
-                //
-                // Stopwatch stopwatch = Stopwatch.StartNew();
-                //
-                // foreach (IEnumerable<JObject> contentJObjectBatch in contentItemJObjectsBatches)
-                // {
-                //     var createContentItemTasks = contentJObjectBatch
-                //         .Select(jo => CreateContentItem(jo, cypherToContent.SyncBackRequired));
-                //
-                //     await Task.WhenAll(createContentItemTasks);
-                // }
-
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
-                foreach (JObject contentJObject in contentItemJObjects)
+                var preparedContentItems = contentItemJObjects
+                    .Select(PrepareContentItem)
+                    .Where(i => i != null)
+                    .Select(i => i!);
+
+                foreach (ContentItem preparedContentItem in preparedContentItems)
                 {
-                    await CreateContentItem(contentJObject, cypherToContent.SyncBackRequired);
+                    await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
                 }
 
                 //todo: log this, but ensure no double enumeration
@@ -118,14 +104,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
         }
 
-        private async Task CreateContentItem(JObject contentJObject, bool syncBackRequired)
+        private ContentItem? PrepareContentItem(JObject contentJObject)
         {
             ContentItem? contentItem = contentJObject.ToObject<ContentItem>();
 
             if (contentItem?.Content == null)
             {
                 _logger.LogWarning("Missing content, unable to import.");
-                return;
+                return null;
             }
 
             string? title = contentItem.Content.TitlePart?.Title;
@@ -140,6 +126,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
             contentItem.Owner = contentItem.Author = "admin";
 
+            return contentItem;
+        }
+
+        private async Task CreateContentItem(ContentItem contentItem, bool syncBackRequired)
+        {
             //todo: could put contenttype in there for extra safety!? overkill?
 
             // if the cache expires before the sync gets called, that's fine as its only an optimisation
@@ -157,11 +148,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             //todo: log adding content type + id? how would we (easily) get the contenttype??
 
             await _contentManager.CreateAsync(contentItem);
-
-            // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-            // Should not be necessary if IContentManager had an Import method
-            //contentItem.ModifiedUtc = modifiedUtc;
-            //contentItem.PublishedUtc = publishedUtc;
         }
 
         private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
@@ -184,7 +170,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             public bool SyncBackRequired { get; set; }
         }
 
-        //todo: setting whether serial or parallel (or parallel by default and multiple recipes for serial) and split label create across queries to speed up import (or wait until 1 recipe to import multiple recipes for parallalisation?)
         public class CypherToContentStepModel
         {
             public CypherToContentModel[]? Queries { get; set; }
