@@ -49,12 +49,11 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return emptyResult;
         }
 
-        public Task<bool> VerifySyncComponent(
-            dynamic content,
+        public Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
@@ -65,7 +64,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             foreach (var node in graphLookupPart.Nodes)
             {
-                var destNode = destNodes.SingleOrDefault(x =>
+                var destNode = destinationNodes.SingleOrDefault(x =>
                     (string)x.Properties[graphSyncHelper.IdPropertyName] == node.Id);
 
                 if (destNode == null)

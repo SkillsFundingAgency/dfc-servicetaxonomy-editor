@@ -2,8 +2,20 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "CustomHostName": {
+            "value": "__OrchardEditorCustomHostName__"
+        },
         "Environment": {
             "value": "__ReleaseEnvironmentName__"
+        },
+        "KeyVaultCertificateName": {
+            "value": "__OrchardEditorKeyVaultCertName__"
+        },
+        "KeyVaultName": {
+            "value": "__sharedKeyVaultName__"
+        },
+        "KeyVaultResourceGroup": {
+            "value": "__SharedResourceGroupName__"
         },
         "SharedAppServicePlanName": {
             "value": "__StaxSharedAppServicePlan__"

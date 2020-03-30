@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
@@ -43,10 +44,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldGraphSyncer;
+        private readonly ILogger<EponymousPartGraphSyncer> _logger;
 
-        public EponymousPartGraphSyncer(IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer)
+        public EponymousPartGraphSyncer(
+            IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer,
+            ILogger<EponymousPartGraphSyncer> logger)
         {
             _contentFieldGraphSyncer = contentFieldGraphSyncer;
+            _logger = logger;
         }
 
         /// <summary>
@@ -65,7 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
                     contentTypePartDefinition.PartDefinition.Fields
-                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
@@ -89,19 +94,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public async Task<bool> VerifySyncComponent(
-            dynamic content,
+        public async Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
                     contentTypePartDefinition.PartDefinition.Fields
-                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldName);
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
@@ -109,14 +113,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     if (contentItemField == null)
                         continue;
 
+                    IContentPartFieldDefinition contentPartFieldDefinitionWrapper
+                        = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
+
                     if (!await contentFieldGraphSyncer.VerifySyncComponent(
                         contentItemField,
-                        contentPartFieldDefinition,
+                        contentPartFieldDefinitionWrapper,
                         sourceNode,
                         relationships,
-                        destNodes,
+                        destinationNodes,
                         graphSyncHelper))
                     {
+                        //todo: would be good to log graphsyncpart id : can log that in consumer when this returns false
+                        _logger.LogWarning($"Sync validation failed. Field type: {contentFieldGraphSyncer.FieldTypeName}, field: {contentPartFieldDefinition.Name}");
                         return false;
                     }
                 }
