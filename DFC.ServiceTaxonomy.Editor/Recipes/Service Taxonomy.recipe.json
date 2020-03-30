@@ -1908,24 +1908,6 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "AlternativeLabels",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Alternative Labels",
-                                    "Position": "1"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "OccupationLabel"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
                             "Name": "PreferredLabel",
                             "Settings": {
                                 "ContentPartFieldSettings": {
@@ -1935,6 +1917,24 @@
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationship of type [:ncs__hasPrefLabel].",
                                     "Multiple": false,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "AlternativeLabels",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alternative Labels",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
+                                    "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "OccupationLabel"
                                     ]
