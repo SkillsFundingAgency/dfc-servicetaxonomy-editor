@@ -143,32 +143,29 @@ delete {existingRelationshipsVariablesString}
         private static string AllVariablesString(string variableBase, int ordinal) =>
             string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"{variableBase}{o}"));
 
-
         public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
             //todo: log query (doesn't work!) Query was: {resultSummary.Query}.
             //todo: validate deletes?
-            //todo: if the relationship's don't match, we should query the graph and log exact details of what's missing
             // we should only query if the quick tests have failed, otherwise we'll slow down import a lot if we queried after every update
 
             int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
             if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
-                throw new CommandValidationException($"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
-
+                throw CreateValidationException(resultSummary,
+                    $"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
 
             if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
                 return;
 
-            var createdRelationships = records?.FirstOrDefault()?.Values?.Values.Cast<IRelationship>();
+            IEnumerable<IRelationship>? createdRelationships = records?.FirstOrDefault()?.Values?.Values.Cast<IRelationship>();
             if (createdRelationships == null)
-                throw new CommandValidationException("New relationships not returned.");
+                throw CreateValidationException(resultSummary, "New relationships not returned.");
 
-            //todo: make sure fix gets into master (needs RelationshipType for each id value in each relationship)
             // could store variable name to type dic and use that to check instead
             List<string> unorderedExpectedRelationshipTypes = new List<string>();
-            foreach (var relationship in RelationshipsList)
+            foreach (Relationship relationship in RelationshipsList)
             {
-                foreach (var idValue in relationship.DestinationNodeIdPropertyValues)
+                foreach (object _ in relationship.DestinationNodeIdPropertyValues)
                 {
                     unorderedExpectedRelationshipTypes.Add(relationship.RelationshipType);
                 }
@@ -180,12 +177,30 @@ delete {existingRelationshipsVariablesString}
                 .Select(r => r.Type)
                 .OrderBy(t => t);
 
-            if (!Enumerable.SequenceEqual(expectedRelationshipTypes, actualRelationshipTypes))
-                throw new CommandValidationException($"Relationship types creates ({string.Join(",", actualRelationshipTypes)}) does not match expected ({string.Join(",", expectedRelationshipTypes)})");
+            if (!expectedRelationshipTypes.SequenceEqual(actualRelationshipTypes))
+                throw CreateValidationException(resultSummary,
+                    $"Relationship types created ({string.Join(",", actualRelationshipTypes)}) does not match expected ({string.Join(",", expectedRelationshipTypes)})");
 
             var firstStartNodeId = createdRelationships.First().StartNodeId;
             if (!createdRelationships.Skip(1).All(r => r.StartNodeId == firstStartNodeId))
-                throw new CommandValidationException("Not all created relationships have the same source node.");
+                throw CreateValidationException(resultSummary,
+                    "Not all created relationships have the same source node.");
+        }
+
+        private CommandValidationException CreateValidationException(IResultSummary resultSummary, string message)
+        {
+            return new CommandValidationException(@$"{message}
+Command:
+{this}
+Result summary:
+{resultSummary}");
+        }
+
+        public override string ToString()
+        {
+            return $@"Source node: (:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
+Relationships:
+{string.Join(Environment.NewLine, RelationshipsList)}";
         }
     }
 }

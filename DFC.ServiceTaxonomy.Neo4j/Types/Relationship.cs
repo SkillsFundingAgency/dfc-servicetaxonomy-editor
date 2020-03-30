@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Types
@@ -37,6 +38,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
 
                 return errors;
             }
+        }
+
+        public override string ToString()
+        {
+            return $@"Type: {RelationshipType}
+Destination node: (:{string.Join(":", DestinationNodeLabels)})
+{DestinationNodeIdPropertyName}:
+{string.Join(Environment.NewLine, DestinationNodeIdPropertyValues)}";
         }
     }
 }
