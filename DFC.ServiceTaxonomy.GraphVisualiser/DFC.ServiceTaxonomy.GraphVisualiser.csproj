@@ -5,6 +5,7 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
+    <StaticWebAssetBasePath Condition="$(StaticWebAssetBasePath) == ''">/DFC.ServiceTaxonomy.GraphVisualiser</StaticWebAssetBasePath>
   </PropertyGroup>
 
   <ItemGroup>
