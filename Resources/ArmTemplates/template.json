@@ -188,7 +188,8 @@
                 }
             },
             "dependsOn": [
-                "[variables('AppServiceAppInsightsName')]"
+                "[variables('AppServiceAppInsightsName')]",
+                "editor-certificate"
             ]
         },
         {
