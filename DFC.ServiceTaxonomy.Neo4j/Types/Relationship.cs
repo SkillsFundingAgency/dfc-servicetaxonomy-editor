@@ -42,8 +42,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
 
         public override string ToString()
         {
-            return $@"Type: {RelationshipType}
-Destination node: (:{string.Join(":", DestinationNodeLabels)})
+            return $@"[:{RelationshipType}]->(:{string.Join(":", DestinationNodeLabels)})
 {DestinationNodeIdPropertyName}:
 {string.Join(Environment.NewLine, DestinationNodeIdPropertyValues)}";
         }

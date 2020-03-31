@@ -56,24 +56,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
 
-            // cast is not redundant, GetAsync should be returning ContentItem?
-            #pragma warning disable S1905
-            IEnumerable<Task<ContentItem?>> destinationContentItemsTasks =
-                (IEnumerable<Task<ContentItem?>>)contentItemIds.Select(async contentItemId =>
+            // GetAsync should be returning ContentItem? as it can be null
+            IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
+                contentItemIds.Select(async contentItemId =>
                     await _contentManager.GetAsync(contentItemId, VersionOptions.Latest));
-            #pragma warning restore S1905
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
-            IEnumerable<ContentItem> foundDestinationContentItems =
-                destinationContentItems.Where(ci => ci != null)
-                    .Select(ci => ci!);
+            IEnumerable<ContentItem?> foundDestinationContentItems =
+                destinationContentItems.Where(ci => ci != null);
 
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
                 throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
 
             IEnumerable<string> foundDestinationNodeIds =
-                foundDestinationContentItems.Select(ci => GetNodeId(ci, graphSyncHelper));
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,

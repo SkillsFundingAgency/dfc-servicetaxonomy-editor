@@ -69,10 +69,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
                 //todo: bi-directional relationships
                 const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-                var nodeMatchBuilder =
-                    new StringBuilder(
+                StringBuilder nodeMatchBuilder = new StringBuilder(
                         $"match ({sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
-                var mergeBuilder = new StringBuilder();
+                StringBuilder mergeBuilder = new StringBuilder();
                 var parameters =
                     new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue!}};
                 int ordinal = 0;
@@ -87,7 +86,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     // add unit/integration tests for this ^^ scenario
                     distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
 
-                    foreach (string destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
+                    foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
                     {
                         string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
                         string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
@@ -192,13 +191,12 @@ delete {existingRelationshipsVariablesString}
             return new CommandValidationException(@$"{message}
 Command:
 {this}
-Result summary:
 {resultSummary}");
         }
 
         public override string ToString()
         {
-            return $@"Source node: (:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
+            return $@"(:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
 Relationships:
 {string.Join(Environment.NewLine, RelationshipsList)}";
         }

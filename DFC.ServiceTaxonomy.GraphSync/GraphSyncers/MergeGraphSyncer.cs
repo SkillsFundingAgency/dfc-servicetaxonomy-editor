@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return null;
             }
 
-            _logger.LogInformation($"Syncing {contentType} : {contentItemId}");
+            _logger.LogDebug($"Syncing {contentType} : {contentItemId}");
 
             _graphSyncHelper.ContentType = contentType;
 
