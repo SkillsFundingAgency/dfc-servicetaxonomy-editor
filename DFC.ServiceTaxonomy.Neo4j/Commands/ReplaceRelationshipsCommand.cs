@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
 
         public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
-            string destIdPropertyName, params string[] destIdPropertyValues)
+            string destIdPropertyName, params object[] destIdPropertyValues)
         {
             RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
                 destIdPropertyValues));
@@ -86,7 +86,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     // add unit/integration tests for this ^^ scenario
                     distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
 
-                    foreach (string destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
+                    foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
                     {
                         string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
                         string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";

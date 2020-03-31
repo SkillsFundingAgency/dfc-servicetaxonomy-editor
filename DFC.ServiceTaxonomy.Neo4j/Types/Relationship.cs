@@ -14,11 +14,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
         public IDictionary<string, object>? Properties { get; }
         public IEnumerable<string> DestinationNodeLabels { get; }
         public string DestinationNodeIdPropertyName { get; }
-        public IEnumerable<string> DestinationNodeIdPropertyValues { get; }
+        public IEnumerable<object> DestinationNodeIdPropertyValues { get; }
 
         public Relationship(string relationshipType, IDictionary<string, object>? properties,
             IEnumerable<string> destinationNodeLabels, string destinationNodeIdPropertyName,
-            IEnumerable<string> destinationNodeIdPropertyValues)
+            IEnumerable<object> destinationNodeIdPropertyValues)
         {
             RelationshipType = relationshipType;
             Properties = properties;

@@ -20,6 +20,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
             string relationshipType,
             IEnumerable<string> destNodeLabels,
             string destIdPropertyName,
-            params string[] destIdPropertyValues);
+            params object[] destIdPropertyValues);
     }
 }
