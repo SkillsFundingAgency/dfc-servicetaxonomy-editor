@@ -238,20 +238,18 @@
                             }
                         },
                         {
-                            "PartName": "GraphLookupPart",
-                            "Name": "GraphLookupPart",
+                            "PartName": "BagPart",
+                            "Name": "Occupation",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "27"
+                                    "Position": "27",
+                                    "DisplayName": "Occupation",
+                                    "Description": "‏‏‎ ‎"
                                 },
-                                "GraphLookupPartSettings": {
-                                    "DisplayName": "ESCO Occupation Uri",
-                                    "Hint": "Select the ESCO occupation that relates to this job profile.",
-                                    "NodeLabel": "esco__Occupation",
-                                    "DisplayFieldName": "skos__prefLabel",
-                                    "ValueFieldName": "uri",
-                                    "RelationshipType": "ncs__relatedOccupation",
-                                    "NodesAreReadonly": true
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "Occupation"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
