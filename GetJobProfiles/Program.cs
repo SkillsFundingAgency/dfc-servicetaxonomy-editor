@@ -127,8 +127,7 @@ namespace GetJobProfiles
             BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
             BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
-            File.WriteAllText($"{OutputBasePath}content items count.txt", @$"{ImportFilesReport}
-# Totals
+            File.WriteAllText($"{OutputBasePath}content items count.txt", @$"{ImportFilesReport}# Totals
 {ImportTotalsReport}");
             File.WriteAllText($"{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
             File.WriteAllText($"{OutputBasePath}content_titles_summary.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
