@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Views\Items\ContentPreview.Button.cshtml" />
+    <EmbeddedResource Include="Views\Items\Contents-Button-Actions.SummaryAdmin.cshtml" />
     <EmbeddedResource Include="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
