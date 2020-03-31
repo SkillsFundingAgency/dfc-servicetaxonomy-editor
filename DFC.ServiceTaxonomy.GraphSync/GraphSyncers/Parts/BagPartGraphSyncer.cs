@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     relationshipType,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
-                    (string)containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
+                    containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
 
                 delayedCommands.Add(delayedReplaceRelationshipsCommand);
             }
