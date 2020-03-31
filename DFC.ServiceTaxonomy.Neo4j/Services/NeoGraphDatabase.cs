@@ -66,10 +66,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 // (this has worked in the past, and the integration tests rely on earlier commands in the transaction being visible to work)
                 // need to dig deeper in isolation levelts etc., but for now, hit it with a sledgehammer, aka execute each command in a transaction
 
-                foreach (ICommand command in commands)
+                await session.WriteTransactionAsync(async tx =>
                 {
-                    await session.WriteTransactionAsync(async tx =>
+                    foreach (ICommand command in commands)
                     {
+
                         IResultCursor result = await tx.RunAsync(command.Query);
 
                         var records = await result.ToListAsync(r => r);
@@ -85,8 +86,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                         }
 
                         command.ValidateResults(records, resultSummary);
-                    });
-                }
+                    }
+                });
             }
             finally
             {
