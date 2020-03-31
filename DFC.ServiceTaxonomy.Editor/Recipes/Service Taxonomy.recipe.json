@@ -103,24 +103,11 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                },
-                                "ContentIndexSettings": {},
-                                "TitlePartSettings": {
-                                    "Options": 1
-                                }
-                            }
-                        },
-                        {
                             "PartName": "Occupation",
                             "Name": "Occupation",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "0"
                                 }
                             }
                         },
@@ -129,7 +116,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
                                     "PreexistingNode": true,
@@ -1921,24 +1908,6 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "ContentPickerField",
-                            "Name": "AlternativeLabels",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Alternative Labels",
-                                    "Position": "1"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "OccupationLabel"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
                             "Name": "PreferredLabel",
                             "Settings": {
                                 "ContentPartFieldSettings": {
@@ -1948,6 +1917,24 @@
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationship of type [:ncs__hasPrefLabel].",
                                     "Multiple": false,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "AlternativeLabels",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alternative Labels",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
+                                    "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "OccupationLabel"
                                     ]
