@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
@@ -50,18 +50,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
 
-            JArray? contentItemIds = (JArray?)contentItemField["ContentItemIds"];
-            if (contentItemIds == null || !contentItemIds.HasValues)
-                return;    //todo:
+            JArray? contentItemIdsJArray = (JArray?)contentItemField["ContentItemIds"];
+            if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
+                return; //todo:
 
-            var destIds = await Task.WhenAll(contentItemIds.Select(async relatedContentId =>
-                GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest), graphSyncHelper)));
+            IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
+
+            // GetAsync should be returning ContentItem? as it can be null
+            IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
+                contentItemIds.Select(async contentItemId =>
+                    await _contentManager.GetAsync(contentItemId, VersionOptions.Latest));
+
+            ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
+
+            IEnumerable<ContentItem?> foundDestinationContentItems =
+                destinationContentItems.Where(ci => ci != null);
+
+            if (foundDestinationContentItems.Count() != contentItemIds.Count())
+                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
+
+            IEnumerable<object> foundDestinationNodeIds =
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 destNodeLabels,
                 graphSyncHelper!.IdPropertyName,
-                destIds);
+                foundDestinationNodeIds.ToArray());
         }
 
         public async Task<bool> VerifySyncComponent(JObject contentItemField,
@@ -93,9 +108,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
 
-                string destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
+                object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                INode destNode = destinationNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
+                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
                 if (destNode == null)
                 {
                     _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
@@ -138,9 +153,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return relationshipType;
         }
 
-        private object GetSyncId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
+        private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
         {
-            return graphSyncHelper!.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -72,6 +71,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 throw new CommandValidationException($"Id of created node not returned");
 
             //todo: log id?
+        }
+
+        public override string ToString()
+        {
+            object? idPropertyValue = null;
+            bool idFound = IdPropertyName != null
+                && Properties.TryGetValue(IdPropertyName, out idPropertyValue);
+
+            return $"Node: (:{string.Join(':', NodeLabels)} {{{IdPropertyName}: '{(idFound?idPropertyValue:"N/A")}'}})";
         }
     }
 }

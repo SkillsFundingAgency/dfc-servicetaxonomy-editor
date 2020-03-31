@@ -43,17 +43,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
-            string contentItemId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
+            object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
 
             List<IRecord> results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(
                 await _graphSyncHelper.NodeLabels(),
                 _graphSyncHelper.IdPropertyName,
-                contentItemId));
+                nodeId));
 
             if (results == null || !results.Any())
                 return false;
 
-            var contentDefinition = _contentTypes[contentItem.ContentType];
+            ContentTypeDefinition contentTypeDefinition = _contentTypes[contentItem.ContentType];
 
             INode? sourceNode = results.Select(x => x[0]).Cast<INode?>().FirstOrDefault();
             if (sourceNode == null)
@@ -65,9 +65,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //for some reason sometimes we get an array with a single null element
             relationships.RemoveAll(x => x == null);
 
-            foreach (var part in contentDefinition.Parts)
+            foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
-                string partName = part.PartDefinition.Name;
+                string partName = contentTypePartDefinition.PartDefinition.Name;
                 if (!_partSyncers.TryGetValue(partName, out var partSyncer))
                 {
                     partSyncer = _partSyncers["Eponymous"];
@@ -78,11 +78,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     continue; //todo: throw??
 
                 if (!await partSyncer.VerifySyncComponent(
-                    partContent, part,
+                    partContent, contentTypePartDefinition,
                     sourceNode, relationships, destinationNodes,
                     _graphSyncHelper))
                 {
-                    LogValidationFailure(contentItemId, contentItem, partName, partContent, sourceNode);
+                    LogValidationFailure(nodeId, contentTypePartDefinition, contentItem, partName, partContent, sourceNode);
                     return false;
                 }
             }
@@ -90,12 +90,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return true;
         }
 
-        private void LogValidationFailure(string contentItemId, ContentItem contentItem, string partName, dynamic partContent, INode sourceNode)
+        private void LogValidationFailure(
+            object nodeId,
+            ContentTypePartDefinition contentTypePartDefinition,
+            ContentItem contentItem,
+            string partName,
+            dynamic partContent,
+            INode sourceNode)
         {
+            //todo: check these
             _logger.LogWarning($@"Sync validation failed.
 Content type: '{contentItem.ContentType}'
-Content item ID: '{contentItemId}'
-Content part type name: 'todo'
+Node ID: '{nodeId}'
+Content part type name: '{contentTypePartDefinition.Name}'
              name '{partName}'
              content: '{partContent}'
 Source node ID: {sourceNode.Id}
