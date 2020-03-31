@@ -185,7 +185,7 @@ namespace GetJobProfiles
                 string serializedContentItemBatch = SerializeContentItems(batchContentItems);
 
                 string filename = $"{FileIndex++:00}. {filenamePrefix}{batchNumber++}.zip";
-                ImportFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
+                ImportTotalsReport.AppendLine($"{filename}: {batchContentItems.Count()}");
 
                 ImportRecipe.Create($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch));
             }
