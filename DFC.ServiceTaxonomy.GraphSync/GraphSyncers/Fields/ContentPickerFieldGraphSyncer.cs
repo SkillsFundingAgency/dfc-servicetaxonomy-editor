@@ -76,7 +76,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 relationshipType,
                 destNodeLabels,
                 graphSyncHelper!.IdPropertyName,
-                foundDestinationNodeIds);
+                foundDestinationNodeIds.ToArray());
         }
 
         public async Task<bool> VerifySyncComponent(JObject contentItemField,

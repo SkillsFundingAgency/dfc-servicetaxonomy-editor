@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
 
         public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
-            string destIdPropertyName, params object[] destIdPropertyValues)
+            string destIdPropertyName, params string[] destIdPropertyValues)
         {
             RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
                 destIdPropertyValues));
@@ -86,7 +86,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     // add unit/integration tests for this ^^ scenario
                     distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
 
-                    foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
+                    foreach (string destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
                     {
                         string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
                         string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
@@ -94,6 +94,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
                         nodeMatchBuilder.Append(
                             $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
+                        //todo:
                         parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
 
                         mergeBuilder.Append(
@@ -161,14 +162,10 @@ delete {existingRelationshipsVariablesString}
                 throw CreateValidationException(resultSummary, "New relationships not returned.");
 
             // could store variable name to type dic and use that to check instead
-            List<string> unorderedExpectedRelationshipTypes = new List<string>();
-            foreach (Relationship relationship in RelationshipsList)
-            {
-                foreach (object _ in relationship.DestinationNodeIdPropertyValues)
-                {
-                    unorderedExpectedRelationshipTypes.Add(relationship.RelationshipType);
-                }
-            }
+            List<string> unorderedExpectedRelationshipTypes = (RelationshipsList.SelectMany(
+                relationship => relationship.DestinationNodeIdPropertyValues,
+                (relationship, _) => relationship.RelationshipType)).ToList();
+
             var expectedRelationshipTypes = unorderedExpectedRelationshipTypes
                 .OrderBy(t => t);
 
