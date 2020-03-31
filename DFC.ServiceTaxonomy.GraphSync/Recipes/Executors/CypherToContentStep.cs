@@ -37,7 +37,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ILogger<CypherToContentStep> _logger;
 
         private const string StepName = "CypherToContent";
-        //private const int CreateContentBatchSize = 50;
 
         public CypherToContentStep(
             IGraphDatabase graphDatabase,

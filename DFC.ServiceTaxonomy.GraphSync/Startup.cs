@@ -56,6 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Recipe Steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
+            services.AddRecipeExecutionStep<CSharpContentStep>();
             services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
             services.AddTransient<IContentHelper, ContentHelper>();
 

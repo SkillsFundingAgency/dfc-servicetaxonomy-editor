@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -12,16 +15,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     {
         private readonly IContentManager _contentManager;
         private readonly ISession _session;
+        private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
 
-        public CSharpContentStep(IContentManager contentManager, ISession session)
+        private const string StepName = "CSharpContent";
+
+        public CSharpContentStep(
+            IContentManager contentManager,
+            ISession session,
+            //todo: rename
+            ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals)
         {
             _contentManager = contentManager;
             _session = session;
+            _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
-            if (!string.Equals(context.Name, "CSharpContent", StringComparison.OrdinalIgnoreCase))
+            if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
 
             //todo: logging & error handling
@@ -29,7 +40,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (model?.Data == null)
                 return;
 
-            foreach (JToken token in model.Data)
+            string json = ReplaceCSharpHelpers(model.Data.ToString());
+            JArray data = JArray.Parse(json);
+
+            foreach (JToken token in data)
             {
                 ContentItem? contentItem = token.ToObject<ContentItem>();
                 if (contentItem == null)
@@ -57,6 +71,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     _session.Save(existing);
                 }
             }
+        }
+
+        //todo: move these instead of c&p if works
+        //todo: some issue with []
+        //todo: need to stop it being greedy
+//        private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
+        private static readonly Regex _cSharpHelperRegex = new Regex(@"«c#:([^\]]+)»", RegexOptions.Compiled);
+        private string ReplaceCSharpHelpers(string recipeFragment)
+        {
+            return _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
+        }
+
+        private async Task<string> EvaluateCSharp(string code)
+        {
+            // can't see how to get json.net to unescape value strings!
+            code = code.Replace("\\\"", "\"");
+
+            return await CSharpScript.EvaluateAsync<string>(code, globals: _cypherToContentCSharpScriptGlobals);
         }
 
         public class CSharpContentStepModel
