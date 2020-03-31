@@ -138,7 +138,10 @@ namespace GetJobProfiles
 
         private static void CopyRecipe(string recipePath, string recipeFilename)
         {
-            File.Copy(Path.Combine(recipePath, recipeFilename), $"{OutputBasePath}{FileIndex++:00}. {recipeFilename}");
+            string filename = $"{FileIndex++:00}. {recipeFilename}";
+            ImportFilesReport.AppendLine($"{filename}: null");
+
+            File.Copy(Path.Combine(recipePath, recipeFilename), $"{OutputBasePath}{filename}");
         }
 
         private static async Task BatchRecipes(string recipePath, string recipeFilename, int batchSize)
@@ -170,12 +173,15 @@ namespace GetJobProfiles
                 recipe = recipe.Replace($"[token:{key}]", value);
             }
 
-            await File.WriteAllTextAsync($"{OutputBasePath}{FileIndex++:00}. {recipeFilename}", recipe);
+            string filename = $"{FileIndex++:00}. {recipeFilename}";
+            ImportFilesReport.AppendLine($"{filename}: null");
+
+            await File.WriteAllTextAsync($"{OutputBasePath}{filename}", recipe);
         }
 
         private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix) where T : ContentItem
         {
-            ImportFilesReport.AppendLine($"{filenamePrefix}: {contentItems.Count()}");
+            ImportTotalsReport.AppendLine($"{filenamePrefix}: {contentItems.Count()}");
 
             var batches = contentItems.Batch(batchSize);
             int batchNumber = 0;
@@ -185,7 +191,7 @@ namespace GetJobProfiles
                 string serializedContentItemBatch = SerializeContentItems(batchContentItems);
 
                 string filename = $"{FileIndex++:00}. {filenamePrefix}{batchNumber++}.zip";
-                ImportTotalsReport.AppendLine($"{filename}: {batchContentItems.Count()}");
+                ImportFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
 
                 ImportRecipe.Create($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch));
             }
