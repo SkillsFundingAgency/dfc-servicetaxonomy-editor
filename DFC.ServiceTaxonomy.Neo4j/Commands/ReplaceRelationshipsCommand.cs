@@ -186,8 +186,9 @@ delete {existingRelationshipsVariablesString}
         private CommandValidationException CreateValidationException(IResultSummary resultSummary, string message)
         {
             return new CommandValidationException(@$"{message}
-Command:
+{nameof(ReplaceRelationshipsCommand)}:
 {this}
+
 {resultSummary}");
         }
 
