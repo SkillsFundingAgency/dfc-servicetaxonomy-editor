@@ -17,7 +17,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     public class NeoGraphDatabase : IGraphDatabase, IDisposable
     {
         private readonly ILogger<NeoGraphDatabase> _logger;
-        private readonly IDriver _driver;
+        private readonly IDriver _primaryDriver;
+        private readonly IDriver _secondaryDriver;
 
         public NeoGraphDatabase(
             IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
@@ -31,15 +32,22 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             //todo: add configuration/settings menu item/page so user can enter this
             var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
 
-            _driver = GraphDatabase.Driver(
+            _primaryDriver = GraphDatabase.Driver(
                 neo4jConfiguration.Endpoint.Uri,
                 AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password),
+                o => o.WithLogger(neoLogger));
+
+            _secondaryDriver = GraphDatabase.Driver(
+#pragma warning disable S1075 // URIs should not be hardcoded
+                "bolt://localhost:7687",
+#pragma warning restore S1075 // URIs should not be hardcoded
+                AuthTokens.Basic("neo4j", "test"),
                 o => o.WithLogger(neoLogger));
         }
 
         public async Task<List<T>> Run<T>(IQuery<T> query)
         {
-            IAsyncSession session = _driver.AsyncSession();
+            IAsyncSession session = _primaryDriver.AsyncSession();
             try
             {
                 return await session.ReadTransactionAsync(async tx =>
@@ -56,11 +64,19 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public async Task Run(params ICommand[] commands)
         {
-            IAsyncSession session = _driver.AsyncSession();
+            await ExecuteTransaction(commands, _primaryDriver, "Primary Graph");
+            await ExecuteTransaction(commands, _secondaryDriver, "Secondary Graph");
+        }
+
+        private async Task ExecuteTransaction(ICommand[] commands, IDriver driver, string graphName)
+        {
+            IAsyncSession session = driver.AsyncSession();
             try
             {
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
+
+                _logger.LogInformation($"Executing commands to: {graphName}");
 
                 await session.WriteTransactionAsync(async tx =>
                 {
@@ -91,7 +107,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public void Dispose()
         {
-            _driver?.Dispose();
+            _primaryDriver?.Dispose();
         }
     }
 }
