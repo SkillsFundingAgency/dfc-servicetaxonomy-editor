@@ -54,11 +54,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
-        // neo on same box as editor:
-        // ApprenticeshipStandards: Total 582
-        // all commands in 1 transaction : 9 secs
-        // transaction per command: 8.3 secs
-        //todo: test in dev env
         public async Task Run(params ICommand[] commands)
         {
             IAsyncSession session = _driver.AsyncSession();
