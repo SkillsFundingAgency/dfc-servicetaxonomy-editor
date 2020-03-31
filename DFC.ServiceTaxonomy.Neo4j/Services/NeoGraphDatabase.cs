@@ -54,6 +54,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
+        // neo on same box as editor:
+        // ApprenticeshipStandards: Total 582
+        // all commands in 1 transaction : 9 secs
+        // transaction per command: 8.3 secs
+        //todo: test in dev env
         public async Task Run(params ICommand[] commands)
         {
             IAsyncSession session = _driver.AsyncSession();
@@ -62,15 +67,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
 
-                // todo: for some reason, when the replacerelationshipscommand runs, the node it creates relationships from, which was merged earlier in the transaction, is not visible
-                // (this has worked in the past, and the integration tests rely on earlier commands in the transaction being visible to work)
-                // need to dig deeper in isolation levelts etc., but for now, hit it with a sledgehammer, aka execute each command in a transaction
-
                 await session.WriteTransactionAsync(async tx =>
                 {
                     foreach (ICommand command in commands)
                     {
-
                         IResultCursor result = await tx.RunAsync(command.Query);
 
                         var records = await result.ToListAsync(r => r);
