@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\ContentPreview.Button.cshtml" />
     <Content Remove="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
     <Content Remove="Views\Items\ContentPreview.Button.cshtml" />
