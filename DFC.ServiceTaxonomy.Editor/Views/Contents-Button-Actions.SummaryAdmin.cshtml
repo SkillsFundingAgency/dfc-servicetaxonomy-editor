@@ -1,21 +1,9 @@
 ﻿@namespace DFC.ServiceTaxonomy.Editor._Views_Contents_Button_Actions_SummaryAdmin
 
-@using OrchardCore.ContentManagement
-@using DFC.ServiceTaxonomy.GraphSync.Models
-@inject IContentManager ContentManager
-
-@{
-#nullable enable
-
-    ContentItem contentItem = Model.ContentItem;
-    string? graphSyncPartText = contentItem.Content[nameof(GraphSyncPart)]?[nameof(GraphSyncPart.Text)]?.Value;
-    var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
-    var hasDraft = contentItem.HasDraft();
-}
 
 <a asp-action="Viewer"
    asp-controller="Visualise"
    asp-area="DFC.ServiceTaxonomy.GraphVisualiser.Startup"
    asp-route-visualise="xxxxxxxxxxxxxxxxxxxxx"
    target="_blank"
-   class="publish-button btn btn-info">"Hello World"</a>
+   class="publish-button btn btn-info">Hello World</a>
