@@ -3,6 +3,12 @@
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 
+* custom part content picker, then collapsible rendered view of content and edit button
+* need to stop user from adding another occupation to a jp
+* add hardcoded esco numbers to import report
+* batch occupation label creation script
+* set commands page size for batching creates?: https://github.com/sebastienros/yessql/pull/228/files
+* new version of ContentManager.CreateAsync that takes collection contentitems?
 * importing recipe, then unpublish content items, then reimport and sync doesn't happen
 seems once you've imported a recipe, if you reimport the same one it doesn't trigger sync even if you unpublish or delete some items first
 could fix when create new content recipe step
