@@ -1,9 +1,15 @@
 ﻿$(function () {
-    var ul = $("ul#adminMenu li#new ul");
+    var ul = $("#new ul");
     var li = ul.children("li");
 
     li.detach().sort(function (a, b) {
-        return (a.innerText > b.innerText) - (a.innerText < b.innerText);
+        if (a.innerText > b.innerText)
+            return 1;
+
+        if (a.innerText < b.innerText)
+            return -1;
+
+        return 0;
     });
 
     ul.append(li);
