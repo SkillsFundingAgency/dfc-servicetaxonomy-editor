@@ -13,6 +13,10 @@
 
   <ItemGroup>
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Liquid" Version="1.0.0-rc1-*" />
   </ItemGroup>
 
 </Project>
