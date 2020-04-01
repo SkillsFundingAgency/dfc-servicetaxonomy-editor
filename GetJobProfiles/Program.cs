@@ -102,6 +102,7 @@ namespace GetJobProfiles
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json");
+            CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexesRecipe.json");
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize);
 
             ProcessLionelsSpreadsheet();

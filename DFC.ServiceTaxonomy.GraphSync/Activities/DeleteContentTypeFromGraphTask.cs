@@ -40,24 +40,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            string typeToDelete = GetTypeFromWorkflowContext(workflowContext);
+            string typeToDelete = "unknown type";
 
             try
             {
+                typeToDelete = GetTypeFromWorkflowContext(workflowContext);
+
                 //Delete all nodes by type
                 await _deleteGraphSyncer.DeleteNodesByType(typeToDelete);
                 return Outcomes("Done");
             }
             catch (Exception)
             {
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask), $"Error: The {typeToDelete} could not be removed because the associated node could not be deleted from the graph. Most likely due to {typeToDelete} having incoming relationships."));
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask),
+                    $"Error: The {typeToDelete} could not be removed because the associated node could not be deleted from the graph. Most likely due to {typeToDelete} having incoming relationships."));
                 throw;
             }
         }
 
         private static string GetTypeFromWorkflowContext(WorkflowExecutionContext workflowContext)
         {
-            var typeToDelete = workflowContext.Input["ContentType"].ToString();
+            string? typeToDelete = workflowContext.Input["ContentType"].ToString();
 
             if (string.IsNullOrWhiteSpace(typeToDelete))
                 throw new ArgumentNullException($"No Content Type passed to {nameof(DeleteContentTypeFromGraphTask)}");

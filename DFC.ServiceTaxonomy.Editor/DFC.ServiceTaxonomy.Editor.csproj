@@ -11,15 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="Views\ContentPreview.Button.cshtml" />
     <Content Remove="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
-    <Content Remove="Views\Items\ContentPreview.Button.cshtml" />
-    <Content Remove="Views\Items\Contents-Button-Actions.SummaryAdmin.cshtml" />
-    <Content Remove="Views\XX Contents-Button-Actions.SummaryAdmin.cshtml" />
     <Content Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
@@ -27,13 +20,12 @@
     <EmbeddedResource Include="Views\ContentPreview.Button.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\XX Contents-Button-Actions.SummaryAdmin.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Contents-Button-Actions.SummaryAdmin.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Views\_ViewImports.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -62,9 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Items\XX Contents-Button-Edit.SummaryAdmin.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\.placeholder">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
