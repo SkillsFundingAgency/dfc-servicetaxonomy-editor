@@ -108,6 +108,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         public void Dispose()
         {
             _primaryDriver?.Dispose();
+            _secondaryDriver?.Dispose();
         }
     }
 }
