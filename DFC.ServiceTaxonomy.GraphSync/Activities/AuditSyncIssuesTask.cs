@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Records;
+using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
@@ -28,12 +30,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             IContentDefinitionManager contentDefinitionManager,
             IValidateGraphSync validateGraphSync,
             IServiceProvider serviceProvider,
+            INotifier notifier,
             ILogger<AuditSyncIssuesTask> logger)
         {
             _session = session;
             _contentDefinitionManager = contentDefinitionManager;
             _validateGraphSync = validateGraphSync;
             _serviceProvider = serviceProvider;
+            _notifier = notifier;
             _logger = logger;
             T = localizer;
         }
@@ -42,6 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IValidateGraphSync _validateGraphSync;
         private readonly IServiceProvider _serviceProvider;
+        private readonly INotifier _notifier;
         private readonly ILogger _logger;
         private IStringLocalizer T { get; }
 
@@ -56,8 +61,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
+        // this pr should fix the halted issue: https://github.com/OrchardCMS/OrchardCore/pull/5830
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
+            try
+            {
             #pragma warning disable CS0162
             if (false)
             {
@@ -123,7 +131,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             }
             #pragma warning restore CS0162
 
-            return Outcomes("Done");
+                return Outcomes("Done");
+            }
+            catch
+            {
+                // this task will (at least initially) be triggered by a timer, so there won't be anywhere for the notification to be displayed
+                // but add a notification in case we allow triggering from the ui
+                //todo: check doesn't break timer triggered
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Unable to verify graph sync."));
+                throw;
+            }
+
         }
     }
 
