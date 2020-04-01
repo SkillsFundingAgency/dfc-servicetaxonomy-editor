@@ -21,10 +21,3 @@
        target="_blank"
        class="publish-button btn btn-info">@T["Visualise (last published)"]</a>
 }
-
-<a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
-   asp-controller="Visualise"
-   asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
-   asp-route-visualise="@graphSyncPartText"
-   target="_blank"
-   class="publish-button btn btn-info">@T["Hello World"]</a>
