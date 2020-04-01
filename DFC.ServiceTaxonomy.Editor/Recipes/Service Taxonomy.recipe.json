@@ -67,6 +67,7 @@
                 // Themes
                 "TheAdmin",
                 // Service Taxonomy Editor
+                "DFC.ServiceTaxonomy.ContentPickerPreview",
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.GraphVisualiser"

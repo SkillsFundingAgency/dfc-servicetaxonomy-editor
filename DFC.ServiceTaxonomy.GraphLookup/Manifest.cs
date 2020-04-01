@@ -5,7 +5,7 @@ using OrchardCore.Modules.Manifest;
     Author = "National Careers Service",
     Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.3",
-    Description = "Graph Lookup Content Part",
+    Description = "Graph lookup content part.",
     Category = "Graph",
     //todo:
     Dependencies = new string[] {

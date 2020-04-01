@@ -5,6 +5,6 @@ using OrchardCore.Modules.Manifest;
     Author = "National Careers Service",
     Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.1",
-    Description = "ContentPicker With Preview Part",
+    Description = "ContentPicker with preview part.",
     Category = "Content Management"
 )]

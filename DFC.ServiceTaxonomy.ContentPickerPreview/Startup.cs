@@ -10,6 +10,7 @@ using OrchardCore.Modules;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentTypes.Editors;
+using OrchardCore.Data.Migration;
 
 namespace DFC.ServiceTaxonomy.ContentPickerPreview
 {
@@ -32,7 +33,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
             // services.AddScoped<IContentPartIndexHandler, ContentPickerPreviewPartIndexHandler>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, ContentPickerPreviewPartSettingsDisplayDriver>();
 
-            // services.AddScoped<IDataMigration, Migrations>();
+            services.AddScoped<IDataMigration, Migrations>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
