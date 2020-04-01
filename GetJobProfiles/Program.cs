@@ -74,8 +74,8 @@ namespace GetJobProfiles
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
-            //await converter.Go(skip, take, napTimeMs);
-            await converter.Go(skip, take, napTimeMs, "Baker");
+            await converter.Go(skip, take, napTimeMs);
+            //await converter.Go(skip, take, napTimeMs, "Baker");
 
             var jobProfiles = converter.JobProfiles.ToArray();
 
