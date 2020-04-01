@@ -36,15 +36,18 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
         {
             get
             {
-                // $"match (n:ncs__JobProfile {{uri:\"{fetch}\"}})-[r]-(d) optional match (d)-[r1:esco__relatedEssentialSkill|:esco__relatedOptionalSkill|:ncs__hasUniversityLink|:ncs__hasUniversityRequirement]-(d1) return n, d, r, r1, d1";
-
                 var cypherQuery = new StringBuilder();
+                var linkedItems = new[] { "ncs__hasHtbApprenticeshipRoute", "ncs__hasHtbCollegeRoute", "ncs__hasHtbDirectRoute", "ncs__hasHtbOtherRoute", "ncs__hasHtbUniversityRoute", "ncs__hasHtbVolunteeringRoute", "ncs__hasHtbWorkRoute" };
 
                 cypherQuery.Append($"MATCH (s {{{MatchPropertyName}:'{MatchPropertyValue}'}})");
-                cypherQuery.Append($"OPTIONAL MATCH (s)-[r1]-(d1)");
-                cypherQuery.Append("RETURN s,r1,d1");
-                //cypherQuery.Append($"OPTIONAL MATCH (s)-[r1]-(d1)-[r2]-(d2)");
-                //cypherQuery.Append("RETURN s,r1,d1,r2,d2");
+                cypherQuery.Append("OPTIONAL MATCH (s)-[r1]-(d1)");
+
+                foreach (string item in linkedItems)
+                {
+                    cypherQuery.Append($"OPTIONAL MATCH (s)-[r1:{item}]-(d1)-[r2]-(d2)");
+                }
+
+                cypherQuery.Append("RETURN s,r1,d1,r2,d2");
 
                 return new Query(cypherQuery.ToString());
             }
@@ -55,8 +58,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
             var sourceNode = record["s"].As<INode>();
             var destNode = record["d1"].As<INode>();
             var relationship = record["r1"].As<IRelationship>();
-            //var destNode2 = record["d2"].As<INode>();
-            //var relationship2 = record["r2"].As<IRelationship>();
+            var destNode2 = record["d2"].As<INode>();
+            var relationship2 = record["r2"].As<IRelationship>();
 
             Nodes[sourceNode.Id] = sourceNode;
 
@@ -76,16 +79,16 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
                 result += " - " + (destNode.Properties.ContainsKey(DestPropertyName) ? destNode.Properties[DestPropertyName].ToString() : string.Empty);
             }
 
-            //if (relationship2 != null)
-            //{
-            //    Relationships.Add(relationship2);
-            //    result += $" - [{relationship2.Type}]";
-            //}
-            //if (destNode2 != null)
-            //{
-            //    Nodes[destNode2.Id] = destNode2;
-            //    result += " - " + (destNode2.Properties.ContainsKey(DestPropertyName) ? destNode2.Properties[DestPropertyName].ToString() : string.Empty);
-            //}
+            if (relationship2 != null)
+            {
+                Relationships.Add(relationship2);
+                result += $" - [{relationship2.Type}]";
+            }
+            if (destNode2 != null)
+            {
+                Nodes[destNode2.Id] = destNode2;
+                result += " - " + (destNode2.Properties.ContainsKey(DestPropertyName) ? destNode2.Properties[DestPropertyName].ToString() : string.Empty);
+            }
 
             return result;
         }
