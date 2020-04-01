@@ -7,19 +7,32 @@
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\ContentPreview.Button.cshtml" />
+    <Content Remove="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
     <Content Remove="Views\Items\ContentPreview.Button.cshtml" />
     <Content Remove="Views\Items\Contents-Button-Actions.SummaryAdmin.cshtml" />
-    <Content Remove="Views\Items\XX Contents-Button-Edit.SummaryAdmin.cshtml" />
+    <Content Remove="Views\XX Contents-Button-Actions.SummaryAdmin.cshtml" />
     <Content Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Views\Items\ContentPreview.Button.cshtml" />
-    <EmbeddedResource Include="Views\Items\Contents-Button-Actions.SummaryAdmin.cshtml" />
-    <EmbeddedResource Include="Views\Items\XX Contents-Button-Edit.SummaryAdmin.cshtml" />
+    <EmbeddedResource Include="Views\ContentPreview.Button.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\XX Contents-Button-Actions.SummaryAdmin.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Contents-Button-Actions.SummaryAdmin.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
@@ -49,6 +62,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Items\XX Contents-Button-Edit.SummaryAdmin.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\.placeholder">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

@@ -136,7 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             };
         }
 
-        public string GetIdPropertyValue(dynamic graphSyncContent)
+        public object GetIdPropertyValue(dynamic graphSyncContent)
         {
             //todo: null Text.ToString()?
 

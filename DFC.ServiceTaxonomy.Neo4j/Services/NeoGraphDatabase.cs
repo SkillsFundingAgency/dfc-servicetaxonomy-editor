@@ -87,7 +87,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                         var records = await result.ToListAsync(r => r);
                         var resultSummary = await result.ConsumeAsync();
 
-                        _logger.LogInformation($"Query result available after: {resultSummary.ResultAvailableAfter}, consumed after: {resultSummary.ResultConsumedAfter}");
+                        _logger.LogDebug(
+                            $"Query result available after: {resultSummary.ResultAvailableAfter}, consumed after: {resultSummary.ResultConsumedAfter}");
 
                         if (resultSummary.Notifications.Any())
                         {
