@@ -1,4 +1,6 @@
 ﻿using System;
+using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels
 {
@@ -11,8 +13,8 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels
         //
         // [BindNever]
         // public ContentPickerPreviewPart ContentPickerPreviewPart { get; set; }
-        //
-        // [BindNever]
-        // public ContentPickerPreviewPartSettings Settings { get; set; }
+
+        [BindNever]
+        public ContentPickerPreviewPartSettings? Settings { get; set; }
     }
 }
