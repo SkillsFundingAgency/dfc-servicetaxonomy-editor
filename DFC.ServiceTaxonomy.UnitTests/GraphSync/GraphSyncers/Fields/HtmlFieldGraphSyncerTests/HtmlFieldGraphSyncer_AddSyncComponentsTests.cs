@@ -8,10 +8,10 @@ using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldGraphSyncerTests
 {
     //todo: factor out common code in tests
-    public class HtmlFieldGraphSyncerTests
+    public class HtmlFieldGraphSyncer_AddSyncComponentsTests
     {
         public JObject? ContentItemField { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields
 
         const string _fieldName = "TestField";
 
-        public HtmlFieldGraphSyncerTests()
+        public HtmlFieldGraphSyncer_AddSyncComponentsTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?

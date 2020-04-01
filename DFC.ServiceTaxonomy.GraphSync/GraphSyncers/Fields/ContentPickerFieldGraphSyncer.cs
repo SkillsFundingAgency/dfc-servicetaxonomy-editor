@@ -1,30 +1,34 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
     public class ContentPickerFieldGraphSyncer : IContentFieldGraphSyncer
     {
-        public string FieldName => "ContentPickerField";
+        public string FieldTypeName => "ContentPickerField";
 
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IContentManager _contentManager;
+        private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
-        public ContentPickerFieldGraphSyncer(IContentManager contentManager)
+        public ContentPickerFieldGraphSyncer(
+            IContentManager contentManager,
+            ILogger<ContentPickerFieldGraphSyncer> logger)
         {
             _contentManager = contentManager;
+            _logger = logger;
         }
 
         public async Task AddSyncComponents(
@@ -46,26 +50,40 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
 
-            JArray? contentItemIds = (JArray?)contentItemField["ContentItemIds"];
-            if (contentItemIds == null || !contentItemIds.HasValues)
-                return;    //todo:
+            JArray? contentItemIdsJArray = (JArray?)contentItemField["ContentItemIds"];
+            if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
+                return; //todo:
 
-            var destIds = await Task.WhenAll(contentItemIds.Select(async relatedContentId =>
-                GetSyncId(await _contentManager.GetAsync(relatedContentId.ToString(), VersionOptions.Latest), graphSyncHelper)));
+            IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
+
+            // GetAsync should be returning ContentItem? as it can be null
+            IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
+                contentItemIds.Select(async contentItemId =>
+                    await _contentManager.GetAsync(contentItemId, VersionOptions.Latest));
+
+            ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
+
+            IEnumerable<ContentItem?> foundDestinationContentItems =
+                destinationContentItems.Where(ci => ci != null);
+
+            if (foundDestinationContentItems.Count() != contentItemIds.Count())
+                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
+
+            IEnumerable<object> foundDestinationNodeIds =
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 destNodeLabels,
                 graphSyncHelper!.IdPropertyName,
-                destIds);
+                foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<bool> VerifySyncComponent(
-            JObject contentItemField,
-            ContentPartFieldDefinition contentPartFieldDefinition,
+        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+            IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
@@ -73,35 +91,38 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
 
-            int relationshipCount = relationships.Count(r => string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase));
+            IRelationship[] actualRelationships = relationships
+                .Where(r => r.Type == relationshipType)
+                .ToArray();
 
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
-            if (contentItemIds.Count != relationshipCount)
+            if (contentItemIds.Count != actualRelationships.Length)
             {
+                _logger.LogWarning($"Sync validation failed. Expecting {actualRelationships.Length} relationships of type {relationshipType} in graph, but found {contentItemIds.Count}");
                 return false;
             }
 
             foreach (JToken item in contentItemIds)
             {
-                var contentItemId = (string)item!;
+                string contentItemId = (string)item!;
 
-                var destContentItem = await _contentManager.GetAsync(contentItemId);
+                ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
 
-                //todo: rename var
-                var destUri = (string)destContentItem.Content.GraphSyncPart.Text;
+                object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                var destNode = destNodes.SingleOrDefault(n => (string)n.Properties[graphSyncHelper.IdPropertyName] == destUri);
-
+                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
                 if (destNode == null)
                 {
+                    _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
                     return false;
                 }
 
-                var relationship = relationships.SingleOrDefault(r =>
-                    string.Equals(r.Type, relationshipType, StringComparison.CurrentCultureIgnoreCase) && r.EndNodeId == destNode.Id);
+                var relationship = actualRelationships.SingleOrDefault(r =>
+                    r.Type == relationshipType && r.EndNodeId == destNode.Id);
 
                 if (relationship == null)
                 {
+                    _logger.LogWarning($"Sync validation failed. Relationship of type {relationshipType} with end node ID {destNode.Id} not found");
                     return false;
                 }
             }
@@ -132,9 +153,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return relationshipType;
         }
 
-        private object GetSyncId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
+        private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
         {
-            return graphSyncHelper!.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
     }
 }

@@ -26,12 +26,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public Task<bool> VerifySyncComponent(
-            dynamic content,
+        public Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destNodes,
+            IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
             object id = sourceNode.Properties[graphSyncHelper.IdPropertyName];

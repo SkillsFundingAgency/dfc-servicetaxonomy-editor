@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return null;
             }
 
-            _logger.LogInformation($"Sync: merging {contentType}");
+            _logger.LogDebug($"Syncing {contentType} : {contentItemId}");
 
             _graphSyncHelper.ContentType = contentType;
 
@@ -89,6 +89,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), modifiedUtc.Value);
 
             List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
+
+            _logger.LogInformation($"Syncing {contentType} : {contentItemId} to {_mergeNodeCommand}");
 
             await SyncComponentsToGraph(graphSyncPartContent, partCommands);
 

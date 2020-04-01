@@ -1,20 +1,22 @@
 using System;
 using System.Collections.Generic;
-// using System.Linq;
+using System.Data.SqlTypes;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-// using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-// using OrchardCore.ContentManagement.Records;
+using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.ContentManagement.Records;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using YesSql;
-// using YesSql.Services;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -22,33 +24,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     {
         public AuditSyncIssuesTask(
             ISession session,
-            IMergeGraphSyncer mergeGraphSyncer,
             IStringLocalizer<AuditSyncIssuesTask> localizer,
             IContentDefinitionManager contentDefinitionManager,
-            IGraphSyncValidator graphSyncValidator,
+            IValidateGraphSync validateGraphSync,
+            IServiceProvider serviceProvider,
             ILogger<AuditSyncIssuesTask> logger)
         {
             _session = session;
-            _mergeGraphSyncer = mergeGraphSyncer;
             _contentDefinitionManager = contentDefinitionManager;
-            _graphSyncValidator = graphSyncValidator;
+            _validateGraphSync = validateGraphSync;
+            _serviceProvider = serviceProvider;
             _logger = logger;
             T = localizer;
-            _syncFailedContentItems = new List<ContentItem>();
         }
 
         private readonly ISession _session;
-        private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IGraphSyncValidator _graphSyncValidator;
+        private readonly IValidateGraphSync _validateGraphSync;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger _logger;
         private IStringLocalizer T { get; }
 
         public override string Name => nameof(AuditSyncIssuesTask);
         public override LocalizedString DisplayText => T["Identify sync issues and retry"];
         public override LocalizedString Category => T["Graph"];
-
-        private readonly List<ContentItem> _syncFailedContentItems;
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
@@ -57,73 +56,74 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
-        public override Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
+        public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered");
+            #pragma warning disable CS0162
+            if (false)
+            {
+                _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered");
 
-            //todo: reinstate!
-            // //todo: don't calc these in ctor, check at sync val time, also ctor get called many times, not always when executing
-            // var contentTypes = _contentDefinitionManager
-            //     .ListTypeDefinitions()
-            //     .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
-            //     .ToDictionary(x => x.Name);
-            //
-            // var timestamp = DateTime.UtcNow;
-            // var log = (await _session.Query<AuditSyncLog>().FirstOrDefaultAsync()) ??
-            //           new AuditSyncLog {LastSynced = DateTime.MinValue};
-            //
-            // //todo: do we want to load 10s thousands at once??
-            // var contentItems = await _session
-            //     //do we only care about the latest published items?
-            //     .Query<ContentItem, ContentItemIndex>(x =>
-            //         x.ContentType.IsIn(contentTypes.Keys) && x.Latest && x.Published && (x.CreatedUtc >= log.LastSynced ||  x.ModifiedUtc >= log.LastSynced))
-            //     .ListAsync();
-            //
-            // foreach (var contentItem in contentItems)
-            // {
-            //     //todo: do we need a new _graphSyncValidator each time?
-            //     if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
-            //     {
-            //         _syncFailedContentItems.Add(contentItem);
-            //     }
-            // }
-            //
-            // for (int i = 0; i < _syncFailedContentItems.Count; i++)
-            // {
-            //     try
-            //     {
-            //         var contentItem = _syncFailedContentItems[i];
-            //
-            //         await _mergeGraphSyncer.SyncToGraph(
-            //             contentItem.ContentType,
-            //             contentItem.ContentItemId,
-            //             contentItem.ContentItemVersionId,
-            //             contentItem.Content,
-            //             contentItem.CreatedUtc,
-            //             contentItem.ModifiedUtc);
-            //
-            //         _syncFailedContentItems.RemoveAt(i);
-            //
-            //         if (!await _graphSyncValidator.CheckIfContentItemSynced(contentItem))
-            //         {
-            //             _syncFailedContentItems.Add(contentItem);
-            //         }
-            //     }
-            //     catch
-            //     {
-            //         //I don't want to do anything here, why won't this build without this comment?
-            //     }
-            // }
-            //
-            // //anything left in the syncFailedContentItems collection is still failing to sync - report this somehow
-            //
-            // log.LastSynced = timestamp;
-            // _session.Save(log);
-            // await _session.CommitAsync();
-            //
-            //return Outcomes("Done");
+                IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
+                    .ListTypeDefinitions()
+                    .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
 
-            return Task.FromResult(Outcomes("Done"));
+                DateTime timestamp = DateTime.UtcNow;
+                AuditSyncLog auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
+                                            new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
+
+                foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
+                {
+                    //todo: do we want to batch up content items of type?
+                    IEnumerable<ContentItem> contentTypeContentItems = await _session
+                        //do we only care about the latest published items?
+                        .Query<ContentItem, ContentItemIndex>(x =>
+                            x.ContentType == contentTypeDefinition.Name
+                            && x.Latest && x.Published
+                            && (x.CreatedUtc >= auditSyncLog.LastSynced || x.ModifiedUtc >= auditSyncLog.LastSynced))
+                        .ListAsync();
+
+                    if (!contentTypeContentItems.Any())
+                        continue;
+
+                    List<ContentItem> syncFailedContentItems = new List<ContentItem>();
+
+                    foreach (ContentItem contentItem in contentTypeContentItems)
+                    {
+                        //todo: do we need a new _validateGraphSync each time? don't think we do
+                        if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
+                        {
+                            syncFailedContentItems.Add(contentItem);
+                        }
+                    }
+
+                    _logger.LogWarning(
+                        $"{syncFailedContentItems} content items of type {contentTypeDefinition.Name} failed validation. Attempting to resync them");
+
+                    // if this throws should we carry on?
+                    foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
+                    {
+                        var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+
+                        await mergeGraphSyncer.SyncToGraph(
+                            failedSyncContentItem.ContentType,
+                            failedSyncContentItem.ContentItemId,
+                            failedSyncContentItem.ContentItemVersionId,
+                            failedSyncContentItem.Content,
+                            failedSyncContentItem.CreatedUtc,
+                            failedSyncContentItem.ModifiedUtc);
+
+                        // do we want to double check sync was ok?
+                        //if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
+                    }
+                }
+
+                auditSyncLog.LastSynced = timestamp;
+                _session.Save(auditSyncLog);
+                await _session.CommitAsync();
+            }
+            #pragma warning restore CS0162
+
+            return Outcomes("Done");
         }
     }
 
