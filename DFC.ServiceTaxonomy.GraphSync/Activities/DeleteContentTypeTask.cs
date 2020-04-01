@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override ActivityExecutionResult Execute(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            var typeToDelete = workflowContext.Input["ContentType"].ToString();
+            string? typeToDelete = workflowContext.Input["ContentType"].ToString();
 
             if (string.IsNullOrWhiteSpace(typeToDelete))
                 throw new ArgumentNullException($"No Content Type passed to {nameof(DeleteContentTypeTask)}");
