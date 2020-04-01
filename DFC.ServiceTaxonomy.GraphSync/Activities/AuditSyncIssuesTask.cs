@@ -56,6 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 #pragma warning restore S3220 // Method calls should not resolve ambiguously to overloads with "params"
         }
 
+        // this pr should fix the halted issue: https://github.com/OrchardCMS/OrchardCore/pull/5830
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
             #pragma warning disable CS0162

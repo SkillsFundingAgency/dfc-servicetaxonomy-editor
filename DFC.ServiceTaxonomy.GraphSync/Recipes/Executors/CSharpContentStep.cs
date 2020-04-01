@@ -75,9 +75,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
         //todo: move these instead of c&p if works
         //todo: some issue with []
-        //todo: need to stop it being greedy
-//        private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
-        private static readonly Regex _cSharpHelperRegex = new Regex(@"«c#:([^\]]+)»", RegexOptions.Compiled);
+        private static readonly Regex _cSharpHelperRegex = new Regex(@"«c#:([^»]+)»", RegexOptions.Compiled);
         private string ReplaceCSharpHelpers(string recipeFragment)
         {
             return _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
