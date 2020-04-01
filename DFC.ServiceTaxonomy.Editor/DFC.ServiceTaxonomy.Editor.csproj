@@ -27,7 +27,9 @@
     <EmbeddedResource Include="Views\Contents-Button-Actions.SummaryAdmin.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\_ViewImports.cshtml" />
+    <EmbeddedResource Include="Views\_ViewImports.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
