@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
+using DFC.ServiceTaxonomy.ContentPickerPreview.Settings;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Liquid;
@@ -47,6 +49,9 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Handlers
             //     part.ContentItem.DisplayText = title;
             //     part.Apply();
             // }
+
+            part.Apply();
+
             return Task.CompletedTask;
         }
 

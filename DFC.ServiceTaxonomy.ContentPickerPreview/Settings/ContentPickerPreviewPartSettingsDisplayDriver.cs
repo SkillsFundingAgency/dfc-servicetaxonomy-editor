@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
-using DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
@@ -31,37 +30,49 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Settings
 
             return Initialize<ContentPickerPreviewPartSettingsViewModel>("ContentPickerPreviewPartSettings_Edit", model =>
             {
-                // var settings = contentTypePartDefinition.GetSettings<ContentPickerPreviewPartSettings>();
-                //
-                // model.Options = settings.Options;
-                // model.Pattern = settings.Pattern;
-                // model.ContentPickerPreviewPartSettings = settings;
+                var settings = contentTypePartDefinition.GetSettings<ContentPickerPreviewPartSettings>();
+
+                model.Hint = settings.Hint;
+                model.Required = settings.Required;
+                model.EditButton = settings.EditButton;
+                model.DisplayedContentTypes = settings.DisplayedContentTypes;
+                model.DisplayAllContentTypes = settings.DisplayAllContentTypes;
+
             }).Location("Content");
         }
 
-        public override Task<IDisplayResult> UpdateAsync(ContentTypePartDefinition contentTypePartDefinition, UpdateTypePartEditorContext context)
+        public override async Task<IDisplayResult> UpdateAsync(ContentTypePartDefinition contentTypePartDefinition, UpdateTypePartEditorContext context)
         {
             if (!string.Equals(nameof(ContentPickerPreviewPart), contentTypePartDefinition.PartDefinition.Name))
             {
                 return default!;
             }
 
-            // var model = new ContentPickerPreviewPartSettingsViewModel();
-            //
-            // await context.Updater.TryUpdateModelAsync(model, Prefix,
-            //     m => m.Pattern,
-            //     m => m.Options);
-            //
-            // if (!string.IsNullOrEmpty(model.Pattern) && !_templateManager.Validate(model.Pattern, out var errors))
-            // {
-            //     context.Updater.ModelState.AddModelError(nameof(model.Pattern), S["Pattern doesn't contain a valid Liquid expression. Details: {0}", string.Join(" ", errors)]);
-            // }
-            // else
-            // {
-            //     context.Builder.WithSettings(new ContentPickerPreviewPartSettings { Pattern = model.Pattern, Options = model.Options });
-            // }
+            var model = new ContentPickerPreviewPartSettingsViewModel();
 
-            return Task.FromResult(Edit(contentTypePartDefinition, context.Updater));
+            if (await context.Updater.TryUpdateModelAsync(model, Prefix,
+                m => m.Hint,
+                m => m.Required,
+                m => m.EditButton,
+                m => m.DisplayedContentTypes,
+                m => m.DisplayAllContentTypes))
+            {
+                if (model.DisplayAllContentTypes)
+                {
+                    model.DisplayedContentTypes = Array.Empty<String>();
+                }
+
+                context.Builder.WithSettings(new ContentPickerPreviewPartSettings
+                {
+                    Hint = model.Hint,
+                    Required = model.Required,
+                    EditButton = model.EditButton,
+                    DisplayedContentTypes = model.DisplayedContentTypes,
+                    DisplayAllContentTypes = model.DisplayAllContentTypes
+                });
+            }
+
+            return Edit(contentTypePartDefinition, context.Updater);
         }
     }
 }

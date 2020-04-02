@@ -1,6 +1,6 @@
-﻿namespace DFC.ServiceTaxonomy.ContentPickerPreview.Models
+﻿namespace DFC.ServiceTaxonomy.ContentPickerPreview.Settings
 {
-    public class ContentPickerPreviewPartSettings
+    public class ContentPickerPreviewPartSettingsViewModel
     {
         public string? Hint { get; set; }
         public bool Required { get; set; }

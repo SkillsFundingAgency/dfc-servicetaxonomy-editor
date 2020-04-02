@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
+using DFC.ServiceTaxonomy.ContentPickerPreview.Settings;
 using DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement.Display.ContentDisplay;

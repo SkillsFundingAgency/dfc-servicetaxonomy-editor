@@ -1,11 +1,15 @@
 #ToDo
 
+* contentpicker with preview:
+    copy contentpicker into part        (add field into part??)
+    make sure content types can render
+    render content into page
+    add edit button
+
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 
-* do we need to add this reference to existing modules?:
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
-
+* make sure strings are localised
 * composite part containing fields (collapsible)?
 * importing recipe, then unpublish content items, then reimport and sync doesn't happen
 seems once you've imported a recipe, if you reimport the same one it doesn't trigger sync even if you unpublish or delete some items first
@@ -17,9 +21,7 @@ could fix when create new content recipe step
 * need to add support to have occupation in jp's bag (or content picker), one way would be to wrap the current content step and add c# support,
   then provide helper to get from content or graph. bag items are embedded, MoveIntoBag() that embeds then deletes? or get from graph at that point??
 * use custom command in integration test, so as not to arrange using code under test + add integration tests for new queries + integration tests at graph sync and validation levels
-* in cyphertocontent step, improve parallelisation, work off ratio to cores?
-* check if static files fixes visualisation
-* add analyser to vis project
+* in cyphertocontent step, improve parallelisation, work off ratio to cores? call back to speed up?
 * titles (for picking) on esco skills??
 
 * job categories are returned by the search api, but not by the get job profile api. we'll still need to import them. we could import them from the spreadsheet (JobCategory->JobProfileCategories)

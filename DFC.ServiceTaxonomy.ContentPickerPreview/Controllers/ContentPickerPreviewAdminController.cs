@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
+using DFC.ServiceTaxonomy.ContentPickerPreview.Settings;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.Admin;
 using OrchardCore.ContentFields.ViewModels;

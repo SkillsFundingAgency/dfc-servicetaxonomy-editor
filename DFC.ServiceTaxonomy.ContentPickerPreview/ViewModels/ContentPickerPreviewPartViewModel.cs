@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
+using DFC.ServiceTaxonomy.ContentPickerPreview.Settings;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OrchardCore.ContentFields.ViewModels;
 using OrchardCore.ContentManagement.Metadata.Models;
