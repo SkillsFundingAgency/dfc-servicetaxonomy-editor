@@ -45,13 +45,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                                   Id = $"Class{a.Key - minNodeId}",
                                   Key = a.Key,
                                   Type = a.Value.Labels.First(l => l.StartsWith("ncs__") || l == "esco__Occupation" || l == "esco__Skill"),
-                                  Label = (string)a.Value.Properties[prefLabel],
-                                  Comment = a.Value.Properties.ContainsKey("ncs__Description")
-                                            ? (string)a.Value.Properties["ncs__Description"]
-                                            : string.Empty,
+                                  Label = GetPropertyValue(a, new[] { prefLabel, "ncs__Description", "ncs__FurtherInfo" }),
+                                  Comment = GetPropertyValue(a, new[] { "ncs__Description" }),
                                   StaxProperties = a.Value.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList(),
                               }
-            );
+            ).ToList();
         }
 
         private void TransformData(HashSet<IRelationship> relationships)
@@ -64,8 +62,24 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                                           Domain = $"Class{a.StartNodeId - minNodeId}",
                                           Range = $"Class{a.EndNodeId - minNodeId}"
                                       }
-            );
+            ).ToList();
         }
 
+        private string GetPropertyValue(KeyValuePair<long, INode> node, string[] names)
+        {
+            foreach (string name in names)
+            {
+                string result = node.Value.Properties.ContainsKey(name)
+                                ? (string)node.Value.Properties[name]
+                                : string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(result))
+                {
+                    return result;
+                }
+            }
+
+            return string.Empty;
+        }
     }
 }
