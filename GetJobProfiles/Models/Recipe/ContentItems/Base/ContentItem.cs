@@ -1,3 +1,4 @@
+using GetJobProfiles.Extensions;
 using OrchardCore.Entities;
 
 namespace GetJobProfiles.Models.Recipe.ContentItems.Base
@@ -34,7 +35,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.Base
         public string DisplayText
         {
             get => _displayText;
-            set => _displayText = Truncate(value);
+            // display text is stored in the oc database in a column that has a fixed size
+            set => _displayText = value.Truncate(MaxDisplayTextLength);
         }
 
         public bool Latest { get; set; }
@@ -44,11 +46,5 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.Base
         public string CreatedUtc { get; set; }
         public string Owner { get; set; }
         public string Author { get; set; }
-
-        private string Truncate(string displayText)
-        {
-            // display text is stored in the oc database in a column that has a fixed size
-            return displayText.Substring(0, ContentItem.MaxDisplayTextLength);
-        }
     }
 }
