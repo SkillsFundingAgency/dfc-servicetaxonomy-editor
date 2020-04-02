@@ -18,6 +18,10 @@ using OrchardCore.Mvc.Core.Utilities;
 
 namespace DFC.ServiceTaxonomy.ContentPickerPreview
 {
+    //options for preview picker:
+    // derive from current field?
+    // use real field and tweak in ui using js?
+
     public class Startup : StartupBase
     {
         private readonly AdminOptions _adminOptions;
@@ -53,7 +57,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
                 name: "ContentPickerPreview",
                 areaName: "DFC.ServiceTaxonomy.ContentPickerPreview",
                 //todo:
-                pattern: _adminOptions.AdminUrlPrefix + "/ContentFields/SearchContentItems",
+                pattern: _adminOptions.AdminUrlPrefix + "/ContentPickerPreview/SearchContentItems",
                 defaults: new { controller = typeof(ContentPickerPreviewAdminController).ControllerName(), action = nameof(ContentPickerPreviewAdminController.SearchContentItems) }
             );
         }

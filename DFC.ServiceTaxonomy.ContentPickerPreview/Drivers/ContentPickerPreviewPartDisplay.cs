@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
 using DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels;
 using Microsoft.Extensions.Localization;
@@ -44,6 +45,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Drivers
                 // model.Title = titlePart.ContentItem.DisplayText;
                 // model.TitlePart = titlePart;
                 //model.Settings = context.TypePartDefinition.GetSettings<ContentPickerPreviewPartSettings>();
+                model.Settings = GetPartSettings(contentPickerPreviewPart);
             });
         }
 
@@ -62,6 +64,14 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Drivers
             // model.ContentItem.DisplayText = model.Title;
 
             return Task.FromResult(Edit(model, context));
+        }
+
+        // extension method?
+        private ContentPickerPreviewPartSettings GetPartSettings(ContentPickerPreviewPart part)
+        {
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(part.ContentItem.ContentType);
+            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(ContentPickerPreviewPart));
+            return contentTypePartDefinition.GetSettings<ContentPickerPreviewPartSettings>();
         }
     }
 }

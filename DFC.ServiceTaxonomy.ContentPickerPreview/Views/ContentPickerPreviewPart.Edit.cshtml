@@ -17,23 +17,27 @@
 //todo: would it be easier to include existing field in part??
 //todo: this
 //todo: can't use same ids as content picker
-//    var settings = Model.Settings;
-//    var selectedItems = JsonConvert.SerializeObject(Model.SelectedItems, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
-//    var partName = Model.PartFieldDefinition.PartDefinition.Name;
-//    var fieldName = Model.PartFieldDefinition.Name;
-//    // shame can't use original, but that gets DisplayedContentTypes from field settings
-//    var searchUrl = Url.RouteUrl(new { area = "DFC.ServiceTaxonomy.ContentPickerPreview", controller = "ContentPickerPreviewAdmin", action = "SearchContentItems", part = partName });
-//    var vueElementId = $"ContentPicker_{partName}_{fieldName}_{Guid.NewGuid().ToString("n")}";
-//    var multiple = settings.Multiple.ToString().ToLowerInvariant();
+//todo: proper null handling
+    var settings = Model?.Settings;
+    var selectedItems = JsonConvert.SerializeObject(Model?.SelectedItems, new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+    var partName = Model?.PartDefinition?.Name;
+    //var fieldName = Model.PartFieldDefinition.Name;
+    // shame can't use original, but that gets DisplayedContentTypes from field settings
+    var searchUrl = Url.RouteUrl(new { area = "DFC.ServiceTaxonomy.ContentPickerPreview", controller = "ContentPickerPreviewAdmin", action = "SearchContentItems", part = partName });
+//NewGuid("n")?
+    var vueElementId = $"ContentPickerPreview_{partName}_{Guid.NewGuid().ToString("n")}";
+    //var multiple = settings.Multiple.ToString().ToLowerInvariant();
+    var multiple = false;
 }
 
-@*
 <script asp-name="vue-multiselect-wrapper" asp-src="~/OrchardCore.ContentFields/Scripts/vue-multiselect-wrapper.js" at="Foot" depends-on="vuejs, vue-multiselect, sortable, vuedraggable"></script>
 <style asp-name="vue-multiselect-wrapper" asp-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.min.css" debug-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.css" depends-on="vue-multiselect"></style>
 
-<label asp-for="ContentItemIds">@Model.PartFieldDefinition.DisplayName()</label>
+@*<label asp-for="ContentItemIds">@Model.PartFieldDefinition.DisplayName()</label>*@
+@*todo*@
+<label asp-for="ContentItemIds">@Model?.PartDefinition?.Name</label>
 
-<div id="@vueElementId" class="vue-multiselect" data-part="@partName" data-field="@fieldName" data-editor-type="ContentPicker" data-selected-items="@selectedItems" data-search-url="@searchUrl" data-multiple="@multiple">
+<div id="@vueElementId" class="vue-multiselect" data-part="@partName" data-editor-type="ContentPickerPreview" data-selected-items="@selectedItems" data-search-url="@searchUrl" data-multiple="@multiple">
 
     <div class="form-group">
         <ul class="list-group w-xl-50 content-picker-default__list" v-show="arrayOfItems.length" v-cloak>
@@ -68,7 +72,7 @@
                     @T["No result found"]
                 </template>
             </vue-multiselect>
-            @if (!String.IsNullOrEmpty(settings.Hint))
+            @if (!String.IsNullOrEmpty(settings?.Hint))
             {
                 <span class="hint">@settings.Hint</span>
             }
@@ -76,4 +80,4 @@
     </div>
 </div>
 <script at="Foot" depends-on="vue-multiselect-wrapper">initVueMultiselect(document.querySelector("#@vueElementId"))</script>
-*@
+
