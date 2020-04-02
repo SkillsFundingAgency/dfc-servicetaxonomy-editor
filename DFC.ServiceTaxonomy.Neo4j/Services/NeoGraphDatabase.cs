@@ -51,10 +51,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public async Task Run(params ICommand[] commands)
         {
-            foreach (var driver in _drivers.AllDrivers())
-            {
-                await ExecuteTransaction(commands, driver);
-            }
+            var executionTasks = _drivers.AllDrivers().Select(x => ExecuteTransaction(commands, x));
+            await Task.WhenAll(executionTasks);
         }
 
         private async Task ExecuteTransaction(ICommand[] commands, IDriver driver)
