@@ -18,6 +18,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     {
         private readonly ILogger<NeoGraphDatabase> _logger;
         private readonly IEnumerable<INeoDriver> _drivers;
+        private int _currentDriver;
 
         public NeoGraphDatabase(
             INeoDriverBuilder driverBuilder,
@@ -30,11 +31,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
             //todo: add configuration/settings menu item/page so user can enter this
             _drivers = driverBuilder.Build();
+            _currentDriver = 0;
         }
 
         public async Task<List<T>> Run<T>(IQuery<T> query)
         {
-            IAsyncSession session = _drivers.PrimaryDriver().AsyncSession();
+            var neoDriver = GetNextDriver();
+
+            _logger.LogInformation($"Executing Read commands to: {neoDriver.Uri}");
+
+            IAsyncSession session = neoDriver.Driver.AsyncSession();
             try
             {
                 return await session.ReadTransactionAsync(async tx =>
@@ -55,15 +61,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             await Task.WhenAll(executionTasks);
         }
 
-        private async Task ExecuteTransaction(ICommand[] commands, IDriver driver)
+        private async Task ExecuteTransaction(ICommand[] commands, INeoDriver neoDriver)
         {
-            IAsyncSession session = driver.AsyncSession();
+            IAsyncSession session = neoDriver.Driver.AsyncSession();
             try
             {
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
 
-                _logger.LogInformation($"Executing commands to: {driver.ToString()}");
+                _logger.LogInformation($"Executing Write commands to: {neoDriver.Uri}");
 
                 await session.WriteTransactionAsync(async tx =>
                 {
@@ -93,9 +99,22 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
+        private INeoDriver GetNextDriver()
+        {
+            if (_currentDriver == _drivers.Count())
+            {
+                _currentDriver = 0;
+            }
+
+            var driverToUse = _drivers.ElementAt(_currentDriver);
+            _currentDriver++;
+
+            return driverToUse;
+        }
+
         public void Dispose()
         {
-           foreach(var neoDriver in _drivers)
+            foreach (var neoDriver in _drivers)
             {
                 neoDriver.Driver?.Dispose();
             }

@@ -25,9 +25,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Extensions
             return primaryDrivers.FirstOrDefault().Driver;
         }
 
-        public static IEnumerable<IDriver> AllDrivers(this IEnumerable<INeoDriver> drivers)
+        public static IEnumerable<INeoDriver> AllDrivers(this IEnumerable<INeoDriver> drivers)
         {
-            return drivers.Select(x => x.Driver);
+            return drivers;
         }
     }
 }
