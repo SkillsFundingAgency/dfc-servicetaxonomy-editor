@@ -20,6 +20,13 @@ namespace DFC.ServiceTaxonomy.Editor
                 options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
             services.AddOrchardCms();
+
+            // services.AddScoped<IResourceManifestProvider, ResourceManifest>();
+            //
+            // services.Configure<MvcOptions>((options) =>
+            // {
+            //     options.Filters.Add(typeof(ResourceInjectionFilter));
+            // });
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
