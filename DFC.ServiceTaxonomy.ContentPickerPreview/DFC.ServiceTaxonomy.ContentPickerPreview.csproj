@@ -18,16 +18,7 @@
     <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Liquid" Version="1.0.0-rc1-*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Views\ContentPickerPreviewPart.cshtml" />
-    <Content Include="Views\ContentPickerPreviewPart.DisplayOptions.cshtml" />
-    <Content Include="Views\ContentPickerPreviewPart.Edit.cshtml" />
-    <Content Include="Views\ContentPickerPreviewPart.Option.cshtml" />
-    <Content Include="Views\ContentPickerPreviewPart.Summary.cshtml" />
-    <Content Include="Views\ContentPickerPreviewSettings.Edit.cshtml" />
-    <Content Include="Views\_ViewImports.cshtml" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497" />
   </ItemGroup>
 
 </Project>

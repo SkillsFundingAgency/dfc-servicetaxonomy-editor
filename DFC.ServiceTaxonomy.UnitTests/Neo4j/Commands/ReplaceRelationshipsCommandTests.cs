@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
             AddValidRelationshipTo();
 
             ReplaceRelationshipsCommand.SourceIdPropertyName = null;
-            var exception = Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
+            /*var exception =*/ Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
             AddValidRelationshipTo();
 
             ReplaceRelationshipsCommand.SourceIdPropertyValue = null;
-            var exception = Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
+            /*var exception =*/ Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
             AddValidRelationshipTo();
 
             ReplaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>();
-            var exception = Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
+            /*var exception =*/ Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
         public void CheckIsValid_RelationshipToHasEmptyDestDestNodeLabels_ThrowsInvalidOperationException()
         {
             ReplaceRelationshipsCommand.AddRelationshipsTo("relationshipType", Enumerable.Empty<string>(), "destIdPropertyName");
-            var exception = Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
+            /*var exception =*/ Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
         }
 
         [Fact]

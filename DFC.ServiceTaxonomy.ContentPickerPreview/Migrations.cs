@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
 {
     public class Migrations : DataMigration
     {
-        private IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ISession _session;
         private readonly ILogger<Migrations> _logger;
 

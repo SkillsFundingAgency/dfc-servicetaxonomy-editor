@@ -1,10 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
-using DFC.ServiceTaxonomy.ContentPickerPreview.ViewModels;
-using Fluid;
-//using Fluid;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Liquid;
@@ -26,7 +22,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview.Handlers
 
         public override Task UpdatedAsync(UpdateContentContext context, ContentPickerPreviewPart part)
         {
-            var settings = GetSettings(part);
+            //var settings = GetSettings(part);
             // Do not compute the title if the user can modify it and the text is already set.
             // if (settings.Options == TitlePartOptions.Editable && !String.IsNullOrWhiteSpace(part.ContentItem.DisplayText))
             // {

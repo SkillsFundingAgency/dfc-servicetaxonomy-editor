@@ -25,14 +25,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
         public void CheckIsValid_NullIdPropertyName_ThrowsInvalidOperationException()
         {
             MergeNodeCommand.IdPropertyName = null;
-            var exception = Assert.Throws<InvalidOperationException>(MergeNodeCommand.CheckIsValid);
+            /*var exception =*/ Assert.Throws<InvalidOperationException>(MergeNodeCommand.CheckIsValid);
         }
 
         [Fact]
         public void CheckIsValid_MissingNodeLabels_ThrowsInvalidOperationException()
         {
             MergeNodeCommand.NodeLabels = new HashSet<string>();
-            var exception = Assert.Throws<InvalidOperationException>(MergeNodeCommand.CheckIsValid);
+            /*var exception =*/ Assert.Throws<InvalidOperationException>(MergeNodeCommand.CheckIsValid);
         }
 
         [Fact]
