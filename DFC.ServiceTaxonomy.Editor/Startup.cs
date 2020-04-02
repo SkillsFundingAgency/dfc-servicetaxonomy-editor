@@ -1,10 +1,7 @@
-using DFC.ServiceTaxonomy.Editor.Filters;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OrchardCore.ResourceManagement;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
