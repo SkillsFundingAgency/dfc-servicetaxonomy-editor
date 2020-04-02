@@ -92,7 +92,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             const string prefLabel = "skos__prefLabel";
             var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
 
-            var queryResults = await _neoGraphDatabase.Run(query);
+            _ = await _neoGraphDatabase.Run(query);
 
             var owlDataModel = Neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);

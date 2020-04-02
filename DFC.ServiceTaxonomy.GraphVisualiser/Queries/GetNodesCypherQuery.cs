@@ -37,16 +37,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
             get
             {
                 var cypherQuery = new StringBuilder();
-                var linkedItems = new[] { "ncs__hasHtbApprenticeshipRoute", "ncs__hasHtbCollegeRoute", "ncs__hasHtbDirectRoute", "ncs__hasHtbOtherRoute", "ncs__hasHtbUniversityRoute", "ncs__hasHtbVolunteeringRoute", "ncs__hasHtbWorkRoute" };
+                var linkedItems = new List<string> { "ncs__hasHtbApprenticeshipRoute", "ncs__hasHtbCollegeRoute", "ncs__hasHtbDirectRoute", "ncs__hasHtbOtherRoute", "ncs__hasHtbUniversityRoute", "ncs__hasHtbVolunteeringRoute", "ncs__hasHtbWorkRoute" };
 
                 cypherQuery.Append($"MATCH (s {{{MatchPropertyName}:'{MatchPropertyValue}'}})");
                 cypherQuery.Append("OPTIONAL MATCH (s)-[r1]-(d1)");
-
-                foreach (string item in linkedItems)
-                {
-                    cypherQuery.Append($"OPTIONAL MATCH (s)-[r1:{item}]-(d1)-[r2]-(d2)");
-                }
-
+                cypherQuery.Append($"OPTIONAL MATCH (s)-[r1:{string.Join('|', linkedItems)}]-(d1)-[r2]-(d2)");
                 cypherQuery.Append("RETURN s,r1,d1,r2,d2");
 
                 return new Query(cypherQuery.ToString());
