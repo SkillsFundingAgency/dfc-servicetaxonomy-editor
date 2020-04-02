@@ -8,7 +8,9 @@ using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
+using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using ILogger = Neo4j.Driver.ILogger;
+using DFC.ServiceTaxonomy.Neo4j.Models;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
@@ -17,8 +19,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     public class NeoGraphDatabase : IGraphDatabase, IDisposable
     {
         private readonly ILogger<NeoGraphDatabase> _logger;
-        private readonly IDriver _primaryDriver;
-        private readonly IDriver _secondaryDriver;
+        private readonly IEnumerable<NeoDriver> _drivers;
 
         public NeoGraphDatabase(
             IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
@@ -30,24 +31,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
             //todo: add configuration/settings menu item/page so user can enter this
-            var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
 
-            _primaryDriver = GraphDatabase.Driver(
-                neo4jConfiguration.Endpoint.Uri,
-                AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password),
-                o => o.WithLogger(neoLogger));
-
-            _secondaryDriver = GraphDatabase.Driver(
-#pragma warning disable S1075 // URIs should not be hardcoded
-                "bolt://localhost:7687",
-#pragma warning restore S1075 // URIs should not be hardcoded
-                AuthTokens.Basic("neo4j", "test"),
-                o => o.WithLogger(neoLogger));
+            //TODO: GroupBy clause shouldn't be needed, but configuration provides duplicates for some reason
+            //A driver defined as primary is used for queries/reads
+            _drivers = neo4jConfigurationOptions.CurrentValue.Endpoint.Where(x => x.Enabled).GroupBy(y=>y.Uri).Select(z => new NeoDriver(z.FirstOrDefault().Primary ? "Primary" : "Secondary", GraphDatabase.Driver(
+                  z.FirstOrDefault().Uri,
+                  AuthTokens.Basic(z.FirstOrDefault().Username, z.FirstOrDefault().Password),
+                  o => o.WithLogger(neoLogger)), z.FirstOrDefault().Uri));
         }
 
         public async Task<List<T>> Run<T>(IQuery<T> query)
         {
-            IAsyncSession session = _primaryDriver.AsyncSession();
+            IAsyncSession session = _drivers.PrimaryDriver().AsyncSession();
             try
             {
                 return await session.ReadTransactionAsync(async tx =>
@@ -64,8 +59,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public async Task Run(params ICommand[] commands)
         {
-            await ExecuteTransaction(commands, _primaryDriver, "Primary Graph");
-            await ExecuteTransaction(commands, _secondaryDriver, "Secondary Graph");
+            foreach (var driver in _drivers.AllDrivers())
+            {
+                await ExecuteTransaction(commands, driver, "Primary Graph");
+            }
         }
 
         private async Task ExecuteTransaction(ICommand[] commands, IDriver driver, string graphName)
@@ -76,7 +73,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
 
-                _logger.LogInformation($"Executing commands to: {graphName}");
+                _logger.LogInformation($"Executing commands to: {driver.ToString()}");
 
                 await session.WriteTransactionAsync(async tx =>
                 {
@@ -108,8 +105,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public void Dispose()
         {
-            _primaryDriver?.Dispose();
-            _secondaryDriver?.Dispose();
+           foreach(var driver in _drivers)
+            {
+                driver.Value?.Dispose();
+            }
         }
     }
 }
