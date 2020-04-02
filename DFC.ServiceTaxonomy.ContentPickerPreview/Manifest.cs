@@ -6,5 +6,6 @@ using OrchardCore.Modules.Manifest;
     Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.1",
     Description = "ContentPicker with preview part.",
-    Category = "Content Management"
+    Category = "Content Management",
+    Dependencies = new[] { "OrchardCore.ContentTypes" }
 )]

@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
 
         static Startup()
         {
-            //todo: what's this?
+            // these are needed to be able to access the view models  in display shapes rendered by the liquid markup engine
             // TemplateContext.GlobalMemberAccessStrategy.Register<TitlePartViewModel>();
             // TemplateContext.GlobalMemberAccessStrategy.Register<TitlePartSettingsViewModel>();
         }
