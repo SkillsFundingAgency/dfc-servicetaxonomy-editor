@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using ILogger = Neo4j.Driver.ILogger;
-using DFC.ServiceTaxonomy.Neo4j.Models;
 using DFC.ServiceTaxonomy.Neo4j.Models.Interface;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
@@ -23,7 +20,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         private readonly IEnumerable<INeoDriver> _drivers;
 
         public NeoGraphDatabase(
-            IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
+            INeoDriverBuilder driverBuilder,
             ILogger neoLogger,
             ILogger<NeoGraphDatabase> logger)
         {
@@ -32,13 +29,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
             //todo: add configuration/settings menu item/page so user can enter this
-
-            //TODO: GroupBy clause shouldn't be needed, but configuration provides duplicates for some reason
-            //A driver defined as primary is used for queries/reads
-            _drivers = neo4jConfigurationOptions.CurrentValue.Endpoints.Where(x => x.Enabled).GroupBy(y=>y.Uri).Select(z => new NeoDriver(z.FirstOrDefault().Primary ? "Primary" : "Secondary", GraphDatabase.Driver(
-                  z.FirstOrDefault().Uri,
-                  AuthTokens.Basic(z.FirstOrDefault().Username, z.FirstOrDefault().Password),
-                  o => o.WithLogger(neoLogger)), z.FirstOrDefault().Uri));
+            _drivers = driverBuilder.Build();
         }
 
         public async Task<List<T>> Run<T>(IQuery<T> query)
