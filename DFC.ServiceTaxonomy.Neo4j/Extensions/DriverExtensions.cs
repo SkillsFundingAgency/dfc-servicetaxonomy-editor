@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using Neo4j.Driver;
 using System.Linq;
-using DFC.ServiceTaxonomy.Neo4j.Models;
+using DFC.ServiceTaxonomy.Neo4j.Models.Interface;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Extensions
 {
     public static class DriverExtensions
     {
-        public static IDriver PrimaryDriver(this IEnumerable<NeoDriver> drivers)
+        public static IDriver PrimaryDriver(this IEnumerable<INeoDriver> drivers)
         {
             var primaryDrivers = drivers.Where(x => string.Equals(x.Type, "Primary", StringComparison.CurrentCultureIgnoreCase));
 
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Extensions
             return primaryDrivers.FirstOrDefault().Driver;
         }
 
-        public static IEnumerable<IDriver> AllDrivers(this IEnumerable<NeoDriver> drivers)
+        public static IEnumerable<IDriver> AllDrivers(this IEnumerable<INeoDriver> drivers)
         {
             return drivers.Select(x => x.Driver);
         }

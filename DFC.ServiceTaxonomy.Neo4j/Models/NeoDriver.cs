@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DFC.ServiceTaxonomy.Neo4j.Models.Interface;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Models
 {
-    public class NeoDriver
+    public class NeoDriver : INeoDriver
     {
         public NeoDriver(string type, IDriver driver, string? uri)
         {

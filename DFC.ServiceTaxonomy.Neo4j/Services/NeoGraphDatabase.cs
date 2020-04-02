@@ -11,6 +11,7 @@ using Neo4j.Driver;
 using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using ILogger = Neo4j.Driver.ILogger;
 using DFC.ServiceTaxonomy.Neo4j.Models;
+using DFC.ServiceTaxonomy.Neo4j.Models.Interface;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
@@ -19,7 +20,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     public class NeoGraphDatabase : IGraphDatabase, IDisposable
     {
         private readonly ILogger<NeoGraphDatabase> _logger;
-        private readonly IEnumerable<NeoDriver> _drivers;
+        private readonly IEnumerable<INeoDriver> _drivers;
 
         public NeoGraphDatabase(
             IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
@@ -61,11 +62,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         {
             foreach (var driver in _drivers.AllDrivers())
             {
-                await ExecuteTransaction(commands, driver, "Primary Graph");
+                await ExecuteTransaction(commands, driver);
             }
         }
 
-        private async Task ExecuteTransaction(ICommand[] commands, IDriver driver, string graphName)
+        private async Task ExecuteTransaction(ICommand[] commands, IDriver driver)
         {
             IAsyncSession session = driver.AsyncSession();
             try
@@ -105,9 +106,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public void Dispose()
         {
-           foreach(var driver in _drivers)
+           foreach(var neoDriver in _drivers)
             {
-                driver.Value?.Dispose();
+                neoDriver.Driver?.Dispose();
             }
         }
     }
