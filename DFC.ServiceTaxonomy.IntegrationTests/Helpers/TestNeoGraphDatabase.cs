@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using Microsoft.Extensions.Options;
 using Neo4j.Driver;
+using System.Linq;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
@@ -21,7 +22,14 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             //todo: pass logger, see https://github.com/neo4j/neo4j-dotnet-driver
             // o => o.WithLogger(logger)
-            _driver = GraphDatabase.Driver(neo4jConfiguration.Endpoint.Uri, AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password));
+            var driverToTest = neo4jConfiguration.Endpoints.FirstOrDefault(x => x.Primary && x.Enabled);
+
+            if(driverToTest == null)
+            {
+                throw new InvalidOperationException("No driver specified as Primary and Enabled in Neo4jConfiguration");
+            }
+
+            _driver = GraphDatabase.Driver(driverToTest.Uri, AuthTokens.Basic(driverToTest.Username, driverToTest.Password));
         }
 
         public async Task<IGraphDatabaseTestRun> StartTestRun()

@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
             //TODO: GroupBy clause shouldn't be needed, but configuration provides duplicates for some reason
             //A driver defined as primary is used for queries/reads
-            _drivers = neo4jConfigurationOptions.CurrentValue.Endpoint.Where(x => x.Enabled).GroupBy(y=>y.Uri).Select(z => new NeoDriver(z.FirstOrDefault().Primary ? "Primary" : "Secondary", GraphDatabase.Driver(
+            _drivers = neo4jConfigurationOptions.CurrentValue.Endpoints.Where(x => x.Enabled).GroupBy(y=>y.Uri).Select(z => new NeoDriver(z.FirstOrDefault().Primary ? "Primary" : "Secondary", GraphDatabase.Driver(
                   z.FirstOrDefault().Uri,
                   AuthTokens.Basic(z.FirstOrDefault().Username, z.FirstOrDefault().Password),
                   o => o.WithLogger(neoLogger)), z.FirstOrDefault().Uri));

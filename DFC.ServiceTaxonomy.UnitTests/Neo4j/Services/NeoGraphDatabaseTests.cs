@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         {
             var optionsMonitor = A.Fake<IOptionsMonitor<Neo4jConfiguration>>();
             var neo4jConfiguration = A.Fake<Neo4jConfiguration>();
-            neo4jConfiguration.Endpoint.Uri = "bolt://example.com";
+            neo4jConfiguration.Endpoints = new System.Collections.Generic.List<EndpointConfiguration> { new EndpointConfiguration { Uri = "bolt://example.com" } };
             A.CallTo(() => optionsMonitor.CurrentValue).Returns(neo4jConfiguration);
 
             //todo: we might want to actually log
