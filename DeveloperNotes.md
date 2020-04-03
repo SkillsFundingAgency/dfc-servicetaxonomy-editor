@@ -5,6 +5,8 @@
     make sure content types can render
     render content into page
     add edit button
+    sync new part
+    sync validate new part
 
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
