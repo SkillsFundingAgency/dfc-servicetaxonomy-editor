@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.Cypher.Models.ResultModels
 {
-    public class TestResultModel : IQueryResultModel
+    public class SimpleCypherModel : IQueryResultModel
     {
         public string Filter => Occupation;
 

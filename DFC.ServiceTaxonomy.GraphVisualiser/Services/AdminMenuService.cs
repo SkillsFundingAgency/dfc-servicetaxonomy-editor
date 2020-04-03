@@ -6,11 +6,11 @@ using OrchardCore.Navigation;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
-    public class AdminMenu : INavigationProvider
+    public class AdminMenuService : INavigationProvider
     {
         private readonly IStringLocalizer S;
 
-        public AdminMenu(IStringLocalizer<AdminMenu> localizer)
+        public AdminMenuService(IStringLocalizer<AdminMenuService> localizer)
         {
             S = localizer;
         }
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             builder
                 .Add(S["Visualiser"], "after", rootView => rootView
                    .Add(S["Ontology"], "1", ontology => ontology
-                       .Action(nameof(VisualiseController.Viewer), "Visualise", new { area = typeof(Startup)!.Namespace, target = "_blank" })));
+                       .Action(nameof(VisualiseController.Viewer), "Visualise", new { area = typeof(Startup)!.Namespace })));
 
             return Task.CompletedTask;
         }
