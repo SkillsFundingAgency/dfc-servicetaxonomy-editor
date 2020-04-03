@@ -79,6 +79,16 @@ function initVueMultiselectPreview(element) {
 
                     self.arrayOfItems.push(selectedOption);
                 },
+                onInput: function (value, id) {
+                    $.ajax({
+                        url : '/Contents/ContentItems/' + value.id,
+                        type: 'GET',
+
+                        success: function(data){
+                            $('#previewhere').html(data);
+                        }
+                    });
+                },
                 remove: function (item) {
                     this.arrayOfItems.splice(this.arrayOfItems.indexOf(item), 1)
                 }
