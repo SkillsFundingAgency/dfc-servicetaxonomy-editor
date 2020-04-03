@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetJobProfiles", "GetJobPro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphVisualiser", "DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj", "{A78E7B74-3AD3-493A-98B0-D23DD683C126}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.CustomFields", "DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj", "{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
