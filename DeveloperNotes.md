@@ -11,6 +11,7 @@
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 
+* need to batch up label creation recipes and add numbers to report
 * make sure strings are localised
 * composite part containing fields (collapsible)?
 * importing recipe, then unpublish content items, then reimport and sync doesn't happen
