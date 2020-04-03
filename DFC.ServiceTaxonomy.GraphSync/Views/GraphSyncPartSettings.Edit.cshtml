@@ -2,6 +2,13 @@
 
 <fieldset class="form-group">
     <div class="row col-md">
+        <label asp-for="Settings">@T["Settings"]</label>
+        @Html.DropDownListFor(x => x.SelectedSetting, Model.Settings, new { @class="form-control" })
+        <span class="hint">@T["Select from a pre-defined list of settings to pre-populate values below"]</span>
+    </div>
+</fieldset>
+<fieldset class="form-group">
+    <div class="row col-md">
         <label asp-for="BagPartContentItemRelationshipType">@T["BagPart ContentItem relationship type"]</label>
         <input asp-for="BagPartContentItemRelationshipType" class="form-control" />
         <span class="hint">@T["If the containing content type is stored in a BagPart, the type of relationship to create in the graph."]</span>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -69,7 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
                 return Outcomes("Done");
             }
-            catch
+            catch(Exception ex)
             {
                 // setting this, but not letting the exception propagate doesn't work
                 //workflowContext.Fault(ex, activityContext);
@@ -79,7 +80,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 // the notifier blows up if there's any '{}' in the message, so we make the string safe for the notifier
                 //string safeMessage = ex.Message.Replace('{','«').Replace('}', '»');
 
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Unable to sync {contentType} to graph."));
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Unable to sync {contentType} to graph. {ex.Message}"));
 
                 // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
                 //return Outcomes("Failed");
