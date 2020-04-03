@@ -8,10 +8,17 @@
     sync new part
     sync validate new part
 
+* new editor for content picker (duplicate existing & get to work)
+ js on select: ajax to url for preview and inject into page
+   Request URL: https://localhost:44346/Contents/ContentItems/4bvnd1dbv511c6xhm06n0wvk51
+no need for new sync/sync validation
+
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 
+* syncing (widget) content type with lots of different parts gave this error: Sync to graph failed: Index was outside the bounds of the array.
 * need to batch up label creation recipes and add numbers to report
+* syncing content type with a bunch of parts
 * make sure strings are localised
 * composite part containing fields (collapsible)?
 * importing recipe, then unpublish content items, then reimport and sync doesn't happen
@@ -72,3 +79,5 @@ dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https
 [Orchard Training Demo](https://github.com/Lombiq/Orchard-Training-Demo-Module/blob/orchard-core/StartLearningHere.md)
 
 [Develop a custom widget](https://www.davidhayden.me/blog/develop-a-custom-widget-in-orchard-core-cms)
+
+[Some more fields](https://github.com/EtchUK/Etch.OrchardCore.Fields)

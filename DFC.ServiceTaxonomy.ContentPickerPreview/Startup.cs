@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.ContentPickerPreview.Controllers;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Drivers;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Handlers;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Models;
+using DFC.ServiceTaxonomy.ContentPickerPreview.Services;
 using DFC.ServiceTaxonomy.ContentPickerPreview.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -21,6 +22,13 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
     //options for preview picker:
     // derive from current field?
     // use real field and tweak in ui using js?
+
+    //custom part
+    //reuse contentpicker field
+    //new render field
+    //bit of js?
+
+    //can we use a widget within the admin section?
 
     public class Startup : StartupBase
     {
@@ -49,6 +57,10 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, ContentPickerPreviewPartSettingsDisplayDriver>();
 
             services.AddScoped<IDataMigration, Migrations>();
+
+
+
+            services.AddScoped<IContentPickerResultProvider, PreviewContentPickerResultProvider>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
