@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Cypher.Extensions;
-using DFC.ServiceTaxonomy.Cypher.Helpers;
 using DFC.ServiceTaxonomy.Cypher.Models.ResultModels;
+using DFC.ServiceTaxonomy.Cypher.Queries;
+using DFC.ServiceTaxonomy.Neo4j.Services;
 using Newtonsoft.Json;
 using OrchardCore.Queries;
 
@@ -13,13 +14,13 @@ namespace DFC.ServiceTaxonomy.Cypher
 {
     public class CypherQuerySource : IQuerySource
     {
-        private readonly INeo4JHelper neo4JHelper;
+        private readonly IGraphDatabase NeoGraphDatabase;
 
         public string Name => "Cypher";
 
-        public CypherQuerySource(INeo4JHelper neo4JHelper)
+        public CypherQuerySource(IGraphDatabase neoGraphDatabase)
         {
-            this.neo4JHelper = neo4JHelper;
+            NeoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
         }
 
         public Query Create()
@@ -40,12 +41,17 @@ namespace DFC.ServiceTaxonomy.Cypher
 
             var parameterValues = BuildParameters(cypherQuery.Parameters, parameters);
             var result = new Models.CypherQueryResult();
-            var cypherResult = await neo4JHelper.ExecuteCypherQueryInNeo4JAsync(cypherQuery.Template, parameterValues);
-            var collections = cypherResult as Dictionary<string, object>;
+            var genericCypherQuery = new GenericCypherQuery(cypherQuery.Template, parameterValues);
+            var cypherResult = await NeoGraphDatabase.Run(genericCypherQuery);
 
-            if (collections != null)
+            if (cypherResult.Any())
             {
-                result.Items = TransformResults(cypherQuery.ResultModelType, collections);
+                var collections = cypherResult.FirstOrDefault();
+
+                if (collections != null)
+                {
+                    result.Items = TransformResults(cypherQuery.ResultModelType, collections);
+                }
             }
 
             return result;
@@ -88,10 +94,10 @@ namespace DFC.ServiceTaxonomy.Cypher
             return parameterValues;
         }
 
-        private IEnumerable<object> TransformResults(string resultModelType, Dictionary<string, object>  collections)
+        private IEnumerable<object> TransformResults(string resultModelType, IDictionary<string, object> collections)
         {
             IEnumerable<object> result = null;
-            var genericTypeName = $"{typeof(Startup).Namespace}.Models.ResultModels.{resultModelType}";
+            var genericTypeName = $"{typeof(IQueryResultModel).Namespace}.{resultModelType}";
             var genericType = Type.GetType(genericTypeName);
 
             if (genericType != null)
@@ -104,11 +110,12 @@ namespace DFC.ServiceTaxonomy.Cypher
             return result;
         }
 
-        private List<TModel> TransformResultCollections<TModel>(Dictionary<string, object> collections)
+        private List<TModel> TransformResultCollections<TModel>(IDictionary<string, object> collections)
             where TModel : class, IQueryResultModel, new()
         {
             var key = collections.Keys.First();
-            var rows = collections[key] as List<object>;
+            var collection = collections[key] as Dictionary<string, object>;
+            var rows = collection?.Values.FirstOrDefault() as List<object>;
             var models = rows?.ToList<Dictionary<string, object>, TModel>();
 
             return models;

@@ -18,4 +18,8 @@
     <PackageReference Include="OrchardCore.Queries" Version="1.0.0-rc1-*" />
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
+  </ItemGroup>
 </Project>

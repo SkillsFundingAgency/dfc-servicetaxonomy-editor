@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.Cypher.Controllers
                 : new Dictionary<string, object>();
 
             var result = await _queryManager.ExecuteQueryAsync(query, queryParameters);
-            var mappedResults = TransformResults(cypherQuery.ResultModelType,result.Items);
+            var mappedResults = TransformResults(cypherQuery.ResultModelType, result.Items);
             var filteredResults = string.IsNullOrWhiteSpace(options.Search)
                 ? mappedResults
                 : mappedResults.Where(w => w.Filter.Contains(options.Search, System.StringComparison.OrdinalIgnoreCase)).ToList();
