@@ -79,6 +79,7 @@ namespace GetJobProfiles
             };
 
             string jobProfilesToImport = config["JobProfilesToImport"];
+            jobProfilesToImport = "Baker";
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
@@ -101,7 +102,7 @@ namespace GetJobProfiles
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodesRecipe.json");
-            CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json");
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json", occupationsBatchSize);
             CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexesRecipe.json");
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize);
 
