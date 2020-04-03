@@ -12,8 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.4.0" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Neo4j.Driver" Version="4.0.0" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.ContentTypes" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
@@ -21,7 +24,7 @@
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc1-*" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0.14119">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.4.0.15306">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -30,5 +33,4 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
   </ItemGroup>
-
 </Project>

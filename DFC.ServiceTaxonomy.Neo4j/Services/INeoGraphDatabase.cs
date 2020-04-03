@@ -1,17 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Neo4j.Driver;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
     public interface IGraphDatabase
     {
-        Task<List<T>> RunReadQuery<T>(Query query, Func<IRecord, T> operation);
+        Task<List<T>> Run<T>(IQuery<T> query);
 
         /// <summary>
         /// Run queries, in order, within a write transaction. No results returned.
         /// </summary>
-        Task RunWriteQueries(params Query[] queries);
+        Task Run(params ICommand[] commands);
     }
 }

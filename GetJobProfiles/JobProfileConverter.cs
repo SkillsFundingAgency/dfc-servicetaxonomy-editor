@@ -61,11 +61,25 @@ namespace GetJobProfiles
             Timestamp = timestamp;
         }
 
-        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string testProfileTitle = null)
+        public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string jobProfilesToImportCsv = null)
         {
-            var summaries = (await _client.Get<JobProfileSummary[]>("summary"))
-                .Where(s => s.Title != null
-                            && (testProfileTitle == null || s.Title == testProfileTitle));
+            IEnumerable<JobProfileSummary> summaries;
+            if (!string.IsNullOrWhiteSpace(jobProfilesToImportCsv) && jobProfilesToImportCsv != "*")
+            {
+                string[] jobProfilesToImportUntrimmed = jobProfilesToImportCsv.Split(",");
+                HashSet<string> jobProfilesToImport = new HashSet<string>(
+                    jobProfilesToImportUntrimmed.Select(jp => jp.Trim().ToLowerInvariant()));
+
+                summaries = (await _client.Get<JobProfileSummary[]>("summary"))
+                    .Where(s => s.Title != null
+                                && jobProfilesToImport.Contains(s.Title.ToLowerInvariant()));
+            }
+            else
+            {
+                summaries = (await _client.Get<JobProfileSummary[]>("summary"))
+                    .Where(s => s.Title != null);
+            }
+
                 // filter dev env crap
                 // .Where(s => s.Title != null
                 //             && s.Title != "Api Test Profile"
@@ -126,12 +140,44 @@ namespace GetJobProfiles
 
         private JobProfileContentItem ConvertJobProfile(JobProfile jobProfile)
         {
+            var uri = new Uri(jobProfile.Url);
+
+            if (!string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform) && (!jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform?.StartsWith("You may need to wear ") ?? true))
+            {
+                throw new InvalidOperationException(
+                    $"JobProfile {jobProfile.Title} does not conform to WydWorkingUniform prefix expectation");
+            }
+
+            var uniform = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform)
+                ? string.Empty
+                : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform?.Substring(21).Trim('.');
+
+            if (!string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location) && (!jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location?.StartsWith("You could work ") ?? true))
+            {
+                throw new InvalidOperationException(
+                    $"JobProfile {jobProfile.Title} does not conform to WydWorkingLocation prefix expectation");
+            }
+
+            var location = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location)
+                ? string.Empty
+                : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location?.Substring(15).Trim('.');
+
+            if (!string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment) && (!jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment?.StartsWith("Your working environment may be ") ?? true))
+            {
+                throw new InvalidOperationException(
+                    $"JobProfile {jobProfile.Title} does not conform to WydWorkingEnvironment prefix expectation");
+            }
+
+            var environment = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment)
+                ? string.Empty
+                : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment?.Substring(32).Trim('.');
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart
                 {
                     Description = new HtmlField(jobProfile.Overview),
-                    JobProfileWebsiteUrl = new TextField(jobProfile.Url),
+                    JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
@@ -151,9 +197,9 @@ namespace GetJobProfiles
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
                     WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
                     CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression),
-                    WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment),
-                    WydWorkingLocation = WorkingLocations.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location),
-                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform),
+                    WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(environment),
+                    WydWorkingLocation = WorkingLocations.CreateContentPicker(location),
+                    WydWorkingUniform = WorkingUniforms.CreateContentPicker(uniform)
                 },
                 EntryRoutes = new BagPart()
             };
@@ -194,7 +240,11 @@ namespace GetJobProfiles
                 contentItem.EntryRoutes.ContentItems.Add(new OtherRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
             }
 
-            if (!DayToDayTaskExclusions.Contains(jobProfile.Url))
+            if (DayToDayTaskExclusions.Contains(jobProfile.Url))
+            {
+                contentItem.EponymousPart.DayToDayTasks = new ContentPicker();
+            }
+            else
             {
                 var searchTerms = new[]
                 {

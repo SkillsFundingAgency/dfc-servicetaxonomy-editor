@@ -10,11 +10,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         string? PartName {get;}
 
-        //todo: new type(s) for relationships
-        Task<IEnumerable<Query>> AddSyncComponents(
-            dynamic graphLookupContent,
+        Task<IEnumerable<ICommand>> AddSyncComponents(
+            dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition);
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper);
+
+        Task<bool> VerifySyncComponent(dynamic content,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destinationNodes,
+            IGraphSyncHelper graphSyncHelper);
     }
 }

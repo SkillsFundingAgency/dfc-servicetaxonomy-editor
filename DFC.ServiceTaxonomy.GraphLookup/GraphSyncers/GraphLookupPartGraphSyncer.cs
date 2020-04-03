@@ -16,17 +16,20 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
-        public Task<IEnumerable<Query>> AddSyncComponents(
+        public Task<IEnumerable<ICommand>> AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition)
+            ContentTypePartDefinition contentTypePartDefinition,
+            IGraphSyncHelper graphSyncHelper)
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
+            var emptyResult = Task.FromResult(Enumerable.Empty<ICommand>());
+
             JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
-                return Task.FromResult(Enumerable.Empty<Query>());
+                return emptyResult;
 
             if (settings.PropertyName != null)
             {
@@ -43,7 +46,41 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     nodes.Select(GetId).ToArray());
             }
 
-            return Task.FromResult(Enumerable.Empty<Query>());
+            return emptyResult;
+        }
+
+        public Task<bool> VerifySyncComponent(dynamic content,
+            ContentTypePartDefinition contentTypePartDefinition,
+            INode sourceNode,
+            IEnumerable<IRelationship> relationships,
+            IEnumerable<INode> destinationNodes,
+            IGraphSyncHelper graphSyncHelper)
+        {
+            GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
+            if (graphLookupPart == null)
+                throw new GraphSyncException("Missing GraphLookupPart in content");
+
+            string relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+
+            foreach (var node in graphLookupPart.Nodes)
+            {
+                var destNode = destinationNodes.SingleOrDefault(x =>
+                    (string)x.Properties[graphSyncHelper.IdPropertyName] == node.Id);
+
+                if (destNode == null)
+                {
+                    return Task.FromResult(false);
+                }
+
+                var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
+
+                if (relationship == null)
+                {
+                    return Task.FromResult(false);
+                }
+            }
+
+            return Task.FromResult(true);
         }
 
         private object GetId(JToken jToken)

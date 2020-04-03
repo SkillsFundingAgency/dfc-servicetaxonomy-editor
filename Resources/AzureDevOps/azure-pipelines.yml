@@ -1,3 +1,8 @@
+parameters:
+  - name: DfcServiceTaxonomyTestBranch
+    type: string
+    default: refs/heads/master
+
 variables:
   SolutionBaseName: 'DFC.ServiceTaxonomy' 
   EditorAdminUserEmail: 'careersdevops@education.gov.uk' 
@@ -57,6 +62,12 @@ stages:
       inputs:
         targetPath: $(SolutionBaseName).Editor\AppSettingsArtifact\ 
         artifactName: $(SolutionBaseName).Editor.AppSettings
+    - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
+      parameters:
+        SolutionBaseName: $(SolutionBaseName).IntegrationTests
+        BuildPlatform: 'any cpu'
+        BuildConfiguration: 'release'
+        DotNetCoreVersion: '3.1.100'
 
 - stage: DeployToDev
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -67,6 +78,7 @@ stages:
   - group: dfc-shared-dev
   - group: dfc-stax-shared-dev
   - group: 'KeyVault - dfc-dev-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
   - template: VariableTemplates/DevEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
@@ -85,6 +97,9 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToSit
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -95,6 +110,7 @@ stages:
   - group: dfc-shared-sit
   - group: dfc-stax-shared-sit
   - group: 'KeyVault - dfc-sit-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
   - template: VariableTemplates/SitEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
@@ -113,6 +129,9 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToPP
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -123,6 +142,7 @@ stages:
   - group: dfc-shared-pp
   - group: dfc-stax-shared-pp
   - group: 'KeyVault - dfc-pp-shared-kv'
+  - template: VariableTemplates/SharedEnvironmentVariables.yml
   - template: VariableTemplates/PPEnvironmentVariables.yml
   jobs:
   - template: JobTemplates/deploy-environment.yml
@@ -141,3 +161,6 @@ stages:
       EditorAdminUsername: $(OrchardEditorAdminUserName)
       EditorAdminUserEmail: $(EditorAdminUserEmail)
       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}

@@ -1,29 +1,20 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Configuration;
+﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.GraphSync.ViewModels;
-using Microsoft.Extensions.Options;
-using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 {
     public class GraphSyncPartDisplayDriver : ContentPartDisplayDriver<GraphSyncPart>
     {
-        private readonly IOptionsSnapshot<NamespacePrefixConfiguration> _namespacePrefixOptions;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IGraphSyncHelper _graphSyncHelper;
 
-        public GraphSyncPartDisplayDriver(
-            IOptionsSnapshot<NamespacePrefixConfiguration> namespacePrefixOptions,
-            IContentDefinitionManager contentDefinitionManager)
+        public GraphSyncPartDisplayDriver(IGraphSyncHelper graphSyncHelper)
         {
-            _namespacePrefixOptions = namespacePrefixOptions;
-            _contentDefinitionManager = contentDefinitionManager;
+            _graphSyncHelper = graphSyncHelper;
         }
 
         // public override IDisplayResult Display(GraphSyncPart GraphSyncPart)
@@ -38,7 +29,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 
         public override IDisplayResult Edit(GraphSyncPart graphSyncPart) //, BuildPartEditorContext context)
         {
-            return Initialize<GraphSyncPartViewModel>("GraphSyncPart_Edit", m => BuildViewModel(m, graphSyncPart));
+            return Initialize<GraphSyncPartViewModel>("GraphSyncPart_Edit",
+                async m => await BuildViewModel(m, graphSyncPart));
         }
 
         public override async Task<IDisplayResult> UpdateAsync(GraphSyncPart model, IUpdateModel updater)
@@ -48,27 +40,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
             return Edit(model);
         }
 
-        //todo: easier to get from context?
-        public GraphSyncPartSettings GetGraphSyncPartSettings(GraphSyncPart part)
+        private async Task BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)
         {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(part.ContentItem.ContentType);
-            var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
-            return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
-        }
-
-        private void BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)
-        {
-            model.Text = part.Text ?? GenerateUriId(part);
-        }
-
-        private string GenerateUriId(GraphSyncPart part)
-        {
-            var settings = GetGraphSyncPartSettings(part);
-
-            string namespacePrefix = settings.NamespacePrefix ??
-                                     _namespacePrefixOptions.Value.NamespacePrefixOptions.FirstOrDefault();
-
-            return $"{namespacePrefix}{part.ContentItem.ContentType.ToLowerInvariant()}/{Guid.NewGuid():D}";
+            //todo: pass content type instead?
+            _graphSyncHelper.ContentType = part.ContentItem.ContentType;
+            model.Text = part.Text ?? await _graphSyncHelper.GenerateIdPropertyValue();
         }
     }
 }

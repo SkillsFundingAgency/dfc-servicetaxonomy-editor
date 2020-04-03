@@ -2,8 +2,20 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "CustomHostName": {
+            "value": "editor-foo.servicetaxonomy.nationalcareersservice.org.uk"
+        },
         "Environment": {
             "value": "dev"
+        },
+        "KeyVaultCertificateName": {
+            "value": "editor-foo-servicetaxonomy-nationalcareersservice-org-uk"
+        },
+        "KeyVaultName": {
+            "value": "dfc-foo-shared-kv"
+        },
+        "KeyVaultResourceGroup": {
+            "value": "dfc-foo-shared-rg"
         },
         "SharedAppServicePlanName": {
             "value": "dfc-dev-stax-shared-asp"
@@ -28,6 +40,27 @@
         },
         "SqlResourceGroupName": {
             "value": "dfc-dev-shared-rg"
+        },
+        "OwlDataGeneratorDefaultLanguage": {
+            "value": "en"
+        },
+        "OwlDataGeneratorDefaultNamespace": {
+            "value": "NCSnamespace"
+        },
+        "OwlDataGeneratorNamespaceUri": {
+            "value": "https://nationalcareers.service.gov.uk"
+        },
+        "OwlDataGeneratorHeaderUri": {
+            "value": "https://nationalcareers.service.gov.uk/test/"
+        },
+        "OwlDataGeneratorHeaderAuthor": {
+            "value": "National Careers Service"
+        },
+        "OwlDataGeneratorHeaderVersion": {
+            "value": "0.0.1(alpha)"
+        },
+        "OwlDataGeneratorDescription": {
+            "value": "NationalCareersService-ServiceTaxonomy"
         }
     }
 }

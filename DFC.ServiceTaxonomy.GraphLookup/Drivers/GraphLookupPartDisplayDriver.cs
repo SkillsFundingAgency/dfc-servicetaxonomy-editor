@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
+using DFC.ServiceTaxonomy.GraphLookup.Queries;
 using DFC.ServiceTaxonomy.GraphLookup.ViewModels;
 using DFC.ServiceTaxonomy.Neo4j.Services;
-using Neo4j.Driver;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentManagement.Metadata;
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
 
                     var settings = GetGraphLookupPartSettings(part);
 
-                    part.Nodes = await Task.WhenAll(ids.Select(async id => new GraphLookupNode(id, await GetNodeValue(id, settings))));
+                    part.Nodes = await Task.WhenAll(ids.Select(async id => new GraphLookupNode(id, (await GetNodeValue(id, settings))!)));
                 }
             }
 
@@ -63,11 +63,15 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
             return contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
         }
 
-        private async Task<string> GetNodeValue(string id, GraphLookupPartSettings settings)
+        private async Task<string?> GetNodeValue(string id, GraphLookupPartSettings settings)
         {
-            var results = await _graphDatabase.RunReadQuery(new Query(
-                    $"match (n:{settings.NodeLabel} {{{settings.ValueFieldName}:'{id}'}}) return n.{settings.DisplayFieldName} as displayField"),
-                r => r["displayField"].ToString());
+            //todo: check if settings can be null
+            //todo: interface and get from service provider
+            var results = await _graphDatabase.Run(new GetPropertyOnNodeQuery(
+                settings.NodeLabel!,
+                settings.ValueFieldName!,
+                id,
+                settings.DisplayFieldName!));
 
             return results.First();
         }

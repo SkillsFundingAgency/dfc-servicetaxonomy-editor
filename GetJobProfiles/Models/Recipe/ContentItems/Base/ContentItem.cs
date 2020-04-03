@@ -1,3 +1,4 @@
+using GetJobProfiles.Extensions;
 using OrchardCore.Entities;
 
 namespace GetJobProfiles.Models.Recipe.ContentItems.Base
@@ -5,6 +6,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.Base
     public class ContentItem
     {
         private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
+        public const int MaxDisplayTextLength = 250;
+        private string _displayText;
 
         public ContentItem(string contentType, string title, string timestamp, string contentItemId = null)
         {
@@ -28,7 +31,14 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.Base
         public string ContentItemId { get; set; }
         public string ContentItemVersionId { get; set; }
         public string ContentType { get; set; }
-        public string DisplayText { get; set; }
+
+        public string DisplayText
+        {
+            get => _displayText;
+            // display text is stored in the oc database in a column that has a fixed size
+            set => _displayText = value.Truncate(MaxDisplayTextLength);
+        }
+
         public bool Latest { get; set; }
         public bool Published { get; set; }
         public string ModifiedUtc { get; set; }

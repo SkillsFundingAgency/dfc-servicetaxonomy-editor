@@ -61,12 +61,15 @@
                 "OrchardCore.Title",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
+                // Workflows
+                "OrchardCore.Workflows",
+                "OrchardCore.Workflows.Timers",
                 // Themes
                 "TheAdmin",
                 // Service Taxonomy Editor
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
-                "OrchardCore.Workflows"
+                "DFC.ServiceTaxonomy.GraphVisualiser"
             ]
         },
         {
@@ -85,6 +88,100 @@
         {
             "name": "ContentDefinition",
             "ContentTypes": [
+                {
+                    "Name": "Occupation",
+                    "DisplayName": "Occupation",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "Occupation",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "PreexistingNode": true,
+                                    "NodeNameTransform": "$\"esco__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\""
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "OccupationLabel",
+                    "DisplayName": "Occupation Label",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 1
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "OccupationLabel",
+                            "Name": "OccupationLabel",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                }
+                            }
+                        }
+                    ]
+                },
                 {
                     "Name": "JobProfile",
                     "DisplayName": "Job Profile",
@@ -167,7 +264,10 @@
                                     "Position": "28"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -213,7 +313,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -259,7 +362,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -305,7 +411,99 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "ApprenticeshipStandard",
+                    "DisplayName": "Apprenticeship Standard",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ApprenticeshipStandard",
+                            "Name": "ApprenticeshipStandard",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "ApprenticeshipStandardRoute",
+                    "DisplayName": "Apprenticeship Standard Route",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -351,7 +549,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -385,8 +586,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbUniversityRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbUniversityRoute",
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -421,8 +625,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbCollegeRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbCollegeRoute",
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -457,8 +664,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbApprenticeshipRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbApprenticeshipRoute",
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -503,7 +713,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -537,8 +750,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbWorkRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbWorkRoute",
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -572,8 +788,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbVolunteeringRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbVolunteeringRoute",
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -607,8 +826,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbDirectRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbDirectRoute",
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -642,8 +864,11 @@
                                     "Position": "1"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/",
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbOtherRoute"
+                                    "BagPartContentItemRelationshipType": "ncs__hasHtbOtherRoute",
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -688,7 +913,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -733,7 +961,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -778,7 +1009,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -823,7 +1057,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -868,7 +1105,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -913,7 +1153,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -958,7 +1201,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1003,7 +1249,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1048,7 +1297,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1093,7 +1345,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1138,7 +1393,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1183,7 +1441,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1229,7 +1490,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1275,7 +1539,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1321,7 +1588,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1367,7 +1637,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NamespacePrefix": "http://nationalcareers.service.gov.uk/"
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1506,6 +1779,170 @@
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "ApprenticeshipStandard",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Reference",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Reference",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MaximumFunding",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Maximum Funding Amount (£)",
+                                    "Position": "1"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 0
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "LARSCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "LARS Code",
+                                    "Position": "2"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 0
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "Duration",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Duration in Months",
+                                    "Position": "3"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 0
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Type",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Standard or Framework",
+                                    "Editor": "PredefinedList",
+                                    "Position": "3"
+                                },
+                                "ContentIndexSettings": {},
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "Standard",
+                                            "value": "Standard"
+                                        },
+                                        {
+                                            "name": "Framework",
+                                            "value": "Framework"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "Standard"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipStandardRoutes",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Standard Routes",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs_hasApprenticeshipStandardRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipStandardRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "QCFLevel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "QCF Level",
+                                    "Position": "5"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs_hasQCFLevel].",
+                                    "Required": false,
+                                    "DisplayedContentTypes": [
+                                        "QCFLevel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Occupation",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "PreferredLabel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Preferred Label",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationship of type [:ncs__hasPrefLabel].",
+                                    "Multiple": false,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "AlternativeLabels",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Alternative Labels",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "OccupationLabel"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 },
                 {
                     "Name": "JobProfile",
@@ -1881,6 +2318,24 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipStandards",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Standards",
+                                    "Position": "27"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipStandard"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -1912,6 +2367,16 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
                                     "Editor": "Wysiwyg",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WebsiteURI",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Website URI",
                                     "Position": "0"
                                 }
                             }
@@ -2506,8 +2971,14 @@
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Description"
-                                }
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
                             }
                         }
                     ]
@@ -2733,7 +3204,7 @@
                 },
                 {
                     "WorkflowTypeId": "4nz01f9zjxazbsmdked5ktbfcs",
-                    "Name": "Delete from Graph",
+                    "Name": "Delete From Graph",
                     "IsEnabled": true,
                     "IsSingleton": false,
                     "DeleteFinishedWorkflows": false,
@@ -2770,6 +3241,124 @@
                             "SourceActivityId": "49fa3gg6jvfcwznwmhk09rzg5b",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "4e1pzdgtnww4e5jt4w4cac5qma"
+                        }
+                    ]
+                },
+                {
+                    "WorkflowTypeId": "4wwrjw1kq3qffwgqp7x02spad1",
+                    "Name": "Delete Content Type From Graph",
+                    "IsEnabled": true,
+                    "IsSingleton": false,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4pgvhb6xk73gkxq4684vqnkrnx",
+                            "Name": "ContentTypeDeletedEvent",
+                            "X": 0,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Content Type Deleted"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4gwyw81gep9nkx25mp30adpdd6",
+                            "Name": "DeleteContentTypeFromGraphTask",
+                            "X": 320,
+                            "Y": 190,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Delete Nodes from Graph"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "447bt5h88dam1wpewrt6y7jcdt",
+                            "Name": "DeleteContentTypeTask",
+                            "X": 730,
+                            "Y": 190,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Delete Content Type from Orchard Core"
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4pgvhb6xk73gkxq4684vqnkrnx",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4gwyw81gep9nkx25mp30adpdd6"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4gwyw81gep9nkx25mp30adpdd6",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "447bt5h88dam1wpewrt6y7jcdt"
+                        }
+                    ]
+                },
+                {
+                    "WorkflowTypeId": "4kpfxdbyraj82rd2qtmt7nznm3",
+                    "Name": "Delete Field From Graph",
+                    "IsEnabled": true,
+                    "IsSingleton": false,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4db6e0txbdtyzxk6dgv8h2z2nb",
+                            "Name": "ContentTypeFieldRemovedEvent",
+                            "X": 0,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Field Deleted from Content Type"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "47k35ysvf16ebv24tnt7ma8rmp",
+                            "Name": "RemoveFieldFromContentItemsTask",
+                            "X": 220,
+                            "Y": 210,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Remove field from Content Type"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "459fr3zpagjmaxbn6wx7dc2hmb",
+                            "Name": "PublishContentTypeContentItemsTask",
+                            "X": 560,
+                            "Y": 210,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Publish Content Items by Content Type"
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4db6e0txbdtyzxk6dgv8h2z2nb",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "47k35ysvf16ebv24tnt7ma8rmp"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "47k35ysvf16ebv24tnt7ma8rmp",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "459fr3zpagjmaxbn6wx7dc2hmb"
                         }
                     ]
                 }

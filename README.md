@@ -33,12 +33,39 @@ Setup a database to store the content. Any database with a .NET ADO provider is 
 
 Clone the [GitHub repo](https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor) and open the solution DFC.ServiceTaxonomyEditor.sln in your favourite .NET Core supporting IDE, such as [Visual Studio](https://visualstudio.microsoft.com/), [Visual Code](https://code.visualstudio.com/) or [Rider](https://www.jetbrains.com/rider/).
 
+Add an `appsettings.Development.json` file and populate it with the following config:
+
+```
+{
+    "Neo4j": {
+        "Endpoint": {
+            "Uri": "bolt://localhost:7687",
+            "Username": "neo4j",
+            "Password": "ESCO3"
+        }
+    }
+}
+```
+
+Make sure the password matches the password you created the graph with. This file is git ignored, so won't be checked in.
+
 Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the Setup page. Populate the page as follows, and click Finish Setup. (This runs the site using a local Sqlite database.)
+
+If you choose to use a SQL Server or Azure SQL database, ensure that the connection string enables multiple active result sets (MARS), by including `MultipleActiveResultSets=True`. If you go through the set-up process again (after deleting `App_Data`), you'll need to clear down the Azure SQL / SQL Server database, otherwise you'll get the error `invalid serial number for shell descriptor`.
 
 ![Service Taxonomy Editor Setup](/Images/EditorSetup.png)
 *Note: this step will become unnecessary as the solution evolves.*
 
 You should then be directed to the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
+
+To import the National Careers Service Job Profiles, import the files from the output of "GetJobProfiles" utility in the following order:
+
+- QCF Levels
+- Apprenticeship Standard Routes
+- Apprenticeship Standards
+- Everything except Job Profiles and Job Categories
+- Job Profiles
+- Job Categories
 
 ### Manually Configure Website
 

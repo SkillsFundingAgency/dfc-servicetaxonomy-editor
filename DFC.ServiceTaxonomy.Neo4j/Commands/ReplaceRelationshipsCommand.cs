@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Types;
 using Neo4j.Driver;
 
@@ -15,7 +16,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
-        public string? SourceIdPropertyValue { get; set; }
+        public object? SourceIdPropertyValue { get; set; }
 
         public IEnumerable<Relationship> Relationships
         {
@@ -31,70 +32,171 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 destIdPropertyValues));
         }
 
-        private Query CreateQuery()
+        public List<string> ValidationErrors()
         {
-            if (SourceNodeLabels == null)
-                throw new InvalidOperationException($"{nameof(SourceNodeLabels)} is null");
+            List<string> validationErrors = new List<string>();
 
             if (!SourceNodeLabels.Any())
-                throw new InvalidOperationException("No source labels");
+                validationErrors.Add($"Missing {nameof(SourceNodeLabels)}.");
 
             if (SourceIdPropertyName == null)
-                throw new InvalidOperationException($"{nameof(SourceIdPropertyName)} is null");
+                validationErrors.Add($"{nameof(SourceIdPropertyName)} is null.");
 
             if (SourceIdPropertyValue == null)
-                throw new InvalidOperationException($"{nameof(SourceIdPropertyValue)} is null");
-
-            //todo: bi-directional relationships
-            const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
-            var nodeMatchBuilder =
-                new StringBuilder(
-                    $"match (s:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
-            var existingRelationshipsMatchBuilder = new StringBuilder();
-            var mergeBuilder = new StringBuilder();
-            var parameters = new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue}};
-            int ordinal = 0;
-            //todo: better name relationship=> relationships, relationships=>?
-
-            var distinctRelationshipTypeToDestNode = new HashSet<(string type, string labels)>();
+                validationErrors.Add($"{nameof(SourceIdPropertyValue)} is null.");
 
             foreach (var relationship in RelationshipsList)
             {
-                string destNodeLabels = string.Join(':', relationship.DestinationNodeLabels.OrderBy(l => l));
-                // different types could have different dest node labels
-                // add unit/integration tests for this ^^ scenario
-                distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
-
-                foreach (string destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
+                var relationshipValidationErrors = relationship.ValidationErrors;
+                if (relationshipValidationErrors.Any())
                 {
-                    string destNodeVariable = $"d{++ordinal}";
-                    string destIdPropertyValueParamName = $"{destNodeVariable}Value";
-
-                    nodeMatchBuilder.Append(
-                        $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
-                    parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
-
-                    mergeBuilder.Append($"\r\nmerge (s)-[:{relationship.RelationshipType}]->({destNodeVariable})");
+                    validationErrors.Add($"{relationship.RelationshipType??"<Null Type>"} relationship invalid ({string.Join(",", relationshipValidationErrors)})");
                 }
             }
 
-            ordinal = 0;
-            foreach (var relationshipTypeToDestNode in distinctRelationshipTypeToDestNode)
-            {
-                existingRelationshipsMatchBuilder.Append(
-                    $"\r\noptional match (s)-[r{++ordinal}:{relationshipTypeToDestNode.type}]->(:{relationshipTypeToDestNode.labels})");
-            }
-
-            string existingRelationshipVariablesString =
-                string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"r{o}"));
-
-            return new Query(
-                $"{nodeMatchBuilder}\r\n{existingRelationshipsMatchBuilder}\r\ndelete {existingRelationshipVariablesString}\r\n{mergeBuilder}\r\nreturn s",
-                parameters);
+            return validationErrors;
         }
 
-        public Query Query => CreateQuery();
+        public Query Query
+        {
+            get
+            {
+                this.CheckIsValid();
+
+                const string sourceNodeVariableName = "s";
+                const string destinationNodeVariableBase = "d";
+                const string newRelationshipVariableBase = "nr";
+
+                //todo: bi-directional relationships
+                const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
+                StringBuilder nodeMatchBuilder = new StringBuilder(
+                        $"match ({sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+                StringBuilder mergeBuilder = new StringBuilder();
+                var parameters =
+                    new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue!}};
+                int ordinal = 0;
+                //todo: better name relationship=> relationships, relationships=>?
+
+                var distinctRelationshipTypeToDestNode = new HashSet<(string type, string labels)>();
+
+                foreach (var relationship in RelationshipsList)
+                {
+                    string destNodeLabels = string.Join(':', relationship.DestinationNodeLabels.OrderBy(l => l));
+                    // different types could have different dest node labels
+                    // add unit/integration tests for this ^^ scenario
+                    distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
+
+                    foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
+                    {
+                        string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
+                        string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
+                        string destIdPropertyValueParamName = $"{destNodeVariable}Value";
+
+                        nodeMatchBuilder.Append(
+                            $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
+                        //todo:
+                        parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
+
+                        mergeBuilder.Append(
+                            $"\r\nmerge ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable})");
+                    }
+                }
+
+                string newRelationshipsVariablesString = AllVariablesString(newRelationshipVariableBase, ordinal);
+
+                (string existingRelationshipsOptionalMatches, string existingRelationshipsVariablesString)
+                    = GenerateExistingRelationships(distinctRelationshipTypeToDestNode, sourceNodeVariableName);
+
+                string returnString =
+                    mergeBuilder.Length > 0 ? $"return {newRelationshipsVariablesString}" : string.Empty;
+
+                return new Query(
+$@"{nodeMatchBuilder}
+{existingRelationshipsOptionalMatches}
+delete {existingRelationshipsVariablesString}
+{mergeBuilder}
+{returnString}",
+                    parameters);
+            }
+        }
 
         public static implicit operator Query(ReplaceRelationshipsCommand c) => c.Query;
+
+        private static (string optionalMatches, string variablesString) GenerateExistingRelationships(
+            HashSet<(string type, string labels)> distinctRelationshipTypeToDestNode,
+            string sourceNodeVariableName)
+        {
+            const string existingRelationshipVariableBase = "er";
+
+            var existingRelationshipsMatchBuilder = new StringBuilder();
+
+            int ordinal = 0;
+            foreach ((string type, string labels) in distinctRelationshipTypeToDestNode)
+            {
+                existingRelationshipsMatchBuilder.Append(
+                    $"\r\noptional match ({sourceNodeVariableName})-[{existingRelationshipVariableBase}{++ordinal}:{type}]->(:{labels})");
+            }
+
+            return (existingRelationshipsMatchBuilder.ToString(), AllVariablesString(existingRelationshipVariableBase, ordinal));
+        }
+
+        private static string AllVariablesString(string variableBase, int ordinal) =>
+            string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"{variableBase}{o}"));
+
+        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
+        {
+            //todo: log query (doesn't work!) Query was: {resultSummary.Query}.
+            //todo: validate deletes?
+            // we should only query if the quick tests have failed, otherwise we'll slow down import a lot if we queried after every update
+
+            int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
+            if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
+                throw CreateValidationException(resultSummary,
+                    $"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+
+            if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
+                return;
+
+            IEnumerable<IRelationship>? createdRelationships = records?.FirstOrDefault()?.Values?.Values.Cast<IRelationship>();
+            if (createdRelationships == null)
+                throw CreateValidationException(resultSummary, "New relationships not returned.");
+
+            // could store variable name to type dic and use that to check instead
+            List<string> unorderedExpectedRelationshipTypes = (RelationshipsList.SelectMany(
+                relationship => relationship.DestinationNodeIdPropertyValues,
+                (relationship, _) => relationship.RelationshipType)).ToList();
+
+            var expectedRelationshipTypes = unorderedExpectedRelationshipTypes
+                .OrderBy(t => t);
+
+            var actualRelationshipTypes = createdRelationships
+                .Select(r => r.Type)
+                .OrderBy(t => t);
+
+            if (!expectedRelationshipTypes.SequenceEqual(actualRelationshipTypes))
+                throw CreateValidationException(resultSummary,
+                    $"Relationship types created ({string.Join(",", actualRelationshipTypes)}) does not match expected ({string.Join(",", expectedRelationshipTypes)})");
+
+            var firstStartNodeId = createdRelationships.First().StartNodeId;
+            if (!createdRelationships.Skip(1).All(r => r.StartNodeId == firstStartNodeId))
+                throw CreateValidationException(resultSummary,
+                    "Not all created relationships have the same source node.");
+        }
+
+        private CommandValidationException CreateValidationException(IResultSummary resultSummary, string message)
+        {
+            return new CommandValidationException(@$"{message}
+{nameof(ReplaceRelationshipsCommand)}:
+{this}
+
+{resultSummary}");
+        }
+
+        public override string ToString()
+        {
+            return $@"(:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
+Relationships:
+{string.Join(Environment.NewLine, RelationshipsList)}";
+        }
     }
 }
