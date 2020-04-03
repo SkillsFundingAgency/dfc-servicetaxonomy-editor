@@ -30,6 +30,8 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
 
     //can we use a widget within the admin section?
 
+    //todo: if get copy of vue-multiselect-wrapper working for poc, use original script and listen for vue-multiselect-created event and @@input to vue-multiselect?
+
     public class Startup : StartupBase
     {
         private readonly AdminOptions _adminOptions;
@@ -65,6 +67,8 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            builder.UseStaticFiles();
+
             routes.MapAreaControllerRoute(
                 name: "ContentPickerPreview",
                 areaName: "DFC.ServiceTaxonomy.ContentPickerPreview",

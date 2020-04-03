@@ -17,8 +17,10 @@ no need for new sync/sync validation
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
 
 * syncing (widget) content type with lots of different parts gave this error: Sync to graph failed: Index was outside the bounds of the array.
-* need to batch up label creation recipes and add numbers to report
 * syncing content type with a bunch of parts
+
+* implement [c#:] using this: https://docs.orchardcore.net/en/dev/docs/reference/modules/Scripting/
+
 * make sure strings are localised
 * composite part containing fields (collapsible)?
 * importing recipe, then unpublish content items, then reimport and sync doesn't happen

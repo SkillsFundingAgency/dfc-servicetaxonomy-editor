@@ -31,4 +31,11 @@
     <Content Include="Views\ContentPickerField-Preview.Option.cshtml" />
   </ItemGroup>
 
+<!--  todo dont think we need this-->
+  <ItemGroup>
+    <EmbeddedResource Update="wwwroot\Scripts\vue-multiselect-wrapper-preview.js">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

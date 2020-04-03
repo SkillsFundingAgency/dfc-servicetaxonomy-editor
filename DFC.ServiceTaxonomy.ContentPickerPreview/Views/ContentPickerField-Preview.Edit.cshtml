@@ -13,7 +13,9 @@
     var multiple = settings.Multiple.ToString().ToLowerInvariant();
 }
 
+@*https://orchardcore.readthedocs.io/fr/latest/docs/reference/modules/Resources/*@
 <script asp-name="vue-multiselect-wrapper" asp-src="~/OrchardCore.ContentFields/Scripts/vue-multiselect-wrapper.js" at="Foot" depends-on="vuejs, vue-multiselect, sortable, vuedraggable"></script>
+<script asp-name="vue-multiselect-wrapper-preview" asp-src="~/DFC.ServiceTaxonomy.ContentPickerPreview/Scripts/vue-multiselect-wrapper-preview.js" at="Foot" depends-on="vuejs, vue-multiselect, sortable, vuedraggable"></script>
 <style asp-name="vue-multiselect-wrapper" asp-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.min.css" debug-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.css" depends-on="vue-multiselect"></style>
 
 <label asp-for="ContentItemIds">@Model.PartFieldDefinition.DisplayName()</label>
@@ -42,6 +44,7 @@
             <vue-multiselect v-model="value" :options="options" track-by="id"
                              label="displayText" placeholder="@T["Type to search"]"
                              @@search-change="asyncFind" @@select="onSelect"
+                             @@input="onInput"
                              :searchable="true" :close-on-select="true" :reset-after="true"
                              :show-labels="true" :hide-selected="@multiple"
                              :disabled="isDisabled"
@@ -60,4 +63,16 @@
         </div>
     </div>
 </div>
+@*
+<script at="Foot" depends-on="vue-multiselect-wrapper">document.querySelector("body").addEventListener('vue-multiselect-created', function(e) {
+    //todoL https://stackoverflow.com/questions/51797029/create-method-dynamically-in-vue-js
+    // attach method dynamically to vue component
+e.detail.vm.OnInput = function(value, id) {
+var x = 1;
+};
+}, false);</script>
+
 <script at="Foot" depends-on="vue-multiselect-wrapper">initVueMultiselect(document.querySelector("#@vueElementId"))</script>
+*@
+
+<script at="Foot" depends-on="vue-multiselect-wrapper-preview">initVueMultiselectPreview(document.querySelector("#@vueElementId"))</script>
