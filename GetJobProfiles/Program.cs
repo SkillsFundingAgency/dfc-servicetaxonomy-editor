@@ -60,6 +60,7 @@ namespace GetJobProfiles
             // max number of contentitems in an import recipe
             const int batchSize = 1000;
             const int jobProfileBatchSize = 200;
+            const int occupationLabelsBatchSize = 600;
             const int occupationsBatchSize = 300;
 
             var config = new ConfigurationBuilder()
@@ -101,7 +102,7 @@ namespace GetJobProfiles
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodesRecipe.json");
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json", occupationsBatchSize);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json", occupationLabelsBatchSize);
             CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexesRecipe.json");
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize);
 
