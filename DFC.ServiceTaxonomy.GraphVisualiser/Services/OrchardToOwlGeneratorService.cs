@@ -56,6 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             foreach (var contentTypePartItem in contentTypeDefinition.Parts)
             {
                 var bagPartSettings = contentTypePartItem.GetSettings<BagPartSettings>();
+                var fields = contentTypePartItem.PartDefinition.Fields;
                 var linkedName = bagPartSettings.ContainedContentTypes.Length == 0 ? $"Part{contentTypePartItem.PartDefinition.Name}" : $"Bag{contentTypePartItem.Name}";
                 var id = bagPartSettings.ContainedContentTypes.Length == 0 ? $"Part{contentTypePartItem.PartDefinition.Name}" : $"Bag{contentTypePartItem.Name}";
 
@@ -73,7 +74,19 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 
                         nodeModels.Add(TransformContentTypeDefinitionToNode(bagContentTypeDefinition, nodeModels.Count + 1, partId));
 
-                        relationshipModels.Add(TransformContentTypeDefinitionToRelationship(bagContentTypeDefinition, linkedName, $"Part{bagContentTypeDefinition.Name}"));
+                        relationshipModels.Add(TransformContentTypeDefinitionToRelationship(bagContentTypeDefinition, linkedName, partId));
+                    }
+                }
+
+                if (fields.Any())
+                {
+                    foreach (var field in fields)
+                    {
+                        var fieldId = $"Field{field.Name}";
+
+                        nodeModels.Add(TransformContentPartFieldDefinitionToNode(field, nodeModels.Count + 1, fieldId));
+
+                        relationshipModels.Add(TransformContentPartFieldDefinitionToRelationship(field, linkedName, fieldId));
                     }
                 }
             }
@@ -130,6 +143,33 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             {
                 Id = contentTypeDefinition.Name,
                 Label = contentTypeDefinition.DisplayName,
+                Domain = linkFromName,
+                Range = linkToName,
+            };
+
+            return relationshipDataModel;
+        }
+
+        private NodeDataModel TransformContentPartFieldDefinitionToNode(ContentPartFieldDefinition contentPartFieldDefinition, long key, string id)
+        {
+            var result = new NodeDataModel
+            {
+                Id = id,
+                Key = key,
+                Type = contentPartFieldDefinition.Name,
+                Label = contentPartFieldDefinition.GetSettings<ContentPartFieldSettings>()?.DisplayName ?? contentPartFieldDefinition.Name,
+                Comment = contentPartFieldDefinition.GetSettings<ContentPartFieldSettings>()?.Description ?? contentPartFieldDefinition.Name,
+            };
+
+            return result;
+        }
+
+        private RelationshipDataModel TransformContentPartFieldDefinitionToRelationship(ContentPartFieldDefinition contentPartFieldDefinition, string linkFromName, string linkToName)
+        {
+            var relationshipDataModel = new RelationshipDataModel
+            {
+                Id = contentPartFieldDefinition.Name,
+                Label = contentPartFieldDefinition.GetSettings<ContentPartFieldSettings>()?.DisplayName ?? contentPartFieldDefinition.Name,
                 Domain = linkFromName,
                 Range = linkToName,
             };
