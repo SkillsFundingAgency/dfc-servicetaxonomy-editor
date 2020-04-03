@@ -13,21 +13,21 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
         private readonly OwlDataGeneratorConfigModel OwlDataGeneratorConfigModel;
 
         private readonly ColourScheme ncsColourScheme = new ColourScheme(new string[] {
-                     "#A6EBC9",
-                     "#EDFFAB",
-                     "#BCE7FD",
-                     "#C7DFC5",
-                     "#C1DBE3",
-                     "#F3C178",
-                     "#E2DBBE"
-                 });
+            "#A6EBC9",
+            "#EDFFAB",
+            "#BCE7FD",
+            "#C7DFC5",
+            "#C1DBE3",
+            "#F3C178",
+            "#E2DBBE"
+        });
 
         private readonly ColourScheme escoColourScheme = new ColourScheme(new string[] {
-                "#FFE5D4",
-                "#EFC7C2",
-                "#BA9593",
-                "#F7EDF0",
-            });
+            "#FFE5D4",
+            "#EFC7C2",
+            "#BA9593",
+            "#F7EDF0",
+        });
 
         protected IEnumerable<NodeDataModel> nodeDataModels = new List<NodeDataModel>();
 
