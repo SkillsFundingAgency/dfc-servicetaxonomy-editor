@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
-using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using ILogger = Neo4j.Driver.ILogger;
 using DFC.ServiceTaxonomy.Neo4j.Models.Interface;
 
@@ -38,7 +37,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         {
             var neoDriver = GetNextDriver();
 
-            _logger.LogInformation($"Executing Read commands to: {neoDriver.Uri}");
+            _logger.LogInformation($"Executing Query to: {neoDriver.Uri}");
 
             IAsyncSession session = neoDriver.Driver.AsyncSession();
             try
@@ -57,7 +56,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public async Task Run(params ICommand[] commands)
         {
-            var executionTasks = _drivers.AllDrivers().Select(x => ExecuteTransaction(commands, x));
+            var executionTasks = _drivers.Select(x => ExecuteTransaction(commands, x));
             await Task.WhenAll(executionTasks);
         }
 
@@ -69,7 +68,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
 
-                _logger.LogInformation($"Executing Write commands to: {neoDriver.Uri}");
+                _logger.LogInformation($"Executing commands to: {neoDriver.Uri}");
 
                 await session.WriteTransactionAsync(async tx =>
                 {

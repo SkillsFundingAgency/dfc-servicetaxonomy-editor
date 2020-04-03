@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 
             //todo: pass logger, see https://github.com/neo4j/neo4j-dotnet-driver
             // o => o.WithLogger(logger)
-            var driverToTest = neo4jConfiguration.Endpoints.FirstOrDefault(x => x.Primary && x.Enabled);
+            var driverToTest = neo4jConfiguration.Endpoints.FirstOrDefault(x => x.Enabled);
 
             if(driverToTest == null)
             {

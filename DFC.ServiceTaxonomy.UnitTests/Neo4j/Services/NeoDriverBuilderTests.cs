@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
         {
             _optionsMonitor = A.Fake<IOptionsMonitor<Neo4jConfiguration>>();
             var neo4jConfiguration = A.Fake<Neo4jConfiguration>();
-            neo4jConfiguration.Endpoints = new System.Collections.Generic.List<EndpointConfiguration> { new EndpointConfiguration { Uri = "bolt://example.com", Enabled = true, Primary = true }, new EndpointConfiguration { Uri = "bolt://anotherexample.com", Enabled = true, Primary = false } };
+            neo4jConfiguration.Endpoints = new List<EndpointConfiguration> { new EndpointConfiguration { Uri = "bolt://example.com", Enabled = true }, new EndpointConfiguration { Uri = "bolt://anotherexample.com", Enabled = true } };
             A.CallTo(() => _optionsMonitor.CurrentValue).Returns(neo4jConfiguration);
 
         }
