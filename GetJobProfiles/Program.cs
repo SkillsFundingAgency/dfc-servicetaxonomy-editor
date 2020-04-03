@@ -79,7 +79,6 @@ namespace GetJobProfiles
             };
 
             string jobProfilesToImport = config["JobProfilesToImport"];
-            jobProfilesToImport = "Baker";
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
             var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
