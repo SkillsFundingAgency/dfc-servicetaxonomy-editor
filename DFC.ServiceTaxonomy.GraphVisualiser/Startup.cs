@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
+using OrchardCore.Navigation;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser
 {
@@ -22,6 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
+            services.AddScoped<INavigationProvider, AdminMenu>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
