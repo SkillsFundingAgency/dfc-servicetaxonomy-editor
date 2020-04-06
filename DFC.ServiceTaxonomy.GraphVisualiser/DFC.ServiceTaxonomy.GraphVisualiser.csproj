@@ -15,6 +15,7 @@
     <PackageReference Include="Neo4j.Driver" Version="4.0.1" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Navigation" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497" />

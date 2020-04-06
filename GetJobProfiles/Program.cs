@@ -60,6 +60,7 @@ namespace GetJobProfiles
             // max number of contentitems in an import recipe
             const int batchSize = 1000;
             const int jobProfileBatchSize = 200;
+            const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
 
             var config = new ConfigurationBuilder()
@@ -101,9 +102,9 @@ namespace GetJobProfiles
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodesRecipe.json");
             CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodesRecipe.json");
-            CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json");
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItemsRecipe.json", occupationLabelsBatchSize, "OccupationLabels", 33036);
             CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexesRecipe.json");
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItemsRecipe.json", occupationsBatchSize, "Occupations", 2942);
 
             ProcessLionelsSpreadsheet();
 
@@ -144,9 +145,8 @@ namespace GetJobProfiles
             File.Copy(Path.Combine(recipePath, recipeFilename), $"{OutputBasePath}{filename}");
         }
 
-        private static async Task BatchRecipes(string recipePath, string recipeFilename, int batchSize)
+        private static async Task BatchRecipes(string recipePath, string recipeFilename, int batchSize, string nodeName, int totalItems)
         {
-            const int totalOccupations = 2942;
             int skip = 0;
 
             var tokens = new Dictionary<string, string>
@@ -162,8 +162,11 @@ namespace GetJobProfiles
                 skip += batchSize;
                 tokens["skip"] = skip.ToString();
 
-            } while (skip < totalOccupations);
+            } while (skip < totalItems);
+
+            ImportTotalsReport.AppendLine($"{nodeName}: {totalItems}");
         }
+
 
         private static async Task CopyRecipeWithTokenisation(string recipePath, string recipeFilename, IDictionary<string, string> tokens)
         {
@@ -174,8 +177,7 @@ namespace GetJobProfiles
             }
 
             string filename = $"{FileIndex++:00}. {recipeFilename}";
-            ImportFilesReport.AppendLine($"{filename}: null");
-
+            ImportFilesReport.AppendLine($"{filename}: {tokens.FirstOrDefault(x => x.Key == "limit").Value}");
             await File.WriteAllTextAsync($"{OutputBasePath}{filename}", recipe);
         }
 
@@ -274,11 +276,11 @@ namespace GetJobProfiles
 
             if (matchingTitle == null)
             {
-                _missingTitles.Add(new {Type = key, ExistingTitle = title});
+                _missingTitles.Add(new { Type = key, ExistingTitle = title });
             }
             else
             {
-                _matchingTitles.Add(new {Type = key, ExistingTitle = title});
+                _matchingTitles.Add(new { Type = key, ExistingTitle = title });
             }
 
             return matchingTitle?.Item1 ?? title;
