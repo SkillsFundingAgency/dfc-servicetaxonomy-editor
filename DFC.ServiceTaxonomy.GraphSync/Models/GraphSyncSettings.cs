@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DFC.ServiceTaxonomy.GraphSync.Models
+﻿namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
     public class GraphSyncSettings
     {
