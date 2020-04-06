@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName, graphSyncHelper.GetIdPropertyValue(content));
+            mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName(), graphSyncHelper.GetIdPropertyValue(content));
 
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper)
         {
-            object id = sourceNode.Properties[graphSyncHelper.IdPropertyName];
+            object id = sourceNode.Properties[graphSyncHelper.IdPropertyName()];
             //todo: should we convert to string?
             return Task.FromResult(Convert.ToString(id) == graphSyncHelper.GetIdPropertyValue(content));
         }

@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             foreach (var node in graphLookupPart.Nodes)
             {
                 var destNode = destinationNodes.SingleOrDefault(x =>
-                    (string)x.Properties[graphSyncHelper.IdPropertyName] == node.Id);
+                    (string)x.Properties[graphSyncHelper.IdPropertyName()] == node.Id);
 
                 if (destNode == null)
                 {

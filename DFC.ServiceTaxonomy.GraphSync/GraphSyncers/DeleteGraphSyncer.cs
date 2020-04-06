@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
-            _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName;
+            _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
             _deleteNodeCommand.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
 

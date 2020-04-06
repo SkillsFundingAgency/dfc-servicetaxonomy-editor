@@ -107,14 +107,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             };
         }
 
-        public string IdPropertyName
+        public string IdPropertyName()
         {
-            get
-            {
-                CheckPreconditions();
+            CheckPreconditions();
 
-                return GraphSyncPartSettings!.IdPropertyName ?? "UserId";
-            }
+            return IdPropertyName(GraphSyncPartSettings!);
+        }
+
+        public string IdPropertyName(string contentType)
+        {
+            return IdPropertyName(GetGraphSyncPartSettings(contentType));
+        }
+
+        private string IdPropertyName(GraphSyncPartSettings graphSyncPartSettings)
+        {
+            return graphSyncPartSettings.IdPropertyName ?? "UserId";
         }
 
         //todo: rename other methods, Generate?
