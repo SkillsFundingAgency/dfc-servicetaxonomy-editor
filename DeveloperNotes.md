@@ -8,6 +8,16 @@
     sync new part
     sync validate new part
 
+* use template for occupation in summary view to display preferred label rather than content -> does it use that to populate drop-down?
+
+create liquid template for occupation?: (could override defaults for all parts/fields, so no need for custom template, but more work - can you do it for all content types at once?)
+https://www.davidhayden.me/blog/using-the-content-picker-in-liquid-templates-in-orchard-core-cms
+https://docs.orchardcore.net/en/dev/docs/reference/modules/Liquid/
+https://docs.orchardcore.net/en/dev/docs/reference/modules/Templates/
+https://shopify.github.io/liquid/
+https://www.davidhayden.me/blog/developing-liquid-template-language-filters-in-orchard-core-cms
+
+* remove content types from full text queries : speed up import?
 * move visualiser overriden views into visualiser module
 * new editor for content picker (duplicate existing & get to work)
  js on select: ajax to url for preview and inject into page

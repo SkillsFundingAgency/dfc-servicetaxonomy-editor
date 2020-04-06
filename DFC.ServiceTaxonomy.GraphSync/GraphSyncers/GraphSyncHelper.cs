@@ -133,8 +133,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             return GraphSyncPartSettings!.GenerateIdPropertyValue switch
             {
-                "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\"" =>
-                $"http://data.europa.eu/esco/occupation/{_contentType!.ToLowerInvariant()}/{newGuid}",
+                "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"" =>
+                $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
                 "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\"" =>
                 $"http://nationalcareers.service.gov.uk/{_contentType!.ToLowerInvariant()}/{newGuid}",
