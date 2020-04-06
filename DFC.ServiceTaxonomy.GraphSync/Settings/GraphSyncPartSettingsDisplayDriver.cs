@@ -53,6 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             {
                 listToReturn.Add(new SelectListItem(item.Name, item.Name));
 
+                //TODO: Move equals function elsewhere for Single Reponsibility.
                 if (((string.IsNullOrWhiteSpace(model.BagPartContentItemRelationshipType) && string.IsNullOrWhiteSpace(item.BagPartContentItemRelationshipType)) || model.BagPartContentItemRelationshipType!.Equals(item.BagPartContentItemRelationshipType, StringComparison.CurrentCultureIgnoreCase))
                     && ((string.IsNullOrWhiteSpace(model.NodeNameTransform) && string.IsNullOrWhiteSpace(item.NodeNameTransform)) || model.NodeNameTransform!.Equals(item.NodeNameTransform, StringComparison.CurrentCultureIgnoreCase))
                     && ((string.IsNullOrWhiteSpace(model.PropertyNameTransform) && string.IsNullOrWhiteSpace(item.PropertyNameTransform)) || model.PropertyNameTransform!.Equals(item.PropertyNameTransform, StringComparison.CurrentCultureIgnoreCase))
