@@ -86,6 +86,7 @@ function initVueMultiselectPreview(element) {
 
                         success: function(data){
                             $('#previewhere').html(data);
+                            $('#preview-collapse').collapse('show');
                         }
                     });
                 },
