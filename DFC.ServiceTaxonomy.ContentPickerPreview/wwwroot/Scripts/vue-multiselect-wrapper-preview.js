@@ -92,6 +92,7 @@ function initVueMultiselectPreview(element) {
                 },
                 remove: function (item) {
                     this.arrayOfItems.splice(this.arrayOfItems.indexOf(item), 1)
+                    $('#preview-collapse').collapse('hide');
                 }
             }
         })
