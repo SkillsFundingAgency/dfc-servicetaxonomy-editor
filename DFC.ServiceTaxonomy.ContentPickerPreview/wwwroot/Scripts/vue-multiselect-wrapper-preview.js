@@ -72,6 +72,9 @@ function initVueMultiselectPreview(element) {
                     debouncedSearch(self, query);
                 },
                 showPreview(contentItemId) {
+                    if (multiple)
+                        return;
+
                     // todo use fetch then
                     // we could use the observed selectedIds, but we'd have to calc if something was added or deleted
                     // just just onSelect instead?
@@ -85,6 +88,12 @@ function initVueMultiselectPreview(element) {
                             $('#preview-collapse').collapse('show');
                         }
                     });
+                },
+                hidePreview() {
+                    if (multiple)
+                        return;
+
+                    $('#preview-collapse').collapse('hide');
                 },
                 onSelect: function (selectedOption, id) {
                     var self = this;
@@ -102,7 +111,7 @@ function initVueMultiselectPreview(element) {
                 },
                 remove: function (item) {
                     this.arrayOfItems.splice(this.arrayOfItems.indexOf(item), 1)
-                    $('#preview-collapse').collapse('hide');
+                    this.hidePreview();
                 }
             }
         })
