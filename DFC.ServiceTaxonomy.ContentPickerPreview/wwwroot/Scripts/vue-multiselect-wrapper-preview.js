@@ -62,11 +62,29 @@ function initVueMultiselectPreview(element) {
             created: function () {
                 var self = this;
                 self.asyncFind();
+                if (self.arrayOfItems.length === 1) {
+                    self.showPreview(self.arrayOfItems[0].id);
+                }
             },
             methods: {
                 asyncFind: function (query) {
                     var self = this;
                     debouncedSearch(self, query);
+                },
+                showPreview(contentItemId) {
+                    // todo use fetch then
+                    // we could use the observed selectedIds, but we'd have to calc if something was added or deleted
+                    // just just onSelect instead?
+                    //todo: only show preview if only single item pickable
+                    $.ajax({
+                        url : '/Contents/ContentItems/' + contentItemId,
+                        type: 'GET',
+
+                        success: function(data){
+                            $('#previewhere').html(data);
+                            $('#preview-collapse').collapse('show');
+                        }
+                    });
                 },
                 onSelect: function (selectedOption, id) {
                     var self = this;
@@ -80,15 +98,7 @@ function initVueMultiselectPreview(element) {
                     self.arrayOfItems.push(selectedOption);
                 },
                 onInput: function (value, id) {
-                    $.ajax({
-                        url : '/Contents/ContentItems/' + value.id,
-                        type: 'GET',
-
-                        success: function(data){
-                            $('#previewhere').html(data);
-                            $('#preview-collapse').collapse('show');
-                        }
-                    });
+                    this.showPreview(value.id);
                 },
                 remove: function (item) {
                     this.arrayOfItems.splice(this.arrayOfItems.indexOf(item), 1)
