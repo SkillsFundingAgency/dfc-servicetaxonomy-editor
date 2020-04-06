@@ -8,6 +8,7 @@
     sync new part
     sync validate new part
 
+* move visualiser overriden views into visualiser module
 * new editor for content picker (duplicate existing & get to work)
  js on select: ajax to url for preview and inject into page
    Request URL: https://localhost:44346/Contents/ContentItems/4bvnd1dbv511c6xhm06n0wvk51
