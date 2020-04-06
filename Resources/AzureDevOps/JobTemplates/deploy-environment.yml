@@ -22,6 +22,8 @@ parameters:
  
 jobs:    
 - deployment: DeployArmTemplateTo_${{ parameters.Environment }}
+  workspace:
+      clean: all
   pool: 'NCS - CI and CD'
   displayName: "Deploy arm templates to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}

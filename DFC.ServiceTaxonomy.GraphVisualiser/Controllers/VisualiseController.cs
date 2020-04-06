@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             }
         }
 
-        public ActionResult GetOntology()
+        private ActionResult GetOntology()
         {
             var contentTypeDefinitions = ContentDefinitionManager.ListTypeDefinitions();
 
@@ -87,7 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
 
-        public async Task<ActionResult> GetData(string uri)
+        private async Task<ActionResult> GetData(string uri)
         {
             const string prefLabel = "skos__prefLabel";
             var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);

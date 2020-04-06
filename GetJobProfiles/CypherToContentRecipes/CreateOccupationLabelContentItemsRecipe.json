@@ -13,7 +13,7 @@
             "name": "CypherToContent",
             "queries": [
                 {
-                    "query": "match (l:ncs__OccupationLabel)\r\nreturn { ContentType: 'OccupationLabel', GraphSyncPart:{Text:l.uri}, TitlePart:{Title:l.skos__prefLabel}}"
+                    "query": "match (l:ncs__OccupationLabel)\r\nreturn { ContentType: 'OccupationLabel', GraphSyncPart:{Text:l.uri}, TitlePart:{Title:l.skos__prefLabel}} order by l.uri\r\nskip [token:skip] limit [token:limit]"
                 }
             ]
         }
