@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -56,9 +55,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
 
                 // contentType is used in the catch block
-                #pragma warning disable S1854
+#pragma warning disable S1854
                 contentType = contentItem.ContentType;
-                #pragma warning restore S1854
+#pragma warning restore S1854
 
                 await _mergeGraphSyncer.SyncToGraph(
                     contentItem.ContentType,
@@ -70,7 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
                 return Outcomes("Done");
             }
-            catch(Exception ex)
+            catch
             {
                 // setting this, but not letting the exception propagate doesn't work
                 //workflowContext.Fault(ex, activityContext);
@@ -80,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 // the notifier blows up if there's any '{}' in the message, so we make the string safe for the notifier
                 //string safeMessage = ex.Message.Replace('{','«').Replace('}', '»');
 
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Unable to sync {contentType} to graph. {ex.Message}"));
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Unable to sync {contentType} to graph."));
 
                 // if we do this, we can trigger a notify task in the workflow from a failed outcome, but the workflow doesn't fault
                 //return Outcomes("Failed");
