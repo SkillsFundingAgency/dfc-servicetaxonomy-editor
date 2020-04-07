@@ -4,8 +4,6 @@
 
 @* replace shape for content pickers instead? *@
 <ul class="list-group">
-    @* todo: this stands out too much, replace with standard title *@
-    @* todo: or highlight preflabel at top?? *@
     @{
         string preferredLabelContentItemId = ((JArray) Model.ContentItem.Content.Occupation.PreferredLabel.ContentItemIds).FirstOrDefault()?.ToString();
         string preferredLabel = await GetDisplayText(preferredLabelContentItemId);
@@ -21,7 +19,7 @@
 </ul>
 
 @functions {
-    public async Task<string> GetDisplayText(string contentItemId)
+    private async Task<string> GetDisplayText(string contentItemId)
     {
         ContentItem contentItem = await ContentManager.GetAsync(contentItemId, VersionOptions.Latest);
         return contentItem.ToString();
