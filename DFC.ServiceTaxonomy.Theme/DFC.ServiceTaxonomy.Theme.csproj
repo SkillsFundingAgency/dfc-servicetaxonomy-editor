@@ -17,12 +17,4 @@
     <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc1-*" />
   </ItemGroup>
 
-<!--  <ItemGroup>-->
-<!--    <EmbeddedResource Include="Views\_ViewImports.cshtml" />-->
-<!--  </ItemGroup>-->
-
-<!--  <ItemGroup>-->
-<!--    <EmbeddedResource Include="Views\Content-Occupation.cshtml" />-->
-<!--  </ItemGroup>-->
-
 </Project>

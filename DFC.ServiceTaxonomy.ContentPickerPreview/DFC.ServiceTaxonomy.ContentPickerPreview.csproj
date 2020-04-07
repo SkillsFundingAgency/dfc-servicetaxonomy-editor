@@ -19,7 +19,6 @@
     <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.Liquid" Version="1.0.0-rc1-*" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,14 +28,6 @@
   <ItemGroup>
     <Content Include="Views\ContentPickerField-Preview.Edit.cshtml" />
     <Content Include="Views\ContentPickerField-Preview.Option.cshtml" />
-  </ItemGroup>
-
-<!--  todo dont think we need this-->
-<!--  todo test in environment-->
-  <ItemGroup>
-    <EmbeddedResource Update="wwwroot\Scripts\vue-multiselect-wrapper-preview.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
