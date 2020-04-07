@@ -77,8 +77,7 @@ function initVueMultiselectPreview(element) {
 
                     // todo use fetch then
                     // we could use the observed selectedIds, but we'd have to calc if something was added or deleted
-                    // just just onSelect instead?
-                    //todo: only show preview if only single item pickable
+                    // just use onSelect instead?
                     $.ajax({
                         url : '/Contents/ContentItems/' + contentItemId,
                         type: 'GET',
@@ -115,9 +114,5 @@ function initVueMultiselectPreview(element) {
                 }
             }
         })
-
-        /*Hook for other scripts that might want to have access to the view model*/
-        // var event = new CustomEvent("vue-multiselect-created", { detail: { vm: vm } });
-        // document.querySelector("body").dispatchEvent(event);
     }
 }

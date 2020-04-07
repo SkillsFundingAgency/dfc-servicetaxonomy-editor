@@ -20,5 +20,4 @@ namespace DFC.ServiceTaxonomy.ContentPickerPreview
             builder.UseStaticFiles();
         }
     }
-    //todo: ContentLocalization?
 }
