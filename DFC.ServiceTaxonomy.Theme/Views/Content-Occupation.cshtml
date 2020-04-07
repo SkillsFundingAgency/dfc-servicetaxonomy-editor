@@ -1,31 +1,13 @@
-﻿@using OrchardCore.Mvc.Utilities;
+﻿@using OrchardCore.ContentManagement
+@inject IContentManager ContentManager
 
-@{
-
-    Model.Classes.Add("content-item");
-
-    var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
-    Model.Classes.Add(contentTypeClassName);
-}
-
-<article class="@String.Join(" ", Model.Classes.ToArray())">
-    @if (Model.Header != null || Model.Meta != null)
+@* replace shape for content pickers instead? *@
+<ul class="list-group">
+    <li class="list-group-item active">Alternative Labels</li>
+    @foreach (string contentItemId in Model.ContentItem.Content.Occupation.AlternativeLabels.ContentItemIds)
     {
-        <header>
-            @await DisplayAsync(Model.Header)
-            @if (Model.Meta != null)
-            {
-                <div class="metadata">
-                    @await DisplayAsync(Model.Meta)
-                </div>
-            }
-        </header>
+        //todo: pub/draft
+        ContentItem occupationAltLabel = await ContentManager.GetAsync(contentItemId, VersionOptions.Latest);
+        <li class="list-group-item">@occupationAltLabel.ToString()</li>
     }
-    @await DisplayAsync(Model.Content)
-    @if (Model.Footer != null)
-    {
-        <footer>
-            @await DisplayAsync(Model.Footer)
-        </footer>
-    }
-</article>
+</ul>
