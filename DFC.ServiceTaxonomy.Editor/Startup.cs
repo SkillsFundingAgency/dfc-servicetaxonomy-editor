@@ -1,10 +1,7 @@
-using DFC.ServiceTaxonomy.Editor.Filters;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OrchardCore.ResourceManagement;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -24,12 +21,12 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.AddOrchardCms();
 
-            services.AddScoped<IResourceManifestProvider, ResourceManifest>();
+            //services.AddScoped<IResourceManifestProvider, ResourceManifest>();
 
-            services.Configure<MvcOptions>((options) =>
-            {
-                options.Filters.Add(typeof(ResourceInjectionFilter));
-            });
+            //services.Configure<MvcOptions>((options) =>
+            //{
+            //    options.Filters.Add(typeof(ResourceInjectionFilter));
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
