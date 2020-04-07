@@ -29,6 +29,7 @@ using NPOI.XSSF.UserModel;
 // link to actual apprenticeship framework (and then have entry requirements off that)?
 // split into intermediate apprenticeship / advanced apprenticeship (could still display under 1 section with auto generation of some existing text)
 
+//todo: only generate occupations & occupation labels required for given job profile list
 
 namespace GetJobProfiles
 {
