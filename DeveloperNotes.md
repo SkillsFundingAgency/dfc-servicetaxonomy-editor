@@ -2,6 +2,7 @@
 
 * contentpicker with preview:
     use bag open close control
+    avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
 * add Enable Admin Menu filter to recipe

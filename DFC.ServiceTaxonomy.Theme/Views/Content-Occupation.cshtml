@@ -3,7 +3,13 @@
 @inject IContentManager ContentManager
 
 @* replace shape for content pickers instead? *@
-<ul class="list-group">
+
+@{
+    string occupationLabelsId = $"OccupationLabels_{Guid.NewGuid():n}";
+}
+
+<label for="@occupationLabelsId">Occupation Labels</label>
+<ul id="@occupationLabelsId" class="list-group">
     @{
         string preferredLabelContentItemId = ((JArray) Model.ContentItem.Content.Occupation.PreferredLabel.ContentItemIds).FirstOrDefault()?.ToString();
         string preferredLabel = await GetDisplayText(preferredLabelContentItemId);
