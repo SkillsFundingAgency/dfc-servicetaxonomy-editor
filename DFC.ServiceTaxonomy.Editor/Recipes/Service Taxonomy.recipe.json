@@ -136,7 +136,7 @@
                                     "PreexistingNode": true,
                                     "NodeNameTransform": "$\"esco__{ContentType}\"",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\""
                                 },
                                 "ContentIndexSettings": {}
                             }
