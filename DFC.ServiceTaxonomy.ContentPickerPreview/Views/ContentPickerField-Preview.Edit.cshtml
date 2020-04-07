@@ -20,86 +20,89 @@
 <style asp-name="vue-multiselect-wrapper" asp-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.min.css" debug-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.css" depends-on="vue-multiselect"></style>
 
 <div class="form-group">
-<label asp-for="ContentItemIds">@Model.PartFieldDefinition.DisplayName()</label>
+    <label asp-for="ContentItemIds">@Model.PartFieldDefinition.DisplayName()</label>
 
-<div id="@vueElementId" class="vue-multiselect" data-part="@partName" data-field="@fieldName" data-editor-type="ContentPicker" data-selected-items="@selectedItems" data-search-url="@searchUrl" data-multiple="@multiple">
+    <div id="@vueElementId" class="vue-multiselect" data-part="@partName" data-field="@fieldName" data-editor-type="ContentPicker" data-selected-items="@selectedItems" data-search-url="@searchUrl" data-multiple="@multiple">
 
-    <div class="form-group">
-        <ul class="list-group w-xl-50 content-picker-default__list" v-show="arrayOfItems.length" v-cloak>
-            <draggable v-model="arrayOfItems">
-                <li v-for="(item, i) in arrayOfItems"
-                    class="cursor-move list-group-item content-picker-default__list-item d-flex align-items-start justify-content-between"
-                    :key="item.id">
-                    <div class="align-items-center align-self-center"><span>{{ item.displayText }}</span> <span v-show="!item.hasPublished" class="text-muted small">(@T["Not published"])</span></div>
+        <div class="form-group">
+            <ul class="list-group w-xl-50 content-picker-default__list" v-show="arrayOfItems.length" v-cloak>
+                <draggable v-model="arrayOfItems">
+                    <li v-for="(item, i) in arrayOfItems"
+                        class="cursor-move list-group-item content-picker-default__list-item d-flex align-items-start justify-content-between"
+                        :key="item.id">
+                        <div class="align-items-center align-self-center"><span>{{ item.displayText }}</span> <span v-show="!item.hasPublished" class="text-muted small">(@T["Not published"])</span></div>
 
-                    <div class="btn-group btn-group-sm align-items-center" role="group">
-                        <button v-on:click="remove(item)" type="button" class="btn btn-secondary content-picker-default__list-item__delete"><i class="fa fa-trash fa-sm" aria-hidden="true"></i></button>
-                    </div>
-                </li>
-            </draggable>
-        </ul>
+                        <div class="btn-group btn-group-sm align-items-center" role="group">
+                            <button v-on:click="remove(item)" type="button" class="btn btn-secondary content-picker-default__list-item__delete"><i class="fa fa-trash fa-sm" aria-hidden="true"></i></button>
+                        </div>
+                    </li>
+                </draggable>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <div class="w-xl-50">
+                <input asp-for="ContentItemIds" type="hidden" v-model="selectedIds" />
+                <vue-multiselect v-model="value" :options="options" track-by="id"
+                                 label="displayText" placeholder="@T["Type to search"]"
+                                 @@search-change="asyncFind" @@select="onSelect"
+                                 @@input="onInput"
+                                 :searchable="true" :close-on-select="true" :reset-after="true"
+                                 :show-labels="true" :hide-selected="@multiple"
+                                 :disabled="isDisabled"
+                                 select-label="@T["Select"]" deselect-label="@T["Remove"]">
+                    <template slot="option" slot-scope="props">
+                        <div v-cloak><span>{{ props.option.displayText }}</span><span class="small ml-2" v-show="!props.option.hasPublished">(@T["Not published"])</span></div>
+                    </template>
+                    <template slot="noResult">
+                        @T["No result found"]
+                    </template>
+                </vue-multiselect>
+                @if (!String.IsNullOrEmpty(settings.Hint))
+                {
+                    <span class="hint">@settings.Hint</span>
+                }
+            </div>
+        </div>
     </div>
+    @*todo generate id*@
+    <div class="collapse" id="preview-collapse">
+        <div id="previewhere"></div>
+    @* using this would be better - what do we miss not using it?
+       we don't have a ContentItem handy, although we could fetch one in the view
+        <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
 
-    <div class="form-group">
-        <div class="w-xl-50">
-            <input asp-for="ContentItemIds" type="hidden" v-model="selectedIds" />
-            <vue-multiselect v-model="value" :options="options" track-by="id"
-                             label="displayText" placeholder="@T["Type to search"]"
-                             @@search-change="asyncFind" @@select="onSelect"
-                             @@input="onInput"
-                             :searchable="true" :close-on-select="true" :reset-after="true"
-                             :show-labels="true" :hide-selected="@multiple"
-                             :disabled="isDisabled"
-                             select-label="@T["Select"]" deselect-label="@T["Remove"]">
-                <template slot="option" slot-scope="props">
-                    <div v-cloak><span>{{ props.option.displayText }}</span><span class="small ml-2" v-show="!props.option.hasPublished">(@T["Not published"])</span></div>
-                </template>
-                <template slot="noResult">
-                    @T["No result found"]
-                </template>
-            </vue-multiselect>
-            @if (!String.IsNullOrEmpty(settings.Hint))
+                        {"Area", "OrchardCore.Contents"},
+                        {"Controller", "Admin"},
+                        {"Action", "Display"},
+                        {"ContentItemId", context.ContentItem.ContentItemId}
+
+    todo: option to have preview open by default on start/select?
+    *@
+        <div class="form-group">
+
+            @if (singleContentItemId != null)
             {
-                <span class="hint">@settings.Hint</span>
+                <a asp-action="Edit"
+                   asp-controller="Admin"
+                   asp-area="OrchardCore.Contents"
+                   asp-route-returnUrl="@FullRequestPath"
+                   asp-route-contentItemId="@singleContentItemId"
+                   class="btn btn-primary btn-sm">@T["Edit"]</a>
             }
         </div>
     </div>
-</div>
-@*todo generate id*@
-<div class="collapse" id="preview-collapse">
-    <div id="previewhere"></div>
-@* using this would be better - what do we miss not using it?
-   we don't have a ContentItem handy, although we could fetch one in the view
-    <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
+    @*
+    <script at="Foot" depends-on="vue-multiselect-wrapper">document.querySelector("body").addEventListener('vue-multiselect-created', function(e) {
+        //todoL https://stackoverflow.com/questions/51797029/create-method-dynamically-in-vue-js
+        // attach method dynamically to vue component
+    e.detail.vm.OnInput = function(value, id) {
+    var x = 1;
+    };
+    }, false);</script>
 
-                    {"Area", "OrchardCore.Contents"},
-                    {"Controller", "Admin"},
-                    {"Action", "Display"},
-                    {"ContentItemId", context.ContentItem.ContentItemId}
-
-todo: option to have preview open by default on start/select?
-*@
-@if (singleContentItemId != null)
-{
-    <a asp-action="Edit"
-       asp-controller="Admin"
-       asp-area="OrchardCore.Contents"
-       asp-route-returnUrl="@FullRequestPath"
-       asp-route-contentItemId="@singleContentItemId"
-       class="btn btn-primary btn-sm">@T["Edit"]</a>
-}
-</div>
-@*
-<script at="Foot" depends-on="vue-multiselect-wrapper">document.querySelector("body").addEventListener('vue-multiselect-created', function(e) {
-    //todoL https://stackoverflow.com/questions/51797029/create-method-dynamically-in-vue-js
-    // attach method dynamically to vue component
-e.detail.vm.OnInput = function(value, id) {
-var x = 1;
-};
-}, false);</script>
-
-<script at="Foot" depends-on="vue-multiselect-wrapper">initVueMultiselect(document.querySelector("#@vueElementId"))</script>
-*@
+    <script at="Foot" depends-on="vue-multiselect-wrapper">initVueMultiselect(document.querySelector("#@vueElementId"))</script>
+    *@
 
 </div>
 
