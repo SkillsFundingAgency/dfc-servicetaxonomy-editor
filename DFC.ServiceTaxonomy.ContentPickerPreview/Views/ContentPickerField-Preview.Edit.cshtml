@@ -10,10 +10,11 @@
     var partName = Model.PartFieldDefinition.PartDefinition.Name;
     var fieldName = Model.PartFieldDefinition.Name;
     var searchUrl = Url.RouteUrl(new { area = "OrchardCore.ContentFields", controller = "ContentPickerAdmin", action = "SearchContentItems", part = partName, field = fieldName });
-    var vueElementId = $"ContentPicker_{partName}_{fieldName}_{Guid.NewGuid().ToString("n")}";
+    var vueElementId = $"ContentPickerPreview_{partName}_{fieldName}_{Guid.NewGuid().ToString("n")}";
     var multiple = settings.Multiple.ToString().ToLowerInvariant();
 }
 
+@*todo: stop disabled select from appearing*@
 @*https://orchardcore.readthedocs.io/fr/latest/docs/reference/modules/Resources/*@
 <script asp-name="vue-multiselect-wrapper" asp-src="~/OrchardCore.ContentFields/Scripts/vue-multiselect-wrapper.js" at="Foot" depends-on="vuejs, vue-multiselect, sortable, vuedraggable"></script>
 <script asp-name="vue-multiselect-wrapper-preview" asp-src="~/DFC.ServiceTaxonomy.ContentPickerPreview/Scripts/vue-multiselect-wrapper-preview.js" at="Foot" depends-on="vuejs, vue-multiselect, sortable, vuedraggable"></script>
@@ -65,22 +66,12 @@
             </div>
         </div>
     </div>
-    @*todo generate id*@
     <div class="collapse" id="preview-collapse">
-        <div id="previewhere"></div>
-    @* using this would be better - what do we miss not using it?
-       we don't have a ContentItem handy, although we could fetch one in the view
-        <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
+        <div id="previewhere" class="form-group"></div>
+        @* using this would be better, but we don't have a ContentItem handy (although we could fetch one in the view)
+        <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>*@
 
-                        {"Area", "OrchardCore.Contents"},
-                        {"Controller", "Admin"},
-                        {"Action", "Display"},
-                        {"ContentItemId", context.ContentItem.ContentItemId}
-
-    todo: option to have preview open by default on start/select?
-    *@
         <div class="form-group">
-
             @if (singleContentItemId != null)
             {
                 <a asp-action="Edit"
@@ -92,18 +83,6 @@
             }
         </div>
     </div>
-    @*
-    <script at="Foot" depends-on="vue-multiselect-wrapper">document.querySelector("body").addEventListener('vue-multiselect-created', function(e) {
-        //todoL https://stackoverflow.com/questions/51797029/create-method-dynamically-in-vue-js
-        // attach method dynamically to vue component
-    e.detail.vm.OnInput = function(value, id) {
-    var x = 1;
-    };
-    }, false);</script>
-
-    <script at="Foot" depends-on="vue-multiselect-wrapper">initVueMultiselect(document.querySelector("#@vueElementId"))</script>
-    *@
-
 </div>
 
 <script at="Foot" depends-on="vue-multiselect-wrapper-preview">initVueMultiselectPreview(document.querySelector("#@vueElementId"))</script>
