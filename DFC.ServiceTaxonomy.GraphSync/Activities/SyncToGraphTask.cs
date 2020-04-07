@@ -55,9 +55,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
 
                 // contentType is used in the catch block
-                #pragma warning disable S1854
+#pragma warning disable S1854
                 contentType = contentItem.ContentType;
-                #pragma warning restore S1854
+#pragma warning restore S1854
 
                 await _mergeGraphSyncer.SyncToGraph(
                     contentItem.ContentType,
