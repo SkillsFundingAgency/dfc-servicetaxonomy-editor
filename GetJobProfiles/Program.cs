@@ -126,7 +126,7 @@ namespace GetJobProfiles
             BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
             BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
             BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
-            BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
+            BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles", "CSharpContent");
             BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
             File.WriteAllText($"{OutputBasePath}content items count.txt", @$"{ImportFilesReport}# Totals
@@ -181,7 +181,11 @@ namespace GetJobProfiles
             await File.WriteAllTextAsync($"{OutputBasePath}{filename}", recipe);
         }
 
-        private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix) where T : ContentItem
+        private static void BatchSerializeToFiles<T>(
+            IEnumerable<T> contentItems,
+            int batchSize,
+            string filenamePrefix,
+            string stepName = "Content") where T : ContentItem
         {
             ImportTotalsReport.AppendLine($"{filenamePrefix}: {contentItems.Count()}");
 
@@ -195,11 +199,11 @@ namespace GetJobProfiles
                 string filename = $"{FileIndex++:00}. {filenamePrefix}{batchNumber++}.zip";
                 ImportFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
 
-                ImportRecipe.Create($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch));
+                ImportRecipe.Create($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, stepName));
             }
         }
 
-        public static string WrapInNonSetupRecipe(string content)
+        public static string WrapInNonSetupRecipe(string content, string stepName = "Content")
         {
             return $@"{{
   ""name"": """",
@@ -213,7 +217,7 @@ namespace GetJobProfiles
   ""tags"": [],
   ""steps"": [
     {{
-      ""name"": ""Content"",
+      ""name"": ""{stepName}"",
       ""data"": [
 {content}
       ]

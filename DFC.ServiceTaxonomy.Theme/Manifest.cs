@@ -5,5 +5,5 @@ using OrchardCore.DisplayManagement.Manifest;
     Author = "National Careers Service",
     Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.1",
-    Description = "DFC.ServiceTaxonomy.Theme"
+    Description = "Service taxonomy editor theme"
 )]

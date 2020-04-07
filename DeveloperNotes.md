@@ -18,6 +18,7 @@ https://docs.orchardcore.net/en/dev/docs/reference/modules/Templates/
 https://shopify.github.io/liquid/
 https://www.davidhayden.me/blog/developing-liquid-template-language-filters-in-orchard-core-cms
 
+* use migrations (that execute recipes) to update content types (https://docs.orchardcore.net/en/dev/docs/reference/modules/Recipes/)
 * remove content types from full text queries : speed up import?
 * move visualiser overriden views into visualiser module (https://github.com/OrchardCMS/OrchardCore/issues/5128)
 * new editor for content picker (duplicate existing & get to work)
