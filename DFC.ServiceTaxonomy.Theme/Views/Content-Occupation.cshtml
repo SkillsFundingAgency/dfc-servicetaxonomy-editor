@@ -1,13 +1,29 @@
-﻿@using OrchardCore.ContentManagement
+﻿@using Newtonsoft.Json.Linq
+@using OrchardCore.ContentManagement
 @inject IContentManager ContentManager
 
 @* replace shape for content pickers instead? *@
 <ul class="list-group">
-    <li class="list-group-item active">Alternative Labels</li>
+    @* todo: this stands out too much, replace with standard title *@
+    @* todo: or highlight preflabel at top?? *@
+    @{
+        string preferredLabelContentItemId = ((JArray) Model.ContentItem.Content.Occupation.PreferredLabel.ContentItemIds).FirstOrDefault()?.ToString();
+        string preferredLabel = await GetDisplayText(preferredLabelContentItemId);
+    }
+
+    @* <li class="list-group-item active">Alternative Labels</li> *@
+    <li class="list-group-item active">@preferredLabel</li>
     @foreach (string contentItemId in Model.ContentItem.Content.Occupation.AlternativeLabels.ContentItemIds)
     {
         //todo: pub/draft
-        ContentItem occupationAltLabel = await ContentManager.GetAsync(contentItemId, VersionOptions.Latest);
-        <li class="list-group-item">@occupationAltLabel.ToString()</li>
+        <li class="list-group-item">@(await GetDisplayText(contentItemId))</li>
     }
 </ul>
+
+@functions {
+    public async Task<string> GetDisplayText(string contentItemId)
+    {
+        ContentItem contentItem = await ContentManager.GetAsync(contentItemId, VersionOptions.Latest);
+        return contentItem.ToString();
+    }
+}

@@ -19,6 +19,7 @@
 <script asp-name="vue-multiselect-wrapper-preview" asp-src="~/DFC.ServiceTaxonomy.ContentPickerPreview/Scripts/vue-multiselect-wrapper-preview.js" at="Foot" depends-on="vuejs, vue-multiselect, sortable, vuedraggable"></script>
 <style asp-name="vue-multiselect-wrapper" asp-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.min.css" debug-src="~/OrchardCore.ContentFields/Styles/vue-multiselect-wrapper.css" depends-on="vue-multiselect"></style>
 
+<div class="form-group">
 <label asp-for="ContentItemIds">@Model.PartFieldDefinition.DisplayName()</label>
 
 <div id="@vueElementId" class="vue-multiselect" data-part="@partName" data-field="@fieldName" data-editor-type="ContentPicker" data-selected-items="@selectedItems" data-search-url="@searchUrl" data-multiple="@multiple">
@@ -99,5 +100,7 @@ var x = 1;
 
 <script at="Foot" depends-on="vue-multiselect-wrapper">initVueMultiselect(document.querySelector("#@vueElementId"))</script>
 *@
+
+</div>
 
 <script at="Foot" depends-on="vue-multiselect-wrapper-preview">initVueMultiselectPreview(document.querySelector("#@vueElementId"))</script>

@@ -8,6 +8,7 @@
     sync new part
     sync validate new part
 
+* add Enable Admin Menu filter to recipe
 * use template for occupation in summary view to display preferred label rather than content -> does it use that to populate drop-down?
 
 create liquid template for occupation?: (could override defaults for all parts/fields, so no need for custom template, but more work - can you do it for all content types at once?)
