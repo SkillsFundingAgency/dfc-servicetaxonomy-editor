@@ -18,7 +18,7 @@ https://shopify.github.io/liquid/
 https://www.davidhayden.me/blog/developing-liquid-template-language-filters-in-orchard-core-cms
 
 * remove content types from full text queries : speed up import?
-* move visualiser overriden views into visualiser module
+* move visualiser overriden views into visualiser module (https://github.com/OrchardCMS/OrchardCore/issues/5128)
 * new editor for content picker (duplicate existing & get to work)
  js on select: ajax to url for preview and inject into page
    Request URL: https://localhost:44346/Contents/ContentItems/4bvnd1dbv511c6xhm06n0wvk51
@@ -92,6 +92,31 @@ dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https
 |----------------------|--------------------------|
 | not published        | publish                  |
 | published            | n/a                      |
+
+#Notes
+
+##Occupation
+
+basic liquid templates
+
+Content_Summary__Occupation
+{{ Model.ContentItem | display_text }}
+
+
+
+Content__Occupation
+{% assign preferred_labels = Model.ContentItem.Content.Occupation.PreferredLabel.ContentItemIds | content_item_id %}
+User preferred Label (use bootstrap disabled field for display?)
+{{ preferred_labels.first | display_text }}
+{% assign alternative_labels = Model.ContentItem.Content.Occupation.AlternativeLabels.ContentItemIds | content_item_id %}
+Alternative labels
+{% for alternative_label in alternative_labels %}
+{{ alternative_label | display_text }}
+{% endfor %}
+
+we could leave the preferred title out of the occupation preview, but (for now at least) the title is the original esco prefLabel, and the prefLabel content picker is the user selected new prefLabel, so leave the picked pref label in
+
+we have code to display the label of the preflabel content picker in the contentpicker list, and we could make occupation not listable (so the poor displaytext is not seen), but the content picker search is still on the displaytext (title), not the preflabel picker, even though that is the value that's displayed
 
 #Links
 

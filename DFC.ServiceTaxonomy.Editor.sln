@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.GraphVi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.ContentPickerPreview", "DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj", "{0CDC10A8-D499-40B1-9B09-695F40C158BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Theme", "DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj", "{C33C883C-B503-4FCB-9556-88C278A75BF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{0CDC10A8-D499-40B1-9B09-695F40C158BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CDC10A8-D499-40B1-9B09-695F40C158BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CDC10A8-D499-40B1-9B09-695F40C158BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C33C883C-B503-4FCB-9556-88C278A75BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C33C883C-B503-4FCB-9556-88C278A75BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C33C883C-B503-4FCB-9556-88C278A75BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C33C883C-B503-4FCB-9556-88C278A75BF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
