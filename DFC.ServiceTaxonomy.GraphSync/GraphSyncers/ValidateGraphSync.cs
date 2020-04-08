@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
         private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly ILogger<ValidateGraphSync> _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
@@ -37,6 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IServiceProvider serviceProvider,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
             ILogger<ValidateGraphSync> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
@@ -44,6 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
             _graphSyncHelper = graphSyncHelper;
+            _graphValidationHelper = graphValidationHelper;
             _logger = logger;
             _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
             _contentTypes = contentDefinitionManager
@@ -154,7 +157,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (!await partSyncer.VerifySyncComponent(
                     partContent, contentTypePartDefinition,
                     sourceNode, relationships, destinationNodes,
-                    _graphSyncHelper))
+                    _graphSyncHelper, _graphValidationHelper))
                 {
                     LogValidationFailure(nodeId, contentTypePartDefinition, contentItem, partName, partContent, sourceNode);
                     return false;

@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public IEnumerable<IRelationship> Relationships { get; set; }
         public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
+        public IGraphValidationHelper GraphValidationHelper { get; set; }
         public NumericFieldGraphSyncer NumericFieldGraphSyncer { get; set; }
 
         const string _fieldName = "TestNumericFieldName";
@@ -41,6 +42,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
+
+            GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 
             NumericFieldGraphSyncer = new NumericFieldGraphSyncer();
         }
@@ -186,7 +189,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
                 SourceNode,
                 Relationships,
                 DestinationNodes,
-                GraphSyncHelper);
+                GraphSyncHelper,
+                GraphValidationHelper);
         }
     }
 }

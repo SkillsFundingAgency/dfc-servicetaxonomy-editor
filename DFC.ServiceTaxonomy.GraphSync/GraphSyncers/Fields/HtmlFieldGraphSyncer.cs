@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
-    public class HtmlFieldGraphSyncer : FieldGraphSyncer, IContentFieldGraphSyncer
+    public class HtmlFieldGraphSyncer : IContentFieldGraphSyncer
     {
         public string FieldTypeName => "HtmlField";
 
@@ -28,16 +28,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<bool> VerifySyncComponent(
+            JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper)
         {
             string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 
-            return StringContentPropertyMatchesNodeProperty(
+            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 contentItemField,
                 nodePropertyName,

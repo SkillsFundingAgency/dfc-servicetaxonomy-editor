@@ -90,12 +90,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return delayedCommands;
         }
 
-        public async Task<bool> VerifySyncComponent(dynamic content,
+        public async Task<bool> VerifySyncComponent(
+            dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper)
         {
             IEnumerable<ContentItem> contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
 

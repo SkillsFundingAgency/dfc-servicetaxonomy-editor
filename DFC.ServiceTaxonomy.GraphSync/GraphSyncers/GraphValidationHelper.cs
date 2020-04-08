@@ -1,16 +1,18 @@
-﻿using Neo4j.Driver;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    //todo: better name to reflect only for PropertyFieldGraphSyncer??
-    //todo: inheritance/composition/extension??
-    public class FieldGraphSyncer
+    //todo: dreadful name :*)
+    // could move contents into graphsynchelper, although it doesn't _really_ belong there
+    public class GraphValidationHelper : IGraphValidationHelper
     {
+        // could be static, but better for unit testing like this
         //todo: better name
         //todo: better distinguish between fieldTYPEname and fieldname
         //todo: log validation failed reasons
-        protected bool StringContentPropertyMatchesNodeProperty(
+        public bool StringContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,

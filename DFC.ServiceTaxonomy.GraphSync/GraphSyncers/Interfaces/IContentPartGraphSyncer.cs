@@ -22,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper);
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper);
     }
 }

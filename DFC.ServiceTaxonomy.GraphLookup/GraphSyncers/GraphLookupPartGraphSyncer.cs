@@ -49,12 +49,14 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return emptyResult;
         }
 
-        public Task<bool> VerifySyncComponent(dynamic content,
+        public Task<bool> VerifySyncComponent(
+            dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper)
         {
             GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)

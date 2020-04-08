@@ -94,12 +94,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Enumerable.Empty<ICommand>();
         }
 
-        public async Task<bool> VerifySyncComponent(dynamic content,
+        public async Task<bool> VerifySyncComponent(
+            dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
@@ -122,7 +124,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         sourceNode,
                         relationships,
                         destinationNodes,
-                        graphSyncHelper))
+                        graphSyncHelper,
+                        graphValidationHelper))
                     {
                         //todo: would be good to log graphsyncpart id : can log that in consumer when this returns false
                         _logger.LogWarning($"Sync validation failed. Field type: {contentFieldGraphSyncer.FieldTypeName}, field: {contentPartFieldDefinition.Name}");

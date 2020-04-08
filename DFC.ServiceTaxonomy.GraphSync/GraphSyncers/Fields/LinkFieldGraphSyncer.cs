@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
-    public class LinkFieldGraphSyncer : FieldGraphSyncer, IContentFieldGraphSyncer
+    public class LinkFieldGraphSyncer : IContentFieldGraphSyncer
     {
         public string FieldTypeName => "LinkField";
 
@@ -33,18 +33,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<bool> VerifySyncComponent(
+            JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper)
         {
             string nodeBasePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 
             string nodeUrlPropertyName = $"{nodeBasePropertyName}{LinkUrlPostfix}";
 
-            if (!StringContentPropertyMatchesNodeProperty(
+            if (!graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
@@ -55,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string nodeTextPropertyName = $"{nodeBasePropertyName}{LinkTextPostfix}";
 
-            return StringContentPropertyMatchesNodeProperty(
+            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,15 +31,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(Enumerable.Empty<ICommand>());
         }
 
-        public Task<bool> VerifySyncComponent(dynamic content,
+        public Task<bool> VerifySyncComponent(
+            dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
-        {//todo: distinguish between null and empty string : use new helper? or part helper?
-            object prefLabel = sourceNode.Properties[_nodeTitlePropertyName];
-            return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(content.Title));
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper)
+        {
+            return Task.FromResult(
+                graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                    "Title",
+                    content,
+                    _nodeTitlePropertyName,
+                    sourceNode));
         }
     }
 }
