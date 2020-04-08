@@ -30,6 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         {
             try
             {
+                //todo: display page straight away : show progress (log) in page
                 //todo: add name of user who triggered
                 //todo: double check user/permissions
                 _logger.LogInformation("User sync validation triggered");
