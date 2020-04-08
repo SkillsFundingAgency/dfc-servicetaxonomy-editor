@@ -72,15 +72,12 @@
         <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>*@
 
         <div class="form-group">
-            @if (singleContentItemId != null)
-            {
-                <a asp-action="Edit"
-                   asp-controller="Admin"
-                   asp-area="OrchardCore.Contents"
-                   asp-route-returnUrl="@FullRequestPath"
-                   asp-route-contentItemId="@singleContentItemId"
-                   class="btn btn-primary btn-sm">@T["Edit"]</a>
-            }
+            <a asp-action="Edit"
+               asp-controller="Admin"
+               asp-area="OrchardCore.Contents"
+               asp-route-returnUrl="@FullRequestPath"
+               asp-route-contentItemId="@singleContentItemId"
+               class="btn btn-primary btn-sm">@T["Edit"]</a>
         </div>
     </div>
 </div>
