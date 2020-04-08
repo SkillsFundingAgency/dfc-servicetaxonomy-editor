@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ISession _session;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
 
-        private const string StepName = "CSharpContent";
+        public const string StepName = "CSharpContent";
 
         public CSharpContentStep(
             IContentManager contentManager,
