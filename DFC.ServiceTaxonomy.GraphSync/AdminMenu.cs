@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using OrchardCore.Navigation;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Navigation
+namespace DFC.ServiceTaxonomy.GraphSync
 {
     public class AdminMenu : INavigationProvider
     {
@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Navigation
             builder
                 .Add(S["Graph"], "after", graph => graph
                     .Add(S["Trigger Validation"], "1", triggerValidation => triggerValidation
-                        .Action("TriggerSyncValidation", "GraphSync", new { area = typeof(global::OrchardCore.ContentTypes.Startup)!.Namespace }))
+                        .Action("TriggerSyncValidation", "GraphSync", new { area = typeof(Startup)!.Namespace }))
                     //todo: need permission to initiate graph sync
                     //.Permission(Permissions.ManageEmailSettings)
                     // whats this?

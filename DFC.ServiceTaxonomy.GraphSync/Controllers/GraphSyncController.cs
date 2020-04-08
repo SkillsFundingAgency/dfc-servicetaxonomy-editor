@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OrchardCore.Admin;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Controllers
 {
-    public class HomeController : Controller
+    public class GraphSyncController : Controller
     {
-        public ActionResult Index()
+        [Admin]
+        public IActionResult TriggerSyncValidation()
         {
             return View();
         }

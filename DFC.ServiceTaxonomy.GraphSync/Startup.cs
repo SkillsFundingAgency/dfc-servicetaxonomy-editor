@@ -40,6 +40,7 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
+using OrchardCore.Navigation;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -115,6 +116,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             //Managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
+
+            // Navigation
+            services.AddScoped<INavigationProvider, AdminMenu>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
