@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -6,17 +8,23 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.ContentManagement.Records;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class ValidateGraphSync : IValidateGraphSync
     {
+        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly ISession _session;
         private readonly IGraphDatabase _graphDatabase;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly ILogger<ValidateGraphSync> _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
@@ -24,12 +32,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public ValidateGraphSync(
             IContentDefinitionManager contentDefinitionManager,
+            ISession session,
             IGraphDatabase graphDatabase,
+            IServiceProvider serviceProvider,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
             ILogger<ValidateGraphSync> logger)
         {
+            _contentDefinitionManager = contentDefinitionManager;
+            _session = session;
             _graphDatabase = graphDatabase;
+            _serviceProvider = serviceProvider;
             _graphSyncHelper = graphSyncHelper;
             _logger = logger;
             _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
@@ -37,6 +50,67 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
+        }
+
+        public async Task ValidateGraph()
+        {
+            IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
+                .ListTypeDefinitions()
+                .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
+
+            DateTime timestamp = DateTime.UtcNow;
+            AuditSyncLog auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
+                                        new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
+
+            foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
+            {
+                //todo: do we want to batch up content items of type?
+                IEnumerable<ContentItem> contentTypeContentItems = await _session
+                    //do we only care about the latest published items?
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.ContentType == contentTypeDefinition.Name
+                        && x.Latest && x.Published
+                        && (x.CreatedUtc >= auditSyncLog.LastSynced || x.ModifiedUtc >= auditSyncLog.LastSynced))
+                    .ListAsync();
+
+                if (!contentTypeContentItems.Any())
+                    continue;
+
+                List<ContentItem> syncFailedContentItems = new List<ContentItem>();
+
+                foreach (ContentItem contentItem in contentTypeContentItems)
+                {
+                    //todo: do we need a new _validateGraphSync each time? don't think we do
+                    if (!await CheckIfContentItemSynced(contentItem))
+                    {
+                        syncFailedContentItems.Add(contentItem);
+                    }
+                }
+
+                _logger.LogWarning(
+                    $"{syncFailedContentItems} content items of type {contentTypeDefinition.Name} failed validation. Attempting to resync them");
+
+                // if this throws should we carry on?
+                foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
+                {
+                    var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+
+                    await mergeGraphSyncer.SyncToGraph(
+                        failedSyncContentItem.ContentType,
+                        failedSyncContentItem.ContentItemId,
+                        failedSyncContentItem.ContentItemVersionId,
+                        failedSyncContentItem.Content,
+                        failedSyncContentItem.CreatedUtc,
+                        failedSyncContentItem.ModifiedUtc);
+
+                    // do we want to double check sync was ok?
+                    //if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
+                }
+            }
+
+            auditSyncLog.LastSynced = timestamp;
+            _session.Save(auditSyncLog);
+            await _session.CommitAsync();
         }
 
         public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem)
@@ -109,5 +183,10 @@ Source node ID: {sourceNode.Id}
             labels: ':{string.Join(":", sourceNode.Labels)}'
             properties: '{string.Join(",", sourceNode.Properties.Select(p => $"{p.Key}={p.Value}"))}'");
         }
+    }
+
+    public class AuditSyncLog
+    {
+        public DateTime LastSynced { get; set; }
     }
 }

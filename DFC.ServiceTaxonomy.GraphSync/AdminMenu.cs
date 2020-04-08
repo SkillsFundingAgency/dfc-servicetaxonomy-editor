@@ -20,8 +20,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 return Task.CompletedTask;
 
             builder
-                .Add(S["Graph"], "after", graph => graph
-                    .Add(S["Trigger Validation"], "1", triggerValidation => triggerValidation
+                .Add(S["Graph"], "99", graph => graph
+                .AddClass("graph").Id("graph")
+                    .Add(S["Trigger Validation"], "2", triggerValidation => triggerValidation
                         .Action("TriggerSyncValidation", "GraphSync", new { area = typeof(Startup)!.Namespace }))
                     //todo: need permission to initiate graph sync
                     //.Permission(Permissions.ManageEmailSettings)
