@@ -2,12 +2,12 @@
 {
     public class SimpleCypherModel : IQueryResultModel
     {
-        public string Filter => Occupation;
+        public string? Filter => Occupation;
 
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        public string LastModified { get; set; }
+        public string? LastModified { get; set; }
 
-        public string Occupation { get; set; }
+        public string? Occupation { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Cypher.Extensions;
+using DFC.ServiceTaxonomy.Cypher.Models;
 using DFC.ServiceTaxonomy.Cypher.Models.ResultModels;
 using DFC.ServiceTaxonomy.Cypher.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
@@ -25,23 +26,22 @@ namespace DFC.ServiceTaxonomy.Cypher
 
         public Query Create()
         {
-            var result = new Models.CypherQuery() { };
+            var result = new CypherQuery();
 
             return result;
         }
 
-        public async Task<IQueryResults> ExecuteQueryAsync(Query query, IDictionary<string, object> parameters)
+        public async Task<IQueryResults?> ExecuteQueryAsync(Query query, IDictionary<string, object> parameters)
         {
-            var cypherQuery = query as Models.CypherQuery;
-
-            if (cypherQuery == null)
+            if (!(query is CypherQuery cypherQuery))
             {
                 return null;
             }
 
             var parameterValues = BuildParameters(cypherQuery.Parameters, parameters);
-            var result = new Models.CypherQueryResult();
-            var genericCypherQuery = new GenericCypherQuery(cypherQuery.Template, parameterValues);
+            var result = new CypherQueryResult();
+            //todo: need to handle nulls
+            var genericCypherQuery = new GenericCypherQuery(cypherQuery.Template!, parameterValues!);
             var cypherResult = await NeoGraphDatabase.Run(genericCypherQuery);
 
             if (cypherResult.Any())
@@ -57,13 +57,13 @@ namespace DFC.ServiceTaxonomy.Cypher
             return result;
         }
 
-        private IDictionary<string, object> BuildParameters(string cypherQueryParameters, IDictionary<string, object> parameters)
+        private IDictionary<string, object>? BuildParameters(string? cypherQueryParameters, IDictionary<string, object> parameters)
         {
-            IDictionary<string, object> parameterValues = null;
+            IDictionary<string, object>? parameterValues = null;
 
             if (!string.IsNullOrWhiteSpace(cypherQueryParameters))
             {
-                parameterValues = JsonConvert.DeserializeObject<IDictionary<string, object>>(cypherQueryParameters);
+                parameterValues = JsonConvert.DeserializeObject<IDictionary<string, object>?>(cypherQueryParameters);
 
                 if (parameterValues != null)
                 {
@@ -85,7 +85,7 @@ namespace DFC.ServiceTaxonomy.Cypher
 
                         if (value != null)
                         {
-                            parameterValues[key] = value.ToObject<string[]>();
+                            parameterValues[key] = value.ToObject<string[]>()!;
                         }
                     }
                 }
@@ -94,23 +94,23 @@ namespace DFC.ServiceTaxonomy.Cypher
             return parameterValues;
         }
 
-        private IEnumerable<object> TransformResults(string resultModelType, IDictionary<string, object> collections)
+        private IEnumerable<object>? TransformResults(string? resultModelType, IDictionary<string, object> collections)
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object>? result = null;
             var genericTypeName = $"{typeof(IQueryResultModel).Namespace}.{resultModelType}";
             var genericType = Type.GetType(genericTypeName);
 
             if (genericType != null)
             {
-                var methodInfo = GetType().GetMethod(nameof(TransformResultCollections), BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(genericType);
+                var methodInfo = GetType().GetMethod(nameof(TransformResultCollections), BindingFlags.Instance | BindingFlags.NonPublic)!.MakeGenericMethod(genericType);
 
-                result = (IEnumerable<object>)methodInfo.Invoke(this, new object[] { collections });
+                result = (IEnumerable<object>?)methodInfo.Invoke(this, new object[] { collections });
             }
 
             return result;
         }
 
-        private List<TModel> TransformResultCollections<TModel>(IDictionary<string, object> collections)
+        private List<TModel>? TransformResultCollections<TModel>(IDictionary<string, object> collections)
             where TModel : class, IQueryResultModel, new()
         {
             var key = collections.Keys.First();
