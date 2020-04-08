@@ -4,11 +4,11 @@ namespace DFC.ServiceTaxonomy.Cypher.Models
 {
     public class CypherQuery : Query
     {
-        public string Template { get; set; }
+        public string? Template { get; set; }
 
-        public string Parameters { get; set; }
+        public string? Parameters { get; set; }
 
-        public string ResultModelType { get; set; }
+        public string? ResultModelType { get; set; }
 
         public bool ReturnDocuments { get; set; }
 

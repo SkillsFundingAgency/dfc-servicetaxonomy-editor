@@ -1,16 +1,16 @@
 ﻿@model CypherQueryResultViewModel
 @{
-    int startIndex = (Model.Pager.Page - 1) * (Model.Pager.PageSize) + 1;
-    int endIndex = startIndex + Model.Results.Count - 1;
+    int startIndex = (Model.Pager!.Page - 1) * (Model.Pager!.PageSize) + 1;
+    int endIndex = startIndex + Model.Results!.Count - 1;
 }
-<h1>@RenderTitleSegments(T[$"Cypher Query - {Model.Options.QueryName} - Results"])</h1>
+<h1>@RenderTitleSegments(T[$"Cypher Query - {Model.Options!.QueryName} - Results"])</h1>
 <form asp-action="Index" method="post">
     <input type="submit" name="submit.Filter" id="submitFilter" class="d-none" />
     <div class="row">
         <div class="form-group col-xl-12 col-sm-12">
             <div class="input-group input-group-sm filter-options">
-                <input id="search-box" asp-for="Options.Search" class="form-control" placeholder="@T["Search"]" type="search" autofocus="autofocus" />
-                <input id="query-name" asp-for="Options.QueryName" type="hidden" />
+                <input id="search-box" asp-for="Options!.Search" class="form-control" placeholder="@T["Search"]" type="search" autofocus="autofocus" />
+                <input id="query-name" asp-for="Options!.QueryName" type="hidden" />
             </div>
         </div>
     </div>
@@ -24,12 +24,11 @@
             </div>
         </li>
 
-
         @if (Model.Results.Any())
         {
             //need a shape here?
             @*@await DisplayAsync("@Model.Options.ItemViewModel", Model.Results)*@
-            <partial name="@Model.Options.ItemViewModel" model="@Model.Results" />
+            <partial name="@Model.Options!.ItemViewModel" model="@Model.Results" />
         }
         else
         {

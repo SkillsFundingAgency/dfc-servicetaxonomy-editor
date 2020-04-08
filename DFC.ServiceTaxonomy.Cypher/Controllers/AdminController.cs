@@ -61,10 +61,11 @@ namespace DFC.ServiceTaxonomy.Cypher.Controllers
                 : new Dictionary<string, object>();
 
             var result = await _queryManager.ExecuteQueryAsync(query, queryParameters);
-            var mappedResults = TransformResults(cypherQuery.ResultModelType, result.Items);
+            //todo: handle ResultModelType null
+            var mappedResults = TransformResults(cypherQuery.ResultModelType!, result.Items);
             var filteredResults = string.IsNullOrWhiteSpace(options.Search)
                 ? mappedResults
-                : mappedResults.Where(w => w.Filter.Contains(options.Search, System.StringComparison.OrdinalIgnoreCase)).ToList();
+                : mappedResults.Where(w => w.Filter!.Contains(options.Search, System.StringComparison.OrdinalIgnoreCase)).ToList();
 
             var siteSettings = await _siteService.GetSiteSettingsAsync();
             var pager = new Pager(pagerParameters, siteSettings.PageSize);
@@ -88,17 +89,17 @@ namespace DFC.ServiceTaxonomy.Cypher.Controllers
             return View(viewModel);
         }
 
-        private IEnumerable<IQueryResultModel> TransformResults(string resultModelType, IEnumerable<object> items)
+        private IEnumerable<IQueryResultModel>? TransformResults(string resultModelType, IEnumerable<object> items)
         {
-            IEnumerable<IQueryResultModel> result = null;
+            IEnumerable<IQueryResultModel>? result = null;
             var genericTypeName = $"{typeof(Startup).Namespace}.Models.ResultModels.{resultModelType}";
             var genericType = Type.GetType(genericTypeName);
 
             if (genericType != null)
             {
-                var methodInfo = GetType().GetMethod(nameof(TransformResultItems), BindingFlags.Instance | BindingFlags.NonPublic).MakeGenericMethod(genericType);
+                var methodInfo = GetType().GetMethod(nameof(TransformResultItems), BindingFlags.Instance | BindingFlags.NonPublic)!.MakeGenericMethod(genericType);
 
-                result = (IEnumerable<IQueryResultModel>)methodInfo.Invoke(this, new object[] { items });
+                result = (IEnumerable<IQueryResultModel>?)methodInfo.Invoke(this, new object[] { items });
             }
 
             return result;

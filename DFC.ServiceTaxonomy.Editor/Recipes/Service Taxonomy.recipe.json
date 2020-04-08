@@ -66,7 +66,9 @@
                 "OrchardCore.Workflows.Timers",
                 // Themes
                 "TheAdmin",
+                "DFC.ServiceTaxonomy.Theme",
                 // Service Taxonomy Editor
+                "DFC.ServiceTaxonomy.ContentPickerPreview",
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.GraphVisualiser",
@@ -84,7 +86,7 @@
         {
             "name": "themes",
             "admin": "TheAdmin",
-            "site": ""
+            "site": "DFC.ServiceTaxonomy.Theme"
         },
         {
             "name": "ContentDefinition",
@@ -94,7 +96,6 @@
                     "DisplayName": "Occupation",
                     "Settings": {
                         "ContentTypeSettings": {
-                            "Creatable": true,
                             "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
@@ -104,11 +105,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 1
+                                }
+                            }
+                        },
+                        {
                             "PartName": "Occupation",
                             "Name": "Occupation",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -117,7 +131,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "PreexistingNode": true,
@@ -234,25 +248,6 @@
                                         "VolunteeringRoute",
                                         "WorkRoute"
                                     ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "PartName": "GraphLookupPart",
-                            "Name": "GraphLookupPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "27"
-                                },
-                                "GraphLookupPartSettings": {
-                                    "DisplayName": "ESCO Occupation Uri",
-                                    "Hint": "Select the ESCO occupation that relates to this job profile.",
-                                    "NodeLabel": "esco__Occupation",
-                                    "DisplayFieldName": "skos__prefLabel",
-                                    "ValueFieldName": "uri",
-                                    "RelationshipType": "ncs__relatedOccupation",
-                                    "NodesAreReadonly": true
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -1949,6 +1944,24 @@
                     "Name": "JobProfile",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Occupation",
+                                    "Editor": "Preview",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "Occupation"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
                         {
                             "FieldName": "HtmlField",
                             "Name": "Description",

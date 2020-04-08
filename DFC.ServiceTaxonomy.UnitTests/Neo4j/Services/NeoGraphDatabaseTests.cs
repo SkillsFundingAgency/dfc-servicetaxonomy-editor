@@ -4,7 +4,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using FakeItEasy;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
-using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
 {
@@ -12,7 +11,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
     {
         //todo: autofixture?? AutoFixture, AutoFixture.xUnit2, AutoFakeItEasy. auto on ctor possible?
 
-        private NeoGraphDatabase _neoGraphDatabase;
+        private readonly NeoGraphDatabase _neoGraphDatabase;
 
         public NeoGraphDatabaseTests()
         {
@@ -25,11 +24,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Services
             var logger = new NeoLogger(new NullLogger<NeoLogger>());
 
             _neoGraphDatabase = new NeoGraphDatabase(optionsMonitor, logger, new NullLogger<NeoGraphDatabase>());
-        }
-
-        [Fact]
-        public void NothingTest()
-        {
         }
     }
 }

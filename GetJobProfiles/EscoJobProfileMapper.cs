@@ -6,7 +6,7 @@ using System.Linq;
 using CsvHelper;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.ContentItems;
-using GetJobProfiles.Models.Recipe.Parts;
+using GetJobProfiles.Models.Recipe.Fields;
 using MoreLinq;
 
 namespace GetJobProfiles
@@ -46,7 +46,7 @@ namespace GetJobProfiles
                 {
                     ColorConsole.WriteLine($"{escoJobProfileMap.Count() - distinctEscoJobProfileMap.Count()} duplicate job profiles in map", ConsoleColor.Black, ConsoleColor.Red);
                 }
-                
+
                 foreach (var item in distinctEscoJobProfileMap)
                 {
                     JobProfileContentItem profile = jobProfiles
@@ -54,11 +54,14 @@ namespace GetJobProfiles
 
                     if (profile != null && !_exclusions.Contains(item.Url))
                     {
-                        var title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
-                        var uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
+                        string title = item.EscoTitle.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
+                        string uri = item.EscoUri.Split(new[] { "\r\n" }, StringSplitOptions.None).First().Trim();
 
-                        //todo: allow > 1 graphlookuppart in a contenttype: change graphlookup to named part
-                        profile.GraphLookupPart.Nodes = new[] {new Node {DisplayText = title, Id = uri}};
+                        //todo: GetContentItemIdByUri would be better - even better GetContentItemIdByUserId and take into account settings
+                        profile.EponymousPart.Occupation = new ContentPicker {ContentItemIds = new[]
+                        {
+                            $"«c#: await Content.GetContentItemIdByDisplayText(\"Occupation\", \"{title}\")»"
+                        }};
                     }
                 }
             }

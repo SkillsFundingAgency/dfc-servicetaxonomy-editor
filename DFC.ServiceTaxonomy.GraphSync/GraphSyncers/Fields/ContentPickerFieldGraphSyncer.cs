@@ -69,13 +69,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
                 throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
 
+            // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
+            // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
                 foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 destNodeLabels,
-                graphSyncHelper!.IdPropertyName,
+                graphSyncHelper!.IdPropertyName(pickedContentType),
                 foundDestinationNodeIds.ToArray());
         }
 
@@ -110,7 +112,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
+                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName()] == destinationId);
                 if (destNode == null)
                 {
                     _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
