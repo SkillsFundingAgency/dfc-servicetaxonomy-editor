@@ -12,12 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neo4j.Driver" Version="4.0.1" />
+    <PackageReference Include="OrchardCore.Admin.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.Navigation" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Navigation" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Queries" Version="1.0.0-rc1-*" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,14 +27,4 @@
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="wwwroot\favicon.ico">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </EmbeddedResource>
-    <EmbeddedResource Update="wwwroot\license.txt">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

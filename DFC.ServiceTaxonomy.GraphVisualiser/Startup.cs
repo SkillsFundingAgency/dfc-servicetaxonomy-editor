@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
-            services.AddScoped<INavigationProvider, AdminMenu>();
+            services.AddScoped<INavigationProvider, AdminMenuService>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

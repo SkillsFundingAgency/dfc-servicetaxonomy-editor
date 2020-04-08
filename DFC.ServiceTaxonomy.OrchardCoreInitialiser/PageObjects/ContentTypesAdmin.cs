@@ -22,7 +22,6 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
         {
             bool carryOn = true;
             int workload = 0;
-            int count = 0;
 
             do
             {
@@ -43,7 +42,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             while (carryOn);
 
 
-            
+
 
             //foreach ( var btn in editButtons)
             //{
