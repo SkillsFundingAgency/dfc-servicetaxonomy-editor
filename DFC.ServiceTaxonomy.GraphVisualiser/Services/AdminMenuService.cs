@@ -23,8 +23,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             }
 
             builder
-                .Add(S["Visualiser"], "after", rootView => rootView
-                   .Add(S["Ontology"], "1", ontology => ontology
+                .Add(S["Graph"], "after", graph => graph
+                   .Add(S["Visualise Ontology"], "1", ontology => ontology
                        .Action(nameof(VisualiseController.Viewer), "Visualise", new { area = typeof(Startup)!.Namespace })));
 
             return Task.CompletedTask;
