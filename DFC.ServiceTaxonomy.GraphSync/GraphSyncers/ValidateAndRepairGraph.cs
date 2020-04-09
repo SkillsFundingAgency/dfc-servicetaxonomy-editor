@@ -64,33 +64,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
             {
-                //todo: do we want to batch up content items of type?
-                IEnumerable<ContentItem> contentTypeContentItems = await _session
-                    //do we only care about the latest published items?
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentTypeDefinition.Name
-                        && x.Latest && x.Published
-                        && (x.CreatedUtc >= auditSyncLog.LastSynced || x.ModifiedUtc >= auditSyncLog.LastSynced))
-                    .ListAsync();
-
-                if (!contentTypeContentItems.Any())
-                    continue;
-
-                List<ContentItem> syncFailedContentItems = new List<ContentItem>();
-
-                foreach (ContentItem contentItem in contentTypeContentItems)
-                {
-                    //todo: do we need a new _validateGraphSync each time? don't think we do
-                    if (!await CheckIfContentItemSynced(contentItem, contentTypeDefinition))
-                    {
-                        syncFailedContentItems.Add(contentItem);
-                    }
-                }
-
-                if (!syncFailedContentItems.Any())
-                    continue;
-
-                if (!await AttemptRepair(contentTypeDefinition, syncFailedContentItems))
+                List<ContentItem> syncFailedContentItems = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced);
+                if (syncFailedContentItems.Any()
+                    && !await AttemptRepair(syncFailedContentItems, contentTypeDefinition))
                 {
                     validatedOrRepaired = false;
                 }
@@ -108,12 +84,47 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return validatedOrRepaired;
         }
 
-        public async Task<bool> AttemptRepair(ContentTypeDefinition contentTypeDefinition, IEnumerable<ContentItem> syncFailedContentItems)
+        private async Task<List<ContentItem>> ValidateContentItemsOfContentType(
+            ContentTypeDefinition contentTypeDefinition,
+            DateTime lastSynced)
+        {
+            List<ContentItem> syncFailedContentItems = new List<ContentItem>();
+
+            //todo: do we want to batch up content items of type?
+            IEnumerable<ContentItem> contentTypeContentItems = await _session
+                //do we only care about the latest published items?
+                .Query<ContentItem, ContentItemIndex>(x =>
+                    x.ContentType == contentTypeDefinition.Name
+                    && x.Latest && x.Published
+                    && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+                .ListAsync();
+
+            if (!contentTypeContentItems.Any())
+            {
+                _logger.LogDebug($"No {contentTypeDefinition.Name} content items found that ");
+                return syncFailedContentItems;
+            }
+
+            foreach (ContentItem contentItem in contentTypeContentItems)
+            {
+                //todo: do we need a new _validateGraphSync each time? don't think we do
+                if (!await CheckIfContentItemSynced(contentItem, contentTypeDefinition))
+                {
+                    syncFailedContentItems.Add(contentItem);
+                }
+            }
+
+            return syncFailedContentItems;
+        }
+
+        private async Task<bool> AttemptRepair(
+            IEnumerable<ContentItem> syncFailedContentItems,
+            ContentTypeDefinition contentTypeDefinition)
         {
             bool repaired = true;
 
             _logger.LogWarning(
-                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}). Attempting to resync them.");
+                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}).Attempting to repair them.");
 
             // if this throws should we carry on?
             foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
@@ -134,11 +145,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (!await CheckIfContentItemSynced(failedSyncContentItem, contentTypeDefinition))
                 {
                     repaired = false;
-                    _logger.LogWarning("Resync was unsuccessful.");
+                    _logger.LogWarning("Repair was unsuccessful.");
                 }
                 else
                 {
-                    _logger.LogInformation("Resync was successful.");
+                    _logger.LogInformation("Repair was successful.");
                 }
             }
 
