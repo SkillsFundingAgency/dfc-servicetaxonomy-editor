@@ -73,6 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task<IEnumerable<string>> NodeLabels(GraphSyncPartSettings graphSyncPartSettings, string contentType)
         {
+            //todo: rename NodeNameTransform to NodeLabelTransform
             string nodeLabel = graphSyncPartSettings.NodeNameTransform switch
             {
                 "$\"ncs__{ContentType}\"" => $"ncs__{contentType}",
@@ -107,6 +108,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             };
         }
 
+        //todo: rename to NodeIdPropertyName
         public string IdPropertyName()
         {
             CheckPreconditions();
@@ -143,12 +145,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             };
         }
 
+        public string ContentIdPropertyName => "Text";
+
+        //todo: rename to ContentIdPropertyValue
         public object GetIdPropertyValue(dynamic graphSyncContent)
         {
             //todo: null Text.ToString()?
 
             //todo: need way to support id values of types other than text
-            return graphSyncContent.Text.ToString();
+            return graphSyncContent[ContentIdPropertyName].ToString();
         }
 
         private void CheckPreconditions()

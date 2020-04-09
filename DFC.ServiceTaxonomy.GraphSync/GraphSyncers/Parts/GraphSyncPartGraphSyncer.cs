@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,11 +34,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper)
         {
-            //todo: use this?
-            //graphValidationHelper.StringContentPropertyMatchesNodeProperty()
-            object id = sourceNode.Properties[graphSyncHelper.IdPropertyName()];
-            //todo: should we convert to string?
-            return Task.FromResult(Convert.ToString(id) == graphSyncHelper.GetIdPropertyValue(content));
+            return Task.FromResult(
+                graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                    graphSyncHelper.ContentIdPropertyName,
+                    content,
+                    graphSyncHelper.IdPropertyName(),
+                    sourceNode));
+
         }
     }
 }
