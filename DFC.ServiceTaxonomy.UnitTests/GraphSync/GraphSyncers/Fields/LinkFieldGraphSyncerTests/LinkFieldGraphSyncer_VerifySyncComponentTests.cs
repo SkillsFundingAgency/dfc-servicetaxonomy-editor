@@ -8,7 +8,7 @@ using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldGraphSyncerTests
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
 {
     public class LinkFieldGraphSyncer_VerifySyncComponentTests
     {
