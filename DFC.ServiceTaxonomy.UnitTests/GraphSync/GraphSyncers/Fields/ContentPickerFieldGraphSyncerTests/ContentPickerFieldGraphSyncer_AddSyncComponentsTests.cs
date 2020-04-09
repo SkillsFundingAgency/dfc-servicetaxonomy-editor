@@ -45,6 +45,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
             ContentPickerFieldGraphSyncer = new ContentPickerFieldGraphSyncer(ContentManager, Logger);
         }
 
+        //todo: tests
+
         private async Task CallAddSyncComponents()
         {
             await ContentPickerFieldGraphSyncer.AddSyncComponents(
