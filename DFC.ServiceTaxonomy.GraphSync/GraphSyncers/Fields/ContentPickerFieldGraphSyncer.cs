@@ -112,9 +112,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
 
+                //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName()] == destinationId);
+                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName(destinationContentItem.ContentType)] == destinationId);
                 if (destNode == null)
                 {
                     _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
