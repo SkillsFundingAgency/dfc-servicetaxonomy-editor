@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
     public class GraphSyncHelper : IGraphSyncHelper
     {
-        //todo: gotta be careful about lifetimes. might have to injectiserviceprovider
+        //todo: gotta be careful about lifetimes. might have to inject iserviceprovider
         private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private string? _contentType;
