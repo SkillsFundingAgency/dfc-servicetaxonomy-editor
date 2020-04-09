@@ -90,34 +90,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (!syncFailedContentItems.Any())
                     continue;
 
-                _logger.LogWarning(
-                    $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}). Attempting to resync them.");
-
-                // if this throws should we carry on?
-                foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
+                if (!await AttemptRepair(contentTypeDefinition, syncFailedContentItems))
                 {
-                    var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-
-                    await mergeGraphSyncer.SyncToGraph(
-                        failedSyncContentItem.ContentType,
-                        failedSyncContentItem.ContentItemId,
-                        failedSyncContentItem.ContentItemVersionId,
-                        failedSyncContentItem.Content,
-                        failedSyncContentItem.CreatedUtc,
-                        failedSyncContentItem.ModifiedUtc);
-
-                    //todo: more logging!
-                    //todo: split into smaller methods
-
-                    if (!await CheckIfContentItemSynced(failedSyncContentItem, contentTypeDefinition))
-                    {
-                        validatedOrRepaired = false;
-                        _logger.LogWarning("Resync was unsuccessful.");
-                    }
-                    else
-                    {
-                        _logger.LogInformation("Resync was successful.");
-                    }
+                    validatedOrRepaired = false;
                 }
             }
 
@@ -131,6 +106,43 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             return validatedOrRepaired;
+        }
+
+        public async Task<bool> AttemptRepair(ContentTypeDefinition contentTypeDefinition, IEnumerable<ContentItem> syncFailedContentItems)
+        {
+            bool repaired = true;
+
+            _logger.LogWarning(
+                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}). Attempting to resync them.");
+
+            // if this throws should we carry on?
+            foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
+            {
+                var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+
+                await mergeGraphSyncer.SyncToGraph(
+                    failedSyncContentItem.ContentType,
+                    failedSyncContentItem.ContentItemId,
+                    failedSyncContentItem.ContentItemVersionId,
+                    failedSyncContentItem.Content,
+                    failedSyncContentItem.CreatedUtc,
+                    failedSyncContentItem.ModifiedUtc);
+
+                //todo: more logging!
+                //todo: split into smaller methods
+
+                if (!await CheckIfContentItemSynced(failedSyncContentItem, contentTypeDefinition))
+                {
+                    repaired = false;
+                    _logger.LogWarning("Resync was unsuccessful.");
+                }
+                else
+                {
+                    _logger.LogInformation("Resync was successful.");
+                }
+            }
+
+            return repaired;
         }
 
         public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
