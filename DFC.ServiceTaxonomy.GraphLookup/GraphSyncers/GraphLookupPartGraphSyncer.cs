@@ -62,19 +62,19 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             if (graphLookupPart == null)
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
-            string relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+            GraphLookupPartSettings graphLookupPartSettings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
             foreach (var node in graphLookupPart.Nodes)
             {
                 var destNode = destinationNodes.SingleOrDefault(x =>
-                    (string)x.Properties[graphSyncHelper.IdPropertyName()] == node.Id);
+                    Equals(x.Properties[graphLookupPartSettings.ValueFieldName], node.Id));
 
                 if (destNode == null)
                 {
                     return Task.FromResult(false);
                 }
 
-                var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
+                var relationship = relationships.SingleOrDefault(x => x.Type == graphLookupPartSettings.RelationshipType && x.EndNodeId == destNode.Id);
 
                 if (relationship == null)
                 {

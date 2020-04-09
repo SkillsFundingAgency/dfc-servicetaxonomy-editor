@@ -123,7 +123,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private string IdPropertyName(GraphSyncPartSettings graphSyncPartSettings)
         {
-            return graphSyncPartSettings.IdPropertyName ?? "UserId";
+            return graphSyncPartSettings.IdPropertyName ?? "userId";
         }
 
         //todo: rename other methods, Generate?
