@@ -22,15 +22,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
 
         const string _contentKey = "Text";
-        //todo: test using this?
-        const string _fieldName = "TestTextFieldName";
+        const string _fieldNameBase = "baseFieldName";
+        const string _fieldNameTransformed = "transformedFieldName";
 
         public TextFieldGraphSyncer_VerifySyncComponentTests()
         {
             ContentItemField = JObject.Parse("{}");
 
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
-            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
+            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldNameBase);
 
             SourceNode = A.Fake<INode>();
 
@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             DestinationNodes = new INode[0];
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
+            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldNameBase)).Returns(_fieldNameTransformed);
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentKey,
                 A<JObject>._,
-                _fieldName,
+                _fieldNameTransformed,
                 SourceNode)).Returns(stringContentPropertyMatchesNodePropertyReturns);
 
             bool verified = await CallVerifySyncComponent();
