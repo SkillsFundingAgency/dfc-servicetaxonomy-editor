@@ -48,21 +48,23 @@ namespace DFC.ServiceTaxonomy.GraphSync
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            // Configuration
+            // configuration
             var serviceProvider = services.BuildServiceProvider();
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
             services.Configure<GraphSyncPartSettingsConfiguration>(configuration.GetSection(nameof(GraphSyncPartSettings)));
 
-            // Recipe Steps
+            // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
             services.AddRecipeExecutionStep<CSharpContentStep>();
             services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
             services.AddTransient<IContentHelper, ContentHelper>();
+            services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
+            services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
-            // Graph Database
+            // graph database
             services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
@@ -70,11 +72,32 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
-            services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
-            services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
-            services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
 
-            // Sync to graph workflow task
+            // GraphSyncPart
+            services.AddContentPart<GraphSyncPart>()
+                .UseDisplayDriver<GraphSyncPartDisplayDriver>()
+                .AddHandler<GraphSyncPartHandler>();
+            services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
+            services.AddScoped<IDataMigration, Migrations>();
+            services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+
+            // syncers
+            services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
+            services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
+            services.AddTransient<IValidateGraphSync, ValidateGraphSync>();
+            services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, LinkFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, ContentPickerFieldGraphSyncer>();
+            services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
+            services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
+            services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
+
+            // workflow activities
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
             services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
             services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
@@ -85,39 +108,17 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
             services.AddActivity<PublishContentTypeContentItemsTask, PublishContentTypeContentItemsTaskDisplay>();
 
-            // Syncers
-            services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
-            services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
-            services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
-            services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
-            services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
-            services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            services.AddTransient<IValidateGraphSync, ValidateGraphSync>();
-            services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
-            services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
-            services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
-            services.AddTransient<IContentFieldGraphSyncer, LinkFieldGraphSyncer>();
-            services.AddTransient<IContentFieldGraphSyncer, ContentPickerFieldGraphSyncer>();
-
-            // Graph Sync Part
-            services.AddContentPart<GraphSyncPart>()
-                .UseDisplayDriver<GraphSyncPartDisplayDriver>()
-                .AddHandler<GraphSyncPartHandler>();
-            services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
-            services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
-
-            //Notifiers
+            // notifiers
             services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
 
-            //Services
+            // services
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
 
-            //Managers
+            // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
 
-            // Navigation
+            // navigation
             services.AddScoped<INavigationProvider, AdminMenu>();
         }
 

@@ -127,7 +127,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         graphSyncHelper,
                         graphValidationHelper))
                     {
-                        //todo: would be good to log graphsyncpart id : can log that in consumer when this returns false
                         _logger.LogWarning($"Sync validation failed. Field type: {contentFieldGraphSyncer.FieldTypeName}, field: {contentPartFieldDefinition.Name}");
                         return false;
                     }
