@@ -101,14 +101,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             if (!contentTypeContentItems.Any())
             {
-                _logger.LogDebug($"No {contentTypeDefinition.Name} content items found that ");
+                _logger.LogDebug($"No {contentTypeDefinition.Name} content items found that require validation.");
                 return syncFailedContentItems;
             }
 
             foreach (ContentItem contentItem in contentTypeContentItems)
             {
                 //todo: do we need a new _validateGraphSync each time? don't think we do
-                if (!await CheckIfContentItemSynced(contentItem, contentTypeDefinition))
+                if (!await ValidateContentItem(contentItem, contentTypeDefinition))
                 {
                     syncFailedContentItems.Add(contentItem);
                 }
@@ -142,7 +142,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 //todo: more logging!
                 //todo: split into smaller methods
 
-                if (!await CheckIfContentItemSynced(failedSyncContentItem, contentTypeDefinition))
+                if (!await ValidateContentItem(failedSyncContentItem, contentTypeDefinition))
                 {
                     repaired = false;
                     _logger.LogWarning("Repair was unsuccessful.");
@@ -156,8 +156,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return repaired;
         }
 
-        public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
+        public async Task<bool> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
         {
+            _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");
+
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
@@ -193,7 +195,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (partSyncer == null)
                 {
                     // part doesn't have a registered IContentPartGraphSyncer, so we ignore it
-                    //todo: log?
                     continue;
                 }
 

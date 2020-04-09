@@ -7,6 +7,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
     public interface IValidateAndRepairGraph
     {
         Task<bool> ValidateGraph();
-        Task<bool> CheckIfContentItemSynced(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition);
+        Task<bool> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition);
     }
 }
