@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
@@ -28,20 +29,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
         [Admin]
         public async Task<IActionResult> TriggerSyncValidation()
         {
+            bool valiadtionSuccess = false;
             try
             {
                 //todo: display page straight away : show progress (log) in page
                 //todo: add name of user who triggered
                 //todo: double check user/permissions
                 _logger.LogInformation("User sync validation triggered");
-                await _validateGraphSync.ValidateGraph();
+                valiadtionSuccess = await _validateGraphSync.ValidateGraph();
             }
             catch (Exception e)
             {
                 _logger.LogWarning(e, "User triggered sync validation failed: {e}");
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncController), $"Unable to verify graph sync."));
             }
-            return View();
+            return View(new TriggerSyncValidationViewModel
+            {
+                ValidationSuccess = valiadtionSuccess
+            });
         }
     }
 }

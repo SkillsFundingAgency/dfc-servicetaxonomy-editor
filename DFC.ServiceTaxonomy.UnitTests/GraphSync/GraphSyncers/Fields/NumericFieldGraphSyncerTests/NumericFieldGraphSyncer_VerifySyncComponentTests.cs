@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public async Task VerifySyncComponent_Scale0PropertyCorrect_ReturnsTrue()
         {
             const string valueContent = "123.0";
-            const int valueProperty = 123;
+            const long valueProperty = 123;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
@@ -88,7 +88,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         [Fact]
         public async Task VerifySyncComponent_ContentNull_ReturnsFalse()
         {
-            const int valueProperty = 123;
+            const long valueProperty = 123;
 
             ContentItemField = JObject.Parse($"{{\"Value\": null}}");
 
@@ -116,7 +116,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public async Task VerifySyncComponent_PropertySameScaleButValueDifferent_ReturnsFalse()
         {
             const string valueContent = "123.0";
-            const int valueProperty = 321;
+            const long valueProperty = 321;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
@@ -165,10 +165,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         }
 
         [Fact]
-        public async Task VerifySyncComponent_PropertyIntValueScaleMoreThan0ValueEquivalent_ReturnsFalse()
+        public async Task VerifySyncComponent_PropertyLongValueScaleMoreThan0ValueEquivalent_ReturnsFalse()
         {
             const string valueContent = "123.0";
-            const int valueProperty = 123;
+            const long valueProperty = 123;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 

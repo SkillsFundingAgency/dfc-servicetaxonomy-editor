@@ -55,8 +55,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 .ToDictionary(x => x.Name);
         }
 
-        public async Task ValidateGraph()
+        public async Task<bool> ValidateGraph()
         {
+            bool validatedOk = true;
+
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
@@ -84,14 +86,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 foreach (ContentItem contentItem in contentTypeContentItems)
                 {
                     //todo: do we need a new _validateGraphSync each time? don't think we do
-                    if (!await CheckIfContentItemSynced(contentItem))
+                    if (!await CheckIfContentItemSynced(contentItem, contentTypeDefinition))
                     {
                         syncFailedContentItems.Add(contentItem);
                     }
                 }
 
+                if (!syncFailedContentItems.Any())
+                    continue;
+
+                validatedOk = false;
+
                 _logger.LogWarning(
-                    $"{syncFailedContentItems} content items of type {contentTypeDefinition.Name} failed validation. Attempting to resync them");
+                    $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}). Attempting to resync them");
 
                 // if this throws should we carry on?
                 foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
@@ -114,9 +121,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             auditSyncLog.LastSynced = timestamp;
             _session.Save(auditSyncLog);
             await _session.CommitAsync();
+
+            if (validatedOk)
+            {
+                _logger.LogInformation("Woohoo: graph passed validation.");
+            }
+
+            return validatedOk;
         }
 
-        public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem)
+        public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
         {
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
@@ -130,8 +144,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (results == null || !results.Any())
                 return false;
 
-            ContentTypeDefinition contentTypeDefinition = _contentTypes[contentItem.ContentType];
-
             INode? sourceNode = results.Select(x => x[0]).Cast<INode?>().FirstOrDefault();
             if (sourceNode == null)
                 return false;
@@ -139,7 +151,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             List<IRelationship> relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
             List<INode> destinationNodes = results.Select(x => x[2]).Cast<INode>().ToList();
 
-            //for some reason sometimes we get an array with a single null element
+            //todo: for some reason sometimes we get an array with a single null element
             relationships.RemoveAll(x => x == null);
 
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)

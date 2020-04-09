@@ -107,7 +107,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             {
                 var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateGraphSync>();
 
-                if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
+                if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem, contentTypePartDefinition.ContentTypeDefinition))
                     return false;
 
                 // check expected relationship is in graph

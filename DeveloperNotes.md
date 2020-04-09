@@ -7,6 +7,7 @@
 
 * add Enable Admin Menu filter to recipe
 
+* convert datetime fields from text to real datetime
 * get graph admin menu icon to appear (IAdminNodeNavigationBuilder?)
 * use migrations (that execute recipes) to update content types, once live (https://docs.orchardcore.net/en/dev/docs/reference/modules/Recipes/)
 * remove content types from full text queries : speed up import?

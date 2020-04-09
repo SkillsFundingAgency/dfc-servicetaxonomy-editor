@@ -1,1 +1,10 @@
-﻿<p>Validatin'</p>
+﻿@model TriggerSyncValidationViewModel
+
+@if (Model.ValidationSuccess)
+{
+    <h1>Validation result: <i class="far fa-thumbs-up"></i></h1>
+}
+else
+{
+    <h1>Validation result: <i class="far fa-thumbs-down"></i></h1>
+}

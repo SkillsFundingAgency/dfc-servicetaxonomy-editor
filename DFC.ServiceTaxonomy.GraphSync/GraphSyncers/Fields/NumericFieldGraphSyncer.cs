@@ -65,8 +65,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             if (fieldSettings.Scale == 0)
             {
-                return nodePropertyValue is int nodePropertyValueInt
-                       && nodePropertyValueInt == (int)contentItemFieldValue;
+                return nodePropertyValue is long nodePropertyValueInt
+                       && nodePropertyValueInt == (long)contentItemFieldValue;
             }
 
             // calculate allowable tolerance from scale setting
