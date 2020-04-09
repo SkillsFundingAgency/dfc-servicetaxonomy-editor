@@ -28,7 +28,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly ILogger<ValidateGraphSync> _logger;
-        private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
 
         public ValidateGraphSync(
@@ -49,10 +48,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphValidationHelper = graphValidationHelper;
             _logger = logger;
             _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
-            _contentTypes = contentDefinitionManager
-                .ListTypeDefinitions()
-                .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
-                .ToDictionary(x => x.Name);
         }
 
         public async Task<bool> ValidateGraph()
@@ -157,9 +152,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
                 string partName = contentTypePartDefinition.PartDefinition.Name;
-                if (!_partSyncers.TryGetValue(partName, out var partSyncer))
+                if (!_partSyncers.TryGetValue(partName, out var partSyncer)
+                    && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName)
                 {
+                    //todo: check DisplayName is the right property to use for named parts
                     partSyncer = _partSyncers["Eponymous"];
+                }
+
+                if (partSyncer == null)
+                {
+                    // part doesn't have a registered IContentPartGraphSyncer, so we ignore it
+                    //todo: log?
+                    continue;
                 }
 
                 dynamic? partContent = contentItem.Content[partName];

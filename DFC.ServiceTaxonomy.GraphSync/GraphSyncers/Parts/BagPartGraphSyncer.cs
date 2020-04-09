@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
@@ -21,14 +23,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<BagPartGraphSyncer> _logger;
+        private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
         public string? PartName => nameof(BagPart);
 
-        public BagPartGraphSyncer(IServiceProvider serviceProvider,
-                ILogger<BagPartGraphSyncer> logger)
+        public BagPartGraphSyncer(
+            IContentDefinitionManager contentDefinitionManager,
+            IServiceProvider serviceProvider,
+            ILogger<BagPartGraphSyncer> logger)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
+
+            _contentTypes = contentDefinitionManager
+                .ListTypeDefinitions()
+                .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
+                .ToDictionary(x => x.Name);
         }
 
         public async Task<IEnumerable<ICommand>> AddSyncComponents(
@@ -107,7 +117,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             {
                 var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateGraphSync>();
 
-                if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem, contentTypePartDefinition.ContentTypeDefinition))
+                ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
+
+                if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem, bagPartContentTypeDefinition))
                     return false;
 
                 // check expected relationship is in graph
@@ -120,9 +132,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 expectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
                 expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
-                object destinationId = graphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
+                object destinationId = bagContentGraphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
 
-                INode destinationNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName()] == destinationId);
+                INode destinationNode = destinationNodes.SingleOrDefault(n => Equals(n.Properties[graphSyncHelper.IdPropertyName()], destinationId));
                 if (destinationNode == null)
                 {
                     _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
