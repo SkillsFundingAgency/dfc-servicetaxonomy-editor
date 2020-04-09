@@ -11,6 +11,7 @@ using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 using System.Linq;
+using System.IO;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -60,15 +61,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 var query = new MatchSynonymsQuery("esco__Occupation", "ncs__OccupationLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel");
                 var result = _neoGraphDatabase.Run(query).GetAwaiter().GetResult();
 
-                IReadOnlyDictionary<string,object> synonymResults = (IReadOnlyDictionary<string,object>)result.FirstOrDefault().Values["tomliboo"];
+                IReadOnlyDictionary<string, object> synonymResults = (IReadOnlyDictionary<string, object>)result.FirstOrDefault().Values["tomliboo"];
                 //var resultRecord = result.First();
                 var synonymList = ((List<object>)synonymResults.Values.FirstOrDefault()).OfType<string>();
-                if (synonymList != null)
+
+
+#pragma warning disable S1075 // URIs should not be hardcoded
+                var logPath = @"C:\\Source\\dfc-servicetaxonomy-editor\\DFC.ServiceTaxonomy.Editor\\bin\\Debug\\netcoreapp3.1\\synonym.txt";
+#pragma warning restore S1075 // URIs should not be hardcoded
+
+                using (var writer = File.CreateText(logPath))
                 {
-                    return Outcomes("Done");
+                    foreach (var item in synonymList)
+                    {
+                        if (item != null)
+                        {
+                            writer.WriteLine(item);
+                        }
+                    }
                 }
 
-                return Outcomes("Borked");
+                return Outcomes("Done");
             }
             catch
             {
