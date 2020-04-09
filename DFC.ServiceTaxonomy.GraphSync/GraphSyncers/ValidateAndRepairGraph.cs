@@ -19,7 +19,7 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public class ValidateGraphSync : IValidateGraphSync
+    public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ISession _session;
@@ -27,10 +27,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IServiceProvider _serviceProvider;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IGraphValidationHelper _graphValidationHelper;
-        private readonly ILogger<ValidateGraphSync> _logger;
+        private readonly ILogger<ValidateAndRepairGraph> _logger;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
 
-        public ValidateGraphSync(
+        public ValidateAndRepairGraph(
             IContentDefinitionManager contentDefinitionManager,
             ISession session,
             IGraphDatabase graphDatabase,
@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
-            ILogger<ValidateGraphSync> logger)
+            ILogger<ValidateAndRepairGraph> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _session = session;
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<bool> ValidateGraph()
         {
-            bool validatedOk = true;
+            bool validatedOrRepaired = true;
 
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
@@ -90,10 +90,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (!syncFailedContentItems.Any())
                     continue;
 
-                validatedOk = false;
-
                 _logger.LogWarning(
-                    $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}). Attempting to resync them");
+                    $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}). Attempting to resync them.");
 
                 // if this throws should we carry on?
                 foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
@@ -108,21 +106,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         failedSyncContentItem.CreatedUtc,
                         failedSyncContentItem.ModifiedUtc);
 
-                    // do we want to double check sync was ok?
-                    //if (!await _validateGraphSync.CheckIfContentItemSynced(contentItem))
+                    //todo: more logging!
+                    //todo: split into smaller methods
+
+                    if (!await CheckIfContentItemSynced(failedSyncContentItem, contentTypeDefinition))
+                    {
+                        validatedOrRepaired = false;
+                        _logger.LogWarning("Resync was unsuccessful.");
+                    }
+                    else
+                    {
+                        _logger.LogInformation("Resync was successful.");
+                    }
                 }
             }
 
-            auditSyncLog.LastSynced = timestamp;
-            _session.Save(auditSyncLog);
-            await _session.CommitAsync();
-
-            if (validatedOk)
+            if (validatedOrRepaired)
             {
-                _logger.LogInformation("Woohoo: graph passed validation.");
+                _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
+
+                auditSyncLog.LastSynced = timestamp;
+                _session.Save(auditSyncLog);
+                await _session.CommitAsync();
             }
 
-            return validatedOk;
+            return validatedOrRepaired;
         }
 
         public async Task<bool> CheckIfContentItemSynced(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)

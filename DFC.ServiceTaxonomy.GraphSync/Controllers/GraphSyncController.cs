@@ -12,16 +12,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
 {
     public class GraphSyncController : Controller
     {
-        private readonly IValidateGraphSync _validateGraphSync;
+        private readonly IValidateAndRepairGraph _validateAndRepairGraph;
         private readonly INotifier _notifier;
         private readonly ILogger<GraphSyncController> _logger;
 
         public GraphSyncController(
-            IValidateGraphSync validateGraphSync,
+            IValidateAndRepairGraph validateAndRepairGraph,
             INotifier notifier,
             ILogger<GraphSyncController> logger)
         {
-            _validateGraphSync = validateGraphSync;
+            _validateAndRepairGraph = validateAndRepairGraph;
             _notifier = notifier;
             _logger = logger;
         }
@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 //todo: add name of user who triggered
                 //todo: double check user/permissions
                 _logger.LogInformation("User sync validation triggered");
-                valiadtionSuccess = await _validateGraphSync.ValidateGraph();
+                valiadtionSuccess = await _validateAndRepairGraph.ValidateGraph();
             }
             catch (Exception e)
             {

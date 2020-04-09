@@ -115,10 +115,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             foreach (ContentItem bagPartContentItem in contentItems)
             {
-                var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateGraphSync>();
+                var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateAndRepairGraph>();
 
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
+                //todo: need to validate _and_ attempt repair
                 if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem, bagPartContentTypeDefinition))
                     return false;
 

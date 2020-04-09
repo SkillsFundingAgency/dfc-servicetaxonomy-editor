@@ -14,18 +14,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class AuditSyncIssuesTask : TaskActivity
     {
         public AuditSyncIssuesTask(
-            IValidateGraphSync validateGraphSync,
+            IValidateAndRepairGraph validateAndRepairGraph,
             INotifier notifier,
             IStringLocalizer<AuditSyncIssuesTask> localizer,
             ILogger<AuditSyncIssuesTask> logger)
         {
-            _validateGraphSync = validateGraphSync;
+            _validateAndRepairGraph = validateAndRepairGraph;
             _notifier = notifier;
             _logger = logger;
             T = localizer;
         }
 
-        private readonly IValidateGraphSync _validateGraphSync;
+        private readonly IValidateAndRepairGraph _validateAndRepairGraph;
         private readonly INotifier _notifier;
         private readonly ILogger _logger;
         private IStringLocalizer T { get; }
@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             {
                 _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered");
 
-                await _validateGraphSync.ValidateGraph();
+                await _validateAndRepairGraph.ValidateGraph();
 
                 return Outcomes("Done");
             }
