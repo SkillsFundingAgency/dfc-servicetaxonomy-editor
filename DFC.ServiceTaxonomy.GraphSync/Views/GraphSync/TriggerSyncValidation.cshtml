@@ -2,14 +2,34 @@
 
 @*should be h1, but then ".ta-content h1" takes precedence over display-1*@
 
-@*todo show log or at least if validated, or required repair. what was right/wrong*@
-<div class="display-1 text-center">Validate and repair</div>
 
-@if (Model.ValidationSuccess)
+@if (Model.ValidateAndRepairResult != null)
 {
-    <div class="display-1 text-center"><i class="far fa-thumbs-up"></i></div>
+    bool validationFailures = Model.ValidateAndRepairResult.ValidationFailures.Any();
+
+    <div class="display-4 text-center">All new or modified content items since @Model.ValidateAndRepairResult.LastSync.ToString("f")</div>
+
+    <div class="display-1 text-center">Validated</div>
+    ShowThumb(!validationFailures);
+
+    if (validationFailures)
+    {
+        <div class="display-1 text-center">Repaired</div>
+        ShowThumb(!Model.ValidateAndRepairResult.RepairFailures.Any());
+    }
 }
-else
+
+@functions
 {
-    <div class="display-1 text-center"><i class="far fa-thumbs-down"></i></div>
+    public void ShowThumb(bool up)
+    {
+        if (up)
+        {
+            <div class="display-1 text-center"><i class="far fa-thumbs-up"></i></div>
+        }
+        else
+        {
+            <div class="display-1 text-center"><i class="far fa-thumbs-down"></i></div>
+        }
+    }
 }

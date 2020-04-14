@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
@@ -50,10 +51,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
         }
 
-        public async Task<bool> ValidateGraph()
+        public async Task<ValidateAndRepairResult> ValidateGraph()
         {
-            bool validatedOrRepaired = true;
-
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
@@ -62,17 +61,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             AuditSyncLog auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
                                         new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
 
+            ValidateAndRepairResult result = new ValidateAndRepairResult(auditSyncLog.LastSynced);
+
             foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
             {
-                List<ContentItem> syncFailedContentItems = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced);
-                if (syncFailedContentItems.Any()
-                    && !await AttemptRepair(syncFailedContentItems, contentTypeDefinition))
+                List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced);
+                //todo: or pass result and return bool?
+                if (syncFailures.Any())
                 {
-                    validatedOrRepaired = false;
+                    result.ValidationFailures.AddRange(syncFailures);
+
+                    (List<ContentItem> repairedContentItems, List<RepairFailure> failedRepairs) =
+                        await AttemptRepair(syncFailures.Select(f => f.ContentItem), contentTypeDefinition);
+
+                    //todo: better to just pass result to AttemptRepair?
+                    result.Repaired.AddRange(repairedContentItems);
+                    result.RepairFailures.AddRange(failedRepairs);
                 }
             }
 
-            if (validatedOrRepaired)
+            //if (result.AllNewOrModifiedContentItemsValidatedOrRepaired)
+            if (!result.RepairFailures.Any())
             {
                 _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
 
@@ -81,14 +90,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 await _session.CommitAsync();
             }
 
-            return validatedOrRepaired;
+            return result;
         }
 
-        private async Task<List<ContentItem>> ValidateContentItemsOfContentType(
+        private async Task<List<ValidationFailure>> ValidateContentItemsOfContentType(
             ContentTypeDefinition contentTypeDefinition,
             DateTime lastSynced)
         {
-            List<ContentItem> syncFailedContentItems = new List<ContentItem>();
+            List<ValidationFailure> syncFailures = new List<ValidationFailure>();
 
             //todo: do we want to batch up content items of type?
             IEnumerable<ContentItem> contentTypeContentItems = await _session
@@ -102,7 +111,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (!contentTypeContentItems.Any())
             {
                 _logger.LogDebug($"No {contentTypeDefinition.Name} content items found that require validation.");
-                return syncFailedContentItems;
+                return syncFailures;
             }
 
             foreach (ContentItem contentItem in contentTypeContentItems)
@@ -110,18 +119,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 //todo: do we need a new _validateGraphSync each time? don't think we do
                 if (!await ValidateContentItem(contentItem, contentTypeDefinition))
                 {
-                    syncFailedContentItems.Add(contentItem);
+                    syncFailures.Add(new ValidationFailure(contentItem, "todo reason"));
                 }
             }
 
-            return syncFailedContentItems;
+            return syncFailures;
         }
 
-        private async Task<bool> AttemptRepair(
+        private async Task<(List<ContentItem> repairedContentItems, List<RepairFailure> failedRepairs)> AttemptRepair(
             IEnumerable<ContentItem> syncFailedContentItems,
             ContentTypeDefinition contentTypeDefinition)
         {
-            bool repaired = true;
+            List<ContentItem> repairedContentItems = new List<ContentItem>();
+            List<RepairFailure> failedRepairs = new List<RepairFailure>();
 
             _logger.LogWarning(
                 $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}).Attempting to repair them.");
@@ -144,16 +154,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 if (!await ValidateContentItem(failedSyncContentItem, contentTypeDefinition))
                 {
-                    repaired = false;
                     _logger.LogWarning("Repair was unsuccessful.");
+                    failedRepairs.Add(new RepairFailure(failedSyncContentItem, "todo reason"));
                 }
                 else
                 {
                     _logger.LogInformation("Repair was successful.");
+                    repairedContentItems.Add(failedSyncContentItem);
                 }
             }
 
-            return repaired;
+            return (repairedContentItems, failedRepairs);
         }
 
         //todo: return result object that gives list of content items that passes validation,
