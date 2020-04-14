@@ -41,15 +41,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 .ToDictionary(x => x.Name);
         }
 
-        public async Task<IEnumerable<ICommand>> AddSyncComponents(
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            var delayedCommands = new List<ICommand>();
-
             foreach (JObject? contentItem in content.ContentItems)
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
@@ -75,14 +73,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 containedContentMergeNodeCommand.CheckIsValid();
 
-                //var delayedReplaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
-                // replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(mergeNodeCommand.NodeLabels);
-                //
-                // if (mergeNodeCommand.IdPropertyName == null)
-                //     throw new GraphSyncException($"Supplied merge node command has null {nameof(mergeNodeCommand.IdPropertyName)}");
-                // replaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
-                // replaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[replaceRelationshipsCommand.SourceIdPropertyName];
-
                 var bagContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
 
                 bagContentItemGraphSyncHelper.ContentType = contentType;
@@ -93,11 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
-
-                //delayedCommands.Add(delayedReplaceRelationshipsCommand);
             }
-
-            return delayedCommands;
         }
 
         public async Task<bool> VerifySyncComponent(

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -13,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string? PartName => nameof(GraphSyncPart);
 
-        public Task<IEnumerable<ICommand>> AddSyncComponents(
+        public Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -22,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName(), graphSyncHelper.GetIdPropertyValue(content));
 
-            return Task.FromResult(Enumerable.Empty<ICommand>());
+            return Task.CompletedTask;
         }
 
         public Task<bool> VerifySyncComponent(

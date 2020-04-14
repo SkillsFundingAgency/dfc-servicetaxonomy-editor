@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -17,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         private const string _nodeTitlePropertyName = "skos__prefLabel";
 
-        public Task<IEnumerable<ICommand>> AddSyncComponents(
+        public Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -28,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             if (titleValue.Type != JTokenType.Null)
                 mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, titleValue.As<string>());
 
-            return Task.FromResult(Enumerable.Empty<ICommand>());
+            return Task.CompletedTask;
         }
 
         public Task<bool> VerifySyncComponent(

@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
-        public Task<IEnumerable<ICommand>> AddSyncComponents(
+        public Task AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -25,11 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-            var emptyResult = Task.FromResult(Enumerable.Empty<ICommand>());
-
             JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
-                return emptyResult;
+                return Task.CompletedTask;
 
             if (settings.PropertyName != null)
             {
@@ -46,7 +44,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     nodes.Select(GetId).ToArray());
             }
 
-            return emptyResult;
+            return Task.CompletedTask;
         }
 
         public Task<bool> VerifySyncComponent(

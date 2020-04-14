@@ -59,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         /// </summary>
         public string? PartName => null;
 
-        public async Task<IEnumerable<ICommand>> AddSyncComponents(
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -90,8 +90,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         graphSyncHelper);
                 }
             }
-
-            return Enumerable.Empty<ICommand>();
         }
 
         public async Task<bool> VerifySyncComponent(
