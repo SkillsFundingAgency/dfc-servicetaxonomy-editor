@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             try
             {
                 //todo: display page straight away : show progress (log) in page
-                //todo: add name of user who triggered
+                //todo: add name of user who triggered into logs (if not already sussable)
                 //todo: double check user/permissions
                 _logger.LogInformation("User sync validation triggered");
                 valiadtionSuccess = await _validateAndRepairGraph.ValidateGraph();

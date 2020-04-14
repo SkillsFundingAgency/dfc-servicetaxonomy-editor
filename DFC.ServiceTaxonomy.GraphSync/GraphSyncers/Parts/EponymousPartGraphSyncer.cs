@@ -92,7 +92,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<bool> VerifySyncComponent(dynamic content,
+        public async Task<bool> VerifySyncComponent(
+            dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,

@@ -156,6 +156,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return repaired;
         }
 
+        //todo: return result object that gives list of content items that passes validation,
+        // items that were repaired, and those that are still borked
         public async Task<bool> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
         {
             _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");

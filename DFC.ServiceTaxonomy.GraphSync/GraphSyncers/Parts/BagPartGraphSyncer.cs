@@ -103,7 +103,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
-                //todo: check failed bag items get repair attempt - todo: no need to verify contained bag items? they should get independently checked
+                //todo: check failed bag items get repair attempt
                 if (!await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition))
                     return false;
 
