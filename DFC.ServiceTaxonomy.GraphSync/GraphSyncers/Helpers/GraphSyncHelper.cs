@@ -10,9 +10,10 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
+    //todo: better to break out into separate classes??
 #pragma warning disable S4136
 
     public class GraphSyncHelper : IGraphSyncHelper

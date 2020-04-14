@@ -2,7 +2,7 @@
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     //todo: dreadful name :*)
     // could move contents into graphsynchelper, although it doesn't _really_ belong there

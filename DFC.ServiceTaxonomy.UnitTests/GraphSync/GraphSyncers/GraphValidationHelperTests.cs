@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;

@@ -1,6 +1,6 @@
 ﻿using System;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using FakeItEasy;
