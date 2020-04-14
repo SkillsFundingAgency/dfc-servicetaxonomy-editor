@@ -80,7 +80,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 }
             }
 
-            //if (result.AllNewOrModifiedContentItemsValidatedOrRepaired)
             if (!result.RepairFailures.Any())
             {
                 _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
@@ -116,10 +115,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentItem contentItem in contentTypeContentItems)
             {
-                //todo: do we need a new _validateGraphSync each time? don't think we do
-                if (!await ValidateContentItem(contentItem, contentTypeDefinition))
+                (bool validated, string? validationFailureReason) =
+                    await ValidateContentItem(contentItem, contentTypeDefinition);
+                if (!validated)
                 {
-                    syncFailures.Add(new ValidationFailure(contentItem, "todo reason"));
+                    _logger.LogWarning($@"Sync validation failed.{Environment.NewLine}{validationFailureReason}");
+
+                    syncFailures.Add(new ValidationFailure(contentItem, validationFailureReason!));
                 }
             }
 
@@ -152,24 +154,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 //todo: more logging!
                 //todo: split into smaller methods
 
-                if (!await ValidateContentItem(failedSyncContentItem, contentTypeDefinition))
-                {
-                    _logger.LogWarning("Repair was unsuccessful.");
-                    failedRepairs.Add(new RepairFailure(failedSyncContentItem, "todo reason"));
-                }
-                else
+                (bool validated, string? validationFailureReason) =
+                    await ValidateContentItem(failedSyncContentItem, contentTypeDefinition);
+                if (validated)
                 {
                     _logger.LogInformation("Repair was successful.");
                     repairedContentItems.Add(failedSyncContentItem);
+                }
+                else
+                {
+                    _logger.LogWarning($"Repair was unsuccessful.{Environment.NewLine}{validationFailureReason}");
+                    failedRepairs.Add(new RepairFailure(failedSyncContentItem, validationFailureReason!));
                 }
             }
 
             return (repairedContentItems, failedRepairs);
         }
 
-        //todo: return result object that gives list of content items that passes validation,
-        // items that were repaired, and those that are still borked
-        public async Task<bool> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
+        public async Task<(bool validated, string? validationFailureReason)> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
         {
             _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");
 
@@ -183,11 +185,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 nodeId));
 
             if (results == null || !results.Any())
-                return false;
+                return (false, "Node missing from graph (no results).");
 
             INode? sourceNode = results.Select(x => x[0]).Cast<INode?>().FirstOrDefault();
             if (sourceNode == null)
-                return false;
+                return (false, "Node missing from graph.");
 
             List<IRelationship> relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
             List<INode> destinationNodes = results.Select(x => x[2]).Cast<INode>().ToList();
@@ -204,7 +206,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
                     && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName) //don't think it actually matters, as eponymous not named part. does it affect below?
                 {
-                    //todo: check DisplayName is the right property to use for named parts
                     partSyncer = _partSyncers["Eponymous"];
                 }
 
@@ -214,7 +215,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     continue;
                 }
 
-                dynamic? partContent = contentItem.Content[partName];    //check (and below)
+                dynamic? partContent = contentItem.Content[partName];
                 if (partContent == null)
                     continue; //todo: throw??
 
@@ -224,8 +225,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     _graphSyncHelper, _graphValidationHelper,
                     expectedRelationshipCounts))
                 {
-                    LogValidationFailure(nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
-                    return false;
+                    string failureReason = FailureReason(nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
+                    return (false, failureReason);
                 }
             }
 
@@ -238,15 +239,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 if (relationshipsInDbCount != relationshipsInGraphCount)
                 {
-                    _logger.LogWarning($"Sync validation failed. Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}");
-                    return false;
+                    return (false, $"Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}.");
                 }
             }
 
-            return true;
+            return (true, null);
         }
 
-        private void LogValidationFailure(
+        //todo: doesn't actually give the reason, just the data. need to supply a reason. add this 'metadata' to all failure reasons?
+        private string FailureReason(
             object nodeId,
             ContentTypePartDefinition contentTypePartDefinition,
             ContentItem contentItem,
@@ -254,16 +255,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             dynamic partContent,
             INode sourceNode)
         {
-            //todo: check these
-            _logger.LogWarning($@"Sync validation failed.
-Content type: '{contentItem.ContentType}'
+            return $@"Content type: '{contentItem.ContentType}'
 Node ID: '{nodeId}'
 Content part type name: '{contentTypePartDefinition.Name}'
              name '{partName}'
              content: '{partContent}'
 Source node ID: {sourceNode.Id}
             labels: ':{string.Join(":", sourceNode.Labels)}'
-            properties: '{string.Join(",", sourceNode.Properties.Select(p => $"{p.Key}={p.Value}"))}'");
+            properties: '{string.Join(",", sourceNode.Properties.Select(p => $"{p.Key}={p.Value}"))}'";
         }
     }
 

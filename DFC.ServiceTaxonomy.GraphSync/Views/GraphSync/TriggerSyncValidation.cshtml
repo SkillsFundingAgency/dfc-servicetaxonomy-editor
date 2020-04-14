@@ -7,7 +7,8 @@
 {
     bool validationFailures = Model.ValidateAndRepairResult.ValidationFailures.Any();
 
-    <div class="display-4 text-center">All new or modified content items since @Model.ValidateAndRepairResult.LastSync.ToString("f")</div>
+    <div class="display-4 text-center">All new or modified content items since</div>
+    <div class="display-4 text-center">@Model.ValidateAndRepairResult.LastSync.ToString("f")</div>
 
     <div class="display-1 text-center">Validated</div>
     ShowThumb(!validationFailures);

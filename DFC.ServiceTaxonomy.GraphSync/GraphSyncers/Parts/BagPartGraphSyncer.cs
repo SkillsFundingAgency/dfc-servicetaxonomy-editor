@@ -104,7 +104,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
                 //todo: check failed bag items get repair attempt
-                if (!await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition))
+                //todo: return reason?
+                //todo: need to log here, now ValidateContentItem doesn't log anymore
+                (bool validated, string? validationFailureReason) =
+                    await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition);
+                if (!validated)
                     return false;
 
                 // check expected relationship is in graph
