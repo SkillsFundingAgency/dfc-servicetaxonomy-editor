@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
+        public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
         public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
 
         const string _contentKey = "Text";
@@ -41,6 +42,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldNameBase)).Returns(_fieldNameTransformed);
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
+
+            ExpectedRelationshipCounts = new Dictionary<string, int>();
 
             TextFieldGraphSyncer = new TextFieldGraphSyncer();
         }
@@ -70,7 +73,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
                 Relationships,
                 DestinationNodes,
                 GraphSyncHelper,
-                GraphValidationHelper);
+                GraphValidationHelper,
+                ExpectedRelationshipCounts);
         }
     }
 }

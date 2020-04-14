@@ -28,14 +28,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(
-            JObject contentItemField,
+        public async Task<bool> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper)
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 

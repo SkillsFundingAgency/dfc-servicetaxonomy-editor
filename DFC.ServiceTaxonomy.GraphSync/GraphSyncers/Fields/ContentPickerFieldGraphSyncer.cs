@@ -81,14 +81,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<bool> VerifySyncComponent(
-            JObject contentItemField,
+        public async Task<bool> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper)
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
                 contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
@@ -132,6 +132,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     _logger.LogWarning($"Sync validation failed. Relationship of type {relationshipType} with end node ID {destNode.Id} not found");
                     return false;
                 }
+
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                expectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
             return true;

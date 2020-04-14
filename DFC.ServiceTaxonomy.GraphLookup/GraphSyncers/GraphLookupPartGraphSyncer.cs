@@ -72,12 +72,17 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     return Task.FromResult(false);
                 }
 
-                var relationship = relationships.SingleOrDefault(x => x.Type == graphLookupPartSettings.RelationshipType && x.EndNodeId == destNode.Id);
+                string relationshipType = graphLookupPartSettings.RelationshipType!;
 
+                var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
                 if (relationship == null)
                 {
                     return Task.FromResult(false);
                 }
+
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                expectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
             //todo: add to expectedRelationshipCounts

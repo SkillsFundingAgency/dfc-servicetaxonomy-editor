@@ -14,6 +14,9 @@ bagtest isn't validating correctly
      safer to check all content items!?
      test when multiple graphs
      large validtion page contents
+     we could validate a content items parts concurrently to speed it up (ConcurrentDictionary for expectedRelationshipCounts at least)
+     ^ we could report all validation errors, although not necessary, as if there's at least 1 error then we need to attempt a repair
+     we could validate content items concurrently
 * get graph admin menu icon to appear (IAdminNodeNavigationBuilder?)
 * use migrations (that execute recipes) to update content types, once live (https://docs.orchardcore.net/en/dev/docs/reference/modules/Recipes/)
 * remove content types from full text queries : speed up import?

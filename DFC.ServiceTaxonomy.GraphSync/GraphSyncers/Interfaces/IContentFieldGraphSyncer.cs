@@ -18,12 +18,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper);
 
-        Task<bool> VerifySyncComponent(JObject contentItemField,
+        Task<bool> VerifySyncComponent(
+            JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper);
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts);
     }
 }

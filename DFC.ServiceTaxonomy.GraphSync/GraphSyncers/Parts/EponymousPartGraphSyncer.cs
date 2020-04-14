@@ -116,7 +116,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     IContentPartFieldDefinition contentPartFieldDefinitionWrapper
                         = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
 
-                    //todo: pass expectedRelationshipCounts
                     if (!await contentFieldGraphSyncer.VerifySyncComponent(
                         contentItemField,
                         contentPartFieldDefinitionWrapper,
@@ -124,7 +123,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         relationships,
                         destinationNodes,
                         graphSyncHelper,
-                        graphValidationHelper))
+                        graphValidationHelper,
+                        expectedRelationshipCounts))
                     {
                         _logger.LogWarning($"Sync validation failed. Field type: {contentFieldGraphSyncer.FieldTypeName}, field: {contentPartFieldDefinition.Name}");
                         return false;

@@ -33,14 +33,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(
-            JObject contentItemField,
+        public async Task<bool> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper)
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             string nodeBasePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 
