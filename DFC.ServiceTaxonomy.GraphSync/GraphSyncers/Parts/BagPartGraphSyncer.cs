@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+//using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
@@ -75,26 +75,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 containedContentMergeNodeCommand.CheckIsValid();
 
-                var delayedReplaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
-                delayedReplaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(mergeNodeCommand.NodeLabels);
-
-                if (mergeNodeCommand.IdPropertyName == null)
-                    throw new GraphSyncException($"Supplied merge node command has null {nameof(mergeNodeCommand.IdPropertyName)}");
-                delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
-                delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
+                //var delayedReplaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
+                // replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(mergeNodeCommand.NodeLabels);
+                //
+                // if (mergeNodeCommand.IdPropertyName == null)
+                //     throw new GraphSyncException($"Supplied merge node command has null {nameof(mergeNodeCommand.IdPropertyName)}");
+                // replaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
+                // replaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[replaceRelationshipsCommand.SourceIdPropertyName];
 
                 var bagContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
 
                 bagContentItemGraphSyncHelper.ContentType = contentType;
                 string relationshipType = await RelationshipType(bagContentItemGraphSyncHelper);
 
-                delayedReplaceRelationshipsCommand.AddRelationshipsTo(
+                replaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
 
-                delayedCommands.Add(delayedReplaceRelationshipsCommand);
+                //delayedCommands.Add(delayedReplaceRelationshipsCommand);
             }
 
             return delayedCommands;
@@ -157,6 +157,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             {
                 int relationshipsInGraphCount = relationships.Count(r => r.Type == relationshipType);
 
+                //todo: this fails if the content type has >1 part that creates relationships of the same type
+                // do we cater for that eventuality, or remove this check?
+                //if we remove this check we'll miss extra relationships that shouldn't be there
+                // it might be best to check what should be there and ignore anything extra
+                // (similar question about extra properties)
                 if (relationshipsInDbCount != relationshipsInGraphCount)
                 {
                     _logger.LogWarning($"Sync validation failed. Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}");

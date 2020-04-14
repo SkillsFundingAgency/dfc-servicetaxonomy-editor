@@ -184,9 +184,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
-                string partName = contentTypePartDefinition.PartDefinition.Name;
-                if (!_partSyncers.TryGetValue(partName, out var partSyncer)
-                    && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName)
+                string partTypeName = contentTypePartDefinition.PartDefinition.Name;
+                string partName = contentTypePartDefinition.Name;
+                if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
+                    && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName) //don't think it actually matters, as eponymous not named part. does it affect below?
                 {
                     //todo: check DisplayName is the right property to use for named parts
                     partSyncer = _partSyncers["Eponymous"];
@@ -198,7 +199,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     continue;
                 }
 
-                dynamic? partContent = contentItem.Content[partName];
+                dynamic? partContent = contentItem.Content[partName];    //check (and below)
                 if (partContent == null)
                     continue; //todo: throw??
 
@@ -207,7 +208,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     sourceNode, relationships, destinationNodes,
                     _graphSyncHelper, _graphValidationHelper))
                 {
-                    LogValidationFailure(nodeId, contentTypePartDefinition, contentItem, partName, partContent, sourceNode);
+                    LogValidationFailure(nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
                     return false;
                 }
             }
