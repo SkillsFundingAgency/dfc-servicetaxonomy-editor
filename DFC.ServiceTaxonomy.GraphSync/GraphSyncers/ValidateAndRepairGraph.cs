@@ -182,6 +182,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: for some reason sometimes we get an array with a single null element
             relationships.RemoveAll(x => x == null);
 
+            IDictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
+
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
                 string partTypeName = contentTypePartDefinition.PartDefinition.Name;
@@ -206,9 +208,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (!await partSyncer.VerifySyncComponent(
                     partContent, contentTypePartDefinition,
                     sourceNode, relationships, destinationNodes,
-                    _graphSyncHelper, _graphValidationHelper))
+                    _graphSyncHelper, _graphValidationHelper,
+                    expectedRelationshipCounts))
                 {
                     LogValidationFailure(nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
+                    return false;
+                }
+            }
+
+            // check there aren't any more relationships of each type than there should be
+            // we need to do this after all parts have added their own expected relationship counts
+            // to handle different parts or multiple named instances of a part creating relationships of the same type
+            foreach ((string relationshipType, int relationshipsInDbCount) in expectedRelationshipCounts)
+            {
+                int relationshipsInGraphCount = relationships.Count(r => r.Type == relationshipType);
+
+                if (relationshipsInDbCount != relationshipsInGraphCount)
+                {
+                    _logger.LogWarning($"Sync validation failed. Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}");
                     return false;
                 }
             }

@@ -1,10 +1,15 @@
 ﻿@model TriggerSyncValidationViewModel
 
+@*should be h1, but then ".ta-content h1" takes precedence over display-1*@
+
+@*todo show log or at least if validated, or required repair. what was right/wrong*@
+<div class="display-1 text-center">Validate and repair</div>
+
 @if (Model.ValidationSuccess)
 {
-    <h1>Validation result: <i class="far fa-thumbs-up"></i></h1>
+    <div class="display-1 text-center"><i class="far fa-thumbs-up"></i></div>
 }
 else
 {
-    <h1>Validation result: <i class="far fa-thumbs-down"></i></h1>
+    <div class="display-1 text-center"><i class="far fa-thumbs-down"></i></div>
 }

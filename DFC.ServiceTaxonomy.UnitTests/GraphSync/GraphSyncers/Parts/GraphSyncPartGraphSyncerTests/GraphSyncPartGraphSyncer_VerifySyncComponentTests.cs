@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
         public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
+        public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
         public GraphSyncPartGraphSyncer GraphSyncPartGraphSyncer { get; set; }
 
         const string _contentIdPropertyName = "Text";
@@ -41,6 +42,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 
+            ExpectedRelationshipCounts = new Dictionary<string, int>();
+
             GraphSyncPartGraphSyncer = new GraphSyncPartGraphSyncer();
         }
 
@@ -60,6 +63,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
             Assert.Equal(expected, verified);
         }
 
+        //todo: test to check nothing added to ExpectedRelationshipCounts
+
         private async Task<bool> CallVerifySyncComponent()
         {
             return await GraphSyncPartGraphSyncer.VerifySyncComponent(
@@ -69,7 +74,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
                 Relationships,
                 DestinationNodes,
                 GraphSyncHelper,
-                GraphValidationHelper);
+                GraphValidationHelper,
+                ExpectedRelationshipCounts);
         }
     }
 }

@@ -92,14 +92,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<bool> VerifySyncComponent(
-            dynamic content,
+        public async Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper)
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
@@ -116,6 +116,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     IContentPartFieldDefinition contentPartFieldDefinitionWrapper
                         = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
 
+                    //todo: pass expectedRelationshipCounts
                     if (!await contentFieldGraphSyncer.VerifySyncComponent(
                         contentItemField,
                         contentPartFieldDefinitionWrapper,

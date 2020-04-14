@@ -47,14 +47,14 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<bool> VerifySyncComponent(
-            dynamic content,
+        public Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper)
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)
@@ -79,6 +79,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     return Task.FromResult(false);
                 }
             }
+
+            //todo: add to expectedRelationshipCounts
 
             return Task.FromResult(true);
         }

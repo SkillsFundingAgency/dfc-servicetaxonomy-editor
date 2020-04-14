@@ -86,18 +86,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<bool> VerifySyncComponent(
-            dynamic content,
+        public async Task<bool> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
             IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper)
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             IEnumerable<ContentItem> contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
-
-            Dictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
 
             foreach (ContentItem bagPartContentItem in contentItems)
             {
@@ -105,7 +103,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
-                //todo: check failed bag items get repair attempt
+                //todo: check failed bag items get repair attempt - todo: no need to verify contained bag items? they should get independently checked
                 if (!await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition))
                     return false;
 
@@ -134,23 +132,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 if (relationship == null)
                 {
                     _logger.LogWarning($"Sync validation failed. Relationship of type {expectedRelationshipType} with end node ID {destinationNode.Id} not found");
-                    return false;
-                }
-            }
-
-            // check there aren't any more relationships of each type than there should be
-            foreach ((string relationshipType, int relationshipsInDbCount) in expectedRelationshipCounts)
-            {
-                int relationshipsInGraphCount = relationships.Count(r => r.Type == relationshipType);
-
-                //todo: this fails if the content type has >1 part that creates relationships of the same type
-                // do we cater for that eventuality, or remove this check?
-                //if we remove this check we'll miss extra relationships that shouldn't be there
-                // it might be best to check what should be there and ignore anything extra
-                // (similar question about extra properties)
-                if (relationshipsInDbCount != relationshipsInGraphCount)
-                {
-                    _logger.LogWarning($"Sync validation failed. Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}");
                     return false;
                 }
             }
