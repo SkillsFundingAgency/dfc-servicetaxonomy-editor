@@ -107,14 +107,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             };
         }
 
-        public string IdPropertyName
+        public string IdPropertyName()
         {
-            get
-            {
-                CheckPreconditions();
+            CheckPreconditions();
 
-                return GraphSyncPartSettings!.IdPropertyName ?? "UserId";
-            }
+            return IdPropertyName(GraphSyncPartSettings!);
+        }
+
+        public string IdPropertyName(string contentType)
+        {
+            return IdPropertyName(GetGraphSyncPartSettings(contentType));
+        }
+
+        private string IdPropertyName(GraphSyncPartSettings graphSyncPartSettings)
+        {
+            return graphSyncPartSettings.IdPropertyName ?? "UserId";
         }
 
         //todo: rename other methods, Generate?
@@ -126,8 +133,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             return GraphSyncPartSettings!.GenerateIdPropertyValue switch
             {
-                "$\"http://data.europa.eu/esco/occupation/{ContentType.ToLowerInvariant()}/{Value}\"" =>
-                $"http://data.europa.eu/esco/occupation/{_contentType!.ToLowerInvariant()}/{newGuid}",
+                "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"" =>
+                $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
                 "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\"" =>
                 $"http://nationalcareers.service.gov.uk/{_contentType!.ToLowerInvariant()}/{newGuid}",

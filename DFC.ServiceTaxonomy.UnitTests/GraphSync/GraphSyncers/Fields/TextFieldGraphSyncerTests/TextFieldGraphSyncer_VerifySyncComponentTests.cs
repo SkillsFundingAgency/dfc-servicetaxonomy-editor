@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldGraphSyncerTests

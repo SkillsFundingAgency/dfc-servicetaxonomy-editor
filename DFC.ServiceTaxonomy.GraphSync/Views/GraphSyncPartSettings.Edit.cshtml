@@ -2,56 +2,99 @@
 
 <fieldset class="form-group">
     <div class="row col-md">
+        <label asp-for="Settings">@T["Settings"]</label>
+        @Html.DropDownListFor(x => x.SelectedSetting, Model.Settings, new { @class = "form-control", @id = "ddlSelectSettings" })
+        <span class="hint">@T["Select from a pre-defined list of settings to pre-populate values below"]</span>
+    </div>
+</fieldset>
+<fieldset class="form-group graphsync-setting">
+    <div class="row col-md">
         <label asp-for="BagPartContentItemRelationshipType">@T["BagPart ContentItem relationship type"]</label>
-        <input asp-for="BagPartContentItemRelationshipType" class="form-control" />
+        <input asp-for="BagPartContentItemRelationshipType" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
         <span class="hint">@T["If the containing content type is stored in a BagPart, the type of relationship to create in the graph."]</span>
     </div>
 </fieldset>
 
-<fieldset class="form-group">
+<fieldset class="form-group graphsync-setting">
     <div class="row col-md">
         <label asp-for="NodeNameTransform">@T["Node name transform"]</label>
-        <input asp-for="NodeNameTransform" class="form-control" />
+        <input asp-for="NodeNameTransform" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
         <span class="hint">@T["If supplied, c# code to transform the node name (accessible through the variable named 'Value')."]</span>
     </div>
 </fieldset>
 
-<fieldset class="form-group">
+<fieldset class="form-group graphsync-setting">
     <div class="row col-md">
         <label asp-for="PropertyNameTransform">@T["Property name transform"]</label>
-        <input asp-for="PropertyNameTransform" class="form-control" />
+        <input asp-for="PropertyNameTransform" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
         <span class="hint">@T["If supplied, c# code to transform property names (accessible through the variable named 'Value')."]</span>
     </div>
 </fieldset>
 
-<fieldset class="form-group">
+<fieldset class="form-group graphsync-setting">
     <div class="row col-md">
         <label asp-for="CreateRelationshipType">@T["Create relationship type"]</label>
-        <input asp-for="CreateRelationshipType" class="form-control" />
+        <input asp-for="CreateRelationshipType" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
         <span class="hint">@T["C# code to create the relationship type (a variable named 'Value' contains the content type of the destination)."]</span>
     </div>
 </fieldset>
 
-<fieldset class="form-group">
+<fieldset class="form-group graphsync-setting">
     <div class="row col-md">
         <label asp-for="IdPropertyName">@T["ID property name"]</label>
-        <input asp-for="IdPropertyName" class="form-control" />
+        <input asp-for="IdPropertyName" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
         <span class="hint">@T["The name (key) of the ID property on the node."]</span>
     </div>
 </fieldset>
 
-<fieldset class="form-group">
+<fieldset class="form-group graphsync-setting">
     <div class="row col-md">
         <label asp-for="GenerateIdPropertyValue">@T["Generate ID value"]</label>
-        <input asp-for="GenerateIdPropertyValue" class="form-control" />
+        <input asp-for="GenerateIdPropertyValue" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : "")" />
         <span class="hint">@T["C# code to generate an ID value."]</span>
     </div>
 </fieldset>
 
-<fieldset class="form-group">
+<fieldset class="form-group graphsync-setting">
     <div class="custom-control custom-checkbox">
-        <input asp-for="PreexistingNode" type="checkbox" class="custom-control-input" />
+        <input asp-for="PreexistingNode" type="checkbox" class="custom-control-input" readonly="@(Model.ReadOnly ? "readonly" : "")" />
         <label class="custom-control-label" asp-for="PreexistingNode">@T["Preexisting node"]</label>
         <span class="hint">— @T["Check if the containing content type represents a node already in the graph. If selected, the existing node will not be modified (but relationships will still be created)."]</span>
     </div>
 </fieldset>
+
+<script at="Foot" type="text/javascript">
+    var allSettings = @Html.Raw(Json.Serialize(Model.AllSettings));
+    $(function () {
+        $('#ddlSelectSettings').on('change', function (ev) {
+            var val = $(this).val();
+
+            if (val == "Custom") {
+                //Remove readonly attr
+                $('.graphsync-setting input').attr("readonly", false);
+            } else {
+                //Add readonly attr
+                $('.graphsync-setting input').attr("readonly", true);
+
+                populateValuesFromSettings(allSettings, val);
+            }
+        })
+    });
+
+    var populateValuesFromSettings = function (allSettings, selectedSetting) {
+        allSettings.forEach(function (e) {
+            if (selectedSetting == e.name) {
+                $('.form-group input').each(function (index, input) {
+                    var key = input.name.substr(input.name.lastIndexOf(".") + 1);
+                    key = key.charAt(0).toLowerCase() + key.slice(1)
+
+                    var value = e[key];
+                    $(input).val(value);
+                })
+
+                return;
+            }
+        });
+    }
+</script>
+

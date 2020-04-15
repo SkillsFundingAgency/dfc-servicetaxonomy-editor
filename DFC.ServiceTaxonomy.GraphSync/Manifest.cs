@@ -3,7 +3,7 @@ using OrchardCore.Modules.Manifest;
 [assembly: Module(
     Name = "Graph Sync",
     Author = "National Careers Service",
-    Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
+    Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
     Version = "0.0.1",
     Description = "Enables syncing content to a Neo4j graph.",
     Category = "Graph",

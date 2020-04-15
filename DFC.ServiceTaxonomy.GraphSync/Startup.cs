@@ -52,10 +52,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
+            services.Configure<GraphSyncPartSettingsConfiguration>(configuration.GetSection(nameof(GraphSyncPartSettings)));
 
             // Recipe Steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
+            services.AddRecipeExecutionStep<CSharpContentStep>();
             services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
             services.AddTransient<IContentHelper, ContentHelper>();
 

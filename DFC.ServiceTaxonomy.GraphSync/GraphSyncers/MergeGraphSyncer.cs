@@ -78,7 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncHelper.ContentType = contentType;
 
             _mergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
-            _mergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName;
+            _mergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
 
             //Add created and modified dates to all content items
             //todo: store as neo's DateTime? especially if api doesn't match the string format

@@ -17,13 +17,13 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 
         public TitlePart TitlePart { get; set; }
         public JobProfilePart EponymousPart { get; set; }
-        public GraphLookupPart GraphLookupPart { get; set; } = new GraphLookupPart();    // todo: multiple?
         public GraphSyncPart GraphSyncPart { get; set; }
         public BagPart EntryRoutes { get; set; }
     }
 
     public class JobProfilePart
     {
+        public ContentPicker Occupation { get; set; }
         public HtmlField Description { get; set; }
         public TextField JobProfileWebsiteUrl { get; set; }
         public ContentPicker SOCCode { get; set; }
