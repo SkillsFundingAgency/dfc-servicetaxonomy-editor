@@ -16,9 +16,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
             _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
         }
 
-        public IEnumerable<string> GetSynonyms()
+        public IEnumerable<string> GetSynonyms(string node)
         {
-            var query = new MatchSynonymsQuery("esco__Occupation", "ncs__OccupationLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel");
+            var query = new MatchSynonymsQuery();
+
+            if(node.Equals("Skill", StringComparison.CurrentCultureIgnoreCase))
+            {
+                query = new MatchSynonymsQuery("esco__Skill", "ncs__SkillLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel");
+            }
+
+            if (node.Equals("Occupation", StringComparison.CurrentCultureIgnoreCase))
+            {
+                query = new MatchSynonymsQuery("esco__Occupation", "ncs__OccupationLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel");
+            }
+
             var result = _neoGraphDatabase.Run(query).GetAwaiter().GetResult();
 
             IReadOnlyDictionary<string, object> synonymResults = (IReadOnlyDictionary<string, object>)result.FirstOrDefault().Values["results"];

@@ -15,10 +15,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             _synonymService = synonymService ?? throw new ArgumentNullException(nameof(synonymService));
         }
 
-        [HttpGet("GraphSync/Synonyms/{filename}")]
-        public IActionResult Synonyms(string filename)
+        [HttpGet("GraphSync/Synonyms/{node}/{filename}")]
+        public IActionResult Synonyms(string node, string filename)
         {
-            var synonyms = _synonymService.GetSynonyms();
+            var synonyms = _synonymService.GetSynonyms(node);
 
             var sb = new StringBuilder();
             foreach(var item in synonyms)

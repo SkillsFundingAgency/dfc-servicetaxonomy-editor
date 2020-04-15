@@ -18,8 +18,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
-using DFC.ServiceTaxonomy.Neo4j.Helpers.Interface;
-using DFC.ServiceTaxonomy.Neo4j.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphLookup
 {
@@ -33,7 +31,6 @@ namespace DFC.ServiceTaxonomy.GraphLookup
             services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
 
             // Graph Database
-            services.AddSingleton<ITcpPortHelper, TcpPortHelper>();
             services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
 
