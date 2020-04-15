@@ -42,6 +42,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
 using OrchardCore.Navigation;
+using OrchardCore.Security.Permissions;
 
 namespace DFC.ServiceTaxonomy.GraphSync
 {
@@ -118,6 +119,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
+
+            // permissions
+            services.AddScoped<IPermissionProvider, Permissions>();
 
             // navigation
             services.AddScoped<INavigationProvider, AdminMenu>();

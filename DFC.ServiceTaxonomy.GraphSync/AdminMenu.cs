@@ -23,9 +23,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 .Add(S["Graph"], "99", graph => graph
                 .AddClass("graph").Id("graph")
                     .Add(S["Validate and Repair"], "2", validateAndRepair => validateAndRepair
+                        .Permission(Permissions.AdministerGraphs)
                         .Action("TriggerSyncValidation", "GraphSync", new { area = typeof(Startup)!.Namespace }))
-                    //todo: need permission to initiate graph sync
-                    //.Permission(Permissions.ManageEmailSettings)
                     // whats this?
                     //.LocalNav()
                 );
