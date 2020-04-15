@@ -36,15 +36,16 @@ Clone the [GitHub repo](https://github.com/SkillsFundingAgency/dfc-servicetaxono
 Add an `appsettings.Development.json` file and populate it with the following config:
 
 ```
-{
-    "Neo4j": {
-        "Endpoint": {
-            "Uri": "bolt://localhost:7687",
-            "Username": "neo4j",
-            "Password": "ESCO3"
-        }
+"Neo4j": {
+        "Endpoints": [
+            {
+                "Uri": "bolt://localhost:7687",
+                "Username": "neo4j",
+                "Password": "ESCO3",
+                "Enabled": true
+            }
+        ]
     }
-}
 ```
 
 Make sure the password matches the password you created the graph with. This file is git ignored, so won't be checked in.
