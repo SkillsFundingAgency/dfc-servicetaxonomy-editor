@@ -1,12 +1,12 @@
-﻿@model TriggerSyncValidationViewModel
-
-@*should be h1, but then ".ta-content h1" takes precedence over display-1*@
-
+﻿@using OrchardCore.ContentManagement
+@using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+@model TriggerSyncValidationViewModel
 
 @if (Model.ValidateAndRepairResult != null)
 {
     bool validationFailures = Model.ValidateAndRepairResult.ValidationFailures.Any();
 
+    @*should be h1, but then ".ta-content h1" takes precedence over display-1*@
     <div class="display-4 text-center">All new or modified content items since</div>
     <div class="display-4 text-center">@Model.ValidateAndRepairResult.LastSync.ToString("f")</div>
 
@@ -18,6 +18,72 @@
         <div class="display-1 text-center">Repaired</div>
         ShowThumb(!Model.ValidateAndRepairResult.RepairFailures.Any());
     }
+
+    <div class="just-padding">
+        <div class="list-group list-group-root card">
+
+            <a href="#validated" class="list-group-item" data-toggle="collapse">
+                @* <i class="glyphicon glyphicon-chevron-right"></i>Validated *@
+                <i class="fas fa-chevron-right"></i> Validated
+            </a>
+            <div class="list-group collapse" id="validated">
+                @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Validated)
+                {
+                    <a href="#" class="list-group-item">@contentItem.ContentType @contentItem.ContentItemId</a>
+                }
+            </div>
+
+            <a href="#failed-validation" class="list-group-item" data-toggle="collapse">
+                <i class="fas fa-chevron-right"></i> Failed Validation
+            </a>
+            <div class="list-group collapse" id="failed-validation">
+                @foreach (ValidationFailure validationFailure in Model.ValidateAndRepairResult.ValidationFailures)
+                {
+                    <a href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item" data-toggle="collapse">
+                        @* todo: user id in results *@
+                        <i class="fas fa-chevron-right"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId
+                    </a>
+
+                    <div class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
+                        <a href="#" class="list-group-item">@validationFailure.Reason</a>
+                    </div>
+                }
+            </div>
+
+            <a href="#repaired" class="list-group-item" data-toggle="collapse">
+                <i class="fas fa-chevron-right"></i> Repaired
+            </a>
+            <div class="list-group collapse" id="repaired">
+                @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Repaired)
+                {
+                    <a href="#" class="list-group-item">@contentItem.ContentType @contentItem.ContentItemId</a>
+                }
+            </div>
+
+            <a href="#repair-failed" class="list-group-item" data-toggle="collapse">
+                <i class="fas fa-chevron-right"></i> Repair Failed
+            </a>
+            <div class="list-group collapse" id="repair-failed">
+                @foreach (RepairFailure repairFailure in Model.ValidateAndRepairResult.RepairFailures)
+                {
+                    <a href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item" data-toggle="collapse">
+                        @* todo: user id in results *@
+                        <i class="fas fa-chevron-right"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId
+                    </a>
+
+                    <div class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
+                        <a href="#" class="list-group-item">@repairFailure.Reason</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script at="Foot" depends-on="admin, jquery">
+      $('.list-group-item').on('click', function() {
+          $(this).find('svg').toggleClass('fa-chevron-right fa-chevron-down');
+      });
+    </script>
 }
 
 @functions
