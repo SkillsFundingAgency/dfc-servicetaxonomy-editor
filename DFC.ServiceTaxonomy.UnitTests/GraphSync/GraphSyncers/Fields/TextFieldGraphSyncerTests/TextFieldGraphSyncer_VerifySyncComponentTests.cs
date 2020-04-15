@@ -57,14 +57,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
                 _contentKey,
                 A<JObject>._,
                 _fieldNameTransformed,
-                SourceNode)).Returns(stringContentPropertyMatchesNodePropertyReturns);
+                SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.Equal(expected, verified);
         }
 
-        private async Task<bool> CallVerifySyncComponent()
+        //todo: test that verifies that failure reason is returned
+
+        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
         {
             return await TextFieldGraphSyncer.VerifySyncComponent(
                 ContentItemField,

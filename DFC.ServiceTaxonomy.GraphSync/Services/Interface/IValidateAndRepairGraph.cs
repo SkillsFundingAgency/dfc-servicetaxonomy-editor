@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
     public interface IValidateAndRepairGraph
     {
         Task<ValidateAndRepairResult> ValidateGraph();
-        Task<(bool validated, string? validationFailureReason)> ValidateContentItem(
+        Task<(bool validated, string failureReason)> ValidateContentItem(
             ContentItem contentItem,
             ContentTypeDefinition contentTypeDefinition);
     }

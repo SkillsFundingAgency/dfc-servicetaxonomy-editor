@@ -86,7 +86,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<bool> VerifySyncComponent(dynamic content,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -103,13 +103,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
-                //todo: check failed bag items get repair attempt
-                //todo: return reason?
-                //todo: need to log here, now ValidateContentItem doesn't log anymore
-                (bool validated, string? validationFailureReason) =
+                (bool validated, string? failureReason) =
                     await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition);
-                if (!validated)
-                    return false;
+                if (!validated) //todo: more context required here?
+                    return (false, $"contained item failed validation: {failureReason}");
 
                 // check expected relationship is in graph
                 var bagContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
@@ -126,8 +123,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 INode destinationNode = destinationNodes.SingleOrDefault(n => Equals(n.Properties[graphSyncHelper.IdPropertyName()], destinationId));
                 if (destinationNode == null)
                 {
-                    _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
-                    return false;
+                    return (false, $"destination node with user ID '{destinationId}' not found");
                 }
 
                 var relationship = relationships.SingleOrDefault(r =>
@@ -135,12 +131,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 if (relationship == null)
                 {
-                    _logger.LogWarning($"Sync validation failed. Relationship of type {expectedRelationshipType} with end node ID {destinationNode.Id} not found");
-                    return false;
+                    return (false, $"relationship of type {expectedRelationshipType} with end node ID {destinationNode.Id} not found");
                 }
             }
 
-            return true;
+            return (true, "");
         }
 
         private async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)

@@ -66,20 +66,22 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
                 _contentKeyText,
                 A<JObject>._,
                 _fieldNameText,
-                SourceNode)).Returns(textStringContentPropertyMatchesNodePropertyReturns);
+                SourceNode)).Returns((textStringContentPropertyMatchesNodePropertyReturns, ""));
 
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentKeyUrl,
                 A<JObject>._,
                 _fieldNameUrl,
-                SourceNode)).Returns(urlStringContentPropertyMatchesNodePropertyReturns);
+                SourceNode)).Returns((urlStringContentPropertyMatchesNodePropertyReturns, ""));
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.Equal(expected, verified);
         }
 
-        private async Task<bool> CallVerifySyncComponent()
+        //todo: failure message tests
+
+        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
         {
             return await LinkFieldGraphSyncer.VerifySyncComponent(
                 ContentItemField,

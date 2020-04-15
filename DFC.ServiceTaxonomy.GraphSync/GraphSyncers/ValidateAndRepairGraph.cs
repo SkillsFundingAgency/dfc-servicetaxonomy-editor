@@ -148,7 +148,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     failedSyncContentItem.CreatedUtc,
                     failedSyncContentItem.ModifiedUtc);
 
-                //todo: more logging!
                 //todo: split into smaller methods
 
                 (bool validated, string? validationFailureReason) =
@@ -166,7 +165,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        public async Task<(bool validated, string? validationFailureReason)> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
+        public async Task<(bool validated, string failureReason)> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
         {
             _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");
 
@@ -179,6 +178,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _graphSyncHelper.IdPropertyName(),
                 nodeId));
 
+            //todo: these need more context
             if (results == null || !results.Any())
                 return (false, "Node missing from graph (no results).");
 
@@ -199,7 +199,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string partTypeName = contentTypePartDefinition.PartDefinition.Name;
                 string partName = contentTypePartDefinition.Name;
                 if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
-                    && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName) //don't think it actually matters, as eponymous not named part. does it affect below?
+                    && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName)
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
@@ -214,15 +214,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (partContent == null)
                     continue; //todo: throw??
 
-                if (!await partSyncer.VerifySyncComponent(
+                //todo: can we pass JObject instead of dynamic?
+                // nasty (bye bye type safety): https://github.com/dotnet/roslyn/blob/master/docs/features/deconstruction.md#resolution-of-the-deconstruct-method
+                // (bool verified, string partFailureReason) = await partSyncer.VerifySyncComponent(
+                dynamic verifyResult = await partSyncer.VerifySyncComponent(
                     partContent, contentTypePartDefinition,
                     sourceNode, relationships, destinationNodes,
                     _graphSyncHelper, _graphValidationHelper,
-                    expectedRelationshipCounts))
+                    expectedRelationshipCounts);
+
+                if (!verifyResult.verified)
                 {
-                    string failureReason = FailureContext(nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
-                    return (false, failureReason);
+                    string failureReason = $"{partSyncer.PartName} did not validate: {verifyResult.partFailureReason}";
+                    string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
+                    return (false, failureContext);
                 }
+
+                // if (!verified)
+                // {
+                //     string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
+                //     string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
+                //     return (false, failureContext);
+                // }
             }
 
             // check there aren't any more relationships of each type than there should be
@@ -234,16 +247,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 if (relationshipsInDbCount != relationshipsInGraphCount)
                 {
+                    //todo: needs more context
                     return (false, $"Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}.");
                 }
             }
 
-            return (true, null);
+            return (true, "");
         }
 
-        //todo: doesn't actually give the reason, just the data. need to supply a reason. add this 'metadata' to all failure reasons?
         //todo: for bag failures, source node is containing type, which isn't much use,
         private string FailureContext(
+            string failureReason,
             object nodeId,
             ContentTypePartDefinition contentTypePartDefinition,
             ContentItem contentItem,
@@ -251,7 +265,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             dynamic partContent,
             INode sourceNode)
         {
-            return $@"Content ----------------------------------------
+            return $@"{failureReason}
+Content ----------------------------------------
           type: '{contentItem.ContentType}'
             ID: {contentItem.ContentItemId}
 part type name: '{partName}'

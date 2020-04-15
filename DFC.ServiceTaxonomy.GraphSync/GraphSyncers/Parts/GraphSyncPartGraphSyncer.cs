@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public Task<bool> VerifySyncComponent(dynamic content,
+        public Task<(bool verified, string failureReason)> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -33,13 +33,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
         {
-            return Task.FromResult(
-                graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                    graphSyncHelper.ContentIdPropertyName,
-                    content,
-                    graphSyncHelper.IdPropertyName(),
-                    sourceNode));
-
+            return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                graphSyncHelper.ContentIdPropertyName,
+                content,
+                graphSyncHelper.IdPropertyName(),
+                sourceNode));
         }
     }
 }

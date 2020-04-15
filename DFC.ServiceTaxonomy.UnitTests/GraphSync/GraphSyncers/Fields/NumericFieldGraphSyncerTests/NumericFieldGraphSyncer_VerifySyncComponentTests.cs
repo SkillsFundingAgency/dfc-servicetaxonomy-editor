@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.True(verified);
         }
@@ -82,12 +82,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 1;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.True(verified);
         }
 
-        //todo: need to double check all these tests reflect reality in the editor :)
         [Fact]
         public async Task VerifySyncComponent_ContentNull_ReturnsFalse()
         {
@@ -97,7 +96,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             SourceNodeProperties.Add(_fieldName, valueProperty);
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -110,7 +109,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -127,7 +126,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -145,7 +144,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -162,7 +161,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -179,12 +178,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 1;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
 
-        private async Task<bool> CallVerifySyncComponent()
+        //todo: test that verifies that failure reason is returned
+
+        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
         {
             return await NumericFieldGraphSyncer.VerifySyncComponent(
                 ContentItemField!,

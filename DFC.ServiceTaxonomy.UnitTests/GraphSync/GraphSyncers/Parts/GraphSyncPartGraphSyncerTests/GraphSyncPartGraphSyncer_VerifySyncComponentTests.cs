@@ -56,16 +56,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
                 _contentIdPropertyName,
                 A<JObject>._,
                 _nodeTitlePropertyName,
-                SourceNode)).Returns(stringContentPropertyMatchesNodePropertyReturns);
+                SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.Equal(expected, verified);
         }
 
+        //todo: test that verifies that failure reason is returned
         //todo: test to check nothing added to ExpectedRelationshipCounts
 
-        private async Task<bool> CallVerifySyncComponent()
+        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
         {
             return await GraphSyncPartGraphSyncer.VerifySyncComponent(
                 Content,

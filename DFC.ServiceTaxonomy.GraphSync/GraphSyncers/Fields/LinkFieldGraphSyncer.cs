@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -46,22 +46,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string nodeUrlPropertyName = $"{nodeBasePropertyName}{LinkUrlPostfix}";
 
-            if (!graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            (bool matched, string failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
-                sourceNode))
-            {
-                return false;
-            }
+                sourceNode);
+
+            if (!matched)
+                return (false, $"url did not verify: {failureReason}");
 
             string nodeTextPropertyName = $"{nodeBasePropertyName}{LinkTextPostfix}";
 
-            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,
                 sourceNode);
+
+            return (matched, matched ? "" : $"text did not verify: {failureReason}");
         }
     }
 }

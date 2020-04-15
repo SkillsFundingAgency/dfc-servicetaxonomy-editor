@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<bool> VerifySyncComponent(dynamic content,
+        public Task<(bool verified, string failureReason)> VerifySyncComponent(dynamic content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             IDictionary<string, int> expectedRelationshipCounts)
         {
             GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
-            if (graphLookupPart == null)
+            if (graphLookupPart == null) //todo: handle as normal verification failure?
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
             GraphLookupPartSettings graphLookupPartSettings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
@@ -69,7 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
                 if (destNode == null)
                 {
-                    return Task.FromResult(false);
+                    return Task.FromResult((false, $"destination node with id {node.Id} not found"));
                 }
 
                 string relationshipType = graphLookupPartSettings.RelationshipType!;
@@ -77,7 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                 var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
                 if (relationship == null)
                 {
-                    return Task.FromResult(false);
+                    return Task.FromResult((false, $"'{relationshipType}' relationship with destination node id {destNode.Id} not found"));
                 }
 
                 // keep a count of how many relationships of a type we expect to be in the graph
@@ -85,9 +85,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                 expectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
-            //todo: add to expectedRelationshipCounts
-
-            return Task.FromResult(true);
+            return Task.FromResult((true, ""));
         }
 
         private object GetId(JToken jToken)

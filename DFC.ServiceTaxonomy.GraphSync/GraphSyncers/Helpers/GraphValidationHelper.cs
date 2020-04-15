@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: better name
         //todo: better distinguish between fieldTYPEname and fieldname
         //todo: log validation failed reasons
-        public bool StringContentPropertyMatchesNodeProperty(
+        public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,
@@ -23,15 +23,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
-                return nodePropertyValue == null;
+                bool bothNull = nodePropertyValue == null;
+                return (bothNull, bothNull?"":"content property value was null, but node property value was not null");
             }
 
             if (nodePropertyValue == null)
             {
-                return false;
+                return (false, "node property value was null, but content property value was not null");
             }
 
-            return contentItemFieldValue.As<string>() == (string)nodePropertyValue;
+            string contentPropertyValue = contentItemFieldValue.As<string>();
+            bool bothSame = contentPropertyValue == (string)nodePropertyValue;
+            return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
         }
     }
 }

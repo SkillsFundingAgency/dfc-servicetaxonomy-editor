@@ -5,7 +5,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IGraphValidationHelper
     {
-        bool StringContentPropertyMatchesNodeProperty(
+        (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,

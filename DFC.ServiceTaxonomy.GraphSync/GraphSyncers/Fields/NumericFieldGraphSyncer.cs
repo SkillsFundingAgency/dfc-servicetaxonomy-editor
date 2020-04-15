@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -55,25 +55,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             JToken? contentItemFieldValue = contentItemField[ContentKey];
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
-                return nodePropertyValue == null;
+                bool bothNull = nodePropertyValue == null;
+                return (bothNull, "content property value was null, but node property value was not null");
             }
 
             if (nodePropertyValue == null)
-                return false;
+                return (false, "node property value was null, but content property value was not null");
 
             var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
 
             if (fieldSettings.Scale == 0)
             {
-                return nodePropertyValue is long nodePropertyValueInt
+                bool longsSame = nodePropertyValue is long nodePropertyValueInt
                        && nodePropertyValueInt == (long)contentItemFieldValue;
+                return (longsSame, longsSame?"":$"long content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}'");
             }
 
             // calculate allowable tolerance from scale setting
             double allowableDifference = 1d / Math.Pow(10d, fieldSettings.Scale + 2);
 
-            return nodePropertyValue is double nodePropertyValueFloat
+            bool doublesSame = nodePropertyValue is double nodePropertyValueFloat
                 && Math.Abs(nodePropertyValueFloat - (double)contentItemFieldValue) <= allowableDifference;
+
+            return (doublesSame, doublesSame?"":$"double content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}' and allowable difference was {allowableDifference}");
         }
     }
 }
