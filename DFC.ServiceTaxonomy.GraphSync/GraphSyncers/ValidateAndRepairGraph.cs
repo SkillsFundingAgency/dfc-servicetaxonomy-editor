@@ -220,7 +220,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     _graphSyncHelper, _graphValidationHelper,
                     expectedRelationshipCounts))
                 {
-                    string failureReason = FailureReason(nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
+                    string failureReason = FailureContext(nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
                     return (false, failureReason);
                 }
             }
@@ -242,7 +242,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         //todo: doesn't actually give the reason, just the data. need to supply a reason. add this 'metadata' to all failure reasons?
-        private string FailureReason(
+        //todo: for bag failures, source node is containing type, which isn't much use,
+        private string FailureContext(
             object nodeId,
             ContentTypePartDefinition contentTypePartDefinition,
             ContentItem contentItem,
@@ -250,14 +251,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             dynamic partContent,
             INode sourceNode)
         {
-            return $@"Content type: '{contentItem.ContentType}'
-Node ID: '{nodeId}'
-Content part type name: '{contentTypePartDefinition.Name}'
-             name '{partName}'
-             content: '{partContent}'
-Source node ID: {sourceNode.Id}
-            labels: ':{string.Join(":", sourceNode.Labels)}'
-            properties: '{string.Join(",", sourceNode.Properties.Select(p => $"{p.Key}={p.Value}"))}'";
+            return $@"Content ----------------------------------------
+          type: '{contentItem.ContentType}'
+            ID: {contentItem.ContentItemId}
+part type name: '{partName}'
+     part name: '{contentTypePartDefinition.Name}'
+  part content:
+{partContent}
+Source Node ------------------------------------
+        ID: {sourceNode.Id}
+   user ID: {nodeId}
+    labels: ':{string.Join(":", sourceNode.Labels)}'
+properties:
+{string.Join(Environment.NewLine, sourceNode.Properties.Select(p => $"{p.Key} = {p.Value}"))}";
         }
     }
 
