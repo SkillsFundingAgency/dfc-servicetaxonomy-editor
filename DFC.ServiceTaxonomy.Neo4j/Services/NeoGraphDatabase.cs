@@ -39,10 +39,21 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _currentDriver = 0;
         }
 
+        public void CheckPortStatus(int portNumber)
+        {
+            var portListening = _tcpPortHelper.IsListening(portNumber);
+
+            if (!portListening)
+            {
+                throw new ArgumentException("Neo4J instance not listening!");
+            }
+        } 
+
         public async Task<List<T>> Run<T>(IQuery<T> query)
         {
             var neoDriver = GetNextDriver();
 
+            Check
             _logger.LogInformation($"Executing Query to: {neoDriver.Uri}");
 
             IAsyncSession session = neoDriver.Driver.AsyncSession();
