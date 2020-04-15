@@ -14,7 +14,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
 
         public MatchSynonymsQuery()
         {
-
+            FirstNodeLabel = string.Empty;
+            SecondNodeLabel = string.Empty;
+            PropertyValue = string.Empty;
+            RelationshipLabels = string.Empty;
         }
 
         public MatchSynonymsQuery(string firstNodeLabel, string secondNodeLabel, string propertyValue, params string[] relationshipLabels)
