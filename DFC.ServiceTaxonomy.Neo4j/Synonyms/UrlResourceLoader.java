@@ -26,6 +26,14 @@ import org.apache.lucene.analysis.util.ResourceLoader;
 import org.apache.lucene.analysis.util.ClasspathResourceLoader;
 import org.apache.lucene.*;
 import java.net.*;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.security.cert.X509Certificate;
+import java.net.HttpURLConnection;
 
 /**
  * Simple {@link ResourceLoader} that opens resource files
@@ -72,12 +80,51 @@ public final class UrlResourceLoader implements ResourceLoader {
   @Override
   public InputStream openResource(String resource) throws IOException {
     try {
-		System.out.print("Reading file from: " + resource);  
-		InputStream input = new URL(resource).openStream();
+		// Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }
+        };
+ 
+        // Install the all-trusting trust manager
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+ 
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+ 
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+		
+		System.out.println("Reading file from: " + resource);  
+		
+		URL url = new URL(resource);
+
+       HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+       HttpURLConnection.setFollowRedirects(false);
+       huc.setConnectTimeout(1000);
+       huc.setReadTimeout(2000);
+       huc.setRequestMethod("GET");
+       huc.connect();
+       InputStream input = huc.getInputStream();
+		
       return input;
     } catch (FileNotFoundException | NoSuchFileException fnfe) {
       return delegate.openResource(resource);
-    }
+    } catch(java.security.NoSuchAlgorithmException | java.security.KeyManagementException exe){
+		return delegate.openResource(resource);
+	}
   }
 
   @Override

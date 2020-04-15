@@ -7,7 +7,6 @@ using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using ILogger = Neo4j.Driver.ILogger;
-using DFC.ServiceTaxonomy.Neo4j.Helpers.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Models.Interface;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
@@ -23,8 +22,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         public NeoGraphDatabase(
             INeoDriverBuilder driverBuilder,
             ILogger neoLogger,
-            ILogger<NeoGraphDatabase> logger,
-            ITcpPortHelper tcpPortHelper)
+            ILogger<NeoGraphDatabase> logger)
         {
             _logger = logger;
 

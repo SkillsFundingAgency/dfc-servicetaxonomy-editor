@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.io.File;
 import java.io.IOException;
 import org.apache.commons.io.FileUtils;
+import java.util.Scanner;
 
 @Service.Implementation(AnalyzerProvider.class)
 public class SynonymAnalyzer extends AnalyzerProvider {
@@ -26,19 +27,50 @@ public class SynonymAnalyzer extends AnalyzerProvider {
 
     @Override
     public Analyzer createAnalyzer() {
-        try {
+			String neo4jPath = System.getenv("NEO4J_CONF") + "/neo4j.conf";
+			String fileUrl = "";
+			
+			File file = new File(neo4jPath);
+
+			try {
+				Scanner scanner = new Scanner(file);
+
+							 int lineNum = 0;
+				while (scanner.hasNextLine()) {
+					String line = scanner.nextLine();
+					lineNum++;
+					
+					if(line.indexOf("ncs.synonyms_file_url") != -1)
+					{
+						fileUrl = line.split("=")[1];
+					}
+				}
+			} catch(FileNotFoundException e) { 
+				throw new RuntimeException("ncs.synonyms_file_url not found in Neo4J Configuration", e);
+			}
+			
+			try{
             Analyzer analyzer = CustomAnalyzer.builder(new UrlResourceLoader())
 			//Analyzer analyzer = CustomAnalyzer.builder()
                     .withTokenizer(StandardTokenizerFactory.class)
                     .addTokenFilter(StandardFilterFactory.class)
-                    .addTokenFilter(SynonymFilterFactory.class, "synonyms", "https://dl.dropboxusercontent.com/s/f08rb52rcgnthso/synonyms2.txt")
+                    .addTokenFilter(SynonymFilterFactory.class, "synonyms", fileUrl)
                     .addTokenFilter(LowerCaseFilterFactory.class)
                     .build();
 
             return analyzer;
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to create analyzer", e);
-        }
+         } catch (Exception ex) {
+            System.out.println("Could not add Synonym Analyzer:" + ex);
+			try{
+				Analyzer analyzer = CustomAnalyzer.builder()
+						.withTokenizer(StandardTokenizerFactory.class).build();
+				return analyzer;	
+			}
+			catch (Exception re){
+				throw new RuntimeException("Couldn't add standard analyzer", re);
+			}
+					
+         }
     }
 
     @Override

@@ -84,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<ContentTypeFieldRemovedEvent, ContentTypeFieldRemovedEventDisplay>();
             services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
             services.AddActivity<PublishContentTypeContentItemsTask, PublishContentTypeContentItemsTaskDisplay>();
-            services.AddActivity<CreateSynonymsTask, CreateSynonymsTaskDisplay>();
+
 
             // Syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
