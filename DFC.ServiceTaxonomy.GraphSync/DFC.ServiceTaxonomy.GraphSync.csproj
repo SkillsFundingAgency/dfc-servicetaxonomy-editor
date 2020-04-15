@@ -22,7 +22,7 @@
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.Queries.Abstractions" Version="1.0.0-rc1-12806" />
+    <PackageReference Include="OrchardCore.Queries.Abstractions" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc1-*" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497">
