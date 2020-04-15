@@ -113,6 +113,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //Services
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
+            services.AddScoped<ISynonymService, SynonymService>();
 
             //Managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
@@ -125,6 +126,13 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 areaName: "DFC.ServiceTaxonomy.GraphSync",
                 pattern: "Home/Index",
                 defaults: new { controller = "Home", action = "Index" }
+            );
+
+            routes.MapAreaControllerRoute(
+                name: "Home",
+                areaName: "DFC.ServiceTaxonomy.GraphSync",
+                pattern: "GraphSync/Synonyms/{filename}",
+                defaults: new { controller = "Home", action = "Synonyms" }
             );
         }
     }

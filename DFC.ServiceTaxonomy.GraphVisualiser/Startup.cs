@@ -1,6 +1,8 @@
 using System;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
+using DFC.ServiceTaxonomy.Neo4j.Helpers;
+using DFC.ServiceTaxonomy.Neo4j.Helpers.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -20,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             var configuration = serviceProvider.GetService<IConfiguration>();
 
             services.Configure<OwlDataGeneratorConfigModel>(configuration.GetSection(nameof(OwlDataGeneratorConfigModel)));
+            services.AddSingleton<ITcpPortHelper, TcpPortHelper>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();

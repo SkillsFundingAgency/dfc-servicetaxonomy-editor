@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using ILogger = Neo4j.Driver.ILogger;
+using DFC.ServiceTaxonomy.Neo4j.Helpers.Interface;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
@@ -19,12 +20,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         private readonly ILogger<NeoGraphDatabase> _logger;
         private readonly IDriver _driver;
 
+        public ITcpPortHelper TcpPortHelper { get; }
+
         public NeoGraphDatabase(
             IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
             ILogger neoLogger,
-            ILogger<NeoGraphDatabase> logger)
+            ILogger<NeoGraphDatabase> logger,
+            ITcpPortHelper tcpPortHelper)
         {
             _logger = logger;
+            TcpPortHelper = tcpPortHelper;
+
             // Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.

@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
         {
             get
             {
-                return new Query($"MATCH(o:{FirstNodeLabel})-[{RelationshipLabels}]- (l:{SecondNodeLabel}) WITH {{ label: o.{PropertyValue}, values: REDUCE(result = o.{PropertyValue}, s in collect(l.{PropertyValue}) | result + \",\" + s) }} AS synonyms WITH {{ Results: collect(synonyms.values)}} as tomliboo RETURN tomliboo");
+                return new Query($"MATCH(o:{FirstNodeLabel})-[{RelationshipLabels}]- (l:{SecondNodeLabel}) WITH {{ label: o.{PropertyValue}, values: REDUCE(result = o.{PropertyValue}, s in collect(l.{PropertyValue}) | result + \",\" + s) }} AS synonyms WITH {{ Results: collect(synonyms.values)}} as results RETURN results");
             }
         }
 
