@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,13 +13,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
 
         public HomeController(ISynonymService synonymService)
         {
-            _synonymService = synonymService ?? throw new ArgumentNullException(nameof(synonymService));
+            _synonymService = synonymService;
         }
 
         [HttpGet("GraphSync/Synonyms/{node}/{filename}")]
-        public IActionResult Synonyms(string node, string filename)
+        public async Task<IActionResult> Synonyms(string node, string filename)
         {
-            var synonyms = _synonymService.GetSynonyms(node);
+            var synonyms = await _synonymService.GetSynonymsAsync(node);
 
             var sb = new StringBuilder();
             foreach (var item in synonyms)

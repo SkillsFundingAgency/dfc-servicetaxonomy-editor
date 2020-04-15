@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
 {
     public interface ISynonymService
     {
-        IEnumerable<string> GetSynonyms(string node);
+        Task<IEnumerable<string>> GetSynonymsAsync(string node);
     }
 }

@@ -128,13 +128,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 pattern: "Home/Index",
                 defaults: new { controller = "Home", action = "Index" }
             );
-
-            routes.MapAreaControllerRoute(
-                name: "Home",
-                areaName: "DFC.ServiceTaxonomy.GraphSync",
-                pattern: "GraphSync/Synonyms/{node}/{filename}",
-                defaults: new { controller = "Home", action = "Synonyms" }
-            );
         }
     }
 }

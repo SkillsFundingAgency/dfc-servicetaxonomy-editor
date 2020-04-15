@@ -22,7 +22,7 @@ public class SynonymHelper {
 			try {
 				Scanner scanner = new Scanner(file);
 
-							 int lineNum = 0;
+				int lineNum = 0;
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
 					lineNum++;
