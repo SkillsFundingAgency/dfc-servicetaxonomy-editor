@@ -23,8 +23,8 @@
         <div class="list-group list-group-root card">
 
             <a href="#validated" class="list-group-item" data-toggle="collapse">
-                @* <i class="glyphicon glyphicon-chevron-right"></i>Validated *@
                 <i class="fas fa-chevron-right"></i> Validated
+                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.Validated.Count</span>
             </a>
             <div class="list-group collapse" id="validated">
                 @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Validated)
@@ -35,6 +35,7 @@
 
             <a href="#failed-validation" class="list-group-item" data-toggle="collapse">
                 <i class="fas fa-chevron-right"></i> Failed Validation
+                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.ValidationFailures.Count</span>
             </a>
             <div class="list-group collapse" id="failed-validation">
                 @foreach (ValidationFailure validationFailure in Model.ValidateAndRepairResult.ValidationFailures)
@@ -42,6 +43,7 @@
                     <a href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item" data-toggle="collapse">
                         @* todo: user id in results *@
                         <i class="fas fa-chevron-right"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId
+                        <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.ValidationFailures.Count</span>
                     </a>
 
                     <div class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
@@ -52,6 +54,7 @@
 
             <a href="#repaired" class="list-group-item" data-toggle="collapse">
                 <i class="fas fa-chevron-right"></i> Repaired
+                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.Repaired.Count</span>
             </a>
             <div class="list-group collapse" id="repaired">
                 @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Repaired)
@@ -62,6 +65,7 @@
 
             <a href="#repair-failed" class="list-group-item" data-toggle="collapse">
                 <i class="fas fa-chevron-right"></i> Repair Failed
+                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.RepairFailures.Count</span>
             </a>
             <div class="list-group collapse" id="repair-failed">
                 @foreach (RepairFailure repairFailure in Model.ValidateAndRepairResult.RepairFailures)
