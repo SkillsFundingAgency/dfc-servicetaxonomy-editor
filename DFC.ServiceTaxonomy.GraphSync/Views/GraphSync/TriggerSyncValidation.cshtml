@@ -20,67 +20,67 @@
     }
 
     <div class="just-padding">
-        <div class="list-group list-group-root card">
+        <ul class="list-group list-group-root">
 
-            <a href="#validated" class="list-group-item" data-toggle="collapse">
-                <i class="fas fa-chevron-right"></i> Validated
+            <li href="#validated" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <span><i class="fas fa-chevron-right fa-fw"></i> Validated</span>
                 <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.Validated.Count</span>
-            </a>
-            <div class="list-group collapse" id="validated">
+            </li>
+            <ul class="list-group collapse" id="validated">
                 @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Validated)
                 {
-                    <a href="#" class="list-group-item">@contentItem.ContentType @contentItem.ContentItemId</a>
+                    <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
                 }
-            </div>
+            </ul>
 
-            <a href="#failed-validation" class="list-group-item" data-toggle="collapse">
-                <i class="fas fa-chevron-right"></i> Failed Validation
+            <li href="#failed-validation" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <span><i class="fas fa-chevron-right fa-fw"></i> Failed Validation</span>
                 <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.ValidationFailures.Count</span>
-            </a>
-            <div class="list-group collapse" id="failed-validation">
+            </li>
+            <ul class="list-group collapse" id="failed-validation">
                 @foreach (ValidationFailure validationFailure in Model.ValidateAndRepairResult.ValidationFailures)
                 {
-                    <a href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item" data-toggle="collapse">
+                    <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                         @* todo: user id in results *@
-                        <i class="fas fa-chevron-right"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId
+                        <i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId
                         <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.ValidationFailures.Count</span>
-                    </a>
+                    </li>
 
-                    <div class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
-                        <a href="#" class="list-group-item">@validationFailure.Reason</a>
-                    </div>
+                    <ul class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@validationFailure.Reason</li>
+                    </ul>
                 }
-            </div>
+            </ul>
 
-            <a href="#repaired" class="list-group-item" data-toggle="collapse">
-                <i class="fas fa-chevron-right"></i> Repaired
+            <li href="#repaired" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <span><i class="fas fa-chevron-right fa-fw"></i> Repaired</span>
                 <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.Repaired.Count</span>
-            </a>
-            <div class="list-group collapse" id="repaired">
+            </li>
+            <ul class="list-group collapse" id="repaired">
                 @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Repaired)
                 {
-                    <a href="#" class="list-group-item">@contentItem.ContentType @contentItem.ContentItemId</a>
+                    <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
                 }
-            </div>
+            </ul>
 
-            <a href="#repair-failed" class="list-group-item" data-toggle="collapse">
-                <i class="fas fa-chevron-right"></i> Repair Failed
+            <li href="#repair-failed" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <span><i class="fas fa-chevron-right fa-fw"></i> Repair Failed</span>
                 <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.RepairFailures.Count</span>
-            </a>
-            <div class="list-group collapse" id="repair-failed">
+            </li>
+            <ul class="list-group collapse" id="repair-failed">
                 @foreach (RepairFailure repairFailure in Model.ValidateAndRepairResult.RepairFailures)
                 {
-                    <a href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item" data-toggle="collapse">
+                    <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                         @* todo: user id in results *@
-                        <i class="fas fa-chevron-right"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId
-                    </a>
+                        <i class="fas fa-chevron-right fa-fw"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId
+                    </li>
 
-                    <div class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
-                        <a href="#" class="list-group-item">@repairFailure.Reason</a>
-                    </div>
+                    <ul class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@repairFailure.Reason</li>
+                    </ul>
                 }
-            </div>
-        </div>
+            </ul>
+        </ul>
     </div>
 
     <script at="Foot" depends-on="admin, jquery">
