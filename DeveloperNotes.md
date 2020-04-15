@@ -5,6 +5,7 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* we should explicitly set (and check) required and multiple settings for all content pickers
 * add Enable Admin Menu filter to recipe
 
 * use migrations (that execute recipes) to update content types, once live (https://docs.orchardcore.net/en/dev/docs/reference/modules/Recipes/)
