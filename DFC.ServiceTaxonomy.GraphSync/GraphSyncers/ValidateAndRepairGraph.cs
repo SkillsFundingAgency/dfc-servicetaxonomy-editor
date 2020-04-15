@@ -65,18 +65,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
             {
-                List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced);
-                //todo: or pass result and return bool?
+                List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced, result);
                 if (syncFailures.Any())
                 {
-                    result.ValidationFailures.AddRange(syncFailures);
-
-                    (List<ContentItem> repairedContentItems, List<RepairFailure> failedRepairs) =
-                        await AttemptRepair(syncFailures.Select(f => f.ContentItem), contentTypeDefinition);
-
-                    //todo: better to just pass result to AttemptRepair?
-                    result.Repaired.AddRange(repairedContentItems);
-                    result.RepairFailures.AddRange(failedRepairs);
+                    await AttemptRepair(syncFailures.Select(f => f.ContentItem), contentTypeDefinition, result);
                 }
             }
 
@@ -94,7 +86,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task<List<ValidationFailure>> ValidateContentItemsOfContentType(
             ContentTypeDefinition contentTypeDefinition,
-            DateTime lastSynced)
+            DateTime lastSynced,
+            ValidateAndRepairResult result)
         {
             List<ValidationFailure> syncFailures = new List<ValidationFailure>();
 
@@ -117,24 +110,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 (bool validated, string? validationFailureReason) =
                     await ValidateContentItem(contentItem, contentTypeDefinition);
-                if (!validated)
+                if (validated)
                 {
-                    _logger.LogWarning($@"Sync validation failed.{Environment.NewLine}{validationFailureReason}");
-
-                    syncFailures.Add(new ValidationFailure(contentItem, validationFailureReason!));
+                    _logger.LogInformation($"Sync validation passed for {contentItem.ContentType} {contentItem.ContentItemId}.");
+                    result.Validated.Add(contentItem);
+                }
+                else
+                {
+                    _logger.LogWarning($"Sync validation failed.{Environment.NewLine}{validationFailureReason}");
+                    ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!);
+                    syncFailures.Add(validationFailure);
+                    result.ValidationFailures.Add(validationFailure);
                 }
             }
 
             return syncFailures;
         }
 
-        private async Task<(List<ContentItem> repairedContentItems, List<RepairFailure> failedRepairs)> AttemptRepair(
+        private async Task AttemptRepair(
             IEnumerable<ContentItem> syncFailedContentItems,
-            ContentTypeDefinition contentTypeDefinition)
+            ContentTypeDefinition contentTypeDefinition,
+            ValidateAndRepairResult result)
         {
-            List<ContentItem> repairedContentItems = new List<ContentItem>();
-            List<RepairFailure> failedRepairs = new List<RepairFailure>();
-
             _logger.LogWarning(
                 $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}).Attempting to repair them.");
 
@@ -158,17 +155,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     await ValidateContentItem(failedSyncContentItem, contentTypeDefinition);
                 if (validated)
                 {
-                    _logger.LogInformation("Repair was successful.");
-                    repairedContentItems.Add(failedSyncContentItem);
+                    _logger.LogInformation("Repair was successful on {contentItem.ContentType} {contentItem.ContentItemId}.");
+                    result.Repaired.Add(failedSyncContentItem);
                 }
                 else
                 {
                     _logger.LogWarning($"Repair was unsuccessful.{Environment.NewLine}{validationFailureReason}");
-                    failedRepairs.Add(new RepairFailure(failedSyncContentItem, validationFailureReason!));
+                    result.RepairFailures.Add(new RepairFailure(failedSyncContentItem, validationFailureReason!));
                 }
             }
-
-            return (repairedContentItems, failedRepairs);
         }
 
         public async Task<(bool validated, string? validationFailureReason)> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
