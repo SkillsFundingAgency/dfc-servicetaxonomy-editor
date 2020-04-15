@@ -20,8 +20,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         private readonly IEnumerable<INeoDriver> _drivers;
         private int _currentDriver;
 
-        private readonly ITcpPortHelper _tcpPortHelper;
-
         public NeoGraphDatabase(
             INeoDriverBuilder driverBuilder,
             ILogger neoLogger,
@@ -29,7 +27,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             ITcpPortHelper tcpPortHelper)
         {
             _logger = logger;
-            _tcpPortHelper = tcpPortHelper;
 
             // Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
@@ -39,21 +36,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _currentDriver = 0;
         }
 
-        public void CheckPortStatus(int portNumber)
-        {
-            var portListening = _tcpPortHelper.IsListening(portNumber);
-
-            if (!portListening)
-            {
-                throw new ArgumentException("Neo4J instance not listening!");
-            }
-        } 
-
         public async Task<List<T>> Run<T>(IQuery<T> query)
         {
             var neoDriver = GetNextDriver();
 
-            Check
             _logger.LogInformation($"Executing Query to: {neoDriver.Uri}");
 
             IAsyncSession session = neoDriver.Driver.AsyncSession();
