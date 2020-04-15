@@ -21,28 +21,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             var synonyms = _synonymService.GetSynonyms(node);
 
             var sb = new StringBuilder();
-            foreach(var item in synonyms)
+            foreach (var item in synonyms)
             {
                 sb.AppendLine(item);
             }
 
             var stream = new MemoryStream(buffer: Encoding.UTF8.GetBytes(sb.ToString()));
 
-            stream.Position = 0;
-            return new FileStreamResult(stream, "text/plain")
+            try
             {
-                FileDownloadName = filename
-            };
-        }
-
-        public static Stream GenerateStreamFromString(string s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
+                stream.Position = 0;
+                return new FileStreamResult(stream, "text/plain")
+                {
+                    FileDownloadName = filename
+                };
+            }
+            catch
+            {
+                stream.Dispose();
+                throw;
+            }
         }
 
         public ActionResult Index()
