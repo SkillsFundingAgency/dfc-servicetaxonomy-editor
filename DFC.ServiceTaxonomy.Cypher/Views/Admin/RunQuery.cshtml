@@ -1,0 +1,52 @@
+﻿@model CypherQueryResultViewModel
+@{
+    int startIndex = (Model.Pager!.Page - 1) * (Model.Pager!.PageSize) + 1;
+    int endIndex = startIndex + Model.Results!.Count - 1;
+}
+<h1>@RenderTitleSegments(T[$"Cypher Query - {Model.Options!.QueryName} - Results"])</h1>
+<form asp-action="Index" method="post">
+    <input type="submit" name="submit.Filter" id="submitFilter" class="d-none" />
+    <div class="row">
+        <div class="form-group col-xl-12 col-sm-12">
+            <div class="input-group input-group-sm filter-options">
+                <input id="search-box" asp-for="Options!.Search" class="form-control" placeholder="@T["Search"]" type="search" autofocus="autofocus" />
+                <input id="query-name" asp-for="Options!.QueryName" type="hidden" />
+            </div>
+        </div>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item bg-light">
+            <div class="row">
+                <div class="form-group col-xl-4 mb-xl-n1">
+                    <label id="items" for="select-all">@T.Plural(Model.Results.Count, "1 item", "{0} items")<span class="text-muted" title="@T["Items {0} to {1}", startIndex, endIndex]">@T.Plural((int)Model.Pager.TotalItemCount, " / {0} item in total", " / {0} items in total")</span></label>
+                    <label id="selected-items" class="text-muted" for="select-all"></label>
+                </div>
+            </div>
+        </li>
+
+        @if (Model.Results.Any())
+        {
+            //need a shape here?
+            @*@await DisplayAsync("@Model.Options.ItemViewModel", Model.Results)*@
+            <partial name="@Model.Options!.ItemViewModel" model="@Model.Results" />
+        }
+        else
+        {
+            <li class="list-group-item">
+                <div class="alert alert-info" role="alert">
+                    @T["<strong>Nothing here!</strong> There are no results for this Query."]
+                </div>
+            </li>
+        }
+    </ul>
+</form>
+
+@await DisplayAsync(Model.Pager)
+
+<script at="Foot" type="text/javascript">
+    $(function () {
+        $(".filter-options input").on("change", function () {
+            $("[name='submit.Filter']").click();
+        });
+    });
+</script>

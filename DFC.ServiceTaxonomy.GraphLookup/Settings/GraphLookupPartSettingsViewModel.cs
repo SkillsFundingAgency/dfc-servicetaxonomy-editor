@@ -1,5 +1,4 @@
-﻿
-namespace DFC.ServiceTaxonomy.GraphLookup.Settings
+﻿namespace DFC.ServiceTaxonomy.GraphLookup.Settings
 {
     public class GraphLookupPartSettingsViewModel
     {

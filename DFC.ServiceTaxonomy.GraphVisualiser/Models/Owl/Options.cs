@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Models.Owl
 {
 

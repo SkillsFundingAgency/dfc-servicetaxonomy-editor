@@ -120,7 +120,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 object destinationId = graphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
 
-                INode destinationNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName] == destinationId);
+                INode destinationNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName()] == destinationId);
                 if (destinationNode == null)
                 {
                     _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");

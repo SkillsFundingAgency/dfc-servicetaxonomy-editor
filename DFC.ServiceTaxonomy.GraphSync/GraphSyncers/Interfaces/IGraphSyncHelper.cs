@@ -18,9 +18,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         Task<IEnumerable<string>> NodeLabels();
         Task<string> PropertyName(string name);
-        string IdPropertyName { get; }
+        string IdPropertyName();
         Task<string> GenerateIdPropertyValue();
 
+        string IdPropertyName(string contentType);
         Task<IEnumerable<string>> NodeLabels(string contentType);
         Task<string> RelationshipTypeDefault(string destinationContentType);
 

@@ -57,11 +57,13 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // Recipe Steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
+            services.AddRecipeExecutionStep<CSharpContentStep>();
             services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
             services.AddTransient<IContentHelper, ContentHelper>();
 
             // Graph Database
             services.AddTransient<ILogger, NeoLogger>();
+            services.AddSingleton<INeoDriverBuilder, NeoDriverBuilder>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();

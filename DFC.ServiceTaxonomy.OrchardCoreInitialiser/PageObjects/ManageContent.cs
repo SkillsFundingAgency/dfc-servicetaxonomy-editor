@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
                 {
                     throw new Exception("ManageContent: Exception in function PublishAllt:\n", e);
                 }
-               
+
                 currentPage++;
                 _webDriver.Navigate().GoToUrl(baseUrl + "&page=" + currentPage);
             }
@@ -129,9 +129,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             }
             catch (Exception e)
             {
-                Console.WriteLine("ManageContent: Logout failed {e}");
+                Console.WriteLine($"ManageContent: Logout failed {e}");
             }
-            
+
 
             return this;
         }

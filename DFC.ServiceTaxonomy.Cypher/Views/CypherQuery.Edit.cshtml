@@ -1,0 +1,40 @@
+﻿@model DFC.ServiceTaxonomy.Cypher.ViewModels.CypherQueryViewModel
+
+<script asp-name="codemirror" depends-on="admin" at="Foot"></script>
+<script asp-name="codemirror-mode-javascript" at="Foot"></script>
+<script asp-name="codemirror-mode-sql" at="Foot"></script>
+
+<div class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" asp-for="ReturnDocuments" checked="@Model.ReturnDocuments" />
+        <label class="custom-control-label" asp-for="ReturnDocuments">@T["Return Documents"]</label>
+        <span class="hint">— @T["Check to return the corresponding documents."]</span>
+    </div>
+    <span class="hint">@T["When checked, the result has to be a list of document ids."]</span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Query">@T["Query"]</label>
+    <textarea asp-for="Query" rows="12" class="form-control"></textarea>
+    <span class="hint">@T["The Cypher query to execute."]</span>
+</div>
+
+<div class="form-group">
+    <label asp-for="Parameters">@T["Parameters"]</label>
+    <textarea asp-for="Parameters" rows="12" class="form-control"></textarea>
+    <span class="hint">@T["The parameters (json) to pass to the Cypher query."]</span>
+</div>
+
+<div class="form-group">
+    <label asp-for="ResultModelType">@T["ResultModelType"]</label>
+    <input asp-for="ResultModelType" class="form-control" />
+    <span asp-validation-for="ResultModelType"></span>
+    <span class="hint">@T["The resuting model type from the Cypher query."]</span>
+</div>
+
+<script at="Foot">
+    $(function () {
+        CodeMirror.fromTextArea(document.getElementById('@Html.IdFor(x => x.Query)'), { mode: "text/x-pgsql", lineNumbers: true, viewportMargin: Infinity });
+        CodeMirror.fromTextArea(document.getElementById('@Html.IdFor(x => x.Parameters)'), { mode: "text/x-json", lineNumbers: true, viewportMargin: Infinity });
+    });
+</script>

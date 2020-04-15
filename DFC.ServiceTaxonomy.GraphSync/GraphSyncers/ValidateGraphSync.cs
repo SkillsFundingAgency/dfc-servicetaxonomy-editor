@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             List<IRecord> results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(
                 await _graphSyncHelper.NodeLabels(),
-                _graphSyncHelper.IdPropertyName,
+                _graphSyncHelper.IdPropertyName(),
                 nodeId));
 
             if (results == null || !results.Any())

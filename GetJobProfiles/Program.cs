@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using GetJobProfiles.JsonHelpers;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.ContentItems.Base;
@@ -29,6 +30,7 @@ using NPOI.XSSF.UserModel;
 // link to actual apprenticeship framework (and then have entry requirements off that)?
 // split into intermediate apprenticeship / advanced apprenticeship (could still display under 1 section with auto generation of some existing text)
 
+//todo: only generate occupations & occupation labels required for given job profile list
 
 namespace GetJobProfiles
 {
@@ -126,7 +128,7 @@ namespace GetJobProfiles
             BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
             BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
             BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
-            BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles");
+            BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles", CSharpContentStep.StepName);
             BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
             File.WriteAllText($"{OutputBasePath}content items count.txt", @$"{ImportFilesReport}# Totals
@@ -181,7 +183,11 @@ namespace GetJobProfiles
             await File.WriteAllTextAsync($"{OutputBasePath}{filename}", recipe);
         }
 
-        private static void BatchSerializeToFiles<T>(IEnumerable<T> contentItems, int batchSize, string filenamePrefix) where T : ContentItem
+        private static void BatchSerializeToFiles<T>(
+            IEnumerable<T> contentItems,
+            int batchSize,
+            string filenamePrefix,
+            string stepName = "Content") where T : ContentItem
         {
             ImportTotalsReport.AppendLine($"{filenamePrefix}: {contentItems.Count()}");
 
@@ -195,11 +201,11 @@ namespace GetJobProfiles
                 string filename = $"{FileIndex++:00}. {filenamePrefix}{batchNumber++}.zip";
                 ImportFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
 
-                ImportRecipe.Create($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch));
+                ImportRecipe.Create($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, stepName));
             }
         }
 
-        public static string WrapInNonSetupRecipe(string content)
+        public static string WrapInNonSetupRecipe(string content, string stepName = "Content")
         {
             return $@"{{
   ""name"": """",
@@ -213,7 +219,7 @@ namespace GetJobProfiles
   ""tags"": [],
   ""steps"": [
     {{
-      ""name"": ""Content"",
+      ""name"": ""{stepName}"",
       ""data"": [
 {content}
       ]

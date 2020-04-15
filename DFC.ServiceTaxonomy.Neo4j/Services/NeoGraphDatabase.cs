@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using ILogger = Neo4j.Driver.ILogger;
+using DFC.ServiceTaxonomy.Neo4j.Models.Interface;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
@@ -17,10 +16,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     public class NeoGraphDatabase : IGraphDatabase, IDisposable
     {
         private readonly ILogger<NeoGraphDatabase> _logger;
-        private readonly IDriver _driver;
+        private readonly IEnumerable<INeoDriver> _drivers;
+        private int _currentDriver;
 
         public NeoGraphDatabase(
-            IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
+            INeoDriverBuilder driverBuilder,
             ILogger neoLogger,
             ILogger<NeoGraphDatabase> logger)
         {
@@ -29,17 +29,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
             //todo: add configuration/settings menu item/page so user can enter this
-            var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
-
-            _driver = GraphDatabase.Driver(
-                neo4jConfiguration.Endpoint.Uri,
-                AuthTokens.Basic(neo4jConfiguration.Endpoint.Username, neo4jConfiguration.Endpoint.Password),
-                o => o.WithLogger(neoLogger));
+            _drivers = driverBuilder.Build();
+            _currentDriver = 0;
         }
 
         public async Task<List<T>> Run<T>(IQuery<T> query)
         {
-            IAsyncSession session = _driver.AsyncSession();
+            var neoDriver = GetNextDriver();
+
+            _logger.LogInformation($"Executing Query to: {neoDriver.Uri}");
+
+            IAsyncSession session = neoDriver.Driver.AsyncSession();
             try
             {
                 return await session.ReadTransactionAsync(async tx =>
@@ -56,11 +56,19 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public async Task Run(params ICommand[] commands)
         {
-            IAsyncSession session = _driver.AsyncSession();
+            var executionTasks = _drivers.Select(x => ExecuteTransaction(commands, x));
+            await Task.WhenAll(executionTasks);
+        }
+
+        private async Task ExecuteTransaction(ICommand[] commands, INeoDriver neoDriver)
+        {
+            IAsyncSession session = neoDriver.Driver.AsyncSession();
             try
             {
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
+
+                _logger.LogInformation($"Executing commands to: {neoDriver.Uri}");
 
                 await session.WriteTransactionAsync(async tx =>
                 {
@@ -90,9 +98,25 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             }
         }
 
+        private INeoDriver GetNextDriver()
+        {
+            if (_currentDriver == _drivers.Count())
+            {
+                _currentDriver = 0;
+            }
+
+            var driverToUse = _drivers.ElementAt(_currentDriver);
+            _currentDriver++;
+
+            return driverToUse;
+        }
+
         public void Dispose()
         {
-            _driver?.Dispose();
+            foreach (var neoDriver in _drivers)
+            {
+                neoDriver.Driver?.Dispose();
+            }
         }
     }
 }
