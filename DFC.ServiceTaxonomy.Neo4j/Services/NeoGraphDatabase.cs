@@ -25,7 +25,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             ILogger<NeoGraphDatabase> logger)
         {
             _logger = logger;
-
             // Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
