@@ -10,43 +10,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
         private string SecondNodeLabel { get; }
         private string PropertyValue { get; }
 
-        private string RelationshipLabels { get; }
-
-        public MatchSynonymsQuery()
-        {
-            FirstNodeLabel = string.Empty;
-            SecondNodeLabel = string.Empty;
-            PropertyValue = string.Empty;
-            RelationshipLabels = string.Empty;
-        }
+        private string[] RelationshipLabels { get; }
 
         public MatchSynonymsQuery(string firstNodeLabel, string secondNodeLabel, string propertyValue, params string[] relationshipLabels)
         {
             FirstNodeLabel = firstNodeLabel;
             SecondNodeLabel = secondNodeLabel;
             PropertyValue = propertyValue;
-            RelationshipLabels = BuildRelationshipLabels(relationshipLabels);
-        }
-
-        private string BuildRelationshipLabels(string[] relationshipLabels)
-        {
-            for (var i = 0; i < relationshipLabels.Length; i++)
-                relationshipLabels[i] = ":" + relationshipLabels[i];
-
-            return string.Join("|", relationshipLabels);
+            RelationshipLabels = relationshipLabels;
         }
 
         public List<string> ValidationErrors()
         {
             return new List<string>();
-            //:ncs__hasAltLabel|:ncs__hasPrefLabel|:ncs__hasHiddenLabel
         }
 
         public Query Query
         {
             get
             {
-                return new Query($"MATCH(o:{FirstNodeLabel})-[{RelationshipLabels}]- (l:{SecondNodeLabel}) WITH {{ label: o.{PropertyValue}, values: REDUCE(result = o.{PropertyValue}, s in collect(l.{PropertyValue}) | result + \",\" + s) }} AS synonyms WITH {{ Results: collect(synonyms.values)}} as results RETURN results");
+                return new Query($"MATCH(o:{FirstNodeLabel})-[:{string.Join("|:", RelationshipLabels)}]- (l:{SecondNodeLabel}) WITH {{ label: o.{PropertyValue}, values: REDUCE(result = o.{PropertyValue}, s in collect(l.{PropertyValue}) | result + \",\" + s) }} AS synonyms WITH {{ Results: collect(synonyms.values)}} as results RETURN results");
             }
         }
 
