@@ -1,5 +1,5 @@
 ﻿namespace DFC.ServiceTaxonomy.CustomFields.ViewModels
 {
-    public class DisplayAccordionFieldViewModel
+    public class EmptyViewModel
     {}
 }

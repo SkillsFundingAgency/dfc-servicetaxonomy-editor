@@ -16,15 +16,19 @@ namespace DFC.ServiceTaxonomy.CustomFields
         public Startup()
         {
             TemplateContext.GlobalMemberAccessStrategy.Register<AccordionField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayAccordionFieldViewModel>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<TabField>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<EmptyViewModel>();
         }
 
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ContentField, AccordionField>();
-
             services.AddScoped<IContentFieldDisplayDriver, AccordionFieldDisplayDriver>();
             services.AddScoped<IContentPartFieldDefinitionDisplayDriver, AccordionFieldSettingsDriver>();
+
+            services.AddSingleton<ContentField, TabField>();
+            services.AddScoped<IContentFieldDisplayDriver, TabFieldDisplayDriver>();
+            services.AddScoped<IContentPartFieldDefinitionDisplayDriver, TabFieldSettingsDriver>();
         }
     }
 }
