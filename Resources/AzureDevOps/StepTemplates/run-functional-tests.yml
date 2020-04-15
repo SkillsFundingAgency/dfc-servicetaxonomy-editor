@@ -19,7 +19,7 @@ steps:
   displayName: Extract TestSuite artifact
   condition: in('${{ parameters.Environment }}', 'DEV_SERVICETAXONOMY', 'SIT_SERVICETAXONOMY', 'PP_SERVICETAXONOMY')
   inputs:
-    archiveFilePatterns: '$(Pipeline.Workspace)/DFC.ServiceTaxonomy.TestSuite.DeploymentPackages/DeploymentPackages/DFC.ServiceTaxonomy.TestSuite.zip' 
+    archiveFilePatterns: '$(Pipeline.Workspace)/DFC.ServiceTaxonomy.TestSuite.DeploymentPackagesDFC.ServiceTaxonomy.TestSuite.zip' 
     destinationFolder: $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/
     cleanDestinationFolder: true
 - pwsh: Copy-Item -Path $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings-template.json -Destination $(System.DefaultWorkingDirectory)/DFC.ServiceTaxonomy.TestSuite/appsettings.json
