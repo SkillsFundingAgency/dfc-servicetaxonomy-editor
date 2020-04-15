@@ -132,7 +132,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             routes.MapAreaControllerRoute(
                 name: "Home",
                 areaName: "DFC.ServiceTaxonomy.GraphSync",
-                pattern: "GraphSync/Synonyms/{filename}",
+                pattern: "GraphSync/Synonyms/{node}/{filename}",
                 defaults: new { controller = "Home", action = "Synonyms" }
             );
         }
