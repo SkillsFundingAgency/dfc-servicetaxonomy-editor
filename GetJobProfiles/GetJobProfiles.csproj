@@ -89,4 +89,8 @@
       <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Properties\" />
+    </ItemGroup>
+
 </Project>
