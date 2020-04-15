@@ -16,6 +16,17 @@
     }
     else
     {
+        @* todo move out? *@
+        <style>
+            #results > .list-group > .list-group-item {
+                padding-left: 2em;
+            }
+
+            #results > .list-group > .list-group > .list-group-item{
+                padding-left: 4em;
+            }
+        </style>
+
         @*should be h1, but then ".ta-content h1" takes precedence over display-1*@
         <div class="display-4 text-center">All new or modified content items since</div>
         <div class="display-4 text-center">@Model.ValidateAndRepairResult.LastSync.ToString("f")</div>
@@ -29,7 +40,8 @@
             ShowThumb(!Model.ValidateAndRepairResult.RepairFailures.Any());
         }
 
-        <ul class="list-group">
+        // would have thought that embedded ul should be wrapped in li, but that doesn't seem to work -> check other browsers
+        <ul id="results" class="list-group">
 
             <li href="#validated" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                 <span><i class="fas fa-chevron-right fa-fw"></i> Validated</span>
@@ -51,12 +63,11 @@
                 {
                     <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                         @* todo: user id in results *@
-                        <i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId
-                        <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.ValidationFailures.Count</span>
+                        <span><i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId</span>
                     </li>
 
                     <ul class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@validationFailure.Reason</li>
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center"><code>@validationFailure.Reason</code></li>
                     </ul>
                 }
             </ul>
@@ -81,11 +92,11 @@
                 {
                     <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                         @* todo: user id in results *@
-                        <i class="fas fa-chevron-right fa-fw"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId
+                        <span><i class="fas fa-chevron-right fa-fw"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId</span>
                     </li>
 
                     <ul class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@repairFailure.Reason</li>
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center"><code>@repairFailure.Reason</code></li>
                     </ul>
                 }
             </ul>
