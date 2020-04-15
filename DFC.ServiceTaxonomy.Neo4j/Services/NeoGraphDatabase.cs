@@ -20,7 +20,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         private readonly ILogger<NeoGraphDatabase> _logger;
         private readonly IDriver _driver;
 
-        public ITcpPortHelper TcpPortHelper { get; }
+        private readonly ITcpPortHelper _tcpPortHelper;
 
         public NeoGraphDatabase(
             IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             ITcpPortHelper tcpPortHelper)
         {
             _logger = logger;
-            TcpPortHelper = tcpPortHelper;
+            _tcpPortHelper = tcpPortHelper;
 
             // Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
@@ -45,6 +45,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         public async Task<List<T>> Run<T>(IQuery<T> query)
         {
+            CheckGraphDatabaseStatus();
+
             IAsyncSession session = _driver.AsyncSession();
             try
             {
@@ -93,6 +95,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             finally
             {
                 await session.CloseAsync();
+            }
+        }
+
+        private void CheckGraphDatabaseStatus()
+        {
+            var portResult = _tcpPortHelper.IsListening(7687);
+
+            if (!portResult)
+            {
+                throw new ArgumentException("Not found!");
             }
         }
 
