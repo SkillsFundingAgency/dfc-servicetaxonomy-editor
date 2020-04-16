@@ -92,7 +92,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<(bool verified, string failureReason)> VerifySyncComponent(dynamic content,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -109,7 +110,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = content[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 

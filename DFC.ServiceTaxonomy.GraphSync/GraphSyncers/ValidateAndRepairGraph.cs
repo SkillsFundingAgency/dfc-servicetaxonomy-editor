@@ -12,6 +12,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -214,28 +215,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (partContent == null)
                     continue; //todo: throw??
 
-                //todo: can we pass JObject instead of dynamic?
-                // nasty (bye bye type safety): https://github.com/dotnet/roslyn/blob/master/docs/features/deconstruction.md#resolution-of-the-deconstruct-method
-                // (bool verified, string partFailureReason) = await partSyncer.VerifySyncComponent(
-                dynamic verifyResult = await partSyncer.VerifySyncComponent(
-                    partContent, contentTypePartDefinition,
+                (bool verified, string partFailureReason) = await partSyncer.VerifySyncComponent(
+                    (JObject)partContent, contentTypePartDefinition,
                     sourceNode, relationships, destinationNodes,
                     _graphSyncHelper, _graphValidationHelper,
                     expectedRelationshipCounts);
 
-                if (!verifyResult.verified)
+                if (!verified)
                 {
-                    string failureReason = $"{partSyncer.PartName} did not validate: {verifyResult.partFailureReason}";
+                    string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
                     string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
                     return (false, failureContext);
                 }
-
-                // if (!verified)
-                // {
-                //     string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
-                //     string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
-                //     return (false, failureContext);
-                // }
             }
 
             // check there aren't any more relationships of each type than there should be

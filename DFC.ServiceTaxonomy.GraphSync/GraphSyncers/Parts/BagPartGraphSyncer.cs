@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
@@ -81,7 +82,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<(bool verified, string failureReason)> VerifySyncComponent(dynamic content,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -90,7 +92,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
         {
-            IEnumerable<ContentItem> contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
+            IEnumerable<ContentItem>? contentItems = content["ContentItems"]?.ToObject<IEnumerable<ContentItem>>();
+            if (contentItems == null)
+                throw new GraphSyncException("Bag does not contain ContentItems");
 
             foreach (ContentItem bagPartContentItem in contentItems)
             {

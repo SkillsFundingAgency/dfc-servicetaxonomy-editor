@@ -47,7 +47,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<(bool verified, string failureReason)> VerifySyncComponent(dynamic content,
+        public Task<(bool verified, string failureReason)> VerifySyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
@@ -56,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
         {
-            GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
+            GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
