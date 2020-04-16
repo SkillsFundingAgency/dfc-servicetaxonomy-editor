@@ -5,7 +5,7 @@
 
   <groupId>org.neo4j.analyzer</groupId>
   <artifactId>ncs-synonym-analyzer</artifactId>
-  <version>0.1.0</version>
+  <version>1.0.0</version>
 
   <packaging>jar</packaging>
   <name>NCS Synonym Analyzer</name>
