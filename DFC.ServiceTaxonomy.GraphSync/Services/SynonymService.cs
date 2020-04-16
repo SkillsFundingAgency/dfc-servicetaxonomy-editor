@@ -31,12 +31,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
             if(node.Equals("Skill", StringComparison.CurrentCultureIgnoreCase))
             {
-                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(sourceNodeName.FirstOrDefault(), "ncs__SkillLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel"));
+                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(string.Join(":",sourceNodeName), "ncs__SkillLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel"));
             }
 
             if (node.Equals("Occupation", StringComparison.CurrentCultureIgnoreCase))
             {
-                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(sourceNodeName.FirstOrDefault(), "ncs__OccupationLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel"));
+                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(string.Join(":", sourceNodeName), "ncs__OccupationLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel"));
             }
 
             return new List<string>();
@@ -45,7 +45,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         private async Task<IEnumerable<string>> ExecuteSynonymQueryAsync(MatchSynonymsQuery query)
         {
             var result = await _neoGraphDatabase.Run(query);
-
             IReadOnlyDictionary<string, object> synonymResults = (IReadOnlyDictionary<string, object>)result.FirstOrDefault().Values["results"];
 
             var synonymList = ((List<object>)synonymResults.Values.FirstOrDefault()).OfType<string>();
