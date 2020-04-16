@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         GraphSyncPartSettings GraphSyncPartSettings { get; }
 
+        //todo: version that returns string with :
         Task<IEnumerable<string>> NodeLabels();
         Task<string> PropertyName(string name);
         string IdPropertyName();
