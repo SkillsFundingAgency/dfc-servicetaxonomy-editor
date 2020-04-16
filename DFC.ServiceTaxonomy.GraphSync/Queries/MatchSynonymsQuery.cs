@@ -25,21 +25,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
         {
             var validationErrors = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(FirstNodeLabel))
-            {
-                validationErrors.Add($"FirstNodeLabel not provided.");
-            }
-
-            if (string.IsNullOrWhiteSpace(SecondNodeLabel))
-            {
-                validationErrors.Add($"SecondNodeLabel not provided.");
-            }
-
-            if (string.IsNullOrWhiteSpace(PropertyValue))
-            {
-                validationErrors.Add($"PropertyValue not provided.");
-            }
-
             if(RelationshipTypes.Length == 0)
             {
                 validationErrors.Add($"At least one RelationshipType must be provided.");
