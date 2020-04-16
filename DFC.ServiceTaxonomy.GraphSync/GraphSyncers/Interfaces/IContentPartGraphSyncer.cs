@@ -11,6 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         string? PartName {get;}
 
+        //todo: change content to JObject
         Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
