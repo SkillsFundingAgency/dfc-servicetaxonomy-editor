@@ -10,14 +10,15 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
+    //todo: better to break out into separate classes??
 #pragma warning disable S4136
 
     public class GraphSyncHelper : IGraphSyncHelper
     {
-        //todo: gotta be careful about lifetimes. might have to injectiserviceprovider
+        //todo: gotta be careful about lifetimes. might have to inject iserviceprovider
         private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private string? _contentType;
@@ -73,6 +74,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task<IEnumerable<string>> NodeLabels(GraphSyncPartSettings graphSyncPartSettings, string contentType)
         {
+            //todo: rename NodeNameTransform to NodeLabelTransform
             string nodeLabel = graphSyncPartSettings.NodeNameTransform switch
             {
                 "$\"ncs__{ContentType}\"" => $"ncs__{contentType}",
@@ -107,6 +109,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             };
         }
 
+        //todo: rename to NodeIdPropertyName
         public string IdPropertyName()
         {
             CheckPreconditions();
@@ -121,7 +124,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private string IdPropertyName(GraphSyncPartSettings graphSyncPartSettings)
         {
-            return graphSyncPartSettings.IdPropertyName ?? "UserId";
+            return graphSyncPartSettings.IdPropertyName ?? "userId";
         }
 
         //todo: rename other methods, Generate?
@@ -143,12 +146,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             };
         }
 
+        public string ContentIdPropertyName => "Text";
+
+        //todo: rename to ContentIdPropertyValue
         public object GetIdPropertyValue(dynamic graphSyncContent)
         {
             //todo: null Text.ToString()?
 
             //todo: need way to support id values of types other than text
-            return graphSyncContent.Text.ToString();
+            return graphSyncContent[ContentIdPropertyName].ToString();
         }
 
         private void CheckPreconditions()

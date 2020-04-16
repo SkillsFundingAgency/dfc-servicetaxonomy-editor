@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
@@ -44,22 +43,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldGraphSyncer;
-        private readonly ILogger<EponymousPartGraphSyncer> _logger;
 
-        public EponymousPartGraphSyncer(
-            IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer,
-            ILogger<EponymousPartGraphSyncer> logger)
+        public EponymousPartGraphSyncer(IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer)
         {
             _contentFieldGraphSyncer = contentFieldGraphSyncer;
-            _logger = logger;
         }
 
+        //todo: might be better to call it EponymousPart and check for that, rather than null
         /// <summary>
         /// null is a special case to indicate a match when the part is the eponymous named content type part
         /// </summary>
         public string? PartName => null;
 
-        public async Task<IEnumerable<ICommand>> AddSyncComponents(
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -90,16 +86,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         graphSyncHelper);
                 }
             }
-
-            return Enumerable.Empty<ICommand>();
         }
 
-        public async Task<bool> VerifySyncComponent(dynamic content,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
@@ -109,29 +106,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = content[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 
                     IContentPartFieldDefinition contentPartFieldDefinitionWrapper
                         = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
 
-                    if (!await contentFieldGraphSyncer.VerifySyncComponent(
+                    (bool verified, string failureReason) = await contentFieldGraphSyncer.VerifySyncComponent(
                         contentItemField,
                         contentPartFieldDefinitionWrapper,
                         sourceNode,
                         relationships,
                         destinationNodes,
-                        graphSyncHelper))
+                        graphSyncHelper,
+                        graphValidationHelper,
+                        expectedRelationshipCounts);
+
+                    if (!verified)
                     {
-                        //todo: would be good to log graphsyncpart id : can log that in consumer when this returns false
-                        _logger.LogWarning($"Sync validation failed. Field type: {contentFieldGraphSyncer.FieldTypeName}, field: {contentPartFieldDefinition.Name}");
-                        return false;
+                        return (false, $"{contentPartFieldDefinition.Name} {contentFieldGraphSyncer.FieldTypeName} did not verify: {failureReason}");
                     }
                 }
             }
 
-            return true;
+            return (true,"");
         }
     }
 }

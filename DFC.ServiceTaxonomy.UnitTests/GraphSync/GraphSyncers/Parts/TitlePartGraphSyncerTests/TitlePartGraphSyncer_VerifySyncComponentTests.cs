@@ -1,37 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldGraphSyncerTests
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGraphSyncerTests
 {
-    public class TextFieldGraphSyncer_VerifySyncComponentTests
+    public class TitlePartGraphSyncer_VerifySyncComponentTests
     {
-        public JObject ContentItemField { get; set; }
-        public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
+        public JObject Content { get; set; }
+        public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public INode SourceNode { get; set; }
         public IEnumerable<IRelationship> Relationships { get; set; }
         public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
-        public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
+        public TitlePartGraphSyncer TitlePartGraphSyncer { get; set; }
 
-        const string _contentKey = "Text";
-        const string _fieldNameBase = "baseFieldName";
-        const string _fieldNameTransformed = "transformedFieldName";
+        const string _contentKey = "Title";
+        const string _nodeTitlePropertyName = "skos__prefLabel";
 
-        public TextFieldGraphSyncer_VerifySyncComponentTests()
+        public TitlePartGraphSyncer_VerifySyncComponentTests()
         {
-            ContentItemField = JObject.Parse("{}");
+            Content = JObject.Parse("{}");
 
-            ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
-            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldNameBase);
+            ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
 
             SourceNode = A.Fake<INode>();
 
@@ -39,13 +37,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             DestinationNodes = new INode[0];
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldNameBase)).Returns(_fieldNameTransformed);
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 
             ExpectedRelationshipCounts = new Dictionary<string, int>();
 
-            TextFieldGraphSyncer = new TextFieldGraphSyncer();
+            TitlePartGraphSyncer = new TitlePartGraphSyncer();
         }
 
         [Theory]
@@ -56,7 +53,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentKey,
                 A<JObject>._,
-                _fieldNameTransformed,
+                _nodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
             (bool verified, _) = await CallVerifySyncComponent();
@@ -65,12 +62,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         }
 
         //todo: test that verifies that failure reason is returned
+        //todo: test to check nothing added to ExpectedRelationshipCounts
 
         private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
         {
-            return await TextFieldGraphSyncer.VerifySyncComponent(
-                ContentItemField,
-                ContentPartFieldDefinition,
+            return await TitlePartGraphSyncer.VerifySyncComponent(
+                Content,
+                ContentTypePartDefinition,
                 SourceNode,
                 Relationships,
                 DestinationNodes,

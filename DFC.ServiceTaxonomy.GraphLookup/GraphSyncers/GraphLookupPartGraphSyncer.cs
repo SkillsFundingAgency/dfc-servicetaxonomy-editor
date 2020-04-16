@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
-        public Task<IEnumerable<ICommand>> AddSyncComponents(
+        public Task AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -25,11 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-            var emptyResult = Task.FromResult(Enumerable.Empty<ICommand>());
-
             JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
-                return emptyResult;
+                return Task.CompletedTask;
 
             if (settings.PropertyName != null)
             {
@@ -46,41 +44,49 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     nodes.Select(GetId).ToArray());
             }
 
-            return emptyResult;
+            return Task.CompletedTask;
         }
 
-        public Task<bool> VerifySyncComponent(dynamic content,
+        public Task<(bool verified, string failureReason)> VerifySyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
-            GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
+            GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
-            string relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+            GraphLookupPartSettings graphLookupPartSettings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
             foreach (var node in graphLookupPart.Nodes)
             {
                 var destNode = destinationNodes.SingleOrDefault(x =>
-                    (string)x.Properties[graphSyncHelper.IdPropertyName()] == node.Id);
+                    Equals(x.Properties[graphLookupPartSettings.ValueFieldName], node.Id));
 
                 if (destNode == null)
                 {
-                    return Task.FromResult(false);
+                    return Task.FromResult((false, $"destination node with id {node.Id} not found"));
                 }
+
+                string relationshipType = graphLookupPartSettings.RelationshipType!;
 
                 var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
-
                 if (relationship == null)
                 {
-                    return Task.FromResult(false);
+                    return Task.FromResult((false, $"'{relationshipType}' relationship with destination node id {destNode.Id} not found"));
                 }
+
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                expectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
-            return Task.FromResult(true);
+            return Task.FromResult((true, ""));
         }
 
         private object GetId(JToken jToken)
