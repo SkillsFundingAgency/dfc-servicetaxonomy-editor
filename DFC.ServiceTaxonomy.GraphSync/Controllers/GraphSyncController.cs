@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Controllers
 {
-    public class HomeController : Controller
+    public class GraphSyncController : Controller
     {
         private readonly ISynonymService _synonymService;
 
-        public HomeController(ISynonymService synonymService)
+        public GraphSyncController(ISynonymService synonymService)
         {
             _synonymService = synonymService;
         }
