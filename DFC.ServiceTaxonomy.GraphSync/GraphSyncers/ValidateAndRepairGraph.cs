@@ -223,7 +223,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 if (!verified)
                 {
-                    string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
+                    string failureReason = $"{partSyncer.PartName ?? "EponymousPart"} did not validate: {partFailureReason}";
                     string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
                     return (false, failureContext);
                 }

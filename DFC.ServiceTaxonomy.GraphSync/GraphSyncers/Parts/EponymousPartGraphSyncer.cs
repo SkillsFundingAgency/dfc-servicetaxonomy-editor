@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
@@ -44,16 +43,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldGraphSyncer;
-        private readonly ILogger<EponymousPartGraphSyncer> _logger;
 
-        public EponymousPartGraphSyncer(
-            IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer,
-            ILogger<EponymousPartGraphSyncer> logger)
+        public EponymousPartGraphSyncer(IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer)
         {
             _contentFieldGraphSyncer = contentFieldGraphSyncer;
-            _logger = logger;
         }
 
+        //todo: might be better to call it EponymousPart and check for that, rather than null
         /// <summary>
         /// null is a special case to indicate a match when the part is the eponymous named content type part
         /// </summary>
