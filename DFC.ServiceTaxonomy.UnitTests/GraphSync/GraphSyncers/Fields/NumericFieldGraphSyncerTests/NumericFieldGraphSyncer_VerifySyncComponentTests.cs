@@ -21,6 +21,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public IEnumerable<IRelationship> Relationships { get; set; }
         public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
+        public IGraphValidationHelper GraphValidationHelper { get; set; }
+        public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
         public NumericFieldGraphSyncer NumericFieldGraphSyncer { get; set; }
 
         const string _fieldName = "TestNumericFieldName";
@@ -42,6 +44,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
 
+            GraphValidationHelper = A.Fake<IGraphValidationHelper>();
+
+            ExpectedRelationshipCounts = new Dictionary<string, int>();
+
             NumericFieldGraphSyncer = new NumericFieldGraphSyncer();
         }
 
@@ -51,7 +57,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public async Task VerifySyncComponent_Scale0PropertyCorrect_ReturnsTrue()
         {
             const string valueContent = "123.0";
-            const int valueProperty = 123;
+            const long valueProperty = 123;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
@@ -59,7 +65,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.True(verified);
         }
@@ -76,22 +82,21 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 1;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.True(verified);
         }
 
-        //todo: need to double check all these tests reflect reality in the editor :)
         [Fact]
         public async Task VerifySyncComponent_ContentNull_ReturnsFalse()
         {
-            const int valueProperty = 123;
+            const long valueProperty = 123;
 
             ContentItemField = JObject.Parse($"{{\"Value\": null}}");
 
             SourceNodeProperties.Add(_fieldName, valueProperty);
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -104,7 +109,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -113,7 +118,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public async Task VerifySyncComponent_PropertySameScaleButValueDifferent_ReturnsFalse()
         {
             const string valueContent = "123.0";
-            const int valueProperty = 321;
+            const long valueProperty = 321;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
@@ -121,7 +126,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -139,7 +144,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
@@ -156,16 +161,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 0;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
 
         [Fact]
-        public async Task VerifySyncComponent_PropertyIntValueScaleMoreThan0ValueEquivalent_ReturnsFalse()
+        public async Task VerifySyncComponent_PropertyLongValueScaleMoreThan0ValueEquivalent_ReturnsFalse()
         {
             const string valueContent = "123.0";
-            const int valueProperty = 123;
+            const long valueProperty = 123;
 
             ContentItemField = JObject.Parse($"{{\"Value\": {valueContent}}}");
 
@@ -173,12 +178,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             NumericFieldSettings.Scale = 1;
 
-            bool verified = await CallVerifySyncComponent();
+            (bool verified, _) = await CallVerifySyncComponent();
 
             Assert.False(verified);
         }
 
-        private async Task<bool> CallVerifySyncComponent()
+        //todo: test that verifies that failure reason is returned
+
+        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
         {
             return await NumericFieldGraphSyncer.VerifySyncComponent(
                 ContentItemField!,
@@ -186,7 +193,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
                 SourceNode,
                 Relationships,
                 DestinationNodes,
-                GraphSyncHelper);
+                GraphSyncHelper,
+                GraphValidationHelper,
+                ExpectedRelationshipCounts);
         }
     }
 }

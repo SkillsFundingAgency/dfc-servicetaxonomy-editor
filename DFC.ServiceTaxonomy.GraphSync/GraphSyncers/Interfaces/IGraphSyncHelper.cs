@@ -25,6 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<IEnumerable<string>> NodeLabels(string contentType);
         Task<string> RelationshipTypeDefault(string destinationContentType);
 
+        string ContentIdPropertyName { get; }
         object GetIdPropertyValue(dynamic graphSyncContent);
     }
     #pragma warning restore S4136

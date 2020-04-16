@@ -10,7 +10,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -88,16 +87,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (modifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), modifiedUtc.Value);
 
-            List<ICommand> partCommands = await AddContentPartSyncComponents(contentType, content);
+            await AddContentPartSyncComponents(contentType, content);
 
             _logger.LogInformation($"Syncing {contentType} : {contentItemId} to {_mergeNodeCommand}");
 
-            await SyncComponentsToGraph(graphSyncPartContent, partCommands);
+            await SyncComponentsToGraph(graphSyncPartContent);
 
             return _mergeNodeCommand;
         }
 
-        private async Task<List<ICommand>> AddContentPartSyncComponents(
+        private async Task AddContentPartSyncComponents(
             string contentType,
             JObject content)
         {
@@ -108,8 +107,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
 
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
-
-            List<ICommand> partCommands = new List<ICommand>();
 
             foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
@@ -131,22 +128,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    partCommands.AddRange(
-                        await partSync.AddSyncComponents(
-                            partContent,
-                            _mergeNodeCommand,
-                            _replaceRelationshipsCommand,
-                            contentTypePartDefinition,
-                            _graphSyncHelper));
+                    await partSync.AddSyncComponents(
+                        partContent,
+                        _mergeNodeCommand,
+                        _replaceRelationshipsCommand,
+                        contentTypePartDefinition,
+                        _graphSyncHelper);
                 }
             }
-
-            return partCommands;
         }
 
-        private async Task SyncComponentsToGraph(
-            dynamic graphSyncPartContent,
-            IEnumerable<ICommand> partCommands)
+        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent)
         {
             List<ICommand> commands = new List<ICommand>();
 
@@ -164,9 +156,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 commands.Add(_replaceRelationshipsCommand);
             }
-
-            // part queries have to come after the main sync queries
-            commands.AddRange(partCommands);
 
             await _graphDatabase.Run(commands.ToArray());
         }

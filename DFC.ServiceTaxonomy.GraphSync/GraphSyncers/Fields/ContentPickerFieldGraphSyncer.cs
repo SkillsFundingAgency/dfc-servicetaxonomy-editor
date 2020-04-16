@@ -81,12 +81,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
                 contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
@@ -100,8 +102,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
             if (contentItemIds.Count != actualRelationships.Length)
             {
-                _logger.LogWarning($"Sync validation failed. Expecting {actualRelationships.Length} relationships of type {relationshipType} in graph, but found {contentItemIds.Count}");
-                return false;
+                return (false, $"expecting {actualRelationships.Length} relationships of type {relationshipType} in graph, but found {contentItemIds.Count}");
             }
 
             foreach (JToken item in contentItemIds)
@@ -110,13 +111,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
 
+                //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName()] == destinationId);
+                string destinationContentIdPropertyName =
+                    graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
+                INode destNode = destinationNodes.SingleOrDefault(n => Equals(n.Properties[destinationContentIdPropertyName], destinationId));
                 if (destNode == null)
                 {
-                    _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
-                    return false;
+                    return (false, $"destination node with user ID '{destinationId}' not found");
                 }
 
                 var relationship = actualRelationships.SingleOrDefault(r =>
@@ -124,12 +127,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 if (relationship == null)
                 {
-                    _logger.LogWarning($"Sync validation failed. Relationship of type {relationshipType} with end node ID {destNode.Id} not found");
-                    return false;
+                    return (false, $"relationship of type {relationshipType} with end node ID {destNode.Id} not found");
                 }
+
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                expectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
-            return true;
+            return (true, "");
         }
 
         private async Task<string> RelationshipTypeContentPicker(

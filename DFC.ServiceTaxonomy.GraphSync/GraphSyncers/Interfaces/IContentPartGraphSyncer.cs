@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
@@ -10,18 +11,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         string? PartName {get;}
 
-        Task<IEnumerable<ICommand>> AddSyncComponents(
+        //todo: change content to JObject
+        Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper);
 
-        Task<bool> VerifySyncComponent(dynamic content,
+        Task<(bool verified, string failureReason)> VerifySyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper);
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts);
     }
 }

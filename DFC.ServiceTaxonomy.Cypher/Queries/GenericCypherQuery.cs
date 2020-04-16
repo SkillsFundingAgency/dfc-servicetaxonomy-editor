@@ -10,6 +10,7 @@ namespace DFC.ServiceTaxonomy.Cypher.Queries
         private readonly string template;
         private readonly IDictionary<string, object> parameters;
 
+        //todo: ideally we want to keep the ctor for injection
         public GenericCypherQuery(string template, IDictionary<string, object> parameters)
         {
             this.template = template;
