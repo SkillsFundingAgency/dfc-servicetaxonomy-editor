@@ -4,14 +4,9 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
-    //todo: dreadful name :*)
-    // could move contents into graphsynchelper, although it doesn't _really_ belong there
     public class GraphValidationHelper : IGraphValidationHelper
     {
-        // could be static, but better for unit testing like this
         //todo: better name
-        //todo: better distinguish between fieldTYPEname and fieldname
-        //todo: log validation failed reasons
         public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,

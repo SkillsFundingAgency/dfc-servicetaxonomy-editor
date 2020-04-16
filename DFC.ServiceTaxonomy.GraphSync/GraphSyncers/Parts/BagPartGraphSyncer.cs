@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -22,18 +20,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<BagPartGraphSyncer> _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
         public string? PartName => nameof(BagPart);
 
         public BagPartGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider,
-            ILogger<BagPartGraphSyncer> logger)
+            IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _logger = logger;
 
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()

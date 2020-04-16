@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             IDictionary<string, int> expectedRelationshipCounts)
         {
             GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
-            if (graphLookupPart == null) //todo: handle as normal verification failure?
+            if (graphLookupPart == null)
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
             GraphLookupPartSettings graphLookupPartSettings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
