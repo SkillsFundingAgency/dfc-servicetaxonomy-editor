@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
@@ -9,7 +11,6 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Admin;
 using OrchardCore.DisplayManagement.Notify;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Controllers
 {
