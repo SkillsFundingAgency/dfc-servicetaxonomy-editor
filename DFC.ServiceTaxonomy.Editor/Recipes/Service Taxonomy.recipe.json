@@ -1954,6 +1954,8 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__relatedOccupation].",
+                                    "Multiple": false,
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "Occupation"
@@ -2200,6 +2202,7 @@
                                     "Position": "16"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasWorkingEnvironment].",
                                     "DisplayedContentTypes": [
                                         "WorkingEnvironment"
                                     ]
@@ -2216,6 +2219,7 @@
                                     "Position": "17"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasWorkingLocation].",
                                     "DisplayedContentTypes": [
                                         "WorkingLocation"
                                     ]
@@ -2232,6 +2236,7 @@
                                     "Position": "18"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasWorkingUniform].",
                                     "DisplayedContentTypes": [
                                         "WorkingUniform"
                                     ]

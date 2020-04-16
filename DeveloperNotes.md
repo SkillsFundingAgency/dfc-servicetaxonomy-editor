@@ -5,6 +5,7 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* we should explicitly set (and check) required and multiple settings for all content pickers
 * add Enable Admin Menu filter to recipe
 
 * convert datetime fields from text to real datetime

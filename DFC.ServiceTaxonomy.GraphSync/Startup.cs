@@ -68,6 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // graph database
             services.AddTransient<ILogger, NeoLogger>();
+            services.AddSingleton<INeoDriverBuilder, NeoDriverBuilder>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
