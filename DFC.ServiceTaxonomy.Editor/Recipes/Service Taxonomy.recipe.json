@@ -1447,6 +1447,55 @@
                     ]
                 },
                 {
+                    "Name": "ONetOccupationalCode",
+                    "DisplayName": "ONet Occupational Code",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "ONetOccupationalCode",
+                            "Name": "ONetOccupationalCode",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "IdPropertyName": "uri",
+                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "DayToDayTask",
                     "DisplayName": "Day to Day Task",
                     "Settings": {
@@ -1999,12 +2048,30 @@
                             }
                         },
                         {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ONetOccupationalCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ONet Occupational Code",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasONetOccupationalCode].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "ONetOccupationalCode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "TextField",
                             "Name": "JobProfileSOCID",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile SOCID",
-                                    "Position": "4"
+                                    "Position": "5"
                                 }
                             }
                         },
@@ -2014,7 +2081,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Job Profile Website Url",
-                                    "Position": "5"
+                                    "Position": "6"
                                 }
                             }
                         },
@@ -2025,7 +2092,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "How To Become Title Options",
                                     "Editor": "PredefinedList",
-                                    "Position": "6"
+                                    "Position": "7"
                                 },
                                 "TextFieldSettings": {},
                                 "TextFieldPredefinedListEditorSettings": {
