@@ -5,7 +5,12 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
-* update import so only occupation and occupation labels that are required for the jp set are imported
+master recipe:
+check import carries on ok after timeout
+check zip => json doesn't cause issues
+recipes in editor/recipes -> available in dev?
+
+* update import so only occupation labels that are required for the jp set are imported
 * we should explicitly set (and check) required and multiple settings for all content pickers
 * add Enable Admin Menu filter to recipe
 
@@ -78,77 +83,6 @@ dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https
 | published            | n/a                      |
 
 #Notes
-
-## import
-
-Phil Davies @lazcool 11:57
-Hi all, some advice please!
-We have lots of content items we need to import repeatedly.
-We're currently using multiple recipes to import them all, driving the UI using selenium :-o !
-We can't put all the content items into a single recipe, as importing the recipe times out.
-We can't use the "Recipes" step to load sub-recipes, as that will also timeout.
-We tried a custom recipe step that creates items concurrently, but ran into thread safety issues with _contentManager.CreateAsync().
-We tried creating the items on a background thread and returning from the recipe import straight away, but run into issues with that too.
-The only half-decent (at best) solution I can think of, is a custom recipe step that calls back to the web server with recipe requests.
-That should allow some concurrency in loading content items, but we'd still probably need multiple recipes as 1) we have dependencies between recipes, so we'd have to wait for a set of recipes to complete, before kicking off the next set, so back to timeout issues again, and 2) could OC handle the load?.
-I noticed this commands batching PR, that was written after someone requested being able to delete multiple items, but it looks like it adds support for batching creates too...
-sebastienros/yessql#228
-Will that help speed up item creation? Will I need to set CommandsPageSize?
-We could possibly bypass OC and figure out what we need to write directly to the database, but we have workflows that need to trigger on item publication.
-Does anyone have any suggestions about how we can best import lots of items?
-
-Dean Marcussen @deanmarcussen 13:58
-@lazcool at a glance sounds like a recipe for disaster... no pun intended ;) Write an api controller? drive it through multiple requests. batch things with a queue...
-
-Phil Davies @lazcool 14:04
-@deanmarcussen yeah i'm quickly going off the idea. i'm thinking perhaps executing all the recipes (similarly to OrchardCore.Recipes.Controllers.AdminController.Execute()) on startup, perhaps using IHostApplicationLifetime.ApplicationStarted (instead of using IModularTenantEvents, as the docs say its for executing user code when the first request comes in, and i'd want to run before). At least should be able to avoid request timeouts :)
-i did try batching with a queue, but it caused the request to timeout
-
-Phil Davies @lazcool 14:10
-it'll still have to trundle through creating one item at a time though, which takes a loooong time :(
-
-Dean Marcussen @deanmarcussen 14:11
-batch better, across multiple requests, as a session is thread safe across requsts
-
-Phil Davies @lazcool 14:14
-across multiple requests is what we currently do using selenium, which is not a great solution. that's why i was thinking calling back to self (the oc web server) over loopback, but that's not great either
-we currently have roughly 40 batch recipes totaling hundreds of thousands of items. not a pleasant task to import them manually
-is there any way we could frig a session to be thread safe within a request?
-
-Phil Davies @lazcool 14:34
-I guess we could use the "Recipes" step and let the import request timeout, assuming the request will carry on processing. doesn't speed up the process, but at least its a single user operation
-
-BJury @BJury 14:41
-Its merely a guess, but if its a one time thing, you could up all the timeouts?
-
-Phil Davies @lazcool 14:43
-we see timeouts around 20 mins - not sure if that's a browser timeout or firewall or ?
-the other issue we hit is running out of memory in the app service
-don't know if forcing a garbage collection would help there or if the import caches content items that we could either remove from the cache after each recipe or bypass any caching
-atm we reset the app service, which again is not a great solution
-
-BJury @BJury 14:47
-sounds like a big problem. I'd batch it up as well. Only has to be done once?
-
-Phil Davies @lazcool 14:49
-we're still working on changes to the content types and generating more content item, so it's a fairly regular occurrence atm. we don't really want to get into migrations at this point until things start settling down
-
-Phil Davies @lazcool 15:01
-looks like DefaultContentManagerSession might be the cache. would it be safe to call clear() on it after executing a recipe?
-
-
-plan:
-
-
-change import to not zip and files ending .recipe.json and set names
-generate recipes recipe with names in import util
-replace RecipeExecutor with our own that calls DefaultContentManagerSession.Clear and garbage collects after each innerRecipe
-loading master recipe will timeout, but should work as long as doesn't run out of memory
-or have a custom copy of ContentStep that that calls clear() after _contentManager.CreateAsync <= simpler and less intrusive
-
-things to check:
-zip => json doesn't cause issues
-recipes in editor/recipes -> available in dev?
 
 ##Occupation
 
