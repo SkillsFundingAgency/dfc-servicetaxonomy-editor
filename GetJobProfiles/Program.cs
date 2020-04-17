@@ -45,7 +45,7 @@ namespace GetJobProfiles
         private static readonly StringBuilder _importTotalsReport = new StringBuilder();
         private static readonly StringBuilder _recipesStep = new StringBuilder();
         private static readonly string _recipesStepExecutionId = $"Import_{Guid.NewGuid()}";
-        private static bool _excludeGraphMutators = false;
+        private static bool _excludeGraphMutators = true;
 
         private static readonly Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static readonly List<object> _matchingTitles = new List<object>();
@@ -242,12 +242,12 @@ namespace GetJobProfiles
                 if (_zip)
                 {
                     filename = $"{_fileIndex++:00}. {batchRecipeName}.zip";
-                    await ImportRecipe.CreateZipFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, recipeName, stepName));
+                    await ImportRecipe.CreateZipFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, batchRecipeName, stepName));
                 }
                 else
                 {
                     filename = $"{_fileIndex++:00}. {batchRecipeName}.recipe.json";
-                    await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, recipeName, stepName));
+                    await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, batchRecipeName, stepName));
                 }
 
                 _importFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
