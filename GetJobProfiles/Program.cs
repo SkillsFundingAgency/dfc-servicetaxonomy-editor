@@ -40,17 +40,18 @@ namespace GetJobProfiles
         // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
 
         private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
+        private static bool _excludeGraphMutators = false;
+        private const bool _zip = false;
+
         private static int _fileIndex = 1;
         private static readonly StringBuilder _importFilesReport = new StringBuilder();
         private static readonly StringBuilder _importTotalsReport = new StringBuilder();
         private static readonly StringBuilder _recipesStep = new StringBuilder();
         private static readonly string _recipesStepExecutionId = $"Import_{Guid.NewGuid()}";
-        private static bool _excludeGraphMutators = true;
 
         private static readonly Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static readonly List<object> _matchingTitles = new List<object>();
         private static readonly List<object> _missingTitles = new List<object>();
-        private const bool _zip = false;
 
         static async Task Main(string[] args)
         {
