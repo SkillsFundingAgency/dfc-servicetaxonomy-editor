@@ -11,6 +11,9 @@ check zip => json doesn't cause issues
 recipes in editor/recipes -> available in dev?
 logging? (will slow down import though)
 
+* validation: exclude readonly nodes like occupation, except for relationships
+soccode issue
+
 * create index recipe > if exists, drop, then create (or some other sequence that doesn't cause the master recipe to go boom)
 
 * update import so only occupation labels that are required for the jp set are imported

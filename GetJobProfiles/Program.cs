@@ -40,7 +40,6 @@ namespace GetJobProfiles
         // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
 
         private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
-        private static bool _excludeGraphMutators = false;
         private const bool _zip = false;
 
         private static int _fileIndex = 1;
@@ -70,11 +69,9 @@ namespace GetJobProfiles
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
 
-            var config = new ConfigurationBuilder()
+            IConfigurationRoot config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .Build();
-
-            //OutputBasePath = config["OutputBasePath"];
 
             var httpClient = new HttpClient
             {
@@ -106,7 +103,9 @@ namespace GetJobProfiles
             apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
-            if (!_excludeGraphMutators)
+
+            bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
+            if (!excludeGraphMutators)
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
