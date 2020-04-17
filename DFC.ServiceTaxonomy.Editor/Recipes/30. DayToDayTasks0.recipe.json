@@ -1,0 +1,186 @@
+{
+  "name": "DayToDayTasks",
+  "displayName": "DayToDayTasks",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "working out cooking times"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking out cooking times\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/daytodaytask/a9840324-4664-4eb7-a790-c294d42f7053"
+    },
+    "ContentItemId": "4t29ge7eb98tj0s5a3kfk24xn7",
+    "ContentItemVersionId": "448twa5097fyjvtavvjayzhtx8",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working out cooking times",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "measuring out large quantities of ingredients"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emeasuring out large quantities of ingredients\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/daytodaytask/f8b46435-a905-4dd5-b416-a0e5064d1723"
+    },
+    "ContentItemId": "4781thehm99kmvbrtrgz7r7q4p",
+    "ContentItemVersionId": "45xdn3rtyntmhxns45erx6b4cv",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "measuring out large quantities of ingredients",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making dough"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking dough\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/daytodaytask/52314461-eee1-4d65-bdfe-39b320dffdf5"
+    },
+    "ContentItemId": "4pf2e91eh1xyasggb7as7tcmcz",
+    "ContentItemVersionId": "4kext68gbew2rs2mpe2bnnf7wb",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making dough",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making sure you have enough supplies"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking sure you have enough supplies\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/daytodaytask/d953b8e7-7c0c-4b1d-8440-bd174a67ea2c"
+    },
+    "ContentItemId": "4cjkkynq9grq65kep48wjydcdf",
+    "ContentItemVersionId": "4f1731hsxvgv844rzsbcgefsn0",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making sure you have enough supplies",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "developing new products"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edeveloping new products\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/daytodaytask/dcb57078-586f-475f-ba66-b7cbdd7882ee"
+    },
+    "ContentItemId": "4q6t6x1a7s7b4revw5khf7hycv",
+    "ContentItemVersionId": "4dxk29gnp86wttvg05xeh4n9dw",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "developing new products",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "keeping production areas clean"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ekeeping production areas clean\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/daytodaytask/afe00e39-a436-4d5f-8d4c-d4cd5cf4c500"
+    },
+    "ContentItemId": "41q29bjvjxr4gxx1zbks7qa34p",
+    "ContentItemVersionId": "4y1r5fn0n7t9d3mb60snabb0xa",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "keeping production areas clean",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "working safely with machinery like power mixers, industrial ovens and production lines"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking safely with machinery like power mixers, industrial ovens and production lines\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/daytodaytask/05e48240-c3ac-49d5-b386-d9d020d12f51"
+    },
+    "ContentItemId": "4nwetp5e7mmre69r956vwtb65n",
+    "ContentItemVersionId": "4438kas2gydd7xn5v8rrmd9k5v",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working safely with machinery like power mixers, industrial ovens and production lines",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

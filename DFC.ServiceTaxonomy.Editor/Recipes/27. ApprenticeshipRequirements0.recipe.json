@@ -1,0 +1,66 @@
+{
+  "name": "ApprenticeshipRequirements",
+  "displayName": "ApprenticeshipRequirements",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "5 GCSEs at grades 9 to 4 (A* to C) or equivalent, including English and maths, for an advanced apprenticeship"
+    },
+    "ApprenticeshipRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E5 GCSEs at grades 9 to 4 (A* to C) or equivalent, including English and maths, for an advanced apprenticeship\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiprequirement/db9b3cc0-9893-4944-9172-cf04b5bb86f4"
+    },
+    "ContentItemId": "4w6j16vpp56ae0rsdkjb07kbxy",
+    "ContentItemVersionId": "4aedgq97nzznnr0z42tk23y9w8",
+    "ContentType": "ApprenticeshipRequirement",
+    "DisplayText": "5 GCSEs at grades 9 to 4 (A* to C) or equivalent, including English and maths, for an advanced apprenticeship",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Intermediate apprenticeship entry reqs"
+    },
+    "ApprenticeshipRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Esome GCSEs, usually including English and maths, or equivalent, for an intermediate apprenticeship\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiprequirement/af37215c-554e-4529-a6a7-342b4634411c"
+    },
+    "ContentItemId": "4ry6s5eembdh4ww9nvzhz35mds",
+    "ContentItemVersionId": "4r7whmseqpa31tcrx3zq9vfhx8",
+    "ContentType": "ApprenticeshipRequirement",
+    "DisplayText": "Intermediate apprenticeship entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

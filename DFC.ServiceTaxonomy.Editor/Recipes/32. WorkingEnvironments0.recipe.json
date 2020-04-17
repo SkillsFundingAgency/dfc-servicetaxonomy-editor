@@ -1,0 +1,42 @@
+{
+  "name": "WorkingEnvironments",
+  "displayName": "WorkingEnvironments",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "dusty, physically demanding and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, physically demanding and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/f2b1f1a4-98a6-40de-aa6d-c8d1a0113784"
+    },
+    "ContentItemId": "4xbwwjz2t4ntjts44tg5fj75cv",
+    "ContentItemVersionId": "4ye7mj6rdd566x7p79esmp7qw0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, physically demanding and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "RequirementsPrefixes",
+  "displayName": "RequirementsPrefixes",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "You may need:"
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may need:\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/0fd6ecad-9e69-4681-afd6-83c0821e3f97"
+    },
+    "ContentItemId": "4nv86r8g3zhxg745fx69f1x1wr",
+    "ContentItemVersionId": "4k837sm416qc4txnysp2yrjjdt",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "You may need:",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You\u0027ll usually need:"
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need:\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/8af97ada-6fc3-4f6a-96e7-096705d1a5da"
+    },
+    "ContentItemId": "4vqsv25y1xw615vskj6mh6eccj",
+    "ContentItemVersionId": "4myftmmen64krv9wjkfpqp34cd",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "You\u0027ll usually need:",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T07:40:22.1767175Z",
+    "PublishedUtc": "2020-04-17T07:40:22.1767175Z",
+    "CreatedUtc": "2020-04-17T07:40:22.1767175Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

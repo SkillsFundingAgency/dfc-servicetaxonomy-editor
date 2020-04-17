@@ -43,6 +43,8 @@ namespace GetJobProfiles
         private static int _fileIndex = 1;
         private static readonly StringBuilder _importFilesReport = new StringBuilder();
         private static readonly StringBuilder _importTotalsReport = new StringBuilder();
+        private static readonly StringBuilder _recipesStep = new StringBuilder();
+        private static readonly string _recipesStepExecutionId = $"Import_{Guid.NewGuid()}";
 
         private static readonly Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static readonly List<object> _matchingTitles = new List<object>();
@@ -132,6 +134,7 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
+            await WriteMasterRecipesFile();
             await File.WriteAllTextAsync($"{OutputBasePath}content items count.txt", @$"{_importFilesReport}# Totals
 {_importTotalsReport}");
             await File.WriteAllTextAsync($"{OutputBasePath}manual_activity_mapping.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
@@ -144,8 +147,22 @@ namespace GetJobProfiles
         {
             string filename = $"{_fileIndex++:00}. {recipeFilename}";
             _importFilesReport.AppendLine($"{filename}: null");
+            AddRecipeToRecipesStep(filename);
 
-            File.Copy(Path.Combine(recipePath, recipeFilename), $"{OutputBasePath}{filename}");
+            File.Copy(Path.Combine(recipePath, recipeFilename), $"{OutputBasePath}{filename}", overwrite: true);
+        }
+
+        private static void AddRecipeToRecipesStep(/*string executionId, */ string name)
+        {
+            _recipesStep.AppendLine($"{{ \"executionid\": \"{_recipesStepExecutionId}\", name=\"{name}\" }},");
+        }
+
+        private static async Task WriteMasterRecipesFile()
+        {
+            // chop off the last ','
+            _recipesStep.Length -= 3;
+            string content = WrapInNonSetupRecipe(_recipesStep.ToString(), _recipesStepExecutionId, "Recipes");
+            await ImportRecipe.CreateRecipeFile($"{OutputBasePath}master.recipe.json", content);
         }
 
         private static async Task BatchRecipes(string recipePath, string recipeFilename, int batchSize, string nodeName, int totalItems)
@@ -180,7 +197,10 @@ namespace GetJobProfiles
             }
 
             string filename = $"{_fileIndex++:00}. {recipeFilename}";
+
             _importFilesReport.AppendLine($"{filename}: {tokens.FirstOrDefault(x => x.Key == "limit").Value}");
+            AddRecipeToRecipesStep(filename);
+
             await File.WriteAllTextAsync($"{OutputBasePath}{filename}", recipe);
         }
 
@@ -210,7 +230,9 @@ namespace GetJobProfiles
                     filename = $"{_fileIndex++:00}. {name}{batchNumber++}.recipe.json";
                     await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, name, stepName));
                 }
+
                 _importFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
+                AddRecipeToRecipesStep(filename);
             }
         }
 
