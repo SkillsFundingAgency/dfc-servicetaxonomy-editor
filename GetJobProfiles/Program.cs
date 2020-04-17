@@ -45,6 +45,7 @@ namespace GetJobProfiles
         private static readonly StringBuilder _importTotalsReport = new StringBuilder();
         private static readonly StringBuilder _recipesStep = new StringBuilder();
         private static readonly string _recipesStepExecutionId = $"Import_{Guid.NewGuid()}";
+        private static bool _excludeGraphMutators = false;
 
         private static readonly Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static readonly List<object> _matchingTitles = new List<object>();
@@ -104,11 +105,15 @@ namespace GetJobProfiles
             apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
-            CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes.recipe.json");
-            CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes.recipe.json");
-            CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes.recipe.json");
+            if (!_excludeGraphMutators)
+            {
+                CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes.recipe.json");
+                CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes.recipe.json");
+                CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes.recipe.json");
+                CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes.recipe.json");
+            }
+
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems.recipe.json", occupationLabelsBatchSize, "OccupationLabels", 33036);
-            CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes.recipe.json");
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems.recipe.json", occupationsBatchSize, "Occupations", 2942);
 
             ProcessLionelsSpreadsheet();
@@ -154,7 +159,7 @@ namespace GetJobProfiles
 
         private static void AddRecipeToRecipesStep(/*string executionId, */ string name)
         {
-            _recipesStep.AppendLine($"{{ \"executionid\": \"{_recipesStepExecutionId}\", name=\"{name}\" }},");
+            _recipesStep.AppendLine($"{{ \"executionid\": \"{_recipesStepExecutionId}\", name:\"{name}\" }},");
         }
 
         private static async Task WriteMasterRecipesFile()
