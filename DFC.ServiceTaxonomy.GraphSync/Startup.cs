@@ -61,6 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
             services.AddRecipeExecutionStep<CSharpContentStep>();
+            services.AddRecipeExecutionStep<ContentNoCacheStep>();
             services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
             services.AddTransient<IContentHelper, ContentHelper>();
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();

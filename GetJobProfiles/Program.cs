@@ -238,7 +238,7 @@ namespace GetJobProfiles
             IEnumerable<T> contentItems,
             int batchSize,
             string recipeName,
-            string stepName = "Content") where T : ContentItem
+            string stepName = "ContentNoCache") where T : ContentItem
         {
             _importTotalsReport.AppendLine($"{recipeName}: {contentItems.Count()}");
 
@@ -268,7 +268,7 @@ namespace GetJobProfiles
             }
         }
 
-        public static string WrapInNonSetupRecipe(string content, string name, string stepName = "Content", string arrayName = "data")
+        public static string WrapInNonSetupRecipe(string content, string name, string stepName = "ContentNoCache", string arrayName = "data")
         {
             return $@"{{
   ""name"": ""{name}"",
@@ -294,7 +294,7 @@ namespace GetJobProfiles
         private static string WrapInContent(string content)
         {
             return $@"         {{
-            ""name"": ""Content"",
+            ""name"": ""ContentNoCache"",
             ""data"":  [
 {content}
             ]
