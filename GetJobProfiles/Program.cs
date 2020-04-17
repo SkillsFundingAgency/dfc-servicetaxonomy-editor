@@ -93,7 +93,7 @@ namespace GetJobProfiles
 
             var jobProfiles = converter.JobProfiles.ToArray();
 
-            new EscoJobProfileMapper().Map(jobProfiles);
+            List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(jobProfiles);
 
             var jobCategoryImporter = new JobCategoryImporter();
             jobCategoryImporter.Import(timestamp, jobProfiles);
@@ -114,7 +114,21 @@ namespace GetJobProfiles
             }
 
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", 33036);
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", 2942);
+
+            string whereClause = "";
+            int totalOccupations = 2942;
+            if (!string.IsNullOrWhiteSpace(jobProfilesToImport) && jobProfilesToImport != "*")
+            {
+                string uriList = string.Join(',', mappedOccupationUris.Select(u => $"'{u}'"));
+                whereClause = $"where o.uri in [{uriList}]";
+                totalOccupations = mappedOccupationUris.Count;
+            }
+            IDictionary<string, string> tokens = new Dictionary<string, string>
+            {
+                {"whereClause", whereClause}
+            };
+
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
 
             ProcessLionelsSpreadsheet();
 
@@ -171,15 +185,14 @@ namespace GetJobProfiles
             await ImportRecipe.CreateRecipeFile($"{OutputBasePath}master.recipe.json", content);
         }
 
-        private static async Task BatchRecipes(string recipePath, string recipeName, int batchSize, string nodeName, int totalItems)
+        private static async Task BatchRecipes(string recipePath, string recipeName, int batchSize, string nodeName, int totalItems, IDictionary<string, string> tokens = null)
         {
             int skip = 0;
 
-            var tokens = new Dictionary<string, string>
-            {
-                {"skip", skip.ToString()},
-                {"limit", batchSize.ToString()},
-            };
+            tokens ??= new Dictionary<string, string>();
+
+            tokens["skip"] = skip.ToString();
+            tokens["limit"] = batchSize.ToString();
 
             do
             {

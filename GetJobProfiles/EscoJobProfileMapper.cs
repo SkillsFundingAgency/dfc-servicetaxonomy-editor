@@ -33,8 +33,10 @@ namespace GetJobProfiles
             "tv-or-film-production-runner"
         };
 
-        public void Map(IEnumerable<JobProfileContentItem> jobProfiles)
+        public List<string> Map(IEnumerable<JobProfileContentItem> jobProfiles)
         {
+            List<string> mappedOccupationUris = new List<string>();
+
             using (var reader = new StreamReader(@"SeedData\esco_job_profile_map.csv"))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
@@ -62,9 +64,13 @@ namespace GetJobProfiles
                         {
                             $"«c#: await Content.GetContentItemIdByDisplayText(\"Occupation\", \"{title}\")»"
                         }};
+
+                        mappedOccupationUris.Add(uri);
                     }
                 }
             }
+
+            return mappedOccupationUris;
         }
     }
 }
