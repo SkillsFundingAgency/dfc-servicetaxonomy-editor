@@ -31,6 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
         private readonly IContentManager _contentManager;
+        private readonly IContentManagerSession _contentManagerSession;
         private readonly IContentItemIdGenerator _idGenerator;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly IMemoryCache _memoryCache;
@@ -42,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
             IContentManager contentManager,
+            IContentManagerSession contentManagerSession,
             IContentItemIdGenerator idGenerator,
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             IMemoryCache memoryCache,
@@ -50,6 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
             _contentManager = contentManager;
+            _contentManagerSession = contentManagerSession;
             _idGenerator = idGenerator;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _memoryCache = memoryCache;
@@ -147,6 +150,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             //todo: log adding content type + id? how would we (easily) get the contenttype??
 
             await _contentManager.CreateAsync(contentItem);
+            _contentManagerSession.Clear();
         }
 
         private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
