@@ -9,6 +9,9 @@ master recipe:
 check import carries on ok after timeout
 check zip => json doesn't cause issues
 recipes in editor/recipes -> available in dev?
+logging? (will slow down import though)
+
+* create index recipe > if exists, drop, then create (or some other sequence that doesn't cause the master recipe to go boom)
 
 * update import so only occupation labels that are required for the jp set are imported
 * we should explicitly set (and check) required and multiple settings for all content pickers
