@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
-    public class LinkFieldGraphSyncer : FieldGraphSyncer, IContentFieldGraphSyncer
+    public class LinkFieldGraphSyncer : IContentFieldGraphSyncer
     {
         public string FieldTypeName => "LinkField";
 
@@ -33,33 +33,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INode sourceNode,
             IEnumerable<IRelationship> relationships,
             IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             string nodeBasePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 
             string nodeUrlPropertyName = $"{nodeBasePropertyName}{LinkUrlPostfix}";
 
-            if (!StringContentPropertyMatchesNodeProperty(
+            (bool matched, string failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
-                sourceNode))
-            {
-                return false;
-            }
+                sourceNode);
+
+            if (!matched)
+                return (false, $"url did not verify: {failureReason}");
 
             string nodeTextPropertyName = $"{nodeBasePropertyName}{LinkTextPostfix}";
 
-            return StringContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,
                 sourceNode);
+
+            return (matched, matched ? "" : $"text did not verify: {failureReason}");
         }
     }
 }

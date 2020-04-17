@@ -8,9 +8,9 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGraphSyncerTests
 {
-    public class TitlePartGraphSyncerTests
+    public class TitlePartGraphSyncer_AddSyncComponentsTests
     {
         public dynamic? Content { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public TitlePartGraphSyncer TitlePartGraphSyncer { get; set; }
 
-        public TitlePartGraphSyncerTests()
+        public TitlePartGraphSyncer_AddSyncComponentsTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?

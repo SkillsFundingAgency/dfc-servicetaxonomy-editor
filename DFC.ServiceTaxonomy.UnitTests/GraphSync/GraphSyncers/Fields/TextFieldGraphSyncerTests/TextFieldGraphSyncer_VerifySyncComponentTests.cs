@@ -12,83 +12,71 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
 {
     public class TextFieldGraphSyncer_VerifySyncComponentTests
     {
-        public JObject? ContentItemField { get; set; }
+        public JObject ContentItemField { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public INode SourceNode { get; set; }
-        public Dictionary<string, object> SourceNodeProperties { get; set; }
         public IEnumerable<IRelationship> Relationships { get; set; }
         public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
+        public IGraphValidationHelper GraphValidationHelper { get; set; }
+        public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
         public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
 
-        const string _fieldName = "TestTextFieldName";
+        const string _contentKey = "Text";
+        const string _fieldNameBase = "baseFieldName";
+        const string _fieldNameTransformed = "transformedFieldName";
 
         public TextFieldGraphSyncer_VerifySyncComponentTests()
         {
+            ContentItemField = JObject.Parse("{}");
+
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
-            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
+            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldNameBase);
 
             SourceNode = A.Fake<INode>();
-            SourceNodeProperties = new Dictionary<string, object>();
-            A.CallTo(() => SourceNode.Properties).Returns(SourceNodeProperties);
 
             Relationships = new IRelationship[0];
             DestinationNodes = new INode[0];
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
+            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldNameBase)).Returns(_fieldNameTransformed);
+
+            GraphValidationHelper = A.Fake<IGraphValidationHelper>();
+
+            ExpectedRelationshipCounts = new Dictionary<string, int>();
 
             TextFieldGraphSyncer = new TextFieldGraphSyncer();
         }
 
-        [Fact]
-        public async Task VerifySyncComponent_PropertyCorrect_ReturnsTrue()
+        [Theory]
+        [InlineData(true, true)]
+        [InlineData(false, false)]
+        public async Task VerifySyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
-            const string text = "abc";
-            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
+            A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                _contentKey,
+                A<JObject>._,
+                _fieldNameTransformed,
+                SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
-            SourceNodeProperties.Add(_fieldName, text);
+            (bool verified, _) = await CallVerifySyncComponent();
 
-            bool verified = await CallVerifySyncComponent();
-
-            Assert.True(verified);
+            Assert.Equal(expected, verified);
         }
 
-        // no need to check for missing source node, that'll be handled in ValidateGraphSync
+        //todo: test that verifies that failure reason is returned
 
-        [Fact]
-        public async Task VerifySyncComponent_PropertyMissing_ReturnsFalse()
-        {
-            const string text = "abc";
-            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
-
-            bool verified = await CallVerifySyncComponent();
-
-            Assert.False(verified);
-        }
-
-        [Fact]
-        public async Task VerifySyncComponent_PropertyDifferent_ReturnsFalse()
-        {
-            const string text = "abc";
-            ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
-
-            SourceNodeProperties.Add(_fieldName, "some_other_value");
-
-            bool verified = await CallVerifySyncComponent();
-
-            Assert.False(verified);
-        }
-
-        private async Task<bool> CallVerifySyncComponent()
+        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
         {
             return await TextFieldGraphSyncer.VerifySyncComponent(
-                ContentItemField!,
+                ContentItemField,
                 ContentPartFieldDefinition,
                 SourceNode,
                 Relationships,
                 DestinationNodes,
-                GraphSyncHelper);
+                GraphSyncHelper,
+                GraphValidationHelper,
+                ExpectedRelationshipCounts);
         }
     }
 }
