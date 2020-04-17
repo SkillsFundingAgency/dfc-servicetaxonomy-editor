@@ -107,14 +107,14 @@ namespace GetJobProfiles
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
             if (!_excludeGraphMutators)
             {
-                CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes.recipe.json");
-                CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes.recipe.json");
-                CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes.recipe.json");
-                CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes.recipe.json");
+                await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
+                await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
+                await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
+                await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
 
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems.recipe.json", occupationLabelsBatchSize, "OccupationLabels", 33036);
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems.recipe.json", occupationsBatchSize, "Occupations", 2942);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", 33036);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", 2942);
 
             ProcessLionelsSpreadsheet();
 
@@ -148,13 +148,14 @@ namespace GetJobProfiles
             await File.WriteAllTextAsync($"{OutputBasePath}missing_content_titles.json", JsonSerializer.Serialize(_missingTitles));
         }
 
-        private static void CopyRecipe(string recipePath, string recipeFilename)
+        private static async Task CopyRecipe(string recipePath, string recipeName)
         {
-            string filename = $"{_fileIndex++:00}. {recipeFilename}";
-            _importFilesReport.AppendLine($"{filename}: null");
-            AddRecipeToRecipesStep(filename);
+            var tokens = new Dictionary<string, string>
+            {
+                {"recipeName", recipeName}
+            };
 
-            File.Copy(Path.Combine(recipePath, recipeFilename), $"{OutputBasePath}{filename}", overwrite: true);
+            await CopyRecipeWithTokenisation(recipePath, recipeName, tokens);
         }
 
         private static void AddRecipeToRecipesStep(/*string executionId, */ string name)
@@ -166,23 +167,25 @@ namespace GetJobProfiles
         {
             // chop off the last ','
             _recipesStep.Length -= 3;
-            string content = WrapInNonSetupRecipe(_recipesStep.ToString(), _recipesStepExecutionId, "Recipes");
+            string content = WrapInNonSetupRecipe(_recipesStep.ToString(), _recipesStepExecutionId, "recipes", "values");
             await ImportRecipe.CreateRecipeFile($"{OutputBasePath}master.recipe.json", content);
         }
 
-        private static async Task BatchRecipes(string recipePath, string recipeFilename, int batchSize, string nodeName, int totalItems)
+        private static async Task BatchRecipes(string recipePath, string recipeName, int batchSize, string nodeName, int totalItems)
         {
             int skip = 0;
 
             var tokens = new Dictionary<string, string>
             {
                 {"skip", skip.ToString()},
-                {"limit", batchSize.ToString()}
+                {"limit", batchSize.ToString()},
             };
 
             do
             {
-                await CopyRecipeWithTokenisation(recipePath, recipeFilename, tokens);
+                tokens["recipeName"] = recipeName;
+
+                await CopyRecipeWithTokenisation(recipePath, recipeName, tokens);
 
                 skip += batchSize;
                 tokens["skip"] = skip.ToString();
@@ -193,29 +196,38 @@ namespace GetJobProfiles
         }
 
 
-        private static async Task CopyRecipeWithTokenisation(string recipePath, string recipeFilename, IDictionary<string, string> tokens)
+        private static async Task CopyRecipeWithTokenisation(string recipePath, string recipeName, IDictionary<string, string> tokens)
         {
-            string recipe = await File.ReadAllTextAsync(Path.Combine(recipePath, recipeFilename));
+            string sourceFilename = $"{recipeName}.recipe.json";
+            string recipe = await File.ReadAllTextAsync(Path.Combine(recipePath, sourceFilename));
+
+            // bit messy
+            if (tokens.TryGetValue("skip", out string skip))
+            {
+                recipeName = $"{recipeName}{skip}";
+                tokens["recipeName"] = recipeName;
+            }
+
             foreach ((string key, string value) in tokens)
             {
                 recipe = recipe.Replace($"[token:{key}]", value);
             }
 
-            string filename = $"{_fileIndex++:00}. {recipeFilename}";
+            string destFilename = $"{_fileIndex++:00}. {recipeName}.recipe.json";
 
-            _importFilesReport.AppendLine($"{filename}: {tokens.FirstOrDefault(x => x.Key == "limit").Value}");
-            AddRecipeToRecipesStep(filename);
+            _importFilesReport.AppendLine($"{destFilename}: {tokens.FirstOrDefault(x => x.Key == "limit").Value}");
+            AddRecipeToRecipesStep(recipeName);
 
-            await File.WriteAllTextAsync($"{OutputBasePath}{filename}", recipe);
+            await File.WriteAllTextAsync($"{OutputBasePath}{destFilename}", recipe);
         }
 
         private static async Task BatchSerializeToFiles<T>(
             IEnumerable<T> contentItems,
             int batchSize,
-            string name,
+            string recipeName,
             string stepName = "Content") where T : ContentItem
         {
-            _importTotalsReport.AppendLine($"{name}: {contentItems.Count()}");
+            _importTotalsReport.AppendLine($"{recipeName}: {contentItems.Count()}");
 
             var batches = contentItems.Batch(batchSize);
             int batchNumber = 0;
@@ -224,24 +236,26 @@ namespace GetJobProfiles
                 //todo: async?
                 string serializedContentItemBatch = SerializeContentItems(batchContentItems);
 
+                string batchRecipeName = $"{recipeName}{batchNumber++}";
+
                 string filename;
                 if (_zip)
                 {
-                    filename = $"{_fileIndex++:00}. {name}{batchNumber++}.zip";
-                    await ImportRecipe.CreateZipFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, name, stepName));
+                    filename = $"{_fileIndex++:00}. {batchRecipeName}.zip";
+                    await ImportRecipe.CreateZipFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, recipeName, stepName));
                 }
                 else
                 {
-                    filename = $"{_fileIndex++:00}. {name}{batchNumber++}.recipe.json";
-                    await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, name, stepName));
+                    filename = $"{_fileIndex++:00}. {batchRecipeName}.recipe.json";
+                    await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{filename}", WrapInNonSetupRecipe(serializedContentItemBatch, recipeName, stepName));
                 }
 
                 _importFilesReport.AppendLine($"{filename}: {batchContentItems.Count()}");
-                AddRecipeToRecipesStep(filename);
+                AddRecipeToRecipesStep(batchRecipeName);
             }
         }
 
-        public static string WrapInNonSetupRecipe(string content, string name, string stepName = "Content")
+        public static string WrapInNonSetupRecipe(string content, string name, string stepName = "Content", string arrayName = "data")
         {
             return $@"{{
   ""name"": ""{name}"",
@@ -256,7 +270,7 @@ namespace GetJobProfiles
   ""steps"": [
     {{
       ""name"": ""{stepName}"",
-      ""data"": [
+      ""{arrayName}"": [
 {content}
       ]
     }}
