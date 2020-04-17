@@ -55,12 +55,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                 //TODO: Move equals function elsewhere for Single Reponsibility.
                 //todo: if model.X is null, but item.X isn't null, model.X!.Equals will throw - forgiving null when it is null
-                if (((string.IsNullOrWhiteSpace(model.BagPartContentItemRelationshipType) && string.IsNullOrWhiteSpace(item.BagPartContentItemRelationshipType)) || model.BagPartContentItemRelationshipType!.Equals(item.BagPartContentItemRelationshipType, StringComparison.CurrentCultureIgnoreCase))
-                    && ((string.IsNullOrWhiteSpace(model.NodeNameTransform) && string.IsNullOrWhiteSpace(item.NodeNameTransform)) || model.NodeNameTransform!.Equals(item.NodeNameTransform, StringComparison.CurrentCultureIgnoreCase))
-                    && ((string.IsNullOrWhiteSpace(model.PropertyNameTransform) && string.IsNullOrWhiteSpace(item.PropertyNameTransform)) || model.PropertyNameTransform!.Equals(item.PropertyNameTransform, StringComparison.CurrentCultureIgnoreCase))
-                    && ((string.IsNullOrWhiteSpace(model.CreateRelationshipType) && string.IsNullOrWhiteSpace(item.CreateRelationshipType)) || model?.CreateRelationshipType!.Equals(item.CreateRelationshipType, StringComparison.CurrentCultureIgnoreCase))
-                    && ((string.IsNullOrWhiteSpace(model.IdPropertyName) && string.IsNullOrWhiteSpace(item.IdPropertyName)) || model.IdPropertyName!.Equals(item.IdPropertyName, StringComparison.CurrentCultureIgnoreCase))
-                    && ((string.IsNullOrWhiteSpace(model.GenerateIdPropertyValue) && string.IsNullOrWhiteSpace(item.GenerateIdPropertyValue)) || model?.GenerateIdPropertyValue!.Equals(item.GenerateIdPropertyValue, StringComparison.CurrentCultureIgnoreCase)))
+                if (((string.IsNullOrWhiteSpace(model.BagPartContentItemRelationshipType) && string.IsNullOrWhiteSpace(item.BagPartContentItemRelationshipType)) || model.BagPartContentItemRelationshipType != null && model.BagPartContentItemRelationshipType.Equals(item.BagPartContentItemRelationshipType, StringComparison.CurrentCultureIgnoreCase))
+                    && ((string.IsNullOrWhiteSpace(model.NodeNameTransform) && string.IsNullOrWhiteSpace(item.NodeNameTransform)) || model.NodeNameTransform != null && model.NodeNameTransform.Equals(item.NodeNameTransform, StringComparison.CurrentCultureIgnoreCase))
+                    && ((string.IsNullOrWhiteSpace(model.PropertyNameTransform) && string.IsNullOrWhiteSpace(item.PropertyNameTransform)) || model.PropertyNameTransform != null && model.PropertyNameTransform.Equals(item.PropertyNameTransform, StringComparison.CurrentCultureIgnoreCase))
+                    && ((string.IsNullOrWhiteSpace(model.CreateRelationshipType) && string.IsNullOrWhiteSpace(item.CreateRelationshipType)) || model.CreateRelationshipType != null && model.CreateRelationshipType.Equals(item.CreateRelationshipType, StringComparison.CurrentCultureIgnoreCase))
+                    && ((string.IsNullOrWhiteSpace(model.IdPropertyName) && string.IsNullOrWhiteSpace(item.IdPropertyName)) || model.IdPropertyName != null && model.IdPropertyName.Equals(item.IdPropertyName, StringComparison.CurrentCultureIgnoreCase))
+                    && ((string.IsNullOrWhiteSpace(model.GenerateIdPropertyValue) && string.IsNullOrWhiteSpace(item.GenerateIdPropertyValue)) || model.GenerateIdPropertyValue != null && model.GenerateIdPropertyValue!.Equals(item.GenerateIdPropertyValue, StringComparison.CurrentCultureIgnoreCase)))
                 {
                     model.SelectedSetting = item.Name;
                     model.ReadOnly = true;
