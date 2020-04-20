@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
@@ -13,7 +12,6 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -217,7 +215,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 string failureReason = $"{partSyncer.PartName ?? "EponymousPart"} did not validate: {partFailureReason}";
                 string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition,
-                    contentItem, partTypeName, partContent, nodeWithOutgoingRelationships.SourceNode);
+                    contentItem, partTypeName, partContent, nodeWithOutgoingRelationships);
                 return (false, failureContext);
             }
 
@@ -251,6 +249,7 @@ Content ----------------------------------------
             ID: {contentItem.ContentItemId}";
         }
 
+        //todo: output relationships destination label user id, instead of node id
         private string FailureContext(
             string failureReason,
             object nodeId,
@@ -258,7 +257,7 @@ Content ----------------------------------------
             ContentItem contentItem,
             string partName,
             dynamic partContent,
-            INode sourceNode)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships)
         {
             return $@"{FailureContext(failureReason, contentItem)}
 part type name: '{partName}'
@@ -266,11 +265,13 @@ part type name: '{partName}'
   part content:
 {partContent}
 Source Node ------------------------------------
-        ID: {sourceNode.Id}
+        ID: {nodeWithOutgoingRelationships.SourceNode.Id}
    user ID: {nodeId}
-    labels: ':{string.Join(":", sourceNode.Labels)}'
+    labels: ':{string.Join(":", nodeWithOutgoingRelationships.SourceNode.Labels)}'
 properties:
-{string.Join(Environment.NewLine, sourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable valueEnumerable ? string.Join(",", valueEnumerable) : p.Value)}"))}";
+{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.SourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}
+Relationships ----------------------------------
+{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.OutgoingRelationships.Select(or => $"[:{or.Relationship.Type}]->({or.DestinationNode.Id})"))}";
         }
     }
 

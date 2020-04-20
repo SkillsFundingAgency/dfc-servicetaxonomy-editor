@@ -101,7 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
             if (contentItemIds.Count != actualRelationships.Length)
             {
-                return (false, $"expecting {actualRelationships.Length} relationships of type {relationshipType} in graph, but found {contentItemIds.Count}");
+                return (false, $"expecting {contentItemIds.Count} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
             }
 
             foreach (JToken item in contentItemIds)
