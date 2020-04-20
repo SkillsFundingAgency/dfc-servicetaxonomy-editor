@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
         }
 
         [Fact]
-        public void GraphValidationHelper_PropertyCorrect_ReturnsTrue()
+        public void StringContentPropertyMatchesNodeProperty_PropertyCorrect_ReturnsTrue()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
         }
 
         [Fact]
-        public void GraphValidationHelper_PropertyMissing_ReturnsFalse()
+        public void StringContentPropertyMatchesNodeProperty_PropertyMissing_ReturnsFalse()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
         }
 
         [Fact]
-        public void VerifySyncComponent_PropertyDifferent_ReturnsFalse()
+        public void StringContentPropertyMatchesNodeProperty_PropertyDifferent_ReturnsFalse()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
@@ -65,6 +65,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
         }
 
         //todo: tests for failureMessage
+        //todo: tests for ValidateOutgoingRelationship
 
         private (bool matched, string failureReason) CallStringContentPropertyMatchesNodeProperty()
         {
