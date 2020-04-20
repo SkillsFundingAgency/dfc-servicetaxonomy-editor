@@ -116,17 +116,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 string destinationIdPropertyName =
                     graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
 
-                //todo: check
-                IOutgoingRelationship outgoingRelationship =
-                    nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
-                        or.Relationship.Type == relationshipType
-                        && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
+                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    relationshipType,
+                    destinationIdPropertyName,
+                    destinationId);
 
-                if (outgoingRelationship == null)
-                {
-                    return (false, $"relationship of type ':{relationshipType}' to destination node with id '{destinationIdPropertyName}={destinationId}' not found");
-                }
+                if (!validated)
+                    return (false, failureReason);
 
+                //todo: helper for this too
                 // keep a count of how many relationships of a type we expect to be in the graph
                 expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
                 expectedRelationshipCounts[relationshipType] = ++currentCount;

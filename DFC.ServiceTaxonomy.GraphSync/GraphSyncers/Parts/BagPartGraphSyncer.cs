@@ -10,7 +10,6 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -83,6 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
+        //todo: rename to ValidateSyncComponent
         public async Task<(bool verified, string failureReason)> VerifySyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -101,9 +101,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
-                (bool validated, string? failureReason) =
+                (bool validated, string failureReason) =
                     await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition);
-                if (!validated) //todo: more context required here?
+                if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
 
                 // check expected relationship is in graph
@@ -122,15 +122,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 //todo: check
                 string bagContentIdPropertyName = bagContentGraphSyncHelper.IdPropertyName(bagPartContentItem.ContentType);
 
-                IOutgoingRelationship outgoingRelationship =
-                    nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
-                        or.Relationship.Type == expectedRelationshipType
-                        && Equals(or.DestinationNode.Properties[bagContentIdPropertyName], destinationId));
+                (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    expectedRelationshipType,
+                    bagContentIdPropertyName,
+                    destinationId);
 
-                if (outgoingRelationship == null)
-                {
-                    return (false, $"relationship of type ':{expectedRelationshipType}' to destination node with id '{bagContentIdPropertyName}={destinationId}' not found");
-                }
+                if (!validated)
+                    return (false, failureReason);
             }
 
             return (true, "");

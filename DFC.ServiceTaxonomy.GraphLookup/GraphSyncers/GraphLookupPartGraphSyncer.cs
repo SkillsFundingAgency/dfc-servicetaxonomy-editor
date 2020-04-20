@@ -64,17 +64,14 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             {
                 string relationshipType = graphLookupPartSettings.RelationshipType!;
 
-                //todo: this is common code: factor out : IGraphValidationHelper?
-                //todo: check
-                IOutgoingRelationship outgoingRelationship =
-                    nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
-                        or.Relationship.Type == relationshipType
-                        && Equals(or.DestinationNode.Properties[graphLookupPartSettings.ValueFieldName], node.Id));
+                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    relationshipType,
+                    graphLookupPartSettings.ValueFieldName!,
+                    node.Id);
 
-                if (outgoingRelationship == null)
-                {
-                    return Task.FromResult((false, $"relationship of type ':{relationshipType}' to destination node with id '{graphLookupPartSettings.ValueFieldName}={node.Id}' not found"));
-                }
+                if (!validated)
+                    return Task.FromResult((false, failureReason));
 
                 // keep a count of how many relationships of a type we expect to be in the graph
                 expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
