@@ -119,7 +119,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 // we've already validated the destination node, so we can assume the id property is there
                 object destinationId = bagContentGraphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
 
-                //todo: check
                 string bagContentIdPropertyName = bagContentGraphSyncHelper.IdPropertyName(bagPartContentItem.ContentType);
 
                 (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
