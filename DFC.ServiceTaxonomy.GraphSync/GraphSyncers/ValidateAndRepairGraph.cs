@@ -174,7 +174,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
 
-            List<IRecord> results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(
+            List<IRecord> results = await _graphDatabase.Run(new NodeWithOutgoingRelationshipsQuery(
                 await _graphSyncHelper.NodeLabels(),
                 _graphSyncHelper.IdPropertyName(),
                 nodeId));

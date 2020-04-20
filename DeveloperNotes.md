@@ -5,6 +5,13 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* add guid to recipe names and add simon's subset to git
+
+* graph verifyer : don't keep returning source (cartesian product)
+^ with new results, relationship and dest node are linked, so no need to search through and tighter check that rel matches dest
+* only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
+* skos__altLabel = System.Collections.Generic.List`1[System.Object]
+
 * we should explicitly set (and check) required and multiple settings for all content pickers
 * add Enable Admin Menu filter to recipe
 
