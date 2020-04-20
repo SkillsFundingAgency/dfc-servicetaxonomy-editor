@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -11,45 +8,45 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
-    //todo: * implement [c#:] using this: https://docs.orchardcore.net/en/dev/docs/reference/modules/Scripting/
-    //todo: test with >1 c#'s
-
-    public class CSharpContentStep : IRecipeStepHandler
+    //todo: look for more ways to keep memory down and speed up the import
+    // e.g. we could replicate CreateAsync, and not add the item to the cache and take out what isn't necessary
+    /// <summary>
+    /// This recipe step creates a set of content items, without adding the content item to the ContentManagerSession cache, to keep memory usage down.
+    /// Ideally we should merge this and CSharpContentStep into a single step, but if we did that, most recipes
+    /// (that don't require csharp scripting) would pay an unnecessary time and memory cost, so for now, we have
+    /// two separate step handlers.
+    /// </summary>
+    public class ContentNoCacheStep : IRecipeStepHandler
     {
         private readonly IContentManager _contentManager;
         private readonly ISession _session;
         private readonly IContentManagerSession _contentManagerSession;
-        private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
 
-        public const string StepName = "CSharpContent";
+        public const string StepName = "ContentNoCache";
 
-        public CSharpContentStep(
+        public ContentNoCacheStep(
             IContentManager contentManager,
             ISession session,
-            IContentManagerSession contentManagerSession,
-            //todo: rename
-            ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals)
+            IContentManagerSession contentManagerSession)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
-            _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
         {
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            ContentStepModel? model = context.Step.ToObject<ContentStepModel>();
+            JArray? data = model?.Data;
+            if (data == null)
                 return;
 
-            //todo: logging & error handling
-            CSharpContentStepModel? model = context.Step.ToObject<CSharpContentStepModel>();
-            if (model?.Data == null)
-                return;
-
-            string json = ReplaceCSharpHelpers(model.Data.ToString());
-            JArray data = JArray.Parse(json);
-
-            foreach (JToken token in data)
+            foreach (JToken? token in data)
             {
                 ContentItem? contentItem = token.ToObject<ContentItem>();
                 if (contentItem == null)
@@ -57,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 DateTime? modifiedUtc = contentItem.ModifiedUtc;
                 DateTime? publishedUtc = contentItem.PublishedUtc;
-                ContentItem existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+                ContentItem? existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
 
                 if (existing == null)
                 {
@@ -79,26 +76,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 }
             }
         }
+    }
 
-        //todo: move these instead of c&p if works
-        //todo: some issue with []
-        private static readonly Regex _cSharpHelperRegex = new Regex(@"«c#:([^»]+)»", RegexOptions.Compiled);
-        private string ReplaceCSharpHelpers(string recipeFragment)
-        {
-            return _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
-        }
-
-        private async Task<string> EvaluateCSharp(string code)
-        {
-            // can't see how to get json.net to unescape value strings!
-            code = code.Replace("\\\"", "\"");
-
-            return await CSharpScript.EvaluateAsync<string>(code, globals: _cypherToContentCSharpScriptGlobals);
-        }
-
-        public class CSharpContentStepModel
-        {
-            public JArray? Data { get; set; }
-        }
+    public class ContentStepModel
+    {
+        public JArray? Data { get; set; }
     }
 }
