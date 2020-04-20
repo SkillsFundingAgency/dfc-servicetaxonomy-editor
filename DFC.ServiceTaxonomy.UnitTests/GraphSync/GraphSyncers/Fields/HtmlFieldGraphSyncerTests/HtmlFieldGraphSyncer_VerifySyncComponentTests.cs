@@ -34,7 +34,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
             A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldNameBase);
 
             SourceNode = A.Fake<INode>();
-
             NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
             A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
 
