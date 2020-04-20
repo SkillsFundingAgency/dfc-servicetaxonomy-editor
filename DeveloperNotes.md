@@ -9,10 +9,10 @@
 
 * don't log to file in env, only ai: add nlog.Development.config?
 
-* graph verifyer : don't keep returning source (cartesian product)
-^ with new results, relationship and dest node are linked, so no need to search through and tighter check that rel matches dest
-* only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
-* skos__altLabel = System.Collections.Generic.List`1[System.Object]
+* graph verifyer : group verified results in ui by content type
+                   only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
+* skos__altLabel = System.Collections.Generic.List`1[System.Object] < check
+* log user id, not contentitemid
 
 * we should explicitly set (and check) required and multiple settings for all content pickers
 * add Enable Admin Menu filter to recipe

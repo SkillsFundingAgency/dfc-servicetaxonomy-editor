@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
@@ -191,7 +192,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string partTypeName = contentTypePartDefinition.PartDefinition.Name;
                 string partName = contentTypePartDefinition.Name;
                 if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
-                    && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName)
+                    && partName == contentTypePartDefinition.ContentTypeDefinition.Name)
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
@@ -269,7 +270,7 @@ Source Node ------------------------------------
    user ID: {nodeId}
     labels: ':{string.Join(":", sourceNode.Labels)}'
 properties:
-{string.Join(Environment.NewLine, sourceNode.Properties.Select(p => $"{p.Key} = {p.Value}"))}";
+{string.Join(Environment.NewLine, sourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable valueEnumerable ? string.Join(",", valueEnumerable) : p.Value)}"))}";
         }
     }
 
