@@ -9,7 +9,10 @@
 $(function () {
     //wrap content pickers in .form-group so they can be picked up with the grouping below
     $("div[data-part='@Model.PartName'][data-editor-type='ContentPicker']").each(function () {
-        $(this).add($(this).prev("label")).wrapAll("<div class='form-group' />");
+        $(this)
+            .add($(this).prev("label"))
+            .add($(this).next(".collapse"))
+            .wrapAll("<div class='form-group' />");
     });
 
     //find all form groups within the current part and wrap in a tab pane

@@ -232,11 +232,20 @@
                             }
                         },
                         {
+                            "PartName": "JobProfileHeader",
+                            "Name": "JobProfileHeader",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
                             "PartName": "HowToBecome",
                             "Name": "HowToBecome",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "2"
+                                    "Position": "3"
                                 }
                             }
                         },
@@ -245,7 +254,7 @@
                             "Name": "WhatItTakes",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "3"
+                                    "Position": "4"
                                 }
                             }
                         },
@@ -254,7 +263,16 @@
                             "Name": "WhatYouWillDo",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "4"
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "CareerPath",
+                            "Name": "CareerPath",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
                                 }
                             }
                         },
@@ -263,7 +281,7 @@
                             "Name": "EntryRoutes",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "5",
+                                    "Position": "7",
                                     "DisplayName": "How To Become Entry Routes",
                                     "Description": "‏‏‎ ‎"
                                 },
@@ -286,7 +304,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "6"
+                                    "Position": "7"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
@@ -1972,194 +1990,7 @@
                 {
                     "Name": "JobProfile",
                     "Settings": {},
-                    "ContentPartFieldDefinitionRecords": [
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "Occupation",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Occupation",
-                                    "Editor": "Preview",
-                                    "Position": "1"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__relatedOccupation].",
-                                    "Multiple": false,
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "Occupation"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "Description",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "2"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "SOCCode",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "SOC Code",
-                                    "Position": "3"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "SOCCode"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "JobProfileSOCID",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Profile SOCID",
-                                    "Position": "4"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "JobProfileWebsiteUrl",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Profile Website Url",
-                                    "Position": "5"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "SalaryStarter",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Salary Starter",
-                                    "Position": "6"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "SalaryExperienced",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Salary Experienced",
-                                    "Position": "7"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "NumericField",
-                            "Name": "MinimumHours",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Minimum Hours",
-                                    "Position": "8"
-                                },
-                                "NumericFieldSettings": {
-                                    "Scale": 1
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "NumericField",
-                            "Name": "MaximumHours",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Maximum Hours",
-                                    "Position": "9"
-                                },
-                                "NumericFieldSettings": {
-                                    "Scale": 1
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WorkingHoursDetails",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Working Hours Details",
-                                    "Position": "10"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WorkingPattern",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Working Pattern",
-                                    "Position": "11"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WorkingPatternDetails",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Working Pattern Details",
-                                    "Position": "12"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "CareerPathAndProgression",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Career Path And Progression",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "13"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "ApprenticeshipStandards",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Apprenticeship Standards",
-                                    "Position": "14"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "ApprenticeshipStandard"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        }
-                    ]
+                    "ContentPartFieldDefinitionRecords": []
                 },
                 {
                     "Name": "QCFLevel",
@@ -2978,6 +2809,178 @@
                     ]
                 },
                 {
+                    "Name": "JobProfileHeader",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TabField",
+                            "Name": "Header",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Header",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Occupation",
+                                    "Editor": "Preview",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__relatedOccupation].",
+                                    "Multiple": false,
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "Occupation"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "2"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SOCCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SOC Code",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCCode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "JobProfileSOCID",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profile SOCID",
+                                    "Position": "4"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "JobProfileWebsiteUrl",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profile Website Url",
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "SalaryStarter",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary Starter",
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "SalaryExperienced",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary Experienced",
+                                    "Position": "7"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MinimumHours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Minimum Hours",
+                                    "Position": "8"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MaximumHours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Maximum Hours",
+                                    "Position": "9"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingHoursDetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Hours Details",
+                                    "Position": "10"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingPattern",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Pattern",
+                                    "Position": "11"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingPatternDetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Pattern Details",
+                                    "Position": "12"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "HowToBecome",
                     "Settings": {
                         "ContentPartSettings": {
@@ -3259,6 +3262,60 @@
                                     "DisplayName": "What you'll do",
                                     "Position": "0"
                                 }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "CareerPath",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TabField",
+                            "Name": "CareerPath",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Career Path",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "CareerPathAndProgression",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Career Path And Progression",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "1"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipStandards",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Standards",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipStandard"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
                             }
                         }
                     ]
