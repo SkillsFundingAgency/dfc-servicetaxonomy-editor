@@ -35,9 +35,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
 
             SourceNodeProperties.Add(NodePropertyName, text);
 
-            (bool verified, _) = CallStringContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
 
-            Assert.True(verified);
+            Assert.True(validated);
         }
 
         [Fact]
@@ -46,9 +46,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
-            (bool verified, _) = CallStringContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
 
-            Assert.False(verified);
+            Assert.False(validated);
         }
 
         [Fact]
@@ -59,9 +59,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
 
             SourceNodeProperties.Add(NodePropertyName, "some_other_value");
 
-            (bool verified, _) = CallStringContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
 
-            Assert.False(verified);
+            Assert.False(validated);
         }
 
         //todo: tests for failureMessage

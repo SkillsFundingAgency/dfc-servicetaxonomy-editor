@@ -11,7 +11,7 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldGraphSyncerTests
 {
-    public class HtmlFieldGraphSyncer_VerifySyncComponentTests
+    public class HtmlFieldGraphSyncer_ValidateSyncComponentTests
     {
         public JObject ContentItemField { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
         const string _fieldNameBase = "fieldNameBase";
         const string _fieldNameTransformed = "fieldNameTransformed";
 
-        public HtmlFieldGraphSyncer_VerifySyncComponentTests()
+        public HtmlFieldGraphSyncer_ValidateSyncComponentTests()
         {
             ContentItemField = JObject.Parse("{}");
 
@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public async Task VerifySyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
+        public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentKey,
@@ -58,16 +58,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
                 _fieldNameTransformed,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
-            (bool verified, _) = await CallVerifySyncComponent();
+            (bool validated, _) = await CallValidateSyncComponent();
 
-            Assert.Equal(expected, verified);
+            Assert.Equal(expected, validated);
         }
 
         //todo: test that verifies that failure reason is returned
 
-        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
+        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
         {
-            return await HtmlFieldGraphSyncer.VerifySyncComponent(
+            return await HtmlFieldGraphSyncer.ValidateSyncComponent(
                 ContentItemField,
                 ContentPartFieldDefinition,
                 NodeWithOutgoingRelationships,

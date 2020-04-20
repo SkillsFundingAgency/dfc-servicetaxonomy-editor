@@ -19,7 +19,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper);
 
-        Task<(bool verified, string failureReason)> VerifySyncComponent(JObject content,
+        Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,

@@ -88,7 +88,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<(bool verified, string failureReason)> VerifySyncComponent(
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
@@ -111,7 +111,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     IContentPartFieldDefinition contentPartFieldDefinitionWrapper
                         = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
 
-                    (bool verified, string failureReason) = await contentFieldGraphSyncer.VerifySyncComponent(
+                    (bool validated, string failureReason) = await contentFieldGraphSyncer.ValidateSyncComponent(
                         contentItemField,
                         contentPartFieldDefinitionWrapper,
                         nodeWithOutgoingRelationships,
@@ -119,9 +119,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         graphValidationHelper,
                         expectedRelationshipCounts);
 
-                    if (!verified)
+                    if (!validated)
                     {
-                        return (false, $"{contentPartFieldDefinition.Name} {contentFieldGraphSyncer.FieldTypeName} did not verify: {failureReason}");
+                        return (false, $"{contentPartFieldDefinition.Name} {contentFieldGraphSyncer.FieldTypeName} did not validate: {failureReason}");
                     }
                 }
             }

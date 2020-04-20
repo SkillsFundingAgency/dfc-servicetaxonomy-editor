@@ -9,9 +9,9 @@ using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldGraphSyncerTests
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
 {
-    public class TextFieldGraphSyncer_VerifySyncComponentTests
+    public class LinkFieldGraphSyncer_ValidateSyncComponentTests
     {
         public JObject ContentItemField { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
@@ -20,13 +20,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
-        public TextFieldGraphSyncer TextFieldGraphSyncer { get; set; }
+        public LinkFieldGraphSyncer LinkFieldGraphSyncer { get; set; }
 
-        const string _contentKey = "Text";
+        const string _contentKeyText = "Text";
+        const string _contentKeyUrl = "Url";
+
         const string _fieldNameBase = "baseFieldName";
         const string _fieldNameTransformed = "transformedFieldName";
+        const string _fieldNameText = "transformedFieldName_text";
+        const string _fieldNameUrl = "transformedFieldName_url";
 
-        public TextFieldGraphSyncer_VerifySyncComponentTests()
+        public LinkFieldGraphSyncer_ValidateSyncComponentTests()
         {
             ContentItemField = JObject.Parse("{}");
 
@@ -44,30 +48,41 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
 
             ExpectedRelationshipCounts = new Dictionary<string, int>();
 
-            TextFieldGraphSyncer = new TextFieldGraphSyncer();
+            LinkFieldGraphSyncer = new LinkFieldGraphSyncer();
         }
 
         [Theory]
-        [InlineData(true, true)]
-        [InlineData(false, false)]
-        public async Task VerifySyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
+        [InlineData(true, true, true)]
+        [InlineData(false, true, false)]
+        [InlineData(false, false, true)]
+        [InlineData(false, false, false)]
+        public async Task ValidateSyncComponentTests(
+            bool expected,
+            bool urlStringContentPropertyMatchesNodePropertyReturns,
+            bool textStringContentPropertyMatchesNodePropertyReturns)
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentKey,
+                _contentKeyText,
                 A<JObject>._,
-                _fieldNameTransformed,
-                SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
+                _fieldNameText,
+                SourceNode)).Returns((textStringContentPropertyMatchesNodePropertyReturns, ""));
 
-            (bool verified, _) = await CallVerifySyncComponent();
+            A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                _contentKeyUrl,
+                A<JObject>._,
+                _fieldNameUrl,
+                SourceNode)).Returns((urlStringContentPropertyMatchesNodePropertyReturns, ""));
 
-            Assert.Equal(expected, verified);
+            (bool validated, _) = await CallValidateSyncComponent();
+
+            Assert.Equal(expected, validated);
         }
 
-        //todo: test that verifies that failure reason is returned
+        //todo: failure message tests
 
-        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
+        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
         {
-            return await TextFieldGraphSyncer.VerifySyncComponent(
+            return await LinkFieldGraphSyncer.ValidateSyncComponent(
                 ContentItemField,
                 ContentPartFieldDefinition,
                 NodeWithOutgoingRelationships,

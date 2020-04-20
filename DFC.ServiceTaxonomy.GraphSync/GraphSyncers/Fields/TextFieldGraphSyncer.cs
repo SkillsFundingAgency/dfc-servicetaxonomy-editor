@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
         }
 
-        public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,

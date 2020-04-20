@@ -11,7 +11,7 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGraphSyncerTests
 {
-    public class TitlePartGraphSyncer_VerifySyncComponentTests
+    public class TitlePartGraphSyncer_ValidateSyncComponentTests
     {
         public JObject Content { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
         const string _contentKey = "Title";
         const string _nodeTitlePropertyName = "skos__prefLabel";
 
-        public TitlePartGraphSyncer_VerifySyncComponentTests()
+        public TitlePartGraphSyncer_ValidateSyncComponentTests()
         {
             Content = JObject.Parse("{}");
 
@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public async Task VerifySyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
+        public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentKey,
@@ -55,17 +55,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
                 _nodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
-            (bool verified, _) = await CallVerifySyncComponent();
+            (bool validated, _) = await CallValidateSyncComponent();
 
-            Assert.Equal(expected, verified);
+            Assert.Equal(expected, validated);
         }
 
         //todo: test that verifies that failure reason is returned
         //todo: test to check nothing added to ExpectedRelationshipCounts
 
-        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
+        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
         {
-            return await TitlePartGraphSyncer.VerifySyncComponent(
+            return await TitlePartGraphSyncer.ValidateSyncComponent(
                 Content,
                 ContentTypePartDefinition,
                 NodeWithOutgoingRelationships,

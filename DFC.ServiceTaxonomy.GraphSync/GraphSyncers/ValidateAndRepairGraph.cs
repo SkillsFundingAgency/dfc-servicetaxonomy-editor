@@ -205,12 +205,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (partContent == null)
                     continue; //todo: throw??
 
-                (bool verified, string partFailureReason) = await partSyncer.VerifySyncComponent(
+                (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
                     (JObject)partContent, contentTypePartDefinition, nodeWithOutgoingRelationships,
                     _graphSyncHelper, _graphValidationHelper,
                     expectedRelationshipCounts);
 
-                if (verified)
+                if (validated)
                     continue;
 
                 string failureReason = $"{partSyncer.PartName ?? "EponymousPart"} did not validate: {partFailureReason}";
