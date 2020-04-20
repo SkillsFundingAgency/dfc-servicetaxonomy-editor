@@ -3,9 +3,6 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-    </PropertyGroup>
-
-    <PropertyGroup>
       <NoWarn>162</NoWarn>
     </PropertyGroup>
 
@@ -16,30 +13,6 @@
       <None Remove="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json" />
       <None Remove="CypherToContentRecipes\CreateOccupationPrefLabelNodesRecipe.json" />
       <None Remove="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="CypherToContentRecipes\CreateFullTextSearchIndexesRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Include="CypherToContentRecipes\CreateOccupationPrefLabelNodesRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="CypherToContentRecipes\CreateOccupationContentItemsRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Include="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Include="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Include="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -56,31 +29,10 @@
       <None Update="appsettings.Development.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="SeedData\ApprenticeshipStandards.xlsx">
+      <Content Include="CypherToContentRecipes\*.recipe.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="SeedData\esco_job_profile_map.csv">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="SeedData\job_profiles.xlsx">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="SeedData\job_profiles_updated.xlsx">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="SeedData\soc_codes.csv">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="CypherToContentRecipes\CreateOccupationContentItemsRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json">
+      </Content>
+      <None Update="SeedData\*">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

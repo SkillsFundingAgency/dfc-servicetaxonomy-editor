@@ -1,0 +1,282 @@
+{
+  "name": "WorkingUniforms0",
+  "displayName": "WorkingUniforms0",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Sports kit"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea sports kit\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/3bcb4ba3-59e1-4e94-b6a5-99ae17a71186"
+    },
+    "ContentItemId": "42h84xa86y9fx0wsaa8925srcs",
+    "ContentItemVersionId": "493gdt7vwksenx1qfj9b5zfxn6",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Sports kit",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "a uniform and protective clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea uniform and protective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/e2d8f2ec-5a75-4bdb-b226-7d3e6189b456"
+    },
+    "ContentItemId": "4f4byzk1s4fyvyfkwfbqsf9axs",
+    "ContentItemVersionId": "46cbcye1b09dzz8p25wk7fz3xw",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "a uniform and protective clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Safety Clothing and Equipment"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Esafety clothing and use safety equipment\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/2040ffa3-5015-45f6-9353-928a7f1bc670"
+    },
+    "ContentItemId": "4rppvrwwdn6f83yfcgcm97s2c6",
+    "ContentItemVersionId": "4x9025xy24z0w52av04zneh555",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Safety Clothing and Equipment",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Smart business dress"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Esmart business dress\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/96ef6d03-c051-4e16-b039-b21107a0ae54"
+    },
+    "ContentItemId": "4scpfnkjc8jv8y1s2a85wpzxdq",
+    "ContentItemVersionId": "40vy5c1zcs907y2zwz7v7hqv5m",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Smart business dress",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Team strip"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea team strip\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/ce25d699-39d1-42ee-a84d-54e5669f726b"
+    },
+    "ContentItemId": "433hbpgwqr8aeyc5329yan7bdy",
+    "ContentItemVersionId": "4rq7cvy07d9h1r1gpk4wqf7m4n",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Team strip",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "protective clothing and safety clothing and use safety equipment"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing and safety clothing and use safety equipment\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/15dad998-fda2-4a17-91e8-e63d8139dea5"
+    },
+    "ContentItemId": "4jh23v3fsg3f23aekjz9y4n0dx",
+    "ContentItemVersionId": "4ajy042440ehqtpyfcs1pmcx5y",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "protective clothing and safety clothing and use safety equipment",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Protective Clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/ad2e8b7e-bfee-4b24-97ca-a59a87116b60"
+    },
+    "ContentItemId": "4zgmjcdnsgjbx2br0ats8q4hw6",
+    "ContentItemVersionId": "4xbvp7k7vjbfbvd4t92peynqxs",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Protective Clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "protective clothing and a uniform"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing and a uniform\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/ea5deb29-6ae7-4544-8a99-962e896907a1"
+    },
+    "ContentItemId": "4y491phx0fwvx3yk9x8x97rzmz",
+    "ContentItemVersionId": "4j6h0rdnxxhcdvc79qtmwfm0cn",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "protective clothing and a uniform",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "safety clothing and use safety equipment and protective clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Esafety clothing and use safety equipment and protective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/c14a63f0-adcd-4448-940e-223e0354d65f"
+    },
+    "ContentItemId": "4js61a096x2b4tvpw7freanemg",
+    "ContentItemVersionId": "44c2ya5ckxg4z5gqe0y4cawxw6",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "safety clothing and use safety equipment and protective clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "safety clothing and use safety equipment and a uniform"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Esafety clothing and use safety equipment and a uniform\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/4f353e3e-1317-45c0-b6b5-51e15008e26c"
+    },
+    "ContentItemId": "43c8jf3x2bwvb33kbfzkqp4d4s",
+    "ContentItemVersionId": "4g7z3yznpcdsctn4css9d5m6mf",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "safety clothing and use safety equipment and a uniform",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Uniform"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea uniform\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/55aa978c-cc9f-4165-9f84-489a06d99e1f"
+    },
+    "ContentItemId": "40ff21vdvegtrv82j3e0nn5tnm",
+    "ContentItemVersionId": "4n8cs2j1dc73bttpqz23z91jcd",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Uniform",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-17T11:41:33.3566321Z",
+    "PublishedUtc": "2020-04-17T11:41:33.3566321Z",
+    "CreatedUtc": "2020-04-17T11:41:33.3566321Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
