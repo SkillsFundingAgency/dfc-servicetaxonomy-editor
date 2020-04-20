@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -85,9 +86,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public async Task<(bool verified, string failureReason)> VerifySyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -117,20 +116,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 expectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
                 expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
+                // we've already validated the destination node, so we can assume the id property is there
                 object destinationId = bagContentGraphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
 
-                INode destinationNode = destinationNodes.SingleOrDefault(n => Equals(n.Properties[graphSyncHelper.IdPropertyName()], destinationId));
-                if (destinationNode == null)
-                {
-                    return (false, $"destination node with user ID '{destinationId}' not found");
-                }
+                //todo: check
+                string bagContentIdPropertyName = bagContentGraphSyncHelper.IdPropertyName(bagPartContentItem.ContentType);
 
-                var relationship = relationships.SingleOrDefault(r =>
-                    r.Type == expectedRelationshipType && r.EndNodeId == destinationNode.Id);
+                IOutgoingRelationship outgoingRelationship =
+                    nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
+                        or.Relationship.Type == expectedRelationshipType
+                        && Equals(or.DestinationNode.Properties[bagContentIdPropertyName], destinationId));
 
-                if (relationship == null)
+                if (outgoingRelationship == null)
                 {
-                    return (false, $"relationship of type {expectedRelationshipType} with end node ID {destinationNode.Id} not found");
+                    return (false, $"relationship of type ':{expectedRelationshipType}' to destination node with id '{bagContentIdPropertyName}={destinationId}' not found");
                 }
             }
 

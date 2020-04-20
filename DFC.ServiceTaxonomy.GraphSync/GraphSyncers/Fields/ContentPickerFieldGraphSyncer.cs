@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
@@ -83,9 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -95,8 +94,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
 
-            IRelationship[] actualRelationships = relationships
-                .Where(r => r.Type == relationshipType)
+            IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
+                .Where(r => r.Relationship.Type == relationshipType)
                 .ToArray();
 
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
@@ -114,20 +113,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                string destinationContentIdPropertyName =
+                string destinationIdPropertyName =
                     graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
-                INode destNode = destinationNodes.SingleOrDefault(n => Equals(n.Properties[destinationContentIdPropertyName], destinationId));
-                if (destNode == null)
-                {
-                    return (false, $"destination node with user ID '{destinationId}' not found");
-                }
 
-                var relationship = actualRelationships.SingleOrDefault(r =>
-                    r.Type == relationshipType && r.EndNodeId == destNode.Id);
+                //todo: check
+                IOutgoingRelationship outgoingRelationship =
+                    nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
+                        or.Relationship.Type == relationshipType
+                        && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
 
-                if (relationship == null)
+                if (outgoingRelationship == null)
                 {
-                    return (false, $"relationship of type {relationshipType} with end node ID {destNode.Id} not found");
+                    return (false, $"relationship of type ':{relationshipType}' to destination node with id '{destinationIdPropertyName}={destinationId}' not found");
                 }
 
                 // keep a count of how many relationships of a type we expect to be in the graph

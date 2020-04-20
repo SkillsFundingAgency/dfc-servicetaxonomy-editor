@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -25,12 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public Task<(bool verified, string failureReason)> VerifySyncComponent(
-            JObject content,
+        public Task<(bool verified, string failureReason)> VerifySyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -39,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 graphSyncHelper.ContentIdPropertyName,
                 content,
                 graphSyncHelper.IdPropertyName(),
-                sourceNode));
+                nodeWithOutgoingRelationships.SourceNode));
         }
     }
 }

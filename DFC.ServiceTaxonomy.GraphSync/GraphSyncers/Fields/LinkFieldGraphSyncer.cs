@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -35,9 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -50,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
-                sourceNode);
+                nodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
                 return (false, $"url did not verify: {failureReason}");
@@ -61,7 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,
-                sourceNode);
+                nodeWithOutgoingRelationships.SourceNode);
 
             return (matched, matched ? "" : $"text did not verify: {failureReason}");
         }

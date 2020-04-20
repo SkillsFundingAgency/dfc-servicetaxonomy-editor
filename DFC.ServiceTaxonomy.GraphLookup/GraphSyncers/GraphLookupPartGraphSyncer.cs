@@ -5,8 +5,8 @@ using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -47,12 +47,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<(bool verified, string failureReason)> VerifySyncComponent(
-            JObject content,
+        public Task<(bool verified, string failureReason)> VerifySyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -65,20 +62,18 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             foreach (var node in graphLookupPart.Nodes)
             {
-                var destNode = destinationNodes.SingleOrDefault(x =>
-                    Equals(x.Properties[graphLookupPartSettings.ValueFieldName], node.Id));
-
-                if (destNode == null)
-                {
-                    return Task.FromResult((false, $"destination node with id {node.Id} not found"));
-                }
-
                 string relationshipType = graphLookupPartSettings.RelationshipType!;
 
-                var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
-                if (relationship == null)
+                //todo: this is common code: factor out : IGraphValidationHelper?
+                //todo: check
+                IOutgoingRelationship outgoingRelationship =
+                    nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
+                        or.Relationship.Type == relationshipType
+                        && Equals(or.DestinationNode.Properties[graphLookupPartSettings.ValueFieldName], node.Id));
+
+                if (outgoingRelationship == null)
                 {
-                    return Task.FromResult((false, $"'{relationshipType}' relationship with destination node id {destNode.Id} not found"));
+                    return Task.FromResult((false, $"relationship of type ':{relationshipType}' to destination node with id '{graphLookupPartSettings.ValueFieldName}={node.Id}' not found"));
                 }
 
                 // keep a count of how many relationships of a type we expect to be in the graph
