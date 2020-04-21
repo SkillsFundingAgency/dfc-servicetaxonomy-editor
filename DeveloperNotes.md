@@ -5,6 +5,12 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* remove header:
+https://github.com/aspnet/Hosting/issues/571
+https://stackoverflow.com/questions/45882715/how-to-remove-x-powered-by-header-in-net-core-2-0
+
+oc cve: https://github.com/OrchardCMS/OrchardCore/issues/6002
+
 * add guid to recipe names and add simon's subset to git
 
 * don't log to file in env, only ai: add nlog.Development.config?
