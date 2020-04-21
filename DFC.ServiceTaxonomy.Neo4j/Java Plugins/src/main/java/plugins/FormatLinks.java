@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 public class FormatLinks {
     public static final String pattern = "(<a href=\"([^\"]+)\">([^<]+)</a>)";
+    public static final Pattern r = Pattern.compile(pattern);
 
     @UserFunction
     @Description("Replaces anchor tags with markup UI expects")
@@ -19,7 +20,7 @@ public class FormatLinks {
             return null;
         }
       
-		Pattern r = Pattern.compile(pattern);
+		
      
 		Matcher m = r.matcher(input);
       
