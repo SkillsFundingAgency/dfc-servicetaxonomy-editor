@@ -3,13 +3,13 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.neo4j.analyzer</groupId>
-  <artifactId>ncs-synonym-analyzer</artifactId>
-  <version>1.0.0</version>
+  <groupId>org.neo4j.plugins</groupId>
+  <artifactId>ncs-service-taxonomy-plugins</artifactId>
+  <version>1.1.0</version>
 
   <packaging>jar</packaging>
-  <name>NCS Synonym Analyzer</name>
-  <description>A project for building an Analyzer containing alt labels as Synonyms</description>
+  <name>NCS Service Taxonomy Plugins</name>
+  <description>A project containing Synonym Analyzers, User Functions and other utilities for NCS Service Taxonomy.</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
