@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
