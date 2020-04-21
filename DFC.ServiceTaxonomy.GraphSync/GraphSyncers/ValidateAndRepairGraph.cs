@@ -179,7 +179,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _graphSyncHelper.IdPropertyName(),
                 nodeId));
 
-            INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.First();
+            INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
             if (nodeWithOutgoingRelationships == null)
                 return (false, FailureContext("Node not found.", contentItem));
 
