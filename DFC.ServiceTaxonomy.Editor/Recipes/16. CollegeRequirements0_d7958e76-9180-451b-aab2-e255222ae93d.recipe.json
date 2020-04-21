@@ -1,0 +1,90 @@
+{
+  "name": "CollegeRequirements0_d7958e76-9180-451b-aab2-e255222ae93d",
+  "displayName": "CollegeRequirements0_d7958e76-9180-451b-aab2-e255222ae93d",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Level 3 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, for a level 3 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/5a5473e5-4573-4e6c-a56b-c01eb3d1f5f2"
+    },
+    "ContentItemId": "4t8rn2hk6qc2t0frkg8kywbdcr",
+    "ContentItemVersionId": "4p5pf4qe3anva6f2kgtyzt6c47",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 3 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 2 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or more GCSEs at grades 9 to 3 (A* to D), or equivalent, for a level 2 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/7c2d68c5-8184-4667-97a6-72296b040f60"
+    },
+    "ContentItemId": "4sbgdfrjsk4f5zn7qpt5v5z5n2",
+    "ContentItemVersionId": "4q4akeqxrfvzs1tyx5ndh84rmx",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 2 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 1 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or fewer GCSEs at grades 3 to 1 (D to G), or equivalent, for a level 1 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/4bbf9197-9f76-4ecd-915f-be3d9890f45b"
+    },
+    "ContentItemId": "4rrwzj0g3m8p57cqy1zcxwpgm0",
+    "ContentItemVersionId": "4t53k79srjwbdtm5phxmwx8pdv",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 1 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,378 @@
+{
+  "name": "WorkingLocations0_d7958e76-9180-451b-aab2-e255222ae93d",
+  "displayName": "WorkingLocations0_d7958e76-9180-451b-aab2-e255222ae93d",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "at a school or at a pupil referral unit"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a school or at a pupil referral unit\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/9100ac7d-8818-4a9f-a274-294d36254fc5"
+    },
+    "ContentItemId": "4vbphgnk9emgk74809q5jw6a5e",
+    "ContentItemVersionId": "4tc8g84351z9q3pbvst6zy6m4f",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a school or at a pupil referral unit",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "from a vehicle or on the road"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Efrom a vehicle or on the road\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/ec605e4c-5985-4ade-9f68-e1efee5096ed"
+    },
+    "ContentItemId": "4x1s2gpxv9rn0tqnmjpqqzz8xm",
+    "ContentItemVersionId": "429szepaaw66gw238pxg62z0c4",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "from a vehicle or on the road",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Aircraft"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon an aircraft\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/08417fcd-e9f3-40cd-8bb9-d45b8a920f4b"
+    },
+    "ContentItemId": "49b31k5mjbwg62ezy9pag4th4d",
+    "ContentItemVersionId": "43bq5x0yah1agtp98b8d6drh49",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Aircraft",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Vehicle"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Efrom a vehicle\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/1e356fa4-d288-46f0-a7d7-9d8b1f2922ba"
+    },
+    "ContentItemId": "40hdmby7swnm405xy4kenaynwv",
+    "ContentItemVersionId": "41y9n31543g7t6bgth952h74cw",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Vehicle",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at an adult care home or at a client\u0027s home"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat an adult care home or at a client\u0027s home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/146bc089-d559-49c7-8023-455d55262a35"
+    },
+    "ContentItemId": "4s251d1j7h8fhw4y64ab032zxm",
+    "ContentItemVersionId": "4d9smsh5gaaxezn7r5y24pedxr",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at an adult care home or at a client\u0027s home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "on a construction site, at a client\u0027s business, at a client\u0027s home or on the streets"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon a construction site, at a client\u0027s business, at a client\u0027s home or on the streets\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/c5cfa0c2-ac3d-46a1-8fa8-4db79084e36d"
+    },
+    "ContentItemId": "4kx202qmepyzf6e9ehkqcgefd9",
+    "ContentItemVersionId": "4jbx6jywba1pqxcj9hbng2qhcc",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "on a construction site, at a client\u0027s business, at a client\u0027s home or on the streets",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Office"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/5b01c505-82b1-4371-b3ab-eef6fc45c303"
+    },
+    "ContentItemId": "468gmrh190fj06sn530n15c1wy",
+    "ContentItemVersionId": "4rsxwm0ny0gvdxg15fshjb1sw6",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Office",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Post"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a border post\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/8a72799a-2fd7-46e2-86f2-6f3e913f0040"
+    },
+    "ContentItemId": "4nk5h3rcvn5mh2kvp4860wjs4x",
+    "ContentItemVersionId": "4cyysv8k5v4nj0f8e0se5kfhnd",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Border Post",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "in an office, in an NHS or private hospital, at an adult care home, at a children\u0027s care home or in the community"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office, in an NHS or private hospital, at an adult care home, at a children\u0027s care home or in the community\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/92f833d1-519d-42b0-8b14-d6a4ba2f0395"
+    },
+    "ContentItemId": "4fah262v1eak6wby01ezfzqsnn",
+    "ContentItemVersionId": "4phjpnw9vc8prvvhfqwjanjfcf",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "in an office, in an NHS or private hospital, at an adult care home, at a children\u0027s care home or in the community",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "in an office or on a farm"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office or on a farm\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/5354a8cb-e3c0-47ef-8a9e-acdae270969f"
+    },
+    "ContentItemId": "442dnnbjgcn3r6nb1bsmb0t7ng",
+    "ContentItemVersionId": "4gkv5w16r2mx7reram9sbnta5q",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "in an office or on a farm",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at a client\u0027s home or at a client\u0027s business"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a client\u0027s home or at a client\u0027s business\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/f8b02486-7d6e-4645-a2f8-0c443e2a1717"
+    },
+    "ContentItemId": "42qxfg0vd04n67j2dwr9dm4k51",
+    "ContentItemVersionId": "42b37mknahb41x9j4gfy8pxqct",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a client\u0027s home or at a client\u0027s business",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at a store, in a stock room, at a garden centre or at a garage"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a store, in a stock room, at a garden centre or at a garage\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/2beb1731-a5a3-4dcc-9f4e-d95130740d85"
+    },
+    "ContentItemId": "4c8kx1g5zeqymsba617hcrnhxy",
+    "ContentItemVersionId": "4y07akp8m3g985st9cet0p6kcn",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a store, in a stock room, at a garden centre or at a garage",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Restaurant"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a restaurant\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/f6b071da-6117-463a-8790-834f89efbd5e"
+    },
+    "ContentItemId": "4ncemre3vqcwd0axp0qew1ygx6",
+    "ContentItemVersionId": "4k6szjy8eb8gq6ykkkynh7exc5",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Restaurant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction Site"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon a construction site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/3f30fca5-7116-4f09-b4c3-88d5b3f7c3d5"
+    },
+    "ContentItemId": "4jjrjps3fapfq2804fvs2r9f42",
+    "ContentItemVersionId": "481ec8th928hswqae01v4zvfcn",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Construction Site",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Control Room"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein a control room\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinglocation/60030fd3-4680-4f4b-9503-3740544bb3a1"
+    },
+    "ContentItemId": "4kmz3z31yym9s5wh9adj9mqwmz",
+    "ContentItemVersionId": "4pj3vc9gfv0xjt15zs0qt489dy",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Control Room",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-20T15:05:20.9665540Z",
+    "PublishedUtc": "2020-04-20T15:05:20.9665540Z",
+    "CreatedUtc": "2020-04-20T15:05:20.9665540Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
