@@ -112,7 +112,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                     if (contentItemField == null)
                     {
-                        _logger.LogWarning($"Found unexpected content. Most likely GetJobProfiles importer has generated a badly formed content item: {content}");
+                        _logger.LogWarning($"Found unexpected content field. Most likely GetJobProfiles importer has generated a badly formed content item: {content}");
                         continue;
                     }
 
