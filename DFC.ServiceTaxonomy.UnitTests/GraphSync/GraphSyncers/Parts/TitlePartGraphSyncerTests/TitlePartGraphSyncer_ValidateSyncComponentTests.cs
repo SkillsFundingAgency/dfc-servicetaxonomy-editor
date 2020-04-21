@@ -2,78 +2,73 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPartGraphSyncerTests
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGraphSyncerTests
 {
-    public class GraphSyncPartGraphSyncer_VerifySyncComponentTests
+    public class TitlePartGraphSyncer_ValidateSyncComponentTests
     {
         public JObject Content { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
+        public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
         public INode SourceNode { get; set; }
-        public IEnumerable<IRelationship> Relationships { get; set; }
-        public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
-        public GraphSyncPartGraphSyncer GraphSyncPartGraphSyncer { get; set; }
+        public TitlePartGraphSyncer TitlePartGraphSyncer { get; set; }
 
-        const string _contentIdPropertyName = "Text";
+        const string _contentKey = "Title";
         const string _nodeTitlePropertyName = "skos__prefLabel";
 
-        public GraphSyncPartGraphSyncer_VerifySyncComponentTests()
+        public TitlePartGraphSyncer_ValidateSyncComponentTests()
         {
             Content = JObject.Parse("{}");
 
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
 
             SourceNode = A.Fake<INode>();
-
-            Relationships = new IRelationship[0];
-            DestinationNodes = new INode[0];
+            NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
+            A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.ContentIdPropertyName).Returns(_contentIdPropertyName);
-            A.CallTo(() => GraphSyncHelper.IdPropertyName()).Returns(_nodeTitlePropertyName);
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 
             ExpectedRelationshipCounts = new Dictionary<string, int>();
 
-            GraphSyncPartGraphSyncer = new GraphSyncPartGraphSyncer();
+            TitlePartGraphSyncer = new TitlePartGraphSyncer();
         }
 
         [Theory]
         [InlineData(true, true)]
         [InlineData(false, false)]
-        public async Task VerifySyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
+        public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentIdPropertyName,
+                _contentKey,
                 A<JObject>._,
                 _nodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
-            (bool verified, _) = await CallVerifySyncComponent();
+            (bool validated, _) = await CallValidateSyncComponent();
 
-            Assert.Equal(expected, verified);
+            Assert.Equal(expected, validated);
         }
 
         //todo: test that verifies that failure reason is returned
         //todo: test to check nothing added to ExpectedRelationshipCounts
 
-        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
+        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
         {
-            return await GraphSyncPartGraphSyncer.VerifySyncComponent(
+            return await TitlePartGraphSyncer.ValidateSyncComponent(
                 Content,
                 ContentTypePartDefinition,
-                SourceNode,
-                Relationships,
-                DestinationNodes,
+                NodeWithOutgoingRelationships,
                 GraphSyncHelper,
                 GraphValidationHelper,
                 ExpectedRelationshipCounts);

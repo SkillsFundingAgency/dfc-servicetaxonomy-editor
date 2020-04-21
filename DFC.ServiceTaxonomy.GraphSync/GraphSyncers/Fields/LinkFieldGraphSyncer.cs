@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -33,11 +34,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -50,10 +49,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
-                sourceNode);
+                nodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
-                return (false, $"url did not verify: {failureReason}");
+                return (false, $"url did not validate: {failureReason}");
 
             string nodeTextPropertyName = $"{nodeBasePropertyName}{LinkTextPostfix}";
 
@@ -61,9 +60,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,
-                sourceNode);
+                nodeWithOutgoingRelationships.SourceNode);
 
-            return (matched, matched ? "" : $"text did not verify: {failureReason}");
+            return (matched, matched ? "" : $"text did not validate: {failureReason}");
         }
     }
 }

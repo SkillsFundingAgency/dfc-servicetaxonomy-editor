@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -10,13 +11,12 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
 {
-    public class LinkFieldGraphSyncer_VerifySyncComponentTests
+    public class LinkFieldGraphSyncer_ValidateSyncComponentTests
     {
         public JObject ContentItemField { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
+        public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
         public INode SourceNode { get; set; }
-        public IEnumerable<IRelationship> Relationships { get; set; }
-        public IEnumerable<INode> DestinationNodes { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
         const string _fieldNameText = "transformedFieldName_text";
         const string _fieldNameUrl = "transformedFieldName_url";
 
-        public LinkFieldGraphSyncer_VerifySyncComponentTests()
+        public LinkFieldGraphSyncer_ValidateSyncComponentTests()
         {
             ContentItemField = JObject.Parse("{}");
 
@@ -38,9 +38,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
             A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldNameBase);
 
             SourceNode = A.Fake<INode>();
-
-            Relationships = new IRelationship[0];
-            DestinationNodes = new INode[0];
+            NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
+            A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldNameBase)).Returns(_fieldNameTransformed);
@@ -57,7 +56,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
         [InlineData(false, true, false)]
         [InlineData(false, false, true)]
         [InlineData(false, false, false)]
-        public async Task VerifySyncComponentTests(
+        public async Task ValidateSyncComponentTests(
             bool expected,
             bool urlStringContentPropertyMatchesNodePropertyReturns,
             bool textStringContentPropertyMatchesNodePropertyReturns)
@@ -74,21 +73,19 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
                 _fieldNameUrl,
                 SourceNode)).Returns((urlStringContentPropertyMatchesNodePropertyReturns, ""));
 
-            (bool verified, _) = await CallVerifySyncComponent();
+            (bool validated, _) = await CallValidateSyncComponent();
 
-            Assert.Equal(expected, verified);
+            Assert.Equal(expected, validated);
         }
 
         //todo: failure message tests
 
-        private async Task<(bool verified, string failureReason)> CallVerifySyncComponent()
+        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
         {
-            return await LinkFieldGraphSyncer.VerifySyncComponent(
+            return await LinkFieldGraphSyncer.ValidateSyncComponent(
                 ContentItemField,
                 ContentPartFieldDefinition,
-                SourceNode,
-                Relationships,
-                DestinationNodes,
+                NodeWithOutgoingRelationships,
                 GraphSyncHelper,
                 GraphValidationHelper,
                 ExpectedRelationshipCounts);

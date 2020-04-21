@@ -27,14 +27,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
 
             if(RelationshipTypes.Length == 0)
             {
-                validationErrors.Add($"At least one RelationshipType must be provided.");
+                validationErrors.Add("At least one RelationshipType must be provided.");
             }
 
             return validationErrors;
         }
 
         public Query Query
-        {  
+        {
             get
             {
                 this.CheckIsValid();

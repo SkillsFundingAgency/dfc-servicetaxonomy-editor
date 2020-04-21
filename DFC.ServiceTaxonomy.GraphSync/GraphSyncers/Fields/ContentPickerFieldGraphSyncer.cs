@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
@@ -81,11 +82,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<(bool verified, string failureReason)> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -95,14 +94,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
 
-            IRelationship[] actualRelationships = relationships
-                .Where(r => r.Type == relationshipType)
+            IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
+                .Where(r => r.Relationship.Type == relationshipType)
                 .ToArray();
 
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
             if (contentItemIds.Count != actualRelationships.Length)
             {
-                return (false, $"expecting {actualRelationships.Length} relationships of type {relationshipType} in graph, but found {contentItemIds.Count}");
+                return (false, $"expecting {contentItemIds.Count} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
             }
 
             foreach (JToken item in contentItemIds)
@@ -114,22 +113,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                string destinationContentIdPropertyName =
+                string destinationIdPropertyName =
                     graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
-                INode destNode = destinationNodes.SingleOrDefault(n => Equals(n.Properties[destinationContentIdPropertyName], destinationId));
-                if (destNode == null)
-                {
-                    return (false, $"destination node with user ID '{destinationId}' not found");
-                }
 
-                var relationship = actualRelationships.SingleOrDefault(r =>
-                    r.Type == relationshipType && r.EndNodeId == destNode.Id);
+                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    relationshipType,
+                    destinationIdPropertyName,
+                    destinationId);
 
-                if (relationship == null)
-                {
-                    return (false, $"relationship of type {relationshipType} with end node ID {destNode.Id} not found");
-                }
+                if (!validated)
+                    return (false, failureReason);
 
+                //todo: helper for this too
                 // keep a count of how many relationships of a type we expect to be in the graph
                 expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
                 expectedRelationshipCounts[relationshipType] = ++currentCount;

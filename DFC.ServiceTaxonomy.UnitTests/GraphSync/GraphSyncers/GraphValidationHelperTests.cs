@@ -28,43 +28,44 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
         }
 
         [Fact]
-        public void GraphValidationHelper_PropertyCorrect_ReturnsTrue()
+        public void StringContentPropertyMatchesNodeProperty_PropertyCorrect_ReturnsTrue()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
             SourceNodeProperties.Add(NodePropertyName, text);
 
-            (bool verified, _) = CallStringContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
 
-            Assert.True(verified);
+            Assert.True(validated);
         }
 
         [Fact]
-        public void GraphValidationHelper_PropertyMissing_ReturnsFalse()
+        public void StringContentPropertyMatchesNodeProperty_PropertyMissing_ReturnsFalse()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
-            (bool verified, _) = CallStringContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
 
-            Assert.False(verified);
+            Assert.False(validated);
         }
 
         [Fact]
-        public void VerifySyncComponent_PropertyDifferent_ReturnsFalse()
+        public void StringContentPropertyMatchesNodeProperty_PropertyDifferent_ReturnsFalse()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"Text\": \"{text}\"}}");
 
             SourceNodeProperties.Add(NodePropertyName, "some_other_value");
 
-            (bool verified, _) = CallStringContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
 
-            Assert.False(verified);
+            Assert.False(validated);
         }
 
         //todo: tests for failureMessage
+        //todo: tests for ValidateOutgoingRelationship
 
         private (bool matched, string failureReason) CallStringContentPropertyMatchesNodeProperty()
         {

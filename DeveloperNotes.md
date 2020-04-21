@@ -5,6 +5,14 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* add guid to recipe names and add simon's subset to git
+
+* don't log to file in env, only ai: add nlog.Development.config?
+
+* graph validator : group verified results in ui by content type
+                    only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
+                    log user id, not contentitemid
+
 master recipe:
 check import carries on ok after timeout
 check zip => json doesn't cause issues
@@ -112,6 +120,24 @@ Alternative labels
 we could leave the preferred title out of the occupation preview, but (for now at least) the title is the original esco prefLabel, and the prefLabel content picker is the user selected new prefLabel, so leave the picked pref label in
 
 we have code to display the label of the preflabel content picker in the contentpicker list, and we could make occupation not listable (so the poor displaytext is not seen), but the content picker search is still on the displaytext (title), not the preflabel picker, even though that is the value that's displayed
+
+#Helpful Cypher
+
+##Testing graph validation
+
+###Test text field incorrect
+
+match (n:ncs__JobProfile) where n.skos__prefLabel = 'MP' set n.ncs__WorkingPatternDetails='new' return n
+
+###Test content picker missing relationship
+
+View:
+
+match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' return o, r, d
+
+Remove expected relationship:
+
+match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' delete r
 
 #Links
 
