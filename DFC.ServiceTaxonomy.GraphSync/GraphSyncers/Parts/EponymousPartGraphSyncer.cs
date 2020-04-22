@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -43,10 +44,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class EponymousPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldGraphSyncer;
+        private readonly ILogger<EponymousPartGraphSyncer> _logger;
 
-        public EponymousPartGraphSyncer(IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer)
+        public EponymousPartGraphSyncer(
+            IEnumerable<IContentFieldGraphSyncer> contentFieldGraphSyncer,
+            ILogger<EponymousPartGraphSyncer> logger)
         {
             _contentFieldGraphSyncer = contentFieldGraphSyncer;
+            _logger = logger;
         }
 
         //todo: might be better to call it EponymousPart and check for that, rather than null
@@ -104,9 +109,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                     if (contentItemField == null)
+                    {
+                        _logger.LogWarning($"Found unexpected content field. Most likely GetJobProfiles importer has generated a badly formed content item: {content}");
                         continue;
+                    }
 
                     IContentPartFieldDefinition contentPartFieldDefinitionWrapper
                         = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
