@@ -64,7 +64,7 @@ Add the following to your neo4j.conf file:
 ncs.occupation_synonyms_file_url=https://localhost:44346/graphsync/synonyms/occupation/synonyms.txt
 ncs.skill_synonyms_file_url=https://localhost:44346/graphsync/synonyms/skill/synonyms.txt
 
-Before running the import, place "ncs-synonym-analyzer-0.1.0.jar" in the Neo4J plugins directory.
+Before running the import, place "ncs-service-taxonomy-plugins-x.x.x.jar" in the Neo4J plugins directory.
 
 To import the National Careers Service Job Profiles, import the files from the output of "GetJobProfiles" utility in the following order:
 
