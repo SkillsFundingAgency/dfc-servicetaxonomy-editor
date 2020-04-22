@@ -6,6 +6,7 @@ namespace GetJobProfiles.Models.Recipe.Fields
 {
     public class HtmlField
     {
+        public HtmlField() => Html = null;
         public HtmlField(string html) => Html = ConvertLists(WrapInParagraph(ConvertLinks(html)));
         //todo: correct array to <p>??
         public HtmlField(IEnumerable<string> html) => Html = html.Aggregate(string.Empty, (h, p) =>
