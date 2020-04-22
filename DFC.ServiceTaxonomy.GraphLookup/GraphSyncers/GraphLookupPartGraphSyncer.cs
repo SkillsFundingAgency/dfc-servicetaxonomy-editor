@@ -52,7 +52,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+            IDictionary<string, int> expectedRelationshipCounts,
+            string endpoint)
         {
             GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)

@@ -33,9 +33,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _currentDriver = 0;
         }
 
-        public async Task<List<T>> Run<T>(IQuery<T> query)
+        public IEnumerable<INeoDriver> Drivers => _drivers;
+
+        public async Task<List<T>> Run<T>(IQuery<T> query, string? endpoint = null)
         {
-            var neoDriver = GetNextDriver();
+            var neoDriver = string.IsNullOrWhiteSpace(endpoint) ?
+                GetNextDriver() :
+                GetDriverByEndpoint(endpoint);
 
             _logger.LogInformation($"Executing Query to: {neoDriver.Uri}");
 
@@ -109,6 +113,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _currentDriver++;
 
             return driverToUse;
+        }
+
+        private INeoDriver GetDriverByEndpoint(string endpoint)
+        {
+            return _drivers.Single(x => x.Uri == endpoint);
         }
 
         public void Dispose()
