@@ -5,7 +5,8 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
-* add guid to recipe names and add simon's subset to git
+* neo4j 4
+    do we need to specify graph in endpoint config?
 
 * don't log to file in env, only ai: add nlog.Development.config?
 
