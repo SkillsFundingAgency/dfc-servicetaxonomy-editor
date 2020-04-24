@@ -1,12 +1,18 @@
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GetJobProfiles
 {
     public static class ImportRecipe
     {
-        public static void Create(string filename, string contents)
+        public static async Task CreateRecipeFile(string filename, string contents)
+        {
+            await File.WriteAllTextAsync(filename, contents);
+        }
+
+        public static async Task CreateZipFile(string filename, string contents)
         {
             var zip = GetZipArchive(new InMemoryFile
             {
@@ -14,8 +20,7 @@ namespace GetJobProfiles
                 Content = contents
             });
 
-
-            File.WriteAllBytes(filename, zip);
+            await File.WriteAllBytesAsync(filename, zip);
         }
 
         private static byte[] GetZipArchive(InMemoryFile file)

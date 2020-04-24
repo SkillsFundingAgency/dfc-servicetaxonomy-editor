@@ -5,6 +5,26 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* api: GetJobProfilesBySearchTerm should tolower the search term
+
+* don't log to file in env, only ai: add nlog.Development.config?
+
+* graph validator : group verified results in ui by content type
+                    only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
+                    log user id, not contentitemid
+
+master recipe:
+check import carries on ok after timeout
+check zip => json doesn't cause issues
+recipes in editor/recipes -> available in dev?
+logging? (will slow down import though)
+
+* validation: exclude readonly nodes like occupation, except for relationships
+soccode issue
+
+* create index recipe > if exists, drop, then create (or some other sequence that doesn't cause the master recipe to go boom)
+
+* update import so only occupation labels that are required for the jp set are imported
 * we should explicitly set (and check) required and multiple settings for all content pickers
 * add Enable Admin Menu filter to recipe
 
@@ -100,6 +120,56 @@ Alternative labels
 we could leave the preferred title out of the occupation preview, but (for now at least) the title is the original esco prefLabel, and the prefLabel content picker is the user selected new prefLabel, so leave the picked pref label in
 
 we have code to display the label of the preflabel content picker in the contentpicker list, and we could make occupation not listable (so the poor displaytext is not seen), but the content picker search is still on the displaytext (title), not the preflabel picker, even though that is the value that's displayed
+
+#Label improvements
+
+##PrefLabel
+For an occupation’s prefLabel, we could use
+
+```
+match (:esco__Occupation)-[:skosxl__prefLabel]->(pl:skosxl__Label)
+return pl.skosxl__literalForm
+```
+although we couldn’t use the current Title part. We could have the label as an ordinary field and change the config on the content picker preview field in job profile.
+
+However there are other (roughly 30) skosxl__Label nodes off each occupation related by skosxl__prefLabel, that are mostly junk. Apart from id and uri, the only property they contain is esco__hasLabelRole and the node set contains 1 or 2 separate values and there are no other relationships from/to the nodes. The value set is
+
+```
+"http://data.europa.eu/esco/label-role/neutral"
+"http://data.europa.eu/esco/label-role/standard-male"
+"http://data.europa.eu/esco/label-role/female"
+"http://data.europa.eu/esco/label-role/male"
+```
+It may be, that although we filter by “en” language, we still get a set of 1 or 2 nodes for each language.
+
+We could remove all the extra nodes after import, either all of them, or leave 1 each for each distinct label role, in case we want to know the gender of the label at some point.
+
+##AltLabel
+AltLabel is similar to prefLabel, in that there are nodes that follow the same pattern. The difference with altLabel, is that because the gender nodes are only related to the occupation and not the label node (same as prefLabel), the gender nodes are useless as there’s no means to link the gender role to a particular label. (As there is only 1 prefLabel node, the gender nodes, although not related to the label node, is obviously for the single prefLabel.)
+
+#Helpful Cypher
+
+##Delete ncs node data
+
+To delete NCS node data (leaving the original ESCO data):
+
+```match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n```
+
+##Testing graph validation
+
+###Test text field incorrect
+
+```match (n:ncs__JobProfile) where n.skos__prefLabel = 'MP' set n.ncs__WorkingPatternDetails='new' return n```
+
+###Test content picker missing relationship
+
+View:
+
+```match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' return o, r, d```
+
+Remove expected relationship:
+
+```match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' delete r```
 
 #Links
 

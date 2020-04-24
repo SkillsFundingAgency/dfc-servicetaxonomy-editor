@@ -181,11 +181,9 @@ namespace GetJobProfiles
                     Description = new HtmlField(jobProfile.Overview),
                     JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
+                    HtbTitleOptions = new TextField(),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
-                    //todo:
-                    //HtbTitleOptions = jobProfile.
-
                     HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations),
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
                     WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -82,12 +82,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        public async Task<(bool verified, string failureReason)> VerifySyncComponent(
+        //todo: rename to ValidateSyncComponent
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
@@ -102,9 +101,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
-                (bool validated, string? failureReason) =
+                (bool validated, string failureReason) =
                     await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition);
-                if (!validated) //todo: more context required here?
+                if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
 
                 // check expected relationship is in graph
@@ -117,21 +116,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 expectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
                 expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
+                // we've already validated the destination node, so we can assume the id property is there
                 object destinationId = bagContentGraphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
 
-                INode destinationNode = destinationNodes.SingleOrDefault(n => Equals(n.Properties[graphSyncHelper.IdPropertyName()], destinationId));
-                if (destinationNode == null)
-                {
-                    return (false, $"destination node with user ID '{destinationId}' not found");
-                }
+                string bagContentIdPropertyName = bagContentGraphSyncHelper.IdPropertyName(bagPartContentItem.ContentType);
 
-                var relationship = relationships.SingleOrDefault(r =>
-                    r.Type == expectedRelationshipType && r.EndNodeId == destinationNode.Id);
+                (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    expectedRelationshipType,
+                    bagContentIdPropertyName,
+                    destinationId);
 
-                if (relationship == null)
-                {
-                    return (false, $"relationship of type {expectedRelationshipType} with end node ID {destinationNode.Id} not found");
-                }
+                if (!validated)
+                    return (false, failureReason);
             }
 
             return (true, "");

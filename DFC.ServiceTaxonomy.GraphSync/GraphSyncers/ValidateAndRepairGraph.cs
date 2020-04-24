@@ -7,11 +7,11 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -174,24 +174,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
 
-            List<IRecord> results = await _graphDatabase.Run(new MatchNodeWithAllOutgoingRelationshipsQuery(
+            List<INodeWithOutgoingRelationships?> results = await _graphDatabase.Run(new NodeWithOutgoingRelationshipsQuery(
                 await _graphSyncHelper.NodeLabels(),
                 _graphSyncHelper.IdPropertyName(),
                 nodeId));
 
-            //todo: these need more context
-            if (results == null || !results.Any())
-                return (false, "Node missing from graph (no results).");
-
-            INode? sourceNode = results.Select(x => x[0]).Cast<INode?>().FirstOrDefault();
-            if (sourceNode == null)
-                return (false, "Node missing from graph.");
-
-            List<IRelationship> relationships = results.Select(x => x[1]).Cast<IRelationship>().ToList();
-            List<INode> destinationNodes = results.Select(x => x[2]).Cast<INode>().ToList();
-
-            //todo: for some reason sometimes we get an array with a single null element
-            relationships.RemoveAll(x => x == null);
+            INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
+            if (nodeWithOutgoingRelationships == null)
+                return (false, FailureContext("Node not found.", contentItem));
 
             IDictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
 
@@ -200,7 +190,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string partTypeName = contentTypePartDefinition.PartDefinition.Name;
                 string partName = contentTypePartDefinition.Name;
                 if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
-                    && partName == contentTypePartDefinition.ContentTypeDefinition.DisplayName)
+                    && partName == contentTypePartDefinition.ContentTypeDefinition.Name)
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
@@ -215,18 +205,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (partContent == null)
                     continue; //todo: throw??
 
-                (bool verified, string partFailureReason) = await partSyncer.VerifySyncComponent(
-                    (JObject)partContent, contentTypePartDefinition,
-                    sourceNode, relationships, destinationNodes,
+                (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
+                    (JObject)partContent, contentTypePartDefinition, nodeWithOutgoingRelationships,
                     _graphSyncHelper, _graphValidationHelper,
                     expectedRelationshipCounts);
 
-                if (!verified)
-                {
-                    string failureReason = $"{partSyncer.PartName ?? "EponymousPart"} did not validate: {partFailureReason}";
-                    string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition, contentItem, partTypeName, partContent, sourceNode);
-                    return (false, failureContext);
-                }
+                if (validated)
+                    continue;
+
+                string failureReason = $"{partSyncer.PartName ?? "EponymousPart"} did not validate: {partFailureReason}";
+                string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition,
+                    contentItem, partTypeName, partContent, nodeWithOutgoingRelationships);
+                return (false, failureContext);
             }
 
             // check there aren't any more relationships of each type than there should be
@@ -234,19 +224,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // to handle different parts or multiple named instances of a part creating relationships of the same type
             foreach ((string relationshipType, int relationshipsInDbCount) in expectedRelationshipCounts)
             {
-                int relationshipsInGraphCount = relationships.Count(r => r.Type == relationshipType);
+                int relationshipsInGraphCount =
+                    nodeWithOutgoingRelationships.OutgoingRelationships.Count(r =>
+                        r.Relationship.Type == relationshipType);
 
                 if (relationshipsInDbCount != relationshipsInGraphCount)
                 {
-                    //todo: needs more context
-                    return (false, $"Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}.");
+                    return (false, FailureContext(
+                        $"Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}.",
+                        contentItem));
                 }
             }
 
             return (true, "");
         }
 
-        //todo: for bag failures, source node is containing type, which isn't much use,
+        private string FailureContext(
+            string failureReason,
+            ContentItem contentItem)
+        {
+            return $@"{failureReason}
+Content ----------------------------------------
+          type: '{contentItem.ContentType}'
+            ID: {contentItem.ContentItemId}";
+        }
+
+        //todo: output relationships destination label user id, instead of node id
         private string FailureContext(
             string failureReason,
             object nodeId,
@@ -254,22 +257,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ContentItem contentItem,
             string partName,
             dynamic partContent,
-            INode sourceNode)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships)
         {
-            return $@"{failureReason}
-Content ----------------------------------------
-          type: '{contentItem.ContentType}'
-            ID: {contentItem.ContentItemId}
+            return $@"{FailureContext(failureReason, contentItem)}
 part type name: '{partName}'
      part name: '{contentTypePartDefinition.Name}'
   part content:
 {partContent}
 Source Node ------------------------------------
-        ID: {sourceNode.Id}
+        ID: {nodeWithOutgoingRelationships.SourceNode.Id}
    user ID: {nodeId}
-    labels: ':{string.Join(":", sourceNode.Labels)}'
+    labels: ':{string.Join(":", nodeWithOutgoingRelationships.SourceNode.Labels)}'
 properties:
-{string.Join(Environment.NewLine, sourceNode.Properties.Select(p => $"{p.Key} = {p.Value}"))}";
+{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.SourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}
+Relationships ----------------------------------
+{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.OutgoingRelationships.Select(or => $"[:{or.Relationship.Type}]->({or.DestinationNode.Id})"))}";
         }
     }
 

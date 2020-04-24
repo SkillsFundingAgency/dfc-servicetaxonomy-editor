@@ -27,18 +27,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
 
             if(RelationshipTypes.Length == 0)
             {
-                validationErrors.Add($"At least one RelationshipType must be provided.");
+                validationErrors.Add("At least one RelationshipType must be provided.");
             }
 
             return validationErrors;
         }
 
         public Query Query
-        {  
+        {
             get
             {
                 this.CheckIsValid();
-                return new Query($"MATCH(o:{FirstNodeLabel})-[:{string.Join("|:", RelationshipTypes)}]- (l:{SecondNodeLabel}) WITH {{ label: o.{PropertyValue}, values: REDUCE(result = o.{PropertyValue}, s in collect(l.{PropertyValue}) | result + \",\" + s) }} AS synonyms WITH {{ Results: collect(synonyms.values)}} as results RETURN results");
+                return new Query($"MATCH(o:{FirstNodeLabel})-[:{string.Join("|", RelationshipTypes)}]- (l:{SecondNodeLabel}) WITH {{ label: o.{PropertyValue}, values: REDUCE(result = o.{PropertyValue}, s in collect(l.{PropertyValue}) | result + \",\" + s) }} AS synonyms WITH {{ Results: collect(synonyms.values)}} as results RETURN results");
             }
         }
 
