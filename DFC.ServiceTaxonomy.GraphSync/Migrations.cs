@@ -1,5 +1,5 @@
 ﻿using System;
-using DFC.ServiceTaxonomy.GraphSync.Activities;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Data.Migration;

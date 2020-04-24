@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         GraphSyncPartSettings GraphSyncPartSettings { get; }
 
+        //todo: version that returns string with :
         Task<IEnumerable<string>> NodeLabels();
         Task<string> PropertyName(string name);
         string IdPropertyName();
@@ -25,6 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<IEnumerable<string>> NodeLabels(string contentType);
         Task<string> RelationshipTypeDefault(string destinationContentType);
 
+        string ContentIdPropertyName { get; }
         object GetIdPropertyValue(dynamic graphSyncContent);
     }
     #pragma warning restore S4136

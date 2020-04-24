@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -54,12 +54,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             _logger = logger;
         }
 
+        //todo: might be better to call it EponymousPart and check for that, rather than null
         /// <summary>
         /// null is a special case to indicate a match when the part is the eponymous named content type part
         /// </summary>
         public string? PartName => null;
 
-        public async Task<IEnumerable<ICommand>> AddSyncComponents(
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -90,16 +91,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                         graphSyncHelper);
                 }
             }
-
-            return Enumerable.Empty<ICommand>();
         }
 
-        public async Task<bool> VerifySyncComponent(dynamic content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
@@ -109,29 +109,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = content[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                     if (contentItemField == null)
+                    {
+                        _logger.LogWarning($"Found unexpected content field. Most likely GetJobProfiles importer has generated a badly formed content item: {content}");
                         continue;
+                    }
 
                     IContentPartFieldDefinition contentPartFieldDefinitionWrapper
                         = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
 
-                    if (!await contentFieldGraphSyncer.VerifySyncComponent(
+                    (bool validated, string failureReason) = await contentFieldGraphSyncer.ValidateSyncComponent(
                         contentItemField,
                         contentPartFieldDefinitionWrapper,
-                        sourceNode,
-                        relationships,
-                        destinationNodes,
-                        graphSyncHelper))
+                        nodeWithOutgoingRelationships,
+                        graphSyncHelper,
+                        graphValidationHelper,
+                        expectedRelationshipCounts);
+
+                    if (!validated)
                     {
-                        //todo: would be good to log graphsyncpart id : can log that in consumer when this returns false
-                        _logger.LogWarning($"Sync validation failed. Field type: {contentFieldGraphSyncer.FieldTypeName}, field: {contentPartFieldDefinition.Name}");
-                        return false;
+                        return (false, $"{contentPartFieldDefinition.Name} {contentFieldGraphSyncer.FieldTypeName} did not validate: {failureReason}");
                     }
                 }
             }
 
-            return true;
+            return (true,"");
         }
     }
 }

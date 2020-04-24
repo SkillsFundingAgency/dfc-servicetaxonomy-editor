@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
@@ -18,11 +18,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper);
 
-        Task<bool> VerifySyncComponent(JObject contentItemField,
+        Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper);
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts);
     }
 }

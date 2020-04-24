@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
@@ -20,26 +21,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<BagPartGraphSyncer> _logger;
+        private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
         public string? PartName => nameof(BagPart);
 
-        public BagPartGraphSyncer(IServiceProvider serviceProvider,
-                ILogger<BagPartGraphSyncer> logger)
+        public BagPartGraphSyncer(
+            IContentDefinitionManager contentDefinitionManager,
+            IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _logger = logger;
+
+            _contentTypes = contentDefinitionManager
+                .ListTypeDefinitions()
+                .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
+                .ToDictionary(x => x.Name);
         }
 
-        public async Task<IEnumerable<ICommand>> AddSyncComponents(
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            var delayedCommands = new List<ICommand>();
-
             foreach (JObject? contentItem in content.ContentItems)
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
@@ -65,48 +69,42 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 containedContentMergeNodeCommand.CheckIsValid();
 
-                var delayedReplaceRelationshipsCommand = _serviceProvider.GetRequiredService<IReplaceRelationshipsCommand>();
-                delayedReplaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(mergeNodeCommand.NodeLabels);
-
-                if (mergeNodeCommand.IdPropertyName == null)
-                    throw new GraphSyncException($"Supplied merge node command has null {nameof(mergeNodeCommand.IdPropertyName)}");
-                delayedReplaceRelationshipsCommand.SourceIdPropertyName = mergeNodeCommand.IdPropertyName;
-                delayedReplaceRelationshipsCommand.SourceIdPropertyValue = (string?)mergeNodeCommand.Properties[delayedReplaceRelationshipsCommand.SourceIdPropertyName];
-
                 var bagContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
 
                 bagContentItemGraphSyncHelper.ContentType = contentType;
                 string relationshipType = await RelationshipType(bagContentItemGraphSyncHelper);
 
-                delayedReplaceRelationshipsCommand.AddRelationshipsTo(
+                replaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
-
-                delayedCommands.Add(delayedReplaceRelationshipsCommand);
             }
-
-            return delayedCommands;
         }
 
-        public async Task<bool> VerifySyncComponent(dynamic content,
+        //todo: rename to ValidateSyncComponent
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
-            IEnumerable<ContentItem> contentItems = content["ContentItems"].ToObject<IEnumerable<ContentItem>>();
-
-            Dictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
+            IEnumerable<ContentItem>? contentItems = content["ContentItems"]?.ToObject<IEnumerable<ContentItem>>();
+            if (contentItems == null)
+                throw new GraphSyncException("Bag does not contain ContentItems");
 
             foreach (ContentItem bagPartContentItem in contentItems)
             {
-                var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateGraphSync>();
+                var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateAndRepairGraph>();
 
-                if (!await graphSyncValidator.CheckIfContentItemSynced(bagPartContentItem))
-                    return false;
+                ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
+
+                (bool validated, string failureReason) =
+                    await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition);
+                if (!validated)
+                    return (false, $"contained item failed validation: {failureReason}");
 
                 // check expected relationship is in graph
                 var bagContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
@@ -118,38 +116,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 expectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
                 expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
-                object destinationId = graphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
+                // we've already validated the destination node, so we can assume the id property is there
+                object destinationId = bagContentGraphSyncHelper.GetIdPropertyValue(bagPartContentItem.Content.GraphSyncPart);
 
-                INode destinationNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName()] == destinationId);
-                if (destinationNode == null)
-                {
-                    _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
-                    return false;
-                }
+                string bagContentIdPropertyName = bagContentGraphSyncHelper.IdPropertyName(bagPartContentItem.ContentType);
 
-                var relationship = relationships.SingleOrDefault(r =>
-                    r.Type == expectedRelationshipType && r.EndNodeId == destinationNode.Id);
+                (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    expectedRelationshipType,
+                    bagContentIdPropertyName,
+                    destinationId);
 
-                if (relationship == null)
-                {
-                    _logger.LogWarning($"Sync validation failed. Relationship of type {expectedRelationshipType} with end node ID {destinationNode.Id} not found");
-                    return false;
-                }
+                if (!validated)
+                    return (false, failureReason);
             }
 
-            // check there aren't any more relationships of each type than there should be
-            foreach ((string relationshipType, int relationshipsInDbCount) in expectedRelationshipCounts)
-            {
-                int relationshipsInGraphCount = relationships.Count(r => r.Type == relationshipType);
-
-                if (relationshipsInDbCount != relationshipsInGraphCount)
-                {
-                    _logger.LogWarning($"Sync validation failed. Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}");
-                    return false;
-                }
-            }
-
-            return true;
+            return (true, "");
         }
 
         private async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)

@@ -18,6 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     {
         private readonly IContentManager _contentManager;
         private readonly ISession _session;
+        private readonly IContentManagerSession _contentManagerSession;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
 
         public const string StepName = "CSharpContent";
@@ -25,11 +26,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         public CSharpContentStep(
             IContentManager contentManager,
             ISession session,
+            IContentManagerSession contentManagerSession,
             //todo: rename
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals)
         {
             _contentManager = contentManager;
             _session = session;
+            _contentManagerSession = contentManagerSession;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
         }
 
@@ -61,6 +64,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
                     contentItem.Id = 0;
                     await _contentManager.CreateAsync(contentItem);
+                    _contentManagerSession.Clear();
 
                     // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
                     // Should not be necessary if IContentManager had an Import method

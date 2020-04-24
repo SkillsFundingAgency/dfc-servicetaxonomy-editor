@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -18,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         private const string _nodeTitlePropertyName = "skos__prefLabel";
 
-        public Task<IEnumerable<ICommand>> AddSyncComponents(
+        public Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -29,18 +28,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             if (titleValue.Type != JTokenType.Null)
                 mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, titleValue.As<string>());
 
-            return Task.FromResult(Enumerable.Empty<ICommand>());
+            return Task.CompletedTask;
         }
 
-        public Task<bool> VerifySyncComponent(dynamic content,
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
-        {//todo: distinguish between null and empty string : use new helper? or part helper?
-            object prefLabel = sourceNode.Properties[_nodeTitlePropertyName];
-            return Task.FromResult(Convert.ToString(prefLabel) == Convert.ToString(content.Title));
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
+        {
+            return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                "Title",
+                content,
+                _nodeTitlePropertyName,
+                nodeWithOutgoingRelationships.SourceNode));
         }
     }
 }

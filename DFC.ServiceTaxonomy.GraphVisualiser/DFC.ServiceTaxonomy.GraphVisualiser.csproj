@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neo4j.Driver" Version="4.0.1" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc1-*" />
     <PackageReference Include="OrchardCore.Navigation" Version="1.0.0-rc1-*" />

@@ -59,6 +59,13 @@ If you choose to use a SQL Server or Azure SQL database, ensure that the connect
 
 You should then be directed to the log in page. Enter the username and password you've just set up. If you have the memory of a goldfish, delete the DFC.ServiceTaxonomy.Editor\App_Data folder and start again.
 
+Add the following to your neo4j.conf file:
+# Synonyms API URL
+ncs.occupation_synonyms_file_url=https://localhost:44346/graphsync/synonyms/occupation/synonyms.txt
+ncs.skill_synonyms_file_url=https://localhost:44346/graphsync/synonyms/skill/synonyms.txt
+
+Before running the import, place "ncs-service-taxonomy-plugins-x.x.x.jar" in the Neo4J plugins directory.
+
 To import the National Careers Service Job Profiles, import the files from the output of "GetJobProfiles" utility in the following order:
 
 - QCF Levels

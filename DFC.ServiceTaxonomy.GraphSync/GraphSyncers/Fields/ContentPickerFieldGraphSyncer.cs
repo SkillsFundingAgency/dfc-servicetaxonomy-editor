@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
 using Neo4j.Driver;
@@ -81,27 +82,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
                 contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
 
             string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
 
-            IRelationship[] actualRelationships = relationships
-                .Where(r => r.Type == relationshipType)
+            IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
+                .Where(r => r.Relationship.Type == relationshipType)
                 .ToArray();
 
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
             if (contentItemIds.Count != actualRelationships.Length)
             {
-                _logger.LogWarning($"Sync validation failed. Expecting {actualRelationships.Length} relationships of type {relationshipType} in graph, but found {contentItemIds.Count}");
-                return false;
+                return (false, $"expecting {contentItemIds.Count} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
             }
 
             foreach (JToken item in contentItemIds)
@@ -110,26 +110,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
 
+                //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
-                INode destNode = destinationNodes.SingleOrDefault(n => n.Properties[graphSyncHelper.IdPropertyName()] == destinationId);
-                if (destNode == null)
-                {
-                    _logger.LogWarning($"Sync validation failed. Destination node with user ID '{destinationId}' not found");
-                    return false;
-                }
+                string destinationIdPropertyName =
+                    graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
 
-                var relationship = actualRelationships.SingleOrDefault(r =>
-                    r.Type == relationshipType && r.EndNodeId == destNode.Id);
+                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    relationshipType,
+                    destinationIdPropertyName,
+                    destinationId);
 
-                if (relationship == null)
-                {
-                    _logger.LogWarning($"Sync validation failed. Relationship of type {relationshipType} with end node ID {destNode.Id} not found");
-                    return false;
-                }
+                if (!validated)
+                    return (false, failureReason);
+
+                //todo: helper for this too
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                expectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
-            return true;
+            return (true, "");
         }
 
         private async Task<string> RelationshipTypeContentPicker(

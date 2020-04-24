@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
-    public class LinkFieldGraphSyncer : FieldGraphSyncer, IContentFieldGraphSyncer
+    public class LinkFieldGraphSyncer : IContentFieldGraphSyncer
     {
         public string FieldTypeName => "LinkField";
 
@@ -33,33 +34,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             string nodeBasePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 
             string nodeUrlPropertyName = $"{nodeBasePropertyName}{LinkUrlPostfix}";
 
-            if (!StringContentPropertyMatchesNodeProperty(
+            (bool matched, string failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
-                sourceNode))
-            {
-                return false;
-            }
+                nodeWithOutgoingRelationships.SourceNode);
+
+            if (!matched)
+                return (false, $"url did not validate: {failureReason}");
 
             string nodeTextPropertyName = $"{nodeBasePropertyName}{LinkTextPostfix}";
 
-            return StringContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,
-                sourceNode);
+                nodeWithOutgoingRelationships.SourceNode);
+
+            return (matched, matched ? "" : $"text did not validate: {failureReason}");
         }
     }
 }

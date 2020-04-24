@@ -5,8 +5,8 @@ using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string? PartName => nameof(GraphLookupPart);
 
-        public Task<IEnumerable<ICommand>> AddSyncComponents(
+        public Task AddSyncComponents(
             dynamic graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -25,11 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-            var emptyResult = Task.FromResult(Enumerable.Empty<ICommand>());
-
             JArray nodes = (JArray)graphLookupContent.Nodes;
             if (nodes.Count == 0)
-                return emptyResult;
+                return Task.CompletedTask;
 
             if (settings.PropertyName != null)
             {
@@ -46,41 +44,41 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     nodes.Select(GetId).ToArray());
             }
 
-            return emptyResult;
+            return Task.CompletedTask;
         }
 
-        public Task<bool> VerifySyncComponent(dynamic content,
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
-            GraphLookupPart graphLookupPart = content.ToObject<GraphLookupPart>();
+            GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
-            string relationshipType = (string)contentTypePartDefinition.Settings["GraphLookupPartSettings"]!["RelationshipType"]!;
+            GraphLookupPartSettings graphLookupPartSettings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
             foreach (var node in graphLookupPart.Nodes)
             {
-                var destNode = destinationNodes.SingleOrDefault(x =>
-                    (string)x.Properties[graphSyncHelper.IdPropertyName()] == node.Id);
+                string relationshipType = graphLookupPartSettings.RelationshipType!;
 
-                if (destNode == null)
-                {
-                    return Task.FromResult(false);
-                }
+                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    relationshipType,
+                    graphLookupPartSettings.ValueFieldName!,
+                    node.Id);
 
-                var relationship = relationships.SingleOrDefault(x => x.Type == relationshipType && x.EndNodeId == destNode.Id);
+                if (!validated)
+                    return Task.FromResult((false, failureReason));
 
-                if (relationship == null)
-                {
-                    return Task.FromResult(false);
-                }
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                expectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
-            return Task.FromResult(true);
+            return Task.FromResult((true, ""));
         }
 
         private object GetId(JToken jToken)

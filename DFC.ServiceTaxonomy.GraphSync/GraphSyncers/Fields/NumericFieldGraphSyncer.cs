@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -40,38 +41,42 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
-        public async Task<bool> VerifySyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
-            INode sourceNode,
-            IEnumerable<IRelationship> relationships,
-            IEnumerable<INode> destinationNodes,
-            IGraphSyncHelper graphSyncHelper)
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphSyncHelper graphSyncHelper,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts)
         {
             string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
-            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+            nodeWithOutgoingRelationships.SourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
             JToken? contentItemFieldValue = contentItemField[ContentKey];
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
             {
-                return nodePropertyValue == null;
+                bool bothNull = nodePropertyValue == null;
+                return (bothNull, "content property value was null, but node property value was not null");
             }
 
             if (nodePropertyValue == null)
-                return false;
+                return (false, "node property value was null, but content property value was not null");
 
             var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
 
             if (fieldSettings.Scale == 0)
             {
-                return nodePropertyValue is int nodePropertyValueInt
-                       && nodePropertyValueInt == (int)contentItemFieldValue;
+                bool longsSame = nodePropertyValue is long nodePropertyValueInt
+                       && nodePropertyValueInt == (long)contentItemFieldValue;
+                return (longsSame, longsSame?"":$"long content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}'");
             }
 
             // calculate allowable tolerance from scale setting
             double allowableDifference = 1d / Math.Pow(10d, fieldSettings.Scale + 2);
 
-            return nodePropertyValue is double nodePropertyValueFloat
+            bool doublesSame = nodePropertyValue is double nodePropertyValueFloat
                 && Math.Abs(nodePropertyValueFloat - (double)contentItemFieldValue) <= allowableDifference;
+
+            return (doublesSame, doublesSame?"":$"double content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}' and allowable difference was {allowableDifference}");
         }
     }
 }
