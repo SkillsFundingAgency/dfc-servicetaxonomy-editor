@@ -174,6 +174,8 @@ namespace GetJobProfiles
                 ? string.Empty
                 : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment?.Substring(32).Trim('.');
 
+            _oNetDictionary.TryGetValue(jobProfile.Title, out var oNetContentItemIds);
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart
@@ -189,7 +191,7 @@ namespace GetJobProfiles
                     WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
                     WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
                     SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
-                    ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { _oNetDictionary[jobProfile.Title] } },
+                    ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
                     SalaryExperienced = new TextField(jobProfile.SalaryExperienced),
                     MinimumHours = new NumericField(jobProfile.MinimumHours),
