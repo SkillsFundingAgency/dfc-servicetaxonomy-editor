@@ -66,6 +66,12 @@
 <script at="Foot" type="text/javascript">
     var allSettings = @Html.Raw(Json.Serialize(Model.AllSettings));
     $(function () {
+        var val = $('#ddlSelectSettings').val();
+
+        if (val == "Custom") {
+            $('.graphsync-setting input').attr("readonly", false);
+        }
+
         $('#ddlSelectSettings').on('change', function (ev) {
             var val = $(this).val();
 
