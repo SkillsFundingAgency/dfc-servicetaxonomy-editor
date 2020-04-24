@@ -5,7 +5,7 @@
 
   <groupId>org.neo4j.plugins</groupId>
   <artifactId>ncs-service-taxonomy-plugins</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
 
   <packaging>jar</packaging>
   <name>NCS Service Taxonomy Plugins</name>
@@ -14,7 +14,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <neo4j.version>3.5.12</neo4j.version>
+    <neo4j.version>4.0.3</neo4j.version>
     <neo4j-java-driver.version>1.7.5</neo4j-java-driver.version>
     <junit-jupiter.version>5.5.2</junit-jupiter.version>
     <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
