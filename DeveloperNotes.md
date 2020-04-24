@@ -5,11 +5,7 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
-* neo4j 4
-    do we need to specify graph in endpoint config?
-
 * api: GetJobProfilesBySearchTerm should tolower the search term
-GetOccupationsByMatchingSkills is the next api to test
 
 * don't log to file in env, only ai: add nlog.Development.config?
 
