@@ -174,7 +174,8 @@ namespace GetJobProfiles
 
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
-                EponymousPart = new JobProfilePart
+                EponymousPart = new JobProfilePart(),
+                Header = new JobProfileHeaderPart
                 {
                     Description = new HtmlField(jobProfile.Overview),
                     JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
@@ -185,8 +186,7 @@ namespace GetJobProfiles
                     MaximumHours = new NumericField(jobProfile.MaximumHours),
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
-                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
-                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
                 },
                 HowToBecome = new HowToBecomePart()
                 {
@@ -208,6 +208,10 @@ namespace GetJobProfiles
                     WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(environment),
                     WydWorkingLocation = WorkingLocations.CreateContentPicker(location),
                     WydWorkingUniform = WorkingUniforms.CreateContentPicker(uniform)
+                },
+                CareerPath = new CareerPathPart()
+                {
+                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
                 },
                 EntryRoutes = new BagPart()
             };

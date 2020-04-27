@@ -4,7 +4,7 @@ namespace GetJobProfiles.Models.Recipe.Parts
 {
     public class WhatYouWillDoPart
     {
-        public TabField WhatYouWillDo { get; set; } = new TabField();
+        public TabField WhatYouWillDo { get; set; }
         public ContentPicker DayToDayTasks { get; set; }
         public ContentPicker WydWorkingEnvironment { get; set; }
         public ContentPicker WydWorkingLocation { get; set; }
