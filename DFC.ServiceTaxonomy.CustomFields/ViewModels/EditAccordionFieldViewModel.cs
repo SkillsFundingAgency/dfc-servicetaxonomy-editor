@@ -2,7 +2,7 @@
 {
     public class EditAccordionFieldViewModel
     {
-        public string PartName { get; set; }
-        public string HeaderText { get; set; }
+        public string? PartName { get; set; }
+        public string? HeaderText { get; set; }
     }
 }

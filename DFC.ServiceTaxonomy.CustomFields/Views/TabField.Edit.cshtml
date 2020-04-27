@@ -11,7 +11,7 @@ $(function () {
     $("div[data-part='@Model.PartName'][data-editor-type='ContentPicker']").each(function () {
         $(this)
             .add($(this).prev("label"))
-            .add($(this).next(".collapse"))
+            //.add($(this).next(".collapse"))
             .wrapAll("<div class='form-group' />");
     });
 
@@ -19,11 +19,6 @@ $(function () {
     $("label[for^='@Model.PartName']")
         .closest(".form-group")
         .wrapAll("<div class='tab-pane' id='@content' role='tabpanel' aria-labelledby='@content-tab' />");
-
-    //HTML fields get a hidden modal inserted, so shift these to the bottom of the parent div to stop the tabs failing to join together into a group
-    $(".edit-item-parts > .modal").each(function () {
-        $(this).appendTo($(this).parent());
-    });
 
     //if the previous element was also a tab, append this one to the previous group
     if ($("#@content").prev().hasClass("tab-content")) {
@@ -44,7 +39,7 @@ $(function () {
     }
 
     //inject the stylesheet which fixes the admin theme breaking default tab styling
-    if (!$("link[href='/DFC.ServiceTaxonomy.Editor/tabs.css']").length)
-        $("<link href='/DFC.ServiceTaxonomy.Editor/tabs.css' rel='stylesheet'>").appendTo("head");
+    if (!$("link[href='/DFC.ServiceTaxonomy.CustomFields/tabs.css']").length)
+        $("<link href='/DFC.ServiceTaxonomy.CustomFields/tabs.css' rel='stylesheet'>").appendTo("head");
 });
 </script>

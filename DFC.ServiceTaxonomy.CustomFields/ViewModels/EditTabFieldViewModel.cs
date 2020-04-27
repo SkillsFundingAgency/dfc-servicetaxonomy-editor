@@ -2,7 +2,7 @@
 {
     public class EditTabFieldViewModel
     {
-        public string PartName { get; set; }
-        public string TabText { get; set; }
+        public string? PartName { get; set; }
+        public string? TabText { get; set; }
     }
 }

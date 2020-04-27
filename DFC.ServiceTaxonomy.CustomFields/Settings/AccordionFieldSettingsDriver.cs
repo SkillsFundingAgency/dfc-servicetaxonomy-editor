@@ -12,11 +12,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Settings
         public override IDisplayResult Edit(ContentPartFieldDefinition partFieldDefinition)
         {
             return Initialize<EditAccordionFieldSettingsViewModel>("AccordionFieldSettings_Edit", model =>
-            {
-                var settings = partFieldDefinition.GetSettings<AccordionFieldSettings>();
-
-                model.HeaderText = settings.HeaderText;
-            })
+            {})
             .Location("Content");
 
         }
@@ -27,10 +23,7 @@ namespace DFC.ServiceTaxonomy.CustomFields.Settings
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix))
             {
-                context.Builder.WithSettings(new AccordionFieldSettings
-                {
-                    HeaderText = model.HeaderText
-                });
+                context.Builder.WithSettings(new AccordionFieldSettings());
             }
 
             return Edit(partFieldDefinition);
