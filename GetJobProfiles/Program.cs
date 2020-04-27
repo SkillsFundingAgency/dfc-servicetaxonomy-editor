@@ -134,6 +134,9 @@ namespace GetJobProfiles
 
             ProcessLionelsSpreadsheet();
 
+            const string contentRecipesPath = "ContentRecipes";
+
+            await CopyRecipe(contentRecipesPath, "SharedContent");
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, "ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, "ApprenticeshipStandards");
