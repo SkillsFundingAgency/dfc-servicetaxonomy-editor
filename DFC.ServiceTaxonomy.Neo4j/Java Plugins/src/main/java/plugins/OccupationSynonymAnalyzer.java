@@ -1,8 +1,8 @@
 import org.apache.lucene.analysis.Analyzer;
-import org.neo4j.graphdb.index.fulltext.AnalyzerProvider;
-import org.neo4j.helpers.Service;
+import org.neo4j.graphdb.schema.AnalyzerProvider;
+import org.neo4j.annotations.service.ServiceProvider;
 
-@Service.Implementation(AnalyzerProvider.class)
+@ServiceProvider
 public class OccupationSynonymAnalyzer extends AnalyzerProvider {
 
     public static final String ANALYZER_NAME = "synonym-occupation";

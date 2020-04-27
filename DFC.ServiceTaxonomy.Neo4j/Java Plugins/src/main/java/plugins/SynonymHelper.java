@@ -1,7 +1,6 @@
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
 import org.apache.lucene.analysis.custom.CustomAnalyzer;
-import org.apache.lucene.analysis.standard.StandardFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.apache.lucene.analysis.synonym.SynonymFilterFactory;
 import java.io.*;
@@ -40,7 +39,6 @@ public class SynonymHelper {
             Analyzer analyzer = CustomAnalyzer.builder(new UrlResourceLoader())
 			//Analyzer analyzer = CustomAnalyzer.builder()
                     .withTokenizer(StandardTokenizerFactory.class)
-                    .addTokenFilter(StandardFilterFactory.class)
                     .addTokenFilter(SynonymFilterFactory.class, "synonyms", fileUrl)
                     .addTokenFilter(LowerCaseFilterFactory.class)
                     .build();
