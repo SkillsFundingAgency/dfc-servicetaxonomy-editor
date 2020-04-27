@@ -175,7 +175,7 @@ namespace GetJobProfiles
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart(),
-                Header = new JobProfileHeaderPart
+                JobProfileHeader = new JobProfileHeaderPart
                 {
                     Description = new HtmlField(jobProfile.Overview),
                     JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),

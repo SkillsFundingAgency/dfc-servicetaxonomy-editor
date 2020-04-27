@@ -16,7 +16,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
 
         public TitlePart TitlePart { get; set; }
         public JobProfilePart EponymousPart { get; set; }
-        public JobProfileHeaderPart Header { get; set; }
+        public JobProfileHeaderPart JobProfileHeader { get; set; }
         public HowToBecomePart HowToBecome { get; set; }
         public WhatItTakesPart WhatItTakes { get; set; }
         public WhatYouWillDoPart WhatYouWillDo { get; set; }

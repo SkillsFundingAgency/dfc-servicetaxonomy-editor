@@ -41,7 +41,7 @@ namespace GetJobProfiles
                         JobProfiles = new ContentPicker
                         {
                             ContentItemIds = jobProfiles
-                                .Where(jp => jobCategoryDictionary.Where(dict => dict.Value.Any(val => val == category)).Select(dict => dict.Key).Any(uri => jp.Header.JobProfileWebsiteUrl.Text.EndsWith(uri)))
+                                .Where(jp => jobCategoryDictionary.Where(dict => dict.Value.Any(val => val == category)).Select(dict => dict.Key).Any(uri => jp.JobProfileHeader.JobProfileWebsiteUrl.Text.EndsWith(uri)))
                                 .Select(jp => jp.ContentItemId)
                         },
                         WebsiteURI = new TextField($"/job-categories/{category.ToLower().Replace(' ', '-')}")
