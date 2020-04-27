@@ -5,6 +5,21 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* use api url for id's
+
+* trumbowyg : apply gds styles to html editor content, but see https://github.com/Alex-D/Trumbowyg/issues/940
+what about manually editing gds css to apply trumbowyg class as parent? perhaps subset??
+https://github.com/Alex-D/Trumbowyg/issues/167
+.trumbowyg-box or .trumbowyg-editor
+
+* shared content: how safe is it to allow users to create content with  urls/classes etc.
+ \ will need devs to be able to change content, e.g. to change classes etc.
+
+* Get help using this service : content has inline style and uses <br> for positioning
+
+* when title is set to 'editable and required', hint is shown as 'The title of the content item. It will be automatically generated.'.
+^ create oc pr?
+
 * api: GetJobProfilesBySearchTerm should tolower the search term
 
 * don't log to file in env, only ai: add nlog.Development.config?
