@@ -63,6 +63,7 @@
                 "OrchardCore.Widgets",
                 // Workflows
                 "OrchardCore.Workflows",
+                "OrchardCore.Workflows.Http",
                 "OrchardCore.Workflows.Timers",
                 // Themes
                 "TheAdmin",
