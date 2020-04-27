@@ -1,0 +1,143 @@
+{
+  "name": "UniversityLinks0_52744974-da4f-47f3-94ba-11413713c7fb",
+  "displayName": "UniversityLinks0_52744974-da4f-47f3-94ba-11413713c7fb",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://getintoteaching.education.gov.uk/funding-my-teacher-training",
+        "Text": "funding for teacher training"
+      }
+    },
+    "TitlePart": {
+      "Title": "Teacher training funding"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/a15207a4-404d-45a8-92b8-233fdd307861"
+    },
+    "ContentItemId": "486mwc9z7a8gxz2bypp9jq8q5s",
+    "ContentItemVersionId": "4ajzj2r5tsrkpxams84qsge0wc",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Teacher training funding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-21T12:14:40.4544036Z",
+    "PublishedUtc": "2020-04-21T12:14:40.4544036Z",
+    "CreatedUtc": "2020-04-21T12:14:40.4544036Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "student finance for fees and living costs"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Student finance"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/b9969c1a-6676-4ca2-9404-b540f0940c4b"
+    },
+    "ContentItemId": "4khdde56texc2ryeramkseg8dq",
+    "ContentItemVersionId": "4nc98h94hwfy12nxe99nen82xx",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Student finance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-21T12:14:40.4544036Z",
+    "PublishedUtc": "2020-04-21T12:14:40.4544036Z",
+    "CreatedUtc": "2020-04-21T12:14:40.4544036Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/",
+        "Text": "university courses and entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show UCAS info"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/0bce9727-9a95-43bc-b630-a1d357e9c6f6"
+    },
+    "ContentItemId": "43h33cr7np8yhtj837ekh7kkxn",
+    "ContentItemVersionId": "48yknsg9ksrcr23kq5b29063xp",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show UCAS info",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-21T12:14:40.4544036Z",
+    "PublishedUtc": "2020-04-21T12:14:40.4544036Z",
+    "CreatedUtc": "2020-04-21T12:14:40.4544036Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/8598c524-f901-4a6a-942c-41f708414eb0"
+    },
+    "ContentItemId": "4kx8rabawwn306v4j3vq70gfc1",
+    "ContentItemVersionId": "4cksc7aanzfb5rbdhn9whkmcn1",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-21T12:14:40.4544036Z",
+    "PublishedUtc": "2020-04-21T12:14:40.4544036Z",
+    "CreatedUtc": "2020-04-21T12:14:40.4544036Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/guidance/find-postgraduate-teacher-training-courses-in-england",
+        "Text": "postgraduate teacher training courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "PGCE courses"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/b0592f03-82e1-4f38-aaea-4d79fed07e4f"
+    },
+    "ContentItemId": "4082hd0sn5katyczsw65m5damm",
+    "ContentItemVersionId": "48gr012q750xq3pqb41dxntw4a",
+    "ContentType": "UniversityLink",
+    "DisplayText": "PGCE courses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-21T12:14:40.4544036Z",
+    "PublishedUtc": "2020-04-21T12:14:40.4544036Z",
+    "CreatedUtc": "2020-04-21T12:14:40.4544036Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

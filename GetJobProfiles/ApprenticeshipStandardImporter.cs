@@ -43,6 +43,7 @@ namespace GetJobProfiles
             {
                 EponymousPart = new ApprenticeshipStandardPart
                 {
+                    Description = new HtmlField(),
                     Reference = new TextField(standard.Reference),
                     MaximumFunding = new NumericField(standard.MaximumFunding),
                     LARSCode = new NumericField(standard.LARSCode),
@@ -228,7 +229,7 @@ namespace GetJobProfiles
                                 }
                             }
                         }
-                        
+
                         if (jobProfileStandardContentIds.Any())
                         {
                             //TODO : check for duplicates to report?

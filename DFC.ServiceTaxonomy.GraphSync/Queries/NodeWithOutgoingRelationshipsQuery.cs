@@ -63,6 +63,9 @@ return sourceNodeWithOutgoingRelationships");
                 .Select(or =>
                     ((IRelationship)or["relationship"], (INode)or["destinationNode"]));
 
+            if (outgoingRelationships.Count() == 1 && outgoingRelationships.First().Item1 == null)
+                outgoingRelationships = Enumerable.Empty<(IRelationship, INode)>();
+
             NodeWithOutgoingRelationships nodeWithOutgoingRelationships =
                 //todo: check all combos of missing data
                 new NodeWithOutgoingRelationships(sourceNode, outgoingRelationships);
