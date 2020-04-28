@@ -1,0 +1,55 @@
+01. CreateOccupationLabelNodes_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 
+02. CreateOccupationPrefLabelNodes_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 
+03. CreateSkillLabelNodes_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 
+04. CreateFullTextSearchIndexes_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 
+05. CreateOccupationLabelContentItems0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5000
+06. CreateOccupationLabelContentItems5000_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5000
+07. CreateOccupationLabelContentItems10000_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5000
+08. CreateOccupationLabelContentItems15000_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5000
+09. CreateOccupationLabelContentItems20000_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5000
+10. CreateOccupationLabelContentItems25000_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5000
+11. CreateOccupationLabelContentItems30000_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5000
+12. CreateOccupationContentItems0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 300
+13. QCFLevels0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 10
+14. ApprenticeshipStandardRoutes0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 18
+15. ApprenticeshipStandards0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 582
+16. RequirementsPrefixes0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 6
+17. ApprenticeshipLinks0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 3
+18. ApprenticeshipRequirements0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 9
+19. CollegeLinks0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5
+20. CollegeRequirements0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 4
+21. UniversityLinks0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 5
+22. UniversityRequirements0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 6
+23. DayToDayTasks0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 116
+24. OtherRequirements0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 7
+25. Registrations0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 3
+26. Restrictions0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 15
+27. SocCodes0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 369
+28. WorkingEnvironments0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 14
+29. WorkingLocations0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 16
+30. WorkingUniforms0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 2
+31. JobProfiles0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 18
+32. JobCategories0_699c67b5-aab5-4d8d-8902-5c799d770d98.recipe.json: 26
+# Totals
+OccupationLabels: 33036
+Occupations: 18
+QCFLevels: 10
+ApprenticeshipStandardRoutes: 18
+ApprenticeshipStandards: 582
+RequirementsPrefixes: 6
+ApprenticeshipLinks: 3
+ApprenticeshipRequirements: 9
+CollegeLinks: 5
+CollegeRequirements: 4
+UniversityLinks: 5
+UniversityRequirements: 6
+DayToDayTasks: 116
+OtherRequirements: 7
+Registrations: 3
+Restrictions: 15
+SocCodes: 369
+WorkingEnvironments: 14
+WorkingLocations: 16
+WorkingUniforms: 2
+JobProfiles: 18
+JobCategories: 26

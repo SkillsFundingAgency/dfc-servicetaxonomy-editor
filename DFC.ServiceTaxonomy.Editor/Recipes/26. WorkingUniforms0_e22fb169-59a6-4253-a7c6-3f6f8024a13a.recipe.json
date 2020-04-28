@@ -1,0 +1,66 @@
+{
+  "name": "WorkingUniforms0_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "displayName": "WorkingUniforms0_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Uniform"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea uniform\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/c7d2a4c1-7d09-44d4-9d3b-dbaf9a887b62"
+    },
+    "ContentItemId": "4vys9221t3kf2r6864scnn5f53",
+    "ContentItemVersionId": "4w7ned1vqg3eztdvjz66ngmywr",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Uniform",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Protective Clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workinguniform/bae7b1d1-bbf2-427f-9a7f-845b64056cd3"
+    },
+    "ContentItemId": "42gyfhjeg4ejb7hkttq8zhb7nm",
+    "ContentItemVersionId": "4tptd7sbgbvvn28zdj4aeeqpnm",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Protective Clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

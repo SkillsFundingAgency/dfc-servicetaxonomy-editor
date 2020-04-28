@@ -1,0 +1,46 @@
+{
+  "name": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "displayName": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationLabelContentItems0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationLabelContentItems5000_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationLabelContentItems10000_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationLabelContentItems15000_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationLabelContentItems20000_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationLabelContentItems25000_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationLabelContentItems30000_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CreateOccupationContentItems0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"QCFLevels0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"ApprenticeshipStandardRoutes0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"ApprenticeshipStandards0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"RequirementsPrefixes0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"ApprenticeshipLinks0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"ApprenticeshipRequirements0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CollegeLinks0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"CollegeRequirements0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"UniversityLinks0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"UniversityRequirements0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"DayToDayTasks0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"OtherRequirements0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"Registrations0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"Restrictions0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"SocCodes0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"WorkingEnvironments0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"WorkingLocations0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"WorkingUniforms0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"JobProfiles0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" },
+{ "executionid": "Import_e22fb169-59a6-4253-a7c6-3f6f8024a13a", name:"JobCategories0_e22fb169-59a6-4253-a7c6-3f6f8024a13a" }
+      ]
+    }
+  ]
+}

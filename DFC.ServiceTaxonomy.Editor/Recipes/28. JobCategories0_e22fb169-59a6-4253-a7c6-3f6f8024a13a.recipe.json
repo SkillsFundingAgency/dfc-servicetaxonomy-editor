@@ -1,0 +1,849 @@
+{
+  "name": "JobCategories0_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "displayName": "JobCategories0_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Hospitality and food"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EHospitality and food\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/hospitality-and-food"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4wac1fz17bv4f1m036xvf9fkx4"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/ec9aabc0-929a-4d35-ab42-422513ce1fce"
+    },
+    "ContentItemId": "4raqteyxj2m5vt4vfsjdhvx0nw",
+    "ContentItemVersionId": "4y5pk2tbx23hgvefqa8b33m7ct",
+    "ContentType": "JobCategory",
+    "DisplayText": "Hospitality and food",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Engineering and maintenance"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EEngineering and maintenance\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/engineering-and-maintenance"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4mcs3zzyk9d9c5q3m4gxnschm2",
+          "4c9zbtqdb9przx61bsrszc4hnk",
+          "40d5r6bwqz2rk1dqjcxf4amnxa"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/5d68bff0-07ff-4bce-bd69-5efe473a98d9"
+    },
+    "ContentItemId": "4frss5ttqxm6n1y310h1220qmq",
+    "ContentItemVersionId": "4k34f9qs3cp6xw07xjdhxmap4a",
+    "ContentType": "JobCategory",
+    "DisplayText": "Engineering and maintenance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Manufacturing"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EManufacturing\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/manufacturing"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/1b94770a-fec7-4b8b-bec4-8d7a2693b19d"
+    },
+    "ContentItemId": "4jc863cerjbqq588evpfj9jvnd",
+    "ContentItemVersionId": "4dssmx6dfa0pw63bf2b8f2dycj",
+    "ContentType": "JobCategory",
+    "DisplayText": "Manufacturing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sports and leisure"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ESports and leisure\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/sports-and-leisure"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/737407cc-a949-48ad-8066-991ac05b641e"
+    },
+    "ContentItemId": "450jrqxr9rzat0r1tg180knd5g",
+    "ContentItemVersionId": "4909fgatqzv6f4z1j2ncmem7ww",
+    "ContentType": "JobCategory",
+    "DisplayText": "Sports and leisure",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Beauty and wellbeing"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EBeauty and wellbeing\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/beauty-and-wellbeing"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/f695fd8b-66f8-4393-bd4b-0f003c569817"
+    },
+    "ContentItemId": "4b1ysx0aev4ar4vhhqchmnjwxx",
+    "ContentItemVersionId": "4aaf3bsq5zeaf2rdcvv1kfv2w6",
+    "ContentType": "JobCategory",
+    "DisplayText": "Beauty and wellbeing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Administration"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EAdministration\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/administration"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4p15y92rzes4krcc2p6m56ep4m",
+          "4ngbafy4317cd1003r378e05w3",
+          "4jcmbv6nncamb02r96at2nywxq"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/a2b26c5e-0235-4c25-91b5-69ddf7f305e4"
+    },
+    "ContentItemId": "41y0pdj374msnsdnm8hs09yhdc",
+    "ContentItemVersionId": "45jwjwhe5x03xvah89xk33zhnf",
+    "ContentType": "JobCategory",
+    "DisplayText": "Administration",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Managerial"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EManagerial\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/managerial"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4d75gcrq66pfnwjj65m9zzh6cx",
+          "4drww9pmnw6pf35kbx10znk6w4",
+          "4ngbafy4317cd1003r378e05w3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/d7f8a517-b786-4f8d-bb49-23543d9473c0"
+    },
+    "ContentItemId": "4mqq7wycmgc3d6n249z37a19xg",
+    "ContentItemVersionId": "43snx8v2s1jec76kgtpvcs8cxd",
+    "ContentType": "JobCategory",
+    "DisplayText": "Managerial",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Creative and media"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ECreative and media\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/creative-and-media"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/c0b2ab2b-96e1-4fd3-a743-6348bdcc8c08"
+    },
+    "ContentItemId": "45bgcazkcgq0h4xcshzsskfrxs",
+    "ContentItemVersionId": "4fpmnqg0azwhky6ygqwz7763mn",
+    "ContentType": "JobCategory",
+    "DisplayText": "Creative and media",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Retail and sales"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ERetail and sales\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/retail-and-sales"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4g1je1kcs404916z62s65mdnnn",
+          "4ecgtbkyrbqdp2ejdskv0gqwma",
+          "4vjrasfs0m1kt2jr3tpp27aj55"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/e7b84190-a43c-4a23-ab0d-2a2a79675524"
+    },
+    "ContentItemId": "4rcfp3m7enb5329wmq5ygc4rd3",
+    "ContentItemVersionId": "45vtkd9trrp29t8vabpynn2wxk",
+    "ContentType": "JobCategory",
+    "DisplayText": "Retail and sales",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Government services"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EGovernment services\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/government-services"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4p15y92rzes4krcc2p6m56ep4m"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/4f0bafdc-1f0a-4670-8544-3285a39826f5"
+    },
+    "ContentItemId": "4q620sv3ckzr87t0p3vv1zd6db",
+    "ContentItemVersionId": "4p534pakbxzt23j6tgxp3q27x4",
+    "ContentType": "JobCategory",
+    "DisplayText": "Government services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Transport"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ETransport\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/transport"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4g1je1kcs404916z62s65mdnnn",
+          "464knd5z59s5hsqzg003zk2g5s"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/96326439-25c2-413c-a3db-2a69baf00257"
+    },
+    "ContentItemId": "4yxztqtym43n30stjd1krz4qxw",
+    "ContentItemVersionId": "4152kd1vnse123kz8asknj7en2",
+    "ContentType": "JobCategory",
+    "DisplayText": "Transport",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Science and research"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EScience and research\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/science-and-research"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/edd67287-9fd9-4765-a9bb-6ed53ffe2685"
+    },
+    "ContentItemId": "4g1k5vskvpwsm3yx1r6aawwddk",
+    "ContentItemVersionId": "4qtbt7q97t1tx3tk3eaxbdd5m3",
+    "ContentType": "JobCategory",
+    "DisplayText": "Science and research",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Healthcare"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EHealthcare\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/healthcare"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4a21t7qjztz1sr5wchsdwkgp5a",
+          "4ecgtbkyrbqdp2ejdskv0gqwma"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/41977706-6fb5-47b8-85ec-acca8cf97b84"
+    },
+    "ContentItemId": "4qzm948jahzh36ebs6d8hhcw5v",
+    "ContentItemVersionId": "40kyp6bje762b72d837daam6wd",
+    "ContentType": "JobCategory",
+    "DisplayText": "Healthcare",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Home services"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EHome services\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/home-services"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4a21t7qjztz1sr5wchsdwkgp5a",
+          "47dnhz9hv47anx63cpyanwfhx5"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/585e9dbc-0b9a-46d6-86a8-09c301515486"
+    },
+    "ContentItemId": "4n2c8xjfw8ds1yjx3gdqbbpad0",
+    "ContentItemVersionId": "40hpdtxpn3pf67w0t9fms4wpcr",
+    "ContentType": "JobCategory",
+    "DisplayText": "Home services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social care"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ESocial care\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/social-care"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4a21t7qjztz1sr5wchsdwkgp5a",
+          "4qcwfsv4vza920vwv8enpzgwcw"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/a80138df-0d60-4fb2-b7d1-a0a7cb1f8294"
+    },
+    "ContentItemId": "4vxqc8xfd8mfav23gnpq42q34e",
+    "ContentItemVersionId": "4bz4acf7gzhp42bc0x1m6t3cc8",
+    "ContentType": "JobCategory",
+    "DisplayText": "Social care",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Environment and land"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EEnvironment and land\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/environment-and-land"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4drww9pmnw6pf35kbx10znk6w4"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/52b159d9-72bc-4cd9-9e56-6e8643c66143"
+    },
+    "ContentItemId": "4rhbnncqp3kzarsbmkxqy6sgct",
+    "ContentItemVersionId": "4swqbvn1t60wy25dvpeakfhdx8",
+    "ContentType": "JobCategory",
+    "DisplayText": "Environment and land",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Travel and tourism"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ETravel and tourism\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/travel-and-tourism"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4g1je1kcs404916z62s65mdnnn"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/10bdeed8-53e0-475f-a72a-40c0a912d219"
+    },
+    "ContentItemId": "474mv7thvaqm84vf4cawnq2hw7",
+    "ContentItemVersionId": "4591gt9dxssc1zbhvxtvb79ywc",
+    "ContentType": "JobCategory",
+    "DisplayText": "Travel and tourism",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Animal care"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EAnimal care\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/animal-care"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4drww9pmnw6pf35kbx10znk6w4"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/e5b59db2-14e1-41ed-8ab5-2cdfc13e5796"
+    },
+    "ContentItemId": "4hyqxpp9ch5dgx94afft0eea4g",
+    "ContentItemVersionId": "44n472356m6pqs21sq21h0skmt",
+    "ContentType": "JobCategory",
+    "DisplayText": "Animal care",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction and trades"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EConstruction and trades\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/construction-and-trades"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4mcs3zzyk9d9c5q3m4gxnschm2",
+          "4scvt2naf05ca3jb9heqf4gamb",
+          "4c9zbtqdb9przx61bsrszc4hnk",
+          "40d5r6bwqz2rk1dqjcxf4amnxa"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/9b2c6adf-b74a-4a9c-a3cc-d1f8f89ac6fb"
+    },
+    "ContentItemId": "4c1q9tq7dj1nww9v9h9ma887xr",
+    "ContentItemVersionId": "4swd89ke53xjxwsts73d0ssnnm",
+    "ContentType": "JobCategory",
+    "DisplayText": "Construction and trades",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Teaching and education"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ETeaching and education\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/teaching-and-education"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "42sr677w2vmj9xypvbwt63zgd2"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/66e0f042-7aea-45cf-9360-ee9982156662"
+    },
+    "ContentItemId": "4v7vt8gve9emk093x71gbpab5v",
+    "ContentItemVersionId": "4evd6vzrdzm0msvcjgsdxxts56",
+    "ContentType": "JobCategory",
+    "DisplayText": "Teaching and education",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Business and finance"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EBusiness and finance\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/business-and-finance"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4d75gcrq66pfnwjj65m9zzh6cx"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/a6c827b4-6a46-40d9-8ecd-7762b25e9472"
+    },
+    "ContentItemId": "46tdhk3ebxhh46jzfe0wdk2w5p",
+    "ContentItemVersionId": "45m5tjmskbhgyx48g0dw852r4k",
+    "ContentType": "JobCategory",
+    "DisplayText": "Business and finance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Computing"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EComputing\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/computing"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/6860d3e6-817d-4298-84f8-6cc73f53c234"
+    },
+    "ContentItemId": "4xtbdrwthkcbc0s33v61enxsnk",
+    "ContentItemVersionId": "4fqspn0chkmxnw5eh41chz0cn2",
+    "ContentType": "JobCategory",
+    "DisplayText": "Computing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": " technology and digital"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003E technology and digital\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/-technology-and-digital"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/fd5db69f-9cde-4857-a740-5e9cc14c30d5"
+    },
+    "ContentItemId": "4q7xwc3yghvmd2bv548s0t5rxy",
+    "ContentItemVersionId": "4kzy74tv4t831y9ty6cp42d7mn",
+    "ContentType": "JobCategory",
+    "DisplayText": " technology and digital",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Law and legal"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ELaw and legal\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/law-and-legal"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/06c0a302-7a31-4c5a-9491-781c375a8b0a"
+    },
+    "ContentItemId": "4e5cyatzapfnk3mzh7pyjhz1nm",
+    "ContentItemVersionId": "4tsvpwvsmb8rct5wcg336brnn8",
+    "ContentType": "JobCategory",
+    "DisplayText": "Law and legal",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Delivery and storage"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EDelivery and storage\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/delivery-and-storage"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "47dnhz9hv47anx63cpyanwfhx5"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/806cfeec-7cda-4f2d-9d93-2741d942170b"
+    },
+    "ContentItemId": "4pjg8g0djpezkx1qeb3f7czrwc",
+    "ContentItemVersionId": "4bcdf8tp86zhgtt9wfqq5yae5k",
+    "ContentType": "JobCategory",
+    "DisplayText": "Delivery and storage",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emergency and uniform services"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EEmergency and uniform services\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/emergency-and-uniform-services"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4p15y92rzes4krcc2p6m56ep4m"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/jobcategory/f451b204-f3fd-4318-adc3-5094332959cb"
+    },
+    "ContentItemId": "43p4azkf9ccfv5gcg4b5vm2zmd",
+    "ContentItemVersionId": "4w9jr1j826fcrwd5bd2nr5ewm2",
+    "ContentType": "JobCategory",
+    "DisplayText": "Emergency and uniform services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "name": "CollegeLinks0_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "displayName": "CollegeLinks0_e22fb169-59a6-4253-a7c6-3f6f8024a13a",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://nlbc.uk/partners/members/",
+        "Text": "search for agricultural colleges"
+      }
+    },
+    "TitlePart": {
+      "Title": "NLBC agri colleges"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/a4519e7a-39a2-4d56-b8fc-1cc9ba5affa2"
+    },
+    "ContentItemId": "47954ks5zvmg1vqm1n6p9vn3cr",
+    "ContentItemVersionId": "455a8m8mwwcxbrqnt3mkjwszcs",
+    "ContentType": "CollegeLink",
+    "DisplayText": "NLBC agri colleges",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "funding advice for higher education courses in college"
+      }
+    },
+    "TitlePart": {
+      "Title": "Financial help for HNC-HND-FD "
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/b2e3e103-9a92-4654-bca3-86b84557fa54"
+    },
+    "ContentItemId": "4fjpswm3e6qbft890jqp6sz64a",
+    "ContentItemVersionId": "4a5xdyjvjzvb1yae1mm9p8n2c6",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Financial help for HNC-HND-FD ",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/e2f5110b-9a97-4596-82bc-dafa57377eaf"
+    },
+    "ContentItemId": "4jbfng963pmn3y30sdxbae2nwt",
+    "ContentItemVersionId": "4jpvjj1r0jbfh2xk6bhfd1csne",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "/find-a-course",
+        "Text": "search for courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "Find a course"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/80c14574-a51b-43e8-9730-3f9fa74352a0"
+    },
+    "ContentItemId": "40xnq1jjqg7vcr6fpmxt53cew3",
+    "ContentItemVersionId": "47cf1f14a3kh27tb7kg0peaa45",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Find a course",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/further-education-courses/financial-help",
+        "Text": "funding advice"
+      }
+    },
+    "TitlePart": {
+      "Title": "Financial Help FE"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/3ca537e6-4ee8-403d-8599-4ae1a408f1c5"
+    },
+    "ContentItemId": "4sr4ddvhfx4g03615gx0rpfg4a",
+    "ContentItemVersionId": "4dwws9m60hs0xzdd4702zhzjds",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Financial Help FE",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-28T09:39:41.1284758Z",
+    "PublishedUtc": "2020-04-28T09:39:41.1284758Z",
+    "CreatedUtc": "2020-04-28T09:39:41.1284758Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
