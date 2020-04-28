@@ -12,6 +12,31 @@ what about manually editing gds css to apply trumbowyg class as parent? perhaps 
 https://github.com/Alex-D/Trumbowyg/issues/167
 .trumbowyg-box or .trumbowyg-editor
 
+could create new editor for html that uses trumbowyg, but uses it in a shadow dom, and prefs can specify a set of css files
+^ tumbowyg might not work inside shadow dom (e.g. if it uses jquery selector) https://robdodson.me/dont-use-jquery-with-shadow-dom/
+or could just manually add scoped css for fonts and basic non-layout css
+or find a wysiwyg compenent with shadow dom support and create a new html editor using it
+
+or include gds sass and use this: https://sass-lang.com/documentation/modules/meta#load-css
+& looks like gds design system uses metalsmith, which in turn uses LibSASS, which doesn't support it yet (only DartSASS does atm)
+adding module support to LibSASS > https://github.com/sass/libsass/issues/2807
+GovUK front end plan to switch to sass modules (they have to as import is being deprecated), see
+https://github.com/alphagov/govuk-frontend/issues/1791
+https://github.com/alphagov/govuk-design-system-architecture/pull/22
+
+GovUK supports DartSASS! https://frontend.design-system.service.gov.uk/installing-with-npm/#requirements
+not sure if govuk is compatible with bringing bits in using meta.load-css yet though. will have to suck it and see
+
+importer: generate this structure
+/masterrecipes/subset-no-mutators_xxx.recipe.json
+/masterrecipes/full_xxx.recipe.json
+/masterrecipes/full-no-mutators_xxx.recipe.json
+/recipes/all the sub recipes (edited)
+^ that way its easier to see and pick the master recipes
+also don't add the guid to the master recipe filename
+
+* ithc hsts > enable https feature??
+
 * shared content: how safe is it to allow users to create content with  urls/classes etc.
  \ will need devs to be able to change content, e.g. to change classes etc.
 
