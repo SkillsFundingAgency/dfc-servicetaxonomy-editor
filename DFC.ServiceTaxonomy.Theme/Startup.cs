@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
-using OrchardCore.ResourceManagement;
 
 namespace DFC.ServiceTaxonomy.Theme
 {
@@ -8,7 +7,7 @@ namespace DFC.ServiceTaxonomy.Theme
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IResourceManifestProvider, ResourceManifest>();
+            // services.AddScoped<IResourceManifestProvider, ResourceManifest>();
         }
     }
 }
