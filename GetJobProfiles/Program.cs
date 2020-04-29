@@ -35,25 +35,41 @@ using NPOI.XSSF.UserModel;
 
 namespace GetJobProfiles
 {
+    public class RunConfig
+    {
+        public bool ExcludeGraphMutators { get; set; }
+        public string JobProfilesToImport { get; set; }
+    }
+    public class AppSettings
+    {
+        public Dictionary<string, RunConfig> Configurations { get; set; } 
+    }
+
     static class Program
     {
         // to delete all the ncs nodes and relationships in the graph, run..
         // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
 
+        private static AppSettings appSettings;
         private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
         private static string MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
         private const bool _zip = false;
-
+        private static bool _firstTime = true;
         private static int _fileIndex = 1;
+
+        private static string _executionId = Guid.NewGuid().ToString();
+        private static string _recipesStepExecutionId = $"Import_{_executionId}";
+
         private static readonly StringBuilder _importFilesReport = new StringBuilder();
         private static readonly StringBuilder _importTotalsReport = new StringBuilder();
-        private static readonly string _executionId = Guid.NewGuid().ToString();
         private static readonly StringBuilder _recipesStep = new StringBuilder();
-        private static readonly string _recipesStepExecutionId = $"Import_{_executionId}";
 
         private static readonly Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static readonly List<object> _matchingTitles = new List<object>();
         private static readonly List<object> _missingTitles = new List<object>();
+
+        private static JobProfileContentItem[] _jobProfiles;
+        private static JobProfileConverter _converter;
 
         static async Task Main(string[] args)
         {
@@ -90,27 +106,65 @@ namespace GetJobProfiles
             };
 
             string jobProfilesToImport = config["JobProfilesToImport"];
+            string jsonString = jsonString = File.ReadAllText($"appsettings.Development.json");
 
-            var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, timestamp);
-            await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
+            appSettings = JsonSerializer.Deserialize<AppSettings>(jsonString);
 
-            var jobProfiles = converter.JobProfiles.ToArray();
+            foreach (var key in appSettings.Configurations.Keys)
+            {
+                await RunImport(httpClient, key, timestamp, appSettings.Configurations[key].JobProfilesToImport, appSettings.Configurations[key].ExcludeGraphMutators);
+            }
+        }
 
-            List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(jobProfiles);
+        private static async Task RunImport( HttpClient httpClient, string masterRecipeName,  string timestamp, string jobProfilesToImport, bool excludeGraphMutators)
+        {
+            _importFilesReport.Clear();
+            _importTotalsReport.Clear();
+            _executionId = Guid.NewGuid().ToString();
+            _recipesStep.Clear();
+            _recipesStepExecutionId = $"Import_{_executionId}";
+            _contentItemTitles.Clear();
+            _matchingTitles.Clear();
+            _missingTitles.Clear();
+
+            var socCodeConverter = new SocCodeConverter();
+            var socCodeDictionary = socCodeConverter.Go(timestamp);
+
+            //use these knobs to work around rate - limiting
+            const int skip = 0;
+            const int take = 0;
+            const int napTimeMs = 5500;
+            // max number of contentitems in an import recipe
+            const int batchSize = 1000;
+            const int jobProfileBatchSize = 200;
+            const int occupationLabelsBatchSize = 5000;
+            const int occupationsBatchSize = 300;
+
+
+
+            if (_firstTime)
+            {
+                var client = new RestHttpClient.RestHttpClient(httpClient);
+                _converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
+                await _converter.Go(skip, take, napTimeMs, jobProfilesToImport);
+                _jobProfiles = _converter.JobProfiles.ToArray();
+                _firstTime = false;
+            }
+
+            List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(_jobProfiles);
 
             var jobCategoryImporter = new JobCategoryImporter();
-            jobCategoryImporter.Import(timestamp, jobProfiles);
+            jobCategoryImporter.Import(timestamp, _jobProfiles);
 
             var qcfLevelBuilder = new QCFLevelBuilder();
             qcfLevelBuilder.Build(timestamp);
 
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
-            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
+            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, _jobProfiles);
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
-            bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
+           // bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
             if (!excludeGraphMutators)
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
@@ -145,16 +199,16 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, "ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, "ApprenticeshipStandards");
             await BatchSerializeToFiles(RouteFactory.RequirementsPrefixes.IdLookup.Select(r => new RequirementsPrefixContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "RequirementsPrefixes");
-            await BatchSerializeToFiles(converter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(GetTitle("ApprenticeshipLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "ApprenticeshipLinks");
-            await BatchSerializeToFiles(converter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(GetTitle("ApprenticeshipRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "ApprenticeshipRequirements");
-            await BatchSerializeToFiles(converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(GetTitle("CollegeLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "CollegeLinks");
-            await BatchSerializeToFiles(converter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(GetTitle("CollegeRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "CollegeRequirements");
-            await BatchSerializeToFiles(converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(GetTitle("UniversityLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "UniversityLinks");
-            await BatchSerializeToFiles(converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(GetTitle("UniversityRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
-            await BatchSerializeToFiles(converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
-            await BatchSerializeToFiles(converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
-            await BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), batchSize, "Registrations");
-            await BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, "Restrictions");
+            await BatchSerializeToFiles(_converter.ApprenticeshipRoutes.Links.IdLookup.Select(r => new ApprenticeshipLinkContentItem(GetTitle("ApprenticeshipLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "ApprenticeshipLinks");
+            await BatchSerializeToFiles(_converter.ApprenticeshipRoutes.Requirements.IdLookup.Select(r => new ApprenticeshipRequirementContentItem(GetTitle("ApprenticeshipRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "ApprenticeshipRequirements");
+            await BatchSerializeToFiles(_converter.CollegeRoutes.Links.IdLookup.Select(r => new CollegeLinkContentItem(GetTitle("CollegeLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "CollegeLinks");
+            await BatchSerializeToFiles(_converter.CollegeRoutes.Requirements.IdLookup.Select(r => new CollegeRequirementContentItem(GetTitle("CollegeRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "CollegeRequirements");
+            await BatchSerializeToFiles(_converter.UniversityRoutes.Links.IdLookup.Select(r => new UniversityLinkContentItem(GetTitle("UniversityLink", r.Key), r.Key, timestamp, r.Value)), batchSize, "UniversityLinks");
+            await BatchSerializeToFiles(_converter.UniversityRoutes.Requirements.IdLookup.Select(r => new UniversityRequirementContentItem(GetTitle("UniversityRequirement", r.Key), timestamp, r.Key, r.Value)), batchSize, "UniversityRequirements");
+            await BatchSerializeToFiles(_converter.DayToDayTasks.Select(x => new DayToDayTaskContentItem(x.Key, timestamp, x.Key, x.Value.id)), batchSize, "DayToDayTasks");
+            await BatchSerializeToFiles(_converter.OtherRequirements.IdLookup.Select(r => new OtherRequirementContentItem(r.Key, timestamp, r.Key, r.Value)), batchSize, "OtherRequirements");
+            await BatchSerializeToFiles(_converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), batchSize, "Registrations");
+            await BatchSerializeToFiles(_converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             await BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
             await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, "ONetOccupationalCodes");
             await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
@@ -163,12 +217,12 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
-            string masterRecipeName = config["MasterRecipeName"] ?? "master";
+            //string masterRecipeName = config["MasterRecipeName"] ?? "master";
 
             await WriteMasterRecipesFile(masterRecipeName);
             await File.WriteAllTextAsync($"{OutputBasePath}content items count_{_executionId}.txt", @$"{_importFilesReport}# Totals
 {_importTotalsReport}");
-            await File.WriteAllTextAsync($"{OutputBasePath}manual_activity_mapping_{_executionId}.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
+            await File.WriteAllTextAsync($"{OutputBasePath}manual_activity_mapping_{_executionId}.json", JsonSerializer.Serialize(_converter.DayToDayTaskExclusions));
             await File.WriteAllTextAsync($"{OutputBasePath}content_titles_summary_{_executionId}.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
             await File.WriteAllTextAsync($"{OutputBasePath}matching_content_titles_{_executionId}.json", JsonSerializer.Serialize(_matchingTitles));
             await File.WriteAllTextAsync($"{OutputBasePath}missing_content_titles_{_executionId}.json", JsonSerializer.Serialize(_missingTitles));
