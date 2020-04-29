@@ -1,0 +1,67 @@
+104. CreateOccupationLabelNodes_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 
+105. CreateOccupationPrefLabelNodes_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 
+106. CreateSkillLabelNodes_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 
+107. CreateFullTextSearchIndexes_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 
+108. CreateOccupationLabelContentItems0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5000
+109. CreateOccupationLabelContentItems5000_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5000
+110. CreateOccupationLabelContentItems10000_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5000
+111. CreateOccupationLabelContentItems15000_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5000
+112. CreateOccupationLabelContentItems20000_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5000
+113. CreateOccupationLabelContentItems25000_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5000
+114. CreateOccupationLabelContentItems30000_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5000
+115. CreateOccupationContentItems0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+116. CreateOccupationContentItems300_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+117. CreateOccupationContentItems600_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+118. CreateOccupationContentItems900_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+119. CreateOccupationContentItems1200_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+120. CreateOccupationContentItems1500_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+121. CreateOccupationContentItems1800_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+122. CreateOccupationContentItems2100_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+123. CreateOccupationContentItems2400_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+124. CreateOccupationContentItems2700_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 300
+125. SharedContent_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 
+126. QCFLevels0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 10
+127. ApprenticeshipStandardRoutes0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 18
+128. ApprenticeshipStandards0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 582
+129. RequirementsPrefixes0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 6
+130. ApprenticeshipLinks0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 3
+131. ApprenticeshipRequirements0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 9
+132. CollegeLinks0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5
+133. CollegeRequirements0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 5
+134. UniversityLinks0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 6
+135. UniversityRequirements0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 8
+136. DayToDayTasks0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 137
+137. OtherRequirements0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 7
+138. Registrations0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 3
+139. Restrictions0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 15
+140. SocCodes0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 369
+141. ONetOccupationalCodes0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 927
+142. WorkingEnvironments0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 15
+143. WorkingLocations0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 18
+144. WorkingUniforms0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 2
+145. JobProfiles0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 21
+146. JobCategories0_e65c7a86-2e0b-432f-a539-88a7b62b8fb5.recipe.json: 26
+# Totals
+OccupationLabels: 33036
+Occupations: 2942
+QCFLevels: 10
+ApprenticeshipStandardRoutes: 18
+ApprenticeshipStandards: 582
+RequirementsPrefixes: 6
+ApprenticeshipLinks: 3
+ApprenticeshipRequirements: 9
+CollegeLinks: 5
+CollegeRequirements: 5
+UniversityLinks: 6
+UniversityRequirements: 8
+DayToDayTasks: 137
+OtherRequirements: 7
+Registrations: 3
+Restrictions: 15
+SocCodes: 369
+ONetOccupationalCodes: 927
+WorkingEnvironments: 15
+WorkingLocations: 18
+WorkingUniforms: 2
+JobProfiles: 21
+JobCategories: 26
