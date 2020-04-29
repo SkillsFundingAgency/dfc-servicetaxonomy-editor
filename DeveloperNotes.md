@@ -1,5 +1,43 @@
 #ToDo
 
+* api function
+    load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
+
+* publish to event grid
+    how to keep aeg-sas-key header value secret? can liquid template pick up from config? no, nor javascript
+    implement IGlobalMethodProvider to provide the value
+    think we'll need a canonicalname added to every content type
+
+{{ Workflow.Input.ContentItem.ContentType }}
+{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}
+{{ Workflow.Input.ContentItem.Content.TitlePart.Title }}
+
+topic per contenttype?
+subject: do we have {canonicalName} or {contenttype}/{canonicalName}?
+if we want the canonical name, might be difficult to get a canonicalname field from the eponymous part in liquid.
+could either have a canonical part, or slugify the title (although how would that work with bag items with no title?)
+{{ "This is some text" | slugify }}
+{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}
+
+id: do we put the uri in there, or just the guid? should we use it for the opaque uri or put in data?
+we could probably get away without any user data
+
+POST
+
+[{
+  "id": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}",
+  "eventType": "published-modified",
+  "subject": "{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}",
+  "eventTime": "{{ Model.ContentItem.ModifiedUtc }}"
+}]
+
+200, 400, 401, 404, 413
+
+
+* content picker preview : use {% layout "CustomLayout" %} rather than default theme layout, so can use default layout for admin pages??? https://docs.orchardcore.net/en/dev/docs/reference/modules/Liquid/
+
+* change the importer config to have an array of settings and generate a set of recipes for each config
+
 * contentpicker with preview:
     use bag open close control
     avoid initial ajax call if pre-populated
