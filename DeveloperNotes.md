@@ -8,24 +8,19 @@
 * use api url for id's
 
 * trumbowyg : apply gds styles to html editor content, but see https://github.com/Alex-D/Trumbowyg/issues/940
-what about manually editing gds css to apply trumbowyg class as parent? perhaps subset??
 https://github.com/Alex-D/Trumbowyg/issues/167
-.trumbowyg-box or .trumbowyg-editor
 
 could create new editor for html that uses trumbowyg, but uses it in a shadow dom, and prefs can specify a set of css files
 ^ tumbowyg might not work inside shadow dom (e.g. if it uses jquery selector) https://robdodson.me/dont-use-jquery-with-shadow-dom/
-or could just manually add scoped css for fonts and basic non-layout css
-or find a wysiwyg compenent with shadow dom support and create a new html editor using it
+or find a wysiwyg component with shadow dom support and create a new html editor using it
 
 or include gds sass and use this: https://sass-lang.com/documentation/modules/meta#load-css
-& looks like gds design system uses metalsmith, which in turn uses LibSASS, which doesn't support it yet (only DartSASS does atm)
-adding module support to LibSASS > https://github.com/sass/libsass/issues/2807
-GovUK front end plan to switch to sass modules (they have to as import is being deprecated), see
+note: GovUK front end plan to switch to sass modules (they have to, as import is being deprecated), see
 https://github.com/alphagov/govuk-frontend/issues/1791
 https://github.com/alphagov/govuk-design-system-architecture/pull/22
 
-GovUK supports DartSASS! https://frontend.design-system.service.gov.uk/installing-with-npm/#requirements
 not sure if govuk is compatible with bringing bits in using meta.load-css yet though. will have to suck it and see
+might have to be selective about which parts of govuk frontend we bring in
 
 "C:\Users\live\Downloads\dart-sass-1.26.3-windows-x64\dart-sass\sass" trumbowyg_scoped_govuk_frontend.scss trumbowyg_scoped_govuk_frontend.css
 
