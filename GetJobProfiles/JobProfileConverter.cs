@@ -36,6 +36,7 @@ namespace GetJobProfiles
 
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly Dictionary<string, string> _socCodeDictionary;
+        private readonly Dictionary<string, string> _oNetDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
         public List<string> DayToDayTaskExclusions = new List<string>
@@ -53,10 +54,11 @@ namespace GetJobProfiles
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/commercial-energy-assessor"
         };
 
-        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
+        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, Dictionary<string, string> oNetDictionary, string timestamp)
         {
             _client = client;
             _socCodeDictionary = socCodeDictionary;
+            _oNetDictionary = oNetDictionary;
             _idGenerator = new DefaultIdGenerator();
             Timestamp = timestamp;
         }
@@ -172,6 +174,8 @@ namespace GetJobProfiles
                 ? string.Empty
                 : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment?.Substring(32).Trim('.');
 
+            _oNetDictionary.TryGetValue(jobProfile.Title, out var oNetContentItemIds);
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart
@@ -187,6 +191,7 @@ namespace GetJobProfiles
                     WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
                     WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
                     SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
+                    ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
                     SalaryExperienced = new TextField(jobProfile.SalaryExperienced),
                     MinimumHours = new NumericField(jobProfile.MinimumHours),

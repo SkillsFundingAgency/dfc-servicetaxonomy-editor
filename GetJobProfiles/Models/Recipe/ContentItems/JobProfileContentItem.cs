@@ -27,6 +27,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         public HtmlField Description { get; set; }
         public TextField JobProfileWebsiteUrl { get; set; }
         public ContentPicker SOCCode { get; set; }
+        public ContentPicker ONetOccupationalCode { get; set; }
 
         #region How To Become
         public HtmlField HtbBodies { get; set; }
