@@ -81,16 +81,6 @@ namespace GetJobProfiles
             var oNetConverter = new ONetConverter();
             var oNetDictionary = oNetConverter.Go(timestamp);
 
-            //use these knobs to work around rate - limiting
-            const int skip = 0;
-            const int take = 0;
-            const int napTimeMs = 5500;
-            // max number of contentitems in an import recipe
-            const int batchSize = 1000;
-            const int jobProfileBatchSize = 200;
-            const int occupationLabelsBatchSize = 5000;
-            const int occupationsBatchSize = 300;
-
             IConfigurationRoot config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .Build();
