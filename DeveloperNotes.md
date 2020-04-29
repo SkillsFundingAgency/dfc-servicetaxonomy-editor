@@ -27,6 +27,10 @@ https://github.com/alphagov/govuk-design-system-architecture/pull/22
 GovUK supports DartSASS! https://frontend.design-system.service.gov.uk/installing-with-npm/#requirements
 not sure if govuk is compatible with bringing bits in using meta.load-css yet though. will have to suck it and see
 
+"C:\Users\live\Downloads\dart-sass-1.26.3-windows-x64\dart-sass\sass" trumbowyg_scoped_govuk_frontend.scss trumbowyg_scoped_govuk_frontend.css
+
+<style asp-name="trumbowyg_scoped_govuk_frontend"></style>
+
 importer: generate this structure
 /masterrecipes/subset-no-mutators_xxx.recipe.json
 /masterrecipes/full_xxx.recipe.json
