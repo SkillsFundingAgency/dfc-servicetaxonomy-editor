@@ -32,6 +32,9 @@
       <Content Include="CypherToContentRecipes\*.recipe.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Include="ContentRecipes\*.recipe.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <None Update="SeedData\*">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
