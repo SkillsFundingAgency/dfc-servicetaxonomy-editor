@@ -8,6 +8,7 @@ namespace GetJobProfiles.Models.Recipe.Parts
         public HtmlField Description { get; set; }
         public TextField JobProfileWebsiteUrl { get; set; }
         public ContentPicker SOCCode { get; set; }
+        public ContentPicker ONetOccupationalCode { get; set; }
         public TextField SalaryStarter { get; set; }
         public TextField SalaryExperienced { get; set; }
         public NumericField MinimumHours { get; set; }
