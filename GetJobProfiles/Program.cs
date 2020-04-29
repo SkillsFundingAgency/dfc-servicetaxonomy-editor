@@ -41,6 +41,7 @@ namespace GetJobProfiles
         // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
 
         private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
+        private static string MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
         private const bool _zip = false;
 
         private static int _fileIndex = 1;
@@ -189,7 +190,7 @@ namespace GetJobProfiles
             // chop off the last ','
             _recipesStep.Length -= 3;
             string content = WrapInNonSetupRecipe(_recipesStep.ToString(), _recipesStepExecutionId, "recipes", "values");
-            await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{masterRecipeName}_{_executionId}.recipe.json", content);
+            await ImportRecipe.CreateRecipeFile($"{MasterRecipeOutputBasePath}{masterRecipeName}_{_executionId}.recipe.json", content);
         }
 
         private static async Task BatchRecipes(string recipePath, string recipeName, int batchSize, string nodeName, int totalItems, IDictionary<string, string> tokens = null)
