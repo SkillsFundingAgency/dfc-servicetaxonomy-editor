@@ -35,42 +35,46 @@ using NPOI.XSSF.UserModel;
 
 namespace GetJobProfiles
 {
+    public class RunConfig
+    {
+        public bool ExcludeGraphMutators { get; set; }
+        public string JobProfilesToImport { get; set; }
+    }
+    public class AppSettings
+    {
+        public Dictionary<string, RunConfig> Configurations { get; set; } 
+    }
+
     static class Program
     {
         // to delete all the ncs nodes and relationships in the graph, run..
         // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
 
+        private static AppSettings appSettings;
         private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
         private static string MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
         private const bool _zip = false;
-
+        private static bool _firstTime = true;
         private static int _fileIndex = 1;
+
+        private static string _executionId = Guid.NewGuid().ToString();
+        private static string _recipesStepExecutionId = $"Import_{_executionId}";
+
         private static readonly StringBuilder _importFilesReport = new StringBuilder();
         private static readonly StringBuilder _importTotalsReport = new StringBuilder();
-        private static readonly string _executionId = Guid.NewGuid().ToString();
         private static readonly StringBuilder _recipesStep = new StringBuilder();
-        private static readonly string _recipesStepExecutionId = $"Import_{_executionId}";
 
         private static readonly Dictionary<string, List<Tuple<string, string>>> _contentItemTitles = new Dictionary<string, List<Tuple<string, string>>>();
         private static readonly List<object> _matchingTitles = new List<object>();
         private static readonly List<object> _missingTitles = new List<object>();
 
+        private static JobProfileContentItem[] _jobProfiles;
+        private static JobProfileConverter _converter;
+
         static async Task Main(string[] args)
         {
             string timestamp = $"{DateTime.UtcNow:O}";
 
-            var socCodeConverter = new SocCodeConverter();
-            var socCodeDictionary = socCodeConverter.Go(timestamp);
-
-            //use these knobs to work around rate - limiting
-            const int skip = 0;
-            const int take = 0;
-            const int napTimeMs = 5500;
-            // max number of contentitems in an import recipe
-            const int batchSize = 1000;
-            const int jobProfileBatchSize = 200;
-            const int occupationLabelsBatchSize = 5000;
-            const int occupationsBatchSize = 300;
 
             IConfigurationRoot config = new ConfigurationBuilder()
                 .AddJsonFile($"appsettings.Development.json", optional: true)
@@ -87,27 +91,65 @@ namespace GetJobProfiles
             };
 
             string jobProfilesToImport = config["JobProfilesToImport"];
+            string jsonString = jsonString = File.ReadAllText($"appsettings.Development.json");
 
-            var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
-            await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
+            appSettings = JsonSerializer.Deserialize<AppSettings>(jsonString);
 
-            var jobProfiles = converter.JobProfiles.ToArray();
+            foreach (var key in appSettings.Configurations.Keys)
+            {
+                await RunImport(httpClient, key, timestamp, appSettings.Configurations[key].JobProfilesToImport, appSettings.Configurations[key].ExcludeGraphMutators);
+            }
+        }
 
-            List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(jobProfiles);
+        private static async Task RunImport( HttpClient httpClient, string masterRecipeName,  string timestamp, string jobProfilesToImport, bool excludeGraphMutators)
+        {
+            _importFilesReport.Clear();
+            _importTotalsReport.Clear();
+            _executionId = Guid.NewGuid().ToString();
+            _recipesStep.Clear();
+            _recipesStepExecutionId = $"Import_{_executionId}";
+            _contentItemTitles.Clear();
+            _matchingTitles.Clear();
+            _missingTitles.Clear();
+
+            var socCodeConverter = new SocCodeConverter();
+            var socCodeDictionary = socCodeConverter.Go(timestamp);
+
+            //use these knobs to work around rate - limiting
+            const int skip = 0;
+            const int take = 0;
+            const int napTimeMs = 5500;
+            // max number of contentitems in an import recipe
+            const int batchSize = 1000;
+            const int jobProfileBatchSize = 200;
+            const int occupationLabelsBatchSize = 5000;
+            const int occupationsBatchSize = 300;
+
+
+
+            if (_firstTime)
+            {
+                var client = new RestHttpClient.RestHttpClient(httpClient);
+                converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
+                await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
+                _jobProfiles = converter.JobProfiles.ToArray();
+                _firstTime = false;
+            }
+
+            List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(_jobProfiles);
 
             var jobCategoryImporter = new JobCategoryImporter();
-            jobCategoryImporter.Import(timestamp, jobProfiles);
+            jobCategoryImporter.Import(timestamp, _jobProfiles);
 
             var qcfLevelBuilder = new QCFLevelBuilder();
             qcfLevelBuilder.Build(timestamp);
 
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
-            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
+            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, _jobProfiles);
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
-            bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
+           // bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
             if (!excludeGraphMutators)
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
@@ -153,10 +195,10 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
             await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
             await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
-            await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles", CSharpContentStep.StepName);
+            await BatchSerializeToFiles(_jobProfiles, jobProfileBatchSize, "JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
-            string masterRecipeName = config["MasterRecipeName"] ?? "master";
+            //string masterRecipeName = config["MasterRecipeName"] ?? "master";
 
             await WriteMasterRecipesFile(masterRecipeName);
             await File.WriteAllTextAsync($"{OutputBasePath}content items count_{_executionId}.txt", @$"{_importFilesReport}# Totals
