@@ -4,6 +4,8 @@
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
     now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
 
+* is resourcemanager start up issue due to missing dependency?
+
 * where'd sync validation workflow go?
 
 * publish to event grid
