@@ -62,6 +62,9 @@ namespace GetJobProfiles
             var socCodeConverter = new SocCodeConverter();
             var socCodeDictionary = socCodeConverter.Go(timestamp);
 
+            var oNetConverter = new ONetConverter();
+            var oNetDictionary = oNetConverter.Go(timestamp);
+
             //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 0;
@@ -89,7 +92,7 @@ namespace GetJobProfiles
             string jobProfilesToImport = config["JobProfilesToImport"];
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
+            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
 
             var jobProfiles = converter.JobProfiles.ToArray();
@@ -150,6 +153,7 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), batchSize, "Registrations");
             await BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             await BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
+            await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, "ONetOccupationalCodes");
             await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
             await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
             await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
