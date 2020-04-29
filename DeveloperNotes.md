@@ -2,6 +2,7 @@
 
 * api function
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
+    now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
 
 * publish to event grid
     how to keep aeg-sas-key header value secret? can liquid template pick up from config? no, nor javascript
@@ -35,6 +36,7 @@ POST
 
 
 * content picker preview : use {% layout "CustomLayout" %} rather than default theme layout, so can use default layout for admin pages??? https://docs.orchardcore.net/en/dev/docs/reference/modules/Liquid/
+    back to jumping: fix
 
 * change the importer config to have an array of settings and generate a set of recipes for each config
 
