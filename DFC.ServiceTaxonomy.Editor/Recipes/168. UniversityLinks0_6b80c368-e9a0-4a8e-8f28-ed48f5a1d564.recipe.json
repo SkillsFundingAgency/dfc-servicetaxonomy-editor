@@ -1,0 +1,268 @@
+{
+  "name": "UniversityLinks0_6b80c368-e9a0-4a8e-8f28-ed48f5a1d564",
+  "displayName": "UniversityLinks0_6b80c368-e9a0-4a8e-8f28-ed48f5a1d564",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.admissionstesting.org/for-test-takers/bmat/",
+        "Text": "BioMedical Admissions Test"
+      }
+    },
+    "TitlePart": {
+      "Title": "BMAT"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/1f8ba157-374e-4606-bcf6-cb8fc11f510c"
+    },
+    "ContentItemId": "4yev048ha90v9ym002g5wfvcm9",
+    "ContentItemVersionId": "4pr0y9yvy3cyryc0srsw4s6cwg",
+    "ContentType": "UniversityLink",
+    "DisplayText": "BMAT",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/conservatoires",
+        "Text": "search for conservatoire courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "UCAS Conservatoires"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/17300761-0e2a-47c5-952a-2a0ddae0bd3c"
+    },
+    "ContentItemId": "4vyy8pbyjprxb13me4p28fnz45",
+    "ContentItemVersionId": "4raf44z0qa49r44kwxmnhcfrmk",
+    "ContentType": "UniversityLink",
+    "DisplayText": "UCAS Conservatoires",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/3ba819ad-6907-471f-9562-361008253cc2"
+    },
+    "ContentItemId": "4484vw8wttqrezeemzqdaqpycr",
+    "ContentItemVersionId": "458x7xybxvcpg3ns73r5f46a4f",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/funding-for-postgraduate-study",
+        "Text": "finance for postgraduate courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "Postgrad Loans"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/202241f1-fca3-42a3-bbbb-96ce7dcb031a"
+    },
+    "ContentItemId": "46vdfk2mdb8rqry8trq3w7d3ns",
+    "ContentItemVersionId": "4c57j0hcfkm8t69axgvvrvgjnp",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Postgrad Loans",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucat.ac.uk/ucat/",
+        "Text": "University Clinical Aptitude Test"
+      }
+    },
+    "TitlePart": {
+      "Title": "UCAT"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/6bfa46eb-18ed-48f0-97f8-d54402f96d38"
+    },
+    "ContentItemId": "49a1gn9nbz0jp0mt916w4fzdww",
+    "ContentItemVersionId": "485rpzw45etbt3613cbje718n3",
+    "ContentType": "UniversityLink",
+    "DisplayText": "UCAT",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/guidance/find-postgraduate-teacher-training-courses-in-england",
+        "Text": "postgraduate teacher training courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "PGCE courses"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/9da835cf-14d9-4ba4-8e89-9edac33f057d"
+    },
+    "ContentItemId": "4wdjh06adcb2q3ddqw28hz5ddc",
+    "ContentItemVersionId": "4e7q68a7h5tjry19t2njwwfw5w",
+    "ContentType": "UniversityLink",
+    "DisplayText": "PGCE courses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "student finance for fees and living costs"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Student finance"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/96f0abb8-e259-494e-9928-54643b36bf5a"
+    },
+    "ContentItemId": "42kpkhqs0vqt12dwkw18c3mswp",
+    "ContentItemVersionId": "47958te7qajf96pg2dfecp17m4",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Student finance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://getintoteaching.education.gov.uk/funding-my-teacher-training",
+        "Text": "funding for teacher training"
+      }
+    },
+    "TitlePart": {
+      "Title": "Teacher training funding"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/a0d9e99d-f1c2-4a4a-8c29-5b7b06a7c0ee"
+    },
+    "ContentItemId": "4rejwmww4sgdht500bvp38b6dp",
+    "ContentItemVersionId": "4s82z5861wsqb29gbzefba8zna",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Teacher training funding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "http://www.bsdht.org.uk/profession_copy",
+        "Text": "list of approved dental hygiene courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "British Society of Dental Hygiene and Therapy - list of approved courses"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/e5bd228a-b023-44ed-b332-39199036977c"
+    },
+    "ContentItemId": "4ejjvb3s1rjmt078b1rxy22fnq",
+    "ContentItemVersionId": "469feb5916da3spbc6ar6e1v4g",
+    "ContentType": "UniversityLink",
+    "DisplayText": "British Society of Dental Hygiene and Therapy - list of approved courses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/",
+        "Text": "university courses and entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show UCAS info"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universitylink/921b5a06-7c18-4290-9ca3-6161d2ca9313"
+    },
+    "ContentItemId": "4ad8d8gqfrw8cre7swg8tvvqds",
+    "ContentItemVersionId": "4gzkq6je2msz1zdxa0k99ctewg",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show UCAS info",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

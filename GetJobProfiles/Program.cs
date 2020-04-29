@@ -130,6 +130,9 @@ namespace GetJobProfiles
             var socCodeConverter = new SocCodeConverter();
             var socCodeDictionary = socCodeConverter.Go(timestamp);
 
+            var oNetConverter = new ONetConverter();
+            var oNetDictionary = oNetConverter.Go(timestamp);
+
             //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 0;
@@ -140,12 +143,10 @@ namespace GetJobProfiles
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
 
-
-
             if (_firstTime)
             {
                 var client = new RestHttpClient.RestHttpClient(httpClient);
-                _converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
+                _converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, timestamp);
                 await _converter.Go(skip, take, napTimeMs, jobProfilesToImport);
                 _jobProfiles = _converter.JobProfiles.ToArray();
                 _firstTime = false;
@@ -211,10 +212,10 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(_converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             await BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
             await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, "ONetOccupationalCodes");
-            await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
-            await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
-            await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
-            await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, "JobProfiles", CSharpContentStep.StepName);
+            await BatchSerializeToFiles(_converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
+            await BatchSerializeToFiles(_converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
+            await BatchSerializeToFiles(_converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
+            await BatchSerializeToFiles(_jobProfiles, jobProfileBatchSize, "JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, "JobCategories");
 
             //string masterRecipeName = config["MasterRecipeName"] ?? "master";

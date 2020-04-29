@@ -1,0 +1,4362 @@
+{
+  "name": "WorkingEnvironments0_96fe8da1-0b9b-4224-a4a4-a9ff3ef73ba4",
+  "displayName": "WorkingEnvironments0_96fe8da1-0b9b-4224-a4a4-a9ff3ef73ba4",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "physically demanding, hot and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, hot and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/95b0b30f-5c91-4482-87cf-873b524a870d"
+    },
+    "ContentItemId": "4kcyc8hnqjtpv7tbgsy5qsrsnj",
+    "ContentItemVersionId": "4fy323trtjfnt5ap5wdhr01340",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, hot and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cool, noisy and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool, noisy and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/73998dcf-8846-401d-bcfa-5a813a64c979"
+    },
+    "ContentItemId": "46ha68cvc1zy8yk59zmsz66cmw",
+    "ContentItemVersionId": "46pw98wqj7wkw5g8qb6pqeyzm7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cool, noisy and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cool and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/3dc2782d-23d4-40ca-88f8-952cbb1c11f8"
+    },
+    "ContentItemId": "4seez04hkdcsm2h4n1wkk1r6ce",
+    "ContentItemVersionId": "4bcsxaaj6fcqv5f72dj1xn114n",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cool and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emotionally Demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/e3efce54-d7ec-4288-b920-44772ac662ae"
+    },
+    "ContentItemId": "4727yfbychz7qtq5k7h0k675wx",
+    "ContentItemVersionId": "44k1157fcdx6848xxgrn3wp6w4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Emotionally Demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, cramped, noisy, physically demanding and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, cramped, noisy, physically demanding and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/00dc6e28-ce98-4185-b044-6dc10c2ec5d9"
+    },
+    "ContentItemId": "4wr8gexap8m6279k3d6w3yckw8",
+    "ContentItemVersionId": "400w5hjdpd1ey2hyssbw2wende",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, cramped, noisy, physically demanding and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/9d5c67c3-2667-404f-8aa6-f2ec11ab74f3"
+    },
+    "ContentItemId": "45ez7atjqav734jcbzj54wewma",
+    "ContentItemVersionId": "4k032sc56h8aj2s027nd8668me",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/33d1c639-176f-4a50-b0eb-88ed77644198"
+    },
+    "ContentItemId": "40y4gdvsd339c4b4hz5q3se9c2",
+    "ContentItemVersionId": "4hsvpat4a3cz574kp79w08snwr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, hot and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, hot and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a602a039-f64d-4c43-a3fa-09991104772e"
+    },
+    "ContentItemId": "4a6svtjhkwv770g98gz1t0gewn",
+    "ContentItemVersionId": "40jxrdmhrsfvyzvgqn5rvph6c4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, hot and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/156dea8d-ef2f-47e9-9ca1-ddc78db7c13d"
+    },
+    "ContentItemId": "477ajtb9p0gkyx4txjj52hynxr",
+    "ContentItemVersionId": "4h4s7gv8cfn8m5pb6jr9s0rjm0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time, you\u0027ll travel often and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time, you\u0027ll travel often and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/228ea835-e8d1-43dd-92bc-eb0224cb52a2"
+    },
+    "ContentItemId": "4qsrrx3s452hpy37shjdqh0jnc",
+    "ContentItemVersionId": "4653qf9b1wt9xsbk5dxm4j1acy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time, you\u0027ll travel often and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a3386e2f-7e3c-4416-914e-845153b143ce"
+    },
+    "ContentItemId": "44rehs59242ftwqf16vamanjma",
+    "ContentItemVersionId": "4sgedtg5mg7qrz3sbsqsdzqcwg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/639f398a-a002-4bba-9c2b-d436ae37a12e"
+    },
+    "ContentItemId": "4htnrs5xykp72s57k6n02gq84a",
+    "ContentItemVersionId": "4z1mrnhxdcw5qxwhtxwgc58qcn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/08bb1dcd-b9e6-4cd8-8006-3f3ce20820df"
+    },
+    "ContentItemId": "48yhtq60agwhvwyc2vz1g26q4k",
+    "ContentItemVersionId": "4c6reffcrewntswh94v1t5n4nf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/1025309c-bd99-40f5-97e4-6cab280a0dd8"
+    },
+    "ContentItemId": "4x310btck1q71ss0y63rj4r7wg",
+    "ContentItemVersionId": "4m680j1vhyqp0syzvh0gw8czck",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/832cad82-71c0-4e01-914d-3d6c005f3a4f"
+    },
+    "ContentItemId": "4vadz1x1z1rt80kbyq5xkfasdg",
+    "ContentItemVersionId": "41yzv1jn0tjx27dkcpm9pnqfma",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/65885ab9-ef56-46fa-855d-b66292cc5f74"
+    },
+    "ContentItemId": "4wbzq5bprtzqa4frxcd27ypvwc",
+    "ContentItemVersionId": "4yvpdgr5gtm3r1v3hws9ws5f5f",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, outdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/f8d73a1f-85f0-4b84-8cd1-157e159d48f4"
+    },
+    "ContentItemId": "4fgjc1vqa7hjrvgqjgfwmfkbcn",
+    "ContentItemVersionId": "4t7dewkmq48254x05d523vf3n1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/33baf069-fa73-41ba-bf0a-403d6c4b9306"
+    },
+    "ContentItemId": "4hdy0fs6sxvtz14ejp5xsch2nh",
+    "ContentItemVersionId": "4q8tpft108qwaytnkg04jca3cb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/9cf1a645-18ac-4baa-8489-9c4532e6a4d2"
+    },
+    "ContentItemId": "4r6k08qsysaec4s127twkp6emd",
+    "ContentItemVersionId": "4vsgs21y9v27f5a0mx9vx97z4r",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, you\u0027ll travel often and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, you\u0027ll travel often and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/e7dd873e-cbff-45aa-8ba6-ff786e628929"
+    },
+    "ContentItemId": "4bfh5hwwdwaa8vnzv3e3y68ycp",
+    "ContentItemVersionId": "409fj4tker7qptfxjk33bspama",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, you\u0027ll travel often and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dusty, at height, outdoors some of the time and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dusty, at height, outdoors some of the time and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/85efa980-d68f-49b0-b29e-232ba96c497b"
+    },
+    "ContentItemId": "4z312yqdq5bpx3n8jt2927n3cw",
+    "ContentItemVersionId": "4t12d5bnh6ak571rmz6x4zn05g",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dusty, at height, outdoors some of the time and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, physically demanding, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, physically demanding, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7ef8d97e-445d-43f2-b273-d6bfc91b0508"
+    },
+    "ContentItemId": "49k8dsz9pzewp56d75v73zzjmr",
+    "ContentItemVersionId": "44czeygwrv59b1g2e0nvqq6qcv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, physically demanding, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/d288ae00-67f6-4614-b79a-5e37d71f9c83"
+    },
+    "ContentItemId": "4xjc8w3mznk7d4j6hrtmsy1zcj",
+    "ContentItemVersionId": "4cb6c7jp22nr3vy8yrg7je1vx8",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b07157a4-ba1b-4999-852c-ec90912a2462"
+    },
+    "ContentItemId": "44xx65fythh9x10t7wnn4eq3na",
+    "ContentItemVersionId": "4ykppb8zerhd2zdqm6bkexh550",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/cd84dfe1-33fb-41d0-b1cf-cb1f7289ade2"
+    },
+    "ContentItemId": "4gc37m917vszd070rbr0hwjzcd",
+    "ContentItemVersionId": "4f3dcz8c6shsp0mdg8hfvw7edk",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ce51b2a9-9299-4dda-a3c6-d188b9becf47"
+    },
+    "ContentItemId": "4prwpkrn1aw037jbbmm0q02xwf",
+    "ContentItemVersionId": "4p0etg57wscsg0f049evcsh251",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, outdoors some of the time, physically demanding and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, outdoors some of the time, physically demanding and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a43e9cf7-fd96-4056-9b7b-9da853f6165a"
+    },
+    "ContentItemId": "4d2zv4211d9m71tbvsf8tc374d",
+    "ContentItemVersionId": "4jz7cfnh0pwyqxkcan1qxdm84g",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, outdoors some of the time, physically demanding and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, outdoors some of the time, at height and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, outdoors some of the time, at height and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a6cd623e-8ee8-4bc7-99a4-b339dcff9314"
+    },
+    "ContentItemId": "4ez3mgenkjh2mzyvb3922ew0xx",
+    "ContentItemVersionId": "4btzgx4w482c1x215d5dg28qxt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, outdoors some of the time, at height and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors some of the time, cramped, dirty and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors some of the time, cramped, dirty and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ceb240dd-95fd-4681-b08a-7328a93488ee"
+    },
+    "ContentItemId": "43an7z6m8qg2d69xjvkmhv4mwk",
+    "ContentItemVersionId": "45edt7pvvq27829dds842kbadm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors some of the time, cramped, dirty and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors some of the time, noisy, physically demanding and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors some of the time, noisy, physically demanding and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/dd2bbafe-e583-42ee-a296-5c85e8a72d26"
+    },
+    "ContentItemId": "43ff2hashesvfv097ezvt4v2nh",
+    "ContentItemVersionId": "4w1qttafzhxzkx5tz2qmjt57d9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors some of the time, noisy, physically demanding and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Outdoors In All Weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/5fec9371-229b-46e7-822e-3cdd3dff645e"
+    },
+    "ContentItemId": "4axag5qmm1b247q2qf691msddv",
+    "ContentItemVersionId": "47rvj2nrntrwr1xchnw3cgh054",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Outdoors In All Weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, physically demanding and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, physically demanding and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/72dee35e-e1d5-4bfd-b6e4-2edef9947454"
+    },
+    "ContentItemId": "403t080p3mpb3xpsg6efxqjfnp",
+    "ContentItemVersionId": "44q5jshhtqt7ysrdttgsj4k2cj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, physically demanding and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and physically active"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and physically active\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/cbb3d7e4-5bba-4072-9e3c-90bd87ececc8"
+    },
+    "ContentItemId": "41dn3z36ptrs44tgjzec1s5wwx",
+    "ContentItemVersionId": "42xw06jsxghm07h9y8bcx2gqdd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and physically active",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/27e71102-03c0-4066-9fb3-6e151a32502d"
+    },
+    "ContentItemId": "4j70ad5v87vhay1pqe65vxyydb",
+    "ContentItemVersionId": "4ky25pn7ypwm61cj1tamwyx0x6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dusty and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dusty and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/32a380c1-41a3-4498-a9e6-056d01144931"
+    },
+    "ContentItemId": "46y2j8csg0jx9xms2nhqda46c1",
+    "ContentItemVersionId": "42v709t45n1ehs280qqd45htmy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dusty and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cold, dirty and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecold, dirty and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ba767a26-4990-4e3e-984a-a228303b997e"
+    },
+    "ContentItemId": "4ybfsg0va0m1z4x8c5e2726bn2",
+    "ContentItemVersionId": "46kxkbh7pqv1qymq6jchwqvp5e",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cold, dirty and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, noisy and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, noisy and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/94cbcaf6-c566-4fb6-87b9-704e677c4058"
+    },
+    "ContentItemId": "4yjwebthar7f96zd3csyc9tew9",
+    "ContentItemVersionId": "4hqqye5fq32ms2w1g4rnmzbkmw",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, noisy and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ad11b2ee-75f6-4156-97aa-28a293fbac3a"
+    },
+    "ContentItemId": "4p31czbav7trk58hh4c8r3swn1",
+    "ContentItemVersionId": "4jpkq93fnqzt22h6bnmcepqvcg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b0caea10-5b8c-4e8f-aa88-ab5a758d11a0"
+    },
+    "ContentItemId": "4ma61q8f1jfqzzghxxyqkggqc5",
+    "ContentItemVersionId": "4zs5yz0aqrqz5tqzrvsned9yds",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dirty, at height, physically demanding, outdoors in all weathers and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dirty, at height, physically demanding, outdoors in all weathers and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ab6ad652-860d-44e6-85ba-e6ce0c81ba61"
+    },
+    "ContentItemId": "4qzshxpcbgmbe1a3cyk3jrb3n2",
+    "ContentItemVersionId": "4y95agzyr60ha2afve6sj38s50",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dirty, at height, physically demanding, outdoors in all weathers and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, noisy, dirty, physically demanding, outdoors in all weathers and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, noisy, dirty, physically demanding, outdoors in all weathers and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/e5118375-a5e5-4d1d-8cc3-b70e657e7915"
+    },
+    "ContentItemId": "4tsvaac250a9e4k8d22zxp4bwg",
+    "ContentItemVersionId": "42y8ax290pzm866hxsys6arhnw",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, noisy, dirty, physically demanding, outdoors in all weathers and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height, dusty and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height, dusty and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/57874217-188e-4482-abd2-d6d962ebc313"
+    },
+    "ContentItemId": "4074r08raa5r8sq593bzhrwawp",
+    "ContentItemVersionId": "4v22k19nww4tcvgrp0wn96c8dg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height, dusty and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Outdoors Some Of The Time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/029251dc-3239-4140-befa-8646555db4d6"
+    },
+    "ContentItemId": "40g5g410a5h1tt2r0vqqskgrdf",
+    "ContentItemVersionId": "43h8twe5z0s0fscbstkydx2444",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Outdoors Some Of The Time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, dusty and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, dusty and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/47059cbc-dd3c-4337-b120-59d02e3a411a"
+    },
+    "ContentItemId": "4n62ftasajnz6tdh3t0r43spxc",
+    "ContentItemVersionId": "4aftcc19xg7pzwmvt99f4vw2xj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, dusty and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height, physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height, physically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/9b9bc3b5-8a1f-4257-b5e1-da69ef9cc1fa"
+    },
+    "ContentItemId": "4fxpm9xm5fegq27sdksaxe9jmp",
+    "ContentItemVersionId": "4k068w2gp9ac6trzb3q7gm8bxv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height, physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, you\u0027ll travel often, outdoors some of the time and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, you\u0027ll travel often, outdoors some of the time and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0884cb86-7f11-4fe6-bbee-1cfdb5ceef5b"
+    },
+    "ContentItemId": "4eaje73x1dcgdr53jt585sbr4v",
+    "ContentItemVersionId": "4a215w6v60vwb52nx2weqxw8ce",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, you\u0027ll travel often, outdoors some of the time and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/4e551eaf-5535-49e8-a837-8bfadfa18b48"
+    },
+    "ContentItemId": "44j0t9h6wn062va8m6enmc99mc",
+    "ContentItemVersionId": "4w2r2c0rrd3x32vnabfwvp71dy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/2e8770ad-0716-42f9-b646-2072153520c0"
+    },
+    "ContentItemId": "4hwr84r4hrc72v5bws7z2ej05e",
+    "ContentItemVersionId": "4ryhkjy7q3qctx4pkhpdtywzwn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/5e71ebcd-e330-443e-9ec7-ef0e6516ddc4"
+    },
+    "ContentItemId": "4m3nbxmctcg9ptzzd32ma1qzxe",
+    "ContentItemVersionId": "4qdyh09nbexb91rt5jp8qkv5w4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cold and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecold and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/8195404c-d814-40fa-b6d5-0037206863e0"
+    },
+    "ContentItemId": "45r59jv3k03z5ynqb3vhm42twh",
+    "ContentItemVersionId": "4ay8gzsbskdpe22vpz9a1cjbmr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cold and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/310929f8-052d-40d7-b8b3-9681619d6064"
+    },
+    "ContentItemId": "4cfkgfczen3e0v268r3d022vcb",
+    "ContentItemVersionId": "4e9y4fkmsf239vef6c1w97t655",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding, cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding, cramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/335d20eb-d2d2-44e9-b486-72de10fd3959"
+    },
+    "ContentItemId": "42v3rxwnmysqa7cx3yy35za94b",
+    "ContentItemVersionId": "43dvemgr01q79593h67ptj0cxk",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding, cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, dirty and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, dirty and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/d5567635-b859-42fa-9aed-001e187a0893"
+    },
+    "ContentItemId": "45zgvymyyh8htvcm8c1wssc9nt",
+    "ContentItemVersionId": "40jd061mveaz636cb4xtjpnrd0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, dirty and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you may spend nights away from home and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou may spend nights away from home and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/1a682ded-a695-44b0-899f-711ca0c3ec80"
+    },
+    "ContentItemId": "4rys74p1c3vgnrnw5jjfhpjg5e",
+    "ContentItemVersionId": "4rqgjxq3vxpwytwh58wnk71ndr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you may spend nights away from home and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, cramped, at height, you may spend nights away from home and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, cramped, at height, you may spend nights away from home and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/448e82b7-d5be-45b7-8a82-6db199e64916"
+    },
+    "ContentItemId": "4hrjdy2hgr9hetjmy7mhx7cymh",
+    "ContentItemVersionId": "4sfwebq1vjd1ey1zqcq7nyebc2",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, cramped, at height, you may spend nights away from home and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7b92f667-3c42-4034-b58f-5720de98f5d3"
+    },
+    "ContentItemId": "4b39s6ecnwrvwregwet8k67m4t",
+    "ContentItemVersionId": "46xpws59td5na7maed585vh1mx",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/fc3de18b-2572-4917-be8d-1fd6e27d8d34"
+    },
+    "ContentItemId": "4qtfv25q2fq02rhbyd29d6ehdz",
+    "ContentItemVersionId": "4kfj9dr3js7tqrqxawh51j1kxk",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, you\u0027ll travel often, physically and emotionally demanding and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, you\u0027ll travel often, physically and emotionally demanding and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ac30856a-c5b0-4d75-8a72-cb25417b0a7a"
+    },
+    "ContentItemId": "40vg7tzsz198f05hh42xwwgg5h",
+    "ContentItemVersionId": "4x0c3z3nd2xkfry27bqr4q74d4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, you\u0027ll travel often, physically and emotionally demanding and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, physically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/60defe4b-3744-4264-803f-b815f325b192"
+    },
+    "ContentItemId": "4xjrs6cqq2apqw54wk4kxmep4x",
+    "ContentItemVersionId": "40x8576e8t0pxtfsqkweff0jcy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, physically demanding and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, physically demanding and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/31cb64a2-402b-40b9-b3b5-f58183d9fbc5"
+    },
+    "ContentItemId": "4dgz0wtm2csfsvj8khdws9t55r",
+    "ContentItemVersionId": "497bc02f7b0tf28q7dnjxkmswn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, physically demanding and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, outdoors some of the time and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, outdoors some of the time and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/bd1100e9-79e5-4445-a37b-72fe71c0da77"
+    },
+    "ContentItemId": "41waq00734v197f62eap3qabmq",
+    "ContentItemVersionId": "4r6hz10d3j8d8tqp057sf8a9cm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, outdoors some of the time and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time, physically demanding and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time, physically demanding and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/96efb692-0348-478d-b2a3-6d5688630543"
+    },
+    "ContentItemId": "4s2gn1748hhwcygk5y5rdjbdm8",
+    "ContentItemVersionId": "4tfankxvzn7hnxedb6rdzfvtwh",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time, physically demanding and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and crowded"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and crowded\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/dc93fb9b-0c40-495b-8c8b-1b34eac48570"
+    },
+    "ContentItemId": "4d4mwddhf65w56pc7hkwnwfxnf",
+    "ContentItemVersionId": "41xm8ttffck1r3cv7kbgkp8k4k",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and crowded",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and crowded"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and crowded\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/97256bd6-31b5-40d6-b359-cbe1d57dfcdb"
+    },
+    "ContentItemId": "43v43g6c1b3nb6wkqwrka27smv",
+    "ContentItemVersionId": "43854qhh31hb0zmy16d8hmdaxj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and crowded",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, physically demanding, at height, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, physically demanding, at height, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0a8edcef-0c5a-4487-a050-01e1ca933fb7"
+    },
+    "ContentItemId": "45tpp79g9yqnwv1fkvdw3bzr49",
+    "ContentItemVersionId": "4n12vyrmebbvv3n6er9rq5v85v",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, physically demanding, at height, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and cold"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and cold\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/3d509ceb-97d0-4bd0-a232-1adf4f51a73a"
+    },
+    "ContentItemId": "4cz3a1261mxy1r7q1jzpahfsxz",
+    "ContentItemVersionId": "4m7ymkze8b07wtkczbt2kzee5y",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and cold",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, dirty, outdoors in all weathers, physically demanding and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, dirty, outdoors in all weathers, physically demanding and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ee090a96-9a22-4c8b-85e8-03ac0329ec52"
+    },
+    "ContentItemId": "4c74fmg1bpmrqzqtqppkbc58xv",
+    "ContentItemVersionId": "4s4sh1j736bvgxm038k84f7bww",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, dirty, outdoors in all weathers, physically demanding and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, hot and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, hot and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a6338336-1e30-4020-b4d3-86b26474bb37"
+    },
+    "ContentItemId": "4z0n3fqvb0axjzqx2dzxm8694b",
+    "ContentItemVersionId": "489cxcdr6c5dptvpynbkcv7c5g",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, hot and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, you\u0027ll travel often and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, you\u0027ll travel often and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0fc956cf-d603-4bd4-9a8d-ca30ebea2322"
+    },
+    "ContentItemId": "4z2m241jjfrdg1cd70ap139t5w",
+    "ContentItemVersionId": "43sxehjxqh6527x108k4067e4q",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, you\u0027ll travel often and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, physically and emotionally demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, physically and emotionally demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/4bda174a-b1b5-4ce7-8416-ec87ef88432d"
+    },
+    "ContentItemId": "4dq4g2yhnjbq3459kqyj86w6dv",
+    "ContentItemVersionId": "46xp2qsp6nwm362nwmmbdssp51",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, physically and emotionally demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically active and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically active and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/eeed1d77-6a1c-43ac-9271-228e79a90635"
+    },
+    "ContentItemId": "4186rc2y1tesnr7s5brw9xqyc8",
+    "ContentItemVersionId": "4rxq6rbzbja2rv80jsyv9vakmq",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically active and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, physically and emotionally demanding and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, physically and emotionally demanding and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a38a883d-fbec-45bd-8d99-2a8935758ecf"
+    },
+    "ContentItemId": "4hq5e29xsf8sr175x75rx80rxn",
+    "ContentItemVersionId": "472rz8ph0rb8e7cmh9b7xe95d3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, physically and emotionally demanding and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, physically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/1486adf8-d810-437a-9ee4-0737195fa652"
+    },
+    "ContentItemId": "49gdepsb71992sv4p9bqk3f4dr",
+    "ContentItemVersionId": "4xz7eq3z67h0ev515z1ed2135q",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, physically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/8750f875-87ab-4ef3-a722-e96c4fb8bc13"
+    },
+    "ContentItemId": "41s8jdntdd4st4xvcfxgsg08n2",
+    "ContentItemVersionId": "478ps81wabeq91hamagaeedemq",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, crowded and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, crowded and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0a90b770-6a48-4bf8-a54c-7c438acb69d9"
+    },
+    "ContentItemId": "4kww3rqr1f5v5tgypst64jyr51",
+    "ContentItemVersionId": "405hs5a2b0kasybpamsb8tya5m",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, crowded and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/3976a8d7-536f-4f21-8770-70ed2933e12a"
+    },
+    "ContentItemId": "4yykraj311rhdt924de8hg9k4b",
+    "ContentItemVersionId": "490m20k8kr9taraw5b8rrdfs5n",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b62a3b62-b305-413d-8966-f4fdc854ffd9"
+    },
+    "ContentItemId": "4kvz70y4zejfw2hnhqycefrnnv",
+    "ContentItemVersionId": "47kxq6vgbwya8zdfca7jjak45z",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height, you\u0027ll travel often and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height, you\u0027ll travel often and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/e9da4425-d558-4ee9-b5b8-a5945414cfaf"
+    },
+    "ContentItemId": "4sxendcjewc51wqwg5mrns8w4y",
+    "ContentItemVersionId": "44vhx8t8v3ksb1m3cvq8tpb9d9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height, you\u0027ll travel often and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, physically and emotionally demanding, outdoors some of the time, dirty and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, physically and emotionally demanding, outdoors some of the time, dirty and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/c3f0fada-a236-4feb-975d-81ddcbe57c15"
+    },
+    "ContentItemId": "4qr61syrqsh6ytyag5fe1909c3",
+    "ContentItemVersionId": "43nq29h6pgbz5zjt0g1m14hd4b",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, physically and emotionally demanding, outdoors some of the time, dirty and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers, cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers, cramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/c69ab88a-993c-4f60-91b6-619955f17cf3"
+    },
+    "ContentItemId": "4mq520g87n2tv36ve02ewsqaxp",
+    "ContentItemVersionId": "4jna6de2q068bvv2zsvgw5w0mg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers, cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/2cce4a71-9477-4943-8410-02b9b683b1c8"
+    },
+    "ContentItemId": "4gkh68xkr2jrzr84z312td475z",
+    "ContentItemVersionId": "4j2vx7a8xe4be2m29k65tj4ccv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/07186191-03b4-458b-a707-3fde4c34cb78"
+    },
+    "ContentItemId": "4n7enqhf1tm4p0fbhgv6jq7q5t",
+    "ContentItemVersionId": "4waz60awxj2qf3fsd1624jnn5x",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and cool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ec694b50-06e7-4e98-8aaf-f05889636fae"
+    },
+    "ContentItemId": "4ydr8cywz1gmr5zzw9tfywgcm4",
+    "ContentItemVersionId": "4azytrg8amtcr64fvsb2pmv0xt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Physically And Emotionally Demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/e4ddd409-638a-42ed-ac7f-430aa6561c9f"
+    },
+    "ContentItemId": "4e7m9trwam29q3g4zpdbkzcgw8",
+    "ContentItemVersionId": "4wq8std626ebpzsa7bfnnxjwwh",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Physically And Emotionally Demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Crowded"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/93ddb52b-947e-4170-b3cd-6cea27beae53"
+    },
+    "ContentItemId": "4pap1g5vgxhpc6kd3nf8xq36d9",
+    "ContentItemVersionId": "4khvgfr5147hvx337n9htvzaxn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Crowded",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, humid and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, humid and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/f1ce363e-90ed-40ef-9d29-b9669af451ef"
+    },
+    "ContentItemId": "4f6dqtr2r6h99v366c61p1dax8",
+    "ContentItemVersionId": "4yqbbx3fz3pcs56wke1hdwc050",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, humid and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, cramped, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, cramped, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a048d80e-030a-4950-81f5-ac49fb5b9546"
+    },
+    "ContentItemId": "4xpeaqxerxejw483nd2p1twawv",
+    "ContentItemVersionId": "455dm2xdakm06wd95b20brhp4h",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, cramped, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and involve using chemicals"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and involve using chemicals\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/638d9be1-196d-4b21-a723-ebebd2fd3dcd"
+    },
+    "ContentItemId": "4414x5rrr90yev9p85ncqvgz4z",
+    "ContentItemVersionId": "42298h6fxvzxxwf3vqtj7hzgxn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and involve using chemicals",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, dirty and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, dirty and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0f7f7cf2-ca03-411a-ba02-db171b589144"
+    },
+    "ContentItemId": "4w3xgv2k2gbm8wen00d0ae3gwj",
+    "ContentItemVersionId": "49s93rhy2ejkt1mxh62f6xrecd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, dirty and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, physically demanding, dusty and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, physically demanding, dusty and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/13341a81-1c1a-4cc4-a055-57d56d4e48a0"
+    },
+    "ContentItemId": "4tgzy6c09kr24vbksgz6mg3sdj",
+    "ContentItemVersionId": "40fe580dgpw97w4kqgkpf0qmcj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, physically demanding, dusty and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, at height and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, at height and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7b92a97f-56c8-45e7-82e4-babfcc254b4f"
+    },
+    "ContentItemId": "411mmea4psj2gta49benmzqbxf",
+    "ContentItemVersionId": "4qznw2zgz08qfrmkkrwajqyqnq",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, at height and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and involve using chemicals"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and involve using chemicals\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/d5f47339-587e-4810-afe0-f05ade9bc7b9"
+    },
+    "ContentItemId": "4eszvpwyt7mhg2mg5c5jqhqx49",
+    "ContentItemVersionId": "4p1tnf96q6hm54mhc16q1b7bmy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and involve using chemicals",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time, you\u0027ll travel often and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time, you\u0027ll travel often and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0ad0d44f-d0a5-4557-a677-bc7b06daa073"
+    },
+    "ContentItemId": "4sjarn2527vbv3apt5hnbj5247",
+    "ContentItemVersionId": "4j87xh5rbb5a26r4j6pde8n5d3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time, you\u0027ll travel often and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/67e516bf-7922-4d5c-867b-e02f5ce6521a"
+    },
+    "ContentItemId": "4hzw12xr6tasp1xyv8zxc6f4mf",
+    "ContentItemVersionId": "4ecfxnzr0dmrq3czp2qcs93bnn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, physically demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, physically demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/37235c76-8966-4aad-b2f9-07c46e2a9dde"
+    },
+    "ContentItemId": "41xwfqnfex2yntq4nkzmsha3d2",
+    "ContentItemVersionId": "4ayrq2y3w0w0bvjn80rfgv1y4h",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, physically demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, outdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/c4ec0d8b-f56a-447f-ae16-77022f444909"
+    },
+    "ContentItemId": "4fajebwr3ek6pszt8ddesdjw5e",
+    "ContentItemVersionId": "4q1c5m78m510j13d1wy0qkprnw",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/60fcc94f-0409-4304-a33c-fabe9714eeb8"
+    },
+    "ContentItemId": "4s8yq1mhaja0tr604dz2z6wmm1",
+    "ContentItemVersionId": "4m18vcxtejkmb22ajc1ycjez4d",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a99bba12-2d4d-460a-ac93-ba2c89535857"
+    },
+    "ContentItemId": "4kf80nyfanwabwjzjj446wp4c7",
+    "ContentItemVersionId": "40hqfsqnd0e80tgkyewr57t449",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, hot, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, hot, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/49a60274-a2fd-43a9-8295-f8fd6363dbfe"
+    },
+    "ContentItemId": "41t6srdzkhg84rb3d6g1ssp1dz",
+    "ContentItemVersionId": "4qnsdk6th56kpwzk350093eyds",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, hot, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, at height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a712a5dd-abf9-4c25-a333-e7db8b4981a9"
+    },
+    "ContentItemId": "4628pea4kskq648d6883qspbdt",
+    "ContentItemVersionId": "4hkznj3k86xz2zh05smnpd52m6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/8c79e006-5fd9-4201-9192-05f65a3512a6"
+    },
+    "ContentItemId": "4s3rjza8as6resvbbfhsfrkync",
+    "ContentItemVersionId": "461cyt087zhqhtm532965dksns",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/d1bb79b4-d210-45c9-a5c1-2cb8b65ed318"
+    },
+    "ContentItemId": "4x49a9j0k7e06331sgdjhrp6wq",
+    "ContentItemVersionId": "4dnnwkr36a01jxbzvgh8vn9twz",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b8f56e0f-58b6-4fb1-8e83-bad441f4da93"
+    },
+    "ContentItemId": "4ftyj0z77e2d0rf1r3f36ta6cr",
+    "ContentItemVersionId": "4ssdfp4hqvh7b0yfrt139kf0xy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b4a45f12-f4c5-4352-821d-4dc74c1128fc"
+    },
+    "ContentItemId": "4kb0dwwj1fqn9vhsd83sgnqdm0",
+    "ContentItemVersionId": "48nas417jvm9mwrdk2xx4bqdcc",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0a6a25fb-fd6f-4226-a53d-652218ec8582"
+    },
+    "ContentItemId": "4ne169g0qk7cqy8dgte8xrtp43",
+    "ContentItemVersionId": "4k3agg9wketcw687wk3ksfx7w4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Travel Often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/c6312a86-6cbe-44a0-ad22-fc52392c9677"
+    },
+    "ContentItemId": "4vxqye3rzy6bn3mxghhk1k1cnb",
+    "ContentItemVersionId": "46v2ads5xanhfrjp084fqjapx9",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Travel Often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, cramped, you\u0027ll travel often, outdoors some of the time, dusty, noisy and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, cramped, you\u0027ll travel often, outdoors some of the time, dusty, noisy and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/158a2e87-88b5-4b32-b9b8-5b59c312f626"
+    },
+    "ContentItemId": "4549p67ngytc8613k2z0xe0h5j",
+    "ContentItemVersionId": "46th3fhapmas62y29pjs3ncwne",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, cramped, you\u0027ll travel often, outdoors some of the time, dusty, noisy and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7f1f6b56-d253-4dd6-8945-4d57da3272c4"
+    },
+    "ContentItemId": "49hjgg2q62qwp3zjmrkgzqse4h",
+    "ContentItemVersionId": "4y61rfp4y2hpy5d5xaxfxsrwm3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0f6a2d83-e3b7-4e39-a79c-7337d7e283f8"
+    },
+    "ContentItemId": "4gps2e40d41erybqb4cp6d4jcv",
+    "ContentItemVersionId": "4pw14f9c5z09nx8jggda3maqwz",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, hot, dirty and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, hot, dirty and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/3ba78793-f350-4ce4-af43-964729f4effa"
+    },
+    "ContentItemId": "4pxbxkysq353459b5xzvb8e751",
+    "ContentItemVersionId": "4mvfm7wtm4z9nx689f6qf7dtmh",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, hot, dirty and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "humid and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0dd280d5-8a68-4282-8306-9185eaab3b13"
+    },
+    "ContentItemId": "4c0qx7zh7kq7vtfjmq9sepd051",
+    "ContentItemVersionId": "4cgv87jmthbr7sq03h2mgcxfm5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "humid and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "emotionally demanding, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/d3f0422c-ee88-438d-8d8c-6a524874ef2b"
+    },
+    "ContentItemId": "4g82mx6e9sw483vxxxh85f8m53",
+    "ContentItemVersionId": "4zmmkygazkxmfxms6k2jqkwzd8",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "emotionally demanding, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/6595fa79-8a4d-4b4c-8800-ee7d0bf51f4b"
+    },
+    "ContentItemId": "4a47fg7ey42x55jnytapf73547",
+    "ContentItemVersionId": "4sa1d52b7d6qt175pzp2mrvddv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height, physically demanding and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height, physically demanding and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/dc6f1df8-820a-466b-8de3-d84d61e8fb6f"
+    },
+    "ContentItemId": "41stvh0mqb67c4z5dzx8x8324c",
+    "ContentItemVersionId": "434p8ff3evx3q13wdjh4nac5wp",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height, physically demanding and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/2ca16d6b-e68c-4a55-927e-47293986cf56"
+    },
+    "ContentItemId": "4jdkpvdgwjtwdykz04fg5c5hm5",
+    "ContentItemVersionId": "41hak59xw17hg27av91m9bx6wh",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, hot and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, hot and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/f2847b79-8a30-4bfa-b0a7-9199aaa745fe"
+    },
+    "ContentItemId": "4xzyebmjv9vme095aj6cmz19c9",
+    "ContentItemVersionId": "4tt8xwdvyp90vs7qzvmf9fmm48",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, hot and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, dirty, outdoors in all weathers, physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, dirty, outdoors in all weathers, physically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ff5e10b8-2939-4f38-b489-bf4ac119f10c"
+    },
+    "ContentItemId": "4dbt0bdsge25hyq0q06v3b9350",
+    "ContentItemVersionId": "4bzt6wwra5hw5tacjyr5ccnvma",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, dirty, outdoors in all weathers, physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "emotionally demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/39c5dfcf-dc74-49de-bcb2-906b4bfe69a4"
+    },
+    "ContentItemId": "4dc2ste1yrrnbve1h2p98y4zmz",
+    "ContentItemVersionId": "46edt7emek58s7qh90bv2e77w8",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "emotionally demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/8c6e4b0a-6955-4311-8704-f63f2a14943b"
+    },
+    "ContentItemId": "4azj5qyb39gg31m44c5mmwwvwj",
+    "ContentItemVersionId": "4agzdgv9bn5z2x2qs2yvqdc2n7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, cramped and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, cramped and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/81fcd56e-80dc-4c9c-83ca-ad96c75a8504"
+    },
+    "ContentItemId": "4axz6zge9m8322rvrb6hqtt2wg",
+    "ContentItemVersionId": "44rc1c0xw0x4t442h7eyf7fxww",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, cramped and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, outdoors some of the time, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, outdoors some of the time, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ea19ff49-30f7-43fb-a4a4-056479ecd893"
+    },
+    "ContentItemId": "43e7ezdbfz71trtgpgyq608kxg",
+    "ContentItemVersionId": "4jegvqjs5141srnffvm9n6xym7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, outdoors some of the time, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a0ca130b-9fb6-4697-960a-1ae5b45ac240"
+    },
+    "ContentItemId": "4ds70gq48783wsty2gvh7ehkw5",
+    "ContentItemVersionId": "4b20w6v0w02z977461bqsfzkdx",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/fd2263fe-8482-4d87-b76f-6e1b6013ed1f"
+    },
+    "ContentItemId": "4bp64q5pv9jx90p1fxdrr8afdn",
+    "ContentItemVersionId": "4tgd693asz7v6s4a8jrjwd59x5",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/395d9e5d-67b9-498f-a654-33beda2bd3d2"
+    },
+    "ContentItemId": "43benkfrfdxxr1sj05hfg9tcd9",
+    "ContentItemVersionId": "4pra73vfz0fzsrtx13ty009mwf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "humid and physically active"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid and physically active\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0c357abd-05d8-4134-9342-c3032911ca86"
+    },
+    "ContentItemId": "4c4jvkpe007m7w5af2jf2xe6xa",
+    "ContentItemVersionId": "4c8x6e29a0yt37c492j1efj0nj",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "humid and physically active",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and humid"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and humid\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/19a5724a-39b4-4aff-b530-afaa80fef80d"
+    },
+    "ContentItemId": "4xd83w0ffrv4dtfev4m0jzamnk",
+    "ContentItemVersionId": "4qa2865d4av0x1jc57p1741cnr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and humid",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/8d101961-243b-4afe-83af-adc0560697e1"
+    },
+    "ContentItemId": "4qewxw47hbax8w90eq7xy7r642",
+    "ContentItemVersionId": "4ww52aztem0zdthrr4371ryyx4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7a5626e7-6047-4bcb-a88d-a6b9c2265339"
+    },
+    "ContentItemId": "40hhb9y002ydctp9w9ahfvz9mn",
+    "ContentItemVersionId": "4h9pefhswz35a2j5g10ghdatda",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, you\u0027ll travel often, dusty and cold"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, you\u0027ll travel often, dusty and cold\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/2753e94b-8270-497e-aa88-6f6f9a189f71"
+    },
+    "ContentItemId": "4rfcyawrsprertm8vnma41adce",
+    "ContentItemVersionId": "4cf50gnf4eam0sp8f89sjpexcg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, you\u0027ll travel often, dusty and cold",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, at height and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, at height and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/fbb93d56-d338-4ee7-a49a-66eb64a513aa"
+    },
+    "ContentItemId": "46x6yyw49fpw71bgcqhbx4r2cb",
+    "ContentItemVersionId": "437v1z4xv4y22zwtqfbwd1n1mn",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, at height and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, dirty, outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, dirty, outdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ea222ed3-c4f2-4e46-879a-0f6496ed7e3c"
+    },
+    "ContentItemId": "46nkdbvm5pdjsyg19kzrj4ye4q",
+    "ContentItemVersionId": "424vr75e9jq0h3rhh1cnamrnnm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, dirty, outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty, at height, noisy and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty, at height, noisy and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/21c586de-6faa-48f6-b1aa-2e90e42c7db6"
+    },
+    "ContentItemId": "4gkhe7kpcggabyrny24vzev8wz",
+    "ContentItemVersionId": "4kyk49xb1355g3db1grx39k7n0",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty, at height, noisy and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/53f9c25d-04b0-4459-a0a8-690c874a1671"
+    },
+    "ContentItemId": "4rq87bnyy5r5gybarqnk503r55",
+    "ContentItemVersionId": "46m3ta809df2nsb5gf6r3bhkdp",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/d2ff4ecd-4e10-424f-9111-53d2d8c72682"
+    },
+    "ContentItemId": "4s1ehvzg0er1b0y31t6z3syhx2",
+    "ContentItemVersionId": "4hy4zyn9z29qw7h35d8my4ghxm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/102c2abb-3c09-47e8-be69-518cd37c90ee"
+    },
+    "ContentItemId": "456p29gn3ewdvzn11hcknyv3cv",
+    "ContentItemVersionId": "4dgz3ek0f3jsz7rc9zq5bttpdf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, cramped and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, cramped and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/14bd1cfd-13b0-4378-9385-6ff05a0ab813"
+    },
+    "ContentItemId": "420p8gb31zaen57zqpx2pfsgca",
+    "ContentItemVersionId": "46ttfgfm048kv1addp9cy5jv5r",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, cramped and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot, noisy and cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot, noisy and cool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/45c55d98-c17d-4660-a702-a4297e1c6add"
+    },
+    "ContentItemId": "4j31jtjfkhcq65chesyfpacsw4",
+    "ContentItemVersionId": "486xeqqnm13s97kjj3zrcgwm44",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot, noisy and cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/35f5e38b-12b2-4a5e-bcba-e1c10e3edd24"
+    },
+    "ContentItemId": "4ftmz75e15z7hrfp6cf394jvc9",
+    "ContentItemVersionId": "46kdvef5kxgmj48c7ytx2v48dv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/31026b7b-1f45-4665-b3b1-2e1c95e5a5ea"
+    },
+    "ContentItemId": "4hjwnnp7deg507k62adksxm1w4",
+    "ContentItemVersionId": "4m436epm7392a28r69393hg6xd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, you\u0027ll travel often, cramped, noisy and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, you\u0027ll travel often, cramped, noisy and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/13012991-f1d5-42a3-9ed5-5835838b1bca"
+    },
+    "ContentItemId": "4g769r18p9kkt09bdckv3q07n4",
+    "ContentItemVersionId": "42y5zd6p91vqa7ggbz16cftmc7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, you\u0027ll travel often, cramped, noisy and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dirty, physically demanding, cramped, at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edirty, physically demanding, cramped, at height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/71d6d8cf-8c4e-4d3e-8e11-252731b72e76"
+    },
+    "ContentItemId": "4g4g9f4ybmzyqwxx76aasx0n50",
+    "ContentItemVersionId": "4pp6aaqammeqh4q58rg8m933nv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dirty, physically demanding, cramped, at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, cramped and dusty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, cramped and dusty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b0c0f44b-c37e-435f-ac46-1c137d9a05e9"
+    },
+    "ContentItemId": "4vhpfx5ge844csbehfkwb98ndm",
+    "ContentItemVersionId": "42p6y7dkbez564392agqv1gecf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, cramped and dusty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors in all weathers and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors in all weathers and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/27690b23-b5b6-438c-9aa0-ac665087cd4d"
+    },
+    "ContentItemId": "4z46h7vz8qhmm1p34226eyb7mz",
+    "ContentItemVersionId": "46jtjnr9nph54swv4bkt3gtrdv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors in all weathers and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/0033331d-4314-464c-89cf-2be316b0f151"
+    },
+    "ContentItemId": "4c9rgpqm89570rm5bv5dg6xqwr",
+    "ContentItemVersionId": "433bn25sgrw4byvp7fe9jqw2nf",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/fc75ed3c-ecc5-4288-af0c-f4638047944b"
+    },
+    "ContentItemId": "49sm2c24aybhpyqsqw2xd19x4p",
+    "ContentItemVersionId": "4516wvargw55fx4a2rb63n4jds",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/26f83f64-5c56-4bf0-9bbc-6be5f370b90a"
+    },
+    "ContentItemId": "42ek7arq4syy67d5ky0r1qbdx5",
+    "ContentItemVersionId": "48886w0qvyfv37vbeytwpspdnt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/f09f7d98-5d98-4347-b285-facc6514730a"
+    },
+    "ContentItemId": "423tbq6merrq3xvz1488bscnw7",
+    "ContentItemVersionId": "4sy4avtsmqj2nz93vecsema9xr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, at height, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, at height, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/174d85ef-4430-46d1-8c33-d5b0cc2a142e"
+    },
+    "ContentItemId": "4dsvnec53p5z305k0pw5at9nc3",
+    "ContentItemVersionId": "4cfjm9dhm0bk4yy8sxy38aarwv",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, at height, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically and emotionally demanding and outdoors some of the time"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically and emotionally demanding and outdoors some of the time\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/8d80f560-449a-440a-afe5-0fb7c0b62aa5"
+    },
+    "ContentItemId": "4crddvkkxa33s1jdvhptgcsdmb",
+    "ContentItemVersionId": "4zs7r9thdjxb43pbh0qfz5935t",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically and emotionally demanding and outdoors some of the time",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/af5f36c5-a7d5-41af-8ffb-80f6bb8eab5a"
+    },
+    "ContentItemId": "48s65r6ja5zp5z0grddxw5d7ww",
+    "ContentItemVersionId": "43mph7kgd46nf1dtq8v5b64zwp",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy, you\u0027ll travel often and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy, you\u0027ll travel often and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/52d4bedf-fd3f-4332-8c0d-e745913f7375"
+    },
+    "ContentItemId": "4ap8d4zhasjzc1pbtgcfqxpz5c",
+    "ContentItemVersionId": "4t2yg1a02jjnw6q8qnqmr55jda",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy, you\u0027ll travel often and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, at height and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, at height and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7fa766bf-7bc9-4372-accc-281400bdc099"
+    },
+    "ContentItemId": "4k0k799mb2jmeyq6v8g8mq65d9",
+    "ContentItemVersionId": "4qnt6mek9ctjxxe1jhgbvrg8d7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, at height and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors some of the time, dusty, noisy and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors some of the time, dusty, noisy and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/c9a8c8ff-098d-47c7-89e0-67dd24699de5"
+    },
+    "ContentItemId": "4n06c35apxyyjw2mn92w9fe1me",
+    "ContentItemVersionId": "4dkp3qnt1yt4y1q828de14j0nz",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors some of the time, dusty, noisy and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/903738ef-3eed-4fbc-8091-482cdbb3ede9"
+    },
+    "ContentItemId": "4428dm4ntz81vtg9s7aej6e0cf",
+    "ContentItemVersionId": "45h405t0wxe8m0zv9tshzbnjwp",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically active and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically active and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/d55480b9-bbca-4645-9dab-ba7ea9c8a4cd"
+    },
+    "ContentItemId": "4bw1gj6yz54yb3zvj25e8ezbd0",
+    "ContentItemVersionId": "4cqrjdq5g00scwkdchqcsm4xms",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically active and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and physically and emotionally demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and physically and emotionally demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/080db53a-d2f6-47fa-82c3-1424259587cd"
+    },
+    "ContentItemId": "4f43py3jjrzxdv306tqsk4brdv",
+    "ContentItemVersionId": "4rgeryesyc1xzrxf60mvztfnxb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and physically and emotionally demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/f1540fe2-578d-471c-9652-83ab27b881ef"
+    },
+    "ContentItemId": "43tw8mhvp8htx6wwavan730hc7",
+    "ContentItemVersionId": "4f90mvxjhek6z78hmnzz6jknxr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/3a42e905-eddb-49bb-8382-f4dc7fff2e79"
+    },
+    "ContentItemId": "4g11e1qn7ryjpypb8b03spz9cm",
+    "ContentItemVersionId": "4jfbz17hdnaqbznk5yx8xgxpm6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, outdoors in all weathers, cramped and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, outdoors in all weathers, cramped and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/9beb83ec-50b3-4907-96ba-d0c6df5d3e5f"
+    },
+    "ContentItemId": "461nwg1ntm4pytj5fzeqkvaq59",
+    "ContentItemVersionId": "44q9s13d5f8anz085a0t0rzkdd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, outdoors in all weathers, cramped and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors some of the time, you may spend nights away from home and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors some of the time, you may spend nights away from home and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/54caefde-4d4d-40c7-91a0-54c8ea23160a"
+    },
+    "ContentItemId": "4axv0csrc4q077w9fc7shnjs46",
+    "ContentItemVersionId": "4wsptgenfx40c6jbjrts0cqsnt",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors some of the time, you may spend nights away from home and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, at height, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, at height, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7bfbf315-c656-46db-a4dc-34b591a4bdba"
+    },
+    "ContentItemId": "4zk6krjs9nrwzvmgkh171x5pwn",
+    "ContentItemVersionId": "4p21htw0xfd1xvbdwcxe9bt9wb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, at height, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "crowded, outdoors some of the time and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecrowded, outdoors some of the time and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/055148c1-dbba-45de-933f-64d19304f4c9"
+    },
+    "ContentItemId": "4xg7fw7s20wqc0bg57gg0w164w",
+    "ContentItemVersionId": "4a6h384btdnhn7csy59ed8kpn4",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "crowded, outdoors some of the time and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, at height and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, at height and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/59804152-c989-480d-aa0d-617f66c0fd47"
+    },
+    "ContentItemId": "47d0vzs82cjm3z0ybz7y9tebdk",
+    "ContentItemVersionId": "4j6rk8wp1ascp01ztsv7dmtpnx",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, at height and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and cramped"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and cramped\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b21608c3-3070-48dd-9a53-eded4908370f"
+    },
+    "ContentItemId": "48cqasnnr59ah5favy371eq3wp",
+    "ContentItemVersionId": "45h1rypjxyjw1ss8ybw43e83nb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and cramped",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hot and cold"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehot and cold\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/7ef88eb0-5dce-49c1-b07c-00c8b4a8b147"
+    },
+    "ContentItemId": "4xmq1ed77kd5000t8gvf3kvzw7",
+    "ContentItemVersionId": "4qbgmhewhjrz94j8c9z050fdd3",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "hot and cold",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Physically Active"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically active\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/54753b03-4d92-486b-aa28-1ede40f6f249"
+    },
+    "ContentItemId": "4dfcxz8wrxa8k39f8xknpkjcxn",
+    "ContentItemVersionId": "47hkfz8q7gte2wm9vf8d49x1m1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Physically Active",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "emotionally demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eemotionally demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/1d586bc7-4951-4bbc-a7f4-f58047dc5373"
+    },
+    "ContentItemId": "4c4hafnmm34njrkkbw20pgn1xc",
+    "ContentItemVersionId": "49m7r86ft9j9x47c735f7nv44w",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "emotionally demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "you\u0027ll travel often, outdoors in all weathers, cramped, dusty and at height"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll travel often, outdoors in all weathers, cramped, dusty and at height\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/fe1b2f36-9159-4f78-b455-e958260e81fa"
+    },
+    "ContentItemId": "43bzg8cssc6h17chwk9xf2t3cs",
+    "ContentItemVersionId": "4rwcewmt9rq2b7vv91qh511pn6",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "you\u0027ll travel often, outdoors in all weathers, cramped, dusty and at height",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at height, cramped and physically demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat height, cramped and physically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/efbaba37-d2fd-4f82-adfc-73aad2244a14"
+    },
+    "ContentItemId": "4d6kwnk6dbfge30dg9k3nx13x3",
+    "ContentItemVersionId": "4bkvv6q8gj7zf1gq70g2kczjwy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "at height, cramped and physically demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "outdoors in all weathers, noisy, at height and dirty"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoutdoors in all weathers, noisy, at height and dirty\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/41aa9dfa-441d-45cd-a277-2d9bdf25afe1"
+    },
+    "ContentItemId": "4f0kx4qm0p01401feryd5k5td7",
+    "ContentItemVersionId": "4qvg8mahesd84016fa40amxfx1",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "outdoors in all weathers, noisy, at height and dirty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "humid, noisy and outdoors in all weathers"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehumid, noisy and outdoors in all weathers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a5628725-f691-4b57-b9ed-aabe69fc2394"
+    },
+    "ContentItemId": "4cg77rdhxcn28z5pvexc6xtm5e",
+    "ContentItemVersionId": "4ywpc6q1j0e2qrmm4324ssrxdy",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "humid, noisy and outdoors in all weathers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Physically Demanding"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/53dcb466-9a18-4b7e-b0ea-7aa98b8fa1aa"
+    },
+    "ContentItemId": "4gxw765rzfmzz5kab7d27k97cd",
+    "ContentItemVersionId": "4caktq6hdwsja7np73bktsbqmb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "Physically Demanding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cool, physically demanding and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecool, physically demanding and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/b6e6f639-95fd-4fbb-99be-5e5069e57cba"
+    },
+    "ContentItemId": "4p7r44crhx9d43pm18b971dnwm",
+    "ContentItemVersionId": "45fvgqk45hfwdw0pn79t55eqxm",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cool, physically demanding and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and noisy"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and noisy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/30caf4c6-1f15-4663-8455-252635f262ad"
+    },
+    "ContentItemId": "4zyz7hawvywxd58rbjt5bbrpw5",
+    "ContentItemVersionId": "42fachcyqd47xvxksw2n2rrkdb",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and noisy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, outdoors in all weathers and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, outdoors in all weathers and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/a0090ccd-b2e7-4df9-b2b9-4586de3cf380"
+    },
+    "ContentItemId": "4vzjstmnfrwpd565bz4rxtdyd6",
+    "ContentItemVersionId": "4a84skqmb56hm4wf04c7prqnwd",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, outdoors in all weathers and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "noisy and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Enoisy and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/46b781af-7269-4152-bd8b-cc080db70d5b"
+    },
+    "ContentItemId": "44ty9kw3zry94rfhb3a8wby4my",
+    "ContentItemVersionId": "48shnkh7mr0vgxkb7sq94nr046",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "noisy and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, physically demanding and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, physically demanding and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/f5c190ca-8ad5-4009-9f1f-832ea0f7bde8"
+    },
+    "ContentItemId": "4st8fn6drbe4zy8ce62cbctf4y",
+    "ContentItemVersionId": "4a9d66p0p09brxbezt1qeqtad7",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, physically demanding and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "cramped, dusty, dirty and you may spend nights away from home"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecramped, dusty, dirty and you may spend nights away from home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/aefdd2cf-55dd-4b8e-b65e-c4a36f3c9392"
+    },
+    "ContentItemId": "4fc5q5wce50pjxjw890rw7rccx",
+    "ContentItemVersionId": "464ddjvpv68qnxsvh35c7xzsdk",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "cramped, dusty, dirty and you may spend nights away from home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding and cool"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding and cool\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/ff52d7a3-15db-4afd-b177-8a3503bed387"
+    },
+    "ContentItemId": "49a3xv4j9ghmyvscbpk6x3vanm",
+    "ContentItemVersionId": "4e7wy020mzwwhxvmv84qknm0xw",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding and cool",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dusty and you\u0027ll travel often"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Edusty and you\u0027ll travel often\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/59de89a3-498c-4e1d-8493-3701ebdaf1fd"
+    },
+    "ContentItemId": "4f5x8ygvf74ma4fs1cxfaq18m1",
+    "ContentItemVersionId": "4g1rsfh98ybnh6aax36wwewzxg",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "dusty and you\u0027ll travel often",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "physically demanding, humid and hot"
+    },
+    "WorkingEnvironment": {
+      "Description": {
+        "Html": "\u003Cp\u003Ephysically demanding, humid and hot\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/workingenvironment/1104f7e4-2a24-4c7f-9afe-9a2cecb28dce"
+    },
+    "ContentItemId": "4d0zp783hn2eqw3ak45qppthd9",
+    "ContentItemVersionId": "4tksxv4za325m6swvpg6xehemr",
+    "ContentType": "WorkingEnvironment",
+    "DisplayText": "physically demanding, humid and hot",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

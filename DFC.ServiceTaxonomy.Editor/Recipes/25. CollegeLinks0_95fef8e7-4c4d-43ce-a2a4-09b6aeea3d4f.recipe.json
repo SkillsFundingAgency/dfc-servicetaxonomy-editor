@@ -1,0 +1,193 @@
+{
+  "name": "CollegeLinks0_95fef8e7-4c4d-43ce-a2a4-09b6aeea3d4f",
+  "displayName": "CollegeLinks0_95fef8e7-4c4d-43ce-a2a4-09b6aeea3d4f",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.tlevels.gov.uk/",
+        "Text": "guide to T levels"
+      }
+    },
+    "TitlePart": {
+      "Title": "Guide to T levels"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/1ee7b917-d874-42e3-b719-7f2bd8c0dd21"
+    },
+    "ContentItemId": "4ve7a9y9vj7r03av3m76wn1aca",
+    "ContentItemVersionId": "4v4n6qewztvcg23sq2gsyqc2d2",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Guide to T levels",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "/find-a-course",
+        "Text": "search for courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "Find a course"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/8c716e7d-787f-46e0-a029-2c34241ab0cb"
+    },
+    "ContentItemId": "47hgm4ad91adw6hbj8t1rkesnk",
+    "ContentItemVersionId": "4fpz7pna6trqkzng2kk4y4gz5t",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Find a course",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.tlevels.gov.uk/find",
+        "Text": "search for T Level courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "search for T Level courses"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/2617b615-e6a4-4cbc-9e26-ef17c36d71f7"
+    },
+    "ContentItemId": "46jkf7xjdm9ed7wjkvwhyxzhwb",
+    "ContentItemVersionId": "4gexzk5cc4k97y0vzktm4x1xw3",
+    "ContentType": "CollegeLink",
+    "DisplayText": "search for T Level courses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "funding advice for higher education courses in college"
+      }
+    },
+    "TitlePart": {
+      "Title": "Financial help for HNC-HND-FD "
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/0bb84991-a94e-4f9d-adb0-84dd78ea9e67"
+    },
+    "ContentItemId": "4tkzvh0tznqwk7nhqry3904hch",
+    "ContentItemVersionId": "4zqenhbtzre6q7xycqrntybfdn",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Financial help for HNC-HND-FD ",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/further-education-courses/financial-help",
+        "Text": "funding advice"
+      }
+    },
+    "TitlePart": {
+      "Title": "Financial Help FE"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/3549e4e4-0dc6-4d6e-88fd-2bb10314b44d"
+    },
+    "ContentItemId": "4pyz643yd3k94y3w4cs11x2w4y",
+    "ContentItemVersionId": "4vvyjjxp775gc3jt4k5thas0nk",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Financial Help FE",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/9bb39432-d9eb-488c-993f-1cbfa8f12aef"
+    },
+    "ContentItemId": "490athmpg5wbp433m7a183yjcc",
+    "ContentItemVersionId": "4v999ns4e8xcfwbr7490ydjnxa",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://nlbc.uk/partners/members/",
+        "Text": "search for agricultural colleges"
+      }
+    },
+    "TitlePart": {
+      "Title": "NLBC agri colleges"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegelink/0c5acad9-63d8-4c4f-b741-e8ee8a7ddc9f"
+    },
+    "ContentItemId": "4evkmcxxp0y7t4pg1zheye7sw4",
+    "ContentItemVersionId": "4kbjfcsax6swn732brj25vpbd3",
+    "ContentType": "CollegeLink",
+    "DisplayText": "NLBC agri colleges",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-29T13:21:24.4974931Z",
+    "PublishedUtc": "2020-04-29T13:21:24.4974931Z",
+    "CreatedUtc": "2020-04-29T13:21:24.4974931Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
