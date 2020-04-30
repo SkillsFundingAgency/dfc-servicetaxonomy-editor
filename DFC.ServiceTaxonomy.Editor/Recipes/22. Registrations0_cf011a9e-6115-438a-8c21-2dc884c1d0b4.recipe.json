@@ -1,0 +1,90 @@
+{
+  "name": "Registrations0_cf011a9e-6115-438a-8c21-2dc884c1d0b4",
+  "displayName": "Registrations0_cf011a9e-6115-438a-8c21-2dc884c1d0b4",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "QTS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll usually need \u003Ca href=\u0022https://www.gov.uk/guidance/qualified-teacher-status-qts\u0022\u003Equalified teacher status\u003C/a\u003E (QTS) to teach in a state school in England\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/registration/b4d2d6bb-feae-46aa-afb9-dcbe9153b3a9"
+    },
+    "ContentItemId": "4v23b7hsctx9tyzf7ghmtejk5y",
+    "ContentItemVersionId": "4t4vqfwg0deqc1ne91k8bbtzcj",
+    "ContentType": "Registration",
+    "DisplayText": "QTS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-30T11:42:49.5295153Z",
+    "PublishedUtc": "2020-04-30T11:42:49.5295153Z",
+    "CreatedUtc": "2020-04-30T11:42:49.5295153Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "HCPC"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with the \u003Ca href=\u0022http://www.hcpc-uk.co.uk/\u0022\u003EHealth and Care Professions Council\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/registration/788a5c70-c4c8-4428-ac01-7aec9ecbfe9c"
+    },
+    "ContentItemId": "4mfeyk9xfv46btz141qzah9b5s",
+    "ContentItemVersionId": "47bpmfycbk3rrxewt4vr39205h",
+    "ContentType": "Registration",
+    "DisplayText": "HCPC",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-30T11:42:49.5295153Z",
+    "PublishedUtc": "2020-04-30T11:42:49.5295153Z",
+    "CreatedUtc": "2020-04-30T11:42:49.5295153Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CSCS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022https://www.cscs.uk.com\u0022\u003EConstruction Skills Certification Scheme\u003C/a\u003E (CSCS) card or equivalent to train and work on a construction site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/registration/08f0e391-f0c0-4af6-acf8-b13a007f3932"
+    },
+    "ContentItemId": "4vw0nk015bzbsxha1tdthh4smm",
+    "ContentItemVersionId": "4adbfh3g3g3361s64wqy9jcc4k",
+    "ContentType": "Registration",
+    "DisplayText": "CSCS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-04-30T11:42:49.5295153Z",
+    "PublishedUtc": "2020-04-30T11:42:49.5295153Z",
+    "CreatedUtc": "2020-04-30T11:42:49.5295153Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
