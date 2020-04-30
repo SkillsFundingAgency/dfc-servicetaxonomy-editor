@@ -1,0 +1,48 @@
+{
+  "name": "Import_fdccf742-746d-4782-9512-989e127c2cb6",
+  "displayName": "Import_fdccf742-746d-4782-9512-989e127c2cb6",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationLabelContentItems0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationLabelContentItems5000_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationLabelContentItems10000_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationLabelContentItems15000_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationLabelContentItems20000_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationLabelContentItems25000_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationLabelContentItems30000_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CreateOccupationContentItems0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"SharedContent_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"QCFLevels0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"ApprenticeshipStandardRoutes0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"ApprenticeshipStandards0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"RequirementsPrefixes0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"ApprenticeshipLinks0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"ApprenticeshipRequirements0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CollegeLinks0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"CollegeRequirements0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"UniversityLinks0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"UniversityRequirements0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"DayToDayTasks0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"OtherRequirements0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"Registrations0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"Restrictions0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"SocCodes0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"ONetOccupationalCodes0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"WorkingEnvironments0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"WorkingLocations0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"WorkingUniforms0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"JobProfiles0_fdccf742-746d-4782-9512-989e127c2cb6" },
+{ "executionid": "Import_fdccf742-746d-4782-9512-989e127c2cb6", name:"JobCategories0_fdccf742-746d-4782-9512-989e127c2cb6" }
+      ]
+    }
+  ]
+}
