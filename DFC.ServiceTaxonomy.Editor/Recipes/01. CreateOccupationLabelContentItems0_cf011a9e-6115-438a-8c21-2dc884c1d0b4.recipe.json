@@ -1,0 +1,21 @@
+{
+    "name": "CreateOccupationLabelContentItems0_cf011a9e-6115-438a-8c21-2dc884c1d0b4",
+    "displayName": "CreateOccupationLabelContentItems0_cf011a9e-6115-438a-8c21-2dc884c1d0b4",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherToContent",
+            "queries": [
+                {
+                    "query": "match (l:ncs__OccupationLabel)\r\nreturn { ContentType: 'OccupationLabel', GraphSyncPart:{Text:l.uri}, TitlePart:{Title:l.skos__prefLabel}} order by l.uri\r\nskip 0 limit 5000"
+                }
+            ]
+        }
+    ]
+}
