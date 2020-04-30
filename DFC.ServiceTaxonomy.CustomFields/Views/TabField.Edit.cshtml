@@ -1,0 +1,45 @@
+﻿@model DFC.ServiceTaxonomy.CustomFields.ViewModels.EditTabFieldViewModel
+
+@{
+    var wrapperId = $"{Model.PartName}_Wrapper";
+    var content = $"{Model.PartName}_Content";
+}
+
+<script depends-on="jQuery" at="Foot">
+$(function () {
+    //wrap content pickers in .form-group so they can be picked up with the grouping below
+    $("div[data-part='@Model.PartName'][data-editor-type='ContentPicker']").each(function () {
+        $(this)
+            .add($(this).prev("label"))
+            //.add($(this).next(".collapse"))
+            .wrapAll("<div class='form-group' />");
+    });
+
+    //find all form groups within the current part and wrap in a tab pane
+    $("label[for^='@Model.PartName']")
+        .closest(".form-group")
+        .wrapAll("<div class='tab-pane' id='@content' role='tabpanel' aria-labelledby='@content-tab' />");
+
+    //if the previous element was also a tab, append this one to the previous group
+    if ($("#@content").prev().hasClass("tab-content")) {
+        //append to the previous tab content section
+        $("#@content")
+            .prev(".tab-content")
+            .append($("#@content"));
+
+        //find the tab nav for this content and append a nav item
+        $("#@content")
+            .closest(".tab-content")
+            .prev(".nav-tabs")
+            .append("<li class='nav-item'><a class='nav-link' id='@content-tab' data-toggle='tab' href='#@content' role='tab' aria-controls='@content' aria-selected='false'>@Model.TabText</a></li>");
+    //else start a new group
+    } else {
+        $("#@content").addClass("fade show active").wrapAll("<div class='tab-content' id='@wrapperId' />");
+        $("#@wrapperId").before("<ul class='nav nav-tabs' role='tablist'><li class='nav-item'><a class='nav-link active' id='@content-tab' data-toggle='tab' href='#@content' role='tab' aria-controls='@content' aria-selected='true'>@Model.TabText</a></li></ul>");
+    }
+
+    //inject the stylesheet which fixes the admin theme breaking default tab styling
+    if (!$("link[href='/DFC.ServiceTaxonomy.CustomFields/tabs.css']").length)
+        $("<link href='/DFC.ServiceTaxonomy.CustomFields/tabs.css' rel='stylesheet'>").appendTo("head");
+});
+</script>

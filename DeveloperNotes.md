@@ -170,7 +170,7 @@ could fix when create new content recipe step
 
 * order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
-* collapsible sections on content page
+* provide error/warning to use if they try to add a tab and an accordion to the same part - it isn't supported!
 
 #Templates
 
