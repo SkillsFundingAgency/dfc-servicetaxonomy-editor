@@ -1,5 +1,64 @@
 #ToDo
 
+* api function
+    load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
+    now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
+
+* where'd sync validation workflow go?
+
+* remove skip and take from importer
+
+* publish to event grid
+    how to keep aeg-sas-key header value secret? can liquid template pick up from config? no, nor javascript
+    implement IGlobalMethodProvider to provide the value
+    based on ConfigurationMethodProvider, but how to make available to workflow/liquid?
+    think we'll need a canonicalname added to every content type
+    or slugify title?
+    title simpler, but means can't change title ever. might be best to have a canonical name, but how to get from eponymous part? new custom part?
+
+{{ Workflow.Input.ContentItem.ContentType }}
+{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}
+{{ Workflow.Input.ContentItem.Content.TitlePart.Title }}
+
+topic per contenttype?
+subject: do we have {canonicalName} or {contenttype}/{canonicalName}?
+if we want the canonical name, might be difficult to get a canonicalname field from the eponymous part in liquid.
+could either have a canonical part, or slugify the title (although how would that work with bag items with no title?)
+{{ "This is some text" | slugify }}
+{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}
+
+topic per contenttype, or single topic with content type in event?
+
+id: do we put the uri in there, or just the guid? should we use it for the opaque uri or put in data?
+we could probably get away without any user data
+
+https://stax.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
+
+does id need to be event's id, ie. unique? in which case move uri to data
+
+Publish Item Published Event
+
+POST
+
+[{
+  "id": "todo guid",
+  "eventType": "published-modified",
+  "subject": "{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}",
+  "eventTime": "{{ Model.ContentItem.ModifiedUtc }}",
+  "data": {
+    "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}"
+  },
+  "dataVersion": "1.0"
+}]
+
+200, 400, 401, 404, 413
+
+
+* content picker preview : use {% layout "CustomLayout" %} rather than default theme layout, so can use default layout for admin pages??? https://docs.orchardcore.net/en/dev/docs/reference/modules/Liquid/
+    back to jumping: fix
+
+* change the importer config to have an array of settings and generate a set of recipes for each config
+
 * contentpicker with preview:
     use bag open close control
     avoid initial ajax call if pre-populated
@@ -115,7 +174,7 @@ could fix when create new content recipe step
 
 * order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
-* collapsible sections on content page
+* provide error/warning to use if they try to add a tab and an accordion to the same part - it isn't supported!
 
 #Templates
 
