@@ -3695,7 +3695,7 @@
                             "Name": "ContentPublishedEvent",
                             "X": 10,
                             "Y": 0,
-                            "IsStart": true,
+                            "IsStart": false,
                             "Properties": {
                                 "ContentTypeFilter": [],
                                 "ActivityMetadata": {
