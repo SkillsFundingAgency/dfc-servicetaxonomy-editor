@@ -208,7 +208,7 @@ namespace GetJobProfiles
 
                 foreach (var jobProfile in jobProfiles)
                 {
-                    jobProfile.EponymousPart.ApprenticeshipStandards = new ContentPicker();
+                    jobProfile.CareerPath.ApprenticeshipStandards = new ContentPicker();
 
                     var jobProfileStandardContentIds = new List<string>();
 
@@ -233,7 +233,7 @@ namespace GetJobProfiles
                         if (jobProfileStandardContentIds.Any())
                         {
                             //TODO : check for duplicates to report?
-                            jobProfile.EponymousPart.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds.Distinct();
+                            jobProfile.CareerPath.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds.Distinct();
                         }
                     }
                 }

@@ -73,7 +73,9 @@
                 "DFC.ServiceTaxonomy.GraphSync",
                 "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.GraphVisualiser",
-                "DFC.ServiceTaxonomy.Cypher"
+                "DFC.ServiceTaxonomy.Cypher",
+                "DFC.ServiceTaxonomy.CustomFields"
+
             ]
         },
         {
@@ -285,6 +287,51 @@
                             }
                         },
                         {
+                            "PartName": "JobProfileHeader",
+                            "Name": "JobProfileHeader",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "HowToBecome",
+                            "Name": "HowToBecome",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "WhatItTakes",
+                            "Name": "WhatItTakes",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "WhatYouWillDo",
+                            "Name": "WhatYouWillDo",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "CareerPath",
+                            "Name": "CareerPath",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
                             "PartName": "BagPart",
                             "Name": "EntryRoutes",
                             "Settings": {
@@ -312,7 +359,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "28"
+                                    "Position": "7"
                                 },
                                 "GraphSyncPartSettings": {
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
@@ -2081,438 +2128,7 @@
                 {
                     "Name": "JobProfile",
                     "Settings": {},
-                    "ContentPartFieldDefinitionRecords": [
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "Occupation",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Occupation",
-                                    "Editor": "Preview",
-                                    "Position": "1"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__relatedOccupation].",
-                                    "Multiple": false,
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "Occupation"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "Description",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "2"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "SOCCode",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "SOC Code",
-                                    "Position": "3"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "SOCCode"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "ONetOccupationalCode",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "ONet Occupational Code",
-                                    "Position": "4"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasONetOccupationalCode].",
-                                    "Required": true,
-                                    "DisplayedContentTypes": [
-                                        "ONetOccupationalCode"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "JobProfileSOCID",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Profile SOCID",
-                                    "Position": "5"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "JobProfileWebsiteUrl",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Profile Website Url",
-                                    "Position": "6"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "HtbTitleOptions",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Title Options",
-                                    "Editor": "PredefinedList",
-                                    "Position": "7"
-                                },
-                                "TextFieldSettings": {},
-                                "TextFieldPredefinedListEditorSettings": {
-                                    "Options": [
-                                        {
-                                            "name": "As Defined",
-                                            "value": "as_defined"
-                                        },
-                                        {
-                                            "name": "No Prefix",
-                                            "value": "no_prefix"
-                                        },
-                                        {
-                                            "name": "No Title",
-                                            "value": "no_title"
-                                        },
-                                        {
-                                            "name": "Prefix with 'a'",
-                                            "value": "prefix_with_a"
-                                        },
-                                        {
-                                            "name": "Prefix with 'an'",
-                                            "value": "prefix_with_an"
-                                        }
-                                    ],
-                                    "Editor": 1,
-                                    "DefaultValue": "as_defined"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "HtbRegistrations",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Registrations",
-                                    "Position": "8"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "Registration"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "HtbCareerTips",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Career Tips",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "9"
-                                },
-                                "HtmlFieldSettings": {},
-                                "ContentIndexSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "HtbBodies",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Professional And Industry Bodies",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "10"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "HtbFurtherInformation",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How To Become Further Information",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "11"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "WitRestrictions",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "What It Takes Restrictions",
-                                    "Position": "12"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasWitRestriction].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "Restriction"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "WitOtherRequirements",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "What It Takes Other Requirements",
-                                    "Position": "13"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "OtherRequirement"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "WitDigitalSkillsLevel",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "What It Takes Digital Skills Level",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "14"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "DayToDayTasks",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "What You'll Do Day to Day Tasks",
-                                    "Position": "15"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasDayToDayTask].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "DayToDayTask"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "WydWorkingEnvironment",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "What You'll Do Working Environment",
-                                    "Position": "16"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingEnvironment].",
-                                    "DisplayedContentTypes": [
-                                        "WorkingEnvironment"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "WydWorkingLocation",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "What You'll Do Working Location",
-                                    "Position": "17"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingLocation].",
-                                    "DisplayedContentTypes": [
-                                        "WorkingLocation"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "WydWorkingUniform",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "What You'll Do Working Uniform",
-                                    "Position": "18"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingUniform].",
-                                    "DisplayedContentTypes": [
-                                        "WorkingUniform"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "SalaryStarter",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Salary Starter",
-                                    "Position": "19"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "SalaryExperienced",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Salary Experienced",
-                                    "Position": "20"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "NumericField",
-                            "Name": "MinimumHours",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Minimum Hours",
-                                    "Position": "21"
-                                },
-                                "NumericFieldSettings": {
-                                    "Scale": 1
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "NumericField",
-                            "Name": "MaximumHours",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Maximum Hours",
-                                    "Position": "22"
-                                },
-                                "NumericFieldSettings": {
-                                    "Scale": 1
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WorkingHoursDetails",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Working Hours Details",
-                                    "Position": "23"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WorkingPattern",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Working Pattern",
-                                    "Position": "24"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "WorkingPatternDetails",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Working Pattern Details",
-                                    "Position": "25"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "HtmlField",
-                            "Name": "CareerPathAndProgression",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Career Path And Progression",
-                                    "Editor": "Trumbowyg",
-                                    "Position": "26"
-                                },
-                                "HtmlFieldSettings": {},
-                                "HtmlFieldTrumbowygEditorSettings": {
-                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "ApprenticeshipStandards",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Apprenticeship Standards",
-                                    "Position": "27"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "ApprenticeshipStandard"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        }
-                    ]
+                    "ContentPartFieldDefinitionRecords": []
                 },
                 {
                     "Name": "QCFLevel",
@@ -3324,6 +2940,536 @@
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "JobProfileHeader",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TabField",
+                            "Name": "Header",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Header",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Occupation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Occupation",
+                                    "Editor": "Preview",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__relatedOccupation].",
+                                    "Multiple": false,
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "Occupation"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "2"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SOCCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SOC Code",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "SOCCode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ONetOccupationalCode",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "ONet Occupational Code",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasONetOccupationalCode].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "ONetOccupationalCode"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "JobProfileSOCID",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profile SOCID",
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "JobProfileWebsiteUrl",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Profile Website Url",
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "SalaryStarter",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary Starter",
+                                    "Position": "7"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "SalaryExperienced",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Salary Experienced",
+                                    "Position": "8"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MinimumHours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Minimum Hours",
+                                    "Position": "9"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "MaximumHours",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Maximum Hours",
+                                    "Position": "10"
+                                },
+                                "NumericFieldSettings": {
+                                    "Scale": 1
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingHoursDetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Hours Details",
+                                    "Position": "11"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingPattern",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Pattern",
+                                    "Position": "12"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "WorkingPatternDetails",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Pattern Details",
+                                    "Position": "13"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "HowToBecome",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "HtbTitleOptions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Title Options",
+                                    "Editor": "PredefinedList",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "As Defined",
+                                            "value": "as_defined"
+                                        },
+                                        {
+                                            "name": "No Prefix",
+                                            "value": "no_prefix"
+                                        },
+                                        {
+                                            "name": "No Title",
+                                            "value": "no_title"
+                                        },
+                                        {
+                                            "name": "Prefix with 'a'",
+                                            "value": "prefix_with_a"
+                                        },
+                                        {
+                                            "name": "Prefix with 'an'",
+                                            "value": "prefix_with_an"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "as_defined"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "HtbRegistrations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Registrations",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Registration"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbCareerTips",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Career Tips",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbBodies",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Professional And Industry Bodies",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "4"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "HtbFurtherInformation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Further Information",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "5"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TabField",
+                            "Name": "HowToBecome",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "How to become",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WhatItTakes",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TabField",
+                            "Name": "WhatItTakes",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "What it takes",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WitRestrictions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Restrictions",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasWitRestriction].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Restriction"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WitOtherRequirements",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Other Requirements",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "OtherRequirement"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "WitDigitalSkillsLevel",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Digital Skills Level",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "WhatYouWillDo",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "DayToDayTasks",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Day to Day Tasks",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasDayToDayTask].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "DayToDayTask"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WydWorkingEnvironment",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Environment",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasWorkingEnvironment].",
+                                    "DisplayedContentTypes": [
+                                        "WorkingEnvironment"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WydWorkingLocation",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Location",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasWorkingLocation].",
+                                    "DisplayedContentTypes": [
+                                        "WorkingLocation"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WydWorkingUniform",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Working Uniform",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasWorkingUniform].",
+                                    "DisplayedContentTypes": [
+                                        "WorkingUniform"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TabField",
+                            "Name": "WhatYouWillDo",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "What you'll do",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "CareerPath",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TabField",
+                            "Name": "CareerPath",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Career Path",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "CareerPathAndProgression",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Career Path And Progression",
+                                    "Editor": "Trumbowyg",
+                                    "Position": "1"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipStandards",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Standards",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipStandard"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
