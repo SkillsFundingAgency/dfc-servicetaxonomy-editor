@@ -41,10 +41,14 @@ Publish Item Published Event
 POST
 
 [{
-  "id": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}",
+  "id": "todo guid",
   "eventType": "published-modified",
   "subject": "{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}",
-  "eventTime": "{{ Model.ContentItem.ModifiedUtc }}"
+  "eventTime": "{{ Model.ContentItem.ModifiedUtc }}",
+  "data": {
+    "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}"
+  },
+  "dataVersion": "1.0"
 }]
 
 200, 400, 401, 404, 413
