@@ -1,0 +1,19 @@
+﻿@model DFC.ServiceTaxonomy.CustomFields.ViewModels.EditAccordionFieldViewModel
+
+@{
+    var headerId = $"{Model.PartName}_Header";
+    var collapse = $"{Model.PartName}_Collapse";
+}
+
+    <script depends-on="jQuery" at="Foot">
+    $(function () {
+        $("label[for^='@Model.PartName']")
+            .closest(".form-group")
+            .wrapAll("<div class='collapse' id='@collapse' aria-labelledby='@headerId' />")
+            .wrapAll("<div class='card-body' />");
+
+        $("#@collapse").before("<div class='card-header' id='@headerId'><h2 class='mb-0'><button class='btn btn-link' type='button' data-toggle='collapse' data-target='#@collapse'>@Model.HeaderText</button></h2></div>");
+
+        $("#@headerId, #@collapse").wrapAll("<div class='card mb-4' />");
+    });
+    </script>

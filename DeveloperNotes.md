@@ -5,6 +5,45 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
+* use api url for id's
+
+* trumbowyg : apply gds styles to html editor content, but see https://github.com/Alex-D/Trumbowyg/issues/940
+https://github.com/Alex-D/Trumbowyg/issues/167
+
+could create new editor for html that uses trumbowyg, but uses it in a shadow dom, and prefs can specify a set of css files
+^ tumbowyg might not work inside shadow dom (e.g. if it uses jquery selector) https://robdodson.me/dont-use-jquery-with-shadow-dom/
+or find a wysiwyg component with shadow dom support and create a new html editor using it
+
+or include gds sass and use this: https://sass-lang.com/documentation/modules/meta#load-css
+note: GovUK front end plan to switch to sass modules (they have to, as import is being deprecated), see
+https://github.com/alphagov/govuk-frontend/issues/1791
+https://github.com/alphagov/govuk-design-system-architecture/pull/22
+
+not sure if govuk is compatible with bringing bits in using meta.load-css yet though. will have to suck it and see
+might have to be selective about which parts of govuk frontend we bring in
+
+"C:\Users\live\Downloads\dart-sass-1.26.3-windows-x64\dart-sass\sass" trumbowyg_scoped_govuk_frontend.scss trumbowyg_scoped_govuk_frontend.css
+
+<style asp-name="trumbowyg_scoped_govuk_frontend"></style>
+
+importer: generate this structure
+/masterrecipes/subset-no-mutators_xxx.recipe.json
+/masterrecipes/full_xxx.recipe.json
+/masterrecipes/full-no-mutators_xxx.recipe.json
+/recipes/all the sub recipes (edited)
+^ that way its easier to see and pick the master recipes
+also don't add the guid to the master recipe filename
+
+* ithc hsts > enable https feature??
+
+* shared content: how safe is it to allow users to create content with  urls/classes etc.
+ \ will need devs to be able to change content, e.g. to change classes etc.
+
+* Get help using this service : content has inline style and uses <br> for positioning
+
+* when title is set to 'editable and required', hint is shown as 'The title of the content item. It will be automatically generated.'.
+^ create oc pr?
+
 * api: GetJobProfilesBySearchTerm should tolower the search term
 
 * don't log to file in env, only ai: add nlog.Development.config?
@@ -76,7 +115,7 @@ could fix when create new content recipe step
 
 * order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
-* collapsible sections on content page
+* provide error/warning to use if they try to add a tab and an accordion to the same part - it isn't supported!
 
 #Templates
 
