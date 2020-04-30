@@ -16,6 +16,8 @@
     or slugify title?
     title simpler, but means can't change title ever. might be best to have a canonical name, but how to get from eponymous part? new custom part?
 
+inject the content type into the topic url - will have to set up more topic - do in dev if available
+
 {{ Workflow.Input.ContentItem.ContentType }}
 {{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}
 {{ Workflow.Input.ContentItem.Content.TitlePart.Title }}
