@@ -3718,15 +3718,31 @@
                                 },
                                 "HttpMethod": "POST",
                                 "Body": {
-                                    "Expression": "[{\r\n  \"id\": \"todo guid\",\r\n  \"eventType\": \"published-modified\",\r\n  \"subject\": \"{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}\",\r\n  \"eventTime\": \"{{ Model.ContentItem.ModifiedUtc }}\",\r\n  \"data\": {\r\n    \"api\": \"{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}\"\r\n  },\r\n  \"dataVersion\": \"1.0\"\r\n}]"
+                                    "Expression": "[{\r\n  \"id\": \"{{ Workflow.Input.ContentItem.ContentItemVersionId }}\",\r\n  \"eventType\": \"published-modified\",\r\n  \"subject\": \"{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}\",\r\n  \"eventTime\": \"{{ Workflow.Input.ContentItem.ModifiedUtc | date: \"%Y-%m-%dT%H:%M:%S.%LZ\" }}\",\r\n  \"data\": {\r\n    \"api\": \"{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}\"\r\n  },\r\n  \"dataVersion\": \"1.0\"\r\n}]"
                                 },
                                 "ContentType": {
                                     "Expression": "application/json"
                                 },
                                 "Headers": {
-                                    "Expression": "aeg-sas-key: {{config(\"aeg-sas-key\";)}}"
+                                    "Expression": "aeg-sas-key: {{ Workflow.Properties[\"aeg-sas-key\"] | raw }}"
                                 },
                                 "HttpResponseCodes": "200, 400, 401, 404, 413"
+                            }
+                        },
+                        {
+                            "ActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
+                            "Name": "SetPropertyTask",
+                            "X": 0,
+                            "Y": 230,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": null
+                                },
+                                "PropertyName": "aeg-sas-key",
+                                "Value": {
+                                    "Expression": "config(input('ContentItem').ContentType + '-aeg-sas-key')"
+                                }
                             }
                         }
                     ],
@@ -3734,6 +3750,12 @@
                         {
                             "Id": 0,
                             "SourceActivityId": "403hk5pkkxfkrt5eyctqmr1a4h",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "4gtgm5sznv50fx59ah48td3cd4"
                         }

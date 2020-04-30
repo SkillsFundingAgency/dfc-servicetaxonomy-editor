@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.Editor.MethodProviders
 
         public IEnumerable<GlobalMethod> GetMethods()
         {
-            yield return _globalMethod;
+            return new[] { _globalMethod };
         }
     }
 }

@@ -34,17 +34,15 @@ we could probably get away without any user data
 
 https://stax.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
 
-does id need to be event's id, ie. unique? in which case move uri to data
-
 Publish Item Published Event
 
 POST
 
 [{
-  "id": "todo guid",
+  "id": "{{ Workflow.Input.ContentItem.ContentItemVersionId }}",
   "eventType": "published-modified",
   "subject": "{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}",
-  "eventTime": "{{ Model.ContentItem.ModifiedUtc }}",
+  "eventTime": "{{ Workflow.Input.ContentItem.ModifiedUtc | date: "%Y-%m-%dT%H:%M:%S.%7NZ" }}",
   "data": {
     "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}"
   },
@@ -53,6 +51,12 @@ POST
 
 200, 400, 401, 404, 413
 
+date filter doesn't like %7N or similar, so we use %L for now which might cause issues as not fine grained enough, although event grid accepts the datetime
+it's not supported: https://github.com/sebastienros/fluid/blob/dev/Fluid/Filters/MiscFilters.cs
+we could use set property - js to set the time in the proper format
+not sure if using ContentItemVersionId will give us dupes, if so use uuid instead
+
+config(input('ContentItem') + '-aeg-sas-key')
 
 * content picker preview : use {% layout "CustomLayout" %} rather than default theme layout, so can use default layout for admin pages??? https://docs.orchardcore.net/en/dev/docs/reference/modules/Liquid/
     back to jumping: fix

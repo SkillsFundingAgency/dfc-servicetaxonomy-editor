@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+//using OrchardCore.Modules;
 using OrchardCore.Scripting;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
+    //[RequireFeatures("OrchardCore.Scripting")]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -23,6 +25,7 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.AddOrchardCms();
 
+            //services.AddScripting();
             services.AddSingleton<IGlobalMethodProvider, ConfigMethodProvider>();
         }
 
