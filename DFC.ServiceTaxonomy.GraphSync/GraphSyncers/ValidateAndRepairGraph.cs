@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -31,6 +32,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
+
+        private static List<string> GroupingFields = new List<string> { nameof(TabField), nameof(AccordionField) };
 
         public ValidateAndRepairGraph(
             IContentDefinitionManager contentDefinitionManager,
@@ -195,7 +198,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string partTypeName = contentTypePartDefinition.PartDefinition.Name;
                 string partName = contentTypePartDefinition.Name;
                 if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
-                    && partName == contentTypePartDefinition.ContentTypeDefinition.Name)
+                    && (partName == contentTypePartDefinition.ContentTypeDefinition.Name ||
+                        contentTypePartDefinition.PartDefinition.Fields.Any(f => GroupingFields.Contains(f.FieldDefinition.Name))))
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }

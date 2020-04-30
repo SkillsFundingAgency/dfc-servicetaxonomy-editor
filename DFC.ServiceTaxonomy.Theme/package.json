@@ -1,0 +1,25 @@
+{
+  "name": "dfc.servicetaxonomy.theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor.git"
+  },
+  "author": "Education and Skills Funding Agency Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor/issues"
+  },
+  "homepage": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor#readme",
+  "devDependencies": {
+    "sass": "^1.26.5"
+  },
+  "dependencies": {
+    "govuk-frontend": "^3.6.0"
+  }
+}

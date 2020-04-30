@@ -5,7 +5,46 @@
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
-* add guid to recipe names and add simon's subset to git
+* use api url for id's
+
+* trumbowyg : apply gds styles to html editor content, but see https://github.com/Alex-D/Trumbowyg/issues/940
+https://github.com/Alex-D/Trumbowyg/issues/167
+
+could create new editor for html that uses trumbowyg, but uses it in a shadow dom, and prefs can specify a set of css files
+^ tumbowyg might not work inside shadow dom (e.g. if it uses jquery selector) https://robdodson.me/dont-use-jquery-with-shadow-dom/
+or find a wysiwyg component with shadow dom support and create a new html editor using it
+
+or include gds sass and use this: https://sass-lang.com/documentation/modules/meta#load-css
+note: GovUK front end plan to switch to sass modules (they have to, as import is being deprecated), see
+https://github.com/alphagov/govuk-frontend/issues/1791
+https://github.com/alphagov/govuk-design-system-architecture/pull/22
+
+not sure if govuk is compatible with bringing bits in using meta.load-css yet though. will have to suck it and see
+might have to be selective about which parts of govuk frontend we bring in
+
+"C:\Users\live\Downloads\dart-sass-1.26.3-windows-x64\dart-sass\sass" trumbowyg_scoped_govuk_frontend.scss trumbowyg_scoped_govuk_frontend.css
+
+<style asp-name="trumbowyg_scoped_govuk_frontend"></style>
+
+importer: generate this structure
+/masterrecipes/subset-no-mutators_xxx.recipe.json
+/masterrecipes/full_xxx.recipe.json
+/masterrecipes/full-no-mutators_xxx.recipe.json
+/recipes/all the sub recipes (edited)
+^ that way its easier to see and pick the master recipes
+also don't add the guid to the master recipe filename
+
+* ithc hsts > enable https feature??
+
+* shared content: how safe is it to allow users to create content with  urls/classes etc.
+ \ will need devs to be able to change content, e.g. to change classes etc.
+
+* Get help using this service : content has inline style and uses <br> for positioning
+
+* when title is set to 'editable and required', hint is shown as 'The title of the content item. It will be automatically generated.'.
+^ create oc pr?
+
+* api: GetJobProfilesBySearchTerm should tolower the search term
 
 * don't log to file in env, only ai: add nlog.Development.config?
 
@@ -76,7 +115,7 @@ could fix when create new content recipe step
 
 * order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
-* collapsible sections on content page
+* provide error/warning to use if they try to add a tab and an accordion to the same part - it isn't supported!
 
 #Templates
 
@@ -121,23 +160,55 @@ we could leave the preferred title out of the occupation preview, but (for now a
 
 we have code to display the label of the preflabel content picker in the contentpicker list, and we could make occupation not listable (so the poor displaytext is not seen), but the content picker search is still on the displaytext (title), not the preflabel picker, even though that is the value that's displayed
 
+#Label improvements
+
+##PrefLabel
+For an occupation’s prefLabel, we could use
+
+```
+match (:esco__Occupation)-[:skosxl__prefLabel]->(pl:skosxl__Label)
+return pl.skosxl__literalForm
+```
+although we couldn’t use the current Title part. We could have the label as an ordinary field and change the config on the content picker preview field in job profile.
+
+However there are other (roughly 30) skosxl__Label nodes off each occupation related by skosxl__prefLabel, that are mostly junk. Apart from id and uri, the only property they contain is esco__hasLabelRole and the node set contains 1 or 2 separate values and there are no other relationships from/to the nodes. The value set is
+
+```
+"http://data.europa.eu/esco/label-role/neutral"
+"http://data.europa.eu/esco/label-role/standard-male"
+"http://data.europa.eu/esco/label-role/female"
+"http://data.europa.eu/esco/label-role/male"
+```
+It may be, that although we filter by “en” language, we still get a set of 1 or 2 nodes for each language.
+
+We could remove all the extra nodes after import, either all of them, or leave 1 each for each distinct label role, in case we want to know the gender of the label at some point.
+
+##AltLabel
+AltLabel is similar to prefLabel, in that there are nodes that follow the same pattern. The difference with altLabel, is that because the gender nodes are only related to the occupation and not the label node (same as prefLabel), the gender nodes are useless as there’s no means to link the gender role to a particular label. (As there is only 1 prefLabel node, the gender nodes, although not related to the label node, is obviously for the single prefLabel.)
+
 #Helpful Cypher
+
+##Delete ncs node data
+
+To delete NCS node data (leaving the original ESCO data):
+
+```match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n```
 
 ##Testing graph validation
 
 ###Test text field incorrect
 
-match (n:ncs__JobProfile) where n.skos__prefLabel = 'MP' set n.ncs__WorkingPatternDetails='new' return n
+```match (n:ncs__JobProfile) where n.skos__prefLabel = 'MP' set n.ncs__WorkingPatternDetails='new' return n```
 
 ###Test content picker missing relationship
 
 View:
 
-match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' return o, r, d
+```match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' return o, r, d```
 
 Remove expected relationship:
 
-match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' delete r
+```match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' delete r```
 
 #Links
 
