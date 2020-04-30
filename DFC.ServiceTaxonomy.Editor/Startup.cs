@@ -1,7 +1,9 @@
+using DFC.ServiceTaxonomy.Editor.MethodProviders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OrchardCore.Scripting;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -20,6 +22,8 @@ namespace DFC.ServiceTaxonomy.Editor
                 options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
             services.AddOrchardCms();
+
+            services.AddSingleton<IGlobalMethodProvider, ConfigMethodProvider>();
 
             // services.AddScoped<IResourceManifestProvider, ResourceManifest>();
             //

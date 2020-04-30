@@ -11,7 +11,10 @@
 * publish to event grid
     how to keep aeg-sas-key header value secret? can liquid template pick up from config? no, nor javascript
     implement IGlobalMethodProvider to provide the value
+    based on ConfigurationMethodProvider, but how to make available to workflow/liquid?
     think we'll need a canonicalname added to every content type
+    or slugify title?
+    title simpler, but means can't change title ever. might be best to have a canonical name, but how to get from eponymous part? new custom part?
 
 {{ Workflow.Input.ContentItem.ContentType }}
 {{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}
@@ -24,8 +27,16 @@ could either have a canonical part, or slugify the title (although how would tha
 {{ "This is some text" | slugify }}
 {{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}
 
+topic per contenttype, or single topic with content type in event?
+
 id: do we put the uri in there, or just the guid? should we use it for the opaque uri or put in data?
 we could probably get away without any user data
+
+https://stax.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
+
+does id need to be event's id, ie. unique? in which case move uri to data
+
+Publish Item Published Event
 
 POST
 
