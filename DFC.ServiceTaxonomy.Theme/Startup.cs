@@ -1,5 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DFC.ServiceTaxonomy.Editor.Filters;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
+using OrchardCore.ResourceManagement;
 
 namespace DFC.ServiceTaxonomy.Theme
 {
@@ -7,7 +10,14 @@ namespace DFC.ServiceTaxonomy.Theme
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            // services.AddScoped<IResourceManifestProvider, ResourceManifest>();
+            services.AddScoped<IResourceManifestProvider, ResourceManifest>();
+
+            //todo: use extension?
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(typeof(ResourceInjectionFilter));
+            });
+
         }
     }
 }

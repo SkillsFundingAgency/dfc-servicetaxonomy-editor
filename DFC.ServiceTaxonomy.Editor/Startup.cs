@@ -24,13 +24,6 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddOrchardCms();
 
             services.AddSingleton<IGlobalMethodProvider, ConfigMethodProvider>();
-
-            // services.AddScoped<IResourceManifestProvider, ResourceManifest>();
-            //
-            // services.Configure<MvcOptions>((options) =>
-            // {
-            //     options.Filters.Add(typeof(ResourceInjectionFilter));
-            // });
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)

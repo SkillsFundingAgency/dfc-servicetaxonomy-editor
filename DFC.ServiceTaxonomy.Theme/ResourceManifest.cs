@@ -12,7 +12,12 @@ namespace DFC.ServiceTaxonomy.Theme
 
             manifest
                 .DefineScript("StaxTheme-trumbowyg-scoped-govuk-frontend")
-                .SetUrl("~/DFC.ServiceTaxonomy.Theme/wwwroot/Styles/trumbowyg-scoped-govuk-frontend.min.css", "~/DFC.ServiceTaxonomy.Theme/wwwroot/Styles/trumbowyg-scoped-govuk-frontend.css")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/trumbowyg-scoped-govuk-frontend.min.css", "~/DFC.ServiceTaxonomy.Theme/wwwroot/Styles/trumbowyg-scoped-govuk-frontend.css")
+                .SetVersion("1.0.0");
+
+            manifest
+                .DefineScript("ncs")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Scripts/ncs.js")
                 .SetVersion("1.0.0");
         }
     }
