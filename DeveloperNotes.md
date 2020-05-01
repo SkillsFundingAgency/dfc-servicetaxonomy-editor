@@ -26,7 +26,11 @@ https://github.com/microsoft/ApplicationInsights-dotnet/issues/1427
 https://stackoverflow.com/questions/58550335/application-insights-correlation-through-event-grid
 here a function pipes it on to ai: https://techcommunity.microsoft.com/t5/azure-global/event-driven-serverless-apps-with-azure-event-grid-and-azure/ba-p/355634
 is it possible to link them directly?
-add workflow correlation id to message
+add workflow correlation id to message - try and tie in with ai and event correlationid, or use oc correlationid?
+
+need endpoint to come from config
+
+once we start having consumers - won't be able to just regenerate recipes and end up with different uri's for each content item
 
 todo
     eventTime to 7dp? do in create property using js - required?
