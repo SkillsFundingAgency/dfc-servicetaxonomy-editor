@@ -58,6 +58,8 @@ id: do we put the uri in there, or just the guid? should we use it for the opaqu
 we could probably get away without any user data
 
 https://stax.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
+https://stax-{{ Workflow.Input.ContentItem.ContentType }}.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
+
 
 Publish Item Published Event
 
@@ -67,12 +69,14 @@ POST
   "id": "{{ Workflow.Input.ContentItem.ContentItemVersionId }}",
   "eventType": "published-modified",
   "subject": "{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}",
-  "eventTime": "{{ Workflow.Input.ContentItem.ModifiedUtc | date: "%Y-%m-%dT%H:%M:%S.%7NZ" }}",
+  "eventTime": "{{ Workflow.Input.ContentItem.ModifiedUtc | date: "%Y-%m-%dT%H:%M:%S.%LZ" }}",
   "data": {
     "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}"
   },
   "dataVersion": "1.0"
 }]
+
+aeg-sas-key: {{ Workflow.Properties["aeg-sas-key"] | raw }}
 
 200, 400, 401, 404, 413
 

@@ -1932,23 +1932,13 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "CanonicalName",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Canonical Name",
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "HtmlField",
                             "Name": "Content",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Content",
                                     "Editor": "Trumbowyg",
-                                    "Position": "1"
+                                    "Position": "0"
                                 },
                                 "HtmlFieldSettings": {
                                     "Hint": "The shared content."
