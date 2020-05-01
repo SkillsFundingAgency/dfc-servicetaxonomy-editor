@@ -1,0 +1,162 @@
+{
+  "name": "RequirementsPrefixes0_da372687-584e-4970-a5e4-faca12f896e9",
+  "displayName": "RequirementsPrefixes0_da372687-584e-4970-a5e4-faca12f896e9",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Employers will set their own entry requirements."
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003EEmployers will set their own entry requirements.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/cf0707db-9695-47e9-adda-2dcea9bfd3de"
+    },
+    "ContentItemId": "4mw014k21cfek5zf05gz6bv9dd",
+    "ContentItemVersionId": "415g4psrqjaqs5cep0jrz06pw4",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "Employers will set their own entry requirements.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T10:07:30.1635563Z",
+    "PublishedUtc": "2020-05-01T10:07:30.1635563Z",
+    "CreatedUtc": "2020-05-01T10:07:30.1635563Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You may need:"
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may need:\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/27ed81b6-83d6-44c7-ad7e-bb330b474e2a"
+    },
+    "ContentItemId": "4a4aqjnh2p84424mh7qqnbw85h",
+    "ContentItemVersionId": "4ywnne9r8psyn7qyympr51k0m6",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "You may need:",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T10:07:30.1635563Z",
+    "PublishedUtc": "2020-05-01T10:07:30.1635563Z",
+    "CreatedUtc": "2020-05-01T10:07:30.1635563Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "There are no set entry requirements for this route."
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003EThere are no set entry requirements for this route.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/d4446765-98de-4b02-b1c4-52cae05ab671"
+    },
+    "ContentItemId": "4jdm4cnkabrb20g9eya3868yx3",
+    "ContentItemVersionId": "4ehvkysrta1taskdzdw606r7w5",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "There are no set entry requirements for this route.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T10:07:30.1635563Z",
+    "PublishedUtc": "2020-05-01T10:07:30.1635563Z",
+    "CreatedUtc": "2020-05-01T10:07:30.1635563Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You\u0027ll usually need:"
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need:\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/31966272-0ab6-4465-9a9d-f2adc7484a2e"
+    },
+    "ContentItemId": "4rgzrhsxrep2nra1yzqt50vsm4",
+    "ContentItemVersionId": "445sya6ywda8t4w7349c8s3tc6",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "You\u0027ll usually need:",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T10:07:30.1635563Z",
+    "PublishedUtc": "2020-05-01T10:07:30.1635563Z",
+    "CreatedUtc": "2020-05-01T10:07:30.1635563Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "To do this apprenticeship, you\u0027ll need:"
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003ETo do this apprenticeship, you\u0027ll need:\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/11be635e-01a8-475c-b85a-26c439067803"
+    },
+    "ContentItemId": "4tw7hqycfhcwq2y1sqed8afbx5",
+    "ContentItemVersionId": "4k469j9jm61h25s5gc74wzkp52",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "To do this apprenticeship, you\u0027ll need:",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T10:07:30.1635563Z",
+    "PublishedUtc": "2020-05-01T10:07:30.1635563Z",
+    "CreatedUtc": "2020-05-01T10:07:30.1635563Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "There are no set entry requirements but it may help you to get in if you have:"
+    },
+    "RequirementsPrefix": {
+      "Description": {
+        "Html": "\u003Cp\u003EThere are no set entry requirements but it may help you to get in if you have:\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/requirementsprefix/d9abd42c-a674-4dbc-b331-6690b291644a"
+    },
+    "ContentItemId": "425bch06cekpv47tqb82tvqxds",
+    "ContentItemVersionId": "49302ynce7ar70j1ahd8gey6mp",
+    "ContentType": "RequirementsPrefix",
+    "DisplayText": "There are no set entry requirements but it may help you to get in if you have:",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T10:07:30.1635563Z",
+    "PublishedUtc": "2020-05-01T10:07:30.1635563Z",
+    "CreatedUtc": "2020-05-01T10:07:30.1635563Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
