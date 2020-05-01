@@ -176,6 +176,8 @@ namespace GetJobProfiles
 
             _oNetDictionary.TryGetValue(jobProfile.Title, out var oNetContentItemIds);
 
+            oNetContentItemIds ??= _oNetDictionary[ONetConverter.UnknownJobProfile];
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart(),
