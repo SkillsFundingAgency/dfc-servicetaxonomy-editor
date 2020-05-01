@@ -21,6 +21,11 @@ problem is field is marked required, and importing a jp with it null triggers va
 use guid from ui as subject
 include title for human readability
 have single topic for all content types and have subscriber which sends data into app insights - if not already supported
+see
+https://github.com/microsoft/ApplicationInsights-dotnet/issues/1427
+https://stackoverflow.com/questions/58550335/application-insights-correlation-through-event-grid
+here a function pipes it on to ai: https://techcommunity.microsoft.com/t5/azure-global/event-driven-serverless-apps-with-azure-event-grid-and-azure/ba-p/355634
+is it possible to link them directly?
 add workflow correlation id to message
 
 todo
@@ -60,18 +65,25 @@ we could probably get away without any user data
 https://stax.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
 https://stax-{{ Workflow.Input.ContentItem.ContentType }}.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
 
+having subject as /contenttype/id
+allows filtering by content type using subjectBeginsWith
+and filtering by content can use either subjectBeginsWith or subjectEndsWith
+do we want an initial /stax/ just in case there are other sources of content:eye?
+max 5 advanced filters per subscription, so best to make the most of the standard properties
 
 Publish Item Published Event
 
 POST
 
 [{
-  "id": "{{ Workflow.Input.ContentItem.ContentItemVersionId }}",
+  "id": "{{ Workflow.CorrelationId }}",
   "eventType": "published-modified",
-  "subject": "{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}",
+  "subject": "/stax/{{ Workflow.Input.ContentItem.ContentType }}/{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text | slice: -36, 36 }}",
   "eventTime": "{{ Workflow.Input.ContentItem.ModifiedUtc | date: "%Y-%m-%dT%H:%M:%S.%LZ" }}",
   "data": {
-    "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}"
+    "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}",
+    "versionId": "{{ Workflow.Input.ContentItem.ContentItemVersionId }}",
+    "displayText": "{{ Workflow.Input.ContentItem.DisplayText }}"
   },
   "dataVersion": "1.0"
 }]
