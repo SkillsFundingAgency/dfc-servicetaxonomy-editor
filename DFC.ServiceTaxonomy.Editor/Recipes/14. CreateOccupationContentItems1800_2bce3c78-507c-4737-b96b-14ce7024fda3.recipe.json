@@ -1,0 +1,21 @@
+{
+    "name": "CreateOccupationContentItems1800_2bce3c78-507c-4737-b96b-14ce7024fda3",
+    "displayName": "CreateOccupationContentItems1800_2bce3c78-507c-4737-b96b-14ce7024fda3",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherToContent",
+            "queries": [
+                {
+                    "query": "MATCH (o:esco__Occupation)\r\n\r\nreturn { ContentType: 'Occupation', TitlePart:{Title:o.skos__prefLabel}\r\n,GraphSyncPart:{Text:o.uri},\r\nOccupation:\r\n{AlternativeLabels:{ContentItemIds:[(o)-[:ncs__hasAltLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']},PreferredLabel:{ContentItemIds:[(o)-[:ncs__hasPrefLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']}\r\n}\r\n}\r\norder by o.skos__prefLabel\r\nskip 1800 limit 300"
+                }
+            ]
+        }
+    ]
+}

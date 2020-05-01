@@ -1,0 +1,418 @@
+{
+  "name": "ApprenticeshipLinks0_2bce3c78-507c-4737-b96b-14ce7024fda3",
+  "displayName": "ApprenticeshipLinks0_2bce3c78-507c-4737-b96b-14ce7024fda3",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://apply.army.mod.uk/what-we-offer/regular-soldier/skills",
+        "Text": "Army apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Army apps"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/72cc7761-39f3-4364-a485-ccd0f1594d13"
+    },
+    "ContentItemId": "4pn05e72wfjj71gdqfx2371j4f",
+    "ContentItemVersionId": "4brcje2hs1rhy3a1ggzsen385k",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Army apps",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/apprenticeships-guide",
+        "Text": "guide to apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Apprenticeship Guide"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/3a9521f3-463c-45f6-af87-6f6e1f81fb15"
+    },
+    "ContentItemId": "4yxr4ynvafn7ct8ce8gvt3tedc",
+    "ContentItemVersionId": "42e4962nx7tamt17es3rhjz1cz",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Show Apprenticeship Guide",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/549f772c-41f1-4522-8ae2-b44d284d721b"
+    },
+    "ContentItemId": "43anh9qetbh753crc37p6nvs59",
+    "ContentItemVersionId": "45a3m6tf27z62wk2v6r422fxcc",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gchq-careers.co.uk/early-careers/apprenticeships.html",
+        "Text": "GCHQ apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "GCHQ"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/9b28e9eb-96a3-4be2-afad-941d1e791b54"
+    },
+    "ContentItemId": "4y92c12gfv7mvw2c8cze75vewh",
+    "ContentItemVersionId": "45ykd9hdkqd4pzwnxe56acntn4",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "GCHQ",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.bbc.co.uk/careers/trainee-schemes-and-apprenticeships",
+        "Text": "BBC apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "BBC Academy"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/d3bcc0dc-2792-472a-a720-7de52ee6fcf8"
+    },
+    "ContentItemId": "47j0vxtfdm4hf43804ta5x7yx7",
+    "ContentItemVersionId": "4a3np2r33bd8w7twzwwk7pna5n",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "BBC Academy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "http://www.uka.org.uk/performance/olympic-performance-pathway/aase-2018/",
+        "Text": "British Athletics AASE"
+      }
+    },
+    "TitlePart": {
+      "Title": "British Athletics AASE"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/96ba7f6e-eef0-45c4-8ab3-0bf319726fc9"
+    },
+    "ContentItemId": "4kp0qnnqct6a1xv1ycvxahkz42",
+    "ContentItemVersionId": "4abttd64a1dmy4qn54q8d803dw",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "British Athletics AASE",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "http://www.skillsactive.com/standards-quals/apprenticeships/aase",
+        "Text": "AASE"
+      }
+    },
+    "TitlePart": {
+      "Title": "AASE"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/8f4277e8-4fab-4c88-9822-90568a5379e5"
+    },
+    "ContentItemId": "44s2ftx41akkev2hbvfzy72g56",
+    "ContentItemVersionId": "4c6345k2j60fw70b35sv9kaywp",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "AASE",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.raf.mod.uk/recruitment/apprenticeships/",
+        "Text": "RAF apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "RAF apps"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/2f98d109-e100-43d1-a65d-cb9979ac36fa"
+    },
+    "ContentItemId": "4x15az8d5ddhpw6n44byxgk45y",
+    "ContentItemVersionId": "4pcvq8hmg02hh33vb7abneavdh",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "RAF apps",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.jobs.nhs.uk/",
+        "Text": "search for apprenticeships on NHS Jobs"
+      }
+    },
+    "TitlePart": {
+      "Title": "NHS Jobs for apps"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/804b1ae5-d532-47f4-8e01-1909f72ba761"
+    },
+    "ContentItemId": "449kgkn3pvn135zqhncp320qm0",
+    "ContentItemVersionId": "4tgfkqdn1d0ejz6abkrv5wg9n7",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "NHS Jobs for apps",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.networkrail.co.uk/careers/apprenticeships/",
+        "Text": "Network Rail apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Network Rail Apprenticeships"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/78b68dd0-2383-4c55-bdef-18c60b79d4eb"
+    },
+    "ContentItemId": "45nq8zd0jymr701dkyhvpbawd1",
+    "ContentItemVersionId": "49ys9pc41xrxf4mgqmr846c54v",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Network Rail Apprenticeships",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/government/publications/higher-and-degree-apprenticeships",
+        "Text": "higher and degree apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Higher and Degree Apprenticeships"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/f34132cc-2e23-4c69-b5fa-ca36cc743de6"
+    },
+    "ContentItemId": "431hrmz8aam2h5f0m5gpk4eawc",
+    "ContentItemVersionId": "4g2nznhn8xrbj3r5ws0mvkg6xj",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Higher and Degree Apprenticeships",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://careers.channel4.com/4talent/apprenticeships",
+        "Text": "Channel 4 apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Channel 4"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/e72cf2e0-ff4a-4720-9b9c-70b07cdb1f0e"
+    },
+    "ContentItemId": "4zw8cgm7mn5vh7ce3rtrrnsbx1",
+    "ContentItemVersionId": "46hqq1azt6mhdw9hk9a4dqv05f",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Channel 4",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.royalnavy.mod.uk/careers/levels-of-entry/apprenticeships",
+        "Text": "Royal Navy apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Navy apps"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/aaef9c58-dbd7-4103-904f-3a0437a23a7a"
+    },
+    "ContentItemId": "4hc1bekj3pbea5tgv6gwdw3rwq",
+    "ContentItemVersionId": "4zdgpay6qchekt4t1ebkmffjce",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Navy apps",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "http://www.itvjobs.com/business-areas/entry-careers/apprenticeship-programme/",
+        "Text": "ITV apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "ITV"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/199ff6da-c5d5-467d-83f4-9d6f03713bcb"
+    },
+    "ContentItemId": "4nr9akbqmn05r2yza4js19qcwq",
+    "ContentItemVersionId": "4yyyw14zwdytpzbecf78ychbxd",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "ITV",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://tfl.gov.uk/corporate/careers/apprenticeships",
+        "Text": "Transport for London apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Transport for London Apprenticeships"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/0ffdb0f3-5e1e-4681-8bba-b29f9df0d566"
+    },
+    "ContentItemId": "43v2a38h5zk5t295aejpnt2sxa",
+    "ContentItemVersionId": "4g3zmqfzax9z7vta1p1cpq1jmw",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Transport for London Apprenticeships",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://getintoteaching.education.gov.uk/explore-my-options/teacher-training-routes/school-led-training/school-direct-salaried",
+        "Text": "postgraduate teaching apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Postgrad teaching apprenticeships"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshiplink/6dff9db6-6ab3-463a-8db8-990b05e14923"
+    },
+    "ContentItemId": "47q4htv3hx0hvtj4hnhwwdhsx8",
+    "ContentItemVersionId": "4wbaqh6nbtnexrpcn8xy8f6ed4",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Postgrad teaching apprenticeships",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-01T08:00:50.1777376Z",
+    "PublishedUtc": "2020-05-01T08:00:50.1777376Z",
+    "CreatedUtc": "2020-05-01T08:00:50.1777376Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
