@@ -4,11 +4,34 @@
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
     now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
 
+* add placeholder content item for onet and if we don't have an onet for a jp, set the content picker in the jp in the importer to point to the placeholder onet
+problem is field is marked required, and importing a jp with it null triggers validation errors aas part of graph sync
+
 * where'd sync validation workflow go?
+
+* ass support for searching within content items e.g. filter content items by uri (add indexes for content items?)
 
 * remove skip and take from importer
 
 * publish to event grid
+    open questions: event domain or multiple topics or single topic?
+    single eventtype or split into eventtype and custom property?
+    slugified title as subject or canonical name field (custom part?)
+
+use guid from ui as subject
+include title for human readability
+have single topic for all content types and have subscriber which sends data into app insights - if not already supported
+add workflow correlation id to message
+
+todo
+    eventTime to 7dp? do in create property using js - required?
+    how best to handle keys. current method insecure. workflows for admin only? might have to abandon http request task for custom task?
+    separate workflows for published/unpublished etc.?
+    create/modified/deleted
+    remove ncs__ prefix on properties (& rename skos__prefLabel? but then inconsistent with esco)
+
+    do we want an event domain - publish to single endpoint and event contains topic as opposed to endpoint per topic?
+    or could have a single topic for content (prob not??)
     how to keep aeg-sas-key header value secret? can liquid template pick up from config? no, nor javascript
     implement IGlobalMethodProvider to provide the value
     based on ConfigurationMethodProvider, but how to make available to workflow/liquid?
