@@ -63,7 +63,7 @@
                 {
                     <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                         @* todo: user id in results *@
-                        <span><i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId</span>
+                        <span><i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId @@ endpoint @validationFailure.Endpoint</span>
                     </li>
 
                     <ul class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
@@ -79,7 +79,7 @@
             <ul class="list-group collapse" id="repaired">
                 @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Repaired)
                 {
-                    <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
+                <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
                 }
             </ul>
 

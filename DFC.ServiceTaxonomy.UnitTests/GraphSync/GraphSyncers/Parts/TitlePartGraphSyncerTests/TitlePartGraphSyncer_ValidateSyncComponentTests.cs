@@ -71,7 +71,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
                 NodeWithOutgoingRelationships,
                 GraphSyncHelper,
                 GraphValidationHelper,
-                ExpectedRelationshipCounts);
+                ExpectedRelationshipCounts,
+                string.Empty);
         }
     }
 }

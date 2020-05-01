@@ -89,7 +89,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+            IDictionary<string, int> expectedRelationshipCounts,
+            string endpoint)
         {
             IEnumerable<ContentItem>? contentItems = content["ContentItems"]?.ToObject<IEnumerable<ContentItem>>();
             if (contentItems == null)
@@ -102,7 +103,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 ContentTypeDefinition bagPartContentTypeDefinition = _contentTypes[bagPartContentItem.ContentType];
 
                 (bool validated, string failureReason) =
-                    await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition);
+                    await graphSyncValidator.ValidateContentItem(bagPartContentItem, bagPartContentTypeDefinition, endpoint);
+
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
 
