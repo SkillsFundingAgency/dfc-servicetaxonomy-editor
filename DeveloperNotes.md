@@ -82,7 +82,7 @@ POST
 [{
   "id": "{{ Workflow.CorrelationId }}",
   "eventType": "published-modified",
-  "subject": "/stax/{{ Workflow.Input.ContentItem.ContentType }}/{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text | slice: -36, 36 }}",
+  "subject": "/content/{{ Workflow.Input.ContentItem.ContentType }}/{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text | slice: -36, 36 }}",
   "eventTime": "{{ Workflow.Input.ContentItem.ModifiedUtc | date: "%Y-%m-%dT%H:%M:%S.%LZ" }}",
   "data": {
     "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}",
