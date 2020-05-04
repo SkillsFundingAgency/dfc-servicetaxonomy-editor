@@ -45,6 +45,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0-preview.3.20214.6" />
   </ItemGroup>
 
   <ItemGroup>

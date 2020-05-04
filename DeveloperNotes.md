@@ -1,5 +1,7 @@
 #ToDo
 
+* remove soccode id
+
 * api function
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
     now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
@@ -9,7 +11,7 @@ problem is field is marked required, and importing a jp with it null triggers va
 
 * where'd sync validation workflow go?
 
-* ass support for searching within content items e.g. filter content items by uri (add indexes for content items?)
+* add support for searching within content items e.g. filter content items by uri (add indexes for content items?)
 
 * remove skip and take from importer
 

@@ -4,6 +4,16 @@
       <TargetFramework>netcoreapp3.1</TargetFramework>
       <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
       <Nullable>enable</Nullable>
+
+      <Authors>Education and Skills Funding Agency Team</Authors>
+      <Description>DFC.ServiceTaxonomy.Neo4j library</Description>
+      <PackageLicenseUrl>https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor/blob/master/LICENSE</PackageLicenseUrl>
+      <PackageProjectUrl>https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor</PackageProjectUrl>
+
+      <EmbedUntrackedSources>false</EmbedUntrackedSources>
+      <IncludeSymbols>true</IncludeSymbols>
+      <PublishRepositoryUrl>true</PublishRepositoryUrl>
+      <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,6 +21,7 @@
       <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2" />
       <PackageReference Include="Neo4j.Driver" Version="4.0.1" />
       <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc1-*" />
+      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
       <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
