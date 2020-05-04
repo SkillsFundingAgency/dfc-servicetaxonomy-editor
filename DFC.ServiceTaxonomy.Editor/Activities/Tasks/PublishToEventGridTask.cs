@@ -90,6 +90,9 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             //
             // await client.PostAsJson("", contentEvent);
 
+            //todo: check which event triggered for status?? workflowContext.WorkflowType.Activities
+            //todo: for retry probably use polly, could do through workflow, but probably too involved
+
             //todo: how to get status? do we need multiple instances of this task?? (with common base?)
             ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, "published");
 

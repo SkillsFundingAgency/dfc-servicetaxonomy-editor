@@ -11,8 +11,6 @@
 * add placeholder content item for onet and if we don't have an onet for a jp, set the content picker in the jp in the importer to point to the placeholder onet
 problem is field is marked required, and importing a jp with it null triggers validation errors aas part of graph sync
 
-* where'd sync validation workflow go?
-
 * add support for searching within content items e.g. filter content items by uri (add indexes for content items?)
 
 * remove skip and take from importer
