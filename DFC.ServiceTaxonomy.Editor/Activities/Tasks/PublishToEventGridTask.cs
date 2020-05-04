@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Models;
 using DFC.ServiceTaxonomy.Editor.Services;
 using Microsoft.Extensions.Localization;
-using Microsoft.Rest.Azure;
 using OrchardCore.ContentManagement;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
@@ -94,10 +93,17 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             //todo: how to get status? do we need multiple instances of this task?? (with common base?)
             ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, "published");
 
-            #pragma warning disable S1481
-            CloudError cloudError = await _eventGridContentClient.Publish(contentEvent);
+            //todo: follow SyncToGraphTask, or do we return Failed outcome and add the notification to the workflow?
 
-            return Outcomes("Done");
+            // try
+            // {
+                await _eventGridContentClient.Publish(contentEvent);
+                return Outcomes("Done");
+            // }
+            // catch (Exception e)
+            // {
+            //     throw;
+            // }
         }
     }
 }
