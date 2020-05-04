@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.Editor.Services
         /// Serialize the supplied requestData into json and post to the specified URI.
         /// </summary>
         /// <returns>
-        /// The content of the response de-serialized into an instance of TResponse.
+        /// The content of the response deserialized into an instance of TResponse.
         /// </returns>
         Task<TResponse> PostAsJson<TRequest, TResponse>(string uri, TRequest requestData, CancellationToken cancellationToken = default);
 
