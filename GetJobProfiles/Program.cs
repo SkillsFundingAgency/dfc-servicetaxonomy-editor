@@ -110,12 +110,17 @@ namespace GetJobProfiles
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
-            bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
-            if (!excludeGraphMutators)
+            bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
+            if (!excludeGraphContentMutators)
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
+            }
+
+            bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
+            if (!excludeGraphIndexMutators)
+            {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
 
