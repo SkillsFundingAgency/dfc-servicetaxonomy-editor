@@ -33,6 +33,17 @@ using NPOI.XSSF.UserModel;
 
 //todo: only generate occupations & occupation labels required for given job profile list
 
+//Sample appsettings.Development.json
+/*
+    {
+    "Ocp-Apim-Subscription-Key": "##################################",
+    "ExcludeGraphContentMutators": false,
+    "ExcludeGraphIndexMutators": true,
+    "MasterRecipeName": "master_subset_nographindex",
+    "JobProfilesToImport": "actor, admin assistant, civil engineer, chief executive, border force officer, cabin crew, care worker, construction labourer, electrician, emergency medical dispatcher, farmer, mp, personal assistant, plumber, police officer, postman or postwoman, primary school teacher, sales assistant, social worker, waiter, train driver"
+    }
+*/
+
 namespace GetJobProfiles
 {
     static class Program
