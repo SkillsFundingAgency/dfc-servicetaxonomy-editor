@@ -4,6 +4,8 @@
 
 * update exceptions with code from ApiFunctionException.cs
 
+* The Shared Content could not be removed because the associated node could not be deleted from the graph.
+
 * api function
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
     now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
@@ -244,6 +246,60 @@ dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https
 |----------------------|--------------------------|
 | not published        | publish                  |
 | published            | n/a                      |
+
+
+
+each event comes through as a separate workflow instance. can we 'collate' them into single task call?
+or do we publish multiple events?
+versioning: https://stackoverflow.com/questions/60308183/orchard-core-cms-content-versioning-scheduling-and-audit-trail
+ContentItemVersionId is null for new > safe draft!
+add workflow id?
+
+notes:
+1 doesn't seem to be a way to distinguish between updated event when validation fails and when it doesn't (except it's followed by a created event when it succeeds)
+2 no uniqueness on single workflow, unique if we we collate events for action, but how do we do that - contentitemversionis isn't static throughout event sequence. each event is in different workflow
+
+options for new-draft new-published uniqueness
+timer delay, fetch item, check status
+cache created event, if publish event comes in after new-publish, else timeouts new-draft
+hook into publish/save draft and add status in custom part? either through replacing button, or wrapping contentmanager?
+
+how to handle items that fail validation?
+what if we just published published / draft and dropped new/updated
+
+the api atm just has a way of fetching a content item. it needs to distinguish between draft/published (once its supported in the graph)
+
+todo: add validated as column
+
+| start state     | user action           | validated | notes       | content page | content list page | created event | updated event | versioned event | deleted event | published event | unpublished event | item latest | item published | item created time | item modified time | item published time | item contentitemversionid | event grid status | uniqueness      | draft/pub only |
+|-----------------|-----------------------|-----------|-------------|:------------:|:-----------------:|:-------------:|:-------------:|:---------------:|:-------------:|:---------------:|:-----------------:|:-----------:|:--------------:|:-----------------:|:------------------:|:-------------------:|:-------------------------:|-------------------|-----------------|----------------|
+| new             | save draft            |     X     |             |     X        |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   | none            |                |
+|                 |                       |           |             |              |                   |    2          |               |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 | new-draft         | none 2          |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| new             | save draft            |           | 1           |     X        |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| new             | publish               |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
+|                 |                       |           |             |              |                   |    2          |               |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 |                   |                 |                |
+|                 |                       |           |             |              |                   |               |               |                 |               |     3           |                   |     X       |       X        |        X          |       X            |         X           |         X                 | new-published     | published event |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| new             | publish               |           |             |      X       |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| draft           | save draft            |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 | updated-draft     | updated event   |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| draft           | save draft            |           |             |      X       |                   |               |    1          |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| draft           | publish               |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 |                   |                 |
+| draft           | publish               |           |             |      X       |                   |               |               |                 |               |     2           |                   |     X       |       X        |        X          |       X            |         X           |         X                 |                   |                 |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| draft           | publish               |           | todo        |      X       |                   |               |               |                 |               |     2           |                   |     X       |       X        |        X          |       X            |         X           |         X                 |                   |                 |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published       | save draft            |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
+| published       | publish               |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
 
 #Notes
 
