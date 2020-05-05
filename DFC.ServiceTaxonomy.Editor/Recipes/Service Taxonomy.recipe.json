@@ -3728,6 +3728,48 @@
                             "DestinationActivityId": "4gtgm5sznv50fx59ah48td3cd4"
                         }
                     ]
+                },
+                {
+                    "WorkflowTypeId": "4hw6br5f7fnkdv8syssnqedkcs",
+                    "Name": "Sync Validation",
+                    "IsEnabled": true,
+                    "IsSingleton": true,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4ds5z2jqrskbhypepw3j11834k",
+                            "Name": "TimerEvent",
+                            "X": 0,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Every day at 1am"
+                                },
+                                "CronExpression": "0 0 1 * * *"
+                            }
+                        },
+                        {
+                            "ActivityId": "4mvaxsfc5ntc90s0pbs7xtds4x",
+                            "Name": "AuditSyncIssuesTask",
+                            "X": 0,
+                            "Y": 170,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4ds5z2jqrskbhypepw3j11834k",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4mvaxsfc5ntc90s0pbs7xtds4x"
+                        }
+                    ]
                 }
             ]
         },
