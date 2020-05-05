@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-//using DFC.ServiceTaxonomy.Editor.Models;
+using DFC.ServiceTaxonomy.Editor.Models;
 using DFC.ServiceTaxonomy.Editor.Services;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
@@ -88,7 +87,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
 #pragma warning disable CS4014
             if ((string)workflowContext.Properties["Trigger"] == "updated")
             {
-                DelayedEventProcessing(contentItem);
+                DelayedEventProcessing(workflowContext.CorrelationId, contentItem);
             }
 
             //todo: use GraphSyncHelper
@@ -125,7 +124,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
 
         #pragma warning disable S3241
 #pragma warning disable S1172
-        private async Task DelayedEventProcessing(ContentItem contentItem)
+        private async Task DelayedEventProcessing(string workflowCorrelationId, ContentItem contentItem)
         {
             await Task.Delay(5000);
 
@@ -171,6 +170,11 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             //IsPublished/HasDraft - are there 2 separate contentitems, 1 published and 1 draft
 
             bool published = contentItem.Published;
+
+            // would it be better to use the workflowid as the correlation id instead?
+            // should be bother having created/updated?
+            ContentEvent contentEvent = new ContentEvent(workflowCorrelationId, contentItem, $"{(created?"created":"updated")}{(published?"publish":"draft")}");
+            await _eventGridContentClient.Publish(contentEvent);
         }
     }
 }
