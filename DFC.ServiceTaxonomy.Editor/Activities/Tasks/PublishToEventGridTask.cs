@@ -129,19 +129,23 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             await Task.Delay(5000);
 
             // content page
-            // state,    user action, validated,
-            // new       save draft   y
-            // new       save draft   n
-            // new       publish      y
-            // new       publish      n
-            // draft     save draft   y
-            // draft     save draft   n <- how to tell failed validation, invoke model state updater? some other way. could still publish false positive event, unnecessary, but they'll get good data
-            // draft     publish      y
-            // draft     publish      n <- published==false, will publish (false positive) updated draft. latest = true, todo: can we distinguish between successful saved draft
-            // published save draft   y
-            // published save draft   n <- !published, has published date: can we use that to ignore, or does something else match? yes published, save draft, y. will publish draft event and there is no draft, although consumers should handle that as they need to be able to handle a completely different state anyway, as there's a window between an published event and a consumer asking the api for it. so perhaps we have to just live with superfluous events when validation fails?
-            // published publish      y
-            // published publish      n <- current false posive draft event. can we use modified after publish date? no same as save draft from published
+            // state,          user action, validated,
+            // new             save draft   y
+            // new             save draft   n
+            // new             publish      y
+            // new             publish      n
+            // draft           save draft   y
+            // draft           save draft   n <- how to tell failed validation, invoke model state updater? some other way. could still publish false positive event, unnecessary, but they'll get good data
+            // draft           publish      y
+            // draft           publish      n <- published==false, will publish (false positive) updated draft. latest = true, todo: can we distinguish between successful saved draft
+            // published       save draft   y
+            // published       save draft   n <- !published, has published date: can we use that to ignore, or does something else match? yes published, save draft, y. will publish draft event and there is no draft, although consumers should handle that as they need to be able to handle a completely different state anyway, as there's a window between an published event and a consumer asking the api for it. so perhaps we have to just live with superfluous events when validation fails?
+            // published       publish      y
+            // published       publish      n <- current false posive draft event. can we use modified after publish date? no same as save draft from published
+            // draft+published
+            // draft+published
+            // draft+published
+            // draft+published
 
             // try getting contentitem from contentmanager (should be different if validation failed) will it be updated if validation passed?
 
@@ -173,7 +177,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
 
             // would it be better to use the workflowid as the correlation id instead?
             // should be bother having created/updated?
-            ContentEvent contentEvent = new ContentEvent(workflowCorrelationId, contentItem, $"{(created?"created":"updated")}{(published?"publish":"draft")}");
+            ContentEvent contentEvent = new ContentEvent(workflowCorrelationId, contentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
             await _eventGridContentClient.Publish(contentEvent);
         }
     }
