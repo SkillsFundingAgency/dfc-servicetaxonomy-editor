@@ -269,6 +269,17 @@ what if we just published published / draft and dropped new/updated
 
 the api atm just has a way of fetching a content item. it needs to distinguish between draft/published (once its supported in the graph)
 
+on updated, trigger timer to allow user action to complete. get current status of item, if created since timer trigger time, new, then if published new publish, if not new draft.
+else if updated since trigger time, updated, but how to tell draft or published? will have to test
+use task.delay? will that have the right context?
+use a repeating workflow timer event - would have to save update events, and if the event time was too soon ago, leave it there for the next trigger
+use signalling?
+HttpWorkflowController Trigger has the code for continuing workflows waiting on a signal - we could have a workflow that gets triggered by a signal
+
+or new button to new controller, pass to existing controller and publish event according to what user has done?
+
+or add trigger to neo that published the event?
+
 todo: add validated as column
 
 | start state     | user action           | validated | notes       | content page | content list page | created event | updated event | versioned event | deleted event | published event | unpublished event | item latest | item published | item created time | item modified time | item published time | item contentitemversionid | event grid status | uniqueness      | draft/pub only |
@@ -293,9 +304,15 @@ todo: add validated as column
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
 | draft           | publish               |           | todo        |      X       |                   |               |               |                 |               |     2           |                   |     X       |       X        |        X          |       X            |         X           |         X                 |                   |                 |
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
-| published       | save draft            |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
-| published       | publish               |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
-|         |              |                   |         |         |           |         |           |             |                   |
+| published       | save draft            |    X      |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published       | save draft            |           |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published       | publish               |    X      |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published       | publish               |           |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published+draft |                       |              |                   |         |         |           |         |           |             |                   |
 |         |              |                   |         |         |           |         |           |             |                   |
 |         |              |                   |         |         |           |         |           |             |                   |
 |         |              |                   |         |         |           |         |           |             |                   |
