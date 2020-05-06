@@ -1,22 +1,20 @@
 using System;
 using System.Linq;
 using DFC.ServiceTaxonomy.Editor.Activities.Tasks;
-//using System.Net.Http;
 using DFC.ServiceTaxonomy.Editor.Configuration;
 using DFC.ServiceTaxonomy.Editor.Drivers;
-using DFC.ServiceTaxonomy.Editor.MethodProviders;
 using DFC.ServiceTaxonomy.Editor.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-//using OrchardCore.Modules;
-using OrchardCore.Scripting;
 using OrchardCore.Workflows.Helpers;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
+using Polly.Extensions.Http;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
-    //[RequireFeatures("OrchardCore.Scripting")]
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -33,8 +31,7 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.AddOrchardCms();
 
-            //services.AddScripting();
-            services.AddSingleton<IGlobalMethodProvider, ConfigMethodProvider>();
+            //services.AddSingleton<IGlobalMethodProvider, ConfigMethodProvider>();
 
             //todo: create extension method
             //todo: how would this work for topic per contenttype?
@@ -48,13 +45,31 @@ namespace DFC.ServiceTaxonomy.Editor
             //todo: how best to handle injecting? named? inject httpclient into eventgridcontentclient and wrap with rest in ctor?
             // don't use rest?
 //            services.AddHttpClient<IEventGridContentClient, EventGridContentClient>(client =>
+
+
+            var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
+
+            // policy notes
+            // we don't add a circuit-breaker (but we might later)
+            // we could add knowledge of CloudError to policy, but we don't as errors resulting in CloudError's are probably our fault (with the event contents), as opposed to transient network/http errors
+
+            var retryPolicy =
+                HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(delay, (result, timespan, retryAttempt, context) =>
+                {
+                    //todo: log retries in context of resthttpclient or eventgridcontentclient
+                    // services.GetRequiredService<ILogger<EventGridContentClient>>()
+                    //     .LogWarning($"Delaying for {timespan}, then making retry {retryAttempt}.");
+
+                });
+
             services.AddHttpClient<IRestHttpClient, RestHttpClient>(client =>
                 {
                     client.BaseAddress = new Uri(eventGridTopicConfig.TopicEndpoint!);
                     client.DefaultRequestHeaders.Add("aeg-sas-key", eventGridTopicConfig.AegSasKey!);
                 })
-                // .AddPolicyHandler(GetRetryPolicy())
-                // .AddPolicyHandler(GetCircuitBreakerPolicy());
+                .AddPolicyHandler(retryPolicy)
                 .SetHandlerLifetime(TimeSpan.FromMinutes(3));
 
             services.AddTransient<IEventGridContentClient, EventGridContentClient>();

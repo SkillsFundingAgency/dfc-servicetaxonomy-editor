@@ -15,8 +15,6 @@ namespace DFC.ServiceTaxonomy.Editor.Services
     // see...
     // https://github.com/dotnet/runtime/issues/916
     // https://github.com/dotnet/runtime/pull/686
-    //todo: switch to this when available:
-    // https://github.com/dotnet/designs/blob/master/accepted/2020/json-http-extensions/json-http-extentions.md
     public class RestHttpClient : IRestHttpClient
     {
         private readonly HttpClient _httpClient;
