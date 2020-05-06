@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Editor.Models
@@ -30,6 +31,7 @@ namespace DFC.ServiceTaxonomy.Editor.Models
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
             MetadataVersion = null;
             DataVersion = "1.0";
+            ContentType = contentItem.ContentType;
         }
 
         public string Id { get; }
@@ -41,6 +43,8 @@ namespace DFC.ServiceTaxonomy.Editor.Models
         public string? MetadataVersion { get; }
         public string DataVersion { get; }
 
+        [JsonIgnore]
+        public string ContentType { get; }
 
         /// <summary>
         /// Validate the object.

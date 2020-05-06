@@ -1,6 +1,6 @@
 #ToDo
 
-* remove soccode id
+* don't pass endpoint to sync validators, set current in driver instead
 
 * update exceptions with code from ApiFunctionException.cs
 
