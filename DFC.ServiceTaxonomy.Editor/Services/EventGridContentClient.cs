@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -8,23 +8,40 @@ using DFC.ServiceTaxonomy.Editor.Models;
 
 namespace DFC.ServiceTaxonomy.Editor.Services
 {
-    public interface IRestHttpClientFactory
+    public interface IEventGridContentRestHttpClientFactory
     {
-        RestHttpClient CreateClient(string name);
+        IRestHttpClient CreateClient(string contentType);
     }
 
-    public class RestHttpClientFactory : IRestHttpClientFactory
+    public class EventGridContentRestHttpClientFactory : IEventGridContentRestHttpClientFactory
     {
+        private static readonly ConcurrentDictionary<string, IRestHttpClient> _contentTypeRestClients = new ConcurrentDictionary<string, IRestHttpClient>();
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public RestHttpClientFactory(IHttpClientFactory httpClientFactory)
+        public EventGridContentRestHttpClientFactory(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        public RestHttpClient CreateClient(string name)
+        public IRestHttpClient CreateClient(string contentType)
         {
-            return new RestHttpClient(_httpClientFactory.CreateClient(name));
+            if (_contentTypeRestClients.TryGetValue(contentType, out IRestHttpClient? restHttpClient))
+                return restHttpClient;
+
+            HttpClient httpClient = _httpClientFactory.CreateClient(contentType);
+            if (httpClient.BaseAddress == null)
+            {
+                httpClient = _httpClientFactory.CreateClient("*");
+
+                //todo: check * exists in startup and/or here?
+                if (httpClient.BaseAddress == null)
+                    throw new MissingEventGridTopicConfigurationException(contentType);
+            }
+
+            restHttpClient = new RestHttpClient(httpClient);
+            _contentTypeRestClients[contentType] = restHttpClient;
+
+            return restHttpClient;
         }
     }
 
@@ -36,17 +53,17 @@ namespace DFC.ServiceTaxonomy.Editor.Services
 
     public class EventGridContentClient : IEventGridContentClient
     {
-        private readonly IRestHttpClientFactory _restHttpClientFactory;
+        private readonly IEventGridContentRestHttpClientFactory _eventGridContentRestHttpClientFactory;
 
-        public EventGridContentClient(IRestHttpClientFactory restHttpClientFactory)
+        public EventGridContentClient(IEventGridContentRestHttpClientFactory eventGridContentRestHttpClientFactory)
         {
-            _restHttpClientFactory = restHttpClientFactory;
+            _eventGridContentRestHttpClientFactory = eventGridContentRestHttpClientFactory;
         }
 
         public async Task Publish(ContentEvent contentEvent, CancellationToken cancellationToken = default)
         {
-            await GetRestHttpClient(contentEvent.ContentType).PostAsJson("", contentEvent, cancellationToken).ConfigureAwait(false);
-            //await Publish(new[] {contentEvent}, cancellationToken).ConfigureAwait(false);
+            await _eventGridContentRestHttpClientFactory.CreateClient(contentEvent.ContentType)
+                .PostAsJson("", contentEvent, cancellationToken);
         }
 
         public async Task Publish(IEnumerable<ContentEvent> contentEvents, CancellationToken cancellationToken = default)
@@ -57,35 +74,9 @@ namespace DFC.ServiceTaxonomy.Editor.Services
             var distinctEventGroups = contentEvents.GroupBy(e => e.ContentType, e => e);
 
             var postTasks = distinctEventGroups.Select(g =>
-                GetRestHttpClient(g.Key).PostAsJson("", g, cancellationToken));
+                _eventGridContentRestHttpClientFactory.CreateClient(g.Key).PostAsJson("", g, cancellationToken));
 
             await Task.WhenAll(postTasks);
-
-            // var response = await _httpClient.PostAsJsonAsync("", contentEvents, cancellationToken).ConfigureAwait(false);
-            //
-            // if (response.IsSuccessStatusCode)
-            //     return null;
-            //
-            // Stream contentStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            // return await JsonSerializer.DeserializeAsync<CloudError>(contentStream, cancellationToken: cancellationToken)!;
-        }
-
-        private readonly Dictionary<string, IRestHttpClient> _contentTypeRestClients = new Dictionary<string, IRestHttpClient>();
-
-        private IRestHttpClient GetRestHttpClient(string contentType)
-        {
-            if (_contentTypeRestClients.TryGetValue(contentType, out IRestHttpClient? restHttpClient))
-                return restHttpClient;
-
-            //todo: how does it handle missing?
-            IRestHttpClient? newRestHttpClient = _restHttpClientFactory.CreateClient(contentType)
-                ?? _restHttpClientFactory.CreateClient("*");
-
-            //todo: new exception? MissingEventGridTopicConfigurationException(contentType)
-            _contentTypeRestClients[contentType] = newRestHttpClient
-                                                   ?? throw new ApplicationException("todo");
-
-            return newRestHttpClient;
         }
     }
 }

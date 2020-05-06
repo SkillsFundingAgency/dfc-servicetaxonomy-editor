@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.Editor
             //todo: create extension method
             //todo: how would this work for topic per contenttype?
 
-            services.AddTransient<IRestHttpClientFactory, RestHttpClientFactory>();
+            services.AddTransient<IEventGridContentRestHttpClientFactory, EventGridContentRestHttpClientFactory>();
 
             EventGridConfiguration eventGridConfig = Configuration.GetSection("EventGrid").Get<EventGridConfiguration>();
 
