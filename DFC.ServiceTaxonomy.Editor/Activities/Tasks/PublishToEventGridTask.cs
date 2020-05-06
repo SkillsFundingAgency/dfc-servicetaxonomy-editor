@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Models;
 using DFC.ServiceTaxonomy.Editor.Services;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
@@ -29,16 +30,20 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
         private readonly IEventGridContentClient _eventGridContentClient;
 
         private readonly IContentManager _contentManager;
+
+        private readonly ILogger<PublishToEventGridTask> _logger;
         //        private readonly IOptionsMonitor<EventGridConfiguration> _eventGridOptionsMonitor;
 
         public PublishToEventGridTask(
 //            IOptionsMonitor<EventGridConfiguration> EventGridOptionsMonitor,
             IEventGridContentClient eventGridContentClient,
             IContentManager contentManager,
-            IStringLocalizer<PublishToEventGridTask> localizer)
+            IStringLocalizer<PublishToEventGridTask> localizer,
+            ILogger<PublishToEventGridTask> logger)
         {
             _eventGridContentClient = eventGridContentClient;
             _contentManager = contentManager;
+            _logger = logger;
             //          _eventGridOptionsMonitor = EventGridOptionsMonitor;
             T = localizer;
         }
@@ -87,7 +92,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
 #pragma warning disable CS4014
             if ((string)workflowContext.Properties["Trigger"] == "updated")
             {
-                DelayedEventProcessing(workflowContext.CorrelationId, contentItem);
+                ProcessEventAfterContentItemQuiesces(workflowContext.CorrelationId, contentItem);
             }
 
             //todo: use GraphSyncHelper
@@ -124,7 +129,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
 
         #pragma warning disable S3241
 #pragma warning disable S1172
-        private async Task DelayedEventProcessing(string workflowCorrelationId, ContentItem contentItem)
+        private async Task ProcessEventAfterContentItemQuiesces(string workflowCorrelationId, ContentItem eventContentItem)
         {
             await Task.Delay(5000);
 
@@ -147,38 +152,46 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             // draft+published
             // draft+published
 
+            // content item page
+
+            // import
+
             // try getting contentitem from contentmanager (should be different if validation failed) will it be updated if validation passed?
 
             //todo: what about error / exception handling?
 
-            // if new and validation failed, ContentItemVersionId = null, CreatedUtc is null, ModifiedUtc is set, latest = false, published = false
-            if (contentItem.ContentItemVersionId == null)
+            if (await HasFailedValidation(eventContentItem))
                 return;
 
-            #pragma warning disable S1481
-
-            // check for failed validation
-            try
-            {
-                ContentItem existingContentItem = await _contentManager.GetAsync(contentItem.ContentItemId);
-                if (existingContentItem != null && existingContentItem.ModifiedUtc < contentItem.ModifiedUtc)
-                    return;
-            }
-            catch
-            {
-                // yum: the content item is new, so there's no existing content item
-            }
-
-            bool created = contentItem.CreatedUtc == contentItem.ModifiedUtc;
+            bool created = eventContentItem.CreatedUtc == eventContentItem.ModifiedUtc;
 
             //IsPublished/HasDraft - are there 2 separate contentitems, 1 published and 1 draft
 
-            bool published = contentItem.Published;
+            bool published = eventContentItem.Published;
 
             // would it be better to use the workflowid as the correlation id instead?
             // should be bother having created/updated?
-            ContentEvent contentEvent = new ContentEvent(workflowCorrelationId, contentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
+            ContentEvent contentEvent = new ContentEvent(workflowCorrelationId, eventContentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
             await _eventGridContentClient.Publish(contentEvent);
+        }
+
+        private async Task<bool> HasFailedValidation(ContentItem contentItem)
+        {
+            // if content item is new and validation failed, ContentItemVersionId = null, CreatedUtc is null, ModifiedUtc is set, latest = false, published = false
+            if (contentItem.ContentItemVersionId == null)
+                return true;
+
+            try
+            {
+                // if content item already existed and validation failed, then the event content item has a later modified date than the quiesced content item
+                ContentItem quiescedContentItem = await _contentManager.GetAsync(contentItem.ContentItemId);
+                return quiescedContentItem.ModifiedUtc < contentItem.ModifiedUtc;
+            }
+            catch
+            {
+                //todo: can't remember when this occurs
+                return false;
+            }
         }
     }
 }

@@ -33,7 +33,6 @@ namespace DFC.ServiceTaxonomy.Editor.Services
 
         public async Task Publish(IEnumerable<ContentEvent> contentEvents, CancellationToken cancellationToken = default)
         {
-            //todo: do you get a 200 and clouderror? do you always get a clouderror?
             await _restHttpClient.PostAsJson("", contentEvents, cancellationToken).ConfigureAwait(false);
 
             // var response = await _httpClient.PostAsJsonAsync("", contentEvents, cancellationToken).ConfigureAwait(false);
