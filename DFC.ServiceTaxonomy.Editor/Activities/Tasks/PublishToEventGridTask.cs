@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Editor.Models;
 using DFC.ServiceTaxonomy.Editor.Services;
@@ -51,7 +52,9 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
 
         public override IEnumerable<Outcome> GetPossibleOutcomes(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            return Outcomes(T["Done"], T["Failed"]);
+            #pragma warning disable S3220
+            return Outcomes(T["Done"]);
+            #pragma warning restore S3220
         }
 
         private IStringLocalizer T { get; }
@@ -75,7 +78,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             if ((string)workflowContext.Properties["Trigger"] == "updated")
             {
                 #pragma warning disable CS4014
-                ProcessEventAfterContentItemQuiesces(workflowContext.CorrelationId, contentItem);
+                ProcessEventAfterContentItemQuiesces(workflowContext, contentItem);
                 #pragma warning restore CS4014
             }
 
@@ -93,50 +96,58 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
         }
 
         #pragma warning disable S3241
-        private async Task ProcessEventAfterContentItemQuiesces(string workflowCorrelationId, ContentItem eventContentItem)
+        private async Task ProcessEventAfterContentItemQuiesces(WorkflowExecutionContext workflowContext, ContentItem eventContentItem)
         {
-            await Task.Delay(5000);
+            try
+            {
+                await Task.Delay(5000);
 
-            // content page
-            // state,          user action, validated,
-            // new             save draft   y
-            // new             save draft   n
-            // new             publish      y
-            // new             publish      n
-            // draft           save draft   y
-            // draft           save draft   n <- how to tell failed validation, invoke model state updater? some other way. could still publish false positive event, unnecessary, but they'll get good data
-            // draft           publish      y
-            // draft           publish      n <- published==false, will publish (false positive) updated draft. latest = true, todo: can we distinguish between successful saved draft
-            // published       save draft   y
-            // published       save draft   n <- !published, has published date: can we use that to ignore, or does something else match? yes published, save draft, y. will publish draft event and there is no draft, although consumers should handle that as they need to be able to handle a completely different state anyway, as there's a window between an published event and a consumer asking the api for it. so perhaps we have to just live with superfluous events when validation fails?
-            // published       publish      y
-            // published       publish      n <- current false posive draft event. can we use modified after publish date? no same as save draft from published
-            // draft+published
-            // draft+published
-            // draft+published
-            // draft+published
+                // content page
+                // state,          user action, validated,
+                // new             save draft   y
+                // new             save draft   n
+                // new             publish      y
+                // new             publish      n
+                // draft           save draft   y
+                // draft           save draft   n <- how to tell failed validation, invoke model state updater? some other way. could still publish false positive event, unnecessary, but they'll get good data
+                // draft           publish      y
+                // draft           publish      n <- published==false, will publish (false positive) updated draft. latest = true, todo: can we distinguish between successful saved draft
+                // published       save draft   y
+                // published       save draft   n <- !published, has published date: can we use that to ignore, or does something else match? yes published, save draft, y. will publish draft event and there is no draft, although consumers should handle that as they need to be able to handle a completely different state anyway, as there's a window between an published event and a consumer asking the api for it. so perhaps we have to just live with superfluous events when validation fails?
+                // published       publish      y
+                // published       publish      n <- current false posive draft event. can we use modified after publish date? no same as save draft from published
+                // draft+published
+                // draft+published
+                // draft+published
+                // draft+published
 
-            // content item page
+                // content item page
 
-            // import
+                // import
 
-            // try getting contentitem from contentmanager (should be different if validation failed) will it be updated if validation passed?
+                // try getting contentitem from contentmanager (should be different if validation failed) will it be updated if validation passed?
 
-            //todo: what about error / exception handling?
+                //todo: what about error / exception handling?
 
-            if (await HasFailedValidation(eventContentItem))
-                return;
+                if (await HasFailedValidation(eventContentItem))
+                    return;
 
-            bool created = eventContentItem.CreatedUtc == eventContentItem.ModifiedUtc;
+                bool created = eventContentItem.CreatedUtc == eventContentItem.ModifiedUtc;
 
-            //IsPublished/HasDraft - are there 2 separate contentitems, 1 published and 1 draft
+                //IsPublished/HasDraft - are there 2 separate contentitems, 1 published and 1 draft
 
-            bool published = eventContentItem.Published;
+                bool published = eventContentItem.Published;
 
-            // would it be better to use the workflowid as the correlation id instead?
-            // should be bother having created/updated?
-            ContentEvent contentEvent = new ContentEvent(workflowCorrelationId, eventContentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
-            await _eventGridContentClient.Publish(contentEvent);
+                // would it be better to use the workflowid as the correlation id instead?
+                // should be bother having created/updated?
+                ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, eventContentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
+                await _eventGridContentClient.Publish(contentEvent);
+            }
+            catch (Exception e)
+            {
+                // as we fire and forget this method, any errors won't cause the workflow to fail, so we must make sure the log can be tied back to the workflow
+                _logger.LogError($"Delayed processing of workflow id {workflowContext.WorkflowId} failed: {e}");
+            }
         }
         #pragma warning restore S3241
 
