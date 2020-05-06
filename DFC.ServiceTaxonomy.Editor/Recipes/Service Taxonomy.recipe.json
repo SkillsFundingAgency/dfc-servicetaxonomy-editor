@@ -3038,16 +3038,6 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "JobProfileSOCID",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Job Profile SOCID",
-                                    "Position": "5"
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
                             "Name": "JobProfileWebsiteUrl",
                             "Settings": {
                                 "ContentPartFieldSettings": {
