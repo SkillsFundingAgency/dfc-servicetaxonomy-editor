@@ -11,6 +11,12 @@ namespace GetJobProfiles
         public List<ONetOccupationalCodeContentItem> ONetOccupationalCodeContentItems { get; private set; } = new List<ONetOccupationalCodeContentItem>();
         public static readonly string UnknownJobProfile = "Unknown";
         private static readonly string UnknownCode = "00-0000.00";
+        private string CodesToProcess = "";
+
+        public ONetConverter( string codes = "")
+        {
+            CodesToProcess = codes;
+        }
 
         public Dictionary<string, string> Go(string timestamp)
         {
@@ -27,12 +33,16 @@ namespace GetJobProfiles
                 {
                     var row = sheet.GetRow(i);
                     var occupationalCode = row.GetCell(occupationalCodeColumnIndex).StringCellValue;
-                    var jobProfile = row.GetCell(jobProfileColumnIndex).StringCellValue;
-                    var contentItem = new ONetOccupationalCodeContentItem(occupationalCode, timestamp);
 
-                    ONetOccupationalCodeContentItems.Add(contentItem);
+                    if (CodesToProcess.Length == 0 || CodesToProcess.Contains(occupationalCode))
+                    {
+                        var jobProfile = row.GetCell(jobProfileColumnIndex).StringCellValue;
+                        var contentItem = new ONetOccupationalCodeContentItem(occupationalCode, timestamp);
 
-                    dict.Add(jobProfile, contentItem.ContentItemId);
+                        ONetOccupationalCodeContentItems.Add(contentItem);
+
+                        dict.Add(jobProfile, contentItem.ContentItemId);
+                    }
                 }
                 // add placeholder / unknown item
                 var unknownContentItem = new ONetOccupationalCodeContentItem(UnknownCode, timestamp);

@@ -70,10 +70,19 @@ namespace GetJobProfiles
         {
             string timestamp = $"{DateTime.UtcNow:O}";
 
-            var socCodeConverter = new SocCodeConverter();
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .AddJsonFile($"appsettings.Development.json", optional: true)
+                .Build();
+
+            string jobProfilesToImport = config["JobProfilesToImport"];
+            bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
+            string socCodeList = ( !createTestFiles ? string.Empty : config["TestSocCodes"] );
+            string oNetCodeList = (!createTestFiles ? string.Empty : config["TestONetCodes"]);
+
+            var socCodeConverter = new SocCodeConverter(socCodeList);
             var socCodeDictionary = socCodeConverter.Go(timestamp);
 
-            var oNetConverter = new ONetConverter();
+            var oNetConverter = new ONetConverter(oNetCodeList);
             var oNetDictionary = oNetConverter.Go(timestamp);
 
             //use these knobs to work around rate - limiting
@@ -86,9 +95,7 @@ namespace GetJobProfiles
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
 
-            IConfigurationRoot config = new ConfigurationBuilder()
-                .AddJsonFile($"appsettings.Development.json", optional: true)
-                .Build();
+
 
             var httpClient = new HttpClient
             {
@@ -100,7 +107,8 @@ namespace GetJobProfiles
                 }
             };
 
-            string jobProfilesToImport = config["JobProfilesToImport"];
+
+
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
             var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, timestamp);
