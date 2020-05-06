@@ -90,7 +90,6 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             //todo: for retry probably use polly, could do through workflow, but probably too involved
 
             //todo: follow SyncToGraphTask, or do we return Failed outcome and add the notification to the workflow? we're gonna have to just return success, because of the delay
-            // actually it doesn't matter if the workflow takes a while
 
             return Task.FromResult(Outcomes("Done"));
         }
@@ -165,7 +164,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             }
             catch
             {
-                //todo: validation succeeded but the item is new? in that case, were checking existing, rather quiesced!?
+                // validation succeeded but the item is new. in that case, were checking existing, rather than quiesced!?
                 return false;
             }
         }
