@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization;
 
-namespace DFC.ServiceTaxonomy.Editor.Services
+namespace DFC.ServiceTaxonomy.Events.Services
 {
 #pragma warning disable S3925
     [Serializable]

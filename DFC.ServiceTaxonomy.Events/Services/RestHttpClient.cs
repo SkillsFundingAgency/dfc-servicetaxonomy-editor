@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace DFC.ServiceTaxonomy.Editor.Services
+namespace DFC.ServiceTaxonomy.Events.Services
 {
     //todo: remove cancellationtokens?
     // see...

@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace DFC.ServiceTaxonomy.Editor.Services
+namespace DFC.ServiceTaxonomy.Events.Services
 {
     [Serializable]
     public class MissingEventGridTopicConfigurationException : Exception
@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.Editor.Services
         {
         }
 
-        [SecurityPermissionAttribute(SecurityAction.Demand, SerializationFormatter = true)]
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (info == null)

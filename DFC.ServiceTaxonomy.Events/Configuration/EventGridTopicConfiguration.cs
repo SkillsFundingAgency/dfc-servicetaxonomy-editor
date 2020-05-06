@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.Editor.Configuration
+﻿namespace DFC.ServiceTaxonomy.Events.Configuration
 {
     public class EventGridTopicConfiguration
     {

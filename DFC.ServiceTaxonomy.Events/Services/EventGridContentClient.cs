@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Models;
+using DFC.ServiceTaxonomy.Events.Models;
 
-namespace DFC.ServiceTaxonomy.Editor.Services
+namespace DFC.ServiceTaxonomy.Events.Services
 {
     public interface IEventGridContentRestHttpClientFactory
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Editor.Models;
-using DFC.ServiceTaxonomy.Editor.Services;
+using DFC.ServiceTaxonomy.Events.Models;
+using DFC.ServiceTaxonomy.Events.Services;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
@@ -10,7 +10,7 @@ using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
 
-namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
+namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 {
     // using EventGridClient vs HttpRestClient
     // EventGridClient has lots of extras

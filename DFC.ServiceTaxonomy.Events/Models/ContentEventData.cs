@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.Editor.Models
+﻿namespace DFC.ServiceTaxonomy.Events.Models
 {
     public class ContentEventData
     {

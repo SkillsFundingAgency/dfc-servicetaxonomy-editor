@@ -7,5 +7,5 @@ using OrchardCore.Modules.Manifest;
     Version = "1.0.0",
     Description = "Publishes content item status events to Azure Event Grid",
     Category = "Events",
-    Dependencies = new[] { "OrchardCore.Contents" }
+    Dependencies = new[] { "OrchardCore.Contents", "OrchardCore.Workflows" }
 )]
