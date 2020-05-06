@@ -10,10 +10,12 @@ namespace DFC.ServiceTaxonomy.Events
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            //
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            //
         }
     }
 }
