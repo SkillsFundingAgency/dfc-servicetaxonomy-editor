@@ -14,12 +14,6 @@ namespace DFC.ServiceTaxonomy.Events
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            routes.MapAreaControllerRoute(
-                name: "Home",
-                areaName: "DFC.ServiceTaxonomy.Events",
-                pattern: "Home/Index",
-                defaults: new { controller = "Home", action = "Index" }
-            );
         }
     }
 }

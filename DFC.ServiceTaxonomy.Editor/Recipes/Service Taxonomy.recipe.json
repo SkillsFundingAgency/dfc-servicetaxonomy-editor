@@ -74,8 +74,8 @@
                 "DFC.ServiceTaxonomy.GraphLookup",
                 "DFC.ServiceTaxonomy.GraphVisualiser",
                 "DFC.ServiceTaxonomy.Cypher",
-                "DFC.ServiceTaxonomy.CustomFields"
-
+                "DFC.ServiceTaxonomy.CustomFields",
+                "DFC.ServiceTaxonomy.Events"
             ]
         },
         {

@@ -1,10 +1,11 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "DFC.ServiceTaxonomy.Events",
-    Author = "The Orchard Team",
-    Website = "https://orchardproject.net",
-    Version = "0.0.1",
-    Description = "DFC.ServiceTaxonomy.Events",
-    Category = "Content Management"
+    Name = "Events",
+    Author = "National Careers Service",
+    Website = "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor",
+    Version = "1.0.0",
+    Description = "Publishes content item status events to Azure Event Grid",
+    Category = "Events",
+    Dependencies = new[] { "OrchardCore.Contents" }
 )]
