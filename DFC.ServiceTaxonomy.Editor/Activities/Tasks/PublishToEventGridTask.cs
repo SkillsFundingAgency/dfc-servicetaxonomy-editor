@@ -59,76 +59,36 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
         public override LocalizedString DisplayText => T["Publish content state changes to Azure Event Grid"];
         public override LocalizedString Category => T["Event Grid"];
 
-        public override Task<ActivityExecutionResult> ExecuteAsync(
+        public override async Task<ActivityExecutionResult> ExecuteAsync(
             WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
-            //todo: inject RestHttpClient
-
             //todo: support >1 topic
-            // EventGridConfiguration eventGridConfig = _eventGridOptionsMonitor.CurrentValue;
-            //
-            // EventGridTopicConfiguration topicConfig = eventGridConfig.Endpoints.First();
-            //
             // //todo: cache RestHttpClient's by contenttype??
             // //todo: check config for null and throw meaningful exceptions
-            //
-            // var httpClient = new HttpClient
-            // {
-            //     BaseAddress = new Uri(topicConfig.TopicEndpoint!),
-            //     DefaultRequestHeaders =
-            //     {
-            //         {"aeg-sas-key", topicConfig.AegSasKey}
-            //     }
-            // };
-            //
-            // var client = new RestHttpClient(httpClient);
 
             ContentItem contentItem = (ContentItem)workflowContext.Input["ContentItem"];
 
-
             //Task.Delay(1000).ContinueWith(async t=> await DelayedEventProcessing(contentItem));
 
-#pragma warning disable CS4014
             if ((string)workflowContext.Properties["Trigger"] == "updated")
             {
-                ProcessEventAfterContentItemQuiesces(workflowContext.CorrelationId, contentItem);
+                await ProcessEventAfterContentItemQuiesces(workflowContext.CorrelationId, contentItem);
             }
 
             //todo: use GraphSyncHelper
             // do we assume id ends with a guid, or do we need a setting to extract the eventgrid id from the full id?
             // string userId = contentItem.Content.GraphSyncPart.Text;
-            //
-            // EventGridClient
-            // //todo: EventGridEvent is using newtonsoft.json JsonProperty
-            // EventGridEvent contentEvent = new EventGridEvent(
-            //     workflowContext.CorrelationId,
-            //     $"/content/{contentItem.ContentType}/{userId.Substring(userId.Length-36)}",6
-            //     );
-            //
-            // await client.PostAsJson("", contentEvent);
-//todo: add author to event??
-            //todo: check which event triggered for status?? workflowContext.WorkflowType.Activities
+
+            //todo: add author to event??
             //todo: for retry probably use polly, could do through workflow, but probably too involved
 
-            //todo: how to get status? do we need multiple instances of this task?? (with common base?)
-            //ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, "published");
+            //todo: follow SyncToGraphTask, or do we return Failed outcome and add the notification to the workflow? we're gonna have to just return success, because of the delay
+            // actually it doesn't matter if the workflow takes a while
 
-            //todo: follow SyncToGraphTask, or do we return Failed outcome and add the notification to the workflow?
-
-            // try
-            // {
-                //await _eventGridContentClient.Publish(contentEvent);
-                return Task.FromResult(Outcomes("Done"));
-            // }
-            // catch (Exception e)
-            // {
-            //     throw;
-            // }
+            return Outcomes("Done");
         }
 
-        #pragma warning disable S3241
-#pragma warning disable S1172
         private async Task ProcessEventAfterContentItemQuiesces(string workflowCorrelationId, ContentItem eventContentItem)
         {
             await Task.Delay(5000);
@@ -189,7 +149,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             }
             catch
             {
-                //todo: can't remember when this occurs
+                //todo: can't remember when this occurs - add comment
                 return false;
             }
         }
