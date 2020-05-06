@@ -36,6 +36,8 @@ namespace DFC.ServiceTaxonomy.Editor
             //todo: create extension method
             //todo: how would this work for topic per contenttype?
 
+            services.AddTransient<IRestHttpClientFactory, RestHttpClientFactory>();
+
             EventGridConfiguration eventGridConfig = Configuration.GetSection("EventGrid").Get<EventGridConfiguration>();
 
             var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);

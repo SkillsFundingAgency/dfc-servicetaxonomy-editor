@@ -82,7 +82,8 @@ namespace DFC.ServiceTaxonomy.Editor.Services
                 ?? _restHttpClientFactory.CreateClient("*");
 
             //todo: new exception? MissingEventGridTopicConfigurationException(contentType)
-            _contentTypeRestClients[contentType] = newRestHttpClient ?? throw new ApplicationException("todo");
+            _contentTypeRestClients[contentType] = newRestHttpClient
+                                                   ?? throw new ApplicationException("todo");
 
             return newRestHttpClient;
         }
