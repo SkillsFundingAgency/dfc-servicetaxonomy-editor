@@ -21,7 +21,8 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
     // EventGridViewer: get updates for free
     // https://github.com/Azure/azure-sdk-for-net/tree/fef6a5436167758454a9eb965ed1d7b3f8eb061b/sdk/eventgrid/Microsoft.Azure.EventGrid
 
-    //todo use CloudError
+
+    //todo: we need decent view so that user can view published version if there's a draft version as edit will always show the draft version if there is one
 
 
     //todo: in own module?
@@ -59,7 +60,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
         public override LocalizedString DisplayText => T["Publish content state changes to Azure Event Grid"];
         public override LocalizedString Category => T["Event Grid"];
 
-        public override async Task<ActivityExecutionResult> ExecuteAsync(
+        public override Task<ActivityExecutionResult> ExecuteAsync(
             WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
@@ -73,7 +74,9 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
 
             if ((string)workflowContext.Properties["Trigger"] == "updated")
             {
-                await ProcessEventAfterContentItemQuiesces(workflowContext.CorrelationId, contentItem);
+                #pragma warning disable CS4014
+                ProcessEventAfterContentItemQuiesces(workflowContext.CorrelationId, contentItem);
+                #pragma warning restore CS4014
             }
 
             //todo: use GraphSyncHelper
@@ -86,9 +89,10 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             //todo: follow SyncToGraphTask, or do we return Failed outcome and add the notification to the workflow? we're gonna have to just return success, because of the delay
             // actually it doesn't matter if the workflow takes a while
 
-            return Outcomes("Done");
+            return Task.FromResult(Outcomes("Done"));
         }
 
+        #pragma warning disable S3241
         private async Task ProcessEventAfterContentItemQuiesces(string workflowCorrelationId, ContentItem eventContentItem)
         {
             await Task.Delay(5000);
@@ -134,6 +138,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             ContentEvent contentEvent = new ContentEvent(workflowCorrelationId, eventContentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
             await _eventGridContentClient.Publish(contentEvent);
         }
+        #pragma warning restore S3241
 
         private async Task<bool> HasFailedValidation(ContentItem contentItem)
         {
@@ -149,7 +154,7 @@ namespace DFC.ServiceTaxonomy.Editor.Activities.Tasks
             }
             catch
             {
-                //todo: can't remember when this occurs - add comment
+                //todo: validation succeeded but the item is new? in that case, were checking existing, rather quiesced!?
                 return false;
             }
         }
