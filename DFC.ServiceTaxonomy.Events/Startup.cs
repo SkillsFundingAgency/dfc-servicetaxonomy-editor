@@ -1,7 +1,4 @@
-using System;
 using DFC.ServiceTaxonomy.Events.Extensions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
@@ -22,11 +19,6 @@ namespace DFC.ServiceTaxonomy.Events
             //services.AddSingleton<IGlobalMethodProvider, ConfigMethodProvider>();
 
             services.AddEventGridPublishing(Configuration);
-        }
-
-        public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
-        {
-            //
         }
     }
 }

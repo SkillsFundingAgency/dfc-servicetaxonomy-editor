@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
@@ -14,16 +16,19 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 {
     public class PublishToEventGridTask : TaskActivity
     {
+        private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
         private readonly IEventGridContentClient _eventGridContentClient;
         private readonly IContentManager _contentManager;
         private readonly ILogger<PublishToEventGridTask> _logger;
 
         public PublishToEventGridTask(
+            IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
             IContentManager contentManager,
             IStringLocalizer<PublishToEventGridTask> localizer,
             ILogger<PublishToEventGridTask> logger)
         {
+            _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
             _contentManager = contentManager;
             _logger = logger;
@@ -47,6 +52,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
+            if (!_eventGridConfiguration.CurrentValue.PublishEvents)
+            {
+                _logger.LogInformation("Event grid publishing is disabled. No events will be published.");
+                return Task.FromResult(Outcomes("Done"));
+            }
+
             ContentItem contentItem = (ContentItem)workflowContext.Input["ContentItem"];
 
             #pragma warning disable CS4014

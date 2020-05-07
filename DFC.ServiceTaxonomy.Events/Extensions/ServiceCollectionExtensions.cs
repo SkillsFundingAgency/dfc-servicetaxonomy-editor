@@ -31,11 +31,12 @@ namespace DFC.ServiceTaxonomy.Events.Extensions
         /// </remarks>
         public static void AddEventGridPublishing(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IEventGridContentRestHttpClientFactory, EventGridContentRestHttpClientFactory>();
+            var eventGridSection = configuration.GetSection("EventGrid");
+            services.Configure<EventGridConfiguration>(eventGridSection);
 
             //todo: check config for null and throw meaningful exceptions
 
-            EventGridConfiguration eventGridConfig = configuration.GetSection("EventGrid").Get<EventGridConfiguration>();
+            EventGridConfiguration eventGridConfig = eventGridSection.Get<EventGridConfiguration>();
 
             // publishing an event should be quick, so set the timeout low
             var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(5);
@@ -60,6 +61,8 @@ namespace DFC.ServiceTaxonomy.Events.Extensions
 
                 services.AddTransient<IEventGridContentClient, EventGridContentClient>();
             }
+
+            services.AddTransient<IEventGridContentRestHttpClientFactory, EventGridContentRestHttpClientFactory>();
 
             // workflow activities
             services.AddActivity<PublishToEventGridTask, PublishToEventGridTaskDisplay>();
