@@ -6,14 +6,10 @@ namespace DFC.ServiceTaxonomy.Events.Models
 {
     public class ContentEvent
     {
-        public ContentEvent(
-            string correlationId,
-            ContentItem contentItem,
-            //todo: pass in 2?
-            string eventType)
+        // use 2 part segmented eventType?
+        public ContentEvent(string correlationId, ContentItem contentItem, string eventType)
         {
             Id = correlationId;
-            // Topic = topic;
 
             string userId = contentItem.Content.GraphSyncPart.Text;
             Subject = $"/content/{contentItem.ContentType}/{userId.Substring(userId.Length - 36)}";
@@ -28,7 +24,6 @@ namespace DFC.ServiceTaxonomy.Events.Models
         }
 
         public string Id { get; }
-        // public string Topic { get; set; }
         public string Subject { get; }
         public ContentEventData Data { get; }
         public string EventType { get; }

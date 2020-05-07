@@ -15,7 +15,6 @@ using Polly.Extensions.Http;
 
 namespace DFC.ServiceTaxonomy.Events.Extensions
 {
-    //16.5.1
     public static class ServiceCollectionExtensions
     {
         /// <summary>
