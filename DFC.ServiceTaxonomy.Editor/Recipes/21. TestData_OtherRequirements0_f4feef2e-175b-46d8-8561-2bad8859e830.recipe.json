@@ -1,0 +1,186 @@
+{
+  "name": "TestData_OtherRequirements0_f4feef2e-175b-46d8-8561-2bad8859e830",
+  "displayName": "TestData_OtherRequirements0_f4feef2e-175b-46d8-8561-2bad8859e830",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]You\u0027ll usually need your own transport to get to and from work, as you may not be able to get public transport to suit your shift times."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need your own transport to get to and from work, as you may not be able to get public transport to suit your shift times.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/otherrequirement/1676a6df-726a-4408-b6d4-e2a1a40f52b5"
+    },
+    "ContentItemId": "4n4k34vfx2tnd5y77r6ek2gac4",
+    "ContentItemVersionId": "4kfq3kz0xzy5my0cj75cph18me",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "You\u0027ll usually need your own transport to get to and from work, as you may not be able to get public transport to suit your shift times.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]Many airlines also ask that you\u0027re able to swim up to 25 metres."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EMany airlines also ask that you\u0027re able to swim up to 25 metres.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/otherrequirement/9d86a97f-8a1f-497d-bfbc-26f5a40f924f"
+    },
+    "ContentItemId": "43hvtpnv4ewa3yhbq6pcxwpwnc",
+    "ContentItemVersionId": "45v85armf8amsyay7194vrxwxv",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "Many airlines also ask that you\u0027re able to swim up to 25 metres.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]There are rules about height and weight - these vary between airlines. As a general guide, most look for people between 5ft 2in (157cm) and 6ft 2in (188cm) with weight in proportion to height."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EThere are rules about height and weight - these vary between airlines. As a general guide, most look for people between 5ft 2in (157cm) and 6ft 2in (188cm) with weight in proportion to height.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/otherrequirement/b6f350d9-7432-4265-8042-1f39636bfb42"
+    },
+    "ContentItemId": "4jtr3a5rrw18q6sdmsv5b30pn2",
+    "ContentItemVersionId": "4fh9f71vnhg2jtdg7zf12nt7xg",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "There are rules about height and weight - these vary between airlines. As a general guide, most look for people between 5ft 2in (157cm) and 6ft 2in (188cm) with weight in proportion to height.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]You may need a driving licence for some jobs."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may need a driving licence for some jobs.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/otherrequirement/761982e2-7896-4689-b0d4-1e5f84fe3239"
+    },
+    "ContentItemId": "4d41atsmsqqbr1srt4rps8fzcz",
+    "ContentItemVersionId": "4rn7fgs84qga9yask6qv2hzzn9",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "You may need a driving licence for some jobs.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]To work with plant machinery like excavators or dumper trucks, you\u0027ll need to be 18 or over and have a driving licence."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003ETo work with plant machinery like excavators or dumper trucks, you\u0027ll need to be 18 or over and have a driving licence.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/otherrequirement/ffdd652f-ab70-4e67-9ac9-3b7092dd9f7b"
+    },
+    "ContentItemId": "40tt778epppys0n7mf4dgx2d4m",
+    "ContentItemVersionId": "4gzm0w4a5t1st6mqv30s4212we",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "To work with plant machinery like excavators or dumper trucks, you\u0027ll need to be 18 or over and have a driving licence.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]Certain people are not allowed to stand as an MP, for example someone convicted of electoral fraud. You can check with the [Electoral Commission] for more information about this."
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003ECertain people are not allowed to stand as an MP, for example someone convicted of electoral fraud. You can check with the \u003Ca href=\u0022https://www.electoralcommission.org.uk/i-am-a/candidate-or-agent\u0022\u003EElectoral Commission\u003C/a\u003E for more information about this.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/otherrequirement/136d8426-74a3-4b9a-ae8d-813628fa0824"
+    },
+    "ContentItemId": "4s6ww3znj0akn2w7veam0jqsdk",
+    "ContentItemVersionId": "4z6g0989g2y8d66p804hqw0em4",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "Certain people are not allowed to stand as an MP, for example someone convicted of electoral fraud. You can check with the [Electoral Commission] for more information about this.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]Usually you\u0027ll also be expected to:have a smart appearance; have a valid passport with no restrictions for the countries the airline travels to; live within 90 minutes of your base"
+    },
+    "OtherRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EUsually you\u0027ll also be expected to:\u003Cul\u003E\u003Cli\u003Ehave a smart appearance\u003C/li\u003E\u003Cli\u003Ehave a valid passport with no restrictions for the countries the airline travels to\u003C/li\u003E\u003Cli\u003Elive within 90 minutes of your base\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/otherrequirement/f03de5af-4673-44d6-9b9f-601d3106a881"
+    },
+    "ContentItemId": "4scdc93ktjwbf715npwn08d2mf",
+    "ContentItemVersionId": "4s1446q1mp0zss4qnk3ayw5jm7",
+    "ContentType": "OtherRequirement",
+    "DisplayText": "Usually you\u0027ll also be expected to:have a smart appearance; have a valid passport with no restrictions for the countries the airline travels to; live within 90 minutes of your base",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

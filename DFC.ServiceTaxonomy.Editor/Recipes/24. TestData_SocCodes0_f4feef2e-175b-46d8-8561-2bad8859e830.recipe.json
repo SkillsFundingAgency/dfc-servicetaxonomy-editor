@@ -1,0 +1,522 @@
+{
+  "name": "TestData_SocCodes0_f4feef2e-175b-46d8-8561-2bad8859e830",
+  "displayName": "TestData_SocCodes0_f4feef2e-175b-46d8-8561-2bad8859e830",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]1115"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EChief executives and senior officials\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/1b024b79-1a9e-4727-82e9-164e4454b110"
+    },
+    "ContentItemId": "49skd6jbg5734t6sbdkpgpgcmt",
+    "ContentItemVersionId": "40z90t4c0e45hz1d2bh6ft0bwv",
+    "ContentType": "SOCCode",
+    "DisplayText": "1115",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]1116"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EElected officers and representatives\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/6349bb93-0d97-443d-b965-c39ffe261920"
+    },
+    "ContentItemId": "4s6n64e0medyzyna7vj2rwsg4f",
+    "ContentItemVersionId": "496q4vj5rwmjm20py8f56ex9cj",
+    "ContentType": "SOCCode",
+    "DisplayText": "1116",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]1121"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EProduction managers and directors in manufacturing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/9e823237-ab6c-4077-8535-33f6ce26ede8"
+    },
+    "ContentItemId": "48406rfx12mfgt192k3gkj29xv",
+    "ContentItemVersionId": "4b2ex4j4n6n0j39w2prbg2e44y",
+    "ContentType": "SOCCode",
+    "DisplayText": "1121",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]2121"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003ECivil engineers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/19ecbdd6-a83a-4c76-bc03-2e71893648a0"
+    },
+    "ContentItemId": "49y7bk9yybpt2yd8ygqsx1304a",
+    "ContentItemVersionId": "4kzhx58py62b7vj5mgyn1pean4",
+    "ContentType": "SOCCode",
+    "DisplayText": "2121",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]2315"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EPrimary and nursery education teaching professionals\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/b9257bfb-f1ab-4cb1-b417-45092601a0a2"
+    },
+    "ContentItemId": "49hd2wg8h09k7y43xx7q4hkfm1",
+    "ContentItemVersionId": "4xxaxbrp6a23a6cpz46qf72mwg",
+    "ContentType": "SOCCode",
+    "DisplayText": "2315",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]2442"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003ESocial workers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/9275c88b-3e7e-4d42-9fee-97833d1f56e3"
+    },
+    "ContentItemId": "4sa4zpd21zrcjt9jd1ybdmsvcb",
+    "ContentItemVersionId": "4txz3xsgjds4rspc7pp15f1hdp",
+    "ContentType": "SOCCode",
+    "DisplayText": "2442",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]3312"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EPolice officers (sergeant and below)\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/3152a676-c488-4fb4-8eba-4b74d5b408ca"
+    },
+    "ContentItemId": "44pk4dherjjndtndxwq7d8apcq",
+    "ContentItemVersionId": "47zgefqkscnn07s083tfw05ect",
+    "ContentType": "SOCCode",
+    "DisplayText": "3312",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]3319"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EProtective service associate professionals n.e.c.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/6e9d2a4b-3ffb-4af0-9cee-57b9ede9d5c1"
+    },
+    "ContentItemId": "4rmnmrfzeqefj3baxdrkdd6mnv",
+    "ContentItemVersionId": "45js1e6r26vc2xg01tx9pjxzda",
+    "ContentType": "SOCCode",
+    "DisplayText": "3319",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]3413"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EActors, entertainers and presenters\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/8a1ae24c-0159-48d6-bb05-594277356762"
+    },
+    "ContentItemId": "41w5p4g4rcd127dnt5vqj65sck",
+    "ContentItemVersionId": "40a56edev3fjdt96tvys0t2q5d",
+    "ContentType": "SOCCode",
+    "DisplayText": "3413",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]4159"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EOther administrative occupations n.e.c.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/91b1e3b3-002f-435a-8ad7-765a79a5440e"
+    },
+    "ContentItemId": "40ff233nrr14cx0z69x7r6v540",
+    "ContentItemVersionId": "4cm5kvxj5zdy22khg926pp9wcm",
+    "ContentType": "SOCCode",
+    "DisplayText": "4159",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]4215"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EPersonal assistants and other secretaries\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/ebe60b6d-1b16-438b-9e1b-965279795594"
+    },
+    "ContentItemId": "4vftdh914nn0sw1hw84pnfayw6",
+    "ContentItemVersionId": "4zrenczmtzps2r2a4aefq82v45",
+    "ContentType": "SOCCode",
+    "DisplayText": "4215",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]6145"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003ECare workers and home carers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/7389da09-f493-4e73-8f91-60f6d75f1278"
+    },
+    "ContentItemId": "4y3v732jhdqcs1rrtf9g0ftn5r",
+    "ContentItemVersionId": "4hmg05wxy3j8txeq3v3cvkhtnt",
+    "ContentType": "SOCCode",
+    "DisplayText": "6145",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]6214"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EAir travel assistants\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/33b47978-0ae9-4e7a-97bf-b4008236d1c9"
+    },
+    "ContentItemId": "4m0rvjy8tx9g17fpc6bssqah4k",
+    "ContentItemVersionId": "48nhqkez1xkmj7wypacwptnddx",
+    "ContentType": "SOCCode",
+    "DisplayText": "6214",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]6221"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EHairdressers and barbers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/cb3930f1-07e7-4ee8-a719-1406f33bf9db"
+    },
+    "ContentItemId": "4www8jhbk4a7e4kr1kejtjgjmy",
+    "ContentItemVersionId": "4hgbd3f38dhgn58ysjcf45cqxt",
+    "ContentType": "SOCCode",
+    "DisplayText": "6221",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]7111"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003ESales and retail assistants\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/f6786e19-622f-4dc1-9ff3-a53b9c8343bf"
+    },
+    "ContentItemId": "4ktztfbwqe1gx237x9b2yc6rxf",
+    "ContentItemVersionId": "464hd0b7xew1dt9c9ee5y490ny",
+    "ContentType": "SOCCode",
+    "DisplayText": "7111",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]7214"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003ECommunication operators\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/ac68509b-dc16-4423-a740-3e275a5a177a"
+    },
+    "ContentItemId": "484mj4c8kdb9nypx8b49t0cvxj",
+    "ContentItemVersionId": "4ae7mgz04k35nvg9merc22jg5y",
+    "ContentType": "SOCCode",
+    "DisplayText": "7214",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]8149"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EConstruction operatives n.e.c.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/65759217-48c1-44b2-a147-cfb314b63b46"
+    },
+    "ContentItemId": "4p8bjcx6780ycvgq8xr5brxmwx",
+    "ContentItemVersionId": "43ar3455yvyaeteh76k2baqtd8",
+    "ContentType": "SOCCode",
+    "DisplayText": "8149",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]8231"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003ETrain and tram drivers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/c41e3089-7930-44d6-95c1-5609efe9c652"
+    },
+    "ContentItemId": "4sns5m8cqb1vg09xz668wxnvck",
+    "ContentItemVersionId": "4wxgawtvm7nqwv85d5qfaq3v5m",
+    "ContentType": "SOCCode",
+    "DisplayText": "8231",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]9211"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EPostal workers, mail sorters, messengers and couriers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/84c61845-fd2d-441b-82ca-193ca4767d59"
+    },
+    "ContentItemId": "413abfg8jk2nqwar0m45d8pp44",
+    "ContentItemVersionId": "4r4yct1es52e24pwa8b2dxhhwe",
+    "ContentType": "SOCCode",
+    "DisplayText": "9211",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]9249"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EElementary security occupations n.e.c.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/8920dd00-71ad-47c7-b10b-65a2bd7a0129"
+    },
+    "ContentItemId": "4a8wd469vkt40r46p9e7ybz0m5",
+    "ContentItemVersionId": "4570dxpc25bm47e29ete2y24cq",
+    "ContentType": "SOCCode",
+    "DisplayText": "9249",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "[TESTDATA]9273"
+    },
+    "SOCCode": {
+      "Description": {
+        "Html": "\u003Cp\u003EWaiters and waitresses\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/soccode/d47c2b24-a396-4259-8013-a98dfe18ed1f"
+    },
+    "ContentItemId": "4qc773ytzqtf06kmm6s8473zcz",
+    "ContentItemVersionId": "46sanwy4zd8z0tzt6228n9gc49",
+    "ContentType": "SOCCode",
+    "DisplayText": "9273",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T12:51:56.8064450Z",
+    "PublishedUtc": "2020-05-07T12:51:56.8064450Z",
+    "CreatedUtc": "2020-05-07T12:51:56.8064450Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
