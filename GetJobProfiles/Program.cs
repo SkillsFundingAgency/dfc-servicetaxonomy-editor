@@ -129,7 +129,7 @@ namespace GetJobProfiles
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
-            if (!excludeGraphContentMutators)
+            if (! (excludeGraphContentMutators || createTestFiles) )
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
@@ -137,7 +137,7 @@ namespace GetJobProfiles
             }
 
             bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
-            if (!excludeGraphIndexMutators)
+            if (! (excludeGraphIndexMutators || createTestFiles) )
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
@@ -163,7 +163,8 @@ namespace GetJobProfiles
 
             const string contentRecipesPath = "ContentRecipes";
 
-            await CopyRecipe(contentRecipesPath, $"SharedContent");
+            if (!createTestFiles)
+                await CopyRecipe(contentRecipesPath, $"SharedContent");
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandards");
