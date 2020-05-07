@@ -4,6 +4,7 @@ using DFC.ServiceTaxonomy.Events.Activities.Tasks;
 using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Drivers;
 using DFC.ServiceTaxonomy.Events.Services;
+using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Workflows.Helpers;
