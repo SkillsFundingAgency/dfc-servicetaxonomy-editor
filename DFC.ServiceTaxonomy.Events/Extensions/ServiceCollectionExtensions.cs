@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.Events.Services;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OrchardCore.Workflows.Helpers;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
@@ -14,8 +15,18 @@ using Polly.Extensions.Http;
 
 namespace DFC.ServiceTaxonomy.Events.Extensions
 {
+    //16.5.1
     public static class ServiceCollectionExtensions
     {
+        /// <summary>
+        /// Adds services to enable publishing of content events to Azure Event Grid.
+        /// </summary>
+        /// <remarks>
+        /// Policy notes:
+        /// We don't add a circuit-breaker (but we might later).
+        /// We could add knowledge of CloudError to policy, but we don't as errors resulting in CloudError's are
+        /// probably our fault (with the event contents), as opposed to transient network/http errors.
+        /// </remarks>
         public static void AddEventGridPublishing(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<IEventGridContentRestHttpClientFactory, EventGridContentRestHttpClientFactory>();
@@ -26,39 +37,27 @@ namespace DFC.ServiceTaxonomy.Events.Extensions
 
             var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
 
-            var retryPolicy =
-                HttpPolicyExtensions
-                    .HandleTransientHttpError()
-                    .WaitAndRetryAsync(delay, (result, timespan, retryAttempt, context) =>
-                    {
-                        //todo: log retries in context of resthttpclient or eventgridcontentclient
-                        // services.GetRequiredService<ILogger<EventGridContentClient>>()
-                        //     .LogWarning($"Delaying for {timespan}, then making retry {retryAttempt}.");
-                    });
-
             // publishing an event should be quick, so set the timeout low
             var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(5);
 
             foreach (EventGridTopicConfiguration eventGridTopicConfig in eventGridConfig.Topics)
             {
-                //todo: cache RestHttpClient's by contenttype??
                 //todo: check config for null and throw meaningful exceptions
 
-                //todo: how best to handle injecting? named? inject httpclient into eventgridcontentclient and wrap with rest in ctor?
-                // don't use rest?
-//            services.AddHttpClient<IEventGridContentClient, EventGridContentClient>(client =>
-
-                // policy notes
-                // we don't add a circuit-breaker (but we might later)
                 // we could add knowledge of CloudError to policy, but we don't as errors resulting in CloudError's are probably our fault (with the event contents), as opposed to transient network/http errors
 
-//                services.AddHttpClient<IRestHttpClient, RestHttpClient>(client =>
                 services.AddHttpClient(eventGridTopicConfig.ContentType, client =>
                     {
                         client.BaseAddress = new Uri(eventGridTopicConfig.TopicEndpoint!);
                         client.DefaultRequestHeaders.Add("aeg-sas-key", eventGridTopicConfig.AegSasKey!);
                     })
-                    .AddPolicyHandler(retryPolicy)
+                    .AddPolicyHandler((services, request) => HttpPolicyExtensions
+                        .HandleTransientHttpError()
+                        .WaitAndRetryAsync(delay, (result, timespan, retryAttempt, context) =>
+                        {
+                            services.GetService<ILogger<EventGridContentClient>>()
+                                .LogWarning($"Delaying for {timespan}, then making retry {retryAttempt}.");
+                        }))
                     .AddPolicyHandler(timeoutPolicy);
                     // leave as default 2 minutes for now
                     //.SetHandlerLifetime(TimeSpan.FromMinutes(3));
