@@ -9,6 +9,8 @@ namespace GetJobProfiles
     public class ONetConverter
     {
         public List<ONetOccupationalCodeContentItem> ONetOccupationalCodeContentItems { get; private set; } = new List<ONetOccupationalCodeContentItem>();
+        public static readonly string UnknownJobProfile = "Unknown";
+        private static readonly string UnknownCode = "00-0000.00";
 
         public Dictionary<string, string> Go(string timestamp)
         {
@@ -32,6 +34,10 @@ namespace GetJobProfiles
 
                     dict.Add(jobProfile, contentItem.ContentItemId);
                 }
+                // add placeholder / unknown item
+                var unknownContentItem = new ONetOccupationalCodeContentItem(UnknownCode, timestamp);
+                ONetOccupationalCodeContentItems.Add(unknownContentItem);
+                dict.Add(UnknownJobProfile, unknownContentItem.ContentItemId);
 
                 return dict;
             }

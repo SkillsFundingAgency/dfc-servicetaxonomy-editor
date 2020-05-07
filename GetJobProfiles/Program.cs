@@ -33,6 +33,17 @@ using NPOI.XSSF.UserModel;
 
 //todo: only generate occupations & occupation labels required for given job profile list
 
+//Sample appsettings.Development.json
+/*
+    {
+    "Ocp-Apim-Subscription-Key": "##################################",
+    "ExcludeGraphContentMutators": false,
+    "ExcludeGraphIndexMutators": true,
+    "MasterRecipeName": "master_subset_nographindex",
+    "JobProfilesToImport": "actor, admin assistant, civil engineer, chief executive, border force officer, cabin crew, care worker, construction labourer, electrician, emergency medical dispatcher, farmer, mp, personal assistant, plumber, police officer, postman or postwoman, primary school teacher, sales assistant, social worker, waiter, train driver"
+    }
+*/
+
 namespace GetJobProfiles
 {
     static class Program
@@ -110,12 +121,17 @@ namespace GetJobProfiles
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
-            bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
-            if (!excludeGraphMutators)
+            bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
+            if (!excludeGraphContentMutators)
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
+            }
+
+            bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
+            if (!excludeGraphIndexMutators)
+            {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
 
