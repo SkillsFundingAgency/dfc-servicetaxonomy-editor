@@ -104,16 +104,17 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 
                 // import
 
-                if (await HasFailedValidation(eventContentItem))
-                    return;
-
-                bool created = eventContentItem.CreatedUtc == eventContentItem.ModifiedUtc;
-
                 bool published = eventContentItem.Published;
+
+                if (await HasFailedValidation(eventContentItem, published))
+                    return;
+//todo: publishes updated-draft when save draft of a published version, as the modified is the publish time. either just publish draft/published, or try getting specific versions in GetAsync
+                //bool created = eventContentItem.CreatedUtc == eventContentItem.ModifiedUtc;
 
                 // would it be better to use the workflowid as the correlation id instead?
                 // should be bother having created/updated?
-                ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, eventContentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
+//                ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, eventContentItem, $"{(created?"created":"updated")}-{(published?"publish":"draft")}");
+                ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, eventContentItem, $"new-{(published?"published":"draft")}");
                 await _eventGridContentClient.Publish(contentEvent);
             }
             catch (Exception e)
@@ -124,7 +125,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         }
         #pragma warning restore S3241
 
-        private async Task<bool> HasFailedValidation(ContentItem contentItem)
+        private async Task<bool> HasFailedValidation(ContentItem contentItem, bool published)
         {
             // if content item is new and validation failed, ContentItemVersionId = null, CreatedUtc is null, ModifiedUtc is set, latest = false, published = false
             if (contentItem.ContentItemVersionId == null)
@@ -133,11 +134,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             try
             {
                 // if content item already existed and validation failed, the event content item has a later modified date than the quiesced content item
-                ContentItem contentItemBeforeCurrentOperation = await _contentManager.GetAsync(contentItem.ContentItemId);
+                ContentItem contentItemBeforeCurrentOperation = await _contentManager.GetAsync(contentItem.ContentItemId, published ? VersionOptions.Published : VersionOptions.Draft);
+                //todo: doesn't work for publish, then draft as existing content item has earlier modified date
                 return contentItemBeforeCurrentOperation.ModifiedUtc < contentItem.ModifiedUtc;
             }
-            catch
-            {
+            catch //todo: if have draft & published, then publish, published is false, so ends up publishing new draft
+            {//todo: if have draft & published, and new pub or draft, it doesn't get the old version
                 // validation succeeded but the item is new
                 return false;
             }
