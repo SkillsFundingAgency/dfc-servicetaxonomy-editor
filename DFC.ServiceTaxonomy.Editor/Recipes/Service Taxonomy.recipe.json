@@ -3674,18 +3674,18 @@
                     ]
                 },
                 {
-                    "WorkflowTypeId": "435ce9bkn6j38x6b53z667z3x3",
-                    "Name": "Publish Item Published Event",
+                    "WorkflowTypeId": "49e0fhzd3r6z94xebm5g6v4dcg",
+                    "Name": "Publish Events To Event Grid",
                     "IsEnabled": true,
                     "IsSingleton": false,
                     "DeleteFinishedWorkflows": false,
                     "Activities": [
                         {
-                            "ActivityId": "403hk5pkkxfkrt5eyctqmr1a4h",
-                            "Name": "ContentPublishedEvent",
-                            "X": 10,
+                            "ActivityId": "45nnb7vnmbab9zkwhmtxxv9cn0",
+                            "Name": "ContentUpdatedEvent",
+                            "X": 0,
                             "Y": 0,
-                            "IsStart": false,
+                            "IsStart": true,
                             "Properties": {
                                 "ContentTypeFilter": [],
                                 "ActivityMetadata": {
@@ -3694,44 +3694,14 @@
                             }
                         },
                         {
-                            "ActivityId": "4gtgm5sznv50fx59ah48td3cd4",
-                            "Name": "HttpRequestTask",
-                            "X": 410,
-                            "Y": 0,
-                            "IsStart": false,
-                            "Properties": {
-                                "ActivityMetadata": {
-                                    "Title": null
-                                },
-                                "Url": {
-                                    "Expression": "https://stax.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01"
-                                },
-                                "HttpMethod": "POST",
-                                "Body": {
-                                    "Expression": "[{\r\n  \"id\": \"{{ Workflow.Input.ContentItem.ContentItemVersionId }}\",\r\n  \"eventType\": \"published-modified\",\r\n  \"subject\": \"{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}\",\r\n  \"eventTime\": \"{{ Workflow.Input.ContentItem.ModifiedUtc | date: \"%Y-%m-%dT%H:%M:%S.%LZ\" }}\",\r\n  \"data\": {\r\n    \"api\": \"{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}\"\r\n  },\r\n  \"dataVersion\": \"1.0\"\r\n}]"
-                                },
-                                "ContentType": {
-                                    "Expression": "application/json"
-                                },
-                                "Headers": {
-                                    "Expression": "aeg-sas-key: {{ Workflow.Properties[\"aeg-sas-key\"] | raw }}"
-                                },
-                                "HttpResponseCodes": "200, 400, 401, 404, 413"
-                            }
-                        },
-                        {
-                            "ActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
-                            "Name": "SetPropertyTask",
+                            "ActivityId": "43x4semh4jxkgywswvr6gww3w5",
+                            "Name": "PublishToEventGridTask",
                             "X": 0,
-                            "Y": 230,
+                            "Y": 180,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
                                     "Title": null
-                                },
-                                "PropertyName": "aeg-sas-key",
-                                "Value": {
-                                    "Expression": "config(input('ContentItem').ContentType + '-aeg-sas-key')"
                                 }
                             }
                         }
@@ -3739,15 +3709,9 @@
                     "Transitions": [
                         {
                             "Id": 0,
-                            "SourceActivityId": "403hk5pkkxfkrt5eyctqmr1a4h",
+                            "SourceActivityId": "45nnb7vnmbab9zkwhmtxxv9cn0",
                             "SourceOutcomeName": "Done",
-                            "DestinationActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7"
-                        },
-                        {
-                            "Id": 0,
-                            "SourceActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
-                            "SourceOutcomeName": "Done",
-                            "DestinationActivityId": "4gtgm5sznv50fx59ah48td3cd4"
+                            "DestinationActivityId": "43x4semh4jxkgywswvr6gww3w5"
                         }
                     ]
                 }

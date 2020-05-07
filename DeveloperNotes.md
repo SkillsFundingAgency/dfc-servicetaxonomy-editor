@@ -1,5 +1,10 @@
 #ToDo
 
+* logs contain:
+2020-05-07 09:40:03.4215|Default|00-eb1569214053c7469f97b051ff048cf4-f99bce6ecee01348-00||OrchardCore.ContentManagement.Display.ContentItemDisplayCoordinator|WARN|The content field display driver 'DFC.ServiceTaxonomy.CustomFields.Drivers.AccordionFieldDisplayDriver' should not be registered in DI. Use UseDisplayDriver<T> instead.
+2020-05-07 09:40:03.4310|Default|00-eb1569214053c7469f97b051ff048cf4-f99bce6ecee01348-00||OrchardCore.ContentManagement.Display.ContentItemDisplayCoordinator|WARN|The content field display driver 'DFC.ServiceTaxonomy.CustomFields.Drivers.TabFieldDisplayDriver' should not be registered in DI. Use UseDisplayDriver<T> instead.
+
+
 * recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
 
 * we need to make sure we have decent views for content items, as when there is a draft and published version, you can only view the published version (and only see the draft in edit)
@@ -396,6 +401,379 @@ View:
 Remove expected relationship:
 
 ```match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' delete r```
+
+#Workflows
+
+Here are some useful workflows:
+
+## Workflow triggered by all content events, adds trigger type to "Trigger" property and calls task
+
+```
+        {
+          "WorkflowTypeId": "4mf5dfbk4s1x976r5qfpggvyd4",
+          "Name": "Publish Content Status Event",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx",
+              "Name": "PublishToEventGridTask",
+              "X": 680,
+              "Y": 370,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4yabcewg21dtf3fj90c3qknm4r",
+              "Name": "ContentPublishedEvent",
+              "X": 10,
+              "Y": 350,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4pkns4y8z6mn7r3955e9bq69n9",
+              "Name": "ContentCreatedEvent",
+              "X": 10,
+              "Y": 10,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4xsmc2qcdvfexratekpnmqs1cw",
+              "Name": "ContentUpdatedEvent",
+              "X": 450,
+              "Y": 10,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4r5evtppaxw863sf5rfk92j0cd",
+              "Name": "ContentDeletedEvent",
+              "X": 770,
+              "Y": 10,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4jhyghjynya8rv4z4vdsccdnwp",
+              "Name": "ContentVersionedEvent",
+              "X": 750,
+              "Y": 690,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "41xa9wgy54xeqsdg4a9zc9bt4z",
+              "Name": "ContentUnpublishedEvent",
+              "X": 10,
+              "Y": 700,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4f1pm0b5mfpxbxje8neqx2tbwc",
+              "Name": "SetPropertyTask",
+              "X": 210,
+              "Y": 350,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"published\""
+                }
+              }
+            },
+            {
+              "ActivityId": "40dcr67a5js720n2wk72h37yw3",
+              "Name": "SetPropertyTask",
+              "X": 220,
+              "Y": 700,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"unpublished\""
+                }
+              }
+            },
+            {
+              "ActivityId": "445bvx40pj4381vzy049q37tx5",
+              "Name": "SetPropertyTask",
+              "X": 10,
+              "Y": 130,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"created\""
+                }
+              }
+            },
+            {
+              "ActivityId": "4vqf5zsjkypmprqx787a27x64y",
+              "Name": "SetPropertyTask",
+              "X": 470,
+              "Y": 170,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"updated\""
+                }
+              }
+            },
+            {
+              "ActivityId": "4j0begff2ycpdvhght6cbf6twx",
+              "Name": "SetPropertyTask",
+              "X": 750,
+              "Y": 190,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"deleted\""
+                }
+              }
+            },
+            {
+              "ActivityId": "4ty61drqcsdew4kyvmdnkxxbwv",
+              "Name": "SetPropertyTask",
+              "X": 740,
+              "Y": 560,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"versioned\""
+                }
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "4yabcewg21dtf3fj90c3qknm4r",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4f1pm0b5mfpxbxje8neqx2tbwc"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4f1pm0b5mfpxbxje8neqx2tbwc",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "41xa9wgy54xeqsdg4a9zc9bt4z",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "40dcr67a5js720n2wk72h37yw3"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "40dcr67a5js720n2wk72h37yw3",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4pkns4y8z6mn7r3955e9bq69n9",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "445bvx40pj4381vzy049q37tx5"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "445bvx40pj4381vzy049q37tx5",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4xsmc2qcdvfexratekpnmqs1cw",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4vqf5zsjkypmprqx787a27x64y"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4vqf5zsjkypmprqx787a27x64y",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4r5evtppaxw863sf5rfk92j0cd",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4j0begff2ycpdvhght6cbf6twx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4j0begff2ycpdvhght6cbf6twx",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4jhyghjynya8rv4z4vdsccdnwp",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4ty61drqcsdew4kyvmdnkxxbwv"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4ty61drqcsdew4kyvmdnkxxbwv",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            }
+          ]
+        },
+```
+
+## Workflow using HttpRequest to publish event (good for prototyping)
+
+```
+        {
+          "WorkflowTypeId": "435ce9bkn6j38x6b53z667z3x3",
+          "Name": "Publish Item Published Event",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "403hk5pkkxfkrt5eyctqmr1a4h",
+              "Name": "ContentPublishedEvent",
+              "X": 10,
+              "Y": 0,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4gtgm5sznv50fx59ah48td3cd4",
+              "Name": "HttpRequestTask",
+              "X": 410,
+              "Y": 0,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "Url": {
+                  "Expression": "https://stax-{{ Workflow.Input.ContentItem.ContentType }}.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01"
+                },
+                "HttpMethod": "POST",
+                "Body": {
+                  "Expression": "[{\r\n  \"id\": \"{{ Workflow.CorrelationId }}\",\r\n  \"eventType\": \"published-modified\",\r\n  \"subject\": \"/{{ Workflow.Input.ContentItem.ContentType }}/{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text | slice: -36, 36 }}\",\r\n  \"eventTime\": \"{{ Workflow.Input.ContentItem.ModifiedUtc | date: \"%Y-%m-%dT%H:%M:%S.%LZ\" }}\",\r\n  \"data\": {\r\n    \"api\": \"{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}\",\r\n    \"versionId\": \"{{ Workflow.Input.ContentItem.ContentItemVersionId }}\",\r\n    \"displayText\": \"{{ Workflow.Input.ContentItem.DisplayText }}\"\r\n  },\r\n  \"dataVersion\": \"1.0\"\r\n}]"
+                },
+                "ContentType": {
+                  "Expression": "application/json"
+                },
+                "Headers": {
+                  "Expression": "aeg-sas-key: {{ Workflow.Properties[\"aeg-sas-key\"] | raw }}"
+                },
+                "HttpResponseCodes": "200, 400, 401, 404, 413"
+              }
+            },
+            {
+              "ActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
+              "Name": "SetPropertyTask",
+              "X": 0,
+              "Y": 230,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "aeg-sas-key",
+                "Value": {
+                  "Expression": "config(input('ContentItem').ContentType + '-aeg-sas-key')"
+                }
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "403hk5pkkxfkrt5eyctqmr1a4h",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4gtgm5sznv50fx59ah48td3cd4"
+            }
+          ]
+        },
+```
 
 #Links
 
