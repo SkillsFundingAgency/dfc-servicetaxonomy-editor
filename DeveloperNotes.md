@@ -1,10 +1,5 @@
 #ToDo
 
-* logs contain:
-2020-05-07 09:40:03.4215|Default|00-eb1569214053c7469f97b051ff048cf4-f99bce6ecee01348-00||OrchardCore.ContentManagement.Display.ContentItemDisplayCoordinator|WARN|The content field display driver 'DFC.ServiceTaxonomy.CustomFields.Drivers.AccordionFieldDisplayDriver' should not be registered in DI. Use UseDisplayDriver<T> instead.
-2020-05-07 09:40:03.4310|Default|00-eb1569214053c7469f97b051ff048cf4-f99bce6ecee01348-00||OrchardCore.ContentManagement.Display.ContentItemDisplayCoordinator|WARN|The content field display driver 'DFC.ServiceTaxonomy.CustomFields.Drivers.TabFieldDisplayDriver' should not be registered in DI. Use UseDisplayDriver<T> instead.
-
-
 * recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
 
 * we need to make sure we have decent views for content items, as when there is a draft and published version, you can only view the published version (and only see the draft in edit)
