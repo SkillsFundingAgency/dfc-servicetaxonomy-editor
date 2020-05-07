@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
             _logger.LogInformation($"Publishing single event {contentEvent}");
 
             await _eventGridContentRestHttpClientFactory.CreateClient(contentEvent.ContentType)
-                .PostAsJson("", contentEvent, cancellationToken);
+                .PostAsJson("", new[] {contentEvent}, cancellationToken);
         }
 
         public async Task Publish(IEnumerable<ContentEvent> contentEvents, CancellationToken cancellationToken = default)

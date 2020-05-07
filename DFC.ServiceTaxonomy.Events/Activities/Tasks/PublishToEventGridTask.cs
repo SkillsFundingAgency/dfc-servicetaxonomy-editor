@@ -61,12 +61,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 
             //Task.Delay(1000).ContinueWith(async t=> await DelayedEventProcessing(contentItem));
 
-            if ((string)workflowContext.Properties["Trigger"] == "updated")
-            {
+            // if ((string)workflowContext.Properties["Trigger"] == "updated")
+            // {
                 #pragma warning disable CS4014
                 ProcessEventAfterContentItemQuiesces(workflowContext, contentItem);
                 #pragma warning restore CS4014
-            }
+            // }
 
             //todo: use GraphSyncHelper
             // do we assume id ends with a guid, or do we need a setting to extract the eventgrid id from the full id?
