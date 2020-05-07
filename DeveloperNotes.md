@@ -1,5 +1,8 @@
 #ToDo
 
+* we'll need a service taxonomy recipe per environment, so that we can have different uris pointing to the right content api
+  or we supply it to the setting and pick it up from the appconfig
+
 * recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
 
 * we need to make sure we have decent views for content items, as when there is a draft and published version, you can only view the published version (and only see the draft in edit)

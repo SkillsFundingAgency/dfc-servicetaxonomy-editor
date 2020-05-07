@@ -26,6 +26,9 @@ namespace DFC.ServiceTaxonomy.Events.Extensions
         /// We don't add a circuit-breaker (but we might later).
         /// We could add knowledge of CloudError to policy, but we don't as errors resulting in CloudError's are
         /// probably our fault (with the event contents), as opposed to transient network/http errors.
+        /// We might want to change the Handler lifetime from the default of 2 minutes, using
+        /// .SetHandlerLifetime(TimeSpan.FromMinutes(3));
+        /// it's a balance between keeping sockets open and latency in handling dns updates.
         /// </remarks>
         public static void AddEventGridPublishing(this IServiceCollection services, IConfiguration configuration)
         {
@@ -35,16 +38,12 @@ namespace DFC.ServiceTaxonomy.Events.Extensions
 
             EventGridConfiguration eventGridConfig = configuration.GetSection("EventGrid").Get<EventGridConfiguration>();
 
-            var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
-
             // publishing an event should be quick, so set the timeout low
             var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(5);
 
             foreach (EventGridTopicConfiguration eventGridTopicConfig in eventGridConfig.Topics)
             {
-                //todo: check config for null and throw meaningful exceptions
-
-                // we could add knowledge of CloudError to policy, but we don't as errors resulting in CloudError's are probably our fault (with the event contents), as opposed to transient network/http errors
+                var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
 
                 services.AddHttpClient(eventGridTopicConfig.ContentType, client =>
                     {
@@ -59,8 +58,6 @@ namespace DFC.ServiceTaxonomy.Events.Extensions
                                 .LogWarning($"Delaying for {timespan}, then making retry {retryAttempt}.");
                         }))
                     .AddPolicyHandler(timeoutPolicy);
-                    // leave as default 2 minutes for now
-                    //.SetHandlerLifetime(TimeSpan.FromMinutes(3));
 
                 services.AddTransient<IEventGridContentClient, EventGridContentClient>();
             }
