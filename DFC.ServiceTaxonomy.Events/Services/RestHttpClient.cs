@@ -13,10 +13,6 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace DFC.ServiceTaxonomy.Events.Services
 {
-    //todo: remove cancellationtokens?
-    // see...
-    // https://github.com/dotnet/runtime/issues/916
-    // https://github.com/dotnet/runtime/pull/686
     public class RestHttpClient : IRestHttpClient
     {
         private readonly HttpClient _httpClient;
@@ -71,45 +67,12 @@ namespace DFC.ServiceTaxonomy.Events.Services
             return await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
         }
 
-        // public async Task<string> PostAsJson<TRequest>(string uri, [AllowNull]TRequest requestData, CancellationToken cancellationToken = default)
-        // {
-        //     //todo: check is PostAsJsonAsync handles null
-        //     var response = await _httpClient.PostAsJsonAsync(uri, requestData!, cancellationToken).ConfigureAwait(false);
-        //
-        //     if (!response.IsSuccessStatusCode)
-        //     {
-        //         throw CreateClientException(response, await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-        //     }
-        //
-        //     //todo: ReadAsStream
-        //     return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-        // }
-
         public async Task<TResponse> PostAsJson<TRequest, TResponse>(string uri, TRequest requestData, CancellationToken cancellationToken = default)
         {
             Stream result = await PostAsJson(uri, requestData, cancellationToken).ConfigureAwait(false);
 
             return await JsonSerializer.DeserializeAsync<TResponse>(result, cancellationToken: cancellationToken);
         }
-
-        // public async Task<string> PutAsJson<TRequest>(string uri, TRequest requestData, CancellationToken cancellationToken = default)
-        // {
-        //     var response = await _httpClient.PutAsJsonAsync(uri, requestData, cancellationToken).ConfigureAwait(false);
-        //
-        //     if (!response.IsSuccessStatusCode)
-        //     {
-        //         throw CreateClientException(response, await response.Content.ReadAsStringAsync().ConfigureAwait(false));
-        //     }
-        //
-        //     return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-        // }
-        //
-        // public async Task<TResponse> PutAsJson<TRequest, TResponse>(string uri, TRequest requestData, CancellationToken cancellationToken = default)
-        // {
-        //     var resultAsString = await PutAsJson(uri, requestData, cancellationToken).ConfigureAwait(false);
-        //
-        //     return JsonSerializer.DeserializeAsync<TResponse>(resultAsString, cancellationToken: cancellationToken);
-        // }
 
         protected virtual Exception CreateClientException(HttpResponseMessage httpResponseMessage, string content)
         {
