@@ -34,6 +34,8 @@ namespace DFC.ServiceTaxonomy.Events
 
             services.AddTransient<IEventGridContentRestHttpClientFactory, EventGridContentRestHttpClientFactory>();
 
+            //todo: check config for null and throw meaningful exceptions
+
             EventGridConfiguration eventGridConfig = Configuration.GetSection("EventGrid").Get<EventGridConfiguration>();
 
             var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);

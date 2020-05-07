@@ -1,5 +1,9 @@
 #ToDo
 
+* recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
+
+* we need to make sure we have decent views for content items, as when there is a draft and published version, you can only view the published version (and only see the draft in edit)
+
 * don't pass endpoint to sync validators, set current in driver instead
 
 * update exceptions with code from ApiFunctionException.cs

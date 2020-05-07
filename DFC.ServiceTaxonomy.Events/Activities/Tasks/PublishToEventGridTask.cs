@@ -22,22 +22,13 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
     // EventGridViewer: get updates for free
     // https://github.com/Azure/azure-sdk-for-net/tree/fef6a5436167758454a9eb965ed1d7b3f8eb061b/sdk/eventgrid/Microsoft.Azure.EventGrid
 
-
-    //todo: we need decent view so that user can view published version if there's a draft version as edit will always show the draft version if there is one
-
-
-    //todo: in own module?
     public class PublishToEventGridTask : TaskActivity
     {
         private readonly IEventGridContentClient _eventGridContentClient;
-
         private readonly IContentManager _contentManager;
-
         private readonly ILogger<PublishToEventGridTask> _logger;
-        //        private readonly IOptionsMonitor<EventGridConfiguration> _eventGridOptionsMonitor;
 
         public PublishToEventGridTask(
-//            IOptionsMonitor<EventGridConfiguration> EventGridOptionsMonitor,
             IEventGridContentClient eventGridContentClient,
             IContentManager contentManager,
             IStringLocalizer<PublishToEventGridTask> localizer,
@@ -46,7 +37,6 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             _eventGridContentClient = eventGridContentClient;
             _contentManager = contentManager;
             _logger = logger;
-            //          _eventGridOptionsMonitor = EventGridOptionsMonitor;
             T = localizer;
         }
 
@@ -67,10 +57,6 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
-            //todo: support >1 topic
-            // //todo: cache RestHttpClient's by contenttype??
-            // //todo: check config for null and throw meaningful exceptions
-
             ContentItem contentItem = (ContentItem)workflowContext.Input["ContentItem"];
 
             //Task.Delay(1000).ContinueWith(async t=> await DelayedEventProcessing(contentItem));
@@ -87,10 +73,8 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             // string userId = contentItem.Content.GraphSyncPart.Text;
 
             //todo: add author to event??
-            //todo: for retry probably use polly, could do through workflow, but probably too involved
 
-            //todo: follow SyncToGraphTask, or do we return Failed outcome and add the notification to the workflow? we're gonna have to just return success, because of the delay
-
+            // we have to always return success, even though the delayed processing may fail (because of the necessity of the delay)
             return Task.FromResult(Outcomes("Done"));
         }
 
@@ -158,13 +142,13 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 
             try
             {
-                // if content item already existed and validation failed, then the event content item has a later modified date than the quiesced content item
-                ContentItem quiescedContentItem = await _contentManager.GetAsync(contentItem.ContentItemId);
-                return quiescedContentItem.ModifiedUtc < contentItem.ModifiedUtc;
+                // if content item already existed and validation failed, the event content item has a later modified date than the quiesced content item
+                ContentItem contentItemBeforeCurrentOperation = await _contentManager.GetAsync(contentItem.ContentItemId);
+                return contentItemBeforeCurrentOperation.ModifiedUtc < contentItem.ModifiedUtc;
             }
             catch
             {
-                // validation succeeded but the item is new. in that case, were checking existing, rather than quiesced!?
+                // validation succeeded but the item is new
                 return false;
             }
         }
