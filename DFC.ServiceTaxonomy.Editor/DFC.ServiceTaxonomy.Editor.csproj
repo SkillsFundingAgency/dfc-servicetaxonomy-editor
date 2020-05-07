@@ -39,9 +39,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.13.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.13.1" />
-    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-*" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497">
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.1.17183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -51,6 +52,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Cypher\DFC.ServiceTaxonomy.Cypher.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />

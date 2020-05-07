@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
-//using OrchardCore.Environment.Shell.Configuration;
 using OrchardCore.Scripting;
 
-namespace DFC.ServiceTaxonomy.Editor.MethodProviders
+namespace DFC.ServiceTaxonomy.Events.MethodProviders
 {
     //todo: security
     public class ConfigMethodProvider : IGlobalMethodProvider
@@ -24,7 +23,7 @@ namespace DFC.ServiceTaxonomy.Editor.MethodProviders
 
         public IEnumerable<GlobalMethod> GetMethods()
         {
-            yield return _globalMethod;
+            return new[] { _globalMethod };
         }
     }
 }
