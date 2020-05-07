@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Events.Models;
+using DFC.ServiceTaxonomy.Events.Services.Exceptions;
+using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 
 namespace DFC.ServiceTaxonomy.Events.Services
 {

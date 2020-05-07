@@ -7,6 +7,8 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Events.Services.Exceptions;
+using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace DFC.ServiceTaxonomy.Events.Services

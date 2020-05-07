@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 
-namespace DFC.ServiceTaxonomy.Events.Services
+namespace DFC.ServiceTaxonomy.Events.Services.Exceptions
 {
     [Serializable]
     public class MissingEventGridTopicConfigurationException : Exception
