@@ -1,0 +1,3005 @@
+{
+  "name": "ApprenticeshipStandards0_bdfc4782-34b0-494d-96a2-41a836c9acba",
+  "displayName": "ApprenticeshipStandards0_bdfc4782-34b0-494d-96a2-41a836c9acba",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Adult care worker"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0005"
+      },
+      "MaximumFunding": {
+        "Value": 3000
+      },
+      "LARSCode": {
+        "Value": 119
+      },
+      "Duration": {
+        "Value": 12
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4d20935d0qdwwy97t4h201df5t"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4pa9eepehpk95s3xb6w24nghn3"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/ac87eccf-125a-46cb-b2a1-73c5b66fa5e5"
+    },
+    "ContentItemId": "46b3rygrxr6akx03wbctyafw40",
+    "ContentItemVersionId": "4hs3sjv1zmqe0139451r2kt7np",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Adult care worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Business administrator"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0070"
+      },
+      "MaximumFunding": {
+        "Value": 5000
+      },
+      "LARSCode": {
+        "Value": 196
+      },
+      "Duration": {
+        "Value": 18
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4rg6fcwnrmr4c7s4ggw7s80mnr"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4zs4zee8czydzsj37az831w0ww"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/f03af359-7593-45a2-825e-1b22f699af47"
+    },
+    "ContentItemId": "4bpfbb3x5gx554zpypm0k0cpwc",
+    "ContentItemVersionId": "4y6wdc8mk58jq1dw1njekta659",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Business administrator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Civil engineer"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0417"
+      },
+      "MaximumFunding": {
+        "Value": 27000
+      },
+      "LARSCode": {
+        "Value": 200
+      },
+      "Duration": {
+        "Value": 66
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "46c4svt0evnhqybab8c22hkawr"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "402aex5azkacdtwzkt4pyqbn5w"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/33c98273-758d-4f65-b8b4-6fce1d3629e5"
+    },
+    "ContentItemId": "47zfrb5jmcxk4s88ytsz9k60d3",
+    "ContentItemVersionId": "4z0fk298bxanp2rd6ypzdcjwmt",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Civil engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emergency service contact handling"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0483"
+      },
+      "MaximumFunding": {
+        "Value": 9000
+      },
+      "LARSCode": {
+        "Value": 262
+      },
+      "Duration": {
+        "Value": 12
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4fg4z7cwzhx895068bfg3ytem0"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4zs4zee8czydzsj37az831w0ww"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/2eca4b98-ecb0-4e26-9d23-d73225eb4f22"
+    },
+    "ContentItemId": "4t2snrhfmnvxvtdm5bc0z58m41",
+    "ContentItemVersionId": "4fan0jtpe43h6x8zmb5grjg9m8",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Emergency service contact handling",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Express delivery operative"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0103"
+      },
+      "MaximumFunding": {
+        "Value": 4000
+      },
+      "LARSCode": {
+        "Value": 338
+      },
+      "Duration": {
+        "Value": 12
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "47zgj3b6q0yqdvjqma320ekdct"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4pa9eepehpk95s3xb6w24nghn3"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/642b671d-5df5-49f6-bded-718d49877de9"
+    },
+    "ContentItemId": "4tc269pq18zeb25c6hq1b2cjxq",
+    "ContentItemVersionId": "4tm846cbhdvjj460th5qdrxexh",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Express delivery operative",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Groundworker"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0513"
+      },
+      "MaximumFunding": {
+        "Value": 7000
+      },
+      "LARSCode": {
+        "Value": 388
+      },
+      "Duration": {
+        "Value": 18
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "46c4svt0evnhqybab8c22hkawr"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4pa9eepehpk95s3xb6w24nghn3"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/afc2c195-c856-41f9-84d9-fe32ba755cb2"
+    },
+    "ContentItemId": "4tvbabc10anqp5xztf0161whxm",
+    "ContentItemVersionId": "495aqje6c4bsk6rzgf6025yxxf",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Groundworker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Lead adult care worker"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0006"
+      },
+      "MaximumFunding": {
+        "Value": 3000
+      },
+      "LARSCode": {
+        "Value": 118
+      },
+      "Duration": {
+        "Value": 18
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4d20935d0qdwwy97t4h201df5t"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4zs4zee8czydzsj37az831w0ww"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/cf2d23dc-b459-4d99-b5ac-10b82442fe95"
+    },
+    "ContentItemId": "4agp4hndqfh33034bp0c7kn85w",
+    "ContentItemVersionId": "4tbvx1newv4034rpypjj5neyxv",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Lead adult care worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Plumbing and domestic heating technician"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0303"
+      },
+      "MaximumFunding": {
+        "Value": 21000
+      },
+      "LARSCode": {
+        "Value": 225
+      },
+      "Duration": {
+        "Value": 48
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "46c4svt0evnhqybab8c22hkawr"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4zs4zee8czydzsj37az831w0ww"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/89b55601-e57e-459c-9c29-404b56e50382"
+    },
+    "ContentItemId": "49d73x7te5dh87db4byz7wttm2",
+    "ContentItemVersionId": "4wg5v5sgm0r5vr8pbgfb1fnvm3",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Plumbing and domestic heating technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Police constable"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0304"
+      },
+      "MaximumFunding": {
+        "Value": 24000
+      },
+      "LARSCode": {
+        "Value": 256
+      },
+      "Duration": {
+        "Value": 36
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4fg4z7cwzhx895068bfg3ytem0"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "402aex5azkacdtwzkt4pyqbn5w"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/80137a03-caad-4ca5-a7ba-6e8c76152c26"
+    },
+    "ContentItemId": "47jcq1647eexxxgsrrw2gs8twz",
+    "ContentItemVersionId": "4zffvpg7ferxvxvm80c727q1xa",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Police constable",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Retailer"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0327"
+      },
+      "MaximumFunding": {
+        "Value": 4000
+      },
+      "LARSCode": {
+        "Value": 101
+      },
+      "Duration": {
+        "Value": 12
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4s1erjqxekjt4z652wdxnmnpwx",
+          "449bh2scaef5606bh3cbe3bm5k"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4pa9eepehpk95s3xb6w24nghn3"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/006cb599-e3ec-4723-9dd2-22351bd64214"
+    },
+    "ContentItemId": "4q1wpnvynegzj1k3r10nxpq9n3",
+    "ContentItemVersionId": "4nsfjwesp43hb05yw73q4ekjwq",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Retailer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Senior leader"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0480"
+      },
+      "MaximumFunding": {
+        "Value": 18000
+      },
+      "LARSCode": {
+        "Value": 236
+      },
+      "Duration": {
+        "Value": 24
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4rg6fcwnrmr4c7s4ggw7s80mnr"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4h4bk0x44s6j2xtrgx2f5cy6cr"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/2b6a44a8-0d47-40ef-ae33-a62a2271a6bf"
+    },
+    "ContentItemId": "4vp3b22p07cm439cfksmpeka42",
+    "ContentItemVersionId": "40yawt98h76jk125tmrmn6hw4x",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Senior leader",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social worker"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0510"
+      },
+      "MaximumFunding": {
+        "Value": 23000
+      },
+      "LARSCode": {
+        "Value": 381
+      },
+      "Duration": {
+        "Value": 36
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4d20935d0qdwwy97t4h201df5t"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "402aex5azkacdtwzkt4pyqbn5w"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/c2c9d903-e915-4a5a-b106-d84e6942f61e"
+    },
+    "ContentItemId": "434m4rpb9hnmpwkjjastv14ddc",
+    "ContentItemVersionId": "4v85ww92vcezqr3bwfpns4fx50",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Social worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Stockperson"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0017"
+      },
+      "MaximumFunding": {
+        "Value": 10000
+      },
+      "LARSCode": {
+        "Value": 344
+      },
+      "Duration": {
+        "Value": 18
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4c52ngc1bj1cy2r533mpter8nt",
+          "4ttr9p0wyxrgqx4kt3s94fyd46"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4pa9eepehpk95s3xb6w24nghn3"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/89af31d6-4551-42a7-a14e-8d942127990f"
+    },
+    "ContentItemId": "4nzwrnchkqymtxhge11p0wsnwn",
+    "ContentItemVersionId": "4xm6gfmnxgz7zxnyh2yar51nmy",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Stockperson",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Teacher"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0490"
+      },
+      "MaximumFunding": {
+        "Value": 9000
+      },
+      "LARSCode": {
+        "Value": 203
+      },
+      "Duration": {
+        "Value": 12
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "4c13rcfe23tv1sxtnyptr5r054"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "402aex5azkacdtwzkt4pyqbn5w"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/0de73aaa-e5b1-4816-99e3-d5179b5dabd3"
+    },
+    "ContentItemId": "4vm9ss1g0jam12h6s26xez6awb",
+    "ContentItemVersionId": "4ee3x1fhf3sh3st162eeff975q",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Teacher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Train driver"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": "ST0645"
+      },
+      "MaximumFunding": {
+        "Value": 21000
+      },
+      "LARSCode": {
+        "Value": 285
+      },
+      "Duration": {
+        "Value": 12
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": [
+          "47zgj3b6q0yqdvjqma320ekdct"
+        ]
+      },
+      "QCFLevel": {
+        "ContentItemIds": [
+          "4zs4zee8czydzsj37az831w0ww"
+        ]
+      },
+      "Type": {
+        "Text": "Standard"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/2309c11a-18af-4750-bb5f-274ff2bcabbc"
+    },
+    "ContentItemId": "4keg9j8wt4mt04wdg18bwx0wds",
+    "ContentItemVersionId": "4sgk0qpjdxvtv302n1q9ze8cmc",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Train driver",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Community Arts"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/337ca1b0-1f65-4eb5-af71-99f1ed81ca74"
+    },
+    "ContentItemId": "4cgm8n5146a2kvyzenpdmm2mne",
+    "ContentItemVersionId": "4enpkppa8ac3wybwsnkhmkk3cq",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Community Arts",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sporting Excellence"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/10aae09b-bab0-405e-9d00-837e27ea1598"
+    },
+    "ContentItemId": "4th7cnj7etgdw1b5hc0sjwmect",
+    "ContentItemVersionId": "4jfd73dadpyqhws65zxg2yzmwf",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Sporting Excellence",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Vehicle Parts"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/c42c39e0-a7b0-4444-81c9-dd4ad0ef3202"
+    },
+    "ContentItemId": "47at7vsvmmmgy7v4xbh1gmf8n0",
+    "ContentItemVersionId": "4f7mhqpx1c5cc4dfbraancnv4k",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Vehicle Parts",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Catering and Professional Chefs"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/4c1fa57e-6c50-4dfd-9d03-1c54c99ec9e0"
+    },
+    "ContentItemId": "4ctbah9y6mfydsnj9cm351k159",
+    "ContentItemVersionId": "42k7mrf3qks3d7mb10jfa998wf",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Catering and Professional Chefs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Maritime Occupations"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/7ad84db7-14ae-494f-afbf-ae708f19913a"
+    },
+    "ContentItemId": "4tks89nxb4d7d3snbphmr3t8dv",
+    "ContentItemVersionId": "4w7jfmwefe81swh7entkxscnx2",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Maritime Occupations",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Fashion and Textiles"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/fe98a0ff-3542-47b7-8709-e020978097ae"
+    },
+    "ContentItemId": "4rptydpdex5q96kqzwwywy244k",
+    "ContentItemVersionId": "4tdvr1akeerajz0esv25qervn4",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Fashion and Textiles",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Photo Imaging"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/24ca8672-c4c7-4daf-983f-629c58e56961"
+    },
+    "ContentItemId": "4qersnky2pnefrpaegn90bsmxv",
+    "ContentItemVersionId": "4km2x4xzvz0jjv9hfj70g10jmt",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Photo Imaging",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Live Events and Promotion"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/90b8f656-1e31-41e0-a3f5-afa7e9819c5c"
+    },
+    "ContentItemId": "4ajj0c4pgzcm86wk4ayh1qgtnw",
+    "ContentItemVersionId": "4k6ajc0cm37fkrwevtbpej7ydt",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Live Events and Promotion",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Creative and Digital Media"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/a343cc0c-883c-4b49-b3f8-45593c22d2fd"
+    },
+    "ContentItemId": "479qt8570cqvzxvfyp26h6bz5c",
+    "ContentItemVersionId": "4cgyqseyhfwtxrcz17gsx25f4b",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Creative and Digital Media",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sustainable Resource Management"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/e3b49c31-7230-458c-8602-fb8e23a7a8f8"
+    },
+    "ContentItemId": "4en35v3wbrqjfw4gj2peggs4da",
+    "ContentItemVersionId": "4h5hkw3v4j3ef63df1kgc74hxc",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Sustainable Resource Management",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Animal Care"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/65719def-a030-4426-bc51-4883c7d49caa"
+    },
+    "ContentItemId": "4sy2v6apkcwd1tdvqhd7tx29dj",
+    "ContentItemVersionId": "4f7vca26r29fjsqsj3dr9gesct",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Animal Care",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Children and Young People\u0027s Workforce"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/34a29df5-6eb7-4747-a8ba-362d49162941"
+    },
+    "ContentItemId": "4nf1jgbn9bdhn2gnnrkpnd9and",
+    "ContentItemVersionId": "4yt2ec92cpzga6p5jebrx6e3cc",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Children and Young People\u0027s Workforce",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Technical Theatre Lighting Sound and Stage (Level 3)"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/28c88944-ecf5-43c6-92ab-a34b5f836371"
+    },
+    "ContentItemId": "4s8jvt23wjs4q15m1ckx8x9zxd",
+    "ContentItemVersionId": "4vhrj97xcvfjv21y5npbq230mn",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Technical Theatre Lighting Sound and Stage (Level 3)",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Business and Administration"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/e6d1ff82-9e23-4a58-a85a-af883b08ec2c"
+    },
+    "ContentItemId": "4agj69e2rhpcntd97d6w6j97we",
+    "ContentItemVersionId": "4nwkqs0y0b65cyz58e9wk5dmdv",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Business and Administration",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "IT Application Specialist"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/b21e5e56-a517-43fa-9da1-59a40fd02bb7"
+    },
+    "ContentItemId": "4v5rx2khfpyxnyxfc3yxwf30mv",
+    "ContentItemVersionId": "454qanegwyzvh7f8e50f6rf951",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "IT Application Specialist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Print and Printed Packaging"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/75822d91-b51d-4f74-8f55-4baade922984"
+    },
+    "ContentItemId": "4mbyfdvbhsxdwvvtxqs71s51nm",
+    "ContentItemVersionId": "4rqnzcs7p64s76cebkh15cyhce",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Print and Printed Packaging",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Legal Services"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/be5a6205-d72a-4dc3-ab54-6820604846fd"
+    },
+    "ContentItemId": "4wyndrp1kjfaq3hvwm4n6snjxp",
+    "ContentItemVersionId": "4zctrxwzhk5fq4zjhbc8k5zqx9",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Legal Services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Equine"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/c39257a5-1970-4750-a96f-e1a5e633852b"
+    },
+    "ContentItemId": "41y0r4wps9ned4e9ab25z88dnz",
+    "ContentItemVersionId": "4r8qegkfha1cv3jh6mdb7bvb4g",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Equine",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cleaning and Environmental Support Services"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/f83ac5cc-7a95-4216-8dd9-cdca8ae853ef"
+    },
+    "ContentItemId": "48wfn3km4e5cdrq39hnhbyyqm3",
+    "ContentItemVersionId": "4f3s0v5sp8k1v65pb77jybyt5v",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Cleaning and Environmental Support Services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Game and Wildlife Management"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/1e0f19e9-d698-437b-8638-3e229d2fe9f6"
+    },
+    "ContentItemId": "4ybvaqx2wdyr03x3tk3qsgfq5b",
+    "ContentItemVersionId": "4h9zh2qb6bhm7sm93s6yg935x1",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Game and Wildlife Management",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Signmaking"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/0315acad-cbb0-4a9e-9fc5-7176c885b62c"
+    },
+    "ContentItemId": "4095ryts1trmfz9kjs8azncwmj",
+    "ContentItemVersionId": "4gm7s5y6zjjg0sydyf2177r9m2",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Signmaking",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Providing Security Services"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/d8b45d6a-2105-4349-8cfd-8e33a8c6320e"
+    },
+    "ContentItemId": "434am5gf3d5ph0m0pvmqe5yzxv",
+    "ContentItemVersionId": "4dd1h9jkb7txdx42v8npnpdt5t",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Providing Security Services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction Technical and Professional"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/0e623c65-0c40-4862-a4f8-a979e170144c"
+    },
+    "ContentItemId": "4qpy3dq2rbnbe43ak44pdaefcd",
+    "ContentItemVersionId": "47hzxg7t06z403nkp9cnw0fk5v",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Construction Technical and Professional",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Design"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/04b0d573-894f-451b-b8a5-03d8a4d33c52"
+    },
+    "ContentItemId": "43mvsdj0eych2vnt16bqzsw3wn",
+    "ContentItemVersionId": "4wj2efmmay63vrc62nz44wjemx",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Design",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Agriculture"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/8e5c0969-c5df-40d2-8cba-dc902bb31545"
+    },
+    "ContentItemId": "4ans3703bbw91t85f6w9s9gdnw",
+    "ContentItemVersionId": "4g6dnjmtzrrnf2ajxf410dptn5",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Agriculture",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Engineering Manufacture"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/d10fc92d-1268-412c-bc9f-99a1bfc5f82c"
+    },
+    "ContentItemId": "4szzn3g10zmvc7z8bdjbjztrne",
+    "ContentItemVersionId": "4hy7s4fvkrq0stfqmadjwyw841",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Engineering Manufacture",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Playwork"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/d4e13a3d-137d-4af8-a9e0-ba2f15fa1937"
+    },
+    "ContentItemId": "4grs3zemq5y3x42s74gnmgtpc7",
+    "ContentItemVersionId": "4zhd6wmssg5cxr5hvjsmey5yxb",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Playwork",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Jewellery"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/599aa333-7c3a-4349-be4b-d25b7b3bda7e"
+    },
+    "ContentItemId": "4fsmc4h24pvhnyy5ck43wkfr54",
+    "ContentItemVersionId": "4158g744acmsb1m0hx0t973em4",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Jewellery",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": " Silversmithing and Allied Trades"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/632c29b9-0950-421b-80f2-04755eea7d46"
+    },
+    "ContentItemId": "4qk09k74ryqn1sksm5fp4xapwy",
+    "ContentItemVersionId": "4rqvn30hesphyx8zp7jxjy20cf",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": " Silversmithing and Allied Trades",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Environmental Conservation"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/09f422a8-e878-417b-b206-ade08408b671"
+    },
+    "ContentItemId": "4kqgytdsxj6y4vvq6vrqp7sxm8",
+    "ContentItemVersionId": "4rr5vcpp4gcmpvya9etrxwp8dy",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Environmental Conservation",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Vehicle Sales"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/53befc80-8222-464a-98f8-9c0088aebcae"
+    },
+    "ContentItemId": "43r2bqaj70x8e0855tfk8tyk4b",
+    "ContentItemVersionId": "4q9y8xev02rcn15yczbpdz2hnm",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Vehicle Sales",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction Specialist"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/60681195-2910-4a16-b627-501ff959ac67"
+    },
+    "ContentItemId": "49p67hcs5b7pvtdmjtg42cx84e",
+    "ContentItemVersionId": "437fmackvcfhh613nwygw1ca4w",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Construction Specialist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Glass Industry"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/040bec18-6c8a-4204-a061-5d279c4b8106"
+    },
+    "ContentItemId": "471840mhdwpnst51as1r1savxs",
+    "ContentItemVersionId": "4fe7ceav12jv41kzjzm5w3jm56",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Glass Industry",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Supporting Teaching and Learning in Schools"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/6e2ae1dd-b50b-47ef-a58e-13089c980883"
+    },
+    "ContentItemId": "4v6qjvpfqvmhztkvyaa2m1gvd6",
+    "ContentItemVersionId": "4khr1mccjpkv8zxr1tqc2gqywq",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Supporting Teaching and Learning in Schools",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Floristry"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/e3e4d1d7-71bf-4abf-a196-05d199e297df"
+    },
+    "ContentItemId": "4vvgj7qjp16f2r2mp7h47kr0x8",
+    "ContentItemVersionId": "4vb33v7c2yar01cqww6chrd9nv",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Floristry",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Vehicle Maintenance and Repair"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/f55d9adc-954e-4acc-a126-21c3f7fc2306"
+    },
+    "ContentItemId": "4a587fqdtgp8dvtybsz2w7yvcb",
+    "ContentItemVersionId": "43cjz6v53bx8y2fh13kz08rj43",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Vehicle Maintenance and Repair",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Beauty Therapy"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/5c0c67f3-eb1e-4878-9256-7a1eaf9c672a"
+    },
+    "ContentItemId": "4z18tym6y5pkj6m432qtdjd2wv",
+    "ContentItemVersionId": "4tyzcqk28vb5hyqzmr168xpaxj",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Beauty Therapy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Learning and Development"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/239c0789-6698-4f2d-b79e-52527cf7b474"
+    },
+    "ContentItemId": "40xhgj82grfctvggzv3y82jqxf",
+    "ContentItemVersionId": "4yfyg4pzqszbd157e5yz2kt2wz",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Learning and Development",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Youth Work"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/f9974d2e-fbab-4785-bf15-176917ea3362"
+    },
+    "ContentItemId": "4mqgsvc0qchbb7gv6r628945x7",
+    "ContentItemVersionId": "4a4kzv9q81nf0xd0rertwk494r",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Youth Work",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction Building"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/e6a0d4f2-4602-480d-b6a9-dcd2b86a10cd"
+    },
+    "ContentItemId": "4qh8a09kra8w2tzv0rctnd16d6",
+    "ContentItemVersionId": "4gcp0d3h27ee7717fxgwr1cpm8",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Construction Building",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Business and Professional Administration"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/9c5a893f-9cc7-4e9d-a1a0-b766ac5e2f12"
+    },
+    "ContentItemId": "45xt7e0sm8v9ssc7jt3seek3xr",
+    "ContentItemVersionId": "4mhbbp350ck602944dp82tabwt",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Business and Professional Administration",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction Management"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/d4b9096d-3a67-4fea-869c-3806b9a8bf3b"
+    },
+    "ContentItemId": "41k3er8n2990834ffmyp7qjt46",
+    "ContentItemVersionId": "4yr2desyrrd9p7cbmgdm87kang",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Construction Management",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cultural and Heritage Venue operations"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/7242cc82-0b42-4767-9b54-4e390b65fd9a"
+    },
+    "ContentItemId": "4x6x2chwjm4q21pav66g4wswdx",
+    "ContentItemVersionId": "423yhzqv7n47549c3y6n65wgcj",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Cultural and Heritage Venue operations",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Marketing"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/156368aa-70ed-498d-82db-3a13762815a4"
+    },
+    "ContentItemId": "4w6xeg7wmnrd11azs2vdb8j9wj",
+    "ContentItemVersionId": "439v94cfd3mhh4sd7y780wdqwv",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Marketing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Warehousing and Storage"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/b50bb0e6-1bc8-43ac-8e9e-869b0ab2a58d"
+    },
+    "ContentItemId": "4yw1a677hpgbh42cacp5hjqxxz",
+    "ContentItemVersionId": "4dkv85c5cfd49rqcqk2tjcma4y",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Warehousing and Storage",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Coaching"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/89eb6f05-1280-4277-9058-c92191635c4c"
+    },
+    "ContentItemId": "43tavf36n5qn25brtz7w8ptgxx",
+    "ContentItemVersionId": "4k3tg43e9em4dvn19667gmp2c8",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Coaching",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Exercise and Fitness"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/93cb9a1e-f7c4-410a-8d61-0afeec13a585"
+    },
+    "ContentItemId": "4jfngs4bk17f7tmesne3ck5ycp",
+    "ContentItemVersionId": "4mvwwgj6993m53rv45q8fv3bcz",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Exercise and Fitness",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social Media and Digital Marketing"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/c0111f25-e770-4297-bff2-202b8767d840"
+    },
+    "ContentItemId": "4kxdcgk6rhwvr4q1kfxh0wk9m4",
+    "ContentItemVersionId": "4th5h69m3kbghsn6xmm1eajqxh",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Social Media and Digital Marketing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Operations and Quality Improvement"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/d32b6e5e-bd1c-4605-bed4-7d53496f0c76"
+    },
+    "ContentItemId": "434qws90m1p095zpsax46vyt4c",
+    "ContentItemVersionId": "43bdcfqx4e2fhs9xgcvng01emr",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Operations and Quality Improvement",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction Civil Engineering"
+    },
+    "ApprenticeshipStandard": {
+      "Description": {
+        "Html": null
+      },
+      "Reference": {
+        "Text": null
+      },
+      "MaximumFunding": {
+        "Value": 0
+      },
+      "LARSCode": {
+        "Value": 0
+      },
+      "Duration": {
+        "Value": 0
+      },
+      "ApprenticeshipStandardRoutes": {
+        "ContentItemIds": []
+      },
+      "QCFLevel": {
+        "ContentItemIds": []
+      },
+      "Type": {
+        "Text": "Framework"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandard/2b6a0087-ce47-48ea-89fd-7223c5798f5d"
+    },
+    "ContentItemId": "4d19mjvgm0hk3radj96w1pm6xg",
+    "ContentItemVersionId": "4kseag0dpxdckzwspkf0awnkn7",
+    "ContentType": "ApprenticeshipStandard",
+    "DisplayText": "Construction Civil Engineering",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-07T10:33:11.8630701Z",
+    "PublishedUtc": "2020-05-07T10:33:11.8630701Z",
+    "CreatedUtc": "2020-05-07T10:33:11.8630701Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

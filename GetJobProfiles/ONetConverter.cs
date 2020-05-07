@@ -20,6 +20,7 @@ namespace GetJobProfiles
 
         public Dictionary<string, string> Go(string timestamp)
         {
+            string contentItemId;
             using (var reader = new StreamReader(@"SeedData\job_profiles_updated.xlsx"))
             {
                 var workbook = new XSSFWorkbook(reader.BaseStream);
@@ -32,16 +33,24 @@ namespace GetJobProfiles
                 for (int i = 1; i <= sheet.LastRowNum; i++)
                 {
                     var row = sheet.GetRow(i);
-                    var occupationalCode = row.GetCell(occupationalCodeColumnIndex).StringCellValue;
+                    var occupationalCode = row.GetCell(occupationalCodeColumnIndex).StringCellValue ?? UnknownCode;
 
-                    if (CodesToProcess.Length == 0 || CodesToProcess.Contains(occupationalCode))
+                    if ( CodesToProcess.Length == 0 || CodesToProcess.Contains(occupationalCode) ) //|| occupationalCode == UnknownCode)
                     {
                         var jobProfile = row.GetCell(jobProfileColumnIndex).StringCellValue;
-                        var contentItem = new ONetOccupationalCodeContentItem(occupationalCode, timestamp);
+                        var existingContentItem = ONetOccupationalCodeContentItems.SingleOrDefault(s => s.DisplayText == occupationalCode);
 
-                        ONetOccupationalCodeContentItems.Add(contentItem);
-
-                        dict.Add(jobProfile, contentItem.ContentItemId);
+                        if (existingContentItem == null)
+                        {
+                            var contentItem = new ONetOccupationalCodeContentItem(occupationalCode, timestamp);
+                            ONetOccupationalCodeContentItems.Add(contentItem);
+                            contentItemId = contentItem.ContentItemId;
+                        }
+                        else
+                        {
+                            contentItemId = existingContentItem.ContentItemId;
+                        }
+                        dict.Add(jobProfile, contentItemId);
                     }
                 }
                 // add placeholder / unknown item

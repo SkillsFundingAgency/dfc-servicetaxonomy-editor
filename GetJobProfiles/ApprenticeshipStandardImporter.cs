@@ -20,10 +20,14 @@ namespace GetJobProfiles
         private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
         private Dictionary<string, string> _standardsDictionary = new Dictionary<string, string>();
         private Dictionary<string, string> _replacementsDictionary = new Dictionary<string, string>();
-
+        private string _apprenticeshipStandardsRefList = "";
         public IEnumerable<ApprenticeshipStandardContentItem> ApprenticeshipStandardContentItems { get; private set; }
         public IEnumerable<ApprenticeshipStandardRouteContentItem> ApprenticeshipStandardRouteContentItems { get; private set; }
 
+        public ApprenticeshipStandardImporter( string _apprenticeshipStandards = "")
+        {
+            _apprenticeshipStandardsRefList = _apprenticeshipStandards;
+        }
         /// <summary>
         /// The import routine for Apprenticeship Standards
         /// </summary>
@@ -103,19 +107,22 @@ namespace GetJobProfiles
                         var larsCode = row.GetCell(larsCodeIndex).CellType == CellType.Numeric ? row.GetCell(larsCodeIndex).NumericCellValue : 0;
                         var route = row.GetCell(routeIndex).StringCellValue;
 
-                        var apprenticeshipStandard = new ApprenticeshipStandard
-                        {
-                            Name = name,
-                            Reference = reference,
-                            Level = Convert.ToInt32(level),
-                            MaximumFunding = Convert.ToInt32(maximumFunding),
-                            Duration = Convert.ToInt32(typicalDuration),
-                            LARSCode = Convert.ToInt32(larsCode),
-                            Route = route.Split(',').Select(z => $"{char.ToUpper(z.Trim()[0]) + z.Trim().Substring(1)}").ToArray(),
-                            Type = "Standard"
-                        };
+                        if (_apprenticeshipStandardsRefList.Length == 0 || _apprenticeshipStandardsRefList.Contains(reference))
+                        { 
+                            var apprenticeshipStandard = new ApprenticeshipStandard
+                            {
+                                Name = name,
+                                Reference = reference,
+                                Level = Convert.ToInt32(level),
+                                MaximumFunding = Convert.ToInt32(maximumFunding),
+                                Duration = Convert.ToInt32(typicalDuration),
+                                LARSCode = Convert.ToInt32(larsCode),
+                                Route = route.Split(',').Select(z => $"{char.ToUpper(z.Trim()[0]) + z.Trim().Substring(1)}").ToArray(),
+                                Type = "Standard"
+                            };
 
-                        apprenticeshipStandardList.Add(apprenticeshipStandard);
+                            apprenticeshipStandardList.Add(apprenticeshipStandard);
+                         }
                     }
                 }
             }

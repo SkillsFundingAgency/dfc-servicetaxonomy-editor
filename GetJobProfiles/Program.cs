@@ -78,7 +78,8 @@ namespace GetJobProfiles
             bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
             string socCodeList = ( !createTestFiles ? string.Empty : config["TestSocCodes"] );
             string oNetCodeList = (!createTestFiles ? string.Empty : config["TestONetCodes"]);
-
+            string apprenticeshipStandardsRefList = (!createTestFiles ? string.Empty : config["TestApprenticeshipStandardReferences"]);
+            
             var socCodeConverter = new SocCodeConverter(socCodeList);
             var socCodeDictionary = socCodeConverter.Go(timestamp);
 
@@ -124,7 +125,7 @@ namespace GetJobProfiles
             var qcfLevelBuilder = new QCFLevelBuilder();
             qcfLevelBuilder.Build(timestamp);
 
-            var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter();
+            var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
             apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
@@ -262,7 +263,7 @@ namespace GetJobProfiles
                 recipe = recipe.Replace($"[token:{key}]", value);
             }
 
-            string destFilename = $"{_fileIndex++:00}. {recipeName}_{_executionId}.recipe.json";
+            string destFilename = $"{_fileIndex++:00}. {recipeName}_{_executionId}.recipe.json";       
 
             _importFilesReport.AppendLine($"{destFilename}: {tokens.FirstOrDefault(x => x.Key == "limit").Value}");
             AddRecipeToRecipesStep(recipeName);
