@@ -69,6 +69,51 @@ stages:
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.100'
 
+    - task: NuGetToolInstaller@1
+      inputs:
+        versionSpec: '>=5.4.0'
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet pack'
+      inputs:
+        command: pack
+        packagesToPack: '$(system.defaultWorkingDirectory)\DFC.ServiceTaxonomy.Neo4j\*.nuspec'
+        packDestination: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
+        versioningScheme: byEnvVar
+        versionEnvVar: GitVersion.MajorMinorPatch
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
+        artifactName: $(SolutionBaseName).Nuget
+
+- stage: PublishPackage
+  displayName: Publish Package to NuGet
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  jobs:  
+  - job: CleanArtifacts  
+    displayName: Clean artifacts directory
+    workspace:
+      clean: all
+  - deployment: PublishNugetPackage
+    dependsOn: CleanArtifacts
+    environment: SERVICETAXONOMY_NUGET
+    pool:
+      name: NCS - CI and CD
+      demands:
+      - msbuild
+      - visualstudio
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: NuGetCommand@2
+            displayName: 'NuGet push'
+            inputs:
+              command: push
+              packagesToPush: '$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.nupkg;!$(Pipeline.Workspace)\$(SolutionBaseName).Nuget\*.symbols.nupkg'
+              nuGetFeedType: external
+              publishFeedCredentials: 'DFC Nuget'
+
 - stage: DeployToDev
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
