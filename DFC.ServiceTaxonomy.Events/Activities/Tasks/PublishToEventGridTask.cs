@@ -93,16 +93,10 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 
                 // import
 
-                // try getting contentitem from contentmanager (should be different if validation failed) will it be updated if validation passed?
-
-                //todo: what about error / exception handling?
-
                 if (await HasFailedValidation(eventContentItem))
                     return;
 
                 bool created = eventContentItem.CreatedUtc == eventContentItem.ModifiedUtc;
-
-                //IsPublished/HasDraft - are there 2 separate contentitems, 1 published and 1 draft
 
                 bool published = eventContentItem.Published;
 
