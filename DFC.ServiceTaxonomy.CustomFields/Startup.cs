@@ -22,12 +22,12 @@ namespace DFC.ServiceTaxonomy.CustomFields
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ContentField, AccordionField>();
-            services.AddScoped<IContentFieldDisplayDriver, AccordionFieldDisplayDriver>();
+            services.AddContentField<AccordionField>()
+                .UseDisplayDriver<AccordionFieldDisplayDriver>();
             services.AddScoped<IContentPartFieldDefinitionDisplayDriver, AccordionFieldSettingsDriver>();
 
-            services.AddSingleton<ContentField, TabField>();
-            services.AddScoped<IContentFieldDisplayDriver, TabFieldDisplayDriver>();
+            services.AddContentField<TabField>()
+                .UseDisplayDriver<TabFieldDisplayDriver>();
             services.AddScoped<IContentPartFieldDefinitionDisplayDriver, TabFieldSettingsDriver>();
         }
     }
