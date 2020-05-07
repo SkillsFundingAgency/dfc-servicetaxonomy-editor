@@ -2,6 +2,7 @@
 
 * we'll need a service taxonomy recipe per environment, so that we can have different uris pointing to the right content api
   or we supply it to the setting and pick it up from the appconfig
+  also need devops to add __EventGridTopicUrl__ and __EventGridAegSasKey__
 
 * recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
 
@@ -772,6 +773,20 @@ Here are some useful workflows:
           ]
         },
 ```
+
+# decision log
+
+## EventGridClient vs custom
+
+// using EventGridClient vs HttpRestClient
+// EventGridClient has lots of extras
+// e.g. sets x-ms-client-request-id as new guid (can't supply own) - what exactly is it? looks network related as opposed to correlation id
+// topicHostname gets passed to PublishEventsAsync. presumably that means needs to open a socket connection each time an event is published
+// and lose out on kept alive connections and the goodness you get using IHttpClientFactory
+// see, https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+// EventGridClient and EventGridEvent use old newtonsoft.json, rather than System.Net.Http
+// EventGridViewer: get updates for free
+// https://github.com/Azure/azure-sdk-for-net/tree/fef6a5436167758454a9eb965ed1d7b3f8eb061b/sdk/eventgrid/Microsoft.Azure.EventGrid
 
 #Links
 
