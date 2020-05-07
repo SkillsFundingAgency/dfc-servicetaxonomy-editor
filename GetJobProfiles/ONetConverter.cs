@@ -11,11 +11,13 @@ namespace GetJobProfiles
         public List<ONetOccupationalCodeContentItem> ONetOccupationalCodeContentItems { get; private set; } = new List<ONetOccupationalCodeContentItem>();
         public static readonly string UnknownJobProfile = "Unknown";
         private static readonly string UnknownCode = "00-0000.00";
-        private string CodesToProcess = "";
+        private string[] CodesToProcess;
+        private bool ProcessAll = true;
 
-        public ONetConverter( string codes = "")
+        public ONetConverter( string[] codes)
         {
             CodesToProcess = codes;
+            ProcessAll = (CodesToProcess.Count() == 0);
         }
 
         public Dictionary<string, string> Go(string timestamp)
@@ -35,7 +37,7 @@ namespace GetJobProfiles
                     var row = sheet.GetRow(i);
                     var occupationalCode = row.GetCell(occupationalCodeColumnIndex).StringCellValue ?? UnknownCode;
 
-                    if ( CodesToProcess.Length == 0 || CodesToProcess.Contains(occupationalCode) ) //|| occupationalCode == UnknownCode)
+                    if ( ProcessAll || CodesToProcess.Contains(occupationalCode) ) //|| occupationalCode == UnknownCode)
                     {
                         var jobProfile = row.GetCell(jobProfileColumnIndex).StringCellValue;
                         var existingContentItem = ONetOccupationalCodeContentItems.SingleOrDefault(s => s.DisplayText == occupationalCode);
