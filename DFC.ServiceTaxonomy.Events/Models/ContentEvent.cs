@@ -38,5 +38,10 @@ namespace DFC.ServiceTaxonomy.Events.Models
 
         [JsonIgnore]
         public string ContentType { get; }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}, EventType: {EventType}, Subject: {Subject}";
+        }
     }
 }
