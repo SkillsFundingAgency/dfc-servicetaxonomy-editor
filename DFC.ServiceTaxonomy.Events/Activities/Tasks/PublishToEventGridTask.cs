@@ -19,16 +19,19 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
     {
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
         private readonly IEventGridContentClient _eventGridContentClient;
+        private readonly IContentManager _contentManager;
         private readonly ILogger<PublishToEventGridTask> _logger;
 
         public PublishToEventGridTask(
             IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
+            IContentManager contentManager,
             IStringLocalizer<PublishToEventGridTask> localizer,
             ILogger<PublishToEventGridTask> logger)
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
+            _contentManager = contentManager;
             _logger = logger;
             T = localizer;
         }
@@ -71,7 +74,19 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         {
             try
             {
+                #pragma warning disable S1481
+                //var preDelayContentItem = await _contentManager.CloneAsync(eventContentItem);
+
+                var preDelayDraft = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Draft);
+                // var preDelayLatest = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Latest);
+                // var preDelayPublished = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Published);
+
                 await Task.Delay(5000);
+
+                // session diposed. inject a session?
+                // var postDelayDraft = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Draft);
+                // var postDelayLatest = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Latest);
+                // var postDelayPublished = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Published);
 
                 // new item failed server side validation
                 if (eventContentItem.ContentItemVersionId == null)
@@ -88,10 +103,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                         eventType = "published";
                         break;
                     case "updated":
-                        if (!eventContentItem.Published)
+                        if (!eventContentItem.Published
+                            && preDelayDraft?.ModifiedUtc != null
+                            && eventContentItem.ModifiedUtc > preDelayDraft.ModifiedUtc)
                         {
                             //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
-                            //todo: this publishes false-positive draft events when user publishes a draft item
+                            //todo: this publishes false-positive draft events when user publishes a draft item (sometimes)
                             eventType = "draft";
                         }
                         break;
