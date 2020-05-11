@@ -1,9 +1,168 @@
 #ToDo
 
+* we'll need a service taxonomy recipe per environment, so that we can have different uris pointing to the right content api
+  or we supply it to the setting and pick it up from the appconfig
+  also need devops to add __EventGridTopicUrl__ and __EventGridAegSasKey__
+
+* recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
+
+* we need to make sure we have decent views for content items, as when there is a draft and published version, you can only view the published version (and only see the draft in edit)
+
+* don't pass endpoint to sync validators, set current in driver instead
+
+* update exceptions with code from ApiFunctionException.cs
+
+* The Shared Content could not be removed because the associated node could not be deleted from the graph.
+
+* api function
+    load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
+    now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
+
+* add placeholder content item for onet and if we don't have an onet for a jp, set the content picker in the jp in the importer to point to the placeholder onet
+problem is field is marked required, and importing a jp with it null triggers validation errors aas part of graph sync
+
+* add support for searching within content items e.g. filter content items by uri (add indexes for content items?)
+
+* remove skip and take from importer
+
+* publish to event grid
+    open questions: event domain or multiple topics or single topic?
+    single eventtype or split into eventtype and custom property?
+    slugified title as subject or canonical name field (custom part?)
+
+use guid from ui as subject
+include title for human readability
+have single topic for all content types and have subscriber which sends data into app insights - if not already supported
+see
+https://github.com/microsoft/ApplicationInsights-dotnet/issues/1427
+https://stackoverflow.com/questions/58550335/application-insights-correlation-through-event-grid
+here a function pipes it on to ai: https://techcommunity.microsoft.com/t5/azure-global/event-driven-serverless-apps-with-azure-event-grid-and-azure/ba-p/355634
+is it possible to link them directly?
+add workflow correlation id to message - try and tie in with ai and event correlationid, or use oc correlationid?
+
+need endpoint to come from config
+
+once we start having consumers - won't be able to just regenerate recipes and end up with different uri's for each content item
+
+todo
+    eventTime to 7dp? do in create property using js - required?
+    how best to handle keys. current method insecure. workflows for admin only? might have to abandon http request task for custom task?
+    separate workflows for published/unpublished etc.?
+    create/modified/deleted
+    remove ncs__ prefix on properties (& rename skos__prefLabel? but then inconsistent with esco)
+
+    do we want an event domain - publish to single endpoint and event contains topic as opposed to endpoint per topic?
+    or could have a single topic for content (prob not??)
+    how to keep aeg-sas-key header value secret? can liquid template pick up from config? no, nor javascript
+    implement IGlobalMethodProvider to provide the value
+    based on ConfigurationMethodProvider, but how to make available to workflow/liquid?
+    think we'll need a canonicalname added to every content type
+    or slugify title?
+    title simpler, but means can't change title ever. might be best to have a canonical name, but how to get from eponymous part? new custom part?
+
+inject the content type into the topic url - will have to set up more topic - do in dev if available
+
+{{ Workflow.Input.ContentItem.ContentType }}
+{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}
+{{ Workflow.Input.ContentItem.Content.TitlePart.Title }}
+
+topic per contenttype?
+subject: do we have {canonicalName} or {contenttype}/{canonicalName}?
+if we want the canonical name, might be difficult to get a canonicalname field from the eponymous part in liquid.
+could either have a canonical part, or slugify the title (although how would that work with bag items with no title?)
+{{ "This is some text" | slugify }}
+{{ Workflow.Input.ContentItem.Content.TitlePart.Title | slugify}}
+
+topic per contenttype, or single topic with content type in event?
+
+id: do we put the uri in there, or just the guid? should we use it for the opaque uri or put in data?
+we could probably get away without any user data
+
+https://stax.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
+https://stax-{{ Workflow.Input.ContentItem.ContentType }}.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01
+
+having subject as /contenttype/id
+allows filtering by content type using subjectBeginsWith
+and filtering by content can use either subjectBeginsWith or subjectEndsWith
+do we want an initial /stax/ just in case there are other sources of content:eye?
+max 5 advanced filters per subscription, so best to make the most of the standard properties
+
+Publish Item Published Event
+
+POST
+
+[{
+  "id": "{{ Workflow.CorrelationId }}",
+  "eventType": "published-modified",
+  "subject": "/content/{{ Workflow.Input.ContentItem.ContentType }}/{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text | slice: -36, 36 }}",
+  "eventTime": "{{ Workflow.Input.ContentItem.ModifiedUtc | date: "%Y-%m-%dT%H:%M:%S.%LZ" }}",
+  "data": {
+    "api": "{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}",
+    "versionId": "{{ Workflow.Input.ContentItem.ContentItemVersionId }}",
+    "displayText": "{{ Workflow.Input.ContentItem.DisplayText }}"
+  },
+  "dataVersion": "1.0"
+}]
+
+aeg-sas-key: {{ Workflow.Properties["aeg-sas-key"] | raw }}
+
+200, 400, 401, 404, 413
+
+date filter doesn't like %7N or similar, so we use %L for now which might cause issues as not fine grained enough, although event grid accepts the datetime
+it's not supported: https://github.com/sebastienros/fluid/blob/dev/Fluid/Filters/MiscFilters.cs
+we could use set property - js to set the time in the proper format
+not sure if using ContentItemVersionId will give us dupes, if so use uuid instead
+
+config(input('ContentItem') + '-aeg-sas-key')
+
+* content picker preview : use {% layout "CustomLayout" %} rather than default theme layout, so can use default layout for admin pages??? https://docs.orchardcore.net/en/dev/docs/reference/modules/Liquid/
+    back to jumping: fix
+
+* change the importer config to have an array of settings and generate a set of recipes for each config
+
 * contentpicker with preview:
     use bag open close control
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
+
+* use api url for id's
+
+* trumbowyg : apply gds styles to html editor content, but see https://github.com/Alex-D/Trumbowyg/issues/940
+https://github.com/Alex-D/Trumbowyg/issues/167
+
+could create new editor for html that uses trumbowyg, but uses it in a shadow dom, and prefs can specify a set of css files
+^ tumbowyg might not work inside shadow dom (e.g. if it uses jquery selector) https://robdodson.me/dont-use-jquery-with-shadow-dom/
+or find a wysiwyg component with shadow dom support and create a new html editor using it
+
+or include gds sass and use this: https://sass-lang.com/documentation/modules/meta#load-css
+note: GovUK front end plan to switch to sass modules (they have to, as import is being deprecated), see
+https://github.com/alphagov/govuk-frontend/issues/1791
+https://github.com/alphagov/govuk-design-system-architecture/pull/22
+
+not sure if govuk is compatible with bringing bits in using meta.load-css yet though. will have to suck it and see
+might have to be selective about which parts of govuk frontend we bring in
+
+"C:\Users\live\Downloads\dart-sass-1.26.3-windows-x64\dart-sass\sass" trumbowyg_scoped_govuk_frontend.scss trumbowyg_scoped_govuk_frontend.css
+
+<style asp-name="trumbowyg_scoped_govuk_frontend"></style>
+
+importer: generate this structure
+/masterrecipes/subset-no-mutators_xxx.recipe.json
+/masterrecipes/full_xxx.recipe.json
+/masterrecipes/full-no-mutators_xxx.recipe.json
+/recipes/all the sub recipes (edited)
+^ that way its easier to see and pick the master recipes
+also don't add the guid to the master recipe filename
+
+* ithc hsts > enable https feature??
+
+* shared content: how safe is it to allow users to create content with  urls/classes etc.
+ \ will need devs to be able to change content, e.g. to change classes etc.
+
+* Get help using this service : content has inline style and uses <br> for positioning
+
+* when title is set to 'editable and required', hint is shown as 'The title of the content item. It will be automatically generated.'.
+^ create oc pr?
 
 * api: GetJobProfilesBySearchTerm should tolower the search term
 
@@ -76,7 +235,7 @@ could fix when create new content recipe step
 
 * order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
-* collapsible sections on content page
+* provide error/warning to use if they try to add a tab and an accordion to the same part - it isn't supported!
 
 #Templates
 
@@ -95,6 +254,77 @@ dotnet new -i OrchardCore.ProjectTemplates::1.0.0-rc1-12019 --nuget-source https
 |----------------------|--------------------------|
 | not published        | publish                  |
 | published            | n/a                      |
+
+
+
+each event comes through as a separate workflow instance. can we 'collate' them into single task call?
+or do we publish multiple events?
+versioning: https://stackoverflow.com/questions/60308183/orchard-core-cms-content-versioning-scheduling-and-audit-trail
+ContentItemVersionId is null for new > safe draft!
+add workflow id?
+
+notes:
+1 doesn't seem to be a way to distinguish between updated event when validation fails and when it doesn't (except it's followed by a created event when it succeeds)
+2 no uniqueness on single workflow, unique if we we collate events for action, but how do we do that - contentitemversionis isn't static throughout event sequence. each event is in different workflow
+
+options for new-draft new-published uniqueness
+timer delay, fetch item, check status
+cache created event, if publish event comes in after new-publish, else timeouts new-draft
+hook into publish/save draft and add status in custom part? either through replacing button, or wrapping contentmanager?
+
+how to handle items that fail validation?
+what if we just published published / draft and dropped new/updated
+
+the api atm just has a way of fetching a content item. it needs to distinguish between draft/published (once its supported in the graph)
+
+on updated, trigger timer to allow user action to complete. get current status of item, if created since timer trigger time, new, then if published new publish, if not new draft.
+else if updated since trigger time, updated, but how to tell draft or published? will have to test
+use task.delay? will that have the right context?
+use a repeating workflow timer event - would have to save update events, and if the event time was too soon ago, leave it there for the next trigger
+use signalling?
+HttpWorkflowController Trigger has the code for continuing workflows waiting on a signal - we could have a workflow that gets triggered by a signal
+
+or new button to new controller, pass to existing controller and publish event according to what user has done?
+
+or add trigger to neo that published the event?
+
+todo: add validated as column
+
+| start state     | user action           | validated | notes       | content page | content list page | created event | updated event | versioned event | deleted event | published event | unpublished event | item latest | item published | item created time | item modified time | item published time | item contentitemversionid | event grid status | uniqueness      | draft/pub only |
+|-----------------|-----------------------|-----------|-------------|:------------:|:-----------------:|:-------------:|:-------------:|:---------------:|:-------------:|:---------------:|:-----------------:|:-----------:|:--------------:|:-----------------:|:------------------:|:-------------------:|:-------------------------:|-------------------|-----------------|----------------|
+| new             | save draft            |     X     |             |     X        |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   | none            |                |
+|                 |                       |           |             |              |                   |    2          |               |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 | new-draft         | none 2          |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| new             | save draft            |           | 1           |     X        |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| new             | publish               |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
+|                 |                       |           |             |              |                   |    2          |               |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 |                   |                 |                |
+|                 |                       |           |             |              |                   |               |               |                 |               |     3           |                   |     X       |       X        |        X          |       X            |         X           |         X                 | new-published     | published event |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| new             | publish               |           |             |      X       |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| draft           | save draft            |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 | updated-draft     | updated event   |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| draft           | save draft            |           |             |      X       |                   |               |    1          |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| draft           | publish               |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 |                   |                 |                |
+| draft           | publish               |           |             |      X       |                   |               |               |                 |               |     2           |                   |     X       |       X        |        X          |       X            |         X           |         X                 |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| draft           | publish               |           | todo        |      X       |                   |               |               |                 |               |     2           |                   |     X       |       X        |        X          |       X            |         X           |         X                 |                   |                 |                |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
+| published       | save draft            |    X      |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published       | save draft            |           |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published       | publish               |    X      |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published       | publish               |           |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
+|-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
+| published+draft |                       |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
+|         |              |                   |         |         |           |         |           |             |                   |
 
 #Notes
 
@@ -170,6 +400,393 @@ View:
 Remove expected relationship:
 
 ```match (o:esco__Occupation)-[r:ncs__hasAltLabel]->(d {skos__prefLabel:'assembly member'}) where o.skos__prefLabel='member of parliament' delete r```
+
+#Workflows
+
+Here are some useful workflows:
+
+## Workflow triggered by all content events, adds trigger type to "Trigger" property and calls task
+
+```
+        {
+          "WorkflowTypeId": "4mf5dfbk4s1x976r5qfpggvyd4",
+          "Name": "Publish Content Status Event",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx",
+              "Name": "PublishToEventGridTask",
+              "X": 680,
+              "Y": 370,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4yabcewg21dtf3fj90c3qknm4r",
+              "Name": "ContentPublishedEvent",
+              "X": 10,
+              "Y": 350,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4pkns4y8z6mn7r3955e9bq69n9",
+              "Name": "ContentCreatedEvent",
+              "X": 10,
+              "Y": 10,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4xsmc2qcdvfexratekpnmqs1cw",
+              "Name": "ContentUpdatedEvent",
+              "X": 450,
+              "Y": 10,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4r5evtppaxw863sf5rfk92j0cd",
+              "Name": "ContentDeletedEvent",
+              "X": 770,
+              "Y": 10,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4jhyghjynya8rv4z4vdsccdnwp",
+              "Name": "ContentVersionedEvent",
+              "X": 750,
+              "Y": 690,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "41xa9wgy54xeqsdg4a9zc9bt4z",
+              "Name": "ContentUnpublishedEvent",
+              "X": 10,
+              "Y": 700,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [
+                  "SharedContent"
+                ],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4f1pm0b5mfpxbxje8neqx2tbwc",
+              "Name": "SetPropertyTask",
+              "X": 210,
+              "Y": 350,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"published\""
+                }
+              }
+            },
+            {
+              "ActivityId": "40dcr67a5js720n2wk72h37yw3",
+              "Name": "SetPropertyTask",
+              "X": 220,
+              "Y": 700,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"unpublished\""
+                }
+              }
+            },
+            {
+              "ActivityId": "445bvx40pj4381vzy049q37tx5",
+              "Name": "SetPropertyTask",
+              "X": 10,
+              "Y": 130,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"created\""
+                }
+              }
+            },
+            {
+              "ActivityId": "4vqf5zsjkypmprqx787a27x64y",
+              "Name": "SetPropertyTask",
+              "X": 470,
+              "Y": 170,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"updated\""
+                }
+              }
+            },
+            {
+              "ActivityId": "4j0begff2ycpdvhght6cbf6twx",
+              "Name": "SetPropertyTask",
+              "X": 750,
+              "Y": 190,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"deleted\""
+                }
+              }
+            },
+            {
+              "ActivityId": "4ty61drqcsdew4kyvmdnkxxbwv",
+              "Name": "SetPropertyTask",
+              "X": 740,
+              "Y": 560,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "Trigger",
+                "Value": {
+                  "Expression": "\"versioned\""
+                }
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "4yabcewg21dtf3fj90c3qknm4r",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4f1pm0b5mfpxbxje8neqx2tbwc"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4f1pm0b5mfpxbxje8neqx2tbwc",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "41xa9wgy54xeqsdg4a9zc9bt4z",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "40dcr67a5js720n2wk72h37yw3"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "40dcr67a5js720n2wk72h37yw3",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4pkns4y8z6mn7r3955e9bq69n9",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "445bvx40pj4381vzy049q37tx5"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "445bvx40pj4381vzy049q37tx5",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4xsmc2qcdvfexratekpnmqs1cw",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4vqf5zsjkypmprqx787a27x64y"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4vqf5zsjkypmprqx787a27x64y",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4r5evtppaxw863sf5rfk92j0cd",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4j0begff2ycpdvhght6cbf6twx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4j0begff2ycpdvhght6cbf6twx",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4jhyghjynya8rv4z4vdsccdnwp",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4ty61drqcsdew4kyvmdnkxxbwv"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "4ty61drqcsdew4kyvmdnkxxbwv",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4x0vwmzaa7fsg0z8xtpmxynjnx"
+            }
+          ]
+        },
+```
+
+## Workflow using HttpRequest to publish event (good for prototyping)
+
+```
+        {
+          "WorkflowTypeId": "435ce9bkn6j38x6b53z667z3x3",
+          "Name": "Publish Item Published Event",
+          "IsEnabled": true,
+          "IsSingleton": false,
+          "DeleteFinishedWorkflows": false,
+          "Activities": [
+            {
+              "ActivityId": "403hk5pkkxfkrt5eyctqmr1a4h",
+              "Name": "ContentPublishedEvent",
+              "X": 10,
+              "Y": 0,
+              "IsStart": true,
+              "Properties": {
+                "ContentTypeFilter": [],
+                "ActivityMetadata": {
+                  "Title": null
+                }
+              }
+            },
+            {
+              "ActivityId": "4gtgm5sznv50fx59ah48td3cd4",
+              "Name": "HttpRequestTask",
+              "X": 410,
+              "Y": 0,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "Url": {
+                  "Expression": "https://stax-{{ Workflow.Input.ContentItem.ContentType }}.eastus-1.eventgrid.azure.net/api/events?api-version=2018-01-01"
+                },
+                "HttpMethod": "POST",
+                "Body": {
+                  "Expression": "[{\r\n  \"id\": \"{{ Workflow.CorrelationId }}\",\r\n  \"eventType\": \"published-modified\",\r\n  \"subject\": \"/{{ Workflow.Input.ContentItem.ContentType }}/{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text | slice: -36, 36 }}\",\r\n  \"eventTime\": \"{{ Workflow.Input.ContentItem.ModifiedUtc | date: \"%Y-%m-%dT%H:%M:%S.%LZ\" }}\",\r\n  \"data\": {\r\n    \"api\": \"{{ Workflow.Input.ContentItem.Content.GraphSyncPart.Text }}\",\r\n    \"versionId\": \"{{ Workflow.Input.ContentItem.ContentItemVersionId }}\",\r\n    \"displayText\": \"{{ Workflow.Input.ContentItem.DisplayText }}\"\r\n  },\r\n  \"dataVersion\": \"1.0\"\r\n}]"
+                },
+                "ContentType": {
+                  "Expression": "application/json"
+                },
+                "Headers": {
+                  "Expression": "aeg-sas-key: {{ Workflow.Properties[\"aeg-sas-key\"] | raw }}"
+                },
+                "HttpResponseCodes": "200, 400, 401, 404, 413"
+              }
+            },
+            {
+              "ActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
+              "Name": "SetPropertyTask",
+              "X": 0,
+              "Y": 230,
+              "IsStart": false,
+              "Properties": {
+                "ActivityMetadata": {
+                  "Title": null
+                },
+                "PropertyName": "aeg-sas-key",
+                "Value": {
+                  "Expression": "config(input('ContentItem').ContentType + '-aeg-sas-key')"
+                }
+              }
+            }
+          ],
+          "Transitions": [
+            {
+              "Id": 0,
+              "SourceActivityId": "403hk5pkkxfkrt5eyctqmr1a4h",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7"
+            },
+            {
+              "Id": 0,
+              "SourceActivityId": "43mqrzqqe9n0zz2f3f2knvw5c7",
+              "SourceOutcomeName": "Done",
+              "DestinationActivityId": "4gtgm5sznv50fx59ah48td3cd4"
+            }
+          ]
+        },
+```
+
+# decision log
+
+## EventGridClient vs custom
+
+// using EventGridClient vs HttpRestClient
+// EventGridClient has lots of extras
+// e.g. sets x-ms-client-request-id as new guid (can't supply own) - what exactly is it? looks network related as opposed to correlation id
+// topicHostname gets passed to PublishEventsAsync. presumably that means needs to open a socket connection each time an event is published
+// and lose out on kept alive connections and the goodness you get using IHttpClientFactory
+// see, https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+// EventGridClient and EventGridEvent use old newtonsoft.json, rather than System.Net.Http
+// EventGridViewer: get updates for free
+// https://github.com/Azure/azure-sdk-for-net/tree/fef6a5436167758454a9eb965ed1d7b3f8eb061b/sdk/eventgrid/Microsoft.Azure.EventGrid
 
 #Links
 

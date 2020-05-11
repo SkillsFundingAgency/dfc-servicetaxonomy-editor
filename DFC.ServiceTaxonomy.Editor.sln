@@ -39,11 +39,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetJobProfiles", "GetJobPro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.GraphVisualiser", "DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj", "{A78E7B74-3AD3-493A-98B0-D23DD683C126}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.CustomFields", "DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj", "{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Cypher", "DFC.ServiceTaxonomy.Cypher\DFC.ServiceTaxonomy.Cypher.csproj", "{2E642150-CE42-4FA7-BED4-1FDC4337AC88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.ContentPickerPreview", "DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj", "{0CDC10A8-D499-40B1-9B09-695F40C158BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.ContentPickerPreview", "DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj", "{0CDC10A8-D499-40B1-9B09-695F40C158BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Theme", "DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj", "{C33C883C-B503-4FCB-9556-88C278A75BF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Theme", "DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj", "{C33C883C-B503-4FCB-9556-88C278A75BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Events", "DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj", "{1911C9EF-BE19-4F86-B093-3F85553BF032}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +91,10 @@ Global
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A78E7B74-3AD3-493A-98B0-D23DD683C126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A5911E1-21EE-44D4-9BB6-92CB9994C79F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E642150-CE42-4FA7-BED4-1FDC4337AC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -99,6 +107,10 @@ Global
 		{C33C883C-B503-4FCB-9556-88C278A75BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C33C883C-B503-4FCB-9556-88C278A75BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C33C883C-B503-4FCB-9556-88C278A75BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1911C9EF-BE19-4F86-B093-3F85553BF032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1911C9EF-BE19-4F86-B093-3F85553BF032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1911C9EF-BE19-4F86-B093-3F85553BF032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1911C9EF-BE19-4F86-B093-3F85553BF032}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -83,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogWarning(e, "User triggered sync validation failed: {e}");
+                _logger.LogWarning(e, $"User triggered sync validation failed: {e}");
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncController), $"Unable to validate graph sync."));
             }
             return View(new TriggerSyncValidationViewModel

@@ -33,6 +33,17 @@ using NPOI.XSSF.UserModel;
 
 //todo: only generate occupations & occupation labels required for given job profile list
 
+//Sample appsettings.Development.json
+/*
+    {
+    "Ocp-Apim-Subscription-Key": "##################################",
+    "ExcludeGraphContentMutators": false,
+    "ExcludeGraphIndexMutators": true,
+    "MasterRecipeName": "master_subset_nographindex",
+    "JobProfilesToImport": "actor, admin assistant, civil engineer, chief executive, border force officer, cabin crew, care worker, construction labourer, electrician, emergency medical dispatcher, farmer, mp, personal assistant, plumber, police officer, postman or postwoman, primary school teacher, sales assistant, social worker, waiter, train driver"
+    }
+*/
+
 namespace GetJobProfiles
 {
     static class Program
@@ -41,6 +52,7 @@ namespace GetJobProfiles
         // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
 
         private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
+        private static string MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
         private const bool _zip = false;
 
         private static int _fileIndex = 1;
@@ -60,6 +72,9 @@ namespace GetJobProfiles
 
             var socCodeConverter = new SocCodeConverter();
             var socCodeDictionary = socCodeConverter.Go(timestamp);
+
+            var oNetConverter = new ONetConverter();
+            var oNetDictionary = oNetConverter.Go(timestamp);
 
             //use these knobs to work around rate - limiting
             const int skip = 0;
@@ -88,7 +103,7 @@ namespace GetJobProfiles
             string jobProfilesToImport = config["JobProfilesToImport"];
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, timestamp);
+            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, timestamp);
             await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
 
             var jobProfiles = converter.JobProfiles.ToArray();
@@ -106,12 +121,17 @@ namespace GetJobProfiles
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
-            bool excludeGraphMutators = bool.Parse(config["ExcludeGraphMutators"] ?? "False");
-            if (!excludeGraphMutators)
+            bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
+            if (!excludeGraphContentMutators)
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
+            }
+
+            bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
+            if (!excludeGraphIndexMutators)
+            {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
 
@@ -134,6 +154,9 @@ namespace GetJobProfiles
 
             ProcessLionelsSpreadsheet();
 
+            const string contentRecipesPath = "ContentRecipes";
+
+            await CopyRecipe(contentRecipesPath, "SharedContent");
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, "QCFLevels");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, "ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, "ApprenticeshipStandards");
@@ -149,6 +172,7 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(converter.Registrations.IdLookup.Select(r => new RegistrationContentItem(GetTitle("Registration", r.Key), timestamp, r.Key, r.Value)), batchSize, "Registrations");
             await BatchSerializeToFiles(converter.Restrictions.IdLookup.Select(r => new RestrictionContentItem(GetTitle("Restriction", r.Key), timestamp, r.Key, r.Value)), batchSize, "Restrictions");
             await BatchSerializeToFiles(socCodeConverter.SocCodeContentItems, batchSize, "SocCodes");
+            await BatchSerializeToFiles(oNetConverter.ONetOccupationalCodeContentItems, batchSize, "ONetOccupationalCodes");
             await BatchSerializeToFiles(converter.WorkingEnvironments.IdLookup.Select(x => new WorkingEnvironmentContentItem(GetTitle("Environment", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingEnvironments");
             await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingLocations");
             await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, "WorkingUniforms");
@@ -186,7 +210,7 @@ namespace GetJobProfiles
             // chop off the last ','
             _recipesStep.Length -= 3;
             string content = WrapInNonSetupRecipe(_recipesStep.ToString(), _recipesStepExecutionId, "recipes", "values");
-            await ImportRecipe.CreateRecipeFile($"{OutputBasePath}{masterRecipeName}_{_executionId}.recipe.json", content);
+            await ImportRecipe.CreateRecipeFile($"{MasterRecipeOutputBasePath}{masterRecipeName}_{_executionId}.recipe.json", content);
         }
 
         private static async Task BatchRecipes(string recipePath, string recipeName, int batchSize, string nodeName, int totalItems, IDictionary<string, string> tokens = null)

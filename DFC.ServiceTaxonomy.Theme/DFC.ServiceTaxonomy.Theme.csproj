@@ -12,12 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Theme.Targets" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.0.16497">
+    <PackageReference Include="OrchardCore.Theme.Targets" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc1-13101" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.1.17183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -31,6 +32,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
+
+        private static List<string> GroupingFields = new List<string> { nameof(TabField), nameof(AccordionField) };
 
         public ValidateAndRepairGraph(
             IContentDefinitionManager contentDefinitionManager,
@@ -69,7 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced, result);
                 if (syncFailures.Any())
                 {
-                    await AttemptRepair(syncFailures.Select(f => f.ContentItem), contentTypeDefinition, result);
+                    await AttemptRepair(syncFailures, contentTypeDefinition, result);
                 }
             }
 
@@ -109,19 +112,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentItem contentItem in contentTypeContentItems)
             {
-                (bool validated, string? validationFailureReason) =
-                    await ValidateContentItem(contentItem, contentTypeDefinition);
-                if (validated)
+                foreach (var driver in _graphDatabase.Drivers)
                 {
-                    _logger.LogInformation($"Sync validation passed for {contentItem.ContentType} {contentItem.ContentItemId}.");
-                    result.Validated.Add(contentItem);
-                }
-                else
-                {
-                    _logger.LogWarning($"Sync validation failed.{Environment.NewLine}{validationFailureReason}");
-                    ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!);
-                    syncFailures.Add(validationFailure);
-                    result.ValidationFailures.Add(validationFailure);
+                    (bool validated, string? validationFailureReason) =
+                        await ValidateContentItem(contentItem, contentTypeDefinition, driver.Uri!); //why is URI nullable here? need to check and ensure it's always available
+
+                    if (validated)
+                    {
+                        _logger.LogInformation($"Sync validation passed for {contentItem.ContentType} {contentItem.ContentItemId} in graph with endpoint {driver.Uri}.");
+                        result.Validated.Add(contentItem);
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"Sync validation failed.{Environment.NewLine}{validationFailureReason}");
+                        ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!, driver.Uri!);
+                        syncFailures.Add(validationFailure);
+                        result.ValidationFailures.Add(validationFailure);
+                    }
                 }
             }
 
@@ -129,44 +136,45 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         private async Task AttemptRepair(
-            IEnumerable<ContentItem> syncFailedContentItems,
+            IEnumerable<ValidationFailure> syncValidationFailures,
             ContentTypeDefinition contentTypeDefinition,
             ValidateAndRepairResult result)
         {
             _logger.LogWarning(
-                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncFailedContentItems.Select(ci => ci.ToString()))}).Attempting to repair them.");
+                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString()))}).Attempting to repair them.");
 
             // if this throws should we carry on?
-            foreach (ContentItem failedSyncContentItem in syncFailedContentItems)
+            foreach (var failure in syncValidationFailures)
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 await mergeGraphSyncer.SyncToGraph(
-                    failedSyncContentItem.ContentType,
-                    failedSyncContentItem.ContentItemId,
-                    failedSyncContentItem.ContentItemVersionId,
-                    failedSyncContentItem.Content,
-                    failedSyncContentItem.CreatedUtc,
-                    failedSyncContentItem.ModifiedUtc);
+                    failure.ContentItem.ContentType,
+                    failure.ContentItem.ContentItemId,
+                    failure.ContentItem.ContentItemVersionId,
+                    failure.ContentItem.Content,
+                    failure.ContentItem.CreatedUtc,
+                    failure.ContentItem.ModifiedUtc);
 
                 //todo: split into smaller methods
 
                 (bool validated, string? validationFailureReason) =
-                    await ValidateContentItem(failedSyncContentItem, contentTypeDefinition);
+                    await ValidateContentItem(failure.ContentItem, contentTypeDefinition, failure.Endpoint);
+
                 if (validated)
                 {
-                    _logger.LogInformation("Repair was successful on {contentItem.ContentType} {contentItem.ContentItemId}.");
-                    result.Repaired.Add(failedSyncContentItem);
+                    _logger.LogInformation($"Repair was successful on {failure.ContentItem.ContentType} {failure.ContentItem.ContentItemId} in graph {failure.Endpoint}.");
+                    result.Repaired.Add(failure.ContentItem);
                 }
                 else
                 {
                     _logger.LogWarning($"Repair was unsuccessful.{Environment.NewLine}{validationFailureReason}");
-                    result.RepairFailures.Add(new RepairFailure(failedSyncContentItem, validationFailureReason!));
+                    result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
                 }
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition)
+        public async Task<(bool validated, string failureReason)> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition, string endpoint)
         {
             _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");
 
@@ -177,7 +185,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             List<INodeWithOutgoingRelationships?> results = await _graphDatabase.Run(new NodeWithOutgoingRelationshipsQuery(
                 await _graphSyncHelper.NodeLabels(),
                 _graphSyncHelper.IdPropertyName(),
-                nodeId));
+                nodeId), endpoint);
 
             INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
             if (nodeWithOutgoingRelationships == null)
@@ -190,7 +198,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 string partTypeName = contentTypePartDefinition.PartDefinition.Name;
                 string partName = contentTypePartDefinition.Name;
                 if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
-                    && partName == contentTypePartDefinition.ContentTypeDefinition.Name)
+                    && (partName == contentTypePartDefinition.ContentTypeDefinition.Name ||
+                        contentTypePartDefinition.PartDefinition.Fields.Any(f => GroupingFields.Contains(f.FieldDefinition.Name))))
                 {
                     partSyncer = _partSyncers["Eponymous"];
                 }
@@ -208,7 +217,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
                     (JObject)partContent, contentTypePartDefinition, nodeWithOutgoingRelationships,
                     _graphSyncHelper, _graphValidationHelper,
-                    expectedRelationshipCounts);
+                    expectedRelationshipCounts, endpoint);
 
                 if (validated)
                     continue;
@@ -234,7 +243,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         $"Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}.",
                         contentItem));
                 }
-            }
+            }      
 
             return (true, "");
         }

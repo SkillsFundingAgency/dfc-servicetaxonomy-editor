@@ -36,6 +36,7 @@ namespace GetJobProfiles
 
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly Dictionary<string, string> _socCodeDictionary;
+        private readonly Dictionary<string, string> _oNetDictionary;
         private readonly DefaultIdGenerator _idGenerator;
 
         public List<string> DayToDayTaskExclusions = new List<string>
@@ -53,10 +54,11 @@ namespace GetJobProfiles
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/commercial-energy-assessor"
         };
 
-        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, string timestamp)
+        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, Dictionary<string, string> oNetDictionary, string timestamp)
         {
             _client = client;
             _socCodeDictionary = socCodeDictionary;
+            _oNetDictionary = oNetDictionary;
             _idGenerator = new DefaultIdGenerator();
             Timestamp = timestamp;
         }
@@ -172,32 +174,51 @@ namespace GetJobProfiles
                 ? string.Empty
                 : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment?.Substring(32).Trim('.');
 
+            _oNetDictionary.TryGetValue(jobProfile.Title, out var oNetContentItemIds);
+
+            oNetContentItemIds ??= _oNetDictionary[ONetConverter.UnknownJobProfile];
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
-                EponymousPart = new JobProfilePart
+                EponymousPart = new JobProfilePart(),
+                JobProfileHeader = new JobProfileHeaderPart
                 {
                     Description = new HtmlField(jobProfile.Overview),
                     JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
-                    HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
-                    HtbTitleOptions = new TextField(),
-                    HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
-                    HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
-                    HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations),
-                    WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
-                    WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
-                    WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
                     SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
+                    ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
                     SalaryExperienced = new TextField(jobProfile.SalaryExperienced),
                     MinimumHours = new NumericField(jobProfile.MinimumHours),
                     MaximumHours = new NumericField(jobProfile.MaximumHours),
                     WorkingHoursDetails = new TextField(jobProfile.WorkingHoursDetails),
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
-                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails),
-                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression),
+                    WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
+                },
+                HowToBecome = new HowToBecomePart()
+                {
+                    HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
+                    HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
+                    HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
+                    //todo:
+                    //HtbTitleOptions = jobProfile.
+                    HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations)
+                },
+                WhatItTakes = new WhatItTakesPart()
+                {
+                    WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
+                    WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
+                    WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements)
+                },
+                WhatYouWillDo = new WhatYouWillDoPart()
+                {
                     WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(environment),
                     WydWorkingLocation = WorkingLocations.CreateContentPicker(location),
                     WydWorkingUniform = WorkingUniforms.CreateContentPicker(uniform)
+                },
+                CareerPath = new CareerPathPart()
+                {
+                    CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
                 },
                 EntryRoutes = new BagPart()
             };
@@ -240,7 +261,7 @@ namespace GetJobProfiles
 
             if (DayToDayTaskExclusions.Contains(jobProfile.Url))
             {
-                contentItem.EponymousPart.DayToDayTasks = new ContentPicker();
+                contentItem.WhatYouWillDo.DayToDayTasks = new ContentPicker();
             }
             else
             {
@@ -284,7 +305,7 @@ namespace GetJobProfiles
                     }
                 }
 
-                contentItem.EponymousPart.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
+                contentItem.WhatYouWillDo.DayToDayTasks = new ContentPicker(DayToDayTasks, activities);
             }
 
             return contentItem;

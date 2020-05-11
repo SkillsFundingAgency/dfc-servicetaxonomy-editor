@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             string contentType = "unknown type";
             try
             {
-                var contentItem = (ContentItem)workflowContext.Input["ContentItem"];
+                ContentItem contentItem = (ContentItem)workflowContext.Input["ContentItem"];
 
                 // contentType is used in the catch block
 #pragma warning disable S1854

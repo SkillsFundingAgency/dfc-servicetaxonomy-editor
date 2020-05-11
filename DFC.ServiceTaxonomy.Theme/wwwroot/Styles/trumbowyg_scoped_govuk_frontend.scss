@@ -1,0 +1,5 @@
+﻿@use "sass:meta";
+
+.trumbowyg-editor {
+    @include meta.load-css("../../node_modules/govuk-frontend/govuk/all");
+}

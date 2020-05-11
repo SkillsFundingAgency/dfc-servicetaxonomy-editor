@@ -36,7 +36,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+            IDictionary<string, int> expectedRelationshipCounts,
+            string endpoint)
         {
             return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 "Title",
