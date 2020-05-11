@@ -25,6 +25,7 @@
 * api function
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
     now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
+    also rename relationships for content api
 
 * add support for searching within content items e.g. filter content items by uri (add lucene indexes for content items?)
 
