@@ -11,6 +11,14 @@ namespace GetJobProfiles
     public class SocCodeConverter
     {
         public List<SocCodeContentItem> SocCodeContentItems { get; private set; }
+        private string[] CodesToProcess;
+        private bool ProcessAll = true;
+
+        public SocCodeConverter(string[] codes)
+        {
+            CodesToProcess = codes;
+            ProcessAll = ( CodesToProcess.Count() == 0 );
+        }
 
         public Dictionary<string, string> Go(string timestamp)
         {
@@ -20,12 +28,12 @@ namespace GetJobProfiles
                 //read all the rows in the csv
                 SocCode[] items = csv.GetRecords<SocCode>().ToArray();
                 //filter out the ones we don't care about - i.e. the groups and sub groups (no Unit value)
-                SocCodeContentItems = items
-                    .Where(x => !string.IsNullOrWhiteSpace(x.Unit))
-                    //convert to ContentItems
-                    .Select(x => x.ToContentItem(timestamp))
-                    .ToList();
 
+                SocCodeContentItems = items
+                        .Where(x => !string.IsNullOrWhiteSpace(x.Unit) && (ProcessAll || CodesToProcess.Contains( x.Unit )) )
+                        //convert to ContentItems
+                        .Select(x => x.ToContentItem(timestamp))
+                        .ToList();
                 //return a dictionary for the JobProfileConverter to use to link the profiles to their relevant SOC codes
                 return SocCodeContentItems.ToDictionary(x => x.DisplayText, x => x.ContentItemId);
             }

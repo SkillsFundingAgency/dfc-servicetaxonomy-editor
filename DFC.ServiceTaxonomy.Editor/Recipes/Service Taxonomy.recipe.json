@@ -647,10 +647,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "PreexistingNode": true,
+                                    "NodeNameTransform": "$\"esco__{ContentType}\"",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -3687,11 +3687,56 @@
                             "ActivityId": "43x4semh4jxkgywswvr6gww3w5",
                             "Name": "PublishToEventGridTask",
                             "X": 0,
-                            "Y": 180,
+                            "Y": 320,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
                                     "Title": null
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4kf16h4kwwdnjwf14teh3q0kcj",
+                            "Name": "SetPropertyTask",
+                            "X": 0,
+                            "Y": 160,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": null
+                                },
+                                "PropertyName": "Trigger",
+                                "Value": {
+                                    "Expression": "\"updated\""
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4xpnmmtqsmr4nt8s4cq5dkm7n3",
+                            "Name": "ContentPublishedEvent",
+                            "X": 230,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ContentTypeFilter": [],
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4agzmv5y2r8wezxvfx912px7nt",
+                            "Name": "SetPropertyTask",
+                            "X": 250,
+                            "Y": 150,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": null
+                                },
+                                "PropertyName": "Trigger",
+                                "Value": {
+                                    "Expression": "\"published\""
                                 }
                             }
                         }
@@ -3700,6 +3745,24 @@
                         {
                             "Id": 0,
                             "SourceActivityId": "45nnb7vnmbab9zkwhmtxxv9cn0",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4kf16h4kwwdnjwf14teh3q0kcj"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4kf16h4kwwdnjwf14teh3q0kcj",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "43x4semh4jxkgywswvr6gww3w5"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4xpnmmtqsmr4nt8s4cq5dkm7n3",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4agzmv5y2r8wezxvfx912px7nt"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4agzmv5y2r8wezxvfx912px7nt",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "43x4semh4jxkgywswvr6gww3w5"
                         }
