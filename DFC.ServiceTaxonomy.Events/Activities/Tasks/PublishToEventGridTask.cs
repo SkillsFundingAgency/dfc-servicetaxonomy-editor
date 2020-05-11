@@ -93,6 +93,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                     return;
 
                 string? eventType = null;
+                string? eventType2 = null;
 
                 string trigger = (string)workflowContext.Properties["Trigger"];
                 switch (trigger)
@@ -113,19 +114,28 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                             eventType = "draft";
                         }
                         break;
-                    case "unpublished":    //todo: if a published only item is unpublished, it reverts to a draft version
+                    case "unpublished":    //todo: if a published only item is unpublished, it reverts to a draft version. should we publish a draft, or let the consumer subscribe to unpublish - might not be obvious??
+                        // distinguish between pub+draft > unpublish and pub > unpub
                         eventType = "unpublished";
+                        if (preDelayPublished.ModifiedUtc == eventContentItem.ModifiedUtc)
+                        {
+                            eventType2 = "draft";
+                        }
                         break;
                     case "deleted":
                         eventType = "deleted";
                         break;
                 }
 
+                //todo: modified time as event time is probably wrong. either pick correct time, or just set to now
                 if (eventType != null)
                 {
-                    // would it be better to use the workflowid as the correlation id instead?
-                    ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, eventContentItem, eventType);
-                    await _eventGridContentClient.Publish(contentEvent);
+                    await PublishContentEvent(workflowContext, eventContentItem, eventType);
+                }
+
+                if (eventType2 != null)
+                {
+                    await PublishContentEvent(workflowContext, eventContentItem, eventType2);
                 }
             }
             catch (Exception e)
@@ -135,5 +145,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             }
         }
         #pragma warning restore S3241
+
+        private async Task PublishContentEvent(WorkflowExecutionContext workflowContext, ContentItem contentItem, string eventType)
+        {
+            // would it be better to use the workflowid as the correlation id instead?
+            ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, eventType);
+            await _eventGridContentClient.Publish(contentEvent);
+        }
     }
 }
