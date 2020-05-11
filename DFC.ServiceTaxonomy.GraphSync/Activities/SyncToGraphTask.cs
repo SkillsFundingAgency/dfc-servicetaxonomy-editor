@@ -4,6 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
@@ -17,16 +18,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     {
         public SyncToGraphTask(
             IMergeGraphSyncer mergeGraphSyncer,
+            IContentDefinitionManager contentDefinitionManager,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
             _mergeGraphSyncer = mergeGraphSyncer;
+            _contentDefinitionManager = contentDefinitionManager;
             _notifier = notifier;
             T = localizer;
         }
 
         private IStringLocalizer T { get; }
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INotifier _notifier;
 
         public override string Name => nameof(SyncToGraphTask);
@@ -49,7 +53,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         // or we have a facility to check & sync all content in oc
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            string contentType = "unknown type";
+            const string unknownType = "unknown type";
+
+            string contentType = unknownType;
             try
             {
                 ContentItem contentItem = (ContentItem)workflowContext.Input["ContentItem"];
@@ -71,13 +77,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             }
             catch
             {
-                // setting this, but not letting the exception propagate doesn't work
-                //workflowContext.Fault(ex, activityContext);
-
-                //todo: where's the best place for this code? the customnotifier? would need to dig more before putting it in its Add() method
-
-                // the notifier blows up if there's any '{}' in the message, so we make the string safe for the notifier
-                //string safeMessage = ex.Message.Replace('{','«').Replace('}', '»');
+                if (contentType != unknownType)
+                    contentType = _contentDefinitionManager.GetTypeDefinition(contentType).DisplayName;
 
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(SyncToGraphTask), $"Unable to sync {contentType} to graph."));
 

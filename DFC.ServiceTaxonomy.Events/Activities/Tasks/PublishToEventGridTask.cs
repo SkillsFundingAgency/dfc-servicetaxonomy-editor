@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         {
             try
             {
-                await Task.Delay(5000);
+                //await Task.Delay(5000);
 
                 // new item failed server side validation
                 if (eventContentItem.ContentItemVersionId == null)
@@ -91,6 +91,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                             //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
                             eventType = "draft";
                         }
+                        break;
+                    case "unpublished":
+                        eventType = "unpublished";
+                        break;
+                    case "deleted":
+                        eventType = "deleted";
                         break;
                 }
 
