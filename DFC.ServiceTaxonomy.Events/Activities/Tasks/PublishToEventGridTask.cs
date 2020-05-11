@@ -104,11 +104,11 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                         break;
                     case "updated":
                         if (!eventContentItem.Published
-                            && preDelayDraft?.ModifiedUtc != null
-                            && eventContentItem.ModifiedUtc > preDelayDraft.ModifiedUtc)
+                            && (preDelayDraft?.ModifiedUtc == null
+                            || eventContentItem.ModifiedUtc > preDelayDraft.ModifiedUtc))
                         {
                             //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
-                            //todo: this publishes false-positive draft events when user publishes a draft item (sometimes)
+                            //todo: this publishes false-positive draft events when user publishes a draft item (sometimes we only get the updated event, and not the published event. why?)
                             eventType = "draft";
                         }
                         break;
