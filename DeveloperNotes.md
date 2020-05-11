@@ -1,5 +1,13 @@
 #ToDo
 
+* Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
+
+* create stories for feature suggestions in here
+
+* delete/unpublish events
+
+* we could create a new contenthandler similar to OrchardCore.Contents.Workflows.Handlers.ContentsHandler to publish draft saved events, except looks like contenthandlers as is wouldn't support it
+
 * we'll need a service taxonomy recipe per environment, so that we can have different uris pointing to the right content api
   or we supply it to the setting and pick it up from the appconfig
   also need devops to add __EventGridTopicUrl__ and __EventGridAegSasKey__
@@ -17,21 +25,16 @@
 * api function
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
     now that we output properties directly, remove ncs_ prefix from properties, and change skos__prefLabel to something a bit more meaningful. will have to update the existing apis too though
+    also rename relationships for content api
 
-* add placeholder content item for onet and if we don't have an onet for a jp, set the content picker in the jp in the importer to point to the placeholder onet
-problem is field is marked required, and importing a jp with it null triggers validation errors aas part of graph sync
-
-* add support for searching within content items e.g. filter content items by uri (add indexes for content items?)
+* add support for searching within content items e.g. filter content items by uri (add lucene indexes for content items?)
 
 * remove skip and take from importer
 
 * publish to event grid
     open questions: event domain or multiple topics or single topic?
     single eventtype or split into eventtype and custom property?
-    slugified title as subject or canonical name field (custom part?)
 
-use guid from ui as subject
-include title for human readability
 have single topic for all content types and have subscriber which sends data into app insights - if not already supported
 see
 https://github.com/microsoft/ApplicationInsights-dotnet/issues/1427
@@ -40,14 +43,9 @@ here a function pipes it on to ai: https://techcommunity.microsoft.com/t5/azure-
 is it possible to link them directly?
 add workflow correlation id to message - try and tie in with ai and event correlationid, or use oc correlationid?
 
-need endpoint to come from config
-
 once we start having consumers - won't be able to just regenerate recipes and end up with different uri's for each content item
 
 todo
-    eventTime to 7dp? do in create property using js - required?
-    how best to handle keys. current method insecure. workflows for admin only? might have to abandon http request task for custom task?
-    separate workflows for published/unpublished etc.?
     create/modified/deleted
     remove ncs__ prefix on properties (& rename skos__prefLabel? but then inconsistent with esco)
 
@@ -297,7 +295,7 @@ todo: add validated as column
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
 | new             | save draft            |           | 1           |     X        |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
-| new             | publish               |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |             |                |                   |       X            |                     |                           |                   |                 |                |
+| new             | publish               |     X     |             |      X       |                   |               |    1          |                 |               |                 |                   |             |       X        |                   |       X            |                     |                           |                   |                 |                |
 |                 |                       |           |             |              |                   |    2          |               |                 |               |                 |                   |     X       |                |        X          |       X            |                     |         X                 |                   |                 |                |
 |                 |                       |           |             |              |                   |               |               |                 |               |     3           |                   |     X       |       X        |        X          |       X            |         X           |         X                 | new-published     | published event |                |
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
@@ -314,11 +312,11 @@ todo: add validated as column
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|----------------|
 | published       | save draft            |    X      |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
-| published       | save draft            |           |             |      X       |                   |               |    X          |                 |               |                 |                   |             |                |                   |                    |                     |                   |
+| published       | save draft            |           |             |      X       |                   |               |    1          |                 |               |                 |                   |     x       |                |       x           |       x            |        x            |        x                  |                   |                 |
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
 | published       | publish               |    X      |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
-| published       | publish               |           |             |      X       |                   |               |    X          |                 |               |     X           |                   |             |                |                   |                    |                     |                   |
+| published       | publish               |           |             |      X       |                   |               |    1          |                 |               |                 |                   |     X       |                |        X          |       X            |        X            |         x                 |                   |                 |
 |-----------------|-----------------------|-----------|-------------|--------------|-------------------|---------------|---------------|-----------------|---------------|-----------------|-------------------|-------------|----------------|-------------------|--------------------|---------------------|---------------------------|-------------------|-----------------|
 | published+draft |                       |              |                   |         |         |           |         |           |             |                   |
 |         |              |                   |         |         |           |         |           |             |                   |
