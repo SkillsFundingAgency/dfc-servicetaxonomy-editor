@@ -11,10 +11,14 @@ namespace DFC.ServiceTaxonomy.Events.Models
         {
             Id = correlationId;
 
+            //todo: use GraphSyncHelper?
+            // do we assume id ends with a guid, or do we need a setting to extract the eventgrid id from the full id?
+            // string userId = contentItem.Content.GraphSyncPart.Text;
+
             string userId = contentItem.Content.GraphSyncPart.Text;
             Subject = $"/content/{contentItem.ContentType}/{userId.Substring(userId.Length - 36)}";
 
-            Data = new ContentEventData(userId, contentItem.ContentItemVersionId, contentItem.DisplayText);
+            Data = new ContentEventData(userId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author);
             EventType = eventType;
             //todo: can modified be null?
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
