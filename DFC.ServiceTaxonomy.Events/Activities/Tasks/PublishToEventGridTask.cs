@@ -78,8 +78,8 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 //var preDelayContentItem = await _contentManager.CloneAsync(eventContentItem);
 
                 var preDelayDraft = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Draft);
-                // var preDelayLatest = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Latest);
-                // var preDelayPublished = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Published);
+                var preDelayLatest = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Latest);
+                var preDelayPublished = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Published);
 
                 await Task.Delay(5000);
 
@@ -104,15 +104,16 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                         break;
                     case "updated":
                         if (!eventContentItem.Published
-                            && (preDelayDraft?.ModifiedUtc == null
-                            || eventContentItem.ModifiedUtc > preDelayDraft.ModifiedUtc))
+                            && (preDelayPublished != null
+                            //todo: this stops published > save draft from publishing
+                            || (preDelayDraft?.ModifiedUtc == null || eventContentItem.ModifiedUtc > preDelayDraft.ModifiedUtc)))
                         {
                             //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
                             //todo: this publishes false-positive draft events when user publishes a draft item (sometimes we only get the updated event, and not the published event. why?)
                             eventType = "draft";
                         }
                         break;
-                    case "unpublished":
+                    case "unpublished":    //todo: if a published only item is unpublished, it reverts to a draft version
                         eventType = "unpublished";
                         break;
                     case "deleted":
