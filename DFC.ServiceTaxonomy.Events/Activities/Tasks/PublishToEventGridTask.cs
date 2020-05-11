@@ -16,32 +16,35 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 {
 
     /// <summary>
-    /// existing state      user action             post state     server validation passed      event grid events          notes
-    /// new                 save draft                                        y
-    /// new                 save draft                                        n
-    /// new                 publish                                           y
-    /// new                 publish                                           n
-    /// draft               save draft                                        y
-    /// draft               save draft                                        n
-    /// draft               publish                                           y
-    /// draft               publish                                           n
-    /// draft               publish from list
-    /// published           save draft                                        y
-    /// published           save draft                                        n
-    /// published           publish                                           y
-    /// published           publish                                           n
-    /// published           publish from list                                                           N/A                    publishing without changes is a no-op
-    /// draft+published     save draft                                        y
-    /// draft+published     save draft                                        n
-    /// draft+published     publish                                           y
-    /// draft+published     publish                                           n
-    /// draft+published     publish from list
-    /// published           unpublish from list
-    /// draft+published     unpublish from list
-    /// draft               delete from list
+    /// existing state      user action              server      post state         event grid events          notes
+    ///                                              validation
+    ///                                              passed
+    /// n/a                 save draft                   y       draft
+    /// n/a                 save draft                   n       n/a
+    /// n/a                 publish                      y       published
+    /// n/a                 publish                      n       n/a
+    /// draft               save draft                   y       draft
+    /// draft               save draft                   n       draft
+    /// draft               publish                      y       published
+    /// draft               publish                      n       draft
+    /// draft               publish draft from list              published
+    /// published           save draft                   y       draft+published
+    /// published           save draft                   n       published
+    /// published           publish                      y       published
+    /// published           publish                      n       published
+    /// published           publish draft from list              published           N/A                    publishing without changes is a no-op
+    /// draft+published     save draft                   y       draft+published
+    /// draft+published     save draft                   n       draft+published
+    /// draft+published     publish                      y       published
+    /// draft+published     publish                      n       draft+published
+    /// draft+published     publish draft from list              published
+    /// published           unpublish from list                  draft                                      new draft same as old published
+    /// draft+published     unpublish from list                  draft                                      draft is unchanged
+    /// draft+published     discard draft                        published                                  probably need an eg event to say discarded-draft. would be good to publish instead of deleted (& unpublished if pubed), but is it possible to figure that out?
+    /// draft               delete from list                                                                delete is currently not deleting the item
     /// published           delete from list
     /// draft+published     delete from list
-    /// new                 import recipe (publish)
+    /// n/a                 import recipe (publish)
     /// </summary>
     public class PublishToEventGridTask : TaskActivity
     {
