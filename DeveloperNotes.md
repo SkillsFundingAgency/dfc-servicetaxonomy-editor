@@ -2,6 +2,8 @@
 
 * Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
 
+* delete/unpublish events
+
 * we'll need a service taxonomy recipe per environment, so that we can have different uris pointing to the right content api
   or we supply it to the setting and pick it up from the appconfig
   also need devops to add __EventGridTopicUrl__ and __EventGridAegSasKey__
