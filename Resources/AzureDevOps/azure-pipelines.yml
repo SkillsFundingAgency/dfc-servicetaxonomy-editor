@@ -77,7 +77,7 @@ stages:
       displayName: 'NuGet pack'
       inputs:
         command: pack
-        packagesToPack: '$(system.defaultWorkingDirectory)\DFC.ServiceTaxonomy.Neo4j\*.nuspec'
+        packagesToPack: '**/*.nuspec'
         packDestination: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
         versionEnvVar: GitVersion.MajorMinorPatch
