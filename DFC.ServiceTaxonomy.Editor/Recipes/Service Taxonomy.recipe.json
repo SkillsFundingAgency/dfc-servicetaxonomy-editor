@@ -647,10 +647,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "PreexistingNode": true,
+                                    "NodeNameTransform": "$\"esco__{ContentType}\"",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
