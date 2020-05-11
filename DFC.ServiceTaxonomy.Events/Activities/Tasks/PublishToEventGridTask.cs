@@ -14,7 +14,35 @@ using OrchardCore.Workflows.Models;
 
 namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 {
-    //todo: delete/unpublish
+
+    /// <summary>
+    /// existing state      user action             post state     server validation passed      event grid events          notes
+    /// new                 save draft                                        y
+    /// new                 save draft                                        n
+    /// new                 publish                                           y
+    /// new                 publish                                           n
+    /// draft               save draft                                        y
+    /// draft               save draft                                        n
+    /// draft               publish                                           y
+    /// draft               publish                                           n
+    /// draft               publish from list
+    /// published           save draft                                        y
+    /// published           save draft                                        n
+    /// published           publish                                           y
+    /// published           publish                                           n
+    /// published           publish from list                                                           N/A                    publishing without changes is a no-op
+    /// draft+published     save draft                                        y
+    /// draft+published     save draft                                        n
+    /// draft+published     publish                                           y
+    /// draft+published     publish                                           n
+    /// draft+published     publish from list
+    /// published           unpublish from list
+    /// draft+published     unpublish from list
+    /// draft               delete from list
+    /// published           delete from list
+    /// draft+published     delete from list
+    /// new                 import recipe (publish)
+    /// </summary>
     public class PublishToEventGridTask : TaskActivity
     {
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
@@ -123,6 +151,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                         }
                         break;
                     case "deleted":
+                        //todo: do we send out unpub + undrafted, or just let the delete go.
+                        // when we pub a published, should we send an undraft if there was a draft version? or let consumers sub to published, then they can remove the draft
+                        // if (preDelayDraft == null)
+                        // {
+                        //     eventType = "unpublished";
+                        // }
                         eventType = "deleted";
                         break;
                 }
