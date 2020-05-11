@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         {
             try
             {
-                //await Task.Delay(5000);
+                await Task.Delay(5000);
 
                 // new item failed server side validation
                 if (eventContentItem.ContentItemVersionId == null)
@@ -83,12 +83,15 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 switch (trigger)
                 {
                     case "published":
+                        //todo: when a draft item is published, the draft version goes away. either we publish an event to say draft-removed
+                        // or the consumer can remove drafts on a published event
                         eventType = "published";
                         break;
                     case "updated":
                         if (!eventContentItem.Published)
                         {
                             //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
+                            //todo: this publishes false-positive draft events when user publishes a draft item
                             eventType = "draft";
                         }
                         break;

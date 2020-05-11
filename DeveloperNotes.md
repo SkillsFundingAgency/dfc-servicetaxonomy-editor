@@ -2,6 +2,10 @@
 
 * Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
 
+* deleting draft doesn't always delete the content item
+
+* how do we not publish events, if the operation is blocked by another workflow?
+
 * create stories for feature suggestions in here
 
 * delete/unpublish events
