@@ -4,6 +4,7 @@
       <TargetFramework>netcoreapp3.1</TargetFramework>
       <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
       <Nullable>enable</Nullable>
+      <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
       <Authors>Education and Skills Funding Agency Team</Authors>
       <Description>DFC.ServiceTaxonomy.Neo4j library</Description>
