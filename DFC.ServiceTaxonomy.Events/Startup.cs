@@ -16,8 +16,6 @@ namespace DFC.ServiceTaxonomy.Events
 
         public override void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton<IGlobalMethodProvider, ConfigMethodProvider>();
-
             services.AddEventGridPublishing(Configuration);
         }
     }
