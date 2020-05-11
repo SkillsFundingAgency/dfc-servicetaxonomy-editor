@@ -5,7 +5,6 @@
 * create stories for feature suggestions in here
 
 * delete/unpublish events
-* need to test event publishing from content list page and recipe import
 
 * we could create a new contenthandler similar to OrchardCore.Contents.Workflows.Handlers.ContentsHandler to publish draft saved events, except looks like contenthandlers as is wouldn't support it
 
