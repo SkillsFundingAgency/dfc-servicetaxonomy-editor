@@ -12,7 +12,7 @@
         {
             "name": "CypherCommand",
             "commands": [
-                "match (n:esco__Occupation) unwind n.skos__prefLabel as prefLabel\r\ncreate (al:ncs__OccupationLabel:Resource {skos__prefLabel: prefLabel, uri: \"http://nationalcareers.service.gov.uk/OccupationLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:ncs__hasPrefLabel]->(al)"
+                "match (n:esco__Occupation) unwind n.skos__prefLabel as prefLabel\r\ncreate (al:ncs__OccupationLabel:Resource {skos__prefLabel: prefLabel, uri: \"http://nationalcareers.service.gov.uk/occupationlabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:ncs__hasPrefLabel]->(al)"
             ]
         }
     ]
