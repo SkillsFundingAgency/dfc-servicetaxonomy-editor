@@ -61,6 +61,12 @@
         },
         "OwlDataGeneratorDescription": {
             "value": "__OwlDataGeneratorDescription__"
+        },
+        "EventGridTopicEndpoint": {
+            "value": "__EventGridTopicUrl__"
+        },
+        "EventGridAegSasKey": {
+            "value": "__EventGridAegSasKey__"
         }
     }
 }

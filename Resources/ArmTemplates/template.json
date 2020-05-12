@@ -64,6 +64,12 @@
         },
         "OwlDataGeneratorDescription": {
             "type": "string"
+        },
+        "EventGridTopicEndpoint": {
+            "type": "string"
+        },
+        "EventGridAegSasKey": {
+            "type": "string"
         }
     },
     "variables": {
@@ -186,6 +192,14 @@
                             {
                                 "name": "OwlDataGeneratorConfigModel__DescriptionLabel",
                                 "value": "[parameters('OwlDataGeneratorDescription')]"
+                            },
+                            {
+                                "name": "EventGrid__Topics__TopicEndpoint",
+                                "value": "[parameters('EventGridTopicEndpoint')]"
+                            },
+                            {
+                                "name": "EventGrid__Topics__AegSasKey",
+                                "value": "[parameters('EventGridAegSasKey')]"
                             }
                         ]
                     }
