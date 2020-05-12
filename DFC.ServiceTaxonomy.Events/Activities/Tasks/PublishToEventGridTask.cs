@@ -210,11 +210,20 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                     case "deleted":
                         //todo: do we send out unpub + undrafted, or just let the delete go.
                         // we could just send out draft & pub
-                        // when we pub a published, should we send an undraft if there was a draft version? or let consumers sub to published, then they can remove the draft
+                        // when we pub a published, should we send an undraft if there was a draft version? or let consumers sub to published, then they can remove the draft.
                         // if (preDelayDraft == null)
                         // {
                         //     eventType = "unpublished";
                         // }
+
+                        //might just have to live with deleted, until we have the new promised ContentSavedEvent
+
+                        //todo: how to we handle discard draft?
+                        //(draft+pub)discard draft> draft null, published !null.  <-- need to distinguish this 1, as all others delete will do
+                        // got !null, !null second time. if that's what we get all the time, could check for that. need to see if these are consistent
+                        //draft delete>             draft null, pub        null.
+                        //published delete>         draft null, pub       !null
+                        //draft+pub delete>         draft null, pub        null
                         eventType = "deleted";
                         break;
                 }
