@@ -4,6 +4,10 @@
 
 * deleting draft doesn't always delete the content item
 
+* enforce readonly nodes by not allowing user to delete the corresponding content item
+
+* make sure only 1 validate and repair is operating at once
+
 * how do we not publish events, if the operation is blocked by another workflow?
 
 * create stories for feature suggestions in here
