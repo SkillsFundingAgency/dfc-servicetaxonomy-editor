@@ -115,7 +115,7 @@ stages:
               publishFeedCredentials: 'DFC Nuget'
 
 - stage: DeployToDev
-  condition: and(eq(dependencies.Build.result,'Succeeded', ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
