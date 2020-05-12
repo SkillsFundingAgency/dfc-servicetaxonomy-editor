@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
     /// published           unpublish from list                  draft                                      new draft same as old published
     /// draft+published     unpublish from list                  draft                                      draft is unchanged
     /// draft+published     discard draft                        published                                  probably need an eg event to say discarded-draft. would be good to publish instead of deleted (& unpublished if pubed), but is it possible to figure that out?
-    /// draft               delete from list                                                                delete is currently not deleting the item
+    /// draft               delete from list
     /// published           delete from list
     /// draft+published     delete from list
     /// n/a                 import recipe (publish)
@@ -115,9 +115,9 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 await Task.Delay(5000);
 
                 // session diposed. inject a session?
-                // var postDelayDraft = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Draft);
+                //var postDelayDraft = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Draft);
                 // var postDelayLatest = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Latest);
-                // var postDelayPublished = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Published);
+                //var postDelayPublished = await _contentManager.GetAsync(eventContentItem.ContentItemId, VersionOptions.Published);
 
                 // new item failed server side validation
                 if (eventContentItem.ContentItemVersionId == null)
