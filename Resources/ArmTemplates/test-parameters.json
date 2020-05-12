@@ -67,6 +67,9 @@
         },
         "EventGridAegSasKey": {
             "value": "not-a-real-key"
+        },
+        "EventGridEnabled": {
+            "value": true
         }
     }
 }

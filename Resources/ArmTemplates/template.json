@@ -70,6 +70,9 @@
         },
         "EventGridAegSasKey": {
             "type": "string"
+        },
+        "EventGridEnabled": {
+            "type": "bool"
         }
     },
     "variables": {
@@ -200,6 +203,10 @@
                             {
                                 "name": "EventGrid__Topics__AegSasKey",
                                 "value": "[parameters('EventGridAegSasKey')]"
+                            },
+                            {
+                                "name": "EventGrid__Enabled",
+                                "value": "[parameters('EventGridEnabled')]"
                             }
                         ]
                     }
