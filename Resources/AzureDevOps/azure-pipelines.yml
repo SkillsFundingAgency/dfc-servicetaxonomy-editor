@@ -88,7 +88,7 @@ stages:
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory
@@ -115,7 +115,7 @@ stages:
               publishFeedCredentials: 'DFC Nuget'
 
 - stage: DeployToDev
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded', ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
