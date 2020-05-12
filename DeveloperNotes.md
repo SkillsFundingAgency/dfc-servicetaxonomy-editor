@@ -1,7 +1,5 @@
 #ToDo
 
-* having the Delete From Graph workflow enabled stops the content item from being deleted
-
 * Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
 
 * deleting draft doesn't always delete the content item

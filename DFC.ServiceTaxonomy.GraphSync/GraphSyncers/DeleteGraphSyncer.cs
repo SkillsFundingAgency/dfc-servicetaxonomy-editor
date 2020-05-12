@@ -50,9 +50,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 await _graphDatabase.Run(_deleteNodesByTypeCommand);
             }
             //TODO : specify which exceptions to handle?
+            //todo: move this into task?
             catch
             {
-                //this forces a rollback of the currect OC db transaction
+                //this forces a rollback of the current OC db transaction
                 _session.Cancel();
                 throw;
             }
@@ -72,16 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
 
-            try
-            {
-                await _graphDatabase.Run(_deleteNodeCommand);
-            }
-            catch
-            {
-                //this forces a rollback of the current OC db transaction
-                _session.Cancel();
-                throw;
-            }
+            await _graphDatabase.Run(_deleteNodeCommand);
         }
     }
 }

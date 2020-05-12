@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -11,6 +10,7 @@ using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -18,11 +18,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     {
         public DeleteFromGraphTask(
             IDeleteGraphSyncer deleteGraphSyncer,
+            ISession session,
             IStringLocalizer<DeleteFromGraphTask> localizer,
             INotifier notifier,
             IContentDefinitionManager contentDefinitionManager)
         {
             _deleteGraphSyncer = deleteGraphSyncer;
+            _session = session;
             _notifier = notifier;
             T = localizer;
             _contentDefinitionManager = contentDefinitionManager;
@@ -30,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         private IStringLocalizer T { get; }
         private readonly IDeleteGraphSyncer _deleteGraphSyncer;
+        private readonly ISession _session;
         private readonly INotifier _notifier;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
@@ -60,12 +63,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 //todo: if this check is needed after the published/draft work, don't rely on the message!
                 if (ex.Message != "Expecting 1 node to be deleted, but 0 were actually deleted.")
                 {
+                    _session.Cancel();
                     AddFailureNotifier(contentItem);
                     throw;
                 }
             }
             catch
             {
+                _session.Cancel();
                 AddFailureNotifier(contentItem);
                 throw;
             }
