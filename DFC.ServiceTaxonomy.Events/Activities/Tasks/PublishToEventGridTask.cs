@@ -224,7 +224,15 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                         //draft delete>             draft null, pub        null.
                         //published delete>         draft null, pub       !null
                         //draft+pub delete>         draft null, pub        null
-                        eventType = "deleted";
+                        if (preDelayPublishedContentItem?.Published == true)
+                        {
+                            // discard draft
+                            eventType = "draft-discarded";
+                        }
+                        else
+                        {
+                            eventType = "deleted";
+                        }
                         break;
                 }
 
