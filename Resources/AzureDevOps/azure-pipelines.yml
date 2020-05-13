@@ -147,7 +147,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToSit
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.DeployToDev.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -179,7 +179,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToPP
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.DeployToSit.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
