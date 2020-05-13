@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces
+﻿namespace DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces
 {
     public interface ICypherToContentCSharpScriptGlobals
     {

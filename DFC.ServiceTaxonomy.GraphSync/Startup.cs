@@ -1,4 +1,6 @@
 using System;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.Editor.Module.Drivers;
 using DFC.ServiceTaxonomy.GraphSync.Activities;
 using Microsoft.AspNetCore.Builder;

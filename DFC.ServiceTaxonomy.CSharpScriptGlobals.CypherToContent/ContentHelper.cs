@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Exception;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Exceptions;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
+namespace DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent
 {
     public class ContentHelper : IContentHelper
     {
