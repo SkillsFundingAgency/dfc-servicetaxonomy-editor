@@ -5,7 +5,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
 
-//todo: if this still uses too much memory, we could probably remove the need for OrchardCore.ContentManagement, just include YesSql, and duplicate everything we need, which doesn't seem too much :)
+//todo: if this still uses too much memory, we could probably remove the need for OrchardCore.ContentManagement, just include YesSql, and duplicate everything we need, which doesn't seem too much :) < tried this didn't work
 //todo: implement MetadataReferenceResolver and don't load what we don't need
 //todo: could have occupation label specific helper and load all into dictionary first, so don't have all the dependencies
 //todo: look for specific pattern and don't invoke csharp compiler
