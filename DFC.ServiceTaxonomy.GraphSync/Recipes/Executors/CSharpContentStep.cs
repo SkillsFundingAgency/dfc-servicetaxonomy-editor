@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
