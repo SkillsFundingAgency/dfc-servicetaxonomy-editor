@@ -160,7 +160,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             string processedRecipeFragment = _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
 
 #pragma warning disable S1215
-            // will once per item be too much?? batch?
             GC.Collect();
 #pragma warning restore S1215
 
