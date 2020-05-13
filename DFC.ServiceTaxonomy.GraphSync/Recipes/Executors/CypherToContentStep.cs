@@ -172,8 +172,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             // can't see how to get json.net to unescape value strings!
             code = code.Replace("\\\"", "\"");
 
-            //return await CSharpScript.EvaluateAsync<string>(code, globals: _cypherToContentCSharpScriptGlobals);
-
             var script = CSharpScript.Create<string>(code, globalsType: typeof(ICypherToContentCSharpScriptGlobals));
             ScriptRunner<string> runner = script.CreateDelegate();
             return await runner(_cypherToContentCSharpScriptGlobals);
