@@ -11,12 +11,12 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
 using OrchardCore.Workflows.Models;
-using YesSql;
 
 namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 {
     //todo: revisit if/when we get ContentSavedEvent
-    // CoontentVersionedEvent is now added, can that help us?
+    //todo: remove false-positives
+    //todo: publish draft when a new draft is cloned
 
     /// <summary>
     /// existing state      user action              server      post state         event grid events       notes
@@ -35,51 +35,48 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
     /// n/a>pub val fail    publish                      y       published          published
     /// n/a>pub val fail    publish                      n       n/a                n/a
     /// draft               save draft                   y       draft              draft
-    /// draft               save draft                   n       draft              draft                   false positive
+    /// draft               save draft                   n       draft              draft                   * false positive
     /// draft               publish                      y       published          published
-    /// draft               publish                      n       draft              draft                   false positive
+    /// draft               publish                      n       draft              draft                   * false positive
     /// draft               publish draft from list              published          published
     /// published           save draft                   y       draft+published    draft
-    /// published           save draft                   n       published          draft                   false positive (no draft exists)
+    /// published           save draft                   n       published          draft                   * false positive (no draft exists)
     /// published           publish                      y       published          published
-    /// published           publish                      n       published          draft                   false positive (no draft exists)
+    /// published           publish                      n       published          draft                   * false positive (no draft exists)
     /// published           publish draft from list              published          n/a                     publishing without changes is a no-op
     /// draft+published     save draft                   y       draft+published    draft
-    /// draft+published     save draft                   n       draft+published    draft                   false positive
+    /// draft+published     save draft                   n       draft+published    draft                   * false positive
     /// draft+published     publish                      y       published          published
-    /// draft+published     publish                      n       draft+published    draft                   false positive
+    /// draft+published     publish                      n       draft+published    draft                   * false positive
     /// draft+published     publish from list                    published          published
-    /// published           unpublish from list                  draft              n/a                     *** need to publish draft (but no events fired by oc)
-    /// draft+published     unpublish from list                  draft                                      draft is unchanged
-    /// draft+published     discard draft                        published                                  probably need an eg event to say discarded-draft. would be good to publish instead of deleted (& unpublished if pubed), but is it possible to figure that out?
-    /// draft               delete from list
-    /// published           delete from list
-    /// draft+published     delete from list
-    /// n/a                 import recipe (publish)
+    /// published           unpublish from list                  draft              unpublished+draft
+    /// draft+published     unpublish from list                  draft              unpublished             draft is unchanged
+    /// draft+published     discard draft from list              published          draft-discarded
+    /// draft               delete from list                     n/a                deleted
+    /// published           delete from list                     n/a                deleted
+    /// draft+published     delete from list                     n/a                deleted
+    /// draft               clone from list                      new draft          n/a                     * currently no way to know that a (draft) clone has been created
+    /// published           clone from list                      new draft          n/a                     * currently no way to know that a (draft) clone has been created
+    /// draft+published     clone from list                      new draft          n/a                     * currently no way to know that a (draft) clone has been created
+    /// n/a                 import recipe (publish)              published          published               re-importing not tested as it has issues that should be fixed by the current oc idempotent recipes pr
     /// </summary>
     public class PublishToEventGridTask : TaskActivity
     {
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
         private readonly IEventGridContentClient _eventGridContentClient;
-        private readonly ISession _session;
         private readonly IContentManager _contentManager;
-        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<PublishToEventGridTask> _logger;
 
         public PublishToEventGridTask(
             IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
-            ISession session,
             IContentManager contentManager,
-            IServiceProvider serviceProvider,
             IStringLocalizer<PublishToEventGridTask> localizer,
             ILogger<PublishToEventGridTask> logger)
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
-            _session = session;
             _contentManager = contentManager;
-            _serviceProvider = serviceProvider;
             _logger = logger;
             T = localizer;
         }
@@ -123,26 +120,20 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             return Outcomes("Done");
         }
 
-        #pragma warning disable S3241
         /// <remarks>
         /// We can't use any scoped services in here (and neither does creating a new scope work for anything using a session),
         /// we can only use transients and singletons.
         /// </remarks>
+        #pragma warning disable S3241 // not a good idea to return void from an async
         private async Task ProcessEventAfterContentItemQuiesces(
             WorkflowExecutionContext workflowContext,
             ContentItem eventContentItem,
             ContentItem preDelayDraftContentItem,
             ContentItem preDelayPublishedContentItem)
+        #pragma warning restore S3241
         {
-            try //when deleting, as the item has been soft deleted, it has latest false and published false, so can't look at the item in the session to see if it was already published or deleted
+            try
             {
-                // when new item, no item exists in the session on updated, but 1 is there for published
-
-#pragma warning disable S1481
-                //var preDelayContentItem = await _contentManager.CloneAsync(eventContentItem);
-// item has been soft-deleted already (is there a race condition for that to be true?) it's not in the db yet, as the transaction hasn't been committed
-#pragma warning disable S1125
-
                 await Task.Delay(5000);
 
                 // new item failed server side validation
@@ -155,10 +146,6 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 string trigger = (string)workflowContext.Properties["Trigger"];
                 switch (trigger)
                 {
-                    // if we weren't delayed, we could save a draft and/or published status in the content item, which we could fetch at delete time to know what was being deleted
-                    // as we can't and the event item has already been soft deleted within the transaction, we have no way of knowing if a draft or pubed item is being deleted
-                    // unless we can somehow peek behind the transaction into the database
-
                     case "published":
                         //todo: when a draft item is published, the draft version goes away. either we publish an event to say draft-removed
                         // or the consumer can remove drafts on a published event
@@ -177,9 +164,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                         }
 
                         break;
-                    case "unpublished"
-                        : //todo: if a published only item is unpublished, it reverts to a draft version. should we publish a draft, or let the consumer subscribe to unpublish - might not be obvious??
-                        // distinguish between pub+draft > unpublish and pub > unpub
+                    case "unpublished":
                         eventType = "unpublished";
                         if (preDelayPublishedContentItem.ModifiedUtc == eventContentItem.ModifiedUtc)
                         {
@@ -188,22 +173,6 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 
                         break;
                     case "deleted":
-                        //todo: do we send out unpub + undrafted, or just let the delete go.
-                        // we could just send out draft & pub
-                        // when we pub a published, should we send an undraft if there was a draft version? or let consumers sub to published, then they can remove the draft.
-                        // if (preDelayDraft == null)
-                        // {
-                        //     eventType = "unpublished";
-                        // }
-
-                        //might just have to live with deleted, until we have the new promised ContentSavedEvent
-
-                        //todo: how to we handle discard draft?
-                        //(draft+pub)discard draft> draft null, published !null.  <-- need to distinguish this 1, as all others delete will do
-                        // got !null, !null second time. if that's what we get all the time, could check for that. need to see if these are consistent
-                        //draft delete>             draft null, pub        null.
-                        //published delete>         draft null, pub       !null
-                        //draft+pub delete>         draft null, pub        null
                         if (preDelayPublishedContentItem?.Published == true)
                         {
                             // discard draft
@@ -233,7 +202,6 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 _logger.LogError($"Delayed processing of workflow id {workflowContext.WorkflowId} failed: {e}");
             }
         }
-#pragma warning restore S3241
 
         private async Task PublishContentEvent(WorkflowExecutionContext workflowContext, ContentItem contentItem, string eventType)
         {
