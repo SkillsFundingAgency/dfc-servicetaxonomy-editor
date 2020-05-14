@@ -14,21 +14,70 @@ using OrchardCore.Workflows.Models;
 
 namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 {
-    //todo: delete/unpublish
+    //todo: revisit if/when we get ContentSavedEvent
+    //todo: remove false-positives
+    //todo: publish draft when a new draft is cloned
+
+    /// <summary>
+    /// | existing state      | user action              | server      | post state         | event grid events          | notes                                   |
+    /// |                     |                          | validation  |                    |                            |                                         |
+    /// |                     |                          |:passed     :|                    |                            |                                         |
+    /// |---------------------|--------------------------|-------------|--------------------|----------------------------|-----------------------------------------|
+    /// | n/a                 | save draft               |     y       | draft              | draft                      |                                         |
+    /// | n/a                 | save draft               |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>draft val fail  | save draft               |     y       | draft              | draft                      |                                         |
+    /// | n/a>draft val fail  | save draft               |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>pub val fail    | save draft               |     y       | draft              | draft                      |                                         |
+    /// | n/a>pub val fail    | save draft               |     n       | n/a                | n/a                        |                                         |
+    /// | n/a                 | publish                  |     y       | published          | published                  |                                         |
+    /// | n/a                 | publish                  |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>draft val fail  | publish                  |     y       | published          | published                  |                                         |
+    /// | n/a>draft val fail  | publish                  |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>pub val fail    | publish                  |     y       | published          | published                  |                                         |
+    /// | n/a>pub val fail    | publish                  |     n       | n/a                | n/a                        |                                         |
+    /// | draft               | save draft               |     y       | draft              | draft                      |                                         |
+    /// | draft               | save draft               |     n       | draft              | draft                      | * false positive                        |
+    /// | draft               | publish                  |     y       | published          | published+draft-discarded  |                                         |
+    /// | draft               | publish                  |     n       | draft              | draft                      | * false positive                        |
+    /// | draft               | publish draft from list  |             | published          | published                  |                                         |
+    /// | published           | save draft               |     y       | draft+published    | draft                      |                                         |
+    /// | published           | save draft               |     n       | published          | draft                      | * false positive (no draft exists)      |
+    /// | published           | publish                  |     y       | published          | published                  |                                         |
+    /// | published           | publish                  |     n       | published          | draft                      | * false positive (no draft exists)      |
+    /// | published           | publish draft from list  |             | published          | n/a                        | publishing without changes is a no-op   |
+    /// | draft+published     | save draft               |     y       | draft+published    | draft                      |                                         |
+    /// | draft+published     | save draft               |     n       | draft+published    | draft                      | * false positive                        |
+    /// | draft+published     | publish                  |     y       | published          | published+draft-discarded  |                                         |
+    /// | draft+published     | publish                  |     n       | draft+published    | draft                      | * false positive                        |
+    /// | draft+published     | publish from list        |             | published          | published+draft-discarded  |                                         |
+    /// | published           | unpublish from list      |             | draft              | unpublished+draft          |                                         |
+    /// | draft+published     | unpublish from list      |             | draft              | unpublished                | draft is unchanged                      |
+    /// | draft+published     | discard draft from list  |             | published          | draft-discarded            |                                         |
+    /// | draft               | delete from list         |             | n/a                | deleted                    |                                         |
+    /// | published           | delete from list         |             | n/a                | deleted                    |                                         |
+    /// | draft+published     | delete from list         |             | n/a                | deleted                    |                                         |
+    /// | draft               | clone from list          |             | new draft          | n/a                        | * currently no way to know that a (draft) clone has been created |
+    /// | published           | clone from list          |             | new draft          | n/a                        | * currently no way to know that a (draft) clone has been created |
+    /// | draft+published     | clone from list          |             | new draft          | n/a                        | * currently no way to know that a (draft) clone has been created |
+    /// | n/a                 | import recipe (publish)  |             | published          | published                  | re-importing not tested as it has issues that should be fixed by the current oc idempotent recipes pr |
+    /// </summary>
     public class PublishToEventGridTask : TaskActivity
     {
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
         private readonly IEventGridContentClient _eventGridContentClient;
+        private readonly IContentManager _contentManager;
         private readonly ILogger<PublishToEventGridTask> _logger;
 
         public PublishToEventGridTask(
             IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
+            IContentManager contentManager,
             IStringLocalizer<PublishToEventGridTask> localizer,
             ILogger<PublishToEventGridTask> logger)
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
+            _contentManager = contentManager;
             _logger = logger;
             T = localizer;
         }
@@ -46,28 +95,43 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         public override LocalizedString DisplayText => T["Publish content state changes to Azure Event Grid"];
         public override LocalizedString Category => T["Event Grid"];
 
-        public override Task<ActivityExecutionResult> ExecuteAsync(
+        public override async Task<ActivityExecutionResult> ExecuteAsync(
             WorkflowExecutionContext workflowContext,
             ActivityContext activityContext)
         {
             if (!_eventGridConfiguration.CurrentValue.PublishEvents)
             {
                 _logger.LogInformation("Event grid publishing is disabled. No events will be published.");
-                return Task.FromResult(Outcomes("Done"));
+                return Outcomes("Done");
             }
 
             ContentItem contentItem = (ContentItem)workflowContext.Input["ContentItem"];
 
-            // defer processing, so that if we end up retrying the calls to event grid, we don't freeze the ui
+            var preDelayDraftContentItem =
+                await _contentManager.GetAsync(contentItem.ContentItemId, VersionOptions.Draft);
+            var preDelayPublishedContentItem =
+                await _contentManager.GetAsync(contentItem.ContentItemId, VersionOptions.Published);
+
 #pragma warning disable CS4014
-            ProcessEventAfterContentItemQuiesces(workflowContext, contentItem);
+            // defer processing, so that we can view the state of the contentitem when the system quiesces,
+            // and if we end up retrying the calls to event grid, we don't freeze the ui
+            ProcessEventAfterContentItemQuiesces(workflowContext, contentItem, preDelayDraftContentItem, preDelayPublishedContentItem);
 #pragma warning restore CS4014
 
-            return Task.FromResult(Outcomes("Done"));
+            return Outcomes("Done");
         }
 
-        #pragma warning disable S3241
-        private async Task ProcessEventAfterContentItemQuiesces(WorkflowExecutionContext workflowContext, ContentItem eventContentItem)
+        /// <remarks>
+        /// We can't use any scoped services in here (and neither does creating a new scope work for anything using a session),
+        /// we can only use transients and singletons.
+        /// </remarks>
+        #pragma warning disable S3241 // not a good idea to return void from an async
+        private async Task ProcessEventAfterContentItemQuiesces(
+            WorkflowExecutionContext workflowContext,
+            ContentItem eventContentItem,
+            ContentItem preDelayDraftContentItem,
+            ContentItem preDelayPublishedContentItem)
+        #pragma warning restore S3241
         {
             try
             {
@@ -78,27 +142,58 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                     return;
 
                 string? eventType = null;
+                string? eventType2 = null;
 
                 string trigger = (string)workflowContext.Properties["Trigger"];
                 switch (trigger)
                 {
                     case "published":
                         eventType = "published";
+                        if (preDelayPublishedContentItem.CreatedUtc != preDelayPublishedContentItem.ModifiedUtc)
+                        {
+                            eventType2 = "draft-discarded";
+                        }
                         break;
                     case "updated":
-                        if (!eventContentItem.Published)
+                        if (!eventContentItem.Published
+                            && (preDelayPublishedContentItem != null
+                                //todo: don't think this is required anymore??
+                                || (preDelayDraftContentItem?.ModifiedUtc == null ||
+                                    eventContentItem.ModifiedUtc >= preDelayDraftContentItem.ModifiedUtc)))
                         {
-                            //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
                             eventType = "draft";
+                        }
+                        break;
+                    case "unpublished":
+                        eventType = "unpublished";
+                        if (preDelayPublishedContentItem.ModifiedUtc == eventContentItem.ModifiedUtc)
+                        {
+                            eventType2 = "draft";
+                        }
+
+                        break;
+                    case "deleted":
+                        if (preDelayPublishedContentItem?.Published == true)
+                        {
+                            // discard draft
+                            eventType = "draft-discarded";
+                        }
+                        else
+                        {
+                            eventType = "deleted";
                         }
                         break;
                 }
 
+                //todo: modified time as event time is probably wrong. either pick correct time, or just set to now
                 if (eventType != null)
                 {
-                    // would it be better to use the workflowid as the correlation id instead?
-                    ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, eventContentItem, eventType);
-                    await _eventGridContentClient.Publish(contentEvent);
+                    await PublishContentEvent(workflowContext, eventContentItem, eventType);
+                }
+
+                if (eventType2 != null)
+                {
+                    await PublishContentEvent(workflowContext, eventContentItem, eventType2);
                 }
             }
             catch (Exception e)
@@ -107,6 +202,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 _logger.LogError($"Delayed processing of workflow id {workflowContext.WorkflowId} failed: {e}");
             }
         }
-        #pragma warning restore S3241
+
+        private async Task PublishContentEvent(WorkflowExecutionContext workflowContext, ContentItem contentItem, string eventType)
+        {
+            // would it be better to use the workflowid as the correlation id instead?
+            ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, eventType);
+            await _eventGridContentClient.Publish(contentEvent);
+        }
     }
 }

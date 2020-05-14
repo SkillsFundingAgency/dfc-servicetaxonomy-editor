@@ -1,6 +1,24 @@
 #ToDo
 
+* change uri to https://dev.api.nationalcareersservice.org.uk/content/GetContent/jobprofile/<<id>> (appropriate for environment)
+
+* document event in confluence
+
+* add major.minor version number to content item. major for published and minor for draft. then add that to the published event grid event
+
 * Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
+
+* check multi-topic config works
+
+* add properties to csharpcontent: failsilently (for getting list of issues in 1 go), and addtosessioncache
+
+* deleting draft doesn't always delete the content item
+
+* enforce readonly nodes by not allowing user to delete the corresponding content item
+
+* make sure only 1 validate and repair is operating at once
+
+* how do we not publish events, if the operation is blocked by another workflow?
 
 * create stories for feature suggestions in here
 
@@ -19,8 +37,6 @@
 * don't pass endpoint to sync validators, set current in driver instead
 
 * update exceptions with code from ApiFunctionException.cs
-
-* The Shared Content could not be removed because the associated node could not be deleted from the graph.
 
 * api function
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service

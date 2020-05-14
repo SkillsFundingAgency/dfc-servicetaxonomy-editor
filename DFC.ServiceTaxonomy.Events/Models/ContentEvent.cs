@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
             // string userId = contentItem.Content.GraphSyncPart.Text;
 
             string userId = contentItem.Content.GraphSyncPart.Text;
-            Subject = $"/content/{contentItem.ContentType}/{userId.Substring(userId.Length - 36)}";
+            Subject = $"/content/{contentItem.ContentType.ToLower()}/{userId.Substring(userId.Length - 36)}";
 
             Data = new ContentEventData(userId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author);
             EventType = eventType;
