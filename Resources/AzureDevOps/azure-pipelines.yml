@@ -31,6 +31,8 @@ stages:
   jobs:
   - job: BuildArmTemplates
     displayName: "Build the ARM templates"
+    workspace:
+      clean: all
     pool: 'NCS - CI and CD'
     steps:
     - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
@@ -38,22 +40,24 @@ stages:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
 
   - job: BuildDotNet
-    pool: 'NCS - CI and CD'
     displayName: "Build the dotnet core application"
+    workspace:
+      clean: all
+    pool: 'NCS - CI and CD'
     steps:
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
         SolutionBaseName: $(SolutionBaseName).Editor
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.100'
+        DotNetCoreVersion: '3.1.201'
         TestSuffix: UnitTests
     - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
       parameters:
         SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.100'
+        DotNetCoreVersion: '3.1.201'
     - powershell: |
         New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
         Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
@@ -67,7 +71,7 @@ stages:
         SolutionBaseName: $(SolutionBaseName).IntegrationTests
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.100'
+        DotNetCoreVersion: '3.1.201'
 
     - task: NuGetToolInstaller@1
       inputs:
@@ -92,11 +96,11 @@ stages:
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory
-    workspace:
-      clean: all
   - deployment: PublishNugetPackage
     dependsOn: CleanArtifacts
     environment: SERVICETAXONOMY_NUGET
+    workspace:
+      clean: all
     pool:
       name: NCS - CI and CD
       demands:
