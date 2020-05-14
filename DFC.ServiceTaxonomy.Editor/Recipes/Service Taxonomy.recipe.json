@@ -3673,7 +3673,7 @@
                         {
                             "ActivityId": "45nnb7vnmbab9zkwhmtxxv9cn0",
                             "Name": "ContentUpdatedEvent",
-                            "X": 0,
+                            "X": 10,
                             "Y": 0,
                             "IsStart": true,
                             "Properties": {
@@ -3686,8 +3686,8 @@
                         {
                             "ActivityId": "43x4semh4jxkgywswvr6gww3w5",
                             "Name": "PublishToEventGridTask",
-                            "X": 0,
-                            "Y": 320,
+                            "X": 340,
+                            "Y": 400,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
@@ -3699,7 +3699,7 @@
                             "ActivityId": "4kf16h4kwwdnjwf14teh3q0kcj",
                             "Name": "SetPropertyTask",
                             "X": 0,
-                            "Y": 160,
+                            "Y": 180,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
@@ -3714,7 +3714,7 @@
                         {
                             "ActivityId": "4xpnmmtqsmr4nt8s4cq5dkm7n3",
                             "Name": "ContentPublishedEvent",
-                            "X": 230,
+                            "X": 280,
                             "Y": 0,
                             "IsStart": true,
                             "Properties": {
@@ -3727,8 +3727,8 @@
                         {
                             "ActivityId": "4agzmv5y2r8wezxvfx912px7nt",
                             "Name": "SetPropertyTask",
-                            "X": 250,
-                            "Y": 150,
+                            "X": 270,
+                            "Y": 180,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
@@ -3737,6 +3737,64 @@
                                 "PropertyName": "Trigger",
                                 "Value": {
                                     "Expression": "\"published\""
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "44hnywp36rvh73e5kcsapm424k",
+                            "Name": "ContentUnpublishedEvent",
+                            "X": 480,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ContentTypeFilter": [],
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4spq9b94gnb5c0f2bb8j7em0wm",
+                            "Name": "SetPropertyTask",
+                            "X": 480,
+                            "Y": 180,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": null
+                                },
+                                "PropertyName": "Trigger",
+                                "Value": {
+                                    "Expression": "\"unpublished\""
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4d6nxcx87xa3a03n0z7sdmf64d",
+                            "Name": "ContentDeletedEvent",
+                            "X": 780,
+                            "Y": 0,
+                            "IsStart": true,
+                            "Properties": {
+                                "ContentTypeFilter": [],
+                                "ActivityMetadata": {
+                                    "Title": null
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "46rgx6mk7m6jv1kpazgad75z40",
+                            "Name": "SetPropertyTask",
+                            "X": 760,
+                            "Y": 180,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": null
+                                },
+                                "PropertyName": "Trigger",
+                                "Value": {
+                                    "Expression": "\"deleted\""
                                 }
                             }
                         }
@@ -3763,6 +3821,30 @@
                         {
                             "Id": 0,
                             "SourceActivityId": "4agzmv5y2r8wezxvfx912px7nt",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "43x4semh4jxkgywswvr6gww3w5"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "44hnywp36rvh73e5kcsapm424k",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4spq9b94gnb5c0f2bb8j7em0wm"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4spq9b94gnb5c0f2bb8j7em0wm",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "43x4semh4jxkgywswvr6gww3w5"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4d6nxcx87xa3a03n0z7sdmf64d",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "46rgx6mk7m6jv1kpazgad75z40"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "46rgx6mk7m6jv1kpazgad75z40",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "43x4semh4jxkgywswvr6gww3w5"
                         }

@@ -37,19 +37,19 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
     /// draft               save draft                   y       draft              draft
     /// draft               save draft                   n       draft              draft                   false positive
     /// draft               publish                      y       published          published
-    /// draft               publish                      n       draft
-    /// draft               publish draft from list              published
-    /// published           save draft                   y       draft+published
-    /// published           save draft                   n       published
-    /// published           publish                      y       published
-    /// published           publish                      n       published
-    /// published           publish draft from list              published           N/A                    publishing without changes is a no-op
-    /// draft+published     save draft                   y       draft+published
-    /// draft+published     save draft                   n       draft+published
-    /// draft+published     publish                      y       published
-    /// draft+published     publish                      n       draft+published
-    /// draft+published     publish draft from list              published
-    /// published           unpublish from list                  draft                                      new draft same as old published
+    /// draft               publish                      n       draft              draft                   false positive
+    /// draft               publish draft from list              published          published
+    /// published           save draft                   y       draft+published    draft
+    /// published           save draft                   n       published          draft                   false positive (no draft exists)
+    /// published           publish                      y       published          published
+    /// published           publish                      n       published          draft                   false positive (no draft exists)
+    /// published           publish draft from list              published          n/a                     publishing without changes is a no-op
+    /// draft+published     save draft                   y       draft+published    draft
+    /// draft+published     save draft                   n       draft+published    draft                   false positive
+    /// draft+published     publish                      y       published          published
+    /// draft+published     publish                      n       draft+published    draft                   false positive
+    /// draft+published     publish from list                    published          published
+    /// published           unpublish from list                  draft              n/a                     *** need to publish draft (but no events fired by oc)
     /// draft+published     unpublish from list                  draft                                      draft is unchanged
     /// draft+published     discard draft                        published                                  probably need an eg event to say discarded-draft. would be good to publish instead of deleted (& unpublished if pubed), but is it possible to figure that out?
     /// draft               delete from list
