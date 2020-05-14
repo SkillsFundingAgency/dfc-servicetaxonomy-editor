@@ -15,7 +15,7 @@ parameters:
   EditorAdminUsername: ''
   EditorAdminUserEmail: ''
   EditorAdminUserPassword: ''
-  DotNetCoreVersion: '3.1.100'
+  DotNetCoreVersion: '3.1.201'
   DFCAzureDevOpsProjectGuid: ''
   DfcServiceTaxonomyTestsBuildId: ''
   TestArtifactBranch: ''
@@ -41,6 +41,8 @@ jobs:
             ServiceOfferingTag: '${{ parameters.ServiceOfferingTag }}'
 
 - deployment: DeployEditorTo_${{ parameters.Environment }}
+  workspace:
+      clean: all
   pool: 'NCS - CI and CD'
   displayName: "Deploy WebApp to ${{ parameters.Environment }}"
   environment: ${{ parameters.Environment }}

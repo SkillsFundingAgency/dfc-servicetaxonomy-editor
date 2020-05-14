@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Exception
+namespace DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Exceptions
 {
     [Serializable]
-    public class ContentHelperException : System.Exception
+    public class ContentHelperException : Exception
     {
         public ContentHelperException()
         {
@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Exception
         {
         }
 
-        public ContentHelperException(string? message, System.Exception? innerException)
+        public ContentHelperException(string? message, Exception? innerException)
             : base(message, innerException)
         {
         }

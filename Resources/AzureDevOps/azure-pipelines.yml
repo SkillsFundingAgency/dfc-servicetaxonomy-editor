@@ -31,6 +31,8 @@ stages:
   jobs:
   - job: BuildArmTemplates
     displayName: "Build the ARM templates"
+    workspace:
+      clean: all
     pool: 'NCS - CI and CD'
     steps:
     - template: /AzureDevOpsTemplates/Build/StepTemplates/dfc-arm-build.yml@dfc-devops
@@ -38,22 +40,24 @@ stages:
         ArmTemplateRoot: "$(System.DefaultWorkingDirectory)/Resources/ArmTemplates"
 
   - job: BuildDotNet
-    pool: 'NCS - CI and CD'
     displayName: "Build the dotnet core application"
+    workspace:
+      clean: all
+    pool: 'NCS - CI and CD'
     steps:
     - template: StepTemplates/dfc-dotnetcore-build.yml
       parameters:
         SolutionBaseName: $(SolutionBaseName).Editor
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.100'
+        DotNetCoreVersion: '3.1.201'
         TestSuffix: UnitTests
     - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
       parameters:
         SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.100'
+        DotNetCoreVersion: '3.1.201'
     - powershell: |
         New-Item -Type Directory -Path $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\ -Force
         Copy-Item -Path $(SolutionBaseName).Editor\App_Data\Sites\Default\appsettings.template.json -Destination $(SolutionBaseName).Editor\AppSettingsArtifact\App_Data\Sites\Default\appsettings.json
@@ -67,7 +71,7 @@ stages:
         SolutionBaseName: $(SolutionBaseName).IntegrationTests
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
-        DotNetCoreVersion: '3.1.100'
+        DotNetCoreVersion: '3.1.201'
 
     - task: NuGetToolInstaller@1
       inputs:
@@ -88,15 +92,15 @@ stages:
 
 - stage: PublishPackage
   displayName: Publish Package to NuGet
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+  condition: and(eq(dependencies.Build.result,'Succeeded'), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
   jobs:  
   - job: CleanArtifacts  
     displayName: Clean artifacts directory
-    workspace:
-      clean: all
   - deployment: PublishNugetPackage
     dependsOn: CleanArtifacts
     environment: SERVICETAXONOMY_NUGET
+    workspace:
+      clean: all
     pool:
       name: NCS - CI and CD
       demands:
@@ -115,7 +119,7 @@ stages:
               publishFeedCredentials: 'DFC Nuget'
 
 - stage: DeployToDev
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to DEV_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -147,7 +151,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToSit
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.DeployToDev.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -179,7 +183,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToPP
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.DeployToSit.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all

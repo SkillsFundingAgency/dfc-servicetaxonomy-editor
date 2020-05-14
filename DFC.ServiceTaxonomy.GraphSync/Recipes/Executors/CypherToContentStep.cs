@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -156,7 +157,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
         private string ReplaceCSharpHelpers(string recipeFragment)
         {
-            return _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
+            string processedRecipeFragment = _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
+
+#pragma warning disable S1215
+            GC.Collect();
+#pragma warning restore S1215
+
+            return processedRecipeFragment;
         }
 
         private async Task<string> EvaluateCSharp(string code)
@@ -164,7 +171,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             // can't see how to get json.net to unescape value strings!
             code = code.Replace("\\\"", "\"");
 
-            return await CSharpScript.EvaluateAsync<string>(code, globals: _cypherToContentCSharpScriptGlobals);
+            var script = CSharpScript.Create<string>(code, globalsType: typeof(ICypherToContentCSharpScriptGlobals));
+            ScriptRunner<string> runner = script.CreateDelegate();
+            return await runner(_cypherToContentCSharpScriptGlobals);
         }
 
         public class CypherToContentModel

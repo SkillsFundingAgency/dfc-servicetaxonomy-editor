@@ -1,11 +1,20 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Exception;
-using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Exceptions;
+using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
+//todo: if this still uses too much memory, we could probably remove the need for OrchardCore.ContentManagement, just include YesSql, and duplicate everything we need, which doesn't seem too much :) < tried this didn't work
+//todo: implement MetadataReferenceResolver and don't load what we don't need
+//todo: could have occupation label specific helper and load all into dictionary first, so don't have all the dependencies
+//todo: look for specific pattern and don't invoke csharp compiler
+
+// importing 1 occupation recipe (using broken out helper, CreateDelegate and batched GC) had max mem usage of 2.31gb, but heap generation gen 2 was steadily rising, ending up at 287mb
+// if that keeps rising, may scupper a complete import
+// using boken out helper, batched GC, and original CSharpScript.EvaluateAsync peaked at 3.3gb
+
+namespace DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent
 {
     public class ContentHelper : IContentHelper
     {

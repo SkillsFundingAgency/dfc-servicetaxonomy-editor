@@ -61,6 +61,15 @@
         },
         "OwlDataGeneratorDescription": {
             "value": "NationalCareersService-ServiceTaxonomy"
+        },
+        "EventGridTopicEndpoint": {
+            "value": "https://nationalcareers.service.gov.uk"
+        },
+        "EventGridAegSasKey": {
+            "value": "not-a-real-key"
+        },
+        "EventGridEnabled": {
+            "value": true
         }
     }
 }

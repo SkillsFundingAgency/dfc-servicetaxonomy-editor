@@ -1,6 +1,6 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
+﻿using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 
-namespace DFC.ServiceTaxonomy.GraphSync.CSharpScripting
+namespace DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent
 {
 #pragma warning disable S1104
     public class CypherToContentCSharpScriptGlobals : ICypherToContentCSharpScriptGlobals

@@ -64,6 +64,15 @@
         },
         "OwlDataGeneratorDescription": {
             "type": "string"
+        },
+        "EventGridTopicEndpoint": {
+            "type": "string"
+        },
+        "EventGridAegSasKey": {
+            "type": "string"
+        },
+        "EventGridEnabled": {
+            "type": "bool"
         }
     },
     "variables": {
@@ -186,6 +195,18 @@
                             {
                                 "name": "OwlDataGeneratorConfigModel__DescriptionLabel",
                                 "value": "[parameters('OwlDataGeneratorDescription')]"
+                            },
+                            {
+                                "name": "EventGrid__Topics__TopicEndpoint",
+                                "value": "[parameters('EventGridTopicEndpoint')]"
+                            },
+                            {
+                                "name": "EventGrid__Topics__AegSasKey",
+                                "value": "[parameters('EventGridAegSasKey')]"
+                            },
+                            {
+                                "name": "EventGrid__Enabled",
+                                "value": "[parameters('EventGridEnabled')]"
                             }
                         ]
                     }
