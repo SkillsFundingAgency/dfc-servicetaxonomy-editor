@@ -112,8 +112,8 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 await _contentManager.GetAsync(contentItem.ContentItemId, VersionOptions.Published);
 
 #pragma warning disable CS4014
-            // defer processing, so that we can view the state of the contentitem when the system quiesces and
-            // if we end up retrying the calls to event grid, we don't freeze the ui
+            // defer processing, so that we can view the state of the contentitem when the system quiesces,
+            // and if we end up retrying the calls to event grid, we don't freeze the ui
             ProcessEventAfterContentItemQuiesces(workflowContext, contentItem, preDelayDraftContentItem, preDelayPublishedContentItem);
 #pragma warning restore CS4014
 
@@ -148,23 +148,20 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 {
                     case "published":
                         eventType = "published";
-                        if (preDelayPublishedContentItem.CreatedUtc != preDelayPublishedContentItem.ModifiedUtc) // or modified == published < except doesnt catch earlier failed validation, and new published sometimes they are the same
-                        { // false-positive when published > publish
+                        if (preDelayPublishedContentItem.CreatedUtc != preDelayPublishedContentItem.ModifiedUtc)
+                        {
                             eventType2 = "draft-discarded";
                         }
                         break;
                     case "updated":
                         if (!eventContentItem.Published
                             && (preDelayPublishedContentItem != null
-                                //todo: this stops published > save draft from publishing
+                                //todo: don't think this is required anymore??
                                 || (preDelayDraftContentItem?.ModifiedUtc == null ||
                                     eventContentItem.ModifiedUtc >= preDelayDraftContentItem.ModifiedUtc)))
                         {
-                            //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
-                            //todo: this publishes false-positive draft events when user publishes a draft item (sometimes we only get the updated event, and not the published event. why?)
                             eventType = "draft";
                         }
-
                         break;
                     case "unpublished":
                         eventType = "unpublished";
