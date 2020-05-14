@@ -19,46 +19,47 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
     //todo: publish draft when a new draft is cloned
 
     /// <summary>
-    /// existing state      user action              server      post state         event grid events          notes
-    ///                                              validation
-    ///                                              passed
-    /// n/a                 save draft                   y       draft              draft
-    /// n/a                 save draft                   n       n/a                n/a
-    /// n/a>draft val fail  save draft                   y       draft              draft
-    /// n/a>draft val fail  save draft                   n       n/a                n/a
-    /// n/a>pub val fail    save draft                   y       draft              draft
-    /// n/a>pub val fail    save draft                   n       n/a                n/a
-    /// n/a                 publish                      y       published          published
-    /// n/a                 publish                      n       n/a                n/a
-    /// n/a>draft val fail  publish                      y       published          published
-    /// n/a>draft val fail  publish                      n       n/a                n/a
-    /// n/a>pub val fail    publish                      y       published          published
-    /// n/a>pub val fail    publish                      n       n/a                n/a
-    /// draft               save draft                   y       draft              draft
-    /// draft               save draft                   n       draft              draft                      * false positive
-    /// draft               publish                      y       published          published+draft-discarded
-    /// draft               publish                      n       draft              draft                      * false positive
-    /// draft               publish draft from list              published          published
-    /// published           save draft                   y       draft+published    draft
-    /// published           save draft                   n       published          draft                      * false positive (no draft exists)
-    /// published           publish                      y       published          published
-    /// published           publish                      n       published          draft                      * false positive (no draft exists)
-    /// published           publish draft from list              published          n/a                        publishing without changes is a no-op
-    /// draft+published     save draft                   y       draft+published    draft
-    /// draft+published     save draft                   n       draft+published    draft                      * false positive
-    /// draft+published     publish                      y       published          published+draft-discarded
-    /// draft+published     publish                      n       draft+published    draft                      * false positive
-    /// draft+published     publish from list                    published          published+draft-discarded
-    /// published           unpublish from list                  draft              unpublished+draft
-    /// draft+published     unpublish from list                  draft              unpublished                draft is unchanged
-    /// draft+published     discard draft from list              published          draft-discarded
-    /// draft               delete from list                     n/a                deleted
-    /// published           delete from list                     n/a                deleted
-    /// draft+published     delete from list                     n/a                deleted
-    /// draft               clone from list                      new draft          n/a                        * currently no way to know that a (draft) clone has been created
-    /// published           clone from list                      new draft          n/a                        * currently no way to know that a (draft) clone has been created
-    /// draft+published     clone from list                      new draft          n/a                        * currently no way to know that a (draft) clone has been created
-    /// n/a                 import recipe (publish)              published          published                  re-importing not tested as it has issues that should be fixed by the current oc idempotent recipes pr
+    /// | existing state      | user action              | server      | post state         | event grid events          | notes                                   |
+    /// |                     |                          | validation  |                    |                            |                                         |
+    /// |                     |                          |:passed     :|                    |                            |                                         |
+    /// |---------------------|--------------------------|-------------|--------------------|----------------------------|-----------------------------------------|
+    /// | n/a                 | save draft               |     y       | draft              | draft                      |                                         |
+    /// | n/a                 | save draft               |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>draft val fail  | save draft               |     y       | draft              | draft                      |                                         |
+    /// | n/a>draft val fail  | save draft               |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>pub val fail    | save draft               |     y       | draft              | draft                      |                                         |
+    /// | n/a>pub val fail    | save draft               |     n       | n/a                | n/a                        |                                         |
+    /// | n/a                 | publish                  |     y       | published          | published                  |                                         |
+    /// | n/a                 | publish                  |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>draft val fail  | publish                  |     y       | published          | published                  |                                         |
+    /// | n/a>draft val fail  | publish                  |     n       | n/a                | n/a                        |                                         |
+    /// | n/a>pub val fail    | publish                  |     y       | published          | published                  |                                         |
+    /// | n/a>pub val fail    | publish                  |     n       | n/a                | n/a                        |                                         |
+    /// | draft               | save draft               |     y       | draft              | draft                      |                                         |
+    /// | draft               | save draft               |     n       | draft              | draft                      | * false positive                        |
+    /// | draft               | publish                  |     y       | published          | published+draft-discarded  |                                         |
+    /// | draft               | publish                  |     n       | draft              | draft                      | * false positive                        |
+    /// | draft               | publish draft from list  |             | published          | published                  |                                         |
+    /// | published           | save draft               |     y       | draft+published    | draft                      |                                         |
+    /// | published           | save draft               |     n       | published          | draft                      | * false positive (no draft exists)      |
+    /// | published           | publish                  |     y       | published          | published                  |                                         |
+    /// | published           | publish                  |     n       | published          | draft                      | * false positive (no draft exists)      |
+    /// | published           | publish draft from list  |             | published          | n/a                        | publishing without changes is a no-op   |
+    /// | draft+published     | save draft               |     y       | draft+published    | draft                      |                                         |
+    /// | draft+published     | save draft               |     n       | draft+published    | draft                      | * false positive                        |
+    /// | draft+published     | publish                  |     y       | published          | published+draft-discarded  |                                         |
+    /// | draft+published     | publish                  |     n       | draft+published    | draft                      | * false positive                        |
+    /// | draft+published     | publish from list        |             | published          | published+draft-discarded  |                                         |
+    /// | published           | unpublish from list      |             | draft              | unpublished+draft          |                                         |
+    /// | draft+published     | unpublish from list      |             | draft              | unpublished                | draft is unchanged                      |
+    /// | draft+published     | discard draft from list  |             | published          | draft-discarded            |                                         |
+    /// | draft               | delete from list         |             | n/a                | deleted                    |                                         |
+    /// | published           | delete from list         |             | n/a                | deleted                    |                                         |
+    /// | draft+published     | delete from list         |             | n/a                | deleted                    |                                         |
+    /// | draft               | clone from list          |             | new draft          | n/a                        | * currently no way to know that a (draft) clone has been created |
+    /// | published           | clone from list          |             | new draft          | n/a                        | * currently no way to know that a (draft) clone has been created |
+    /// | draft+published     | clone from list          |             | new draft          | n/a                        | * currently no way to know that a (draft) clone has been created |
+    /// | n/a                 | import recipe (publish)  |             | published          | published                  | re-importing not tested as it has issues that should be fixed by the current oc idempotent recipes pr |
     /// </summary>
     public class PublishToEventGridTask : TaskActivity
     {
