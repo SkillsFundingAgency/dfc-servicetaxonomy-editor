@@ -1,0 +1,360 @@
+{
+  "name": "ApprenticeshipStandardRoutes0_453ac2a9-af0c-48af-b43b-45e4ce7fd53f",
+  "displayName": "ApprenticeshipStandardRoutes0_453ac2a9-af0c-48af-b43b-45e4ce7fd53f",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Legal"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/e9a46607-5793-49fb-b60d-d6a506435a28"
+    },
+    "ContentItemId": "4s4hmsdhn2ffs6nbdsj36waqwb",
+    "ContentItemVersionId": "46eb8fcrq8kpq4x1c5y8cnj1nh",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Legal",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Finance and accounting"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/106c8f4b-eebe-4cee-b07d-45a85ddbfbad"
+    },
+    "ContentItemId": "4ajdsbqh9temd4drbq72bh355k",
+    "ContentItemVersionId": "49wpz1t8njk6y0wfw6zpvegamp",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Finance and accounting",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/e417f153-cfa2-4f50-b0fc-3e9f8a7ff482"
+    },
+    "ContentItemId": "4ja3dfbwg8weq75p7mqwm9zx5c",
+    "ContentItemVersionId": "4wr7b9v4rk9g0x7j47dmwscdnj",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Construction",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Engineering and manufacturing"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/f7a981d7-e91e-4a31-a2f8-dde7e7009170"
+    },
+    "ContentItemId": "4d93s893bpd8628t1fkz04dcxp",
+    "ContentItemVersionId": "472v3t018wxzp23960kgzg3bnk",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Engineering and manufacturing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Transport and logistics"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/87eb3621-cb74-47aa-a361-48687ca3d80c"
+    },
+    "ContentItemId": "4yy8d0pnee849tm73rg01ayzxc",
+    "ContentItemVersionId": "4nt9akdkjxdex7e1a8psw9295m",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Transport and logistics",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Education and childcare"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/d003d9f4-5cb1-4963-bff5-ce97e952d519"
+    },
+    "ContentItemId": "4pfe255dsgdwc61q8bwnbp81np",
+    "ContentItemVersionId": "45q2zwt0v3h12xcv5k322byxxf",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Education and childcare",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Care services"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/9ea9f9f6-7941-45d5-853b-33893bb99f9b"
+    },
+    "ContentItemId": "46vyrxhje31jt63879e1wfjq43",
+    "ContentItemVersionId": "493why8gp5hqc2kk0jzczrg85e",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Care services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Hair and beauty"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/0e10c712-150d-47f6-b119-8c60e99a7b56"
+    },
+    "ContentItemId": "4zcbj2rezk67rzd82x8tnsec5e",
+    "ContentItemVersionId": "4apv4sdddzt72z2wn79qz9f95y",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Hair and beauty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sales"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/b710f250-387f-44da-8995-2610badbfde4"
+    },
+    "ContentItemId": "4fvgem0vsm6x60f6cp6rq0yv5z",
+    "ContentItemVersionId": "4mc6gbpx58psgvkdttrwjvks4m",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Sales",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Marketing and procurement"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/f543eb14-4bb4-460d-88ad-8027edbaaa2a"
+    },
+    "ContentItemId": "4y2pjqzs13kw55tk2jvv205g4r",
+    "ContentItemVersionId": "40exk9cmp2g0bv6sgyd9p8vrd3",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Marketing and procurement",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Health and science"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/125934f0-9327-4210-86a4-665640c489f4"
+    },
+    "ContentItemId": "46gfvee0ndwsn1hxe1pzgapzdb",
+    "ContentItemVersionId": "4hp0n760dh5g5vse14kxh9zrxg",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Health and science",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Agriculture"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/5c350550-2cf7-493f-afbf-b74139eb679c"
+    },
+    "ContentItemId": "4bpczxgvpp1fp42payzdsyaq5c",
+    "ContentItemVersionId": "42hjh74zpymbd4vwcn745r954a",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Agriculture",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Environmental and animal care"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/bc754c72-1bb3-48dd-9f74-ccf120c0a38a"
+    },
+    "ContentItemId": "4fwhnq87qtx237j69yy3phwa5w",
+    "ContentItemVersionId": "4pz599a4zv02tt8mwfej7t5gn0",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Environmental and animal care",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Creative and design"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/1ef9997a-3a71-4964-a56f-2ea8a9f21d39"
+    },
+    "ContentItemId": "4rcv304q9zrxk4ambyg9a022n3",
+    "ContentItemVersionId": "4m4hrm8dwz6rps8bepd2zcykxp",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Creative and design",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Business and administration"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/37f446c2-8d58-4ff4-bf0b-b3b333636220"
+    },
+    "ContentItemId": "4rj3p9tw1za1n5g80c10f4badh",
+    "ContentItemVersionId": "4es8ct8b41a1stt0vdngn5jd42",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Business and administration",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Catering and hospitality"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/851d610e-733b-4d7a-b532-9c23514c3758"
+    },
+    "ContentItemId": "44p2ezd3ecfqdtr0rta34nv5ch",
+    "ContentItemVersionId": "420n886n4sqyjse48c70kdb0dy",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Catering and hospitality",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Protective services"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/42884cea-7220-43ac-bd1e-f82a0b7a31e0"
+    },
+    "ContentItemId": "4ymt88gvf9tzz6zmfgz549964m",
+    "ContentItemVersionId": "4phjjw4q4zzv9t4sd72sx5bjne",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Protective services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Digital"
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/apprenticeshipstandardroute/12ae42c1-1735-4e8f-9e0f-73e6ec7bf6ae"
+    },
+    "ContentItemId": "4kvbwk42wexy63jwzv94myd0w3",
+    "ContentItemVersionId": "4gnh5pe38qe9zwg0xgjnsny8my",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Digital",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-14T17:06:41.1151334Z",
+    "PublishedUtc": "2020-05-14T17:06:41.1151334Z",
+    "CreatedUtc": "2020-05-14T17:06:41.1151334Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
