@@ -75,6 +75,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     _session.Save(existing);
                 }
             }
+
+            #pragma warning disable S1215
+            GC.Collect();
+            #pragma warning restore S1215
         }
     }
 

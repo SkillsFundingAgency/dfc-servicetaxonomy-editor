@@ -166,10 +166,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             return processedRecipeFragment;
         }
 
+        private static readonly Regex _getContentItemIdByDisplayTextRegex = new Regex(@"^\s*await\s*Content.GetContentItemIdByDisplayText\s*\(\s*""([^""]+)""\s*,\s*""([^""]+)""\s*\)\s*$", RegexOptions.Compiled);
         private async Task<string> EvaluateCSharp(string code)
         {
             // can't see how to get json.net to unescape value strings!
             code = code.Replace("\\\"", "\"");
+
+            // memory optimisation
+            Match match = _getContentItemIdByDisplayTextRegex.Match(code);
+            if (match.Success)
+            {
+                return await _cypherToContentCSharpScriptGlobals.Content.GetContentItemIdByDisplayText(match.Groups[1].Value, match.Groups[2].Value);
+            }
 
             var script = CSharpScript.Create<string>(code, globalsType: typeof(ICypherToContentCSharpScriptGlobals));
             ScriptRunner<string> runner = script.CreateDelegate();

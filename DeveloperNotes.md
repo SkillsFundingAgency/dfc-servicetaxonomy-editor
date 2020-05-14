@@ -2,11 +2,11 @@
 
 * change uri to https://dev.api.nationalcareersservice.org.uk/content/GetContent/jobprofile/<<id>> (appropriate for environment)
 
-* document event in confluence
-
 * add major.minor version number to content item. major for published and minor for draft. then add that to the published event grid event
 
 * Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
+
+* importing now published draft-discarded as well as published
 
 * check multi-topic config works
 
