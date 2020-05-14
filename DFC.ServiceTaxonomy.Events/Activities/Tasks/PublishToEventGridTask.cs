@@ -19,16 +19,24 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
     // CoontentVersionedEvent is now added, can that help us?
 
     /// <summary>
-    /// existing state      user action              server      post state         event grid events          notes
+    /// existing state      user action              server      post state         event grid events       notes
     ///                                              validation
     ///                                              passed
-    /// n/a                 save draft                   y       draft
-    /// n/a                 save draft                   n       n/a
-    /// n/a                 publish                      y       published
-    /// n/a                 publish                      n       n/a
-    /// draft               save draft                   y       draft
-    /// draft               save draft                   n       draft
-    /// draft               publish                      y       published
+    /// n/a                 save draft                   y       draft              draft
+    /// n/a                 save draft                   n       n/a                n/a
+    /// n/a>draft val fail  save draft                   y       draft              draft
+    /// n/a>draft val fail  save draft                   n       n/a                n/a
+    /// n/a>pub val fail    save draft                   y       draft              draft
+    /// n/a>pub val fail    save draft                   n       n/a                n/a
+    /// n/a                 publish                      y       published          published
+    /// n/a                 publish                      n       n/a                n/a
+    /// n/a>draft val fail  publish                      y       published          published
+    /// n/a>draft val fail  publish                      n       n/a                n/a
+    /// n/a>pub val fail    publish                      y       published          published
+    /// n/a>pub val fail    publish                      n       n/a                n/a
+    /// draft               save draft                   y       draft              draft
+    /// draft               save draft                   n       draft              draft                   false positive
+    /// draft               publish                      y       published          published
     /// draft               publish                      n       draft
     /// draft               publish draft from list              published
     /// published           save draft                   y       draft+published
@@ -161,7 +169,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                             && (preDelayPublishedContentItem != null
                                 //todo: this stops published > save draft from publishing
                                 || (preDelayDraftContentItem?.ModifiedUtc == null ||
-                                    eventContentItem.ModifiedUtc > preDelayDraftContentItem.ModifiedUtc)))
+                                    eventContentItem.ModifiedUtc >= preDelayDraftContentItem.ModifiedUtc)))
                         {
                             //todo: this publishes false-positive draft events when user tries to publish/draft an existing item and server side validation fails
                             //todo: this publishes false-positive draft events when user publishes a draft item (sometimes we only get the updated event, and not the published event. why?)
