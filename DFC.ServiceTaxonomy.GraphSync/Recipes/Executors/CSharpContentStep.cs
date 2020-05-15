@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -21,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ISession _session;
         private readonly IContentManagerSession _contentManagerSession;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
+        private readonly ILogger<CSharpContentStep> _logger;
 
         public const string StepName = "CSharpContent";
 
@@ -29,12 +31,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             ISession session,
             IContentManagerSession contentManagerSession,
             //todo: rename
-            ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals)
+            ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
+            ILogger<CSharpContentStep> logger)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
+            _logger = logger;
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
@@ -47,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (model?.Data == null)
                 return;
 
-            string json = ReplaceCSharpHelpers(model.Data.ToString());
+            string json = ReplaceCSharpHelpers(model.Data.ToString(), model.DebugImport);
             JArray data = JArray.Parse(json);
 
             foreach (JToken token in data)
@@ -80,21 +84,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 }
             }
 
-            #pragma warning disable S1215
+#pragma warning disable S1215
             GC.Collect();
-            #pragma warning restore S1215
+#pragma warning restore S1215
         }
 
         //todo: move these instead of c&p if works
         //todo: some issue with []
         private static readonly Regex _cSharpHelperRegex = new Regex(@"«c#:([^»]+)»", RegexOptions.Compiled);
-        private string ReplaceCSharpHelpers(string recipeFragment)
+        private string ReplaceCSharpHelpers(string recipeFragment, bool debugImport)
         {
-            return _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value).GetAwaiter().GetResult());
+            return _cSharpHelperRegex.Replace(recipeFragment, match => EvaluateCSharp(match.Groups[1].Value, debugImport).GetAwaiter().GetResult());
         }
 
         private static readonly Regex _getContentItemIdByDisplayTextRegex = new Regex(@"^\s*await\s*Content.GetContentItemIdByDisplayText\s*\(\s*""([^""]+)""\s*,\s*""([^""]+)""\s*\)\s*$", RegexOptions.Compiled);
-        private async Task<string> EvaluateCSharp(string code)
+        private async Task<string> EvaluateCSharp(string code, bool debugImport)
         {
             // can't see how to get json.net to unescape value strings!
             code = code.Replace("\\\"", "\"");
@@ -103,7 +107,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             Match match = _getContentItemIdByDisplayTextRegex.Match(code);
             if (match.Success)
             {
-                return await _cypherToContentCSharpScriptGlobals.Content.GetContentItemIdByDisplayText(match.Groups[1].Value, match.Groups[2].Value);
+                string contentType = match.Groups[1].Value;
+                string displayText = match.Groups[2].Value;
+
+                if (debugImport)
+                    return await GetContentItemIdByDisplayTextDebug(contentType, displayText);
+
+                return await GetContentItemIdByDisplayText(contentType, displayText);
             }
 
             var script = CSharpScript.Create<string>(code, globalsType: typeof(ICypherToContentCSharpScriptGlobals));
@@ -111,8 +121,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             return await runner(_cypherToContentCSharpScriptGlobals);
         }
 
+        public async Task<string> GetContentItemIdByDisplayText(string contentType, string displayText)
+        {
+            return await _cypherToContentCSharpScriptGlobals.Content.GetContentItemIdByDisplayText(contentType, displayText);
+        }
+
+        public async Task<string> GetContentItemIdByDisplayTextDebug(string contentType, string displayText)
+        {
+            try
+            {
+                return await _cypherToContentCSharpScriptGlobals.Content.GetContentItemIdByDisplayText(contentType, displayText);
+            }
+            catch
+            {
+                _logger.LogError($"{contentType} with DisplayText '{displayText}' not found!");
+            }
+
+            return "";
+        }
+
         public class CSharpContentStepModel
         {
+            public bool DebugImport { get; set; }
             public JArray? Data { get; set; }
         }
     }

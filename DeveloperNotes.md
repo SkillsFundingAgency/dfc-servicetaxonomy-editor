@@ -2,6 +2,34 @@
 
 * change uri to https://dev.api.nationalcareersservice.org.uk/content/GetContent/jobprofile/<<id>> (appropriate for environment)
 
+* event publishing threw during full import (working uniform)
+
+Delayed processing of workflow id {workflowContext.WorkflowId} failed: {e}
+
+Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously through TimeoutPolicy did not complete within the timeout.
+ ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
+   at System.Net.Http.CancellationHelper.ThrowOperationCanceledException(Exception innerException, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnection.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithNtConnectionAuthAsync(HttpConnection connection, HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Polly.Timeout.AsyncTimeoutEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, Func`2 timeoutProvider, TimeoutStrategy timeoutStrategy, Func`5 onTimeoutAsync, Boolean continueOnCapturedContext)
+   --- End of inner exception stack trace ---
+   at Polly.Timeout.AsyncTimeoutEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, Func`2 timeoutProvider, TimeoutStrategy timeoutStrategy, Func`5 onTimeoutAsync, Boolean continueOnCapturedContext)
+   at Polly.AsyncPolicy`1.ExecuteAsync(Func`3 action, Context context, CancellationToken cancellationToken, Boolean continueOnCapturedContext)
+   at Microsoft.Extensions.Http.PolicyHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Polly.Retry.AsyncRetryEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, ExceptionPredicates shouldRetryExceptionPredicates, ResultPredicates`1 shouldRetryResultPredicates, Func`5 onRetryAsync, Int32 permittedRetryCount, IEnumerable`1 sleepDurationsEnumerable, Func`4 sleepDurationProvider, Boolean continueOnCapturedContext)
+   at Polly.AsyncPolicy`1.ExecuteAsync(Func`3 action, Context context, CancellationToken cancellationToken, Boolean continueOnCapturedContext)
+   at Microsoft.Extensions.Http.PolicyHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at DFC.ServiceTaxonomy.Events.Services.RestHttpClient.PostAsJson[TRequest](String uri, TRequest requestData, CancellationToken cancellationToken) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Services\RestHttpClient.cs:line 60
+   at DFC.ServiceTaxonomy.Events.Services.EventGridContentClient.Publish(ContentEvent contentEvent, CancellationToken cancellationToken) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Services\EventGridContentClient.cs:line 29
+   at DFC.ServiceTaxonomy.Events.Activities.Tasks.PublishToEventGridTask.PublishContentEvent(WorkflowExecutionContext workflowContext, ContentItem contentItem, String eventType) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Activities\Tasks\PublishToEventGridTask.cs:line 210
+   at DFC.ServiceTaxonomy.Events.Activities.Tasks.PublishToEventGridTask.ProcessEventAfterContentItemQuiesces(WorkflowExecutionContext workflowContext, ContentItem eventContentItem, ContentItem preDelayDraftContentItem, ContentItem preDelayPublishedContentItem) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Activities\Tasks\PublishToEventGridTask.cs:line 191
+
 * add major.minor version number to content item. major for published and minor for draft. then add that to the published event grid event
 
 * Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
