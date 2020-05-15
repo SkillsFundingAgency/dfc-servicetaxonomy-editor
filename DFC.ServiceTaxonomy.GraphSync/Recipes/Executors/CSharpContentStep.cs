@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -21,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ISession _session;
         private readonly IContentManagerSession _contentManagerSession;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
+        private readonly ILogger<CSharpContentStep> _logger;
 
         public const string StepName = "CSharpContent";
 
@@ -29,12 +31,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             ISession session,
             IContentManagerSession contentManagerSession,
             //todo: rename
-            ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals)
+            ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
+            ILogger<CSharpContentStep> logger)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
+            _logger = logger;
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
@@ -47,42 +51,52 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (model?.Data == null)
                 return;
 
-            string json = ReplaceCSharpHelpers(model.Data.ToString());
-            JArray data = JArray.Parse(json);
-
-            foreach (JToken token in data)
+            try
             {
-                ContentItem? contentItem = token.ToObject<ContentItem>();
-                if (contentItem == null)
-                    continue;
+                string json = ReplaceCSharpHelpers(model.Data.ToString());
+                JArray data = JArray.Parse(json);
 
-                DateTime? modifiedUtc = contentItem.ModifiedUtc;
-                DateTime? publishedUtc = contentItem.PublishedUtc;
-                ContentItem existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
-
-                if (existing == null)
+                foreach (JToken token in data)
                 {
-                    // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                    contentItem.Id = 0;
-                    await _contentManager.CreateAsync(contentItem);
-                    _contentManagerSession.Clear();
+                    ContentItem? contentItem = token.ToObject<ContentItem>();
+                    if (contentItem == null)
+                        continue;
 
-                    // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-                    // Should not be necessary if IContentManager had an Import method
-                    contentItem.ModifiedUtc = modifiedUtc;
-                    contentItem.PublishedUtc = publishedUtc;
+                    DateTime? modifiedUtc = contentItem.ModifiedUtc;
+                    DateTime? publishedUtc = contentItem.PublishedUtc;
+                    ContentItem existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+
+                    if (existing == null)
+                    {
+                        // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
+                        contentItem.Id = 0;
+                        await _contentManager.CreateAsync(contentItem);
+                        _contentManagerSession.Clear();
+
+                        // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
+                        // Should not be necessary if IContentManager had an Import method
+                        contentItem.ModifiedUtc = modifiedUtc;
+                        contentItem.PublishedUtc = publishedUtc;
+                    }
+                    else
+                    {
+                        // Replaces the id to force the current item to be updated
+                        existing.Id = contentItem.Id;
+                        _session.Save(existing);
+                    }
                 }
-                else
-                {
-                    // Replaces the id to force the current item to be updated
-                    existing.Id = contentItem.Id;
-                    _session.Save(existing);
-                }
+
+#pragma warning disable S1215
+                GC.Collect();
+#pragma warning restore S1215
             }
+            catch (Exception e)
+            {
+                if (!model.FailSilently)
+                    throw;
 
-            #pragma warning disable S1215
-            GC.Collect();
-            #pragma warning restore S1215
+                _logger.LogError($"{context.Name} recipe failed to import: {e}");
+            }
         }
 
         //todo: move these instead of c&p if works
@@ -113,6 +127,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
         public class CSharpContentStepModel
         {
+            public bool FailSilently { get; set; }
             public JArray? Data { get; set; }
         }
     }
