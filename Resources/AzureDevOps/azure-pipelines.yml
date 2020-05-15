@@ -88,6 +88,7 @@ stages:
       inputs:
         command: pack
         packagesToPack: '**/DFC.ServiceTaxonomy.Neo4j.csproj'
+        configuration: 'Release'
         packDestination: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
         versionEnvVar: GitVersion.MajorMinorPatch
