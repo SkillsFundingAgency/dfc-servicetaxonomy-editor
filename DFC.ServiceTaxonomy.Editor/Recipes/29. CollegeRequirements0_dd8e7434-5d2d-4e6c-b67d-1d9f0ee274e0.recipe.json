@@ -1,0 +1,426 @@
+{
+  "name": "CollegeRequirements0_dd8e7434-5d2d-4e6c-b67d-1d9f0ee274e0",
+  "displayName": "CollegeRequirements0_dd8e7434-5d2d-4e6c-b67d-1d9f0ee274e0",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "A Levels"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EA levels or equivalent qualifications\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/b8ee5383-0cc9-4a47-9eac-6dfdbf0b18c2"
+    },
+    "ContentItemId": "4hnzmf2c9scq46mk1p32d99j4h",
+    "ContentItemVersionId": "4y1zqx3jgaavcvz3adw7pj4s4b",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "A Levels",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "5 GCSEs 9-4 incl English"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E5 GCSEs at grades 9 to 4 (A* to C), including English\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/f90641e4-386b-4b01-8f89-309882e67c53"
+    },
+    "ContentItemId": "4qx81fkkbgm8vvj5xgdqa71rwz",
+    "ContentItemVersionId": "4ap3c8m4gbzfb74geb4xp3n5mh",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "5 GCSEs 9-4 incl English",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 4 or 5 entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, a level 3 diploma or relevant experience for a level 4 or level 5 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/fea1f16a-e40a-479e-abeb-d157e6c37f19"
+    },
+    "ContentItemId": "4vrzstfd2cnmjyq21hcdz7a44k",
+    "ContentItemVersionId": "4m774kcx64ncc4vnqcpsvh9jnv",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 4 or 5 entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "4 or 5 GCSEs 9-4 incl E-M-Cr"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English, maths and a creative subject\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/bb687118-1c9f-4588-9e91-726ba46d4ec6"
+    },
+    "ContentItemId": "4g5k6c9ddksn169ej00pscnf4k",
+    "ContentItemVersionId": "4b9xj2ek248mbzmdxrw8vvqpwv",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "4 or 5 GCSEs 9-4 incl E-M-Cr",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 1 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or fewer GCSEs at grades 3 to 1 (D to G), or equivalent, for a level 1 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/d05ae7e8-6a34-405f-baab-97d469f98d79"
+    },
+    "ContentItemId": "4bey9h9rxf56g00rbstqdh8p5m",
+    "ContentItemVersionId": "471msbmz3fm5ertkrcpe4hvgc2",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 1 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 3 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, for a level 3 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/280f360e-b4b7-48a1-be87-a7054476715b"
+    },
+    "ContentItemId": "4qw12e40g21th0k8hsxckxvhnb",
+    "ContentItemVersionId": "4jp02xg3wce6e5haevr7f6q957",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 3 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "T level reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English and maths for a T Level\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/46dfe9d4-dca6-423f-b9c4-5dc088a5aebe"
+    },
+    "ContentItemId": "44z6egeztqe3p22whttgn6m35c",
+    "ContentItemVersionId": "445tfhcdxkkr6s40pakhq418mn",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "T level reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "4 or 5 GCSEs 9-4 incl E-M-computing"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English, maths and computing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/84c927e0-500c-4b67-a9fb-e15d71f5ae8f"
+    },
+    "ContentItemId": "4fkby1kqrajsp2vmytbyx6y7xp",
+    "ContentItemVersionId": "4s4afknzn3m7ftnjhtjv7dt5nv",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "4 or 5 GCSEs 9-4 incl E-M-computing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Excellent standard of English"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Ean excellent standard of English\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/61260abf-ac39-4b4e-94f0-fae74928316b"
+    },
+    "ContentItemId": "4twnap1c4qz2prnhs048yp3k5t",
+    "ContentItemVersionId": "4q3492s9dh1sd7k3651p3jg8wz",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Excellent standard of English",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "4 or 5 GCSEs and work exp"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, and work experience\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/ca878bbc-23e4-4ed3-8fcb-670d1e08ea89"
+    },
+    "ContentItemId": "4by6drcg3bdrvydy77qk53xxc4",
+    "ContentItemVersionId": "4mtv42ddpvs6py100rfnhwsdxg",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "4 or 5 GCSEs and work exp",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "4 or 5 GCSEs 9-4 incl E-M"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English and maths\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/18a32eb9-dd1f-4e01-b0d1-e8e3ff4edee5"
+    },
+    "ContentItemId": "4s6cvhteawx3bs8x4acpmajxcw",
+    "ContentItemVersionId": "4da7qfxs4vk222synqdns4y5mx",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "4 or 5 GCSEs 9-4 incl E-M",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 2 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or more GCSEs at grades 9 to 3 (A* to D), or equivalent, for a level 2 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/4e38c6bc-41f5-420b-84ff-1c2c948e78be"
+    },
+    "ContentItemId": "4m0gqadvarnsfz7dyzck9qe7c6",
+    "ContentItemVersionId": "4g1m232ftq8wj1gr0wdfxt3vwj",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 2 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "GCSEs 9-4 incl E-M"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EGCSEs at grades 9 to 4 (A* to C), or equivalent, including English and maths\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/9c440cff-5e77-4eff-9144-d0b2966ce5eb"
+    },
+    "ContentItemId": "45vkp8aq1emfd2wg4jpt74wycs",
+    "ContentItemVersionId": "4vczrrw79gtje5j7fpvgg7bs5c",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "GCSEs 9-4 incl E-M",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "HNC or HND"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, or equivalent, for a higher national certificate or higher national diploma\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/4a980876-7e7d-40b1-8c2e-4f78f10ae606"
+    },
+    "ContentItemId": "43q3s24bht7nv42vcx63vahyd2",
+    "ContentItemVersionId": "403e4be2vw1bvsf4sbrpsfmmd6",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "HNC or HND",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 2 or 3 fitness qualification"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003ELevel 2 or 3 fitness qualification\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/acf22642-8b3e-4dd1-b147-ea94604d1f9b"
+    },
+    "ContentItemId": "4b10bc56jshm9tjjja1a18r9n8",
+    "ContentItemVersionId": "437wg1w4ng70y6bcnte58jz6df",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 2 or 3 fitness qualification",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "T level reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English and maths for a T level\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/fa1ab43d-7046-4fd4-bcc9-72b785faa1ab"
+    },
+    "ContentItemId": "450108qmqjy1xvytefv2wf36cq",
+    "ContentItemVersionId": "4jakkv0dy1gfy338j8etewc9mg",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "T level reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "5 GCSEs 9-4 incl E-M-S"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English, maths and science\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/collegerequirement/ef708938-e81c-465f-9876-1c4e6042e7f0"
+    },
+    "ContentItemId": "49c58p0p7cfjxx6kdrdwqk8zxt",
+    "ContentItemVersionId": "4srzjq99mf5w224dnvwe297v59",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "5 GCSEs 9-4 incl E-M-S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

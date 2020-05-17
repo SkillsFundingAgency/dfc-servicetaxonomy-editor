@@ -13,7 +13,7 @@ namespace GetJobProfiles
 {
     public class EscoJobProfileMapper
     {
-        private readonly string[] _exclusions = new string[]
+        public readonly string[] _exclusions = new string[]
         {
             "arts-administrator",
             "colour-therapist",

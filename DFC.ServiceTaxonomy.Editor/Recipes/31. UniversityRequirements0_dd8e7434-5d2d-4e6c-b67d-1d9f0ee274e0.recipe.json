@@ -1,0 +1,762 @@
+{
+  "name": "UniversityRequirements0_dd8e7434-5d2d-4e6c-b67d-1d9f0ee274e0",
+  "displayName": "UniversityRequirements0_dd8e7434-5d2d-4e6c-b67d-1d9f0ee274e0",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "4 or 5 GCSEs 9-4 incl E-M-S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English, maths and science\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/0a16a643-1db5-43f2-b94c-008ecf4232f2"
+    },
+    "ContentItemId": "45r5rwm2yy6ee0g8eppg8sk1d6",
+    "ContentItemVersionId": "440hc267vp7vc6hpfnd1rx075g",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "4 or 5 GCSEs 9-4 incl E-M-S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Degree standard entry reqs"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 to 3 A levels, or equivalent, for a degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/e252aeae-f6c5-48c9-a700-0848769f6337"
+    },
+    "ContentItemId": "45vc8tgagk48z03kycay65wad9",
+    "ContentItemVersionId": "460jz5gjzaqsnxfxtvvw431km4",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Degree standard entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl M"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including maths\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/0806a636-d3ee-4806-8556-17ac46850a8d"
+    },
+    "ContentItemId": "4jj64726d6rjey9adnx08mtbma",
+    "ContentItemVersionId": "4rhba2b8bzhmr0q36fv131e5dm",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl M",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3 A levels incl S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E3 A levels, or equivalent, including at least 1 science\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/dd3072fb-fce6-4449-89a1-bb5ecd346c3b"
+    },
+    "ContentItemId": "4a2drw9pf25ahsrqap1ffdr9nt",
+    "ContentItemVersionId": "49cveeyf0mca8tpx1x3552kf4z",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "3 A levels incl S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl M-S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including maths and a science for a degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/448ab7e0-356e-4ffc-a17b-c325fa76e218"
+    },
+    "ContentItemId": "47jhez3dv86h8yv45gnnstr2n0",
+    "ContentItemVersionId": "4snxq5hp3n1vvw8q67hxsvs2wt",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl M-S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl Bio or Chem"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including biology or chemistry\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/e7b61ade-769e-47c6-9ebe-6f68e3ad97a9"
+    },
+    "ContentItemId": "47cx4w6n545px5k33yf3nazbw5",
+    "ContentItemVersionId": "48jq4deczxrab18jn3kadxnf5b",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl Bio or Chem",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "HND standard entry reqs"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, or equivalent, for a higher national diploma\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/3fdc9571-22ca-4710-b410-2cc9a2392ad9"
+    },
+    "ContentItemId": "4c3bt8xd28w7nw7j4ybst341d0",
+    "ContentItemVersionId": "4chy5y3vy4c0043zqx04m644ch",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "HND standard entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl M-Phy"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including maths and physics\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/09098a5c-ccd1-4815-91f3-d2027900183e"
+    },
+    "ContentItemId": "4ecrmfd75dgqj0p5fa4a7a8hc1",
+    "ContentItemVersionId": "4ttkwkkfvbd7m5zhat7syhh64k",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl M-Phy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3 A levels incl Bio-Chem"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E3 A levels, or equivalent, including biology and chemistry\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/c1ca098b-6256-4eea-bd26-7625e14aad8d"
+    },
+    "ContentItemId": "4vy69r0nzpy0g22f1p9kazyc5p",
+    "ContentItemVersionId": "4xg78v0de8g1vvywqyfg6kawx4",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "3 A levels incl Bio-Chem",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Art and Design Foundation"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea foundation diploma in art and design\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/6fe20fcc-70ad-499f-a7b3-2e28425dce59"
+    },
+    "ContentItemId": "4avbpfpj722rqtk79gms1k97ns",
+    "ContentItemVersionId": "45vcv36cte2j27fqrne0469j5c",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Art and Design Foundation",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "4 or 5 GCSEs at grades 9 to 4 (A* to C), including English and maths"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), including English and maths\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/fe3b39ee-7982-4e0e-8b48-8c3422dec0c3"
+    },
+    "ContentItemId": "4bvze1cv9gf8f22r5tdyg5tzxs",
+    "ContentItemVersionId": "4gw5axp1v0p1r44whhqnaev4wc",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "4 or 5 GCSEs at grades 9 to 4 (A* to C), including English and maths",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl Chem"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including chemistry\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/6de72865-8211-4f3a-929e-c378ac41d45e"
+    },
+    "ContentItemId": "44h7mt941cd472w23bqyxfr7nt",
+    "ContentItemVersionId": "40c4c5cn83vfm5hgm918kfar5y",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl Chem",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at least 1 A level or equivalent for a foundation degree"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat least 1 A level or equivalent for a foundation degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/4f415f4d-b062-41bf-9e19-d6ab518a71fe"
+    },
+    "ContentItemId": "4b1x4ty2wxaj34953p8tanr0c4",
+    "ContentItemVersionId": "4arjyrys6ayqywbrzg0ywf044h",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "at least 1 A level or equivalent for a foundation degree",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl music"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels including music, or equivalent qualifications\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/c941797f-c6a3-4900-9203-9bc505141b6c"
+    },
+    "ContentItemId": "4fgsna78n6zhjt104179bmbwmz",
+    "ContentItemVersionId": "4vkn9h5tbp4zftwxnhqj7zjjmf",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl music",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl M-Econ"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including maths or economics\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/6ca3fc4d-eb41-4bbb-9ae7-d3296edf9077"
+    },
+    "ContentItemId": "4kncfvz0rnr900vdzjyyw75a4v",
+    "ContentItemVersionId": "4bnpk34g7w8ap6emh6rk60k6dk",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl M-Econ",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "HND or degree"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebetween 1 and 3 A levels, or equivalent, for a higher national diploma or degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/0e10c648-138f-43a4-a129-afd50b02466d"
+    },
+    "ContentItemId": "415e6zrjgvjmn591qwsym0q0n2",
+    "ContentItemVersionId": "438fw8t7gw3p83hz7cydgdhzmc",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "HND or degree",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Postgraduate study - relevant degree needed"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea degree in a relevant subject for postgraduate study\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/6af2bf08-675b-4015-9341-f9492b0de0dd"
+    },
+    "ContentItemId": "4rqr8k7zwka5yr5s63kfm4kxdn",
+    "ContentItemVersionId": "4ph7rgv1kckv27a8zax3wbq3nz",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Postgraduate study - relevant degree needed",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "1 or 2 A levels incl S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, or equivalent, including a science\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/12008f47-3612-4514-8fc0-f2901f2c44b3"
+    },
+    "ContentItemId": "45b36dq6ypnrv1kawgfcef1a42",
+    "ContentItemVersionId": "4bhzfyd6xz4art5z21sjsmhymw",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "1 or 2 A levels incl S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Foundation degree or HND standard entry"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, or equivalent, for a foundation degree or higher national diploma\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/ef211879-1e98-4668-b61c-ac06fa21f370"
+    },
+    "ContentItemId": "4hp9dfh4krnegsqh3hs90hvtmj",
+    "ContentItemVersionId": "4p1qjrq9xq67swph77snc3h05v",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Foundation degree or HND standard entry",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Audition"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Eto pass an audition\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/f870607b-c345-4054-9610-5f4cadfed56f"
+    },
+    "ContentItemId": "4xkt9etbhxr7fxnmk8tdmqjfmt",
+    "ContentItemVersionId": "425kjn54jw7sgvb4k2fygs6ymz",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Audition",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Forensic Road Collision Investigation"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, including maths or science, or the UCPD in Forensic Road Collision Investigation, for the foundation degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/87affdd6-9fd0-458c-b857-693d0cf6be30"
+    },
+    "ContentItemId": "4k8wfe4mrbxxdwqp1t2qc56p55",
+    "ContentItemVersionId": "4en5mc1qrk9m4yn49ekvcjj94m",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Forensic Road Collision Investigation",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl Bio"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including biology for a degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/64601317-0c01-4b34-a84f-83d1131c8717"
+    },
+    "ContentItemId": "4kj9hwdtfqg7q4pn0pf6wvk8cn",
+    "ContentItemVersionId": "4rgaxtfhpk2xbre50yng9jwxx8",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl Bio",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "5 GCSEs 9-4 incl E"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/0933157c-45ec-4f64-a494-f613d2060bbe"
+    },
+    "ContentItemId": "4ja7tjd0v5xcqs3d4zb2yea0wd",
+    "ContentItemVersionId": "46xcf0fd9vefs2ws7fpnahqkd0",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "5 GCSEs 9-4 incl E",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "GCSE Science-Primary Teaching"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003EGCSE science at grade 9 to 4 (A* to C) for primary school teaching\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/7a4d1c7c-a935-40f8-8046-490a4f5c728b"
+    },
+    "ContentItemId": "4kd2msfbjz6cjswmej8x96ncm0",
+    "ContentItemVersionId": "4j6h675mfq56xvgpbhcvan5gxn",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "GCSE Science-Primary Teaching",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Postgraduate entry reqs - any subject"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea degree in any subject for a postgraduate course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/5bd2e2aa-0f8e-4a23-a020-084af94b0a35"
+    },
+    "ContentItemId": "48234cyx0035vxmq9jfyk6rgcf",
+    "ContentItemVersionId": "4n0sz3cjs2v4jtb691nyk63vcx",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Postgraduate entry reqs - any subject",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at least 5 GCSEs 9-7-A*-A"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat least 5 GCSEs grades 9 to 7 (A* or A), including English maths and sciences\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/e28102bc-4885-4164-89f9-c535a7e5db3e"
+    },
+    "ContentItemId": "464esd09z55tkwjx8v54rkacxd",
+    "ContentItemVersionId": "4v62byq56wcn1w3fk8qf9wwzx0",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "at least 5 GCSEs 9-7-A*-A",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "grade 8 in your main instrument"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Egrade 8 in your main instrument\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/f50f19dc-05da-467b-b4e1-431770261a90"
+    },
+    "ContentItemId": "4v5dtte7rqn4a6x2s4qe7v8t5a",
+    "ContentItemVersionId": "41t6mng0jn2jb5n7mwqtmv38wt",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "grade 8 in your main instrument",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels L3 Dip or Access to HE"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, including a science, or a level 3 diploma or access to higher education in health, science or nursing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/5fb70eda-0be9-4e96-9f47-1e7757aa4d72"
+    },
+    "ContentItemId": "491txdkqm7s9x0k6y2v8csz7d9",
+    "ContentItemVersionId": "4jbarnmf2mcek0xym8ht77yjxn",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels L3 Dip or Access to HE",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "3 A levels"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E3 A levels or equivalent\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/57d49ed6-304e-4d81-80a9-5919673b7c7b"
+    },
+    "ContentItemId": "473y50c9cw0n9znxvp1hct2vwy",
+    "ContentItemVersionId": "47k0pea3p7pwgw5c1j9ba64and",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "3 A levels",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including a science, for a degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/49c9e055-8cec-4420-ba7b-2502adccdabc"
+    },
+    "ContentItemId": "48gzbsngk6pz3wd1jsgcaet5dk",
+    "ContentItemVersionId": "4m91qacr5qwvv2hgty11tvp952",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "5 GCSEs 9-4 incl E-M-S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English, maths and science\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "http://nationalcareers.service.gov.uk/universityrequirement/1fab75fb-9668-47f9-a3be-c9d35707fe8e"
+    },
+    "ContentItemId": "4d3vj0pbm465k3033bctr7d7xv",
+    "ContentItemVersionId": "4ynhrwm46e4errwxfjnm0rv2d7",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "5 GCSEs 9-4 incl E-M-S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-17T07:43:32.0879582Z",
+    "PublishedUtc": "2020-05-17T07:43:32.0879582Z",
+    "CreatedUtc": "2020-05-17T07:43:32.0879582Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

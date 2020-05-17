@@ -7,7 +7,7 @@ namespace GetJobProfiles.Models.Recipe.Parts
         public TabField HowToBecome { get; set; }
         public HtmlField HtbBodies { get; set; }
         //todo: this field
-        public TextField HtbTitleOptions { get; set; }
+        public TextField HtbTitleOptions { get; set; } = new TextField("as_defined");
         // public HtmlField HtbOtherRequirements { get; set; }
         public HtmlField HtbCareerTips { get; set; }
         public HtmlField HtbFurtherInformation { get; set; }

@@ -66,6 +66,8 @@ namespace GetJobProfiles
         public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string jobProfilesToImportCsv = null)
         {
             IEnumerable<JobProfileSummary> summaries;
+            EscoJobProfileMapper exclusionSource = new EscoJobProfileMapper();
+
             if (!string.IsNullOrWhiteSpace(jobProfilesToImportCsv) && jobProfilesToImportCsv != "*")
             {
                 string[] jobProfilesToImportUntrimmed = jobProfilesToImportCsv.Split(",");
@@ -74,12 +76,14 @@ namespace GetJobProfiles
 
                 summaries = (await _client.Get<JobProfileSummary[]>("summary"))
                     .Where(s => s.Title != null
-                                && jobProfilesToImport.Contains(s.Title.ToLowerInvariant()));
+                                && jobProfilesToImport.Contains(s.Title.ToLowerInvariant())
+                                && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace(" ","-") ) );
             }
             else
             {
                 summaries = (await _client.Get<JobProfileSummary[]>("summary"))
-                    .Where(s => s.Title != null);
+                    .Where(s => s.Title != null
+                             && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace("-", " ")) );
             }
 
                 // filter dev env crap
