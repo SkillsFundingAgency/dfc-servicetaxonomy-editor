@@ -83,7 +83,7 @@ namespace GetJobProfiles
             {
                 summaries = (await _client.Get<JobProfileSummary[]>("summary"))
                     .Where(s => s.Title != null
-                             && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace("-", " ")) );
+                             && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace(" ", "-")) );
             }
 
                 // filter dev env crap

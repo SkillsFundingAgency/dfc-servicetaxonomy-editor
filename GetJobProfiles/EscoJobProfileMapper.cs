@@ -30,7 +30,10 @@ namespace GetJobProfiles
             "royal-navy-rating",
             "sonographer",
             "speech-and-language-therapy-assistant",
-            "tv-or-film-production-runner"
+            "tv-or-film-production-runner",
+            "ismai;-profile",
+            "ceiling-fixer",
+            "fenestration-fabricator"
         };
 
         public List<string> Map(IEnumerable<JobProfileContentItem> jobProfiles)
