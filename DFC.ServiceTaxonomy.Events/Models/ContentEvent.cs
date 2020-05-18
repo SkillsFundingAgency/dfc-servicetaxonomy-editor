@@ -16,11 +16,11 @@ namespace DFC.ServiceTaxonomy.Events.Models
             // string userId = contentItem.Content.GraphSyncPart.Text;
 
             string userId = contentItem.Content.GraphSyncPart.Text;
-            Subject = $"/content/{contentItem.ContentType.ToLower()}/{userId.Substring(userId.Length - 36)}";
+            string itemId = userId.Substring(userId.Length - 36);
+            Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";
 
-            Data = new ContentEventData(userId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author);
+            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author);
             EventType = eventType;
-            //todo: can modified be null?
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
             MetadataVersion = null;
             DataVersion = "1.0";
