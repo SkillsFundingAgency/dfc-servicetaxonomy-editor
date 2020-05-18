@@ -38,9 +38,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.13.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.NLogTarget" Version="2.13.1" />
-    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
+    <PackageReference Include="OrchardCore.Logging.NLog" Version="1.0.0-rc1-13198" />
+    <PackageReference Include="OrchardCore.Application.Cms.Targets" Version="1.0.0-rc1-13198" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-13198" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.1.17183">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
