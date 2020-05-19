@@ -28,10 +28,10 @@ namespace GetJobProfiles
         public readonly ContentPickerContentItemFactory ApprenticeshipRoute = new ContentPickerContentItemFactory();
         public readonly ContentPickerContentItemFactory CollegeRoute = new ContentPickerContentItemFactory();
         public readonly ContentPickerContentItemFactory UniversityRoute = new ContentPickerContentItemFactory();
-        public readonly ContentPickerFactory DirectRoute = new ContentPickerFactory();
-        public readonly ContentPickerFactory OtherRoute = new ContentPickerFactory();
-        public readonly ContentPickerFactory VolunteeringRoute = new ContentPickerFactory();
-        public readonly ContentPickerFactory WorkRoute = new ContentPickerFactory();
+        public readonly ContentPickerContentItemFactory DirectRoute = new ContentPickerContentItemFactory();
+        public readonly ContentPickerContentItemFactory OtherRoute = new ContentPickerContentItemFactory();
+        public readonly ContentPickerContentItemFactory VolunteeringRoute = new ContentPickerContentItemFactory();
+        public readonly ContentPickerContentItemFactory WorkRoute = new ContentPickerContentItemFactory();
         //todo: convert to factory?
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
@@ -185,10 +185,10 @@ namespace GetJobProfiles
                 },
                 HowToBecome = new HowToBecomePart
                 {
-                    DirectRoute = DirectRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.DirectApplication),
-                    OtherRoute = OtherRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.OtherRoutes),
-                    VolunteeringRoute = VolunteeringRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Volunteering),
-                    WorkRoute = WorkRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Work),
+                    // DirectRoute = DirectRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.DirectApplication),
+                    // OtherRoute = OtherRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.OtherRoutes),
+                    // VolunteeringRoute = VolunteeringRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Volunteering),
+                    // WorkRoute = WorkRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Work),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
@@ -248,6 +248,18 @@ namespace GetJobProfiles
                     jobProfile.HowToBecome.EntryRoutes.University, Timestamp);
 
                 contentItem.HowToBecome.UniversityRoute = UniversityRoute.CreateContentPicker(universityEntryRoute);
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
+            {
+                contentItem.HowToBecome.VolunteeringRoute = new ContentPicker();
+            }
+            else
+            {
+                var route = new VolunteeringRouteContentItem(contentItem.DisplayText, Timestamp,
+                    jobProfile.HowToBecome.EntryRoutes.Volunteering);
+
+                contentItem.HowToBecome.VolunteeringRoute = VolunteeringRoute.CreateContentPicker(route);
             }
 
             if (DayToDayTaskExclusions.Contains(jobProfile.Url))
