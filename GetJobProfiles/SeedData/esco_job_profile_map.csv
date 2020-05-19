@@ -151,7 +151,7 @@ http://data.europa.eu/esco/occupation/fe0fa514-b48d-4a53-9757-a283c0baacf0","goo
 "Cartographer","cartographer","Published","3122B","cartographer","http://data.europa.eu/esco/occupation/ad8ab454-b506-46a5-afd3-66bbffd54115","good match",
 "Catering manager","catering-manager","Published","5436A","restaurant manager","http://data.europa.eu/esco/occupation/d5eb6150-bbff-4a9c-9d0c-21eab4dbe2b6","good match",
 "Cavity insulation installer","cavity-insulation-installer","Published","8149A","insulation worker","http://data.europa.eu/esco/occupation/b2dab4fb-b7f7-4f57-94b2-9c0f0848564a","good match",
-"Ceiling fixer","ceiling-fixer","Published","8149B","ceiling fitter","http://data.europa.eu/esco/occupation/41a8e7c8-e1d8-4984-9b3c-dbbad1699f83","good match",
+"ceiling installer","ceiling-installer","Published","8149B","ceiling installer","http://data.europa.eu/esco/occupation/41a8e7c8-e1d8-4984-9b3c-dbbad1699f83","good match",
 "Celebrant","celebrant","Published","3239I","minister of religion","http://data.europa.eu/esco/occupation/ed256ed0-0432-4969-8544-3e5e01a517a9","no match","registrar better but limited skills"
 "Cellar technician","cellar-technician","Published","5223A","cellar operator","http://data.europa.eu/esco/occupation/3caa57c9-d360-4ce4-8000-34a983666ba7","good match",
 "Cemetery worker","cemetery-worker","Published","6148B","cemetery attendant","http://data.europa.eu/esco/occupation/aac0c510-f238-4dbe-beeb-1d7b73f4552c","good match",
@@ -209,7 +209,7 @@ http://data.europa.eu/esco/occupation/303a1e34-cb16-4054-b323-81e5eec17397","2 E
 "Community education co-ordinator","community-education-coordinator","Published","3231D","community development officer","http://data.europa.eu/esco/occupation/39e9fc8f-02bd-4577-b603-2dc96204ce74","good match",
 "Community matron","community-matron","Published","2231D","community health worker","http://data.europa.eu/esco/occupation/c7ad889f-10fc-4346-b740-bd479ad82b47","replace","ESCO advanced nurse practitioner has community team leader/head of community nursing which is in line with profile as you usually need to be exp nurse to do this  http://data.europa.eu/esco/occupation/36494988-69d2-4420-9db4-eb56605ac983"
 "Community transport driver","community-transport-driver","Published","8213B","bus driver","http://data.europa.eu/esco/occupation/00cee175-1376-43fb-9f02-ba3d7a910a58","partial match","bus driver about as close as ESCO have"
-"Company secretary","company-secretary","Published","1131A","Finance managers","http://data.europa.eu/esco/occupation/30f3ea93-882a-4525-841c-1d5b4b64076f","good match","EC title listed under ESCO hierarchy http://data.europa.eu/esco/isco/C1211"
+"Company secretary","company-secretary","Published","1131A","financial manager","http://data.europa.eu/esco/occupation/30f3ea93-882a-4525-841c-1d5b4b64076f","good match","EC title listed under ESCO hierarchy http://data.europa.eu/esco/isco/C1211"
 "Computer games developer","computer-games-developer","Published","2136A","digital games developer","http://data.europa.eu/esco/occupation/9ebaf3f0-0be0-47b7-b2b1-b3b04130fa81","good match",
 "Computer games tester","computer-games-tester","Published","3131A","digital games tester","http://data.europa.eu/esco/occupation/33e4f026-a823-4ffc-99e4-60d3fe597a1e","good match",
 "Conference and exhibition manager","conference-and-exhibition-manager","Published","3546B","event manager","http://data.europa.eu/esco/occupation/1b38a27d-ef98-4d9f-b1b2-8c109bf47e79","good match",
@@ -218,7 +218,7 @@ http://data.europa.eu/esco/occupation/303a1e34-cb16-4054-b323-81e5eec17397","2 E
 "Construction labourer","construction-labourer","Published","8149C","building construction worker","http://data.europa.eu/esco/occupation/fb7e2f4f-1545-42f1-972e-94082e49c6dc","good match",
 "Construction manager","construction-manager","Published","1122A","construction general supervisor","http://data.europa.eu/esco/occupation/0dd7e6cd-2e5a-4fae-9ce0-6a3622d4019f","replace","ESCO has contruction manager http://data.europa.eu/esco/occupation/faed05c0-c1d1-4e34-b575-0dea96459e56"
 "Construction plant hire adviser","construction-plant-hire-adviser","Published","7129C","construction manager","http://data.europa.eu/esco/occupation/faed05c0-c1d1-4e34-b575-0dea96459e56",,
-"Construction plant mechanic","construction-plant-mechanic","Published","5223B","construction equipment techncian","http://data.europa.eu/esco/occupation/b0480558-269d-4903-9bc7-f390cd6a6964","good match",
+"Construction plant mechanic","construction-plant-mechanic","Published","5223B","construction equipment technician","http://data.europa.eu/esco/occupation/b0480558-269d-4903-9bc7-f390cd6a6964","good match",
 "Construction plant operator","construction-plant-operator","Published","8229A","excavator operator","http://data.europa.eu/esco/occupation/eedbf8b1-9432-4f42-ab7f-db5cd3eb2a05","good match","ESCO also has bulldozer operator but skills almost the same as this"
 "Construction site supervisor","construction-site-supervisor","Published","5330A","construction general supervisor","http://data.europa.eu/esco/occupation/0dd7e6cd-2e5a-4fae-9ce0-6a3622d4019f","good match","ESCO has a lot of individual trades supervisors, so this probs best match to cover all"
 "Consumer scientist","consumer-scientist","Published","2119A","market research analyst","http://data.europa.eu/esco/occupation/66fb9704-0d56-4673-8e69-7823816b73e1","good match",
@@ -323,7 +323,7 @@ http://data.europa.eu/esco/occupation/1f2b8092-1787-4ef4-9282-cf81ce4b4d76","2 E
 "Equalities officer","equalities-officer","Published","3562A","equality and inclusion manager","http://data.europa.eu/esco/occupation/949ab84f-5d76-4139-a568-45691b7ebc53","good match",
 "Ergonomist","ergonomist","Published","2126C","ergonomist","http://data.europa.eu/esco/occupation/1d75ea5a-f902-4b47-8d63-5c6d2a5c0bb5","good match",
 "Estate agent","estate-agent","Published","3544A","real estate agent","http://data.europa.eu/esco/occupation/8ec8df02-e9dd-43b7-b416-5846ae0414ab","good match",
-"Estates officer","estates-officer","Published","1251A","housing manger","http://data.europa.eu/esco/occupation/dd935705-d703-40ba-9ba7-2a8a2b7651b4","partial match","housing manager covers more of the skils/knowledge req for NCS role. ESCO also has real estate property manager http://data.europa.eu/esco/occupation/0f5b4653-50b2-413a-826d-39d447480c21 - which lists estate manager/estate admin but is more about the financial side so gone with housing officer"
+"Estates officer","estates-officer","Published","1251A","housing manager","http://data.europa.eu/esco/occupation/dd935705-d703-40ba-9ba7-2a8a2b7651b4","partial match","housing manager covers more of the skils/knowledge req for NCS role. ESCO also has real estate property manager http://data.europa.eu/esco/occupation/0f5b4653-50b2-413a-826d-39d447480c21 - which lists estate manager/estate admin but is more about the financial side so gone with housing officer"
 "Estimator","estimator","Published","3531D","cost analyst","http://data.europa.eu/esco/occupation/84871c2a-abd1-45eb-b03a-65e51a26fd84","partial match",
 "European Union official","european-union-official","Published","3561B","senator","http://data.europa.eu/esco/occupation/73c3f018-71ce-4dc1-abdd-14cea7873717","good match","skills and knowledge similar though job desc is about government level rather than EU"
 "Events manager","events-manager","Published","3546A","event manager","http://data.europa.eu/esco/occupation/1b38a27d-ef98-4d9f-b1b2-8c109bf47e79","good match",
@@ -412,7 +412,7 @@ http://data.europa.eu/esco/occupation/bf89925d-00a1-4f94-ab3b-2148c887af33","dec
 "Head of IT (IT director)","head-of-it-(it-director)","Published","1136A","chief information officer","http://data.europa.eu/esco/occupation/82f90e87-de92-4678-adae-61d3e5f7e1e4",,
 "Headteacher","headteacher","Published","2317A","headteacher","http://data.europa.eu/esco/occupation/e1587bbb-2d4e-4726-839a-7f4895c440e7",,
 "Health and safety adviser","health-and-safety-adviser","Published","3567A","health and safety inspector","http://data.europa.eu/esco/occupation/2b31f745-f04f-4d2c-9692-4715e1448f80",,
-"Health play specialist","health-play-specialist","Published","3219G",,"http://data.europa.eu/esco/occupation/f9395e4d-d66f-49ce-a8f5-721991139e79","decision req","poss recreational therapist which covers some of the generic skills in this role"
+"Health play specialist","health-play-specialist","Published","3219G","recreational therapist","http://data.europa.eu/esco/occupation/f9395e4d-d66f-49ce-a8f5-721991139e79","decision req","poss recreational therapist which covers some of the generic skills in this role"
 "Health promotion specialist","health-promotion-specialist","Published","2219C","health psychologist","http://data.europa.eu/esco/occupation/976c7f50-7f9e-4347-bbb9-f0dc842046a3",,
 "Health records clerk","health-records-clerk","Published","4131A","medical records clerk","http://data.europa.eu/esco/occupation/14eb2c85-fce5-40b6-bcd0-46ac99994b0d",,
 "Health service manager","health-service-manager","Published","1181A","healthcare institution manager","http://data.europa.eu/esco/occupation/4a29eab1-5f02-4723-a863-e2d5a0614dfa",,
@@ -431,7 +431,7 @@ http://data.europa.eu/esco/occupation/bf89925d-00a1-4f94-ab3b-2148c887af33","dec
 "Horticultural manager","horticultural-manager","Published","1211A","horticulture production manager","http://data.europa.eu/esco/occupation/d36b66f8-c08a-4416-953b-62c271ca7509",,
 "Horticultural therapist","horticultural-therapist","Published","3219H","recreational therapist","http://data.europa.eu/esco/occupation/f9395e4d-d66f-49ce-a8f5-721991139e79","partial match","ESCO has recreational therapist which covers some of the generic skills in this role though doesn't mention horticulture/plants specifically - does mention dance, art drama and animals though so need to remove them from any listing used"
 "Horticultural worker","horticultural-worker","Published","9119C","horticulture worker","http://data.europa.eu/esco/occupation/1a9d99ba-4c08-4864-8f6a-1b0f2b4cf883",,
-"Hospital doctor","hospital-doctor","Published","2211B","speciliased doctor","http://data.europa.eu/esco/occupation/9b889f07-c39c-464d-b9d9-b2daa650f9ac","good match","ESCO lists lot of specilaisms found in hospital depts - only lists one essential skill"
+"Hospital doctor","hospital-doctor","Published","2211B","specialised doctor","http://data.europa.eu/esco/occupation/9b889f07-c39c-464d-b9d9-b2daa650f9ac","good match","ESCO lists lot of specilaisms found in hospital depts - only lists one essential skill"
 "Hospital porter","hospital-porter","Published","9271A","hospital porter","http://data.europa.eu/esco/occupation/a30734bb-2f10-4747-a94c-75f5ec3c63a4",,
 "Hotel manager","hotel-manager","Published","1221A","accommodation manager","http://data.europa.eu/esco/occupation/53cdd34e-22f2-41bd-b3c7-de22bf9bbcae","good match",
 "Hotel porter","hotel-porter","Published","9279A","hotel porter","http://data.europa.eu/esco/occupation/3cc51201-cd20-47f8-92ad-4d5861f963cf",,
@@ -505,7 +505,7 @@ http://data.europa.eu/esco/occupation/3df28a39-9bfe-4e36-b394-a189ef967a74","dec
 "Live sound engineer","live-sound-engineer","Published","3417G","audio production technician","http://data.europa.eu/esco/occupation/2cbb23b0-0bf1-4871-9e6d-18f005987310",,
 "Local government administrative assistant","local-government-administrative-assistant","Published","4113A","civil service administrative officer","http://data.europa.eu/esco/occupation/ffade2f4-2528-4dfd-b36a-6e4092be08ed",,
 "Local government officer","local-government-officer","Published","4113B","city councillor","http://data.europa.eu/esco/occupation/7226c10f-701b-4711-8843-140aace12c6f",,
-"Local government revenues officer","local-government-revenues-officer","Published","4113C",,"http://data.europa.eu/esco/occupation/5e5b1b61-1351-4d3b-a293-deb3661715dd","decision req","ESCO financial controller role is more general and incl private sector but some skills similar"
+"Local government revenues officer","local-government-revenues-officer","Published","4113C","financial controller","http://data.europa.eu/esco/occupation/5e5b1b61-1351-4d3b-a293-deb3661715dd","decision req","ESCO financial controller role is more general and incl private sector but some skills similar"
 "Lock keeper","lock-keeper","Published","8239A",,,"no match",
 "Locksmith","locksmith","Published","5223H","locksmith","http://data.europa.eu/esco/occupation/aaa485d0-6787-45c0-8596-b266c0b687fd",,
 "Magazine journalist","magazine-journalist","Published","2471E","journalist","http://data.europa.eu/esco/occupation/a47f82d3-4cf7-4abf-bb36-2c8cbad28234",,
@@ -525,13 +525,7 @@ http://data.europa.eu/esco/occupation/3df28a39-9bfe-4e36-b394-a189ef967a74","dec
 "Marketing director","marketing-director","Published","1132A","commercial director","http://data.europa.eu/esco/occupation/2d3d7188-47ab-49b9-9045-e452d9db06f1",,
 "Marketing executive","marketing-executive","Published","3543H","marketing manager","http://data.europa.eu/esco/occupation/6fcf4638-e7c7-4978-9302-9a7b63a3d57c","good match","marketing exec listed under ESCO alt labels"
 "Marketing manager","marketing-manager","Published","3545A","marketing manager","http://data.europa.eu/esco/occupation/6fcf4638-e7c7-4978-9302-9a7b63a3d57c",,
-"Martial arts instructor","martial-arts-instructor","Published","3442F","sport instructor
-sports coach
-boxing instructor","http://data.europa.eu/esco/occupation/11695786-9fb7-4895-b161-0480419107e4
-http://data.europa.eu/esco/occupation/3e9c1262-4fe2-4eb1-bf94-4fe64498393a
-http://data.europa.eu/esco/occupation/0af6fc82-8e5e-46c6-a4ca-a672ecf7704c
-http://data.europa.eu/esco/occupation/3e9c1262-4fe2-4eb1-bf94-4fe64498393a
-http://data.europa.eu/esco/occupation/0af6fc82-8e5e-46c6-a4ca-a672ecf7704c","decision req","ESCO sport instructor skills limited and quite generic. Sports coach has more but still generic. Boxing instructor is closer match to JP except it has boxing knowledge under essential knowledge req - if can avoid this/modify in CMS then this is better match"
+"Martial arts instructor","martial-arts-instructor","Published","3442F","boxing instructor","http://data.europa.eu/esco/occupation/11695786-9fb7-4895-b161-0480419107e4","decision req","ESCO sport instructor skills limited and quite generic. Sports coach has more but still generic. Boxing instructor is closer match to JP except it has boxing knowledge under essential knowledge req - if can avoid this/modify in CMS then this is better match"
 "Massage therapist","massage-therapist","Published","3219B","massage therapist","http://data.europa.eu/esco/occupation/9487f835-b5a9-4742-8ecf-35520911e28c",,
 "Materials engineer","materials-engineer","Published","2129E","materials engineer","http://data.europa.eu/esco/occupation/4a375b68-88a0-4e5f-99ce-9b01341dfb81",,
 "Materials technician","materials-technician","Published","3115A","material testing technician","http://data.europa.eu/esco/occupation/eb00745b-9abb-4bd8-8291-aade48af029d","good match",
@@ -708,7 +702,7 @@ http://data.europa.eu/esco/occupation/4a215d87-8363-4db2-a661-3c0d816b2a70","dec
 "Radio broadcast assistant","radio-broadcast-assistant","Published","3416B","radio producer","http://data.europa.eu/esco/occupation/ce7d3362-5383-47d1-b66f-57b021c3d862","decision req","ESCO role is higher than JP but some of the optional skills are OK match"
 "Radiographer","radiographer","Published","2217A","radiographer","http://data.europa.eu/esco/occupation/7639a601-6db0-41ed-9fb0-813d9b8beb05",,
 "Radiography assistant","radiography-assistant","Published","6141I","healthcare assistant","http://data.europa.eu/esco/occupation/d38c2107-98f2-47b7-8bb4-f69750d51082","decision req","no equivalent in ESCO so this offers generic skills match - ESCO lists radiology assistant under doctor's surgery assistant but it's more related to GP surgery duties rather than hospital clinical tasks. It also has medical imaging assistant, which is good title match but this has no narrower occupation breakdown beyond the desc at http://data.europa.eu/esco/isco/C3256"
-"RAF airman or airwoman","raf-airman-or-airwoman","Published","3311B",,"http://data.europa.eu/esco/occupation/f2cc5978-e45c-4f28-b859-7f89221b0505","no match",
+"RAF airman or airwoman","raf-airman-or-airwoman","Published","3311B","air force officer","http://data.europa.eu/esco/occupation/f2cc5978-e45c-4f28-b859-7f89221b0505","no match",
 "RAF non-commissioned aircrew","raf-non-commissioned-aircrew","Published","3311C","air force officer","http://data.europa.eu/esco/occupation/f2cc5978-e45c-4f28-b859-7f89221b0505","partial match","ESCO has air force pilot but this role is broader than that. ESCO air force officer slightly mor generic so partially covers role though not ideal "
 "RAF officer","raf-officer","Published","1171B","air force officer","http://data.europa.eu/esco/occupation/f2cc5978-e45c-4f28-b859-7f89221b0505",,
 "Rail engineering technician","rail-engineering-technician","Published","5237A","railway electronic technician","http://data.europa.eu/esco/occupation/75c5bab4-2546-4ba3-996d-42a9a1bab55d",,
@@ -880,7 +874,7 @@ railway passenger service agent","http://data.europa.eu/esco/occupation/9a99a5fe
 http://data.europa.eu/esco/occupation/9653fb92-ad48-4865-a471-f270302fa93b
 http://data.europa.eu/esco/occupation/9653fb92-ad48-4865-a471-f270302fa93b","decision req","poss http://data.europa.eu/esco/occupation/9a99a5fe-875d-49b2-9b53-cc1b73be1659 - railway sales agent - mainly ticket sales but service agent mainly marketing though desc is the closer match to jp"
 "Training manager","training-manager","Published","3563E","corporate training manager","http://data.europa.eu/esco/occupation/a14e96a7-6c4d-4d69-8c6f-7ccadf77bac5",,
-"Training officer","training-officer","Published","3563F","coprorate trainer","http://data.europa.eu/esco/occupation/0ba06640-e0ac-4911-9e43-289a8e41651e","good match",
+"Training officer","training-officer","Published","3563F","corporate trainer","http://data.europa.eu/esco/occupation/0ba06640-e0ac-4911-9e43-289a8e41651e","good match",
 "Tram driver","tram-driver","Published","8231B","tram driver","http://data.europa.eu/esco/occupation/03e02554-15d1-4697-960c-8909e7d36f7e",,
 "Translator","translator","Published","3412G","translator","http://data.europa.eu/esco/occupation/1a07bd7d-2e1d-4930-a84a-1a442b8f2a44",,
 "Transport planner","transport-planner","Published","2436B","transport planner","http://data.europa.eu/esco/occupation/93e4e70b-aae4-4fdc-8037-e48e7077564e",,

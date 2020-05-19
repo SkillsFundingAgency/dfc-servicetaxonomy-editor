@@ -13,7 +13,7 @@ namespace GetJobProfiles
 {
     public class EscoJobProfileMapper
     {
-        private readonly string[] _exclusions = new string[]
+        public readonly string[] _exclusions = new string[]
         {
             "arts-administrator",
             "colour-therapist",
@@ -30,7 +30,10 @@ namespace GetJobProfiles
             "royal-navy-rating",
             "sonographer",
             "speech-and-language-therapy-assistant",
-            "tv-or-film-production-runner"
+            "tv-or-film-production-runner",
+            "ismai;-profile",
+            "ceiling-fixer",
+            "fenestration-fabricator"
         };
 
         public List<string> Map(IEnumerable<JobProfileContentItem> jobProfiles)
