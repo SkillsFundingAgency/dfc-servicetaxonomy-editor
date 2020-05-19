@@ -2982,12 +2982,51 @@
                             }
                         },
                         {
+                            "FieldName": "TextField",
+                            "Name": "TitleOptions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Title Options",
+                                    "Editor": "PredefinedList",
+                                    "Position": "3"
+                                },
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "As Defined",
+                                            "value": "as_defined"
+                                        },
+                                        {
+                                            "name": "No Prefix",
+                                            "value": "no_prefix"
+                                        },
+                                        {
+                                            "name": "No Title",
+                                            "value": "no_title"
+                                        },
+                                        {
+                                            "name": "Prefix with 'a'",
+                                            "value": "prefix_with_a"
+                                        },
+                                        {
+                                            "name": "Prefix with 'an'",
+                                            "value": "prefix_with_an"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "as_defined"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "ContentPickerField",
                             "Name": "SOCCode",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasSocCode].",
@@ -3005,7 +3044,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "ONet Occupational Code",
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:ncs__hasONetOccupationalCode].",
@@ -3116,42 +3155,13 @@
                     },
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "HtbTitleOptions",
+                            "FieldName": "TabField",
+                            "Name": "HowToBecome",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Title Options",
-                                    "Editor": "PredefinedList",
-                                    "Position": "1"
-                                },
-                                "TextFieldSettings": {},
-                                "TextFieldPredefinedListEditorSettings": {
-                                    "Options": [
-                                        {
-                                            "name": "As Defined",
-                                            "value": "as_defined"
-                                        },
-                                        {
-                                            "name": "No Prefix",
-                                            "value": "no_prefix"
-                                        },
-                                        {
-                                            "name": "No Title",
-                                            "value": "no_title"
-                                        },
-                                        {
-                                            "name": "Prefix with 'a'",
-                                            "value": "prefix_with_a"
-                                        },
-                                        {
-                                            "name": "Prefix with 'an'",
-                                            "value": "prefix_with_an"
-                                        }
-                                    ],
-                                    "Editor": 1,
-                                    "DefaultValue": "as_defined"
-                                },
-                                "ContentIndexSettings": {}
+                                    "DisplayName": "How to become",
+                                    "Position": "0"
+                                }
                             }
                         },
                         {
@@ -3351,16 +3361,6 @@
                                     "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                                 },
                                 "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TabField",
-                            "Name": "HowToBecome",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How to become",
-                                    "Position": "0"
-                                }
                             }
                         }
                     ]
