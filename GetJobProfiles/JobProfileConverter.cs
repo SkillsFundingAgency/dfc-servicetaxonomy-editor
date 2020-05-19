@@ -212,7 +212,11 @@ namespace GetJobProfiles
                 }
             };
 
-            if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
+            if (jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
+            {
+                contentItem.HowToBecome.ApprenticeshipRoute = new ContentPicker();
+            }
+            else
             {
                 // route will be named after first job profile it's found in
                 //todo: when it already exists, should we expand the name to include all the jp's its used for as a starter for ten?
@@ -222,7 +226,11 @@ namespace GetJobProfiles
                 contentItem.HowToBecome.ApprenticeshipRoute = ApprenticeshipRoute.CreateContentPicker(apprenticeshipEntryRoute);
             }
 
-            if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
+            if (jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
+            {
+                contentItem.HowToBecome.CollegeRoute = new ContentPicker();
+            }
+            else
             {
                 var collegeEntryRoute = CollegeRoutes.Create(contentItem.DisplayText,
                     jobProfile.HowToBecome.EntryRoutes.College, Timestamp);
@@ -230,7 +238,11 @@ namespace GetJobProfiles
                 contentItem.HowToBecome.CollegeRoute = CollegeRoute.CreateContentPicker(collegeEntryRoute);
             }
 
-            if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
+            if (jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
+            {
+                contentItem.HowToBecome.UniversityRoute = new ContentPicker();
+            }
+            else
             {
                 var universityEntryRoute = UniversityRoutes.Create(contentItem.DisplayText,
                     jobProfile.HowToBecome.EntryRoutes.University, Timestamp);
