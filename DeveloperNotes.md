@@ -2,6 +2,13 @@
 
 * change uri to https://dev.api.nationalcareersservice.org.uk/content/GetContent/jobprofile/<<id>> (appropriate for environment)
 
+* use content picker preview for entry routes?
+
+* add these to our theme?
+
+    BaseTheme = "TheAdmin",
+    Tags = new [] { "admin" }
+
 * event publishing threw during full import (working uniform)
 
 Delayed processing of workflow id {workflowContext.WorkflowId} failed: {e}

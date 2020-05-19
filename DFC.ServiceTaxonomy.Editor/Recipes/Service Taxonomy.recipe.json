@@ -647,11 +647,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "UniversityRoute",
                             "Name": "UniversityRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -660,7 +673,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
@@ -688,11 +701,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "CollegeRoute",
                             "Name": "CollegeRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -701,7 +727,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
@@ -729,11 +755,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "ApprenticeshipRoute",
                             "Name": "ApprenticeshipRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -742,7 +781,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
@@ -817,11 +856,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "WorkRoute",
                             "Name": "WorkRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -830,7 +882,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
@@ -857,11 +909,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "VolunteeringRoute",
                             "Name": "VolunteeringRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -870,7 +935,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
@@ -897,11 +962,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "DirectRoute",
                             "Name": "DirectRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -910,7 +988,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
@@ -937,11 +1015,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "OtherRoute",
                             "Name": "OtherRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -950,7 +1041,7 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",

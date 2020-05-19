@@ -25,6 +25,13 @@ namespace GetJobProfiles
         public readonly ContentPickerFactory WorkingEnvironments = new ContentPickerFactory();
         public readonly ContentPickerFactory WorkingLocations = new ContentPickerFactory();
         public readonly ContentPickerFactory WorkingUniforms = new ContentPickerFactory();
+        public readonly ContentPickerContentItemFactory ApprenticeshipRoute = new ContentPickerContentItemFactory();
+        public readonly ContentPickerContentItemFactory CollegeRoute = new ContentPickerContentItemFactory();
+        public readonly ContentPickerContentItemFactory UniversityRoute = new ContentPickerContentItemFactory();
+        public readonly ContentPickerFactory DirectRoute = new ContentPickerFactory();
+        public readonly ContentPickerFactory OtherRoute = new ContentPickerFactory();
+        public readonly ContentPickerFactory VolunteeringRoute = new ContentPickerFactory();
+        public readonly ContentPickerFactory WorkRoute = new ContentPickerFactory();
         //todo: convert to factory?
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
@@ -82,26 +89,6 @@ namespace GetJobProfiles
                     .Where(s => s.Title != null);
             }
 
-                // filter dev env crap
-                // .Where(s => s.Title != null
-                //             && s.Title != "Api Test Profile"
-                //             && s.Title != "Jas test"
-                //             && s.Title != "Ismail Test Profile"
-                //             && s.Title != "Auditor Hari Test"
-                //             && s.Title != "Blacksmith LJ IC Test"
-                //             && s.Title != "Electrical engineering technician -test"
-                //             && s.Title != "GP - Karl"
-                //             && s.Title != "mktest"
-                //             && s.Title != "mktest1"
-                //             && s.Title != "Test 2"
-                //             && s.Title != "Test jP Hari"
-                //             && s.Title != "Vehicle body repairer - Test"
-                //             && s.Title != "Wedding planner Testing "
-                //             && s.Title != "Welly designer Amended"
-                //             && s.Title != "Zookeeper_ilyas1"
-                //             && s.Title != "This is my patched breadcrumb title"
-                //             && s.Title != "Technical brewer - GSR3");
-
             if (skip > 0)
                 summaries = summaries.Skip(skip);
             if (take > 0)
@@ -150,7 +137,7 @@ namespace GetJobProfiles
                     $"JobProfile {jobProfile.Title} does not conform to WydWorkingUniform prefix expectation");
             }
 
-            var uniform = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform)
+            string uniform = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform)
                 ? string.Empty
                 : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Uniform?.Substring(21).Trim('.');
 
@@ -160,7 +147,7 @@ namespace GetJobProfiles
                     $"JobProfile {jobProfile.Title} does not conform to WydWorkingLocation prefix expectation");
             }
 
-            var location = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location)
+            string location = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location)
                 ? string.Empty
                 : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Location?.Substring(15).Trim('.');
 
@@ -170,7 +157,7 @@ namespace GetJobProfiles
                     $"JobProfile {jobProfile.Title} does not conform to WydWorkingEnvironment prefix expectation");
             }
 
-            var environment = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment)
+            string environment = string.IsNullOrWhiteSpace(jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment)
                 ? string.Empty
                 : jobProfile.WhatYouWillDo?.WorkingEnvironment?.Environment?.Substring(32).Trim('.');
 
@@ -184,6 +171,7 @@ namespace GetJobProfiles
                 JobProfileHeader = new JobProfileHeaderPart
                 {
                     Description = new HtmlField(jobProfile.Overview),
+                    TitleOptions = new TextField("as_defined"),
                     JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
                     SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
                     ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },
@@ -195,68 +183,59 @@ namespace GetJobProfiles
                     WorkingPattern = new TextField(jobProfile.WorkingPattern),
                     WorkingPatternDetails = new TextField(jobProfile.WorkingPatternDetails)
                 },
-                HowToBecome = new HowToBecomePart()
+                HowToBecome = new HowToBecomePart
                 {
+                    DirectRoute = DirectRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.DirectApplication),
+                    OtherRoute = OtherRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.OtherRoutes),
+                    VolunteeringRoute = VolunteeringRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Volunteering),
+                    WorkRoute = WorkRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Work),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
-                    //todo:
-                    //HtbTitleOptions = jobProfile.
                     HtbRegistrations = Registrations.CreateContentPicker(jobProfile.HowToBecome.MoreInformation.Registrations)
                 },
-                WhatItTakes = new WhatItTakesPart()
+                WhatItTakes = new WhatItTakesPart
                 {
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
                     WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
                     WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements)
                 },
-                WhatYouWillDo = new WhatYouWillDoPart()
+                WhatYouWillDo = new WhatYouWillDoPart
                 {
                     WydWorkingEnvironment = WorkingEnvironments.CreateContentPicker(environment),
                     WydWorkingLocation = WorkingLocations.CreateContentPicker(location),
                     WydWorkingUniform = WorkingUniforms.CreateContentPicker(uniform)
                 },
-                CareerPath = new CareerPathPart()
+                CareerPath = new CareerPathPart
                 {
                     CareerPathAndProgression = new HtmlField(jobProfile.CareerPathAndProgression.CareerPathAndProgression)
-                },
-                EntryRoutes = new BagPart()
+                }
             };
 
             if (!jobProfile.HowToBecome.EntryRoutes.Apprenticeship.IsEmpty())
             {
-                contentItem.EntryRoutes.ContentItems.Add(ApprenticeshipRoutes.CreateApprenticeshipRoute(jobProfile.HowToBecome.EntryRoutes.Apprenticeship, Timestamp));
+                // route will be named after first job profile it's found in
+                //todo: when it already exists, should we expand the name to include all the jp's its used for as a starter for ten?
+                var apprenticeshipEntryRoute = ApprenticeshipRoutes.Create(contentItem.DisplayText,
+                    jobProfile.HowToBecome.EntryRoutes.Apprenticeship, Timestamp);
+
+                contentItem.HowToBecome.ApprenticeshipRoute = ApprenticeshipRoute.CreateContentPicker(apprenticeshipEntryRoute);
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
             {
-                contentItem.EntryRoutes.ContentItems.Add(CollegeRoutes.CreateCollegeRoute(jobProfile.HowToBecome.EntryRoutes.College, Timestamp));
+                var collegeEntryRoute = CollegeRoutes.Create(contentItem.DisplayText,
+                    jobProfile.HowToBecome.EntryRoutes.College, Timestamp);
+
+                contentItem.HowToBecome.CollegeRoute = CollegeRoute.CreateContentPicker(collegeEntryRoute);
             }
 
             if (!jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
             {
-                contentItem.EntryRoutes.ContentItems.Add(UniversityRoutes.CreateUniversityRoute(jobProfile.HowToBecome.EntryRoutes.University, Timestamp));
-            }
+                var universityEntryRoute = UniversityRoutes.Create(contentItem.DisplayText,
+                    jobProfile.HowToBecome.EntryRoutes.University, Timestamp);
 
-            //todo: helper?
-            if (jobProfile.HowToBecome.EntryRoutes.Work.Any())
-            {
-                contentItem.EntryRoutes.ContentItems.Add(new WorkRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Work));
-            }
-
-            if (jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
-            {
-                contentItem.EntryRoutes.ContentItems.Add(new VolunteeringRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.Volunteering));
-            }
-
-            if (jobProfile.HowToBecome.EntryRoutes.DirectApplication.Any())
-            {
-                contentItem.EntryRoutes.ContentItems.Add(new DirectRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.DirectApplication));
-            }
-
-            if (jobProfile.HowToBecome.EntryRoutes.OtherRoutes.Any())
-            {
-                contentItem.EntryRoutes.ContentItems.Add(new OtherRouteContentItem(Timestamp, jobProfile.HowToBecome.EntryRoutes.OtherRoutes));
+                contentItem.HowToBecome.UniversityRoute = UniversityRoute.CreateContentPicker(universityEntryRoute);
             }
 
             if (DayToDayTaskExclusions.Contains(jobProfile.Url))

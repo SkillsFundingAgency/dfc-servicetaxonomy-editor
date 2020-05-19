@@ -22,7 +22,6 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
         public WhatYouWillDoPart WhatYouWillDo { get; set; }
         public CareerPathPart CareerPath { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
-        public BagPart EntryRoutes { get; set; }
     }
 
     public class JobProfilePart
