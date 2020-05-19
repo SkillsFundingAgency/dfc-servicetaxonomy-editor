@@ -3156,11 +3156,144 @@
                         },
                         {
                             "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Route",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasHtbApprenticeshipRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "CollegeRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "College Route",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasHtbCollegeRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "CollegeRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "DirectRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Direct Route",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasHtbDirectRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "DirectRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "OtherRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Other Route",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasHtbOtherRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "DirectRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "UniversityRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "University Route",
+                                    "Position": "5"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasHtbUniversityRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "UniversityRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "VolunteeringRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Volunteering Route",
+                                    "Position": "6"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasHtbVolunteeringRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "VolunteeringRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WorkRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Work Route",
+                                    "Position": "7"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:ncs__hasHtbWorkRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "WorkRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
                             "Name": "HtbRegistrations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Registrations",
-                                    "Position": "2"
+                                    "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
@@ -3179,7 +3312,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Career Tips",
                                     "Editor": "Trumbowyg",
-                                    "Position": "3"
+                                    "Position": "9"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -3195,7 +3328,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Professional And Industry Bodies",
                                     "Editor": "Trumbowyg",
-                                    "Position": "4"
+                                    "Position": "10"
                                 },
                                 "HtmlFieldSettings": {},
                                 "ContentIndexSettings": {},
@@ -3211,7 +3344,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "5"
+                                    "Position": "11"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
