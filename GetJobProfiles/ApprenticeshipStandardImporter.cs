@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using NPOI.XSSF.UserModel;
 using System.Linq;
@@ -11,7 +10,6 @@ using GetJobProfiles.Models.Recipe.Fields;
 using OrchardCore.Entities;
 using System.Text.RegularExpressions;
 using NPOI.SS.UserModel;
-using Newtonsoft.Json;
 
 namespace GetJobProfiles
 {
@@ -19,16 +17,16 @@ namespace GetJobProfiles
     {
         private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
         private Dictionary<string, string> _standardsDictionary = new Dictionary<string, string>();
-        private Dictionary<string, string> _replacementsDictionary = new Dictionary<string, string>();
-        private string[] _apprenticeshipStandardsRefList;
-        bool _processAll = true;
+        private readonly Dictionary<string, string> _replacementsDictionary = new Dictionary<string, string>();
+        private readonly string[] _apprenticeshipStandardsRefList;
+        readonly bool _processAll;
         public IEnumerable<ApprenticeshipStandardContentItem> ApprenticeshipStandardContentItems { get; private set; }
         public IEnumerable<ApprenticeshipStandardRouteContentItem> ApprenticeshipStandardRouteContentItems { get; private set; }
 
-        public ApprenticeshipStandardImporter( string[] _apprenticeshipStandards )
+        public ApprenticeshipStandardImporter( string[] apprenticeshipStandards )
         {
-            _apprenticeshipStandardsRefList = _apprenticeshipStandards;
-            _processAll = (_apprenticeshipStandardsRefList.Count() == 0);
+            _apprenticeshipStandardsRefList = apprenticeshipStandards;
+            _processAll = !_apprenticeshipStandardsRefList.Any();
         }
 
         /// <summary>
@@ -37,10 +35,10 @@ namespace GetJobProfiles
         /// <param name="timestamp"></param>
         /// <param name="qcfLevelDictionary"></param>
         /// <param name="jobProfiles"></param>
-        public void Import(string timestamp, Dictionary<string, string> qcfLevelDictionary, IEnumerable<JobProfileContentItem> jobProfiles)
+        public void Import(XSSFWorkbook jobProfileWorkbook, string timestamp, Dictionary<string, string> qcfLevelDictionary, IEnumerable<JobProfileContentItem> jobProfiles)
         {
             BuildReplacementsDictionary();
-            var apprenticeshipStandards = ReadStandardsFromFile();
+            var apprenticeshipStandards = ReadStandardsFromFile(jobProfileWorkbook);
 
             var routeDictionary = apprenticeshipStandards.Where(x => x.Route != null).SelectMany(x => x.Route).Distinct().Select(x => new { Id = _generator.GenerateUniqueId(), Title = x }).ToDictionary(y => y.Title, y => y.Id);
             _standardsDictionary = apprenticeshipStandards.Select(standard => new { Id = _generator.GenerateUniqueId(), Title = standard.Name }).ToDictionary(y => y.Title, y => y.Id);
@@ -67,14 +65,14 @@ namespace GetJobProfiles
                 }
             });
 
-            AssignStandardsToJobProfiles(jobProfiles);
+            AssignStandardsToJobProfiles(jobProfileWorkbook, jobProfiles);
         }
 
         /// <summary>
         /// Read Apprenticeship Standards and populate ApprenticeshipStandard objects
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ApprenticeshipStandard> ReadStandardsFromFile()
+        public IEnumerable<ApprenticeshipStandard> ReadStandardsFromFile(XSSFWorkbook jobProfileWorkbook)
         {
             var apprenticeshipStandardList = new List<ApprenticeshipStandard>();
 
@@ -111,7 +109,7 @@ namespace GetJobProfiles
                         var route = row.GetCell(routeIndex).StringCellValue;
 
                         if (_processAll || _apprenticeshipStandardsRefList.Contains(reference))
-                        { 
+                        {
                             var apprenticeshipStandard = new ApprenticeshipStandard
                             {
                                 Name = name,
@@ -130,7 +128,7 @@ namespace GetJobProfiles
                 }
             }
 
-            BuildFrameworks(apprenticeshipStandardList);
+            BuildFrameworks(jobProfileWorkbook, apprenticeshipStandardList);
 
             return apprenticeshipStandardList;
         }
@@ -139,42 +137,34 @@ namespace GetJobProfiles
         /// Add frameworks into the Standards collection
         /// </summary>
         /// <param name="apprenticeshipStandardList"></param>
-        private static void BuildFrameworks(List<ApprenticeshipStandard> apprenticeshipStandardList)
+        private static void BuildFrameworks(XSSFWorkbook workbook, List<ApprenticeshipStandard> apprenticeshipStandardList)
         {
             //Load frameworks where standards are empty
-            using (var reader = new StreamReader(@"SeedData\job_profiles.xlsx"))
+            var sheet = workbook.GetSheet("JobProfileSoc");
+
+            var apprenticeshipStandardsIndex = sheet.GetRow(0).Cells
+                .Single(x => x.StringCellValue == "apprenticeshipstandards").ColumnIndex;
+            var apprenticeshipFrameworksIndex = sheet.GetRow(0).Cells
+                .Single(x => x.StringCellValue == "apprenticeshipframeworks").ColumnIndex;
+
+            for (int i = 1; i <= sheet.LastRowNum; i++)
             {
-                var workbook = new XSSFWorkbook(reader.BaseStream);
-                var sheet = workbook.GetSheet("JobProfileSoc");
+                var row = sheet.GetRow(i);
+                var standards = row.GetCell(apprenticeshipStandardsIndex).StringCellValue;
+                var frameworks = row.GetCell(apprenticeshipFrameworksIndex).StringCellValue;
 
-                var apprenticeshipStandardsIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "apprenticeshipstandards").ColumnIndex;
-                var apprenticeshipFrameworksIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "apprenticeshipframeworks").ColumnIndex;
-
-                var jobProfileStandards = new Dictionary<string, string[]>();
-
-                for (int i = 1; i <= sheet.LastRowNum; i++)
+                if (string.IsNullOrWhiteSpace(standards) && !string.IsNullOrWhiteSpace(frameworks))
                 {
-                    var row = sheet.GetRow(i);
-                    var standards = row.GetCell(apprenticeshipStandardsIndex).StringCellValue;
-                    var frameworks = row.GetCell(apprenticeshipFrameworksIndex).StringCellValue;
+                    var splitFrameworks = frameworks.Split(",");
 
-                    if (string.IsNullOrWhiteSpace(standards) && !string.IsNullOrWhiteSpace(frameworks))
+                    foreach (string framework in splitFrameworks)
                     {
-                        var splitFrameworks = frameworks.Split(",");
+                        var apprenticeshipStandard = new ApprenticeshipStandard {Name = framework, Type = "Framework"};
 
-                        foreach (var framework in splitFrameworks)
+                        //Only add frameworks that don't already exist in the list
+                        if (!apprenticeshipStandardList.Any(x => x.Type == "Framework" && x.Name == framework))
                         {
-                            var apprenticeshipStandard = new ApprenticeshipStandard
-                            {
-                                Name = framework,
-                                Type = "Framework"
-                            };
-
-                            //Only add frameworks that don't already exist in the list
-                            if (!apprenticeshipStandardList.Any(x => x.Type == "Framework" && x.Name == framework))
-                            {
-                                apprenticeshipStandardList.Add(apprenticeshipStandard);
-                            }
+                            apprenticeshipStandardList.Add(apprenticeshipStandard);
                         }
                     }
                 }
@@ -185,66 +175,69 @@ namespace GetJobProfiles
         /// Iterates Standards in Job Profiles and associates to an Apprenticeship Standard
         /// </summary>
         /// <param name="jobProfiles"></param>
-        private void AssignStandardsToJobProfiles(IEnumerable<JobProfileContentItem> jobProfiles)
+        private void AssignStandardsToJobProfiles(XSSFWorkbook workbook, IEnumerable<JobProfileContentItem> jobProfiles)
         {
-            using (var reader = new StreamReader(@"SeedData\job_profiles.xlsx"))
+            var sheet = workbook.GetSheet("JobProfileSoc");
+            var apprenticeshipStandardsIndex = sheet.GetRow(0).Cells
+                .Single(x => x.StringCellValue == "apprenticeshipstandards").ColumnIndex;
+            var apprenticeshipFrameworkIndex = sheet.GetRow(0).Cells
+                .Single(x => x.StringCellValue == "apprenticeshipframeworks").ColumnIndex;
+            var descriptionIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "Description").ColumnIndex;
+
+            var jobProfileStandards = new Dictionary<string, string[]>();
+
+            for (int i = 1; i <= sheet.LastRowNum; i++)
             {
-                var workbook = new XSSFWorkbook(reader.BaseStream);
-                var sheet = workbook.GetSheet("JobProfileSoc");
-                var apprenticeshipStandardsIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "apprenticeshipstandards").ColumnIndex;
-                var apprenticeshipFrameworkIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "apprenticeshipframeworks").ColumnIndex;
-                var descriptionIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "Description").ColumnIndex;
+                var row = sheet.GetRow(i);
+                var jobProfileDescription = row.GetCell(descriptionIndex).StringCellValue;
+                var standards = row.GetCell(apprenticeshipStandardsIndex).StringCellValue;
+                var frameworks = row.GetCell(apprenticeshipFrameworkIndex).StringCellValue;
 
-                var jobProfileStandards = new Dictionary<string, string[]>();
+                var cleansedStandards = CleanseStandardName(standards);
+                var splitStandards = cleansedStandards.Split(',').ToList();
 
-                for (int i = 1; i <= sheet.LastRowNum; i++)
+                //Standards take precedent over frameworks, only add frameworks if there are no standards
+                if (!splitStandards.Any() && !string.IsNullOrEmpty(frameworks))
                 {
-                    var row = sheet.GetRow(i);
-                    var jobProfileDescription = row.GetCell(descriptionIndex).StringCellValue;
-                    var standards = row.GetCell(apprenticeshipStandardsIndex).StringCellValue;
-                    var frameworks = row.GetCell(apprenticeshipFrameworkIndex).StringCellValue;
-
-                    var cleansedStandards = CleanseStandardName(standards);
-                    var splitStandards = cleansedStandards.Split(',').ToList();
-
-                    //Standards take precedent over frameworks, only add frameworks if there are no standards
-                    if (!splitStandards.Any() && !string.IsNullOrEmpty(frameworks))
-                    {
-                        splitStandards.AddRange(frameworks.Split(','));
-                    }
-
-                    jobProfileStandards.Add(jobProfileDescription, splitStandards.ToArray());
+                    splitStandards.AddRange(frameworks.Split(','));
                 }
 
-                foreach (var jobProfile in jobProfiles)
+                jobProfileStandards.Add(jobProfileDescription, splitStandards.ToArray());
+            }
+
+            foreach (var jobProfile in jobProfiles)
+            {
+                jobProfile.CareerPath.ApprenticeshipStandards = new ContentPicker();
+
+                var jobProfileStandardContentIds = new List<string>();
+
+                var applicableJobProfileStandards = jobProfileStandards.ContainsKey(jobProfile.TitlePart.Title)
+                    ? jobProfileStandards[jobProfile.TitlePart.Title]
+                    : null;
+
+                if (applicableJobProfileStandards != null && applicableJobProfileStandards.Any())
                 {
-                    jobProfile.CareerPath.ApprenticeshipStandards = new ContentPicker();
-
-                    var jobProfileStandardContentIds = new List<string>();
-
-                    var applicableJobProfileStandards = jobProfileStandards.ContainsKey(jobProfile.TitlePart.Title) ? jobProfileStandards[jobProfile.TitlePart.Title] : null;
-
-                    if (applicableJobProfileStandards != null && applicableJobProfileStandards.Any())
+                    foreach (var standard in applicableJobProfileStandards)
                     {
-                        foreach (var standard in applicableJobProfileStandards)
+                        if (!string.IsNullOrWhiteSpace(standard))
                         {
-                            if (!string.IsNullOrWhiteSpace(standard))
-                            {
-                                var standardContentId = _standardsDictionary.FirstOrDefault(x => x.Key.Equals(ReplaceStandardName(standard), StringComparison.InvariantCultureIgnoreCase)).Value;
+                            var standardContentId = _standardsDictionary.FirstOrDefault(x =>
+                                x.Key.Equals(ReplaceStandardName(standard),
+                                    StringComparison.InvariantCultureIgnoreCase)).Value;
 
-                                //Will only be null for non-approved standards (Currently only Nursing Associate)
-                                if (standardContentId != null)
-                                {
-                                    jobProfileStandardContentIds.Add(standardContentId);
-                                }
+                            //Will only be null for non-approved standards (Currently only Nursing Associate)
+                            if (standardContentId != null)
+                            {
+                                jobProfileStandardContentIds.Add(standardContentId);
                             }
                         }
+                    }
 
-                        if (jobProfileStandardContentIds.Any())
-                        {
-                            //TODO : check for duplicates to report?
-                            jobProfile.CareerPath.ApprenticeshipStandards.ContentItemIds = jobProfileStandardContentIds.Distinct();
-                        }
+                    if (jobProfileStandardContentIds.Any())
+                    {
+                        //TODO : check for duplicates to report?
+                        jobProfile.CareerPath.ApprenticeshipStandards.ContentItemIds =
+                            jobProfileStandardContentIds.Distinct();
                     }
                 }
             }

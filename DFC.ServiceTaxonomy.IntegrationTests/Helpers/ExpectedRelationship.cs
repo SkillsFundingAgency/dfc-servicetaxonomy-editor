@@ -12,6 +12,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         public long EndNodeId { get; set; }
 
         public object this[string key] => throw new System.NotImplementedException();
-        public bool Equals(IRelationship other) => throw new System.NotImplementedException();
+        public bool Equals(IRelationship? other) => throw new System.NotImplementedException();
     }
 }

@@ -11,6 +11,6 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
         public IReadOnlyDictionary<string, object>? Properties { get; set; }
 
         public object this[string key] => throw new NotImplementedException();
-        public bool Equals(INode other) => throw new NotImplementedException();
+        public bool Equals(INode? other) => throw new NotImplementedException();
     }
 }

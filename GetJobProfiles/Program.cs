@@ -84,8 +84,11 @@ namespace GetJobProfiles
             var socCodeConverter = new SocCodeConverter(socCodeList);
             var socCodeDictionary = socCodeConverter.Go(timestamp);
 
+            using var reader = new StreamReader(@"SeedData\job_profiles_updated.xlsx");
+            var jobProfileWorkbook = new XSSFWorkbook(reader.BaseStream);
+
             var oNetConverter = new ONetConverter(oNetCodeList);
-            var oNetDictionary = oNetConverter.Go(timestamp);
+            var oNetDictionary = oNetConverter.Go(jobProfileWorkbook, timestamp);
 
             //use these knobs to work around rate - limiting
             const int skip = 0;
@@ -96,8 +99,6 @@ namespace GetJobProfiles
             const int jobProfileBatchSize = 200;
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
-
-
 
             var httpClient = new HttpClient
             {
@@ -118,13 +119,13 @@ namespace GetJobProfiles
             List<string> mappedOccupationUris = new EscoJobProfileMapper().Map(jobProfiles);
 
             var jobCategoryImporter = new JobCategoryImporter();
-            jobCategoryImporter.Import(timestamp, jobProfiles);
+            jobCategoryImporter.Import(jobProfileWorkbook, timestamp, jobProfiles);
 
             var qcfLevelBuilder = new QCFLevelBuilder();
             qcfLevelBuilder.Build(timestamp);
 
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
-            apprenticeshipStandardImporter.Import(timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
+            apprenticeshipStandardImporter.Import(jobProfileWorkbook, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
@@ -159,7 +160,7 @@ namespace GetJobProfiles
 
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
 
-            ProcessLionelsSpreadsheet();
+            ProcessLionelsSpreadsheet(jobProfileWorkbook);
 
             converter.UpdateRouteItemsWithSharedNames();
 
@@ -202,7 +203,7 @@ namespace GetJobProfiles
 
             await WriteMasterRecipesFile(masterRecipeName);
             await File.WriteAllTextAsync($"{OutputBasePath}content items count_{_executionId}.txt", @$"{_importFilesReport}# Totals
-{_importTotalsReport}");
+    {_importTotalsReport}");
             await File.WriteAllTextAsync($"{OutputBasePath}manual_activity_mapping_{_executionId}.json", JsonSerializer.Serialize(converter.DayToDayTaskExclusions));
             await File.WriteAllTextAsync($"{OutputBasePath}content_titles_summary_{_executionId}.json", JsonSerializer.Serialize(new { Matches = _matchingTitles.Count, Failures = _missingTitles.Count }));
             await File.WriteAllTextAsync($"{OutputBasePath}matching_content_titles_{_executionId}.json", JsonSerializer.Serialize(_matchingTitles));
@@ -403,43 +404,40 @@ namespace GetJobProfiles
             return matchingTitle?.Item1 ?? title;
         }
 
-        private static void ProcessLionelsSpreadsheet()
+        private static void ProcessLionelsSpreadsheet(XSSFWorkbook workbook)
         {
-            _contentItemTitles.Add("Uniform", ProcessContentType("Uniform", "Title", "Description"));
-            _contentItemTitles.Add("Location", ProcessContentType("Location", "Title", "Description"));
-            _contentItemTitles.Add("Environment", ProcessContentType("Environment", "Title", "Description"));
-            _contentItemTitles.Add("ApprenticeshipLink", ProcessContentType("ApprenticeshipLink", "Title", "Text"));
-            _contentItemTitles.Add("ApprenticeshipRequirement", ProcessContentType("ApprenticeshipRequirement", "Title", "Info"));
-            _contentItemTitles.Add("CollegeLink", ProcessContentType("CollegeLink", "Title", "Text"));
-            _contentItemTitles.Add("CollegeRequirement", ProcessContentType("CollegeRequirement", "Title", "Info"));
-            _contentItemTitles.Add("UniversityLink", ProcessContentType("UniversityLink", "Title", "Text"));
-            _contentItemTitles.Add("UniversityRequirement", ProcessContentType("UniversityRequirement", "Title", "Info"));
-            _contentItemTitles.Add("Restriction", ProcessContentType("Restriction", "Title", "Info"));
-            _contentItemTitles.Add("Registration", ProcessContentType("Registration", "Title", "Info"));
+            _contentItemTitles.Add("Uniform", ProcessContentType(workbook, "Uniform", "Title", "Description"));
+            _contentItemTitles.Add("Location", ProcessContentType(workbook, "Location", "Title", "Description"));
+            _contentItemTitles.Add("Environment", ProcessContentType(workbook, "Environment", "Title", "Description"));
+            _contentItemTitles.Add("ApprenticeshipLink", ProcessContentType(workbook, "ApprenticeshipLink", "Title", "Text"));
+            _contentItemTitles.Add("ApprenticeshipRequirement", ProcessContentType(workbook, "ApprenticeshipRequirement", "Title", "Info"));
+            _contentItemTitles.Add("CollegeLink", ProcessContentType(workbook, "CollegeLink", "Title", "Text"));
+            _contentItemTitles.Add("CollegeRequirement", ProcessContentType(workbook, "CollegeRequirement", "Title", "Info"));
+            _contentItemTitles.Add("UniversityLink", ProcessContentType(workbook, "UniversityLink", "Title", "Text"));
+            _contentItemTitles.Add("UniversityRequirement", ProcessContentType(workbook, "UniversityRequirement", "Title", "Info"));
+            _contentItemTitles.Add("Restriction", ProcessContentType(workbook, "Restriction", "Title", "Info"));
+            _contentItemTitles.Add("Registration", ProcessContentType(workbook, "Registration", "Title", "Info"));
         }
 
-        private static List<Tuple<string, string>> ProcessContentType(string excelSheet, string columnOneName, string columnTwoName)
+        private static List<Tuple<string, string>> ProcessContentType(XSSFWorkbook workbook, string excelSheet,
+            string columnOneName, string columnTwoName)
         {
-            using (var reader = new StreamReader(@"SeedData\job_profiles_updated.xlsx"))
+            var sheet = workbook.GetSheet(excelSheet);
+            int columnOneIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == columnOneName).ColumnIndex;
+            int columnTwoIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == columnTwoName).ColumnIndex;
+
+            var results = new List<Tuple<string, string>>();
+
+            for (int i = 1; i <= sheet.LastRowNum; i++)
             {
-                var workbook = new XSSFWorkbook(reader.BaseStream);
-                var sheet = workbook.GetSheet(excelSheet);
-                var columnOneIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == columnOneName).ColumnIndex;
-                var columnTwoIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == columnTwoName).ColumnIndex;
+                var row = sheet.GetRow(i);
+                var item1 = row.GetCell(columnOneIndex).StringCellValue;
+                var item2 = row.GetCell(columnTwoIndex).StringCellValue;
 
-                var results = new List<Tuple<string, string>>();
-
-                for (int i = 1; i <= sheet.LastRowNum; i++)
-                {
-                    var row = sheet.GetRow(i);
-                    var item1 = row.GetCell(columnOneIndex).StringCellValue;
-                    var item2 = row.GetCell(columnTwoIndex).StringCellValue;
-
-                    results.Add(new Tuple<string, string>(item1, item2));
-                }
-
-                return results;
+                results.Add(new Tuple<string, string>(item1, item2));
             }
+
+            return results;
         }
     }
 }
