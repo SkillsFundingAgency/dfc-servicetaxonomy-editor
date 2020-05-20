@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.ContentItems.Base;
+using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base;
 using GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Factories;
 using GetJobProfiles.Models.Recipe.Fields;
@@ -26,13 +28,14 @@ namespace GetJobProfiles
         public readonly ContentPickerFactory WorkingLocations = new ContentPickerFactory();
         public readonly ContentPickerFactory WorkingUniforms = new ContentPickerFactory();
         public readonly ImportedAcademicRouteEqualityComparer ImportedAcademicRouteEqualityComparer;
+        public readonly ImportedTitleHtmlDescriptionEqualityComparer ImportedTitleHtmlDescriptionEqualityComparer;
         public readonly ContentPickerContentItemFactory<AcademicEntryRouteContentItem> ApprenticeshipRoute;
         public readonly ContentPickerContentItemFactory<AcademicEntryRouteContentItem> CollegeRoute;
         public readonly ContentPickerContentItemFactory<AcademicEntryRouteContentItem> UniversityRoute;
-        // public readonly ContentPickerContentItemFactory DirectRoute = new ContentPickerContentItemFactory();
-        // public readonly ContentPickerContentItemFactory OtherRoute = new ContentPickerContentItemFactory();
-        // public readonly ContentPickerContentItemFactory VolunteeringRoute = new ContentPickerContentItemFactory();
-        // public readonly ContentPickerContentItemFactory WorkRoute = new ContentPickerContentItemFactory();
+        public readonly ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem> DirectRoute;
+        public readonly ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem> OtherRoute;
+        public readonly ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem> VolunteeringRoute;
+        public readonly ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem> WorkRoute;
         //todo: convert to factory?
         public readonly ConcurrentDictionary<string, (string id, string text)> DayToDayTasks = new ConcurrentDictionary<string, (string id, string text)>();
 
@@ -71,9 +74,14 @@ namespace GetJobProfiles
             Timestamp = timestamp;
 
             ImportedAcademicRouteEqualityComparer = new ImportedAcademicRouteEqualityComparer();
+            ImportedTitleHtmlDescriptionEqualityComparer = new ImportedTitleHtmlDescriptionEqualityComparer();
             ApprenticeshipRoute = new ContentPickerContentItemFactory<AcademicEntryRouteContentItem>(ImportedAcademicRouteEqualityComparer);
             CollegeRoute = new ContentPickerContentItemFactory<AcademicEntryRouteContentItem>(ImportedAcademicRouteEqualityComparer);
             UniversityRoute = new ContentPickerContentItemFactory<AcademicEntryRouteContentItem>(ImportedAcademicRouteEqualityComparer);
+            DirectRoute = new ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem>(ImportedTitleHtmlDescriptionEqualityComparer);
+            OtherRoute = new ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem>(ImportedTitleHtmlDescriptionEqualityComparer);
+            VolunteeringRoute = new ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem>(ImportedTitleHtmlDescriptionEqualityComparer);
+            WorkRoute = new ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem>(ImportedTitleHtmlDescriptionEqualityComparer);
         }
 
         public async Task Go(int skip = 0, int take = 0, int napTimeMs = 5000, string jobProfilesToImportCsv = null)
@@ -254,17 +262,53 @@ namespace GetJobProfiles
                 contentItem.HowToBecome.UniversityRoute = UniversityRoute.CreateContentPicker(universityEntryRoute);
             }
 
-            // if (!jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
-            // {
-            //     contentItem.HowToBecome.VolunteeringRoute = new ContentPicker();
-            // }
-            // else
-            // {
-            //     var route = new VolunteeringRouteContentItem(contentItem.DisplayText, Timestamp,
-            //         jobProfile.HowToBecome.EntryRoutes.Volunteering);
-            //
-            //     contentItem.HowToBecome.VolunteeringRoute = VolunteeringRoute.CreateContentPicker(route);
-            // }
+            if (!jobProfile.HowToBecome.EntryRoutes.DirectApplication.Any())
+            {
+                contentItem.HowToBecome.DirectRoute = new ContentPicker();
+            }
+            else
+            {
+                var route = new DirectRouteContentItem(contentItem.DisplayText, Timestamp,
+                    jobProfile.HowToBecome.EntryRoutes.DirectApplication);
+
+                contentItem.HowToBecome.DirectRoute = DirectRoute.CreateContentPicker(route);
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.OtherRoutes.Any())
+            {
+                contentItem.HowToBecome.OtherRoute = new ContentPicker();
+            }
+            else
+            {
+                var route = new OtherRouteContentItem(contentItem.DisplayText, Timestamp,
+                    jobProfile.HowToBecome.EntryRoutes.OtherRoutes);
+
+                contentItem.HowToBecome.OtherRoute = OtherRoute.CreateContentPicker(route);
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
+            {
+                contentItem.HowToBecome.VolunteeringRoute = new ContentPicker();
+            }
+            else
+            {
+                var route = new VolunteeringRouteContentItem(contentItem.DisplayText, Timestamp,
+                    jobProfile.HowToBecome.EntryRoutes.Volunteering);
+
+                contentItem.HowToBecome.VolunteeringRoute = VolunteeringRoute.CreateContentPicker(route);
+            }
+
+            if (!jobProfile.HowToBecome.EntryRoutes.Work.Any())
+            {
+                contentItem.HowToBecome.WorkRoute = new ContentPicker();
+            }
+            else
+            {
+                var route = new WorkRouteContentItem(contentItem.DisplayText, Timestamp,
+                    jobProfile.HowToBecome.EntryRoutes.Work);
+
+                contentItem.HowToBecome.WorkRoute = WorkRoute.CreateContentPicker(route);
+            }
 
             if (DayToDayTaskExclusions.Contains(jobProfile.Url))
             {
@@ -320,13 +364,25 @@ namespace GetJobProfiles
 
         public void UpdateRouteItemsWithSharedNames()
         {
-            UpdateAcademicRouteItemsWithSharedNames(ApprenticeshipRoute);
-            UpdateAcademicRouteItemsWithSharedNames(CollegeRoute);
-            UpdateAcademicRouteItemsWithSharedNames(UniversityRoute);
+            UpdateRouteItemsWithSharedNames(ApprenticeshipRoute);
+            UpdateRouteItemsWithSharedNames(CollegeRoute);
+            UpdateRouteItemsWithSharedNames(UniversityRoute);
+            UpdateRouteItemsWithSharedNames(DirectRoute);
+            UpdateRouteItemsWithSharedNames(OtherRoute);
+            UpdateRouteItemsWithSharedNames(WorkRoute);
+            UpdateRouteItemsWithSharedNames(VolunteeringRoute);
         }
 
-        // it's all a bit messy, c++'s specialization would be helpful
-        private void UpdateAcademicRouteItemsWithSharedNames(ContentPickerContentItemFactory<AcademicEntryRouteContentItem> factory)
+        // it's all a bit messy, c++'s specialization would be helpful, or we could introduce a new common base class/interface, perhaps IContentItemWithTitle
+        private void UpdateRouteItemsWithSharedNames(ContentPickerContentItemFactory<AcademicEntryRouteContentItem> factory)
+        {
+            foreach (var itemToUser in factory.ItemToUsers)
+            {
+                itemToUser.Key.TitlePart.Title = itemToUser.Key.DisplayText = itemToUser.Value;
+            }
+        }
+
+        private void UpdateRouteItemsWithSharedNames(ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem> factory)
         {
             foreach (var itemToUser in factory.ItemToUsers)
             {
