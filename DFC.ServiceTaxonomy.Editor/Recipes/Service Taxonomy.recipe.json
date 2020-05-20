@@ -129,7 +129,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -249,7 +249,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -343,7 +343,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -392,7 +392,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -441,7 +441,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -490,7 +490,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -539,7 +539,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -579,7 +579,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -681,7 +681,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -735,7 +735,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -789,7 +789,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -837,7 +837,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -890,7 +890,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -943,7 +943,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -996,7 +996,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1049,7 +1049,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1097,7 +1097,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1145,7 +1145,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1193,7 +1193,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1241,7 +1241,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1289,7 +1289,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1337,7 +1337,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1385,7 +1385,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1433,7 +1433,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1481,7 +1481,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1529,7 +1529,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1577,7 +1577,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1625,7 +1625,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1665,7 +1665,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         },
@@ -1723,7 +1723,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1772,7 +1772,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1821,7 +1821,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1870,7 +1870,7 @@
                                     "NodeNameTransform": "$\"ncs__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
