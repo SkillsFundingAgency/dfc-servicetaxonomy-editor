@@ -1,0 +1,168 @@
+{
+  "name": "UniversityLinks0_6e06adac-942f-4b3d-a7cd-f799cde31158",
+  "displayName": "UniversityLinks0_6e06adac-942f-4b3d-a7cd-f799cde31158",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/universitylink/f2d4da1b-25a2-45f4-b93d-5623be301c4f\u0027]"
+    },
+    "ContentItemId": "4kb850xk3rs76vkh2g9nmxcfdq",
+    "ContentItemVersionId": "47ga0b7njj4mp73jez5ewxe5cx",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-20T08:07:39.0342038Z",
+    "PublishedUtc": "2020-05-20T08:07:39.0342038Z",
+    "CreatedUtc": "2020-05-20T08:07:39.0342038Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/",
+        "Text": "university courses and entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show UCAS info"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/universitylink/69618392-6305-4348-b238-a58a31542124\u0027]"
+    },
+    "ContentItemId": "443eddv1ekkwf7meypwvaf6hm1",
+    "ContentItemVersionId": "4mmdygyc6bhfksrwj32bqyd5wc",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show UCAS info",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-20T08:07:39.0342038Z",
+    "PublishedUtc": "2020-05-20T08:07:39.0342038Z",
+    "CreatedUtc": "2020-05-20T08:07:39.0342038Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "student finance for fees and living costs"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Student finance"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/universitylink/0e9b2f2c-ae58-40a2-b3bc-5d93c8532c23\u0027]"
+    },
+    "ContentItemId": "426v2pj6rqc7aypnx280kpc65x",
+    "ContentItemVersionId": "4bac7gyary3qw787fm163qe3xx",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Show Student finance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-20T08:07:39.0342038Z",
+    "PublishedUtc": "2020-05-20T08:07:39.0342038Z",
+    "CreatedUtc": "2020-05-20T08:07:39.0342038Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://getintoteaching.education.gov.uk/funding-my-teacher-training",
+        "Text": "funding for teacher training"
+      }
+    },
+    "TitlePart": {
+      "Title": "Teacher training funding"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/universitylink/947c567e-68ff-4acd-9094-596606023869\u0027]"
+    },
+    "ContentItemId": "43e1xqww9cc51wps3y3ajn8kmt",
+    "ContentItemVersionId": "482nfpxkgf4vktxvxbr84f1e5a",
+    "ContentType": "UniversityLink",
+    "DisplayText": "Teacher training funding",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-20T08:07:39.0342038Z",
+    "PublishedUtc": "2020-05-20T08:07:39.0342038Z",
+    "CreatedUtc": "2020-05-20T08:07:39.0342038Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.ucas.com/conservatoires",
+        "Text": "search for conservatoire courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "UCAS Conservatoires"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/universitylink/4719585f-f173-40ca-b1c0-bc337a3156fb\u0027]"
+    },
+    "ContentItemId": "4a72r9bdfgvhdyae31d05mfa4y",
+    "ContentItemVersionId": "48xjy3tbsbhycrbh0z072kwdnx",
+    "ContentType": "UniversityLink",
+    "DisplayText": "UCAS Conservatoires",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-20T08:07:39.0342038Z",
+    "PublishedUtc": "2020-05-20T08:07:39.0342038Z",
+    "CreatedUtc": "2020-05-20T08:07:39.0342038Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "UniversityLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/guidance/find-postgraduate-teacher-training-courses-in-england",
+        "Text": "postgraduate teacher training courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "PGCE courses"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/universitylink/bb176710-7609-4dfc-b1ed-621d0f24708c\u0027]"
+    },
+    "ContentItemId": "4m57ber0tdsjq56swxn8e04xnj",
+    "ContentItemVersionId": "49ef0jzyeag71xgr37wwthsyde",
+    "ContentType": "UniversityLink",
+    "DisplayText": "PGCE courses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-20T08:07:39.0342038Z",
+    "PublishedUtc": "2020-05-20T08:07:39.0342038Z",
+    "CreatedUtc": "2020-05-20T08:07:39.0342038Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

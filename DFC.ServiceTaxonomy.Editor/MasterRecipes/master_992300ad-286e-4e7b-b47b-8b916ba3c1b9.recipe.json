@@ -1,0 +1,52 @@
+{
+  "name": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9",
+  "displayName": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelNodes_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationPrefLabelNodes_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateSkillLabelNodes_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateFullTextSearchIndexes_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelContentItems0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelContentItems5000_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelContentItems10000_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelContentItems15000_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelContentItems20000_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelContentItems25000_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationLabelContentItems30000_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CreateOccupationContentItems0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"SharedContent_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"QCFLevels0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"ApprenticeshipStandardRoutes0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"ApprenticeshipStandards0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"RequirementsPrefixes0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"ApprenticeshipLinks0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"ApprenticeshipRequirements0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CollegeLinks0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"CollegeRequirements0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"UniversityLinks0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"UniversityRequirements0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"DayToDayTasks0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"OtherRequirements0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"Registrations0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"Restrictions0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"SocCodes0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"ONetOccupationalCodes0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"WorkingEnvironments0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"WorkingLocations0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"WorkingUniforms0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"JobProfiles0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" },
+{ "executionid": "Import_992300ad-286e-4e7b-b47b-8b916ba3c1b9", name:"JobCategories0_992300ad-286e-4e7b-b47b-8b916ba3c1b9" }
+      ]
+    }
+  ]
+}
