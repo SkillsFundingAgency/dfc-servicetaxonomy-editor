@@ -74,9 +74,7 @@ namespace GetJobProfiles
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .Build();
 
-            string jobProfilesToImport = config["JobProfilesToImport"];
-            jobProfilesToImport = "border force officer, cabin crew, care worker, construction labourer, electrician, emergency medical dispatcher, farmer, mp, personal assistant, plumber, police, officer, postman or postwoman, primary school teacher, sales assistant, social worker, train driver, waiter";
-            bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
+            string jobProfilesToImport = config["JobProfilesToImport"]; bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
             string[] socCodeList = !createTestFiles ? new string[] { } : config["TestSocCodes"].Split(',');
             string[] oNetCodeList = !createTestFiles ? new string[] { } : config["TestONetCodes"].Split(',');
             string[] apprenticeshipStandardsRefList = !createTestFiles ? new string[] { } : config["TestApprenticeshipStandardReferences"].Split(',');
