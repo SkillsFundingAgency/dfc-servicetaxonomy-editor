@@ -73,6 +73,9 @@
         },
         "EventGridEnabled": {
             "type": "bool"
+        },
+        "apimProxyAddress": {
+            "type": "string"
         }
     },
     "variables": {
@@ -207,6 +210,10 @@
                             {
                                 "name": "EventGrid__PublishEvents",
                                 "value": "[parameters('EventGridEnabled')]"
+                            },
+                            {
+                                "name": "OrchardCore_Default_ContentApiPrefix",
+                                "value": "[concat(parameters('apimProxyAddress'), '/content/GetContent/Execute')]"
                             }
                         ]
                     }
