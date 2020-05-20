@@ -57,10 +57,6 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
 
             foreach (T contentItem in contentItems ?? Enumerable.Empty<T>())
             {
-                // route will be named after first job profile it's found in
-                //todo: when it already exists, should we expand the name to include all the jp's its used for as a starter for ten?
-                // this will never happen, as each entry route will be named after the jp
-                // hashset of content items?
                 string newName = ItemToUsers.AddOrUpdate(contentItem, contentItem.DisplayText,
                     (key, oldValue) => $"{oldValue}, {contentItem.DisplayText}");
                 if (newName != contentItem.DisplayText)
@@ -70,10 +66,8 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
                 }
 
                 //thread-safe??
-                T existingItem = ItemToUsers.Keys.First(i => _comparer.Equals(i, contentItem));
-                //todo: need to set displaytext and title to the new name
-                // either do that outside here, or we'll need a way to gt at the title from T
-                contentItemIds.Add(existingItem.ContentItemId);
+                T sharedItem = ItemToUsers.Keys.First(i => _comparer.Equals(i, contentItem));
+                contentItemIds.Add(sharedItem.ContentItemId);
             }
 
             return new ContentPicker

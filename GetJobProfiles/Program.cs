@@ -161,6 +161,8 @@ namespace GetJobProfiles
 
             ProcessLionelsSpreadsheet();
 
+            converter.UpdateRouteItemsWithSharedNames();
+
             const string contentRecipesPath = "ContentRecipes";
 
             if (!createTestFiles)

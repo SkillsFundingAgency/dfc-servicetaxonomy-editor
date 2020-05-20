@@ -224,17 +224,10 @@ namespace GetJobProfiles
             }
             else
             {
-                // route will be named after first job profile it's found in
-                //todo: when it already exists, should we expand the name to include all the jp's its used for as a starter for ten?
                 var apprenticeshipEntryRoute = ApprenticeshipRoutes.Create(contentItem.DisplayText,
                     jobProfile.HowToBecome.EntryRoutes.Apprenticeship, Timestamp);
 
                 contentItem.HowToBecome.ApprenticeshipRoute = ApprenticeshipRoute.CreateContentPicker(apprenticeshipEntryRoute);
-
-                foreach (var itemToUser in ApprenticeshipRoute.ItemToUsers)
-                {
-                    itemToUser.Key.TitlePart.Title = itemToUser.Key.DisplayText = itemToUser.Value;
-                }
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.College.IsEmpty())
@@ -247,11 +240,6 @@ namespace GetJobProfiles
                     jobProfile.HowToBecome.EntryRoutes.College, Timestamp);
 
                 contentItem.HowToBecome.CollegeRoute = CollegeRoute.CreateContentPicker(collegeEntryRoute);
-//todo: only need to do this either in route, or after all job profiles
-                foreach (var itemToUser in CollegeRoute.ItemToUsers)
-                {
-                    itemToUser.Key.TitlePart.Title = itemToUser.Key.DisplayText = itemToUser.Value;
-                }
             }
 
             if (jobProfile.HowToBecome.EntryRoutes.University.IsEmpty())
@@ -264,11 +252,6 @@ namespace GetJobProfiles
                     jobProfile.HowToBecome.EntryRoutes.University, Timestamp);
 
                 contentItem.HowToBecome.UniversityRoute = UniversityRoute.CreateContentPicker(universityEntryRoute);
-
-                foreach (var itemToUser in UniversityRoute.ItemToUsers)
-                {
-                    itemToUser.Key.TitlePart.Title = itemToUser.Key.DisplayText = itemToUser.Value;
-                }
             }
 
             // if (!jobProfile.HowToBecome.EntryRoutes.Volunteering.Any())
@@ -333,6 +316,22 @@ namespace GetJobProfiles
             }
 
             return contentItem;
+        }
+
+        public void UpdateRouteItemsWithSharedNames()
+        {
+            UpdateAcademicRouteItemsWithSharedNames(ApprenticeshipRoute);
+            UpdateAcademicRouteItemsWithSharedNames(CollegeRoute);
+            UpdateAcademicRouteItemsWithSharedNames(UniversityRoute);
+        }
+
+        // it's all a bit messy, c++'s specialization would be helpful
+        private void UpdateAcademicRouteItemsWithSharedNames(ContentPickerContentItemFactory<AcademicEntryRouteContentItem> factory)
+        {
+            foreach (var itemToUser in factory.ItemToUsers)
+            {
+                itemToUser.Key.TitlePart.Title = itemToUser.Key.DisplayText = itemToUser.Value;
+            }
         }
     }
 }
