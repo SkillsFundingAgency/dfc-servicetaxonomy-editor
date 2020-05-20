@@ -86,7 +86,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 _ => await TransformOrDefault(graphSyncPartSettings.NodeNameTransform, contentType, contentType)
             };
 
-            return new[] {nodeLabel, CommonNodeLabel};
+            return new[] { nodeLabel, CommonNodeLabel };
         }
 
         // should only be used for fallbacks
@@ -108,7 +108,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             return GraphSyncPartSettings!.PropertyNameTransform switch
             {
-                "$\"{Value}\"" => $"{name}",
+                "Value" => name,
                 _ => await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name, _contentType!)
             };
         }
