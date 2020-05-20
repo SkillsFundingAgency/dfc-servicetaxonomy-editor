@@ -74,7 +74,8 @@ namespace GetJobProfiles
                 .AddJsonFile($"appsettings.Development.json", optional: true)
                 .Build();
 
-            string jobProfilesToImport = config["JobProfilesToImport"]; bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
+            string jobProfilesToImport = config["JobProfilesToImport"];
+            bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
             string[] socCodeList = !createTestFiles ? new string[] { } : config["TestSocCodes"].Split(',');
             string[] oNetCodeList = !createTestFiles ? new string[] { } : config["TestONetCodes"].Split(',');
             string[] apprenticeshipStandardsRefList = !createTestFiles ? new string[] { } : config["TestApprenticeshipStandardReferences"].Split(',');
@@ -95,6 +96,8 @@ namespace GetJobProfiles
             const int jobProfileBatchSize = 200;
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
+
+
 
             var httpClient = new HttpClient
             {
@@ -126,7 +129,7 @@ namespace GetJobProfiles
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
-            if (! (excludeGraphContentMutators || createTestFiles) )
+            if (!(excludeGraphContentMutators || createTestFiles))
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
@@ -134,7 +137,7 @@ namespace GetJobProfiles
             }
 
             bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
-            if (! (excludeGraphIndexMutators || createTestFiles) )
+            if (!(excludeGraphIndexMutators || createTestFiles))
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
@@ -259,7 +262,7 @@ namespace GetJobProfiles
                 recipe = recipe.Replace($"[token:{key}]", value);
             }
 
-            string destFilename = $"{_fileIndex++:00}. {recipeName}_{_executionId}.recipe.json";       
+            string destFilename = $"{_fileIndex++:00}. {recipeName}_{_executionId}.recipe.json";
 
             _importFilesReport.AppendLine($"{destFilename}: {tokens.FirstOrDefault(x => x.Key == "limit").Value}");
             AddRecipeToRecipesStep(recipeName);
