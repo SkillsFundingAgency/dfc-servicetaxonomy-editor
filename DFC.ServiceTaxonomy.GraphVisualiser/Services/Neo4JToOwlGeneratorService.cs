@@ -44,9 +44,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                               {
                                   Id = $"Class{a.Key - minNodeId}",
                                   Key = a.Key,
-                                  Type = a.Value.Labels.First(l => l.StartsWith("ncs__") || l == "esco__Occupation" || l == "esco__Skill"),
-                                  Label = GetPropertyValue(a, new[] { prefLabel, "ncs__Description", "ncs__FurtherInfo" }),
-                                  Comment = GetPropertyValue(a, new[] { "ncs__Description" }),
+                                  Type = a.Value.Labels.First(l => /*l.StartsWith("ncs__") ||*/ l == "esco__Occupation" || l == "esco__Skill"),
+                                  Label = GetPropertyValue(a, new[] { prefLabel, "Description", "FurtherInfo" }),
+                                  Comment = GetPropertyValue(a, new[] { "Description" }),
                                   StaxProperties = a.Value.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList(),
                               }
             ).ToList();

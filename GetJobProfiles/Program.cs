@@ -75,6 +75,7 @@ namespace GetJobProfiles
                 .Build();
 
             string jobProfilesToImport = config["JobProfilesToImport"];
+            jobProfilesToImport = "border force officer, cabin crew, care worker, construction labourer, electrician, emergency medical dispatcher, farmer, mp, personal assistant, plumber, police, officer, postman or postwoman, primary school teacher, sales assistant, social worker, train driver, waiter";
             bool createTestFiles = bool.Parse(config["CreateTestFiles"] ?? "False");
             string[] socCodeList = !createTestFiles ? new string[] { } : config["TestSocCodes"].Split(',');
             string[] oNetCodeList = !createTestFiles ? new string[] { } : config["TestONetCodes"].Split(',');
@@ -96,8 +97,6 @@ namespace GetJobProfiles
             const int jobProfileBatchSize = 200;
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
-
-
 
             var httpClient = new HttpClient
             {

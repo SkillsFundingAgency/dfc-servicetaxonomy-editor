@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             //todo: rename NodeNameTransform to NodeLabelTransform
             string nodeLabel = graphSyncPartSettings.NodeNameTransform switch
             {
-                "$\"ncs__{ContentType}\"" => $"ncs__{contentType}",
+                "$\"{ContentType}\"" => $"{contentType}",
                 "$\"esco__{ContentType}\"" => $"esco__{contentType}",
                 _ => await TransformOrDefault(graphSyncPartSettings.NodeNameTransform, contentType, contentType)
             };
