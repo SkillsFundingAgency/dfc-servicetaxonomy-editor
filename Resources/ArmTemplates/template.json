@@ -205,7 +205,7 @@
                                 "value": "[parameters('EventGridAegSasKey')]"
                             },
                             {
-                                "name": "EventGrid__Enabled",
+                                "name": "EventGrid__PublishEvents",
                                 "value": "[parameters('EventGridEnabled')]"
                             }
                         ]
