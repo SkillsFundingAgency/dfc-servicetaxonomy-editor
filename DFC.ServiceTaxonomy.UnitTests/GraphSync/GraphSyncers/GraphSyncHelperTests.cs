@@ -4,6 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using FakeItEasy;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -34,7 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
                 new JObject());
             A.CallTo(() => ContentDefinitionManager.GetTypeDefinition(_contentType)).Returns(ContentTypeDefinition);
 
-            GraphSyncHelper = new GraphSyncHelper(GraphSyncHelperCSharpScriptGlobals, ContentDefinitionManager);
+            GraphSyncHelper = new GraphSyncHelper(GraphSyncHelperCSharpScriptGlobals, ContentDefinitionManager, A.Fake<IConfiguration>());
         }
 
         [Fact]
