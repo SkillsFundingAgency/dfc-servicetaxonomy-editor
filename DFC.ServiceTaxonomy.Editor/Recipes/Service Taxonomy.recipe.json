@@ -125,8 +125,8 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 },
@@ -245,9 +245,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -362,9 +362,9 @@
                                     "Position": "7"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -411,9 +411,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -460,9 +460,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -509,9 +509,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -558,9 +558,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -598,9 +598,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -685,9 +685,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "hasHtbUniversityRoute",
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -724,9 +724,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "hasHtbCollegeRoute",
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -811,9 +811,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -849,9 +849,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "hasHtbWorkRoute",
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -887,9 +887,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "hasHtbVolunteeringRoute",
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -925,9 +925,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "hasHtbDirectRoute",
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -963,9 +963,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "hasHtbOtherRoute",
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1011,9 +1011,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1059,9 +1059,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1107,9 +1107,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1155,9 +1155,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1203,9 +1203,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1251,9 +1251,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1299,9 +1299,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1347,9 +1347,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1395,9 +1395,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1443,9 +1443,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1491,9 +1491,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1539,9 +1539,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1579,9 +1579,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1637,9 +1637,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1686,9 +1686,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1735,9 +1735,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1784,9 +1784,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
