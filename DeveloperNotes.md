@@ -4,6 +4,27 @@
 
 * use content picker preview for entry routes?
 
+store object of contentitemid and aggregate name as value
+
+'9912' was not found in the dictionary
+
+_socCodeDictionary[jobProfile.Soc] }
+
+find list of soc codes : wrap in helper and default to unknown soccode if not found
+
+System.Collections.Generic.KeyNotFoundException: The given key '9999' was not present in the dictionary.
+  at at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+  at GetJobProfiles.JobProfileConverter.ConvertJobProfile(JobProfile jobProfile) in I:\git\dfc-servicetaxonomy-editor\GetJobProfiles\JobProfileConverter.cs:188
+  at at System.Linq.Enumerable.WhereSelectArrayIterator`2.MoveNext()
+  at at System.Collections.Generic.LargeArrayBuilder`1.AddRange(IEnumerable`1 items)
+  at at System.Collections.Generic.SparseArrayBuilder`1.AddRange(IEnumerable`1 items)
+  at at System.Collections.Generic.SparseArrayBuilder`1.ReserveOrAdd(IEnumerable`1 items)
+  at at System.Linq.Enumerable.ConcatNIterator`1.LazyToArray()
+  at at System.Linq.Enumerable.ConcatNIterator`1.ToArray()
+  at at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+  at GetJobProfiles.Program.Main(String[] args) in I:\git\dfc-servicetaxonomy-editor\GetJobProfiles\Program.cs:117
+  at at GetJobProfiles.Program.<Main>(String[] args)
+
 * add these to our theme?
 
     BaseTheme = "TheAdmin",
