@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Recipes.Models;
@@ -18,17 +19,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<CypherCommandStep> _logger;
-
+        private readonly string _contentApiBaseUrl;
         private const string StepName = "CypherCommand";
 
         public CypherCommandStep(
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
-            ILogger<CypherCommandStep> logger)
+            ILogger<CypherCommandStep> logger,
+            IConfiguration configuration)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
             _logger = logger;
+            _contentApiBaseUrl = configuration.GetValue<string>("OrchardCore:Default:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
@@ -47,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                 var customCommand = _serviceProvider.GetRequiredService<ICustomCommand>();
 
-                customCommand.Command = command;
+                customCommand.Command = command.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
 
                 await _graphDatabase.Run(customCommand);
             }

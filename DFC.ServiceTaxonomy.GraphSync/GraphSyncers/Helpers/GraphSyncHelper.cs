@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using OrchardCore.ContentManagement.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
@@ -21,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: gotta be careful about lifetimes. might have to inject iserviceprovider
         private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly string _contentApiBaseUrl;
         private string? _contentType;
         private GraphSyncPartSettings? _graphSyncPartSettings;
 
@@ -29,10 +31,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
-            IContentDefinitionManager contentDefinitionManager)
+            IContentDefinitionManager contentDefinitionManager,
+            IConfiguration configuration)
         {
             _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
+            _contentApiBaseUrl = configuration.GetValue<string>("OrchardCore:Default:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
         }
 
         public string? ContentType
@@ -139,8 +143,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"" =>
                 $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
-                "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\"" =>
-                $"http://nationalcareers.service.gov.uk/{_contentType!.ToLowerInvariant()}/{newGuid}",
+                "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\"" =>
+                $"{_contentApiBaseUrl}/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
                 _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
             };
@@ -174,6 +178,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private async Task<string> Transform(string transformCode, string untransformedValue, string contentType)
         {
+            untransformedValue = untransformedValue.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
+
             _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
             _graphSyncHelperCSharpScriptGlobals.ContentType = contentType;
 
