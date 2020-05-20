@@ -108,7 +108,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             return GraphSyncPartSettings!.PropertyNameTransform switch
             {
-                "$\"ncs__{Value}\"" => $"ncs__{name}",
+                "$\"{Value}\"" => $"{name}",
                 _ => await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name, _contentType!)
             };
         }

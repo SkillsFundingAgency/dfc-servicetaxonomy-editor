@@ -12,7 +12,7 @@
         {
             "name": "CypherCommand",
             "commands": [
-                "match (n:esco__Occupation)\r\nunwind n.skos__altLabel as altLabels\r\ncreate (al:OccupationLabel:Resource {skos__prefLabel: altLabels, uri: \"<<ContentApiPrefix>>/occupationlabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:ncs__hasAltLabel]->(al)"
+                "match (n:esco__Occupation)\r\nunwind n.skos__altLabel as altLabels\r\ncreate (al:OccupationLabel:Resource {skos__prefLabel: altLabels, uri: \"<<ContentApiPrefix>>/occupationlabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasAltLabel]->(al)"
             ]
         }
     ]
