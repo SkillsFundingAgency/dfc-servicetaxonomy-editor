@@ -199,10 +199,6 @@ namespace GetJobProfiles
                 },
                 HowToBecome = new HowToBecomePart
                 {
-                    // DirectRoute = DirectRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.DirectApplication),
-                    // OtherRoute = OtherRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.OtherRoutes),
-                    // VolunteeringRoute = VolunteeringRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Volunteering),
-                    // WorkRoute = WorkRoute.CreateContentPicker(jobProfile.HowToBecome.EntryRoutes.Work),
                     HtbBodies = new HtmlField(jobProfile.HowToBecome.MoreInformation.ProfessionalAndIndustryBodies),
                     HtbCareerTips = new HtmlField(jobProfile.HowToBecome.MoreInformation.CareerTips),
                     HtbFurtherInformation = new HtmlField(jobProfile.HowToBecome.MoreInformation.FurtherInformation),
