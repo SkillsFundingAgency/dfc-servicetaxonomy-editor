@@ -11,13 +11,13 @@ namespace GetJobProfiles
     public class SocCodeConverter
     {
         public List<SocCodeContentItem> SocCodeContentItems { get; private set; }
-        private string[] CodesToProcess;
-        private bool ProcessAll = true;
+        private readonly string[] _codesToProcess;
+        private readonly bool _processAll;
 
         public SocCodeConverter(string[] codes)
         {
-            CodesToProcess = codes;
-            ProcessAll = ( CodesToProcess.Count() == 0 );
+            _codesToProcess = codes;
+            _processAll = !_codesToProcess.Any();
         }
 
         public Dictionary<string, string> Go(string timestamp)
@@ -30,7 +30,7 @@ namespace GetJobProfiles
                 //filter out the ones we don't care about - i.e. the groups and sub groups (no Unit value)
 
                 SocCodeContentItems = items
-                        .Where(x => !string.IsNullOrWhiteSpace(x.Unit) && (ProcessAll || CodesToProcess.Contains( x.Unit )) )
+                        .Where(x => !string.IsNullOrWhiteSpace(x.Unit) && (_processAll || _codesToProcess.Contains( x.Unit )) )
                         //convert to ContentItems
                         .Select(x => x.ToContentItem(timestamp))
                         .ToList();

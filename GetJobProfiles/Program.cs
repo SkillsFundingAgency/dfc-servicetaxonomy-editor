@@ -160,7 +160,7 @@ namespace GetJobProfiles
 
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
 
-            ProcessLionelsSpreadsheet(jobProfileWorkbook);
+            ProcessJobProfileSpreadsheet(jobProfileWorkbook);
 
             converter.UpdateRouteItemsWithSharedNames();
 
@@ -404,7 +404,7 @@ namespace GetJobProfiles
             return matchingTitle?.Item1 ?? title;
         }
 
-        private static void ProcessLionelsSpreadsheet(XSSFWorkbook workbook)
+        private static void ProcessJobProfileSpreadsheet(XSSFWorkbook workbook)
         {
             _contentItemTitles.Add("Uniform", ProcessContentType(workbook, "Uniform", "Title", "Description"));
             _contentItemTitles.Add("Location", ProcessContentType(workbook, "Location", "Title", "Description"));
