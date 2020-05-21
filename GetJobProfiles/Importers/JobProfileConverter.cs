@@ -387,7 +387,7 @@ namespace GetJobProfiles.Importers
         // it's all a bit messy, c++'s specialization would be helpful, or we could introduce a new common base class/interface, perhaps IContentItemWithTitle
         private void UpdateRouteItemsWithSharedNames(ContentPickerContentItemFactory<AcademicEntryRouteContentItem> factory)
         {
-            foreach (var itemToUser in factory.ItemToUsers)
+            foreach (var itemToUser in factory.ItemToCompositeName)
             {
                 itemToUser.Key.TitlePart.Title = itemToUser.Key.DisplayText = itemToUser.Value;
             }
@@ -395,7 +395,7 @@ namespace GetJobProfiles.Importers
 
         private void UpdateRouteItemsWithSharedNames(ContentPickerContentItemFactory<TitleHtmlDescriptionContentItem> factory)
         {
-            foreach (var itemToUser in factory.ItemToUsers)
+            foreach (var itemToUser in factory.ItemToCompositeName)
             {
                 itemToUser.Key.TitlePart.Title = itemToUser.Key.DisplayText = itemToUser.Value;
             }

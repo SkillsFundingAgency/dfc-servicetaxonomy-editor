@@ -188,13 +188,13 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(converter.WorkingLocations.IdLookup.Select(x => new WorkingLocationContentItem(GetTitle("Location", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingLocations");
             await BatchSerializeToFiles(converter.WorkingUniforms.IdLookup.Select(x => new WorkingUniformContentItem(GetTitle("Uniform", x.Key), timestamp, x.Key, x.Value)), batchSize, $"{filenamePrefix}WorkingUniforms");
 
-            await BatchSerializeToFiles(converter.ApprenticeshipRoute.ItemToUsers.Keys, batchSize, $"{filenamePrefix}ApprenticeshipRoutes");
-            await BatchSerializeToFiles(converter.CollegeRoute.ItemToUsers.Keys, batchSize, $"{filenamePrefix}CollegeRoutes");
-            await BatchSerializeToFiles(converter.UniversityRoute.ItemToUsers.Keys, batchSize, $"{filenamePrefix}UniversityRoutes");
-            await BatchSerializeToFiles(converter.DirectRoute.ItemToUsers.Keys, batchSize, $"{filenamePrefix}DirectRoutes");
-            await BatchSerializeToFiles(converter.OtherRoute.ItemToUsers.Keys, batchSize, $"{filenamePrefix}OtherRoutes");
-            await BatchSerializeToFiles(converter.VolunteeringRoute.ItemToUsers.Keys, batchSize, $"{filenamePrefix}VolunteeringRoutes");
-            await BatchSerializeToFiles(converter.WorkRoute.ItemToUsers.Keys, batchSize, $"{filenamePrefix}WorkRoutes");
+            await BatchSerializeToFiles(converter.ApprenticeshipRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}ApprenticeshipRoutes");
+            await BatchSerializeToFiles(converter.CollegeRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}CollegeRoutes");
+            await BatchSerializeToFiles(converter.UniversityRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}UniversityRoutes");
+            await BatchSerializeToFiles(converter.DirectRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}DirectRoutes");
+            await BatchSerializeToFiles(converter.OtherRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}OtherRoutes");
+            await BatchSerializeToFiles(converter.VolunteeringRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}VolunteeringRoutes");
+            await BatchSerializeToFiles(converter.WorkRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}WorkRoutes");
 
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");

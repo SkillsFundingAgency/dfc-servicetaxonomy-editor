@@ -9,12 +9,12 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
     public class ContentPickerContentItemFactory<T> where T : ContentItem
     {
         private readonly EqualityComparer<T> _comparer;
-        public readonly ConcurrentDictionary<T, string> ItemToUsers;
+        public readonly ConcurrentDictionary<T, string> ItemToCompositeName;
 
         public ContentPickerContentItemFactory(EqualityComparer<T> comparer)
         {
             _comparer = comparer;
-            ItemToUsers = new ConcurrentDictionary<T, string>(comparer);
+            ItemToCompositeName = new ConcurrentDictionary<T, string>(comparer);
         }
 
         public ContentPicker CreateContentPicker(T contentItem)
@@ -28,7 +28,7 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
 
             foreach (T contentItem in contentItems ?? Enumerable.Empty<T>())
             {
-                string newName = ItemToUsers.AddOrUpdate(contentItem, contentItem.DisplayText,
+                string newName = ItemToCompositeName.AddOrUpdate(contentItem, contentItem.DisplayText,
                     (key, oldValue) => $"{oldValue}, {contentItem.DisplayText}");
                 if (newName != contentItem.DisplayText)
                 {
@@ -37,7 +37,7 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
                 }
 
                 //thread-safe??
-                T sharedItem = ItemToUsers.Keys.First(i => _comparer.Equals(i, contentItem));
+                T sharedItem = ItemToCompositeName.Keys.First(i => _comparer.Equals(i, contentItem));
                 contentItemIds.Add(sharedItem.ContentItemId);
             }
 
