@@ -49,8 +49,8 @@ namespace GetJobProfiles.Importers
 
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly SocCodeContentPickerFactory _socCodeContentPickerFactory;
-        private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly Dictionary<string, string> _oNetDictionary;
+        private readonly TitleOptionsTextFieldFactory _titleOptionsFactory;
         private readonly DefaultIdGenerator _idGenerator;
 
         public List<string> DayToDayTaskExclusions = new List<string>
@@ -68,11 +68,17 @@ namespace GetJobProfiles.Importers
             "https://pp.api.nationalcareers.service.gov.uk/job-profiles/commercial-energy-assessor"
         };
 
-        public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, Dictionary<string, string> oNetDictionary, string timestamp)
+        public JobProfileConverter(
+            RestHttpClient.RestHttpClient client,
+            Dictionary<string, string> socCodeDictionary,
+            Dictionary<string, string> oNetDictionary,
+            Dictionary<string, string> titleOptionsLookup,
+            string timestamp)
         {
             _client = client;
             _socCodeContentPickerFactory = new SocCodeContentPickerFactory(socCodeDictionary);
             _oNetDictionary = oNetDictionary;
+            _titleOptionsFactory = new TitleOptionsTextFieldFactory(titleOptionsLookup);
             _idGenerator = new DefaultIdGenerator();
             Timestamp = timestamp;
 
@@ -192,7 +198,7 @@ namespace GetJobProfiles.Importers
                 JobProfileHeader = new JobProfileHeaderPart
                 {
                     Description = new HtmlField(jobProfile.Overview),
-                    TitleOptions = new TextField("as_defined"),
+                    TitleOptions = _titleOptionsFactory.Create(jobProfile.Title),
                     JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
                     SOCCode = _socCodeContentPickerFactory.Create(jobProfile.Soc),
                     ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },

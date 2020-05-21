@@ -6,6 +6,15 @@ namespace GetJobProfiles.Importers
 {
     public class TitleOptionsImporter
     {
+        public readonly Dictionary<string, string> sheetValueToFieldValue = new Dictionary<string, string>
+        {
+            {"", "no_title"},
+            {"As Defined", "as_defined"},
+            {"Prefix with a", "prefix_with_a"},
+            {"Prefix with an", "prefix_with_an"},
+            {"No Prefix", "no_prefix"}
+        };
+
         public Dictionary<string, string> Import(XSSFWorkbook workbook)
         {
             var sheet = workbook.GetSheet("JobProfile");
@@ -18,10 +27,10 @@ namespace GetJobProfiles.Importers
             for (int i = 1; i <= sheet.LastRowNum; ++i)
             {
                 var row = sheet.GetRow(i);
-                string categories = row.GetCell(dynamicTitleColumnIndex).StringCellValue;
-                string uri = row.GetCell(titleColumnIndex).StringCellValue.TrimStart('/');
+                string titleOption = sheetValueToFieldValue[row.GetCell(dynamicTitleColumnIndex).StringCellValue];
+                string title = row.GetCell(titleColumnIndex).StringCellValue;
 
-                titleOptionsLookup.Add(uri, categories);
+                titleOptionsLookup.Add(title, titleOption);
             }
 
             return titleOptionsLookup;

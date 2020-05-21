@@ -91,6 +91,8 @@ namespace GetJobProfiles
             var oNetConverter = new ONetConverter(oNetCodeList);
             var oNetDictionary = oNetConverter.Go(jobProfileWorkbook, timestamp);
 
+            var titleOptionsLookup = new TitleOptionsImporter().Import(jobProfileWorkbook);
+
             //use these knobs to work around rate - limiting
             const int skip = 0;
             const int take = 0;
@@ -112,7 +114,7 @@ namespace GetJobProfiles
             };
 
             var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, timestamp);
+            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, titleOptionsLookup, timestamp);
             await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
 
             var jobProfiles = converter.JobProfiles.ToArray();
