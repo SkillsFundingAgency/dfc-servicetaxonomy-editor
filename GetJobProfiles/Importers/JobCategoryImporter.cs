@@ -5,7 +5,7 @@ using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using NPOI.XSSF.UserModel;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class JobCategoryImporter
     {

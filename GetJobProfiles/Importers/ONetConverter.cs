@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using NPOI.XSSF.UserModel;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class ONetConverter
     {

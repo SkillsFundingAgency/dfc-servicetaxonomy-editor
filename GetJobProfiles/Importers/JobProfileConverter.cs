@@ -18,7 +18,7 @@ using GetJobProfiles.Models.Recipe.Parts;
 using MoreLinq;
 using OrchardCore.Entities;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class JobProfileConverter
     {

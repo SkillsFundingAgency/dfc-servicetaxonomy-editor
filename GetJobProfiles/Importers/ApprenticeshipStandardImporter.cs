@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using GetJobProfiles.Models.Recipe.ContentItems;
-using NPOI.XSSF.UserModel;
 using System.Linq;
-using GetJobProfiles.Models.API;
-using GetJobProfiles.Models.Recipe.Parts;
-using GetJobProfiles.Models.Recipe.Fields;
-using OrchardCore.Entities;
 using System.Text.RegularExpressions;
+using GetJobProfiles.Models.API;
+using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.Fields;
+using GetJobProfiles.Models.Recipe.Parts;
 using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using OrchardCore.Entities;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class ApprenticeshipStandardImporter
     {

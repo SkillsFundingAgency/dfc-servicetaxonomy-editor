@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GetJobProfiles.Importers;
 
 namespace GetJobProfiles.Models.Recipe.Fields.Factories
 {

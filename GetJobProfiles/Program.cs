@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
+using GetJobProfiles.Importers;
 using GetJobProfiles.JsonHelpers;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.ContentItems.Base;

@@ -6,7 +6,7 @@ using CsvHelper;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.ContentItems;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class SocCodeConverter
     {
