@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Queries
             get
             {
                 var cypherQuery = new StringBuilder();
-                var linkedItems = new List<string> { "ncs__hasHtbApprenticeshipRoute", "ncs__hasHtbCollegeRoute", "ncs__hasHtbDirectRoute", "ncs__hasHtbOtherRoute", "ncs__hasHtbUniversityRoute", "ncs__hasHtbVolunteeringRoute", "ncs__hasHtbWorkRoute" };
+                var linkedItems = new List<string> { "hasHtbApprenticeshipRoute", "hasHtbCollegeRoute", "hasHtbDirectRoute", "hasHtbOtherRoute", "hasHtbUniversityRoute", "hasHtbVolunteeringRoute", "hasHtbWorkRoute" };
 
                 cypherQuery.Append($"MATCH (s {{{MatchPropertyName}:'{MatchPropertyValue}'}})");
                 cypherQuery.Append("OPTIONAL MATCH (s)-[r1]-(d1)");
