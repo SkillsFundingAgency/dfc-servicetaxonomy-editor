@@ -49,9 +49,6 @@ namespace GetJobProfiles
 {
     static class Program
     {
-        // to delete all the ncs nodes and relationships in the graph, run..
-        // match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n
-
         private static string OutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\Recipes\";
         private static string MasterRecipeOutputBasePath = @"..\..\..\..\DFC.ServiceTaxonomy.Editor\MasterRecipes\";
         private const bool _zip = false;
