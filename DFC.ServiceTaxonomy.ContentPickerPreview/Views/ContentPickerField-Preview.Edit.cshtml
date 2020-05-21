@@ -60,7 +60,7 @@
                 </vue-multiselect>
                 @if (!String.IsNullOrEmpty(settings.Hint))
                 {
-                    <span class="hint">@settings.Hint</span>
+                    <input ref="hint" type="hidden" value="@settings.Hint" />
                 }
             </div>
         </div>

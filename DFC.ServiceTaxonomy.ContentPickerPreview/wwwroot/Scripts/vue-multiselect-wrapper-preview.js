@@ -59,7 +59,7 @@ function initVueMultiselectPreview(element) {
                     setTimeout(function () { $(document).trigger('contentpreview:render') }, 100);
                 }
             },
-            created: function () {
+            mounted: function () {
                 var self = this;
                 self.asyncFind();
                 if (self.arrayOfItems.length === 1) {
@@ -72,6 +72,8 @@ function initVueMultiselectPreview(element) {
                     debouncedSearch(self, query);
                 },
                 showPreview(contentItemId) {
+                    var self = this;
+
                     if (multiple)
                         return;
 
@@ -82,9 +84,24 @@ function initVueMultiselectPreview(element) {
                         url : '/Contents/ContentItems/' + contentItemId,
                         type: 'GET',
 
-                        success: function(data){
-                            $('#previewhere').html(data);
+                        success: function (data) {
+                            var temp = $('<temp>').append($.parseHTML(data));
+                            var occupationLabels = $('#OccupationLabels', temp);
+
+                            $('#previewhere').html(occupationLabels);
                             $('#preview-collapse').collapse('show');
+
+                            if (self.$refs.hint) {
+                                var hint = JSON.parse(self.$refs.hint.value);
+
+                                var content = $(hint[0], temp);
+                                var target = hint[1];
+
+                                //timeout required to allow the remaining tabs to be created
+                                setTimeout(function () {
+                                    $(target).prepend(content);
+                                }, 100);
+                            }
                         }
                     });
                 },
@@ -93,6 +110,11 @@ function initVueMultiselectPreview(element) {
                         return;
 
                     $('#preview-collapse').collapse('hide');
+
+                    if (this.$refs.hint) {
+                        var hint = JSON.parse(this.$refs.hint.value);
+                        $(hint[1] + ' ' + hint[0]).remove();
+                    }
                 },
                 onSelect: function (selectedOption, id) {
                     var self = this;

@@ -1,34 +1,53 @@
 ﻿@using Newtonsoft.Json.Linq
 @using OrchardCore.ContentManagement
 @inject IContentManager ContentManager
-
 @* replace shape for content pickers instead? *@
 
 @{
     string occupationLabelsId = $"OccupationLabels_{Guid.NewGuid():n}";
 }
 
-<label for="@occupationLabelsId">Occupation Labels</label>
-<ul id="@occupationLabelsId" class="list-group">
-    @{
-        #nullable enable
-        string? preferredLabelContentItemId = ((JArray) Model.ContentItem.Content.Occupation.PreferredLabel.ContentItemIds).FirstOrDefault()?.ToString();
-        string preferredLabel = await GetDisplayText(preferredLabelContentItemId);
-    }
+<div id="OccupationLabels">
+    <label for="@occupationLabelsId">Occupation Labels</label>
+    <ul id="@occupationLabelsId" class="list-group">
+        @{
+#nullable enable
+            string? preferredLabelContentItemId = ((JArray)Model.ContentItem.Content.Occupation.PreferredLabel.ContentItemIds).FirstOrDefault()?.ToString();
+            string preferredLabel = await GetDisplayText(preferredLabelContentItemId);
+        }
 
-    <li class="list-group-item active">@preferredLabel</li>
-@{
-    #nullable enable
-    foreach (string? contentItemId in Model.ContentItem.Content.Occupation.AlternativeLabels.ContentItemIds)
-    {
-        //todo: pub/draft
-        <li class="list-group-item">@(await GetDisplayText(contentItemId))</li>
-    }
-}
-</ul>
+        <li class="list-group-item active">@preferredLabel</li>
+        @{
+#nullable enable
+            foreach (string? contentItemId in Model.ContentItem.Content.Occupation.AlternativeLabels.ContentItemIds)
+            {
+                //todo: pub/draft
+                <li class="list-group-item">@(await GetDisplayText(contentItemId))</li>
+            }
+        }
+    </ul>
+</div>
+
+<div id="Skills">
+    <label for="EssentialSkills">Essential Skills</label>
+    <ul id="EssentialSkills" class="list-group mb-4">
+        @foreach (string? contentItemId in Model.ContentItem.Content.Occupation.EssentialSkills.ContentItemIds)
+        {
+            <li class="list-group-item">@(await GetDisplayText(contentItemId))</li>
+        }
+    </ul>
+
+    <label for="OptionalSkills">Optional Skills</label>
+    <ul id="OptionalSkills" class="list-group mb-4">
+        @foreach (string? contentItemId in Model.ContentItem.Content.Occupation.OptionalSkills.ContentItemIds)
+        {
+            <li class="list-group-item">@(await GetDisplayText(contentItemId))</li>
+        }
+    </ul>
+</div>
 
 @functions {
-    #nullable enable
+#nullable enable
     private async Task<string> GetDisplayText(string? contentItemId)
     {
         if (contentItemId == null)

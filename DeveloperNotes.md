@@ -1,5 +1,7 @@
 #ToDo
 
+* Look into console error when selecting an item in a ContentPickerWithPreview control.
+
 * change uri to https://dev.api.nationalcareersservice.org.uk/content/GetContent/jobprofile/<<id>> (appropriate for environment)
 
 * event publishing threw during full import (working uniform)
