@@ -11,9 +11,15 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
             _titleOptionsLookup = titleOptionsLookup;
         }
 
-        public TextField Create(string title)
+        public TextField Create(string url)
         {
-            return new TextField(_titleOptionsLookup[title]);
+            //todo: need to create a report
+            if (!_titleOptionsLookup.TryGetValue(url, out string titleOption))
+            {
+                titleOption = "as_defined";
+            }
+
+            return new TextField(titleOption);
         }
     }
 }
