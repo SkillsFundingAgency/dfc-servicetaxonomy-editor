@@ -16,22 +16,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     /// </summary>
     public class CypherCommandStep : IRecipeStepHandler
     {
+        public const string StepName = "CypherCommand";
+
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<CypherCommandStep> _logger;
         private readonly string _contentApiBaseUrl;
-        private const string StepName = "CypherCommand";
 
         public CypherCommandStep(
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
-            ILogger<CypherCommandStep> logger,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ILogger<CypherCommandStep> logger)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
-            _logger = logger;
             _contentApiBaseUrl = configuration.GetValue<string>("OrchardCore:Default:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
+            _logger = logger;
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)

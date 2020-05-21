@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using YesSql;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
@@ -18,13 +20,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
     public class CSharpContentStep : IRecipeStepHandler
     {
+        public const string StepName = "CSharpContent";
+
         private readonly IContentManager _contentManager;
         private readonly ISession _session;
         private readonly IContentManagerSession _contentManagerSession;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly ILogger<CSharpContentStep> _logger;
-
-        public const string StepName = "CSharpContent";
+        private readonly string _contentApiBaseUrl;
 
         public CSharpContentStep(
             IContentManager contentManager,
@@ -32,12 +35,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IContentManagerSession contentManagerSession,
             //todo: rename
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
+            IConfiguration configuration,
             ILogger<CSharpContentStep> logger)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
+            _contentApiBaseUrl = configuration.GetValue<string>("OrchardCore:Default:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
             _logger = logger;
         }
 
@@ -51,7 +56,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (model?.Data == null)
                 return;
 
-            string json = ReplaceCSharpHelpers(model.Data.ToString(), model.DebugImport);
+            string dataString = model.Data.ToString();
+            dataString = ReplaceConfig(dataString);
+            string json = ReplaceCSharpHelpers(dataString, model.DebugImport);
             JArray data = JArray.Parse(json);
 
             foreach (JToken token in data)
@@ -87,6 +94,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 #pragma warning disable S1215
             GC.Collect();
 #pragma warning restore S1215
+        }
+
+        private string ReplaceConfig(string data)
+        {
+            return data.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
         }
 
         //todo: move these instead of c&p if works
