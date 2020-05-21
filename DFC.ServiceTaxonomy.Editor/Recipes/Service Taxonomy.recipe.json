@@ -126,8 +126,8 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 },
@@ -246,9 +246,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -340,9 +340,9 @@
                                     "Position": "7"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -389,9 +389,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -438,9 +438,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -487,9 +487,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -536,9 +536,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -576,9 +576,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -678,9 +678,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -732,9 +732,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -786,9 +786,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -834,9 +834,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -887,9 +887,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -940,9 +940,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -993,9 +993,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1046,9 +1046,9 @@
                                 },
                                 "GraphSyncPartSettings": {
                                     "BagPartContentItemRelationshipType": "",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1094,9 +1094,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1142,9 +1142,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1190,9 +1190,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1238,9 +1238,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1286,9 +1286,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1334,9 +1334,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1382,9 +1382,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1430,9 +1430,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1478,9 +1478,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1526,9 +1526,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1574,9 +1574,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1622,9 +1622,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1662,9 +1662,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1720,9 +1720,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1769,9 +1769,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1818,9 +1818,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -1867,9 +1867,9 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "PropertyNameTransform": "Value",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
@@ -2169,7 +2169,7 @@
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationship of type [:ncs__hasPrefLabel].",
+                                    "Hint": "Creates relationship of type [:hasPrefLabel].",
                                     "Multiple": false,
                                     "DisplayedContentTypes": [
                                         "OccupationLabel"
@@ -2187,7 +2187,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
+                                    "Hint": "Creates relationships of type [:hasAltLabel].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "OccupationLabel"
@@ -2254,7 +2254,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasJobProfile].",
+                                    "Hint": "Creates relationships of type [:hasJobProfile].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "JobProfile"
@@ -2379,7 +2379,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
+                                    "Hint": "Creates relationships of [:hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -2396,7 +2396,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasUniversityRequirement].",
+                                    "Hint": "Creates relationships of [:hasUniversityRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "UniversityRequirement"
@@ -2413,7 +2413,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasUniversityLink].",
+                                    "Hint": "Creates relationships of [:hasUniversityLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "UniversityLink"
@@ -2466,7 +2466,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
+                                    "Hint": "Creates relationships of [:hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -2483,7 +2483,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasCollegeRequirement].",
+                                    "Hint": "Creates relationships of [:hasCollegeRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "CollegeRequirement"
@@ -2500,7 +2500,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasCollegeLink].",
+                                    "Hint": "Creates relationships of [:hasCollegeLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "CollegeLink"
@@ -2553,7 +2553,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
+                                    "Hint": "Creates relationships of [:hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -2570,7 +2570,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipRequirement].",
+                                    "Hint": "Creates relationships of [:hasApprenticeshipRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "ApprenticeshipRequirement"
@@ -2587,7 +2587,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipLink].",
+                                    "Hint": "Creates relationships of [:hasApprenticeshipLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "ApprenticeshipLink"
@@ -3047,7 +3047,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__relatedOccupation].",
+                                    "Hint": "Creates relationships of type [:relatedOccupation].",
                                     "Multiple": false,
                                     "Required": true,
                                     "DisplayedContentTypes": [
@@ -3121,7 +3121,7 @@
                                     "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
+                                    "Hint": "Creates relationships of type [:hasSocCode].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "SOCCode"
@@ -3139,7 +3139,7 @@
                                     "Position": "5"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasONetOccupationalCode].",
+                                    "Hint": "Creates relationships of type [:hasONetOccupationalCode].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "ONetOccupationalCode"
@@ -3398,7 +3398,7 @@
                                     "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
+                                    "Hint": "Creates relationships of [:requiresHtbRegistration].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Registration"
@@ -3484,7 +3484,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasWitRestriction].",
+                                    "Hint": "Creates relationships of [:hasWitRestriction].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Restriction"
@@ -3502,7 +3502,7 @@
                                     "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
+                                    "Hint": "Creates relationships of [:hasWitOtherRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "OtherRequirement"
@@ -3546,7 +3546,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasDayToDayTask].",
+                                    "Hint": "Creates relationships of [:hasDayToDayTask].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "DayToDayTask"
@@ -3564,7 +3564,7 @@
                                     "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingEnvironment].",
+                                    "Hint": "Creates relationships of type [:hasWorkingEnvironment].",
                                     "DisplayedContentTypes": [
                                         "WorkingEnvironment"
                                     ]
@@ -3581,7 +3581,7 @@
                                     "Position": "3"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingLocation].",
+                                    "Hint": "Creates relationships of type [:hasWorkingLocation].",
                                     "DisplayedContentTypes": [
                                         "WorkingLocation"
                                     ]
@@ -3598,7 +3598,7 @@
                                     "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingUniform].",
+                                    "Hint": "Creates relationships of type [:hasWorkingUniform].",
                                     "DisplayedContentTypes": [
                                         "WorkingUniform"
                                     ]
@@ -3661,7 +3661,7 @@
                                     "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
+                                    "Hint": "Creates relationships of [:hasApprenticeshipStandard].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "ApprenticeshipStandard"
@@ -4119,7 +4119,7 @@
                     "Source": "Cypher",
                     "IsReadonly": true,
                     "Schema": null,
-                    "Template": "MATCH (s:esco__Skill)-[r:esco__isEssentialSkillFor|esco__isOptionalSkillFor]->(o:esco__Occupation)--(j:ncs__JobProfile)-[:ncs__hasSocCode]-(soc:ncs__SOCCode)\r\n\r\n\tWHERE s.uri in $skillList \r\nOPTIONAL MATCH (o)<-[:esco__isEssentialSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n    WITH \r\n    \tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingEssentialSkills \r\nOPTIONAL MATCH (o)<-[:esco__isOptionalSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n\tWITH \r\n\t\tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingOptionalSkills, \r\n        MatchingEssentialSkills \r\nMATCH (j:ncs__JobProfile) -- (o)<-[:esco__isEssentialSkillFor]-(sa) \r\n\tWHERE MatchingOptionalSkills + MatchingEssentialSkills >= $minimumMatchingSkills \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        j.skos__prefLabel as JobProfile, \r\n        j.uri as JobProfileUri, \r\n        j.ncs__Description as JobProfileDescription \r\nOPTIONAL MATCH (j:ncs__JobProfile) -- (o)<-[:esco__isOptionalSkillFor]-(sa) \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllOptionalSkills, \r\n        AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        JobProfile, \r\n        JobProfileUri, \r\n        JobProfileDescription \r\nRETURN { \r\n\tmatchingOccupations: collect({\r\n    \turi:o.uri, \r\n        occupation:o.skos__prefLabel, \r\n        jobProfileTitle:JobProfile, \r\n        jobProfileUri:JobProfileUri, \r\n        jobProfileDescription:JobProfileDescription, \r\n        matchingEssentialSkills:MatchingEssentialSkills, \r\n        matchingOptionalSkills:MatchingOptionalSkills, \r\n        socCode:soc.skos__prefLabel, \r\n        totalOccupationEssentialSkills:AllEssentialSkills, \r\n        totalOccupationOptionalSkills:AllOptionalSkills, \r\n        lastModified:o.dct__modified\r\n\t})\r\n} as results",
+                    "Template": "MATCH (s:esco__Skill)-[r:esco__isEssentialSkillFor|esco__isOptionalSkillFor]->(o:esco__Occupation)--(j:JobProfile)-[:hasSocCode]-(soc:SOCCode)\r\n\r\n\tWHERE s.uri in $skillList \r\nOPTIONAL MATCH (o)<-[:esco__isEssentialSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n    WITH \r\n    \tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingEssentialSkills \r\nOPTIONAL MATCH (o)<-[:esco__isOptionalSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n\tWITH \r\n\t\tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingOptionalSkills, \r\n        MatchingEssentialSkills \r\nMATCH (j:JobProfile) -- (o)<-[:esco__isEssentialSkillFor]-(sa) \r\n\tWHERE MatchingOptionalSkills + MatchingEssentialSkills >= $minimumMatchingSkills \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        j.skos__prefLabel as JobProfile, \r\n        j.uri as JobProfileUri, \r\n        j.Description as JobProfileDescription \r\nOPTIONAL MATCH (j:JobProfile) -- (o)<-[:esco__isOptionalSkillFor]-(sa) \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllOptionalSkills, \r\n        AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        JobProfile, \r\n        JobProfileUri, \r\n        JobProfileDescription \r\nRETURN { \r\n\tmatchingOccupations: collect({\r\n    \turi:o.uri, \r\n        occupation:o.skos__prefLabel, \r\n        jobProfileTitle:JobProfile, \r\n        jobProfileUri:JobProfileUri, \r\n        jobProfileDescription:JobProfileDescription, \r\n        matchingEssentialSkills:MatchingEssentialSkills, \r\n        matchingOptionalSkills:MatchingOptionalSkills, \r\n        socCode:soc.skos__prefLabel, \r\n        totalOccupationEssentialSkills:AllEssentialSkills, \r\n        totalOccupationOptionalSkills:AllOptionalSkills, \r\n        lastModified:o.dct__modified\r\n\t})\r\n} as results",
                     "Parameters": "{\r\n\t\"minimumMatchingSkills\": 2,\r\n    \"skillList\": [\r\n    \t\"http://data.europa.eu/esco/skill/f98e06f5-a09a-4356-b6a8-d55a7d3c5356\",\r\n    \t\"http://data.europa.eu/esco/skill/98eb1f3b-3480-416b-bd4b-811946f7e347\"\r\n\t]\r\n}",
                     "ResultModelType": "SimpleCypherModel"
                 }

@@ -133,7 +133,7 @@ namespace GetJobProfiles
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
-            if (! (excludeGraphContentMutators || createTestFiles) )
+            if (!(excludeGraphContentMutators || createTestFiles))
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
@@ -141,7 +141,7 @@ namespace GetJobProfiles
             }
 
             bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
-            if (! (excludeGraphIndexMutators || createTestFiles) )
+            if (!(excludeGraphIndexMutators || createTestFiles))
             {
                 await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
