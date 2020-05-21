@@ -10,6 +10,7 @@ namespace GetJobProfiles
 {
     public class SocCodeConverter
     {
+        public const string UnknownSocCode = "XXXX";
         public List<SocCodeContentItem> SocCodeContentItems { get; private set; }
         private readonly string[] _codesToProcess;
         private readonly bool _processAll;
@@ -34,6 +35,10 @@ namespace GetJobProfiles
                         //convert to ContentItems
                         .Select(x => x.ToContentItem(timestamp))
                         .ToList();
+
+                // add an 'unknown' soc code for job profiles that have a soc code not in our list of soc codes
+                SocCodeContentItems.Add(new SocCode { Unit = UnknownSocCode, Title = "Unknown SOC Code" }.ToContentItem(timestamp));
+
                 //return a dictionary for the JobProfileConverter to use to link the profiles to their relevant SOC codes
                 return SocCodeContentItems.ToDictionary(x => x.DisplayText, x => x.ContentItemId);
             }

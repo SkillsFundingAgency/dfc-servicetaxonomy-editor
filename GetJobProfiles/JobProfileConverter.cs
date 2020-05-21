@@ -48,6 +48,7 @@ namespace GetJobProfiles
         public string Timestamp { get; set; }
 
         private readonly RestHttpClient.RestHttpClient _client;
+        private readonly SocCodeContentPickerFactory _socCodeContentPickerFactory;
         private readonly Dictionary<string, string> _socCodeDictionary;
         private readonly Dictionary<string, string> _oNetDictionary;
         private readonly DefaultIdGenerator _idGenerator;
@@ -70,7 +71,7 @@ namespace GetJobProfiles
         public JobProfileConverter(RestHttpClient.RestHttpClient client, Dictionary<string, string> socCodeDictionary, Dictionary<string, string> oNetDictionary, string timestamp)
         {
             _client = client;
-            _socCodeDictionary = socCodeDictionary;
+            _socCodeContentPickerFactory = new SocCodeContentPickerFactory(socCodeDictionary);
             _oNetDictionary = oNetDictionary;
             _idGenerator = new DefaultIdGenerator();
             Timestamp = timestamp;
@@ -193,7 +194,7 @@ namespace GetJobProfiles
                     Description = new HtmlField(jobProfile.Overview),
                     TitleOptions = new TextField("as_defined"),
                     JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
-                    SOCCode = new ContentPicker { ContentItemIds = new List<string> { _socCodeDictionary[jobProfile.Soc] } },
+                    SOCCode = _socCodeContentPickerFactory.Create(jobProfile.Soc),
                     ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
                     SalaryExperienced = new TextField(jobProfile.SalaryExperienced),
