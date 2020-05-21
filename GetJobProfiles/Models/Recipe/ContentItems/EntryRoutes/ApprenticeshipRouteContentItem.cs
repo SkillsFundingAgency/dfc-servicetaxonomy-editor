@@ -9,11 +9,5 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes
             : base("ApprenticeshipRoute", title, entryRoute, timestamp, contentItemId)
         {
         }
-
-        // [JsonPropertyName("ApprenticeshipRoute")]
-        // public override AcademicEntryRoutePart EponymousPart {
-        //     get { return base.EponymousPart; }
-        //     set { base.EponymousPart = value; }
-        // }
     }
 }
