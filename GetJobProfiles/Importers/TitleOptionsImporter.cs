@@ -20,7 +20,7 @@ namespace GetJobProfiles.Importers
             var sheet = workbook.GetSheet("JobProfile");
             int dynamicTitleColumnIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "DynamicTitlePrefix")
                 .ColumnIndex;
-            int titleColumnIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "Title").ColumnIndex;
+            int urlColumnIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "ItemDefaultUrl").ColumnIndex;
 
             var titleOptionsLookup = new Dictionary<string, string>();
 
@@ -28,9 +28,9 @@ namespace GetJobProfiles.Importers
             {
                 var row = sheet.GetRow(i);
                 string titleOption = sheetValueToFieldValue[row.GetCell(dynamicTitleColumnIndex).StringCellValue];
-                string title = row.GetCell(titleColumnIndex).StringCellValue;
+                string url = row.GetCell(urlColumnIndex).StringCellValue.TrimStart('/');
 
-                titleOptionsLookup.Add(title, titleOption);
+                titleOptionsLookup.Add(url, titleOption);
             }
 
             return titleOptionsLookup;

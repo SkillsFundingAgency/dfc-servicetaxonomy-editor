@@ -192,14 +192,16 @@ namespace GetJobProfiles.Importers
 
             oNetContentItemIds ??= _oNetDictionary[ONetConverter.UnknownJobProfile];
 
+            string jobProfileWebsiteUrl = uri.Segments.Last();
+
             var contentItem = new JobProfileContentItem(jobProfile.Title, Timestamp)
             {
                 EponymousPart = new JobProfilePart(),
                 JobProfileHeader = new JobProfileHeaderPart
                 {
                     Description = new HtmlField(jobProfile.Overview),
-                    TitleOptions = _titleOptionsFactory.Create(jobProfile.Title),
-                    JobProfileWebsiteUrl = new TextField(uri.Segments.LastOrDefault()),
+                    TitleOptions = _titleOptionsFactory.Create(jobProfileWebsiteUrl),
+                    JobProfileWebsiteUrl = new TextField(jobProfileWebsiteUrl),
                     SOCCode = _socCodeContentPickerFactory.Create(jobProfile.Soc),
                     ONetOccupationalCode = new ContentPicker { ContentItemIds = new List<string> { oNetContentItemIds } },
                     SalaryStarter = new TextField(jobProfile.SalaryStarter),
