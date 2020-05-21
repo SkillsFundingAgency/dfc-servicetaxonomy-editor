@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.Generic;
 using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.Fields;
 using OrchardCore.Entities;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class QCFLevelBuilder
     {
@@ -35,17 +32,19 @@ namespace GetJobProfiles
 
         private void InitialiseDictionary()
         {
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("0", _generator.GenerateUniqueId());
-            dictionary.Add("1", _generator.GenerateUniqueId());
-            dictionary.Add("2", _generator.GenerateUniqueId());
-            dictionary.Add("3", _generator.GenerateUniqueId());
-            dictionary.Add("4", _generator.GenerateUniqueId());
-            dictionary.Add("5", _generator.GenerateUniqueId());
-            dictionary.Add("6", _generator.GenerateUniqueId());
-            dictionary.Add("7", _generator.GenerateUniqueId());
-            dictionary.Add("8", _generator.GenerateUniqueId());
-            dictionary.Add("99", _generator.GenerateUniqueId());
+            var dictionary = new Dictionary<string, string>
+            {
+                {"0", _generator.GenerateUniqueId()},
+                {"1", _generator.GenerateUniqueId()},
+                {"2", _generator.GenerateUniqueId()},
+                {"3", _generator.GenerateUniqueId()},
+                {"4", _generator.GenerateUniqueId()},
+                {"5", _generator.GenerateUniqueId()},
+                {"6", _generator.GenerateUniqueId()},
+                {"7", _generator.GenerateUniqueId()},
+                {"8", _generator.GenerateUniqueId()},
+                {"99", _generator.GenerateUniqueId()}
+            };
 
             QCFLevelDictionary = dictionary;
         }

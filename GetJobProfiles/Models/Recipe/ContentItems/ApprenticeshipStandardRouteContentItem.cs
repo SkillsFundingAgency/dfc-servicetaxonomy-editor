@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GetJobProfiles.Models.Recipe.ContentItems.Base;
+﻿using GetJobProfiles.Models.Recipe.ContentItems.Base;
 using GetJobProfiles.Models.Recipe.Parts;
 
 namespace GetJobProfiles.Models.Recipe.ContentItems

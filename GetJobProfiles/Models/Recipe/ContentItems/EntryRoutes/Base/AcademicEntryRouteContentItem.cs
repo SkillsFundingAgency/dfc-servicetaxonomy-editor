@@ -7,9 +7,12 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
 {
     public class AcademicEntryRouteContentItem : ContentItem
     {
-        public AcademicEntryRouteContentItem(string contentType, AcademicEntryRoute entryRoute, string timestamp, string contentItemId = null)
+        public AcademicEntryRouteContentItem(string contentType, string title, AcademicEntryRoute entryRoute, string timestamp, string contentItemId = null)
             : base(contentType, null, timestamp, contentItemId)
         {
+            TitlePart = new TitlePart(title);
+            DisplayText = TitlePart.Title;
+
             EponymousPart = new AcademicEntryRoutePart
             {
                 RelevantSubjects = new HtmlField(entryRoute.RelevantSubjects),
@@ -18,7 +21,8 @@ namespace GetJobProfiles.Models.Recipe.ContentItems.EntryRoutes.Base
             GraphSyncPart = new GraphSyncPart(contentType);
         }
 
-        public virtual AcademicEntryRoutePart EponymousPart { get; set; }
+        public TitlePart TitlePart { get; set; }
+        public AcademicEntryRoutePart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
     }
 

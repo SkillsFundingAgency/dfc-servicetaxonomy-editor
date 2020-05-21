@@ -6,18 +6,19 @@ using CsvHelper;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.ContentItems;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class SocCodeConverter
     {
+        public const string UnknownSocCode = "XXXX";
         public List<SocCodeContentItem> SocCodeContentItems { get; private set; }
-        private string[] CodesToProcess;
-        private bool ProcessAll = true;
+        private readonly string[] _codesToProcess;
+        private readonly bool _processAll;
 
         public SocCodeConverter(string[] codes)
         {
-            CodesToProcess = codes;
-            ProcessAll = ( CodesToProcess.Count() == 0 );
+            _codesToProcess = codes;
+            _processAll = !_codesToProcess.Any();
         }
 
         public Dictionary<string, string> Go(string timestamp)
@@ -30,10 +31,14 @@ namespace GetJobProfiles
                 //filter out the ones we don't care about - i.e. the groups and sub groups (no Unit value)
 
                 SocCodeContentItems = items
-                        .Where(x => !string.IsNullOrWhiteSpace(x.Unit) && (ProcessAll || CodesToProcess.Contains( x.Unit )) )
+                        .Where(x => !string.IsNullOrWhiteSpace(x.Unit) && (_processAll || _codesToProcess.Contains( x.Unit )) )
                         //convert to ContentItems
                         .Select(x => x.ToContentItem(timestamp))
                         .ToList();
+
+                // add an 'unknown' soc code for job profiles that have a soc code not in our list of soc codes
+                SocCodeContentItems.Add(new SocCode { Unit = UnknownSocCode, Title = "Unknown SOC Code" }.ToContentItem(timestamp));
+
                 //return a dictionary for the JobProfileConverter to use to link the profiles to their relevant SOC codes
                 return SocCodeContentItems.ToDictionary(x => x.DisplayText, x => x.ContentItemId);
             }

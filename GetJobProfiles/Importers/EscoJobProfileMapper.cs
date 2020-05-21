@@ -9,7 +9,7 @@ using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.Fields;
 using MoreLinq;
 
-namespace GetJobProfiles
+namespace GetJobProfiles.Importers
 {
     public class EscoJobProfileMapper
     {

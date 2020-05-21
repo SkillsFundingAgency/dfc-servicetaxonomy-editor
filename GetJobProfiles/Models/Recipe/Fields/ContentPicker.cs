@@ -7,7 +7,8 @@ namespace GetJobProfiles.Models.Recipe.Fields
     public class ContentPicker
     {
         public ContentPicker()
-        { }
+        {
+        }
 
         //todo: this will go
         public ContentPicker(ConcurrentDictionary<string, (string id, string text)> currentContentItems, IEnumerable<string> contentItems)

@@ -10,7 +10,7 @@
     "tags": [],
     "steps": [
         {
-            "name": "content",
+            "name": "CSharpContent",
             "data": [
                 {
                     "ContentItemId": "4kqbfyyy1ahd5xndf45fg2rad0",
@@ -30,7 +30,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://nationalcareers.service.gov.uk/sharedcontent/2def38e0-83ae-4bc1-9350-3fb4b00c7857"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/c0117ac7-115a-4bc1-9350-3fb4b00c7857"
                     },
                     "TitlePart": {
                         "Title": "Contact us"

@@ -59,6 +59,7 @@
                 "OrchardCore.Menu",
                 "OrchardCore.Queries",
                 "OrchardCore.Title",
+                "OrchardCore.Taxonomies",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
                 // Workflows
@@ -329,29 +330,6 @@
                                 "ContentTypePartSettings": {
                                     "Position": "6"
                                 }
-                            }
-                        },
-                        {
-                            "PartName": "BagPart",
-                            "Name": "EntryRoutes",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "7",
-                                    "DisplayName": "How To Become Entry Routes",
-                                    "Description": "‏‏‎ ‎"
-                                },
-                                "BagPartSettings": {
-                                    "ContainedContentTypes": [
-                                        "ApprenticeshipRoute",
-                                        "CollegeRoute",
-                                        "DirectRoute",
-                                        "OtherRoute",
-                                        "UniversityRoute",
-                                        "VolunteeringRoute",
-                                        "WorkRoute"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
                             }
                         },
                         {
@@ -661,6 +639,8 @@
                     "DisplayName": "University Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -668,11 +648,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "UniversityRoute",
                             "Name": "UniversityRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -681,10 +674,10 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "hasHtbUniversityRoute",
+                                    "BagPartContentItemRelationshipType": "",
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
@@ -699,6 +692,8 @@
                     "DisplayName": "College Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -707,11 +702,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "CollegeRoute",
                             "Name": "CollegeRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -720,10 +728,10 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "hasHtbCollegeRoute",
+                                    "BagPartContentItemRelationshipType": "",
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
@@ -738,6 +746,8 @@
                     "DisplayName": "Apprenticeship Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -746,11 +756,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "ApprenticeshipRoute",
                             "Name": "ApprenticeshipRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -759,10 +782,10 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "hasHtbApprenticeshipRoute",
+                                    "BagPartContentItemRelationshipType": "",
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
@@ -825,6 +848,8 @@
                     "DisplayName": "Work Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -832,11 +857,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "WorkRoute",
                             "Name": "WorkRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -845,10 +883,10 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "hasHtbWorkRoute",
+                                    "BagPartContentItemRelationshipType": "",
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
@@ -863,6 +901,8 @@
                     "DisplayName": "Volunteering Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -870,11 +910,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "VolunteeringRoute",
                             "Name": "VolunteeringRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -883,10 +936,10 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "hasHtbVolunteeringRoute",
+                                    "BagPartContentItemRelationshipType": "",
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
@@ -901,6 +954,8 @@
                     "DisplayName": "Direct Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -908,11 +963,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "DirectRoute",
                             "Name": "DirectRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -921,10 +989,10 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "hasHtbDirectRoute",
+                                    "BagPartContentItemRelationshipType": "",
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
@@ -939,6 +1007,8 @@
                     "DisplayName": "Other Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -946,11 +1016,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "OtherRoute",
                             "Name": "OtherRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -959,10 +1042,10 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "hasHtbOtherRoute",
+                                    "BagPartContentItemRelationshipType": "",
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
@@ -2991,12 +3074,51 @@
                             }
                         },
                         {
+                            "FieldName": "TextField",
+                            "Name": "TitleOptions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Title Options",
+                                    "Editor": "PredefinedList",
+                                    "Position": "3"
+                                },
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "As Defined",
+                                            "value": "as_defined"
+                                        },
+                                        {
+                                            "name": "No Prefix",
+                                            "value": "no_prefix"
+                                        },
+                                        {
+                                            "name": "No Title",
+                                            "value": "no_title"
+                                        },
+                                        {
+                                            "name": "Prefix with 'a'",
+                                            "value": "prefix_with_a"
+                                        },
+                                        {
+                                            "name": "Prefix with 'an'",
+                                            "value": "prefix_with_an"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "as_defined"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "ContentPickerField",
                             "Name": "SOCCode",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:hasSocCode].",
@@ -3014,7 +3136,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "ONet Occupational Code",
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of type [:hasONetOccupationalCode].",
@@ -3125,40 +3247,144 @@
                     },
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "HtbTitleOptions",
+                            "FieldName": "TabField",
+                            "Name": "HowToBecome",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Title Options",
-                                    "Editor": "PredefinedList",
+                                    "DisplayName": "How to become",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Route",
                                     "Position": "1"
                                 },
-                                "TextFieldSettings": {},
-                                "TextFieldPredefinedListEditorSettings": {
-                                    "Options": [
-                                        {
-                                            "name": "As Defined",
-                                            "value": "as_defined"
-                                        },
-                                        {
-                                            "name": "No Prefix",
-                                            "value": "no_prefix"
-                                        },
-                                        {
-                                            "name": "No Title",
-                                            "value": "no_title"
-                                        },
-                                        {
-                                            "name": "Prefix with 'a'",
-                                            "value": "prefix_with_a"
-                                        },
-                                        {
-                                            "name": "Prefix with 'an'",
-                                            "value": "prefix_with_an"
-                                        }
-                                    ],
-                                    "Editor": 1,
-                                    "DefaultValue": "as_defined"
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbApprenticeshipRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "CollegeRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "College Route",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbCollegeRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "CollegeRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "DirectRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Direct Route",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbDirectRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "DirectRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "OtherRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Other Route",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbOtherRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "DirectRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "UniversityRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "University Route",
+                                    "Position": "5"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbUniversityRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "UniversityRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "VolunteeringRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Volunteering Route",
+                                    "Position": "6"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbVolunteeringRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "VolunteeringRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WorkRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Work Route",
+                                    "Position": "7"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbWorkRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "WorkRoute"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -3169,7 +3395,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Registrations",
-                                    "Position": "2"
+                                    "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:requiresHtbRegistration].",
@@ -3188,7 +3414,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Career Tips",
                                     "Editor": "Trumbowyg",
-                                    "Position": "3"
+                                    "Position": "9"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -3204,7 +3430,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Professional And Industry Bodies",
                                     "Editor": "Trumbowyg",
-                                    "Position": "4"
+                                    "Position": "10"
                                 },
                                 "HtmlFieldSettings": {},
                                 "ContentIndexSettings": {},
@@ -3220,23 +3446,13 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "5"
+                                    "Position": "11"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                                 },
                                 "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TabField",
-                            "Name": "HowToBecome",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How to become",
-                                    "Position": "0"
-                                }
                             }
                         }
                     ]
