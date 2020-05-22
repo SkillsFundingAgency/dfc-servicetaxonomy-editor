@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +31,41 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseOrchardCore();
+            // UseCsp has to come before UseOrchardCore for it to have any affect
+            app
+                .UseCsp(csp =>
+                {
+                    // https://github.com/juunas11/aspnetcore-security-headers
+
+                    csp.ByDefaultAllow.FromSelf();
+
+                    csp.AllowScripts
+                        .FromSelf()
+                        .AllowUnsafeInline()
+                        .From("code.jquery.com")
+                        .From("cdn.jsdelivr.net");
+
+                    csp.AllowStyles.FromSelf()
+                        .AllowUnsafeInline()
+                        .From("fonts.googleapis.com")
+                        .From("code.jquery.com");
+
+                    //do we need fromself for all if bydefaultallow allows it?
+                    csp.AllowFonts.FromSelf()
+                        .From("fonts.gstatic.com");
+
+                    csp.OnSendingHeader = context =>
+                    {
+                        //todo: need to add all ajax callbacks :-o
+                        //context.ShouldNotSend = context.HttpContext.Request.Path.StartsWithSegments("/api");
+                        return Task.CompletedTask;
+                    };
+
+                    // csp.ByDefaultAllow.FromNowhere();
+                    // csp.SetReportOnly();
+                    // csp.ReportViolationsTo("/csp-report");
+                })
+                .UseOrchardCore();
         }
     }
 }
