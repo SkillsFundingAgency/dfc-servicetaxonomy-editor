@@ -600,7 +600,6 @@
                     "DisplayName": "Skill",
                     "Settings": {
                         "ContentTypeSettings": {
-                            "Creatable": true,
                             "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
