@@ -87,6 +87,9 @@
                 "Controller": "Admin",
                 "Area": "OrchardCore.Admin"
             },
+            "AdminSettings": {
+                "DisplayMenuFilter": true
+            },
             "HttpsSettings": {
                 "EnableStrictTransportSecurity": true,
                 "RequireHttps": true,
