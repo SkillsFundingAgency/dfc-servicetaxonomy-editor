@@ -59,6 +59,7 @@
                 "OrchardCore.Menu",
                 "OrchardCore.Queries",
                 "OrchardCore.Title",
+                "OrchardCore.Taxonomies",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
                 // Workflows
@@ -125,10 +126,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -245,10 +246,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -332,29 +333,6 @@
                             }
                         },
                         {
-                            "PartName": "BagPart",
-                            "Name": "EntryRoutes",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "7",
-                                    "DisplayName": "How To Become Entry Routes",
-                                    "Description": "‏‏‎ ‎"
-                                },
-                                "BagPartSettings": {
-                                    "ContainedContentTypes": [
-                                        "ApprenticeshipRoute",
-                                        "CollegeRoute",
-                                        "DirectRoute",
-                                        "OtherRoute",
-                                        "UniversityRoute",
-                                        "VolunteeringRoute",
-                                        "WorkRoute"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
                             "PartName": "GraphSyncPart",
                             "Name": "GraphSyncPart",
                             "Settings": {
@@ -362,10 +340,10 @@
                                     "Position": "7"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -411,10 +389,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -460,10 +438,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -509,10 +487,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -558,10 +536,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -598,10 +576,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -661,6 +639,8 @@
                     "DisplayName": "University Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -668,11 +648,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "UniversityRoute",
                             "Name": "UniversityRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -681,14 +674,14 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbUniversityRoute",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "BagPartContentItemRelationshipType": "",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -699,6 +692,8 @@
                     "DisplayName": "College Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -707,11 +702,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "CollegeRoute",
                             "Name": "CollegeRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -720,14 +728,14 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbCollegeRoute",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "BagPartContentItemRelationshipType": "",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -738,6 +746,8 @@
                     "DisplayName": "Apprenticeship Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -746,11 +756,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "ApprenticeshipRoute",
                             "Name": "ApprenticeshipRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -759,14 +782,14 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbApprenticeshipRoute",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "BagPartContentItemRelationshipType": "",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -811,10 +834,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -825,6 +848,8 @@
                     "DisplayName": "Work Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -832,11 +857,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "WorkRoute",
                             "Name": "WorkRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -845,14 +883,14 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbWorkRoute",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "BagPartContentItemRelationshipType": "",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -863,6 +901,8 @@
                     "DisplayName": "Volunteering Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -870,11 +910,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "VolunteeringRoute",
                             "Name": "VolunteeringRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -883,14 +936,14 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbVolunteeringRoute",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "BagPartContentItemRelationshipType": "",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -901,6 +954,8 @@
                     "DisplayName": "Direct Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -908,11 +963,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "DirectRoute",
                             "Name": "DirectRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -921,14 +989,14 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbDirectRoute",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "BagPartContentItemRelationshipType": "",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -939,6 +1007,8 @@
                     "DisplayName": "Other Route",
                     "Settings": {
                         "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Securable": true
@@ -946,11 +1016,24 @@
                     },
                     "ContentTypePartDefinitionRecords": [
                         {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TitlePartSettings": {
+                                    "Options": 3
+                                }
+                            }
+                        },
+                        {
                             "PartName": "OtherRoute",
                             "Name": "OtherRoute",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -959,14 +1042,14 @@
                             "Name": "GraphSyncPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "BagPartContentItemRelationshipType": "ncs__hasHtbOtherRoute",
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "BagPartContentItemRelationshipType": "",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1011,10 +1094,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1059,10 +1142,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1107,10 +1190,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1155,10 +1238,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1203,10 +1286,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1251,10 +1334,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1299,10 +1382,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1347,10 +1430,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1395,10 +1478,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1443,10 +1526,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1491,10 +1574,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1539,10 +1622,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1579,10 +1662,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         },
@@ -1637,10 +1720,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1686,10 +1769,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1735,10 +1818,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -1784,10 +1867,10 @@
                                     "Position": "2"
                                 },
                                 "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "$\"ncs__{ContentType}\"",
+                                    "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
-                                    "PropertyNameTransform": "$\"ncs__{Value}\"",
-                                    "GenerateIdPropertyValue": "$\"http://nationalcareers.service.gov.uk/{ContentType.ToLowerInvariant()}/{Value}\""
+                                    "PropertyNameTransform": "Value",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\""
                                 }
                             }
                         }
@@ -2086,7 +2169,7 @@
                                     "Position": "0"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationship of type [:ncs__hasPrefLabel].",
+                                    "Hint": "Creates relationship of type [:hasPrefLabel].",
                                     "Multiple": false,
                                     "DisplayedContentTypes": [
                                         "OccupationLabel"
@@ -2104,7 +2187,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasAltLabel].",
+                                    "Hint": "Creates relationships of type [:hasAltLabel].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "OccupationLabel"
@@ -2205,7 +2288,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasJobProfile].",
+                                    "Hint": "Creates relationships of type [:hasJobProfile].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "JobProfile"
@@ -2330,7 +2413,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
+                                    "Hint": "Creates relationships of [:hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -2347,7 +2430,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasUniversityRequirement].",
+                                    "Hint": "Creates relationships of [:hasUniversityRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "UniversityRequirement"
@@ -2364,7 +2447,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasUniversityLink].",
+                                    "Hint": "Creates relationships of [:hasUniversityLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "UniversityLink"
@@ -2417,7 +2500,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
+                                    "Hint": "Creates relationships of [:hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -2434,7 +2517,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasCollegeRequirement].",
+                                    "Hint": "Creates relationships of [:hasCollegeRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "CollegeRequirement"
@@ -2451,7 +2534,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasCollegeLink].",
+                                    "Hint": "Creates relationships of [:hasCollegeLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "CollegeLink"
@@ -2504,7 +2587,7 @@
                                     "DisplayName": "Requirements Prefix"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasRequirementsPrefix].",
+                                    "Hint": "Creates relationships of [:hasRequirementsPrefix].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "RequirementsPrefix"
@@ -2521,7 +2604,7 @@
                                     "DisplayName": "Requirements"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipRequirement].",
+                                    "Hint": "Creates relationships of [:hasApprenticeshipRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "ApprenticeshipRequirement"
@@ -2538,7 +2621,7 @@
                                     "DisplayName": "Links"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipLink].",
+                                    "Hint": "Creates relationships of [:hasApprenticeshipLink].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "ApprenticeshipLink"
@@ -3025,15 +3108,54 @@
                             }
                         },
                         {
+                            "FieldName": "TextField",
+                            "Name": "TitleOptions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Title Options",
+                                    "Editor": "PredefinedList",
+                                    "Position": "3"
+                                },
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "As Defined",
+                                            "value": "as_defined"
+                                        },
+                                        {
+                                            "name": "No Prefix",
+                                            "value": "no_prefix"
+                                        },
+                                        {
+                                            "name": "No Title",
+                                            "value": "no_title"
+                                        },
+                                        {
+                                            "name": "Prefix with 'a'",
+                                            "value": "prefix_with_a"
+                                        },
+                                        {
+                                            "name": "Prefix with 'an'",
+                                            "value": "prefix_with_an"
+                                        }
+                                    ],
+                                    "Editor": 1,
+                                    "DefaultValue": "as_defined"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
                             "FieldName": "ContentPickerField",
                             "Name": "SOCCode",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "SOC Code",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasSocCode].",
+                                    "Hint": "Creates relationships of type [:hasSocCode].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "SOCCode"
@@ -3048,10 +3170,10 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "ONet Occupational Code",
-                                    "Position": "4"
+                                    "Position": "5"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasONetOccupationalCode].",
+                                    "Hint": "Creates relationships of type [:hasONetOccupationalCode].",
                                     "Required": true,
                                     "DisplayedContentTypes": [
                                         "ONetOccupationalCode"
@@ -3159,40 +3281,144 @@
                     },
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "HtbTitleOptions",
+                            "FieldName": "TabField",
+                            "Name": "HowToBecome",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Title Options",
-                                    "Editor": "PredefinedList",
+                                    "DisplayName": "How to become",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ApprenticeshipRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Apprenticeship Route",
                                     "Position": "1"
                                 },
-                                "TextFieldSettings": {},
-                                "TextFieldPredefinedListEditorSettings": {
-                                    "Options": [
-                                        {
-                                            "name": "As Defined",
-                                            "value": "as_defined"
-                                        },
-                                        {
-                                            "name": "No Prefix",
-                                            "value": "no_prefix"
-                                        },
-                                        {
-                                            "name": "No Title",
-                                            "value": "no_title"
-                                        },
-                                        {
-                                            "name": "Prefix with 'a'",
-                                            "value": "prefix_with_a"
-                                        },
-                                        {
-                                            "name": "Prefix with 'an'",
-                                            "value": "prefix_with_an"
-                                        }
-                                    ],
-                                    "Editor": 1,
-                                    "DefaultValue": "as_defined"
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbApprenticeshipRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "ApprenticeshipRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "CollegeRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "College Route",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbCollegeRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "CollegeRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "DirectRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Direct Route",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbDirectRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "DirectRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "OtherRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Other Route",
+                                    "Position": "4"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbOtherRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "DirectRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "UniversityRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "University Route",
+                                    "Position": "5"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbUniversityRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "UniversityRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "VolunteeringRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Volunteering Route",
+                                    "Position": "6"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbVolunteeringRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "VolunteeringRoute"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "WorkRoute",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Work Route",
+                                    "Position": "7"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasHtbWorkRoute].",
+                                    "Required": false,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "WorkRoute"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -3203,10 +3429,10 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Registrations",
-                                    "Position": "2"
+                                    "Position": "8"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__requiresHtbRegistration].",
+                                    "Hint": "Creates relationships of [:requiresHtbRegistration].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Registration"
@@ -3222,7 +3448,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Career Tips",
                                     "Editor": "Trumbowyg",
-                                    "Position": "3"
+                                    "Position": "9"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
@@ -3238,7 +3464,7 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Professional And Industry Bodies",
                                     "Editor": "Trumbowyg",
-                                    "Position": "4"
+                                    "Position": "10"
                                 },
                                 "HtmlFieldSettings": {},
                                 "ContentIndexSettings": {},
@@ -3254,23 +3480,13 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Further Information",
                                     "Editor": "Trumbowyg",
-                                    "Position": "5"
+                                    "Position": "11"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                                 },
                                 "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TabField",
-                            "Name": "HowToBecome",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "How to become",
-                                    "Position": "0"
-                                }
                             }
                         }
                     ]
@@ -3302,7 +3518,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasWitRestriction].",
+                                    "Hint": "Creates relationships of [:hasWitRestriction].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Restriction"
@@ -3320,7 +3536,7 @@
                                     "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasWitOtherRequirement].",
+                                    "Hint": "Creates relationships of [:hasWitOtherRequirement].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "OtherRequirement"
@@ -3364,7 +3580,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasDayToDayTask].",
+                                    "Hint": "Creates relationships of [:hasDayToDayTask].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "DayToDayTask"
@@ -3382,7 +3598,7 @@
                                     "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingEnvironment].",
+                                    "Hint": "Creates relationships of type [:hasWorkingEnvironment].",
                                     "DisplayedContentTypes": [
                                         "WorkingEnvironment"
                                     ]
@@ -3399,7 +3615,7 @@
                                     "Position": "3"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingLocation].",
+                                    "Hint": "Creates relationships of type [:hasWorkingLocation].",
                                     "DisplayedContentTypes": [
                                         "WorkingLocation"
                                     ]
@@ -3416,7 +3632,7 @@
                                     "Position": "4"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__hasWorkingUniform].",
+                                    "Hint": "Creates relationships of type [:hasWorkingUniform].",
                                     "DisplayedContentTypes": [
                                         "WorkingUniform"
                                     ]
@@ -3479,7 +3695,7 @@
                                     "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of [:ncs__hasApprenticeshipStandard].",
+                                    "Hint": "Creates relationships of [:hasApprenticeshipStandard].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "ApprenticeshipStandard"
@@ -3937,7 +4153,7 @@
                     "Source": "Cypher",
                     "IsReadonly": true,
                     "Schema": null,
-                    "Template": "MATCH (s:esco__Skill)-[r:esco__isEssentialSkillFor|esco__isOptionalSkillFor]->(o:esco__Occupation)--(j:ncs__JobProfile)-[:ncs__hasSocCode]-(soc:ncs__SOCCode)\r\n\r\n\tWHERE s.uri in $skillList \r\nOPTIONAL MATCH (o)<-[:esco__isEssentialSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n    WITH \r\n    \tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingEssentialSkills \r\nOPTIONAL MATCH (o)<-[:esco__isOptionalSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n\tWITH \r\n\t\tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingOptionalSkills, \r\n        MatchingEssentialSkills \r\nMATCH (j:ncs__JobProfile) -- (o)<-[:esco__isEssentialSkillFor]-(sa) \r\n\tWHERE MatchingOptionalSkills + MatchingEssentialSkills >= $minimumMatchingSkills \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        j.skos__prefLabel as JobProfile, \r\n        j.uri as JobProfileUri, \r\n        j.ncs__Description as JobProfileDescription \r\nOPTIONAL MATCH (j:ncs__JobProfile) -- (o)<-[:esco__isOptionalSkillFor]-(sa) \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllOptionalSkills, \r\n        AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        JobProfile, \r\n        JobProfileUri, \r\n        JobProfileDescription \r\nRETURN { \r\n\tmatchingOccupations: collect({\r\n    \turi:o.uri, \r\n        occupation:o.skos__prefLabel, \r\n        jobProfileTitle:JobProfile, \r\n        jobProfileUri:JobProfileUri, \r\n        jobProfileDescription:JobProfileDescription, \r\n        matchingEssentialSkills:MatchingEssentialSkills, \r\n        matchingOptionalSkills:MatchingOptionalSkills, \r\n        socCode:soc.skos__prefLabel, \r\n        totalOccupationEssentialSkills:AllEssentialSkills, \r\n        totalOccupationOptionalSkills:AllOptionalSkills, \r\n        lastModified:o.dct__modified\r\n\t})\r\n} as results",
+                    "Template": "MATCH (s:esco__Skill)-[r:esco__isEssentialSkillFor|esco__isOptionalSkillFor]->(o:esco__Occupation)--(j:JobProfile)-[:hasSocCode]-(soc:SOCCode)\r\n\r\n\tWHERE s.uri in $skillList \r\nOPTIONAL MATCH (o)<-[:esco__isEssentialSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n    WITH \r\n    \tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingEssentialSkills \r\nOPTIONAL MATCH (o)<-[:esco__isOptionalSkillFor]-(sx) \r\n\tWHERE sx.uri in $skillList \r\n\tWITH \r\n\t\tsoc, \r\n        o, \r\n        COUNT(distinct sx) as MatchingOptionalSkills, \r\n        MatchingEssentialSkills \r\nMATCH (j:JobProfile) -- (o)<-[:esco__isEssentialSkillFor]-(sa) \r\n\tWHERE MatchingOptionalSkills + MatchingEssentialSkills >= $minimumMatchingSkills \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        j.skos__prefLabel as JobProfile, \r\n        j.uri as JobProfileUri, \r\n        j.Description as JobProfileDescription \r\nOPTIONAL MATCH (j:JobProfile) -- (o)<-[:esco__isOptionalSkillFor]-(sa) \r\n\tWITH \r\n    \to, \r\n        COUNT(distinct sa) as AllOptionalSkills, \r\n        AllEssentialSkills, \r\n        soc, \r\n        MatchingOptionalSkills,\r\n        MatchingEssentialSkills, \r\n        JobProfile, \r\n        JobProfileUri, \r\n        JobProfileDescription \r\nRETURN { \r\n\tmatchingOccupations: collect({\r\n    \turi:o.uri, \r\n        occupation:o.skos__prefLabel, \r\n        jobProfileTitle:JobProfile, \r\n        jobProfileUri:JobProfileUri, \r\n        jobProfileDescription:JobProfileDescription, \r\n        matchingEssentialSkills:MatchingEssentialSkills, \r\n        matchingOptionalSkills:MatchingOptionalSkills, \r\n        socCode:soc.skos__prefLabel, \r\n        totalOccupationEssentialSkills:AllEssentialSkills, \r\n        totalOccupationOptionalSkills:AllOptionalSkills, \r\n        lastModified:o.dct__modified\r\n\t})\r\n} as results",
                     "Parameters": "{\r\n\t\"minimumMatchingSkills\": 2,\r\n    \"skillList\": [\r\n    \t\"http://data.europa.eu/esco/skill/f98e06f5-a09a-4356-b6a8-d55a7d3c5356\",\r\n    \t\"http://data.europa.eu/esco/skill/98eb1f3b-3480-416b-bd4b-811946f7e347\"\r\n\t]\r\n}",
                     "ResultModelType": "SimpleCypherModel"
                 }

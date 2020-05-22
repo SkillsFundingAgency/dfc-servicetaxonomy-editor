@@ -31,12 +31,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
 
             if(node.Equals("Skill", StringComparison.CurrentCultureIgnoreCase))
             {
-                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(string.Join(":",sourceNodeName), "ncs__SkillLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel"));
+                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(string.Join(":",sourceNodeName), "SkillLabel", "skos__prefLabel", "hasAltLabel", "hasPrefLabel", "hasHiddenLabel"));
             }
 
             if (node.Equals("Occupation", StringComparison.CurrentCultureIgnoreCase))
             {
-                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(string.Join(":", sourceNodeName), "ncs__OccupationLabel", "skos__prefLabel", "ncs__hasAltLabel", "ncs__hasPrefLabel", "ncs__hasHiddenLabel"));
+                return await ExecuteSynonymQueryAsync(new MatchSynonymsQuery(string.Join(":", sourceNodeName), "OccupationLabel", "skos__prefLabel", "hasAltLabel", "hasPrefLabel", "hasHiddenLabel"));
             }
 
             return new List<string>();

@@ -70,6 +70,9 @@
         },
         "EventGridEnabled": {
             "value": __EventGridEnabled__
+        },
+        "apimProxyAddress": {
+            "value": "__ApimProxyAddress__"
         }
     }
 }

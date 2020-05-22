@@ -6,6 +6,7 @@ namespace GetJobProfiles.Models.Recipe.Parts
     {
         public ContentPicker Occupation { get; set; }
         public HtmlField Description { get; set; }
+        public TextField TitleOptions { get; set; }
         public TextField JobProfileWebsiteUrl { get; set; }
         public ContentPicker SOCCode { get; set; }
         public ContentPicker ONetOccupationalCode { get; set; }

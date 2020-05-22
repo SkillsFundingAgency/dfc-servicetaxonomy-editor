@@ -10,15 +10,15 @@ namespace GetJobProfiles.Models.Recipe.Parts
         // even though there's no limitation on title, we want title and displaytext to be the same
         public TitlePart(string title) => Title = ConvertLinks(title).Truncate(ContentItem.MaxDisplayTextLength);
 
-        public string Title { get; }
+        public string Title { get; set; }
 
         // same as regex in HtmlField
-        private static readonly Regex LinkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
+        private static readonly Regex _linkRegex = new Regex(@"([^\[]*)\[([^\|]*)\s\|\s([^\]\s]*)\s*\]([^\[]*)", RegexOptions.Compiled);
 
         private string ConvertLinks(string sitefinityString)
         {
             const string replacement = "$1[$2]$4";
-            return LinkRegex.Replace(sitefinityString, replacement);
+            return _linkRegex.Replace(sitefinityString, replacement);
         }
     }
 }

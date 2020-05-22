@@ -2,7 +2,19 @@
 
 * Look into console error when selecting an item in a ContentPickerWithPreview control.
 
-* change uri to https://dev.api.nationalcareersservice.org.uk/content/GetContent/jobprofile/<<id>> (appropriate for environment)
+* use content picker preview for entry routes?
+
+customs-officer not found in the jp dictionary
+
+store object of contentitemid and aggregate name as value
+
+unknown soc code (create a report)
+'9912', '9999'
+
+* add these to our theme?
+
+    BaseTheme = "TheAdmin",
+    Tags = new [] { "admin" }
 
 * event publishing threw during full import (working uniform)
 
@@ -40,9 +52,7 @@ Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously thr
 
 * check multi-topic config works
 
-* add properties to csharpcontent: failsilently (for getting list of issues in 1 go), and addtosessioncache
-
-* deleting draft doesn't always delete the content item
+* add properties to csharpcontent: addtosessioncache
 
 * enforce readonly nodes by not allowing user to delete the corresponding content item
 
@@ -50,15 +60,7 @@ Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously thr
 
 * how do we not publish events, if the operation is blocked by another workflow?
 
-* create stories for feature suggestions in here
-
-* delete/unpublish events
-
 * we could create a new contenthandler similar to OrchardCore.Contents.Workflows.Handlers.ContentsHandler to publish draft saved events, except looks like contenthandlers as is wouldn't support it
-
-* we'll need a service taxonomy recipe per environment, so that we can have different uris pointing to the right content api
-  or we supply it to the setting and pick it up from the appconfig
-  also need devops to add __EventGridTopicUrl__ and __EventGridAegSasKey__
 
 * recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
 
@@ -79,7 +81,6 @@ Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously thr
 
 * publish to event grid
     open questions: event domain or multiple topics or single topic?
-    single eventtype or split into eventtype and custom property?
 
 have single topic for all content types and have subscriber which sends data into app insights - if not already supported
 see
