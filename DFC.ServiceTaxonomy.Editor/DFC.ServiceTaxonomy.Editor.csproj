@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Localization\" />
+    <Folder Include="MasterRecipes\" />
   </ItemGroup>
 
   <ItemGroup>

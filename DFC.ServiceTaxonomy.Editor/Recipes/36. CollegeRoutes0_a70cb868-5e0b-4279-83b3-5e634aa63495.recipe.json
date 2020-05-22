@@ -1,0 +1,598 @@
+{
+  "name": "CollegeRoutes0_a70cb868-5e0b-4279-83b3-5e634aa63495",
+  "displayName": "CollegeRoutes0_a70cb868-5e0b-4279-83b3-5e634aa63495",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Waiter"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could prepare for this job by doing a college course to get some of the skills you\u0027ll need. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 1 Award in Introduction to Employment in the Hospitality Industry\u003C/li\u003E\u003Cli\u003ELevel 1 Certificate in Food and Beverage Service\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4xrdq9cemjqx054apbn4q4a7cw"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4y6zypfdfpv80rsv0w48sh9nwy"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/7ec9e398-263d-49d2-a62c-6d7a32c0fa75\u0027]"
+    },
+    "ContentItemId": "4kj1ngwt58xyd785pa2k75e8c8",
+    "ContentItemVersionId": "4wj9yd5g2m1ak38wfef58g205f",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Waiter",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sales assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can learn some of the skills you need for this job by doing a:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate or Diploma in Retail Skills\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Retail Skills Sales Professional\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s",
+          "4f0xprb72k0107aghgwdvyqw4d"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/0e8f516f-9601-48c9-8281-99b4ad30a2ad\u0027]"
+    },
+    "ContentItemId": "49gvdb1xqqqk8rymsmfzt675xz",
+    "ContentItemVersionId": "4v3v7qb716wtk7f1ebqbvq4r4c",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Sales assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become an actor but it may be useful to do a relevant subject like:\u003Cul\u003E\u003Cli\u003ELevel 2 Technical Certificate in Performing Arts\u003C/li\u003E\u003Cli\u003ELevel 3 Extended Diploma in Performing Arts - Acting\u003C/li\u003E\u003Cli\u003EA level in Drama and Theatre\u003C/li\u003E\u003Cli\u003ELevel 4 Diploma in Speech and Drama\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s",
+          "4f0xprb72k0107aghgwdvyqw4d",
+          "4cddmpj4fvcg1r5c2qw3mmkzcj"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/5c2ef183-dd03-4dcf-b9b9-1b87b24a2ee7\u0027]"
+    },
+    "ContentItemId": "4hsbrr6ejv4yz03psg3b4qa45q",
+    "ContentItemVersionId": "4jdzjps4ccgg62dj3d5wk5jxd6",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cabin crew"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course like a Level 2 Certificate in Air Cabin Crew or study a cabin crew module as part of a broader travel and tourism course.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4xrdq9cemjqx054apbn4q4a7cw"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/357f5352-beff-467d-8072-f858838a5de7\u0027]"
+    },
+    "ContentItemId": "4he2652q5s4k5s179mn0sqvfnq",
+    "ContentItemVersionId": "42vake595h30atxnj0st2zg0cy",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Cabin crew",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Police officer"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a Level 2 or 3 Diploma in Public Services before applying to the police, although this is not essential.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s",
+          "4f0xprb72k0107aghgwdvyqw4d"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/9b09cf0e-316d-410a-a9d8-54cb3694c64e\u0027]"
+    },
+    "ContentItemId": "49ymb7yfk7jg9wv4t2j16svjx8",
+    "ContentItemVersionId": "495kfgn2fqj3f0pn1e59srcm4g",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Police officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Personal assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college qualification to help you get a job as a junior personal assistant. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Business Support\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Business Administration\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s",
+          "4f0xprb72k0107aghgwdvyqw4d"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/1307ec8a-8c17-4d58-8ad6-76076eefd8e0\u0027]"
+    },
+    "ContentItemId": "4yz86cx9v9btbz2dagyvvn8n44",
+    "ContentItemVersionId": "4e4sarsygzvah22t028r6b7px8",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Personal assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Farmer"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could start your career in farming by doing a course at agricultural college like:\u003Cul\u003E\u003Cli\u003ELevel 2 Certificate in Land-based Activities\u003C/li\u003E\u003Cli\u003ELevel 3 Diploma in Agriculture\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EThis would teach you some of the skills and knowledge needed in this job.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s",
+          "4f0xprb72k0107aghgwdvyqw4d"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4rjchq698447qs1vjengrq1ada",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/c62487f1-d812-40c9-8ae4-2d6c196ea0ae\u0027]"
+    },
+    "ContentItemId": "4vvpq7esmafsbz7045qfbn00me",
+    "ContentItemVersionId": "4dr5n646mf1jpz8gy3cg9858ma",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Farmer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Electrician"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can take a Level 2 and 3 Diploma in Electrical Installation, which may help you to find a trainee position with a company.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s",
+          "4f0xprb72k0107aghgwdvyqw4d"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/aa701beb-0161-40b0-baad-a63ccaa7e72c\u0027]"
+    },
+    "ContentItemId": "4d2bcxteeafnh797cmjt735vds",
+    "ContentItemVersionId": "4sgd08c59hmgv3126n3sfsnfx0",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Electrician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emergency medical dispatcher"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EGood computer skills and a typing qualification could be useful to get into this job, for example:\u003Cul\u003E\u003Cli\u003ELevel 2 Award in Touch Typing\u003C/li\u003E\u003Cli\u003ELevel 2 ECDL Award in IT User Skills\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4xpkha8575sb8xxkxs2173bdnz"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/0a119ca9-7087-44f9-b56f-63cdb6634059\u0027]"
+    },
+    "ContentItemId": "4f7z3qf8tmrztrrv720g301xxr",
+    "ContentItemVersionId": "4c78pqe5fbfva2bsan8rhmpbdn",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Emergency medical dispatcher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a college course, which would teach you some of the skills and knowledge you need in this job. Relevant subjects include a Level 2 or 3 Diploma in Business and Administration.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4db87m27306682zx34w46z8p4s",
+          "4f0xprb72k0107aghgwdvyqw4d"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/3e454971-7538-462d-a367-35f485b166ef\u0027]"
+    },
+    "ContentItemId": "4304rwpg7g0j04b2w4c4n5hv5k",
+    "ContentItemVersionId": "4fh8hr60fp6nb3g34v1t0sy3ct",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Civil engineer"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can take a higher national certificate (HNC) or diploma (HND) at college, which may help you to find work as a trainee engineer. You\u0027ll do further training on the job to qualify.\u003C/p\u003E\u003Cp\u003ESubjects include:\u003Cul\u003E\u003Cli\u003ELevel 4 HNC in Civil Engineering\u003C/li\u003E\u003Cli\u003ELevel 5 HND in Construction and the Built Environment\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4a23qec6swtt01n16s408ecscr"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4mazfw0hv50y13c27tyj53xa44",
+          "4g7m5pzr7h0bexrbtmss1xgfdz",
+          "4azhg9r1k3qzeyq90vb0y8afdx"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/9792e04a-ded3-4375-a7ad-e4a31cffcc32\u0027]"
+    },
+    "ContentItemId": "4vp90p1eqdrh1xw3mbnren7155",
+    "ContentItemVersionId": "4m6mpcfbq2cp6ystbjvdj0ccn7",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Civil engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction labourer"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could start by taking a college course like:\u003Cul\u003E\u003Cli\u003ELevel 1 Certificate in Construction Skills\u003C/li\u003E\u003Cli\u003ELevel 2 Certificate in Construction Operations\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4y6zypfdfpv80rsv0w48sh9nwy",
+          "4db87m27306682zx34w46z8p4s"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/c4ffb31b-306f-413c-836a-04bad2e60322\u0027]"
+    },
+    "ContentItemId": "4b0sd1dd3en606v0sr54cw4ym7",
+    "ContentItemVersionId": "47nyz7kwvqcbcztps956h218w0",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Construction labourer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Care worker"
+    },
+    "CollegeRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a college course, which may help when you look for work. Courses include:\u003Cul\u003E\u003Cli\u003ELevel 1 Certificate in Health and Social Care\u003C/li\u003E\u003Cli\u003ELevel 2 Diploma in Care\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4gef6z5dm25c31s6anezncx3x5"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4y6zypfdfpv80rsv0w48sh9nwy",
+          "4db87m27306682zx34w46z8p4s"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4azhg9r1k3qzeyq90vb0y8afdx",
+          "4pq7wk3p40vvsv3dqykzk9btdq",
+          "4mazfw0hv50y13c27tyj53xa44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/collegeroute/7e642ccf-5bf1-4df6-8f49-b7bdd0cb243b\u0027]"
+    },
+    "ContentItemId": "4q961k18zpytsz5btkv9pczf5v",
+    "ContentItemVersionId": "4dbmy9m91pbmv6skpt0n21yq5q",
+    "ContentType": "CollegeRoute",
+    "DisplayText": "Care worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-22T14:17:13.2895593Z",
+    "PublishedUtc": "2020-05-22T14:17:13.2895593Z",
+    "CreatedUtc": "2020-05-22T14:17:13.2895593Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
