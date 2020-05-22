@@ -60,6 +60,9 @@ namespace DFC.ServiceTaxonomy.Editor
                     csp.AllowFonts.FromSelf()
                         .From("fonts.gstatic.com");
 
+                    csp.AllowConnections
+                        .ToSelf();
+
                     csp.OnSendingHeader = context =>
                     {
                         //todo: need to add all ajax callbacks :-o
