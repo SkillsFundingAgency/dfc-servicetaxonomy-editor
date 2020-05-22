@@ -85,27 +85,27 @@ function initVueMultiselectPreview(element) {
                         type: 'GET',
 
                         success: function (data) {
+                            //start by removing any previously injected content to handle content picker values changing
+                            $('[data-prepend-id]').remove();
+                            //parse the view into a temp jQuery DOM tree for manipulation
                             var temp = $('<temp>').append($.parseHTML(data));
-                            var occupationLabels = $('#OccupationLabels', temp);
+                            //find any elements in the view which we want to prepend somewhere else
+                            var prependElements = $('[data-prepend-id]', temp);
+                            //loop over them, remove them from the original source, and prepend them at their target location
+                            prependElements.each(function () {
+                                var elem = $(this);
+                                var target = elem.data('prepend-id');
+                                temp.remove(elem);
 
-                            $('#previewhere').html(occupationLabels);
-                            $('#preview-collapse').collapse('show');
-
-                            if (self.$refs.hint) {
-                                var hint = JSON.parse(self.$refs.hint.value);
-
-                                var content = $(hint[0], temp);
-                                var target = hint[1];
-
-                                //timeout required to allow the remaining tabs to be created
+                                //timeout required to allow time for the tabs to initialise
                                 setTimeout(function () {
-                                    if ($(target + ' ' + hint[0]).length) {
-                                        $(target + ' ' + hint[0]).remove();
-                                    }
-
-                                    $(target).prepend(content);
+                                    $(target).prepend(elem);
                                 }, 100);
-                            }
+                            });
+
+                            //inject the remaining content into the preview portion of the page, i.e. remove the <temp> tag we embedded earlier.
+                            $('#previewhere').html(temp.children());
+                            $('#preview-collapse').collapse('show');
                         }
                     });
                 },
@@ -114,11 +114,7 @@ function initVueMultiselectPreview(element) {
                         return;
 
                     $('#preview-collapse').collapse('hide');
-
-                    if (this.$refs.hint) {
-                        var hint = JSON.parse(this.$refs.hint.value);
-                        $(hint[1] + ' ' + hint[0]).remove();
-                    }
+                    $('[data-prepend-id]').remove();
                 },
                 onSelect: function (selectedOption, id) {
                     var self = this;

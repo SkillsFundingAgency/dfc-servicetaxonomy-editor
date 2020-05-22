@@ -28,7 +28,8 @@
     </ul>
 </div>
 
-<div id="Skills">
+<!-- for now we only want to support prepending content, but we can easily add support for appending, injecting etc later -->
+<div id="Skills" data-prepend-id="#WhatItTakes_Content">
     <label for="EssentialSkills">Essential Skills</label>
     <ul id="EssentialSkills" class="list-group mb-4">
         @foreach (string? contentItemId in Model.ContentItem.Content.Occupation.EssentialSkills.ContentItemIds)

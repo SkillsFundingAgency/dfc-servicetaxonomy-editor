@@ -3081,7 +3081,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "[\"#Skills\", \"#WhatItTakes_Content\"]",
+                                    "Hint": "Creates relationships of type [:relatedOccupation].",
                                     "Multiple": false,
                                     "Required": true,
                                     "DisplayedContentTypes": [
