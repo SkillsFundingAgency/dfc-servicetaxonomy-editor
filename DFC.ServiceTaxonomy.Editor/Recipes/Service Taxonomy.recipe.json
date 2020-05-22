@@ -2304,23 +2304,13 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "ESCOSkillUri",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "ESCO Skill Uri",
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "HtmlField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
                                     "Editor": "Wysiwyg",
-                                    "Position": "1"
+                                    "Position": "0"
                                 }
                             }
                         }
