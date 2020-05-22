@@ -42,13 +42,19 @@ namespace DFC.ServiceTaxonomy.Editor
                     csp.AllowScripts
                         .FromSelf()
                         .AllowUnsafeInline()
+                        .AllowUnsafeEval()
                         .From("code.jquery.com")
-                        .From("cdn.jsdelivr.net");
+                        .From("cdn.jsdelivr.net")
+                        .From("cdnjs.cloudflare.com");
 
                     csp.AllowStyles.FromSelf()
                         .AllowUnsafeInline()
                         .From("fonts.googleapis.com")
-                        .From("code.jquery.com");
+                        .From("code.jquery.com")
+                        .From("cdn.jsdelivr.net");
+
+                    csp.AllowImages.FromSelf()
+                        .DataScheme();
 
                     //do we need fromself for all if bydefaultallow allows it?
                     csp.AllowFonts.FromSelf()
