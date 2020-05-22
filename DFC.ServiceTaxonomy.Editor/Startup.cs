@@ -31,6 +31,8 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
+            //occupation preview not working -> check got latest code and need to recreate site
+
             // UseCsp has to come before UseOrchardCore for it to have any affect
             app
                 .UseCsp(csp =>
@@ -63,16 +65,12 @@ namespace DFC.ServiceTaxonomy.Editor
                     csp.AllowConnections
                         .ToSelf();
 
-                    csp.OnSendingHeader = context =>
-                    {
-                        //todo: need to add all ajax callbacks :-o
-                        //context.ShouldNotSend = context.HttpContext.Request.Path.StartsWithSegments("/api");
-                        return Task.CompletedTask;
-                    };
-
-                    // csp.ByDefaultAllow.FromNowhere();
-                    // csp.SetReportOnly();
-                    // csp.ReportViolationsTo("/csp-report");
+                    // csp.OnSendingHeader = context =>
+                    // {
+                    //     //todo: need to add all ajax callbacks? :-o
+                    //     context.ShouldNotSend = context.HttpContext.Request.Path.StartsWithSegments("/Contents/ContentItems/");
+                    //     return Task.CompletedTask;
+                    // };
                 })
                 .UseOrchardCore();
         }
