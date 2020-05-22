@@ -13,7 +13,7 @@
             "name": "CypherToContent",
             "queries": [
                 {
-                    "query": "MATCH (o:esco__Occupation)\r\n[token:whereClause]\r\nreturn { ContentType: 'Occupation', TitlePart:{Title:o.skos__prefLabel}\r\n,GraphSyncPart:{Text:o.uri},\r\nOccupation:\r\n{AlternativeLabels:{ContentItemIds:[(o)-[:hasAltLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']},PreferredLabel:{ContentItemIds:[(o)-[:hasPrefLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']}\r\n}\r\n}\r\norder by o.skos__prefLabel\r\nskip [token:skip] limit [token:limit]"
+                    "query": "MATCH (o:esco__Occupation)\r\n[token:whereClause]\r\nreturn { ContentType: 'Occupation', TitlePart:{Title:o.skos__prefLabel}\r\n,GraphSyncPart:{Text:o.uri},\r\nOccupation:\r\n{AlternativeLabels:{ContentItemIds:[(o)-[:hasAltLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']},PreferredLabel:{ContentItemIds:[(o)-[:hasPrefLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']},EssentialSkills:{ContentItemIds:[(o)-[:esco__relatedEssentialSkill]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"'+l.skos__prefLabel+'\")]']},OptionalSkills:{ContentItemIds:[(o)-[:esco__relatedOptionalSkill]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"'+l.skos__prefLabel+'\")]']}\r\n}\r\n}\r\norder by o.skos__prefLabel\r\nskip [token:skip] limit [token:limit]"
                 }
             ]
         }
