@@ -96,6 +96,7 @@ namespace GetJobProfiles
             const int jobProfileBatchSize = 200;
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
+            const int skillBatchSize = 5000;
 
 
 
@@ -157,6 +158,7 @@ namespace GetJobProfiles
                 {"whereClause", whereClause}
             };
 
+            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillContentItems", skillBatchSize, "Skills", 13485);
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
 
             ProcessLionelsSpreadsheet();

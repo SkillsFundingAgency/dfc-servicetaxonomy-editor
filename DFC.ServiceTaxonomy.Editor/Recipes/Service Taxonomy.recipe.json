@@ -2112,6 +2112,40 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "EssentialSkills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Essential Skills",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Skill"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "OptionalSkills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Optional Skills",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Skill"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -2964,7 +2998,7 @@
                                     "Position": "1"
                                 },
                                 "ContentPickerFieldSettings": {
-                                    "Hint": "Creates relationships of type [:ncs__relatedOccupation].",
+                                    "Hint": "[\"#Skills\", \"#WhatItTakes_Content\"]",
                                     "Multiple": false,
                                     "Required": true,
                                     "DisplayedContentTypes": [
