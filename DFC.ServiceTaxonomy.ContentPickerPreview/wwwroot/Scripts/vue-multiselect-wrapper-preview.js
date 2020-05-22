@@ -99,6 +99,10 @@ function initVueMultiselectPreview(element) {
 
                                 //timeout required to allow the remaining tabs to be created
                                 setTimeout(function () {
+                                    if ($(target + ' ' + hint[0]).length) {
+                                        $(target + ' ' + hint[0]).remove();
+                                    }
+
                                     $(target).prepend(content);
                                 }, 100);
                             }
