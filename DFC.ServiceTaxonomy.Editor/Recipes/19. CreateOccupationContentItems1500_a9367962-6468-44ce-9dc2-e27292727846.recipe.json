@@ -1,0 +1,21 @@
+{
+    "name": "CreateOccupationContentItems1500_a9367962-6468-44ce-9dc2-e27292727846",
+    "displayName": "CreateOccupationContentItems1500_a9367962-6468-44ce-9dc2-e27292727846",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherToContent",
+            "queries": [
+                {
+                    "query": "MATCH (o:esco__Occupation)\r\n\r\nreturn { ContentType: 'Occupation', TitlePart:{Title:o.skos__prefLabel}\r\n,GraphSyncPart:{Text:o.uri},\r\nOccupation:\r\n{AlternativeLabels:{ContentItemIds:[(o)-[:hasAltLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']},PreferredLabel:{ContentItemIds:[(o)-[:hasPrefLabel]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"OccupationLabel\", \"'+l.skos__prefLabel+'\")]']},EssentialSkills:{ContentItemIds:[(o)-[:esco__relatedEssentialSkill]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"'+l.skos__prefLabel+'\")]']},OptionalSkills:{ContentItemIds:[(o)-[:esco__relatedOptionalSkill]->(l) | '[c#: await Content.GetContentItemIdByDisplayText(\"Skill\", \"'+l.skos__prefLabel+'\")]']}\r\n}\r\n}\r\norder by o.skos__prefLabel\r\nskip 1500 limit 300"
+                }
+            ]
+        }
+    ]
+}
