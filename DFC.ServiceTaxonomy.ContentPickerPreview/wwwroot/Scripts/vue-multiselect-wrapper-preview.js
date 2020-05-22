@@ -59,7 +59,7 @@ function initVueMultiselectPreview(element) {
                     setTimeout(function () { $(document).trigger('contentpreview:render') }, 100);
                 }
             },
-            created: function () {
+            mounted: function () {
                 var self = this;
                 self.asyncFind();
                 if (self.arrayOfItems.length === 1) {
@@ -72,6 +72,8 @@ function initVueMultiselectPreview(element) {
                     debouncedSearch(self, query);
                 },
                 showPreview(contentItemId) {
+                    var self = this;
+
                     if (multiple)
                         return;
 
@@ -82,8 +84,27 @@ function initVueMultiselectPreview(element) {
                         url : '/Contents/ContentItems/' + contentItemId,
                         type: 'GET',
 
-                        success: function(data){
-                            $('#previewhere').html(data);
+                        success: function (data) {
+                            //start by removing any previously injected content to handle content picker values changing
+                            $('[data-prepend-id]').remove();
+                            //parse the view into a temp jQuery DOM tree for manipulation
+                            var temp = $('<temp>').append($.parseHTML(data));
+                            //find any elements in the view which we want to prepend somewhere else
+                            var prependElements = $('[data-prepend-id]', temp);
+                            //loop over them, remove them from the original source, and prepend them at their target location
+                            prependElements.each(function () {
+                                var elem = $(this);
+                                var target = elem.data('prepend-id');
+                                temp.remove(elem);
+
+                                //timeout required to allow time for the tabs to initialise
+                                setTimeout(function () {
+                                    $(target).prepend(elem);
+                                }, 100);
+                            });
+
+                            //inject the remaining content into the preview portion of the page, i.e. remove the <temp> tag we embedded earlier.
+                            $('#previewhere').html(temp.children());
                             $('#preview-collapse').collapse('show');
                         }
                     });
@@ -93,6 +114,7 @@ function initVueMultiselectPreview(element) {
                         return;
 
                     $('#preview-collapse').collapse('hide');
+                    $('[data-prepend-id]').remove();
                 },
                 onSelect: function (selectedOption, id) {
                     var self = this;

@@ -12,6 +12,7 @@
       <None Remove="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json" />
       <None Remove="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json" />
       <None Remove="CypherToContentRecipes\CreateOccupationPrefLabelNodesRecipe.json" />
+      <None Remove="CypherToContentRecipes\CreateSkillContentItems.recipe.json" />
       <None Remove="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json" />
     </ItemGroup>
 

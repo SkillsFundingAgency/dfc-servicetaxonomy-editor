@@ -2195,6 +2195,40 @@
                                 },
                                 "ContentIndexSettings": {}
                             }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "EssentialSkills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Essential Skills",
+                                    "Position": "2"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Skill"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "OptionalSkills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Optional Skills",
+                                    "Position": "3"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "Skill"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
                         }
                     ]
                 },
@@ -2213,8 +2247,12 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Editor": "Wysiwyg",
+                                    "Editor": "Trumbowyg",
                                     "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                                 }
                             }
                         }
@@ -2230,8 +2268,12 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Editor": "Wysiwyg",
+                                    "Editor": "Trumbowyg",
                                     "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                                 }
                             }
                         },
@@ -2270,23 +2312,17 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "ESCOSkillUri",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "ESCO Skill Uri",
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "HtmlField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Editor": "Wysiwyg",
-                                    "Position": "1"
+                                    "Editor": "Trumbowyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "HtmlFieldTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"formatting\"],\r\n        [\"strong\", \"em\", \"del\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"superscript\", \"subscript\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    }\r\n}"
                                 }
                             }
                         }

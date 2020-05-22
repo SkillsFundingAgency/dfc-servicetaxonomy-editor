@@ -1,5 +1,7 @@
 #ToDo
 
+* Look into console error when selecting an item in a ContentPickerWithPreview control.
+
 * use content picker preview for entry routes?
 
 customs-officer not found in the jp dictionary
