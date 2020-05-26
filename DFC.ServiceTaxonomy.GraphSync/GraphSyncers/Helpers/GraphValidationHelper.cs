@@ -59,6 +59,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             DateTime contentPropertyValue = contentItemFieldValue.As<DateTime>();
 
             var nodeZonedDateTime = nodePropertyValue.As<ZonedDateTime>();
+
+            //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
             var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
 
             bool bothSame = contentPropertyValue == nodeAsDateTime;
