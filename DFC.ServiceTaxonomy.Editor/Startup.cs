@@ -1,4 +1,4 @@
-using Joonasw.AspNetCore.SecurityHeaders;
+using DFC.ServiceTaxonomy.Editor.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,35 +30,8 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
-            // see https://github.com/juunas11/aspnetcore-security-headers
-            // UseCsp has to come before UseOrchardCore for it to have any affect
-            app.UseCsp(csp =>
-                {
-                    csp.ByDefaultAllow.FromSelf();
-
-                    csp.AllowScripts
-                        .FromSelf()
-                        .AllowUnsafeInline()
-                        .AllowUnsafeEval()
-                        .From("code.jquery.com")
-                        .From("cdn.jsdelivr.net")
-                        .From("cdnjs.cloudflare.com");
-
-                    csp.AllowStyles.FromSelf()
-                        .AllowUnsafeInline()
-                        .From("fonts.googleapis.com")
-                        .From("code.jquery.com")
-                        .From("cdn.jsdelivr.net");
-
-                    csp.AllowImages.FromSelf()
-                        .DataScheme();
-
-                    csp.AllowFonts.FromSelf()
-                        .From("fonts.gstatic.com");
-
-                    csp.AllowConnections
-                        .ToSelf();
-                })
+            // UseSecurityHeaders must come before UseOrchardCore
+            app.UseSecurityHeaders()
                 .UseOrchardCore();
         }
     }
