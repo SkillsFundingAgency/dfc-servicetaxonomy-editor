@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Joonasw.AspNetCore.SecurityHeaders;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -31,14 +30,10 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
-            //occupation preview not working -> check got latest code and need to recreate site
-
+            // see https://github.com/juunas11/aspnetcore-security-headers
             // UseCsp has to come before UseOrchardCore for it to have any affect
-            app
-                .UseCsp(csp =>
+            app.UseCsp(csp =>
                 {
-                    // https://github.com/juunas11/aspnetcore-security-headers
-
                     csp.ByDefaultAllow.FromSelf();
 
                     csp.AllowScripts
@@ -58,19 +53,11 @@ namespace DFC.ServiceTaxonomy.Editor
                     csp.AllowImages.FromSelf()
                         .DataScheme();
 
-                    //do we need fromself for all if bydefaultallow allows it?
                     csp.AllowFonts.FromSelf()
                         .From("fonts.gstatic.com");
 
                     csp.AllowConnections
                         .ToSelf();
-
-                    // csp.OnSendingHeader = context =>
-                    // {
-                    //     //todo: need to add all ajax callbacks? :-o
-                    //     context.ShouldNotSend = context.HttpContext.Request.Path.StartsWithSegments("/Contents/ContentItems/");
-                    //     return Task.CompletedTask;
-                    // };
                 })
                 .UseOrchardCore();
         }
