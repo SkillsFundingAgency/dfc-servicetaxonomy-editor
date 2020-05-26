@@ -1,3 +1,4 @@
+using DFC.ServiceTaxonomy.Editor.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,9 @@ namespace DFC.ServiceTaxonomy.Editor
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseOrchardCore();
+            // UseSecurityHeaders must come before UseOrchardCore
+            app.UseSecurityHeaders()
+                .UseOrchardCore();
         }
     }
 }

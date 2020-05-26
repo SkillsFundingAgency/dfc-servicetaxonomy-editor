@@ -2,6 +2,12 @@
 
 * Look into console error when selecting an item in a ContentPickerWithPreview control.
 
+* GET https://localhost:5001/DFC.ServiceTaxonomy.Theme/Theme.png 404
+
+search > Run Cypher Query
+
+ArgumentNullException: Value cannot be null. (Parameter 'key')
+
 * use content picker preview for entry routes?
 
 customs-officer not found in the jp dictionary
