@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.Editor.Filters;
+﻿using DFC.ServiceTaxonomy.Theme.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Modules;
