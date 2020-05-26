@@ -28,8 +28,9 @@ namespace DFC.ServiceTaxonomy.Theme.Filters
                 .SetDependencies("jQuery");
 
             //todo: only required when page has trumbowyg editor
-            //todo: probably need to get admin theme working correctly and insert in layout??
-            // how to have blank layout for preview, but full layout for everything else
+            //todo: which plugins do we want to add
+            //todo: what gds specific plugins do we want to create?
+            //todo: front-end seems to eschewing gds styles and using its own
             _resourceManager
                 .RegisterResource("stylesheet", "StaxTheme-trumbowyg-scoped-govuk-frontend")
                 .AtHead();

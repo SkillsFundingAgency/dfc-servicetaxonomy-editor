@@ -1,5 +1,7 @@
 #ToDo
 
+* would be better to report when html has been sanitized, rather than silently assassinating
+
 * Look into console error when selecting an item in a ContentPickerWithPreview control.
 
 * GET https://localhost:5001/DFC.ServiceTaxonomy.Theme/Theme.png 404
