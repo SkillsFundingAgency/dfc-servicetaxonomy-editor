@@ -1,6 +1,349 @@
 #ToDo
 
-* would be better to report when html has been sanitized, rather than silently assassinating
+we should make sure front end and backend html sanitizers marry up
+
+add tooltip to html colours to show semantic meaning (js?)
+trumbowyg plugin
+replace formatting button with custom button that:
+auto adds class="govuk-body" to <p>'s (this will set GDS Transport typeface amonst other things)
+"govuk-heading-xl" to h1
+"govuk-heading-l" to h2
+"govuk-heading-m" to h3
+"govuk-heading-s" to h4
+(and removes the quote?)
+
+replace bold button with 1 that sets govuk-!-font-weight-bold
+add button for regular too?? govuk-!-font-weight-regular
+
+replace unorder list and ordered list buttons with custom:
+list (govuk-list)
+bulleted list (govuk-list govuk-list--bullet)
+Numbered lists
+govuk-list govuk-list--number
+
+replace horizontalRule button with a custom section break dropdown button
+that allows setting these 4...
+<hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--visible">
+
+replace current with custom link dropdown button
+insert link > with class="govuk-link"
+insert link (new tab) > with class="govuk-link" rel="noreferrer noopener" target="_blank" plus remove target text box (or pre-populate it if difficult to remove)
+remove link
+
+
+make sure font is GDS Transport
+don't allow to change font
+
+<table class="govuk-body app-colour-list" summary="Table of main colours">
+  <tbody>
+
+    <tr>
+      <td colspan="3">
+        <h3 class="govuk-heading-m ">
+        Text
+        </h3>
+      </td>
+    </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#0b0c0c;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-text-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #0b0c0c
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#626a6e;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-secondary-text-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #626a6e
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+    <tr>
+      <td colspan="3">
+        <h3 class="govuk-heading-m govuk-!-padding-top-6">
+        Links
+        </h3>
+      </td>
+    </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#1d70b8;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-link-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #1d70b8
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#003078;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-link-hover-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #003078
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#4c2c92;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-link-visited-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #4c2c92
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#0b0c0c;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-link-active-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #0b0c0c
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+    <tr>
+      <td colspan="3">
+        <h3 class="govuk-heading-m govuk-!-padding-top-6">
+        Border
+        </h3>
+      </td>
+    </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#b1b4b6;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-border-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #b1b4b6
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#0b0c0c; display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-input-border-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #0b0c0c
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+    <tr>
+      <td colspan="3">
+        <h3 class="govuk-heading-m govuk-!-padding-top-6">
+        Focus state
+        </h3>
+      </td>
+    </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#ffdd00;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-focus-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #ffdd00
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+          Only use this colour to indicate which element is focused on. For example, when a user tabs to an element with their keyboard.
+        </td>
+      </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#0b0c0c;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-focus-text-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #0b0c0c
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+    <tr>
+      <td colspan="3">
+        <h3 class="govuk-heading-m govuk-!-padding-top-6">
+        Error state
+        </h3>
+      </td>
+    </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#d4351c;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-error-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #d4351c
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+          Use for error messages
+        </td>
+      </tr>
+    <tr>
+      <td colspan="3">
+        <h3 class="govuk-heading-m govuk-!-padding-top-6">
+        Brand colour
+        </h3>
+      </td>
+    </tr>
+      <tr class="app-colour-list-row">
+        <th class="app-colour-list-column app-colour-list-column--name" scope="row">
+          <span style="background-color:#1d70b8;display: inline-block;position: static;top: 0;left: 0;width: 40px;height: 40px;border: 1px solid transparent;border-radius: 50%;"></span>
+          <code>$govuk-brand-colour</code>
+        </th>
+        <td class="app-colour-list-column app-colour-list-column--colour">
+          #1d70b8
+        </td>
+        <td class="app-colour-list-column app-colour-list-column--notes">
+
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Headings</h1>
+
+<h1 class="govuk-heading-xl">govuk-heading-xl</h1>
+<h2 class="govuk-heading-l">govuk-heading-l</h2>
+<h3 class="govuk-heading-m">govuk-heading-m</h3>
+<h4 class="govuk-heading-s">govuk-heading-s</h4>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Headings with captions</h1>
+
+<span class="govuk-caption-xl">govuk-caption-xl</span>
+<h1 class="govuk-heading-xl">govuk-heading-xl</h1>
+
+<span class="govuk-caption-l">govuk-caption-l</span>
+<h2 class="govuk-heading-l">govuk-heading-l</h2>
+
+<span class="govuk-caption-m">govuk-caption-m</span>
+<h3 class="govuk-heading-m">govuk-heading-m</h3>
+
+<h1 class="govuk-heading-xl">
+  <span class="govuk-caption-xl">govuk-caption-xl</span>
+  govuk-heading-xl</h1>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Paragraphs</h1>
+
+<p class="govuk-body">govuk-body</p>
+
+<p class="govuk-body-l">govuk-body-l</p>
+
+<p class="govuk-body-s">govuk-body-s</p>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Font override classes</h1>
+
+<p class="govuk-body govuk-!-font-size-80">govuk-!-font-size-80</p>
+<p class="govuk-body govuk-!-font-size-48">govuk-!-font-size-48</p>
+<p class="govuk-body govuk-!-font-size-36">govuk-!-font-size-36</p>
+<p class="govuk-body govuk-!-font-size-27">govuk-!-font-size-27</p>
+<p class="govuk-body govuk-!-font-size-24">govuk-!-font-size-24</p>
+<p class="govuk-body govuk-!-font-size-19">govuk-!-font-size-19</p>
+<p class="govuk-body govuk-!-font-size-16">govuk-!-font-size-16</p>
+<p class="govuk-body govuk-!-font-size-14">govuk-!-font-size-14</p>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Font weight</h1>
+
+<p class="govuk-body govuk-!-font-weight-regular">govuk-!-font-weight-regular</p>
+<p class="govuk-body govuk-!-font-weight-bold">govuk-!-font-weight-bold</p>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Links</h1>
+
+<a href="#" class="govuk-link">govuk-link</a>
+<br/>
+<a href="#" class="govuk-link govuk-link--no-visited-state">govuk-link govuk-link--no-visited-state</a>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Opening links in a new tab</h1>
+
+<a href="#" class="govuk-link" rel="noreferrer noopener" target="_blank">govuk-link (opens in new tab)</a>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Lists</h1>
+
+<ul class="govuk-list">
+  <li>
+    <a class="govuk-link" href="#">Benefits calculators</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="#">Benefit overpayments</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="#">Benefit fraud</a>
+  </li>
+  <li>
+    <a class="govuk-link" href="#">More</a>
+  </li>
+</ul>
+
+<p class="govuk-body">You can buy:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>apples</li>
+  <li>oranges</li>
+  <li>pears</li>
+</ul>
+
+<ol class="govuk-list govuk-list--number">
+  <li>Delivery address.</li>
+  <li>Payment.</li>
+  <li>Confirmation.</li>
+</ol>
+
+
+<h1 class="govuk-heading-xl" style="color: #d4351c">Section break</h1>
+
+<hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--visible">
+
+
+
+
+
+* trumbowyg insists on adding <p> and getting rid of new lines. can we set otherwise?
+
+* would be better to report when html has been sanitized, rather than silently doing it
 
 * Look into console error when selecting an item in a ContentPickerWithPreview control.
 
