@@ -12,6 +12,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             string nodePropertyName,
             INode sourceNode);
 
+        (bool matched, string failureReason) DateTimeContentPropertyMatchesNodeProperty(
+          string contentKey,
+          JObject contentItemField,
+          string nodePropertyName,
+          INode sourceNode);
+
         public (bool validated, string failureReason) ValidateOutgoingRelationship(
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             string relationshipType,
