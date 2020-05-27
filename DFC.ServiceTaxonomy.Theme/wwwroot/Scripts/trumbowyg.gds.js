@@ -50,7 +50,8 @@
                     // If the plugin is a button
                     //trumbowyg.addBtnDef('myplugin', buildButtonDef(trumbowyg));
                     trumbowyg.addBtnDef('paragraphs', {
-                        dropdown: buildDropdown(trumbowyg)
+                        dropdown: buildDropdown(trumbowyg),
+                        ico: 'p'
                     });
                 },
                 // Return a list of button names which are active on current element
@@ -90,7 +91,7 @@
         $.each(trumbowyg.o.plugins.gds.paragraphs, function (index, paragraph) {
             trumbowyg.addBtnDef('paragraph_' + paragraph, {
                 text: '<span>' + (trumbowyg.lang.paragraphs[paragraph] || paragraph) + '</span>',
-                hasIcon: false,
+                ico: 'p',
                 fn: function () {
                     setParagraph(trumbowyg, paragraph);
                 }
