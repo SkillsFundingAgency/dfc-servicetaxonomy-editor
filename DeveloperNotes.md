@@ -5,12 +5,26 @@ we should make sure front end and backend html sanitizers marry up
 add tooltip to html colours to show semantic meaning (js?)
 trumbowyg plugin
 replace formatting button with custom button that:
-auto adds class="govuk-body" to <p>'s (this will set GDS Transport typeface amonst other things)
+Body: auto adds class="govuk-body" to <p>'s (this will set GDS Transport typeface amonst other things)
+Lead: govuk-body-l
+Small: govuk-body-s
 "govuk-heading-xl" to h1
 "govuk-heading-l" to h2
 "govuk-heading-m" to h3
 "govuk-heading-s" to h4
 (and removes the quote?)
+
+maybe split between Paragraphs (formatting icon) dropdown
+and headings dropdown
+
+headings with captions??
+
+Add Font size custom dropdown button
+
+adds govuk-!-font-size-
+
+if possible add span if selection part of an elements content
+and add to existing element if selection is whole content of element
 
 replace bold button with 1 that sets govuk-!-font-weight-bold
 add button for regular too?? govuk-!-font-weight-regular
@@ -33,6 +47,10 @@ insert link > with class="govuk-link"
 insert link (new tab) > with class="govuk-link" rel="noreferrer noopener" target="_blank" plus remove target text box (or pre-populate it if difficult to remove)
 remove link
 
+
+add spacing and width override buttons?
+
+layout?? or leave to template page??
 
 make sure font is GDS Transport
 don't allow to change font
