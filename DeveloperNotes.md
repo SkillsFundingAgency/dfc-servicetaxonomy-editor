@@ -1,5 +1,7 @@
 #ToDo
 
+* there's a trumbowyg template plugin : do we have any templates?
+
 we should make sure front end and backend html sanitizers marry up
 
 add tooltip to html colours to show semantic meaning (js?)
