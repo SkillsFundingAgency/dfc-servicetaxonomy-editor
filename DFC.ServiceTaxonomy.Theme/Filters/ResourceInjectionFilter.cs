@@ -28,9 +28,12 @@ namespace DFC.ServiceTaxonomy.Theme.Filters
                 .SetDependencies("jQuery");
 
             //todo: only required when page has trumbowyg editor
-            //todo: which plugins do we want to add
-            //todo: what gds specific plugins do we want to create?
-            //todo: front-end seems to eschewing gds styles and using its own
+            _resourceManager
+                .RegisterResource("script", "StaxTheme-trumbowyg-gds")
+                .AtFoot()
+                .SetDependencies("trumbowyg");    // trumbowyg-plugins?
+
+            //todo: only required when page has trumbowyg editor
             _resourceManager
                 .RegisterResource("stylesheet", "StaxTheme-trumbowyg-scoped-govuk-frontend")
                 .AtHead();

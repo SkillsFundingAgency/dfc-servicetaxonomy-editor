@@ -18,6 +18,11 @@ namespace DFC.ServiceTaxonomy.Theme
                 .SetVersion("1.0.0");
 
             manifest
+                .DefineScript("StaxTheme-trumbowyg-gds")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Scripts/trumbowyg.gds.js")
+                .SetVersion("1.0.0");
+
+            manifest
                 .DefineScript("ncs")
                 .SetUrl("~/DFC.ServiceTaxonomy.Theme/Scripts/ncs.js")
                 .SetVersion("1.0.0");
