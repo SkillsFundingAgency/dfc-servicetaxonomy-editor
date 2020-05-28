@@ -30,7 +30,8 @@
                     'body': 'Body',
                     'lead': 'Lead',
                     'small': "Small"
-                }
+                },
+                paragraph: 'Paragraph'
             }
         },
         // Register plugin in Trumbowyg
@@ -53,7 +54,8 @@
                     //trumbowyg.addBtnDef('myplugin', buildButtonDef(trumbowyg));
                     trumbowyg.addBtnDef('paragraphs', {
                         dropdown: buildDropdown(trumbowyg),
-                        ico: 'p'
+                        ico: 'p',
+                        title: trumbowyg.lang.paragraph
                     });
                 },
                 // Return a list of button names which are active on current element
@@ -71,28 +73,8 @@
         trumbowyg.execCmd('formatBlock', 'p')
 
         var selection = trumbowyg.doc.getSelection();
-        //do we want to go to parent?
         $(selection.focusNode.parentNode).addClass('govuk-body');
         //work via range?
-
-        // trumbowyg.$ed.focus();
-        // trumbowyg.saveRange();
-        //
-        // // Temporary size
-        // trumbowyg.execCmd('fontSize', '1');
-        //
-        // // Find <font> elements that were added and change to <span> with chosen size
-        // trumbowyg.$ed.find('font[size="1"]').replaceWith(function() {
-        //     return $('<span/>', {
-        //         css: { 'font-size': size },
-        //         html: this.innerHTML,
-        //     });
-        // });
-        //
-        // // Remove and leftover <span> elements
-        // $(trumbowyg.range.startContainer.parentElement).find('span[style=""]').contents().unwrap();
-        //
-        // trumbowyg.restoreRange();
     }
 
     function buildDropdown(trumbowyg) {
