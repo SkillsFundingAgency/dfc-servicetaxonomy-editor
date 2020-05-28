@@ -99,6 +99,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, LinkFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, ContentPickerFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, DateTimeFieldGraphSyncer>();
             services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
             services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
             services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
