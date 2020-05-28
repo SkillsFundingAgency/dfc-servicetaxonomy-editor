@@ -8,6 +8,7 @@ we should make sure front end and backend html sanitizers marry up
 
 add tooltip to html colours to show semantic meaning (js?)
 trumbowyg plugin
+auto add class="govuk-body" to p's
 replace formatting button with custom button that:
 Body: auto adds class="govuk-body" to <p>'s (this will set GDS Transport typeface amonst other things)
 Lead: govuk-body-l

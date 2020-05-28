@@ -9,6 +9,12 @@
             {name: 'body', class: 'govuk-body'},
             {name: 'lead', class: 'govuk-body-l'},
             {name: 'small', class: "govuk-body-s"}
+        ],
+        headings: [
+            {name: 'h1', class: 'govuk-heading-xl'},
+            {name: 'h2', class: 'govuk-heading-l'},
+            {name: 'h3', class: "govuk-heading-m"},
+            {name: 'h4', class: "govuk-heading-s"}
         ]
     };
 
@@ -31,7 +37,15 @@
                     'lead': 'Lead',
                     'small': "Small"
                 },
-                paragraph: 'Paragraph'
+                paragraph: 'Paragraph',
+                headings: {
+                    'h1': 'h1',
+                    'h2': 'h2',
+                    'h3': "h3",
+                    'h4': "h4",
+                },
+                heading: 'heading'
+
             }
         },
         // Register plugin in Trumbowyg
@@ -45,18 +59,22 @@
                         trumbowyg.o.plugins.gds || {}
                     );
 
-                    // If the plugin is a paste handler, register it
-                    // trumbowyg.pasteHandlers.push(function(pasteEvent) {
-                    //     // My plugin paste logic
-                    // });
-
                     // If the plugin is a button
                     //trumbowyg.addBtnDef('myplugin', buildButtonDef(trumbowyg));
+
                     trumbowyg.addBtnDef('paragraphs', {
-                        dropdown: buildDropdown(trumbowyg),
+                        dropdown: buildParagraphsDropdown(trumbowyg),
                         ico: 'p',
                         title: trumbowyg.lang.paragraph
                     });
+
+                    trumbowyg.addBtnDef('headings', {
+                        dropdown: buildHeadingsDropdown(trumbowyg),
+                        //todo: new icon, just H instead of H1
+                        ico: 'h1',
+                        title: trumbowyg.lang.heading
+                    });
+
                 },
                 // Return a list of button names which are active on current element
                 tagHandler: function (element, trumbowyg) {
@@ -89,6 +107,14 @@
         // }
     }
 
+    function setHeading(trumbowyg, heading) {
+
+        trumbowyg.execCmd('formatBlock', heading.name)
+
+        var selection = trumbowyg.doc.getSelection();
+        $(selection.focusNode.parentNode).addClass(heading.name);
+    }
+
     //todo: use this instead?
     // Get the selection's parent
     // function getSelectionParentElement() {
@@ -108,7 +134,7 @@
     //     return parentEl;
     // }
 
-    function buildDropdown(trumbowyg) {
+    function buildParagraphsDropdown(trumbowyg) {
         var dropdown = [];
 
         $.each(trumbowyg.o.plugins.gds.paragraphs, function (index, paragraph) {
@@ -121,6 +147,27 @@
                 }
             });
             dropdown.push('paragraph_' + paragraph.name);
+        });
+
+        return dropdown;
+    }
+
+    function buildHeadingsDropdown(trumbowyg) {
+        var dropdown = [];
+
+        $.each(trumbowyg.o.plugins.gds.headings, function (index, heading) {
+            // trumbowyg itself adds buttons names h1, h2 etc
+            //todo: have global gds prefix for names
+            var buttonName = 'heading_' + heading.name;
+            trumbowyg.addBtnDef(buttonName, {
+                text: '<span>' + (trumbowyg.lang.headings[heading.name] || heading.name) + '</span>',
+                ico: heading.name,
+                tag: heading.name,
+                fn: function () {
+                    setHeading(trumbowyg, heading);
+                }
+            });
+            dropdown.push(buttonName);
         });
 
         return dropdown;
