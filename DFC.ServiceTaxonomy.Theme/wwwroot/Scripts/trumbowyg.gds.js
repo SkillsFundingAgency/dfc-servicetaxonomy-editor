@@ -6,9 +6,9 @@
     // Plugin default options
     var defaultOptions = {
         paragraphs: [
-            'body',
-            'lead',
-            'small'
+            {name: 'body', class: 'govuk-body'},
+            {name: 'lead', class: 'govuk-body-l'},
+            {name: 'small', class: "govuk-body-s"}
         ]
     };
 
@@ -73,22 +73,42 @@
         trumbowyg.execCmd('formatBlock', 'p')
 
         var selection = trumbowyg.doc.getSelection();
-        $(selection.focusNode.parentNode).addClass('govuk-body');
+        $(selection.focusNode.parentNode).addClass(paragraph.class);
         //work via range?
+    }
+
+    //todo: use this instead?
+    // Get the selection's parent
+    function getSelectionParentElement() {
+        var parentEl = null,
+            selection;
+        if (window.getSelection) {
+            selection = window.getSelection();
+            if (selection.rangeCount) {
+                parentEl = selection.getRangeAt(0).commonAncestorContainer;
+                if (parentEl.nodeType !== 1) {
+                    parentEl = parentEl.parentNode;
+                }
+            }
+        } else if ((selection = document.selection) && selection.type !== 'Control') {
+            parentEl = selection.createRange().parentElement();
+        }
+        return parentEl;
     }
 
     function buildDropdown(trumbowyg) {
         var dropdown = [];
 
         $.each(trumbowyg.o.plugins.gds.paragraphs, function (index, paragraph) {
-            trumbowyg.addBtnDef('paragraph_' + paragraph, {
-                text: '<span>' + (trumbowyg.lang.paragraphs[paragraph] || paragraph) + '</span>',
+            trumbowyg.addBtnDef('paragraph_' + paragraph.name, {
+                text: '<span>' + (trumbowyg.lang.paragraphs[paragraph.name] || paragraph.name) + '</span>',
                 ico: 'p',
+                tag: 'p',
                 fn: function () {
                     setParagraph(trumbowyg, paragraph);
                 }
             });
-            dropdown.push('paragraph_' + paragraph);
+            dropdown.push('paragraph_' + paragraph.name);
         });
 
         return dropdown;
