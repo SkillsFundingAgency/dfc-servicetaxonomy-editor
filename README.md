@@ -31,29 +31,12 @@ That's all you need to do for syncing within the editor to work. To perform inte
 4) Enable the browser setting "Enable multi statement query editor"
 5) NOTE: Use http://neo4j-labs.github.io/neosemantics/ for reference:
     Using the desktop app - query window:
-    CREATE CONSTRAINT ON (n:Resource) ASSERT n.uri IS UNIQUE;
-    Add the namespace prefixes by calling :
-    call n10s.nsprefixes.add("adms","http://www.w3.org/ns/adms#");
-    call n10s.nsprefixes.add("owl","http://www.w3.org/2002/07/owl#");
-    call n10s.nsprefixes.add("skosxl", "http://www.w3.org/2008/05/skos-xl#");
-    call n10s.nsprefixes.add("org","http://www.w3.org/ns/org#");
-    call n10s.nsprefixes.add("xsd","http://www.w3.org/2001/XMLSchema#");
+    call n10s.graphconfig.init( { handleMultival: "ARRAY", multivalPropList: ["http://www.w3.org/2004/02/skos/core#altLabel", "http://www.w3.org/2004/02/skos/core#hiddenLabel"] });
+    call n10s.nsprefixes.add("esco", "http://data.europa.eu/esco/model#");
     call n10s.nsprefixes.add("iso-thes", "http://purl.org/iso25964/skos-thes#");
-    call n10s.nsprefixes.add("skos","http://www.w3.org/2004/02/skos/core#");
-    call n10s.nsprefixes.add("rdfs","http://www.w3.org/2000/01/rdf-schema#");
-    call n10s.nsprefixes.add("at","http://publications.europa.eu/ontology/authority/");
-    call n10s.nsprefixes.add("dct","http://purl.org/dc/terms/");
-    call n10s.nsprefixes.add("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-    call n10s.nsprefixes.add("esco","http://data.europa.eu/esco/model#");
-    call n10s.nsprefixes.add("rov","http://www.w3.org/ns/regorg#");
-    call n10s.nsprefixes.add("dcat","http://www.w3.org/ns/dcat#");
-    call n10s.nsprefixes.add("euvoc","http://publications.europa.eu/ontology/euvoc#");
-    call n10s.nsprefixes.add("prov","http://www.w3.org/ns/prov#");
-    call n10s.nsprefixes.add("foaf","http://xmlns.com/foaf/0.1/");
-    call n10s.nsprefixes.add("qdr","http://data.europa.eu/esco/qdr#");
-    call n10s.nsprefixes.add("ncs","http://nationalcareers.service.gov.uk/taxonomy#");
+    call n10s.nsprefixes.add("skosxl", "http://www.w3.org/2008/05/skos-xl#");
+    call n10s.nsprefixes.add("esco-rp", "http://data.europa.eu/esco/regulated-professions/");
 6) Import the ESCO data using this command (replacing the path to the file appropriately):
-    CALL n10s.graphconfig.init();
     CALL semantics.importRDF("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { handleMultival: 'ARRAY', multivalPropList : ['http://www.w3.org/2004/02/skos/core#altLabel', 'http://www.w3.org/2004/02/skos/core#hiddenLabel'], languageFilter: "en" })
     Execution takes approximately 3 to 5 minutes.  
 7) Fix some anomalies by executing:
