@@ -37,7 +37,7 @@ That's all you need to do for syncing within the editor to work. To perform inte
     call n10s.nsprefixes.add("skosxl", "http://www.w3.org/2008/05/skos-xl#");
     call n10s.nsprefixes.add("esco-rp", "http://data.europa.eu/esco/regulated-professions/");
 6) Import the ESCO data using this command (replacing the path to the file appropriately):
-    CALL semantics.importRDF("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { handleMultival: 'ARRAY', multivalPropList : ['http://www.w3.org/2004/02/skos/core#altLabel', 'http://www.w3.org/2004/02/skos/core#hiddenLabel'], languageFilter: "en" })
+    CALL n10s.rdf.import.fetch("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { handleMultival: 'ARRAY', multivalPropList : ['http://www.w3.org/2004/02/skos/core#altLabel', 'http://www.w3.org/2004/02/skos/core#hiddenLabel'], languageFilter: "en" })
     Execution takes approximately 3 to 5 minutes.  
 7) Fix some anomalies by executing:
     MATCH(n:esco__Occupation)
