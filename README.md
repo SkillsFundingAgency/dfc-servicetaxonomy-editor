@@ -22,9 +22,6 @@ Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the pass
 
 That's all you need to do for syncing within the editor to work. To perform interactive queries against the graph, once the graph is Active, click 'Manage' and then on the next page, click 'Open Browser'. If you're unfamiliar with the browser or Neo4j in general, check out the [docs](https://neo4j.com/developer/neo4j-browser/).
 
-Optional Steps:
-To link data to ESCO you will need to install the ESCO TTL file into Neo4J, there are a number of steps that need to be followed and executed as follows.
-
 #### Loading ESCO data
 
 1) Install the APOC plugin - go to plugins -> install
