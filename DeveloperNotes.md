@@ -1,5 +1,7 @@
 #ToDo
 
+* find out why import has slowed significantly. if it's the html sanitizer, perhaps we can disable it on the types at start of import and switch it back on at the end (or leave it off, as we get sanitization in the front-end anyway)
+
 * there's a trumbowyg template plugin : do we have any templates?
 
 we should make sure front end and backend html sanitizers marry up

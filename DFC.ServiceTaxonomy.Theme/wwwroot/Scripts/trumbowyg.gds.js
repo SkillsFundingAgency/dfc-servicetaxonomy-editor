@@ -1,4 +1,6 @@
-﻿(function ($) {
+﻿//todo: prefix buttons with gds-
+
+(function ($) {
     'use strict';
 
     // Plugin default options
@@ -65,24 +67,32 @@
     });
 
     function setParagraph(trumbowyg, paragraph) {
-        trumbowyg.$ed.focus();
-        trumbowyg.saveRange();
 
-        // Temporary size
-        trumbowyg.execCmd('fontSize', '1');
+        trumbowyg.execCmd('formatBlock', 'p')
 
-        // Find <font> elements that were added and change to <span> with chosen size
-        trumbowyg.$ed.find('font[size="1"]').replaceWith(function() {
-            return $('<span/>', {
-                css: { 'font-size': size },
-                html: this.innerHTML,
-            });
-        });
+        var selection = trumbowyg.doc.getSelection();
+        //do we want to go to parent?
+        $(selection.focusNode.parentNode).addClass('govuk-body');
+        //work via range?
 
-        // Remove and leftover <span> elements
-        $(trumbowyg.range.startContainer.parentElement).find('span[style=""]').contents().unwrap();
-
-        trumbowyg.restoreRange();
+        // trumbowyg.$ed.focus();
+        // trumbowyg.saveRange();
+        //
+        // // Temporary size
+        // trumbowyg.execCmd('fontSize', '1');
+        //
+        // // Find <font> elements that were added and change to <span> with chosen size
+        // trumbowyg.$ed.find('font[size="1"]').replaceWith(function() {
+        //     return $('<span/>', {
+        //         css: { 'font-size': size },
+        //         html: this.innerHTML,
+        //     });
+        // });
+        //
+        // // Remove and leftover <span> elements
+        // $(trumbowyg.range.startContainer.parentElement).find('span[style=""]').contents().unwrap();
+        //
+        // trumbowyg.restoreRange();
     }
 
     function buildDropdown(trumbowyg) {
