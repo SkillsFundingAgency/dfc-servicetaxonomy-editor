@@ -37,7 +37,7 @@ using NPOI.XSSF.UserModel;
 //Sample appsettings.Development.json
 /*
 {
-    "Ocp-Apim-Subscription-Key": "dba8d1dea9ff48dab4451e4a61236d55",
+    "Ocp-Apim-Subscription-Key": "",
     "ExcludeGraphContentMutators": true,
     "ExcludeGraphIndexMutators": true,
     "CreateTestFiles": false,
