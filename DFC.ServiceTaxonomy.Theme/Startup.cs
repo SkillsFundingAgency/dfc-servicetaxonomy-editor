@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.Theme
                 o.Configure = sanitizer =>
                 {
                     //todo: presumably sanitizer removes, rather than replaces
-                    // only want to sanitize local urls, although out csp policy will block external urls anyway
+                    // only want to sanitize local urls, although our csp policy will block external urls anyway
                     sanitizer.AllowedSchemes.Remove("http");
                     sanitizer.AllowedAttributes.Add("class");
                 };
