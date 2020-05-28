@@ -1,6 +1,10 @@
 #ToDo
 
+* content api whitelist relationships off esco occupation and skill
+
 * find out why import has slowed significantly. if it's the html sanitizer, perhaps we can disable it on the types at start of import and switch it back on at the end (or leave it off, as we get sanitization in the front-end anyway)
+
+* automate sass compilation
 
 * there's a trumbowyg template plugin : do we have any templates?
 
@@ -9,6 +13,8 @@ we should make sure front end and backend html sanitizers marry up
 add tooltip to html colours to show semantic meaning (js?)
 trumbowyg plugin
 auto add class="govuk-body" to p's
+^ looks like not supported in trumbowyg (see keyup focus). perhaps leave as is (maybe hack or replace trumbowyg js, but then a pain to maintain)
+
 replace formatting button with custom button that:
 Body: auto adds class="govuk-body" to <p>'s (this will set GDS Transport typeface amonst other things)
 Lead: govuk-body-l
