@@ -160,7 +160,9 @@
             //todo: have global gds prefix for names
             var buttonName = 'heading_' + heading.name;
             trumbowyg.addBtnDef(buttonName, {
-                text: '<span>' + (trumbowyg.lang.headings[heading.name] || heading.name) + '</span>',
+                //todo: don't have text for these buttons. hideButtonTexts is global, and '' is false (of course!). narrow through css?
+                // t.hideButtonTexts ? '' : (btn.text || btn.title || t.lang[btnName] || btnName),
+                text: ' ',
                 ico: heading.name,
                 tag: heading.name,
                 fn: function () {
