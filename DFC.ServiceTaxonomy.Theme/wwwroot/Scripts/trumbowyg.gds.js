@@ -52,6 +52,10 @@
             gds: {
                 // Code called by Trumbowyg core to register the plugin
                 init: function (trumbowyg) {
+
+                    //todo: we want to negate TheAdmin theme's css
+                    //trumbowyg.o.resetCss = true;
+
                     // Fill current Trumbowyg instance with the plugin default options
                     trumbowyg.o.plugins.gds = $.extend(true, {},
                         defaultOptions,
@@ -113,7 +117,7 @@
         trumbowyg.execCmd('formatBlock', heading.name);
 
         var selection = trumbowyg.doc.getSelection();
-        $(selection.focusNode.parentNode).addClass(heading.name);
+        $(selection.focusNode.parentNode).addClass(heading.class);
     }
 
     // some browsers set <b>, some, <strong>, but semantic rewriting should convert to strong anyway
