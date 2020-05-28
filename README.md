@@ -33,6 +33,7 @@ That's all you need to do for syncing within the editor to work. To perform inte
 5) NOTE: Use http://neo4j-labs.github.io/neosemantics/ for reference:
    Using the desktop app - query window:
 	   ```
+        CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE
         call n10s.graphconfig.init( { handleMultival: "ARRAY", multivalPropList: ["http://www.w3.org/2004/02/skos/core#altLabel", "http://www.w3.org/2004/02/skos/core#hiddenLabel"] });
 	    call n10s.nsprefixes.add("esco", "http://data.europa.eu/esco/model#");
 	    call n10s.nsprefixes.add("iso-thes", "http://purl.org/iso25964/skos-thes#");
