@@ -23,7 +23,47 @@ Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the pass
 That's all you need to do for syncing within the editor to work. To perform interactive queries against the graph, once the graph is Active, click 'Manage' and then on the next page, click 'Open Browser'. If you're unfamiliar with the browser or Neo4j in general, check out the [docs](https://neo4j.com/developer/neo4j-browser/).
 
 Optional Steps:
-To link data to ESCO you will need to install the ESCO TTL file into Neo4J, there are a number of steps that need to be followed and executed, for more information on how to do this view [Neo4J Setup](https://skillsfundingagency.atlassian.net/wiki/spaces/DFC/pages/1491501074/SPIKE+RDF+hosting+-+Neo4j+cluster) on Confluence. (This link is only available to Internal users)
+To link data to ESCO you will need to install the ESCO TTL file into Neo4J, there are a number of steps that need to be followed and executed as follows.
+
+#### Loading ESCO data
+
+1) Install the APOC plugin - go to plugins -> install
+2) Install the Neosemantics v4 plugin - https://github.com/neo4j-labs/neosemantics - copy jar to plugins directory, add to the end of neo4j.conf - dbms.unmanaged_extension_classes=n10s.endpoint=/rdf
+    NOTE: If any existing plugins have already set "dbms.unmanaged_extension_classes", combine the existing values with the required Neosemantics value, by comma separating them. (E.g. if both the Neosemantics and GraphQL plugins are installed, set the value to dbms.unmanaged_extension_classes=org.neo4j.graphql=/n10s.endpoint=/rdf)
+3) Restart graph instance
+4) Enable the browser setting "Enable multi statement query editor"
+5) NOTE: Use http://neo4j-labs.github.io/neosemantics/ for reference:
+    Using the desktop app - query window:
+    CREATE CONSTRAINT ON (n:Resource) ASSERT n.uri IS UNIQUE;
+    Add the namespace prefixes by calling :
+    call n10s.nsprefixes.add("adms","http://www.w3.org/ns/adms#");
+    call n10s.nsprefixes.add("owl","http://www.w3.org/2002/07/owl#");
+    call n10s.nsprefixes.add("skosxl", "http://www.w3.org/2008/05/skos-xl#");
+    call n10s.nsprefixes.add("org","http://www.w3.org/ns/org#");
+    call n10s.nsprefixes.add("xsd","http://www.w3.org/2001/XMLSchema#");
+    call n10s.nsprefixes.add("iso-thes", "http://purl.org/iso25964/skos-thes#");
+    call n10s.nsprefixes.add("skos","http://www.w3.org/2004/02/skos/core#");
+    call n10s.nsprefixes.add("rdfs","http://www.w3.org/2000/01/rdf-schema#");
+    call n10s.nsprefixes.add("at","http://publications.europa.eu/ontology/authority/");
+    call n10s.nsprefixes.add("dct","http://purl.org/dc/terms/");
+    call n10s.nsprefixes.add("rdf","http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+    call n10s.nsprefixes.add("esco","http://data.europa.eu/esco/model#");
+    call n10s.nsprefixes.add("rov","http://www.w3.org/ns/regorg#");
+    call n10s.nsprefixes.add("dcat","http://www.w3.org/ns/dcat#");
+    call n10s.nsprefixes.add("euvoc","http://publications.europa.eu/ontology/euvoc#");
+    call n10s.nsprefixes.add("prov","http://www.w3.org/ns/prov#");
+    call n10s.nsprefixes.add("foaf","http://xmlns.com/foaf/0.1/");
+    call n10s.nsprefixes.add("qdr","http://data.europa.eu/esco/qdr#");
+    call n10s.nsprefixes.add("ncs","http://nationalcareers.service.gov.uk/taxonomy#");
+6) Import the ESCO data using this command (replacing the path to the file appropriately):
+    CALL semantics.importRDF("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { handleMultival: 'ARRAY', multivalPropList : ['http://www.w3.org/2004/02/skos/core#altLabel', 'http://www.w3.org/2004/02/skos/core#hiddenLabel'], languageFilter: "en" })
+    Execution takes approximately 3 to 5 minutes.  
+7) Fix some anomalies by executing:
+    MATCH(n:esco__Occupation)
+    WHERE EXISTS(n.skos__hiddenLabel)
+    SET n.skos__altLabel = n.skos__hiddenLabel, n.skos__hiddenLabel = null
+    RETURN n
+    Type "call db.schema()" to confirm import worked
 
 #### Create Content Database
 
