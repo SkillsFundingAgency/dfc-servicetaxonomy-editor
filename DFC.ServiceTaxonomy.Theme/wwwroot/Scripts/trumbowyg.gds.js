@@ -74,27 +74,39 @@
 
         var selection = trumbowyg.doc.getSelection();
         $(selection.focusNode.parentNode).addClass(paragraph.class);
-        //work via range?
+
+        // var selectionParentElement = getSelectionParentElement();
+        // $(selectionParentElement).addClass(paragraph.class);
+
+        // trumbowyg.saveRange();
+        // var text = trumbowyg.getRangeText();
+        // if (text.replace(/\s/g, '') !== '') {
+        //     try {
+        //         var parent = getSelectionParentElement();
+        //         $(parent).addClass(paragraph.class);
+        //     } catch (e) {
+        //     }
+        // }
     }
 
     //todo: use this instead?
     // Get the selection's parent
-    function getSelectionParentElement() {
-        var parentEl = null,
-            selection;
-        if (window.getSelection) {
-            selection = window.getSelection();
-            if (selection.rangeCount) {
-                parentEl = selection.getRangeAt(0).commonAncestorContainer;
-                if (parentEl.nodeType !== 1) {
-                    parentEl = parentEl.parentNode;
-                }
-            }
-        } else if ((selection = document.selection) && selection.type !== 'Control') {
-            parentEl = selection.createRange().parentElement();
-        }
-        return parentEl;
-    }
+    // function getSelectionParentElement() {
+    //     var parentEl = null,
+    //         selection;
+    //     if (window.getSelection) {
+    //         selection = window.getSelection();
+    //         if (selection.rangeCount) {
+    //             parentEl = selection.getRangeAt(0).commonAncestorContainer;
+    //             if (parentEl.nodeType !== 1) {
+    //                 parentEl = parentEl.parentNode;
+    //             }
+    //         }
+    //     } else if ((selection = document.selection) && selection.type !== 'Control') {
+    //         parentEl = selection.createRange().parentElement();
+    //     }
+    //     return parentEl;
+    // }
 
     function buildDropdown(trumbowyg) {
         var dropdown = [];
