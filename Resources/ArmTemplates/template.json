@@ -76,6 +76,9 @@
         },
         "apimProxyAddress": {
             "type": "string"
+        },
+        "EventGridTopicSku": {
+            "type": "string"
         }
     },
     "variables": {
@@ -83,6 +86,7 @@
         "ResourcePrefix": "[tolower(concat('dfc-', parameters('Environment'), '-stax-editor'))]",        
         "AppServiceAppInsightsName": "[concat(variables('ResourcePrefix'), '-ai')]",
         "AppServicePlanName": "[if(greater(length(parameters('SharedAppServicePlanName')), 0), parameters('SharedAppServicePlanName'), concat(variables('ResourcePrefix'), '-asp'))]",
+        "EventGridTopicName": "[tolower(concat('dfc-', parameters('Environment'), '-stax-egt'))]", 
         "AppServicePlanResourceGroup": "[if(greater(length(parameters('SharedAppServicePlanResourceGroup')), 0), parameters('SharedAppServicePlanResourceGroup'), resourceGroup().name)]",
         "DatabaseName": "[concat(variables('ResourcePrefix'), '-db')]",
         "WebAppName": "[concat(variables('ResourcePrefix'), '-as')]",
@@ -274,6 +278,26 @@
                     },
                     "databaseTier": {
                         "value": "[variables('DatabaseTier')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "[variables('EventGridTopicName')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('BuildingBlocksDfcBaseUrl'),'eventgrid-topic.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "eventgridTopicName": {
+                        "value": "[variables('EventGridTopicName')]"
+                    },
+                    "eventgridTopicSku": {
+                        "value": "[parameters('EventGridTopicSku')]"
                     }
                 }
             }
