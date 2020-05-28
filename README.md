@@ -56,6 +56,7 @@ To link data to ESCO you will need to install the ESCO TTL file into Neo4J, ther
     call n10s.nsprefixes.add("qdr","http://data.europa.eu/esco/qdr#");
     call n10s.nsprefixes.add("ncs","http://nationalcareers.service.gov.uk/taxonomy#");
 6) Import the ESCO data using this command (replacing the path to the file appropriately):
+    CALL n10s.graphconfig.init();
     CALL semantics.importRDF("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { handleMultival: 'ARRAY', multivalPropList : ['http://www.w3.org/2004/02/skos/core#altLabel', 'http://www.w3.org/2004/02/skos/core#hiddenLabel'], languageFilter: "en" })
     Execution takes approximately 3 to 5 minutes.  
 7) Fix some anomalies by executing:
