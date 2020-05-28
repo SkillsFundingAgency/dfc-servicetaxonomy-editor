@@ -1,3 +1,4 @@
+
 # Service Taxonomy Editor
 
 ## Build Status
@@ -23,29 +24,29 @@ Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the pass
 That's all you need to do for syncing within the editor to work. To perform interactive queries against the graph, once the graph is Active, click 'Manage' and then on the next page, click 'Open Browser'. If you're unfamiliar with the browser or Neo4j in general, check out the [docs](https://neo4j.com/developer/neo4j-browser/).
 
 #### Loading ESCO data
-
-1) Install the APOC plugin - go to plugins -> install
-2) Install the Neosemantics v4 plugin - https://github.com/neo4j-labs/neosemantics - copy jar to plugins directory, add to the end of neo4j.conf - dbms.unmanaged_extension_classes=n10s.endpoint=/rdf
-    NOTE: If any existing plugins have already set "dbms.unmanaged_extension_classes", combine the existing values with the required Neosemantics value, by comma separating them. (E.g. if both the Neosemantics and GraphQL plugins are installed, set the value to dbms.unmanaged_extension_classes=org.neo4j.graphql=/n10s.endpoint=/rdf)
-3) Restart graph instance
-4) Enable the browser setting "Enable multi statement query editor"
-5) NOTE: Use http://neo4j-labs.github.io/neosemantics/ for reference:
-    Using the desktop app - query window:
-    call n10s.graphconfig.init( { handleMultival: "ARRAY", multivalPropList: ["http://www.w3.org/2004/02/skos/core#altLabel", "http://www.w3.org/2004/02/skos/core#hiddenLabel"] });
-    call n10s.nsprefixes.add("esco", "http://data.europa.eu/esco/model#");
-    call n10s.nsprefixes.add("iso-thes", "http://purl.org/iso25964/skos-thes#");
-    call n10s.nsprefixes.add("skosxl", "http://www.w3.org/2008/05/skos-xl#");
-    call n10s.nsprefixes.add("esco-rp", "http://data.europa.eu/esco/regulated-professions/");
-6) Import the ESCO data using this command (replacing the path to the file appropriately):
-    CALL n10s.rdf.import.fetch("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { handleMultival: 'ARRAY', multivalPropList : ['http://www.w3.org/2004/02/skos/core#altLabel', 'http://www.w3.org/2004/02/skos/core#hiddenLabel'], languageFilter: "en" })
-    Execution takes approximately 3 to 5 minutes.  
-7) Fix some anomalies by executing:
-    MATCH(n:esco__Occupation)
-    WHERE EXISTS(n.skos__hiddenLabel)
-    SET n.skos__altLabel = n.skos__hiddenLabel, n.skos__hiddenLabel = null
-    RETURN n
-    Type "call db.schema()" to confirm import worked
-
+```
+//1) Install the APOC plugin - go to plugins -> install
+//2) Install the Neosemantics v4 plugin - https://github.com/neo4j-labs/neosemantics - copy jar to plugins directory, add to the end of neo4j.conf - dbms.unmanaged_extension_classes=n10s.endpoint=/rdf
+//    NOTE: If any existing plugins have already set "dbms.unmanaged_extension_classes", combine the existing values with the required Neosemantics value, by comma separating them. (E.g. if both the Neosemantics and GraphQL plugins are installed, set the value to dbms.unmanaged_extension_classes=org.neo4j.graphql=/n10s.endpoint=/rdf)
+//3) Restart graph instance
+//4) Enable the browser setting "Enable multi statement query editor"
+//5) NOTE: Use http://neo4j-labs.github.io/neosemantics/ for reference:
+//  Using the desktop app - query window:
+	    call n10s.graphconfig.init( { handleMultival: "ARRAY", multivalPropList: ["http://www.w3.org/2004/02/skos/core#altLabel", "http://www.w3.org/2004/02/skos/core#hiddenLabel"] });
+	    call n10s.nsprefixes.add("esco", "http://data.europa.eu/esco/model#");
+	    call n10s.nsprefixes.add("iso-thes", "http://purl.org/iso25964/skos-thes#");
+	    call n10s.nsprefixes.add("skosxl", "http://www.w3.org/2008/05/skos-xl#");
+	    call n10s.nsprefixes.add("esco-rp", "http://data.europa.eu/esco/regulated-professions/");
+//6) Import the ESCO data using this command (replacing the path to the file appropriately):
+	    call n10s.rdf.import.fetch("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { handleMultival: 'ARRAY', multivalPropList : ['http://www.w3.org/2004/02/skos/core#altLabel', 'http://www.w3.org/2004/02/skos/core#hiddenLabel'], languageFilter: "en" })
+//   Execution takes approximately 3 to 5 minutes.  
+//7) Fix some anomalies by executing:
+	    MATCH(n:esco__Occupation)
+	    WHERE EXISTS(n.skos__hiddenLabel)
+	    SET n.skos__altLabel = n.skos__hiddenLabel, n.skos__hiddenLabel = null
+	    RETURN n
+//	    Type "call db.schema()" to confirm import worked
+```
 #### Create Content Database
 
 Setup a database to store the content. Any database with a .NET ADO provider is supported. For example, [setup a Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-single-database-get-started?tabs=azure-portal). To quickly try it out, you can run a local Sqlite database with no initial setup necessary.
