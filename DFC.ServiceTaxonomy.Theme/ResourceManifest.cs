@@ -11,7 +11,6 @@ namespace DFC.ServiceTaxonomy.Theme
         {
             var manifest = builder.Add();
 
-            //todo: cache-busting
             manifest
                 .DefineStyle("StaxTheme-trumbowyg-scoped-govuk-frontend")
                 .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/trumbowyg_scoped_govuk_frontend.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/trumbowyg_scoped_govuk_frontend.css")
