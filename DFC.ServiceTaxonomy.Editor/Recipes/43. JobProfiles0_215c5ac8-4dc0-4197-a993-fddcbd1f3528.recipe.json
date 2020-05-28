@@ -1,0 +1,3264 @@
+{
+  "name": "JobProfiles0_215c5ac8-4dc0-4197-a993-fddcbd1f3528",
+  "displayName": "JobProfiles0_215c5ac8-4dc0-4197-a993-fddcbd1f3528",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "CSharpContent",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022actor/actress\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EActors use speech, movement and expression to bring characters to life in theatre, film, television and radio.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "actor"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4sv6rjn5y3s2xy09de78z7yzxd"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4czxqr1tktt4y4q5y2wt1yhqdv"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "variable"
+      },
+      "SalaryExperienced": {
+        "Text": "variable"
+      },
+      "MinimumHours": {
+        "Value": 45.0
+      },
+      "MaximumHours": {
+        "Value": 47.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "irregular"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": []
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4kj5r2gttgx0c2vc8apjq8yqn5"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "442qnsff4ycnr4yrv1df2sad5h"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "45170aqgrzsp12t6xg91fcfdxk"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "45n7x2wgg6bxx1zxrcw4q3fhxd"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "43zhvae9d4am0w9s08eh1atjcm"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": "\u003Cp\u003EYou can join \u003Ca href=\u0022https://www.equity.org.uk/getting-involved/\u0022\u003EEquity\u003C/a\u003E for professional recognition, training opportunities and to make industry contacts.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou\u0027ll need to get as much practical experience of acting as you can, and create a showreel to demonstrate your acting skills to agents and casting directors.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an actor through \u003Ca href=\u0022https://ccskills.org.uk/careers/advice/article/actor\u0022\u003ECreative Choices\u003C/a\u003E. You can also get extra support from organisations like \u003Ca href=\u0022https://www.shapearts.org.uk/\u0022\u003EShape Arts\u003C/a\u003E, if you have a disability or special learning need.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4a240pmwn92dr4whdx750rp3wk",
+          "4330wg93rbqn016r0qx5tch1wa",
+          "4h47rbzwpf6n977axq75d7xs5m",
+          "4a8seef1jg4br7v4yjdyg00c5e",
+          "4dkr04hxd8ep6yh398dzdgwmxm",
+          "46dtsmbqsw2px0kzedakzkadd3"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "47mjtng9091n9tt4rak9h5fr5b"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "416fjdfcrq6yhrf60f9k63sexc"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EIf you can show an agent you have potential they may put you forward for auditions and castings. Agents usually take a fee of about 10% to 25% from your earnings.\u003C/p\u003E\u003Cp\u003EYou could take further training and move into directing, scriptwriting, drama therapy or teaching.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/370fd9de-49d2-4a7e-9280-4411be4a8558\u0027]"
+    },
+    "ContentItemId": "4ans9626s52ehw694fv744a4wn",
+    "ContentItemVersionId": "49e68req7ke8jv9k12jhhaqdn6",
+    "ContentType": "JobProfile",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022administrative assistant\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAdmin assistants give support to offices by organising meetings, typing documents and updating computer records.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "admin-assistant"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "47b2qmbbb6bksz1hcsfwh6pdw6"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4vwxpvrp5qbqc52mz3mc5zyacw"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "14000"
+      },
+      "SalaryExperienced": {
+        "Text": "30000"
+      },
+      "MinimumHours": {
+        "Value": 38.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "between 8am and 6pm"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4mzb9z28kf37n3t4d936w6sycm"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "48khnv378m4h33mckq71hjg85b"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4m80zqfsjrnw1x5jbnw03v67xs"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "43a277q30wk3t0k891yy405n55"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": ""
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to use a computer and the main software packages competently\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "42h4ykq9djf6e18tdszrap0256",
+          "4dzydb6rrt5yjtwtw7xqxg2adw",
+          "4dw4kqrrbzpt6xa45fghdg5bw4",
+          "42htt1ncbpmzdybhrhm1607rxj",
+          "4082jd94y2r31779frgsc6ngds",
+          "4jb35m0hnfdfxv184qzj2kdnnm",
+          "4hnzq9gmed2swryja766xxgwcy",
+          "4xat3dn6j5h2v5gtg4jx0pegny"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "402ev6vcn9pry33brr12he5b49"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could progress from admin assistant to supervisor or office manager. You could also move into other departments such as IT or accounting.\u003C/p\u003E\u003Cp\u003EWith further training, you could specialise in an area like legal, financial or medical administration.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4c3177wn7b82kvdg8xrchm0340"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/fd38a675-cebc-43af-b3f2-84ed213fca14\u0027]"
+    },
+    "ContentItemId": "47gp1b66pfzgcyw19fhy1m4g4k",
+    "ContentItemVersionId": "4d4a2meha08m7rzfzmrpnvtpdv",
+    "ContentType": "JobProfile",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Force officer"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022immigration officer\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EBorder Force officers protect UK border entry points like ports and airports, by enforcing immigration and customs regulations.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "border-force-officer"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4zk9vx3qbgj3z614pcdt5affx1"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4rtf63bq3adpn409qdkcm2ym57"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "23000"
+      },
+      "SalaryExperienced": {
+        "Text": "31000"
+      },
+      "MinimumHours": {
+        "Value": 38.0
+      },
+      "MaximumHours": {
+        "Value": 42.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on shifts"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4gzbd6t8zqm7bweang3xzmxcd6"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4d8ret94te1677ffgg3p2pfw5h"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4xabnwbc0cmqmzqyxt0qrwqmwe"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "444emyc2maw9k60dy5kf0hnx5p"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about working as a Border Force officer from \u003Ca href=\u0022https://www.gov.uk/government/organisations/border-force/about/recruitment\u0022\u003EBorder Force\u003C/a\u003E and \u003Ca href=\u0022https://www.civil-service-careers.gov.uk/\u0022\u003ECivil Service Careers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4xc460sczwp8wrwmdtzhh1q5we",
+          "4vgzbya1s79pgzwhxgc2djx3wr",
+          "45sn81vpwr9171afnft886cnw8",
+          "4rqxqb17x16w4waep6zqpbsznd",
+          "4xf7z8ykrwgyj7fq3q98zq4ydy",
+          "4zpt2shc3mh961j9wqr5a427ms",
+          "4h26zfzc50b8sts7jp76daf84k"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "41qgavmp1kqntwsszhgknz4r4w",
+          "4hgs45vjabt2ztmgpvrx22zrw4",
+          "40htwd6fmcktev5h2e0p0estcz",
+          "4veqejbthszcssas5evssrjkxs",
+          "45rm4xy43gemn01benckq16rxz",
+          "4jy5ycqtgdxfmzsdgw3nh5nyxw"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4zjkpje85q2tqvnyh0ymca0gcq"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4tkrbmrzh976x74w7vtvkkj7wn"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "433h5n7xnxvhwzzn2h5yg7v940"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou\u0027ll get continuous training during your first 6 to 12 months. Once you\u0027ve passed your probationary period, you\u0027ll have the full responsibilities of a Border Force officer.\u003C/p\u003E\u003Cp\u003EWith experience you could become a team leader, or move into a management position. You could also use your skills to train and work with new staff.\u003C/p\u003E\u003Cp\u003EYou may also be able to apply for roles in other departments of the \u003Ca href=\u0022https://www.civil-service-careers.gov.uk/departments/working-for-the-home-office/\u0022\u003EHome Office\u003C/a\u003E or \u003Ca href=\u0022https://www.gov.uk/government/organisations/civil-service/about/recruitment\u0022\u003ECivil Service\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/1da8cac6-6163-4b09-9a89-5c18498cea71\u0027]"
+    },
+    "ContentItemId": "4js9t6pbta2e2rakppf0pnd1m2",
+    "ContentItemVersionId": "48gvbb6yyt82aw480ywag360mq",
+    "ContentType": "JobProfile",
+    "DisplayText": "Border Force officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cabin crew"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022steward/stewardess\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EAir cabin crew help make sure that airline passengers have a comfortable, safe and pleasant flight.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "no_prefix"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "cabin-crew"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "45xfxyqe98jgxyqy9xcdemjec8"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4rtf63bq3adpn409qdkcm2ym57"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "12000"
+      },
+      "SalaryExperienced": {
+        "Text": "30000"
+      },
+      "MinimumHours": {
+        "Value": 30.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4qxr8nfhwrcht5kz4wnh5c5jdv"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4nnr1gd5k2vpdthpy14marsrw9"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4gcrmw6apch6n4a5bmy4gdf6ca"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003ESome airlines and private providers run 2-day cabin crew courses, which may help your chances of getting a job.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou\u0027ll find details about working as air cabin crew from \u003Ca href=\u0022http://www.careersthatmove.co.uk/A-Career-in-Passenger-Transport-and-Travel/Career-Map#/industry/aviation\u0022\u003ECareers That Move\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4zfxm1gev7zfzx6fp9vgmb5ncb",
+          "4zpt2shc3mh961j9wqr5a427ms",
+          "4xf7z8ykrwgyj7fq3q98zq4ydy",
+          "45sn81vpwr9171afnft886cnw8"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": [
+          "4twer8mrqp3a6zm3xr91bepr4g",
+          "4v9ze65rwcfkf0mbrae9d7xsnz",
+          "4wtnr9j1en55av7cdwjz8w1xm5"
+        ]
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4qv7aqhzzhp07752rt5dq5v6nm",
+          "43v7c9eq55jkk109te28twm3dd",
+          "4zbtq5z28k2nh613fxmf4qbpnm",
+          "4sg0v44venysqsmwbrmxfrqkw8",
+          "4v37cnnzrj4tywf2q4nbdw3j4e",
+          "4w222h8swpw34wfdsbfm9pytcn",
+          "4dajvezzfa9gx7az7t71zqdpwe",
+          "4mpsfn0zmytx4wtpzcym4mte5k",
+          "4mw1mqqdwrtwh71ccjbe1n4qca",
+          "4gjb1ft8rqawb71dv6ksq6ysnt",
+          "49g0p02g5jrkvsnc68v184y5mt"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "40t1szanacvk7x6n37d9ej6w5z"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4swkt9mgheexjzw670m8bmwrnq"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "433h5n7xnxvhwzzn2h5yg7v940"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could progress to cabin crew supervisor or a senior air cabin crew role.\u003C/p\u003E\u003Cp\u003EYou could also work in a ground-based role like cabin crew training, recruitment, passenger services, marketing or sales.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/14c72463-28ce-4c50-b08f-fe2718de8bc7\u0027]"
+    },
+    "ContentItemId": "4x1y3ghjpqf9nvk74bfj9qm6nb",
+    "ContentItemVersionId": "4cet1sa5p74krx5fzzas7xt8xd",
+    "ContentType": "JobProfile",
+    "DisplayText": "Cabin crew",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Care worker"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022residential care home worker\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003ECare workers help vulnerable people to manage their daily activities and to live as independently as possible.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "care-worker"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4gcwsfhrsj8054gx54anf9dqnt"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4rhkr28f2g6m0v65say40d91x0"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "12500"
+      },
+      "SalaryExperienced": {
+        "Text": "25000"
+      },
+      "MinimumHours": {
+        "Value": 35.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on shifts"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4es26xbh803q562zshxe3nwv5y"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4xa67v7w61w7r1dv9v45hg8jxj"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4ch85ez2xqwjh6w80126tmvsdp"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "47fbejhq79qjd3hh5b8w7jkh4t"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003ETime spent caring for someone you know also counts as having experience in a caring role.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about careers in care from \u003Ca href=\u0022https://www.skillsforcare.org.uk/Careers-in-care/Job-roles/Job-roles-in-social-care.aspx\u0022\u003EThink Care Careers\u003C/a\u003E and \u003Ca href=\u0022https://www.scie.org.uk/socialcaretv/\u0022\u003ESocial Care TV\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "45sn81vpwr9171afnft886cnw8"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "43ns6jp189vad1dbke8knavnms",
+          "4r02vcsrsm3ef1hbanv9s2xzwz",
+          "4xwgwwka4cm37s06ct7kqc8vmw",
+          "421rkj9zkynbwr7svzqavdwnw7",
+          "4a6xnqhy0zfx16jterqw30ybc1",
+          "4qgb2a99qghd94dp878tw2shxj",
+          "4q3wrbzv0j9a1svz6nj7ts6rnx",
+          "4j99n7p1tz3hd65r21b4bf1f5s",
+          "4nms04jqw6dp0r5hhmvmcfyewk",
+          "4aqx98ert95edxmqagm8srfx5z"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4zanq1m651svqytht3v95dygcn"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4c29f8djy8ve7v4syc964gnmxd"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "433h5n7xnxvhwzzn2h5yg7v940"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou could progress to a more senior role, managing people or services.\u003C/p\u003E\u003Cp\u003EAs your career develops, you can move on to higher level qualifications, such as a foundation degree, social work degree or Level 5 Diploma in Leadership and Management for Adult Care.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "40dj14vc8d9cb1naq7seaj95mv",
+          "4weaxqs7bxfev3dhwwnpexrvxc"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/850763d5-5758-4256-a412-c83af68f6f56\u0027]"
+    },
+    "ContentItemId": "4z4a9rm5sremn4a4v72f6ky8wp",
+    "ContentItemVersionId": "4tb74g55wb8qx7ayfrzd9cc2na",
+    "ContentType": "JobProfile",
+    "DisplayText": "Care worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Chief executive"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022chief executive officer\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EChief executives plan and put into place policies to help their organisations be successful.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "chief-executive"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4eg6y1dyew2dxt3w97583byw44"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4whdn6pxyf5fp62khqex56hyxg"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "55000"
+      },
+      "SalaryExperienced": {
+        "Text": "150000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 39.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings"
+      },
+      "WorkingPatternDetails": {
+        "Text": "attending events or appointments"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "42g53t188a7k1w9fzcj5hat35d"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "43rs9g5mztd714e2e8rqhv25mj"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "47qmn8cef0r3a6xkpx8bvgercc"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a very strong commitment to the organisation\u0027s aims.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": ""
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to use a computer and the main software packages competently\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "458zg540qdt4ptth1zvab61pd1",
+          "46r7nv94kcjt2z6r5sxr07nacv",
+          "42731s1c88ggp7ej9jysbgq756",
+          "4d4e4sv2x3gxa28t7gk7p6ctxq",
+          "46etpee4ge6tc465g7txxyn1x9",
+          "44qj8e50rkcrxw0ya50eq4xjmj",
+          "4mphwbdb70weh6ekfzd6xb0cm2",
+          "4gh7w8bmks9h429182445yxxnf"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4abgpnmvmz3c2sy3jqdqbvtnww"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "402ev6vcn9pry33brr12he5b49"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou could also work as a management consultant, advising clients on commercial strategy and policy.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4q35fsjygt7dq74tkkbxmd4cwa"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/d8c95425-da79-48f8-9367-e6931399d585\u0027]"
+    },
+    "ContentItemId": "4ywvr1q2w3ygxz13325mhey2d0",
+    "ContentItemVersionId": "4h6dr44h8hm9w7hwmgq59edq4k",
+    "ContentType": "JobProfile",
+    "DisplayText": "Chief executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Civil engineer"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022civil engineer\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003ECivil engineers design and manage construction projects, from bridges and buildings to transport links and sports stadiums.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "civil-engineer"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "41s106pk2xr3w1bh3c30t2tk4z"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4t8wyn4an8z3xx7hkzcbj4qyxx"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "24000"
+      },
+      "SalaryExperienced": {
+        "Text": "80000"
+      },
+      "MinimumHours": {
+        "Value": 40.0
+      },
+      "MaximumHours": {
+        "Value": 42.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends"
+      },
+      "WorkingPatternDetails": {
+        "Text": "occasionally"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4mz4mzfwgvjjw3sge36f4mk3ds"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4gp0xs1r5dqhtzqtkyb0bnhe5n"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4azjvsz9nw9m1rpx4zdkc500n4"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4h14jynmmj2ffzygt2nja1c9w0"
+        ]
+      },
+      "HtbBodies": {
+        "Html": "\u003Cp\u003EYou can join the \u003Ca href=\u0022https://www.ice.org.uk/membership\u0022\u003EInstitution of Civil Engineers\u003C/a\u003E for professional development opportunities.\u003C/p\u003E"
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming a civil engineer from the\u00A0\u003Ca href=\u0022https://www.ice.org.uk/what-is-civil-engineering/how-can-i-become-a-civil-engineer\u0022\u003EInstitution of Civil Engineers\u003C/a\u003E and \u003Ca href=\u0022https://www.tomorrowsengineers.org.uk/\u0022\u003ETomorrow\u0027s Engineers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to use a computer and the main software packages competently\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4qgpkk78aaz11z3k7ygqy2p6d2",
+          "4sh6w0dbq8472swefe2p1g3b5s",
+          "4858ky5ts4d8ty5hpqsggz5hm4",
+          "4hb3nycbrsdg10rpvrby4dg3m7",
+          "4eraz3ph74hj7z3s5eqv1mhw5d",
+          "4a7a035t5xz34rg48zjnc16b4z",
+          "4bt3sje0nd7y77j8592yx03nc3",
+          "4aq6nc24exz99rqra2chk19657"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4zh26mefy5pr0088df9pbprrds"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4p0r231rcmf3ay0n5xr9653g5g"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "48cepxcmg36x1wtydkgb1b21mf"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith incorporated or chartered engineer status, you could move into senior project management roles. You could also specialise in a particular engineering field, work in research or become a consultant. You could  work overseas with British consulting  firms, and for oil and mining companies.\u003C/p\u003E\u003Cp\u003EYou could also work for international development and disaster relief agencies.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4pgdqd3z1nes105t6ahkzwe4cf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/18b5efbe-a5c7-4dd0-bdda-9ff1322d5fc0\u0027]"
+    },
+    "ContentItemId": "45xh77ft1ebrzz98efd4avez4a",
+    "ContentItemVersionId": "4j3bw1c23wzzr67440y1yjab4t",
+    "ContentType": "JobProfile",
+    "DisplayText": "Civil engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction labourer"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022building construction worker\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EConstruction labourers prepare building and civil engineering sites and carry out manual jobs once work starts.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "construction-labourer"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4525axpn5q8cv59nsdxdpnxpnz"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4zqgwvtdrjtdr0t0kk8qxz5s4j"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "15000"
+      },
+      "SalaryExperienced": {
+        "Text": "29000"
+      },
+      "MinimumHours": {
+        "Value": 42.0
+      },
+      "MaximumHours": {
+        "Value": 44.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4jfy5g29src5g0f8zspe95415j"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4qq8c8pwx7nd56drak410mhemj"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "492f71m7g07b46bf4hzar2xy5s"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about working in construction from \u003Ca href=\u0022https://www.goconstruct.org/learn-about-construction/find-the-role-for-you/career-explorer/general-construction-operative/\u0022\u003EGo Construct\u003C/a\u003E and \u003Ca href=\u0022https://housebuildingcareers.org.uk/\u0022\u003EHouse Building Careers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": [
+          "4ff5z92reh5e31ys01wf0mdtmy"
+        ]
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4zpt2shc3mh961j9wqr5a427ms"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": [
+          "4v12a9d251aeg0p89jmz9wa8mn"
+        ]
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "42e4hpkhq8rpj1zfteswr38r5g",
+          "4tydks99m0wes4g1sae1wyp1n0",
+          "4wkqw9xrs6g86y43kevm6vxwwx",
+          "4xt2yt8w49d41410z6xpvezx54",
+          "49dxshkxyn35vswjc5kawqmrnt",
+          "4xq88xbqzbm6evgpzd7sy66tca",
+          "41mawk5qhmhbvz63844sc7y5xr"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4dbwd37fxdtg6wks9c9aa7wm5x"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4fba4hv9rpznf6b199yn3xm7m8"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "48cepxcmg36x1wtydkgb1b21mf"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou could train on the job to become a qualified tradesperson or with experience, become a site supervisor, estimator or construction manager.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4p7m2658zwa3hxnt6wy3p0q4cn"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/8ae17688-cb62-4289-8025-e5cffc80aa5c\u0027]"
+    },
+    "ContentItemId": "4kfzvmrq2dryf6fv0wj89xjjdt",
+    "ContentItemVersionId": "4vk34j4vhhf03r7v2hpgb9v6mc",
+    "ContentType": "JobProfile",
+    "DisplayText": "Construction labourer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Electrician"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022electrician\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EElectricians fit, service and fix electrical equipment, circuits, machinery and wiring.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "electrician"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4t78rdjrb70yvtqhfyqwss46wy"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4rtf63bq3adpn409qdkcm2ym57"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "42000"
+      },
+      "MinimumHours": {
+        "Value": 30.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "on call"
+      },
+      "WorkingPatternDetails": {
+        "Text": "as customers demand"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "436bms5z55kqgsyjkjwzabk8x4"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4wxgjsmc2p93fr32vq402e2zcm"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4ryxr4bqetycz14z0ce443j256"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an electrician from \u003Ca href=\u0022http://electricalcareers.co.uk\u0022\u003EElectrical Careers\u003C/a\u003E and \u003Ca href=\u0022https://www.goconstruct.org/learn-about-construction/find-the-role-for-you/career-explorer/electrician/\u0022\u003EGo Construct\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": [
+          "4ff5z92reh5e31ys01wf0mdtmy"
+        ]
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "44cr9acbv9bkwv99eew227h6xv",
+          "4t6hg3pzwzvqdxdxg1e3k6zhdr",
+          "4xe5ahmwdnad51j1kfr6xfskw1",
+          "4hpb8swfqf4z73dmddpsxpcxxk",
+          "4j869a7vs6agtznp3vq67rst5a"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "47fazbv7mcrd51j55n3k3nfe40"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "47gjj2w05b1znst66bwtpw7nms"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could move into design engineering, site or project management, consultancy work or training.\u003C/p\u003E\u003Cp\u003EYou could also set up your own business.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/b0dc4459-9818-473c-b69f-50a41771c2ba\u0027]"
+    },
+    "ContentItemId": "4mg1nehgp91dmwynwk06qfd6xr",
+    "ContentItemVersionId": "4rbj2p8nk776712fxgty1qg0nc",
+    "ContentType": "JobProfile",
+    "DisplayText": "Electrician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emergency medical dispatcher"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022emergency medical dispatcher\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EEmergency medical dispatchers handle calls from the public and GPs requesting an ambulance.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "emergency-medical-dispatcher"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "484rtz8pec5r2r0yevdrwtb1w6"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "42y9svafeb82a5y94dmwpwf1xz"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "17652"
+      },
+      "SalaryExperienced": {
+        "Text": "20795"
+      },
+      "MinimumHours": {
+        "Value": 40.0
+      },
+      "MaximumHours": {
+        "Value": 42.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on shifts"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "493czbmvq608d02vw539xzvc5y"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "41cz27m698xzyrpkh0mc6fhxw9"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4zy6ajbqc7acnsj2x7801k73xp"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "40kx2pzy3bf5e5efx2ey1bp2mf"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about becoming an emergency medical dispatcher from \u003Ca href=\u0022https://www.healthcareers.nhs.uk/explore-roles/ambulance-service-team/roles-ambulance-service/emergency-medical-dispatchercall-handler\u0022\u003EHealth Careers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4zfxm1gev7zfzx6fp9vgmb5ncb",
+          "4mcyqby9q600kzax1cfk388nxn"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4e2hpmbgr1bby26xfehmeg0ddn",
+          "4stzey2aka0n211q7hqtgc2wwr",
+          "4rz7bmt50fyq21y89m6t7zt8xr",
+          "4228cp26xbynvytpvgvs0ppm4j",
+          "40v8m8273nyems24ncwah1qn55",
+          "4ymnjjdtxp79p4gdg6dvhjqyxn",
+          "4krdjn994g4f4w697tmdw9qcmv",
+          "4txsp5r1cm00jxs4f901axamm1"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "42b04qz4nme8exjny54d1sgnxh"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4beg7c2639adwsa4vgg54t585b"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could become a team leader or control room superintendent.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4pexhy521cv17w8pe4cpxw1tdy"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/5d044bbe-5f80-4941-bb55-89097a1332e1\u0027]"
+    },
+    "ContentItemId": "4vfpfvb9e47cks3ks4410vt2cq",
+    "ContentItemVersionId": "4z3fxxr5k6tvc56enx7zmasmng",
+    "ContentType": "JobProfile",
+    "DisplayText": "Emergency medical dispatcher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Farmer"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022mixed farmer\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EFarmers and farm managers grow crops and raise livestock for food production.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "farmer"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4gcbe8drrzazbt42hw5xtg2kcs"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "47xnrx012akm36ysfnmw724659"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "20000"
+      },
+      "SalaryExperienced": {
+        "Text": "50000"
+      },
+      "MinimumHours": {
+        "Value": 39.0
+      },
+      "MaximumHours": {
+        "Value": 41.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "variable"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "flexibly"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "48654f0k53kh85r69fzmrrhewe"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4jqmmwc7yxjvqvrd21m462jfx2"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4bv338rxeh70e6k25899p1xv4b"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4r058sterfg5k6j01s2j1tzmx2"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find more on farming careers from \u003Ca href=\u0022https://tastycareers.org.uk/job-descriptions?keywords=\u0026tags=agriculture\u0026category=true\u0026page=2\u0022\u003ETasty Careers\u003C/a\u003E and the \u003Ca href=\u0022https://nlbc.uk/careers/land-based-careers/\u0022\u003ENational Land Based College\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "48v55tcca5w625ff7x9pytmzw4",
+          "4m1sy04jwatrs2y9sbyv2m6d5z",
+          "468k20yf97aebs7qt5hybmjq4d",
+          "4039xsvrq2qfqz2sxt9jpeyscm",
+          "4nz5gx2m0s0yswz92g4k8bcen8"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4zh26mefy5pr0088df9pbprrds"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4mg818frb897ytwwdg1a2pymnd"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "48cepxcmg36x1wtydkgb1b21mf"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could move into related areas, like agricultural advisory work for government bodies, consultancy or training.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4cf58yxagd73h6hdhn3s07qgwd"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/76cd633c-4d01-483c-b17e-2f5248dee5d6\u0027]"
+    },
+    "ContentItemId": "4m1zkpsh9j3yywcntsd7b5h7wp",
+    "ContentItemVersionId": "40er07g2gvnc3tmprhdrg7d7ne",
+    "ContentType": "JobProfile",
+    "DisplayText": "Farmer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "MP"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022member of parliament\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EMPs represent people\u0027s concerns and interests in the House of Commons.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "prefix_with_an"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "mp"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4rrr33ct4skbh0pzszb2bxmdnk"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4sffpkjz708sktvmvay531mk5j"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "79500"
+      },
+      "SalaryExperienced": {
+        "Text": "142500"
+      },
+      "MinimumHours": {
+        "Value": 44.0
+      },
+      "MaximumHours": {
+        "Value": 46.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "variable"
+      },
+      "WorkingPattern": {
+        "Text": "evenings"
+      },
+      "WorkingPatternDetails": {
+        "Text": "away from home"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": []
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4d6kgfnac8xr6vd5q01z700vw0"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4ead7m1de8mkg3p878ckrsfcnt"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a good understanding of local and national issues, and be up to date with current affairs.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find more advice about becoming an MP from \u003Ca href=\u0022https://www.parliament.uk/about/\u0022\u003EUK Parliament\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4zfxm1gev7zfzx6fp9vgmb5ncb",
+          "40b0qk00ja6v7wvgvk94racy4z"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": [
+          "4qw5xzq3pwadesczfsw97vtwdr"
+        ]
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4v8sn04e06nak1vsxsg29kbxx8",
+          "4jp9xgkmy32cfxynmhdeyhgfcd",
+          "45qz6s071hztpzmmwb21kk51c3",
+          "4bpr1gnw7mk02x4tbseesc9q4t",
+          "4g2a56kx8f7a3tb8gxbkff3ccs",
+          "4nxef7ye1hbq7zft6cjjjcz2m3",
+          "4k9j0y93jzv8c3gnk1ezv3ge40"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "47mjtng9091n9tt4rak9h5fr5b"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": []
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EGeneral elections are held every 5 years, so it can take a long time to be elected MP.\u003C/p\u003E\u003Cp\u003EWith experience, you may get the opportunity to take on extra responsibilities like chairing committees and moving into more senior positions like party whip or even party leader.\u003C/p\u003E\u003Cp\u003EIf your political party is in power, you could go from junior minister to minister and then cabinet minister. If your party is in opposition, you could be a spokesperson on certain issues or have responsibilities in a shadow cabinet.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/6017c94e-1c87-4698-a80c-d77b7810b56e\u0027]"
+    },
+    "ContentItemId": "4hxp18q0tcf93tt4z69pbec9w9",
+    "ContentItemVersionId": "4fydsqr8s7ph175vdek9wy88dm",
+    "ContentType": "JobProfile",
+    "DisplayText": "MP",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Personal assistant"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022executive assistant\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EPersonal assistants carry out support tasks for individuals and managers including administration, diary management and event planning.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "personal-assistant"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4352kq641xtzjtay7ga10htvch"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "43zm88sew4ez17333ndwm05k4v"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "18000"
+      },
+      "SalaryExperienced": {
+        "Text": "50000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings"
+      },
+      "WorkingPatternDetails": {
+        "Text": "occasionally"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4m6zdm5e9jk3x61sc9qeh72ywz"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4rqeaaw5caj4jtg0ezy2gbk4x9"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4whw9twftshryvme5rymvnhp4x"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4e3kygqdsg5zq6cznbdqfw7r5v"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "49j7jjvy8af6e3ch618v1q9g42"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about working and training in business administration from the \u003Ca href=\u0022http://www.instam.org/\u0022\u003EInstitute of Administrative Management\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to use a computer and the main software packages competently\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": []
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "402ev6vcn9pry33brr12he5b49"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could move to a larger company or work for a more senior manager.\u003C/p\u003E\u003Cp\u003EYou could also move into an executive assistant (EA) role\u00A0with\u00A0more responsibility.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4c3177wn7b82kvdg8xrchm0340"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/34cf4a36-c17f-4b18-8228-70c4db04b76b\u0027]"
+    },
+    "ContentItemId": "4aa25zrd3s897ryjmfzj1v64xs",
+    "ContentItemVersionId": "44pgpcz3ym07s67xq9g32ev159",
+    "ContentType": "JobProfile",
+    "DisplayText": "Personal assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Police officer"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022police officer\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EPolice officers keep law and order, investigate crime, and support crime prevention.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "police-officer"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "46cqah5w7z360w41dv5sdpbmnp"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4hx7bahszfgbp1x12zvbc3tawr"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "21000"
+      },
+      "SalaryExperienced": {
+        "Text": "41500"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on shifts"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4d91rteg0x1zrx0wr5cnz1gw5m"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4h8s9x4vaams4w1f8ppawjtnc2"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "484sx56g90p47zgz94m6hj0xcj"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "47jst9a5cdh670emt04k68vcxf"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EIf you\u0027re aged 13 to 18 you could become a \u003Ca href=\u0022https://vpc.police.uk/be-a-cadet/\u0022\u003Epolice cadet\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou\u0027ll need to contact your \u003Ca href=\u0022https://www.police.uk/contact/force-websites/\u0022\u003Elocal police force\u003C/a\u003E to apply, as each force has its own recruitment rules.\u003C/p\u003E\u003Cp\u003EYou can find out more about careers in the police from the \u003Ca href=\u0022https://recruit.college.police.uk/Officer/Pages/default.aspx\u0022\u003ECollege of Policing\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "45sn81vpwr9171afnft886cnw8",
+          "4zfxm1gev7zfzx6fp9vgmb5ncb"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4a89xmnthm31sz5kyw9q3t2kn2",
+          "438c889n31ym3wggdgxzby8qwg",
+          "4fttq514d4nyc3x3cq2xbv91ms",
+          "4qnxfe1n8b772wh4gp5jvwp9wh",
+          "4hdmd5s16q3mty8fbz1thqnswh",
+          "4m7v88fcpadrr4d2rmfvvx6rnm",
+          "4tq33r0fwqqh1y11excfbsmpm6"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4w3v2hk58z5tfvmfh0ehrkf0x0"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4ktkbgqwr2grkshxgtt64t7f5r"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "433h5n7xnxvhwzzn2h5yg7v940"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou\u0027ll spend 2 years as a student officer before becoming a police constable. You\u0027ll then decide whether you want to specialise in a particular area of policing. You could consider:\u003Cul\u003E\u003Cli\u003ECriminal Investigation Department (CID), anti-fraud or road traffic\u003C/li\u003E\u003Cli\u003Edrugs or firearms\u003C/li\u003E\u003Cli\u003Ecounter-terrorism\u003C/li\u003E\u003Cli\u003Eair support or underwater search\u003C/li\u003E\u003Cli\u003Edog-handling or mounted policing\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EWith experience you may be able to apply for promotion to sergeant, inspector, chief inspector or higher.\u003C/p\u003E\u003Cp\u003EIn the CID you\u0027ll also have the title of detective added to your rank - for example, detective sergeant or detective chief inspector.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4fz49xr27kthe3xfjb5ej9rscr"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/a6a290ca-9376-4334-8b1e-aa392828a743\u0027]"
+    },
+    "ContentItemId": "4v5nn48te3fb97esqw0v7n965c",
+    "ContentItemVersionId": "44fayz04vjjby0jds09xesegna",
+    "ContentType": "JobProfile",
+    "DisplayText": "Police officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Postman or postwoman"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022postman/postwoman\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EPostmen and postwomen sort letters and packages for delivery to homes and businesses.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "postman-or-postwoman"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4hg5smxz13p3bycs0td73a1y4h"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "45qjr9he65b7962hy2c3kgtp5n"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "13500"
+      },
+      "SalaryExperienced": {
+        "Text": "25000"
+      },
+      "MinimumHours": {
+        "Value": 41.0
+      },
+      "MaximumHours": {
+        "Value": 43.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "early mornings"
+      },
+      "WorkingPatternDetails": {
+        "Text": null
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "48vjf0askg65q0mxvvgcb09wma"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4v10e1rec3d5nthm5yehrqg7nk"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "48yqmgpw22nqpsxsm5wc9mmy41"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can get more on careers and training in postal work from \u003Ca href=\u0022http://www.royalmailgroup.com/our-people\u0022\u003ERoyal Mail\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4zpt2shc3mh961j9wqr5a427ms"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": [
+          "466s5j48c0cfj782mrr2cah9cd",
+          "45dty0h5hthbg77kx09481hjdt"
+        ]
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "40m1jcx0pdje85wm5befewwqc6",
+          "467nnpjz1b6dj5am47qjhvpfw9",
+          "4x43jpfz5kb28vp09fr8ngp9x9",
+          "4dbrgmy7nzvghxpeyxa9z1by58",
+          "4hh0fvbr3pwm16n57xpfv7cpxs",
+          "4y1d7jkjqtv5w1cyzaya7z0bn6",
+          "4w580tn4g81nsxhbay7qy8dj4a"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": []
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "42726x3nzjckv7ns7bwbtjzcx1"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience, you could be promoted to higher grades like supervisor and manager. You could move into parcel deliveries, courier jobs or customer care and administration.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4w9x4zefsn7873g8rad051ynmg"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/0b300096-ce52-46b0-9815-f1abac143d40\u0027]"
+    },
+    "ContentItemId": "4374j4h7v9mf7zvqrxhadm24mk",
+    "ContentItemVersionId": "43kha6caaa0g059vmqe2jhw2c0",
+    "ContentType": "JobProfile",
+    "DisplayText": "Postman or postwoman",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Primary school teacher"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022primary school teacher\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EPrimary school teachers are responsible for the educational, social and emotional development of children from age 5 to 11.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "primary-school-teacher"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "43q6dm96pdxszs37je8b6xbsmq"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "467r791vhpzj92n9kvng9a8s4m"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "24373"
+      },
+      "SalaryExperienced": {
+        "Text": "40490"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "term time"
+      },
+      "WorkingPattern": {
+        "Text": "evenings"
+      },
+      "WorkingPatternDetails": {
+        "Text": "attending events or appointments"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4heqq3sx58ytbrkezbpvcykpwf"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4cpnf34qqk25x2gyc715sjqr44"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4efpgjndv0svm027fq8671p0w0"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4p2xw71a6m0yxz8w5m02zmeznc"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou can do a \u003Ca href=\u0022https://getintoteaching.education.gov.uk/explore-my-options/teacher-training-routes/subject-knowledge-enhancement-ske-courses\u0022\u003Esubject knowledge enhancement\u003C/a\u003E\ncourse to improve your understanding of the subject you want to teach.\u003C/p\u003E\u003Cp\u003EYou can also attend \u003Ca href=\u0022https://getintoteaching.education.gov.uk/teaching-events\u0022\u003Eteacher training events\u003C/a\u003E before you apply to get advice about the profession, the different training routes and funding. You can attend events in person and online.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can discover more about how to become a teacher from \u003Ca href=\u0022https://getintoteaching.education.gov.uk/\u0022\u003EGet Into Teaching\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EYou can also search for jobs through the \u003Ca href=\u0022https://teaching-vacancies.service.gov.uk/\u0022\u003ETeaching Vacancies\u003C/a\u003E service.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": [
+          "41fb91zfsxr9bvr1ts01p5tq56"
+        ]
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to use a computer and the main software packages competently\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "4yb7j4b539sajsts1qssdy5axg",
+          "45sn81vpwr9171afnft886cnw8"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4fwjntp67shsb2f31me61gy3c2",
+          "4z4zwbt18kfqg4hbzhvr6am8mb",
+          "4w9px3j3adx32wdf5rss0tm8wh",
+          "4aatz46vgn2zertdr7r7a17y5s",
+          "4gavh6j3hj1bbxjcevfn94and1",
+          "44t9czkmdzpwj0d9ckddqmzj5k",
+          "4nsm59yskzetmv0q580dyggxm8",
+          "4qmzywrc8e3pa7vf96mzmekawx"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4zbc4d7ctrz7svcsf7m2j3snmz"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4q38spe67ef4c0qffn9rxhtfm4"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYou could teach pupils with special educational needs or move into pastoral care.\u003C/p\u003E\u003Cp\u003EWith experience, you could become a \u003Ca href=\u0022https://www.gov.uk/guidance/specialist-leaders-of-education-a-guide-for-potential-applicants\u0022\u003Especialist leader of education\u003C/a\u003E, supporting teachers in other schools.\u003C/p\u003E\u003Cp\u003EYou could also be a curriculum leader, deputy head and headteacher, or move into private tuition.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "4tn33p89hv2am2c4qpz1ch8nc5"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/3d6d333b-7b90-45a4-96c1-6470640ff51a\u0027]"
+    },
+    "ContentItemId": "4aj740mj5h9mqvfq7fpr94y259",
+    "ContentItemVersionId": "4kxr2s6k4see4vjnd8hgtxhvn2",
+    "ContentType": "JobProfile",
+    "DisplayText": "Primary school teacher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sales assistant"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022sales assistant\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003ESales assistants sell products and help customers.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "sales-assistant"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4bzsxkeb6tmhy03wzpvm62a5cw"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4ptq1m6r2fx1s2rgkjk33ajc4c"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "11000"
+      },
+      "SalaryExperienced": {
+        "Text": "25000"
+      },
+      "MinimumHours": {
+        "Value": 39.0
+      },
+      "MaximumHours": {
+        "Value": 41.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on a rota"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "434reaj8bngeesfbmctf90n6ng"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "44q7j4cyrb4dr18hjx077ev0xb"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4ejat4h67mhaq039nn4wq6bfcc"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4hxcd70asrq111j12gd58e4bw7"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4ywa34wj0trj8xz6vr4jqdsanm"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EIt will help if you:\u003Cul\u003E\u003Cli\u003Eare confident about selling\u003C/li\u003E\u003Cli\u003Ehave a positive, helpful attitude\u003C/li\u003E\u003Cli\u003Ecan get on well with a wide range of customers\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003ESome stores, like mobile phone or DIY shops, may expect you to have good knowledge of their products before you apply.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": ""
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to use a computer and the main software packages competently\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "47kn5a1csxx0ft6gjrztf0jcwj"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4wkfbcr2p40m7skedks2cpkant",
+          "4cegvzfkas30vwesg1rnbg4s48",
+          "4994wx52ry1rt2m5cbr4aqkjx1",
+          "4cbq3nyvpwsfezqs2zq3tskcx8",
+          "4r2v8r2cbfpv317ckx9636964j",
+          "4bebxdd66fdxex17k5v778cp4k",
+          "4hbpsp7zd2v6drtnc9jhweq94j"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "4rjs2aewpd6vfr66ymrwcsth5c"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4x3z0hdgr0v80z1ywvhnfjjgw1"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "433h5n7xnxvhwzzn2h5yg7v940"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience you could become a retail manager or departmental manager.\u003C/p\u003E\u003Cp\u003EYou could specialise in customer services or buying merchandise.\u003C/p\u003E\u003Cp\u003EYou could also set up and run your own independent shop or stall.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "440bdj3vee8jt7yq7khnbbmd44"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/81c5b2f1-1ac4-4653-b962-d844b8844e02\u0027]"
+    },
+    "ContentItemId": "47g52egffmr3erw5ctf6cf0qdd",
+    "ContentItemVersionId": "4f2n2bzvqnr3ywbsvcm2ked0m7",
+    "ContentType": "JobProfile",
+    "DisplayText": "Sales assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social worker"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022social worker\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003ESocial workers help to protect vulnerable children and adults from harm or abuse, and support people to live independently.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "social-worker"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "4g02hx3rmpvjz4rwc82y7s33c3"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "47b7fea14ygzws62axnmbc42dx"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "24000"
+      },
+      "SalaryExperienced": {
+        "Text": "40000"
+      },
+      "MinimumHours": {
+        "Value": 37.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on a rota"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4xp2h60367e2wrj7kcqj9zx04n"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": [
+          "4b0564ghn87ce39w96gkfj9p4g"
+        ]
+      },
+      "DirectRoute": {
+        "ContentItemIds": []
+      },
+      "OtherRoute": {
+        "ContentItemIds": [
+          "4s9cnph03t6zr23tdcwnqk4x48"
+        ]
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "4561vr3zq56md5bdvn92f5565n"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EIt\u0027s possible to do a degree in social work and learning disabilities nursing. You\u0027ll need to check that the course is recognised by the relevant professional bodies. Course providers can advise you on this.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can get more advice about becoming a social worker from the \u003Ca href=\u0022https://www.basw.co.uk/resources/become-social-worker\u0022\u003EBritish Association of Social Workers\u003C/a\u003E and \u003Ca href=\u0022https://www.skillsforcare.org.uk/Careers-in-care/Job-roles/Roles/Social-worker.aspx\u0022\u003EThink Care Careers\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": [
+          "46qtdv2dsf7f224d2bj5nzt1w1"
+        ]
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "45sn81vpwr9171afnft886cnw8"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4d5hmnqwbvyfrr75nm8hezxy5m",
+          "4rnh1x18pm2601nr9hr9859nmm",
+          "47pwyhg9np98j44fdjd3s5w54z",
+          "4jphdr66mg7nz7tk9t83eaqdwq",
+          "4a96d5vh6crtq55gdw6p8j83nn",
+          "46bv5af07v0zstn6rh7r3f3kx8",
+          "4a2s4a1t43y3kv1xd84dh2gymf"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "42b04qz4nme8exjny54d1sgnxh"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4k14sabp9gzrty956rr5043tmp"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": []
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EDuring your first year in work your employer may offer you professional development like the \u003Ca href=\u0022http://www.skillsforcare.org.uk/Topics/Social-work/Social-work.aspx\u0022\u003EAssessed and Supported Year in Employment\u003C/a\u003E (AYSE). This includes extra support like:\u003Cul\u003E\u003Cli\u003Eregular supervision\u003C/li\u003E\u003Cli\u003Ea training and development plan\u003C/li\u003E\u003Cli\u003Etime to meet your training and development needs\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EWhen you\u0027ve completed your ASYE, you\u0027ll be given training to keep your skills up to date and to help you progress. Each local authority will have a career pathway, with some offering the chance to study for a postgraduate MA in Advanced Professional Practice.\u003C/p\u003E\u003Cp\u003EWith experience, you\u0027ll find opportunities to move into management, research or study for a PhD. You could also become a practice educator and train and mentor students from your partner university.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "46qssxak25sk8yttj1w29dfmw9"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/0ba11df4-f8c0-46fc-b89c-6a1cfe11a34e\u0027]"
+    },
+    "ContentItemId": "4sj5v33qgt4r1yhd21p2z7djc9",
+    "ContentItemVersionId": "4p6t773f45a1wtjtsp6rwhhk5p",
+    "ContentType": "JobProfile",
+    "DisplayText": "Social worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Train driver"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022train driver\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003ETrain drivers operate trains on rail networks, making sure that passengers and freight get to where they\u0027re going safely and on time.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "train-driver"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "42czbe31ccyq9xwaqywdv6mg51"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4hs5ryjc8c5wt0dzjaa648dqnx"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "20000"
+      },
+      "SalaryExperienced": {
+        "Text": "60000"
+      },
+      "MinimumHours": {
+        "Value": 35.0
+      },
+      "MaximumHours": {
+        "Value": 40.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on shifts"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4qayk30qx1cbqyxm1jarxfvqwy"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": []
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "4gxx4wpej64a20x2khraggrwde"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": []
+      },
+      "WorkRoute": {
+        "ContentItemIds": [
+          "4g1mfcx0ywghs7aenabgk5wznz"
+        ]
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": "\u003Cp\u003EYou may find it useful to have some mechanical or electrical knowledge.\u003C/p\u003E"
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can find out more about how to become a train driver from \u003Ca href=\u0022http://www.careersthatmove.co.uk\u0022\u003ECareers That Move\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EYou\u0027ll find train operating companies through the \u003Ca href=\u0022https://www.raildeliverygroup.com/uk-rail-industry/passenger-freight-track.html#tocs\u0022\u003ERail Delivery Group\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": [
+          "43h0tj28m5jpw0nn2579mfqdd3",
+          "4adqa7n7bmwdart7dzmhjaamm4",
+          "45sn81vpwr9171afnft886cnw8",
+          "4xf7z8ykrwgyj7fq3q98zq4ydy"
+        ]
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4ehffy7heaszszek433y35fe57",
+          "49xf48ev0dr5342b78xnxfyxnj",
+          "4d9adqxxysg634rn9ayzh85wmq",
+          "4325rpxxs51bxwmjkx6z6bbkx2",
+          "40fakfg2nw272tq6by7w1p22c7",
+          "4par6wvkf2h714k5qgwtp12hc9",
+          "4m19gkzz99p67xt2y7cap1ym40"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "40pc1zk1p4pv2szdjfcm2vptw7"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4n2dzx5g2q4n946g5hc6rjeh4z"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "433h5n7xnxvhwzzn2h5yg7v940"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EYour train driver training will usually take around 12 months. Once you\u0027ve completed this, you could also work for a rail engineering company, driving on-track machines used in maintenance work.\u003C/p\u003E\u003Cp\u003EWith experience you could take further training to become a train driver trainer, teaching other trainee drivers.\u003C/p\u003E\u003Cp\u003EYou could also move into management, making sure there are enough train drivers and trains so that the service can run on time. From there you could move into operations or senior management.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": [
+          "404z0zdxwk04ctdg8rk9278acq"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/888018d7-6340-4bb8-9d94-83a6e31d2356\u0027]"
+    },
+    "ContentItemId": "4waxsekdma08rr3et669g83nw4",
+    "ContentItemVersionId": "41b2cj21y47b8rxrc77ard2353",
+    "ContentType": "JobProfile",
+    "DisplayText": "Train driver",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Waiter"
+    },
+    "JobProfile": {},
+    "JobProfileHeader": {
+      "Occupation": {
+        "ContentItemIds": [
+          "\u00ABc#: await Content.GetContentItemIdByDisplayText(\u0022Occupation\u0022, \u0022waiter/waitress\u0022)\u00BB"
+        ]
+      },
+      "Description": {
+        "Html": "\u003Cp\u003EWaiters serve food and drinks to customers in restaurants and cafes, take orders and handle payments.\u003C/p\u003E"
+      },
+      "TitleOptions": {
+        "Text": "as_defined"
+      },
+      "JobProfileWebsiteUrl": {
+        "Text": "waiter"
+      },
+      "SOCCode": {
+        "ContentItemIds": [
+          "413bq2k0vcp2r0n0xe1hwc96nw"
+        ]
+      },
+      "ONetOccupationalCode": {
+        "ContentItemIds": [
+          "4rtf63bq3adpn409qdkcm2ym57"
+        ]
+      },
+      "SalaryStarter": {
+        "Text": "12000"
+      },
+      "SalaryExperienced": {
+        "Text": "27000"
+      },
+      "MinimumHours": {
+        "Value": 39.0
+      },
+      "MaximumHours": {
+        "Value": 41.0
+      },
+      "WorkingHoursDetails": {
+        "Text": "a week"
+      },
+      "WorkingPattern": {
+        "Text": "evenings / weekends / bank holidays"
+      },
+      "WorkingPatternDetails": {
+        "Text": "on shifts"
+      }
+    },
+    "HowToBecome": {
+      "HowToBecome": null,
+      "ApprenticeshipRoute": {
+        "ContentItemIds": [
+          "4dcw0bjdc12777mqxpk093g1xp"
+        ]
+      },
+      "CollegeRoute": {
+        "ContentItemIds": [
+          "4nn0myw7fkkn0576cgtf27x0mk"
+        ]
+      },
+      "UniversityRoute": {
+        "ContentItemIds": []
+      },
+      "DirectRoute": {
+        "ContentItemIds": [
+          "44zsc0fhfar08wsmzbacahkbc2"
+        ]
+      },
+      "OtherRoute": {
+        "ContentItemIds": []
+      },
+      "VolunteeringRoute": {
+        "ContentItemIds": [
+          "44hdwss215750wrvz5jpjjh6d8"
+        ]
+      },
+      "WorkRoute": {
+        "ContentItemIds": []
+      },
+      "HtbBodies": {
+        "Html": ""
+      },
+      "HtbCareerTips": {
+        "Html": ""
+      },
+      "HtbFurtherInformation": {
+        "Html": "\u003Cp\u003EYou can get more details about working as a waiter from the \u003Ca href=\u0022http://www.hospitalityguild.co.uk/A-Career-in-Hospitality/Career-tools/Career-Map#/role/Waiterwaitress-Food-Service-Management\u0022\u003EHospitality Guild\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "HtbRegistrations": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatItTakes": {
+      "WhatItTakes": null,
+      "WitDigitalSkillsLevel": {
+        "Html": "\u003Cp\u003Eto be able to carry out basic tasks on a computer or hand-held device\u003C/p\u003E"
+      },
+      "WitRestrictions": {
+        "ContentItemIds": []
+      },
+      "WitOtherRequirements": {
+        "ContentItemIds": []
+      }
+    },
+    "WhatYouWillDo": {
+      "WhatYouWillDo": null,
+      "DayToDayTasks": {
+        "ContentItemIds": [
+          "4gpg7nn9pwjrhswtaft3qrv44b",
+          "4by4nfzbx2ywgt9etsr7czzsw2",
+          "4n2nzap06r80j6mk0daeqy28xm",
+          "4y2nha4mfnqtf7hjpfr3fph9ck",
+          "4615z501e6eet1qvg12j8z7a45"
+        ]
+      },
+      "WydWorkingEnvironment": {
+        "ContentItemIds": [
+          "42sgnq59n2g0kra04cdzw9t0d5"
+        ]
+      },
+      "WydWorkingLocation": {
+        "ContentItemIds": [
+          "4wtg4kdne0qjct37z75ees1cxt"
+        ]
+      },
+      "WydWorkingUniform": {
+        "ContentItemIds": [
+          "433h5n7xnxvhwzzn2h5yg7v940"
+        ]
+      }
+    },
+    "CareerPath": {
+      "CareerPathAndProgression": {
+        "Html": "\u003Cp\u003EWith experience you may be able to progress to head waiter or waitress, or restaurant supervisor.\u003C/p\u003E\u003Cp\u003EYou may also be able to go into related areas of work like restaurant and kitchen management or purchasing.\u003C/p\u003E"
+      },
+      "ApprenticeshipStandards": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/jobprofile/d7bdf3c9-20d1-48c2-ba5e-1073546011c7\u0027]"
+    },
+    "ContentItemId": "4r3c689kman55xfp81bcqrz64s",
+    "ContentItemVersionId": "4q6b3nwns13md5p9cmxebhy4xj",
+    "ContentType": "JobProfile",
+    "DisplayText": "Waiter",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T12:50:53.0817550Z",
+    "PublishedUtc": "2020-05-28T12:50:53.0817550Z",
+    "CreatedUtc": "2020-05-28T12:50:53.0817550Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

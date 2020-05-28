@@ -1,0 +1,76 @@
+01. CreateOccupationLabelNodes_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 
+02. CreateOccupationPrefLabelNodes_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 
+03. CreateSkillLabelNodes_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 
+04. CleanUpEscoData_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 
+05. CreateOccupationLabelContentItems0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+06. CreateOccupationLabelContentItems5000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+07. CreateOccupationLabelContentItems10000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+08. CreateOccupationLabelContentItems15000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+09. CreateOccupationLabelContentItems20000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+10. CreateOccupationLabelContentItems25000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+11. CreateOccupationLabelContentItems30000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+12. CreateSkillContentItems0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+13. CreateSkillContentItems5000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+14. CreateSkillContentItems10000_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5000
+15. CreateOccupationContentItems0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 300
+16. SharedContent_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 
+17. QCFLevels0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 10
+18. ApprenticeshipStandardRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 18
+19. ApprenticeshipStandards0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 581
+20. RequirementsPrefixes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 6
+21. ApprenticeshipLinks0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 3
+22. ApprenticeshipRequirements0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 9
+23. CollegeLinks0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5
+24. CollegeRequirements0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5
+25. UniversityLinks0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 6
+26. UniversityRequirements0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 8
+27. DayToDayTasks0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 137
+28. OtherRequirements0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 7
+29. Registrations0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 3
+30. Restrictions0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 14
+31. SocCodes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 370
+32. ONetOccupationalCodes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 510
+33. WorkingEnvironments0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 14
+34. WorkingLocations0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 17
+35. WorkingUniforms0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 2
+36. ApprenticeshipRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 18
+37. CollegeRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 13
+38. UniversityRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 7
+39. DirectRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 13
+40. OtherRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 5
+41. VolunteeringRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 9
+42. WorkRoutes0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 10
+43. JobProfiles0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 20
+44. JobCategories0_215c5ac8-4dc0-4197-a993-fddcbd1f3528.recipe.json: 26
+# Totals
+    OccupationLabels: 33036
+Skills: 13485
+Occupations: 20
+QCFLevels: 10
+ApprenticeshipStandardRoutes: 18
+ApprenticeshipStandards: 581
+RequirementsPrefixes: 6
+ApprenticeshipLinks: 3
+ApprenticeshipRequirements: 9
+CollegeLinks: 5
+CollegeRequirements: 5
+UniversityLinks: 6
+UniversityRequirements: 8
+DayToDayTasks: 137
+OtherRequirements: 7
+Registrations: 3
+Restrictions: 14
+SocCodes: 370
+ONetOccupationalCodes: 510
+WorkingEnvironments: 14
+WorkingLocations: 17
+WorkingUniforms: 2
+ApprenticeshipRoutes: 18
+CollegeRoutes: 13
+UniversityRoutes: 7
+DirectRoutes: 13
+OtherRoutes: 5
+VolunteeringRoutes: 9
+WorkRoutes: 10
+JobProfiles: 20
+JobCategories: 26

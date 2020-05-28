@@ -1,0 +1,426 @@
+{
+  "name": "WorkingLocations0_dd7f9565-6ec0-44f5-a392-50446459d203",
+  "displayName": "WorkingLocations0_dd7f9565-6ec0-44f5-a392-50446459d203",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "on a construction site, at a client\u0027s business, at a client\u0027s home or on the streets"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon a construction site, at a client\u0027s business, at a client\u0027s home or on the streets\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/fc5fda41-5f7f-4267-b64d-0396dd7d0b16\u0027]"
+    },
+    "ContentItemId": "4pc59bjdeekw34a8sy229f93mj",
+    "ContentItemVersionId": "4aydwa6117sfx2k5fnazhtwd4k",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "on a construction site, at a client\u0027s business, at a client\u0027s home or on the streets",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction Site"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon a construction site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/bd4ff11d-3884-4a12-bab4-8007325a40b7\u0027]"
+    },
+    "ContentItemId": "4v52qjympdesf1fw4j7905r5xh",
+    "ContentItemVersionId": "4apqdcfndx0nawdk70x5j27gwh",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Construction Site",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at a recording studio, in the community, in a theatre or on a film set"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a recording studio, in the community, in a theatre or on a film set\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/a86bf0f8-9293-4c75-bcbd-91cd36d85dae\u0027]"
+    },
+    "ContentItemId": "4bqenq9matjb4rej6jnp7jjgxk",
+    "ContentItemVersionId": "4bz35hppp1tfs0btr818ajdmmn",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a recording studio, in the community, in a theatre or on a film set",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "in an office, in an NHS or private hospital, at an adult care home, at a children\u0027s care home or in the community"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office, in an NHS or private hospital, at an adult care home, at a children\u0027s care home or in the community\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/6cbf111f-51f2-4fd9-951b-66b13f26a537\u0027]"
+    },
+    "ContentItemId": "4sw7vyh9nppew7b3qnsqbtnrwk",
+    "ContentItemVersionId": "4kv24ftfa4km7rsk97g392aenn",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "in an office, in an NHS or private hospital, at an adult care home, at a children\u0027s care home or in the community",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Post"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a border post\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/a1cef633-8943-4797-bb0d-fc430ac4597d\u0027]"
+    },
+    "ContentItemId": "429ep2k9rnnt4wxkddwarb7m5k",
+    "ContentItemVersionId": "444da2hs7j5cryex2rx9a2dpn3",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Border Post",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Restaurant"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a restaurant\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/43610c35-d8c0-4d22-ba37-5a71da615123\u0027]"
+    },
+    "ContentItemId": "45hve2gwtj8x365gg8c699qfdy",
+    "ContentItemVersionId": "4t9gyy3mz7y1c42ng6zzhesxxm",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Restaurant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "from a vehicle or on the road"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Efrom a vehicle or on the road\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/a7329894-1e2a-46f4-9424-73dc76a62d7a\u0027]"
+    },
+    "ContentItemId": "4yvg81vgp9ny3w000s53r22qx6",
+    "ContentItemVersionId": "4rkskkng6fv926kjvxkmjd9pcc",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "from a vehicle or on the road",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at a school or at a pupil referral unit"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a school or at a pupil referral unit\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/d0e20224-6514-495c-9757-ef88b5388658\u0027]"
+    },
+    "ContentItemId": "4gpcr1bz7br6pzy9rdmkz205mx",
+    "ContentItemVersionId": "427v87sc1byfp3wk0jkd4pqrc4",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a school or at a pupil referral unit",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Vehicle"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Efrom a vehicle\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/152b43ff-01e4-4ae6-8e94-0748dbf31871\u0027]"
+    },
+    "ContentItemId": "4cb561k150asjtrc6nkqy5denb",
+    "ContentItemVersionId": "45zjmrh1h14vercjrzyt29b0xe",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Vehicle",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at an adult care home or at a client\u0027s home"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat an adult care home or at a client\u0027s home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/3dafb4d2-4ff1-44dc-ae96-93725f61f26f\u0027]"
+    },
+    "ContentItemId": "403x3hqsazjpv02rh165t1rvdq",
+    "ContentItemVersionId": "4gqjmxh2hqksksxgsqk7z6n8dy",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at an adult care home or at a client\u0027s home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Aircraft"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon an aircraft\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/588165ac-768f-4916-8143-1796fd7916ec\u0027]"
+    },
+    "ContentItemId": "4vmaj5fd1hgpy5yjtsq86w1sx6",
+    "ContentItemVersionId": "488vanm86k31gxdc5m92cszrmx",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Aircraft",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Control Room"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein a control room\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/c4ca2283-d846-4e25-8bbc-b45025b9cffa\u0027]"
+    },
+    "ContentItemId": "44qs4axefdfysvap6a1j1t5t5y",
+    "ContentItemVersionId": "43g94kqw0sdwftzekkaxcqxnnr",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Control Room",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "at a store, in a stock room, at a garden centre or at a garage"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat a store, in a stock room, at a garden centre or at a garage\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/e76e9610-4718-4e8c-b40c-d447d3083b2a\u0027]"
+    },
+    "ContentItemId": "41h2tvdye4y7e3qm58tsbj6twq",
+    "ContentItemVersionId": "4fyp7q9smc0yx7r29kte0mhdcm",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "at a store, in a stock room, at a garden centre or at a garage",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "on a construction site or in an office"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon a construction site or in an office\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/b68790ea-f021-4f59-969d-fb15a1698819\u0027]"
+    },
+    "ContentItemId": "4ghqysmj7x89m33npv03szg0xh",
+    "ContentItemVersionId": "4kf9yy1nx5mgdz15vg8vd5ahcy",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "on a construction site or in an office",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Office"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/4fe9a2a0-241f-41f0-9585-10e28e7e375d\u0027]"
+    },
+    "ContentItemId": "4c5qqb7twr49sye5qsyy88jgnr",
+    "ContentItemVersionId": "4v349rvrcagmp0aqdrqq18s254",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "Office",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "on a patrol or at a police station"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Eon a patrol or at a police station\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/357b4b9c-259d-4538-87f4-d7b032387e11\u0027]"
+    },
+    "ContentItemId": "4kc5tnw4jpj3xvq4egbbvrq8wf",
+    "ContentItemVersionId": "4zh2n6vjptx5atednx346x40ct",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "on a patrol or at a police station",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "in an office or on a farm"
+    },
+    "WorkingLocation": {
+      "Description": {
+        "Html": "\u003Cp\u003Ein an office or on a farm\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027) \u002B \u0027/workinglocation/25cc3418-52a3-4380-a602-544fa1757bd8\u0027]"
+    },
+    "ContentItemId": "4xzf139ntbe8n6pwy4xdnkf8dj",
+    "ContentItemVersionId": "4qfv6fsw85zzwz6ps6thpfy946",
+    "ContentType": "WorkingLocation",
+    "DisplayText": "in an office or on a farm",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-05-28T13:28:32.8281626Z",
+    "PublishedUtc": "2020-05-28T13:28:32.8281626Z",
+    "CreatedUtc": "2020-05-28T13:28:32.8281626Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
