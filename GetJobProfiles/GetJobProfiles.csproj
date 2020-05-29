@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="CypherToContentRecipes\CleanUpEscoData.recipe.json" />
       <None Remove="CypherToContentRecipes\CreateFullTextSearchIndexesRecipe.json" />
       <None Remove="CypherToContentRecipes\CreateOccupationContentItemsRecipe.json" />
       <None Remove="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json" />
