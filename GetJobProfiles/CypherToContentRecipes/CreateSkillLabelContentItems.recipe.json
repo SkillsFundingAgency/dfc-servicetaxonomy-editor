@@ -13,7 +13,7 @@
             "name": "CypherToContent",
             "queries": [
                 {
-                    "query": "MATCH (o:esco__Skill)-[r:dct__description]-(s {esco__language: \"en\"}\r\nreturn { ContentType: 'Skill', TitlePart:{Title:o.skos__prefLabel}\r\n,GraphSyncPart:{Text:o.uri},\r\nSkill:{Description:{Html:s.esco__nodeLiteral}}\r\n}\r\norder by o.skos__prefLabel\r\nskip [token:skip] limit [token:limit]"
+                    "query": "match (l:SkillLabel)\r\nreturn { ContentType: 'SkillLabel', GraphSyncPart:{Text:l.uri}, TitlePart:{Title:l.skos__prefLabel}} order by l.uri\r\nskip [token:skip] limit [token:limit]"
                 }
             ]
         }

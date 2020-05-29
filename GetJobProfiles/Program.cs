@@ -100,6 +100,7 @@ namespace GetJobProfiles
             const int occupationLabelsBatchSize = 5000;
             const int occupationsBatchSize = 300;
             const int skillBatchSize = 5000;
+            const int skillLabelsBatchSize = 5000;
 
             var httpClient = new HttpClient
             {
@@ -145,6 +146,7 @@ namespace GetJobProfiles
             }
 
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", 33036);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", 97816);
 
             string whereClause = "";
             int totalOccupations = 2942;
