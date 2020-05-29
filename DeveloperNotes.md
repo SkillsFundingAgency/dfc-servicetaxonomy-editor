@@ -1,5 +1,7 @@
 #ToDo
 
+* visualization is borked (its not csp - something since then)
+
 * add setting to graph sync to set the node property name for titles
 
 * content api whitelist relationships off esco occupation and skill
