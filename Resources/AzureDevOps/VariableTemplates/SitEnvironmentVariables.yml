@@ -12,4 +12,6 @@ variables:
 - name: FunctionalTestsSqlDatabaseConnStr
   value: 'Server=tcp:$(sharedSqlServerName).database.windows.net,1433;Initial Catalog=$(SqlDatabaseName);Persist Security Info=False;User ID=$(FunctionalTestsUser);Password=$(FunctionalTestsUserPassword);MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
 - name: EventGridEnabled
-  value: false
+  value: true
+- name: EventGridTopicSku
+  value: basic
