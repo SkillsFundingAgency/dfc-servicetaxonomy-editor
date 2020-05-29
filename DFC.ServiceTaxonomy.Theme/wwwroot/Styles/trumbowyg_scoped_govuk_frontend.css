@@ -1,6 +1,77 @@
 @charset "UTF-8";
 .trumbowyg-editor {
+  /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
   /*! Copyright (c) 2011 by Margaret Calvert & Henrik Kubel. All rights reserved. The font has been customised for exclusive use on gov.uk. This cut is not commercially available. */
+}
+.trumbowyg-editor html,
+.trumbowyg-editor body,
+.trumbowyg-editor p,
+.trumbowyg-editor ol,
+.trumbowyg-editor ul,
+.trumbowyg-editor li,
+.trumbowyg-editor dl,
+.trumbowyg-editor dt,
+.trumbowyg-editor dd,
+.trumbowyg-editor blockquote,
+.trumbowyg-editor figure,
+.trumbowyg-editor fieldset,
+.trumbowyg-editor legend,
+.trumbowyg-editor textarea,
+.trumbowyg-editor pre,
+.trumbowyg-editor iframe,
+.trumbowyg-editor hr,
+.trumbowyg-editor h1,
+.trumbowyg-editor h2,
+.trumbowyg-editor h3,
+.trumbowyg-editor h4,
+.trumbowyg-editor h5,
+.trumbowyg-editor h6 {
+  margin: 0;
+  padding: 0;
+}
+.trumbowyg-editor h1,
+.trumbowyg-editor h2,
+.trumbowyg-editor h3,
+.trumbowyg-editor h4,
+.trumbowyg-editor h5,
+.trumbowyg-editor h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+.trumbowyg-editor ul {
+  list-style: none;
+}
+.trumbowyg-editor button,
+.trumbowyg-editor input,
+.trumbowyg-editor select,
+.trumbowyg-editor textarea {
+  margin: 0;
+}
+.trumbowyg-editor html {
+  box-sizing: border-box;
+}
+.trumbowyg-editor *, .trumbowyg-editor *::before, .trumbowyg-editor *::after {
+  box-sizing: inherit;
+}
+.trumbowyg-editor img,
+.trumbowyg-editor video {
+  height: auto;
+  max-width: 100%;
+}
+.trumbowyg-editor iframe {
+  border: 0;
+}
+.trumbowyg-editor table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.trumbowyg-editor td,
+.trumbowyg-editor th {
+  padding: 0;
+}
+.trumbowyg-editor td:not([align]),
+.trumbowyg-editor th:not([align]) {
+  text-align: left;
 }
 .trumbowyg-editor .govuk-link {
   font-family: "GDS Transport", Arial, sans-serif;

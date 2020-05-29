@@ -1,5 +1,96 @@
 ﻿@use "sass:meta";
 
 .trumbowyg-editor {
+    // looks like we may need css4's revert, but it's only supported in a few browsers at the moment https://developer.mozilla.org/en-US/docs/Web/CSS/all
+    //all: revert;
+    //* {
+    //    all: revert;
+    //}
+
+    // this is designed as a generic browser agent reset, we really need to reset all oc and the theme's css
+    // until revert is more widely adopted, we should update this reset as we add gds buttons/functionality
+
+    /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+    html,
+    body,
+    p,
+    ol,
+    ul,
+    li,
+    dl,
+    dt,
+    dd,
+    blockquote,
+    figure,
+    fieldset,
+    legend,
+    textarea,
+    pre,
+    iframe,
+    hr,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 100%;
+        font-weight: normal;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+        margin: 0;
+    }
+
+    html {
+        box-sizing: border-box;
+    }
+
+    *, *::before, *::after {
+        box-sizing: inherit;
+    }
+
+    img,
+    video {
+        height: auto;
+        max-width: 100%;
+    }
+
+    iframe {
+        border: 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    td,
+    th {
+        padding: 0;
+    }
+
+    td:not([align]),
+    th:not([align]) {
+        text-align: left;
+    }
+
     @include meta.load-css("../../node_modules/govuk-frontend/govuk/all");
 }
