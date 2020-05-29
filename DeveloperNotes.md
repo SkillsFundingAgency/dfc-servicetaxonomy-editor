@@ -1,5 +1,77 @@
 #ToDo
 
+* add setting to graph sync to set the node property name for titles
+
+* content api whitelist relationships off esco occupation and skill
+
+* find out why import has slowed significantly. if it's the html sanitizer, perhaps we can disable it on the types at start of import and switch it back on at the end (or leave it off, as we get sanitization in the front-end anyway)
+
+* automate sass compilation
+
+* there's a trumbowyg template plugin : do we have any templates?
+
+we should make sure front end and backend html sanitizers marry up
+
+add tooltip to html colours to show semantic meaning (js?)
+trumbowyg plugin
+auto add class="govuk-body" to p's
+^ looks like not supported in trumbowyg (see keyup focus). perhaps leave as is (maybe hack or replace trumbowyg js, but then a pain to maintain)
+
+replace formatting button with custom button that:
+Body: auto adds class="govuk-body" to <p>'s (this will set GDS Transport typeface amonst other things)
+Lead: govuk-body-l
+Small: govuk-body-s
+"govuk-heading-xl" to h1
+"govuk-heading-l" to h2
+"govuk-heading-m" to h3
+"govuk-heading-s" to h4
+(and removes the quote?)
+
+maybe split between Paragraphs (formatting icon) dropdown
+and headings dropdown
+
+headings with captions??
+
+Add Font size custom dropdown button
+
+adds govuk-!-font-size-
+
+if possible add span if selection part of an elements content
+and add to existing element if selection is whole content of element
+
+replace bold button with 1 that sets govuk-!-font-weight-bold
+add button for regular too?? govuk-!-font-weight-regular
+
+replace unorder list and ordered list buttons with custom:
+list (govuk-list)
+bulleted list (govuk-list govuk-list--bullet)
+Numbered lists
+govuk-list govuk-list--number
+
+replace horizontalRule button with a custom section break dropdown button
+that allows setting these 4...
+<hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<hr class="govuk-section-break govuk-section-break--visible">
+
+replace current with custom link dropdown button
+insert link > with class="govuk-link"
+insert link (new tab) > with class="govuk-link" rel="noreferrer noopener" target="_blank" plus remove target text box (or pre-populate it if difficult to remove)
+remove link
+
+
+add spacing and width override buttons?
+
+layout?? or leave to template page??
+
+make sure font is GDS Transport
+don't allow to change font
+
+* trumbowyg insists on adding <p> and getting rid of new lines. can we set otherwise?
+
+* would be better to report when html has been sanitized, rather than silently doing it
+
 * Look into console error when selecting an item in a ContentPickerWithPreview control.
 
 * GET https://localhost:5001/DFC.ServiceTaxonomy.Theme/Theme.png 404
