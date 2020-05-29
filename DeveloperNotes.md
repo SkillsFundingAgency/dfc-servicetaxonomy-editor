@@ -1,5 +1,7 @@
 #ToDo
 
+* add setting to graph sync to set the node property name for titles
+
 * content api whitelist relationships off esco occupation and skill
 
 * find out why import has slowed significantly. if it's the html sanitizer, perhaps we can disable it on the types at start of import and switch it back on at the end (or leave it off, as we get sanitization in the front-end anyway)
