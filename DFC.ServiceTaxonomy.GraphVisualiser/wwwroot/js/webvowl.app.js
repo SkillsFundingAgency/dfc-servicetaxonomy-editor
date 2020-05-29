@@ -8494,7 +8494,6 @@ webvowl.app =
                     // or use jquery?
 
                     const urlParams = new URLSearchParams(window.location.search);
-                    const contentType = urlParams.get('contentType');
                     const contentItemId = urlParams.get('contentItemId');
 
                     var xhttp = new XMLHttpRequest();
@@ -8504,7 +8503,7 @@ webvowl.app =
                         }
                         //todo: better handle error rather than just sit spinning
                     };
-                    xhttp.open("GET", "/visualise/data?contentType=" + contentType + '&contentItemId=' + contentItemId, true);
+                    xhttp.open("GET", "/visualise/data?contentItemId=" + contentItemId, true);
                     xhttp.send();
                 };
 

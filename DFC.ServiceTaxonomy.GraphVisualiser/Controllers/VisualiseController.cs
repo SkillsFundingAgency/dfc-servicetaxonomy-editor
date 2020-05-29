@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
 // visualise -> https://localhost:44346/Visualise/Viewer?visualise=<the graph sync part url>
@@ -42,21 +43,28 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
     public class VisualiseController : Controller
     {
         private readonly IGraphDatabase _neoGraphDatabase;
-        private readonly IContentDefinitionManager ContentDefinitionManager;
-        private readonly INeo4JToOwlGeneratorService Neo4JToOwlGeneratorService;
-        private readonly IOrchardToOwlGeneratorService OrchardToOwlGeneratorService;
+        private readonly IContentManager _contentManager;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
+        private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
 
         private readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
-        public VisualiseController(IGraphDatabase neoGraphDatabase, IContentDefinitionManager contentDefinitionManager, INeo4JToOwlGeneratorService neo4jToOwlGeneratorService, IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
+        public VisualiseController(
+            IGraphDatabase neoGraphDatabase,
+            IContentManager contentManager,
+            IContentDefinitionManager contentDefinitionManager,
+            INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
+            IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
         {
             _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
-            ContentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
-            Neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
-            OrchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
+            _contentManager = contentManager;
+            _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
+            _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
+            _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
         }
 
         public ActionResult Viewer()
@@ -64,29 +72,34 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Data([FromQuery] string? contentType, [FromQuery] string? contentItemId)
+        public async Task<ActionResult> Data([FromQuery] string? contentItemId)
         {
-            if (string.IsNullOrWhiteSpace(contentItemId) || string.IsNullOrWhiteSpace(contentType)) // || uri.Equals("null"))
+            if (string.IsNullOrWhiteSpace(contentItemId))
             {
                 return GetOntology();
             }
 
-            return await GetData(contentType, contentItemId);
+            return await GetData(contentItemId);
         }
 
         private ActionResult GetOntology()
         {
-            var contentTypeDefinitions = ContentDefinitionManager.ListTypeDefinitions();
+            var contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
 
-            var owlDataModel = OrchardToOwlGeneratorService.CreateOwlDataModels(contentTypeDefinitions);
+            var owlDataModel = _orchardToOwlGeneratorService.CreateOwlDataModels(contentTypeDefinitions);
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
 
         #pragma warning disable S1172
-        private Task<ActionResult> GetData(string contentType, string contentItemId)
+        private async Task<ActionResult> GetData(string contentItemId)
         {
+            //todo: don't need contenttype!
+            ContentItem contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Published);
+
+            _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+
             // const string prefLabel = "skos__prefLabel";
             // var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
             //
@@ -97,7 +110,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
             string owlResponseString = "{}";
 
-            return Task.FromResult((ActionResult)Content(owlResponseString, MediaTypeNames.Application.Json));
+            return (ActionResult)Content(owlResponseString, MediaTypeNames.Application.Json);
         }
     }
 }

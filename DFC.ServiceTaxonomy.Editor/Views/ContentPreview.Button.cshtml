@@ -15,7 +15,6 @@
     <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
        asp-controller="Visualise"
        asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
-       asp-route-contentType="@contentItem.ContentType"
        asp-route-contentItemId="@contentItem.ContentItemId"
        target="_blank"
        class="publish-button btn btn-info">@T["Visualise (last published)"]</a>
