@@ -7,6 +7,7 @@
 #nullable enable
 
     ContentItem contentItem = Model.ContentItem;
+    //todo: put back in the graphsyncpart check, as it won't be in the graph otherwise
     var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
 }
 

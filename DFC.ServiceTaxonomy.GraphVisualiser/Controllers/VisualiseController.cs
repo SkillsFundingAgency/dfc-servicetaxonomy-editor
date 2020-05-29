@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using OrchardCore.ContentFields.Fields;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -92,13 +96,18 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
 
+        //private static string[] GroupingFields = { nameof(TabField), nameof(AccordionField) };
+        private static string[] RelationshipParts = { nameof(GraphLookupPart) };
+        private static string[] RelationshipFields = { nameof(ContentPickerField) };
+
         #pragma warning disable S1172
+#pragma warning disable S1481
         private async Task<ActionResult> GetData(string contentItemId)
         {
             //todo: don't need contenttype!
             ContentItem contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Published);
 
-            _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
             // const string prefLabel = "skos__prefLabel";
             // var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
@@ -108,9 +117,52 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             // var owlDataModel = Neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
             // var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
 
+            // var contentTypePartDefinitions =
+            //     contentTypeDefinition.Parts.Where(
+            //         p => p.PartDefinition.Name == contentItem.ContentType ||
+            //              p.PartDefinition.Fields.Any(f => GroupingFields.Contains(f.FieldDefinition.Name)));
+
+            var relationshipParts =
+                contentTypeDefinition.Parts.Where(p => RelationshipParts.Contains(p.PartDefinition.Name));
+
+            // var relationshipFields =
+            //     contentTypeDefinition.Parts.SelectMany(p => p.PartDefinition.Fields)
+            //         .Where(f => RelationshipFields.Contains(f.FieldDefinition.Name));
+
+            //alternatively work though the parts
+
+            //todo: keep recursing (perhaps in an iterator fashion not to blow stack) following relationship fields
+            //create query to get everything, either in 1 go, or 1 query per level
+            // match (s)-[r]-(d) where d.uri in map
+            // match (s)-[r]-(d) where d.userid in map
+
+            var fields =
+                contentTypeDefinition.Parts.SelectMany(p => p.PartDefinition.Fields);
+
+            var relationshipFields =
+                fields.Where(f => RelationshipFields.Contains(f.FieldDefinition.Name));
+
+            foreach (var relationshipField in relationshipFields)
+            {
+                //todo: have array of objects {fieldname, contentfieldname}
+                var contentItemIds = (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name].ContentItemIds;
+
+                foreach (var relatedContentItemId in contentItemIds)
+                {
+                    // use whenall, now getasync supports it
+                    var relatedContentItem = await _contentManager.GetAsync(relatedContentItemId.ToString(), VersionOptions.Published);
+                    //todo: check it's got one!
+                    var relatedGraphSyncPart = relatedContentItem.Content.GraphSyncPart;
+
+                    //todo: need to get idpropertyname and value
+                    //todo: need GraphSyncHelper for this bit
+                    var nodeid = relatedGraphSyncPart.Text.ToString();
+                }
+            }
+
             string owlResponseString = "{}";
 
-            return (ActionResult)Content(owlResponseString, MediaTypeNames.Application.Json);
+            return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
     }
 }
