@@ -320,7 +320,6 @@ soccode issue
 * use migrations (that execute recipes) to update content types, once live (https://docs.orchardcore.net/en/dev/docs/reference/modules/Recipes/)
 * remove content types from full text queries : speed up import?
 * move visualiser overriden views into visualiser module (https://github.com/OrchardCMS/OrchardCore/issues/5128)
-* avgrund stuff can go from visualiser's viewer.cshtml
 
 * with preview packages:
 bulk actions menu doesn't appear in MS Edge (breakpoints not hit), but works in chrome
