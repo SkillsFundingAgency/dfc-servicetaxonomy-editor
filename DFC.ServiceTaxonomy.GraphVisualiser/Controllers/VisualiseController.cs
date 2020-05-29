@@ -71,10 +71,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             {
                 return GetOntology();
             }
-            else
-            {
-                return await GetData(uri);
-            }
+
+            return await GetData(uri);
         }
 
         private ActionResult GetOntology()
