@@ -1,6 +1,6 @@
 #ToDo
 
-* visualizer: contenthelp items don't have Visualise (last published button)
+* visualizer: contenthelp items don't have Visualise (last published button) : only items with graphsync parts
 
 * add setting to graph sync to set the node property name for titles
 

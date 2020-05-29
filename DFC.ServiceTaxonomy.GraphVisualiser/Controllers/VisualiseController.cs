@@ -2,7 +2,6 @@
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphVisualiser.Queries;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -65,14 +64,14 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Data([FromQuery] string? uri)
+        public async Task<ActionResult> Data([FromQuery] string? contentType, [FromQuery] string? contentItemId)
         {
-            if (string.IsNullOrWhiteSpace(uri) || uri.Equals("null"))
+            if (string.IsNullOrWhiteSpace(contentItemId) || string.IsNullOrWhiteSpace(contentType)) // || uri.Equals("null"))
             {
                 return GetOntology();
             }
 
-            return await GetData(uri);
+            return await GetData(contentType, contentItemId);
         }
 
         private ActionResult GetOntology()
@@ -85,17 +84,20 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
 
-        private async Task<ActionResult> GetData(string uri)
+        #pragma warning disable S1172
+        private Task<ActionResult> GetData(string contentType, string contentItemId)
         {
-            const string prefLabel = "skos__prefLabel";
-            var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
+            // const string prefLabel = "skos__prefLabel";
+            // var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
+            //
+            // _ = await _neoGraphDatabase.Run(query);
+            //
+            // var owlDataModel = Neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
+            // var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
 
-            _ = await _neoGraphDatabase.Run(query);
+            string owlResponseString = "{}";
 
-            var owlDataModel = Neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
-            var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
-
-            return Content(owlResponseString, MediaTypeNames.Application.Json);
+            return Task.FromResult((ActionResult)Content(owlResponseString, MediaTypeNames.Application.Json));
         }
     }
 }

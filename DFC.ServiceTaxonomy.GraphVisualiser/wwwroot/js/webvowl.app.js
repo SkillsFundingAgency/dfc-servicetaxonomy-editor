@@ -8475,7 +8475,7 @@ webvowl.app =
 	        loadingModule.from_IRI_URL(ontologyIdentifierFromURL);
 	        break;
             case 4: // no magic nums
-                loadingModule.from_GraphVisualiser(ontologyIdentifierFromURL);
+                loadingModule.from_GraphVisualiser();
                 break;
 	      default:
 	        console.log("Could not identify loading method , or not IMPLEMENTED YET");
@@ -8489,19 +8489,22 @@ webvowl.app =
 	  // 3] Load From URL / IRI
 
                 //ste:
-                loadingModule.from_GraphVisualiser = function ( key ){
+                loadingModule.from_GraphVisualiser = function (){
                     // d3 now uses fetch, rather than xhr: https://stackoverflow.com/questions/18300942/how-to-load-data-using-xhr-in-d3
                     // or use jquery?
 
-                    key = decodeURIComponent(key.slice("viz=".length));
-                   
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const contentType = urlParams.get('contentType');
+                    const contentItemId = urlParams.get('contentItemId');
+
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
                             loadingModule.directInput(xhttp.responseText);
                         }
+                        //todo: better handle error rather than just sit spinning
                     };
-                    xhttp.open("GET", "/visualise/data?uri=" + key, true);
+                    xhttp.open("GET", "/visualise/data?contentType=" + contentType + '&contentItemId=' + contentItemId, true);
                     xhttp.send();
                 };
 
