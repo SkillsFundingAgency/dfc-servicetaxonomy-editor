@@ -1,6 +1,6 @@
 #ToDo
 
-* visualization is borked (its not csp - something since then)
+* visualizer: contenthelp items don't have Visualise (last published button)
 
 * add setting to graph sync to set the node property name for titles
 
