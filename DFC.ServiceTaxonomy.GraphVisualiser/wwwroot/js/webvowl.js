@@ -16124,7 +16124,6 @@ webvowl =
             if (focusedElement.type() === "owl:equivalentClass"
             || focusedElement.type() === "owl:Class") {
                 // d3.select("#class-properties-popup-label").innerHtml = focusedElement.label();
-                // Avgrund.show("#class-properties-popup");
             }
 
 	      if ( elementTools.isProperty(selectedElement) === true ) {
@@ -16140,11 +16139,7 @@ webvowl =
 	    }
 	    else {
 	      graph.options().editSidebar().updateSelectionInformation(undefined);
-
-            //ste:
-            //Avgrund.show( "#class-properties-popup" );
-
-            graph.removeEditElements();
+          graph.removeEditElements();
 	    }
 	  };
 
