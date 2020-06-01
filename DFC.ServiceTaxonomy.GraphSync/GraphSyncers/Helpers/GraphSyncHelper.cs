@@ -92,8 +92,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         // should only be used for fallbacks
         public async Task<string> RelationshipTypeDefault(string destinationContentType)
         {
-            CheckPreconditions();
-
             var graphSyncPartSettings = GetGraphSyncPartSettings(destinationContentType);
 
             return await TransformOrDefault(

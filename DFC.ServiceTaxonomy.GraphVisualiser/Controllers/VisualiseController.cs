@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.Neo4j.Types;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Fields;
+using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -57,6 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly IGraphDatabase _neoGraphDatabase;
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
 
@@ -69,12 +75,14 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IGraphDatabase neoGraphDatabase,
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
+            IGraphSyncHelper graphSyncHelper,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
         {
             _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
+            _graphSyncHelper = graphSyncHelper;
             _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
         }
@@ -165,6 +173,19 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                     //todo: need to get idpropertyname and value
                     //todo: need GraphSyncHelper for this bit
                     var nodeid = relatedGraphSyncPart.Text.ToString();
+
+                    //todo: inject IEnumerable field handlers
+                    switch (relationshipField.Name)
+                    {
+                        case "ContentPickerField":
+                            ContentPickerFieldSettings contentPickerFieldSettings =
+                                relationshipField.GetSettings<ContentPickerFieldSettings>();
+
+                            string relationshipType = await contentPickerFieldSettings.RelationshipType(_graphSyncHelper);
+                            break;
+                    }
+
+
                 }
             }
 
@@ -173,4 +194,76 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
     }
+
+    //todo: IReplaceRelationshipsCommand : IRelationships, ICommand
+    //todo: need a name to distinguish between describing relationships for queries/command params and cypher responses
+    // irelationship/igraphrelationship??
+    public interface IRelationships
+    {
+        HashSet<string> SourceNodeLabels { get; set; }
+        string? SourceIdPropertyName { get; set; }
+        object? SourceIdPropertyValue { get; set; }
+
+        IEnumerable<Relationship> Relationships { get; }
+
+        /// <summary>
+        /// One relationship will be created for each destIdPropertyValue.
+        /// If no destIdPropertyValues are supplied, then no relationships will be created,
+        /// but any relationships of relationshipType, from the source node to nodes with destNodeLabels will still be removed.
+        /// </summary>
+        void AddRelationshipsTo(
+            string relationshipType,
+            IEnumerable<string> destNodeLabels,
+            string destIdPropertyName,
+            params object[] destIdPropertyValues);
+    }
+
+    //todo: compose ReplaceRelationshipsCommand with this
+    public class OutgoingRelationships : IRelationships
+    {
+        public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
+        public string? SourceIdPropertyName { get; set; }
+        public object? SourceIdPropertyValue { get; set; }
+
+        public IEnumerable<Relationship> Relationships
+        {
+            get { return RelationshipsList; }
+        }
+
+        private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
+
+        public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
+            string destIdPropertyName, params object[] destIdPropertyValues)
+        {
+            RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
+                destIdPropertyValues));
+        }
+
+        public List<string> ValidationErrors()
+        {
+            List<string> validationErrors = new List<string>();
+
+            if (!SourceNodeLabels.Any())
+                validationErrors.Add($"Missing {nameof(SourceNodeLabels)}.");
+
+            if (SourceIdPropertyName == null)
+                validationErrors.Add($"{nameof(SourceIdPropertyName)} is null.");
+
+            if (SourceIdPropertyValue == null)
+                validationErrors.Add($"{nameof(SourceIdPropertyValue)} is null.");
+
+            foreach (var relationship in RelationshipsList)
+            {
+                var relationshipValidationErrors = relationship.ValidationErrors;
+                if (relationshipValidationErrors.Any())
+                {
+                    validationErrors.Add(
+                        $"{relationship.RelationshipType ?? "<Null Type>"} relationship invalid ({string.Join(",", relationshipValidationErrors)})");
+                }
+            }
+
+            return validationErrors;
+        }
+    }
+
 }

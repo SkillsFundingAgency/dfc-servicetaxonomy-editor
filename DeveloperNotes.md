@@ -1,5 +1,7 @@
 #ToDo
 
+* check config asap at startup and check for presence of __placeholders__ (or missing/bad config in general) still in config
+
 * visualizer: contenthelp items don't have Visualise (last published button) : only items with graphsync parts
 
 * add setting to graph sync to set the node property name for titles

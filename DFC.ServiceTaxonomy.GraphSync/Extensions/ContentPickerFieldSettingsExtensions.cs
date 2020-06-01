@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             }
 
             if (relationshipType == null)
-                relationshipType = await graphSyncHelper!.RelationshipTypeDefault(pickedContentType);
+                relationshipType = await graphSyncHelper.RelationshipTypeDefault(pickedContentType);
 
             return relationshipType;
         }
