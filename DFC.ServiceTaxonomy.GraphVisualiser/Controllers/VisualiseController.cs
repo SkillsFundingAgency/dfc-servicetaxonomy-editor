@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Types;
@@ -125,6 +126,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
+            var nodeIdToRelationships = new Dictionary<string, OutgoingRelationships>();
+
             // const string prefLabel = "skos__prefLabel";
             // var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
             //
@@ -158,34 +161,64 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             var relationshipFields =
                 fields.Where(f => RelationshipFields.Contains(f.FieldDefinition.Name));
 
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
+
+            //todo: ctor?
+            //todo: different fields creating relationships with same type??
+            var relationships = new OutgoingRelationships
+            {
+                SourceIdPropertyName = _graphSyncHelper.IdPropertyName(),
+                SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent)
+            };
+
+            relationships.SourceNodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
+
             foreach (var relationshipField in relationshipFields)
             {
-                //todo: have array of objects {fieldname, contentfieldname}
-                var contentItemIds = (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name].ContentItemIds;
+                List<object> destIdPropertyValues = new List<object>();
 
-                foreach (var relatedContentItemId in contentItemIds)
+                //todo: inject IEnumerable field handlers
+                switch (relationshipField.FieldDefinition.Name)
                 {
-                    // use whenall, now getasync supports it
-                    var relatedContentItem = await _contentManager.GetAsync(relatedContentItemId.ToString(), VersionOptions.Published);
-                    //todo: check it's got one!
-                    var relatedGraphSyncPart = relatedContentItem.Content.GraphSyncPart;
+                    case nameof(ContentPickerField):
+                        //todo: have array of objects {fieldname, contentfieldname}
+                        var contentItemIds =
+                            (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
+                                .ContentItemIds;
 
-                    //todo: need to get idpropertyname and value
-                    //todo: need GraphSyncHelper for this bit
-                    var nodeid = relatedGraphSyncPart.Text.ToString();
+                        ContentPickerFieldSettings contentPickerFieldSettings =
+                            relationshipField.GetSettings<ContentPickerFieldSettings>();
 
-                    //todo: inject IEnumerable field handlers
-                    switch (relationshipField.Name)
-                    {
-                        case "ContentPickerField":
-                            ContentPickerFieldSettings contentPickerFieldSettings =
-                                relationshipField.GetSettings<ContentPickerFieldSettings>();
+                        string relationshipType =
+                            await contentPickerFieldSettings.RelationshipType(_graphSyncHelper);
 
-                            string relationshipType = await contentPickerFieldSettings.RelationshipType(_graphSyncHelper);
-                            break;
-                    }
+                        if (contentItemIds.Any())
+                        {
+                            ContentItem? relatedContentItem = null;
 
+                            foreach (var relatedContentItemId in contentItemIds)
+                            {
+                                // use whenall, now getasync supports it
+                                relatedContentItem = await _contentManager.GetAsync(relatedContentItemId.ToString(),
+                                    VersionOptions.Published);
+                                //todo: check it's got one!
+                                var relatedGraphSyncPart = relatedContentItem.Content.GraphSyncPart;
 
+                                //todo: need to get idpropertyname and value
+                                //todo: need GraphSyncHelper for this bit
+                                //var nodeid = relatedGraphSyncPart.Text.ToString();
+
+                                destIdPropertyValues.Add(_graphSyncHelper.GetIdPropertyValue(relatedGraphSyncPart));
+                            }
+
+                            relationships.AddRelationshipsTo(relationshipType,
+                                await _graphSyncHelper.NodeLabels(relatedContentItem!.ContentType),
+                                _graphSyncHelper.IdPropertyName(relatedContentItem!.ContentType),
+                                destIdPropertyValues);
+                        }
+                        break;
                 }
             }
 
@@ -266,4 +299,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         }
     }
 
+    //todo: more generic name
+    public class VisualizerQuery
+    {
+    }
 }
