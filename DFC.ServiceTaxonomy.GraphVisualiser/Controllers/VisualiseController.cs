@@ -42,6 +42,14 @@ using OrchardCore.ContentManagement.Metadata;
 
 //todo: maxLabelWidth to 180 : need to add options support to import json
 
+// settings min degrees, max degrees, max nodes
+// 1st pass all relations/bags
+// 2+ pass all relations/bags:
+//   if node already encountered, add relationship, don't follow further
+//   if content type already encountered, don't add node or relationship, don't follow further???
+// if 2+ pass takes nodes past max nodes, don't add any of pass (will need to stage)
+// ignore maxnodes for 1 degree??
+
 namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
     public class VisualiseController : Controller
