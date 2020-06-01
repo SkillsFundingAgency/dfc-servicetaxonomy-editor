@@ -1,16 +1,16 @@
 #ToDo
 
-* ContentApiPrefix config probably belongs in
+* follow up with ContentApiPrefix config
+
+* add batching to CypherToContentStep
 
 * check config asap at startup and check for presence of __placeholders__ (or missing/bad config in general) still in config
-
-* visualizer: contenthelp items don't have Visualise (last published button) : only items with graphsync parts
 
 * add setting to graph sync to set the node property name for titles
 
 * content api whitelist relationships off esco occupation and skill
 
-* find out why import has slowed significantly. if it's the html sanitizer, perhaps we can disable it on the types at start of import and switch it back on at the end (or leave it off, as we get sanitization in the front-end anyway)
+* find out why import has slowed significantly
 
 * automate sass compilation
 
