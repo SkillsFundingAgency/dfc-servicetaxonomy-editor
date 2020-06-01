@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -20,7 +19,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
     {
         public string FieldTypeName => "ContentPickerField";
 
-        private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IContentManager _contentManager;
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
@@ -42,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                 contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
+            string relationshipType = await contentPickerFieldSettings.RelationshipType(graphSyncHelper);
 
             //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
@@ -92,7 +90,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                 contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
+            string relationshipType = await contentPickerFieldSettings.RelationshipType(graphSyncHelper);
 
             IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
                 .Where(r => r.Relationship.Type == relationshipType)
@@ -132,29 +130,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
 
             return (true, "");
-        }
-
-        private async Task<string> RelationshipTypeContentPicker(
-            ContentPickerFieldSettings contentPickerFieldSettings,
-            IGraphSyncHelper graphSyncHelper)
-        {
-            //todo: handle multiple types
-            string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-
-            string? relationshipType = null;
-            if (contentPickerFieldSettings.Hint != null)
-            {
-                Match match = _relationshipTypeRegex.Match(contentPickerFieldSettings.Hint);
-                if (match.Success)
-                {
-                    relationshipType = $"{match.Groups[1].Value}";
-                }
-            }
-
-            if (relationshipType == null)
-                relationshipType = await graphSyncHelper!.RelationshipTypeDefault(pickedContentType);
-
-            return relationshipType;
         }
 
         private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
