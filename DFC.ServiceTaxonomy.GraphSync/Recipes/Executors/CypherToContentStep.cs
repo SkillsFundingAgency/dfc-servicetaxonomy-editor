@@ -96,13 +96,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Where(i => i != null)
                     .Select(i => i!);
 
-                foreach (ContentItem preparedContentItem in preparedContentItems)
-                {
-                    await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
-                }
+                var contentItems = preparedContentItems.Select(x => CacheContentItem(x, cypherToContent.SyncBackRequired));
+                var createTasks = contentItems.Select(x => _contentManager.CreateAsync(x));
+                await Task.WhenAll(createTasks);
+
+                _contentManagerSession.Clear();
 
                 //todo: log this, but ensure no double enumeration
-//                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
+                //                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
                 _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
             }
         }
@@ -132,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             return contentItem;
         }
 
-        private async Task CreateContentItem(ContentItem contentItem, bool syncBackRequired)
+        private ContentItem CacheContentItem(ContentItem contentItem, bool syncBackRequired)
         {
             //todo: could put contenttype in there for extra safety!? overkill?
 
@@ -149,9 +150,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
 
             //todo: log adding content type + id? how would we (easily) get the contenttype??
-
-            await _contentManager.CreateAsync(contentItem);
-            _contentManagerSession.Clear();
+            return contentItem;
         }
 
         private static readonly Regex _cSharpHelperRegex = new Regex(@"\[c#:([^\]]+)\]", RegexOptions.Compiled);
