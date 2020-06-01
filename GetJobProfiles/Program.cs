@@ -36,13 +36,17 @@ using NPOI.XSSF.UserModel;
 
 //Sample appsettings.Development.json
 /*
-    {
-    "Ocp-Apim-Subscription-Key": "##################################",
-    "ExcludeGraphContentMutators": false,
+{
+    "Ocp-Apim-Subscription-Key": "",
+    "ExcludeGraphContentMutators": true,
     "ExcludeGraphIndexMutators": true,
-    "MasterRecipeName": "master_subset_nographindex",
+    "CreateTestFiles": false,
+    "TestSocCodes": "",
+    "TestONetCodes": "",
+    "TestApprenticeshipStandardReferences": "",
+    "MasterRecipeName": "master_subset_nographmutators",
     "JobProfilesToImport": "actor, admin assistant, civil engineer, chief executive, border force officer, cabin crew, care worker, construction labourer, electrician, emergency medical dispatcher, farmer, mp, personal assistant, plumber, police officer, postman or postwoman, primary school teacher, sales assistant, social worker, waiter, train driver"
-    }
+}
 */
 
 namespace GetJobProfiles
@@ -170,7 +174,11 @@ namespace GetJobProfiles
             const string contentRecipesPath = "ContentRecipes";
 
             if (!createTestFiles)
-                await CopyRecipe(contentRecipesPath, $"SharedContent");
+            {
+                await CopyRecipe(contentRecipesPath, "SharedContent");
+                await CopyRecipe(contentRecipesPath, "ContentHelp");
+            }
+
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandards");
