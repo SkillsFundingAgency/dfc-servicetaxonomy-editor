@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <Target Name="Gulp" BeforeTargets="BeforePublish">
+    <Exec WorkingDirectory="$(ProjectDir)" Command="node_modules\.bin\gulp" ContinueOnError="false" />
+  </Target>
+
 </Project>
