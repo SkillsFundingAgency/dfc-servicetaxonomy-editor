@@ -1,5 +1,7 @@
 #ToDo
 
+* revisit recipes following idempotent recipes changes. create/import? create generates new ids(?) find different way to disable sync
+
 * follow up with ContentApiPrefix config
 
 * add batching to CypherToContentStep
