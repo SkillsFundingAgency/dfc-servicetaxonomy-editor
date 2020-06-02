@@ -5,6 +5,8 @@
 * section break's have broke - they look wrong in the html editor
 
 * revisit recipes following idempotent recipes changes. create/import? create generates new ids(?) find different way to disable sync
+see https://github.com/OrchardCMS/OrchardCore/pull/5487
+https://github.com/OrchardCMS/OrchardCore/issues/1970
 
 * follow up with ContentApiPrefix config
 
