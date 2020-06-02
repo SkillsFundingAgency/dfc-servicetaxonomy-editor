@@ -69,10 +69,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
             {
-                List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced, result);
-                if (syncFailures.Any())
+                _graphSyncHelper.ContentType = contentTypeDefinition.Name;
+
+                if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                 {
-                    await AttemptRepair(syncFailures, contentTypeDefinition, result);
+                    List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(contentTypeDefinition, auditSyncLog.LastSynced, result);
+                    if (syncFailures.Any())
+                    {
+                        await AttemptRepair(syncFailures, contentTypeDefinition, result);
+                    }
                 }
             }
 
