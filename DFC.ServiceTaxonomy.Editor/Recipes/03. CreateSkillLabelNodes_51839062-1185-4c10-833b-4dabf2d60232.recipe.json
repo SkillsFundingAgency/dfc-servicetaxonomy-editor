@@ -1,0 +1,21 @@
+{
+    "name": "CreateSkillLabelNodes_51839062-1185-4c10-833b-4dabf2d60232",
+    "displayName": "CreateSkillLabelNodes_51839062-1185-4c10-833b-4dabf2d60232",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherCommand",
+            "commands": [
+                "match (n:esco__Skill)\r\nunwind n.skos__prefLabel as prefLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: prefLabels, uri: \"<<ContentApiPrefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasPrefLabel]->(l)",
+                "match (n:esco__Skill)\r\nunwind n.skos__altLabel as altLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: altLabels, uri: \"<<ContentApiPrefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasAltLabel]->(l)",
+                "match (n:esco__Skill)\r\nunwind n.skos__hiddenLabel as hiddenLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: hiddenLabels, uri: \"<<ContentApiPrefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasHiddenLabel]->(l)"
+            ]
+        }
+    ]
+}

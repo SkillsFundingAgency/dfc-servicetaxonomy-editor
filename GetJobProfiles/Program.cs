@@ -36,13 +36,17 @@ using NPOI.XSSF.UserModel;
 
 //Sample appsettings.Development.json
 /*
-    {
-    "Ocp-Apim-Subscription-Key": "##################################",
-    "ExcludeGraphContentMutators": false,
+{
+    "Ocp-Apim-Subscription-Key": "",
+    "ExcludeGraphContentMutators": true,
     "ExcludeGraphIndexMutators": true,
-    "MasterRecipeName": "master_subset_nographindex",
+    "CreateTestFiles": false,
+    "TestSocCodes": "",
+    "TestONetCodes": "",
+    "TestApprenticeshipStandardReferences": "",
+    "MasterRecipeName": "master_subset_nographmutators",
     "JobProfilesToImport": "actor, admin assistant, civil engineer, chief executive, border force officer, cabin crew, care worker, construction labourer, electrician, emergency medical dispatcher, farmer, mp, personal assistant, plumber, police officer, postman or postwoman, primary school teacher, sales assistant, social worker, waiter, train driver"
-    }
+}
 */
 
 namespace GetJobProfiles
@@ -95,12 +99,12 @@ namespace GetJobProfiles
             const int take = 0;
             const int napTimeMs = 5500;
             // max number of contentitems in an import recipe
-            const int batchSize = 1000;
+            const int batchSize = 400;
             const int jobProfileBatchSize = 200;
-            const int occupationLabelsBatchSize = 5000;
-            const int occupationsBatchSize = 300;
-            const int skillBatchSize = 5000;
-            const int skillLabelsBatchSize = 5000;
+            const int occupationLabelsBatchSize = 400;
+            const int occupationsBatchSize = 400;
+            const int skillBatchSize = 400;
+            const int skillLabelsBatchSize = 400;
 
             var httpClient = new HttpClient
             {
@@ -137,6 +141,7 @@ namespace GetJobProfiles
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
+                await CopyRecipe(cypherToContentRecipesPath, "CleanUpEscoData");
             }
 
             bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
@@ -171,7 +176,11 @@ namespace GetJobProfiles
             const string contentRecipesPath = "ContentRecipes";
 
             if (!createTestFiles)
-                await CopyRecipe(contentRecipesPath, $"SharedContent");
+            {
+                await CopyRecipe(contentRecipesPath, "SharedContent");
+                await CopyRecipe(contentRecipesPath, "ContentHelp");
+            }
+
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardRouteContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandardRoutes");
             await BatchSerializeToFiles(apprenticeshipStandardImporter.ApprenticeshipStandardContentItems, batchSize, $"{filenamePrefix}ApprenticeshipStandards");

@@ -73,6 +73,9 @@
         },
         "apimProxyAddress": {
             "value": "__ApimProxyAddress__"
+        },
+        "EventGridTopicSku": {
+            "value": "__EventGridTopicSku__"
         }
     }
 }
