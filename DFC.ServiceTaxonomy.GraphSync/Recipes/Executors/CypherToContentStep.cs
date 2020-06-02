@@ -96,7 +96,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Where(i => i != null)
                     .Select(i => i!);
 
-                var contentItems = preparedContentItems.Select(x => CacheContentItem(x, cypherToContent.SyncBackRequired));
+                var contentItems = preparedContentItems.Select(x => OptionallyDisableSync(x, cypherToContent.SyncBackRequired));
                 var createTasks = contentItems.Select(x => _contentManager.CreateAsync(x));
                 await Task.WhenAll(createTasks);
 
@@ -133,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             return contentItem;
         }
 
-        private ContentItem CacheContentItem(ContentItem contentItem, bool syncBackRequired)
+        private ContentItem OptionallyDisableSync(ContentItem contentItem, bool syncBackRequired)
         {
             //todo: could put contenttype in there for extra safety!? overkill?
 
