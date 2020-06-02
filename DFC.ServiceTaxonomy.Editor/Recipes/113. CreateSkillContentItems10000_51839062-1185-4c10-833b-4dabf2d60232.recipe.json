@@ -1,0 +1,21 @@
+{
+    "name": "CreateSkillContentItems10000_51839062-1185-4c10-833b-4dabf2d60232",
+    "displayName": "CreateSkillContentItems10000_51839062-1185-4c10-833b-4dabf2d60232",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherToContent",
+            "queries": [
+                {
+                    "query": "MATCH (o:esco__Skill)\r\nreturn { ContentType: 'Skill', TitlePart:{Title:o.skos__prefLabel}\r\n,GraphSyncPart:{Text:o.uri},\r\nSkill:{Description:{Html:'<p>TBC</p>'}}\r\n}\r\norder by o.skos__prefLabel\r\nskip 10000 limit 400"
+                }
+            ]
+        }
+    ]
+}
