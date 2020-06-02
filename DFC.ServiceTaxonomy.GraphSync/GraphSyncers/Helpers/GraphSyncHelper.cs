@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
-            _contentApiBaseUrl = configuration.GetValue<string>("OrchardCore:Default:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
+            _contentApiBaseUrl = configuration.GetValue<string>("GraphSyncPartSettings:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix is not present");
         }
 
         public string? ContentType
