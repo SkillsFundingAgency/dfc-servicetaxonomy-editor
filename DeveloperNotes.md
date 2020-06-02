@@ -1,5 +1,7 @@
 #ToDo
 
+* should skill and occupation labels be creatable?
+
 * section break's have broke - they look wrong in the html editor
 
 * revisit recipes following idempotent recipes changes. create/import? create generates new ids(?) find different way to disable sync
