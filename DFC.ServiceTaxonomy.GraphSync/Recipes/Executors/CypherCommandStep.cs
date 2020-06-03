@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
-            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
+            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present");
             _logger = logger;
         }
 
