@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
+using OrchardCore.Environment.Shell;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using YesSql;
@@ -36,13 +37,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             //todo: rename
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             IConfiguration configuration,
-            ILogger<CSharpContentStep> logger)
+            ILogger<CSharpContentStep> logger,
+            ShellSettings shellSettings)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
-            _contentApiBaseUrl = configuration.GetValue<string>("OrchardCore:Default:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
+            _contentApiBaseUrl = shellSettings["ContentApiPrefix"] ?? throw new ArgumentNullException($"ContentApiPrefix is not present");
             _logger = logger;
         }
 
