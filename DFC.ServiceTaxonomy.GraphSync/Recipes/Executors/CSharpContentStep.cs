@@ -37,14 +37,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             //todo: rename
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             IConfiguration configuration,
-            ILogger<CSharpContentStep> logger,
-            ShellSettings shellSettings)
+            ILogger<CSharpContentStep> logger)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
-            _contentApiBaseUrl = shellSettings["ContentApiPrefix"] ?? throw new ArgumentNullException($"ContentApiPrefix is not present");
+            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
             _logger = logger;
         }
 

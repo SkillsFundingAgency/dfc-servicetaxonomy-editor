@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Environment.Shell;
 
@@ -32,11 +33,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
             IContentDefinitionManager contentDefinitionManager,
-            ShellSettings shellSettings)
+            IConfiguration configuration)
         {
             _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
-            _contentApiBaseUrl = shellSettings["ContentApiPrefix"] ?? throw new ArgumentNullException($"ContentApiPrefix is not present");
+            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
         }
 
         public string? ContentType
