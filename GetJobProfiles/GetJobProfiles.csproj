@@ -16,6 +16,7 @@
       <None Remove="CypherToContentRecipes\CreateSkillContentItems.recipe.json" />
       <None Remove="CypherToContentRecipes\CreateSkillLabelContentItems.recipe.json" />
       <None Remove="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json" />
+      <None Remove="CypherToContentRecipes\CreateSkillPrefLabelNodes.recipe.json" />
     </ItemGroup>
 
     <ItemGroup>
