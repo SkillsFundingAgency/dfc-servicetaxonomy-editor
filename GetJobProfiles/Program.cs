@@ -141,6 +141,7 @@ namespace GetJobProfiles
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
+                await CopyRecipe(cypherToContentRecipesPath, "CreateSkillPrefLabelNodes");
                 await CopyRecipe(cypherToContentRecipesPath, "CleanUpEscoData");
             }
 
