@@ -13,7 +13,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('watch', gulp.series('css', function () {
-    return gulp.watch('./wwwroot/Styles/trumbowyg_scoped_govuk_frontend.scss', gulp.series('css'));
+    return gulp.watch('./wwwroot/Styles/trumbowyg_scoped_govuk_frontend.scss', gulp.series('default'));
 }));
 
 gulp.task('default', gulp.series('css', function () {
