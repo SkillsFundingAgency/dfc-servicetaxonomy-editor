@@ -1,6 +1,13 @@
 #ToDo
 
-* visualization is borked (its not csp - something since then)
+* use UserTask for button edition (replacement?) for our editor buttons, such as visualization
+
+* content approval workflow : http://www.ideliverable.com/blog/orchard-core-workflows-walkthrough-content-approval
+
+* difference between implementing graph validation as timed workflow vs background task
+
+* add content in background task (see further discussion around this comment in gitter)
+The content manager is scoped so to resolve it from a singleton (hopefully works in a background task this way) you'll want to get it from an http context IHttpContextAccessor.Context.RequestServices.GetService<IContentManager>()
 
 * add setting to graph sync to set the node property name for titles
 
