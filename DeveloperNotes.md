@@ -13,31 +13,18 @@ The content manager is scoped so to resolve it from a singleton (hopefully works
 
 * content api whitelist relationships off esco occupation and skill
 
-* find out why import has slowed significantly. if it's the html sanitizer, perhaps we can disable it on the types at start of import and switch it back on at the end (or leave it off, as we get sanitization in the front-end anyway)
-
-* automate sass compilation
+* remove html sanitizer settings
+we should make sure front end and backend html sanitizers marry up
+would be better to report when html has been sanitized, rather than silently doing it > dean said not possible
 
 * there's a trumbowyg template plugin : do we have any templates?
 
-we should make sure front end and backend html sanitizers marry up
+* trumbowyg plugin
 
 add tooltip to html colours to show semantic meaning (js?)
-trumbowyg plugin
+
 auto add class="govuk-body" to p's
 ^ looks like not supported in trumbowyg (see keyup focus). perhaps leave as is (maybe hack or replace trumbowyg js, but then a pain to maintain)
-
-replace formatting button with custom button that:
-Body: auto adds class="govuk-body" to <p>'s (this will set GDS Transport typeface amonst other things)
-Lead: govuk-body-l
-Small: govuk-body-s
-"govuk-heading-xl" to h1
-"govuk-heading-l" to h2
-"govuk-heading-m" to h3
-"govuk-heading-s" to h4
-(and removes the quote?)
-
-maybe split between Paragraphs (formatting icon) dropdown
-and headings dropdown
 
 headings with captions??
 
@@ -74,22 +61,16 @@ add spacing and width override buttons?
 
 layout?? or leave to template page??
 
-make sure font is GDS Transport
 don't allow to change font
 
 * trumbowyg insists on adding <p> and getting rid of new lines. can we set otherwise?
-
-* would be better to report when html has been sanitized, rather than silently doing it
 
 * Look into console error when selecting an item in a ContentPickerWithPreview control.
 
 * GET https://localhost:5001/DFC.ServiceTaxonomy.Theme/Theme.png 404
 
 search > Run Cypher Query
-
 ArgumentNullException: Value cannot be null. (Parameter 'key')
-
-* use content picker preview for entry routes?
 
 customs-officer not found in the jp dictionary
 
