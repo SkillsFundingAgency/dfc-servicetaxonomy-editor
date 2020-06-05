@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OrchardCore.Environment.Shell;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 
@@ -27,11 +28,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
             IConfiguration configuration,
-            ILogger<CypherCommandStep> logger)
+            ILogger<CypherCommandStep> logger,
+            ShellSettings shellSettings)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
-            _contentApiBaseUrl = configuration.GetValue<string>("OrchardCore:Default:ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present in Tenant Configuration");
+            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present");
             _logger = logger;
         }
 
@@ -57,11 +59,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
         }
 
-        #pragma warning disable S3459
+#pragma warning disable S3459
         private class CypherCommandStepModel
         {
             public string[]? Commands { get; set; }
         }
-        #pragma warning restore S3459
+#pragma warning restore S3459
     }
 }
