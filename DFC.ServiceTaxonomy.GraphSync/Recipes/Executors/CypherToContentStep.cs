@@ -97,8 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Select(i => i!);
 
                 var contentItems = preparedContentItems.Select(x => OptionallyDisableSync(x, cypherToContent.SyncBackRequired));
-                var createTasks = contentItems.Select(x => _contentManager.CreateAsync(x));
-                await Task.WhenAll(createTasks);
+                await _contentManager.ImportAsync(contentItems);
 
                 _contentManagerSession.Clear();
 
