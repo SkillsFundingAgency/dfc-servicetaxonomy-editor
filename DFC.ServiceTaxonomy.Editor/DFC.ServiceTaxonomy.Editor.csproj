@@ -7,6 +7,7 @@
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <Nullable>enable</Nullable>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <ApplicationInsightsResourceId>/subscriptions/d7d3460d-ce59-4d95-a0b8-b24c7de515e3/resourcegroups/ai-editor-rg/providers/microsoft.insights/components/ai-editor-dev</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -57,6 +58,10 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
