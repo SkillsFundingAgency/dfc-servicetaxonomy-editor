@@ -45,7 +45,7 @@ That's all you need to do for syncing within the editor to work. To perform inte
         ```
 	    call n10s.rdf.import.fetch("file:///Users/wayne.local/Downloads/esco_v1.0.3.ttl","Turtle", { languageFilter: "en" });
         ```
-   Execution takes approximately 3 to 5 minutes.  
+   Execution takes approximately 3 to 5 minutes.
 8) Fix some anomalies by executing:
 ```
 	    MATCH(n:esco__Occupation)
@@ -68,10 +68,12 @@ Setup a database to store the content. Any database with a .NET ADO provider is 
 
 Clone the [GitHub repo](https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor) and open the solution DFC.ServiceTaxonomyEditor.sln in your favourite .NET Core supporting IDE, such as [Visual Studio](https://visualstudio.microsoft.com/), [Visual Code](https://code.visualstudio.com/) or [Rider](https://www.jetbrains.com/rider/).
 
-Add an `appsettings.Development.json` file and populate it with the following config:
+Add an `appsettings.Development.json` file and populate it with the following config, inserting the appropriate `TopicEndpoint` and `AegSasKey` values:
 
 ```
-"Neo4j": {
+{
+    "ContentApiPrefix": "http://localhost:7071/api/execute",
+    "Neo4j": {
         "Endpoints": [
             {
                 "Uri": "bolt://localhost:7687",
@@ -80,7 +82,18 @@ Add an `appsettings.Development.json` file and populate it with the following co
                 "Enabled": true
             }
         ]
+    },
+    "EventGrid": {
+        "PublishEvents": "true",
+        "Topics": [
+            {
+                "ContentType": "*",
+                "TopicEndpoint": "",
+                "AegSasKey": ""
+            }
+        ]
     }
+}
 ```
 
 Make sure the password matches the password you created the graph with. This file is git ignored, so won't be checked in.
