@@ -17,6 +17,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
@@ -37,6 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly IMemoryCache _memoryCache;
         private readonly ILogger<CypherToContentStep> _logger;
+        private readonly ISession _session;
 
         private const string StepName = "CypherToContent";
 
@@ -48,7 +50,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IContentItemIdGenerator idGenerator,
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             IMemoryCache memoryCache,
-            ILogger<CypherToContentStep> logger)
+            ILogger<CypherToContentStep> logger,
+            ISession session)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
@@ -58,6 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _memoryCache = memoryCache;
             _logger = logger;
+            _session = session;
         }
 
         //todo: need to add validation, at least to detect when import same thing twice!
@@ -97,7 +101,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Select(i => i!);
 
                 var contentItems = preparedContentItems.Select(x => OptionallyDisableSync(x, cypherToContent.SyncBackRequired));
-                await _contentManager.ImportAsync(contentItems);
+                var createTasks = contentItems.Select(x => _contentManager.CreateAsync(x));
+                await Task.WhenAll(createTasks);
+
+                await _session.CommitAsync();
 
                 _contentManagerSession.Clear();
 
