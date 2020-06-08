@@ -19,6 +19,11 @@ using OrchardCore.Flows.Models;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     /*todo: how to identify widgets in the content?
+     options:
+     1) if depth of 3 and middle is name of content type (with widget stereotype)
+     2) site settings with list of widgets to sync
+
+     1 +ve auto, no config required. -ve all widgets get synced
      {
   "Page": {},
   "FlowPart": {

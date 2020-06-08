@@ -115,6 +115,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 string partName = partSync.PartName ?? contentType;
 
+                //todo: need to ask each part syncer if the content is its responsibility, rather than calculating it here
+                // pass enough info so that eponymous can claim its part
+                // and either flow part can claim widgets, or have a widget syncer
+                // probably need a FlowMetadata meta part syncer too
+
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
                 var contentTypePartDefinitions =
