@@ -18,6 +18,80 @@ using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
+    /*todo: how to identify widgets in the content?
+     {
+  "Page": {},
+  "FlowPart": {
+    "Widgets": [
+      {
+        "ContentItemId": "4sqvcvbm1pst0xvpcm05800cc6",
+        "ContentItemVersionId": null,
+        "ContentType": "SharedContentWidget",
+        "DisplayText": null,
+        "Latest": false,
+        "Published": false,
+        "ModifiedUtc": "2020-06-08T12:24:02.5930872Z",
+        "PublishedUtc": null,
+        "CreatedUtc": null,
+        "Owner": null,
+        "Author": "admin",
+        "SharedContentWidget": {
+          "SharedContent": {
+            "ContentItemIds": [
+              "4kqbfyyy1ahd5xndf45fg2rad0",
+              "4qaxdrfrj52q06re6n4jmg5mmb"
+            ]
+          }
+        },
+        "GraphSyncPart": {
+          "Text": "c46449b2-28ed-4061-bd22-b33b0a7ec5e9"
+        },
+        "FlowMetadata": {
+          "Alignment": 3,
+          "Size": 33
+        }
+      },
+      {
+        "ContentItemId": "44ayqx3r3f15r1346we91623mr",
+        "ContentItemVersionId": null,
+        "ContentType": "Html",
+        "DisplayText": null,
+        "Latest": false,
+        "Published": false,
+        "ModifiedUtc": "2020-06-08T12:24:02.6013833Z",
+        "PublishedUtc": null,
+        "CreatedUtc": null,
+        "Owner": null,
+        "Author": "admin",
+        "Html": {},
+        "HtmlBodyPart": {
+          "Html": "<p>test</p>"
+        },
+        "FlowMetadata": {
+          "Alignment": 3,
+          "Size": 33
+        }
+      }
+    ],
+    "flowfield": {
+      "Text": null
+    }
+  },
+  "TitlePart": {
+    "Title": "sharedcontentpage"
+  },
+  "SitemapPart": {
+    "Priority": 5,
+    "OverrideSitemapConfig": false,
+    "ChangeFrequency": 0,
+    "Exclude": false
+  },
+  "GraphSyncPart": {
+    "Text": "19572fc1-f8b4-4265-8303-ea8eeb3634c7"
+  }
+}
+     */
+
     public class FlowPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IServiceProvider _serviceProvider;

@@ -1,5 +1,9 @@
 #ToDo
 
+* split from 1 master recipe into many, so can be imported concurrently
+  perhaps 1 each for...
+  occupation, skills, jp & categories, everything else
+
 * when in graph repair mode, handle the replacerelationshipscommand sanity check failures, so that they don't halt the repair process
 
 * the build status badge is borked. add it back when it work (devops will probably need to fix)
