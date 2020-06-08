@@ -66,6 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddRecipeExecutionStep<ContentNoCacheStep>();
             services.AddTransient<ICypherToContentCSharpScriptGlobals, CypherToContentCSharpScriptGlobals>();
             services.AddTransient<IContentHelper, ContentHelper>();
+            services.AddTransient<IBatchContentHandler, BatchContentHandler>();
             services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 

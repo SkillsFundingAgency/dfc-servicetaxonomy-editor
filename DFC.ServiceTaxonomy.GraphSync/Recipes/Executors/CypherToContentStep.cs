@@ -17,7 +17,6 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Newtonsoft.Json;
-using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
@@ -32,13 +31,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
     {
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IContentManager _contentManager;
         private readonly IContentManagerSession _contentManagerSession;
         private readonly IContentItemIdGenerator _idGenerator;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly IMemoryCache _memoryCache;
         private readonly ILogger<CypherToContentStep> _logger;
-        private readonly ISession _session;
+        private readonly IBatchContentHandler _batchContentHandler;
 
         private const string StepName = "CypherToContent";
 
@@ -51,17 +49,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
             IMemoryCache memoryCache,
             ILogger<CypherToContentStep> logger,
-            ISession session)
+           IBatchContentHandler batchContentHandler)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
-            _contentManager = contentManager;
+            //_contentManager = (IContentManager)httpContextAccessor.HttpContext.RequestServices.GetService(typeof(IContentManager));
             _contentManagerSession = contentManagerSession;
             _idGenerator = idGenerator;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
             _memoryCache = memoryCache;
             _logger = logger;
-            _session = session;
+            _batchContentHandler = batchContentHandler;
         }
 
         //todo: need to add validation, at least to detect when import same thing twice!
@@ -101,10 +99,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     .Select(i => i!);
 
                 var contentItems = preparedContentItems.Select(x => OptionallyDisableSync(x, cypherToContent.SyncBackRequired));
-                var createTasks = contentItems.Select(x => _contentManager.CreateAsync(x));
-                await Task.WhenAll(createTasks);
-
-                await _session.CommitAsync();
+                await _batchContentHandler.Save(contentItems);
 
                 _contentManagerSession.Clear();
 
