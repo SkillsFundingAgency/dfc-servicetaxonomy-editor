@@ -4273,7 +4273,7 @@
                                 "ActivityMetadata": {
                                     "Title": "Every day at 1am"
                                 },
-                                "CronExpression": "0 0 1 * * *"
+                                "CronExpression": "0 1 * * *"
                             }
                         },
                         {
