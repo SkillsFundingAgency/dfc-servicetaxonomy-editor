@@ -1,5 +1,13 @@
 #ToDo
 
+* when in graph repair mode, handle the replacerelationshipscommand sanity check failures, so that they don't halt the repair process
+
+* the build status badge is borked. add it back when it work (devops will probably need to fix)
+
+## Build Status
+
+[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20First%20Careers/_apis/build/status/Service%20Taxonomy/dfc-servicetaxonomy-editor?branchName=master)](https://sfa-gov-uk.visualstudio.com/Digital%20First%20Careers/_build/latest?definitionId=1923&branchName=master)
+
 * use UserTask for button edition (replacement?) for our editor buttons, such as visualization
 
 * content approval workflow : http://www.ideliverable.com/blog/orchard-core-workflows-walkthrough-content-approval
