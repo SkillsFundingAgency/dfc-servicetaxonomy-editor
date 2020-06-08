@@ -17,7 +17,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
+using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
