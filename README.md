@@ -102,6 +102,17 @@ Run or debug the `DFC.ServiceTaxonomy.Editor` project, which should launch the S
 
 If you choose to use a SQL Server or Azure SQL database, ensure that the connection string enables multiple active result sets (MARS), by including `MultipleActiveResultSets=True`. If you go through the set-up process again (after deleting `App_Data`), you'll need to clear down the Azure SQL / SQL Server database, otherwise you'll get the error `invalid serial number for shell descriptor`.
 
+If you are using SQLite for local development, you'll need to update appsettings.json located "App_Data\Sites\Default\appsettings.json" after the site has been created but BEFORE you import recipes.
+
+Paste in the following, changing the localhost port for the Content API if necessary:
+
+```
+{
+  "DatabaseProvider": "Sqlite",
+  "ContentApiPrefix" : "http://localhost:7071/api/execute"
+}
+```
+
 ![Service Taxonomy Editor Setup](/Images/EditorSetup.png)
 *Note: this step will become unnecessary as the solution evolves.*
 
