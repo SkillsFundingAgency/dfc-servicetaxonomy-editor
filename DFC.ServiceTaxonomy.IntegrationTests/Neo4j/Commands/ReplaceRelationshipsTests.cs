@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
             command.AddRelationshipsTo(
-                relationshipType,
+                relationshipType, null,
                 new[] {destNodeLabel},
                 destIdPropertyName,
                 destIdPropertyValue);
@@ -103,7 +103,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+            preexistingQuery.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(preexistingQuery);
 
@@ -116,7 +116,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(query);
 
@@ -164,7 +164,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName);
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName);
 
             await _graphDatabase.RunWriteQueries(query);
 
@@ -209,7 +209,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+            preexistingQuery.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(preexistingQuery);
 
@@ -221,7 +221,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName);
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName);
 
             await _graphDatabase.RunWriteQueries(query);
 
@@ -267,7 +267,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName,
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName,
                 destIdPropertyValue1, destIdPropertyValue2);
 
             await _graphDatabase.RunWriteQueries(query);

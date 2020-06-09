@@ -39,6 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                 //todo: settings should contains destnodelabels
                 replaceRelationshipsCommand.AddRelationshipsTo(
                     settings.RelationshipType!,
+                    null,
                     new[] {settings.NodeLabel!},
                     settings.ValueFieldName!,
                     nodes.Select(GetId).ToArray());
@@ -47,7 +48,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,

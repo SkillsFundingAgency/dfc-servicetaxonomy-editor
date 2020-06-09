@@ -16,8 +16,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
         public string DestinationNodeIdPropertyName { get; }
         public IEnumerable<object> DestinationNodeIdPropertyValues { get; }
 
-        public Relationship(string relationshipType, IDictionary<string, object>? properties,
-            IEnumerable<string> destinationNodeLabels, string destinationNodeIdPropertyName,
+        public Relationship(
+            string relationshipType,
+            IDictionary<string, object>? properties,
+            IEnumerable<string> destinationNodeLabels,
+            string destinationNodeIdPropertyName,
             IEnumerable<object> destinationNodeIdPropertyValues)
         {
             RelationshipType = relationshipType;
@@ -42,7 +45,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
 
         public override string ToString()
         {
-            return $@"[:{RelationshipType}]->(:{string.Join(":", DestinationNodeLabels)})
+            //todo: properties not in cypher format. also objects ok?
+            return $@"[:{RelationshipType}]->(:{string.Join(":", DestinationNodeLabels)} {{{string.Join(",", Properties??Enumerable.Empty<KeyValuePair<string, object>>())}}})
 {DestinationNodeIdPropertyName}:
 {string.Join(Environment.NewLine, DestinationNodeIdPropertyValues)}";
         }

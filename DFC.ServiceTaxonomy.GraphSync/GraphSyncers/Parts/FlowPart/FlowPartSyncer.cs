@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 {
@@ -106,7 +107,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 
         public string PartName => nameof(FlowPart);
 
-        private const string _widgets = "Widgets";
+        private const string Widgets = "Widgets";
+        private const string FlowMetaData = "FlowMetadata";
+        private const string Alignment = "Alignment";
+        private const string Size = "Size";
 
         public FlowPartGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
@@ -130,7 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             // flow part can contain parts and fields, so after recursing parts, handle fields in here, and add flowmetadata as a field
             // use epoonymous or just share any shared code
 
-            foreach (JObject? contentItem in content[_widgets])
+            foreach (JObject? contentItem in content[Widgets])
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
@@ -153,19 +157,54 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
                 if (containedContentMergeNodeCommand == null)
                     continue;
 
+                //todo: we want to add properties to contained widget, but it's already been synced
+                // add and resync?
+                // add new node for metadata and add relationship?
+                //properties on the relationship. nice from graph point of view, but what about content api?
+
                 containedContentMergeNodeCommand.CheckIsValid();
 
-                var flowContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                var relationshipProperties = await GetFlowMetaData(contentItem, graphSyncHelper);
 
-                flowContentItemGraphSyncHelper.ContentType = contentType;
-                string relationshipType = await RelationshipType(flowContentItemGraphSyncHelper);
-
-                replaceRelationshipsCommand.AddRelationshipsTo(
-                    relationshipType,
-                    containedContentMergeNodeCommand.NodeLabels,
-                    containedContentMergeNodeCommand.IdPropertyName!,
-                    containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
+                await AddRelationshipToContainedContent(replaceRelationshipsCommand, contentType, relationshipProperties, containedContentMergeNodeCommand);
             }
+        }
+
+        private async Task<Dictionary<string, object>> GetFlowMetaData(JObject contentItem, IGraphSyncHelper graphSyncHelper)
+        {
+            var flowMetaData = new Dictionary<string, object>();
+
+            //todo: do we need more config/method for RelationshipPropertyName (and rename existing NodePropertyName?)
+            //todo: handle nulls?
+
+            JObject flowMetaDataContent = (JObject)contentItem[FlowMetaData]!;
+
+            FlowAlignment alignment = (FlowAlignment)(int)flowMetaDataContent[Alignment]!;
+            flowMetaData.Add(await graphSyncHelper!.PropertyName(Alignment), alignment.ToString());
+
+            flowMetaData.Add(await graphSyncHelper!.PropertyName(Size), (int)flowMetaDataContent[Size]!);
+
+            return flowMetaData;
+        }
+
+        //extension on IReplaceRelationshipsCommand?
+        private async Task AddRelationshipToContainedContent(
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            string contentType,
+            Dictionary<string, object>? relationshipProperties,
+            IMergeNodeCommand containedContentMergeNodeCommand)
+        {
+            var flowContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+
+            flowContentItemGraphSyncHelper.ContentType = contentType;
+            string relationshipType = await RelationshipType(flowContentItemGraphSyncHelper);
+
+            replaceRelationshipsCommand.AddRelationshipsTo(
+                relationshipType,
+                relationshipProperties,
+                containedContentMergeNodeCommand.NodeLabels,
+                containedContentMergeNodeCommand.IdPropertyName!,
+                containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
         }
 
         //todo: rename to ValidateSyncComponent
@@ -178,7 +217,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            IEnumerable<ContentItem>? contentItems = content[_widgets]?.ToObject<IEnumerable<ContentItem>>();
+            IEnumerable<ContentItem>? contentItems = content[Widgets]?.ToObject<IEnumerable<ContentItem>>();
             if (contentItems == null)
                 throw new GraphSyncException("Flow does not contain Widgets");
 

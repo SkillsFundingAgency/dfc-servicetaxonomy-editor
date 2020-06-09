@@ -76,6 +76,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 replaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
+                    null,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);

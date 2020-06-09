@@ -25,10 +25,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
 
-        public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
-            string destIdPropertyName, params object[] destIdPropertyValues)
+        public void AddRelationshipsTo(
+            string relationshipType,
+            IDictionary<string, object>? properties,
+            IEnumerable<string> destNodeLabels,
+            string destIdPropertyName,
+            params object[] destIdPropertyValues)
         {
-            RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
+            RelationshipsList.Add(new Relationship(relationshipType, properties, destNodeLabels, destIdPropertyName,
                 destIdPropertyValues));
         }
 
