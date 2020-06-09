@@ -13,14 +13,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
     {
         public string? PartName => "FlowMetaData";
 
-        public Task AddSyncComponents(
+        private const string Alignment = "Alignment";
+        private const string Size = "Size";
+
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            throw new NotImplementedException();
+            await AddProperty(Alignment, content, mergeNodeCommand, graphSyncHelper);
+            await AddProperty(Size, content, mergeNodeCommand, graphSyncHelper);
         }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -33,6 +37,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             string endpoint)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task AddProperty(
+            string property,
+            dynamic content,
+            IMergeNodeCommand mergeNodeCommand,
+            IGraphSyncHelper graphSyncHelper)
+        {
+            string propertyName = await graphSyncHelper!.PropertyName(property);
+            JValue value = content[property];
+            mergeNodeCommand.Properties.Add(propertyName, (int)value);
         }
     }
 }
