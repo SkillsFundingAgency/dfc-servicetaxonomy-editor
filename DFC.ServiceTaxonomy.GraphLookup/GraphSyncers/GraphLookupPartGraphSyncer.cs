@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 {
     public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string? PartName => nameof(GraphLookupPart);
+        public string PartName => nameof(GraphLookupPart);
 
         public Task AddSyncComponents(
             dynamic graphLookupContent,

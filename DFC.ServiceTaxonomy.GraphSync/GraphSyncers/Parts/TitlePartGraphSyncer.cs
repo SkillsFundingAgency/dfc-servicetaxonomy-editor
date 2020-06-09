@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class TitlePartGraphSyncer : IContentPartGraphSyncer
     {
-        public string? PartName => nameof(TitlePart);
+        public string PartName => nameof(TitlePart);
 
         //todo: configurable??
         private const string _nodeTitlePropertyName = "skos__prefLabel";

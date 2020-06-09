@@ -101,7 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
-        public string? PartName => nameof(FlowPart);
+        public string PartName => nameof(FlowPart);
 
         private const string _widgets = "Widgets";
 
@@ -124,6 +124,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
+            // flow part can contain parts and fields, so after recursing parts, handle fields in here, and add flowmetadata as a field
+            // use epoonymous or just share any shared code
+
             foreach (JObject? contentItem in content[_widgets])
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();

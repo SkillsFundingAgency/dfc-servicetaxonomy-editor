@@ -6,12 +6,13 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 {
     public class FlowMetadataSyncer : IContentPartGraphSyncer
     {
-        public string? PartName => "FlowMetaData";
+        public string PartName => "FlowMetaData";
 
         private const string Alignment = "Alignment";
         private const string Size = "Size";
@@ -23,8 +24,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            await AddProperty(Alignment, content, mergeNodeCommand, graphSyncHelper);
-            await AddProperty(Size, content, mergeNodeCommand, graphSyncHelper);
+            FlowAlignment alignment = (FlowAlignment)(int)content[Alignment];
+            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(Alignment), alignment.ToString());
+
+            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(Size), (int)content[Size]);
         }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -37,17 +40,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             string endpoint)
         {
             throw new NotImplementedException();
-        }
-
-        private async Task AddProperty(
-            string property,
-            dynamic content,
-            IMergeNodeCommand mergeNodeCommand,
-            IGraphSyncHelper graphSyncHelper)
-        {
-            string propertyName = await graphSyncHelper!.PropertyName(property);
-            JValue value = content[property];
-            mergeNodeCommand.Properties.Add(propertyName, (int)value);
         }
     }
 }

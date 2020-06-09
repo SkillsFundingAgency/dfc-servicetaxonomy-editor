@@ -9,7 +9,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IContentPartGraphSyncer
     {
-        string? PartName {get;}
+        string PartName {get;}
+
+        public bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
+        {
+            return contentPartDefinition.Name == PartName;
+        }
 
         //todo: change content to JObject
         Task AddSyncComponents(

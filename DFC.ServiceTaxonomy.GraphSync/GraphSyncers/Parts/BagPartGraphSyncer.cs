@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
-        public string? PartName => nameof(BagPart);
+        public string PartName => nameof(BagPart);
 
         public BagPartGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,

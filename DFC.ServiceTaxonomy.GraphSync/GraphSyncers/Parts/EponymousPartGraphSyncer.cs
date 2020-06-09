@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
@@ -54,11 +55,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             _logger = logger;
         }
 
-        //todo: might be better to call it EponymousPart and check for that, rather than null
-        /// <summary>
-        /// null is a special case to indicate a match when the part is the eponymous named content type part
-        /// </summary>
-        public string? PartName => null;
+        public string PartName => "Not used";
+
+        private static readonly List<string> _groupingFields = new List<string>
+        {
+            nameof(TabField),
+            nameof(AccordionField)
+        };
+
+        public bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
+        {
+            return contentPartDefinition.Name == contentType
+                || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
+        }
 
         public async Task AddSyncComponents(
             dynamic content,
