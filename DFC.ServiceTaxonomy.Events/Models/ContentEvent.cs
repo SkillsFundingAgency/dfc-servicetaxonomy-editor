@@ -35,8 +35,8 @@ namespace DFC.ServiceTaxonomy.Events.Models
         public DateTime EventTime { get; }
         public string? MetadataVersion { get; }
         public string DataVersion { get; }
-        //public string TraceId => System.Diagnostics.Activity.Current.TraceId.ToString();
-        //public string ParentId => System.Diagnostics.Activity.Current.ParentId != null ? System.Diagnostics.Activity.Current.ParentId.ToString() : System.Diagnostics.Activity.Current.TraceId.ToString();
+        public string TraceId => Activity.Current.TraceId.ToString();
+        public string ParentId => Activity.Current.SpanId.ToString() != null ? Activity.Current.SpanId.ToString() : Activity.Current.TraceId.ToString();
 
         [JsonIgnore]
         public string ContentType { get; }
