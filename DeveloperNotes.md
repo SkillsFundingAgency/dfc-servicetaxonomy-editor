@@ -1,5 +1,13 @@
 #ToDo
 
+* when in graph repair mode, handle the replacerelationshipscommand sanity check failures, so that they don't halt the repair process
+
+* the build status badge is borked. add it back when it work (devops will probably need to fix)
+
+## Build Status
+
+[![Build Status](https://sfa-gov-uk.visualstudio.com/Digital%20First%20Careers/_apis/build/status/Service%20Taxonomy/dfc-servicetaxonomy-editor?branchName=master)](https://sfa-gov-uk.visualstudio.com/Digital%20First%20Careers/_build/latest?definitionId=1923&branchName=master)
+
 * use UserTask for button edition (replacement?) for our editor buttons, such as visualization
 
 * content approval workflow : http://www.ideliverable.com/blog/orchard-core-workflows-walkthrough-content-approval
@@ -113,8 +121,6 @@ Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously thr
    at DFC.ServiceTaxonomy.Events.Activities.Tasks.PublishToEventGridTask.ProcessEventAfterContentItemQuiesces(WorkflowExecutionContext workflowContext, ContentItem eventContentItem, ContentItem preDelayDraftContentItem, ContentItem preDelayPublishedContentItem) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Activities\Tasks\PublishToEventGridTask.cs:line 191
 
 * add major.minor version number to content item. major for published and minor for draft. then add that to the published event grid event
-
-* Putting the workflow in the faulted state. NCrontab.CrontabException: '0 0 1 * * *' is an invalid crontab expression. It must contain 5 components of a schedule in the sequence of minutes, hours, days, months, and days of week.
 
 * importing now published draft-discarded as well as published
 

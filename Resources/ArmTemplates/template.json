@@ -204,11 +204,11 @@
                                 "value": "[parameters('OwlDataGeneratorDescription')]"
                             },
                             {
-                                "name": "EventGrid__Topics__TopicEndpoint",
+                                "name": "EventGrid__Topics__0__TopicEndpoint",
                                 "value": "[parameters('EventGridTopicEndpoint')]"
                             },
                             {
-                                "name": "EventGrid__Topics__AegSasKey",
+                                "name": "EventGrid__Topics__0__AegSasKey",
                                 "value": "[parameters('EventGridAegSasKey')]"
                             },
                             {
