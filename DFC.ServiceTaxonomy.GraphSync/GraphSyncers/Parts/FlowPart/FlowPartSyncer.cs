@@ -17,13 +17,13 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 {
-    /*todo: how to identify widgets in the content?
-     options:
-     1) if depth of 3 and middle is name of content type (with widget stereotype)
-     2) site settings with list of widgets to sync
-
-     1 +ve auto, no config required. -ve all widgets get synced
-     {
+    //todo: page has 2 relationships of hassharedcontentwidget to same node
+    // relationship to html type node?
+    //metadata isn't part so isn't found
+    //need to add an order for the picked content, but where to place?
+    // add to flow part processing. add property to relationship?
+    /*
+{
   "Page": {},
   "FlowPart": {
     "Widgets": [
@@ -34,13 +34,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         "DisplayText": null,
         "Latest": false,
         "Published": false,
-        "ModifiedUtc": "2020-06-08T12:24:02.5930872Z",
+        "ModifiedUtc": "2020-06-09T11:12:04.2853264Z",
         "PublishedUtc": null,
         "CreatedUtc": null,
         "Owner": null,
         "Author": "admin",
-        "SharedContentWidget": {
-          "SharedContent": {
+        "SharedContentWidget": {    <- eponymous part
+          "SharedContent": {        <- content picker field
             "ContentItemIds": [
               "4kqbfyyy1ahd5xndf45fg2rad0",
               "4qaxdrfrj52q06re6n4jmg5mmb"
@@ -62,14 +62,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         "DisplayText": null,
         "Latest": false,
         "Published": false,
-        "ModifiedUtc": "2020-06-08T12:24:02.6013833Z",
+        "ModifiedUtc": "2020-06-09T11:12:04.4036209Z",
         "PublishedUtc": null,
         "CreatedUtc": null,
         "Owner": null,
         "Author": "admin",
-        "Html": {},
+        "Html": {        <- eponymous part of widget
+          "texty": {
+            "Text": "the text"
+          }
+        },
         "HtmlBodyPart": {
-          "Html": "<p>test</p>"
+          "Html": "<p>html here</p>"
         },
         "FlowMetadata": {
           "Alignment": 3,
@@ -77,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         }
       }
     ],
-    "flowfield": {
+    "flowfield": {        <= part definition level (common for all flow parts)
       "Text": null
     }
   },
@@ -93,8 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
   "GraphSyncPart": {
     "Text": "19572fc1-f8b4-4265-8303-ea8eeb3634c7"
   }
-}
-     */
+}     */
 
     public class FlowPartGraphSyncer : IContentPartGraphSyncer
     {
