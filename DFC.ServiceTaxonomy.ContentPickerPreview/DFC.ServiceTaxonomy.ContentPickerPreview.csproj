@@ -12,15 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc1-*" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.6.1.17183">
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc2-*" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

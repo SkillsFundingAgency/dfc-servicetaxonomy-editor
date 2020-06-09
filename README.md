@@ -120,6 +120,18 @@ To import content, including the National Careers Service job profiles, import a
 
 For the very first import, choose one of the graph mutator master recipes. You can import a full or subset of job profiles, by selecting an appropriate master recipe.
 
+## Troubleshooting Builds
+
+We track the latest preview packages of Orchard Core (OC), so that we pick up new features and fixes straight away.
+
+The downside of this, is that occasionally, build or package issues and bugs are introduced in the OC package set. That means that any build can fail without being caused by any of our changes.
+
+When that happens, check the [recent checkins to OC](https://github.com/OrchardCMS/OrchardCore/commits/dev), and if there is a suspect checkin (or build failure, which is often a packaging issue), replace all occurrences of referencing the packages using `-rc2-*` to a previous version and retry. If there is an issue, it's a good idea to [report it to the OC developers](https://gitter.im/OrchardCMS/OrchardCore).
+
 ## User Guide
 
 Here's the [user guide](User%20Documentation/README.md).
+
+## Resources
+
+[Orchard Core gitter channel](https://gitter.im/OrchardCMS/OrchardCore)
