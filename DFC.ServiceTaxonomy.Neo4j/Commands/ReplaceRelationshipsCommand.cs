@@ -70,6 +70,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 const string sourceNodeVariableName = "s";
                 const string destinationNodeVariableBase = "d";
                 const string newRelationshipVariableBase = "nr";
+                const string relationshipPropertiesVariableBase = "rp";
 
                 //todo: bi-directional relationships
                 const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
@@ -98,11 +99,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
                         nodeMatchBuilder.Append(
                             $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
-                        //todo:
                         parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
 
                         mergeBuilder.Append(
                             $"\r\nmerge ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable})");
+
+                        //todo: unit & integration tests
+                        if (relationship.Properties?.Any() == true)
+                        {
+                            string relationshipPropertyName = $"{relationshipPropertiesVariableBase}{ordinal}";
+                            mergeBuilder.Append($" set {relationshipVariable}=${relationshipPropertyName}");
+                            parameters.Add(relationshipPropertyName, relationship.Properties);
+                        }
                     }
                 }
 
