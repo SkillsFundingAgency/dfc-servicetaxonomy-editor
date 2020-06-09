@@ -18,11 +18,11 @@ using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 {
-    //todo: page has 2 relationships of hassharedcontentwidget to same node
-    // relationship to html type node?
-    //metadata isn't part so isn't found
-    //need to add an order for the picked content, but where to place?
-    // add to flow part processing. add property to relationship?
+    //todo:
+    //need to add an order for the picked content, put as relationship property
+    // unit/integration tests for rr command tests
+    //htmlbody syncer
+    //validation for above
     /*
 {
   "Page": {},
