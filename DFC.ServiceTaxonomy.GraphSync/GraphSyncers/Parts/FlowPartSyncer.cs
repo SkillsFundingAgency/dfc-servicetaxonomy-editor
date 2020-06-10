@@ -16,7 +16,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     //todo:
     // unit/integration tests for rr command tests
