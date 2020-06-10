@@ -17,10 +17,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Extensions
                 switch (kvp.Value)
                 {
                     case string s:
-                        builder.Append($"'{s}'");
+                        builder.Append($"'{s}', ");
                         break;
                     default:
-                        builder.Append(kvp.Value);
+                        builder.Append($"{kvp.Value}, ");
                         break;
                 }
             }

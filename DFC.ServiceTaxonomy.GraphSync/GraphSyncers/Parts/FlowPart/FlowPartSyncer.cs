@@ -178,7 +178,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         {
             var flowMetaData = new Dictionary<string, object>
             {
-                {Ordinal, ordinal}
+                {Ordinal, (long)ordinal}
             };
 
             //todo: do we need more config/method for RelationshipPropertyName (and rename existing NodePropertyName?)
@@ -189,7 +189,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             FlowAlignment alignment = (FlowAlignment)(int)flowMetaDataContent[Alignment]!;
             flowMetaData.Add(await graphSyncHelper!.PropertyName(Alignment), alignment.ToString());
 
-            flowMetaData.Add(await graphSyncHelper!.PropertyName(Size), (int)flowMetaDataContent[Size]!);
+            flowMetaData.Add(await graphSyncHelper!.PropertyName(Size), (long)flowMetaDataContent[Size]!);
 
             return flowMetaData;
         }
@@ -274,14 +274,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 
         private async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
         {
-            //todo: what if want different relationships for same contenttype in different bags!
-            //todo: ^^ plus support for flow parts
-            // string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
-            // if (string.IsNullOrEmpty(relationshipType))
-            //     relationshipType = await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
-            //
-            // return relationshipType;
-
+            //todo: configurable?
             return await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
         }
     }
