@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncHelper = graphSyncHelper;
             _graphValidationHelper = graphValidationHelper;
             _logger = logger;
-            _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
+            _partSyncers = partSyncers.ToDictionary(x => x.PartName);
         }
 
         public async Task<ValidateAndRepairResult> ValidateGraph()

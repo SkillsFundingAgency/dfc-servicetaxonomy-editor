@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             _logger = logger;
         }
 
-        public string PartName => "Not used";
+        public string PartName => "Eponymous";
 
         private static readonly List<string> _groupingFields = new List<string>
         {
