@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
             IEnumerable<object> destinationNodeIdPropertyValues)
         {
             RelationshipType = relationshipType;
-            Properties = properties.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            Properties = properties?.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             DestinationNodeLabels = destinationNodeLabels;
             DestinationNodeIdPropertyName = destinationNodeIdPropertyName;
             DestinationNodeIdPropertyValues = destinationNodeIdPropertyValues;
