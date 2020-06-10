@@ -266,11 +266,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         {
             //todo: what if want different relationships for same contenttype in different bags!
             //todo: ^^ plus support for flow parts
-            string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
-            if (string.IsNullOrEmpty(relationshipType))
-                relationshipType = await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
+            // string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
+            // if (string.IsNullOrEmpty(relationshipType))
+            //     relationshipType = await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
+            //
+            // return relationshipType;
 
-            return relationshipType;
+            return await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
         }
     }
 }
