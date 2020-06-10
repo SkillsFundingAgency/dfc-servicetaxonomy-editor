@@ -19,6 +19,8 @@ function initVueMultiselectPreview(element) {
         var selectedItems = JSON.parse(element.dataset.selectedItems || "[]");
         var searchUrl = element.dataset.searchUrl;
         var multiple = JSON.parse(element.dataset.multiple);
+        var previewCollapse = $('#' + elementId).next('.collapse');
+        var previewHere = previewCollapse.find('#previewhere');
 
         var debouncedSearch = debouncePreview(function (vm, query) {
             vm.isLoading = true;
@@ -104,8 +106,8 @@ function initVueMultiselectPreview(element) {
                             });
 
                             //inject the remaining content into the preview portion of the page, i.e. remove the <temp> tag we embedded earlier.
-                            $('#previewhere').html(temp.children());
-                            $('#preview-collapse').collapse('show');
+                            previewHere.html(temp.children());
+                            previewCollapse.collapse('show');
                         }
                     });
                 },
@@ -113,7 +115,7 @@ function initVueMultiselectPreview(element) {
                     if (multiple)
                         return;
 
-                    $('#preview-collapse').collapse('hide');
+                    previewCollapse.collapse('hide');
                     $('[data-prepend-id]').remove();
                 },
                 onSelect: function (selectedOption, id) {
