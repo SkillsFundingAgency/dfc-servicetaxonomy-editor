@@ -195,6 +195,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
+                //todo: use cansync. rename to indicate is used for val as well?
                 string partTypeName = contentTypePartDefinition.PartDefinition.Name;
                 string partName = contentTypePartDefinition.Name;
                 if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
@@ -243,7 +244,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         $"Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}.",
                         contentItem));
                 }
-            }      
+            }
 
             return (true, "");
         }

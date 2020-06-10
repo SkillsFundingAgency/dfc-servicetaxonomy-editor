@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public void AddRelationshipsTo(
             string relationshipType,
-            IDictionary<string, object>? properties,
+            IReadOnlyDictionary<string, object>? properties,
             IEnumerable<string> destNodeLabels,
             string destIdPropertyName,
             params object[] destIdPropertyValues)

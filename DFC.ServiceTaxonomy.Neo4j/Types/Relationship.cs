@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.Neo4j.Extensions;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Types
 {
@@ -11,20 +12,20 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
         //source properties belong in here really, unless rename class
 
         public string RelationshipType { get; } // RelationshipType, not type to differentiate from System.Type
-        public IDictionary<string, object>? Properties { get; }
+        public Dictionary<string, object>? Properties { get; }
         public IEnumerable<string> DestinationNodeLabels { get; }
         public string DestinationNodeIdPropertyName { get; }
         public IEnumerable<object> DestinationNodeIdPropertyValues { get; }
 
         public Relationship(
             string relationshipType,
-            IDictionary<string, object>? properties,
+            IReadOnlyDictionary<string, object>? properties,
             IEnumerable<string> destinationNodeLabels,
             string destinationNodeIdPropertyName,
             IEnumerable<object> destinationNodeIdPropertyValues)
         {
             RelationshipType = relationshipType;
-            Properties = properties;
+            Properties = properties.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             DestinationNodeLabels = destinationNodeLabels;
             DestinationNodeIdPropertyName = destinationNodeIdPropertyName;
             DestinationNodeIdPropertyValues = destinationNodeIdPropertyValues;
@@ -45,8 +46,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Types
 
         public override string ToString()
         {
-            //todo: properties not in cypher format. also objects ok?
-            return $@"[:{RelationshipType}]->(:{string.Join(":", DestinationNodeLabels)} {{{string.Join(",", Properties??Enumerable.Empty<KeyValuePair<string, object>>())}}})
+            return $@"[:{RelationshipType}]->(:{string.Join(":", DestinationNodeLabels)} {string.Join(",", Properties.ToCypherPropertiesString())})
 {DestinationNodeIdPropertyName}:
 {string.Join(Environment.NewLine, DestinationNodeIdPropertyValues)}";
         }

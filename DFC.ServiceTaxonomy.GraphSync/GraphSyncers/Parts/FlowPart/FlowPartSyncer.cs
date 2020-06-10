@@ -165,16 +165,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 
                 containedContentMergeNodeCommand.CheckIsValid();
 
-                var relationshipProperties = await GetFlowMetaData(contentItem, graphSyncHelper);
-                relationshipProperties.Add(Ordinal, widgetOrdinal++);
+                var relationshipProperties = await GetFlowMetaData(contentItem, widgetOrdinal++, graphSyncHelper);
 
                 await AddRelationshipToContainedContent(replaceRelationshipsCommand, contentType, relationshipProperties, containedContentMergeNodeCommand);
             }
         }
 
-        private async Task<Dictionary<string, object>> GetFlowMetaData(JObject contentItem, IGraphSyncHelper graphSyncHelper)
+        private async Task<Dictionary<string, object>> GetFlowMetaData(
+            JObject contentItem,
+            int ordinal,
+            IGraphSyncHelper graphSyncHelper)
         {
-            var flowMetaData = new Dictionary<string, object>();
+            var flowMetaData = new Dictionary<string, object>
+            {
+                {Ordinal, ordinal}
+            };
 
             //todo: do we need more config/method for RelationshipPropertyName (and rename existing NodePropertyName?)
             //todo: handle nulls?
@@ -222,6 +227,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             if (contentItems == null)
                 throw new GraphSyncException("Flow does not contain Widgets");
 
+            int widgetOrdinal = 0;
             foreach (ContentItem flowPartContentItem in contentItems)
             {
                 var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateAndRepairGraph>();
@@ -249,11 +255,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 
                 string flowContentIdPropertyName = flowContentGraphSyncHelper.IdPropertyName(flowPartContentItem.ContentType);
 
+                var expectedRelationshipProperties = await GetFlowMetaData(
+                    (JObject)flowPartContentItem.Content, widgetOrdinal++, flowContentGraphSyncHelper);
+
                 (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
                     nodeWithOutgoingRelationships,
                     expectedRelationshipType,
                     flowContentIdPropertyName,
-                    destinationId);
+                    destinationId,
+                    expectedRelationshipProperties);
 
                 if (!validated)
                     return (false, failureReason);
