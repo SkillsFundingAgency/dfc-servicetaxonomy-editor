@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             _logger = logger;
         }
 
-        public string PartName => "Eponymous";
+        public string PartName => "EponymousPart";
 
         private static readonly List<string> _groupingFields = new List<string>
         {
@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             nameof(AccordionField)
         };
 
-        public bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
+        public bool CanHandle(string contentType, ContentPartDefinition contentPartDefinition)
         {
             return contentPartDefinition.Name == contentType
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));

@@ -114,7 +114,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // (other non-named parts have the part name in both)
 
                 var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(contentType, p.PartDefinition));
+                    contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentType, p.PartDefinition));
 
                 foreach (var contentTypePartDefinition in contentTypePartDefinitions)
                 {
