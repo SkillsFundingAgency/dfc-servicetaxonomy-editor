@@ -19,7 +19,6 @@ using OrchardCore.Flows.Models;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 {
     //todo:
-    //need to add an order for the picked content, put as relationship property
     // unit/integration tests for rr command tests
     //htmlbody syncer
     //validation for above
@@ -111,6 +110,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         private const string FlowMetaData = "FlowMetadata";
         private const string Alignment = "Alignment";
         private const string Size = "Size";
+        private const string Ordinal = "Ordinal";
 
         public FlowPartGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
@@ -134,6 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
             // flow part can contain parts and fields, so after recursing parts, handle fields in here, and add flowmetadata as a field
             // use epoonymous or just share any shared code
 
+            int widgetOrdinal = 0;
             foreach (JObject? contentItem in content[Widgets])
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
@@ -165,6 +166,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
                 containedContentMergeNodeCommand.CheckIsValid();
 
                 var relationshipProperties = await GetFlowMetaData(contentItem, graphSyncHelper);
+                relationshipProperties.Add(Ordinal, widgetOrdinal++);
 
                 await AddRelationshipToContainedContent(replaceRelationshipsCommand, contentType, relationshipProperties, containedContentMergeNodeCommand);
             }
@@ -207,7 +209,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
                 containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
         }
 
-        //todo: rename to ValidateSyncComponent
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
