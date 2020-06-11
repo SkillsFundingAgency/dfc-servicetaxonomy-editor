@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text.Json.Serialization;
 using OrchardCore.ContentManagement;
 
@@ -9,7 +10,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
         // use 2 part segmented eventType?
         public ContentEvent(string correlationId, ContentItem contentItem, string eventType)
         {
-            Id = correlationId;
+            Id = Guid.NewGuid().ToString();
 
             //todo: use GraphSyncHelper?
             // do we assume id ends with a guid, or do we need a setting to extract the eventgrid id from the full id?
@@ -19,7 +20,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
             string itemId = userId.Substring(userId.Length - 36);
             Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";
 
-            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author);
+            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, correlationId, Activity.Current);
             EventType = eventType;
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
             MetadataVersion = null;
