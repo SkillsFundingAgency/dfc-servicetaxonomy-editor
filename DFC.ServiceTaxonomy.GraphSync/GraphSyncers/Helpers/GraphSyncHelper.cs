@@ -13,22 +13,6 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
-    // better name!
-    public class UsingAction : IDisposable
-    {
-        private readonly Action _cleanUp;
-
-        public UsingAction(Action cleanUp)
-        {
-            _cleanUp = cleanUp;
-        }
-
-        public void Dispose()
-        {
-            _cleanUp();
-        }
-    }
-
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
     //todo: better to break out into separate classes??
 #pragma warning disable S4136
@@ -80,10 +64,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public UsingAction PushPropertyNameTransform(Func<string, string> nodePropertyTranformer)
+        public DisposeAction PushPropertyNameTransform(Func<string, string> nodePropertyTranformer)
         {
             _propertyNameTransformers.Push(nodePropertyTranformer);
-            return new UsingAction(() => PopPropertyNameTransform());
+            return new DisposeAction(() => PopPropertyNameTransform());
         }
 
         public void PopPropertyNameTransform()

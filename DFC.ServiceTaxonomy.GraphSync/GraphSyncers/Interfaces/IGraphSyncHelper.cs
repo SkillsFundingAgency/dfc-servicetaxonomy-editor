@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         GraphSyncPartSettings GraphSyncPartSettings { get; }
 
-        UsingAction PushPropertyNameTransform(Func<string, string> nodePropertyTranformer);
+        DisposeAction PushPropertyNameTransform(Func<string, string> nodePropertyTranformer);
         void PopPropertyNameTransform();
 
         //todo: version that returns string with :
