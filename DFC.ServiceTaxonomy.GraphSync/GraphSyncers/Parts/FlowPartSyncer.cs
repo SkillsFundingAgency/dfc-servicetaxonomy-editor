@@ -134,10 +134,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             await AddWidgetsSyncComponents(content, replaceRelationshipsCommand, graphSyncHelper);
 
-            //todo: use for link??
+            // FlowPart allows part definition level fields, but values are on each FlowPart instance
+            // prefix flow field property names, so there's no possibility of a clash with the eponymous fields property names
             graphSyncHelper.PushPropertyNameTransform(n => $"flow_{n}");
 
-            // FlowPart allows part definition level fields, but values are on each instance
             await _contentFieldsGraphSyncer.AddSyncComponents(
                 content,
                 mergeNodeCommand,

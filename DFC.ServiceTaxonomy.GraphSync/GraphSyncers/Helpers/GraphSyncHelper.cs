@@ -64,7 +64,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-
         public void PushPropertyNameTransform(Func<string, string> nodePropertyTranformer)
         {
             _propertyNameTransformers.Push(nodePropertyTranformer);
