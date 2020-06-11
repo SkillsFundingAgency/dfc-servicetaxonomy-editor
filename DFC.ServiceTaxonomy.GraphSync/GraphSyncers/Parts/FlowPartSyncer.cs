@@ -134,6 +134,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             await AddWidgetsSyncComponents(content, replaceRelationshipsCommand, graphSyncHelper);
 
+            //todo: use for link??
+            graphSyncHelper.PushPropertyNameTransform(n => $"flow_{n}");
+
             // FlowPart allows part definition level fields, but values are on each instance
             await _contentFieldsGraphSyncer.AddSyncComponents(
                 content,
@@ -141,6 +144,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 replaceRelationshipsCommand,
                 contentTypePartDefinition,
                 graphSyncHelper);
+
+            graphSyncHelper.PopPropertyNameTransform();
         }
 
         private async Task AddWidgetsSyncComponents(
@@ -151,6 +156,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             int widgetOrdinal = 0;
             foreach (JObject? contentItem in content[Widgets])
             {
+                //todo: share code with bag part?
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 string contentType = contentItem!["ContentType"]!.ToString();
@@ -269,6 +275,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
+            //todo: share code with bagpart?
             IEnumerable<ContentItem>? contentItems = content[Widgets]?.ToObject<IEnumerable<ContentItem>>();
             if (contentItems == null)
                 throw new GraphSyncException("Flow does not contain Widgets");

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 
@@ -15,6 +16,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         string? ContentType { get; set; }
 
         GraphSyncPartSettings GraphSyncPartSettings { get; }
+
+        void PushPropertyNameTransform(Func<string, string> nodePropertyTranformer);
+        void PopPropertyNameTransform();
 
         //todo: version that returns string with :
         Task<IEnumerable<string>> NodeLabels();
