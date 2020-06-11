@@ -132,9 +132,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            // flow part can contain parts and fields, so after recursing parts, handle fields in here, and add flowmetadata as a field
-            // use epoonymous or just share any shared code
+            await AddWidgetsSyncComponents(content, replaceRelationshipsCommand, graphSyncHelper);
 
+            // FlowPart allows part definition level fields, but values are on each instance
+            await _contentFieldsGraphSyncer.AddSyncComponents(
+                content,
+                mergeNodeCommand,
+                replaceRelationshipsCommand,
+                contentTypePartDefinition,
+                graphSyncHelper);
+        }
+
+        private async Task AddWidgetsSyncComponents(
+            dynamic content,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            IGraphSyncHelper graphSyncHelper)
+        {
             int widgetOrdinal = 0;
             foreach (JObject? contentItem in content[Widgets])
             {
@@ -144,8 +157,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 string contentItemId = contentItem!["ContentItemId"]!.ToString();
                 string contentItemVersionId = contentItem!["ContentItemVersionId"]!.ToString();
 
-                DateTime? createdDate = !string.IsNullOrEmpty(contentItem["CreatedUtc"]!.ToString()) ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString()) : (DateTime?)null;
-                DateTime? modifiedDate = !string.IsNullOrEmpty(contentItem["ModifiedUtc"]!.ToString()) ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString()) : (DateTime?)null;
+                //todo: helpers for these. extension on JObject? GetDateTime(string name)
+                DateTime? createdDate = !string.IsNullOrEmpty(contentItem["CreatedUtc"]!.ToString())
+                    ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString())
+                    : (DateTime?) null;
+                DateTime? modifiedDate = !string.IsNullOrEmpty(contentItem["ModifiedUtc"]!.ToString())
+                    ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString())
+                    : (DateTime?) null;
 
                 //todo: if we want to support nested flows, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(
@@ -168,16 +186,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 var relationshipProperties = await GetFlowMetaData(contentItem, widgetOrdinal++, graphSyncHelper);
 
-                await AddRelationshipToContainedContent(replaceRelationshipsCommand, contentType, relationshipProperties, containedContentMergeNodeCommand);
+                await AddRelationshipToContainedContent(replaceRelationshipsCommand, contentType, relationshipProperties,
+                    containedContentMergeNodeCommand);
             }
-
-            // FlowPart allows part definition level fields, but values are on each instance
-            await _contentFieldsGraphSyncer.AddSyncComponents(
-                content,
-                mergeNodeCommand,
-                replaceRelationshipsCommand,
-                contentTypePartDefinition,
-                graphSyncHelper);
         }
 
         private async Task<Dictionary<string, object>> GetFlowMetaData(
