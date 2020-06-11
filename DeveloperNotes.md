@@ -34,6 +34,7 @@ pages app when displaying the apps output will post it the saved settings from t
 Micro display can ask for content items which it gets sent on post
 ,input type=content data-type etc
 
+investigate existing widgets like validation/validation summary/form etc. can we sync and have pages app use?
 
 
 * import util:

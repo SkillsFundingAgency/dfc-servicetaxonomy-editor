@@ -20,8 +20,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     //todo:
     // unit/integration tests for rr command tests
-    //htmlbody syncer
-    //validation for above
     /*
 {
   "Page": {},
@@ -101,6 +99,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
     public class FlowPartGraphSyncer : IContentPartGraphSyncer
     {
+        private readonly IContentFieldsGraphSyncer _contentFieldsGraphSyncer;
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
@@ -114,8 +113,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public FlowPartGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
+            IContentFieldsGraphSyncer contentFieldsGraphSyncer,
             IServiceProvider serviceProvider)
         {
+            _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
             _serviceProvider = serviceProvider;
 
             _contentTypes = contentDefinitionManager
@@ -169,6 +170,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
                 await AddRelationshipToContainedContent(replaceRelationshipsCommand, contentType, relationshipProperties, containedContentMergeNodeCommand);
             }
+
+            // FlowPart allows part definition level fields, but values are on each instance
+            await _contentFieldsGraphSyncer.AddSyncComponents(
+                content,
+                mergeNodeCommand,
+                replaceRelationshipsCommand,
+                contentTypePartDefinition,
+                graphSyncHelper);
         }
 
         private async Task<Dictionary<string, object>> GetFlowMetaData(
@@ -269,7 +278,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     return (false, failureReason);
             }
 
-            return (true, "");
+            return await _contentFieldsGraphSyncer.ValidateSyncComponent(
+                content,
+                contentTypePartDefinition,
+                nodeWithOutgoingRelationships,
+                graphSyncHelper,
+                graphValidationHelper,
+                expectedRelationshipCounts);
         }
 
         private async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
