@@ -15,6 +15,16 @@ So can display content at any point in the hierarchy)
 
 Widget where select content type, and add canonical name for url (autoroute so can slugify display)
 Then add button to HTML editor to add content item fields as a token/placeholder in the HTML, using liquid so can mutate field
+will be able to access properties in item itself, or related items
+
+widget for related content item??
+
+widget version of current content item, with display type?
+
+widget to inlude a (embedded )flow part for content item, related content with its own flow part can be included
+widget that uses flow part of selected item, and/or widget that has html view as part of container
+(allows reuse or unique view of content item(s))
+both will use html editor with placeholder injection
 
 App widget
 (App pubs name and settings url and display url

@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     //todo: unit/integration tests for rr command tests
     //todo: there's an opportunity to share code with bagpart
+    #pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
     public class FlowPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IContentFieldsGraphSyncer _contentFieldsGraphSyncer;
@@ -34,6 +35,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private const string Alignment = "Alignment";
         private const string Size = "Size";
         private const string Ordinal = "Ordinal";
+
+        private static Func<string, string> _flowFieldsPropertyNameTransform = n => $"flow_{n}";
 
         public FlowPartGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
@@ -60,7 +63,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             // FlowPart allows part definition level fields, but values are on each FlowPart instance
             // prefix flow field property names, so there's no possibility of a clash with the eponymous fields property names
-            graphSyncHelper.PushPropertyNameTransform(n => $"flow_{n}");
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
             await _contentFieldsGraphSyncer.AddSyncComponents(
                 content,
@@ -68,8 +71,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 replaceRelationshipsCommand,
                 contentTypePartDefinition,
                 graphSyncHelper);
-
-            graphSyncHelper.PopPropertyNameTransform();
         }
 
         private async Task AddWidgetsSyncComponents(
@@ -172,13 +173,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             if (!validated)
                 return (validated, failureReason);
 
-            return await _contentFieldsGraphSyncer.ValidateSyncComponent(
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+
+            (validated, failureReason) = await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content,
                 contentTypePartDefinition,
                 nodeWithOutgoingRelationships,
                 graphSyncHelper,
                 graphValidationHelper,
                 expectedRelationshipCounts);
+
+            return (validated, failureReason);
         }
 
         private async Task<(bool validated, string failureReason)> ValidateWidgetsSyncComponent(

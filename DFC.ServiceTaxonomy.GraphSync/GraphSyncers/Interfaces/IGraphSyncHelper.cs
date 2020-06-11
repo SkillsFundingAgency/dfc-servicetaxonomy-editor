@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
@@ -17,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         GraphSyncPartSettings GraphSyncPartSettings { get; }
 
-        void PushPropertyNameTransform(Func<string, string> nodePropertyTranformer);
+        UsingAction PushPropertyNameTransform(Func<string, string> nodePropertyTranformer);
         void PopPropertyNameTransform();
 
         //todo: version that returns string with :
