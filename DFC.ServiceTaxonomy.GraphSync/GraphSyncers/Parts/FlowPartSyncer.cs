@@ -19,7 +19,6 @@ using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    //todo: unit/integration tests for rr command tests
     //todo: there's an opportunity to share code with bagpart
 
 #pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
