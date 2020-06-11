@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -162,14 +163,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 string contentType = contentItem!["ContentType"]!.ToString();
                 string contentItemId = contentItem!["ContentItemId"]!.ToString();
                 string contentItemVersionId = contentItem!["ContentItemVersionId"]!.ToString();
-
-                //todo: helpers for these. extension on JObject? GetDateTime(string name)
-                DateTime? createdDate = !string.IsNullOrEmpty(contentItem["CreatedUtc"]!.ToString())
-                    ? DateTime.Parse(contentItem["CreatedUtc"]!.ToString())
-                    : (DateTime?) null;
-                DateTime? modifiedDate = !string.IsNullOrEmpty(contentItem["ModifiedUtc"]!.ToString())
-                    ? DateTime.Parse(contentItem["ModifiedUtc"]!.ToString())
-                    : (DateTime?) null;
+                DateTime? createdDate = contentItem.GetDateTime("CreatedUtc");
+                DateTime? modifiedDate = contentItem.GetDateTime("ModifiedUtc");
 
                 //todo: if we want to support nested flows, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(
