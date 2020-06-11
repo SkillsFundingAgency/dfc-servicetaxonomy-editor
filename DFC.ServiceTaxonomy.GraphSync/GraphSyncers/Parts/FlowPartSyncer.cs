@@ -243,6 +243,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
+            (bool validated, string failureReason) = await ValidateWidgetsSyncComponent(
+                content,
+                nodeWithOutgoingRelationships,
+                graphValidationHelper,
+                expectedRelationshipCounts,
+                endpoint);
+
+            if (!validated)
+                return (validated, failureReason);
+
+            return await _contentFieldsGraphSyncer.ValidateSyncComponent(
+                content,
+                contentTypePartDefinition,
+                nodeWithOutgoingRelationships,
+                graphSyncHelper,
+                graphValidationHelper,
+                expectedRelationshipCounts);
+        }
+
+        private async Task<(bool validated, string failureReason)> ValidateWidgetsSyncComponent(
+            JObject content,
+            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            IGraphValidationHelper graphValidationHelper,
+            IDictionary<string, int> expectedRelationshipCounts,
+            string endpoint)
+        {
             IEnumerable<ContentItem>? contentItems = content[Widgets]?.ToObject<IEnumerable<ContentItem>>();
             if (contentItems == null)
                 throw new GraphSyncException("Flow does not contain Widgets");
@@ -255,7 +281,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 ContentTypeDefinition flowPartContentTypeDefinition = _contentTypes[flowPartContentItem.ContentType];
 
                 (bool validated, string failureReason) =
-                    await graphSyncValidator.ValidateContentItem(flowPartContentItem, flowPartContentTypeDefinition, endpoint);
+                    await graphSyncValidator.ValidateContentItem(flowPartContentItem, flowPartContentTypeDefinition,
+                        endpoint);
 
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
@@ -271,9 +298,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
                 // we've already validated the destination node, so we can assume the id property is there
-                object destinationId = flowContentGraphSyncHelper.GetIdPropertyValue(flowPartContentItem.Content.GraphSyncPart);
+                object destinationId =
+                    flowContentGraphSyncHelper.GetIdPropertyValue(flowPartContentItem.Content.GraphSyncPart);
 
-                string flowContentIdPropertyName = flowContentGraphSyncHelper.IdPropertyName(flowPartContentItem.ContentType);
+                string flowContentIdPropertyName =
+                    flowContentGraphSyncHelper.IdPropertyName(flowPartContentItem.ContentType);
 
                 var expectedRelationshipProperties = await GetFlowMetaData(
                     (JObject)flowPartContentItem.Content, widgetOrdinal++, flowContentGraphSyncHelper);
@@ -289,13 +318,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                     return (false, failureReason);
             }
 
-            return await _contentFieldsGraphSyncer.ValidateSyncComponent(
-                content,
-                contentTypePartDefinition,
-                nodeWithOutgoingRelationships,
-                graphSyncHelper,
-                graphValidationHelper,
-                expectedRelationshipCounts);
+            return (true, "");
         }
 
         private async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
