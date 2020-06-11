@@ -83,7 +83,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             }
         }
 
-        //todo: rename to ValidateSyncComponent
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,

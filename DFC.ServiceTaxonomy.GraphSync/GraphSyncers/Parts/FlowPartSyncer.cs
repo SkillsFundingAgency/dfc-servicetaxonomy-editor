@@ -20,6 +20,7 @@ using OrchardCore.Flows.Models;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     //todo: unit/integration tests for rr command tests
+    //todo: there's an opportunity to share code with bagpart
     public class FlowPartGraphSyncer : IContentPartGraphSyncer
     {
         private readonly IContentFieldsGraphSyncer _contentFieldsGraphSyncer;
@@ -99,11 +100,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
-
-                //todo: we want to add properties to contained widget, but it's already been synced
-                // add and resync?
-                // add new node for metadata and add relationship?
-                //properties on the relationship. nice from graph point of view, but what about content api?
 
                 containedContentMergeNodeCommand.CheckIsValid();
 
@@ -192,7 +188,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            //todo: share code with bagpart?
             IEnumerable<ContentItem>? contentItems = content[Widgets]?.ToObject<IEnumerable<ContentItem>>();
             if (contentItems == null)
                 throw new GraphSyncException("Flow does not contain Widgets");
