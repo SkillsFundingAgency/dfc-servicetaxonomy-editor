@@ -1,5 +1,41 @@
 #ToDo
 
+* pages app
+
+create content widget that has
+Content type drop down
+Content picker drop down, (or all)
+bool item only/related hierarchy
+Or all items, each item having a URLs canonical name specified through autoroute
+(That way for example could construct occupations page
+Find way to embed related content similar alto to visualiser
+So could display eg Jp
+Jp could have its own flow part for layout within its parent layout
+So can display content at any point in the hierarchy)
+
+Widget where select content type, and add canonical name for url (autoroute so can slugify display)
+Then add button to HTML editor to add content item fields as a token/placeholder in the HTML, using liquid so can mutate field
+
+App widget
+(App pubs name and settings url and display url
+Widget lookups name
+Display settings
+Send to display
+Show display in widget)
+
+Micro display app publishes event with name/url/(description etc?) - Editor goes to event store for previously published, then subscribes to get later pubs For advertised micro displays
+
+app widget call url to get HTML form
+Post back returns the display which show in flow
+form can contain input type = content, which the widget uses to insert and allow selection of content item
+settings are stored in graph
+pages app when displaying the apps output will post it the saved settings from the graph
+
+Micro display can ask for content items which it gets sent on post
+,input type=content data-type etc
+
+
+
 * import util:
 have flag as to whether to batch createasyncs (works in sqlite, not in sql azure)
 generate 1 master recipe for env import with serial createasyncs
