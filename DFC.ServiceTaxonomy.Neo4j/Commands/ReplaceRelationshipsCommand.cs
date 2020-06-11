@@ -104,7 +104,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                         mergeBuilder.Append(
                             $"\r\nmerge ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable})");
 
-                        //todo: unit & integration tests
                         if (relationship.Properties?.Any() == true)
                         {
                             string relationshipPropertyName = $"{relationshipPropertiesVariableBase}{ordinal}";
