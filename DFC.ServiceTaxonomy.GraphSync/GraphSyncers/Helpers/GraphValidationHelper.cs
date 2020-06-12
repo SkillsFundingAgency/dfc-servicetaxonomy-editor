@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
@@ -11,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     public class GraphValidationHelper : IGraphValidationHelper
     {
-        // a bit smelly
+        // a bit smelly?
         // public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty<T>(
         //     string contentKey,
         //     JObject contentItemField,
@@ -55,12 +56,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //     return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
         // }
 
-        //todo: better name
-        public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
+        public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,
-            INode sourceNode)
+            INode sourceNode,
+            Func<JValue, object, bool> areBothSame)
         {
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
@@ -76,43 +77,120 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return (false, "node property value was null, but content property value was not null");
             }
 
-            string contentPropertyValue = contentItemFieldValue.As<string>();
-            bool bothSame = contentPropertyValue == (string)nodePropertyValue;
-            return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+            bool bothSame = areBothSame(contentItemFieldValue, nodePropertyValue);
+
+            return (bothSame, bothSame?"":$"content property value was '{contentItemFieldValue.ToString(CultureInfo.CurrentCulture)}', but node property value was '{(string)nodePropertyValue}'");
         }
 
-        //todo: better name
+        public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => Equals((string)contentValue!, (string)nodeValue));
+        }
+
+        public (bool matched, string failureReason) BoolContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => Equals((bool)contentValue, nodeValue.As<bool>()));
+        }
+
+        public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+            where T : Enum
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => Equals(((T)(object)(int)contentValue).ToString(), nodeValue.As<string>()));
+        }
+
         public (bool matched, string failureReason) DateTimeContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
-            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) =>
+                {
+                    DateTime contentPropertyValue = (DateTime)contentValue;
 
-            JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
-            if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
-            {
-                bool bothNull = nodePropertyValue == null;
-                return (bothNull, bothNull ? "" : "content property value was null, but node property value was not null");
-            }
+                    var nodeZonedDateTime = nodeValue.As<ZonedDateTime>();
 
-            if (nodePropertyValue == null)
-            {
-                return (false, "node property value was null, but content property value was not null");
-            }
+                    //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
+                    var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
 
-            DateTime contentPropertyValue = contentItemFieldValue.As<DateTime>();
-
-            var nodeZonedDateTime = nodePropertyValue.As<ZonedDateTime>();
-
-            //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
-            var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
-
-            bool bothSame = contentPropertyValue == nodeAsDateTime;
-
-            return (bothSame, bothSame ? "" : $"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+                    return Equals(contentPropertyValue, nodeAsDateTime);
+                });
         }
+
+        //todo: better name
+        // public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
+        //     string contentKey,
+        //     JObject contentItemField,
+        //     string nodePropertyName,
+        //     INode sourceNode)
+        // {
+        //     sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+        //
+        //     JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
+        //     if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
+        //     {
+        //         bool bothNull = nodePropertyValue == null;
+        //         return (bothNull, bothNull?"":"content property value was null, but node property value was not null");
+        //     }
+        //
+        //     if (nodePropertyValue == null)
+        //     {
+        //         return (false, "node property value was null, but content property value was not null");
+        //     }
+        //
+        //     string contentPropertyValue = contentItemFieldValue.As<string>();
+        //     bool bothSame = contentPropertyValue == (string)nodePropertyValue;
+        //     return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+        // }
+
+        //todo: better name
+        // public (bool matched, string failureReason) DateTimeContentPropertyMatchesNodeProperty(
+        //     string contentKey,
+        //     JObject contentItemField,
+        //     string nodePropertyName,
+        //     INode sourceNode)
+        // {
+        //     sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+        //
+        //     JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
+        //     if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
+        //     {
+        //         bool bothNull = nodePropertyValue == null;
+        //         return (bothNull, bothNull ? "" : "content property value was null, but node property value was not null");
+        //     }
+        //
+        //     if (nodePropertyValue == null)
+        //     {
+        //         return (false, "node property value was null, but content property value was not null");
+        //     }
+        //
+        //     DateTime contentPropertyValue = contentItemFieldValue.As<DateTime>();
+        //
+        //     var nodeZonedDateTime = nodePropertyValue.As<ZonedDateTime>();
+        //
+        //     //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
+        //     var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
+        //
+        //     bool bothSame = contentPropertyValue == nodeAsDateTime;
+        //
+        //     return (bothSame, bothSame ? "" : $"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+        // }
 
         public (bool validated, string failureReason) ValidateOutgoingRelationship(
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,

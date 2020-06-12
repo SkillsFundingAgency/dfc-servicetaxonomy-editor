@@ -25,13 +25,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             PriorityPropertyName = "Priority",
             ExcludePropertyName = "Exclude";
 
-        private static readonly string[] _properties = {
-            OverrideSitemapConfigPropertyName,
-            ChangeFrequencyPropertyName,
-            PriorityPropertyName,
-            ExcludePropertyName
-        };
-
         public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
@@ -55,11 +48,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>()/10m);
 
             value = content.Exclude;
-            if (value.Type != JTokenType.Null) //first bool?
+            if (value.Type != JTokenType.Null)
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
@@ -70,19 +63,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             using var _ = graphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
-            foreach (string property in _properties)
-            {
-                // (bool matched, string failureReason) = graphValidationHelper.ContentPropertyMatchesNodeProperty(
-                //     property,
-                //     content,
-                //     await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName),
-                //     nodeWithOutgoingRelationships.SourceNode);
-                //
-                // if (!matched)
-                //     return (false, $"{OverrideSitemapConfigPropertyName} did not validate: {failureReason}");
-            }
+            (bool matched, string failureReason) = graphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+                OverrideSitemapConfigPropertyName,
+                content,
+                await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName),
+                nodeWithOutgoingRelationships.SourceNode);
 
-            return Task.FromResult((true, ""));
+            if (!matched)
+                return (false, $"{OverrideSitemapConfigPropertyName} did not validate: {failureReason}");
+
+            (matched, failureReason) = graphValidationHelper.EnumContentPropertyMatchesNodeProperty<ChangeFrequency>(
+                ChangeFrequencyPropertyName,
+                content,
+                await graphSyncHelper.PropertyName(ChangeFrequencyPropertyName),
+                nodeWithOutgoingRelationships.SourceNode);
+
+            if (!matched)
+                return (false, $"{ChangeFrequencyPropertyName} did not validate: {failureReason}");
+
+            (matched, failureReason) = graphValidationHelper.ContentPropertyMatchesNodeProperty(
+                PriorityPropertyName,
+                content,
+                await graphSyncHelper.PropertyName(PriorityPropertyName),
+                nodeWithOutgoingRelationships.SourceNode,
+                (contentValue, nodeValue) => Equals(((int)contentValue)/10m, (decimal)nodeValue));
+
+            if (!matched)
+                return (false, $"{PriorityPropertyName} did not validate: {failureReason}");
+
+            (matched, failureReason) = graphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+                ExcludePropertyName,
+                content,
+                await graphSyncHelper.PropertyName(ExcludePropertyName),
+                nodeWithOutgoingRelationships.SourceNode);
+
+            return matched ? (true, "") : (false, $"{ExcludePropertyName} did not validate: {failureReason}");
         }
     }
 
