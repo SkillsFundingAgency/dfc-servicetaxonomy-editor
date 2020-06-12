@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -10,28 +11,33 @@ using OrchardCore.Html.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
+#pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
+
     public class HtmlBodyPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string? PartName => nameof(HtmlBodyPart);
+        public string PartName => nameof(HtmlBodyPart);
 
-        //todo: configurable??
-        private const string _nodeTitlePropertyName = "htmlbody__html";
+        private static Func<string, string> _flowFieldsPropertyNameTransform = n => $"htmlbody_{n}";
 
-        public Task AddSyncComponents(
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
+            // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+
             JValue htmlValue = content.Html;
             if (htmlValue.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, htmlValue.As<string>());
 
-            return Task.CompletedTask;
+                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName("Html"), htmlValue.As<string>());
+
+            return;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
@@ -39,11 +45,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                "Title",
+            // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+
+            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                "Html",
                 content,
-                _nodeTitlePropertyName,
-                nodeWithOutgoingRelationships.SourceNode));
+                await graphSyncHelper!.PropertyName("Html"),
+                nodeWithOutgoingRelationships.SourceNode);
         }
     }
+#pragma warning restore S1481
 }
