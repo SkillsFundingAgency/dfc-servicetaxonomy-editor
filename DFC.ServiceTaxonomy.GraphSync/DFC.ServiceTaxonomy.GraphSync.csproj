@@ -17,7 +17,7 @@
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.ContentTypes" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-*" />
-    <PackageReference Include="OrchardCore.Html" Version="1.0.0-rc2-13450" />
+    <PackageReference Include="OrchardCore.Html" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc2-*" />
@@ -25,7 +25,7 @@
     <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Abstractions" Version="1.0.0-rc2-*" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="1.0.0-rc2-*">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
