@@ -93,6 +93,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, HtmlBodyPartGraphSyncer>();
             services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
             services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
