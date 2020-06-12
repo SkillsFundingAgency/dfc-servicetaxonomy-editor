@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
 #pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
 
-    public class SitemapPartSyncer : IContentPartGraphSyncer
+    public class SitemapPartGraphSyncer : IContentPartGraphSyncer
     {
         public string PartName => nameof(SitemapPart);
 
