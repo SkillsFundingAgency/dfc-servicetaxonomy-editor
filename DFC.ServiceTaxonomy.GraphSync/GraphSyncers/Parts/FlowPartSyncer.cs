@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private const string Size = "Size";
         private const string Ordinal = "Ordinal";
 
-        private static Func<string, string> _flowFieldsPropertyNameTransform = n => $"flow_{n}";
+        private static readonly Func<string, string> _flowFieldsPropertyNameTransform = n => $"flow_{n}";
 
         public FlowPartGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
