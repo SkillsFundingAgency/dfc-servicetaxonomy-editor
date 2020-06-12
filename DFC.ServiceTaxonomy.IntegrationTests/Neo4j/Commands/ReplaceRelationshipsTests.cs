@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
             command.AddRelationshipsTo(
-                relationshipType,
+                relationshipType, null,
                 new[] {destNodeLabel},
                 destIdPropertyName,
                 destIdPropertyValue);
@@ -103,7 +103,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+            preexistingQuery.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(preexistingQuery);
 
@@ -116,7 +116,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(query);
 
@@ -164,7 +164,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName);
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName);
 
             await _graphDatabase.RunWriteQueries(query);
 
@@ -209,7 +209,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            preexistingQuery.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
+            preexistingQuery.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName, destIdPropertyValue);
 
             await _graphDatabase.RunWriteQueries(preexistingQuery);
 
@@ -221,7 +221,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName);
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName);
 
             await _graphDatabase.RunWriteQueries(query);
 
@@ -267,7 +267,7 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                 SourceIdPropertyValue = sourceIdPropertyValue
             };
 
-            query.AddRelationshipsTo(relationshipType, new [] {destNodeLabel}, destIdPropertyName,
+            query.AddRelationshipsTo(relationshipType, null, new [] {destNodeLabel}, destIdPropertyName,
                 destIdPropertyValue1, destIdPropertyValue2);
 
             await _graphDatabase.RunWriteQueries(query);
@@ -287,6 +287,64 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Neo4j.Commands
                     StartNodeId = sourceNodeId,
                     EndNodeId = destNodeId2,
                     Properties = new Dictionary<string, object>()
+                }
+            }, await AllRelationships(sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue,
+                relationshipType, destNodeLabel, relationshipVariable));
+        }
+
+        [Fact]
+        public async Task ReplaceRelationships_CreateSingleNewRelationshipWithProperties_NoExistingRelationships_Test()
+        {
+            const string sourceNodeLabel = "sourceNodeLabel";
+            const string sourceIdPropertyName = "sourceId";
+            string sourceIdPropertyValue = Guid.NewGuid().ToString();
+
+            const string destNodeLabel = "destNodeLabel";
+            const string destIdPropertyName = "destId";
+            string destIdPropertyValue = Guid.NewGuid().ToString();
+
+            const string relationshipType = "relationshipType";
+            const string relationshipVariable = "r";
+
+            //todo: arrange without any of the cut?
+            // create source node to create relationship from
+            long sourceNodeId = await MergeNode(sourceNodeLabel, sourceIdPropertyName,
+                new Dictionary<string, object> {{sourceIdPropertyName, sourceIdPropertyValue}});
+
+            // create destination node to create relationship to
+            long destNodeId = await MergeNode(destNodeLabel, destIdPropertyName,
+                new Dictionary<string, object> {{destIdPropertyName, destIdPropertyValue}});
+
+            Dictionary<string, object> relationshipProperties = new Dictionary<string, object>
+            {
+                {"string", "a string"},
+                {"bool", true},
+                {"number", 123L}
+            };
+
+            // act
+            var command = new ReplaceRelationshipsCommand
+            {
+                SourceNodeLabels = new HashSet<string> {sourceNodeLabel},
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = sourceIdPropertyValue
+            };
+            command.AddRelationshipsTo(
+                relationshipType,
+                relationshipProperties,
+                new[] {destNodeLabel},
+                destIdPropertyName,
+                destIdPropertyValue);
+            await _graphDatabase.RunWriteQueries(command);
+
+            AssertResult(relationshipVariable,new[]
+            {
+                new ExpectedRelationship
+                {
+                    Type = relationshipType,
+                    StartNodeId = sourceNodeId,
+                    EndNodeId = destNodeId,
+                    Properties = relationshipProperties
                 }
             }, await AllRelationships(sourceNodeLabel, sourceIdPropertyName, sourceIdPropertyValue,
                 relationshipType, destNodeLabel, relationshipVariable));

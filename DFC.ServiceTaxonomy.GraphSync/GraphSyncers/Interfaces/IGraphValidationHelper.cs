@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
@@ -22,6 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             string relationshipType,
             string destinationIdPropertyName,
-            object destinationId);
+            object destinationId,
+            IReadOnlyDictionary<string, object>? properties = null);
     }
 }

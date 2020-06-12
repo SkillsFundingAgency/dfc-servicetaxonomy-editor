@@ -25,6 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private readonly string _contentApiBaseUrl;
         private string? _contentType;
         private GraphSyncPartSettings? _graphSyncPartSettings;
+        private readonly Stack<Func<string, string>> _propertyNameTransformers;
 
         //todo: from config CommonNodeLabels
         private const string CommonNodeLabel = "Resource";
@@ -36,6 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
+            _propertyNameTransformers = new Stack<Func<string, string>>();
             _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present");
         }
 
@@ -60,6 +62,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 return _graphSyncPartSettings!;
             }
+        }
+
+        public DisposeAction PushPropertyNameTransform(Func<string, string> nodePropertyTranformer)
+        {
+            _propertyNameTransformers.Push(nodePropertyTranformer);
+            return new DisposeAction(() => PopPropertyNameTransform());
+        }
+
+        public void PopPropertyNameTransform()
+        {
+            _propertyNameTransformers.Pop();
         }
 
         public async Task<IEnumerable<string>> NodeLabels()
@@ -106,11 +119,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             CheckPreconditions();
 
-            return GraphSyncPartSettings!.PropertyNameTransform switch
+            string propertyName = GraphSyncPartSettings!.PropertyNameTransform switch
             {
                 "Value" => name,
                 _ => await TransformOrDefault(GraphSyncPartSettings!.PropertyNameTransform, name, _contentType!)
             };
+
+            //todo: check order. want first added to come last
+            //todo: need to do the same for RelationshipTypeDefault too
+
+            return _propertyNameTransformers.Aggregate(propertyName,
+                (current, transformer) => transformer(current));
         }
 
         //todo: rename to NodeIdPropertyName

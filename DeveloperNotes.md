@@ -1,5 +1,71 @@
 #ToDo
 
+* pages app
+
+Add facility for displaying a content type (or a specific content item) within a section of a page
+using a template created by the ux/ur/content users.
+
+Also support output from a microservice app to be displayed in a page section (where the user can set properties for it in the editor).
+
+A template for a content item could be unique to a page, or content items could have default layout/views that could be added within a section.
+also possibly to support different common views for content items (widget with content).
+
+Views/layouts could be built up hierarchically.
+
+create content widget that has
+Content type drop down
+Content picker drop down, (or all)
+bool item only/related hierarchy
+Or all items, each item having a URLs canonical name specified through autoroute
+(That way for example could construct occupations page
+Find way to embed related content similar alto to visualiser
+So could display eg Jp
+Jp could have its own flow part for layout within its parent layout
+So can display content at any point in the hierarchy)
+
+Widget where select content type, and add canonical name for url (autoroute so can slugify display)
+Then add button to HTML editor to add content item fields as a token/placeholder in the HTML, using liquid so can mutate field
+will be able to access properties in item itself, or related items
+
+widget for related content item??
+
+widget version of current content item, with display type?
+
+widget to inlude a (embedded )flow part for content item, related content with its own flow part can be included
+widget that uses flow part of selected item, and/or widget that has html view as part of container
+(allows reuse or unique view of content item(s))
+both will use html editor with placeholder injection
+
+App widget
+(App pubs name and settings url and display url
+Widget lookups name
+Display settings
+Send to display
+Show display in widget)
+
+Micro display app publishes event with name/url/(description etc?) - Editor goes to event store for previously published, then subscribes to get later pubs For advertised micro displays
+
+app widget call url to get HTML form
+Post back returns the display which show in flow
+form can contain input type = content, which the widget uses to insert and allow selection of content item
+settings are stored in graph
+pages app when displaying the apps output will post it the saved settings from the graph
+
+Micro display can ask for content items which it gets sent on post
+,input type=content data-type etc
+
+investigate existing widgets like validation/validation summary/form etc. can we sync and have pages app use?
+
+
+* import util:
+have flag as to whether to batch createasyncs (works in sqlite, not in sql azure)
+generate 1 master recipe for env import with serial createasyncs
+generate multiple masters for local, with async createasyncs
+
+* split from 1 master recipe into many, so can be imported concurrently
+  perhaps 1 each for...
+  occupation, skills, jp & categories, everything else
+
 * when in graph repair mode, handle the replacerelationshipscommand sanity check failures, so that they don't halt the repair process
 
 * the build status badge is borked. add it back when it work (devops will probably need to fix)
