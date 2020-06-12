@@ -198,7 +198,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 if (partSyncer == null)
                 {
-                    // part doesn't have a registered IContentPartGraphSyncer, so we ignore it
+                    _logger.LogInformation($"No IContentPartGraphSyncer registered to sync/validate {contentTypePartDefinition.ContentTypeDefinition.Name} parts, so ignoring");
                     continue;
                 }
 

@@ -2,6 +2,16 @@
 
 * pages app
 
+Add facility for displaying a content type (or a specific content item) within a section of a page
+using a template created by the ux/ur/content users.
+
+Also support output from a microservice app to be displayed in a page section (where the user can set properties for it in the editor).
+
+A template for a content item could be unique to a page, or content items could have default layout/views that could be added within a section.
+also possibly to support different common views for content items (widget with content).
+
+Views/layouts could be built up hierarchically.
+
 create content widget that has
 Content type drop down
 Content picker drop down, (or all)
