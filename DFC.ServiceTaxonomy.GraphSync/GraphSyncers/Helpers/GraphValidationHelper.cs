@@ -11,6 +11,50 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     public class GraphValidationHelper : IGraphValidationHelper
     {
+        // a bit smelly
+        // public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty<T>(
+        //     string contentKey,
+        //     JObject contentItemField,
+        //     string nodePropertyName,
+        //     INode sourceNode)
+        // {
+        //     sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+        //
+        //     JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
+        //     if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
+        //     {
+        //         bool bothNull = nodePropertyValue == null;
+        //         return (bothNull, bothNull?"":"content property value was null, but node property value was not null");
+        //     }
+        //
+        //     if (nodePropertyValue == null)
+        //     {
+        //         return (false, "node property value was null, but content property value was not null");
+        //     }
+        //
+        //     T contentPropertyValue = contentItemFieldValue.As<T>();
+        //
+        //     bool bothSame;
+        //     switch (contentPropertyValue)
+        //     {
+        //         case string s:
+        //             bothSame = Equals(contentPropertyValue, nodePropertyValue);
+        //             break;
+        //         case DateTime d:
+        //             var nodeZonedDateTime = nodePropertyValue.As<ZonedDateTime>();
+        //
+        //             //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
+        //             var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
+        //
+        //             bothSame = Equals(contentPropertyValue, nodeAsDateTime);
+        //             break;
+        //         default:
+        //             throw new NotImplementedException("type is not supported");
+        //     }
+        //
+        //     return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+        // }
+
         //todo: better name
         public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,

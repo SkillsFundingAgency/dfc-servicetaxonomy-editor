@@ -20,10 +20,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private static readonly Func<string, string> _sitemapPropertyNameTransform = n => $"sitemap_{n}";
 
         private const string
-            OverrideConfigPropertyName = "OverrideConfig",
+            OverrideSitemapConfigPropertyName = "OverrideSitemapConfig",
             ChangeFrequencyPropertyName = "ChangeFrequency",
             PriorityPropertyName = "Priority",
             ExcludePropertyName = "Exclude";
+
+        private static readonly string[] _properties = {
+            OverrideSitemapConfigPropertyName,
+            ChangeFrequencyPropertyName,
+            PriorityPropertyName,
+            ExcludePropertyName
+        };
 
         public async Task AddSyncComponents(
             dynamic content,
@@ -37,7 +44,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             //todo: helper for these?
             JValue value = content.OverrideSitemapConfig;
             if (value.Type != JTokenType.Null) //first bool?
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(OverrideConfigPropertyName), value.As<bool>());
+                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
 
             value = content.ChangeFrequency;
             if (value.Type != JTokenType.Null)
@@ -45,14 +52,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             value = content.Priority;
             if (value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), (long)value.As<int>());
+                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>()/10m);
 
             value = content.Exclude;
             if (value.Type != JTokenType.Null) //first bool?
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
@@ -63,18 +70,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             using var _ = graphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
-            (bool matched, string failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                OverrideConfigPropertyName,
-                content,
-                await graphSyncHelper.PropertyName(OverrideConfigPropertyName),
-                nodeWithOutgoingRelationships.SourceNode);
+            foreach (string property in _properties)
+            {
+                // (bool matched, string failureReason) = graphValidationHelper.ContentPropertyMatchesNodeProperty(
+                //     property,
+                //     content,
+                //     await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName),
+                //     nodeWithOutgoingRelationships.SourceNode);
+                //
+                // if (!matched)
+                //     return (false, $"{OverrideSitemapConfigPropertyName} did not validate: {failureReason}");
+            }
 
-            if (!matched)
-                return (false, $"{OverrideConfigPropertyName} did not validate: {failureReason}");
-
-            //todo: others
-
-            return (true, "");
+            return Task.FromResult((true, ""));
         }
     }
 
