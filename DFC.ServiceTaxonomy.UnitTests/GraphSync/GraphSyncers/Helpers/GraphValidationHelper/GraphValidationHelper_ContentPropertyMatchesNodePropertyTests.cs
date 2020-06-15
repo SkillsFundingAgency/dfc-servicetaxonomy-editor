@@ -118,6 +118,24 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             Assert.False(validated);
         }
 
+        [Theory]
+        [InlineData("", true)]
+        [InlineData("content property value was 'ContentValue', but node property value was 'NodeValue'", false)]
+        public void ContentPropertyMatchesNodeProperty_ContentAndNodeHaveAValue_ReturnsMessage(string expectedFailureReason, bool callbackReturn)
+        {
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+
+            SourceNodeProperties.Add(NodePropertyName, "NodeValue");
+
+            AreBothSame = (value, o) => callbackReturn;
+
+            (_, string failureReason) = CallContentPropertyMatchesNodeProperty();
+
+            Assert.Equal(expectedFailureReason, failureReason);
+        }
+
+        //todo: test other messages?
+
         private (bool matched, string failureReason) CallContentPropertyMatchesNodeProperty()
         {
             return GraphValidationHelper.ContentPropertyMatchesNodeProperty(
