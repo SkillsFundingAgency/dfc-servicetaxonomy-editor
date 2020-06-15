@@ -109,7 +109,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => Equals((int)contentValue, nodeValue.As<int>()));
+                (contentValue, nodeValue) => nodeValue is int && Equals((int)contentValue, nodeValue));
         }
 
         public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(
