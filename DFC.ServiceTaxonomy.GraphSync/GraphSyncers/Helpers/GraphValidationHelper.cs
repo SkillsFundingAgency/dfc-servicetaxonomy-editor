@@ -89,7 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => Equals((string)contentValue!, (string)nodeValue));
+                (contentValue, nodeValue) => nodeValue is string && Equals((string)contentValue!, nodeValue));
         }
 
         public (bool matched, string failureReason) BoolContentPropertyMatchesNodeProperty(

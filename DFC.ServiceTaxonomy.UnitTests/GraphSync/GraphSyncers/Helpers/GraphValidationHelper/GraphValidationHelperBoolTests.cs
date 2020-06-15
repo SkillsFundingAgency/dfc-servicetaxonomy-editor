@@ -74,6 +74,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [InlineData(false, "string")]
         [InlineData(true, 123)]
         [InlineData(false, 123)]
+        //todo: other valid neo property types
         public void BoolContentPropertyMatchesNodeProperty_PropertiesDifferentTypes_ReturnsFalse(bool contentValue, object nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue.ToString().ToLower()}}}";

@@ -51,12 +51,35 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         }
 
         [Fact]
-        public void StringContentPropertyMatchesNodeProperty_PropertyDifferent_ReturnsFalse()
+        public void StringContentPropertyMatchesNodeProperty_PropertiesSameTypeButDifferentValues_ReturnsFalse()
         {
             const string text = "abc";
             ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"{text}\"}}");
 
             SourceNodeProperties.Add(NodePropertyName, "some_other_value");
+
+            (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
+
+            Assert.False(validated);
+        }
+
+        [Theory]
+        [InlineData("true", true)]
+        [InlineData("false", false)]
+        [InlineData("string", true)]
+        [InlineData("string", false)]
+        [InlineData("", true)]
+        [InlineData("", false)]
+        [InlineData("123", 123)]
+        [InlineData("string", -1)]
+        [InlineData("", 0)]
+        //todo: other valid neo property types
+        public void StringContentPropertyMatchesNodeProperty_PropertiesDifferentTypes_ReturnsFalse(string contentValue, object nodeValue)
+        {
+            string json = $"{{\"{ContentKey}\": \"{contentValue}\"}}";
+            ContentItemField = JObject.Parse(json);
+
+            SourceNodeProperties.Add(NodePropertyName, nodeValue);
 
             (bool validated, _) = CallStringContentPropertyMatchesNodeProperty();
 
