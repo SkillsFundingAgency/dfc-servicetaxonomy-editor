@@ -7,3 +7,13 @@
     <input asp-for="Text" class="form-control content-preview-text" readonly>
     <span class="hint">This URI ID is automatically generated</span>
 </fieldset>
+
+@if (Model.Readonly)
+{
+    <script depends-on="jQuery" at="Foot">
+        $(function () {
+            $('.edit-container input').attr('readonly', 'readonly');
+            $('.edit-container .trumbowyg-textarea').trumbowyg('disable');
+        });
+    </script>
+}

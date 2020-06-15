@@ -6,11 +6,13 @@
     //* {
     //    all: revert;
     //}
-
     // this is designed as a generic browser agent reset, we really need to reset all oc and the theme's css
     // until revert is more widely adopted, we should update this reset as we add gds buttons/functionality
-
     /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+    &[contenteditable="false"] {
+        background: #e9ecef;
+    }
+
     html,
     body,
     p,
