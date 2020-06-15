@@ -63,7 +63,20 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             Assert.False(validated);
         }
 
-        //todo: tests for failureMessage
+        [Theory]
+        [InlineData("content property value was 'contentValue', but node property value was 'nodeValue'", "contentValue", "nodeValue")]
+        public void StringContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(string expectedMessage, string contentValue, string nodeValue)
+        {
+            string json = $"{{\"{ContentKey}\": \"{contentValue}\"}}";
+            ContentItemField = JObject.Parse(json);
+
+            SourceNodeProperties.Add(NodePropertyName, nodeValue);
+
+            (_, string message) = CallStringContentPropertyMatchesNodeProperty();
+
+            Assert.Equal(expectedMessage, message);
+        }
+
         //todo: tests for ValidateOutgoingRelationship
 
         private (bool matched, string failureReason) CallStringContentPropertyMatchesNodeProperty()
