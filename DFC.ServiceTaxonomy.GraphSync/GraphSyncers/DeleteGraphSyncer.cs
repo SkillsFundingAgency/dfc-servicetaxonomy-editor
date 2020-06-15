@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task DeleteFromGraph(ContentItem contentItem)
         {
-            if (contentItem.Content.GraphSyncPart == null)
+            if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                 return;
 
             _logger.LogInformation($"Sync: deleting {contentItem.ContentType}");

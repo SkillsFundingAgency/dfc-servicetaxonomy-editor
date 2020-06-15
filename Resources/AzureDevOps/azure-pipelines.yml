@@ -126,6 +126,7 @@ stages:
   - group: dfc-shared-all
   - group: dfc-stax-shared-all
   - group: dfc-shared-dev
+  - group: dfc-app-shared-dev
   - group: dfc-stax-shared-dev
   - group: 'KeyVault - dfc-dev-shared-kv'
   - template: VariableTemplates/SharedEnvironmentVariables.yml
@@ -158,6 +159,7 @@ stages:
   - group: dfc-shared-all
   - group: dfc-stax-shared-all
   - group: dfc-shared-sit
+  - group: dfc-app-shared-sit
   - group: dfc-stax-shared-sit
   - group: 'KeyVault - dfc-sit-shared-kv'
   - template: VariableTemplates/SharedEnvironmentVariables.yml
@@ -190,6 +192,7 @@ stages:
   - group: dfc-shared-all
   - group: dfc-stax-shared-all
   - group: dfc-shared-pp
+  - group: dfc-app-shared-pp
   - group: dfc-stax-shared-pp
   - group: 'KeyVault - dfc-pp-shared-kv'
   - template: VariableTemplates/SharedEnvironmentVariables.yml
