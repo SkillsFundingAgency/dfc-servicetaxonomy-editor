@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -7,16 +7,8 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
-    public interface IContentPartGraphSyncer
+    public interface IContentFieldsGraphSyncer
     {
-        string PartName {get;}
-
-        public bool CanHandle(string contentType, ContentPartDefinition contentPartDefinition)
-        {
-            return contentPartDefinition.Name == PartName;
-        }
-
-        //todo: change content to JObject
         Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
@@ -30,7 +22,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint);
+            IDictionary<string, int> expectedRelationshipCounts);
     }
 }

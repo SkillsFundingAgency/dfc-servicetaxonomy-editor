@@ -77,6 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
+                null,
                 destNodeLabels,
                 graphSyncHelper!.IdPropertyName(pickedContentType),
                 foundDestinationNodeIds.ToArray());

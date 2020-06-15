@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
@@ -72,16 +74,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             string relationshipType,
             string destinationIdPropertyName,
-            object destinationId)
+            object destinationId,
+            IReadOnlyDictionary<string, object>? properties = null)
         {
             IOutgoingRelationship outgoingRelationship =
                 nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
                     or.Relationship.Type == relationshipType
                     && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
 
-            return outgoingRelationship == null
-                ? (false, $"relationship of type ':{relationshipType}' to destination node with id '{destinationIdPropertyName}={destinationId}' not found")
-                : (true, "");
+            if (outgoingRelationship == default)
+                return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
+
+            if (properties != null && !AreEqual(properties, outgoingRelationship.Relationship.Properties))
+                return (false, $"{RelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {outgoingRelationship.Relationship.Properties.ToCypherPropertiesString()}");
+
+            return (true, "");
+        }
+
+        private string RelationshipDescription(string relationshipType, string destinationIdPropertyName, object destinationId)
+        {
+            return $"relationship of type ':{relationshipType}' to destination node with id '{destinationIdPropertyName}={destinationId}'";
+        }
+
+        private bool AreEqual<K, V>(IReadOnlyDictionary<K, V> first, IReadOnlyDictionary<K, V> second)
+            where K : notnull
+        {
+            return first.Count == second.Count && !first.Except(second).Any();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string? PartName => nameof(GraphSyncPart);
+        public string PartName => nameof(GraphSyncPart);
 
         public Task AddSyncComponents(
             dynamic content,

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -29,8 +28,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly ILogger<MergeGraphSyncer> _logger;
-
-        private static List<string> GroupingFields = new List<string> { nameof(TabField), nameof(AccordionField) };
 
         public MergeGraphSyncer(
             IGraphDatabase graphDatabase,
@@ -113,17 +110,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
-                string partName = partSync.PartName ?? contentType;
-
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
-                var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(
-                        p => p.PartDefinition.Name == partName ||
-                            (partName == contentType && p.PartDefinition.Fields.Any(f => GroupingFields.Contains(f.FieldDefinition.Name))));
 
-                if (!contentTypePartDefinitions.Any())
-                    continue;
+                var contentTypePartDefinitions =
+                    contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentType, p.PartDefinition));
 
                 foreach (var contentTypePartDefinition in contentTypePartDefinitions)
                 {
