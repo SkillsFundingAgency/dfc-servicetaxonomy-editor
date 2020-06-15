@@ -217,11 +217,11 @@
                             },
                             {
                                 "name": "OrchardCore_Default_ContentApiPrefix",
-                                "value": "[concat(parameters('apimProxyAddress'), '/content/api/GetContent/Execute')]"
+                                "value": "[concat(parameters('apimProxyAddress'), '/content/GetContent/api/Execute')]"
                             },
                             {
                                 "name": "ContentApiPrefix",
-                                "value": "[concat(parameters('apimProxyAddress'), '/content/api/GetContent/Execute')]"
+                                "value": "[concat(parameters('apimProxyAddress'), '/content/GetContent/api/Execute')]"
                             }
                         ]
                     }
