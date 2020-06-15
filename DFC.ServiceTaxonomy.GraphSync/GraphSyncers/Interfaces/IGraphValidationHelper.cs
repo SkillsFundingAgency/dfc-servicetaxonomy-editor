@@ -27,6 +27,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             string nodePropertyName,
             INode sourceNode);
 
+        (bool matched, string failureReason) IntContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode);
+
         public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(
             string contentKey,
             JObject contentItemField,

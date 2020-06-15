@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             value = content.Priority;
             if (value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>()/10m);
+                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>());
 
             value = content.Exclude;
             if (value.Type != JTokenType.Null)
@@ -81,12 +81,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             if (!matched)
                 return (false, $"{ChangeFrequencyPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = graphValidationHelper.ContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = graphValidationHelper.IntContentPropertyMatchesNodeProperty(
                 PriorityPropertyName,
                 content,
                 await graphSyncHelper.PropertyName(PriorityPropertyName),
-                nodeWithOutgoingRelationships.SourceNode,
-                (contentValue, nodeValue) => Equals(((int)contentValue)/10m, (decimal)nodeValue));
+                nodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
                 return (false, $"{PriorityPropertyName} did not validate: {failureReason}");

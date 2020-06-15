@@ -102,6 +102,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 (contentValue, nodeValue) => Equals((bool)contentValue, nodeValue.As<bool>()));
         }
 
+        public (bool matched, string failureReason) IntContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => Equals((int)contentValue, nodeValue.As<int>()));
+        }
+
         public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(
             string contentKey,
             JObject contentItemField,
