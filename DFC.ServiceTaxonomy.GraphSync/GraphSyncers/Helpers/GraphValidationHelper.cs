@@ -79,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             bool bothSame = areBothSame(contentItemFieldValue, nodePropertyValue);
 
-            return (bothSame, bothSame?"":$"content property value was '{contentItemFieldValue.ToString(CultureInfo.CurrentCulture)}', but node property value was '{(string)nodePropertyValue}'");
+            return (bothSame, bothSame?"":$"content property value was '{contentItemFieldValue.ToString(CultureInfo.CurrentCulture)}', but node property value was '{nodePropertyValue}'");
         }
 
         public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
