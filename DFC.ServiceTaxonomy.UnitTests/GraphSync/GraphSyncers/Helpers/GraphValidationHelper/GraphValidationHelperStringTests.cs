@@ -65,6 +65,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
 
         [Theory]
         [InlineData("content property value was 'contentValue', but node property value was 'nodeValue'", "contentValue", "nodeValue")]
+        [InlineData("content property value was 'contentValue', but node property value was ''", "contentValue", "")]
         public void StringContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(string expectedMessage, string contentValue, string nodeValue)
         {
             string json = $"{{\"{ContentKey}\": \"{contentValue}\"}}";

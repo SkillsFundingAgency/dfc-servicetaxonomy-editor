@@ -57,7 +57,24 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [Theory]
         [InlineData(true, false)]
         [InlineData(false, true)]
-        public void BoolContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFalse(bool contentValue, bool nodeValue)
+        public void BoolContentPropertyMatchesNodeProperty_PropertiesSameTypeButDifferentValues_ReturnsFalse(bool contentValue, bool nodeValue)
+        {
+            string json = $"{{\"{ContentKey}\": {contentValue.ToString().ToLower()}}}";
+            ContentItemField = JObject.Parse(json);
+
+            SourceNodeProperties.Add(NodePropertyName, nodeValue);
+
+            (bool validated, _) = CallBoolContentPropertyMatchesNodeProperty();
+
+            Assert.False(validated);
+        }
+
+        [Theory]
+        [InlineData(true, "string")]
+        [InlineData(false, "string")]
+        [InlineData(true, 123)]
+        [InlineData(false, 123)]
+        public void BoolContentPropertyMatchesNodeProperty_PropertiesDifferentTypes_ReturnsFalse(bool contentValue, object nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue.ToString().ToLower()}}}";
             ContentItemField = JObject.Parse(json);
@@ -83,8 +100,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
 
             Assert.Equal(expectedMessage, message);
         }
-
-        //todo: different types tests
 
         private (bool matched, string failureReason) CallBoolContentPropertyMatchesNodeProperty()
         {
