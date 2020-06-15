@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
@@ -10,16 +11,16 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests
 {
-    public class HtmlBodyPartGraphSyncer_AddSyncComponentsTests
+    public class PublishLaterPartGraphSyncer_AddSyncComponentsTests
     {
         public dynamic? Content { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public HtmlBodyPartGraphSyncer HtmlBodyPartGraphSyncer { get; set; }
+        public PublishLaterPartGraphSyncer PublishLaterPartGraphSyncer { get; set; }
 
-        public HtmlBodyPartGraphSyncer_AddSyncComponentsTests()
+        public PublishLaterPartGraphSyncer_AddSyncComponentsTests()
         {
             MergeNodeCommand = A.Fake<IMergeNodeCommand>();
             //todo: best way to do this?
@@ -29,32 +30,33 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
 
-            HtmlBodyPartGraphSyncer = new HtmlBodyPartGraphSyncer();
+            PublishLaterPartGraphSyncer = new PublishLaterPartGraphSyncer();
         }
 
         [Fact]
-        public async Task AddSyncComponents_HtmlInContent_TitleAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties()
         {
-            A.CallTo(() => GraphSyncHelper.PropertyName("Html")).Returns("htmlbody_Html");
+            A.CallTo(() => GraphSyncHelper.PropertyName("ScheduledPublishUtc")).Returns("publishlater_ScheduledPublishUtc");
 
-            const string html = "<p>A test paragraph</p>";
+            const string scheduledDateUtc = "2020-06-28T09:58:00Z";
 
-            Content = JObject.Parse($"{{\"Html\": \"{html}\"}}");
+            Content = JObject.Parse($"{{\"ScheduledPublishUtc\": \"{scheduledDateUtc}\"}}");
 
             await CallAddSyncComponents();
 
+            //Date compare culture is skewed and ends up an hour different
             IDictionary<string, object> expectedProperties = new Dictionary<string, object>
-                {{"htmlbody_Html", html}};
+                {{"publishlater_ScheduledPublishUtc", DateTime.Parse(scheduledDateUtc).AddHours(-1)}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 
         [Fact]
-        public async Task AddSyncComponents_NullHtmlInContent_TitleNotAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_NullScheduledPublicUtcInContent_TitleNotAddedToMergeNodeCommandsProperties()
         {
-            A.CallTo(() => GraphSyncHelper.PropertyName("Html")).Returns("htmlbody_Html");
+            A.CallTo(() => GraphSyncHelper.PropertyName("ScheduledPublishUtc")).Returns("publishlater_ScheduledPublishUtc");
 
-            Content = JObject.Parse("{\"Html\": null}");
+            Content = JObject.Parse("{\"ScheduledPublishUtc\": null}");
 
             await CallAddSyncComponents();
 
@@ -64,7 +66,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 
         private async Task CallAddSyncComponents()
         {
-            await HtmlBodyPartGraphSyncer.AddSyncComponents(
+            await PublishLaterPartGraphSyncer.AddSyncComponents(
                 Content,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,

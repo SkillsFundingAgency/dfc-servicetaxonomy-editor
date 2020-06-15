@@ -7,17 +7,17 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
-using OrchardCore.Html.Models;
+using OrchardCore.PublishLater.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
 #pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
 
-    public class HtmlBodyPartGraphSyncer : IContentPartGraphSyncer
+    public class PublishLaterPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string PartName => nameof(HtmlBodyPart);
+        public string PartName => nameof(PublishLaterPart);
 
-        private static Func<string, string> _htmlBodyFieldsPropertyNameTransform = n => $"htmlbody_{n}";
+        private static Func<string, string> _publishLaterFieldsPropertyNameTransform = n => $"publishlater_{n}";
 
         public async Task AddSyncComponents(
             dynamic content,
@@ -27,12 +27,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IGraphSyncHelper graphSyncHelper)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
 
-            JValue htmlValue = content.Html;
-            if (htmlValue.Type != JTokenType.Null)
+            JValue scheduledPublishValue = content.ScheduledPublishUtc;
+            if (scheduledPublishValue.Type != JTokenType.Null)
 
-                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName("Html"), htmlValue.As<string>());
+                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName("ScheduledPublishUtc"), scheduledPublishValue.As<DateTime>());
 
             return;
         }
@@ -46,12 +46,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             string endpoint)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
 
-            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                "Html",
+            return graphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
+                "ScheduledPublishUtc",
                 content,
-                await graphSyncHelper!.PropertyName("Html"),
+                await graphSyncHelper!.PropertyName("ScheduledPublishUtc"),
                 nodeWithOutgoingRelationships.SourceNode);
         }
     }
