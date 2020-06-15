@@ -6,7 +6,7 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper
 {
-    public class GraphValidationHelperBoolTests
+    public class GraphValidationHelper_BoolContentPropertyMatchesNodePropertyTests
     {
         public const string ContentKey = "Bool";
         public JObject ContentItemField { get; set; }
@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public Dictionary<string, object> SourceNodeProperties { get; set; }
         public ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.GraphValidationHelper GraphValidationHelper { get; set; }
 
-        public GraphValidationHelperBoolTests()
+        public GraphValidationHelper_BoolContentPropertyMatchesNodePropertyTests()
         {
             ContentItemField = JObject.Parse("{}");
 
