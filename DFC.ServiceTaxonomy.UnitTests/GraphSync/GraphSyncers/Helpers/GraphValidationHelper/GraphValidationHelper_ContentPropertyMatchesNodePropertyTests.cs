@@ -47,6 +47,34 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         }
 
         [Fact]
+        public void ContentPropertyMatchesNodeProperty_ContentPropertyMissingNodePropertyMissing_ReturnsValidated()
+        {
+            (bool validated, _) = CallContentPropertyMatchesNodeProperty();
+
+            Assert.True(validated);
+        }
+
+        [Fact]
+        public void ContentPropertyMatchesNodeProperty_ContentPropertyValueNullNodePropertyMissing_ReturnsValidated()
+        {
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": null}}");
+
+            (bool validated, _) = CallContentPropertyMatchesNodeProperty();
+
+            Assert.True(validated);
+        }
+
+        [Fact]
+        public void ContentPropertyMatchesNodeProperty_ContentPropertyMissingNodePropertyValueNull_ReturnsValidated()
+        {
+            SourceNodeProperties.Add(NodePropertyName, null!);
+
+            (bool validated, _) = CallContentPropertyMatchesNodeProperty();
+
+            Assert.True(validated);
+        }
+
+        [Fact]
         public void ContentPropertyMatchesNodeProperty_ContentPropertyMissingNodePropertyValueExists_ReturnsNotValidated()
         {
             SourceNodeProperties.Add(NodePropertyName, "NodeValue");
@@ -72,6 +100,18 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         public void ContentPropertyMatchesNodeProperty_ContentPropertyValueExistsNodePropertyMissing_ReturnsNotValidated()
         {
             ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+
+            (bool validated, _) = CallContentPropertyMatchesNodeProperty();
+
+            Assert.False(validated);
+        }
+
+        [Fact]
+        public void ContentPropertyMatchesNodeProperty_ContentPropertyValueExistsNodePropertyNull_ReturnsNotValidated()
+        {
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+
+            SourceNodeProperties.Add(NodePropertyName, null!);
 
             (bool validated, _) = CallContentPropertyMatchesNodeProperty();
 
