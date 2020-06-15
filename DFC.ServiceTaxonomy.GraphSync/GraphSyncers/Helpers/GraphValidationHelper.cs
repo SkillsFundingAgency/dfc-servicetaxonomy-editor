@@ -132,9 +132,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
                 (contentValue, nodeValue) =>
                 {
-                    DateTime contentPropertyValue = (DateTime)contentValue;
+                    if (!(nodeValue is ZonedDateTime nodeZonedDateTime))
+                        return false;
 
-                    var nodeZonedDateTime = nodeValue.As<ZonedDateTime>();
+                    DateTime contentPropertyValue = (DateTime)contentValue;
 
                     //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
                     var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);

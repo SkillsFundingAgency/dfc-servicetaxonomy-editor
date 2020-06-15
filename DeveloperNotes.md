@@ -1,5 +1,9 @@
 #ToDo
 
+*sync/delete when unpublish
+
+* new sorted is case sensitive
+
 * pages app
 
 Add facility for displaying a content type (or a specific content item) within a section of a page
