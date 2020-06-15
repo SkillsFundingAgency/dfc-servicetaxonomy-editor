@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -28,12 +27,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ISession _session;
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
-        private readonly Dictionary<string, IContentPartGraphSyncer> _partSyncers;
-
-        private static List<string> GroupingFields = new List<string> { nameof(TabField), nameof(AccordionField) };
 
         public ValidateAndRepairGraph(
             IContentDefinitionManager contentDefinitionManager,
@@ -49,10 +46,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _session = session;
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
+            _partSyncers = partSyncers;
             _graphSyncHelper = graphSyncHelper;
             _graphValidationHelper = graphValidationHelper;
             _logger = logger;
-            _partSyncers = partSyncers.ToDictionary(x => x.PartName ?? "Eponymous");
         }
 
         public async Task<ValidateAndRepairResult> ValidateGraph()
@@ -195,22 +192,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
-                string partTypeName = contentTypePartDefinition.PartDefinition.Name;
-                string partName = contentTypePartDefinition.Name;
-                if (!_partSyncers.TryGetValue(partTypeName, out var partSyncer)
-                    && (partName == contentTypePartDefinition.ContentTypeDefinition.Name ||
-                        contentTypePartDefinition.PartDefinition.Fields.Any(f => GroupingFields.Contains(f.FieldDefinition.Name))))
-                {
-                    partSyncer = _partSyncers["Eponymous"];
-                }
+                IContentPartGraphSyncer partSyncer = _partSyncers.SingleOrDefault(ps =>
+                    ps.CanHandle(contentTypePartDefinition.ContentTypeDefinition.Name,
+                        contentTypePartDefinition.PartDefinition));
 
                 if (partSyncer == null)
                 {
-                    // part doesn't have a registered IContentPartGraphSyncer, so we ignore it
+                    _logger.LogInformation($"No IContentPartGraphSyncer registered to sync/validate {contentTypePartDefinition.ContentTypeDefinition.Name} parts, so ignoring");
                     continue;
                 }
 
-                dynamic? partContent = contentItem.Content[partName];
+                dynamic? partContent = contentItem.Content[contentTypePartDefinition.Name];
                 if (partContent == null)
                     continue; //todo: throw??
 
@@ -222,9 +214,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (validated)
                     continue;
 
-                string failureReason = $"{partSyncer.PartName ?? "EponymousPart"} did not validate: {partFailureReason}";
+                string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
                 string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition,
-                    contentItem, partTypeName, partContent, nodeWithOutgoingRelationships);
+                    contentItem, contentTypePartDefinition.PartDefinition.Name, partContent,
+                    nodeWithOutgoingRelationships);
                 return (false, failureContext);
             }
 
@@ -243,7 +236,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         $"Expecting {relationshipsInDbCount} relationships of type {relationshipType} in graph, but found {relationshipsInGraphCount}.",
                         contentItem));
                 }
-            }      
+            }
 
             return (true, "");
         }

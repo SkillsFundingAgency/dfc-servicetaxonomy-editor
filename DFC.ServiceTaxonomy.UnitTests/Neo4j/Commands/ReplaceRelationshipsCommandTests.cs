@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
 
         private void AddValidRelationshipTo() =>
             ReplaceRelationshipsCommand.AddRelationshipsTo(
-                "relationshipType",
+                "relationshipType", null,
                 new[] {"destNodeLabel"},
                 "destIdPropertyName",
                 "destIdPropertyValues");
@@ -63,14 +63,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
         [Fact]
         public void CheckIsValid_RelationshipToHasEmptyDestDestNodeLabels_ThrowsInvalidOperationException()
         {
-            ReplaceRelationshipsCommand.AddRelationshipsTo("relationshipType", Enumerable.Empty<string>(), "destIdPropertyName");
+            ReplaceRelationshipsCommand.AddRelationshipsTo("relationshipType", null, Enumerable.Empty<string>(), "destIdPropertyName");
             /*var exception =*/ Assert.Throws<InvalidOperationException>(ReplaceRelationshipsCommand.CheckIsValid);
         }
 
         [Fact]
         public void CheckIsValid_RelationshipToHasEmptyDestIdPropertyValues_NoExceptionThrown()
         {
-            ReplaceRelationshipsCommand.AddRelationshipsTo("relationshipType", new[] {"destNodeLabels"}, "destIdPropertyName");
+            ReplaceRelationshipsCommand.AddRelationshipsTo("relationshipType", null, new[] {"destNodeLabels"}, "destIdPropertyName");
             ReplaceRelationshipsCommand.CheckIsValid();
         }
 

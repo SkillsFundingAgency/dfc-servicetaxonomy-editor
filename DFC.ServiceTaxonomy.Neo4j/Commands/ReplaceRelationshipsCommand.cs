@@ -25,10 +25,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
 
-        public void AddRelationshipsTo(string relationshipType, IEnumerable<string> destNodeLabels,
-            string destIdPropertyName, params object[] destIdPropertyValues)
+        public void AddRelationshipsTo(
+            string relationshipType,
+            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<string> destNodeLabels,
+            string destIdPropertyName,
+            params object[] destIdPropertyValues)
         {
-            RelationshipsList.Add(new Relationship(relationshipType, null, destNodeLabels, destIdPropertyName,
+            RelationshipsList.Add(new Relationship(relationshipType, properties, destNodeLabels, destIdPropertyName,
                 destIdPropertyValues));
         }
 
@@ -66,6 +70,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 const string sourceNodeVariableName = "s";
                 const string destinationNodeVariableBase = "d";
                 const string newRelationshipVariableBase = "nr";
+                const string relationshipPropertiesVariableBase = "rp";
 
                 //todo: bi-directional relationships
                 const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
@@ -94,11 +99,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
                         nodeMatchBuilder.Append(
                             $"\r\nmatch ({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
-                        //todo:
                         parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
 
                         mergeBuilder.Append(
                             $"\r\nmerge ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable})");
+
+                        if (relationship.Properties?.Any() == true)
+                        {
+                            string relationshipPropertyName = $"{relationshipPropertiesVariableBase}{ordinal}";
+                            mergeBuilder.Append($" set {relationshipVariable}=${relationshipPropertyName}");
+                            parameters.Add(relationshipPropertyName, relationship.Properties);
+                        }
                     }
                 }
 

@@ -19,6 +19,8 @@ function initVueMultiselectPreview(element) {
         var selectedItems = JSON.parse(element.dataset.selectedItems || "[]");
         var searchUrl = element.dataset.searchUrl;
         var multiple = JSON.parse(element.dataset.multiple);
+        var previewCollapse = $('#' + elementId).next('.collapse');
+        var previewHere = previewCollapse.find('#previewhere');
 
         var debouncedSearch = debouncePreview(function (vm, query) {
             vm.isLoading = true;
@@ -57,13 +59,24 @@ function initVueMultiselectPreview(element) {
                     // We add a delay to allow for the <input> to get the actual value
                     // before the form is submitted
                     setTimeout(function () { $(document).trigger('contentpreview:render') }, 100);
+                    //loop the new order of selected items and make sure the preview UI is ordered correctly
+                    for (var i = 0; i < this.arrayOfItems.length; i++) {
+                        if (previewHere.children().eq(i).data('content-item-id') !== this.arrayOfItems[i].id) {
+                            //find the child which should be at this position
+                            var content = previewHere.find('[data-content-item-id=' + this.arrayOfItems[i].id + ']');
+                            //insert it before this element
+                            content.remove().insertBefore(previewHere.children().eq(i));
+                        }
+                    }
                 }
             },
             mounted: function () {
                 var self = this;
                 self.asyncFind();
-                if (self.arrayOfItems.length === 1) {
-                    self.showPreview(self.arrayOfItems[0].id);
+                if (self.arrayOfItems.length > 0) {
+                    for (var i = 0; i < self.arrayOfItems.length; i++) {
+                        self.showPreview(self.arrayOfItems[i].id);
+                    }
                 }
             },
             methods: {
@@ -74,16 +87,13 @@ function initVueMultiselectPreview(element) {
                 showPreview(contentItemId) {
                     var self = this;
 
-                    if (multiple)
-                        return;
-
                     // todo use fetch then
                     // we could use the observed selectedIds, but we'd have to calc if something was added or deleted
                     // just use onSelect instead?
                     $.ajax({
                         url : '/Contents/ContentItems/' + contentItemId,
                         type: 'GET',
-
+                        async: false,
                         success: function (data) {
                             //start by removing any previously injected content to handle content picker values changing
                             $('[data-prepend-id]').remove();
@@ -104,16 +114,15 @@ function initVueMultiselectPreview(element) {
                             });
 
                             //inject the remaining content into the preview portion of the page, i.e. remove the <temp> tag we embedded earlier.
-                            $('#previewhere').html(temp.children());
-                            $('#preview-collapse').collapse('show');
+                            previewHere.append(temp.children());
+                            //add the content item id for the new element so we can use it later
+                            previewHere.children().last().attr('data-content-item-id', contentItemId);
+                            previewCollapse.collapse('show');
                         }
                     });
                 },
                 hidePreview() {
-                    if (multiple)
-                        return;
-
-                    $('#preview-collapse').collapse('hide');
+                    previewCollapse.collapse('hide');
                     $('[data-prepend-id]').remove();
                 },
                 onSelect: function (selectedOption, id) {
@@ -126,15 +135,42 @@ function initVueMultiselectPreview(element) {
                     }
 
                     self.arrayOfItems.push(selectedOption);
-                },
-                onInput: function (value, id) {
-                    this.showPreview(value.id);
+                    this.showPreview(selectedOption.id);
                 },
                 remove: function (item) {
-                    this.arrayOfItems.splice(this.arrayOfItems.indexOf(item), 1)
-                    this.hidePreview();
+                    var itemIndex = this.arrayOfItems.indexOf(item);
+                    this.arrayOfItems.splice(itemIndex, 1);
+                    previewHere.children().eq(itemIndex).remove();
+
+                    if (previewHere.children().length === 0) {
+                        this.hidePreview();
+                    }
+                },
+                edit: function (item) {
+                    var self = this;
+
+                    confirmDialog({
+                        title: 'Warning',
+                        message: 'Any unsaved changes on the current page will be lost, are you sure you want to continue?',
+                        callback: function callback(r) {
+                            if (r) {
+                                window.location = self.$refs.editLink.href.replace(encodeURI('<<ID>>'), item.id).concat('?returnUrl=' + window.location.pathname);
+                            }
+                        }
+                    });
                 }
             }
         })
     }
 }
+
+$(function () {
+    $(document).on('click', '.create-button', function (e) {
+        e.preventDefault();
+        window.location = $(this).attr('href').concat('?returnUrl=' + window.location.pathname);
+    });
+
+    //TODO : find a better way of doing this? any widget collapsibles that don't contain the preview editor will start closed.
+    //maybe we move this to some global JS file at least.
+    $('.widget-editor').removeClass('collapsed');
+});
