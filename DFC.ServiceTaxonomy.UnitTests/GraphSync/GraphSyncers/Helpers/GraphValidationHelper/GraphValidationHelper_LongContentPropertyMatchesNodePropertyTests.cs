@@ -6,16 +6,16 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper
 {
-    public class GraphValidationHelper_IntContentPropertyMatchesNodePropertyTests
+    public class GraphValidationHelper_LongContentPropertyMatchesNodePropertyTests
     {
-        public const string ContentKey = "Int";
+        public const string ContentKey = "Long";
         public JObject ContentItemField { get; set; }
         public const string NodePropertyName = "nodePropertyName";
         public INode SourceNode { get; set; }
         public Dictionary<string, object> SourceNodeProperties { get; set; }
         public ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.GraphValidationHelper GraphValidationHelper { get; set; }
 
-        public GraphValidationHelper_IntContentPropertyMatchesNodePropertyTests()
+        public GraphValidationHelper_LongContentPropertyMatchesNodePropertyTests()
         {
             ContentItemField = JObject.Parse("{}");
 
@@ -27,53 +27,53 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         }
 
         [Theory]
-        [InlineData(int.MinValue)]
+        [InlineData(long.MinValue)]
         [InlineData(-1)]
         [InlineData(0)]
         [InlineData(1)]
-        [InlineData(int.MaxValue)]
-        public void IntContentPropertyMatchesNodeProperty_PropertyCorrect_ReturnsTrue(int value)
+        [InlineData(long.MaxValue)]
+        public void LongContentPropertyMatchesNodeProperty_PropertyCorrect_ReturnsTrue(long value)
         {
             string json = $"{{\"{ContentKey}\": {value}}}";
             ContentItemField = JObject.Parse(json);
 
             SourceNodeProperties.Add(NodePropertyName, value);
 
-            (bool validated, _) = CallIntContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallLongContentPropertyMatchesNodeProperty();
 
             Assert.True(validated);
         }
 
         [Theory]
-        [InlineData(int.MinValue)]
+        [InlineData(long.MinValue)]
         [InlineData(-1)]
         [InlineData(0)]
         [InlineData(1)]
-        [InlineData(int.MaxValue)]
-        public void IntContentPropertyMatchesNodeProperty_PropertyMissing_ReturnsFalse(int value)
+        [InlineData(long.MaxValue)]
+        public void LongContentPropertyMatchesNodeProperty_PropertyMissing_ReturnsFalse(long value)
         {
             string json = $"{{\"{ContentKey}\": {value}}}";
             ContentItemField = JObject.Parse(json);
 
-            (bool validated, _) = CallIntContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallLongContentPropertyMatchesNodeProperty();
 
             Assert.False(validated);
         }
 
         [Theory]
-        [InlineData(int.MinValue, 0)]
-        [InlineData(-1, int.MinValue)]
+        [InlineData(long.MinValue, 0)]
+        [InlineData(-1, long.MinValue)]
         [InlineData(0, 1)]
         [InlineData(1, 2)]
-        [InlineData(int.MaxValue, 0)]
-        public void IntContentPropertyMatchesNodeProperty_PropertiesSameTypeButDifferentValues_ReturnsFalse(int contentValue, int nodeValue)
+        [InlineData(long.MaxValue, 0)]
+        public void LongContentPropertyMatchesNodeProperty_PropertiesSameTypeButDifferentValues_ReturnsFalse(long contentValue, long nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue}}}";
             ContentItemField = JObject.Parse(json);
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue);
 
-            (bool validated, _) = CallIntContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallLongContentPropertyMatchesNodeProperty();
 
             Assert.False(validated);
         }
@@ -89,14 +89,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [InlineData(1, true)]
         [InlineData(1, false)]
         //todo: other valid neo property types
-        public void IntContentPropertyMatchesNodeProperty_PropertiesDifferentTypes_ReturnsFalse(int contentValue, object nodeValue)
+        public void LongContentPropertyMatchesNodeProperty_PropertiesDifferentTypes_ReturnsFalse(long contentValue, object nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue}}}";
             ContentItemField = JObject.Parse(json);
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue);
 
-            (bool validated, _) = CallIntContentPropertyMatchesNodeProperty();
+            (bool validated, _) = CallLongContentPropertyMatchesNodeProperty();
 
             Assert.False(validated);
         }
@@ -106,23 +106,23 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [InlineData("content property value was '1', but node property value was '-1'", 1, -1)]
         [InlineData("content property value was '0', but node property value was '1'", 0, 1)]
         [InlineData("content property value was '0', but node property value was '-1'", 0, -1)]
-        public void IntContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(string expectedMessage, int contentValue, int nodeValue)
+        public void LongContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(string expectedMessage, long contentValue, long nodeValue)
         {
             string json = $"{{\"{ContentKey}\": {contentValue}}}";
             ContentItemField = JObject.Parse(json);
 
             SourceNodeProperties.Add(NodePropertyName, nodeValue);
 
-            (_, string message) = CallIntContentPropertyMatchesNodeProperty();
+            (_, string message) = CallLongContentPropertyMatchesNodeProperty();
 
             Assert.Equal(expectedMessage, message);
         }
 
         //todo: test message when property types different
 
-        private (bool matched, string failureReason) CallIntContentPropertyMatchesNodeProperty()
+        private (bool matched, string failureReason) CallLongContentPropertyMatchesNodeProperty()
         {
-            return GraphValidationHelper.IntContentPropertyMatchesNodeProperty(
+            return GraphValidationHelper.LongContentPropertyMatchesNodeProperty(
                 ContentKey,
                 ContentItemField,
                 NodePropertyName,

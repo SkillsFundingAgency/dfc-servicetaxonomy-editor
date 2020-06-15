@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             if (!matched)
                 return (false, $"{ChangeFrequencyPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = graphValidationHelper.IntContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = graphValidationHelper.LongContentPropertyMatchesNodeProperty(
                 PriorityPropertyName,
                 content,
                 await graphSyncHelper.PropertyName(PriorityPropertyName),

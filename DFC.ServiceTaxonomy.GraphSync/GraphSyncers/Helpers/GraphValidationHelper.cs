@@ -102,14 +102,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 (contentValue, nodeValue) => nodeValue is bool && Equals((bool)contentValue, nodeValue));
         }
 
-        public (bool matched, string failureReason) IntContentPropertyMatchesNodeProperty(
+        public (bool matched, string failureReason) LongContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => nodeValue is int && Equals((int)contentValue, nodeValue));
+                (contentValue, nodeValue) => nodeValue is long && Equals((long)contentValue, nodeValue));
         }
 
         public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(

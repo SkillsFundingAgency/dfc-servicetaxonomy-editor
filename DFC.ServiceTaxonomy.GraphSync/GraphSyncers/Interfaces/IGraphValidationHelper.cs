@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             string nodePropertyName,
             INode sourceNode);
 
-        (bool matched, string failureReason) IntContentPropertyMatchesNodeProperty(
+        (bool matched, string failureReason) LongContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,
