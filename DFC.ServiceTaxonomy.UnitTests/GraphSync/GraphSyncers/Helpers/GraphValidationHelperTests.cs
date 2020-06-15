@@ -5,7 +5,7 @@ using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
 {
     public class GraphValidationHelperTests
     {
