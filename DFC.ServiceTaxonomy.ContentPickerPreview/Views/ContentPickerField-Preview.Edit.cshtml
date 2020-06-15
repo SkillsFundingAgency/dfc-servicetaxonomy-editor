@@ -2,6 +2,7 @@
 @using OrchardCore.ContentFields.Settings
 @using Newtonsoft.Json;
 @using Newtonsoft.Json.Serialization;
+@inject OrchardCore.ContentManagement.Metadata.IContentDefinitionManager ContentDefinitionManager
 
 @{
     var settings = Model.PartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
@@ -33,6 +34,7 @@
                         <div class="align-items-center align-self-center"><span>{{ item.displayText }}</span> <span v-show="!item.hasPublished" class="text-muted small">(@T["Not published"])</span></div>
 
                         <div class="btn-group btn-group-sm align-items-center" role="group">
+                            <button v-on:click="edit(item)" type="button" class="btn btn-info"><i class="fa fa-pencil fa-sm" aria-hidden="true"></i></button>
                             <button v-on:click="remove(item)" type="button" class="btn btn-secondary content-picker-default__list-item__delete"><i class="fa fa-trash fa-sm" aria-hidden="true"></i></button>
                         </div>
                     </li>
@@ -40,17 +42,24 @@
             </ul>
         </div>
 
-        <div class="form-group">
+        <div class="form-group d-flex align-items-center">
             <div class="w-xl-50">
                 <input asp-for="ContentItemIds" type="hidden" v-model="selectedIds" />
-                <vue-multiselect v-model="value" :options="options" track-by="id"
-                                 label="displayText" placeholder="@T["Type to search"]"
-                                 @@search-change="asyncFind" @@select="onSelect"
-                                 @@input="onInput"
-                                 :searchable="true" :close-on-select="true" :reset-after="true"
-                                 :show-labels="true" :hide-selected="@multiple"
+                <vue-multiselect v-model="value"
+                                 :options="options"
+                                 track-by="id"
+                                 label="displayText"
+                                 placeholder="@T["Type to search"]"
+                                 @@search-change="asyncFind"
+                                 @@select="onSelect"
+                                 :searchable="true"
+                                 :close-on-select="true"
+                                 :reset-after="true"
+                                 :show-labels="true"
+                                 :hide-selected="@multiple"
                                  :disabled="isDisabled"
-                                 select-label="@T["Select"]" deselect-label="@T["Remove"]">
+                                 select-label="@T["Select"]"
+                                 deselect-label="@T["Remove"]">
                     <template slot="option" slot-scope="props">
                         <div v-cloak><span>{{ props.option.displayText }}</span><span class="small ml-2" v-show="!props.option.hasPublished">(@T["Not published"])</span></div>
                     </template>
@@ -63,22 +72,52 @@
                     <span class="hint">@settings.Hint</span>
                 }
             </div>
+
+            @if (settings.DisplayedContentTypes.Any())
+            {
+                <div class="w-xl-50 pl-4">
+                    @if (settings.DisplayedContentTypes.Length == 1)
+                    {
+                        <a asp-area="OrchardCore.Contents"
+                           asp-controller="Admin"
+                           asp-action="Create"
+                           asp-route-id="@settings.DisplayedContentTypes[0]"
+                           class="btn btn-success btn-sm create-button">
+                            <i class="fa fa-plus fa-sm" aria-hidden="true"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-success btm-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @T["Add new"]
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @foreach (var contentType in settings.DisplayedContentTypes.OrderBy(x => x))
+                                {
+                                    <a asp-area="OrchardCore.Contents"
+                                       asp-controller="Admin"
+                                       asp-action="Create"
+                                       asp-route-id="@contentType"
+                                       class="dropdown-item create-button">
+                                        @ContentDefinitionManager.GetTypeDefinition(contentType).DisplayName
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         </div>
+
+        <a asp-action="Edit"
+           asp-controller="Admin"
+           asp-area="OrchardCore.Contents"
+           asp-route-contentItemId="<<ID>>"
+           class="invisible" ref="editLink">@T["Edit"]</a>
     </div>
     <div class="collapse" id="preview-collapse">
         <div id="previewhere" class="form-group"></div>
-        @* using this would be better, but we don't have a ContentItem handy (although we could fetch one in the view)
-            <a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>*@
-
-        <div class="form-group">
-            <a asp-action="Edit"
-               asp-controller="Admin"
-               asp-area="OrchardCore.Contents"
-               asp-route-returnUrl="@FullRequestPath"
-               asp-route-contentItemId="@singleContentItemId"
-               class="btn btn-primary btn-sm">@T["Edit"]</a>
-            <p class="text-warning">Warning: any unsaved changes on the current page will be lost.</p>
-        </div>
     </div>
 </div>
 
