@@ -68,6 +68,16 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             Assert.False(validated);
         }
 
+        [Fact]
+        public void ContentPropertyMatchesNodeProperty_ContentPropertyValueExistsNodePropertyMissing_ReturnsNotValidated()
+        {
+            ContentItemField = JObject.Parse($"{{\"{ContentKey}\": \"ContentValue\"}}");
+
+            (bool validated, _) = CallContentPropertyMatchesNodeProperty();
+
+            Assert.False(validated);
+        }
+
         private (bool matched, string failureReason) CallContentPropertyMatchesNodeProperty()
         {
             return GraphValidationHelper.ContentPropertyMatchesNodeProperty(
