@@ -24,6 +24,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         but graphsyncpart text comes through ok after publishing
         need to see what happens when taxonomy is created/updated through recipe (if that's possible)
 
+        sitesection (term content type) in taxonomy terms back has the display text, but a blank title part when the term is added when editing the page item, but title is there when created from the taxonomy item editor!!
+        could hack in the title when syncing (but saving oc content item may be propblematic), or else change title part to ignore missing title and set from display text after recursed terms??
+
+
+(Term)<-[hasSiteSection]-(Page)-[hasTaxonomy]->(Taxonomy)-\
+    ^----------[hasTerm/SiteSection]----------------------/
+
+why like this?
+mirrors content structure in oc
+get terms synced from taxonomy (fits in better with current sync scheme)
+can see all possible terms for page, even if current page doesn't have all instances
+can also have tagnames as properties of page for ease of retrieval (and matches content, so less hackery)
+
 {
   "taxtest": {
     "sitesection": {
