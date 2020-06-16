@@ -34,7 +34,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
