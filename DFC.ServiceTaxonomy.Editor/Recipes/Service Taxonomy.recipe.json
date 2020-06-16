@@ -2323,6 +2323,7 @@
                                     "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasEssentialSkill].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Skill"
@@ -2340,6 +2341,7 @@
                                     "Position": "3"
                                 },
                                 "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of type [:hasOptionalSkill].",
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
                                         "Skill"
@@ -3516,7 +3518,7 @@
                                     "Required": false,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "DirectRoute"
+                                        "OtherRoute"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
