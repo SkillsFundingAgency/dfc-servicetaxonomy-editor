@@ -3516,7 +3516,7 @@
                                     "Required": false,
                                     "Multiple": true,
                                     "DisplayedContentTypes": [
-                                        "DirectRoute"
+                                        "OtherRoute"
                                     ]
                                 },
                                 "ContentIndexSettings": {}
