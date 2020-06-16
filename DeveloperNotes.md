@@ -6,6 +6,12 @@
 
 * pages app
 
+location part with taxonomy & text?
+default to slugified title?
+checkj for url clashes on main and redirect and conforms to gds - new field/part for the check/validation
+
+when sync page, make sure url is unique
+
 Add facility for displaying a content type (or a specific content item) within a section of a page
 using a template created by the ux/ur/content users.
 
