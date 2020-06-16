@@ -1,0 +1,138 @@
+{
+  "name": "OtherRoutes0_061f6df8-b6fd-4b98-9321-acf52c4aa83f",
+  "displayName": "OtherRoutes0_061f6df8-b6fd-4b98-9321-acf52c4aa83f",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "MP"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou become a Member of Parliament (MP) by being elected in a by-election or general election. You can stand for election as a member of a political party or as an independent candidate.\u003C/p\u003E\u003Cp\u003EEach political party has its own selection procedure. Normally, you must get the support of your party\u0027s nominating officer before you can become the prospective candidate.\u003C/p\u003E\u003Cp\u003ETo stand for election, you\u0027ll need to be nominated by at least 10 electors from the constituency you wish to represent. You must also pay a \u00A3500 deposit. This is returned to you if you get more than 5% of the total votes cast in your constituency.\u003C/p\u003E\u003Cp\u003EAs a candidate during an election, you\u0027ll be expected to campaign in public and online, attend meetings, make speeches and talk to the local media. You\u0027ll find it helpful to have some experience in one or more of these areas.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/otherroute/0b8c3fde-05c3-41e7-8c78-30941793de2d\u0027]"
+    },
+    "ContentItemId": "4s370043czk85wwf7wvpk5rhcd",
+    "ContentItemVersionId": "4gyg9k64cvw4x4vgag7yr0yy5a",
+    "ContentType": "OtherRoute",
+    "DisplayText": "MP",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Actor"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can study with a private \u003Ca href=\u0022http://www.federationofdramaschools.co.uk/member-schools/4593600509\u0022\u003Edrama school\u003C/a\u003E or conservatoire. Many offer full-time courses, as well as short courses and summer schools.\u003C/p\u003E\u003Cp\u003EYou\u0027ll need to pass an audition to get into a drama school. You may also need A levels or a Level 3 Diploma in Performing Arts, though this is not always essential if you can show enough talent and commitment.\u003C/p\u003E\u003Cp\u003EYou may be able to get \u003Ca href=\u0022https://www.gov.uk/dance-drama-awards\u0022\u003Efunding\u003C/a\u003E to help with fees and living costs at a private drama school.\u003C/p\u003E\u003Cp\u003EYou could also take graded exams in acting, musical theatre and performance art through \u003Ca href=\u0022https://www.trinitycollege.com/site/?id=198\u0022\u003ETrinity College London\u003C/a\u003E, \u003Ca href=\u0022https://lcme.uwl.ac.uk/exams/drama/acting\u0022\u003EUniversity of West London\u003C/a\u003E or \u003Ca href=\u0022https://www.lamda.ac.uk/our-exams/all-examinations/performance-examinations/acting\u0022\u003ELondon Academy of Music and Dramatic Art\u003C/a\u003E (LAMDA).\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/otherroute/ba1b9e63-b0d4-4c0a-b5ec-a337e2cb83b0\u0027]"
+    },
+    "ContentItemId": "4yvpejy6qt5djwxn5b223gvjxg",
+    "ContentItemVersionId": "4mcmhv9yw4w7dr2fwzqpzztmc1",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Actor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Force officer"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply through the \u003Ca href=\u0022https://www.faststream.gov.uk/\u0022\u003ECivil Service Fast Stream\u003C/a\u003E if you have a degree.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/otherroute/bca1a01a-29e6-46c1-9877-7052a5e7824f\u0027]"
+    },
+    "ContentItemId": "43xf64k47tpaq6mtnspw91qbxy",
+    "ContentItemVersionId": "4zkynw2nsxh4ss6k5vf1zgbyn4",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Border Force officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social worker"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply to do an intensive, work-based training programme for graduates if you\u0027ve got a first or upper second class degree in any subject except social work. The programmes are:\u003Ca href=\u0022https://thefrontline.org.uk/\u0022\u003EFrontline\u003C/a\u003E for children\u0027s social work; \u003Ca href=\u0022https://www.gov.uk/guidance/step-up-to-social-work-information-for-applicants\u0022\u003EStep Up to Social Work\u003C/a\u003E for children\u0027s social work; \u003Ca href=\u0022https://thinkahead.org/about-the-programme/how-to-apply/\u0022\u003EThink Ahead\u003C/a\u003E for mental health social work\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/otherroute/f779c642-70f0-4dab-b683-577e2601ad16\u0027]"
+    },
+    "ContentItemId": "4nsg48pd378nzvve2enmeg7nn1",
+    "ContentItemVersionId": "4yf4c6grn04pvvsv0grz7rk1cg",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Social worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Personal assistant"
+    },
+    "OtherRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could do training courses with a private training provider or through a professional body like the \u003Ca href=\u0022http://www.instam.org/Learning-Overview\u0022\u003EInstitute of Administrative Management\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/otherroute/e9c21bdd-63b7-4b91-935c-7a91d9894b07\u0027]"
+    },
+    "ContentItemId": "4eqp0qnhddh73z9x6gg1dxfedr",
+    "ContentItemVersionId": "4jfxwvnh7bf9t7abshw0hgyt4a",
+    "ContentType": "OtherRoute",
+    "DisplayText": "Personal assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
