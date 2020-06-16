@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
@@ -11,12 +12,56 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     public class GraphValidationHelper : IGraphValidationHelper
     {
-        //todo: better name
-        public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
+        // a bit smelly?
+        // public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty<T>(
+        //     string contentKey,
+        //     JObject contentItemField,
+        //     string nodePropertyName,
+        //     INode sourceNode)
+        // {
+        //     sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+        //
+        //     JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
+        //     if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
+        //     {
+        //         bool bothNull = nodePropertyValue == null;
+        //         return (bothNull, bothNull?"":"content property value was null, but node property value was not null");
+        //     }
+        //
+        //     if (nodePropertyValue == null)
+        //     {
+        //         return (false, "node property value was null, but content property value was not null");
+        //     }
+        //
+        //     T contentPropertyValue = contentItemFieldValue.As<T>();
+        //
+        //     bool bothSame;
+        //     switch (contentPropertyValue)
+        //     {
+        //         case string s:
+        //             bothSame = Equals(contentPropertyValue, nodePropertyValue);
+        //             break;
+        //         case DateTime d:
+        //             var nodeZonedDateTime = nodePropertyValue.As<ZonedDateTime>();
+        //
+        //             //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
+        //             var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
+        //
+        //             bothSame = Equals(contentPropertyValue, nodeAsDateTime);
+        //             break;
+        //         default:
+        //             throw new NotImplementedException("type is not supported");
+        //     }
+        //
+        //     return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+        // }
+
+        public (bool matched, string failureReason) ContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,
-            INode sourceNode)
+            INode sourceNode,
+            Func<JValue, object, bool> areBothSame)
         {
             sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
@@ -32,42 +77,71 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return (false, "node property value was null, but content property value was not null");
             }
 
-            string contentPropertyValue = contentItemFieldValue.As<string>();
-            bool bothSame = contentPropertyValue == (string)nodePropertyValue;
-            return (bothSame, bothSame?"":$"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+            bool bothSame = areBothSame(contentItemFieldValue, nodePropertyValue);
+
+            return (bothSame, bothSame?"":$"content property value was '{contentItemFieldValue.ToString(CultureInfo.CurrentCulture)}', but node property value was '{nodePropertyValue}'");
         }
 
-        //todo: better name
+        public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => nodeValue is string && Equals((string)contentValue!, nodeValue));
+        }
+
+        public (bool matched, string failureReason) BoolContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => nodeValue is bool && Equals((bool)contentValue, nodeValue));
+        }
+
+        public (bool matched, string failureReason) LongContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => nodeValue is long && Equals((long)contentValue, nodeValue));
+        }
+
+        public (bool matched, string failureReason) EnumContentPropertyMatchesNodeProperty<T>(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+            where T : Enum
+        {
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => Equals(((T)(object)(int)contentValue).ToString(), nodeValue.As<string>()));
+        }
+
         public (bool matched, string failureReason) DateTimeContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
             string nodePropertyName,
             INode sourceNode)
         {
-            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+            return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) =>
+                {
+                    if (!(nodeValue is ZonedDateTime nodeZonedDateTime))
+                        return false;
 
-            JValue? contentItemFieldValue = (JValue?)contentItemField?[contentKey];
-            if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
-            {
-                bool bothNull = nodePropertyValue == null;
-                return (bothNull, bothNull ? "" : "content property value was null, but node property value was not null");
-            }
+                    DateTime contentPropertyValue = (DateTime)contentValue;
 
-            if (nodePropertyValue == null)
-            {
-                return (false, "node property value was null, but content property value was not null");
-            }
+                    //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
+                    var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
 
-            DateTime contentPropertyValue = contentItemFieldValue.As<DateTime>();
-
-            var nodeZonedDateTime = nodePropertyValue.As<ZonedDateTime>();
-
-            //OC DateTime pickers don't support Milliseconds so ignoring conversion from Neo nanoseconds to OC millisecond
-            var nodeAsDateTime = new DateTime(nodeZonedDateTime.Year, nodeZonedDateTime.Month, nodeZonedDateTime.Day, nodeZonedDateTime.Hour, nodeZonedDateTime.Minute, nodeZonedDateTime.Second);
-
-            bool bothSame = contentPropertyValue == nodeAsDateTime;
-
-            return (bothSame, bothSame ? "" : $"content property value was '{contentPropertyValue}', but node property value was '{(string)nodePropertyValue}'");
+                    return Equals(contentPropertyValue, nodeAsDateTime);
+                });
         }
 
         public (bool validated, string failureReason) ValidateOutgoingRelationship(

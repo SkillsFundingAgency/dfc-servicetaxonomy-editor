@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(HtmlBodyPart);
 
-        private static Func<string, string> _flowFieldsPropertyNameTransform = n => $"htmlbody_{n}";
+        private static Func<string, string> _htmlBodyFieldsPropertyNameTransform = n => $"htmlbody_{n}";
 
         public async Task AddSyncComponents(
             dynamic content,
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IGraphSyncHelper graphSyncHelper)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
             JValue htmlValue = content.Html;
             if (htmlValue.Type != JTokenType.Null)
@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             string endpoint)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+            using var _ = graphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
             return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 "Html",

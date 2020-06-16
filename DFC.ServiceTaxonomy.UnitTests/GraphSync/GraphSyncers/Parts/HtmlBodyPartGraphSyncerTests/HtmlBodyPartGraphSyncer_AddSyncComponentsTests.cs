@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
         }
 
         [Fact]
-        public async Task AddSyncComponents_TitleInContent_TitleAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_HtmlInContent_TitleAddedToMergeNodeCommandsProperties()
         {
             A.CallTo(() => GraphSyncHelper.PropertyName("Html")).Returns("htmlbody_Html");
 
@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
         }
 
         [Fact]
-        public async Task AddSyncComponents_NullTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_NullHtmlInContent_TitleNotAddedToMergeNodeCommandsProperties()
         {
             A.CallTo(() => GraphSyncHelper.PropertyName("Html")).Returns("htmlbody_Html");
 
