@@ -162,8 +162,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"" =>
                 $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
-                "$\"<<ContentApiPrefix>>/{ContentType.ToLowerInvariant()}/{Value}\"" =>
-                $"{_contentApiBaseUrl}/{_contentType!.ToLowerInvariant()}/{newGuid}",
+                "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()" =>
+                $"{_contentApiBaseUrl}/{_contentType}/{newGuid}".ToLowerInvariant(),
 
                 _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
             };
@@ -197,7 +197,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private async Task<string> Transform(string transformCode, string untransformedValue, string contentType)
         {
-            untransformedValue = untransformedValue.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
+            untransformedValue = untransformedValue.Replace("<<contentapiprefix>>", _contentApiBaseUrl);
 
             _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
             _graphSyncHelperCSharpScriptGlobals.ContentType = contentType;
