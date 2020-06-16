@@ -1,0 +1,3306 @@
+{
+  "name": "DayToDayTasks0_7dd45314-dc78-4bc5-b61b-41ff0452e274",
+  "displayName": "DayToDayTasks0_7dd45314-dc78-4bc5-b61b-41ff0452e274",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "controlling traffic and crowds at large public events and gatherings"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Econtrolling traffic and crowds at large public events and gatherings\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/43f751b4-7082-443b-83be-258fa2360765\u0027]"
+    },
+    "ContentItemId": "4zbsddeay0wy0rhar2macsbwm2",
+    "ContentItemVersionId": "4zmzq9nvzry15rarpxdsrh35ct",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "controlling traffic and crowds at large public events and gatherings",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "checking that there are enough supplies on the plane and that emergency equipment is working properly"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Echecking that there are enough supplies on the plane and that emergency equipment is working properly\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/5b673105-ea5a-4672-b53a-99109fb36172\u0027]"
+    },
+    "ContentItemId": "446qdgqrjr1s8y36kzpbjb3ax9",
+    "ContentItemVersionId": "4xdk4tqc449pm58a5t3rp1a54g",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "checking that there are enough supplies on the plane and that emergency equipment is working properly",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "food preparation, feeding and giving out medication"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Efood preparation, feeding and giving out medication\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/1f49a594-d07b-4ab1-9623-a309fd19f7be\u0027]"
+    },
+    "ContentItemId": "4x77s31kjq8cg1gmrjdw1r63cw",
+    "ContentItemVersionId": "4kgc1jqpv0arh3zs0g5j8bm7dm",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "food preparation, feeding and giving out medication",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "giving evidence in court"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egiving evidence in court\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/19b6200d-626e-4ab1-a09e-c6651127b0e0\u0027]"
+    },
+    "ContentItemId": "40k779tjjpmmh34d6h1gpfbhmn",
+    "ContentItemVersionId": "4b381pn1qnn6nxt4yzcr18js52",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "giving evidence in court",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "setting budget and production targets"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esetting budget and production targets\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/a466d1f6-2dea-4319-b8dd-11e4da1eb781\u0027]"
+    },
+    "ContentItemId": "4q61v9t299bgkvqe8jp48952cz",
+    "ContentItemVersionId": "4q43zzv1cc7a3veswntvjhp5d4",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "setting budget and production targets",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "serving food and drinks"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eserving food and drinks\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/6994ba79-5bb9-4597-af0d-276a4fd04e6b\u0027]"
+    },
+    "ContentItemId": "4nmggax2egrxp0814a7j0ek6xc",
+    "ContentItemVersionId": "4j8bc3grhefrb5bs054p36ya56",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "serving food and drinks",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "learning your lines"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Elearning your lines\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/39b345fc-c0f0-4f1a-8cd1-88724fdf97fc\u0027]"
+    },
+    "ContentItemId": "4f34629rbcg6dxdfze495eenwy",
+    "ContentItemVersionId": "47zfjnsfa4mnsvejkbcs163bns",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "learning your lines",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "creating blueprints using computer aided design (CAD)"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecreating blueprints using computer aided design (CAD)\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/edc8587e-d9c7-4a83-8c79-71a5eac96d87\u0027]"
+    },
+    "ContentItemId": "4pq9sv3y6hjc23yd1rx7chfgnr",
+    "ContentItemVersionId": "46ea9n66787n6ysxhd90caaexk",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "creating blueprints using computer aided design (CAD)",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "talking to parents and carers about their children\u0027s progress"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Etalking to parents and carers about their children\u0027s progress\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/cb2ba0cb-d121-4fb3-b50e-f458222c68f1\u0027]"
+    },
+    "ContentItemId": "45kd7mttwyv0mzt0h1m9ywkyx7",
+    "ContentItemVersionId": "4m47bhsedb3xp1vry652tzxbd8",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "talking to parents and carers about their children\u0027s progress",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "machine repair and rewind electrician - fixing and maintaining electrical motors and transformers"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emachine repair and rewind electrician - fixing and maintaining electrical motors and transformers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/cb0759c9-11ee-4d89-ad6f-dbcf81693371\u0027]"
+    },
+    "ContentItemId": "49dxgk1e4xxke60kk56rtqtk4n",
+    "ContentItemVersionId": "49wcpa4zysd5115ka42st78knf",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "machine repair and rewind electrician - fixing and maintaining electrical motors and transformers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "attending court"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eattending court\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/071b65bd-0a9c-49b2-8782-0475377cbd0a\u0027]"
+    },
+    "ContentItemId": "4a1mmesngsmdm4ych24newcgcm",
+    "ContentItemVersionId": "4bdawqfrx4qjzvdagprjnm8sxt",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "attending court",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "serving and advising customers"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eserving and advising customers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/b8f07801-b5b1-46ff-931b-81f9861d9386\u0027]"
+    },
+    "ContentItemId": "41ps61d1b654bz7mv2pxzhh4xb",
+    "ContentItemVersionId": "4gsz676p979677xfaz7brkw8xs",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "serving and advising customers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "picking up mail from post boxes, post offices and businesses"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Epicking up mail from post boxes, post offices and businesses\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/d86ece6b-27fe-4e17-8f89-8a8917201705\u0027]"
+    },
+    "ContentItemId": "4pqc5mhqq7y3k5qzz0v0kz7nwr",
+    "ContentItemVersionId": "4y7e6xgf3wav04yn1zhv2k1eda",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "picking up mail from post boxes, post offices and businesses",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "attend meetings and conferences"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eattend meetings and conferences\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/c12ea106-e38f-4d2f-b5b6-65d7cca0535a\u0027]"
+    },
+    "ContentItemId": "40atyfan46k4swzhhj13fm3qcf",
+    "ContentItemVersionId": "41pttvhp3qp43w6rz8kdtkpq58",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "attend meetings and conferences",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "working out which vehicle is nearest"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking out which vehicle is nearest\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/ab5556c2-0c38-4477-9ef2-de5732a23a65\u0027]"
+    },
+    "ContentItemId": "4qqt4yr703m9nx428zxvwjbtmy",
+    "ContentItemVersionId": "4yyq6xhzm3h6v11bspq12eyp41",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working out which vehicle is nearest",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "going with clients to and from a residential home"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egoing with clients to and from a residential home\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/cf11fbab-07c1-451c-9e70-8d9a5839cea2\u0027]"
+    },
+    "ContentItemId": "4fr2fgzv0ef4z5nxjjbassn546",
+    "ContentItemVersionId": "4xe2ynmgeyk0cxpvxcv98930dj",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "going with clients to and from a residential home",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "buying and selling animals or produce"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebuying and selling animals or produce\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/aa572a1d-40c7-4039-be01-1c22e7310ca3\u0027]"
+    },
+    "ContentItemId": "4avw7zjfcan7ktqgnxdn1ccdck",
+    "ContentItemVersionId": "4zpp2ws4kzx886pdszs0j5snd6",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "buying and selling animals or produce",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "offering information and counselling"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoffering information and counselling\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/385de148-1c6d-4d79-9737-c476056b5179\u0027]"
+    },
+    "ContentItemId": "4ndcp2c58mg092zmgscfq7c5wc",
+    "ContentItemVersionId": "4a8k6srrc2t5v7qpkmj6cx0v54",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "offering information and counselling",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "giving out menus and taking orders for food and drink"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egiving out menus and taking orders for food and drink\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/dc4f1408-3e67-4c23-8281-d225f06d7f44\u0027]"
+    },
+    "ContentItemId": "40jyyv2nxskw2x2grk9r5wzqwn",
+    "ContentItemVersionId": "4de93amp7hkee6cnz2526xm0xs",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "giving out menus and taking orders for food and drink",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "investigating crimes and offences"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Einvestigating crimes and offences\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e01caf65-a63b-45cd-be73-817ee2eca481\u0027]"
+    },
+    "ContentItemId": "4dcgtcrdp8qjgs5hjztzwakzm6",
+    "ContentItemVersionId": "4qc6qrzwsc78gtv5p3fc72tf54",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "investigating crimes and offences",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "greeting passengers"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egreeting passengers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/367f158e-3dd9-42ad-858f-8f698d316716\u0027]"
+    },
+    "ContentItemId": "4fxrtq2af68ffs6g5tgzj56nwp",
+    "ContentItemVersionId": "4gbx6g4dsy6qvy6n8ynejcbdw8",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "greeting passengers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "arranging goods in displays and on shelves"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Earranging goods in displays and on shelves\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/f99f5322-a301-42e2-aacd-9f2905821d5a\u0027]"
+    },
+    "ContentItemId": "4249wy5qhxps513sa3dh9prxm1",
+    "ContentItemVersionId": "416gjq6azaqpkt55cads12afwz",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "arranging goods in displays and on shelves",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "concreting - laying concrete for foundations, floors and beams"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Econcreting - laying concrete for foundations, floors and beams\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/a8119008-deb6-4f40-8784-0d0a20a8d9fa\u0027]"
+    },
+    "ContentItemId": "4z139zfshdsrfwstp1zc8wncny",
+    "ContentItemVersionId": "4qq5gjspmysb567re055pkn9xh",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "concreting - laying concrete for foundations, floors and beams",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "road working - laying kerbs, paving and resurfacing"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eroad working - laying kerbs, paving and resurfacing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/8b158c73-01f4-40d7-bc49-5594552273a9\u0027]"
+    },
+    "ContentItemId": "4zaaxy8gc1xd5wxgbyb481cfx2",
+    "ContentItemVersionId": "4hmyfgzh217dd011271v9cdex3",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "road working - laying kerbs, paving and resurfacing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making sure the organisation meets its legal obligations"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking sure the organisation meets its legal obligations\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/5a3c9685-cd1e-464d-9263-97383c004098\u0027]"
+    },
+    "ContentItemId": "4errp9dj5w4v7tgtftm9hmx5n2",
+    "ContentItemVersionId": "4tx0haeywzwkkyj45ap2kwwxdc",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making sure the organisation meets its legal obligations",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dealing with wrongly addressed or returned mail"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edealing with wrongly addressed or returned mail\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/2c4b22a7-5084-48ac-a645-deb46027140e\u0027]"
+    },
+    "ContentItemId": "4kyk3vw40vem94yhmab7ftkqcj",
+    "ContentItemVersionId": "4ysdceeqbv2b3ze4jw0ggcv2m7",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "dealing with wrongly addressed or returned mail",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "steel fixing - bending and fixing bars used to reinforce concrete structures"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esteel fixing - bending and fixing bars used to reinforce concrete structures\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/5b9ff0b4-24fb-4c7f-a658-4196b6d38313\u0027]"
+    },
+    "ContentItemId": "4x42ygdse3bmb0jz72rw7qct5b",
+    "ContentItemVersionId": "4cqcrs920k4dnx5qq0s6ytd9n8",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "steel fixing - bending and fixing bars used to reinforce concrete structures",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "debate issues and raise questions"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edebate issues and raise questions\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/a59dd963-782b-4d5e-a29d-50c2a8b33865\u0027]"
+    },
+    "ContentItemId": "4am5eeqdb96mr2s7htyq15myd2",
+    "ContentItemVersionId": "413chzh5p8gq2sk2qnbv0hww4p",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "debate issues and raise questions",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "keeping records and writing reports"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ekeeping records and writing reports\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/d6b2c6b2-fef3-47b6-856d-7889cd335ddc\u0027]"
+    },
+    "ContentItemId": "491n7z2x7bmz034hg6qn01rymt",
+    "ContentItemVersionId": "49vcp4t0wrvbfxfbsv5przerdd",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "keeping records and writing reports",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "maintenance electrician - checking systems to make sure they\u0027re working efficiently and safely"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaintenance electrician - checking systems to make sure they\u0027re working efficiently and safely\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/4a673aff-c8df-46c8-965e-d233fdf0df25\u0027]"
+    },
+    "ContentItemId": "4etpmwj63ste7r0znebxncwb52",
+    "ContentItemVersionId": "4rkn39y16h3cjrhn311yzht9xk",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "maintenance electrician - checking systems to make sure they\u0027re working efficiently and safely",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "managing and checking progress at each stage"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emanaging and checking progress at each stage\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/f9ac220d-dcdb-4dcb-8e6c-44d5c11d24d0\u0027]"
+    },
+    "ContentItemId": "4cnbp3a5av7sty3x23vspkcfca",
+    "ContentItemVersionId": "48rn3gh65x11jwynvdtzr0vfnh",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "managing and checking progress at each stage",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "giving basic first aid advice to people facing life-threatening situations"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egiving basic first aid advice to people facing life-threatening situations\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/452e536c-0466-4611-ba95-6de8f28ff1ef\u0027]"
+    },
+    "ContentItemId": "45dy79wknvfhr6vmqkb4ggf156",
+    "ContentItemVersionId": "48wx5r5jgdwnft2m4db7p8jtcf",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "giving basic first aid advice to people facing life-threatening situations",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "planning how the farm will run"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eplanning how the farm will run\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e0407a61-b36b-4cfb-afbf-4d32adb12adb\u0027]"
+    },
+    "ContentItemId": "4mxyg2xk8revz1v1bjvbe1gmnw",
+    "ContentItemVersionId": "4gccyygqhsnc46zd2rm7fbstnd",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "planning how the farm will run",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "giving emotional and practical support to children and young people"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egiving emotional and practical support to children and young people\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/93bc2fb9-27e8-440d-a707-4108f2828c14\u0027]"
+    },
+    "ContentItemId": "4nh1ss2n9a5c2z7a4as9750cc7",
+    "ContentItemVersionId": "4en98h1zaafe8w1wkf43skzax1",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "giving emotional and practical support to children and young people",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making travel arrangements for staff"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking travel arrangements for staff\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/27a90e56-6b64-43f3-b884-d4f5a2e2c0fa\u0027]"
+    },
+    "ContentItemId": "445b7azefaenzt5s8hpccqx9m8",
+    "ContentItemVersionId": "46rkpe5z854y105hwfmfd6v8mc",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making travel arrangements for staff",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making decisions about the organisation\u2019s priorities"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking decisions about the organisation\u2019s priorities\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/573cdb34-8289-407f-a62f-d06eec802ea5\u0027]"
+    },
+    "ContentItemId": "42d4wwhk16vfp3he4q0rdward6",
+    "ContentItemVersionId": "4nab57ay8wjaf1wjf285mheq5z",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making decisions about the organisation\u2019s priorities",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "steel piling - joining steel sheets to form temporary retaining walls for excavations"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esteel piling - joining steel sheets to form temporary retaining walls for excavations\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e8c31b89-3309-4b7b-8592-0354e94eaf67\u0027]"
+    },
+    "ContentItemId": "45a91j9censcw6mzmf7x2kkzw3",
+    "ContentItemVersionId": "4n7tyje1hpcyx3wszd8zfespxw",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "steel piling - joining steel sheets to form temporary retaining walls for excavations",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "checking equipment and engines"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Echecking equipment and engines\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/d87363a7-370a-45fc-94d7-a0460832fd17\u0027]"
+    },
+    "ContentItemId": "491ewa4901rpe4red75zy93ywz",
+    "ContentItemVersionId": "4exkpb7ghn548sn6ebx9g89ynm",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "checking equipment and engines",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "attending meetings and training"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eattending meetings and training\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e69ed428-9d02-4cf6-a6bd-0f77e765b184\u0027]"
+    },
+    "ContentItemId": "4vfnpdyrfszde04vwkkh1cx1dz",
+    "ContentItemVersionId": "4ftfr621j6ndjv5sbqnzrgmtcb",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "attending meetings and training",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "deciding whether the caller needs an ambulance, car, motorbike or helicopter"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edeciding whether the caller needs an ambulance, car, motorbike or helicopter\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/c0190b8a-a85a-43f5-a81d-3bb3e6904a91\u0027]"
+    },
+    "ContentItemId": "4j5jm0wvprkw3x0xkktq1ffj4z",
+    "ContentItemVersionId": "4cy891pemxkqc57zd9jx6e615q",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "deciding whether the caller needs an ambulance, car, motorbike or helicopter",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "attending court as a witness"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eattending court as a witness\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/a7860819-2acc-43de-ab10-9daeeca52588\u0027]"
+    },
+    "ContentItemId": "4xv5frfekv50wvtap5s15g1t5w",
+    "ContentItemVersionId": "4aw4v7cw5yfrkxb4nb0ce4fkn7",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "attending court as a witness",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "recruiting, training and supervising staff"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Erecruiting, training and supervising staff\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/fc6ce167-199f-4ff4-b59f-234ce50939fa\u0027]"
+    },
+    "ContentItemId": "4q3pn7m111nb9vr8x7rdz5k6mt",
+    "ContentItemVersionId": "4ptevypzzjqh3rdeg1vgfpqex5",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "recruiting, training and supervising staff",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "greeting customers as they arrive and showing them to their table"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egreeting customers as they arrive and showing them to their table\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/1279992f-1c37-4110-ac43-ee548e5a0c10\u0027]"
+    },
+    "ContentItemId": "41za2jw094qw5ty07exgk4jqc4",
+    "ContentItemVersionId": "463w5ewbty2xy27ck5eg5v1q53",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "greeting customers as they arrive and showing them to their table",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "creating electronic records of calls and events"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecreating electronic records of calls and events\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/fb818f71-936f-4411-bf3c-df438471a00f\u0027]"
+    },
+    "ContentItemId": "4fvnc4sd1qm3asfabapykczmcj",
+    "ContentItemVersionId": "4vvpkvy6tkgeawgzcyc84g0a44",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "creating electronic records of calls and events",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "searching people, luggage and vehicles"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esearching people, luggage and vehicles\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/b7dfe75c-352f-4b86-ab2a-e95265d97713\u0027]"
+    },
+    "ContentItemId": "4t07028f80sx16stwgvhd1epmp",
+    "ContentItemVersionId": "4j3sz2wm62ae735sdeyqqnchw9",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "searching people, luggage and vehicles",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "getting to know clients and their interests and needs"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egetting to know clients and their interests and needs\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e823c4b6-ecec-4c21-8a12-64cca9021735\u0027]"
+    },
+    "ContentItemId": "4swdjnpj97taxr3c9wbj964y5c",
+    "ContentItemVersionId": "4pyyb1128t7ze405gas2vqe7w3",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "getting to know clients and their interests and needs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dealing with bill payments"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edealing with bill payments\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/0412e3f7-2f24-4301-bfc8-cb9514ec6719\u0027]"
+    },
+    "ContentItemId": "460zdpb2qzskwwa3c2ybhxmqcs",
+    "ContentItemVersionId": "4z66k3sqz6e1p556qwgf2hq0m2",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "dealing with bill payments",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making sure tables are clean and tidy"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking sure tables are clean and tidy\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/5dd1415f-d326-4532-b22d-e6a5f682bfb9\u0027]"
+    },
+    "ContentItemId": "4ndg60dy6nv6ns00s8gnfnt3w2",
+    "ContentItemVersionId": "4je7pq3fehp8g6302v51w30n5q",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making sure tables are clean and tidy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "setting out the organisation\u2019s aims and how it will meet them"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esetting out the organisation\u2019s aims and how it will meet them\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/320ff6b3-8e3e-4c4d-8831-befc40412521\u0027]"
+    },
+    "ContentItemId": "44vcefhgx940ax8aq3fhpq44ca",
+    "ContentItemVersionId": "48bds35trdftq54shjvygwbad8",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "setting out the organisation\u2019s aims and how it will meet them",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "writing a flight report, including details about any unusual incidents"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ewriting a flight report, including details about any unusual incidents\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/83aa1efb-d0d0-4d2e-856d-23a5bbf43960\u0027]"
+    },
+    "ContentItemId": "4b2wbdjygv9x7rewbyyvx6ctx3",
+    "ContentItemVersionId": "48btyqmgjx807sdh1k32rfs5n3",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "writing a flight report, including details about any unusual incidents",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "taking part in a meeting about the flight and its schedule"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Etaking part in a meeting about the flight and its schedule\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/449d0cbb-5e6f-4867-b53c-fadbe8cfe537\u0027]"
+    },
+    "ContentItemId": "4mt9qhz8z97t2zdrnza4cyzgcq",
+    "ContentItemVersionId": "43t6r4c642pqzxk6bw6eqk59md",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "taking part in a meeting about the flight and its schedule",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "You\u0027ll also help tradespeople on site, like bricklayers, by keeping them supplied with materials and mortar."
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou\u0027ll also help tradespeople on site, like bricklayers, by keeping them supplied with materials and mortar.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/6d3e0f27-8487-4d90-93bd-52aac5812edc\u0027]"
+    },
+    "ContentItemId": "4ntrz4jg47x3k3begbpnf2xpxr",
+    "ContentItemVersionId": "4epkysjxg1c5d0bfv8br4tg6na",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "You\u0027ll also help tradespeople on site, like bricklayers, by keeping them supplied with materials and mortar.",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making sure passengers are comfortable"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking sure passengers are comfortable\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/058bbadf-1d99-4f8e-b41d-9872c806dc2d\u0027]"
+    },
+    "ContentItemId": "4x3nkygk8gvad0byyqw76tkvw3",
+    "ContentItemVersionId": "4tbm618a8wkz0vy6qbatesfg49",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making sure passengers are comfortable",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "contacting the crew and passing on vital information"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Econtacting the crew and passing on vital information\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/33e8b1a3-8f6e-429f-97b7-dff1739160d5\u0027]"
+    },
+    "ContentItemId": "43q60ny56jxqx6dfgxj83tbbme",
+    "ContentItemVersionId": "4t5t6hxcnnw23rsdpba4ch0nx7",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "contacting the crew and passing on vital information",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "helping people cope until an ambulance arrives"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehelping people cope until an ambulance arrives\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/aa68d0ea-41af-4ca1-85a6-5ea699274880\u0027]"
+    },
+    "ContentItemId": "49d1kncknh5zr1w1jnhg5fzx56",
+    "ContentItemVersionId": "42acqfhb37sjjsrsn3gr1v05cf",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "helping people cope until an ambulance arrives",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "organising outings, school social activities and sports events"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eorganising outings, school social activities and sports events\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/41d875e4-2ff7-4b9d-b01d-5bb41e00c381\u0027]"
+    },
+    "ContentItemId": "4m964gv5phjt82xh6sqyfxx7wv",
+    "ContentItemVersionId": "459ah7nxw05a70ej92ekmy33wj",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "organising outings, school social activities and sports events",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "meeting sales targets"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emeeting sales targets\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/2144209f-e485-44fa-bdfc-fc8fd52eb455\u0027]"
+    },
+    "ContentItemId": "4cwwk83c84xz8y4gtkxg25r54r",
+    "ContentItemVersionId": "40229wzm9acp601b1mkyrv9xws",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "meeting sales targets",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "moving mail to and from processing centres, delivery offices, railway stations and airports"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emoving mail to and from processing centres, delivery offices, railway stations and airports\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/8358fbe0-6e53-4cbd-8487-a0428ee4e38b\u0027]"
+    },
+    "ContentItemId": "4waeajw6cn9ppv7hhy89b14vxs",
+    "ContentItemVersionId": "45zrc40zpsx6p7073758f9wqx2",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "moving mail to and from processing centres, delivery offices, railway stations and airports",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "finding out the location and details of what happened"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Efinding out the location and details of what happened\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/184d4b87-3387-44b3-8552-a48bd2447890\u0027]"
+    },
+    "ContentItemId": "4s6ztxqspyqsszhdz41jec65n9",
+    "ContentItemVersionId": "4ajy7bhz0tskxxvq22djmzew4p",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "finding out the location and details of what happened",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "checking risks and the effects on the environment"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Echecking risks and the effects on the environment\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/8566baa5-e369-415e-8322-7b7c86981526\u0027]"
+    },
+    "ContentItemId": "434s4br3nfhaysmj38kgb2phwn",
+    "ContentItemVersionId": "450nrb0f7xga3162ehycws3rxm",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "checking risks and the effects on the environment",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "delivering mail on foot, by a bicycle or by van"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edelivering mail on foot, by a bicycle or by van\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/a8445593-f39c-49b5-b5fc-87f1ae446d0a\u0027]"
+    },
+    "ContentItemId": "4gxrexj64hv4v4gz7sa6pgaywj",
+    "ContentItemVersionId": "4248jecbph25r7xd9xr2cpm4mp",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "delivering mail on foot, by a bicycle or by van",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "promoting respect for people in relation to their race, diversity and human rights"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Epromoting respect for people in relation to their race, diversity and human rights\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/36ad8121-6038-48be-88be-852178e583c8\u0027]"
+    },
+    "ContentItemId": "40v0pxt19nd31317aa36b9e0xm",
+    "ContentItemVersionId": "4kxbxdbmcnxzm3enxknsnfy9m1",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "promoting respect for people in relation to their race, diversity and human rights",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "groundworking - marking out and digging trenches for foundations and drains"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egroundworking - marking out and digging trenches for foundations and drains\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/70e341eb-81c7-4bca-bd1e-edebf5a2f249\u0027]"
+    },
+    "ContentItemId": "41ncxjetp7yrdtw6vqt1k26kcr",
+    "ContentItemVersionId": "4g6vg6xdxfa11wttb63dwhscmc",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "groundworking - marking out and digging trenches for foundations and drains",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "highway systems electrician - installing and maintaining street lighting and traffic management systems"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehighway systems electrician - installing and maintaining street lighting and traffic management systems\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/4060616c-3360-46ee-9dd0-d61a243f44a0\u0027]"
+    },
+    "ContentItemId": "4c0sav3pcvatf4zszepqdk07c6",
+    "ContentItemVersionId": "4qaymx4hxswqr49x84h6bmq2cr",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "highway systems electrician - installing and maintaining street lighting and traffic management systems",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "working closely with a senior management team to put policies in place"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking closely with a senior management team to put policies in place\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/2326cac9-b4f5-4907-bc89-39db638af490\u0027]"
+    },
+    "ContentItemId": "4qncsxcc8g9t63cg35v3z1j8ms",
+    "ContentItemVersionId": "4fe0a1snaa5vy6qcwayjdkr05h",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working closely with a senior management team to put policies in place",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "helping to organise leisure activities"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehelping to organise leisure activities\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/c2916258-6370-4026-a88d-bb45bb808a3f\u0027]"
+    },
+    "ContentItemId": "481mcq2v2bydfykaek9fvr94n6",
+    "ContentItemVersionId": "46e1y44eqz1agshwtfk28ympxw",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "helping to organise leisure activities",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "marking and assessing children\u0027s work"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emarking and assessing children\u0027s work\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/3b59b3bf-41c9-4fda-9db5-3b219e1a8b14\u0027]"
+    },
+    "ContentItemId": "4bmbjts0hzp82s1ts0bcmwrcnk",
+    "ContentItemVersionId": "48hasfp85zx4z1pvjhxk6921we",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "marking and assessing children\u0027s work",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "attending fittings for costumes"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eattending fittings for costumes\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/73ccdb21-3a83-4a33-8b2b-430cc74bd69e\u0027]"
+    },
+    "ContentItemId": "4nm2epyfwqmerragtwkaypxa4k",
+    "ContentItemVersionId": "41pjc59s8ejgryb3jxcm9zcpmc",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "attending fittings for costumes",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "raise constituents\u2019 concerns with relevant ministers"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eraise constituents\u2019 concerns with relevant ministers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/ea109779-07c3-4825-b0af-d0c94f098bcf\u0027]"
+    },
+    "ContentItemId": "4t9xtnr63eyg11aq5q303bgmm2",
+    "ContentItemVersionId": "4z6z4dkt48zjw3abpq22cgzgxd",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "raise constituents\u2019 concerns with relevant ministers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "promoting extra products"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Epromoting extra products\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/4404b914-9e61-41e8-8574-2f30c96aa024\u0027]"
+    },
+    "ContentItemId": "4cs8egew4g33d06eacxekw83we",
+    "ContentItemVersionId": "44vgapk183ypq2jnwz4cagegd4",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "promoting extra products",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making announcements"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking announcements\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/29513679-92c2-4902-a736-a639534933c8\u0027]"
+    },
+    "ContentItemId": "4xb9p41bqcqns6xnmajx9b2rd6",
+    "ContentItemVersionId": "4eymamg0vzwaqtj2f3g4bvve4t",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making announcements",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "keeping the caller calm to get essential information"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ekeeping the caller calm to get essential information\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e088b191-9196-4137-8eee-f657dd27531c\u0027]"
+    },
+    "ContentItemId": "44grg010fdaxctyff63bm0v14p",
+    "ContentItemVersionId": "43s9hyxshyw54y1n7eyj06v647",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "keeping the caller calm to get essential information",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "working with the police and immigration officials on operations"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking with the police and immigration officials on operations\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/5c765005-0191-4671-997e-936e51618a83\u0027]"
+    },
+    "ContentItemId": "4kajpg03x292h0ryjsk9ckkvmv",
+    "ContentItemVersionId": "4w5dvchg8ff2pz5gvevcka0tna",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working with the police and immigration officials on operations",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "interviewing suspects and making arrests"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Einterviewing suspects and making arrests\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/c9381bb7-68e0-40d2-bc9a-683f6ba58e2b\u0027]"
+    },
+    "ContentItemId": "4s7g0pxgvqk256739gyesjqznn",
+    "ContentItemVersionId": "4m3f217nkah9hvq0v45jxf0yxf",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "interviewing suspects and making arrests",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "planning lessons and preparing teaching materials"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eplanning lessons and preparing teaching materials\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/2a0b2817-aecc-4ade-95c0-3fedc39476c3\u0027]"
+    },
+    "ContentItemId": "432zzh2bkrebf7dzqtb5eyvjck",
+    "ContentItemVersionId": "4p779fr08xwy00xmn9tqvdxrwc",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "planning lessons and preparing teaching materials",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dealing with queries on the phone, by email and social media"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edealing with queries on the phone, by email and social media\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/d12e257a-6659-4e11-8b64-1888c61bb03a\u0027]"
+    },
+    "ContentItemId": "4ek7k97p4frbb59kzr8pmy0rww",
+    "ContentItemVersionId": "4c3w1ynr3gpeh0nsh5xyebt5dn",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "dealing with queries on the phone, by email and social media",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "working with other professionals"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking with other professionals\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/bef25972-dafe-42c1-a7ea-9b7cf2cacb54\u0027]"
+    },
+    "ContentItemId": "4a5h26scjwkmzvsmsaw4853ew2",
+    "ContentItemVersionId": "4akppy1mg8rv66gjmv31gmxm5m",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working with other professionals",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "researching your role"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eresearching your role\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/6f0a3a98-6d93-4afb-b601-a2333a9ff840\u0027]"
+    },
+    "ContentItemId": "406cq8ve7ebdk3e0x9g31dg6nx",
+    "ContentItemVersionId": "4hzdbvvr9cyad056zm9a3f3fdm",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "researching your role",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "judging if projects are worth doing by looking at costs, time and labour"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ejudging if projects are worth doing by looking at costs, time and labour\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/a3440302-c452-4125-8e89-26128af55365\u0027]"
+    },
+    "ContentItemId": "4f3k09b22fzfcspna58n0jc2de",
+    "ContentItemVersionId": "41b4wqyww8z1vr0g7c7ykfyk4d",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "judging if projects are worth doing by looking at costs, time and labour",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "positioning and handing over engines to drivers on the next shift"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Epositioning and handing over engines to drivers on the next shift\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/342ee0ea-5fde-4d68-a084-d1cef638b9ac\u0027]"
+    },
+    "ContentItemId": "4a1h25y4tgt7j6gw0pvhxzt6x8",
+    "ContentItemVersionId": "44q539s4p8wjmxv42mnvrq0k5m",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "positioning and handing over engines to drivers on the next shift",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "reassuring passengers in the event of an emergency, and making sure they follow safety procedures"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ereassuring passengers in the event of an emergency, and making sure they follow safety procedures\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/a77d212d-650a-43ab-b348-e8419678bef8\u0027]"
+    },
+    "ContentItemId": "4j2ay17mf534zyzq89qje0z8d8",
+    "ContentItemVersionId": "485k993pxwz054qjgn80npy9mp",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "reassuring passengers in the event of an emergency, and making sure they follow safety procedures",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making sure passengers leave the plane safely"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking sure passengers leave the plane safely\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/de01a7dc-a85d-4250-a01b-da805e0db444\u0027]"
+    },
+    "ContentItemId": "4h9dds6ytgw4e760v0jkq5qn4s",
+    "ContentItemVersionId": "4ka149z4tj9h90a95p6n9q4hmw",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making sure passengers leave the plane safely",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "managing relationships with partners"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emanaging relationships with partners\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/4b4bd99c-cb13-4512-936c-8b9c4041134b\u0027]"
+    },
+    "ContentItemId": "4r19bce2fb055v5jwa4p669q4s",
+    "ContentItemVersionId": "4bmcpxap2fz3z1rhfwjzyjqzcy",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "managing relationships with partners",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Outside Parliament, you\u0027lltalk to businesses and schools about local, national and international issues"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003EOutside Parliament, you\u0027lltalk to businesses and schools about local, national and international issues\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/c9b45fce-d20e-4129-8507-711500a22733\u0027]"
+    },
+    "ContentItemId": "401076ggf6056zfg3xfja5cb51",
+    "ContentItemVersionId": "49jqzvy3hbs8p51rs53mbz7f5x",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "Outside Parliament, you\u0027lltalk to businesses and schools about local, national and international issues",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "speak to the media"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Espeak to the media\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/01c7ed41-e172-4943-bab1-9664edc8e8c6\u0027]"
+    },
+    "ContentItemId": "4489t3t6d3ve32w47dqks58k48",
+    "ContentItemVersionId": "4rn80v7wyf0s972824vxk8jpny",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "speak to the media",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "updating records"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eupdating records\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/53bea694-8acb-410a-b88b-58ce64ffc0b4\u0027]"
+    },
+    "ContentItemId": "4cb09nwmdzqxzw877b20pc6p5m",
+    "ContentItemVersionId": "4pcfjmhgereehxaa4zwa1mjdms",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "updating records",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making passenger announcements"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking passenger announcements\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/f4dc0f3f-8a39-4d2e-bed1-98a55b0f47d7\u0027]"
+    },
+    "ContentItemId": "4r6kpeykdghtyybh3hq096m35v",
+    "ContentItemVersionId": "46tnnz3knn7gn1r2z94x5e2nxd",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making passenger announcements",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "formworking - putting up panels that hold setting concrete in place"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eformworking - putting up panels that hold setting concrete in place\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e773b39e-9fec-4809-811d-1e0fea0233bc\u0027]"
+    },
+    "ContentItemId": "4k6tgh3507wq97aw0kmyakdgn4",
+    "ContentItemVersionId": "459kjkq6qtvatrtthgz93ezwnq",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "formworking - putting up panels that hold setting concrete in place",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "reporting to the organisation\u2019s chairperson or owner"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ereporting to the organisation\u2019s chairperson or owner\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/baebabf2-6c81-444c-a0da-d6f0b39ab189\u0027]"
+    },
+    "ContentItemId": "4dde0znq4wwr8346eacvy3jent",
+    "ContentItemVersionId": "45rpks4zwbc9d28p835hfkggx0",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "reporting to the organisation\u2019s chairperson or owner",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "helping with personal care like washing, using the toilet and dressing"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehelping with personal care like washing, using the toilet and dressing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/721e0329-af9e-4941-b664-2fd2b71c7207\u0027]"
+    },
+    "ContentItemId": "4hrr8zw3n8d2x29eyqq8q4wmmw",
+    "ContentItemVersionId": "4vdd36w0r2t2p7st7mk3tgkjmb",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "helping with personal care like washing, using the toilet and dressing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "preparing bids for tenders, and reporting to clients and government agencies"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Epreparing bids for tenders, and reporting to clients and government agencies\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/53131f2a-5d06-4372-80a9-2bea7c368d43\u0027]"
+    },
+    "ContentItemId": "4kzaynwdb17kv2s3me6ydqprc3",
+    "ContentItemVersionId": "4xqmvtn7jwkwjy94r4b5d90vd7",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "preparing bids for tenders, and reporting to clients and government agencies",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "writing case notes"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ewriting case notes\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/cb4c94b5-bd94-4d13-b458-24359b0c5779\u0027]"
+    },
+    "ContentItemId": "4w5y9mtbv60jgwqmxpfcgazz5p",
+    "ContentItemVersionId": "4aj79v9ee5sezrbsr5zm72g4m5",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "writing case notes",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "setting up meetings and taking notes during them"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esetting up meetings and taking notes during them\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/f9d2b27d-56b1-4683-9cbd-9ffc8c24260d\u0027]"
+    },
+    "ContentItemId": "4z6aw5kzrvt3tzkqsjsab942w7",
+    "ContentItemVersionId": "4hz9afvyddbj4yk3rdtgmrvyde",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "setting up meetings and taking notes during them",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "rotating and replacing stock"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Erotating and replacing stock\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/8950373c-0a67-441f-9b7e-5e42d352bc53\u0027]"
+    },
+    "ContentItemId": "4hgxdxnt0b1amvcedyqvt79fcf",
+    "ContentItemVersionId": "4x1k0r6j44ttzz3am493wnm3nd",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "rotating and replacing stock",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "providing a safe and healthy environment"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eproviding a safe and healthy environment\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/9e639957-3f68-4b6c-a1e3-128173c5c617\u0027]"
+    },
+    "ContentItemId": "4m50mnb4t6h0dv4j6xg1pa8f5e",
+    "ContentItemVersionId": "4jgbcx9rfdag3shwe98pdktf5y",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "providing a safe and healthy environment",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "operating automated equipment"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eoperating automated equipment\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/2fa6aef1-57d6-49c1-91e5-8a91895e81e8\u0027]"
+    },
+    "ContentItemId": "4ghd1hm908nnfrtwnjdmdcpscx",
+    "ContentItemVersionId": "4a7r5rvjv7w2frhtedc9azgvcp",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "operating automated equipment",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "helping clients manage their budget, pay bills and write letters"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehelping clients manage their budget, pay bills and write letters\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/470eaff5-96f7-4a5a-a6cb-b4907ee70762\u0027]"
+    },
+    "ContentItemId": "4ge7sdvm4kzagyjgzfc7jtxrwe",
+    "ContentItemVersionId": "4vrdxvxxjg1gdwyt78enm9wgxb",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "helping clients manage their budget, pay bills and write letters",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "hold surgeries and advice sessions in your constituency"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehold surgeries and advice sessions in your constituency\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/88917557-9f1e-4dec-bc8f-c1d6574246b3\u0027]"
+    },
+    "ContentItemId": "4jpekcxed6wqgze9m2css0ynnh",
+    "ContentItemVersionId": "44wkmw5gm7392s3kk5dczv5gcn",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "hold surgeries and advice sessions in your constituency",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "updating computer records"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eupdating computer records\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/8b2bdfe8-b38c-405a-85d1-0cbccd5c108c\u0027]"
+    },
+    "ContentItemId": "4a9x71cgrykyh5evex4ac17fxg",
+    "ContentItemVersionId": "4wykcm66d17ds2enp87pa2r1mm",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "updating computer records",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "giving the public advice on personal safety and crime prevention"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egiving the public advice on personal safety and crime prevention\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/f451ace2-a0f1-44f2-9713-2eea7649806a\u0027]"
+    },
+    "ContentItemId": "41ek802dh9rzx4hwdm4mjjzh4b",
+    "ContentItemVersionId": "4wcpwvvqkjzp0s8xr8qq01pr53",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "giving the public advice on personal safety and crime prevention",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "taking cash and card payments and making sure the till balances"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Etaking cash and card payments and making sure the till balances\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/9df69d43-bd7f-4600-a544-d2b93da51448\u0027]"
+    },
+    "ContentItemId": "4czb4cxsjw2x767c5apmp1zs4m",
+    "ContentItemVersionId": "4dqheka89ksxhstdk72d2zr4ck",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "taking cash and card payments and making sure the till balances",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "keeping financial and stock records"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ekeeping financial and stock records\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/b1bb0c0b-995c-4b29-b0f6-7047162f6fc1\u0027]"
+    },
+    "ContentItemId": "45tnhq8e54cwm13v8z3deamsxp",
+    "ContentItemVersionId": "4nea23z4f7hzdv6fnm3ttmvrxq",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "keeping financial and stock records",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "following signalling instructions during the journey"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Efollowing signalling instructions during the journey\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/1fe82366-20c5-4750-abbd-f4673ed5b64c\u0027]"
+    },
+    "ContentItemId": "4pp1nv8gnyvf53apq0w3ytsamx",
+    "ContentItemVersionId": "4pves45f3135kwwyshgjk62pcq",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "following signalling instructions during the journey",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "contacting actors\u2019 agents and finding the next job"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Econtacting actors\u2019 agents and finding the next job\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/7ab98316-1645-402d-9131-e63b558f9f6a\u0027]"
+    },
+    "ContentItemId": "49xjw24rtw7ra4bjzg6pezwdx1",
+    "ContentItemVersionId": "4qfdnveag4ngxyp1ew186beqcr",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "contacting actors\u2019 agents and finding the next job",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "sorting mail on a sorting frame, getting it into address order"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esorting mail on a sorting frame, getting it into address order\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/b33be4cd-8e31-46b5-9972-e8a2f98a7920\u0027]"
+    },
+    "ContentItemId": "4899z8bqh1gz8xkf38t30zty52",
+    "ContentItemVersionId": "4rd7zn32n0wtq720b1sypg4rc6",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "sorting mail on a sorting frame, getting it into address order",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "installation electrician - installing power systems, lighting, fire protection, security and data-network systems in all types of buildings"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Einstallation electrician - installing power systems, lighting, fire protection, security and data-network systems in all types of buildings\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e432e6b1-242d-4343-b32a-6441c2d685c4\u0027]"
+    },
+    "ContentItemId": "4fbq76yg5ge5fsfwepms8xc5d7",
+    "ContentItemVersionId": "4xhv4ybe95k8p13e6dd62p9jmk",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "installation electrician - installing power systems, lighting, fire protection, security and data-network systems in all types of buildings",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "working with other professionals like education psychologists and social workers"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking with other professionals like education psychologists and social workers\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/82fb9616-2461-4ffa-8147-bce1e7c23fd5\u0027]"
+    },
+    "ContentItemId": "4355300m6jjbv55hn5g7576j42",
+    "ContentItemVersionId": "4kq816rn5hsqry6g4vsz8xfk4n",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working with other professionals like education psychologists and social workers",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "vote on new laws and policies"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Evote on new laws and policies\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/98febe2b-dbb6-44f0-80ab-75c3c1aeab93\u0027]"
+    },
+    "ContentItemId": "4x58grsmb4cnds5af76d8kebdw",
+    "ContentItemVersionId": "49zbzm98dpfbf134661revgbm7",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "vote on new laws and policies",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "typing letters and reports"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Etyping letters and reports\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/cad6ae8d-4cfd-4844-bc52-9a25bfbb0797\u0027]"
+    },
+    "ContentItemId": "478kcaf5261av0zbg3mdbfcb5d",
+    "ContentItemVersionId": "45b40tg10jyfv6tzt07tc6dc5a",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "typing letters and reports",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "working with other health and social care professionals to provide individual care and development plans"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eworking with other health and social care professionals to provide individual care and development plans\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/af8f5eb6-d6f3-4f40-b26c-8a75d5a1ed4a\u0027]"
+    },
+    "ContentItemId": "4ht1x4h9yfbck6wka12ncnyzxm",
+    "ContentItemVersionId": "4a2ty17xkxet00kkm2ep34p65n",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "working with other health and social care professionals to provide individual care and development plans",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "questioning passengers about their reasons for visiting the UK"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Equestioning passengers about their reasons for visiting the UK\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/2e478dc9-0772-4254-ba65-1164754398e0\u0027]"
+    },
+    "ContentItemId": "4bgxps8yy8s6st3s1yhvzqaxnr",
+    "ContentItemVersionId": "47t70zvwvmctxr9e6k5jz0ctw0",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "questioning passengers about their reasons for visiting the UK",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "printing and photocopying"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprinting and photocopying\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/9d3ce937-749f-4093-9a2f-dcfd7ca12c8f\u0027]"
+    },
+    "ContentItemId": "4bspvpk56a5ey46j60q7kh9sxb",
+    "ContentItemVersionId": "4aw7xfycmwsb1vkkbraegsb0w8",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "printing and photocopying",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "rehearsing"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Erehearsing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/1e649bb3-fddd-4e82-94c8-b1c1470aa0a1\u0027]"
+    },
+    "ContentItemId": "4d2s33ef6wx9n1y0mdz6hmf75y",
+    "ContentItemVersionId": "45hvk3hmkvb45ra815t5ew9nm1",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "rehearsing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "carrying out general tasks like housework, laundry and shopping"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ecarrying out general tasks like housework, laundry and shopping\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e12edf67-45c3-4d08-8f76-71742a2c9d43\u0027]"
+    },
+    "ContentItemId": "4w2cx1e76y8qd5c84e66wmnq5x",
+    "ContentItemVersionId": "424m9qs1cpgprz2sh5ctyr7rn5",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "carrying out general tasks like housework, laundry and shopping",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "contacting control centres for information about routes and any problems"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Econtacting control centres for information about routes and any problems\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/10ec485e-c24e-466e-9215-58ef67769e8c\u0027]"
+    },
+    "ContentItemId": "41jqp9wqmj07ay3tavj2c3hqmw",
+    "ContentItemVersionId": "4sj4jdtf8c7ne2t0j5ph310fxr",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "contacting control centres for information about routes and any problems",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "discussing your cases through regular supervision"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Ediscussing your cases through regular supervision\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/76af9390-4d71-4ed2-98ab-e7d9c06d1fd2\u0027]"
+    },
+    "ContentItemId": "4a169jd226hfzzpy5bd24pcx4s",
+    "ContentItemVersionId": "4pxkfma030tpy4hfj6agzqzdnr",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "discussing your cases through regular supervision",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "getting customer signatures for registered post and recorded deliveries"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egetting customer signatures for registered post and recorded deliveries\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/cf43f647-3bb5-415f-aef6-f1f68dd54bbd\u0027]"
+    },
+    "ContentItemId": "4zb63aw279dxwtgvvbc52bx7dv",
+    "ContentItemVersionId": "43dhaqz1g8y6xx48qqxhr18zmn",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "getting customer signatures for registered post and recorded deliveries",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "greeting visitors at reception"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Egreeting visitors at reception\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/fdd3a972-eff7-454b-b6a7-56c1161dfefc\u0027]"
+    },
+    "ContentItemId": "4fa2jd6ynpvf5yx3bcbntsrbc0",
+    "ContentItemVersionId": "4e4x01786nhhq10zs3tjkx3yxk",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "greeting visitors at reception",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "planning with the client"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eplanning with the client\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/5852f7fa-636b-472e-99fe-a2f07c4ee727\u0027]"
+    },
+    "ContentItemId": "490mz1x3t693m6873thcx6qr48",
+    "ContentItemVersionId": "4v46nckpmm5rpw2nspb2b9dy4f",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "planning with the client",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "making sure sites follow health and safety rules"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Emaking sure sites follow health and safety rules\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/bc63696f-2226-4ed8-88fa-c1962865e74c\u0027]"
+    },
+    "ContentItemId": "44354r22e4jn2vxm5e9e41kgxg",
+    "ContentItemVersionId": "44xcg2sfcjf0xsbn6mb8gxj8w2",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "making sure sites follow health and safety rules",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "controlling budgets"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Econtrolling budgets\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/b0c852e6-4d15-4daa-a664-71696a6fab13\u0027]"
+    },
+    "ContentItemId": "4yt345j7nv1f56gt10g1d67wdm",
+    "ContentItemVersionId": "41vpf2knmx8hcw89n456z4yhmf",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "controlling budgets",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "electrotechnical panel builder - making and installing control panels to operate the electrical systems inside buildings"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eelectrotechnical panel builder - making and installing control panels to operate the electrical systems inside buildings\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/0133e1c7-96f4-4e76-915b-898751c3a826\u0027]"
+    },
+    "ContentItemId": "4yd8ra0w4zjhp48gq30zd4z4xc",
+    "ContentItemVersionId": "4fnj6kwd8aa91sn5nq13e3p25b",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "electrotechnical panel builder - making and installing control panels to operate the electrical systems inside buildings",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "adding up and recording food and drink orders, and duty-free sales"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eadding up and recording food and drink orders, and duty-free sales\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/9a16e8b4-6288-4349-b00d-f0a85c6c0c9d\u0027]"
+    },
+    "ContentItemId": "4qt3yc577sgdy7vj87avphmnx3",
+    "ContentItemVersionId": "4p1mbenazqg9nrjq38zgqrjmcd",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "adding up and recording food and drink orders, and duty-free sales",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "putting together support plans"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eputting together support plans\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/46f1078e-e983-49d8-831a-312524aff025\u0027]"
+    },
+    "ContentItemId": "4kpfgw97wqw5j4wxexwatjr1c7",
+    "ContentItemVersionId": "410sn3jjmstztsvt2bmd54cw4n",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "putting together support plans",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "supervising team members"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esupervising team members\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/d64c5b60-71d6-414d-ab61-48ad8496395b\u0027]"
+    },
+    "ContentItemId": "4t6efcyfzrk8axbdrfbq2t1qn9",
+    "ContentItemVersionId": "4vhqeyn2dqvztxtqh345tw37d1",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "supervising team members",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "controlling automatic doors"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Econtrolling automatic doors\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/1ef13517-ab2f-425a-8abc-91fc275878dd\u0027]"
+    },
+    "ContentItemId": "4nfbsvykvjs4bwftwp4e9110wj",
+    "ContentItemVersionId": "4aeb5sk60612qw0kye4c1z2r4q",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "controlling automatic doors",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "checking travel documents and passports"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Echecking travel documents and passports\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/966de389-cab8-4c2a-9611-5681733bcb41\u0027]"
+    },
+    "ContentItemId": "4eaqeatvybbfh3xbbzaageh1nv",
+    "ContentItemVersionId": "4grkgeyccjjatzw85jjzp3th44",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "checking travel documents and passports",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "responding to calls for help from the public"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eresponding to calls for help from the public\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/63f77e24-48dc-49a2-a8fe-53b346ce3dc5\u0027]"
+    },
+    "ContentItemId": "43gq8c48zp6sn0w7r1ryt226dn",
+    "ContentItemVersionId": "4ywfa331x14y47a4dxrewz1w54",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "responding to calls for help from the public",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "demonstrating emergency equipment and procedures"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edemonstrating emergency equipment and procedures\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/086074cd-e192-415c-8bf2-04a2b17d44bf\u0027]"
+    },
+    "ContentItemId": "4ga7a67djrhxw572w8c0x8d6xf",
+    "ContentItemVersionId": "42vceqn04k2a3y52mnyaest5wz",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "demonstrating emergency equipment and procedures",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "dealing with returns"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Edealing with returns\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e4198466-b6a3-42f9-8645-af3f4de414fe\u0027]"
+    },
+    "ContentItemId": "4gb91mrh5zaat1e8n5n7tpd74t",
+    "ContentItemVersionId": "46hwybb4fj1ys7905n0q26gywm",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "dealing with returns",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "promoting the organisation at conferences, events and in the media"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Epromoting the organisation at conferences, events and in the media\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/0d848c30-59cf-4723-8a19-e2e2173fd818\u0027]"
+    },
+    "ContentItemId": "4fwcdpvg4vxsazbxz652p7kb50",
+    "ContentItemVersionId": "4prhatyh6r90930afzvsmzsrxg",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "promoting the organisation at conferences, events and in the media",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "supporting families with new caring responsibilities"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Esupporting families with new caring responsibilities\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/92c85aa3-c20b-47db-a0ce-d3e4e1cd13bc\u0027]"
+    },
+    "ContentItemId": "4zb76mvg27t7p69he1pbx1x547",
+    "ContentItemVersionId": "44ztkc9z2n65kt3ks3n1ts2bdh",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "supporting families with new caring responsibilities",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "analysing surveys, testing and mapping data using computer modelling software"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eanalysing surveys, testing and mapping data using computer modelling software\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/7b14e799-2c76-4dd4-ab4c-d05429a36138\u0027]"
+    },
+    "ContentItemId": "4j24fhk25h8sxwjwzyxxw26qwf",
+    "ContentItemVersionId": "4hhchycndp9690xj5x58s4394w",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "analysing surveys, testing and mapping data using computer modelling software",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "recording incidents like equipment problems, dangers and delays"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Erecording incidents like equipment problems, dangers and delays\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/e5c68896-d81c-41ad-a332-5fa0ff212d01\u0027]"
+    },
+    "ContentItemId": "42dndtv0yj6xhsw920nt6nssc4",
+    "ContentItemVersionId": "4gmnrvpjsvemprg12h33drqr4j",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "recording incidents like equipment problems, dangers and delays",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "preparing for and going to auditions"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Epreparing for and going to auditions\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/7f583ed0-8184-468a-8057-ab0388d9891a\u0027]"
+    },
+    "ContentItemId": "4y3gdz96fme4vtkhedgy0gc1nx",
+    "ContentItemVersionId": "4gc03aa91yp8q13a7jyfxw8g4w",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "preparing for and going to auditions",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "serving food and drinks, and selling duty-free items"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eserving food and drinks, and selling duty-free items\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/24888277-ff37-4aa9-80b7-be6e216fdd94\u0027]"
+    },
+    "ContentItemId": "4fk1br5zbmqc874rzahv5tghda",
+    "ContentItemVersionId": "42yea8a0wyhwfzq0aqj6gcja5k",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "serving food and drinks, and selling duty-free items",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "ordering supplies"
+    },
+    "DayToDayTask": {
+      "Description": {
+        "Html": "\u003Cp\u003Eordering supplies\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/daytodaytask/6b70e508-3d71-4382-9d37-dbc89f4d8b09\u0027]"
+    },
+    "ContentItemId": "42pnnysa8j8dyt3gxg18g9zv4t",
+    "ContentItemVersionId": "4273qcf3yyh5yrmmzb9vjdpj4k",
+    "ContentType": "DayToDayTask",
+    "DisplayText": "ordering supplies",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T06:57:10.6516584Z",
+    "PublishedUtc": "2020-06-16T06:57:10.6516584Z",
+    "CreatedUtc": "2020-06-16T06:57:10.6516584Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
