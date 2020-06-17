@@ -1,0 +1,360 @@
+{
+  "name": "ApprenticeshipStandardRoutes0_b38d8c19-0d9b-4151-a2c8-adfd25e67a24",
+  "displayName": "ApprenticeshipStandardRoutes0_b38d8c19-0d9b-4151-a2c8-adfd25e67a24",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Legal"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/f032f0df-ea74-49cf-9ff8-a45de2dbc1fb\u0027]"
+    },
+    "ContentItemId": "40mhnscx29pfhvjh8cgnpwakwm",
+    "ContentItemVersionId": "48c2zkb7cdk77386b8px56x947",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Legal",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Finance and accounting"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/a443b5ee-2b59-4f18-855e-3f8b54c5edec\u0027]"
+    },
+    "ContentItemId": "4sdsasmk2shtf6nyjtp22bdbmq",
+    "ContentItemVersionId": "4f2xk79qvpnc458svskt737fxb",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Finance and accounting",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/71c9cc74-3741-441e-9967-a17877fe444f\u0027]"
+    },
+    "ContentItemId": "4gvskztj5y2msstvx2h7bmer5n",
+    "ContentItemVersionId": "4hbzfj2cgtz31wcpmrq63z27dj",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Construction",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Engineering and manufacturing"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/4ce08f4b-58a5-4637-b198-86dee0de6117\u0027]"
+    },
+    "ContentItemId": "4td6dzpk5s8jvtwyb96wp96sc1",
+    "ContentItemVersionId": "423egcp4pwgqhwx59z1ggwm550",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Engineering and manufacturing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Transport and logistics"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/2f54b5d0-1f84-4e03-9617-72546b74781d\u0027]"
+    },
+    "ContentItemId": "43cj4df4h9bnw6yhcsmn3svqx6",
+    "ContentItemVersionId": "4vt3hn1j0zqheshpwhsxe9cbn5",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Transport and logistics",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Education and childcare"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/25edaed0-ee2b-4499-b3fe-19f5724c213b\u0027]"
+    },
+    "ContentItemId": "4yjt6gabscd8yy3haveyvs2vng",
+    "ContentItemVersionId": "4hg3jzfatyymwxm5wv8wjszcx3",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Education and childcare",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Care services"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/5956289e-e615-4430-9136-8dd79a3c4e01\u0027]"
+    },
+    "ContentItemId": "4emmg5tanrq2j7dp8zx5rh01ca",
+    "ContentItemVersionId": "4znpsyz76mvqjrfv1amhdz2tnk",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Care services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Hair and beauty"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/6ef6e2be-420a-4bdc-a76f-80f77fd64c0b\u0027]"
+    },
+    "ContentItemId": "4rfg15z01md2x06hfg8b97hmdb",
+    "ContentItemVersionId": "4t9bdpbhttvn8yqvvn3aabdsmr",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Hair and beauty",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sales"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/0e7b3bf9-2de4-460f-9cda-f1f2f39ee4a3\u0027]"
+    },
+    "ContentItemId": "4bk50yse7gqy56nfaf423ktmnf",
+    "ContentItemVersionId": "4pkn7ja7sbc2x32sj5zkd2t94z",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Sales",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Marketing and procurement"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/f5ddb66c-29a4-4f59-8b4c-975bafac97b9\u0027]"
+    },
+    "ContentItemId": "46tz59d6mvtbv15gk1vqtkqs5j",
+    "ContentItemVersionId": "4y1taz4xdckcetnwb9sbh0z3cx",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Marketing and procurement",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Health and science"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/46fa34f4-d313-4de7-b05b-c1664015d5b4\u0027]"
+    },
+    "ContentItemId": "4nr7a66ar4vf8384zfktjhzzck",
+    "ContentItemVersionId": "474tvp6c19nzhshv448p2vfsne",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Health and science",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Agriculture"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/cdf9d4be-1ea3-4442-b10f-55d5ee44d0bf\u0027]"
+    },
+    "ContentItemId": "465q7q9yj3mz6y9qy3qshyaznk",
+    "ContentItemVersionId": "4n8q855zksyjz6h1ec6919k3md",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Agriculture",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Environmental and animal care"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/079987d6-f0c9-41f7-a7b4-528e53599f9f\u0027]"
+    },
+    "ContentItemId": "4q8nzdk5vcxbj59t437wk0dh5v",
+    "ContentItemVersionId": "4zp78khmcyzcswx10hg344pans",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Environmental and animal care",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Creative and design"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/b38a5b19-4a12-4b68-878d-8b3c30a514bc\u0027]"
+    },
+    "ContentItemId": "4be2gxjfjea1ex077qtw37qfx8",
+    "ContentItemVersionId": "444kmgxr052zs49qjw1ne7s8d2",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Creative and design",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Business and administration"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/c6ede5ee-41df-4577-9781-4924d517c83a\u0027]"
+    },
+    "ContentItemId": "4q7k6cy3gh3zkrarpg4y26m95g",
+    "ContentItemVersionId": "4k6998rx5sc74zsc66pgtzr0nn",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Business and administration",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Catering and hospitality"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/8a36d941-cd90-4949-b183-52aa4fc9afa7\u0027]"
+    },
+    "ContentItemId": "4j94a1pm3zedd4r65pfm2bh1dy",
+    "ContentItemVersionId": "49cg47chc1j0ryxq1gmstk32mr",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Catering and hospitality",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Protective services"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/c23b5cd8-2a5f-4ec7-ab5b-2c10d31ed3e5\u0027]"
+    },
+    "ContentItemId": "4v0c69fcwpbnk7ga9kqtejwyw4",
+    "ContentItemVersionId": "4c0kmv8btnnpjxmkvkp25whq4n",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Protective services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Digital"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshipstandardroute/9be1e3e1-9d07-4f17-82bf-bec9488c7d84\u0027]"
+    },
+    "ContentItemId": "4363cas72bp7xvvef64js5kamz",
+    "ContentItemVersionId": "41gh5n1bykxkz0m5zab9jr4z58",
+    "ContentType": "ApprenticeshipStandardRoute",
+    "DisplayText": "Digital",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-17T15:32:29.0047056Z",
+    "PublishedUtc": "2020-06-17T15:32:29.0047056Z",
+    "CreatedUtc": "2020-06-17T15:32:29.0047056Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
