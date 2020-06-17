@@ -18,44 +18,6 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
-    public interface IBagPartEmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
-    {
-    }
-
-    public class BagPartEmbeddedContentItemsGraphSyncer : EmbeddedContentItemsGraphSyncer, IBagPartEmbeddedContentItemsGraphSyncer
-    {
-        public BagPartEmbeddedContentItemsGraphSyncer(
-            IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider)
-            : base(contentDefinitionManager, serviceProvider)
-        {
-        }
-
-        protected override async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
-        {
-            //todo: what if want different relationships for same contenttype in different bags!
-            string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
-            if (string.IsNullOrEmpty(relationshipType))
-                relationshipType = await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
-
-            return relationshipType;
-        }
-    }
-
-    public interface IEmbeddedContentItemsGraphSyncer
-    {
-        Task AddSyncComponents(dynamic content, IReplaceRelationshipsCommand replaceRelationshipsCommand);
-
-        Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint);
-
-        // Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper);
-    }
-
     public class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         private readonly IServiceProvider _serviceProvider;
