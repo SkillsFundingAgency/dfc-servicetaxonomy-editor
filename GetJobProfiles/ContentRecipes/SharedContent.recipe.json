@@ -83,6 +83,30 @@
                     "TitlePart": {
                         "Title": "Send us a letter"
                     }
+                },
+                {
+                    "ContentItemId": "4s74rsf6v05dz396qb658f7fxx",
+                    "ContentItemVersionId": "47bpdzm2yqfxmzms23artf4dwx",
+                    "ContentType": "SharedContent",
+                    "DisplayText": "Get help using this service",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-06-17T08:16:42.7066898Z",
+                    "PublishedUtc": "2020-06-17T08:16:42.7629024Z",
+                    "CreatedUtc": "2020-06-17T08:14:16.4121258Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "SharedContent": {
+                        "Content": {
+                            "Html": "<h3 class=\"govuk-heading-m\">Get help using this service</h3><p class=\"govuk-body govuk-!-margin-bottom-0\"><span class=\"govuk-body govuk-!-font-weight-bold\">Call </span>0800 100 900 or <a href=\"/webchat/chat/\" target=\"_blank\">use webchat</a></p><p class=\"govuk-caption-m govuk-!-font-size-16\">8am to 10pm, 7 days a week</p><p>More ways to <a href=\"/contact-us\">contact us</a></p>"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "__contentapiprefix__/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5"
+                    },
+                    "TitlePart": {
+                        "Title": "Get help using this service"
+                    }
                 }
             ]
         }
