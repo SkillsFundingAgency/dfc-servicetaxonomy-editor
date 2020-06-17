@@ -36,10 +36,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponents(
             JArray? contentItems,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand)
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            IGraphSyncHelper graphSyncHelper)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
+            int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
@@ -66,9 +68,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
                 string relationshipType = await RelationshipType(embeddedContentItemGraphSyncHelper);
 
+                var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, graphSyncHelper);
+                ++relationshipOrdinal;
+
                 replaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
-                    null,
+                    properties,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
@@ -84,6 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
+            int relationshipOrdinal = 0;
             foreach (ContentItem embeddedContentItem in embeddedContentItems)
             {
                 var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateAndRepairGraph>();
@@ -111,11 +117,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 string embeddedContentIdPropertyName = embeddedContentGraphSyncHelper.IdPropertyName(embeddedContentItem.ContentType);
 
+                var expectedRelationshipProperties = await GetRelationshipProperties(
+                    embeddedContentItem, relationshipOrdinal, embeddedContentGraphSyncHelper);
+                ++relationshipOrdinal;
+
                 (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
                     nodeWithOutgoingRelationships,
                     expectedRelationshipType,
                     embeddedContentIdPropertyName,
-                    destinationId);
+                    destinationId,
+                    expectedRelationshipProperties);
 
                 if (!validated)
                     return (false, failureReason);
@@ -142,6 +153,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             //todo: configurable?
             return await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
+        }
+
+        protected virtual Task<Dictionary<string, object>?> GetRelationshipProperties(
+            ContentItem contentItem,
+            int ordinal,
+            IGraphSyncHelper graphSyncHelper)
+        {
+            return Task.FromResult<Dictionary<string, object>?>(null);
         }
     }
 }

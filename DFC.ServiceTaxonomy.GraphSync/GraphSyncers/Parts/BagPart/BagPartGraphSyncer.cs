@@ -27,7 +27,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.BagPart
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(content[ContainerName], replaceRelationshipsCommand);
+            await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
+                content[ContainerName],
+                replaceRelationshipsCommand,
+                graphSyncHelper);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
