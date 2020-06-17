@@ -47,10 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                // DateTime? createdDate = contentItem.GetDateTime("CreatedUtc");
-                // DateTime? modifiedDate = contentItem.GetDateTime("ModifiedUtc");
-
-                //todo: if we want to support nested bags, would have to return queries also
+                //todo: if we want to support nested containers, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(
                     contentItem.ContentType,
                     contentItem.ContentItemId,
