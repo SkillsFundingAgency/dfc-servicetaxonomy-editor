@@ -17,7 +17,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 {
     //todo: there's an opportunity to share code with bagpart
 
@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
-        public string PartName => nameof(FlowPart);
+        public string PartName => nameof(global::OrchardCore.Flows.Models.FlowPart);
 
         private const string Widgets = "Widgets";
         private const string FlowMetaData = "FlowMetadata";
