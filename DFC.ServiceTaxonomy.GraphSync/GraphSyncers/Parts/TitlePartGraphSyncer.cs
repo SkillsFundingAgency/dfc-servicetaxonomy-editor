@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
@@ -13,6 +13,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     public class TitlePartGraphSyncer : IContentPartGraphSyncer
     {
         public string PartName => nameof(TitlePart);
+
+        private const string _contentTitlePropertyName = "Title";
 
         //todo: configurable??
         private const string _nodeTitlePropertyName = "skos__prefLabel";
@@ -24,9 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            JValue titleValue = content.Title;
-            if (titleValue.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, titleValue.As<string>());
+            mergeNodeCommand.AddProperty(_nodeTitlePropertyName, (JObject)content, _contentTitlePropertyName);
 
             return Task.CompletedTask;
         }
@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             string endpoint)
         {
             return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                "Title",
+                _contentTitlePropertyName,
                 content,
                 _nodeTitlePropertyName,
                 nodeWithOutgoingRelationships.SourceNode));

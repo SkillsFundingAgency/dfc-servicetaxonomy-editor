@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
@@ -10,7 +11,7 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
-    //also need termpart sync
+    //also need termpart sync (only if we want a 2 way relationship?)
     /*
 "TaxonomyPart": {
     "Terms": [
@@ -129,6 +130,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         public string PartName => nameof(TaxonomyPart);
 
         private const string ContainerName = "Terms";
+        private const string TermContentTypePropertyName = "TermContentType";
 
         public TaxonomyPartGraphSyncer(
             ITaxonomyPartEmbeddedContentItemsGraphSyncer taxonomyPartEmbeddedContentItemsGraphSyncer)
@@ -147,6 +149,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
                 content[ContainerName],
                 replaceRelationshipsCommand,
                 graphSyncHelper);
+
+            mergeNodeCommand.AddProperty(TermContentTypePropertyName, (JObject)content);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -158,12 +162,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            return await _taxonomyPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                (JArray?)content[ContainerName],
-                nodeWithOutgoingRelationships,
-                graphValidationHelper,
-                expectedRelationshipCounts,
-                endpoint);
+            (bool validated, string failureReason) =
+                await _taxonomyPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
+                    (JArray?)content[ContainerName],
+                    nodeWithOutgoingRelationships,
+                    graphValidationHelper,
+                    expectedRelationshipCounts,
+                    endpoint);
+
+            if (!validated)
+                return (validated, failureReason);
+
+            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+                TermContentTypePropertyName,
+                content,
+                TermContentTypePropertyName,
+                nodeWithOutgoingRelationships.SourceNode);
         }
     }
 }

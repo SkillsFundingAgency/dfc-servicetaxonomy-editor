@@ -77,15 +77,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
             using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
-            (validated, failureReason) = await _contentFieldsGraphSyncer.ValidateSyncComponent(
+            return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content,
                 contentTypePartDefinition,
                 nodeWithOutgoingRelationships,
                 graphSyncHelper,
                 graphValidationHelper,
                 expectedRelationshipCounts);
-
-            return (validated, failureReason);
         }
     }
 
