@@ -100,6 +100,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
             services.AddTransient<IEmbeddedContentItemsGraphSyncer, EmbeddedContentItemsGraphSyncer>();
             services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, BagPartEmbeddedContentItemsGraphSyncer>();
+            services.AddTransient<IFlowPartEmbeddedContentItemsGraphSyncer, FlowPartEmbeddedContentItemsGraphSyncer>();
 
             // part syncers
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();

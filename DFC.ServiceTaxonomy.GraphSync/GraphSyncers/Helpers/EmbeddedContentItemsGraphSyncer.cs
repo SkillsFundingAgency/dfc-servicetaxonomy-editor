@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -36,27 +35,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public async Task AddSyncComponents(
-            dynamic content,
+            JArray? contentItems,
             IReplaceRelationshipsCommand replaceRelationshipsCommand)
         {
-            foreach (JObject? contentItem in content.ContentItems)
+            IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
+
+            foreach (ContentItem contentItem in embeddedContentItems)
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                string contentType = contentItem!["ContentType"]!.ToString();
-                string contentItemId = contentItem!["ContentItemId"]!.ToString();
-                string contentItemVersionId = contentItem!["ContentItemVersionId"]!.ToString();
-                DateTime? createdDate = contentItem.GetDateTime("CreatedUtc");
-                DateTime? modifiedDate = contentItem.GetDateTime("ModifiedUtc");
+                // DateTime? createdDate = contentItem.GetDateTime("CreatedUtc");
+                // DateTime? modifiedDate = contentItem.GetDateTime("ModifiedUtc");
 
                 //todo: if we want to support nested bags, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(
-                    contentType,
-                    contentItemId,
-                    contentItemVersionId,
-                    contentItem!,
-                    createdDate,
-                    modifiedDate);
+                    contentItem.ContentType,
+                    contentItem.ContentItemId,
+                    contentItem.ContentItemVersionId,
+                    contentItem.Content,
+                    contentItem.CreatedUtc,
+                    contentItem.ModifiedUtc);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -65,7 +63,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
 
-                embeddedContentItemGraphSyncHelper.ContentType = contentType;
+                embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
                 string relationshipType = await RelationshipType(embeddedContentItemGraphSyncHelper);
 
                 replaceRelationshipsCommand.AddRelationshipsTo(
@@ -78,17 +76,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JArray? contentItems,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            IEnumerable<ContentItem>? contentItems = content["ContentItems"]?.ToObject<IEnumerable<ContentItem>>();
-            if (contentItems == null)
-                throw new GraphSyncException("Embedded content container does not contain ContentItems.");
+            IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
-            foreach (ContentItem embeddedContentItem in contentItems)
+            foreach (ContentItem embeddedContentItem in embeddedContentItems)
             {
                 var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateAndRepairGraph>();
 
@@ -126,6 +122,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
 
             return (true, "");
+        }
+
+        private static IEnumerable<ContentItem> ConvertToContentItems(JArray? contentItems)
+        {
+            if (contentItems == null)
+            {
+                // we've seen this when the import util generates bad data. we fail fast
+                throw new GraphSyncException("Embedded content container has missing array.");
+            }
+
+            IEnumerable<ContentItem>? embeddedContentItems = contentItems.ToObject<IEnumerable<ContentItem>>();
+            if (embeddedContentItems == null)
+                throw new GraphSyncException("Embedded content container does not contain ContentItems.");
+            return embeddedContentItems;
         }
 
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)

@@ -8,10 +8,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IEmbeddedContentItemsGraphSyncer
     {
-        Task AddSyncComponents(dynamic content, IReplaceRelationshipsCommand replaceRelationshipsCommand);
+        Task AddSyncComponents(JArray? contentItems, IReplaceRelationshipsCommand replaceRelationshipsCommand);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+            JArray? contentItems,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts,

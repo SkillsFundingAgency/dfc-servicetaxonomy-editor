@@ -25,11 +25,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 
     public class FlowPartGraphSyncer : IContentPartGraphSyncer
     {
+        private readonly IFlowPartEmbeddedContentItemsGraphSyncer _flowPartEmbeddedContentItemsGraphSyncer;
         private readonly IContentFieldsGraphSyncer _contentFieldsGraphSyncer;
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
-        public string PartName => nameof(global::OrchardCore.Flows.Models.FlowPart);
+        public string PartName => nameof(FlowPart);
 
         private const string Widgets = "Widgets";
         private const string FlowMetaData = "FlowMetadata";
@@ -40,10 +41,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
         private static readonly Func<string, string> _flowFieldsPropertyNameTransform = n => $"flow_{n}";
 
         public FlowPartGraphSyncer(
+            IFlowPartEmbeddedContentItemsGraphSyncer flowPartEmbeddedContentItemsGraphSyncer,
             IContentDefinitionManager contentDefinitionManager,
             IContentFieldsGraphSyncer contentFieldsGraphSyncer,
             IServiceProvider serviceProvider)
         {
+            _flowPartEmbeddedContentItemsGraphSyncer = flowPartEmbeddedContentItemsGraphSyncer;
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
             _serviceProvider = serviceProvider;
 

@@ -13,6 +13,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.BagPart
         private readonly IBagPartEmbeddedContentItemsGraphSyncer _bagPartEmbeddedContentItemsGraphSyncer;
         public string PartName => nameof(BagPart);
 
+        private const string ContainerName = "ContentItems";
+
         public BagPartGraphSyncer(IBagPartEmbeddedContentItemsGraphSyncer bagPartEmbeddedContentItemsGraphSyncer)
         {
             _bagPartEmbeddedContentItemsGraphSyncer = bagPartEmbeddedContentItemsGraphSyncer;
@@ -25,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.BagPart
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(content, replaceRelationshipsCommand);
+            await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(content[ContainerName], replaceRelationshipsCommand);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -38,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.BagPart
             string endpoint)
         {
             return await _bagPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                content,
+                (JArray?)content[ContainerName],
                 nodeWithOutgoingRelationships,
                 graphValidationHelper,
                 expectedRelationshipCounts,
