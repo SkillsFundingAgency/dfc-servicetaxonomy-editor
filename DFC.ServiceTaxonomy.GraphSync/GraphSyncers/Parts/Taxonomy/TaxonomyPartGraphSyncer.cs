@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
@@ -9,6 +10,7 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
+    //also need termpart sync
     /*
 "TaxonomyPart": {
     "Terms": [
@@ -123,19 +125,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
      */
     public class TaxonomyPartGraphSyncer : IContentPartGraphSyncer
     {
+        private readonly ITaxonomyPartEmbeddedContentItemsGraphSyncer _taxonomyPartEmbeddedContentItemsGraphSyncer;
         public string PartName => nameof(TaxonomyPart);
 
-        public Task AddSyncComponents(
+        private const string ContainerName = "Terms";
+
+        public TaxonomyPartGraphSyncer(
+            ITaxonomyPartEmbeddedContentItemsGraphSyncer taxonomyPartEmbeddedContentItemsGraphSyncer)
+        {
+            _taxonomyPartEmbeddedContentItemsGraphSyncer = taxonomyPartEmbeddedContentItemsGraphSyncer;
+        }
+
+        public async Task AddSyncComponents(
             dynamic content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            return Task.CompletedTask;
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
+                content[ContainerName],
+                replaceRelationshipsCommand,
+                graphSyncHelper);
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
@@ -143,7 +158,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            return Task.FromResult((true, ""));
+            return await _taxonomyPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
+                (JArray?)content[ContainerName],
+                nodeWithOutgoingRelationships,
+                graphValidationHelper,
+                expectedRelationshipCounts,
+                endpoint);
         }
     }
 }
