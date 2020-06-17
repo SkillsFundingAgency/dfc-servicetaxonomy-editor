@@ -3,11 +3,11 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.BagPart
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.FlowPart
 {
-    public class BagPartEmbeddedContentItemsGraphSyncer : EmbeddedContentItemsGraphSyncer, IBagPartEmbeddedContentItemsGraphSyncer
+    public class FlowPartEmbeddedContentItemsGraphSyncer : EmbeddedContentItemsGraphSyncer, IFlowPartEmbeddedContentItemsGraphSyncer
     {
-        public BagPartEmbeddedContentItemsGraphSyncer(
+        public FlowPartEmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
             IServiceProvider serviceProvider)
             : base(contentDefinitionManager, serviceProvider)
