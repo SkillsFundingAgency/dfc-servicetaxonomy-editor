@@ -54,7 +54,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "__contentapiprefix__/sharedcontent/77001b49-e398-4839-a157-47cdb096e8bf"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/77001b49-e398-4839-a157-47cdb096e8bf"
                     },
                     "TitlePart": {
                         "Title": "Thank you for contacting us"
@@ -78,7 +78,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "__contentapiprefix__/sharedcontent/5f1c9379-6854-46c6-b895-cc6af7b9dfc0"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/5f1c9379-6854-46c6-b895-cc6af7b9dfc0"
                     },
                     "TitlePart": {
                         "Title": "Send us a letter"
