@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using OrchardCore.Environment.Shell;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 
@@ -28,8 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
             IConfiguration configuration,
-            ILogger<CypherCommandStep> logger,
-            ShellSettings shellSettings)
+            ILogger<CypherCommandStep> logger)
         {
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
@@ -42,20 +40,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
 
-            var step = context.Step.ToObject<CypherCommandStepModel>();
-
-            foreach (string? command in step!.Commands ?? Enumerable.Empty<string?>())
+            try
             {
-                if (command == null)
-                    continue;
+                var step = context.Step.ToObject<CypherCommandStepModel>();
 
-                _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {command}");
+                foreach (string? command in step!.Commands ?? Enumerable.Empty<string?>())
+                {
+                    if (command == null)
+                        continue;
 
-                var customCommand = _serviceProvider.GetRequiredService<ICustomCommand>();
+                    _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {command}");
 
-                customCommand.Command = command.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
+                    var customCommand = _serviceProvider.GetRequiredService<ICustomCommand>();
 
-                await _graphDatabase.Run(customCommand);
+                    customCommand.Command = command.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
+
+                    await _graphDatabase.Run(customCommand);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Exception: {ex}");
+                throw;
             }
         }
 
