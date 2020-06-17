@@ -8,6 +8,9 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
+    //todo: do we need @WeldedPartSettings?
+    //todo: graphsyncsettings for term for uri?
+
     /*
      the content type created for the terms doesn't behave like other content types
      content items created when terms are added through the taxonomy ui aren't listed in the contents list (even though the type is listable)

@@ -174,7 +174,50 @@
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
-                                },
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "SiteSection",
+                    "DisplayName": "Site Section",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "SiteSection",
+                            "Name": "SiteSection",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
                             }
                         }
                     ]
@@ -2179,6 +2222,22 @@
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "SiteSection",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ContentsPage",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Contents Page",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
                     "Name": "SharedContent",

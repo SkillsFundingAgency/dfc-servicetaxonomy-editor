@@ -150,6 +150,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
                 replaceRelationshipsCommand,
                 graphSyncHelper);
 
+            // useful if there are no terms yet?
             mergeNodeCommand.AddProperty(TermContentTypePropertyName, (JObject)content);
         }
 

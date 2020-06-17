@@ -1,5 +1,7 @@
 #ToDo
 
+* use content handler, rather than workflow for syncing?
+
 *sync/delete when unpublish
 
 * new sorted is case sensitive
