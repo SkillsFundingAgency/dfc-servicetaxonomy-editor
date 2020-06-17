@@ -53,7 +53,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             try
             {
-                //todo: logging & error handling
                 CSharpContentStepModel? model = context.Step.ToObject<CSharpContentStepModel>();
                 if (model?.Data == null)
                     return;
