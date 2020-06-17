@@ -90,7 +90,14 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
+            services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
+
+            services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
+            services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
+            services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
+
+            // part syncers
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, FlowPartGraphSyncer>();
@@ -99,7 +106,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, HtmlBodyPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, PublishLaterPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, SitemapPartGraphSyncer>();
-            services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
+
+            // field syncers
             services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
@@ -107,9 +115,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentFieldGraphSyncer, ContentPickerFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, DateTimeFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, TaxonomyFieldGraphSyncer>();
-            services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
-            services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
 
             // workflow activities
             services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
