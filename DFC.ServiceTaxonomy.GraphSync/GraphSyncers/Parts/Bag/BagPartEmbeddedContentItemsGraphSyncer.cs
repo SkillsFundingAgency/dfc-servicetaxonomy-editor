@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.BagPart
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
 {
     public class BagPartEmbeddedContentItemsGraphSyncer : EmbeddedContentItemsGraphSyncer, IBagPartEmbeddedContentItemsGraphSyncer
     {

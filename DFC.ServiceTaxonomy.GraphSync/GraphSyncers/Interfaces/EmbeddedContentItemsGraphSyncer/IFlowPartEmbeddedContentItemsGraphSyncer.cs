@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+﻿namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer
 {
     public interface IFlowPartEmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {

@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer
 {
     public interface IEmbeddedContentItemsGraphSyncer
     {

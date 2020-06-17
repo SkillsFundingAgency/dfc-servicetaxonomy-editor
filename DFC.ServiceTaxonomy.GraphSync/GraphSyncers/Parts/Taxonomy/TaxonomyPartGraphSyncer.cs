@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Taxonomies.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
     /*
 "TaxonomyPart": {

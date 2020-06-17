@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.Flows.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.BagPart
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
 {
     public class BagPartGraphSyncer : IContentPartGraphSyncer
     {
