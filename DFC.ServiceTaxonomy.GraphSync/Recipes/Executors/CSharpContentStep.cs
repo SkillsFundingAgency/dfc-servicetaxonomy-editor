@@ -51,49 +51,56 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
 
-            //todo: logging & error handling
-            CSharpContentStepModel? model = context.Step.ToObject<CSharpContentStepModel>();
-            if (model?.Data == null)
-                return;
-
-            string dataString = model.Data.ToString();
-            dataString = ReplaceConfig(dataString);
-            string json = ReplaceCSharpHelpers(dataString, model.DebugImport);
-            JArray data = JArray.Parse(json);
-
-            foreach (JToken token in data)
+            try
             {
-                ContentItem? contentItem = token.ToObject<ContentItem>();
-                if (contentItem == null)
-                    continue;
+                CSharpContentStepModel? model = context.Step.ToObject<CSharpContentStepModel>();
+                if (model?.Data == null)
+                    return;
 
-                DateTime? modifiedUtc = contentItem.ModifiedUtc;
-                DateTime? publishedUtc = contentItem.PublishedUtc;
-                ContentItem existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+                string dataString = model.Data.ToString();
+                dataString = ReplaceConfig(dataString);
+                string json = ReplaceCSharpHelpers(dataString, model.DebugImport);
+                JArray data = JArray.Parse(json);
 
-                if (existing == null)
+                foreach (JToken token in data)
                 {
-                    // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                    contentItem.Id = 0;
-                    await _contentManager.CreateAsync(contentItem);
-                    _contentManagerSession.Clear();
+                    ContentItem? contentItem = token.ToObject<ContentItem>();
+                    if (contentItem == null)
+                        continue;
 
-                    // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-                    // Should not be necessary if IContentManager had an Import method
-                    contentItem.ModifiedUtc = modifiedUtc;
-                    contentItem.PublishedUtc = publishedUtc;
+                    DateTime? modifiedUtc = contentItem.ModifiedUtc;
+                    DateTime? publishedUtc = contentItem.PublishedUtc;
+                    ContentItem existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+
+                    if (existing == null)
+                    {
+                        // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
+                        contentItem.Id = 0;
+                        await _contentManager.CreateAsync(contentItem);
+                        _contentManagerSession.Clear();
+
+                        // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
+                        // Should not be necessary if IContentManager had an Import method
+                        contentItem.ModifiedUtc = modifiedUtc;
+                        contentItem.PublishedUtc = publishedUtc;
+                    }
+                    else
+                    {
+                        // Replaces the id to force the current item to be updated
+                        existing.Id = contentItem.Id;
+                        _session.Save(existing);
+                    }
                 }
-                else
-                {
-                    // Replaces the id to force the current item to be updated
-                    existing.Id = contentItem.Id;
-                    _session.Save(existing);
-                }
-            }
 
 #pragma warning disable S1215
-            GC.Collect();
+                GC.Collect();
 #pragma warning restore S1215
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Exception: {ex}");
+                throw;
+            }
         }
 
         private string ReplaceConfig(string data)
