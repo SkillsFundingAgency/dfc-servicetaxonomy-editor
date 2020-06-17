@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
@@ -21,17 +22,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IContentManager _contentManager;
         private readonly ISession _session;
         private readonly IContentManagerSession _contentManagerSession;
+        private readonly ILogger<ContentNoCacheStep> _logger;
 
         public const string StepName = "ContentNoCache";
 
         public ContentNoCacheStep(
             IContentManager contentManager,
             ISession session,
-            IContentManagerSession contentManagerSession)
+            IContentManagerSession contentManagerSession,
+            ILogger<ContentNoCacheStep> logger)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
+            _logger = logger;
         }
 
         public async Task ExecuteAsync(RecipeExecutionContext context)
@@ -41,44 +45,52 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 return;
             }
 
-            ContentStepModel? model = context.Step.ToObject<ContentStepModel>();
-            JArray? data = model?.Data;
-            if (data == null)
-                return;
-
-            foreach (JToken? token in data)
+            try
             {
-                ContentItem? contentItem = token.ToObject<ContentItem>();
-                if (contentItem == null)
-                    continue;
+                ContentStepModel? model = context.Step.ToObject<ContentStepModel>();
+                JArray? data = model?.Data;
+                if (data == null)
+                    return;
 
-                DateTime? modifiedUtc = contentItem.ModifiedUtc;
-                DateTime? publishedUtc = contentItem.PublishedUtc;
-                ContentItem? existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
-
-                if (existing == null)
+                foreach (JToken? token in data)
                 {
-                    // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
-                    contentItem.Id = 0;
-                    await _contentManager.CreateAsync(contentItem);
-                    _contentManagerSession.Clear();
+                    ContentItem? contentItem = token.ToObject<ContentItem>();
+                    if (contentItem == null)
+                        continue;
 
-                    // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
-                    // Should not be necessary if IContentManager had an Import method
-                    contentItem.ModifiedUtc = modifiedUtc;
-                    contentItem.PublishedUtc = publishedUtc;
+                    DateTime? modifiedUtc = contentItem.ModifiedUtc;
+                    DateTime? publishedUtc = contentItem.PublishedUtc;
+                    ContentItem? existing = await _contentManager.GetVersionAsync(contentItem.ContentItemVersionId);
+
+                    if (existing == null)
+                    {
+                        // Initializes the Id as it could be interpreted as an updated object when added back to YesSql
+                        contentItem.Id = 0;
+                        await _contentManager.CreateAsync(contentItem);
+                        _contentManagerSession.Clear();
+
+                        // Overwrite ModifiedUtc & PublishedUtc values that handlers have changes
+                        // Should not be necessary if IContentManager had an Import method
+                        contentItem.ModifiedUtc = modifiedUtc;
+                        contentItem.PublishedUtc = publishedUtc;
+                    }
+                    else
+                    {
+                        // Replaces the id to force the current item to be updated
+                        existing.Id = contentItem.Id;
+                        _session.Save(existing);
+                    }
                 }
-                else
-                {
-                    // Replaces the id to force the current item to be updated
-                    existing.Id = contentItem.Id;
-                    _session.Save(existing);
-                }
+
+#pragma warning disable S1215
+                GC.Collect();
+#pragma warning restore S1215
             }
-
-            #pragma warning disable S1215
-            GC.Collect();
-            #pragma warning restore S1215
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Exception: {ex}");
+                throw;
+            }
         }
     }
 
