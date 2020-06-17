@@ -184,11 +184,23 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
   "GraphSyncPart": {}
 }
 
+
+{
+  "TagNames": [
+    "Help"
+  ],
+  "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+  "TermContentItemIds": [
+    "4vx6b17n8c1j3tgjherk977ed2"
+  ]
+}
      */
     public class TaxonomyFieldGraphSyncer : IContentFieldGraphSyncer
     {
         public string FieldTypeName => "TaxonomyField";
 
+        private const string TagNames = "TagNames";
+        private const string TaxonomyContentItemIds = "TaxonomyContentItemId";
         private const string TermContentItemIds = "TermContentItemIds";
 
         public Task AddSyncComponents(
