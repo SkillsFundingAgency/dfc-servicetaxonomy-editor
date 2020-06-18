@@ -272,7 +272,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             // IEnumerable<object> foundDestinationNodeIds =
             //     foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
 
-            GraphSyncHelper termGraphSyncHelper = _serviceProvider.GetRequiredService<GraphSyncHelper>();
+            IGraphSyncHelper termGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
             termGraphSyncHelper.ContentType = termContentType;
 
             //todo: handle missing graphsynchelper. extract into GetNodeId method
