@@ -1,0 +1,2054 @@
+{
+  "name": "UniversityRoutes1_ee4d7af0-337a-47a0-87fe-07b793f53a1f",
+  "displayName": "UniversityRoutes1_ee4d7af0-337a-47a0-87fe-07b793f53a1f",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Higher education lecturer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a good degree, like a first class or upper second class, relevant to the subject you want to teach. You\u0027ll also need to have completed or be working towards a postgraduate master\u0027s or PhD, and have academic work published.\u003C/p\u003E\u003Cp\u003EYou\u0027ll be expected to do a teaching qualification soon after you start. This is usually offered by your own university and is done while working.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou may be able to get experience by taking on teaching duties while you\u0027re a postgraduate student. Some universities also offer work as a graduate teaching assistant.\u003C/p\u003E\u003Cp\u003EYou\u0027ll need several years\u0027 relevant work experience if you want to teach vocational subjects, for example art or engineering.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/6e464d6e-daae-477a-a5e6-1c51af8f7427\u0027]"
+    },
+    "ContentItemId": "459dwbjkx1dzrrthh6anvh3jm6",
+    "ContentItemVersionId": "4shb2859habte6912j1vdnxjxq",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Higher education lecturer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "User researcher"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Epsychology\u003C/li\u003E\u003Cli\u003Ehuman computer interaction (HCI)\u003C/li\u003E\u003Cli\u003Edigital marketing\u003C/li\u003E\u003Cli\u003Eproduct design\u003C/li\u003E\u003Cli\u003Egraphic design\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/f746acfb-af0b-45c6-83e4-d0a08f6703d1\u0027]"
+    },
+    "ContentItemId": "4ydst0gqd1ans4psv7x081xan0",
+    "ContentItemVersionId": "4te7ksgq7th57ten27gzps5hne",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "User researcher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Meteorologist"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need a degree in meteorology or a related subject like:\u003Cul\u003E\u003Cli\u003Ephysics\u003C/li\u003E\u003Cli\u003Emaths\u003C/li\u003E\u003Cli\u003Eenvironmental studies\u003C/li\u003E\u003Cli\u003Egeography\u003C/li\u003E\u003Cli\u003Ecomputer science\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EYou might need a postgraduate qualification in meteorology or climatology if you want to do research.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4er2bqb1n8zgpxyrwmphy5t740",
+          "4rf8vw1twtkw4tc7p8518c784a",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/a9252a06-a365-4f8f-a1b4-5cdff903a504\u0027]"
+    },
+    "ContentItemId": "40kw6yjq0hbqn2hqv6qmtrzgm1",
+    "ContentItemVersionId": "4eej23wp26s11zqm0jkkcnr057",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Meteorologist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Wind turbine technician"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Erenewable energy engineering\u003C/li\u003E\u003Cli\u003Eelectrical or mechanical engineering\u003C/li\u003E\u003Cli\u003Eelectrical power engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/11a9840f-264c-4c4e-87c3-d38071cff05b\u0027]"
+    },
+    "ContentItemId": "40gxpbwr2z3x3t27re403k8ext",
+    "ContentItemVersionId": "4dmde0k3rn0c45ygtn9vghzndn",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Wind turbine technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "British Sign Language interpreter"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a degree or level 6 award in both British Sign Language and interpreting.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou would also need an \u003Ca href=\u0022https://www.nrcpd.org.uk/approved-courses\u0022\u003Eapproved qualification in interpreting\u003C/a\u003E like:\u003Cul\u003E\u003Cli\u003Epostgraduate or master\u2019s degree in interpreting or translation\u003C/li\u003E\u003Cli\u003ELevel 6 Diploma in Sign Language Interpreting\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4q25spy34fktdthgnzwkp3604q",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/bf199c4a-d8c1-4788-b890-2a70dc3be4be\u0027]"
+    },
+    "ContentItemId": "4gp2sm88hhr9xyy6vv18fh45wg",
+    "ContentItemVersionId": "4c90gm47xt527xjhdvp6r46xwc",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "British Sign Language interpreter",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Pop musician"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a high level of musical skill and talent. To develop these skills, you could get a degree or postgraduate award in:\u003Cul\u003E\u003Cli\u003Epopular music\u003C/li\u003E\u003Cli\u003Emusic performance\u003C/li\u003E\u003Cli\u003Epopular and commercial music\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4k1cxw6nsgshptxj4ay168p6xf",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/c7d224e8-fd08-467e-b42f-8a14a06c2ee8\u0027]"
+    },
+    "ContentItemId": "4d3xpwqspf6gmyt4b1mqqd4znt",
+    "ContentItemVersionId": "4qqentfnv56mdwmcratmgfv5c5",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Pop musician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Training manager"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become a training manager but you may find it useful to do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Ebusiness studies\u003C/li\u003E\u003Cli\u003Ehuman resources management\u003C/li\u003E\u003Cli\u003Ecommunications\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/44dfb10b-6898-4a5f-baf8-35a5fca83713\u0027]"
+    },
+    "ContentItemId": "483t13ndcsx2asx3kx5frp71cp",
+    "ContentItemVersionId": "4361hmqg74e0a3etdcgyay54dj",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Training manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Marine engineer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou would normally need to complete a foundation degree or degree to become a marine engineer. Courses include:\u003Cul\u003E\u003Cli\u003Emarine engineering\u003C/li\u003E\u003Cli\u003Emarine technology\u003C/li\u003E\u003Cli\u003Enaval architecture\u003C/li\u003E\u003Cli\u003Eoffshore engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4er2bqb1n8zgpxyrwmphy5t740",
+          "4m4g33093ycmk3m0wbn9gc5m5b"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/6aea9b67-3ae6-45ee-bda5-43ff3540008c\u0027]"
+    },
+    "ContentItemId": "4cgaswv9wxp0h4r639prfv07m0",
+    "ContentItemVersionId": "4cmr0c1jff54877ewjh5s11qdc",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Marine engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Robotics engineer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a degree or postgraduate qualification in:\u003Cul\u003E\u003Cli\u003Eartificial intelligence and robotics\u003C/li\u003E\u003Cli\u003Emechatronics\u003C/li\u003E\u003Cli\u003Erobotics engineering\u003C/li\u003E\u003Cli\u003Emechanical engineering\u003C/li\u003E\u003Cli\u003Eelectronics engineering\u003C/li\u003E\u003Cli\u003Ecomputer science\u003C/li\u003E\u003Cli\u003Emathematics\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou can also work in the development of artificial intelligence if you have a qualification in psychology or cognitive science.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4fk3eg3s60x155qpx5b0gdk8c1",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/af1304c3-e30a-4431-8833-c39e556cf7b8\u0027]"
+    },
+    "ContentItemId": "4v1e5wmnmv1qfz18njb74s8qdg",
+    "ContentItemVersionId": "4xc3g93j84bfer4bqkwwjxwcw7",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Robotics engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Anaesthetist"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003ETo become an anaesthetist you\u0027ll need to complete:a 5-year degree in medicine, recognised by the \u003Ca href=\u0022https://www.gmc-uk.org/education/becoming-a-doctor-in-the-uk\u0022\u003EGeneral Medical Council\u003C/a\u003E; a 2-year foundation programme of general training; up to 8 years of specialist training\u003C/p\u003E\u003Cp\u003EYou may be able to join a 6-year degree course in medicine if you have no A levels or equivalent qualifications in science. This includes a one-year pre-medical foundation year.\u003C/p\u003E\u003Cp\u003EIf you already have an upper second class of first class science degree, you could take a 4-year \u003Ca href=\u0022https://www.bma.org.uk/advice/career/studying-medicine/becoming-a-doctor/graduate-and-foundation-students\u0022\u003Egraduate entry route into medicine\u003C/a\u003E. Some universities will also accept non-science graduates.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EWhen you apply for a course in medicine, you could be asked to take the University Clinical Aptitude Test (UCAT) or BioMedical Admissions Test (BMAT). They test the skills you\u0027ll need on the course, like critical thinking, problem solving, data analysis, communication and scientific knowledge.\u003C/p\u003E\u003Cp\u003EThere\u0027s a lot of competition for places on medical degrees. Most university admissions departments will expect you to have done some \u003Ca href=\u0022https://www.healthcareers.nhs.uk/explore-roles/doctors/applying-medical-school/gaining-experience-medical-school\u0022\u003Erelevant paid or voluntary experience\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4dgvkfx0achf40cg3x932cd5d4",
+          "4gbtqy7z8pqwk2avm1kctz2yx3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554",
+          "40ntph0e4s168tz98rma6z9qcv",
+          "4vyhvtets7kzp61cwzxmwf4qmx"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/98914faa-df08-4192-aed7-0aaf8ccd646d\u0027]"
+    },
+    "ContentItemId": "43s262h10hscp0as9cadqjsc5m",
+    "ContentItemVersionId": "4jty8hm5j4b6n0kcg2dc3tkmd6",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Anaesthetist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Laboratory technician"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, higher national diploma or degree course in:\u003Cul\u003E\u003Cli\u003Ebiology\u003C/li\u003E\u003Cli\u003Echemistry\u003C/li\u003E\u003Cli\u003Ephysics\u003C/li\u003E\u003Cli\u003Eforensic science\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4dgvkfx0achf40cg3x932cd5d4",
+          "4tmbg4gg1vv8r67knbwdv6gk5e"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/bf85eeb1-aead-4331-aadb-a6a5c5de6549\u0027]"
+    },
+    "ContentItemId": "4xqg7etq1cta42xg6nqqc5gyc1",
+    "ContentItemVersionId": "47cfwc69wwhc7rjztwxnh7pqxf",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Laboratory technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Nurse"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a degree in adult nursing approved by the\n\u003Ca href=\u0022https://www.nmc.org.uk/education/approved-programmes/\u0022\u003ENursing \u0026 Midwifery Council\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003ESome degree courses let you study another area of nursing alongside adult nursing.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou may be able to join the second year of a nursing degree if you already have a degree in:\u003Cul\u003E\u003Cli\u003Ea health-related subject\u003C/li\u003E\u003Cli\u003Epsychology\u003C/li\u003E\u003Cli\u003Elife sciences\u003C/li\u003E\u003Cli\u003Esocial work\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EFull-time courses usually take 3 years.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4er2bqb1n8zgpxyrwmphy5t740",
+          "4ygxy4mjnh7aj2anx36hmjamnk"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/95dcdc59-89b4-4763-935b-ff6777074123\u0027]"
+    },
+    "ContentItemId": "4dnp54yy0azn976gtjwh3gzxdx",
+    "ContentItemVersionId": "4z4m6kywpechesq7jzedmnymwv",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Nurse",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Homeopath"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a qualification recognised by one of the professional organisations for homeopathy, like a degree in homeopathy.\u003C/p\u003E\u003Cp\u003ECourses take 3 years full time or at least 4 years part time. All recognised programmes include supervised practice.\u003C/p\u003E\u003Cp\u003EIf you\u0027re a qualified healthcare professional like a doctor, nurse, dentist, pharmacist or midwife, you could take a postgraduate homeopathy course approved by the \u003Ca href=\u0022https://facultyofhomeopathy.org/training-in-homeopathy/qualifications/\u0022\u003EFaculty of Homeopathy\u003C/a\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rf8vw1twtkw4tc7p8518c784a",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/a66efeec-c378-41eb-9946-e57831b42187\u0027]"
+    },
+    "ContentItemId": "4396mfmjt1qm61bk4wmb9ena4y",
+    "ContentItemVersionId": "4enpnrce2q44wrg8v7t0hge6wc",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Homeopath",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Conference and exhibition manager"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, higher national diploma or degree in events management or hospitality management, although it\u0027s not essential.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EThese university courses often include work placements, which will help you get practical experience and develop contacts in the industry.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/312742e1-fd77-4c8b-a9e0-e57b16f5b658\u0027]"
+    },
+    "ContentItemId": "4pv6dnfhsc0wg01ncnc6g4mkmd",
+    "ContentItemVersionId": "4p18xq2qawztc26zqpgaynv5dh",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Conference and exhibition manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Clinical engineer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a degree to start training as a clinical engineer. Relevant subjects include:\u003Cul\u003E\u003Cli\u003Eelectrical or electronic engineering\u003C/li\u003E\u003Cli\u003Emechanical engineering\u003C/li\u003E\u003Cli\u003Ebiomedical science/engineering\u003C/li\u003E\u003Cli\u003Epure or applied physics\u003C/li\u003E\u003Cli\u003Eapplied maths\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EYour degree should be accredited by the \u003Ca href=\u0022https://www.engc.org.uk/education-skills/course-search/accredited-course-search/\u0022\u003EEngineering Council\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EAfter your degree, you can apply for the postgraduate \u003Ca href=\u0022http://www.nshcs.hee.nhs.uk/join-programme/nhs-scientist-training-programme\u0022\u003ENHS Scientist Training Programme\u003C/a\u003E (STP). During the 3-year programme, you\u0027ll be employed and study a postgraduate master\u0027s degree at university.\u003C/p\u003E\u003Cp\u003ECompetition for places on the STP is high, so it helps if you have relevant experience. Try and do some voluntary work in a hospital and get experience of patient contact.\u003C/p\u003E\u003Cp\u003EYou could also find employment in the private sector and work your way up to chartered engineer status.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4dgvkfx0achf40cg3x932cd5d4",
+          "4fk3eg3s60x155qpx5b0gdk8c1"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/58017cc1-e86b-4ee7-87d7-0b3247e02aea\u0027]"
+    },
+    "ContentItemId": "45nds5ayjqn25yzzdber9k9yx1",
+    "ContentItemVersionId": "4bdkv3zncwwmd1y6m8tp5nxjdm",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Clinical engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Building site inspector"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Econstruction\u003C/li\u003E\u003Cli\u003Ecivil engineering\u003C/li\u003E\u003Cli\u003Esurveying\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/4da6a735-9368-4063-a0fd-50f9dc3cdcb8\u0027]"
+    },
+    "ContentItemId": "4c103b441cq37zjvh3mzzy1jd3",
+    "ContentItemVersionId": "4k6vc3hdnbdhe2a9m7apb5z4np",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Building site inspector",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Paediatrician"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need to complete:a 5-year degree in medicine, recognised by the \u003Ca href=\u0022https://www.gmc-uk.org/education/how-we-quality-assure/medical-schools/bodies-awarding-uk-medical-degrees\u0022\u003EGeneral Medical Council\u003C/a\u003E; a 2-year foundation course of general training; 4 to 7 years of specialist training, depending on your chosen area of medicine\u003C/p\u003E\u003Cp\u003EIf you already have a degree in a science subject (minimum upper second), you could take a 4-year graduate entry programme into medicine.\u003C/p\u003E\u003Cp\u003EYou may be able to join a 6-year degree course in medicine if you have no science qualifications. This includes a one-year pre-medical or foundation year.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou could be asked to take the University Clinical Aptitude Test (UCAT) or BioMedical Admissions Test (BMAT), when you apply for a course. They test the skills you\u0027ll need on the course like critical thinking, problem solving, data analysis, communication and scientific knowledge.\u003C/p\u003E\u003Cp\u003EMedical schools will also expect you to have some relevant paid or voluntary work experience. The  \u003Ca href=\u0022https://www.rcpch.ac.uk/resources/interested-paediatrics-guidance-school-students\u0022\u003ERoyal College of Paediatrics and Child Health\u003C/a\u003E has information on finding a placement.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "48b2wrn43wknht6c06zww2zxmj",
+          "4gbtqy7z8pqwk2avm1kctz2yx3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554",
+          "4vyhvtets7kzp61cwzxmwf4qmx",
+          "40ntph0e4s168tz98rma6z9qcv"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/0960ff50-d436-4cf9-89c0-59f26f01fa51\u0027]"
+    },
+    "ContentItemId": "4n63ntmreh6x2wxcgr0jf07pc3",
+    "ContentItemVersionId": "4a3esy8wpnp8d05rg8z8wx11cy",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Paediatrician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Travel agency manager"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, higher national diploma or degree in a subject like:\u003Cul\u003E\u003Cli\u003Etravel operations\u003C/li\u003E\u003Cli\u003Etourism management\u003C/li\u003E\u003Cli\u003Eretail management\u003C/li\u003E\u003Cli\u003Ebusiness management\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EYou could join a travel company as a trainee manager once you finish your course.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/6f16865b-d7d4-459b-9578-b257c6edf3b5\u0027]"
+    },
+    "ContentItemId": "4ptc9tt016gqqr2cepmqw2pz4f",
+    "ContentItemVersionId": "4m9z5spe9prmf57tnvv1hjy95b",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Travel agency manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Costume designer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a higher national diploma, degree or postgraduate qualification in:\u003Cul\u003E\u003Cli\u003Ecostume design\u003C/li\u003E\u003Cli\u003Efashion\u003C/li\u003E\u003Cli\u003Etheatre design\u003C/li\u003E\u003Cli\u003Eperforming arts (production)\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rz1026fxpz920b05k5am9s25j",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/9abdbc00-de99-498e-bc4e-1aaff8934124\u0027]"
+    },
+    "ContentItemId": "4m63evmccg450sm0tqpjngfzwv",
+    "ContentItemVersionId": "4svz2t9r7svn1xs3dj7hgpfwwy",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Costume designer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Barrister"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could:\u003Cul\u003E\u003Cli\u003Edo a law degree\u003C/li\u003E\u003Cli\u003Edo a non-law degree followed by the Graduate Diploma in Law\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EYou would then complete a period of professional training which includes:\u003Cul\u003E\u003Cli\u003Ethe one-year Bar Professional Training Course\u003C/li\u003E\u003Cli\u003Ea follow-on year of practical training, called a pupillage\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003ETo get into some universities you\u0027ll need to pass the \u003Ca href=\u0022https://lnat.ac.uk/\u0022\u003ELaw National Aptitude Test\u003C/a\u003E (LNAT).\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/ca301331-0210-45b2-99ae-f55c0550142f\u0027]"
+    },
+    "ContentItemId": "4yc8ehd2szfw73hqm54evg754v",
+    "ContentItemVersionId": "41bgj912rhtrm173s8crshg4mr",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Barrister",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Editorial assistant"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need a degree in English, journalism or media studies.\u003C/p\u003E\u003Cp\u003EIf you want to specialise in a particular field of publishing, you may need a degree that\u0027s closely related to it, for example physics or maths for a scientific journal.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "40hej796a1nxx1xakktd4x2mmj",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/b5303c95-e26e-4825-be0d-0231b59c38dd\u0027]"
+    },
+    "ContentItemId": "4xxax9tgjcbshxxdejmvgsshm9",
+    "ContentItemVersionId": "4c7z7z4st4tm1rhskt3y5e5qd7",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Editorial assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Training officer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EIt can be useful to do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Ebusiness studies\u003C/li\u003E\u003Cli\u003Ehuman resources management\u003C/li\u003E\u003Cli\u003Ecommunications\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/5d728585-f3c2-4d29-bbc0-200ecbb298f9\u0027]"
+    },
+    "ContentItemId": "4g2vw9vvpevfytfcjbq05sbn53",
+    "ContentItemVersionId": "4jy4cvyx6rdctvswhqp47d6dd8",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Training officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Web designer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could take a higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Eweb design and development\u003C/li\u003E\u003Cli\u003Emultimedia design\u003C/li\u003E\u003Cli\u003Edigital media development\u003C/li\u003E\u003Cli\u003Einteractive computing\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4j5wyjj74jgmavkavxff1r8cdz",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/2e42045b-4b02-4bff-87e6-980f9d2f26be\u0027]"
+    },
+    "ContentItemId": "4yfkpkr3qf7374x11x0dwy5h52",
+    "ContentItemVersionId": "4kf0pcmmqdnxdzsybyh8cb00x8",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Web designer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Set designer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can study for a higher national diploma or degree in a relevant subject, like:\u003Cul\u003E\u003Cli\u003Efine art\u003C/li\u003E\u003Cli\u003Einterior design\u003C/li\u003E\u003Cli\u003E3D design\u003C/li\u003E\u003Cli\u003Etheatre design\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003ESeveral universities, colleges and drama schools also offer courses in performing arts production or design for film and television.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4j5wyjj74jgmavkavxff1r8cdz",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/d1bfa862-491f-4d26-977a-e14007edcc3a\u0027]"
+    },
+    "ContentItemId": "4362g11k3kn8gytg56vwrdexny",
+    "ContentItemVersionId": "4r3hht0gnt6y2w81xp2qe7w2m9",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Set designer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Energy engineer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a degree in an engineering or a scientific subject. Some employers may expect you to have a postgraduate qualification.\u003C/p\u003E\u003Cp\u003ERelevant subjects include:\u003Cul\u003E\u003Cli\u003Emining or petroleum engineering\u003C/li\u003E\u003Cli\u003Eenergy engineering\u003C/li\u003E\u003Cli\u003EEarth sciences\u003C/li\u003E\u003Cli\u003Eenvironmental engineering\u003C/li\u003E\u003Cli\u003Erenewable or sustainable energy\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EIf you\u0027re interested in postgraduate research and want to continue your studies up to PhD level, you may be able to apply for a course like an EngD.\u003C/p\u003E\u003Cp\u003EThese courses are offered by the \u003Ca href=\u0022https://www.ed.ac.uk/studying/postgraduate/degrees/index.php?r=site/view\u0026id=785\u0022\u003EIndustrial Doctoral Centre for Offshore Renewable Energy\u003C/a\u003E. You would be sponsored by a company to research offshore technologies for wind, wave and tidal power.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4m4g33093ycmk3m0wbn9gc5m5b",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/9c5262cf-6cb4-48ca-9564-0643c428292e\u0027]"
+    },
+    "ContentItemId": "48yzz50b779ksxgwzv17a4z3cj",
+    "ContentItemVersionId": "47h1rjcxgke9wztvx0s3fm054r",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Energy engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "App developer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Ecomputer science\u003C/li\u003E\u003Cli\u003Esoftware engineering\u003C/li\u003E\u003Cli\u003Ecomputer applications development\u003C/li\u003E\u003Cli\u003Emathematics\u003C/li\u003E\u003Cli\u003Efinancial technology\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/f99e0726-8667-4d9f-aa49-76700bb6778d\u0027]"
+    },
+    "ContentItemId": "423edbfhza513551s1q65p7w4c",
+    "ContentItemVersionId": "4a6bgd6g6e6ev4e1za0aezb6cv",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "App developer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Nutritionist"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need a degree or postgraduate qualification approved by the \u003Ca href=\u0022http://www.associationfornutrition.org/Default.aspx?tabid=134\u0022\u003EAssociation for Nutrition\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003EApproved courses include:\u003Cul\u003E\u003Cli\u003Efood and nutrition\u003C/li\u003E\u003Cli\u003Ebiochemistry\u003C/li\u003E\u003Cli\u003Ephysiology\u003C/li\u003E\u003Cli\u003Epublic health\u003C/li\u003E\u003Cli\u003Ehealth promotion\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4wr5y247jyjbt48bvk3dp3xenf",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/8c5d835e-dc9b-4f84-8d4a-d29320e33a8d\u0027]"
+    },
+    "ContentItemId": "4zjkkensmsyzwvpd21hwqwvmdp",
+    "ContentItemVersionId": "45380nqz5hsjarfvc6tq03zrxc",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Nutritionist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Model maker"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a foundation degree or degree in a subject like:\u003Cul\u003E\u003Cli\u003E3D design\u003C/li\u003E\u003Cli\u003Eart and design\u003C/li\u003E\u003Cli\u003Esculpture\u003C/li\u003E\u003Cli\u003Evisual effects\u003C/li\u003E\u003Cli\u003Eproduct design\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou\u0027ll usually need a portfolio of work to get onto a course. A foundation course in art and design can help you to prepare for this.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4xf9a1zxrjfh42hqrk6ars28ch",
+          "47a6n4j1pat3hsyrspyny2kqd7",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/3dee24bc-bd67-4247-b7c8-3659bda44f60\u0027]"
+    },
+    "ContentItemId": "45sd9ryxkrpe3z9qwbkcsamr4v",
+    "ContentItemVersionId": "4j2rrf0d46zye4gfbaf2wh1w5r",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Model maker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sports commentator"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become a sports commentator but it may be useful to get a degree in a relevant subject like:\u003Cul\u003E\u003Cli\u003Ejournalism\u003C/li\u003E\u003Cli\u003Esports journalism\u003C/li\u003E\u003Cli\u003Esports business and broadcasting\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/593612ec-cada-404a-8844-e3875fff545a\u0027]"
+    },
+    "ContentItemId": "428vmh9skn7zx55rwxvm8pjt58",
+    "ContentItemVersionId": "4r49smxqxxskp42z437jdqgwcn",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Sports commentator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Youth worker"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a professional youth work qualification, like a degree that is recognised by the \u003Ca href=\u0022https://nya.org.uk/resource/current-youth-work-courses/\u0022\u003ENational Youth Agency\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003ESubjects include:\u003Cul\u003E\u003Cli\u003Eyouth and community\u003C/li\u003E\u003Cli\u003Ecommunity and youth studies\u003C/li\u003E\u003Cli\u003Eyouth and theology\u003C/li\u003E\u003Cli\u003Einformal and community education\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EIf you have a degree in another subject, you can take a postgraduate qualification to give you professional youth worker status.\u003C/p\u003E\u003Cp\u003EYou\u0027ll also need relevant experience to get on to a degree or postgraduate course.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt",
+          "48n3sbvsnh00hvq091j93p6kdt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4q25spy34fktdthgnzwkp3604q",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/c7a6ead1-092e-490a-9c61-e88105356f81\u0027]"
+    },
+    "ContentItemId": "4apqgvscbd02nyrtzdrs71ghw8",
+    "ContentItemVersionId": "48nh7c676z80gyqp14frc2nqc9",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Youth worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Chemical engineer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll normally need a degree or postgraduate qualification in:\u003Cul\u003E\u003Cli\u003Echemical engineering\u003C/li\u003E\u003Cli\u003Eprocess engineering\u003C/li\u003E\u003Cli\u003Ebiochemical engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EYou may be able to do a postgraduate conversion course if you have a degree in a related area like engineering, chemistry or polymer science.\u003C/p\u003E\u003Cp\u003ESome universities offer a foundation year for people without qualifications in maths and science, which allows them to move onto the degree course afterwards.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EA postgraduate master\u0027s qualification like an MEng can be studied at university. This course includes independent research and gives you a greater knowledge and understanding of chemical engineering science. It could also prepare you for further postgraduate study like a PhD.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4er2bqb1n8zgpxyrwmphy5t740",
+          "40mmv005ce2v207czq903n1c4z",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/d85ce5a6-5070-4a2a-97e3-de22f1442952\u0027]"
+    },
+    "ContentItemId": "4yvseqnmpc7nk5hq93s44d83xd",
+    "ContentItemVersionId": "4yr9hqy4fgerp44h0fyxdqwx4m",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Chemical engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Athlete"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can apply to do a course at university in the usual way through UCAS and join your university\u2019s athletics development programme, if one is available.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou may be able to apply to a university for a sports scholarship, if you\u2019ve competed at club, regional or national level and have shown the potential to go further.\u003C/p\u003E\u003Cp\u003EYou can get advice about combining university study with your athletics career from \u003Ca href=\u0022https://www.englandathletics.org/athletics-and-running/our-programmes/university-charter-mark/athletes-guide-to-life-at-university/\u0022\u003EEngland Athletics\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/122b99a1-bf51-4db0-beaa-d06de3e7d6ed\u0027]"
+    },
+    "ContentItemId": "4jyp2m552bk51zgw3vmwjfdx5n",
+    "ContentItemVersionId": "4a231jkjhhs35tvz602f21rjm9",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Athlete",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Art editor"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a degree in:\u003Cul\u003E\u003Cli\u003Egraphic design\u003C/li\u003E\u003Cli\u003Eillustration\u003C/li\u003E\u003Cli\u003Efine art\u003C/li\u003E\u003Cli\u003Eart and design\u003C/li\u003E\u003Cli\u003Epublishing\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4xf9a1zxrjfh42hqrk6ars28ch",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/21454cfc-5947-432c-a1c1-4dc014fcafb6\u0027]"
+    },
+    "ContentItemId": "4m3q9d1cjr14q7t268xhke2vck",
+    "ContentItemVersionId": "4ybc7x3vtw519sgbdvrwvm2rmz",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Art editor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Resort representative"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, higher national diploma or degree in a subject like travel and tourism, although this isn\u0027t essential for this role.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/24c59cde-8d96-4399-929d-750f5d984546\u0027]"
+    },
+    "ContentItemId": "4erqpgpw5c2b9tp8xw3y8qgtx5",
+    "ContentItemVersionId": "46yjxpprqjwbfrt6s044dc1vm0",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Resort representative",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Quality assurance manager"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a degree or postgraduate qualification in:\u003Cul\u003E\u003Cli\u003Eproduction management\u003C/li\u003E\u003Cli\u003Ebusiness studies\u003C/li\u003E\u003Cli\u003Ehuman resources management\u003C/li\u003E\u003Cli\u003Ebusiness administration\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou may need a degree that is specific to the industry you want to work in, like:\u003Cul\u003E\u003Cli\u003Escience\u003C/li\u003E\u003Cli\u003Econstruction\u003C/li\u003E\u003Cli\u003Eengineering\u003C/li\u003E\u003Cli\u003Epharmaceuticals\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt",
+          "48n3sbvsnh00hvq091j93p6kdt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/d17f4025-c5c2-4bc8-87df-220c27594559\u0027]"
+    },
+    "ContentItemId": "4vgejgjj74gbt66raenby9gqxe",
+    "ContentItemVersionId": "4qpw3akszgmg21ybywcw1fp2wz",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Quality assurance manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "TV or film camera operator"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can take a university course to develop your camera skills before looking for work. Relevant courses include degrees in media production, media technology or photography.\u003C/p\u003E\u003Cp\u003EIt may give you an advantage if you can find a course that offers practical experience and possibly a work placement.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/0719c5f2-c9d0-4c72-8e51-069327a96e98\u0027]"
+    },
+    "ContentItemId": "4a2xzxc8avyetwkgm3yh5hr0c1",
+    "ContentItemVersionId": "4rq4cn174pr0erbmvz83x5npwb",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "TV or film camera operator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Music teacher"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a relevant music degree and postgraduate qualification to be a music teacher in a music college or conservatoire.\u003C/p\u003E\u003Cp\u003EAs a primary school teacher, you would be trained to teach all subjects, and develop a subject specialism in music. At secondary level, you may get the opportunity to teach music as a single subject or combine it with another subject.\u003C/p\u003E\u003Cp\u003EYou\u0027ll need a postgraduate qualification or a recognised profile as a professional performer, with teaching experience, to be a lecturer in a university.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EWhen you apply for a course, you\u0027ll usually attend an audition, and many institutions will expect you to have at least Grade 6 on a main instrument.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4w4gvaemqkrhws6m0qtgarrnws",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4k1cxw6nsgshptxj4ay168p6xf",
+          "4vhv7y73y3awsr5422wpwy5554",
+          "41qpdv2dazw4y6wj14ajmwsnch",
+          "4yq8706qrhx6406gcpxt07txdk"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/e977d403-4d44-4ee1-bc08-c8912ef8acb8\u0027]"
+    },
+    "ContentItemId": "4rqsr60pb3wdq240jj4faspznh",
+    "ContentItemVersionId": "4m8tg188kywmtvm0fzmg9bk7df",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Music teacher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Dentist"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need to complete a 5-year degree in dentistry approved by the General Dental Council, followed by 1 to 2 years of postgraduate dental training.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EWhen you apply for a dentistry course, you could be asked to take the University Clinical Aptitude Test (UCAT) or BioMedical Admissions Test (BMAT). They test the skills you\u0027ll need on the course, like critical thinking, problem solving, data analysis, communication and scientific knowledge.\u003C/p\u003E\u003Cp\u003EYou may be able to apply for a 4-year dental degree course if you\u0027ve already got at least an upper second class degree in biology, chemistry or a biomedical subject.\u003C/p\u003E\u003Cp\u003EThere\u0027s a lot of competition for places at dental schools.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gbtqy7z8pqwk2avm1kctz2yx3"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554",
+          "40ntph0e4s168tz98rma6z9qcv",
+          "4vyhvtets7kzp61cwzxmwf4qmx"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/b59e2f8c-1e6c-483c-ad14-3b37e8fee1e7\u0027]"
+    },
+    "ContentItemId": "4w31yvq1wf1rk3wx82s3fpa3cv",
+    "ContentItemVersionId": "4hcj3prcg8r63sea0pd98vf4mw",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Dentist",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "E-commerce manager"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Ebusiness management\u003C/li\u003E\u003Cli\u003Edigital marketing\u003C/li\u003E\u003Cli\u003Ebusiness enterprise\u003C/li\u003E\u003Cli\u003Eretail management\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/2ae55ef3-0bd9-4a40-8f10-871a1a746d94\u0027]"
+    },
+    "ContentItemId": "4qa8m09skkkyt697yagn38q0xw",
+    "ContentItemVersionId": "4fvwcan15ycbd5jqvqvstmqr4e",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "E-commerce manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Choreographer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a high level of dance training and experience. You could do a foundation degree, degree or postgraduate award to develop your skills. Relevant subjects include:\u003Cul\u003E\u003Cli\u003Eprofessional dance\u003C/li\u003E\u003Cli\u003Emusical theatre\u003C/li\u003E\u003Cli\u003Edance and choreography\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EThese are offered by \u003Ca href=\u0022https://cdmt.org.uk/accredited-schools-and-colleges/dance\u0022\u003Edance schools\u003C/a\u003E and universities.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/14d92864-2ad8-4f89-a9d3-6ba9605a2530\u0027]"
+    },
+    "ContentItemId": "43j4gpr6hghenw5gxvdwy0zqc5",
+    "ContentItemVersionId": "4t63dazkd6e4a3nh3818tz36cg",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Choreographer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Merchant Navy deck officer"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can start your career after completing an industry-backed foundation degree, higher national diploma or degree. These courses usually include onboard practical training. Relevant subjects include:\u003Cul\u003E\u003Cli\u003Enautical science\u003C/li\u003E\u003Cli\u003Enavigation and maritime science\u003C/li\u003E\u003Cli\u003Emarine engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/debafdd7-3166-40af-b33f-308a034178b2\u0027]"
+    },
+    "ContentItemId": "4arr35g8g27f7tnhd7hx6zdan8",
+    "ContentItemVersionId": "4hr3y1twm9ja4wf6dd1y47jzdj",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Merchant Navy deck officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Technical surveyor"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a foundation degree, higher national diploma or degree in a  subject like:\u003Cul\u003E\u003Cli\u003Econstruction\u003C/li\u003E\u003Cli\u003Ebuilding surveying\u003C/li\u003E\u003Cli\u003Ecivil engineering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/0a5fdd8e-462f-40cf-a589-1ae6f85d4708\u0027]"
+    },
+    "ContentItemId": "4awdgy6j4wyvh4t4vpa75grwde",
+    "ContentItemVersionId": "4sddsk6jxz7n6s1p9cb1ra13dp",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Technical surveyor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cycling coach"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EThere is no set entry route to become a professional cycle coach but getting a foundation degree, higher national diploma or degree in a sports-related subject like sports science could give you an advantage.\u003C/p\u003E\u003Cp\u003EIf you\u0027re a competitive cyclist, you could do a foundation degree in cycling performance or cycling studies.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4gr8wfrr6rhqpyn37daxvpgsnt"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/0abcc2b2-2da9-49f4-bf8c-07b95d4008c1\u0027]"
+    },
+    "ContentItemId": "4rzrpx96qpzzc4dvja1df4hkxy",
+    "ContentItemVersionId": "4tzws748s4zqz6a4eb3x5p1pnw",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Cycling coach",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Zookeeper"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a foundation degree, higher national diploma or degree in:\u003Cul\u003E\u003Cli\u003Eanimal or zoo management\u003C/li\u003E\u003Cli\u003Eanimal behaviour and welfare\u003C/li\u003E\u003Cli\u003Ezoology or marine zoology\u003C/li\u003E\u003Cli\u003Eanimal conservation and biodiversity\u003C/li\u003E\u003Cli\u003Eveterinary science\u003C/li\u003E\u003Cli\u003Ebiology\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EZoos vary in what qualifications they ask for and it can depend on what their zookeepers are going to do.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4tebwc08jsvrkr44vn33sbae5e",
+          "4rf8vw1twtkw4tc7p8518c784a"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/6ec615f5-4cf3-45e4-88d3-549abf60f6d7\u0027]"
+    },
+    "ContentItemId": "4eqqnjemashvy3vyhh5g72tzn0",
+    "ContentItemVersionId": "4p8wax5r84ndz0ztr8x7m3sh4t",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Zookeeper",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Research and development manager"
+    },
+    "UniversityRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou\u0027ll need a degree or postgraduate qualification to become a research and development manager. The subject you take will depend on which research area you want to work in but common examples include:\u003Cul\u003E\u003Cli\u003Eengineering\u003C/li\u003E\u003Cli\u003Escience\u003C/li\u003E\u003Cli\u003Emedicine\u003C/li\u003E\u003Cli\u003Ehealthcare\u003C/li\u003E\u003Cli\u003Emathematics\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EYou\u0027ll also need several years\u0027 relevant experience in industry, with an understanding of research methods, data analysis and development processes.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "43212f3e4g4zfw6k7qp5q1jkxb"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4gr8wfrr6rhqpyn37daxvpgsnt",
+          "40mpngkzycfrt5mjyf7n3mfgx6"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4samn215vs38f6xt03vdctveng",
+          "487vcqvpr4ykh4htvh04vsq8w1",
+          "4vhv7y73y3awsr5422wpwy5554"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/universityroute/84967a41-804c-4ceb-8a70-751811b0d6ea\u0027]"
+    },
+    "ContentItemId": "4cxznka2j9dnrvf72wcw2mntcg",
+    "ContentItemVersionId": "4schc75bq91wdrzxsr7w4bwjcd",
+    "ContentType": "UniversityRoute",
+    "DisplayText": "Research and development manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,522 @@
+{
+  "name": "DirectRoutes1_ee4d7af0-337a-47a0-87fe-07b793f53a1f",
+  "displayName": "DirectRoutes1_ee4d7af0-337a-47a0-87fe-07b793f53a1f",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Community matron"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly if you\u0027re a registered nurse or health professional and have between 3 and 5 years\u0027 post-registration experience. Some employers may also ask for:\u003Cul\u003E\u003Cli\u003Ea degree or postgraduate diploma in community practice, specialising in district nursing, health visiting or practice nursing\u003C/li\u003E\u003Cli\u003Ea relevant teaching or mentoring qualification\u003C/li\u003E\u003Cli\u003Ea nurse prescribing qualification\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/2f61f4ee-c805-4962-a56b-9c2d9543b683\u0027]"
+    },
+    "ContentItemId": "4h0s76qeaf49n66zny4nfr025q",
+    "ContentItemVersionId": "4hhftd1zb251h7ar14pg532vn6",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Community matron",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Pensions administrator"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly for vacancies. Employers will expect you to be good with numbers, know how to use common office software and be able to communicate well, both verbally and in writing. Some companies may prefer you to have at least two A levels.\u003C/p\u003E\u003Cp\u003EPrevious experience in customer service, accounts or office work would also be helpful.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/16d7b699-cf66-4ff9-b33d-ece0a28bfae4\u0027]"
+    },
+    "ContentItemId": "4zha73xak428c2jm4xc43d1647",
+    "ContentItemVersionId": "4tft9ga0758hbz5mw3f756bm4d",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Pensions administrator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Data entry clerk"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply for jobs directly if you\u0027ve got experience of word processing, spreadsheets and databases. Employers may also ask for GCSEs in English and maths.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/3900ad1c-8f07-474b-89f3-e8d7167e56b8\u0027]"
+    },
+    "ContentItemId": "4254dm5emkb5t7n7cb22pdkmmm",
+    "ContentItemVersionId": "413vh173anyjhv3bev96dzbdns",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Data entry clerk",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Immigration officer"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly for immigration officer jobs with the Civil Service. The qualifications and experience you\u0027ll need will depend on the exact job you\u0027re applying for, but you\u2019ll usually find it useful to have:\u003Cul\u003E\u003Cli\u003E2 A levels at grade C or above\u003C/li\u003E\u003Cli\u003Ea degree for some jobs\u003C/li\u003E\u003Cli\u003Ecustomer service skills\u003C/li\u003E\u003Cli\u003Ethe ability to speak another language\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/3231b2f6-9142-4a1b-bd44-ed577369c8e5\u0027]"
+    },
+    "ContentItemId": "4qrnp7w1dddpet57bqfj9tm8nr",
+    "ContentItemVersionId": "4v8msjpnmwp906b6cjwshw4yc6",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Immigration officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Engineering operative"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly for vacancies. It might help if you have a few GCSEs, especially in maths, English or design and technology. You\u0027ll usually work alongside an experienced member of staff to learn the skills to do the job.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/d6178f2e-b0be-4995-8a8b-c12018bb96e0\u0027]"
+    },
+    "ContentItemId": "4fcd2sadgyh7y1c1bhz2gds3n3",
+    "ContentItemVersionId": "4y7fd3pxtsnfgy441kjysb48n0",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Engineering operative",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Victim care officer"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can move into this career if you have experience from related areas, like working with vulnerable adults in social services, a community setting or through counselling.\u003C/p\u003E\u003Cp\u003EExperience of working in the justice system, for instance with the police, courts or prisons, would also be useful.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/7f18456f-2fff-481f-be28-f19725a1f2b9\u0027]"
+    },
+    "ContentItemId": "4zv9j4xaar62yr3v6kftwvyrdq",
+    "ContentItemVersionId": "4rz7kxq6pffamtd01c9h2frdw3",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Victim care officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Insurance claims handler"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you want to apply directly you\u0027ll find it useful to have:\u003Cul\u003E\u003Cli\u003EGCSEs at grades 9 to 4 (A* to C) including English and maths\u003C/li\u003E\u003Cli\u003EIT skills\u003C/li\u003E\u003Cli\u003Eexperience in office work or customer service\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003ESome companies will test your skills in communication and numbers at the interview stage\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/2dbf6c05-2251-41e3-9e87-38ba23e8b411\u0027]"
+    },
+    "ContentItemId": "40k48bpmbfy8s2wy891ch9974f",
+    "ContentItemVersionId": "4enw4qha3xctz7nnbwsqfammmy",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Insurance claims handler",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Crown prosecutor"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply for this job if you\u0027ve trained as a solicitor or barrister and have completed your Legal Practice Course or Bar Professional Training Course and a 2-year training contract or a 12-month pupillage.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/67f3df5e-d08b-4015-b6a8-dfc7886784fb\u0027]"
+    },
+    "ContentItemId": "4zdj6bvzrr07fz718wyg91yadr",
+    "ContentItemVersionId": "4xd4qvkyxddge7n3tbcv8zb8cm",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Crown prosecutor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Entertainment agent"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly for this type of job. You may find it useful to have a background in:\u003Cul\u003E\u003Cli\u003Ebusiness management\u003C/li\u003E\u003Cli\u003Eaccounting and administration\u003C/li\u003E\u003Cli\u003Emedia or performing arts, particularly if you are applying to work in a larger agency\u003C/li\u003E\u003Cli\u003Epublic relations and marketing\u003C/li\u003E\u003Cli\u003Eorganising and promoting events\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/6e25fade-a9f6-4586-b961-bfd777e620c8\u0027]"
+    },
+    "ContentItemId": "4e30h16ga8svktgqccp6b3nemd",
+    "ContentItemVersionId": "4byms9jy33hxpsafmdsjtj4tmc",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Entertainment agent",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Agricultural engineering technician"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may be able to apply to vacancies directly if you\u0027ve got a qualification and experience in land-based engineering or servicing heavy plant equipment.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/4d5ffc73-a683-4c3e-9408-3ad3562a75ec\u0027]"
+    },
+    "ContentItemId": "4rf3x7nfc3jjms1zjdqraj0844",
+    "ContentItemVersionId": "43e4x7mg0jnwg5qzby7w126nnt",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Agricultural engineering technician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Force officer"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly to become a Border Force officer. To enter at officer level, you may need at least 2 A levels at grade E or above, or equivalent qualifications.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/65801535-0ede-4d42-a7d6-a7e63234fee2\u0027]"
+    },
+    "ContentItemId": "4s2w5g7nf5h70shj3zdayb6f4f",
+    "ContentItemVersionId": "4p5frtf7rdseqtb34kzk1x6cxj",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Border Force officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Bookkeeper"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you want to apply for jobs directly, you may find some employers ask for up to 5 GCSEs at grades 9 to 4 (A* to C), including maths and English. An A level in business studies, maths, economics or equivalent qualifications could also be useful.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/00bdfb64-082c-47fe-a146-fcdbe04a5c62\u0027]"
+    },
+    "ContentItemId": "4majv4kpf1zzfvy76287zvzfws",
+    "ContentItemVersionId": "47d5szdy1gt7h2r0xkxt1x8d4h",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Bookkeeper",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Special educational needs (SEN) teaching assistant"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply for teaching assistant jobs if you have experience of working with children with disabilities or learning difficulties.\u003C/p\u003E\u003Cp\u003EEach school sets its own entry requirements. Check job vacancies with \u003Ca href=\u0022https://get-information-schools.service.gov.uk/?SelectedTab=Establishments\u0022\u003Eschools, local authorities and academy trusts\u003C/a\u003E to find out what schools want.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/50169bf5-d562-4aa5-b7da-8f50dbe2ff8f\u0027]"
+    },
+    "ContentItemId": "4cr7gns7qtypdzn6xtnm95nang",
+    "ContentItemVersionId": "4vxxxwk1c2x442gerkc6y9s8dc",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Special educational needs (SEN) teaching assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cinema or theatre attendant"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly to vacancies advertised by theatres and cinemas. Experience of dealing with the public, for example in retail or hospitality, may give you an advantage though it\u0027s not always essential.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/a9de7cdf-5d93-4f7b-8810-eda9f73326cd\u0027]"
+    },
+    "ContentItemId": "4ayhygvavw42yrwwynn6ffw84v",
+    "ContentItemVersionId": "4amn6pc4jweka5pfv6m4hgkcng",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Cinema or theatre attendant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Bilingual secretary"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply to companies directly if you have some of the relevant skills and knowledge required for this role.\u003C/p\u003E\u003Cp\u003EYou\u0027ll need at least one A level or equivalent in your second language unless it\u0027s your native tongue or you became fluent by living abroad.\u003C/p\u003E\u003Cp\u003EEmployers may also expect you to have GCSEs or relevant office skills and experience.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/7f2c3e77-6c25-4d40-ab73-7da4052766f7\u0027]"
+    },
+    "ContentItemId": "4h6y2y4fa0sw2wp30zdvtbtt4c",
+    "ContentItemVersionId": "4vav9tmbhrk6frq4tc5nfjsrn9",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Bilingual secretary",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Practice nurse"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou must be a qualified and registered adult, child, mental health or learning disability nurse to work in general practice.\u003C/p\u003E\u003Cp\u003EYou may have an advantage when applying for jobs if you\u0027ve got experience in:\u003Cul\u003E\u003Cli\u003Echronic disease management, like diabetes or asthma\u003C/li\u003E\u003Cli\u003Echildhood immunisation\u003C/li\u003E\u003Cli\u003Ecervical cytology\u003C/li\u003E\u003Cli\u003Ephlebotomy - taking blood\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003ESome employers may also ask that you\u0027ve completed a Specialist Practitioner - General Practice Nursing course, \u003Ca href=\u0022https://www.nmc.org.uk/education/approved-programmes/\u0022\u003Eapproved by the Nursing \u0026 Midwifery Council\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/d1625d8e-40ac-42de-9b73-2dd84eda0b8c\u0027]"
+    },
+    "ContentItemId": "40vcwnmydjmkcwbx1x6gtr4ax6",
+    "ContentItemVersionId": "4x0k13n7abefd181kw8jas42w2",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Practice nurse",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Interpreter"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may be able to get into this job if you have a non-language degree, providing you\u0027re fluent in English and a second language.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/0b46f506-c310-4a22-aec4-68385eb91188\u0027]"
+    },
+    "ContentItemId": "4ccw0wra8szcdw402r4xv3dh5d",
+    "ContentItemVersionId": "4yjrnn3fexn0e2bhvbx14d534v",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Interpreter",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Agricultural contractor"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly to become an agricultural contractor. Employers will usually expect you to have experience of working with farm machinery.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/cc81a408-0bd1-4619-9a24-c8f38ba64a8f\u0027]"
+    },
+    "ContentItemId": "43a1g5ztv6kb30mxh04hwnwpmh",
+    "ContentItemVersionId": "4sezyvvvgbm9fz48hg1cxwfmc9",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Agricultural contractor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Chauffeur"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly for jobs if you\u0027ve got a lot of experience, for example through working as a driver for the police, the armed forces or in the taxi industry.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/bb0f9ea1-5fb1-4594-9ee5-09a8672d7033\u0027]"
+    },
+    "ContentItemId": "4wyzymfx8j855xs0vn8jg6q6wf",
+    "ContentItemVersionId": "4hrb4kmbrr688yve6j5kntvjng",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Chauffeur",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Entertainer"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly for jobs. The most important thing is to have a skill or talent that an audience will enjoy.\u003C/p\u003E\u003Cp\u003EYou do not need formal qualifications, although you may find it useful to have trained in music, dance or acting, perhaps from taking a performing arts course or graded exams.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/2fd7f4c0-5ad5-48bc-a56d-1999f1dcee97\u0027]"
+    },
+    "ContentItemId": "461zr18a7t0afrwrq8tfv5rvcx",
+    "ContentItemVersionId": "4xrrgq0gq0jzyz0f7nwfvtfbx5",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Entertainer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Maternity support worker"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly for jobs if you\u0027ve got  relevant skills and experience from work like child care or health-related roles.\u003C/p\u003E\u003Cp\u003EEmployers may ask for a qualification in a child care or health-related subject, and experience of working with people.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/1d8842a9-ccd8-40b0-8a64-378bc68ed70e\u0027]"
+    },
+    "ContentItemId": "4cbx99gdarmp56rcpqh4pkh5nt",
+    "ContentItemVersionId": "490rf0fck20530xp6agc231p4d",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Maternity support worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-18T09:10:57.4773073Z",
+    "PublishedUtc": "2020-06-18T09:10:57.4773073Z",
+    "CreatedUtc": "2020-06-18T09:10:57.4773073Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
