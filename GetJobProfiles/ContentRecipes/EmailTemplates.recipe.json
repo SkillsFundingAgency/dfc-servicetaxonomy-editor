@@ -39,7 +39,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/email/e11m1137-01ca-446a-b60f-0de5ad5321cc\u0027]"
+                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/email/e11a1137-01ca-446a-b60f-0de5ad5321cc\u0027]"
                     },
                     "TitlePart": {
                         "Title": "Contact Us - Callback Template"
