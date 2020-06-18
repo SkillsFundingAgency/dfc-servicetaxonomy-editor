@@ -20,6 +20,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
     // terms added as a new term though page has missing info, as oc only creates a display text
     // can we sync display text as fallback if title is null? is that safe for all titles? what about userId/uri
     // other fields will be missing until user enters them through taxonomy, but that's ok
+    // options: would be nice to pass ContentItem to AddSyncComponents, but that's scuppered by root/comtained differences (double check original issue)
+    // alternatively provide contentitemcontext
+    // or construct a contentitem out of the various bits!?
+    // or return ienumerable<mergenodes> from EmbeddedContentItemsGraphSyncer and patch up in taxonomypartsyncer
+
 
     /*
      the content type created for the terms doesn't behave like other content types
