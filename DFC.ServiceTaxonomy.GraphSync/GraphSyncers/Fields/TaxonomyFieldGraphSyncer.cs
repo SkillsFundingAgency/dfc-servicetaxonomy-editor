@@ -1,10 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
+using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -201,20 +206,77 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
      */
     public class TaxonomyFieldGraphSyncer : IContentFieldGraphSyncer
     {
+        private readonly IContentManager _contentManager;
         public string FieldTypeName => "TaxonomyField";
 
         private const string TagNames = "TagNames";
-        private const string TaxonomyContentItemIds = "TaxonomyContentItemId";
+        private const string TaxonomyContentItemId = "TaxonomyContentItemId";
         private const string TermContentItemIds = "TermContentItemIds";
 
-        public Task AddSyncComponents(
+        public TaxonomyFieldGraphSyncer(IContentManager contentManager)
+        {
+            _contentManager = contentManager;
+        }
+
+        public async Task AddSyncComponents(
             JObject contentItemField,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            return Task.CompletedTask;
+            //todo: share code with contentpickerfield
+
+            string? taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.Value<string>();
+            //todo: null?
+
+            ContentItem taxonomyContentItem = await _contentManager.GetAsync(taxonomyContentItemId!, VersionOptions.Published);
+            string termContentType = taxonomyContentItem.Content[nameof(TaxonomyPart)]["TermContentType"];
+
+            string relationshipType = $"has{termContentType}";
+
+            IEnumerable<string> destNodeLabels = await graphSyncHelper.NodeLabels(termContentType);
+
+            //todo requires 'picked' part has a graph sync part
+            // add to docs & handle picked part not having graph sync part or throw exception
+
+            JArray? contentItemIdsJArray = (JArray?)contentItemField[TermContentItemIds];
+            if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
+                return; //todo:
+
+            IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.Value<string>());
+
+            //todo: term content items are embedded in the taxonomy (and can't be GetAsync'ed)
+
+            // GetAsync should be returning ContentItem? as it can be null
+            IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
+                contentItemIds.Select(async contentItemId =>
+                    await _contentManager.GetAsync(contentItemId, VersionOptions.Published));
+
+            ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
+
+            IEnumerable<ContentItem?> foundDestinationContentItems =
+                destinationContentItems.Where(ci => ci != null);
+
+            if (foundDestinationContentItems.Count() != contentItemIds.Count())
+                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
+
+            // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
+            // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
+            IEnumerable<object> foundDestinationNodeIds =
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
+
+            replaceRelationshipsCommand.AddRelationshipsTo(
+                relationshipType,
+                null,
+                destNodeLabels,
+                graphSyncHelper!.IdPropertyName(termContentType),
+                foundDestinationNodeIds.ToArray());
+        }
+
+        private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
+        {
+            return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
         }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
