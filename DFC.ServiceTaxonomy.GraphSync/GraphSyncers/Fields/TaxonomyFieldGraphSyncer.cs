@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Taxonomies.Models;
@@ -207,15 +208,19 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
     public class TaxonomyFieldGraphSyncer : IContentFieldGraphSyncer
     {
         private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
         public string FieldTypeName => "TaxonomyField";
 
         private const string TagNames = "TagNames";
         private const string TaxonomyContentItemId = "TaxonomyContentItemId";
         private const string TermContentItemIds = "TermContentItemIds";
 
-        public TaxonomyFieldGraphSyncer(IContentManager contentManager)
+        public TaxonomyFieldGraphSyncer(
+            IContentManager contentManager,
+            IServiceProvider serviceProvider)
         {
             _contentManager = contentManager;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task AddSyncComponents(
@@ -231,7 +236,8 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             //todo: null?
 
             ContentItem taxonomyContentItem = await _contentManager.GetAsync(taxonomyContentItemId!, VersionOptions.Published);
-            string termContentType = taxonomyContentItem.Content[nameof(TaxonomyPart)]["TermContentType"];
+            var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent["TermContentType"];
 
             string relationshipType = $"has{termContentType}";
 
@@ -249,22 +255,32 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             //todo: term content items are embedded in the taxonomy (and can't be GetAsync'ed)
 
             // GetAsync should be returning ContentItem? as it can be null
-            IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
-                contentItemIds.Select(async contentItemId =>
-                    await _contentManager.GetAsync(contentItemId, VersionOptions.Published));
-
-            ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
-
-            IEnumerable<ContentItem?> foundDestinationContentItems =
-                destinationContentItems.Where(ci => ci != null);
-
-            if (foundDestinationContentItems.Count() != contentItemIds.Count())
-                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
+            // IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
+            //     contentItemIds.Select(async contentItemId =>
+            //         await _contentManager.GetAsync(contentItemId, VersionOptions.Published));
+            //
+            // ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
+            //
+            // IEnumerable<ContentItem?> foundDestinationContentItems =
+            //     destinationContentItems.Where(ci => ci != null);
+            //
+            // if (foundDestinationContentItems.Count() != contentItemIds.Count())
+            //     throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
 
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
-            IEnumerable<object> foundDestinationNodeIds =
-                foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
+            // IEnumerable<object> foundDestinationNodeIds =
+            //     foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
+
+            GraphSyncHelper termGraphSyncHelper = _serviceProvider.GetRequiredService<GraphSyncHelper>();
+            termGraphSyncHelper.ContentType = termContentType;
+
+            //todo: handle missing graphsynchelper. extract into GetNodeId method
+            JArray? taxonomyTermsContent = (JArray?)taxonomyPartContent["Terms"];
+            IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
+                termGraphSyncHelper.GetIdPropertyValue(
+                taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == tid)[nameof(graphSyncHelper)]!));
+
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
@@ -274,10 +290,10 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 foundDestinationNodeIds.ToArray());
         }
 
-        private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
-        {
-            return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
-        }
+        // private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
+        // {
+        //     return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
+        // }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
