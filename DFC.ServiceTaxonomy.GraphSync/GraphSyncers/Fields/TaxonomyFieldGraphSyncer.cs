@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
+//using OrchardCore.Alias.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.Taxonomies.Models;
 
@@ -241,8 +242,6 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
 
             string relationshipType = $"has{termContentType}";
 
-            IEnumerable<string> destNodeLabels = await graphSyncHelper.NodeLabels(termContentType);
-
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
 
@@ -272,20 +271,38 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             // IEnumerable<object> foundDestinationNodeIds =
             //     foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
 
-            IGraphSyncHelper termGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-            termGraphSyncHelper.ContentType = termContentType;
+            IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+            relatedGraphSyncHelper.ContentType = termContentType;
 
             //todo: handle missing graphsynchelper. extract into GetNodeId method
             JArray taxonomyTermsContent = (JArray)taxonomyPartContent["Terms"];
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                GetNodeId(tid, taxonomyTermsContent, termGraphSyncHelper));
+                GetNodeId(tid, taxonomyTermsContent, relatedGraphSyncHelper));
+
+            IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 null,
                 destNodeLabels,
-                graphSyncHelper!.IdPropertyName(termContentType),
+                relatedGraphSyncHelper!.IdPropertyName(),
                 foundDestinationNodeIds.ToArray());
+
+            // add relationship to taxonomy
+            //string taxonomyAlias = taxonomyContentItem.Content[nameof(AliasPart)]["Alias"];
+            string taxonomyName = taxonomyContentItem.DisplayText.Replace(" ", "");
+            string taxonomyRelationshipType = $"has{taxonomyName}Taxonomy";
+
+            relatedGraphSyncHelper.ContentType = taxonomyContentItem.ContentType;
+            destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
+            object taxonomyIdValue = relatedGraphSyncHelper.GetIdPropertyValue(taxonomyContentItem.Content[nameof(GraphSyncPart)]);
+
+            replaceRelationshipsCommand.AddRelationshipsTo(
+                taxonomyRelationshipType,
+                null,
+                destNodeLabels,
+                relatedGraphSyncHelper!.IdPropertyName(),
+                taxonomyIdValue);
         }
 
         private object GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
