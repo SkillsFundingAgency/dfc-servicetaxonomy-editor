@@ -61,12 +61,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task DeleteFromGraph(ContentItem contentItem)
         {
+
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
             if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                 return;
 
             _logger.LogInformation($"Sync: deleting {contentItem.ContentType}");
-
-            _graphSyncHelper.ContentType = contentItem.ContentType;
 
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
