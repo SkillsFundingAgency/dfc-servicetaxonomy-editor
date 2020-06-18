@@ -25,6 +25,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
     // or construct a contentitem out of the various bits!?
     // or return ienumerable<mergenodes> from EmbeddedContentItemsGraphSyncer and patch up in taxonomypartsyncer
 
+    //todo: add option to graphsync as to whether to show uri, so can hide it in widgets
+    //todo: remove `The body of the content item.`. possibly switch to a html field?
 
     /*
      the content type created for the terms doesn't behave like other content types
