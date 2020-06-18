@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -275,11 +276,9 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             termGraphSyncHelper.ContentType = termContentType;
 
             //todo: handle missing graphsynchelper. extract into GetNodeId method
-            JArray? taxonomyTermsContent = (JArray?)taxonomyPartContent["Terms"];
+            JArray taxonomyTermsContent = (JArray)taxonomyPartContent["Terms"];
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                termGraphSyncHelper.GetIdPropertyValue(
-                taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == tid)[nameof(graphSyncHelper)]!));
-
+                GetNodeId(tid, taxonomyTermsContent, termGraphSyncHelper));
 
             replaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
@@ -289,10 +288,11 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 foundDestinationNodeIds.ToArray());
         }
 
-        // private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
-        // {
-        //     return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
-        // }
+        private object GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
+        {
+            JObject termContentItem = (JObject)taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == termContentItemId);
+            return termGraphSyncHelper.GetIdPropertyValue(termContentItem[nameof(GraphSyncPart)]!);
+        }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
