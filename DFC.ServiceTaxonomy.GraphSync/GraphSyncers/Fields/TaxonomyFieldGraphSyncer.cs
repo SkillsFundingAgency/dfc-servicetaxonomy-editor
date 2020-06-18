@@ -17,6 +17,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
     //todo: do we need @WeldedPartSettings?
     //todo: graphsyncsettings for term for uri?
     // might have to allow override somehow.
+    // terms added as a new term though page has missing info, as oc only creates a display text
+    // can we sync display text as fallback if title is null? is that safe for all titles? what about userId/uri
+    // other fields will be missing until user enters them through taxonomy, but that's ok
 
     /*
      the content type created for the terms doesn't behave like other content types
