@@ -231,7 +231,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            //todo: share code with contentpickerfield
+            //todo: share code with contentpickerfield?
 
             string? taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.Value<string>();
             //todo: null?
@@ -250,26 +250,6 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 return; //todo:
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.Value<string>());
-
-            //todo: term content items are embedded in the taxonomy (and can't be GetAsync'ed)
-
-            // GetAsync should be returning ContentItem? as it can be null
-            // IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
-            //     contentItemIds.Select(async contentItemId =>
-            //         await _contentManager.GetAsync(contentItemId, VersionOptions.Published));
-            //
-            // ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
-            //
-            // IEnumerable<ContentItem?> foundDestinationContentItems =
-            //     destinationContentItems.Where(ci => ci != null);
-            //
-            // if (foundDestinationContentItems.Count() != contentItemIds.Count())
-            //     throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
-
-            // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
-            // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
-            // IEnumerable<object> foundDestinationNodeIds =
-            //     foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
 
             IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
             relatedGraphSyncHelper.ContentType = termContentType;
