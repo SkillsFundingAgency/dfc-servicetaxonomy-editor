@@ -10,6 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
     //todo: do we need @WeldedPartSettings?
     //todo: graphsyncsettings for term for uri?
+    // might have to allow override somehow.
 
     /*
      the content type created for the terms doesn't behave like other content types
