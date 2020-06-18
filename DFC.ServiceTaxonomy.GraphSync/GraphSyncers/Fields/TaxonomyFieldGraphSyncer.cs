@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
-//using OrchardCore.Alias.Models;
 using OrchardCore.ContentManagement;
 using OrchardCore.Taxonomies.Models;
 
@@ -283,6 +282,13 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 destNodeLabels,
                 relatedGraphSyncHelper!.IdPropertyName(),
                 taxonomyIdValue);
+
+            // add tagnames
+            //using var _ = graphSyncHelper.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
+
+            JArray? tagNamesArray = (JArray?)contentItemField[TagNames];
+            IEnumerable<string?> tagNames = tagNamesArray.Select(jt => jt.ToObject<string?>());
+            mergeNodeCommand.Properties.Add("taxonomy_terms", tagNames);
         }
 
         private object GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
