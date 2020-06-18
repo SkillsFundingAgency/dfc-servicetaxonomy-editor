@@ -39,7 +39,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://localhost:7071/api/execute/email/2a090c37-01ca-446a-b60f-0de5ad5321cc"
+                        "Text": "<<ContentApiPrefix>>/email/2a090c37-01ca-446a-b60f-0de5ad5321cc"
                     },
                     "TitlePart": {
                         "Title": "Contact Us - Callback Template"
@@ -72,7 +72,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "http://localhost:7071/api/execute/email/8b6f7895-801d-479b-84b6-f5e443abfb86"
+                        "Text": "<<ContentApiPrefix>>/email/8b6f7895-801d-479b-84b6-f5e443abfb86"
                     },
                     "TitlePart": {
                         "Title": "Contact Us - Online Message Template"
