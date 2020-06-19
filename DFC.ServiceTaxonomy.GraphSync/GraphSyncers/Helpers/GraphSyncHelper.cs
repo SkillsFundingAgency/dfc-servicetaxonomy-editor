@@ -210,14 +210,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
             return contentTypePartDefinition.GetSettings<GraphSyncPartSettings>();
         }
-
-        // public string x(string contentpropertyName)
-        // {
-        //     JValue titleValue = content.Title;
-        //     if (titleValue.Type != JTokenType.Null)
-        //         mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, titleValue.As<string>());
-        //
-        // }
     }
 
 #pragma warning restore S4136
