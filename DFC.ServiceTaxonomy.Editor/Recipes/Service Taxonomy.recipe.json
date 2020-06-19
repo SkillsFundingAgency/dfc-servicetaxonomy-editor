@@ -2470,7 +2470,9 @@
                                 "TaxonomyFieldSettings": {
                                     "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
                                 },
-                                "TaxonomyFieldTagsEditorSettings": {}
+                                "TaxonomyFieldTagsEditorSettings": {
+                                    "Open": false
+                                }
                             }
                         },
                         {

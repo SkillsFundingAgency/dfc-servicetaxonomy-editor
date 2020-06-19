@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -82,6 +83,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
             await AddContentPartSyncComponents(contentItem);
+
+            //todo: bit hacky. best way to do this?
+            // work-around new taxonomy terms created with only DisplayText set
+            if (!_mergeNodeCommand.Properties.ContainsKey(_graphSyncHelper.IdPropertyName())
+                && _mergeNodeCommand.Properties.ContainsKey(TitlePartGraphSyncer.NodeTitlePropertyName))
+            {
+                _mergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
+            }
 
             _logger.LogInformation($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId} to {_mergeNodeCommand}");
             await SyncComponentsToGraph(graphSyncPartContent);

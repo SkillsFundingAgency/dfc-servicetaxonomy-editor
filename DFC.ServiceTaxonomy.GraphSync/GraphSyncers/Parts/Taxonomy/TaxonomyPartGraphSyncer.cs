@@ -12,6 +12,9 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
+    //todo: does it make sense to sync terms before they have a graphsyncpart? as they won't be available from the content api
+    // and will it break anything?
+    //todo: taxonomy has related terms, but page doesn't
     //also need termpart sync (only if we want a 2 way relationship?)
     /*
 "TaxonomyPart": {
