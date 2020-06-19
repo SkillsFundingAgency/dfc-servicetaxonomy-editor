@@ -66,44 +66,52 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             if (!string.Equals(context.Name, StepName, StringComparison.OrdinalIgnoreCase))
                 return;
 
-            var step = context.Step.ToObject<CypherToContentStepModel>();
-
-            foreach (CypherToContentModel? cypherToContent in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
+            try
             {
-                if (cypherToContent == null)
-                    continue;
+                var step = context.Step.ToObject<CypherToContentStepModel>();
 
-                _logger.LogInformation($"{StepName} step");
-
-                var getContentItemsAsJsonQuery = _serviceProvider.GetRequiredService<IGetContentItemsAsJsonQuery>();
-
-                getContentItemsAsJsonQuery.QueryStatement = cypherToContent.Query;
-
-                _logger.LogInformation($"Executing query to retrieve content for items:\r\n{cypherToContent.Query}");
-
-                List<string> contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
-
-                IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
-
-                var contentItemJObjects = contentItemsJson
-                    .Select(JsonConvert.DeserializeObject<List<JObject>>)
-                    .SelectMany(cijo => cijo);
-
-                Stopwatch stopwatch = Stopwatch.StartNew();
-
-                var preparedContentItems = contentItemJObjects
-                    .Select(PrepareContentItem)
-                    .Where(i => i != null)
-                    .Select(i => i!);
-
-                foreach (ContentItem preparedContentItem in preparedContentItems)
+                foreach (CypherToContentModel? cypherToContent in step!.Queries ?? Enumerable.Empty<CypherToContentModel?>())
                 {
-                    await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
-                }
+                    if (cypherToContent == null)
+                        continue;
 
-                //todo: log this, but ensure no double enumeration
-                //                _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
-                _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
+                    _logger.LogInformation($"{StepName} step");
+
+                    var getContentItemsAsJsonQuery = _serviceProvider.GetRequiredService<IGetContentItemsAsJsonQuery>();
+
+                    getContentItemsAsJsonQuery.QueryStatement = cypherToContent.Query;
+
+                    _logger.LogInformation($"Executing query to retrieve content for items:\r\n{cypherToContent.Query}");
+
+                    List<string> contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
+
+                    IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
+
+                    var contentItemJObjects = contentItemsJson
+                        .Select(JsonConvert.DeserializeObject<List<JObject>>)
+                        .SelectMany(cijo => cijo);
+
+                    Stopwatch stopwatch = Stopwatch.StartNew();
+
+                    var preparedContentItems = contentItemJObjects
+                        .Select(PrepareContentItem)
+                        .Where(i => i != null)
+                        .Select(i => i!);
+
+                    foreach (ContentItem preparedContentItem in preparedContentItems)
+                    {
+                        await CreateContentItem(preparedContentItem, cypherToContent.SyncBackRequired);
+                    }
+
+                    //todo: log this, but ensure no double enumeration
+                    // _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
+                    _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning($"Exception: {ex}");
+                throw;
             }
         }
 
