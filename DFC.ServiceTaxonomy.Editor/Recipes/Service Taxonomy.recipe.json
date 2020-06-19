@@ -256,8 +256,8 @@
                     ]
                 },
                 {
-                    "Name": "SiteSection",
-                    "DisplayName": "Site Section",
+                    "Name": "PageLocation",
+                    "DisplayName": "Page Location",
                     "Settings": {
                         "ContentTypeSettings": {
                             "Creatable": true,
@@ -279,8 +279,8 @@
                             }
                         },
                         {
-                            "PartName": "SiteSection",
-                            "Name": "SiteSection",
+                            "PartName": "PageLocation",
+                            "Name": "PageLocation",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
@@ -2408,10 +2408,10 @@
                     "ContentPartFieldDefinitionRecords": [
                         {
                             "FieldName": "TaxonomyField",
-                            "Name": "SiteSections",
+                            "Name": "PageLocations",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Site Sections",
+                                    "DisplayName": "Page Locations",
                                     "Editor": "Tags",
                                     "DisplayMode": "Tags",
                                     "Position": "0"
@@ -2449,7 +2449,7 @@
                     ]
                 },
                 {
-                    "Name": "SiteSection",
+                    "Name": "PageLocation",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
