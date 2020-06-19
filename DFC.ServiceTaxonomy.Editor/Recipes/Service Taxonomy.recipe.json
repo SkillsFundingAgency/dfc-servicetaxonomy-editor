@@ -130,8 +130,8 @@
                             }
                         },
                         {
-                            "PartName": "Page",
-                            "Name": "Page",
+                            "PartName": "AliasPart",
+                            "Name": "AliasPart",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "1"
@@ -139,8 +139,8 @@
                             }
                         },
                         {
-                            "PartName": "AliasPart",
-                            "Name": "AliasPart",
+                            "PartName": "Page",
+                            "Name": "Page",
                             "Settings": {
                                 "ContentTypePartSettings": {
                                     "Position": "2"
@@ -2407,16 +2407,6 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "TextField",
-                            "Name": "Description",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Description",
-                                    "Position": "0"
-                                }
-                            }
-                        },
-                        {
                             "FieldName": "TaxonomyField",
                             "Name": "SiteSections",
                             "Settings": {
@@ -2424,7 +2414,7 @@
                                     "DisplayName": "Site Sections",
                                     "Editor": "Tags",
                                     "DisplayMode": "Tags",
-                                    "Position": "1"
+                                    "Position": "0"
                                 },
                                 "ContentIndexSettings": {},
                                 "TaxonomyFieldSettings": {
@@ -2440,10 +2430,20 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Redirect Locations",
                                     "Editor": "TextArea",
-                                    "Position": "2"
+                                    "Position": "1"
                                 },
                                 "TextFieldSettings": {},
                                 "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "2"
+                                }
                             }
                         }
                     ]
