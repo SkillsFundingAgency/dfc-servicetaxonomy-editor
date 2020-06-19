@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -49,47 +50,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
         }
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(
-            string contentType,
-            string contentItemId,
-            string contentItemVersionId,
-            JObject content,
-            DateTime? createdUtc,
-            DateTime? modifiedUtc)
+        public async Task<IMergeNodeCommand?> SyncToGraph(ContentItem contentItem)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
-            JObject? graphSyncPartContent = (JObject?)content[nameof(GraphSyncPart)];
+            JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
             //todo: text -> id?
             //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
                 return null;
 
-            string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItemVersionId}");
+            string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
             if (disableSyncContentItemVersionId != null)
             {
-                _logger.LogInformation($"Not syncing {contentType}:{contentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
+                _logger.LogInformation($"Not syncing {contentItem.ContentType}:{contentItem.ContentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
                 return null;
             }
 
-            _logger.LogDebug($"Syncing {contentType} : {contentItemId}");
+            _logger.LogDebug($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId}");
 
-            _graphSyncHelper.ContentType = contentType;
+            _graphSyncHelper.ContentType = contentItem.ContentType;
 
             _mergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
             _mergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
 
             //Add created and modified dates to all content items
             //todo: store as neo's DateTime? especially if api doesn't match the string format
-            if (createdUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("CreatedDate"), createdUtc.Value);
+            if (contentItem.CreatedUtc.HasValue)
+                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("CreatedDate"), contentItem.CreatedUtc.Value);
 
-            if (modifiedUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), modifiedUtc.Value);
+            if (contentItem.ModifiedUtc.HasValue)
+                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
-            await AddContentPartSyncComponents(contentType, content);
+            await AddContentPartSyncComponents(contentItem.ContentType, contentItem.Content);
 
-            _logger.LogInformation($"Syncing {contentType} : {contentItemId} to {_mergeNodeCommand}");
+            _logger.LogInformation($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId} to {_mergeNodeCommand}");
 
             await SyncComponentsToGraph(graphSyncPartContent);
 
