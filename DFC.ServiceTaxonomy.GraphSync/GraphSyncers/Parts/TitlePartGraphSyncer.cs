@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
 
@@ -19,14 +20,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         private const string _nodeTitlePropertyName = "skos__prefLabel";
 
-        public Task AddSyncComponents(
-            JObject content,
+        public Task AddSyncComponents(JObject content,
+            ContentItem contentItem,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.AddProperty(_nodeTitlePropertyName, content, _contentTitlePropertyName);
+            string? title = mergeNodeCommand.AddProperty(_nodeTitlePropertyName, content, _contentTitlePropertyName);
+            if (title == null)
+                mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, contentItem.DisplayText);
 
             return Task.CompletedTask;
         }

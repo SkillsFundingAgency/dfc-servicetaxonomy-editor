@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
@@ -12,12 +13,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
 {
     public class TitlePartGraphSyncer_AddSyncComponentsTests
     {
-        public dynamic? Content { get; set; }
+        public JObject Content { get; set; }
+        public ContentItem ContentItem { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public TitlePartGraphSyncer TitlePartGraphSyncer { get; set; }
+
+        public const string NodeTitlePropertyName = "skos__prefLabel";
 
         public TitlePartGraphSyncer_AddSyncComponentsTests()
         {
@@ -28,6 +32,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
             ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
+
+            Content = JObject.Parse("{}");
+            ContentItem = A.Fake<ContentItem>();
 
             TitlePartGraphSyncer = new TitlePartGraphSyncer();
         }
@@ -42,19 +49,22 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{"skos__prefLabel", title}};
+                {{NodeTitlePropertyName, title}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 
         [Fact]
-        public async Task AddSyncComponents_NullTitleInContent_TitleNotAddedToMergeNodeCommandsProperties()
+        public async Task AddSyncComponents_NullTitleInContent_DisplayTextAddedToMergeNodeCommandsProperties()
         {
+            const string displayText = "DisplayText";
             Content = JObject.Parse("{\"Title\": null}");
+            ContentItem.DisplayText = displayText;
 
             await CallAddSyncComponents();
 
-            IDictionary<string, object> expectedProperties = new Dictionary<string, object>();
+            IDictionary<string, object> expectedProperties = new Dictionary<string, object>
+                {{NodeTitlePropertyName, displayText}};
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
 
@@ -62,6 +72,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.TitlePartGr
         {
             await TitlePartGraphSyncer.AddSyncComponents(
                 Content,
+                ContentItem,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,

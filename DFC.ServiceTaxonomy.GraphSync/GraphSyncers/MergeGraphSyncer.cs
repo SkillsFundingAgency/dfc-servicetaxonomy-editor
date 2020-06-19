@@ -81,18 +81,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (contentItem.ModifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
-            await AddContentPartSyncComponents(contentItem.ContentType, contentItem.Content);
+            await AddContentPartSyncComponents(contentItem);
 
             _logger.LogInformation($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId} to {_mergeNodeCommand}");
-
             await SyncComponentsToGraph(graphSyncPartContent);
 
             return _mergeNodeCommand;
         }
 
-        private async Task AddContentPartSyncComponents(
-            string contentType,
-            JObject content)
+        private async Task AddContentPartSyncComponents(ContentItem contentItem)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -100,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
                     .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
 
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
             foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
@@ -108,18 +105,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // (other non-named parts have the part name in both)
 
                 var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentType, p.PartDefinition));
+                    contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentItem.ContentType, p.PartDefinition));
 
                 foreach (var contentTypePartDefinition in contentTypePartDefinitions)
                 {
                     string namedPartName = contentTypePartDefinition.Name;
 
-                    dynamic? partContent = content[namedPartName];
+                    JObject? partContent = contentItem.Content[namedPartName];
                     if (partContent == null)
                         continue; //todo: throw??
 
                     await partSync.AddSyncComponents(
                         partContent,
+                        contentItem,
                         _mergeNodeCommand,
                         _replaceRelationshipsCommand,
                         contentTypePartDefinition,

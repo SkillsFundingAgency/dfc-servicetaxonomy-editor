@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         // either here, or graphsynchelper?
         //todo: unit tests for these
 
-        public static string AddProperty(
+        public static string? AddProperty(
             this IMergeNodeCommand mergeNodeCommand,
             string propertyName,
             JObject content)
@@ -16,13 +16,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             return mergeNodeCommand.AddProperty(propertyName, content, propertyName);
         }
 
-        public static string AddProperty(
+        public static string? AddProperty(
             this IMergeNodeCommand mergeNodeCommand,
             string nodePropertyName,
             JObject content,
             string contentPropertyName)
         {
-            string value;
+            string? value;
             JValue? jvalue = (JValue?)content[contentPropertyName];
             if (jvalue != null && jvalue.Type != JTokenType.Null)
             {
@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             }
             else
             {
-                value = "";
+                value = null;
             }
 
             return value;
