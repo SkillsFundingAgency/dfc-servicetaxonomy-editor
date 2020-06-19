@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
@@ -171,13 +172,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public string ContentIdPropertyName => "Text";
 
-        //todo: rename to ContentIdPropertyValue
-        public object GetIdPropertyValue(dynamic graphSyncContent)
+        public object? GetIdPropertyValue(JObject graphSyncContent)
         {
-            //todo: null Text.ToString()?
-
-            //todo: need way to support id values of types other than text
-            return graphSyncContent[ContentIdPropertyName].ToString();
+            return graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
         }
 
         private void CheckPreconditions()

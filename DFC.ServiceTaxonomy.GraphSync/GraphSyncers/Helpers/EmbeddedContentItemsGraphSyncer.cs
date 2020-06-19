@@ -63,6 +63,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, graphSyncHelper);
                 ++relationshipOrdinal;
 
+                //todo: if graphsyncpart text missing, return as null
+                //todo: where uri null create relationship using displaytext instead
+                //have fallback as flag, and only do it for taxonomy, or do it for all contained items?
+
                 replaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
                     properties,

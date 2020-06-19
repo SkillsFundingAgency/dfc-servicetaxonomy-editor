@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private const string _contentTitlePropertyName = "Title";
 
         //todo: configurable??
-        private const string _nodeTitlePropertyName = "skos__prefLabel";
+        public const string NodeTitlePropertyName = "skos__prefLabel";
 
         public Task AddSyncComponents(JObject content,
             ContentItem contentItem,
@@ -27,9 +27,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            string? title = mergeNodeCommand.AddProperty(_nodeTitlePropertyName, content, _contentTitlePropertyName);
+            string? title = mergeNodeCommand.AddProperty(NodeTitlePropertyName, content, _contentTitlePropertyName);
             if (title == null)
-                mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, contentItem.DisplayText);
+                mergeNodeCommand.Properties.Add(NodeTitlePropertyName, contentItem.DisplayText);
 
             return Task.CompletedTask;
         }
@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentTitlePropertyName,
                 content,
-                _nodeTitlePropertyName,
+                NodeTitlePropertyName,
                 nodeWithOutgoingRelationships.SourceNode));
         }
     }

@@ -242,10 +242,10 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
         {
             //todo: share code with contentpickerfield?
 
-            string? taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.Value<string>();
+            string taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.ToObject<string>()!;
             //todo: null?
 
-            ContentItem taxonomyContentItem = await _contentManager.GetAsync(taxonomyContentItemId!, VersionOptions.Published);
+            ContentItem taxonomyContentItem = await _contentManager.GetAsync(taxonomyContentItemId, VersionOptions.Published);
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent["TermContentType"];
 
@@ -258,7 +258,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
                 return; //todo:
 
-            IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.Value<string>());
+            IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
 
             IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
             relatedGraphSyncHelper.ContentType = termContentType;
@@ -266,7 +266,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             //todo: handle missing graphsynchelper. extract into GetNodeId method
             JArray taxonomyTermsContent = (JArray)taxonomyPartContent["Terms"];
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                GetNodeId(tid, taxonomyTermsContent, relatedGraphSyncHelper));
+                GetNodeId(tid, taxonomyTermsContent, relatedGraphSyncHelper)!);
 
             IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
 
@@ -301,10 +301,10 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             mergeNodeCommand.Properties.Add("taxonomy_terms", tagNames);
         }
 
-        private object GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
+        private object? GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
         {
             JObject termContentItem = (JObject)taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == termContentItemId);
-            return termGraphSyncHelper.GetIdPropertyValue(termContentItem[nameof(GraphSyncPart)]!);
+            return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
         }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,

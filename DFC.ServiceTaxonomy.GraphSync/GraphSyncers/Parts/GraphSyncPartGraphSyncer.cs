@@ -21,7 +21,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName(), graphSyncHelper.GetIdPropertyValue(content));
+            object? idValue = graphSyncHelper.GetIdPropertyValue(content);
+            if (idValue != null)
+                mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName(), idValue);
 
             return Task.CompletedTask;
         }
