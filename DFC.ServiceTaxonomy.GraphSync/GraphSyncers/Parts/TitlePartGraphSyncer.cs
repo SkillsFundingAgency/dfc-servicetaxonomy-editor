@@ -20,13 +20,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private const string _nodeTitlePropertyName = "skos__prefLabel";
 
         public Task AddSyncComponents(
-            dynamic content,
+            JObject content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.AddProperty(_nodeTitlePropertyName, (JObject)content, _contentTitlePropertyName);
+            mergeNodeCommand.AddProperty(_nodeTitlePropertyName, content, _contentTitlePropertyName);
 
             return Task.CompletedTask;
         }

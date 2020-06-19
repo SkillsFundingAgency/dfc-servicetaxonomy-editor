@@ -139,19 +139,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         }
 
         public async Task AddSyncComponents(
-            dynamic content,
+            JObject content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
-                content[ContainerName],
+                (JArray?)content[ContainerName],
                 replaceRelationshipsCommand,
                 graphSyncHelper);
 
             // useful if there are no terms yet?
-            mergeNodeCommand.AddProperty(TermContentTypePropertyName, (JObject)content);
+            mergeNodeCommand.AddProperty(TermContentTypePropertyName, content);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(

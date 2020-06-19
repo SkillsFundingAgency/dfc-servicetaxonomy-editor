@@ -16,8 +16,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
     {
         public string PartName => nameof(GraphLookupPart);
 
-        public Task AddSyncComponents(
-            dynamic graphLookupContent,
+        private const string NodesPropertyName = "Nodes";
+
+        public Task AddSyncComponents(JObject graphLookupContent,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -25,8 +26,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
-            JArray nodes = (JArray)graphLookupContent.Nodes;
-            if (nodes.Count == 0)
+            JArray? nodes = (JArray?)graphLookupContent[NodesPropertyName];
+            if (nodes == null || nodes.Count == 0)
                 return Task.CompletedTask;
 
             if (settings.PropertyName != null)

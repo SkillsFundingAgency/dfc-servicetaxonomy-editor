@@ -17,10 +17,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(PublishLaterPart);
 
-        private static Func<string, string> _publishLaterFieldsPropertyNameTransform = n => $"publishlater_{n}";
+        private static readonly Func<string, string> _publishLaterFieldsPropertyNameTransform = n => $"publishlater_{n}";
+        private const string ScheduledPublishUtcPropertyName = "ScheduledPublishUtc";
 
-        public async Task AddSyncComponents(
-            dynamic content,
+        public async Task AddSyncComponents(JObject content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -29,12 +29,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = graphSyncHelper.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
 
-            JValue scheduledPublishValue = content.ScheduledPublishUtc;
-            if (scheduledPublishValue.Type != JTokenType.Null)
-
-                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName("ScheduledPublishUtc"), scheduledPublishValue.As<DateTime>());
-
-            return;
+            JValue? scheduledPublishValue = (JValue?)content[ScheduledPublishUtcPropertyName];
+            if (scheduledPublishValue != null && scheduledPublishValue.Type != JTokenType.Null)
+                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(ScheduledPublishUtcPropertyName), scheduledPublishValue.As<DateTime>());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
@@ -49,9 +46,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             using var _ = graphSyncHelper.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
 
             return graphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
-                "ScheduledPublishUtc",
+                ScheduledPublishUtcPropertyName,
                 content,
-                await graphSyncHelper!.PropertyName("ScheduledPublishUtc"),
+                await graphSyncHelper!.PropertyName(ScheduledPublishUtcPropertyName),
                 nodeWithOutgoingRelationships.SourceNode);
         }
     }

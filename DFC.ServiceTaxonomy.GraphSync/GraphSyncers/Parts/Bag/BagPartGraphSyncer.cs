@@ -23,14 +23,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
         }
 
         public async Task AddSyncComponents(
-            dynamic content,
+            JObject content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
             await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
-                content[ContainerName],
+                (JArray?)content[ContainerName],
                 replaceRelationshipsCommand,
                 graphSyncHelper);
         }

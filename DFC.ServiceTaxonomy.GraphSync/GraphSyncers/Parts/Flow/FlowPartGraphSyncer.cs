@@ -31,15 +31,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
         }
 
-        public async Task AddSyncComponents(
-            dynamic content,
+        public async Task AddSyncComponents(JObject content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
             await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
-                content[ContainerName],
+                (JArray?)content[ContainerName],
                 replaceRelationshipsCommand,
                 graphSyncHelper);
 

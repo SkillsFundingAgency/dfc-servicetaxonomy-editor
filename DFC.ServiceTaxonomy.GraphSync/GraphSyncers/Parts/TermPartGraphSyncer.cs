@@ -13,8 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(TermPart);
 
-        public Task AddSyncComponents(
-            dynamic content,
+        public Task AddSyncComponents(JObject content,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
