@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.UnpublishLater.Handlers
 {
     public class UnpublishLaterPartHandler : ContentPartHandler<UnpublishLaterPart>
     {
-        public override Task PublishedAsync(PublishContentContext context, UnpublishLaterPart part)
+        public override Task UnpublishedAsync(PublishContentContext context, UnpublishLaterPart part)
         {
             part.ScheduledUnpublishUtc = null;
             part.Apply();
