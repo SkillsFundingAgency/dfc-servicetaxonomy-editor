@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.ContentManagement.Display" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.Data.Abstractions" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.Contents.Core" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.Infrastructure" Version="1.0.0-rc2-*" />
+  </ItemGroup>
+
+</Project>

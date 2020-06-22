@@ -38,6 +38,10 @@ namespace DFC.ServiceTaxonomy.Theme.Filters
                 .RegisterResource("stylesheet", "StaxTheme-trumbowyg-scoped-govuk-frontend")
                 .AtHead();
 
+            _resourceManager
+                .RegisterResource("stylesheet", "StaxTheme-unpublish-later")
+                .AtHead();
+
             await next();
         }
     }

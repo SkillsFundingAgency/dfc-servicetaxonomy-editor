@@ -38,6 +38,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
   </ItemGroup>
 
 </Project>

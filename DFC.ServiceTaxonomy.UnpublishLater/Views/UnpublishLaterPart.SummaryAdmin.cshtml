@@ -1,0 +1,8 @@
+﻿@model UnpublishLaterPartViewModel
+
+@if (Model.ScheduledUnpublishUtc.HasValue)
+{
+    <div>
+        <span class="hint">@T["Scheduled to be unpublished on {0}", (object)(await DisplayAsync(await New.DateTime(Utc: Model.ScheduledUnpublishUtc)))]</span>
+    </div>
+}
