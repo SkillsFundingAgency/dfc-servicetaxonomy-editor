@@ -47,9 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Content
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Theme", "DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj", "{C33C883C-B503-4FCB-9556-88C278A75BF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.Events", "DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj", "{1911C9EF-BE19-4F86-B093-3F85553BF032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.Events", "DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj", "{1911C9EF-BE19-4F86-B093-3F85553BF032}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent", "DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.csproj", "{8F3A824F-E0C0-4DC6-87DF-A3895861765F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent", "DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.csproj", "{8F3A824F-E0C0-4DC6-87DF-A3895861765F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.ServiceTaxonomy.UnpublishLater", "DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj", "{5C427787-14B3-4649-9DC1-31A30ABAE1B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{8F3A824F-E0C0-4DC6-87DF-A3895861765F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F3A824F-E0C0-4DC6-87DF-A3895861765F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F3A824F-E0C0-4DC6-87DF-A3895861765F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C427787-14B3-4649-9DC1-31A30ABAE1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C427787-14B3-4649-9DC1-31A30ABAE1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C427787-14B3-4649-9DC1-31A30ABAE1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C427787-14B3-4649-9DC1-31A30ABAE1B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
