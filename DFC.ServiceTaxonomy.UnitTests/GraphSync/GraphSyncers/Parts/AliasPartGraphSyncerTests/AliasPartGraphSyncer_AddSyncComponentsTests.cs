@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
@@ -12,12 +13,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
 {
     public class AliasPartGraphSyncer_AddSyncComponentsTests
     {
-        public dynamic? Content { get; set; }
+        public JObject Content { get; set; }
+        public ContentItem ContentItem { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public AliasPartGraphSyncer AliasPartGraphSyncer { get; set; }
+
+        public const string NodeTitlePropertyName = "alias_alias";
 
         public AliasPartGraphSyncer_AddSyncComponentsTests()
         {
@@ -28,6 +32,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
             ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
+
+            Content = JObject.Parse("{}");
+            ContentItem = A.Fake<ContentItem>();
 
             AliasPartGraphSyncer = new AliasPartGraphSyncer();
         }
@@ -42,7 +49,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{"alias_alias", alias}};
+                {{NodeTitlePropertyName, alias}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
@@ -62,6 +69,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
         {
             await AliasPartGraphSyncer.AddSyncComponents(
                 Content,
+                ContentItem,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,

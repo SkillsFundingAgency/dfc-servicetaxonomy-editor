@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
@@ -13,12 +14,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
 {
     public class UnpublishLaterPartGraphSyncer_AddSyncComponentsTests
     {
-        public dynamic? Content { get; set; }
+        public JObject Content { get; set; }
+        public ContentItem ContentItem { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public UnpublishLaterPartGraphSyncer UnpublishLaterPartGraphSyncer { get; set; }
+
+        public const string NodeTitlePropertyName = "unpublishlater_ScheduledUnpublishUtc";
 
         public UnpublishLaterPartGraphSyncer_AddSyncComponentsTests()
         {
@@ -30,14 +34,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
 
+            Content = JObject.Parse("{}");
+            ContentItem = A.Fake<ContentItem>();
+
             UnpublishLaterPartGraphSyncer = new UnpublishLaterPartGraphSyncer();
         }
 
         [Fact]
         public async Task AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties()
         {
-            A.CallTo(() => GraphSyncHelper.PropertyName("ScheduledUnpublishUtc")).Returns("unpublishlater_ScheduledUnpublishUtc");
-
             const string scheduledDateUtc = "2020-06-28T09:58:00Z";
 
             Content = JObject.Parse($"{{\"ScheduledUnpublishUtc\": \"{scheduledDateUtc}\"}}");
@@ -46,7 +51,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
 
             //Date compare culture is skewed and ends up an hour different
             IDictionary<string, object> expectedProperties = new Dictionary<string, object>
-                {{"unpublishlater_ScheduledUnpublishUtc", DateTime.Parse(scheduledDateUtc).AddHours(-1)}};
+                {{NodeTitlePropertyName, DateTime.Parse(scheduledDateUtc).AddHours(-1)}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
@@ -54,8 +59,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
         [Fact]
         public async Task AddSyncComponents_NullScheduledPublicUtcInContent_TitleNotAddedToMergeNodeCommandsProperties()
         {
-            A.CallTo(() => GraphSyncHelper.PropertyName("ScheduledUnpublishUtc")).Returns("unpublishlater_ScheduledUnpublishUtc");
-
             Content = JObject.Parse("{\"ScheduledUnpublishUtc\": null}");
 
             await CallAddSyncComponents();
@@ -68,6 +71,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
         {
             await UnpublishLaterPartGraphSyncer.AddSyncComponents(
                 Content,
+                ContentItem,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,

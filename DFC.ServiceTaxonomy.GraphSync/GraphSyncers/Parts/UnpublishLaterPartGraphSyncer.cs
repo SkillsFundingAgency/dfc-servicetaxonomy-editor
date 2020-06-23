@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.UnpublishLater.Models;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -17,26 +18,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(UnpublishLaterPart);
 
-        private static Func<string, string> _unpublishLaterFieldsPropertyNameTransform = n => $"unpublishlater_{n}";
+        private const string _contentTitlePropertyName = "ScheduledUnpublishUtc";
 
-        public async Task AddSyncComponents(
-            dynamic content,
+        //todo: configurable??
+        public const string NodeTitlePropertyName = "unpublishlater_ScheduledUnpublishUtc";
+
+        public Task AddSyncComponents(
+            JObject content,
+            ContentItem contentItem,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_unpublishLaterFieldsPropertyNameTransform);
+            mergeNodeCommand.AddProperty<DateTime>(NodeTitlePropertyName, content, _contentTitlePropertyName);
 
-            JValue scheduledUnpublishValue = content.ScheduledUnpublishUtc;
-            if (scheduledUnpublishValue.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName("ScheduledUnpublishUtc"), scheduledUnpublishValue.As<DateTime>());
-
-            return;
+            return Task.CompletedTask;
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
@@ -44,14 +44,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_unpublishLaterFieldsPropertyNameTransform);
-
-            return graphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
-                "ScheduledUnpublishUtc",
+            return Task.FromResult(graphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
+                _contentTitlePropertyName,
                 content,
-                await graphSyncHelper!.PropertyName("ScheduledUnpublishUtc"),
-                nodeWithOutgoingRelationships.SourceNode);
+                NodeTitlePropertyName,
+                nodeWithOutgoingRelationships.SourceNode));
         }
     }
 #pragma warning restore S1481

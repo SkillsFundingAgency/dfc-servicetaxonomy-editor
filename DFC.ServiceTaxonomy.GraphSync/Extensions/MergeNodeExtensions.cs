@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+﻿using System;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
@@ -22,11 +23,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             JObject content,
             string contentPropertyName)
         {
-            string? value;
+            return AddPropertyInternal<string>(mergeNodeCommand, nodePropertyName, content, contentPropertyName);
+        }
+
+        public static string? AddProperty<T>(
+            this IMergeNodeCommand mergeNodeCommand,
+            string nodePropertyName,
+            JObject content,
+            string contentPropertyName)
+        {
+            return AddPropertyInternal<T>(mergeNodeCommand, nodePropertyName, content, contentPropertyName);
+        }
+
+        private static string? AddPropertyInternal<T>(
+            IMergeNodeCommand mergeNodeCommand,
+            string nodePropertyName,
+            JObject content,
+            string contentPropertyName)
+        {
+            object? value;
             JValue? jvalue = (JValue?)content[contentPropertyName];
             if (jvalue != null && jvalue.Type != JTokenType.Null)
             {
-                value = jvalue.Value<string>();
+                value = jvalue.Value<T>();
+
+                if (value == null)
+                    throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
+
                 mergeNodeCommand.Properties.Add(nodePropertyName, value);
             }
             else
@@ -34,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
                 value = null;
             }
 
-            return value;
+            return value?.ToString();
         }
     }
 }

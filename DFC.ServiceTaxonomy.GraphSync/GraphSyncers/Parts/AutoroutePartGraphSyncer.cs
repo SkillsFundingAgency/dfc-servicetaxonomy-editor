@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Autoroute.Models;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
@@ -14,19 +15,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(AutoroutePart);
 
+        private const string _contentTitlePropertyName = "Path";
+
         //todo: configurable??
-        private const string _nodePathPropertyName = "autoroute_path";
+        public const string NodeTitlePropertyName = "autoroute_path";
 
         public Task AddSyncComponents(
-            dynamic content,
+            JObject content,
+            ContentItem contentItem,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            JValue pathValue = content.Path;
-            if (pathValue.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(_nodePathPropertyName, pathValue.As<string>());
+            mergeNodeCommand.AddProperty(NodeTitlePropertyName, content, _contentTitlePropertyName);
 
             return Task.CompletedTask;
         }
@@ -40,9 +42,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             string endpoint)
         {
             return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                "Path",
+                _contentTitlePropertyName,
                 content,
-                _nodePathPropertyName,
+                NodeTitlePropertyName,
                 nodeWithOutgoingRelationships.SourceNode));
         }
     }
