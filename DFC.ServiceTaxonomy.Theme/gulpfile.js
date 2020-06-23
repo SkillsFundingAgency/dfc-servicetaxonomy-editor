@@ -1,27 +1,28 @@
 ﻿/// <binding ProjectOpened='watch' />
 var gulp = require('gulp');
 
-gulp.task('css', function () {
+gulp.task('default', function () {
     var sass = require('gulp-dart-sass');
     var sourcemaps = require('gulp-sourcemaps');
-
-    return gulp.src('./wwwroot/Styles/trumbowyg_scoped_govuk_frontend.scss')
-        .pipe(sourcemaps.init())
-        .pipe(sass())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('wwwroot/Styles/'));
-});
-
-gulp.task('watch', gulp.series('css', function () {
-    return gulp.watch('./wwwroot/Styles/trumbowyg_scoped_govuk_frontend.scss', gulp.series('default'));
-}));
-
-gulp.task('default', gulp.series('css', function () {
     var csso = require('gulp-csso');
     var rename = require('gulp-rename');
 
-    return gulp.src('./wwwroot/Styles/trumbowyg_scoped_govuk_frontend.css')
+    return gulp.src('./wwwroot/Styles/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('wwwroot/Styles/'))
         .pipe(csso())
-        .pipe(rename('trumbowyg_scoped_govuk_frontend.min.css'))
+        .pipe(rename(function (path) {
+            return {
+                dirname: path.dirname,
+                basename: path.basename,
+                extname: ".min.css"
+            }
+        }))
         .pipe(gulp.dest('./wwwroot/Styles/'));
+});
+
+gulp.task('watch', gulp.series('default', function () {
+    return gulp.watch('./wwwroot/Styles/*.scss', gulp.series('default'));
 }));

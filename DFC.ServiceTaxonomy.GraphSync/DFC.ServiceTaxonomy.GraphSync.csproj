@@ -25,6 +25,8 @@
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.PublishLater" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.Autoroute" Version="1.0.0-rc2-*" />
+    <PackageReference Include="OrchardCore.Alias" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Abstractions" Version="1.0.0-rc2-*" />
     <PackageReference Include="OrchardCore.Sitemaps" Version="1.0.0-rc2-*" />
@@ -39,6 +41,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent\DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Neo4j\DFC.ServiceTaxonomy.Neo4j.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
   </ItemGroup>
 
 </Project>

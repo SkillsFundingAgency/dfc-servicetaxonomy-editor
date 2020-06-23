@@ -25,6 +25,11 @@ namespace DFC.ServiceTaxonomy.Theme
                 .DefineScript("ncs")
                 .SetUrl("~/DFC.ServiceTaxonomy.Theme/Scripts/ncs.js")
                 .SetVersion("1.0.0");
+
+            manifest
+                .DefineStyle("StaxTheme-unpublish-later")
+                .SetUrl("~/DFC.ServiceTaxonomy.Theme/Styles/unpublish-later.min.css", "~/DFC.ServiceTaxonomy.Theme/Styles/unpublish-later.css")
+                .SetVersion("1.0.0");
         }
     }
 }
