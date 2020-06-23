@@ -1,0 +1,93 @@
+{
+  "name": "ApprenticeshipLinks0_061f6df8-b6fd-4b98-9321-acf52c4aa83f",
+  "displayName": "ApprenticeshipLinks0_061f6df8-b6fd-4b98-9321-acf52c4aa83f",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshiplink/3223ca0e-b2fc-4aee-a5e8-89714821dcce\u0027]"
+    },
+    "ContentItemId": "4y59ncvg934ge42ax4a8jj3w5g",
+    "ContentItemVersionId": "4gva41w4pz3n715scnfw19x8cv",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://getintoteaching.education.gov.uk/explore-my-options/teacher-training-routes/school-led-training/school-direct-salaried",
+        "Text": "postgraduate teaching apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Postgrad teaching apprenticeships"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshiplink/b86df9cc-81d9-451b-a15b-bc96f7da2bae\u0027]"
+    },
+    "ContentItemId": "4a5sn3qyazhhbsjfch5rvjwhwh",
+    "ContentItemVersionId": "4d7h6rqd6r9tzs4jnjrsp1b9xa",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Postgrad teaching apprenticeships",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "ApprenticeshipLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/apprenticeships-guide",
+        "Text": "guide to apprenticeships"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Apprenticeship Guide"
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/apprenticeshiplink/be67757a-b29e-4ff6-9f8a-8dcd4a1f602d\u0027]"
+    },
+    "ContentItemId": "4x98dpbbpcc8268vsjzvzh94df",
+    "ContentItemVersionId": "42ah9sab3k045yvrdd9kj6vfma",
+    "ContentType": "ApprenticeshipLink",
+    "DisplayText": "Show Apprenticeship Guide",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-06-16T12:40:50.5133138Z",
+    "PublishedUtc": "2020-06-16T12:40:50.5133138Z",
+    "CreatedUtc": "2020-06-16T12:40:50.5133138Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
