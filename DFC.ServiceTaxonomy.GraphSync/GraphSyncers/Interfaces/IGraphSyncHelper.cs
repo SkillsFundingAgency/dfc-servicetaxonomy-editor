@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
+using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
@@ -32,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<string> RelationshipTypeDefault(string destinationContentType);
 
         string ContentIdPropertyName { get; }
-        object GetIdPropertyValue(dynamic graphSyncContent);
+        object? GetIdPropertyValue(JObject graphSyncContent);
     }
     #pragma warning restore S4136
 }

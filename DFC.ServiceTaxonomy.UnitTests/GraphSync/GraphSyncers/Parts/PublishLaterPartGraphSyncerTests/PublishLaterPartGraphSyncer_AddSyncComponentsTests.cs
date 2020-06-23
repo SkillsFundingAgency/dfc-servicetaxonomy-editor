@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
@@ -13,7 +14,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 {
     public class PublishLaterPartGraphSyncer_AddSyncComponentsTests
     {
-        public dynamic? Content { get; set; }
+        public JObject Content { get; set; }
+        public ContentItem ContentItem { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
@@ -29,6 +31,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
             ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
+
+            Content = JObject.Parse("{}");
+            ContentItem = A.Fake<ContentItem>();
 
             PublishLaterPartGraphSyncer = new PublishLaterPartGraphSyncer();
         }
@@ -68,6 +73,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
         {
             await PublishLaterPartGraphSyncer.AddSyncComponents(
                 Content,
+                ContentItem,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,

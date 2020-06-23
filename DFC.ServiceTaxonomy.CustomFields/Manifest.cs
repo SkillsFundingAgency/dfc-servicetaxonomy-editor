@@ -1,7 +1,7 @@
 using OrchardCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "DFC.ServiceTaxonomy.CustomFields",
+    Name = "Grouping Fields",
     Author = "National Careers Service",
     Website = "https://dfc-dev-stax-editor-as.azurewebsites.net",
     Version = "0.0.1",

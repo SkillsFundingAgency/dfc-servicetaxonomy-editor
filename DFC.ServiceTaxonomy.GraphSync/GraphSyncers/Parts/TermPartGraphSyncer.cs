@@ -1,35 +1,26 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata.Models;
-using OrchardCore.Autoroute.Models;
-using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public class AutoroutePartGraphSyncer : IContentPartGraphSyncer
+    public class TermPartGraphSyncer : IContentPartGraphSyncer
     {
-        public string PartName => nameof(AutoroutePart);
+        public string PartName => nameof(TermPart);
 
-        private const string _contentTitlePropertyName = "Path";
-
-        //todo: configurable??
-        public const string NodeTitlePropertyName = "autoroute_path";
-
-        public Task AddSyncComponents(
-            JObject content,
+        public Task AddSyncComponents(JObject content,
             ContentItem contentItem,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.AddProperty(NodeTitlePropertyName, content, _contentTitlePropertyName);
-
             return Task.CompletedTask;
         }
 
@@ -41,11 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IDictionary<string, int> expectedRelationshipCounts,
             string endpoint)
         {
-            return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentTitlePropertyName,
-                content,
-                NodeTitlePropertyName,
-                nodeWithOutgoingRelationships.SourceNode));
+            return Task.FromResult((true, ""));
         }
     }
 }

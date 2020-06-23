@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Sitemaps.Models;
 
@@ -25,8 +26,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             PriorityPropertyName = "Priority",
             ExcludePropertyName = "Exclude";
 
-        public async Task AddSyncComponents(
-            dynamic content,
+        public async Task AddSyncComponents(JObject content,
+            ContentItem contentItem,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -35,20 +36,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             using var _ = graphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
             //todo: helper for these?
-            JValue value = content.OverrideSitemapConfig;
-            if (value.Type != JTokenType.Null) //first bool?
+            JValue? value = (JValue?)content[OverrideSitemapConfigPropertyName];
+            if (value != null && value.Type != JTokenType.Null) //first bool?
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
 
-            value = content.ChangeFrequency;
-            if (value.Type != JTokenType.Null)
+            value = (JValue?)content[ChangeFrequencyPropertyName];
+            if (value != null && value.Type != JTokenType.Null)
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString());
 
-            value = content.Priority;
-            if (value.Type != JTokenType.Null)
+            value = (JValue?)content[PriorityPropertyName];
+            if (value != null && value.Type != JTokenType.Null)
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>());
 
-            value = content.Exclude;
-            if (value.Type != JTokenType.Null)
+            value = (JValue?)content[ExcludePropertyName];
+            if (value != null && value.Type != JTokenType.Null)
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Title.Models;
 
@@ -14,19 +15,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(TitlePart);
 
-        //todo: configurable??
-        private const string _nodeTitlePropertyName = "skos__prefLabel";
+        private const string _contentTitlePropertyName = "Title";
 
-        public Task AddSyncComponents(
-            dynamic content,
+        //todo: configurable??
+        public const string NodeTitlePropertyName = "skos__prefLabel";
+
+        public Task AddSyncComponents(JObject content,
+            ContentItem contentItem,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            JValue titleValue = content.Title;
-            if (titleValue.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(_nodeTitlePropertyName, titleValue.As<string>());
+            string? title = mergeNodeCommand.AddProperty(NodeTitlePropertyName, content, _contentTitlePropertyName);
+            if (title == null)
+                mergeNodeCommand.Properties.Add(NodeTitlePropertyName, contentItem.DisplayText);
 
             return Task.CompletedTask;
         }
@@ -40,9 +43,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             string endpoint)
         {
             return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                "Title",
+                _contentTitlePropertyName,
                 content,
-                _nodeTitlePropertyName,
+                NodeTitlePropertyName,
                 nodeWithOutgoingRelationships.SourceNode));
         }
     }

@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            //todo: helper for this?
+            //todo: helper for this? (now exists, see title)
             JValue? value = (JValue?)contentItemField[ContentKey];
             if (value == null || value.Type == JTokenType.Null)
                 return;

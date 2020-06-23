@@ -59,6 +59,7 @@
                 "OrchardCore.Media",
                 "OrchardCore.Menu",
                 "OrchardCore.Queries",
+                "OrchardCore.Sitemaps",
                 "OrchardCore.Title",
                 "OrchardCore.Taxonomies",
                 "OrchardCore.Templates",
@@ -105,6 +106,301 @@
         {
             "name": "ContentDefinition",
             "ContentTypes": [
+                {
+                    "Name": "Page",
+                    "DisplayName": "Page",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AliasPart",
+                            "Name": "AliasPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "Page",
+                            "Name": "Page",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "SitemapPart",
+                            "Name": "SitemapPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "FlowPart",
+                            "Name": "FlowPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "Taxonomy",
+                    "DisplayName": "Taxonomy",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AliasPart",
+                            "Name": "AliasPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "AliasPartSettings": {
+                                    "Pattern": "{{ Model.ContentItem | display_text | slugify }}"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AutoroutePart",
+                            "Name": "AutoroutePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "AutoroutePartSettings": {
+                                    "Pattern": "{{ Model.ContentItem | display_text | slugify }}",
+                                    "AllowRouteContainedItems": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TaxonomyPart",
+                            "Name": "TaxonomyPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PageLocation",
+                    "DisplayName": "Page Location",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PageLocation",
+                            "Name": "PageLocation",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "HTML",
+                    "DisplayName": "HTML",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Stereotype": "Widget",
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "HTML",
+                            "Name": "HTML",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "HtmlBodyPart",
+                            "Name": "HtmlBodyPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1",
+                                    "Editor": "Trumbowyg"
+                                },
+                                "HtmlBodyPartSettings": {},
+                                "HtmlBodyPartTrumbowygEditorSettings": {
+                                    "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\"],\r\n        [\"strong\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"link\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"unorderedList\", \"orderedList\"],\r\n        [\"horizontalRule\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "HTMLShared",
+                    "DisplayName": "HTML Shared",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Stereotype": "Widget",
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "HTMLShared",
+                            "Name": "HTMLShared",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()"
+                                }
+                            }
+                        }
+                    ]
+                },
                 {
                     "Name": "Email",
                     "DisplayName": "Email",
@@ -2155,6 +2451,95 @@
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "Page",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TaxonomyField",
+                            "Name": "PageLocations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Page Locations",
+                                    "Editor": "Tags",
+                                    "DisplayMode": "Tags",
+                                    "Position": "0"
+                                },
+                                "ContentIndexSettings": {},
+                                "TaxonomyFieldSettings": {
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                },
+                                "TaxonomyFieldTagsEditorSettings": {
+                                    "Open": false
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "RedirectLocations",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Redirect Locations",
+                                    "Editor": "TextArea",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "2"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PageLocation",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "BooleanField",
+                            "Name": "ContentsPage",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Contents Page",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "HTMLShared",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "SharedContent",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Shared Content",
+                                    "Editor": "Preview",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "SharedContent"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
                 },
                 {
                     "Name": "SharedContent",

@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Html.Models;
 
@@ -17,10 +18,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(HtmlBodyPart);
 
-        private static Func<string, string> _htmlBodyFieldsPropertyNameTransform = n => $"htmlbody_{n}";
+        private static readonly Func<string, string> _htmlBodyFieldsPropertyNameTransform = n => $"htmlbody_{n}";
+        private const string HtmlPropertyName = "Html";
 
-        public async Task AddSyncComponents(
-            dynamic content,
+        public async Task AddSyncComponents(JObject content,
+            ContentItem contentItem,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -29,12 +31,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = graphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
-            JValue htmlValue = content.Html;
-            if (htmlValue.Type != JTokenType.Null)
-
-                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName("Html"), htmlValue.As<string>());
-
-            return;
+            JValue? htmlValue = (JValue?)content[HtmlPropertyName];
+            if (htmlValue != null && htmlValue.Type != JTokenType.Null)
+                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(HtmlPropertyName), htmlValue.As<string>());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
@@ -49,9 +48,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             using var _ = graphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
             return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                "Html",
+                HtmlPropertyName,
                 content,
-                await graphSyncHelper!.PropertyName("Html"),
+                await graphSyncHelper!.PropertyName(HtmlPropertyName),
                 nodeWithOutgoingRelationships.SourceNode);
         }
     }

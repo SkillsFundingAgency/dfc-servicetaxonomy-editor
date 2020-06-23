@@ -1,0 +1,112 @@
+﻿{
+    "name": "[token:recipeName]",
+    "displayName": "[token:recipeName]",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "CSharpContent",
+            "data": [
+                {
+                    "ContentItemId": "4eembshqzx66drajtdten34tc8",
+                    "ContentItemVersionId": "415erye21mz2k0ayxp9br5cpdr",
+                    "ContentType": "Taxonomy",
+                    "DisplayText": "Site Section",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-06-17T13:05:41.7199601Z",
+                    "PublishedUtc": "2020-06-17T13:05:41.9160641Z",
+                    "CreatedUtc": "2020-06-16T13:16:27.1642618Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "Site Section"
+                    },
+                    "AliasPart": {
+                        "Alias": "site-section"
+                    },
+                    "AutoroutePart": {
+                        "Path": "site-section",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    },
+                    "TaxonomyPart": {
+                        "Terms": [
+                            {
+                                "ContentItemId": "4vx6b17n8c1j3tgjherk977ed2",
+                                "ContentItemVersionId": null,
+                                "ContentType": "SiteSection",
+                                "DisplayText": "Help",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-06-16T13:16:50.5478626Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "SiteSection": {
+                                    "ContentsPage": {
+                                        "Value": true
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "c9c5b769-b6a7-43f4-8b37-b5c1a7155913"
+                                },
+                                "TitlePart": {
+                                    "Title": "Help"
+                                },
+                                "TermPart": {
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                },
+                                "@WeldedPartSettings": {
+                                    "TermPart": {}
+                                }
+                            },
+                            {
+                                "ContentItemId": "47zxhfbgy5ggb13k168qgadxmx",
+                                "ContentItemVersionId": null,
+                                "ContentType": "SiteSection",
+                                "DisplayText": "Contact Us",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-06-16T13:17:00.3841749Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "SiteSection": {
+                                    "ContentsPage": {
+                                        "Value": true
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "52b417e4-aa22-41bb-8449-9f4a1d7156ee"
+                                },
+                                "TitlePart": {
+                                    "Title": "Contact Us"
+                                },
+                                "TermPart": {
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                },
+                                "@WeldedPartSettings": {
+                                    "TermPart": {}
+                                }
+                            }
+                        ],
+                        "TermContentType": "SiteSection"
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<ContentApiPrefix>>/taxonomy/b1f35f54-9ddd-49bc-a792-74d131bf58fb"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
@@ -12,12 +13,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
 {
     public class AutoroutePartGraphSyncer_AddSyncComponentsTests
     {
-        public dynamic? Content { get; set; }
+        public JObject Content { get; set; }
+        public ContentItem ContentItem { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public AutoroutePartGraphSyncer AutoroutePartGraphSyncer { get; set; }
+
+        public const string NodeTitlePropertyName = "autoroute_path";
 
         public AutoroutePartGraphSyncer_AddSyncComponentsTests()
         {
@@ -28,6 +32,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
             ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
+
+            Content = JObject.Parse("{}");
+            ContentItem = A.Fake<ContentItem>();
 
             AutoroutePartGraphSyncer = new AutoroutePartGraphSyncer();
         }
@@ -42,7 +49,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
             await CallAddSyncComponents();
 
             IDictionary<string,object> expectedProperties = new Dictionary<string, object>
-                {{"autoroute_path", path}};
+                {{NodeTitlePropertyName, path}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
@@ -62,6 +69,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
         {
             await AutoroutePartGraphSyncer.AddSyncComponents(
                 Content,
+                ContentItem,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,
