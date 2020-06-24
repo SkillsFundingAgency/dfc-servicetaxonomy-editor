@@ -19,6 +19,16 @@
         fontWeights: [
             {name: 'bold', class: 'govuk-!-font-weight-bold'},
             {name: 'regular', class: 'govuk-!-font-weight-regular'}
+        ],
+        fontSizes: [
+            {name: '14px', class: 'govuk-!-font-size-14'},
+            {name: '16px', class: 'govuk-!-font-size-16'},
+            {name: '19px', class: 'govuk-!-font-size-19'},
+            {name: '24px', class: 'govuk-!-font-size-24'},
+            {name: '27px', class: 'govuk-!-font-size-27'},
+            {name: '36px', class: 'govuk-!-font-size-36'},
+            {name: '48px', class: 'govuk-!-font-size-48'},
+            {name: '80px', class: 'govuk-!-font-size-80'},
         ]
     };
 
@@ -52,7 +62,6 @@
             gds: {
                 // Code called by Trumbowyg core to register the plugin
                 init: function (trumbowyg) {
-
                     //todo: we want to negate TheAdmin theme's css
                     //trumbowyg.o.resetCss = true;
 
@@ -61,6 +70,13 @@
                         defaultOptions,
                         trumbowyg.o.plugins.gds || {}
                     );
+
+                    trumbowyg.addBtnDef('fontSize', {
+                        dropdown: buildFontSizesDropdown(trumbowyg),
+                        //todo: find an appropriate icon
+                        ico: 'fontsize',
+                        title: 'Font Size'
+                    });
 
                     trumbowyg.addBtnDef('paragraph', {
                         dropdown: buildParagraphsDropdown(trumbowyg),
@@ -150,6 +166,48 @@
     //     }
     //     return parentEl;
     // }
+
+    function setFontSize(trumbowyg, fontSize) {
+        trumbowyg.$ed.focus();
+        trumbowyg.saveRange();
+
+        if (trumbowyg.range.startOffset === trumbowyg.range.endOffset) {
+            //no text selection, add class to parent paragraph
+            var selection = trumbowyg.doc.getSelection();
+            $(selection.focusNode).closest('p').removeClass().addClass(fontSize.class);
+
+            //remove any previously added span elements
+            $(selection.focusNode).closest('p').find('span[class^="govuk-!-font-size"').contents().unwrap();
+        } else {
+            // wrap selection in <font> element so we can target it
+            trumbowyg.execCmd('fontSize', '1');
+
+            // Find <font> elements that were added and change to <span> with chosen size
+            trumbowyg.$ed.find('font[size="1"]').replaceWith(function () {
+                return $('<span class="' + fontSize.class + '">' + this.innerHTML + '</span>');
+            });
+        }
+
+        trumbowyg.restoreRange();
+    }
+
+    function buildFontSizesDropdown(trumbowyg) {
+        var dropdown = [];
+
+        $.each(trumbowyg.o.plugins.gds.fontSizes, function (index, fontSize) {
+            trumbowyg.addBtnDef('fontSize_' + fontSize.name, {
+                text: '<span class="' + fontSize.class + '">' + fontSize.name + '</span>',
+                //todo: find a suitable icon
+                hasIcon: false,
+                fn: function () {
+                    setFontSize(trumbowyg, fontSize);
+                }
+            });
+            dropdown.push('fontSize_' + fontSize.name);
+        });
+
+        return dropdown;
+    }
 
     function buildParagraphsDropdown(trumbowyg) {
         var dropdown = [];
