@@ -118,7 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             string GenerateErrorMessage(string? prefix = null)
             {
-                return $"{prefix}{(prefix!=null?": ":"")}content property array was '{string.Join(", ", contentItemFieldArray.Select(v => v.ToString()))}', but node property value was '{nodePropertyValue}'";
+                return $"{prefix}{(prefix!=null?": ":"")}content property array was '{string.Join(", ", contentItemFieldArray)}', but node property value was '{string.Join(", ", (IEnumerable<object>)nodePropertyValue)}'";
             }
         }
 
