@@ -2,6 +2,8 @@
 
 * sync redirections as list
 
+* support custom part/field sync as part of a particular content type
+
 * deleting taxonomy in page doesn't remove from graph
 
 * preview pages app could use the synced publish/unpublish later data to give the user a timeline control sto show a preview of the page at a particular point in time

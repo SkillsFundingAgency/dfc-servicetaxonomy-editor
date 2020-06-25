@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
@@ -224,6 +225,8 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
         private const string TagNames = "TagNames";
         private const string TaxonomyContentItemId = "TaxonomyContentItemId";
         private const string TermContentItemIds = "TermContentItemIds";
+        private const string TermContentType = "TermContentType";
+        private const string Terms = "Terms";
 
         public TaxonomyFieldGraphSyncer(
             IContentManager contentManager,
@@ -242,12 +245,9 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
         {
             //todo: share code with contentpickerfield?
 
-            string taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.ToObject<string>()!;
-            //todo: null?
-
-            ContentItem taxonomyContentItem = await _contentManager.GetAsync(taxonomyContentItemId, VersionOptions.Published);
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField);
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
-            string termContentType = taxonomyPartContent["TermContentType"];
+            string termContentType = taxonomyPartContent[TermContentType];
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
@@ -264,7 +264,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             relatedGraphSyncHelper.ContentType = termContentType;
 
             //todo: handle missing graphsynchelper. extract into GetNodeId method
-            JArray taxonomyTermsContent = (JArray)taxonomyPartContent["Terms"];
+            JArray taxonomyTermsContent = (JArray)taxonomyPartContent[Terms];
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
                 GetNodeId(tid, taxonomyTermsContent, relatedGraphSyncHelper)!);
 
@@ -305,6 +305,14 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
         }
 
+        private async Task<ContentItem> GetTaxonomyContentItem(JObject contentItemField)
+        {
+            string taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.ToObject<string>()!;
+            //todo: null?
+
+            return await _contentManager.GetAsync(taxonomyContentItemId, VersionOptions.Published);
+        }
+
         private string TermRelationshipType(string termContentType)
         {
             return $"has{termContentType}";
@@ -323,12 +331,9 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
         {
-            string taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.ToObject<string>()!;
-            //todo: null?
-
-            ContentItem taxonomyContentItem = await _contentManager.GetAsync(taxonomyContentItemId, VersionOptions.Published);
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField);
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
-            string termContentType = taxonomyPartContent["TermContentType"];
+            string termContentType = taxonomyPartContent[TermContentType];
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
@@ -336,7 +341,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 .Where(r => r.Relationship.Type == termRelationshipType)
                 .ToArray();
 
-            var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
+            var contentItemIds = (JArray)contentItemField[TermContentItemIds]!;
             if (contentItemIds.Count != actualRelationships.Length)
             {
                 return (false, $"expecting {contentItemIds.Count} relationships of type {termRelationshipType} in graph, but found {actualRelationships.Length}");
@@ -363,10 +368,8 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 if (!validated)
                     return (false, failureReason);
 
-                //todo: helper for this too
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.TryGetValue(termRelationshipType, out int currentCount);
-                expectedRelationshipCounts[termRelationshipType] = ++currentCount;
+                expectedRelationshipCounts.IncreaseCount(termRelationshipType);
             }
 
             return (true, "");

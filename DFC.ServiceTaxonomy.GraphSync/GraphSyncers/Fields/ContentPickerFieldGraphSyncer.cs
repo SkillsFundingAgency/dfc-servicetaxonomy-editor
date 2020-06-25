@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -9,7 +10,6 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -126,10 +126,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 if (!validated)
                     return (false, failureReason);
 
-                //todo: helper for this too
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
-                expectedRelationshipCounts[relationshipType] = ++currentCount;
+                expectedRelationshipCounts.IncreaseCount(relationshipType);
             }
 
             return (true, "");
