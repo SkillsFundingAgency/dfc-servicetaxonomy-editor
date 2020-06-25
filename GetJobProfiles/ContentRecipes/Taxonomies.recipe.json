@@ -16,7 +16,7 @@
                     "ContentItemId": "4eembshqzx66drajtdten34tc8",
                     "ContentItemVersionId": "415erye21mz2k0ayxp9br5cpdr",
                     "ContentType": "Taxonomy",
-                    "DisplayText": "Site Section",
+                    "DisplayText": "Page Location",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2020-06-17T13:05:41.7199601Z",
@@ -25,13 +25,13 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "TitlePart": {
-                        "Title": "Site Section"
+                        "Title": "Page Location"
                     },
                     "AliasPart": {
-                        "Alias": "site-section"
+                        "Alias": "page-location"
                     },
                     "AutoroutePart": {
-                        "Path": "site-section",
+                        "Path": "page-location",
                         "SetHomepage": false,
                         "Disabled": false,
                         "RouteContainedItems": false,
@@ -42,7 +42,7 @@
                             {
                                 "ContentItemId": "4vx6b17n8c1j3tgjherk977ed2",
                                 "ContentItemVersionId": null,
-                                "ContentType": "SiteSection",
+                                "ContentType": "PageLocation",
                                 "DisplayText": "Help",
                                 "Latest": false,
                                 "Published": false,
@@ -72,7 +72,7 @@
                             {
                                 "ContentItemId": "47zxhfbgy5ggb13k168qgadxmx",
                                 "ContentItemVersionId": null,
-                                "ContentType": "SiteSection",
+                                "ContentType": "PageLocation",
                                 "DisplayText": "Contact Us",
                                 "Latest": false,
                                 "Published": false,
@@ -100,10 +100,10 @@
                                 }
                             }
                         ],
-                        "TermContentType": "SiteSection"
+                        "TermContentType": "PageLocation"
                     },
                     "GraphSyncPart": {
-                        "Text": "<<ContentApiPrefix>>/taxonomy/b1f35f54-9ddd-49bc-a792-74d131bf58fb"
+                        "Text": "<<ContentApiPrefix>>/taxonomy/9a9e10ca-7102-49bc-a792-74d131bf58fb"
                     }
                 }
             ]
