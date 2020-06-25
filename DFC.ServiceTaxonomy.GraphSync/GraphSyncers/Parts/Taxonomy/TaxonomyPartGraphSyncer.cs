@@ -155,7 +155,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
                 graphSyncHelper);
 
             // useful if there are no terms yet?
-            mergeNodeCommand.AddProperty(TermContentTypePropertyName, content);
+            mergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
