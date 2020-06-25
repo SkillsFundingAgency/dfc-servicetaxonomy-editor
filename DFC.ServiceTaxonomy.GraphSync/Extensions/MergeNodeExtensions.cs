@@ -48,6 +48,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 
         public static List<T>? AddArrayProperty<T>(
             this IMergeNodeCommand mergeNodeCommand,
+            string propertyName,
+            JObject content)
+        {
+            return mergeNodeCommand.AddArrayProperty<T>(propertyName, content, propertyName);
+        }
+
+        public static List<T>? AddArrayProperty<T>(
+            this IMergeNodeCommand mergeNodeCommand,
             string nodePropertyName,
             JObject content,
             string contentPropertyName)
