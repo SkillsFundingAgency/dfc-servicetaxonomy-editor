@@ -249,7 +249,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent["TermContentType"];
 
-            string relationshipType = $"has{termContentType}";
+            string termRelationshipType = TermRelationshipType(termContentType);
 
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
@@ -271,16 +271,14 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
 
             replaceRelationshipsCommand.AddRelationshipsTo(
-                relationshipType,
+                termRelationshipType,
                 null,
                 destNodeLabels,
                 relatedGraphSyncHelper!.IdPropertyName(),
                 foundDestinationNodeIds.ToArray());
 
             // add relationship to taxonomy
-            //string taxonomyAlias = taxonomyContentItem.Content[nameof(AliasPart)]["Alias"];
-            string taxonomyName = taxonomyContentItem.DisplayText.Replace(" ", "");
-            string taxonomyRelationshipType = $"has{taxonomyName}Taxonomy";
+            string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
 
             relatedGraphSyncHelper.ContentType = taxonomyContentItem.ContentType;
             destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
@@ -307,14 +305,71 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        private string TermRelationshipType(string termContentType)
+        {
+            return $"has{termContentType}";
+        }
+
+        private string TaxonomyRelationshipType(ContentItem taxonomyContentItem)
+        {
+            string taxonomyName = taxonomyContentItem.DisplayText.Replace(" ", "");
+            return $"has{taxonomyName}Taxonomy";
+        }
+
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts)
         {
-            return Task.FromResult((true, ""));
+            string taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.ToObject<string>()!;
+            //todo: null?
+
+            ContentItem taxonomyContentItem = await _contentManager.GetAsync(taxonomyContentItemId, VersionOptions.Published);
+            var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent["TermContentType"];
+
+            string termRelationshipType = TermRelationshipType(termContentType);
+
+            IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
+                .Where(r => r.Relationship.Type == termRelationshipType)
+                .ToArray();
+
+            var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
+            if (contentItemIds.Count != actualRelationships.Length)
+            {
+                return (false, $"expecting {contentItemIds.Count} relationships of type {termRelationshipType} in graph, but found {actualRelationships.Length}");
+            }
+
+            foreach (JToken item in contentItemIds)
+            {
+                string contentItemId = (string)item!;
+
+                ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
+
+                //todo: should logically be called using destination ContentType, but it makes no difference atm
+                object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
+
+                string destinationIdPropertyName =
+                    graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
+
+                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
+                    nodeWithOutgoingRelationships,
+                    termRelationshipType,
+                    destinationIdPropertyName,
+                    destinationId);
+
+                if (!validated)
+                    return (false, failureReason);
+
+                //todo: helper for this too
+                // keep a count of how many relationships of a type we expect to be in the graph
+                expectedRelationshipCounts.TryGetValue(termRelationshipType, out int currentCount);
+                expectedRelationshipCounts[termRelationshipType] = ++currentCount;
+            }
+
+            return (true, "");
         }
     }
 }
