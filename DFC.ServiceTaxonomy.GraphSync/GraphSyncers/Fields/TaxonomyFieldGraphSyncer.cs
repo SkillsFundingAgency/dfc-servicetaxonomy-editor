@@ -216,6 +216,18 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
   ]
 }
      */
+
+    /// <remarks>
+    /// We don't bother syncing TermParts:
+    ///   Whilst Orchard Core has a TermPart, we don't need to sync it, as we already create a relationship
+    ///   from taxonomy to term. Syncing the TermPart would only add a relationship in the other direction.
+    /// Creating new terms from the taxonomy field itself:
+    ///   The code handles syncing terms created when the user creates a new term from within the taxonomy field
+    ///   in a consuming type, but as the term only has a DisplayText at that point, it can't be fetched from the content api.
+    ///   Therefore, we disable adding terms from the taxonomy field, and force the user to add new terms through
+    ///   the taxonomy item instead.
+    ///   We could possibly generate a GraphSyncPart's details just in time, but atm we don't.
+    /// </remarks>
     public class TaxonomyFieldGraphSyncer : IContentFieldGraphSyncer
     {
         private readonly IContentManager _contentManager;
