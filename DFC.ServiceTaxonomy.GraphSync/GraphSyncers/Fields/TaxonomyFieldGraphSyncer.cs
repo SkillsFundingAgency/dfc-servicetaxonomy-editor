@@ -227,6 +227,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
         private const string TermContentItemIds = "TermContentItemIds";
         private const string TermContentType = "TermContentType";
         private const string Terms = "Terms";
+        private const string TaxonomyTermsNodePropertyName = "taxonomy_terms";
 
         public TaxonomyFieldGraphSyncer(
             IContentManager contentManager,
@@ -294,9 +295,7 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
             // add tagnames
             //using var _ = graphSyncHelper.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
 
-            JArray? tagNamesArray = (JArray?)contentItemField[TagNames];
-            IEnumerable<string?> tagNames = tagNamesArray.Select(jt => jt.ToObject<string?>());
-            mergeNodeCommand.Properties.Add("taxonomy_terms", tagNames);
+            mergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
         }
 
         private object? GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
@@ -347,22 +346,21 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 return (false, $"expecting {contentItemIds.Count} relationships of type {termRelationshipType} in graph, but found {actualRelationships.Length}");
             }
 
+            IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+            relatedGraphSyncHelper.ContentType = termContentType;
+
+            JArray taxonomyTermsContent = (JArray)taxonomyPartContent[Terms];
+
             foreach (JToken item in contentItemIds)
             {
                 string contentItemId = (string)item!;
 
-                ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
-
-                //todo: should logically be called using destination ContentType, but it makes no difference atm
-                object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
-
-                string destinationIdPropertyName =
-                    graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
+                object? destinationId = GetNodeId(contentItemId, taxonomyTermsContent, relatedGraphSyncHelper)!;
 
                 (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
                     nodeWithOutgoingRelationships,
                     termRelationshipType,
-                    destinationIdPropertyName,
+                    relatedGraphSyncHelper!.IdPropertyName(),
                     destinationId);
 
                 if (!validated)
@@ -372,7 +370,11 @@ can also have tagnames as properties of page for ease of retrieval (and matches 
                 expectedRelationshipCounts.IncreaseCount(termRelationshipType);
             }
 
-            return (true, "");
+            return graphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
+                TagNames,
+                contentItemField,
+                TaxonomyTermsNodePropertyName,
+                nodeWithOutgoingRelationships.SourceNode);
         }
     }
 }

@@ -2,6 +2,8 @@
 
 * sync redirections as list
 
+* check publish later actually publishes
+
 * support custom part/field sync as part of a particular content type
 
 * deleting taxonomy in page doesn't remove from graph
