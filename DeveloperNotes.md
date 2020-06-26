@@ -1,5 +1,14 @@
 #ToDo
 
+* domain topics
+add domain taxonomy (initial candidates are job profile & content)
+add taxonomy to all content types (allowing multiple and none)
+create topic though function when new domain (term) added
+delete topic through function when domain (term) deleted
+publish events to appropriate domains
+
+* multiple parts on same page eg htmlbody_html -> support when syncing
+
 * sync redirections as list
 
 * check publish later actually publishes
