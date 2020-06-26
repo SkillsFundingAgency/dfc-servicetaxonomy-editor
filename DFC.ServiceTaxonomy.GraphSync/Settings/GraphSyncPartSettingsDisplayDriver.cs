@@ -56,7 +56,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                 //TODO: Move equals function elsewhere for Single Reponsibility.
                 //todo: if model.X is null, but item.X isn't null, model.X!.Equals will throw - forgiving null when it is null
-                if (IsEqual(model.BagPartContentItemRelationshipType, item.BagPartContentItemRelationshipType) && IsEqual(model.NodeNameTransform, item.NodeNameTransform) && IsEqual(model.PropertyNameTransform, item.PropertyNameTransform) && IsEqual(model.CreateRelationshipType, item.CreateRelationshipType) && IsEqual(model.IdPropertyName, item.IdPropertyName) && IsEqual(model.GenerateIdPropertyValue, item.GenerateIdPropertyValue))
+                if (IsEqual(model.BagPartContentItemRelationshipType, item.BagPartContentItemRelationshipType)
+                    && IsEqual(model.NodeNameTransform, item.NodeNameTransform)
+                    && IsEqual(model.PropertyNameTransform, item.PropertyNameTransform)
+                    && IsEqual(model.CreateRelationshipType, item.CreateRelationshipType)
+                    && IsEqual(model.IdPropertyName, item.IdPropertyName)
+                    && IsEqual(model.GenerateIdPropertyValue, item.GenerateIdPropertyValue)
+                    && model.PreexistingNode == item.PreexistingNode
+                    && model.DisplayId == item.DisplayId)
                 {
                     model.SelectedSetting = item.Name;
                     model.ReadOnly = true;

@@ -83,6 +83,8 @@
         $('#ddlSelectSettings').on('change', function (ev) {
             var val = $(this).val();
 
+            //todo: needs to 'readonly' checkboxes, see https://stackoverflow.com/questions/155291/can-html-checkboxes-be-set-to-readonly
+
             if (val == "Custom") {
                 //Remove readonly attr
                 $('.graphsync-setting input').attr("readonly", false);
@@ -96,19 +98,23 @@
     });
 
     var populateValuesFromSettings = function (allSettings, selectedSetting) {
-        allSettings.forEach(function (e) {
-            if (selectedSetting == e.name) {
-                $('.form-group input').each(function (index, input) {
-                    var key = input.name.substr(input.name.lastIndexOf(".") + 1);
-                    key = key.charAt(0).toLowerCase() + key.slice(1)
+        const e = allSettings.find(s => s.name === selectedSetting);
+        if (e) {
+            $('.form-group input').each(function (index, input) {
+                let key = input.name.substr(input.name.lastIndexOf(".") + 1);
+                key = key.charAt(0).toLowerCase() + key.slice(1)
 
-                    var value = e[key];
-                    $(input).val(value);
-                })
-
-                return;
-            }
-        });
+                const value = e[key];
+                switch (input.type) {
+                    case "checkbox":
+                        input.checked = value;
+                        break;
+                    case "text":
+                        input.value = value;
+                        break;
+                }
+            })
+        }
     }
 </script>
 
