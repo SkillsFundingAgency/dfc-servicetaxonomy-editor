@@ -15,7 +15,6 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
-    //todo: add option to graphsync as to whether to show uri, so can hide it in widgets
     //todo: remove `The body of the content item.`
 
     /// <remarks>
