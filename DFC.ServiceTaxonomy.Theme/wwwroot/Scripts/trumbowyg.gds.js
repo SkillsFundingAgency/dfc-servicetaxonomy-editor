@@ -73,9 +73,42 @@
 
                     trumbowyg.addBtnDef('fontSize', {
                         dropdown: buildFontSizesDropdown(trumbowyg),
-                        //todo: find an appropriate icon
                         ico: 'fontsize',
                         title: 'Font Size'
+                    });
+
+                    trumbowyg.addBtnDef('list', {
+                        text: 'List',
+                        //todo: better icon?
+                        ico: 'unordered-list',
+                        fn: function () {
+                            trumbowyg.execCmd('insertUnorderedList');
+
+                            var selection = trumbowyg.doc.getSelection();
+                            $(selection.focusNode).closest('ul').addClass("govuk-list");
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('bulletList', {
+                        text: 'Bulleted List',
+                        ico: 'unordered-list',
+                        fn: function () {
+                            trumbowyg.execCmd('insertUnorderedList');
+
+                            var selection = trumbowyg.doc.getSelection();
+                            $(selection.focusNode).closest('ul').addClass("govuk-list govuk-list--bullet");
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('numberList', {
+                        text: 'Numbered List',
+                        ico: 'ordered-list',
+                        fn: function () {
+                            trumbowyg.execCmd('insertOrderedList');
+
+                            var selection = trumbowyg.doc.getSelection();
+                            $(selection.focusNode).closest('ol').addClass("govuk-list govuk-list--number");
+                        }
                     });
 
                     trumbowyg.addBtnDef('paragraph', {
