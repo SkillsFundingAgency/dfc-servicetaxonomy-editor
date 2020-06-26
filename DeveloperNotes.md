@@ -7,7 +7,7 @@ create topic though function when new domain (term) added
 delete topic through function when domain (term) deleted
 publish events to appropriate domains
 
-* multiple parts on same page eg htmlbody_html -> support when syncing
+* multiple parts on same page eg htmlbody_html -> support when syncing <- only supported for named parts
 
 * sync redirections as list
 
