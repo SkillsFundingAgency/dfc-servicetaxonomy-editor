@@ -63,6 +63,14 @@
     </div>
 </fieldset>
 
+<fieldset class="form-group graphsync-setting">
+    <div class="custom-control custom-checkbox">
+        <input asp-for="DisplayId" type="checkbox" class="custom-control-input" readonly="@(Model.ReadOnly ? "readonly" : "")" />
+        <label class="custom-control-label" asp-for="DisplayId">@T["Display ID"]</label>
+        <span class="hint">— @T["Check to display the ID in the editor."]</span>
+    </div>
+</fieldset>
+
 <script at="Foot" type="text/javascript">
     var allSettings = @Html.Raw(Json.Serialize(Model.AllSettings));
     $(function () {

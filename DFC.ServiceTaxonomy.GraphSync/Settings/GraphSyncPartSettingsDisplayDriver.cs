@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                     model.BagPartContentItemRelationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                     model.PreexistingNode = graphSyncPartSettings.PreexistingNode;
+                    model.DisplayId = graphSyncPartSettings.DisplayId;
                     model.NodeNameTransform = graphSyncPartSettings.NodeNameTransform;
                     model.PropertyNameTransform = graphSyncPartSettings.PropertyNameTransform;
                     model.CreateRelationshipType = graphSyncPartSettings.CreateRelationshipType;
@@ -79,6 +80,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.BagPartContentItemRelationshipType,
                 m => m.PreexistingNode,
+                m => m.DisplayId,
                 m => m.NodeNameTransform,
                 m => m.PropertyNameTransform,
                 m => m.CreateRelationshipType,
@@ -89,6 +91,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 {
                     BagPartContentItemRelationshipType = model.BagPartContentItemRelationshipType,
                     PreexistingNode = model.PreexistingNode,
+                    DisplayId = model.DisplayId,
                     NodeNameTransform = model.NodeNameTransform,
                     PropertyNameTransform = model.PropertyNameTransform,
                     CreateRelationshipType = model.CreateRelationshipType,
