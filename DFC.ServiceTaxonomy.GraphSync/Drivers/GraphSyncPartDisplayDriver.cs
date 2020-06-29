@@ -46,6 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
             _graphSyncHelper.ContentType = part.ContentItem.ContentType;
             model.Text = part.Text ?? await _graphSyncHelper.GenerateIdPropertyValue();
             model.Readonly = _graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
+            model.DisplayId = _graphSyncHelper.GraphSyncPartSettings.DisplayId;
         }
     }
 }

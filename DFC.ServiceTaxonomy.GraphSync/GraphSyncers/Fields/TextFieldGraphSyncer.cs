@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -22,12 +22,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IContentPartFieldDefinition contentPartFieldDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            //todo: helper for this? (now exists, see title)
-            JValue? value = (JValue?)contentItemField[ContentKey];
-            if (value == null || value.Type == JTokenType.Null)
-                return;
+            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 
-            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
+            mergeNodeCommand.AddProperty<string>(nodePropertyName, contentItemField, ContentKey);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,

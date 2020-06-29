@@ -15,6 +15,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             INode sourceNode,
             Func<JValue, object, bool> areBothSame);
 
+        (bool matched, string failureReason) ContentArrayPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode,
+            Func<JValue, object, bool> areBothSame);
+
+        (bool matched, string failureReason) StringArrayContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode);
+
         (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,

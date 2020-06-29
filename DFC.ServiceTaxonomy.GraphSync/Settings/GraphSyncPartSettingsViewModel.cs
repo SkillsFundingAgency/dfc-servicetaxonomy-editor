@@ -8,8 +8,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
     {
         public GraphSyncPartSettingsViewModel()
         {
-            this.Settings = new List<SelectListItem>();
-            this.AllSettings = new List<GraphSyncPartSettings>();
+            Settings = new List<SelectListItem>();
+            AllSettings = new List<GraphSyncPartSettings>();
         }
 
         public List<SelectListItem> Settings { get; set; }
@@ -22,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public string? CreateRelationshipType { get; set; }    //or RelationshipTypeTransform for consistency?
         public string? IdPropertyName { get; set; }
         public string? GenerateIdPropertyValue { get; set; }
+        public bool DisplayId { get; set; }
         public bool ReadOnly { get; internal set; }
     }
 }
