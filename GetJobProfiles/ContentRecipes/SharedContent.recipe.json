@@ -50,7 +50,7 @@
                     "Author": "admin",
                     "SharedContent": {
                         "Content": {
-                            "Html": "<div class=\"govuk-panel govuk-panel--confirmation\"><h1 class=\"govuk-panel__title\">Thank you for contacting us</h1></div><h2 class=\"govuk-heading-m\">What happens next</h2><p class=\"govuk-body\">We have received your query, we will get back to you as soon as possible.</p><p><a href=\"/\" class=\"govuk-link\">Return to the National Careers Service home page</a></p>"
+                            "Html": "<div class=\"govuk-panel govuk-panel--confirmation\"><h1 class=\"govuk-panel__title\">Thank you for contacting us</h1></div><h2 class=\"govuk-heading-m\">What happens next</h2><p class=\"govuk-body\">We have received your message, we will get back to you as soon as possible.</p><p><a href=\"/\" class=\"govuk-link\">Return to the National Careers Service home page</a></p>"
                         }
                     },
                     "GraphSyncPart": {
@@ -74,7 +74,7 @@
                     "Author": "admin",
                     "SharedContent": {
                         "Content": {
-                            "Html": "<h1>Send us a letter</h1><p>You can send us a letter by writing to:</p><p>National Careers Service<br>PO Box 1331<br>Newcastle Upon Tyne<br>NE99 5EB</p><p>We will respond within 14 days of receiving your letter. If you would prefer us to respond by phone or email, please include those details in your letter.</p><p><a href=\"/contact-us\" class=\"govuk-button\">Back</a></p>"
+                            "Html": "<h1>Send us a letter</h1><p>Please post your letter to:</p><p>National Careers Service<br>PO Box 1331<br>Newcastle Upon Tyne<br>NE99 5EB</p><p>Please allow up to 14 days for a response to your letter. If you would prefer us to respond by phone or email, please include those details in your letter.</p><p>If you would like a response sooner, you can <a href=\"/contact-us\" class=\"govuk-link\">contact us online</a></p>"
                         }
                     },
                     "GraphSyncPart": {
