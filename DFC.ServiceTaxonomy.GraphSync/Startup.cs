@@ -47,6 +47,7 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
+using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
 
@@ -77,6 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<ILogger, NeoLogger>();
             services.AddSingleton<INeoDriverBuilder, NeoDriverBuilder>();
             services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
+            services.AddScoped<IContentHandler, GraphSyncContentHandler>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
             services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();

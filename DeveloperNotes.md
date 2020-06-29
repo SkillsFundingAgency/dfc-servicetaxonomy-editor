@@ -12,7 +12,7 @@
         "Graphs": [
             {
                 name: "published"
-                instances [
+                instances: [
                     {
                         Endpoint: name,
                         GraphName: name
