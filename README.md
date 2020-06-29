@@ -13,7 +13,7 @@ The solution is built using .NET Core 3.1, a Neo4j database and a RDBMS database
 
 Download [Neo4j desktop](https://neo4j.com/download/), install and run it.
 
-Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the password to `ESCO3`, select the latest version in the dropdown, then click 'Create'. Once the graph is created, click the 'Start' button.
+Click 'Add Graph', then 'Create a Local Graph'. Enter a graph name, set the password to `ESCO`, select the latest version in the dropdown, then click 'Create'. Once the graph is created, click the 'Start' button.
 
 To perform interactive queries against the graph, once the graph is Active, click 'Manage' and then on the next page, click 'Open Browser'. If you're unfamiliar with the browser or Neo4j in general, check out the [docs](https://neo4j.com/developer/neo4j-browser/).
 
