@@ -21,12 +21,24 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         public IEnumerable<INeoDriver> Build()
         {
             //TODO: GroupBy clause shouldn't be needed, but configuration provides duplicates for some reason
-            //A driver defined as primary is used for queries/reads
             //Wrap the driver creation process to enable mocking
-            return _neo4JConfigurationOptions.CurrentValue.Endpoints.Where(x => x.Enabled).GroupBy(y => y.Uri).Select(z => new NeoDriver(GraphDatabase.Driver(
-                    z.FirstOrDefault().Uri,
-                    AuthTokens.Basic(z.FirstOrDefault().Username, z.FirstOrDefault().Password),
+            //todo: enabled?
+            //todo: allow config changes on the fly?
+            //todo: throw helpful exception if config bad, + log non-secret config
+            return _neo4JConfigurationOptions.CurrentValue.Endpoints
+                //.GroupBy(y => y.Uri)
+                .Select(e => new NeoDriver(GraphDatabase.Driver(
+                    e.Uri, AuthTokens.Basic(e.Username, e.Password),
                     o => o.WithLogger(_logger)), z.FirstOrDefault().Uri));
+
+            //todo: neo4 doesn't encrypt by default (3 did), see https://neo4j.com/docs/driver-manual/current/client-applications/
+            // TrustStrategy
+            //o=>o.WithEncryptionLevel(EncryptionLevel.None));
+
+            //todo: create distinct gendpoints for all graphs dictionary
+
+            // return _neo4JConfigurationOptions.CurrentValue.Graphs.Select(
+            //     g )
         }
     }
 }

@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     public interface IGraphDatabase
     {
         IEnumerable<INeoDriver> Drivers { get; }
+        //todo: either change to name, or set name as context
         Task<List<T>> Run<T>(IQuery<T> query, string? endpoint = null);
 
         /// <summary>
