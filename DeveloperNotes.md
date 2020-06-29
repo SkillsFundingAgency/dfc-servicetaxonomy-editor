@@ -1,35 +1,6 @@
 #ToDo
 
-    "Neo4j": {
-        "Endpoints": [
-           {
-                "Name": "",
-                "Uri": "__Neo4jUrl__",
-                "Username": "__Neo4jUser__",
-                "Password": "__Neo4jPassword__",
-            },
-
-        "Graphs": [
-            {
-                name: "published"
-                instances: [
-                    {
-                        Endpoint: name,
-                        GraphName: name
-                        DefaultGraph: true/false
-                    },
-                    {
-                        Endpoint: name,
-                        GraphName: name
-                        DefaultGraph
-                    }
-                ]
-                },
-                {
-                    name: "draft"
-            }
-        ]
-    },
+* draft/pub graphs : update readme
 
 * pages
   check that alias only allows unique names - if not make sure it does
