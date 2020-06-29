@@ -1,5 +1,39 @@
 #ToDo
 
+    "Neo4j": {
+        "Endpoints": [
+           {
+                "Name": "",
+                "Uri": "__Neo4jUrl__",
+                "Username": "__Neo4jUser__",
+                "Password": "__Neo4jPassword__",
+            },
+
+        "Graphs": [
+            {
+                name: "published"
+                instances [
+                    {
+                        Endpoint: name,
+                        GraphName: name
+                        DefaultGraph: true/false
+                    },
+                    {
+                        Endpoint: name,
+                        GraphName: name
+                        DefaultGraph
+                    }
+                ]
+                },
+                {
+                    name: "draft"
+            }
+        ]
+    },
+
+
+* think oc now supports tabs, switch to new support
+
 * domain topics
 add domain taxonomy (initial candidates are job profile & content)
 add taxonomy to all content types (allowing multiple and none)
