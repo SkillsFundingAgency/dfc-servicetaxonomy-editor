@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
@@ -54,8 +55,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
-        public async Task AddSyncComponents(
-            dynamic content,
+        public async Task AddSyncComponents(dynamic content,
+            IContentManager contentManager,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -79,6 +80,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                     await contentFieldGraphSyncer.AddSyncComponents(
                         contentItemField,
+                        contentManager,
                         mergeNodeCommand,
                         replaceRelationshipsCommand,
                         contentPartFieldDefinitionWrapper,
@@ -87,8 +89,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IContentManager contentManager,
             ContentTypePartDefinition contentTypePartDefinition,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
@@ -116,6 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     (bool validated, string failureReason) = await contentFieldGraphSyncer.ValidateSyncComponent(
                         contentItemField,
                         contentPartFieldDefinitionWrapper,
+                        contentManager,
                         nodeWithOutgoingRelationships,
                         graphSyncHelper,
                         graphValidationHelper,

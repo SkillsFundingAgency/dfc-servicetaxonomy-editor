@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
 
             Logger = A.Fake<ILogger<ContentPickerFieldGraphSyncer>>();
 
-            ContentPickerFieldGraphSyncer = new ContentPickerFieldGraphSyncer(ContentManager, Logger);
+            ContentPickerFieldGraphSyncer = new ContentPickerFieldGraphSyncer(Logger);
         }
 
         //todo: tests
@@ -51,6 +51,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
         {
             await ContentPickerFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
+                ContentManager,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentPartFieldDefinition,

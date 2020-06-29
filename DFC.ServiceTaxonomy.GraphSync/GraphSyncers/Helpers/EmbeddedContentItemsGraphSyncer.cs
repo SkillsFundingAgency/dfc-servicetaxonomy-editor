@@ -35,8 +35,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 .ToDictionary(x => x.Name);
         }
 
-        public async Task AddSyncComponents(
-            JArray? contentItems,
+        public async Task AddSyncComponents(JArray? contentItems,
+            IContentManager contentManager,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IGraphSyncHelper graphSyncHelper)
         {
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 //todo: if we want to support nested containers, would have to return queries also
-                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(contentItem);
+                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(contentItem, contentManager);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -76,8 +76,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JArray? contentItems,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JArray? contentItems,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts,

@@ -34,6 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
         public async Task AddSyncComponents(JObject content,
             ContentItem contentItem,
+            IContentManager contentManager,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -41,6 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
         {
             await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
                 (JArray?)content[ContainerName],
+                contentManager,
                 replaceRelationshipsCommand,
                 graphSyncHelper);
 
@@ -50,15 +52,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
             await _contentFieldsGraphSyncer.AddSyncComponents(
                 content,
+                contentManager,
                 mergeNodeCommand,
                 replaceRelationshipsCommand,
                 contentTypePartDefinition,
                 graphSyncHelper);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
@@ -68,6 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             (bool validated, string failureReason) =
                 await _flowPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
                     (JArray?)content[ContainerName],
+                    contentManager,
                     nodeWithOutgoingRelationships,
                     graphValidationHelper,
                     expectedRelationshipCounts,
@@ -80,6 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content,
+                contentManager,
                 contentTypePartDefinition,
                 nodeWithOutgoingRelationships,
                 graphSyncHelper,

@@ -17,17 +17,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             return contentPartDefinition.Name == PartName;
         }
 
-        //todo: change content to JObject
+        //todo: have new interface for IContainedContentPartGraphSyncer : IContentPartGraphSyncer?????
         Task AddSyncComponents(JObject content,
             ContentItem contentItem,
+            IContentManager contentManager,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper);
 
-        Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+        Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,

@@ -28,6 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public async Task AddSyncComponents(JObject content,
             ContentItem contentItem,
+            IContentManager contentManager,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -53,9 +54,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,

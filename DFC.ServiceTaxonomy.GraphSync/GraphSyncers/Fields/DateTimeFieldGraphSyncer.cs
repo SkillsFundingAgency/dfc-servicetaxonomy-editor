@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -15,12 +16,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Value";
 
-        public async Task AddSyncComponents(
-          JObject contentItemField,
-          IMergeNodeCommand mergeNodeCommand,
-          IReplaceRelationshipsCommand replaceRelationshipsCommand,
-          IContentPartFieldDefinition contentPartFieldDefinition,
-          IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject contentItemField,
+            IContentManager contentManager,
+            IMergeNodeCommand mergeNodeCommand,
+            IReplaceRelationshipsCommand replaceRelationshipsCommand,
+            IContentPartFieldDefinition contentPartFieldDefinition,
+            IGraphSyncHelper graphSyncHelper)
         {
             JValue? value = (JValue?)contentItemField?[ContentKey];
             if (value == null || value.Type == JTokenType.Null)
@@ -33,6 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,

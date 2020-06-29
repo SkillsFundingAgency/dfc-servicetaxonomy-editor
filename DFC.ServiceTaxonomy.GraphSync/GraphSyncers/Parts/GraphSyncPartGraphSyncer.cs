@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public Task AddSyncComponents(JObject content,
             ContentItem contentItem,
+            IContentManager contentManager,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -30,6 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,

@@ -21,19 +21,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public string FieldTypeName => "ContentPickerField";
 
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
-        private readonly IContentManager _contentManager;
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
         public ContentPickerFieldGraphSyncer(
-            IContentManager contentManager,
             ILogger<ContentPickerFieldGraphSyncer> logger)
         {
-            _contentManager = contentManager;
             _logger = logger;
         }
 
-        public async Task AddSyncComponents(
-            JObject contentItemField,
+        public async Task AddSyncComponents(JObject contentItemField,
+            IContentManager contentManager,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IContentPartFieldDefinition contentPartFieldDefinition,
@@ -60,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // GetAsync should be returning ContentItem? as it can be null
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
                 contentItemIds.Select(async contentItemId =>
-                    await _contentManager.GetAsync(contentItemId, VersionOptions.Latest));
+                    await contentManager.GetAsync(contentItemId, VersionOptions.Latest));
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
@@ -85,6 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
@@ -109,7 +107,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string contentItemId = (string)item!;
 
-                ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
+                ContentItem destinationContentItem = await contentManager.GetAsync(contentItemId);
 
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);

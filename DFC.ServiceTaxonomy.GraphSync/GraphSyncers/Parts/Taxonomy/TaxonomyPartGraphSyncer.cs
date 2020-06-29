@@ -28,6 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 
         public async Task AddSyncComponents(JObject content,
             ContentItem contentItem,
+            IContentManager contentManager,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentTypePartDefinition contentTypePartDefinition,
@@ -35,6 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         {
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
                 (JArray?)content[ContainerName],
+                contentManager,
                 replaceRelationshipsCommand,
                 graphSyncHelper);
 
@@ -42,9 +44,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             mergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             ContentTypePartDefinition contentTypePartDefinition,
+            IContentManager contentManager,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
@@ -54,6 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             (bool validated, string failureReason) =
                 await _taxonomyPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
                     (JArray?)content[ContainerName],
+                    contentManager,
                     nodeWithOutgoingRelationships,
                     graphValidationHelper,
                     expectedRelationshipCounts,

@@ -18,11 +18,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     {
         public SyncToGraphTask(
             IMergeGraphSyncer mergeGraphSyncer,
+            IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
             _mergeGraphSyncer = mergeGraphSyncer;
+            _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
             _notifier = notifier;
             T = localizer;
@@ -30,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         private IStringLocalizer T { get; }
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
+        private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INotifier _notifier;
 
@@ -65,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 contentType = contentItem.ContentType;
 #pragma warning restore S1854
 
-                await _mergeGraphSyncer.SyncToGraph(contentItem);
+                await _mergeGraphSyncer.SyncToGraph(contentItem, _contentManager);
 
                 return Outcomes("Done");
             }

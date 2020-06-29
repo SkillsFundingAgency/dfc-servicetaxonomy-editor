@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.DisplayManagement.Notify;
 
@@ -12,15 +14,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     public class GraphSyncContentHandler : ContentHandlerBase
     {
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
+        private readonly IServiceProvider _serviceProvider;
         private readonly INotifier _notifier;
         private readonly ILogger<GraphSyncContentHandler> _logger;
 
         public GraphSyncContentHandler(
             IMergeGraphSyncer mergeGraphSyncer,
+            IServiceProvider serviceProvider,
             INotifier notifier,
             ILogger<GraphSyncContentHandler> logger)
         {
             _mergeGraphSyncer = mergeGraphSyncer;
+            _serviceProvider = serviceProvider;
             _notifier = notifier;
             _logger = logger;
         }
@@ -36,7 +41,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             try
             {
-                await _mergeGraphSyncer.SyncToGraph(context.ContentItem);
+                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+                await _mergeGraphSyncer.SyncToGraph(context.ContentItem, contentManager);
             }
             catch (Exception exception)
             {

@@ -24,6 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentManager _contentManager;
         private readonly ISession _session;
         private readonly IGraphDatabase _graphDatabase;
         private readonly IServiceProvider _serviceProvider;
@@ -34,6 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public ValidateAndRepairGraph(
             IContentDefinitionManager contentDefinitionManager,
+            IContentManager contentManager,
             ISession session,
             IGraphDatabase graphDatabase,
             IServiceProvider serviceProvider,
@@ -43,6 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ILogger<ValidateAndRepairGraph> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
+            _contentManager = contentManager;
             _session = session;
             _graphDatabase = graphDatabase;
             _serviceProvider = serviceProvider;
@@ -145,7 +148,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                await mergeGraphSyncer.SyncToGraph(failure.ContentItem);
+                await mergeGraphSyncer.SyncToGraph(failure.ContentItem, _contentManager);
 
                 //todo: split into smaller methods
 
@@ -201,7 +204,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     continue; //todo: throw??
 
                 (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
-                    (JObject)partContent, contentTypePartDefinition, nodeWithOutgoingRelationships,
+                    (JObject)partContent, contentTypePartDefinition, _contentManager, nodeWithOutgoingRelationships,
                     _graphSyncHelper, _graphValidationHelper,
                     expectedRelationshipCounts, endpoint);
 

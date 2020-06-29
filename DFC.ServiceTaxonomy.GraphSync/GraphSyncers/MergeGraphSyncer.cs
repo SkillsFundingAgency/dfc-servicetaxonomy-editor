@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
         }
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(ContentItem contentItem)
+        public async Task<IMergeNodeCommand?> SyncToGraph(ContentItem contentItem, IContentManager contentManager)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (contentItem.ModifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
-            await AddContentPartSyncComponents(contentItem);
+            await AddContentPartSyncComponents(contentItem, contentManager);
 
             //todo: bit hacky. best way to do this?
             // work-around new taxonomy terms created with only DisplayText set
@@ -98,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return _mergeNodeCommand;
         }
 
-        private async Task AddContentPartSyncComponents(ContentItem contentItem)
+        private async Task AddContentPartSyncComponents(ContentItem contentItem, IContentManager contentManager)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -127,6 +127,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     await partSync.AddSyncComponents(
                         partContent,
                         contentItem,
+                        contentManager,
                         _mergeNodeCommand,
                         _replaceRelationshipsCommand,
                         contentTypePartDefinition,
