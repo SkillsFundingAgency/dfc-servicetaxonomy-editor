@@ -36,7 +36,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         }
 
         //todo: context contains cancel! (might have to use publishing though)
-        //todo: how to add notifications?
         public override async Task PublishedAsync(PublishContentContext context)
         {
             try
