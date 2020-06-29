@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
@@ -16,6 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
+        public IContentManager ContentManager { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public LinkFieldGraphSyncer LinkFieldGraphSyncer { get; set; }
 
@@ -31,6 +33,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
 
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
             A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
+
+            ContentManager = A.Fake<IContentManager>();
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
             A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
@@ -99,6 +103,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
         {
             await LinkFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
+                ContentManager,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentPartFieldDefinition,

@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
@@ -15,6 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
     {
         public JObject Content { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
+        public IContentManager ContentManager { get; set; }
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
         public INode SourceNode { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
@@ -28,8 +30,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
         public AutoroutePartGraphSyncer_ValidateSyncComponentTests()
         {
             Content = JObject.Parse("{}");
-
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
+            ContentManager = A.Fake<IContentManager>();
 
             SourceNode = A.Fake<INode>();
             NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
@@ -68,6 +70,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
             return await AutoroutePartGraphSyncer.ValidateSyncComponent(
                 Content,
                 ContentTypePartDefinition,
+                ContentManager,
                 NodeWithOutgoingRelationships,
                 GraphSyncHelper,
                 GraphValidationHelper,

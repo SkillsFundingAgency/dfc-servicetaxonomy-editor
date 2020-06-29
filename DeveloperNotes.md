@@ -31,6 +31,8 @@
         ]
     },
 
+* pages
+  check that alias only allows unique names - if not make sure it does
 
 * think oc now supports tabs, switch to new support
 

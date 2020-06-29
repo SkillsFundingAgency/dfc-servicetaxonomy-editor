@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
+        public IContentManager ContentManager { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public UnpublishLaterPartGraphSyncer UnpublishLaterPartGraphSyncer { get; set; }
 
@@ -36,6 +37,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
 
             Content = JObject.Parse("{}");
             ContentItem = A.Fake<ContentItem>();
+            ContentManager = A.Fake<IContentManager>();
 
             UnpublishLaterPartGraphSyncer = new UnpublishLaterPartGraphSyncer();
         }
@@ -72,6 +74,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
             await UnpublishLaterPartGraphSyncer.AddSyncComponents(
                 Content,
                 ContentItem,
+                ContentManager,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,

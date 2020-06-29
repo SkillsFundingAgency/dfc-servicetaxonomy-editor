@@ -8,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFieldGraphSyncerTests
@@ -16,6 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
     {
         public JObject? ContentItemField { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
+        public IContentManager ContentManager { get; set; }
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
         public INode SourceNode { get; set; }
         public Dictionary<string, object> SourceNodeProperties { get; set; }
@@ -31,6 +33,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
         {
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
             A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
+
+            ContentManager = A.Fake<IContentManager>();
 
             SourceNode = A.Fake<INode>();
             SourceNodeProperties = new Dictionary<string, object>();
@@ -75,6 +79,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
             return await DateTimeFieldGraphSyncer.ValidateSyncComponent(
                 ContentItemField!,
                 ContentPartFieldDefinition,
+                ContentManager,
                 NodeWithOutgoingRelationships,
                 GraphSyncHelper,
                 GraphValidationHelper,

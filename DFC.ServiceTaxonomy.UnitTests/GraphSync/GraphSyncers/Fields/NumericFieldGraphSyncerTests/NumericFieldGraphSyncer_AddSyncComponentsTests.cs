@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
+using OrchardCore.ContentManagement;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFieldGraphSyncerTests
@@ -18,6 +19,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
+        public IContentManager ContentManager { get; set; }
         public NumericFieldSettings NumericFieldSettings { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public NumericFieldGraphSyncer NumericFieldGraphSyncer { get; set; }
@@ -34,6 +36,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
             A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
+
+            ContentManager = A.Fake<IContentManager>();
+
             NumericFieldSettings = new NumericFieldSettings();
             A.CallTo(() => ContentPartFieldDefinition.GetSettings<NumericFieldSettings>()).Returns(NumericFieldSettings);
 
@@ -99,6 +104,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         {
             await NumericFieldGraphSyncer.AddSyncComponents(
                 ContentItemField!,
+                ContentManager,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentPartFieldDefinition,

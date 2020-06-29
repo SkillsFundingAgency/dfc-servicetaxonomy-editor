@@ -8,6 +8,7 @@ using FakeItEasy;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
+using OrchardCore.ContentManagement;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFieldGraphSyncerTests
@@ -16,6 +17,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
     {
         public JObject? ContentItemField { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
+        public IContentManager ContentManager { get; set; }
         public NumericFieldSettings NumericFieldSettings { get; set; }
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
         public INode SourceNode { get; set; }
@@ -31,6 +33,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         {
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
             A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
+            ContentManager = A.Fake<IContentManager>();
+
             NumericFieldSettings = new NumericFieldSettings();
             A.CallTo(() => ContentPartFieldDefinition.GetSettings<NumericFieldSettings>()).Returns(NumericFieldSettings);
 
@@ -189,6 +193,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
             return await NumericFieldGraphSyncer.ValidateSyncComponent(
                 ContentItemField!,
                 ContentPartFieldDefinition,
+                ContentManager,
                 NodeWithOutgoingRelationships,
                 GraphSyncHelper,
                 GraphValidationHelper,

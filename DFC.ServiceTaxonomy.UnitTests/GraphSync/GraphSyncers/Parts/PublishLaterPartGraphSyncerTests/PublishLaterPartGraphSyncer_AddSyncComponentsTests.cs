@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
     {
         public JObject Content { get; set; }
         public ContentItem ContentItem { get; set; }
+        public IContentManager ContentManager { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
@@ -34,6 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 
             Content = JObject.Parse("{}");
             ContentItem = A.Fake<ContentItem>();
+            ContentManager = A.Fake<IContentManager>();
 
             PublishLaterPartGraphSyncer = new PublishLaterPartGraphSyncer();
         }
@@ -74,6 +76,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
             await PublishLaterPartGraphSyncer.AddSyncComponents(
                 Content,
                 ContentItem,
+                ContentManager,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,

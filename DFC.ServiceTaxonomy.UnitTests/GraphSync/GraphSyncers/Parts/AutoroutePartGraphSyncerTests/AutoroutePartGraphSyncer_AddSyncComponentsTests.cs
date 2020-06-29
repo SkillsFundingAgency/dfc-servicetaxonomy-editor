@@ -18,6 +18,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
+        public IContentManager ContentManager { get; set; }
         public IGraphSyncHelper GraphSyncHelper { get; set; }
         public AutoroutePartGraphSyncer AutoroutePartGraphSyncer { get; set; }
 
@@ -35,6 +36,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
 
             Content = JObject.Parse("{}");
             ContentItem = A.Fake<ContentItem>();
+            ContentManager = A.Fake<IContentManager>();
 
             AutoroutePartGraphSyncer = new AutoroutePartGraphSyncer();
         }
@@ -70,6 +72,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
             await AutoroutePartGraphSyncer.AddSyncComponents(
                 Content,
                 ContentItem,
+                ContentManager,
                 MergeNodeCommand,
                 ReplaceRelationshipsCommand,
                 ContentTypePartDefinition,
