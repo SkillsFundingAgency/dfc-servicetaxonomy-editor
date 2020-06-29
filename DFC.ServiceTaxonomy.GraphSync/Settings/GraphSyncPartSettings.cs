@@ -12,5 +12,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public string? CreateRelationshipType { get; set; }    //or RelationshipTypeTransform for consistency?
         public string? IdPropertyName { get; set; }
         public string? GenerateIdPropertyValue { get; set; }
+        public bool DisplayId { get; set; }
     }
 }

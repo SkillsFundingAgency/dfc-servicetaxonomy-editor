@@ -114,11 +114,19 @@ You should then be directed to the log in page. Enter the username and password 
 
 ### Import Content
 
+There's no need to import any content, unless you want to create pages (see 'Import Content To Enable Page Creation' below). If you wish to import a job profile data set, follow the 'Import Job Profiles' instructions.
+
+#### Import Job Profiles
+
 Before running the import, copy the latest `DFC.ServiceTaxonomy.Neo4j/Java Plugins/target/ncs-service-taxonomy-plugins-x.x.x-*.jar` into the Neo4J plugins directory, and restart the graph.
 
-To import content, including the National Careers Service job profiles, import a master recipe from the `DFC.ServiceTaxonomy.Editor/MasterRecipes` folder.
+To import content, including the National Careers Service job profiles, import a master recipe from the `DFC.ServiceTaxonomy.Editor/MasterRecipes` folder, using using Configuration .. Import/Export .. Package Import
 
 For the very first import, choose one of the graph mutator master recipes. You can import a full or subset of job profiles, by selecting an appropriate master recipe.
+
+#### Import Content To Enable Page Creation
+
+To be able to create pages, you need to import GetJobProfiles\ContentRecipes\Taxonomies.recipe.json (using Configuration .. Import/Export .. Package Import).
 
 ## Troubleshooting Builds
 
