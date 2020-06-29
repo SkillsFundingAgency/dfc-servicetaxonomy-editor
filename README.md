@@ -49,7 +49,7 @@ RETURN n
 ```
 To confirm the import worked ok, check the schema using
 ```
-call db.schema()
+CALL db.schema.visualization()
 ```
 
 #### Create Content Database
