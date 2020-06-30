@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -53,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             try
             {
-                await _deleteGraphSyncer.DeleteFromGraph(contentItem);
+                await _deleteGraphSyncer.DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, contentItem);
             }
             catch (CommandValidationException ex)
             {

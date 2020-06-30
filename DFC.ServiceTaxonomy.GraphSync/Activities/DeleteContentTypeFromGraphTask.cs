@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
@@ -47,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 typeToDelete = GetTypeFromWorkflowContext(workflowContext);
 
                 //Delete all nodes by type
-                await _deleteGraphSyncer.DeleteNodesByType(typeToDelete);
+                await _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Published, typeToDelete);
                 return Outcomes("Done");
             }
             catch (Exception)

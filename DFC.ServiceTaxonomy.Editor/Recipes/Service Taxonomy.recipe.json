@@ -4399,48 +4399,6 @@
             "name": "WorkflowType",
             "data": [
                 {
-                    "WorkflowTypeId": "4nz01f9zjxazbsmdked5ktbfcs",
-                    "Name": "Delete From Graph",
-                    "IsEnabled": true,
-                    "IsSingleton": false,
-                    "DeleteFinishedWorkflows": false,
-                    "Activities": [
-                        {
-                            "ActivityId": "49fa3gg6jvfcwznwmhk09rzg5b",
-                            "Name": "ContentDeletedEvent",
-                            "X": 250,
-                            "Y": 0,
-                            "IsStart": true,
-                            "Properties": {
-                                "ContentTypeFilter": [],
-                                "ActivityMetadata": {
-                                    "Title": null
-                                }
-                            }
-                        },
-                        {
-                            "ActivityId": "4e1pzdgtnww4e5jt4w4cac5qma",
-                            "Name": "DeleteFromGraphTask",
-                            "X": 120,
-                            "Y": 280,
-                            "IsStart": false,
-                            "Properties": {
-                                "ActivityMetadata": {
-                                    "Title": null
-                                }
-                            }
-                        }
-                    ],
-                    "Transitions": [
-                        {
-                            "Id": 0,
-                            "SourceActivityId": "49fa3gg6jvfcwznwmhk09rzg5b",
-                            "SourceOutcomeName": "Done",
-                            "DestinationActivityId": "4e1pzdgtnww4e5jt4w4cac5qma"
-                        }
-                    ]
-                },
-                {
                     "WorkflowTypeId": "4wwrjw1kq3qffwgqp7x02spad1",
                     "Name": "Delete Content Type From Graph",
                     "IsEnabled": true,
