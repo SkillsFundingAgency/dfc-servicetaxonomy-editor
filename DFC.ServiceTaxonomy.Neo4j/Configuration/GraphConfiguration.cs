@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace DFC.ServiceTaxonomy.Neo4j.Configuration
+﻿namespace DFC.ServiceTaxonomy.Neo4j.Configuration
 {
     public class GraphConfiguration
     {
-        public string? Name { get; set; }
-        public List<GraphInstanceConfiguration> Instances { get; set; } = new List<GraphInstanceConfiguration>();
+        public string? Endpoint { get; set; }
+        public string? GraphName { get; set; }
+        public bool DefaultGraph { get; set; }
     }
 }
