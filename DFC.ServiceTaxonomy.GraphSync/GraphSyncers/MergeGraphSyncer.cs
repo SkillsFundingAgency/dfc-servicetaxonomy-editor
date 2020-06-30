@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -21,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // so any validation failure rolls back the whole sync operation
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
-        private readonly IGraphDatabase _graphDatabase;
+        private readonly IGraphCluster _graphCluster;
         private readonly ICustomContentDefintionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
@@ -31,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         public MergeGraphSyncer(
-            IGraphDatabase graphDatabase,
+            IGraphCluster graphCluster,
             ICustomContentDefintionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
@@ -40,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IMemoryCache memoryCache,
             ILogger<MergeGraphSyncer> logger)
         {
-            _graphDatabase = graphDatabase;
+            _graphCluster = graphCluster;
             _contentDefinitionManager = contentDefinitionManager;
             _partSyncers = partSyncers;
             _graphSyncHelper = graphSyncHelper;
@@ -50,7 +51,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
         }
 
-        public async Task<IMergeNodeCommand?> SyncToGraph(ContentItem contentItem, IContentManager contentManager)
+        public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet(
+            string graphReplicaSetName,
+            ContentItem contentItem,
+            IContentManager contentManager)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -93,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             _logger.LogInformation($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId} to {_mergeNodeCommand}");
-            await SyncComponentsToGraph(graphSyncPartContent);
+            await SyncComponentsToGraphReplicaSet(graphReplicaSetName, graphSyncPartContent);
 
             return _mergeNodeCommand;
         }
@@ -136,7 +140,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        private async Task SyncComponentsToGraph(dynamic graphSyncPartContent)
+        private async Task SyncComponentsToGraphReplicaSet(string graphReplicaSetName, dynamic graphSyncPartContent)
         {
             List<ICommand> commands = new List<ICommand>();
 
@@ -155,7 +159,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 commands.Add(_replaceRelationshipsCommand);
             }
 
-            await _graphDatabase.Run(commands.ToArray());
+            await _graphCluster.Run(graphReplicaSetName, commands.ToArray());
         }
     }
 }

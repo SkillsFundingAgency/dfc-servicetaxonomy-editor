@@ -148,7 +148,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                await mergeGraphSyncer.SyncToGraph(failure.ContentItem, _contentManager);
+                await mergeGraphSyncer.SyncToGraphReplicaSet(failure.ContentItem, _contentManager);
 
                 //todo: split into smaller methods
 

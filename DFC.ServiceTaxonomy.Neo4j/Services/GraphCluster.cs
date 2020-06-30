@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Immutable;
+using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
@@ -7,21 +10,28 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     //todo: rename PoorMansGraphCluster?
     public class GraphCluster : IGraphCluster
     {
-        //private readonly INeoEndpoint[] _neoEndpoints;
         //todo: best type of dic?
-        private readonly Dictionary<string, IGraphReplicaSet> _graphReplicaSets;
+        private readonly ImmutableDictionary<string, IGraphReplicaSet> _graphReplicaSets;
 
-        // public GraphCluster(IEnumerable<INeoEndpoint> endpoints, IEnumerable<IGraphReplicaSet> replicaSets)
         public GraphCluster(IEnumerable<IGraphReplicaSet> replicaSets)
         {
-            //_neoEndpoints = endpoints.ToArray();
-            _graphReplicaSets = replicaSets.ToDictionary(rs => rs.Name);
+            _graphReplicaSets = replicaSets.ToImmutableDictionary(rs => rs.Name);
         }
 
         public IGraphReplicaSet GetGraphReplicaSet(string replicaSetName)
         {
             //todo: throw nice exception if not found
             return _graphReplicaSets[replicaSetName];
+        }
+
+        public Task<List<T>> Run<T>(string replicaSetName, IQuery<T> query, int? instance = null)
+        {
+            _graphReplicaSets[replicaSetName].Run(query, instance);
+        }
+
+        public Task Run(string replicaSetName, params ICommand[] commands)
+        {
+            _graphReplicaSets[replicaSetName].Run(commands);
         }
     }
 }

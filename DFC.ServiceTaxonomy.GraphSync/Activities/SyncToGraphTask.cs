@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 contentType = contentItem.ContentType;
 #pragma warning restore S1854
 
-                await _mergeGraphSyncer.SyncToGraph(contentItem, _contentManager);
+                await _mergeGraphSyncer.SyncToGraphReplicaSet(contentItem, _contentManager);
 
                 return Outcomes("Done");
             }
