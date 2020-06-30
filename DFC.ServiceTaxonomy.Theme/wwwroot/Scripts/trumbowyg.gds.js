@@ -129,6 +129,8 @@
                         ico: 'strong',
                         title: trumbowyg.lang.fontWeight
                     });
+
+                    setColourTitles();
                 },
                 // Return a list of button names which are active on current element
                 tagHandler: function (element, trumbowyg) {
@@ -303,4 +305,41 @@
         return dropdown;
     }
 
+    function setColourTitles() {
+        var colors = [
+            { code: '#0b0c0c', label: 'Primary Text, Active Links, Input Border, Focus Text State' },
+            { code: '#626a6e', label: 'Secondary Text' },
+            { code: '#1d70b8', label: 'Links, Brand colour' },
+            { code: '#003078', label: 'Hover Links' },
+            { code: '#4c2c92', label: 'Visited Links' },
+            { code: '#b1b4b6', label: 'Border' },
+            { code: '#ffdd00', label: 'Focus State' },
+            { code: '#d4351c', label: 'Error State' },
+            { code: '#003a69', label: 'DfE Brand' },
+            { code: '#347ca9', label: 'DfE Brand Websafe' },
+            { code: '#00703c', label: 'Green' },
+            { code: '#5694ca', label: 'Light Blue' },
+            { code: '#f3f2f1', label: 'Light Grey' },
+            { code: '#ffffff', label: 'White' },
+            { code: '#6f72af', label: 'Light Purple' },
+            { code: '#912b88', label: 'Bright Purple' },
+            { code: '#d53880', label: 'Pink' },
+            { code: '#f499be', label: 'Light Pink' },
+            { code: '#f47738', label: 'Orange' },
+            { code: '#b58840', label: 'Brown' },
+            { code: '#85994b', label: 'Light Green' },
+            { code: '#28a197', label: 'Turquoise' }
+        ]
+
+        //need to allow time for the editor to initialise, there doesn't seem to be a callback we can hook into unfortunately.
+        setTimeout(function () {
+            $('.trumbowyg-dropdown-foreColor button, .trumbowyg-dropdown-backColor button').each(function () {
+                var color = colors.find(x => x.code === $(this).text());
+
+                if (color) {
+                    $(this).attr('title', color.label);
+                }
+            });
+        }, 500);
+    }
 })(jQuery);
