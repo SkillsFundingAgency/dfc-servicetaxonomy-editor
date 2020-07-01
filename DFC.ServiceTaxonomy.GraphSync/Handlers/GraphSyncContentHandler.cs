@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     //todo: add eventgrid content handler too
     public class GraphSyncContentHandler : ContentHandlerBase
     {
+        private readonly IGraphCluster _graphCluster;
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private readonly IDeleteGraphSyncer _deleteGraphSyncer;
         private readonly IServiceProvider _serviceProvider;
@@ -26,6 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly ILogger<GraphSyncContentHandler> _logger;
 
         public GraphSyncContentHandler(
+            IGraphCluster graphCluster,
             IMergeGraphSyncer mergeGraphSyncer,
             IDeleteGraphSyncer deleteGraphSyncer,
             IServiceProvider serviceProvider,
@@ -34,6 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             INotifier notifier,
             ILogger<GraphSyncContentHandler> logger)
         {
+            _graphCluster = graphCluster;
             _mergeGraphSyncer = mergeGraphSyncer;
             _deleteGraphSyncer = deleteGraphSyncer;
             _serviceProvider = serviceProvider;
@@ -100,7 +104,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-                await _mergeGraphSyncer.SyncToGraphReplicaSet(replicaSetName, contentItem, contentManager);
+                await _mergeGraphSyncer.SyncToGraphReplicaSet(_graphCluster.GetGraphReplicaSet(replicaSetName), contentItem, contentManager);
             }
             catch (Exception exception)
             {

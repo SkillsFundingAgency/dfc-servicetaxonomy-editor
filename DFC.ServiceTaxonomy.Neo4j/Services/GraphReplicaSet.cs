@@ -13,12 +13,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
     {
         private protected readonly IGraph[] _graphInstances;
 
-        internal GraphReplicaSet(string name, IEnumerable<IGraph> graphInstances)
+        internal GraphReplicaSet(string name, IEnumerable<Graph> graphInstances)
         {
             Name = name;
             _graphInstances = graphInstances.ToArray();
             InstanceCount = _graphInstances.Length;
             _currentInstance = -1;
+
+            foreach (var graph in graphInstances)
+            {
+                graph.GraphReplicaSet = this;
+            }
         }
 
         public string Name { get; }

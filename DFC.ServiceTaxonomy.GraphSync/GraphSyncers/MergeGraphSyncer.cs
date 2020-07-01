@@ -21,7 +21,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // so any validation failure rolls back the whole sync operation
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
-        private readonly IGraphCluster _graphCluster;
         private readonly ICustomContentDefintionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
@@ -31,7 +30,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         public MergeGraphSyncer(
-            IGraphCluster graphCluster,
             ICustomContentDefintionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
@@ -40,7 +38,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IMemoryCache memoryCache,
             ILogger<MergeGraphSyncer> logger)
         {
-            _graphCluster = graphCluster;
             _contentDefinitionManager = contentDefinitionManager;
             _partSyncers = partSyncers;
             _graphSyncHelper = graphSyncHelper;
@@ -51,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet(
-            string graphReplicaSetName,
+            IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager)
         {
@@ -96,7 +93,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             _logger.LogInformation($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId} to {_mergeNodeCommand}");
-            await SyncComponentsToGraphReplicaSet(graphReplicaSetName, graphSyncPartContent);
+            await SyncComponentsToGraphReplicaSet(graphReplicaSet, graphSyncPartContent);
 
             return _mergeNodeCommand;
         }
@@ -139,7 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        private async Task SyncComponentsToGraphReplicaSet(string graphReplicaSetName, dynamic graphSyncPartContent)
+        private async Task SyncComponentsToGraphReplicaSet(IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
         {
             List<ICommand> commands = new List<ICommand>();
 
@@ -158,7 +155,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 commands.Add(_replaceRelationshipsCommand);
             }
 
-            await _graphCluster.Run(graphReplicaSetName, commands.ToArray());
+            await graphReplicaSet.Run(commands.ToArray());
         }
     }
 }

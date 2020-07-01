@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 {
@@ -10,6 +11,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public string GraphName { get; }
         public bool DefaultGraph { get; }
         public int Instance { get; }
+        public IGraphReplicaSet GraphReplicaSet { get; internal set; }
 
         private readonly INeoEndpoint _endpoint;
 

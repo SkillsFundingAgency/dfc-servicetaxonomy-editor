@@ -9,6 +9,7 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -178,7 +179,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ValidateAndRepairResult result)
         {
             _logger.LogWarning(
-                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString()))}).Attempting to repair them.");
+                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString()))}). Attempting to repair them.");
 
             // if this throws should we carry on?
             foreach (var failure in syncValidationFailures)
@@ -186,7 +187,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 //todo: need to sync to _currentGraph, not replica set
-                await mergeGraphSyncer.SyncToGraphReplicaSet(failure.ContentItem, _contentManager);
+                IGraphReplicaSet graphReplicaSet = _currentGraph.GetReplicaSetLimitedToThisGraph();
+                await mergeGraphSyncer.SyncToGraphReplicaSet(graphReplicaSet, failure.ContentItem, _contentManager);
 
                 //todo: split into smaller methods
 
