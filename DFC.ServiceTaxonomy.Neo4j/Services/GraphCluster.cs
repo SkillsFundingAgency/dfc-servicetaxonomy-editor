@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
-    //todo: rename PoorMansGraphCluster?
     public class GraphCluster : IGraphCluster
     {
         //todo: best type of dic?
-        private readonly ImmutableDictionary<string, IGraphReplicaSet> _graphReplicaSets;
+        private protected readonly ImmutableDictionary<string, IGraphReplicaSetLowLevel> _graphReplicaSets;
 
-        public GraphCluster(IEnumerable<IGraphReplicaSet> replicaSets)
+        public IEnumerable<string> GraphReplicaSetNames => _graphReplicaSets.Keys;
+
+        internal GraphCluster(IEnumerable<IGraphReplicaSetLowLevel> replicaSets)
         {
             _graphReplicaSets = replicaSets.ToImmutableDictionary(rs => rs.Name);
         }

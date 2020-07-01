@@ -23,7 +23,6 @@ using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Log;
-using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
@@ -47,7 +46,9 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
+using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
@@ -77,8 +78,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // graph database
             services.AddTransient<ILogger, NeoLogger>();
-            services.AddSingleton<IGraphClusterBuilder, GraphClusterBuilder>();
-            services.AddSingleton<IGraphCluster, GraphCluster>(provider => provider.GetRequiredService<IGraphClusterBuilder>().Build());
+            services.AddGraphCluster();
+            services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();

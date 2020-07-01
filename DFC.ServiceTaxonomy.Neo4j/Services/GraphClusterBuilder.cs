@@ -45,15 +45,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                     o => o.WithLogger(_logger))));
 
             var graphReplicaSets = currentConfig.ReplicaSets.Select(rsc =>
-                new GraphReplicaSet(
+                new GraphReplicaSetLowLevel(
                     rsc.ReplicaSetName!,
-                    rsc.Instances.Select(gic =>
+                    rsc.Instances.Select((gic, index) =>
                         new Graph(
                             neoEndpoints.First(ep => ep.Name == gic.GraphName),
                             gic.GraphName!,
-                            gic.DefaultGraph))));
+                            gic.DefaultGraph,
+                            index))));
 
-            return new GraphCluster(graphReplicaSets);
+            return new GraphClusterLowLevel(graphReplicaSets);
         }
     }
 }

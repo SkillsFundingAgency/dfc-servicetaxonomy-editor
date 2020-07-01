@@ -25,6 +25,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
         /// </summary>
         /// <param name="commands">The command(s) to run.</param>
         /// <returns></returns>
-        Task Run(params ICommand[] commands);    // force all?
+        Task Run(params ICommand[] commands);
     }
 }

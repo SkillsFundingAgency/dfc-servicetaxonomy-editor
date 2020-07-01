@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
     {
         string GraphName { get; }
         bool DefaultGraph { get; }
+        int Instance { get; }
 
         Task<List<T>> Run<T>(IQuery<T> query);
         Task Run(params ICommand[] commands);

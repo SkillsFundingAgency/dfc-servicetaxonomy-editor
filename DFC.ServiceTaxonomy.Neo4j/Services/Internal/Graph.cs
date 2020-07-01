@@ -9,13 +9,16 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
     {
         public string GraphName { get; }
         public bool DefaultGraph { get; }
-        private INeoEndpoint _endpoint { get; }
+        public int Instance { get; }
 
-        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph)
+        private readonly INeoEndpoint _endpoint;
+
+        public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance)
         {
             _endpoint = endpoint;
             GraphName = graphName;
             DefaultGraph = defaultGraph;
+            Instance = instance;
         }
 
         public Task<List<T>> Run<T>(IQuery<T> query)

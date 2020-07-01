@@ -7,6 +7,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
 {
     public interface IGraphCluster
     {
+        IEnumerable<string> GraphReplicaSetNames { get; }
+
         IGraphReplicaSet GetGraphReplicaSet(string replicaSetName);
 
         Task<List<T>> Run<T>(string replicaSetName, IQuery<T> query, int? instance = null);

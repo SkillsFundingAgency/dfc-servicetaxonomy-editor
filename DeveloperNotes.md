@@ -1,5 +1,7 @@
 #ToDo
 
+* use graph clustering algorithms to pick out real user groupings, and potentially match then to personas (or discover new ones)
+
 * draft/pub graphs : update readme
 
 * pages
