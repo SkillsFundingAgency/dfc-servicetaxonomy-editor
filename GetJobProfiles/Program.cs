@@ -133,22 +133,24 @@ namespace GetJobProfiles
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
             apprenticeshipStandardImporter.Import(jobProfileWorkbook, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
-            const string cypherToContentRecipesPath = "CypherToContentRecipes";
+            const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
             if (!(excludeGraphContentMutators || createTestFiles))
             {
-                await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
-                await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
-                await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
-                await CopyRecipe(cypherToContentRecipesPath, "CleanUpEscoData");
+                await CopyRecipe(cypherCommandRecipesPath, "CreateOccupationLabelNodes");
+                await CopyRecipe(cypherCommandRecipesPath, "CreateOccupationPrefLabelNodes");
+                await CopyRecipe(cypherCommandRecipesPath, "CreateSkillLabelNodes");
+                await CopyRecipe(cypherCommandRecipesPath, "CleanUpEscoData");
             }
 
             bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
             if (!(excludeGraphIndexMutators || createTestFiles))
             {
-                await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
+                await CopyRecipe(cypherCommandRecipesPath, "CreateFullTextSearchIndexes");
             }
+
+            const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", 33036);
             await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", 97816);

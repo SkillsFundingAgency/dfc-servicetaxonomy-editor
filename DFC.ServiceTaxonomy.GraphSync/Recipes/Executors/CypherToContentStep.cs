@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Extensions.Caching.Memory;
@@ -29,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
     public class CypherToContentStep : IRecipeStepHandler
     {
-        private readonly IGraphDatabase _graphDatabase;
+        private readonly IGraphCluster _graphCluster;
         private readonly IServiceProvider _serviceProvider;
         private readonly IContentManager _contentManager;
         private readonly IContentManagerSession _contentManagerSession;
@@ -41,7 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private const string StepName = "CypherToContent";
 
         public CypherToContentStep(
-            IGraphDatabase graphDatabase,
+            IGraphCluster graphCluster,
             IServiceProvider serviceProvider,
             IContentManager contentManager,
             IContentManagerSession contentManagerSession,
@@ -50,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IMemoryCache memoryCache,
             ILogger<CypherToContentStep> logger)
         {
-            _graphDatabase = graphDatabase;
+            _graphCluster = graphCluster;
             _serviceProvider = serviceProvider;
             _contentManager = contentManager;
             _contentManagerSession = contentManagerSession;
@@ -83,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     _logger.LogInformation($"Executing query to retrieve content for items:\r\n{cypherToContent.Query}");
 
-                    List<string> contentItemsJsonPreTokenization = await _graphDatabase.Run(getContentItemsAsJsonQuery);
+                    List<string> contentItemsJsonPreTokenization = await _graphCluster.Run(getContentItemsAsJsonQuery);
 
                     IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
 

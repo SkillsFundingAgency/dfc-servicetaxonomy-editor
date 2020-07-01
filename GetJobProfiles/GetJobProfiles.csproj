@@ -7,18 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="CypherToContentRecipes\CleanUpEscoData.recipe.json" />
-    <None Remove="CypherToContentRecipes\CreateFullTextSearchIndexesRecipe.json" />
-    <None Remove="CypherToContentRecipes\CreateOccupationContentItemsRecipe.json" />
-    <None Remove="CypherToContentRecipes\CreateOccupationLabelContentItemsRecipe.json" />
-    <None Remove="CypherToContentRecipes\CreateOccupationLabelNodesRecipe.json" />
-    <None Remove="CypherToContentRecipes\CreateOccupationPrefLabelNodesRecipe.json" />
-    <None Remove="CypherToContentRecipes\CreateSkillContentItems.recipe.json" />
-    <None Remove="CypherToContentRecipes\CreateSkillLabelContentItems.recipe.json" />
-    <None Remove="CypherToContentRecipes\CreateSkillLabelNodesRecipe.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CsvHelper" Version="13.0.0" />
     <PackageReference Include="DotNetCore.NPOI" Version="1.2.2" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
@@ -32,6 +20,9 @@
     <None Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="CypherCommandRecipes\*.recipe.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="CypherToContentRecipes\*.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
