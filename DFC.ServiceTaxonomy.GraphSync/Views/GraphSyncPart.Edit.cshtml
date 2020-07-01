@@ -10,6 +10,10 @@
         <span class="hint">This URI ID is automatically generated</span>
     </fieldset>
 }
+else
+{
+    <input asp-for="Text" type="hidden">
+}
 
 @if (Model.Readonly)
 {
