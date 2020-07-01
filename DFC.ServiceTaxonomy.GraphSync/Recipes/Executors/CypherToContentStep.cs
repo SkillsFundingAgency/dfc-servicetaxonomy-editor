@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
-using DFC.ServiceTaxonomy.Neo4j.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
@@ -84,7 +84,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     _logger.LogInformation($"Executing query to retrieve content for items:\r\n{cypherToContent.Query}");
 
-                    List<string> contentItemsJsonPreTokenization = await _graphCluster.Run(getContentItemsAsJsonQuery);
+                    // for now, populate from the published graph
+                    // we _may_ want to introduce support for creating draft items from the draft replica set at some point
+                    List<string> contentItemsJsonPreTokenization = await _graphCluster.Run(GraphReplicaSetNames.Published, getContentItemsAsJsonQuery);
 
                     IEnumerable<string> contentItemsJson = contentItemsJsonPreTokenization.Select(ReplaceCSharpHelpers);
 
