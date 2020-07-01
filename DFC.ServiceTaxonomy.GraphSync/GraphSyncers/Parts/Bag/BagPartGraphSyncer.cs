@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -45,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+            IValidateAndRepairGraph validateAndRepairGraph)
         {
             return await _bagPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
                 (JArray?)content[ContainerName],
@@ -53,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
                 nodeWithOutgoingRelationships,
                 graphValidationHelper,
                 expectedRelationshipCounts,
-                endpoint);
+                validateAndRepairGraph);
         }
     }
 }

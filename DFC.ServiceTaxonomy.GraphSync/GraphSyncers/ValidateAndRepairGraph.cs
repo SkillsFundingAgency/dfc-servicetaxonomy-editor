@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
+        private IGraph? _currentGraph;
 
         public ValidateAndRepairGraph(
             IContentDefinitionManager contentDefinitionManager,
@@ -51,6 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphSyncHelper = graphSyncHelper;
             _graphValidationHelper = graphValidationHelper;
             _logger = logger;
+            _currentGraph = default;
 
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
         }
@@ -83,11 +85,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         graph.Instance);
                     results.Add(result);
 
+                    // make current graph available for when parts/fields call back into ValidateContentItem
+                    // seems a little messy, and will make concurrent validation a pita,
+                    // but stops part/field syncers needing low level graph access
+                    _currentGraph = graph;
+
                     foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
                     {
                         //todo: validate & repair on instance
                         //todo: remove endpoint from individual validate syncers
                         //todo: update visualizer to have results per graph
+                        //todo: why isn't this returning ValidateAndRepairResult
                         List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(
                             contentTypeDefinition,
                             auditSyncLog.LastSynced,
@@ -137,27 +145,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (ContentItem contentItem in contentTypeContentItems)
             {
-                foreach (var driver in _graphCluster.Drivers)
-                {
-                    (bool validated, string? validationFailureReason) =
-                        await ValidateContentItem(contentItem, contentTypeDefinition, driver.Uri!); //why is URI nullable here? need to check and ensure it's always available
+                (bool validated, string? validationFailureReason) =
+                    await ValidateContentItem(contentItem, contentTypeDefinition);
 
-                    if (validated)
-                    {
-                        _logger.LogInformation($"Sync validation passed for {contentItem.ContentType} {contentItem.ContentItemId} in graph with endpoint {driver.Uri}.");
-                        result.Validated.Add(contentItem);
-                    }
-                    else
-                    {
-                        _logger.LogWarning($"Sync validation failed.{Environment.NewLine}{validationFailureReason}");
-                        ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!, driver.Uri!);
-                        syncFailures.Add(validationFailure);
-                        result.ValidationFailures.Add(validationFailure);
-                    }
+                if (validated)
+                {
+                    _logger.LogInformation($"Sync validation passed for {contentItem.ContentType} {contentItem.ContentItemId} in {GraphDescription(_currentGraph!)}.");
+                    result.Validated.Add(contentItem);
+                }
+                else
+                {
+                    _logger.LogWarning($"Sync validation failed in {GraphDescription(_currentGraph!)}.{Environment.NewLine}{validationFailureReason}");
+                    ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!);
+                    syncFailures.Add(validationFailure);
+                    result.ValidationFailures.Add(validationFailure);
                 }
             }
 
             return syncFailures;
+        }
+
+        //todo: ToString in Graph?
+        private string GraphDescription(IGraph graph)
+        {
+            //todo: add back reference from IGraph to IGraphReplicaSet
+            return $"graph instance #{graph.Instance} in replica set <TODO>";
         }
 
         private async Task AttemptRepair(
@@ -173,16 +185,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
+                //todo: need to sync to _currentGraph, not replica set
                 await mergeGraphSyncer.SyncToGraphReplicaSet(failure.ContentItem, _contentManager);
 
                 //todo: split into smaller methods
 
                 (bool validated, string? validationFailureReason) =
-                    await ValidateContentItem(failure.ContentItem, contentTypeDefinition, failure.Endpoint);
+                    await ValidateContentItem(failure.ContentItem, contentTypeDefinition);
 
                 if (validated)
                 {
-                    _logger.LogInformation($"Repair was successful on {failure.ContentItem.ContentType} {failure.ContentItem.ContentItemId} in graph {failure.Endpoint}.");
+                    _logger.LogInformation($"Repair was successful on {failure.ContentItem.ContentType} {failure.ContentItem.ContentItemId} in {GraphDescription(_currentGraph!)}.");
                     result.Repaired.Add(failure.ContentItem);
                 }
                 else
@@ -193,7 +206,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateContentItem(ContentItem contentItem, ContentTypeDefinition contentTypeDefinition, string endpoint)
+        public async Task<(bool validated, string failureReason)> ValidateContentItem(
+            ContentItem contentItem,
+            ContentTypeDefinition contentTypeDefinition)
         {
             _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");
 
@@ -201,10 +216,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
 
-            List<INodeWithOutgoingRelationships?> results = await _graphCluster.Run(new NodeWithOutgoingRelationshipsQuery(
-                await _graphSyncHelper.NodeLabels(),
-                _graphSyncHelper.IdPropertyName(),
-                nodeId), endpoint);
+            List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
+                new NodeWithOutgoingRelationshipsQuery(
+                    await _graphSyncHelper.NodeLabels(),
+                    _graphSyncHelper.IdPropertyName(),
+                    nodeId));
 
             INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
             if (nodeWithOutgoingRelationships == null)
@@ -231,7 +247,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
                     (JObject)partContent, contentTypePartDefinition, _contentManager, nodeWithOutgoingRelationships,
                     _graphSyncHelper, _graphValidationHelper,
-                    expectedRelationshipCounts, endpoint);
+                    expectedRelationshipCounts, this);
 
                 if (validated)
                     continue;

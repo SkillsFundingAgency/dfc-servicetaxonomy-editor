@@ -81,19 +81,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+            IValidateAndRepairGraph validateAndRepairGraph)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
             int relationshipOrdinal = 0;
             foreach (ContentItem embeddedContentItem in embeddedContentItems)
             {
-                var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateAndRepairGraph>();
-
                 ContentTypeDefinition embeddedContentTypeDefinition = _contentTypes[embeddedContentItem.ContentType];
 
                 (bool validated, string failureReason) =
-                    await graphSyncValidator.ValidateContentItem(embeddedContentItem, embeddedContentTypeDefinition, endpoint);
+                    await validateAndRepairGraph.ValidateContentItem(embeddedContentItem, embeddedContentTypeDefinition);
 
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");

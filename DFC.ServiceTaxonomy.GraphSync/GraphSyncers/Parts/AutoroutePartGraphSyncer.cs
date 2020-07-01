@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Autoroute.Models;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -40,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+            IValidateAndRepairGraph validateAndRepairGraph)
         {
             return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 _contentTitlePropertyName,

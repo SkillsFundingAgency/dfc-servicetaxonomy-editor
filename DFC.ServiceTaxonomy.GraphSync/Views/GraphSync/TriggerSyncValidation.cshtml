@@ -2,6 +2,7 @@
 @using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 @model TriggerSyncValidationViewModel
 
+@* todo: loop through results and display each *@
 @if (Model.ValidateAndRepairResult != null)
 {
     bool validations = Model.ValidateAndRepairResult.Validated.Any();

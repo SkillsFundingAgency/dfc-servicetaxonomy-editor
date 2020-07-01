@@ -1,9 +1,10 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphSync.ViewModels
 {
     public class TriggerSyncValidationViewModel
     {
-        public ValidateAndRepairResult? ValidateAndRepairResult { get; set; }
+        public List<ValidateAndRepairResult>? ValidateAndRepairResult { get; set; }
     }
 }

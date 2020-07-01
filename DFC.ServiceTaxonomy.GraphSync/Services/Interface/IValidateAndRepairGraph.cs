@@ -11,7 +11,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
         Task<List<ValidateAndRepairResult>> ValidateGraph(params string[] graphReplicaSetNames);
         Task<(bool validated, string failureReason)> ValidateContentItem(
             ContentItem contentItem,
-            ContentTypeDefinition contentTypeDefinition,
-            string endpoint);
+            ContentTypeDefinition contentTypeDefinition);
     }
 }
