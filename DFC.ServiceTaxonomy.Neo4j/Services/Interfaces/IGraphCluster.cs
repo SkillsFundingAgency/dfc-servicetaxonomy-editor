@@ -11,5 +11,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
 
         Task<List<T>> Run<T>(string replicaSetName, IQuery<T> query, int? instance = null);
         Task Run(string replicaSetName, params ICommand[] commands);
+
+        Task RunOnAllReplicaSets(params ICommand[] commands);
     }
 }

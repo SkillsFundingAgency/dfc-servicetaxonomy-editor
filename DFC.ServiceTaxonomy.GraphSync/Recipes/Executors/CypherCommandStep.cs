@@ -50,10 +50,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     if (command == null)
                         continue;
 
-                    //todo: default to run on all GraphReplicaSets -add support for such a thing to the cluster
-                    foreach (string? graphReplicaSetName in step!.GraphReplicaSets ?? new[] {GraphReplicaSetNames.Published, GraphReplicaSetNames.Draft})
+                    if (step!.GraphReplicaSets == null)
                     {
-                        await ExecuteCommand(graphReplicaSetName, command);
+//todo:
+                    }
+                    else
+                    {
+                        foreach (string? graphReplicaSetName in step!.GraphReplicaSets)
+                        {
+                            await ExecuteCommand(graphReplicaSetName, command);
+                        }
                     }
                 }
             }
