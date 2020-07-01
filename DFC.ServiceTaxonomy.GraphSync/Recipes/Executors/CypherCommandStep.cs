@@ -50,15 +50,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     if (command == null)
                         continue;
 
+                    var customCommand = CreateCustomCommand(command);
+
                     if (step!.GraphReplicaSets == null)
                     {
-//todo:
+                        _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {customCommand.Command} on all graph replica sets.");
+
+                        await _graphCluster.RunOnAllReplicaSets(customCommand);
                     }
                     else
                     {
                         foreach (string? graphReplicaSetName in step!.GraphReplicaSets)
                         {
-                            await ExecuteCommand(graphReplicaSetName, command);
+                            await ExecuteCommand(graphReplicaSetName, customCommand);
                         }
                     }
                 }
@@ -70,15 +74,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
         }
 
-        private async Task ExecuteCommand(string graphReplicaSetName, string command)
+        private async Task ExecuteCommand(string graphReplicaSetName, ICustomCommand command)
         {
-            _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {command} on the {graphReplicaSetName} graph replica set.");
+            _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {command.Command} on the {graphReplicaSetName} graph replica set.");
 
+            await _graphCluster.Run(graphReplicaSetName, command);
+        }
+
+        private ICustomCommand CreateCustomCommand(string command)
+        {
             var customCommand = _serviceProvider.GetRequiredService<ICustomCommand>();
-
             customCommand.Command = command.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
-
-            await _graphCluster.Run(graphReplicaSetName, customCommand);
+            return customCommand;
         }
 
 #pragma warning disable S3459
