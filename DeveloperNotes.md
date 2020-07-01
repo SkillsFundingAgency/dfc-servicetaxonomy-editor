@@ -36,7 +36,7 @@ publish events to appropriate domains
 
 location part with taxonomy & text?
 default to slugified title?
-checkj for url clashes on main and redirect and conforms to gds - new field/part for the check/validation
+check for url clashes on main and redirect and conforms to gds - new field/part for the check/validation
 
 when sync page, make sure url is unique
 
