@@ -27,32 +27,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             PriorityPropertyName = "Priority",
             ExcludePropertyName = "Exclude";
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
+            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
             //todo: helper for these?
             JValue? value = (JValue?)content[OverrideSitemapConfigPropertyName];
             if (value != null && value.Type != JTokenType.Null) //first bool?
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
 
             value = (JValue?)content[ChangeFrequencyPropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString());
 
             value = (JValue?)content[PriorityPropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>());
 
             value = (JValue?)content[ExcludePropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,

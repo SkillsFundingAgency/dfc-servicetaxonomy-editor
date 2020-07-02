@@ -35,6 +35,7 @@ using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Merge;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;

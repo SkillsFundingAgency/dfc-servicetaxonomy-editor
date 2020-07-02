@@ -22,20 +22,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         private static readonly Func<string, string> _htmlBodyFieldsPropertyNameTransform = n => $"htmlbody_{n}";
         private const string HtmlPropertyName = "Html";
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
+            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
             JValue? htmlValue = (JValue?)content[HtmlPropertyName];
             if (htmlValue != null && htmlValue.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(HtmlPropertyName), htmlValue.As<string>());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(HtmlPropertyName), htmlValue.As<string>());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,

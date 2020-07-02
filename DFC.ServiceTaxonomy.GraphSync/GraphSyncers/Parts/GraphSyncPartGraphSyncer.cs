@@ -15,17 +15,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(GraphSyncPart);
 
-        public Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            object? idValue = graphSyncHelper.GetIdPropertyValue(content);
+            object? idValue = context.GraphSyncHelper.GetIdPropertyValue(content);
             if (idValue != null)
-                mergeNodeCommand.Properties.Add(graphSyncHelper.IdPropertyName(), idValue);
+                context.MergeNodeCommand.Properties.Add(context.GraphSyncHelper.IdPropertyName(), idValue);
 
             return Task.CompletedTask;
         }

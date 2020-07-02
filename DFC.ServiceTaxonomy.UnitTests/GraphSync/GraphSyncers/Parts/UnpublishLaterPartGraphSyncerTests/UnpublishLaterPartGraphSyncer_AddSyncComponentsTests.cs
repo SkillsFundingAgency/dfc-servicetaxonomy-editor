@@ -72,13 +72,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
         private async Task CallAddSyncComponents()
         {
             await UnpublishLaterPartGraphSyncer.AddSyncComponents(
-                Content,
-                ContentItem,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentTypePartDefinition,
-                GraphSyncHelper);
+                Content, TODO);
         }
     }
 }

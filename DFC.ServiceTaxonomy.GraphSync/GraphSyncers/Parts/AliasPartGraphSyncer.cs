@@ -21,15 +21,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         private const string NodeAliasPropertyName = "alias_alias";
 
-        public Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            mergeNodeCommand.AddProperty<string>(NodeAliasPropertyName, content, _contentAliasPropertyName);
+            context.MergeNodeCommand.AddProperty<string>(NodeAliasPropertyName, content, _contentAliasPropertyName);
 
             return Task.CompletedTask;
         }

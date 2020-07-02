@@ -17,11 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string ContentKey = "Text";
 
         public async Task AddSyncComponents(JObject contentItemField,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphMergeContext context)
         {
             string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
 

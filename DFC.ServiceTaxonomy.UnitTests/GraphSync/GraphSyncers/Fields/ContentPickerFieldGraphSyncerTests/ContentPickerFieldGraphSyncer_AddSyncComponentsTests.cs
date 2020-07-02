@@ -50,12 +50,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
         private async Task CallAddSyncComponents()
         {
             await ContentPickerFieldGraphSyncer.AddSyncComponents(
-                ContentItemField!,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentPartFieldDefinition,
-                GraphSyncHelper);
+                ContentItemField!, TODO);
         }
     }
 }

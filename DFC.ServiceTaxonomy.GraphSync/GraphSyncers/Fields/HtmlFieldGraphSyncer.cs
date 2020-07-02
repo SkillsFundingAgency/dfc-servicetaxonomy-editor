@@ -17,11 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string ContentKey = "Html";
 
         public async Task AddSyncComponents(JObject contentItemField,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphMergeContext context)
         {
             JValue? value = (JValue?)contentItemField[ContentKey];
             if (value == null || value.Type == JTokenType.Null)

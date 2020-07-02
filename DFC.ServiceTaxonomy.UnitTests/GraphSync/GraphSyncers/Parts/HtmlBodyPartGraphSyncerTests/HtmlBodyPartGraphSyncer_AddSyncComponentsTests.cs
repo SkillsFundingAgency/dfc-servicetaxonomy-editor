@@ -72,13 +72,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
         private async Task CallAddSyncComponents()
         {
             await HtmlBodyPartGraphSyncer.AddSyncComponents(
-                Content,
-                ContentItem,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentTypePartDefinition,
-                GraphSyncHelper);
+                Content, TODO);
         }
     }
 }

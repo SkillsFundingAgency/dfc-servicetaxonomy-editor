@@ -18,11 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string LinkUrlPostfix = "_url", LinkTextPostfix = "_text";
 
         public async Task AddSyncComponents(JObject contentItemField,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphMergeContext context)
         {
             string basePropertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
 

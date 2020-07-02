@@ -35,21 +35,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
         }
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            await _contentFieldsGraphSyncer.AddSyncComponents(
-                content,
-                contentManager,
-                mergeNodeCommand,
-                replaceRelationshipsCommand,
-                contentTypePartDefinition,
-                graphSyncHelper);
+            await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,

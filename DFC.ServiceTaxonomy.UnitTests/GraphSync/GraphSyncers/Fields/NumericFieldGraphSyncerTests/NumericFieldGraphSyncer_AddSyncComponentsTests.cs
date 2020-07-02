@@ -103,12 +103,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         private async Task CallAddSyncComponents()
         {
             await NumericFieldGraphSyncer.AddSyncComponents(
-                ContentItemField!,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentPartFieldDefinition,
-                GraphSyncHelper);
+                ContentItemField!, TODO);
         }
     }
 }

@@ -75,12 +75,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
         private async Task CallAddSyncComponents()
         {
             await DateTimeFieldGraphSyncer.AddSyncComponents(
-                ContentItemField!,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentPartFieldDefinition,
-                GraphSyncHelper);
+                ContentItemField!, TODO);
         }
     }
 }

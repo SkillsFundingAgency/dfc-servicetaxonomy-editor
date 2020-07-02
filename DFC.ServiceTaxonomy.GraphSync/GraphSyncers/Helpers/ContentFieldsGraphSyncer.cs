@@ -55,37 +55,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
-        public async Task AddSyncComponents(dynamic content,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
-                    contentTypePartDefinition.PartDefinition.Fields
+                    context.ContentTypePartDefinition.PartDefinition.Fields
                         .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = content[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 
-                    //todo: might need another level of indirection to be able to test this method :*(
-                    IContentPartFieldDefinition contentPartFieldDefinitionWrapper
-                        = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
 
-                    await contentFieldGraphSyncer.AddSyncComponents(
-                        contentItemField,
-                        contentManager,
-                        mergeNodeCommand,
-                        replaceRelationshipsCommand,
-                        contentPartFieldDefinitionWrapper,
-                        graphSyncHelper);
+                    await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
                 }
+
+                context.SetContentPartFieldDefinition(default);
             }
         }
 

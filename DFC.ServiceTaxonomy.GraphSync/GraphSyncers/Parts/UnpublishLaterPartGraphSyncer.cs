@@ -24,15 +24,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         public const string NodeTitlePropertyName = "unpublishlater_ScheduledUnpublishUtc";
 
-        public Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            mergeNodeCommand.AddProperty<DateTime>(NodeTitlePropertyName, content, _contentTitlePropertyName);
+            context.MergeNodeCommand.AddProperty<DateTime>(NodeTitlePropertyName, content, _contentTitlePropertyName);
 
             return Task.CompletedTask;
         }

@@ -67,13 +67,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
         private async Task CallAddSyncComponents()
         {
             await SitemapPartGraphSyncer.AddSyncComponents(
-                Content,
-                ContentItem,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentTypePartDefinition,
-                GraphSyncHelper);
+                Content, TODO);
         }
     }
 }

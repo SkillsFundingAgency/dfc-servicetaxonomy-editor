@@ -24,19 +24,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             _bagPartEmbeddedContentItemsGraphSyncer = bagPartEmbeddedContentItemsGraphSyncer;
         }
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
-                (JArray?)content[ContainerName],
-                contentManager,
-                replaceRelationshipsCommand,
-                graphSyncHelper);
+            await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,

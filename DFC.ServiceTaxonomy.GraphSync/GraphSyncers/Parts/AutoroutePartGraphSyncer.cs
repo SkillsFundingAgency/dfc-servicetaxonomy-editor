@@ -21,15 +21,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         public const string NodeTitlePropertyName = "autoroute_path";
 
-        public Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            mergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
+            context.MergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
 
             return Task.CompletedTask;
         }

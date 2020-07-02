@@ -21,12 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
         private const string NodesPropertyName = "Nodes";
 
         public Task AddSyncComponents(JObject graphLookupContent,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphMergeContext context)
         {
             var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 

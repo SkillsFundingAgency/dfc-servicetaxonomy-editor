@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Merge
 {
     //todo: have to refactor sync. currently with bags, a single sync will occur in multiple transactions
     // so if a validation fails for example, the graph will be left in an incomplete synced state
@@ -69,6 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogDebug($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId}");
 
+            //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             _mergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
@@ -82,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (contentItem.ModifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
-            await AddContentPartSyncComponents(contentItem, contentManager);
+            await AddContentPartSyncComponents(graphReplicaSet, contentItem, contentManager);
 
             //todo: bit hacky. best way to do this?
             // work-around new taxonomy terms created with only DisplayText set
@@ -98,7 +99,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return _mergeNodeCommand;
         }
 
-        private async Task AddContentPartSyncComponents(ContentItem contentItem, IContentManager contentManager)
+        private async Task AddContentPartSyncComponents(IGraphReplicaSet graphReplicaSet, ContentItem contentItem, IContentManager contentManager)
         {
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
@@ -107,6 +108,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
 
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+
+            GraphMergeContext graphMergeContext = new GraphMergeContext(
+                _graphSyncHelper,
+                graphReplicaSet,
+                _mergeNodeCommand,
+                _replaceRelationshipsCommand,
+                contentItem,
+                contentManager);
 
             foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
@@ -118,20 +127,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 foreach (var contentTypePartDefinition in contentTypePartDefinitions)
                 {
+                    graphMergeContext.ContentTypePartDefinition = contentTypePartDefinition;
+
                     string namedPartName = contentTypePartDefinition.Name;
 
                     JObject? partContent = contentItem.Content[namedPartName];
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    await partSync.AddSyncComponents(
-                        partContent,
-                        contentItem,
-                        contentManager,
-                        _mergeNodeCommand,
-                        _replaceRelationshipsCommand,
-                        contentTypePartDefinition,
-                        _graphSyncHelper);
+                    await partSync.AddSyncComponents(partContent, graphMergeContext);
                 }
             }
         }

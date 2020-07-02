@@ -12,12 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         string FieldTypeName {get;}
 
-        Task AddSyncComponents(JObject contentItemField,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper);
+        Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IContentPartFieldDefinition contentPartFieldDefinition,

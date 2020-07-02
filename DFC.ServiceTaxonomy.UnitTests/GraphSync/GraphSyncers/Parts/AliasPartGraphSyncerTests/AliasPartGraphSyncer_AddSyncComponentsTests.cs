@@ -70,13 +70,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AliasPartGr
         private async Task CallAddSyncComponents()
         {
             await AliasPartGraphSyncer.AddSyncComponents(
-                Content,
-                ContentItem,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentTypePartDefinition,
-                GraphSyncHelper);
+                Content, TODO);
         }
     }
 }

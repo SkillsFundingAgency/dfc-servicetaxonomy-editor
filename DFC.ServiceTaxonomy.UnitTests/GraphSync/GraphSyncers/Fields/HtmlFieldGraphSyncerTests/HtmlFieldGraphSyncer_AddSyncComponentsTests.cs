@@ -75,12 +75,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
         private async Task CallAddSyncComponents()
         {
             await HtmlFieldGraphSyncer.AddSyncComponents(
-                ContentItemField!,
-                ContentManager,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentPartFieldDefinition,
-                GraphSyncHelper);
+                ContentItemField!, TODO);
         }
     }
 }

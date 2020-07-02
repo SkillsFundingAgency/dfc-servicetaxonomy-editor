@@ -47,11 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task AddSyncComponents(JObject contentItemField,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphMergeContext context)
         {
             //todo: share code with contentpickerfield?
 

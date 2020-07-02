@@ -33,31 +33,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
         }
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
-                (JArray?)content[ContainerName],
-                contentManager,
-                replaceRelationshipsCommand,
-                graphSyncHelper);
+            await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
 
             // FlowPart allows part definition level fields, but values are on each FlowPart instance
             // prefix flow field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
-            await _contentFieldsGraphSyncer.AddSyncComponents(
-                content,
-                contentManager,
-                mergeNodeCommand,
-                replaceRelationshipsCommand,
-                contentTypePartDefinition,
-                graphSyncHelper);
+            await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,

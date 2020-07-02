@@ -10,10 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
 {
     public interface IEmbeddedContentItemsGraphSyncer
     {
-        Task AddSyncComponents(JArray? contentItems,
-            IContentManager contentManager,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IGraphSyncHelper graphSyncHelper);
+        Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(JArray? contentItems,
             IContentManager contentManager,

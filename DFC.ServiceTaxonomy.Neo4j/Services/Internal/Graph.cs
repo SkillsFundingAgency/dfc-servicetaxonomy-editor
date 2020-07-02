@@ -21,6 +21,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             GraphName = graphName;
             DefaultGraph = defaultGraph;
             Instance = instance;
+
+            // GraphReplicaSet will set this as part of the build process, before any consumer gets an instance of this class
+            GraphReplicaSet = default!;
         }
 
         public Task<List<T>> Run<T>(IQuery<T> query)

@@ -21,17 +21,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         //todo: configurable??
         public const string NodeTitlePropertyName = "skos__prefLabel";
 
-        public Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            string? title = mergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
+            string? title = context.MergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
             if (title == null)
-                mergeNodeCommand.Properties.Add(NodeTitlePropertyName, contentItem.DisplayText);
+                context.MergeNodeCommand.Properties.Add(NodeTitlePropertyName, context.ContentItem.DisplayText);
 
             return Task.CompletedTask;
         }

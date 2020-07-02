@@ -35,10 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 .ToDictionary(x => x.Name);
         }
 
-        public async Task AddSyncComponents(JArray? contentItems,
-            IContentManager contentManager,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -48,7 +45,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 //todo: if we want to support nested containers, would have to return queries also
-                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraphReplicaSet(contentItem, contentManager);
+                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraphReplicaSet(
+                    context.GraphReplicaSet, contentItem, context.ContentManager);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -60,14 +58,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
                 string relationshipType = await RelationshipType(embeddedContentItemGraphSyncHelper);
 
-                var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, graphSyncHelper);
+                var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.GraphSyncHelper);
                 ++relationshipOrdinal;
 
                 //todo: if graphsyncpart text missing, return as null
                 //todo: where uri null create relationship using displaytext instead
                 //have fallback as flag, and only do it for taxonomy, or do it for all contained items?
 
-                replaceRelationshipsCommand.AddRelationshipsTo(
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
                     properties,
                     containedContentMergeNodeCommand.NodeLabels,
