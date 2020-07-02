@@ -14,11 +14,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
         /// Run a query against a replica.
         /// </summary>
         /// <param name="query">The query to run.</param>
-        /// <param name="instance">If supplied, the query will be run against this instance.
-        /// If not supplied, queries will round-robin.</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        Task<List<T>> Run<T>(IQuery<T> query, int? instance = null);
+        Task<List<T>> Run<T>(IQuery<T> query);
 
         /// <summary>
         /// Run commands, in order, within a write transaction, against all replicas in the set. No results returned.

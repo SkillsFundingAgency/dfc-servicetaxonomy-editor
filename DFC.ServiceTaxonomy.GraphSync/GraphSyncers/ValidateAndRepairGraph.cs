@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
         }
 
-        public async Task<List<ValidateAndRepairResult>> ValidateGraph(params string[] graphReplicaSetNames)
+        public async Task<ValidateAndRepairResults> ValidateGraph(params string[] graphReplicaSetNames)
         {
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 ? graphReplicaSetNames
                 : _graphClusterLowLevel.GraphReplicaSetNames;
 
-            var results = new List<ValidateAndRepairResult>();
+            var results = new ValidateAndRepairResults(auditSyncLog.LastSynced);
 
             foreach (string graphReplicaSetName in graphReplicaSetNamesToValidate)
             {
@@ -81,10 +81,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 foreach (IGraph graph in graphReplicaSetLowLevel.GraphInstances)
                 {
                     ValidateAndRepairResult result = new ValidateAndRepairResult(
-                        auditSyncLog.LastSynced,
                         graphReplicaSetName,
                         graph.Instance);
-                    results.Add(result);
+                    results.GraphInstanceResults.Add(result);
 
                     // make current graph available for when parts/fields call back into ValidateContentItem
                     // seems a little messy, and will make concurrent validation a pita,
@@ -108,7 +107,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     }
                 }
 
-                var repairFailures = results.SelectMany(r => r.RepairFailures);
+                //todo: move into results
+                var repairFailures = results.GraphInstanceResults.SelectMany(r => r.RepairFailures);
                 if (!repairFailures.Any())
                 {
                     _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
@@ -187,7 +187,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 //todo: need to sync to _currentGraph, not replica set
-                IGraphReplicaSet graphReplicaSet = _currentGraph.GetReplicaSetLimitedToThisGraph();
+                IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
                 await mergeGraphSyncer.SyncToGraphReplicaSet(graphReplicaSet, failure.ContentItem, _contentManager);
 
                 //todo: split into smaller methods

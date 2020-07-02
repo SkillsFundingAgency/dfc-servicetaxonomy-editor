@@ -3,21 +3,22 @@
 @model TriggerSyncValidationViewModel
 
 @* todo: loop through results and display each *@
-@if (Model.ValidateAndRepairResult != null)
+@if (Model.ValidateAndRepairResults != null)
 {
-    bool validations = Model.ValidateAndRepairResult.Validated.Any();
-    bool validationFailures = Model.ValidateAndRepairResult.ValidationFailures.Any();
+    //todo: more efficient way?
+    bool validations = Model.ValidateAndRepairResults.GraphInstanceResults.SelectMany(r => r.Validated).Any();
+    bool validationFailures = Model.ValidateAndRepairResults.GraphInstanceResults.SelectMany(r => r.ValidationFailures).Any();
+    bool repairFailures = Model.ValidateAndRepairResults.GraphInstanceResults.SelectMany(r => r.RepairFailures).Any();
 
     if (!validations && !validationFailures)
     {
         <div class="display-4 text-center">No new or modified content items since</div>
-        <div class="display-4 text-center">@Model.ValidateAndRepairResult.LastSync.ToString("f")</div>
+        <div class="display-4 text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</div>
 
         ShowThumb(true);
     }
     else
     {
-        @* todo move out? *@
         <style>
             #results > .list-group > .list-group-item {
                 padding-left: 2em;
@@ -28,9 +29,15 @@
             }
         </style>
 
+        <script at="Foot" depends-on="admin, jquery">
+            $('.list-group-item').on('click', function() {
+              $(this).find('svg').toggleClass('fa-chevron-right fa-chevron-down');
+            });
+        </script>
+
         @*should be h1, but then ".ta-content h1" takes precedence over display-1*@
         <div class="display-4 text-center">All new or modified content items since</div>
-        <div class="display-4 text-center">@Model.ValidateAndRepairResult.LastSync.ToString("f")</div>
+        <div class="display-4 text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</div>
 
         <div class="display-1 text-center">Validated</div>
         ShowThumb(!validationFailures);
@@ -38,82 +45,83 @@
         if (validationFailures)
         {
             <div class="display-1 text-center">Repaired</div>
-            ShowThumb(!Model.ValidateAndRepairResult.RepairFailures.Any());
+            ShowThumb(!repairFailures);
         }
 
-        // would have thought that embedded ul should be wrapped in li, but that doesn't seem to work -> check other browsers
-        <ul id="results" class="list-group">
+        foreach (var graphResult in Model.ValidateAndRepairResults.GraphInstanceResults)
+        {
+            //todo: add an extra 2 top levels for set & instance?
+            <div class="display-2 text-center">Graph Replica Set: @graphResult.GraphReplicaSetName</div>
+            <div class="display-2 text-center">Graph Instance: #@graphResult.GraphInstance</div>
 
-            <li href="#validated" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
-                <span><i class="fas fa-chevron-right fa-fw"></i> Validated</span>
-                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.Validated.Count</span>
-            </li>
-            <ul class="list-group collapse" id="validated">
-                @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Validated)
-                {
-                    <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
-                }
+            // would have thought that embedded ul should be wrapped in li, but that doesn't seem to work -> check other browsers
+            <ul id="results" class="list-group">
+
+                <li href="#validated" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                    <span><i class="fas fa-chevron-right fa-fw"></i> Validated</span>
+                    <span class="badge badge-pill badge-primary">@graphResult.Validated.Count</span>
+                </li>
+                <ul class="list-group collapse" id="validated">
+                    @foreach (ContentItem contentItem in graphResult.Validated)
+                    {
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
+                    }
+                </ul>
+
+                <li href="#failed-validation" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                    <span><i class="fas fa-chevron-right fa-fw"></i> Failed Validation</span>
+                    <span class="badge badge-pill badge-primary">@graphResult.ValidationFailures.Count</span>
+                </li>
+                <ul class="list-group collapse" id="failed-validation">
+                    @foreach (ValidationFailure validationFailure in graphResult.ValidationFailures)
+                    {
+                        <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                            @* todo: user id in results *@
+                            <span><i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId</span>
+                        </li>
+
+                        <ul class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
+                            <li href="#" class="list-group-item d-flex justify-content-between align-items-center"><pre><code>@validationFailure.Reason</code></pre></li>
+                        </ul>
+                    }
+                </ul>
+
+                <li href="#repaired" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                    <span><i class="fas fa-chevron-right fa-fw"></i> Repaired</span>
+                    <span class="badge badge-pill badge-primary">@graphResult.Repaired.Count</span>
+                </li>
+                <ul class="list-group collapse" id="repaired">
+                    @foreach (ContentItem contentItem in graphResult.Repaired)
+                    {
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
+                    }
+                </ul>
+
+                <li href="#repair-failed" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                    <span><i class="fas fa-chevron-right fa-fw"></i> Repair Failed</span>
+                    <span class="badge badge-pill badge-primary">@graphResult.RepairFailures.Count</span>
+                </li>
+                <ul class="list-group collapse" id="repair-failed">
+                    @foreach (RepairFailure repairFailure in graphResult.RepairFailures)
+                    {
+                        <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                            @* todo: user id in results *@
+                            <span><i class="fas fa-chevron-right fa-fw"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId</span>
+                        </li>
+
+                        <ul class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
+                            <li href="#" class="list-group-item d-flex justify-content-between align-items-center"><pre><code>@repairFailure.Reason</code></pre></li>
+                        </ul>
+                    }
+                </ul>
             </ul>
-
-            <li href="#failed-validation" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
-                <span><i class="fas fa-chevron-right fa-fw"></i> Failed Validation</span>
-                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.ValidationFailures.Count</span>
-            </li>
-            <ul class="list-group collapse" id="failed-validation">
-                @foreach (ValidationFailure validationFailure in Model.ValidateAndRepairResult.ValidationFailures)
-                {
-                    <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
-                        @* todo: user id in results *@
-                        <span><i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId @@ endpoint @validationFailure.Endpoint</span>
-                    </li>
-
-                    <ul class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center"><pre><code>@validationFailure.Reason</code></pre></li>
-                    </ul>
-                }
-            </ul>
-
-            <li href="#repaired" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
-                <span><i class="fas fa-chevron-right fa-fw"></i> Repaired</span>
-                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.Repaired.Count</span>
-            </li>
-            <ul class="list-group collapse" id="repaired">
-                @foreach (ContentItem contentItem in Model.ValidateAndRepairResult.Repaired)
-                {
-                <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
-                }
-            </ul>
-
-            <li href="#repair-failed" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
-                <span><i class="fas fa-chevron-right fa-fw"></i> Repair Failed</span>
-                <span class="badge badge-pill badge-primary">@Model.ValidateAndRepairResult.RepairFailures.Count</span>
-            </li>
-            <ul class="list-group collapse" id="repair-failed">
-                @foreach (RepairFailure repairFailure in Model.ValidateAndRepairResult.RepairFailures)
-                {
-                    <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
-                        @* todo: user id in results *@
-                        <span><i class="fas fa-chevron-right fa-fw"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId</span>
-                    </li>
-
-                    <ul class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center"><pre><code>@repairFailure.Reason</code></pre></li>
-                    </ul>
-                }
-            </ul>
-        </ul>
-
-        <script at="Foot" depends-on="admin, jquery">
-            $('.list-group-item').on('click', function() {
-              $(this).find('svg').toggleClass('fa-chevron-right fa-chevron-down');
-            });
-        </script>
+        }
     }
 }
 
 @functions
 {
-    public void ShowThumb(bool up)
+    private void ShowThumb(bool up)
     {
         if (up)
         {

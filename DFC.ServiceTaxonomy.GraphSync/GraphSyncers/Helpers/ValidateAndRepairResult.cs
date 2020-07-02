@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     public class ValidateAndRepairResult
     {
-        public DateTime LastSync { get; }
-
         public string GraphReplicaSetName { get; }
         public int GraphInstance { get; }
 
@@ -16,9 +13,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public List<ContentItem> Repaired { get; } = new List<ContentItem>();
         public List<RepairFailure> RepairFailures { get; } = new List<RepairFailure>();
 
-        public ValidateAndRepairResult(DateTime lastSync, string graphReplicaSetName, int graphInstance)
+        public ValidateAndRepairResult(string graphReplicaSetName, int graphInstance)
         {
-            LastSync = lastSync;
             GraphReplicaSetName = graphReplicaSetName;
             GraphInstance = graphInstance;
         }

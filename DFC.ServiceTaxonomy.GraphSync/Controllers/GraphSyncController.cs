@@ -74,7 +74,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 return Forbid();
             }
 
-            List<ValidateAndRepairResult>? validateAndRepairResults = null;
+            ValidateAndRepairResults? validateAndRepairResults = null;
             try
             {
                 //todo: display page straight away : show progress (log) in page
@@ -89,7 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
             return View(new TriggerSyncValidationViewModel
             {
-                ValidateAndRepairResult = validateAndRepairResults
+                ValidateAndRepairResults = validateAndRepairResults
             });
         }
     }

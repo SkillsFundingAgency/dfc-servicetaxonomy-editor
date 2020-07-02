@@ -5,5 +5,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
     internal interface IGraphReplicaSetLowLevel : IGraphReplicaSet
     {
         IGraph[] GraphInstances { get; }
+
+        IGraphReplicaSetLowLevel CloneLimitedToGraphInstance(int instance);
     }
 }

@@ -4,9 +4,13 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 {
     internal class GraphReplicaSetLowLevel : GraphReplicaSet, IGraphReplicaSetLowLevel
     {
-        internal GraphReplicaSetLowLevel(string name, IEnumerable<Graph> graphInstances)
-            : base(name, graphInstances)
+        internal GraphReplicaSetLowLevel(string name, IEnumerable<Graph> graphInstances, int? limitToGraphInstance = null)
+            : base(name, graphInstances, limitToGraphInstance)
         {
+            foreach (var graph in graphInstances)
+            {
+                graph.GraphReplicaSetLowLevel = this;
+            }
         }
 
         public IGraph[] GraphInstances
@@ -14,10 +18,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             get => _graphInstances;
         }
 
-        public int RunInstance
+        public IGraphReplicaSetLowLevel CloneLimitedToGraphInstance(int instance)
         {
-            get;
-            set;
+            return new GraphReplicaSetLowLevel(Name, _graphInstances, instance);
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 {
@@ -11,7 +10,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public string GraphName { get; }
         public bool DefaultGraph { get; }
         public int Instance { get; }
-        public IGraphReplicaSet GraphReplicaSet { get; internal set; }
+        public IGraphReplicaSetLowLevel GraphReplicaSetLowLevel { get; internal set; }
 
         private readonly INeoEndpoint _endpoint;
 
@@ -23,7 +22,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             Instance = instance;
 
             // GraphReplicaSet will set this as part of the build process, before any consumer gets an instance of this class
-            GraphReplicaSet = default!;
+            GraphReplicaSetLowLevel = default!;
         }
 
         public Task<List<T>> Run<T>(IQuery<T> query)
@@ -34,6 +33,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public Task Run(params ICommand[] commands)
         {
             return _endpoint.Run(commands, GraphName, DefaultGraph);
+        }
+
+        public IGraphReplicaSetLowLevel GetReplicaSetLimitedToThisGraph()
+        {
+            return GraphReplicaSetLowLevel.CloneLimitedToGraphInstance(Instance);
         }
     }
 }
