@@ -19,6 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             var serviceProvider = services.BuildServiceProvider();
             var configuration = serviceProvider.GetService<IConfiguration>();
 
+            //todo: extension method & move to editor startup
             services.Configure<OwlDataGeneratorConfigModel>(configuration.GetSection(nameof(OwlDataGeneratorConfigModel)));
             services.AddGraphCluster();
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();

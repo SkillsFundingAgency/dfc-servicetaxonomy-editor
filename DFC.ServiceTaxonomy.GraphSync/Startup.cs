@@ -21,9 +21,7 @@ using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Log;
-using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Recipes;
@@ -60,13 +58,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            // configuration
-            var serviceProvider = services.BuildServiceProvider();
-            var configuration = serviceProvider.GetService<IConfiguration>();
-
-            services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
-            services.Configure<GraphSyncPartSettingsConfiguration>(configuration.GetSection(nameof(GraphSyncPartSettings)));
-
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();

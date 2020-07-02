@@ -30,6 +30,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             Neo4jConfiguration? currentConfig = _neo4JConfigurationOptions.CurrentValue;
             //todo: null
             //todo: ok to mutate returned CurrentValue?
+            //todo: pass back builder
             configure?.Invoke(currentConfig);
 
             //todo: neo4 doesn't encrypt by default (3 did), see https://neo4j.com/docs/driver-manual/current/client-applications/
