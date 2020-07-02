@@ -13,8 +13,8 @@ using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using DFC.ServiceTaxonomy.Neo4j.Log;
-using DFC.ServiceTaxonomy.Neo4j.Services;
 using Microsoft.Extensions.Configuration;
 using Neo4j.Driver;
 using OrchardCore.Modules;
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup
 
             // Graph Database
             services.AddTransient<ILogger, NeoLogger>();
-            services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
+            services.AddGraphCluster();
 
             services.AddContentPart<GraphLookupPart>()
                 .UseDisplayDriver<GraphLookupPartDisplayDriver>()

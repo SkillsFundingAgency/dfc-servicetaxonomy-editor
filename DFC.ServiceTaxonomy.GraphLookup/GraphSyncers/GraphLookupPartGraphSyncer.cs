@@ -20,10 +20,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
         private const string NodesPropertyName = "Nodes";
 
-        public Task AddSyncComponents(JObject graphLookupContent,
-            IGraphMergeContext context)
+        public Task AddSyncComponents(JObject graphLookupContent, IGraphMergeContext context)
         {
-            var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
+            var settings = context.ContentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
             JArray? nodes = (JArray?)graphLookupContent[NodesPropertyName];
             if (nodes == null || nodes.Count == 0)
@@ -31,13 +30,13 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                mergeNodeCommand.Properties.Add(settings.PropertyName, GetId(nodes.First()));
+                context.MergeNodeCommand.Properties.Add(settings.PropertyName, GetId(nodes.First()));
             }
 
             if (settings.RelationshipType != null)
             {
                 //todo: settings should contains destnodelabels
-                replaceRelationshipsCommand.AddRelationshipsTo(
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                     settings.RelationshipType!,
                     null,
                     new[] {settings.NodeLabel!},
