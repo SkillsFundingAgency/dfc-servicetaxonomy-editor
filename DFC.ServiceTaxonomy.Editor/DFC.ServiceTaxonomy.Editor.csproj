@@ -33,6 +33,11 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <Content Remove="appsettings.Development_template.json" />
+    <None Include="appsettings.Development_template.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
