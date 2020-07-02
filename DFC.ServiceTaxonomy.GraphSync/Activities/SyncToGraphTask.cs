@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using OrchardCore.ContentManagement;
@@ -18,12 +19,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class SyncToGraphTask : TaskActivity
     {
         public SyncToGraphTask(
+            IGraphCluster graphCluster,
             IMergeGraphSyncer mergeGraphSyncer,
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             IStringLocalizer<SyncToGraphTask> localizer,
             INotifier notifier)
         {
+            _graphCluster = graphCluster;
             _mergeGraphSyncer = mergeGraphSyncer;
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
@@ -32,6 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         }
 
         private IStringLocalizer T { get; }
+        private readonly IGraphCluster _graphCluster;
         private readonly IMergeGraphSyncer _mergeGraphSyncer;
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -69,7 +73,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 contentType = contentItem.ContentType;
 #pragma warning restore S1854
 
-                await _mergeGraphSyncer.SyncToGraphReplicaSet(GraphReplicaSetNames.Published, contentItem, _contentManager);
+                await _mergeGraphSyncer.SyncToGraphReplicaSet(
+                    _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Published),
+                    contentItem,
+                    _contentManager);
 
                 return Outcomes("Done");
             }

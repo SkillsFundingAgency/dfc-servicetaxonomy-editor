@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -16,14 +15,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Html";
 
-        public async Task AddSyncComponents(JObject contentItemField,
-            IGraphMergeContext context)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             JValue? value = (JValue?)contentItemField[ContentKey];
             if (value == null || value.Type == JTokenType.Null)
                 return;
 
-            mergeNodeCommand.Properties.Add(await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name), value.As<string>());
+            context.MergeNodeCommand.Properties.Add(
+                await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name),
+                value.As<string>());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,

@@ -4,7 +4,6 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.Alias.Models;
 using OrchardCore.ContentManagement;

@@ -4,7 +4,6 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
@@ -16,12 +15,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Text";
 
-        public async Task AddSyncComponents(JObject contentItemField,
-            IGraphMergeContext context)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
-            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
+            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
-            mergeNodeCommand.AddProperty<string>(nodePropertyName, contentItemField, ContentKey);
+            context.MergeNodeCommand.AddProperty<string>(nodePropertyName, contentItemField, ContentKey);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,

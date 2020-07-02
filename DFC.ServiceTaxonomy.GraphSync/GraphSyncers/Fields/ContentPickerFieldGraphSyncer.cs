@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -29,17 +28,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             _logger = logger;
         }
 
-        public async Task AddSyncComponents(JObject contentItemField,
-            IGraphMergeContext context)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
-                contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
+                context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.GraphSyncHelper);
 
             //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-            IEnumerable<string> destNodeLabels = await graphSyncHelper.NodeLabels(pickedContentType);
+            IEnumerable<string> destNodeLabels = await context.GraphSyncHelper.NodeLabels(pickedContentType);
 
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
@@ -53,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // GetAsync should be returning ContentItem? as it can be null
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
                 contentItemIds.Select(async contentItemId =>
-                    await contentManager.GetAsync(contentItemId, VersionOptions.Latest));
+                    await context.ContentManager.GetAsync(contentItemId, VersionOptions.Latest));
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
@@ -61,18 +59,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 destinationContentItems.Where(ci => ci != null);
 
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
-                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
+                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
 
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
-                foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, context.GraphSyncHelper));
 
-            replaceRelationshipsCommand.AddRelationshipsTo(
+            context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 null,
                 destNodeLabels,
-                graphSyncHelper!.IdPropertyName(pickedContentType),
+                context.GraphSyncHelper.IdPropertyName(pickedContentType),
                 foundDestinationNodeIds.ToArray());
         }
 

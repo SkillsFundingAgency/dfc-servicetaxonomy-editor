@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -18,23 +16,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Value";
 
-        public async Task AddSyncComponents(JObject contentItemField,
-            IGraphMergeContext context)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             JValue? value = (JValue?)contentItemField?[ContentKey];
             if (value == null || value.Type == JTokenType.Null)
                 return;
 
-            var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
+            var fieldSettings = context.ContentPartFieldDefinition!.GetSettings<NumericFieldSettings>();
 
-            string propertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
+            string propertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
             if (fieldSettings.Scale == 0)
             {
-                mergeNodeCommand.Properties.Add(propertyName, (int)value);
+                context.MergeNodeCommand.Properties.Add(propertyName, (int)value);
             }
             else
             {
-                mergeNodeCommand.Properties.Add(propertyName, (decimal)value);
+                context.MergeNodeCommand.Properties.Add(propertyName, (decimal)value);
             }
         }
 

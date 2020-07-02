@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -17,18 +16,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string UrlFieldKey = "Url", TextFieldKey = "Text";
         private const string LinkUrlPostfix = "_url", LinkTextPostfix = "_text";
 
-        public async Task AddSyncComponents(JObject contentItemField,
-            IGraphMergeContext context)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
-            string basePropertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
+            string basePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             JValue? value = (JValue?)contentItemField[UrlFieldKey];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkUrlPostfix}", value.As<string>());
+                context.MergeNodeCommand.Properties.Add($"{basePropertyName}{LinkUrlPostfix}", value.As<string>());
 
             value = (JValue?)contentItemField[TextFieldKey];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
+                context.MergeNodeCommand.Properties.Add($"{basePropertyName}{LinkTextPostfix}", value.As<string>());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,

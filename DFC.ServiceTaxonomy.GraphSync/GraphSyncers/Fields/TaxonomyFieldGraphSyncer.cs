@@ -7,7 +7,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -46,12 +45,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             _serviceProvider = serviceProvider;
         }
 
-        public async Task AddSyncComponents(JObject contentItemField,
-            IGraphMergeContext context)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             //todo: share code with contentpickerfield?
 
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField, contentManager);
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField, context.ContentManager);
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType];
 
@@ -76,7 +74,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
 
-            replaceRelationshipsCommand.AddRelationshipsTo(
+            context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 termRelationshipType,
                 null,
                 destNodeLabels,
@@ -90,7 +88,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
             object taxonomyIdValue = relatedGraphSyncHelper.GetIdPropertyValue(taxonomyContentItem.Content[nameof(GraphSyncPart)]);
 
-            replaceRelationshipsCommand.AddRelationshipsTo(
+            context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 taxonomyRelationshipType,
                 null,
                 destNodeLabels,
@@ -100,7 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // add tagnames
             //using var _ = graphSyncHelper.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
 
-            mergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
+            context.MergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
         }
 
         private object? GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
