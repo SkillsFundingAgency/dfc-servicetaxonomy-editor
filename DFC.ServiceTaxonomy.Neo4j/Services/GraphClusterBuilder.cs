@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             var graphReplicaSets = currentConfig.ReplicaSets.Select(rsc =>
                 new GraphReplicaSetLowLevel(
                     rsc.ReplicaSetName!,
-                    rsc.Instances.Select((gic, index) =>
+                    rsc.GraphInstances.Select((gic, index) =>
                         new Graph(
                             neoEndpoints.First(ep => ep.Name == gic.GraphName),
                             gic.GraphName!,
