@@ -7,7 +7,8 @@ using DFC.ServiceTaxonomy.Cypher.Extensions;
 using DFC.ServiceTaxonomy.Cypher.Models;
 using DFC.ServiceTaxonomy.Cypher.Models.ResultModels;
 using DFC.ServiceTaxonomy.Cypher.Queries;
-using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Newtonsoft.Json;
 using OrchardCore.Queries;
 
@@ -15,13 +16,13 @@ namespace DFC.ServiceTaxonomy.Cypher
 {
     public class CypherQuerySource : IQuerySource
     {
-        private readonly IGraphDatabase NeoGraphDatabase;
+        private readonly IGraphCluster _neoGraphCluster;
 
         public string Name => "Cypher";
 
-        public CypherQuerySource(IGraphDatabase neoGraphDatabase)
+        public CypherQuerySource(IGraphCluster neoGraphCluster)
         {
-            NeoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
+            _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
         }
 
         public Query Create()
@@ -42,7 +43,8 @@ namespace DFC.ServiceTaxonomy.Cypher
             var result = new CypherQueryResult();
             //todo: need to handle nulls
             var genericCypherQuery = new GenericCypherQuery(cypherQuery.Template!, parameterValues!);
-            var cypherResult = await NeoGraphDatabase.Run(genericCypherQuery);
+            //todo: allow user to run queries against either graph. new story
+            var cypherResult = await _neoGraphCluster.Run(GraphReplicaSetNames.Published, genericCypherQuery);
 
             if (cypherResult.Any())
             {
