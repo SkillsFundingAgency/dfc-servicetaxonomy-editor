@@ -12,12 +12,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
     public class GraphClusterBuilder : IGraphClusterBuilder
     {
-        private readonly IOptionsMonitor<Neo4jConfiguration> _neo4JConfigurationOptions;
+        private readonly IOptionsMonitor<Neo4jOptions> _neo4JConfigurationOptions;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger _logger;
 
         public GraphClusterBuilder(
-            IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions,
+            IOptionsMonitor<Neo4jOptions> neo4jConfigurationOptions,
             IServiceProvider serviceProvider,
             ILogger logger)
         {
@@ -26,9 +26,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _logger = logger;
         }
 
-        public GraphCluster Build(Action<Neo4jConfiguration>? configure = null)
+        public GraphCluster Build(Action<Neo4jOptions>? configure = null)
         {
-            Neo4jConfiguration? currentConfig = _neo4JConfigurationOptions.CurrentValue;
+            Neo4jOptions? currentConfig = _neo4JConfigurationOptions.CurrentValue;
             //todo: null
             //todo: ok to mutate returned CurrentValue?
             //todo: pass back builder

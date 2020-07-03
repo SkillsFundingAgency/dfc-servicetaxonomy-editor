@@ -12,9 +12,6 @@ using DFC.ServiceTaxonomy.GraphLookup.Handlers;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Extensions;
-using DFC.ServiceTaxonomy.Neo4j.Log;
-using Neo4j.Driver;
 using OrchardCore.Modules;
 
 namespace DFC.ServiceTaxonomy.GraphLookup
@@ -24,8 +21,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup
         public override void ConfigureServices(IServiceCollection services)
         {
             // Graph Database
-            services.AddTransient<ILogger, NeoLogger>();
-            services.AddGraphCluster();
+            //services.AddTransient<ILogger, NeoLogger>();
+            //todo:
+            //services.AddGraphCluster();
 
             services.AddContentPart<GraphLookupPart>()
                 .UseDisplayDriver<GraphLookupPartDisplayDriver>()

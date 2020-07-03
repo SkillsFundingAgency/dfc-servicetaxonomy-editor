@@ -17,7 +17,7 @@ if use property to cloak draft items in published graph, have standard user defi
 * pages
   check that alias only allows unique names - if not make sure it does
 
-* think oc now supports tabs, switch to new support
+* think oc now supports tabs, switch to new support <- supported when rendering page, not admin by the look of it
 
 * domain topics
 add domain taxonomy (initial candidates are job profile & content)

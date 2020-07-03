@@ -1,5 +1,4 @@
 using DFC.ServiceTaxonomy.Editor.Security;
-using DFC.ServiceTaxonomy.Events.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -27,8 +26,10 @@ namespace DFC.ServiceTaxonomy.Editor
 
             services.AddEventGridPublishing(Configuration);
 
-            //todo: extension method in neo project
-            services.Configure<Neo4jConfiguration>(Configuration.GetSection("Neo4j"));
+            //todo: do this in each library??? if so, make sure it doesn't add services or config twice
+            services.AddGraphCluster(options =>
+                Configuration.GetSection(Neo4jOptions.Neo4j).Bind(options));
+
             services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
         }
 

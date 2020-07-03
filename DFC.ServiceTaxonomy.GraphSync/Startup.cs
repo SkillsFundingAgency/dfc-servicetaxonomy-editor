@@ -19,10 +19,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
-using DFC.ServiceTaxonomy.Neo4j.Commands;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Log;
-using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
@@ -45,7 +41,6 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
-using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using OrchardCore.ContentManagement.Handlers;
@@ -69,15 +64,16 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
             // graph database
-            services.AddTransient<ILogger, NeoLogger>();
-            services.AddGraphCluster();
+            //services.AddTransient<ILogger, NeoLogger>();
+            //todo:?
+            //services.AddGraphCluster();
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
-            services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
-            services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
-            services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
-            services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
-            services.AddTransient<ICustomCommand, CustomCommand>();
+            // services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
+            // services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
+            // services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
+            // services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
+            // services.AddTransient<ICustomCommand, CustomCommand>();
 
             // GraphSyncPart
             services.AddContentPart<GraphSyncPart>()

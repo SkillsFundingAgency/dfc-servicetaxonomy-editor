@@ -6,14 +6,13 @@ using DFC.ServiceTaxonomy.Events.Drivers;
 using DFC.ServiceTaxonomy.Events.Services;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Workflows.Helpers;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
 
-namespace DFC.ServiceTaxonomy.Events.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {

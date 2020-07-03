@@ -1,7 +1,6 @@
 using System;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
-using DFC.ServiceTaxonomy.Neo4j.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +20,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
 
             //todo: extension method & move to editor startup
             services.Configure<OwlDataGeneratorConfigModel>(configuration.GetSection(nameof(OwlDataGeneratorConfigModel)));
-            services.AddGraphCluster();
+            //todo:??
+            //services.AddGraphCluster();
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
             services.AddScoped<INavigationProvider, AdminMenuService>();
