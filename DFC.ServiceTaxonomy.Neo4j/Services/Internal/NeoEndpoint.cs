@@ -22,11 +22,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             Name = endpointName;
         }
 
-        public async Task<List<T>> Run<T>(IQuery<T> query, string database, bool defaultDatabase)
+        public async Task<List<T>> Run<T>(IQuery<T> query, string databaseName, bool defaultDatabase)
         {
-            LogRun("query", database, defaultDatabase);
+            LogRun("query", databaseName, defaultDatabase);
 
-            IAsyncSession session = GetAsyncSession(database, defaultDatabase);
+            IAsyncSession session = GetAsyncSession(databaseName, defaultDatabase);
             try
             {
                 return await session.ReadTransactionAsync(async tx =>
@@ -41,15 +41,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             }
         }
 
-        public async Task Run(ICommand[] commands, string database, bool defaultDatabase)
+        public async Task Run(ICommand[] commands, string databaseName, bool defaultDatabase)
         {
-            IAsyncSession session = _driver.AsyncSession();
+            IAsyncSession session = GetAsyncSession(databaseName, defaultDatabase);
             try
             {
                 // transaction functions auto-retry
                 //todo: configure retry? timeout? etc.
 
-                LogRun("command(s)", database, defaultDatabase);
+                LogRun("command(s)", databaseName, defaultDatabase);
 
                 await session.WriteTransactionAsync(async tx =>
                 {
