@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             foreach (var graph in graphInstances)
             {
+                //todo: coming through as null
                 graph.GraphReplicaSetLowLevel = this;
             }
         }

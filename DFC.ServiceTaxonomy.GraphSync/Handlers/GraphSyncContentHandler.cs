@@ -19,8 +19,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     public class GraphSyncContentHandler : ContentHandlerBase
     {
         private readonly IGraphCluster _graphCluster;
-        private readonly IMergeGraphSyncer _mergeGraphSyncer;
-        private readonly IDeleteGraphSyncer _deleteGraphSyncer;
         private readonly IServiceProvider _serviceProvider;
         private readonly ISession _session;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -29,8 +27,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public GraphSyncContentHandler(
             IGraphCluster graphCluster,
-            IMergeGraphSyncer mergeGraphSyncer,
-            IDeleteGraphSyncer deleteGraphSyncer,
             IServiceProvider serviceProvider,
             ISession session,
             IContentDefinitionManager contentDefinitionManager,
@@ -38,8 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             ILogger<GraphSyncContentHandler> logger)
         {
             _graphCluster = graphCluster;
-            _mergeGraphSyncer = mergeGraphSyncer;
-            _deleteGraphSyncer = deleteGraphSyncer;
             _serviceProvider = serviceProvider;
             _session = session;
             _contentDefinitionManager = contentDefinitionManager;
@@ -49,13 +43,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
-            await SyncToGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem);
+            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            await SyncToGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem, contentManager);
         }
 
         //todo: context contains cancel! (might have to use publishing though)
         public override async Task PublishedAsync(PublishContentContext context)
         {
-            await SyncToGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem);
+            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            await Task.WhenAll(
+                SyncToGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem, contentManager),
+                SyncToGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem, contentManager));
         }
 
         public override async Task UnpublishedAsync(PublishContentContext context)
@@ -67,15 +67,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public override async Task RemovedAsync(RemoveContentContext context)
         {
-            await DeleteFromGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem);
-            await DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem);
+            await Task.WhenAll(
+                DeleteFromGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem),
+                DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem));
         }
 
         private async Task DeleteFromGraphReplicaSet(string replicaSetName, ContentItem contentItem)
         {
             try
             {
-                await _deleteGraphSyncer.DeleteFromGraphReplicaSet(replicaSetName, contentItem);
+                IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+
+                await deleteGraphSyncer.DeleteFromGraphReplicaSet(replicaSetName, contentItem);
             }
             catch (CommandValidationException ex)
             {
@@ -98,19 +101,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
-        private async Task SyncToGraphReplicaSet(string replicaSetName, ContentItem contentItem)
+        private async Task SyncToGraphReplicaSet(string replicaSetName, ContentItem contentItem, IContentManager contentManager)
         {
             try
             {
-                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await _mergeGraphSyncer.SyncToGraphReplicaSet(_graphCluster.GetGraphReplicaSet(replicaSetName), contentItem, contentManager);
+                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                await mergeGraphSyncer.SyncToGraphReplicaSet(_graphCluster.GetGraphReplicaSet(replicaSetName), contentItem, contentManager);
             }
             catch (Exception exception)
             {
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                string message = $"Unable to sync {contentItem.DisplayText} {contentType} to {replicaSetName} graphs.";
+                string message = $"Unable to sync {contentItem.DisplayText} {contentType} to {replicaSetName} graph(s).";
                 _logger.LogError(exception, message);
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
             }

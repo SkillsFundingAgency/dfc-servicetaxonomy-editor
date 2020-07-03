@@ -1,5 +1,15 @@
 #ToDo
 
+* Page Location > add alias part for uri, title as display text
+
+* draft/pub
+ content picker preview - show draft only preview
+ visualizer: show draft/pub
+ query runner: pick draft/pub
+ validate results: rejig
+ graph lookup - ??
+if use property to cloak draft items in published graph, have standard user defined procedure to filter out cloaked items
+
 * use graph clustering algorithms to pick out real user groupings, and potentially match then to personas (or discover new ones)
 
 * draft/pub graphs : update readme
