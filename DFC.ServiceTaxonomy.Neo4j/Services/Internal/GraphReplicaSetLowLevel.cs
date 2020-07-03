@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         internal GraphReplicaSetLowLevel(string name, IEnumerable<Graph> graphInstances, int? limitToGraphInstance = null)
             : base(name, graphInstances, limitToGraphInstance)
         {
-            foreach (var graph in graphInstances)
+            foreach (var graph in _graphInstances)
             {
                 //todo: coming through as null
                 graph.GraphReplicaSetLowLevel = this;
