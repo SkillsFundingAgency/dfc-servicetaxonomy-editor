@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -46,16 +47,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                     o => o.WithLogger(_logger))));
 
             var graphReplicaSets = currentConfig.ReplicaSets.Select(rsc =>
-                new GraphReplicaSetLowLevel(
-                    rsc.ReplicaSetName!,
-                    rsc.GraphInstances.Select((gic, index) =>
-                        new Graph(
-                            neoEndpoints.First(ep => ep.Name == gic.GraphName),
-                            gic.GraphName!,
-                            gic.DefaultGraph,
-                            index))));
+                new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
 
             return new GraphClusterLowLevel(graphReplicaSets);
+        }
+
+        private IEnumerable<Graph> ConstructGraphs(ReplicaSetConfiguration replicaSetConfiguration, IEnumerable<NeoEndpoint> neoEndpoints)
+        {
+            return replicaSetConfiguration.GraphInstances.Select((gic, index) =>
+                new Graph(neoEndpoints.First(ep => ep.Name == gic.Endpoint),
+                    gic.GraphName!,
+                    gic.DefaultGraph,
+                    index));
         }
     }
 }
