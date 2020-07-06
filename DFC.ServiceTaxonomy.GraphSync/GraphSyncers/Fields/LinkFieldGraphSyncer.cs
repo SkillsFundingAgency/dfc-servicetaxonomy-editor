@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -30,33 +27,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+            ValidateAndRepairContext context)
         {
-            string nodeBasePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
+            string nodeBasePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             string nodeUrlPropertyName = $"{nodeBasePropertyName}{LinkUrlPostfix}";
 
-            (bool matched, string failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            (bool matched, string failureReason) = context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 UrlFieldKey,
                 contentItemField,
                 nodeUrlPropertyName,
-                nodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
                 return (false, $"url did not validate: {failureReason}");
 
             string nodeTextPropertyName = $"{nodeBasePropertyName}{LinkTextPostfix}";
 
-            (matched, failureReason) = graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 TextFieldKey,
                 contentItemField,
                 nodeTextPropertyName,
-                nodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithOutgoingRelationships.SourceNode);
 
             return (matched, matched ? "" : $"text did not validate: {failureReason}");
         }

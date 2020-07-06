@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
@@ -126,21 +126,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return $"has{taxonomyName}Taxonomy";
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
+            ValidateAndRepairContext context)
         {
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField, contentManager);
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField, context.ContentManager);
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType];
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
-            IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
+            IOutgoingRelationship[] actualRelationships = context.NodeWithOutgoingRelationships.OutgoingRelationships
                 .Where(r => r.Relationship.Type == termRelationshipType)
                 .ToArray();
 
@@ -161,8 +157,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 object? destinationId = GetNodeId(contentItemId, taxonomyTermsContent, relatedGraphSyncHelper)!;
 
-                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
-                    nodeWithOutgoingRelationships,
+                (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithOutgoingRelationships,
                     termRelationshipType,
                     relatedGraphSyncHelper!.IdPropertyName(),
                     destinationId);
@@ -171,14 +167,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     return (false, failureReason);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.IncreaseCount(termRelationshipType);
+                context.ExpectedRelationshipCounts.IncreaseCount(termRelationshipType);
             }
 
-            return graphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
+            return context.GraphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
                 TagNames,
                 contentItemField,
                 TaxonomyTermsNodePropertyName,
-                nodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithOutgoingRelationships.SourceNode);
         }
     }
 }

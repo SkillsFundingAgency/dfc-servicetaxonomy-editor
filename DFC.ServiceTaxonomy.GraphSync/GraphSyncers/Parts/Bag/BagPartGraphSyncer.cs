@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
@@ -28,22 +24,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            IValidateAndRepairGraph validateAndRepairGraph)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
+            ValidateAndRepairContext context)
         {
             return await _bagPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                (JArray?)content[ContainerName],
-                contentManager,
-                nodeWithOutgoingRelationships,
-                graphValidationHelper,
-                expectedRelationshipCounts,
-                validateAndRepairGraph);
+                (JArray?)content[ContainerName], context);
         }
     }
 }

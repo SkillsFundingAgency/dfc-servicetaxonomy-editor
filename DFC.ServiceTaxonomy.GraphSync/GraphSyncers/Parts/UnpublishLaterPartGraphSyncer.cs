@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using DFC.ServiceTaxonomy.UnpublishLater.Models;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
@@ -30,20 +26,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            IValidateAndRepairGraph validateAndRepairGraph)
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
+            ValidateAndRepairContext context)
         {
-            return Task.FromResult(graphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
+            return Task.FromResult(context.GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 _contentTitlePropertyName,
                 content,
                 NodeTitlePropertyName,
-                nodeWithOutgoingRelationships.SourceNode));
+                context.NodeWithOutgoingRelationships.SourceNode));
         }
     }
 #pragma warning restore S1481

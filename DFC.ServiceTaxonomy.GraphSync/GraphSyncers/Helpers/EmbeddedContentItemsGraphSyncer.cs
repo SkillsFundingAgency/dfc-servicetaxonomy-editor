@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -74,12 +73,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JArray? contentItems,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            IValidateAndRepairGraph validateAndRepairGraph)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JArray? contentItems,
+            ValidateAndRepairContext context)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -89,7 +85,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 ContentTypeDefinition embeddedContentTypeDefinition = _contentTypes[embeddedContentItem.ContentType];
 
                 (bool validated, string failureReason) =
-                    await validateAndRepairGraph.ValidateContentItem(embeddedContentItem, embeddedContentTypeDefinition);
+                    await context.ValidateAndRepairGraph.ValidateContentItem(embeddedContentItem, embeddedContentTypeDefinition);
 
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
@@ -101,8 +97,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 string expectedRelationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
-                expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
+                context.ExpectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
+                context.ExpectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
                 // we've already validated the destination node, so we can assume the id property is there
                 object destinationId = embeddedContentGraphSyncHelper.GetIdPropertyValue(embeddedContentItem.Content.GraphSyncPart);
@@ -113,8 +109,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     embeddedContentItem, relationshipOrdinal, embeddedContentGraphSyncHelper);
                 ++relationshipOrdinal;
 
-                (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
-                    nodeWithOutgoingRelationships,
+                (validated, failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithOutgoingRelationships,
                     expectedRelationshipType,
                     embeddedContentIdPropertyName,
                     destinationId,

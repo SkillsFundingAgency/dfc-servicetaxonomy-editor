@@ -230,6 +230,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair
 
             IDictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
 
+            ValidateAndRepairContext context = new ValidateAndRepairContext(
+                _contentManager,
+                nodeWithOutgoingRelationships,
+                _graphSyncHelper,
+                _graphValidationHelper,
+                expectedRelationshipCounts,
+                this);
+
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
                 IContentPartGraphSyncer partSyncer = _partSyncers.SingleOrDefault(ps =>
@@ -246,10 +254,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair
                 if (partContent == null)
                     continue; //todo: throw??
 
+                // pass as param, rather than context?
+                context.ContentTypePartDefinition = contentTypePartDefinition;
+
                 (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
-                    (JObject)partContent, contentTypePartDefinition, _contentManager, nodeWithOutgoingRelationships,
-                    _graphSyncHelper, _graphValidationHelper,
-                    expectedRelationshipCounts, this);
+                    (JObject)partContent, context);
 
                 if (validated)
                     continue;

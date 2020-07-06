@@ -1,16 +1,11 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 {
@@ -47,27 +42,22 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            IValidateAndRepairGraph validateAndRepairGraph)
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
+            ValidateAndRepairContext context)
         {
             GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
-            GraphLookupPartSettings graphLookupPartSettings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
+            GraphLookupPartSettings graphLookupPartSettings = context.ContentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
             foreach (var node in graphLookupPart.Nodes)
             {
                 string relationshipType = graphLookupPartSettings.RelationshipType!;
 
-                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
-                    nodeWithOutgoingRelationships,
+                (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithOutgoingRelationships,
                     relationshipType,
                     graphLookupPartSettings.ValueFieldName!,
                     node.Id);
@@ -76,8 +66,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     return Task.FromResult((false, failureReason));
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
-                expectedRelationshipCounts[relationshipType] = ++currentCount;
+                context.ExpectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                context.ExpectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
             return Task.FromResult((true, ""));

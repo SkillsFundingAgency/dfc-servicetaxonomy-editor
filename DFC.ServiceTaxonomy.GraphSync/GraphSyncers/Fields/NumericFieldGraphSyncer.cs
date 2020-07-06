@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -35,16 +32,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
+            ValidateAndRepairContext context)
         {
-            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
-            nodeWithOutgoingRelationships.SourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            context.NodeWithOutgoingRelationships.SourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
             JToken? contentItemFieldValue = contentItemField[ContentKey];
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
@@ -56,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             if (nodePropertyValue == null)
                 return (false, "node property value was null, but content property value was not null");
 
-            var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
+            var fieldSettings = context.ContentPartFieldDefinition.GetSettings<NumericFieldSettings>();
 
             if (fieldSettings.Scale == 0)
             {

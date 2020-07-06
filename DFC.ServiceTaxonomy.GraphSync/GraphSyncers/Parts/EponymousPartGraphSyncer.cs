@@ -3,10 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -39,23 +37,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            IValidateAndRepairGraph validateAndRepairGraph)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
+            ValidateAndRepairContext context)
         {
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
-                content,
-                contentManager,
-                contentTypePartDefinition,
-                nodeWithOutgoingRelationships,
-                graphSyncHelper,
-                graphValidationHelper,
-                expectedRelationshipCounts);
+                content, context);
         }
     }
 }

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -74,20 +74,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
+            ValidateAndRepairContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
-                contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
+                context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.GraphSyncHelper);
 
-            IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
+            IOutgoingRelationship[] actualRelationships = context.NodeWithOutgoingRelationships.OutgoingRelationships
                 .Where(r => r.Relationship.Type == relationshipType)
                 .ToArray();
 
@@ -101,16 +97,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string contentItemId = (string)item!;
 
-                ContentItem destinationContentItem = await contentManager.GetAsync(contentItemId);
+                ContentItem destinationContentItem = await context.ContentManager.GetAsync(contentItemId);
 
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
-                object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
+                object destinationId = context.GraphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
                 string destinationIdPropertyName =
-                    graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
+                    context.GraphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
 
-                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
-                    nodeWithOutgoingRelationships,
+                (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithOutgoingRelationships,
                     relationshipType,
                     destinationIdPropertyName,
                     destinationId);
@@ -119,7 +115,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     return (false, failureReason);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.IncreaseCount(relationshipType);
+                context.ExpectedRelationshipCounts.IncreaseCount(relationshipType);
             }
 
             return (true, "");

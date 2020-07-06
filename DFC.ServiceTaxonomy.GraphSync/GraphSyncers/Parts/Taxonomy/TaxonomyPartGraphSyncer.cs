@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
@@ -34,32 +30,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IContentManager contentManager,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            IValidateAndRepairGraph validateAndRepairGraph)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
+            ValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =
                 await _taxonomyPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                    (JArray?)content[ContainerName],
-                    contentManager,
-                    nodeWithOutgoingRelationships,
-                    graphValidationHelper,
-                    expectedRelationshipCounts,
-                    validateAndRepairGraph);
+                    (JArray?)content[ContainerName], context);
 
             if (!validated)
                 return (validated, failureReason);
 
-            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            return context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 TermContentTypePropertyName,
                 content,
                 TermContentTypePropertyName,
-                nodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithOutgoingRelationships.SourceNode);
         }
     }
 }
