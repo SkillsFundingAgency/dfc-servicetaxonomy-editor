@@ -135,12 +135,34 @@ namespace GetJobProfiles
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
+
+            string whereClause = "";
+            string occupationMatch = "";
+            int totalOccupations = 2942;
+            int totalOccupationLabels = int.Parse(config["totalOccupationLabels"] ?? "33036");
+            int totalSkillLabels = int.Parse(config["totalSkillLabels"] ?? "97816");
+            int totalSkills = int.Parse(config["totalSkills"] ?? "13485");
+
+            if (!string.IsNullOrWhiteSpace(jobProfilesToImport) && jobProfilesToImport != "*")
+            {
+                string uriList = string.Join(',', mappedOccupationUris.Select(u => $"'{u}'"));
+                whereClause = $"where o.uri in [{uriList}]";
+                totalOccupations = mappedOccupationUris.Count;
+                occupationMatch = " (o:esco__Occupation) --> ";
+            }
+            IDictionary<string, string> tokens = new Dictionary<string, string>
+            {
+                {"whereClause", whereClause},
+                {"occupationMatch", occupationMatch }
+
+            };
+
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
             if (!(excludeGraphContentMutators || createTestFiles))
             {
-                await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationLabelNodes");
-                await CopyRecipe(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes");
-                await CopyRecipe(cypherToContentRecipesPath, "CreateSkillLabelNodes");
+                await CopyRecipeWithTokenisation(cypherToContentRecipesPath, "CreateOccupationLabelNodes", tokens);
+                await CopyRecipeWithTokenisation(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes", tokens);
+                await CopyRecipeWithTokenisation(cypherToContentRecipesPath, "CreateSkillLabelNodes", tokens);
                 await CopyRecipe(cypherToContentRecipesPath, "CleanUpEscoData");
             }
 
@@ -150,23 +172,10 @@ namespace GetJobProfiles
                 await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
             }
 
-            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", 33036);
-            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", 97816);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", totalOccupationLabels, tokens);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", totalSkillLabels, tokens);
 
-            string whereClause = "";
-            int totalOccupations = 2942;
-            if (!string.IsNullOrWhiteSpace(jobProfilesToImport) && jobProfilesToImport != "*")
-            {
-                string uriList = string.Join(',', mappedOccupationUris.Select(u => $"'{u}'"));
-                whereClause = $"where o.uri in [{uriList}]";
-                totalOccupations = mappedOccupationUris.Count;
-            }
-            IDictionary<string, string> tokens = new Dictionary<string, string>
-            {
-                {"whereClause", whereClause}
-            };
-
-            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillContentItems", skillBatchSize, "Skills", 13485);
+            await BatchRecipes(cypherToContentRecipesPath, "CreateSkillContentItems", skillBatchSize, "Skills", totalSkills, tokens);
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationContentItems", occupationsBatchSize, "Occupations", totalOccupations, tokens);
 
             ProcessJobProfileSpreadsheet(jobProfileWorkbook);
@@ -280,8 +289,8 @@ namespace GetJobProfiles
             if (tokens.TryGetValue("skip", out string skip))
             {
                 recipeName = $"{recipeName}{skip}";
-                tokens["recipeName"] = $"{recipeName}_{_executionId}";
             }
+            tokens["recipeName"] = $"{recipeName}_{_executionId}";
 
             foreach ((string key, string value) in tokens)
             {
