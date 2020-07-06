@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             string json = $"{{\"{ContentKey}\": {(int)(object)value}}}";
             ContentItemField = JObject.Parse(json);
 
-            SourceNodeProperties.Add(NodePropertyName, value);
+            SourceNodeProperties.Add(NodePropertyName, value.ToString().ToLowerInvariant());
 
             (bool validated, _) = CallEnumContentPropertyMatchesNodeProperty<T>();
 
@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
             string json = $"{{\"{ContentKey}\": \"{(int)(object)contentValue}\"}}";
             ContentItemField = JObject.Parse(json);
 
-            SourceNodeProperties.Add(NodePropertyName, nodeValue);
+            SourceNodeProperties.Add(NodePropertyName, nodeValue.ToString().ToLowerInvariant());
 
             (bool validated, _) = CallEnumContentPropertyMatchesNodeProperty<T>();
 
@@ -97,7 +97,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         [InlineData(TestEnum2.Spam, false)]
         [InlineData(TestEnum2.Ham, true)]
         [InlineData(TestEnum2.Ham, false)]
-        [InlineData(TestEnum1.Alice, TestEnum2.Spam)]
         //todo: other valid neo property types
         public void EnumContentPropertyMatchesNodeProperty_PropertiesDifferentTypes_ReturnsFalse<T>(T contentValue, object nodeValue)
             where T : Enum
@@ -113,15 +112,33 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         }
 
         [Theory]
-        [InlineData("content property value was '0', but node property value was 'Bob'", TestEnum1.Alice, TestEnum1.Bob)]
-        [InlineData("content property value was '0', but node property value was 'Charlie'", TestEnum1.Alice, TestEnum1.Charlie)]
+        [InlineData(TestEnum1.Alice, TestEnum2.Spam)]
+        public void EnumContentPropertyMatchesNodeProperty_PropertiesDifferentEnums_ReturnsFalse<T1, T2>(T1 contentValue, T2 nodeValue)
+            where T1 : Enum
+            where T2 : Enum
+        {
+            string json = $"{{\"{ContentKey}\": \"{(int)(object)contentValue}\"}}";
+            ContentItemField = JObject.Parse(json);
+
+            SourceNodeProperties.Add(NodePropertyName, nodeValue.ToString().ToLowerInvariant());
+
+            (bool validated, _) = CallEnumContentPropertyMatchesNodeProperty<T1>();
+
+            Assert.False(validated);
+        }
+
+        //todo: would be nice if message contained values both ways, e.g.
+        // !content property value was 0 ('Alice'), but node property value was 'bob' (1)"
+        [Theory]
+        [InlineData("content property value was '0', but node property value was 'bob'", TestEnum1.Alice, TestEnum1.Bob)]
+        [InlineData("content property value was '0', but node property value was 'charlie'", TestEnum1.Alice, TestEnum1.Charlie)]
         public void EnumContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage<T>(string expectedMessage, T contentValue, T nodeValue)
             where T : Enum
         {
             string json = $"{{\"{ContentKey}\": \"{(int)(object)contentValue}\"}}";
             ContentItemField = JObject.Parse(json);
 
-            SourceNodeProperties.Add(NodePropertyName, nodeValue);
+            SourceNodeProperties.Add(NodePropertyName, nodeValue.ToString().ToLowerInvariant());
 
             (_, string message) = CallEnumContentPropertyMatchesNodeProperty<T>();
 

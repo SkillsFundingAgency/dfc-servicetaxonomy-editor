@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             value = (JValue?)content[ChangeFrequencyPropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString().ToLowerInvariant());
 
             value = (JValue?)content[PriorityPropertyName];
             if (value != null && value.Type != JTokenType.Null)
