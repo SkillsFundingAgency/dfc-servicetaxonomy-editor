@@ -60,10 +60,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
+            //todo: we need to decide how to handle this. do we leave a placeholder node (in the pub graph)
+            // with a property to say item has no published version
+            // or check incoming relationships and cancel unpublish?
             await DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem);
-        }
 
-        //todo: what about losing draft??
+            // no need to touch the draft graph, there should always be a valid version in there
+            // (either a separate draft version, or the published version)
+        }
 
         public override async Task RemovedAsync(RemoveContentContext context)
         {
