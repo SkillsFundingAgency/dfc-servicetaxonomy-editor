@@ -1,0 +1,522 @@
+{
+  "name": "DirectRoutes1_306e99c4-0622-4058-8e46-3ca3c5c50283",
+  "displayName": "DirectRoutes1_306e99c4-0622-4058-8e46-3ca3c5c50283",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Drug and alcohol worker"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly to become a drug and alcohol worker. There are no formal entry requirements. You could have an advantage if you\u0027ve got personal experience of addiction or dependency.\u003C/p\u003E\u003Cp\u003EYou may also come into this work from a variety of backgrounds, like nursing, criminal justice, social care, youth work or counselling. For example, you may have dealt with drug or alcohol-dependent patients as a nurse, or worked in the probation service, supporting offenders after their release.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/3b6b31c9-f941-4876-9232-b6aa124f23c1\u0027]"
+    },
+    "ContentItemId": "4vk11ryx5nj286mt42yw15r2mj",
+    "ContentItemVersionId": "4rr7049stn7nb48zkj4merbd51",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Drug and alcohol worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Quality assurance manager"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply for jobs directly if you\u0027ve got experience in quality control and management from other industries.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/02ba8024-862b-4bc1-b42f-fb91909512e8\u0027]"
+    },
+    "ContentItemId": "4x90sbz6r4p34zjsg5tn0h3hcv",
+    "ContentItemVersionId": "40wjg3jjpeg5mwwcdnh2egdmmn",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Quality assurance manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Chief inspector"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you\u0027re a middle or senior manager working in commerce or industry, and have relevant skills and experience, you can apply for the \u003Ca href=\u0022http://recruit.college.police.uk/Officer/leadership-programmes/Direct-Entry-Programme/direct-entry-at-inspector/Pages/Direct-Entry-at-Inspector.aspx\u0022\u003EDirect Entry at Inspector\u003C/a\u003E or \u003Ca href=\u0022https://recruit.college.police.uk/Officer/leadership-programmes/Direct-Entry-Programme/Direct-Entry-Superintendent/Pages/Direct-Entry-Superintendent.aspx\u0022\u003EDirect Entry at Superintendent\u003C/a\u003E programme. You\u0027ll usually need a degree or postgraduate qualification to apply.\u003C/p\u003E\u003Cp\u003EThe programmes last between 18 and 24 months and offer the training and support you need to make the switch from your current job to an operational police leader.\u003C/p\u003E\u003Cp\u003EAfter completing the training and with several years\u0027 experience working at operational level, you can apply to become a chief inspector.\u003C/p\u003E\u003Cp\u003EYou can find out more about this from \u003Ca href=\u0022https://leadbeyond.police.uk/\u0022\u003ELead Beyond\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/52d81ec1-969d-4010-a61f-f9359da161db\u0027]"
+    },
+    "ContentItemId": "4xbkwsjy32fxp32yh85ymhc15w",
+    "ContentItemVersionId": "43me23v2wsmepxetkpskh0t6xy",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Chief inspector",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Immigration adviser (non-government)"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003ETo specialise in immigration as a legal executive, it\u2019ll help if you can find a job with a firm that deals with immigration and asylum issues, whilst training. You can find more information about qualifying from the \u003Ca href=\u0022https://www.cilex.org.uk/study\u0022\u003EChartered Institute of Legal Executives\u003C/a\u003E.\u003C/p\u003E\u003Cp\u003ETo specialise in immigration as a barrister or solicitor, it would be useful if you could do some of your training in this area of work. You can find more information about solicitor and barrister training from \u003Ca href=\u0022https://www.lawsociety.org.uk/law-careers/\u0022\u003EThe Law Society\u003C/a\u003E and \u003Ca href=\u0022https://www.barcouncil.org.uk/careers/\u0022\u003EThe Bar Council\u003C/a\u003E.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/242ac612-1ed7-4307-bde9-a61f08c7b3a8\u0027]"
+    },
+    "ContentItemId": "43gfjen0zh5vx4yr4d8v5q9mxw",
+    "ContentItemVersionId": "4g0dp62s82kt7s2cz20n2f9v5n",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Immigration adviser (non-government)",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Charity director"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you want to apply for this type of job directly, you\u0027ll need a lot of experience at senior management level, and of building partnerships and fundraising.\u003C/p\u003E\u003Cp\u003EYou\u0027ll also need a lot of knowledge of the challenges faced by your charity\u0027s service users, what can be done to help them and a very strong commitment to the charity\u0027s aims.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/588ad1e7-96a8-4855-b603-6f8078a6b64c\u0027]"
+    },
+    "ContentItemId": "4j7s6v6rq34s80w33z9mvpyjcr",
+    "ContentItemVersionId": "4ky4g35eqqq9557msakkwh56m4",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Charity director",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Family mediator"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply for a job as a trainee family mediator if you have a higher education qualification and experience in an area like:\u003Cul\u003E\u003Cli\u003Elaw\u003C/li\u003E\u003Cli\u003Esocial work\u003C/li\u003E\u003Cli\u003Ecounselling\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EAs part of the selection process, you\u0027ll need to show you have the right personal qualities and skills to be a family mediator.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/ebccba4d-eeee-4567-b3e0-429de924611c\u0027]"
+    },
+    "ContentItemId": "4pxg0pf6ykm6mzr58yyzbshcxw",
+    "ContentItemVersionId": "4zmvz3q4c29f7s3zp9wqt7pw5q",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Family mediator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Training manager"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly if you\u0027ve got experience as a training officer. Most organisations will expect you to have an understanding of their industry.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/eca54828-2d2c-43d0-865e-2a5af81e9c8d\u0027]"
+    },
+    "ContentItemId": "4d53sy2k618ppttssr8j8vghmb",
+    "ContentItemVersionId": "4p3956qsf1n05vdzgrfbmccvxn",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Training manager",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Water treatment worker"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly to work as a water treatment worker. Some employers may ask for GCSEs at grades 9 to 4 (A* to C) in English, maths and a science.\u003C/p\u003E\u003Cp\u003EExperience of working in industrial plant maintenance may give you an advantage.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/9ecf0bf4-436a-4520-a80a-041c83181c76\u0027]"
+    },
+    "ContentItemId": "4twc2gzm8d0aq0hcg7c83mhbc4",
+    "ContentItemVersionId": "443cpkw41ryrrtcm64q5mzjt5b",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Water treatment worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Finance officer"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you want to apply directly for jobs you\u2019ll usually need GCSEs, including maths and English.\u003C/p\u003E\u003Cp\u003EA levels in maths, business studies or economics may also be useful.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/3625918b-305a-40ce-a2c5-76be39c3feb4\u0027]"
+    },
+    "ContentItemId": "4nhh877vk34zs4pd6ynx98cfdm",
+    "ContentItemVersionId": "4jnyye6n2t0z8tvsxbtd8z2bnb",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Finance officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Substance misuse outreach worker"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly to employers, if you\u0027ve got relevant skills and knowledge. You\u0027ll need a good understanding of the issues facing people with substance misuse problems.\u003C/p\u003E\u003Cp\u003EExperience in criminal justice, social care, youth work or counselling may give you an advantage when looking for paid work.\u003C/p\u003E\u003Cp\u003EYou could also apply if you have personal experience of addiction or dependency. Applications are usually welcome from people who have successfully come through treatment.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/5effd8ca-dbfd-4e66-a2fe-5506ac406fd2\u0027]"
+    },
+    "ContentItemId": "4ryrwtdcr2vsb7tzh0x6x682x6",
+    "ContentItemVersionId": "41xd69wtzw5xqvnfcek3ab9gnx",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Substance misuse outreach worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Learning mentor"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly to get into this type of work. You\u0027ll normally need:\u003Cul\u003E\u003Cli\u003Ea good standard of general education, especially in literacy and numeracy\u003C/li\u003E\u003Cli\u003Eexperience of working with children or young people, either through paid work or volunteering\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003EExperience of other types of mentoring outside of education may also be helpful. Examples are peer-to-peer mentoring on anti-bullying projects, supporting people with disabilities or helping young people with health-related issues.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/41b499de-732f-41e0-bc12-e3650453e6f6\u0027]"
+    },
+    "ContentItemId": "4rxrhe3gg5jpm5jk7sw1tm2p4g",
+    "ContentItemVersionId": "4twbz5dsaf2qb52ep3hbr9fpxz",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Learning mentor",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Farm secretary"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly for jobs. Employers will usually ask for GCSEs grades 9 to 4 (A* to C) in English and maths, or equivalent qualifications. You\u0027ll also need experience of office administration and knowledge of bookkeeping.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/13019646-31d1-4262-bbae-f31aa9b95bfe\u0027]"
+    },
+    "ContentItemId": "4v7e51zgdmt9at97dpr7egxfwp",
+    "ContentItemVersionId": "4htzwc22n2bqk79e5h4dqmadc8",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Farm secretary",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "IT security co-ordinator"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply directly to work as an IT security co-ordinator if you\u0027ve got several years\u0027 experience in IT management, network engineering or cyber intelligence.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/1e3bf8d7-0d53-4343-96bc-2256df94db6c\u0027]"
+    },
+    "ContentItemId": "490k59d4wx8hkw76rwrccb7ymh",
+    "ContentItemVersionId": "46m56krhrv0bns2dgbxzvyj4cc",
+    "ContentType": "DirectRoute",
+    "DisplayText": "IT security co-ordinator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Insurance claims handler"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EIf you want to apply directly you\u0027ll find it useful to have:\u003Cul\u003E\u003Cli\u003EGCSEs at grades 9 to 4 (A* to C) including English and maths\u003C/li\u003E\u003Cli\u003EIT skills\u003C/li\u003E\u003Cli\u003Eexperience in office work or customer service\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E\u003Cp\u003ESome companies will test your skills in communication and numbers at the interview stage\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/358ba007-7017-4ef3-8d2f-744b3a151d8f\u0027]"
+    },
+    "ContentItemId": "4ebbmmxd1vyw3ysw7ywytcj34j",
+    "ContentItemVersionId": "4ss9jgj1vvqdjx1kct0casgndp",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Insurance claims handler",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Fish frier"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly for jobs. Experience in catering, food service or customer service will be helpful. Some employers may ask for GCSEs, including English and maths.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/86e3f91f-4a40-46cf-9dcc-ef340cc3e9ec\u0027]"
+    },
+    "ContentItemId": "4v5vby83y09xww3wgpzrpsvzwf",
+    "ContentItemVersionId": "489sn7yg9zsmqtv8p7yj0ac8md",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Fish frier",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Museum assistant"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou do not need any particular qualifications to become a museum assistant, although you\u0027ll usually need a good general standard of education, especially in English and maths.\u003C/p\u003E\u003Cp\u003EThere is a lot of competition for jobs and you may find some museums and galleries ask for a certain level of qualification, like A levels or equivalent.\u003C/p\u003E\u003Cp\u003EYou\u0027ll be in a stronger position when looking for work if you have:\u003Cul\u003E\u003Cli\u003Eexperience in customer care\u003C/li\u003E\u003Cli\u003Ean interest in museums and their services\u003C/li\u003E\u003Cli\u003Evolunteering experience in a museum, gallery or heritage attraction\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/780c5ae3-d509-466f-a69c-1639098f3b4b\u0027]"
+    },
+    "ContentItemId": "4dk1azkm0qsg9sqnq4ghpfypnz",
+    "ContentItemVersionId": "48kn6vhhctvpj1d44nfhrgp8ce",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Museum assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Database administrator"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may be able to apply directly for a place on a graduate training scheme. These are often open to non-IT graduates as well as those with a computing qualification.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/8d403f19-71a7-49f9-a786-71f4b9972953\u0027]"
+    },
+    "ContentItemId": "4nkmgr0mse3s02b5w9rxq4mzc1",
+    "ContentItemVersionId": "4x8rq1cc10waa3p6swwz9q4dny",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Database administrator",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Solutions architect"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply directly for jobs if you\u0027ve got a high level of technical expertise.\u003C/p\u003E\u003Cp\u003EIt\u0027s also useful if you have experience and understanding of the industry you want to work in, for example banking, retail or cloud computing.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/33243ae0-cbdb-4fe9-be38-15cfd95606a2\u0027]"
+    },
+    "ContentItemId": "4vqzcm7fhrpqsrx3tn3yqpjam4",
+    "ContentItemVersionId": "4a3bqk7qmwae73me77whdtwfcg",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Solutions architect",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Fish farmer"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply to fish farms for permanent or seasonal work. There are no set qualifications required, although experience is useful.\u003C/p\u003E\u003Cp\u003ESome jobs are in remote areas of the country, so you may need access to a vehicle.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/6b140800-4a2a-4d71-9f05-ea8a926f4ede\u0027]"
+    },
+    "ContentItemId": "4hbv8t0yqbd8awmtva9fk7924q",
+    "ContentItemVersionId": "4mgmkdx9wk27p7jz29h6h2y85a",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Fish farmer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Paint sprayer"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can apply for jobs in vehicle paint spraying if you\u0027ve got experience and a qualification in vehicle accident and repair, motor manufacturing or engineering.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/7dea5eb7-a103-42e4-a305-f68886d53f9b\u0027]"
+    },
+    "ContentItemId": "473j49we8z48t0hqeyy8h9aa4y",
+    "ContentItemVersionId": "4sae6t03gdvyn49vntadsvedxh",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Paint sprayer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Reprographic assistant"
+    },
+    "DirectRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou may need some GCSEs to apply directly for jobs, for example maths, English, IT and art and design. But this isn\u0027t always essential.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/directroute/e42bb90e-3633-40ac-8a77-153441c67f0b\u0027]"
+    },
+    "ContentItemId": "4m5rv6dy2877722gz1kj6085cs",
+    "ContentItemVersionId": "46jkfs8qpkpew0dhe4ts3jatwe",
+    "ContentType": "DirectRoute",
+    "DisplayText": "Reprographic assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-07-06T11:07:28.0349681Z",
+    "PublishedUtc": "2020-07-06T11:07:28.0349681Z",
+    "CreatedUtc": "2020-07-06T11:07:28.0349681Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
