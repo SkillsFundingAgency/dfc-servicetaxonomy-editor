@@ -30,6 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             if (value != null && value.Type != JTokenType.Null) //first bool?
                 context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
 
+            //todo: what's the advantage of making the value lowercase? it stops you being able to use Enum.Parse and requires more code
             value = (JValue?)content[ChangeFrequencyPropertyName];
             if (value != null && value.Type != JTokenType.Null)
                 context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString().ToLowerInvariant());
