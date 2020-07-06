@@ -4,7 +4,6 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -79,6 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (string graphReplicaSetName in graphReplicaSetNamesToValidate)
             {
                 IGraphReplicaSetLowLevel graphReplicaSetLowLevel = _graphClusterLowLevel.GetGraphReplicaSetLowLevel(graphReplicaSetName);
+                IContentItemVersion contentItemVersion = new ContentItemVersion(graphReplicaSetName);
 
                 foreach (IGraph graph in graphReplicaSetLowLevel.GraphInstances)
                 {
@@ -99,13 +99,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         //todo: update visualizer to have results per graph
                         //todo: why isn't this returning ValidateAndRepairResult
                         List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(
-                            graphReplicaSetName,
+                            contentItemVersion,
                             contentTypeDefinition,
                             auditSyncLog.LastSynced,
                             result);
                         if (syncFailures.Any())
                         {
-                            await AttemptRepair(syncFailures, contentTypeDefinition, result);
+                            await AttemptRepair(syncFailures, contentTypeDefinition, contentItemVersion, result);
                         }
                     }
                 }
@@ -126,7 +126,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         private async Task<List<ValidationFailure>> ValidateContentItemsOfContentType(
-            string graphReplicaSetName,
+            IContentItemVersion contentItemVersion,
             ContentTypeDefinition contentTypeDefinition,
             DateTime lastSynced,
             ValidateAndRepairResult result)
@@ -135,7 +135,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             //todo: do we want to batch up content items of type?
             IEnumerable<ContentItem> contentTypeContentItems = await GetContentItems(
-                graphReplicaSetName, contentTypeDefinition, lastSynced);
+                contentItemVersion, contentTypeDefinition, lastSynced);
 
             if (!contentTypeContentItems.Any())
             {
@@ -146,7 +146,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (ContentItem contentItem in contentTypeContentItems)
             {
                 (bool validated, string? validationFailureReason) =
-                    await ValidateContentItem(contentItem, contentTypeDefinition);
+                    await ValidateContentItem(contentItem, contentTypeDefinition, contentItemVersion);
 
                 if (validated)
                 {
@@ -165,39 +165,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncFailures;
         }
 
-        /// <remarks>
-        ///  Latest  Published
-        ///     1        0        draft only
-        ///     1        1        published only
-        ///     0        1        published (with separate draft version)
-        ///     1        0        draft (with separate published version)
-        ///     0        0        old (replaced) published version
-        ///     1        1        new (replacement) published version
-        ///     <Not Kept>        old (replaced) draft version
-        ///     1        0        new (replacement) draft version
-        /// </remarks>
         private async Task<IEnumerable<ContentItem>> GetContentItems(
-            string graphReplicaSetName,
+            IContentItemVersion contentItemVersion,
             ContentTypeDefinition contentTypeDefinition,
             DateTime lastSynced)
         {
-            bool? latest;
-            bool published;
-
-            //todo: something better
-            switch (graphReplicaSetName)
-            {
-                case "published":
-                    latest = null;
-                    published = true;
-                    break;
-                case "draft":
-                    latest = true;
-                    published = false;
-                    break;
-                default:
-                    throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.");
-            }
+            (bool? latest, bool published) = contentItemVersion.ContentItemIndexFilterTerms;
 
             return await _session
                 .Query<ContentItem, ContentItemIndex>(x =>
@@ -217,6 +190,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private async Task AttemptRepair(
             IEnumerable<ValidationFailure> syncValidationFailures,
             ContentTypeDefinition contentTypeDefinition,
+            IContentItemVersion contentItemVersion,
             ValidateAndRepairResult result)
         {
             _logger.LogWarning(
@@ -234,7 +208,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 //todo: split into smaller methods
 
                 (bool validated, string? validationFailureReason) =
-                    await ValidateContentItem(failure.ContentItem, contentTypeDefinition);
+                    await ValidateContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
 
                 if (validated)
                 {
@@ -251,7 +225,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<(bool validated, string failureReason)> ValidateContentItem(
             ContentItem contentItem,
-            ContentTypeDefinition contentTypeDefinition)
+            ContentTypeDefinition contentTypeDefinition,
+            IContentItemVersion contentItemVersion)
         {
             _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");
 
@@ -273,6 +248,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             ValidateAndRepairContext context = new ValidateAndRepairContext(
                 _contentManager,
+                contentItemVersion,
                 nodeWithOutgoingRelationships,
                 _graphSyncHelper,
                 _graphValidationHelper,

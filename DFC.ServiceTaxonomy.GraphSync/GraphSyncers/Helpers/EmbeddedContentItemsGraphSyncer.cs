@@ -72,7 +72,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JArray? contentItems,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JArray? contentItems,
             IValidateAndRepairContext context)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
@@ -83,7 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 ContentTypeDefinition embeddedContentTypeDefinition = _contentTypes[embeddedContentItem.ContentType];
 
                 (bool validated, string failureReason) =
-                    await context.ValidateAndRepairGraph.ValidateContentItem(embeddedContentItem, embeddedContentTypeDefinition);
+                    await context.ValidateAndRepairGraph.ValidateContentItem(
+                        embeddedContentItem, embeddedContentTypeDefinition, context.ContentItemVersion);
 
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");

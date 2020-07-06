@@ -9,15 +9,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IValidateAndRepairContext
     {
-        public IContentManager ContentManager { get; }
-        public ContentTypePartDefinition ContentTypePartDefinition { get; }
-        public IContentPartFieldDefinition? ContentPartFieldDefinition  { get; }
+        IContentManager ContentManager { get; }
+        IContentItemVersion ContentItemVersion { get; }
+        ContentTypePartDefinition ContentTypePartDefinition { get; }
+        IContentPartFieldDefinition? ContentPartFieldDefinition  { get; }
 
-        public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; }
-        public IGraphSyncHelper GraphSyncHelper { get; }
-        public IGraphValidationHelper GraphValidationHelper { get; }
-        public IDictionary<string, int> ExpectedRelationshipCounts { get; }
-        public IValidateAndRepairGraph ValidateAndRepairGraph { get; }
+        INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; }
+        IGraphSyncHelper GraphSyncHelper { get; }
+        IGraphValidationHelper GraphValidationHelper { get; }
+        IDictionary<string, int> ExpectedRelationshipCounts { get; }
+        IValidateAndRepairGraph ValidateAndRepairGraph { get; }
 
         void SetContentPartFieldDefinition(ContentPartFieldDefinition? contentPartFieldDefinition);
     }
