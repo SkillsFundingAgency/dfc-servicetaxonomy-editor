@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -20,7 +21,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {

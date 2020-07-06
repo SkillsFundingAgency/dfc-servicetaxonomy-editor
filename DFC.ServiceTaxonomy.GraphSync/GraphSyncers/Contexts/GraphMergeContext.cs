@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Merge
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class GraphMergeContext : IGraphMergeContext
     {

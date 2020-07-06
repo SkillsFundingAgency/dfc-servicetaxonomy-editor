@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
@@ -12,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Merge
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     //todo: have to refactor sync. currently with bags, a single sync will occur in multiple transactions
     // so if a validation fails for example, the graph will be left in an incomplete synced state

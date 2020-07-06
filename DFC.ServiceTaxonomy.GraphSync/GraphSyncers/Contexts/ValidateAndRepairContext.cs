@@ -7,7 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     //todo: contexts folder, and move top level back to top level
     //todo: interfaces for contexts
