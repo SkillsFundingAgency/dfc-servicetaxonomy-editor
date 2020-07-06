@@ -48,7 +48,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             //todo: share code with contentpickerfield?
 
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField, context.ContentManager);
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+                contentItemField, context.ContentManager, context.ContentItemVersion);
+
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType];
 
@@ -106,12 +108,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
         }
 
-        private async Task<ContentItem> GetTaxonomyContentItem(JObject contentItemField, IContentManager contentManager)
+        private async Task<ContentItem> GetTaxonomyContentItem(
+            JObject contentItemField,
+            IContentManager contentManager,
+            IContentItemVersion contentItemVersion)
         {
             string taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.ToObject<string>()!;
             //todo: null?
 
-            return await contentManager.GetAsync(taxonomyContentItemId, VersionOptions.Published);
+            return await contentManager.GetAsync(taxonomyContentItemId, contentItemVersion.VersionOptions);
         }
 
         private string TermRelationshipType(string termContentType)
@@ -128,7 +133,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField, context.ContentManager);
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+                contentItemField, context.ContentManager, context.ContentItemVersion);
+
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType];
 
