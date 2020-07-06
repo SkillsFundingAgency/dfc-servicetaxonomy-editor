@@ -1,4 +1,5 @@
-﻿using OrchardCore.ContentManagement;
+﻿using System.Threading.Tasks;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
@@ -7,5 +8,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         VersionOptions VersionOptions { get; }
         (bool? latest, bool published) ContentItemIndexFilterTerms { get; }
+        string GraphReplicaSetName { get; }
+
+        Task<ContentItem> GetContentItemAsync(IContentManager contentManager, string id);
     }
 }

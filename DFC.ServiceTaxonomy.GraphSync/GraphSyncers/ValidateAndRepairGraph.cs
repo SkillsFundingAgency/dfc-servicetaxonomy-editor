@@ -134,6 +134,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             List<ValidationFailure> syncFailures = new List<ValidationFailure>();
 
             //todo: do we want to batch up content items of type?
+            //todo: for draft, we need to get the draft content items from the oc db,
+            // and if there are no draft version, compare against the published version from the oc db instead
+            // move this logic into ContentItemVersion
             IEnumerable<ContentItem> contentTypeContentItems = await GetContentItems(
                 contentItemVersion, contentTypeDefinition, lastSynced);
 

@@ -116,7 +116,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string taxonomyContentItemId = contentItemField[TaxonomyContentItemId]?.ToObject<string>()!;
             //todo: null?
 
-            return await contentManager.GetAsync(taxonomyContentItemId, contentItemVersion.VersionOptions);
+            //todo: need to really think this through/test it
+            return await contentItemVersion.GetContentItemAsync(contentManager, taxonomyContentItemId);
         }
 
         private string TermRelationshipType(string termContentType)
