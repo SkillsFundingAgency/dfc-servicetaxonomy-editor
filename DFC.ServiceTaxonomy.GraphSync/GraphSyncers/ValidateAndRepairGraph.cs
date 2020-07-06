@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -98,6 +99,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         //todo: update visualizer to have results per graph
                         //todo: why isn't this returning ValidateAndRepairResult
                         List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(
+                            graphReplicaSetName,
                             contentTypeDefinition,
                             auditSyncLog.LastSynced,
                             result);
@@ -124,6 +126,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         private async Task<List<ValidationFailure>> ValidateContentItemsOfContentType(
+            string graphReplicaSetName,
             ContentTypeDefinition contentTypeDefinition,
             DateTime lastSynced,
             ValidateAndRepairResult result)
@@ -131,13 +134,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             List<ValidationFailure> syncFailures = new List<ValidationFailure>();
 
             //todo: do we want to batch up content items of type?
-            IEnumerable<ContentItem> contentTypeContentItems = await _session
-                //do we only care about the latest published items?
-                .Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType == contentTypeDefinition.Name
-                    && x.Latest && x.Published
-                    && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                .ListAsync();
+            IEnumerable<ContentItem> contentTypeContentItems = await GetContentItems(
+                graphReplicaSetName, contentTypeDefinition, lastSynced);
 
             if (!contentTypeContentItems.Any())
             {
@@ -165,6 +163,49 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             return syncFailures;
+        }
+
+        /// <remarks>
+        ///  Latest  Published
+        ///     1        0        draft only
+        ///     1        1        published only
+        ///     0        1        published (with separate draft version)
+        ///     1        0        draft (with separate published version)
+        ///     0        0        old (replaced) published version
+        ///     1        1        new (replacement) published version
+        ///     <Not Kept>        old (replaced) draft version
+        ///     1        0        new (replacement) draft version
+        /// </remarks>
+        private async Task<IEnumerable<ContentItem>> GetContentItems(
+            string graphReplicaSetName,
+            ContentTypeDefinition contentTypeDefinition,
+            DateTime lastSynced)
+        {
+            bool? latest;
+            bool published;
+
+            //todo: something better
+            switch (graphReplicaSetName)
+            {
+                case "published":
+                    latest = null;
+                    published = true;
+                    break;
+                case "draft":
+                    latest = true;
+                    published = false;
+                    break;
+                default:
+                    throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.");
+            }
+
+            return await _session
+                .Query<ContentItem, ContentItemIndex>(x =>
+                    x.ContentType == contentTypeDefinition.Name
+                    && (latest == null || x.Latest == latest)
+                    && x.Published == published
+                    && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+                .ListAsync();
         }
 
         //todo: ToString in Graph?
