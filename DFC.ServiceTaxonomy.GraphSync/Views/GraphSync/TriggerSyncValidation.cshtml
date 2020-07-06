@@ -51,8 +51,7 @@
         foreach (var graphResult in Model.ValidateAndRepairResults.GraphInstanceResults)
         {
             //todo: add an extra 2 top levels for set & instance?
-            <div class="display-2 text-center">Graph Replica Set: @graphResult.GraphReplicaSetName</div>
-            <div class="display-2 text-center">Graph Instance: #@graphResult.GraphInstance</div>
+            <div class="display-4">Replica set: @graphResult.GraphReplicaSetName, instance: #@graphResult.GraphInstance</div>
 
             // would have thought that embedded ul should be wrapped in li, but that doesn't seem to work -> check other browsers
             <ul id="results" class="list-group">
@@ -64,7 +63,7 @@
                 <ul class="list-group collapse" id="validated">
                     @foreach (ContentItem contentItem in graphResult.Validated)
                     {
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.DisplayText @contentItem.ContentItemId</li>
                     }
                 </ul>
 
@@ -93,7 +92,7 @@
                 <ul class="list-group collapse" id="repaired">
                     @foreach (ContentItem contentItem in graphResult.Repaired)
                     {
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.ContentItemId</li>
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.DisplayText @contentItem.ContentItemId</li>
                     }
                 </ul>
 
