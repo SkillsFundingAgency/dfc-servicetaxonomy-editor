@@ -18,6 +18,5 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         {
             return _graphReplicaSets[replicaSetName];
         }
-
     }
 }

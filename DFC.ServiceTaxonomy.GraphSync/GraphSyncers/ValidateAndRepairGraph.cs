@@ -170,8 +170,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: ToString in Graph?
         private string GraphDescription(IGraph graph)
         {
-            //todo: add back reference from IGraph to IGraphReplicaSet
-            return $"graph instance #{graph.Instance} in replica set <TODO>";
+            return $"graph instance #{graph.Instance} in replica set {graph.GraphReplicaSetLowLevel.Name}";
         }
 
         private async Task AttemptRepair(
