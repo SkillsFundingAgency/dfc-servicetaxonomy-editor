@@ -17,6 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public ContentItem ContentItem { get; }
         public IContentManager ContentManager { get; }
+        public IContentItemVersion ContentItemVersion { get; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentPartFieldDefinition? ContentPartFieldDefinition { get; private set; }
 
@@ -26,7 +27,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentItem contentItem,
-            IContentManager contentManager)
+            IContentManager contentManager,
+            IContentItemVersion contentItemVersion)
         {
             GraphSyncHelper = graphSyncHelper;
             GraphReplicaSet = graphReplicaSet;
@@ -34,6 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ReplaceRelationshipsCommand = replaceRelationshipsCommand;
             ContentItem = contentItem;
             ContentManager = contentManager;
+            ContentItemVersion = contentItemVersion;
 
             ContentTypePartDefinition = default!;
         }

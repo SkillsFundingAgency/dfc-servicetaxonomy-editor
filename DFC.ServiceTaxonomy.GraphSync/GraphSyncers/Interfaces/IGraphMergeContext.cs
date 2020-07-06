@@ -11,6 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         ContentItem ContentItem { get; }
         IContentManager ContentManager { get; }
+        IContentItemVersion ContentItemVersion { get; }
         ContentTypePartDefinition ContentTypePartDefinition { get; }
         IContentPartFieldDefinition? ContentPartFieldDefinition  { get; }
 

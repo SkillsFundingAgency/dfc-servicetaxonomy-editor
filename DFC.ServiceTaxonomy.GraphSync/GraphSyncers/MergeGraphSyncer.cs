@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
@@ -110,13 +111,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
+            var contentItemVersion = new ContentItemVersion(graphReplicaSet.Name);
+
             GraphMergeContext graphMergeContext = new GraphMergeContext(
                 _graphSyncHelper,
                 graphReplicaSet,
                 _mergeNodeCommand,
                 _replaceRelationshipsCommand,
                 contentItem,
-                contentManager);
+                contentManager,
+                contentItemVersion);
 
             foreach (var partSync in partSyncersWithGraphLookupFirst)
             {
