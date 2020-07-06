@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using YesSql;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Delete
 {
     public class DeleteGraphSyncer : IDeleteGraphSyncer
     {

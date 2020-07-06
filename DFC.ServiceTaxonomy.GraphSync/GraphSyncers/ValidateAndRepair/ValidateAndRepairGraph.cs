@@ -20,7 +20,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ValidateAndRepair
 {
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
