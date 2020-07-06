@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 
@@ -9,39 +11,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         // either here, or graphsynchelper?
         //todo: unit tests for these
 
-        public static string? AddProperty(
+        [return: MaybeNull]
+        public static T AddProperty<T>(
             this IMergeNodeCommand mergeNodeCommand,
             string propertyName,
             JObject content)
         {
-            return mergeNodeCommand.AddProperty(propertyName, content, propertyName);
+            return mergeNodeCommand.AddProperty<T>(propertyName, content, propertyName);
         }
 
-        public static string? AddProperty(
+        [return: MaybeNull]
+        public static T AddProperty<T>(
             this IMergeNodeCommand mergeNodeCommand,
             string nodePropertyName,
             JObject content,
             string contentPropertyName)
         {
-            return AddPropertyInternal<string>(mergeNodeCommand, nodePropertyName, content, contentPropertyName);
-        }
-
-        public static string? AddProperty<T>(
-            this IMergeNodeCommand mergeNodeCommand,
-            string nodePropertyName,
-            JObject content,
-            string contentPropertyName)
-        {
-            return AddPropertyInternal<T>(mergeNodeCommand, nodePropertyName, content, contentPropertyName);
-        }
-
-        private static string? AddPropertyInternal<T>(
-            IMergeNodeCommand mergeNodeCommand,
-            string nodePropertyName,
-            JObject content,
-            string contentPropertyName)
-        {
-            object? value;
+            T value;
             JValue? jvalue = (JValue?)content[contentPropertyName];
             if (jvalue != null && jvalue.Type != JTokenType.Null)
             {
@@ -54,10 +40,43 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             }
             else
             {
-                value = null;
+                value = default;
             }
 
-            return value?.ToString();
+            return value;
+        }
+
+        public static List<T>? AddArrayProperty<T>(
+            this IMergeNodeCommand mergeNodeCommand,
+            string propertyName,
+            JObject content)
+        {
+            return mergeNodeCommand.AddArrayProperty<T>(propertyName, content, propertyName);
+        }
+
+        public static List<T>? AddArrayProperty<T>(
+            this IMergeNodeCommand mergeNodeCommand,
+            string nodePropertyName,
+            JObject content,
+            string contentPropertyName)
+        {
+            List<T>? values;
+            JArray? jarray = (JArray?)content[contentPropertyName];
+            if (jarray != null && jarray.Type != JTokenType.Null)
+            {
+                values = jarray.ToObject<List<T>>();
+
+                if (values == null)
+                    throw new InvalidCastException($"Could not convert content property array {jarray} to type IEnumerable<{typeof(T)}>");
+
+                mergeNodeCommand.Properties.Add(nodePropertyName, values);
+            }
+            else
+            {
+                values = default;
+            }
+
+            return values;
         }
     }
 }

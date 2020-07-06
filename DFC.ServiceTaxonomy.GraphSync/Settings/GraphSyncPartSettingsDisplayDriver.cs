@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                     model.BagPartContentItemRelationshipType = graphSyncPartSettings.BagPartContentItemRelationshipType;
                     model.PreexistingNode = graphSyncPartSettings.PreexistingNode;
+                    model.DisplayId = graphSyncPartSettings.DisplayId;
                     model.NodeNameTransform = graphSyncPartSettings.NodeNameTransform;
                     model.PropertyNameTransform = graphSyncPartSettings.PropertyNameTransform;
                     model.CreateRelationshipType = graphSyncPartSettings.CreateRelationshipType;
@@ -55,7 +56,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
 
                 //TODO: Move equals function elsewhere for Single Reponsibility.
                 //todo: if model.X is null, but item.X isn't null, model.X!.Equals will throw - forgiving null when it is null
-                if (IsEqual(model.BagPartContentItemRelationshipType, item.BagPartContentItemRelationshipType) && IsEqual(model.NodeNameTransform, item.NodeNameTransform) && IsEqual(model.PropertyNameTransform, item.PropertyNameTransform) && IsEqual(model.CreateRelationshipType, item.CreateRelationshipType) && IsEqual(model.IdPropertyName, item.IdPropertyName) && IsEqual(model.GenerateIdPropertyValue, item.GenerateIdPropertyValue))
+                if (IsEqual(model.BagPartContentItemRelationshipType, item.BagPartContentItemRelationshipType)
+                    && IsEqual(model.NodeNameTransform, item.NodeNameTransform)
+                    && IsEqual(model.PropertyNameTransform, item.PropertyNameTransform)
+                    && IsEqual(model.CreateRelationshipType, item.CreateRelationshipType)
+                    && IsEqual(model.IdPropertyName, item.IdPropertyName)
+                    && IsEqual(model.GenerateIdPropertyValue, item.GenerateIdPropertyValue)
+                    && model.PreexistingNode == item.PreexistingNode
+                    && model.DisplayId == item.DisplayId)
                 {
                     model.SelectedSetting = item.Name;
                     model.ReadOnly = true;
@@ -79,6 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.BagPartContentItemRelationshipType,
                 m => m.PreexistingNode,
+                m => m.DisplayId,
                 m => m.NodeNameTransform,
                 m => m.PropertyNameTransform,
                 m => m.CreateRelationshipType,
@@ -89,6 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 {
                     BagPartContentItemRelationshipType = model.BagPartContentItemRelationshipType,
                     PreexistingNode = model.PreexistingNode,
+                    DisplayId = model.DisplayId,
                     NodeNameTransform = model.NodeNameTransform,
                     PropertyNameTransform = model.PropertyNameTransform,
                     CreateRelationshipType = model.CreateRelationshipType,
