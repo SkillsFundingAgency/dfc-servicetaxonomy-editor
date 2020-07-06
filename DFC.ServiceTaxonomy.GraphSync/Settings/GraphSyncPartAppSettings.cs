@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
@@ -7,10 +6,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
     {
         public GraphSyncPartSettingsConfiguration()
         {
-            this.Settings = new List<GraphSyncPartSettings>();
+            Settings = new List<GraphSyncPartSettings>();
         }
 
         public List<GraphSyncPartSettings> Settings { get; set; }
-      
     }
 }

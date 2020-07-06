@@ -15,10 +15,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
     {
         public string PartName => nameof(AliasPart);
 
-        private const string _contentTitlePropertyName = "Alias";
+        private const string _contentAliasPropertyName = "Alias";
 
         //todo: configurable??
-        public const string NodeTitlePropertyName = "alias_alias";
+        private const string NodeAliasPropertyName = "alias_alias";
 
         public Task AddSyncComponents(
             JObject content,
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.AddProperty(NodeTitlePropertyName, content, _contentTitlePropertyName);
+            mergeNodeCommand.AddProperty<string>(NodeAliasPropertyName, content, _contentAliasPropertyName);
 
             return Task.CompletedTask;
         }
@@ -42,9 +42,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             string endpoint)
         {
             return Task.FromResult(graphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentTitlePropertyName,
+                _contentAliasPropertyName,
                 content,
-                NodeTitlePropertyName,
+                NodeAliasPropertyName,
                 nodeWithOutgoingRelationships.SourceNode));
         }
     }
