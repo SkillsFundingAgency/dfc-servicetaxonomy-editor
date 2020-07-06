@@ -289,12 +289,8 @@ namespace GetJobProfiles
             if (tokens.TryGetValue("skip", out string skip))
             {
                 recipeName = $"{recipeName}{skip}";
-                tokens["recipeName"] = $"{recipeName}_{_executionId}";
             }
-            else
-            {
-                tokens["recipeName"] = $"{recipeName}_{_executionId}";
-            }
+            tokens["recipeName"] = $"{recipeName}_{_executionId}";
 
             foreach ((string key, string value) in tokens)
             {
