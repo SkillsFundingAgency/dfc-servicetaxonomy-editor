@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -32,9 +31,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+            IValidateAndRepairContext context)
         {
             string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
             context.NodeWithOutgoingRelationships.SourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);

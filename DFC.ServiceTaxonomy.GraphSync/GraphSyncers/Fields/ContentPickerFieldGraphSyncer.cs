@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -74,9 +73,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+            IValidateAndRepairContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();

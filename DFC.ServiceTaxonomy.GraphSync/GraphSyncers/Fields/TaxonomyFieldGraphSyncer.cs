@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
@@ -126,9 +125,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return $"has{taxonomyName}Taxonomy";
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+            IValidateAndRepairContext context)
         {
             ContentItem taxonomyContentItem = await GetTaxonomyContentItem(contentItemField, context.ContentManager);
             var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];

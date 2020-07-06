@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer
@@ -8,6 +7,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
     {
         Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context);
 
-        Task<(bool validated, string failureReason)> ValidateSyncComponent(JArray? contentItems, ValidateAndRepairContext context);
+        Task<(bool validated, string failureReason)> ValidateSyncComponent(JArray? contentItems,
+            IValidateAndRepairContext context);
     }
 }

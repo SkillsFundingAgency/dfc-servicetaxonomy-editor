@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -74,9 +73,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {

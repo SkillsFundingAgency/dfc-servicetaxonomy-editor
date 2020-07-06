@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.UnpublishLater.Models;
 using Newtonsoft.Json.Linq;
@@ -26,9 +25,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             return Task.FromResult(context.GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 _contentTitlePropertyName,

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
 
@@ -23,9 +22,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             context.MergeNodeCommand.Properties.Add(propertyName, (DateTime)value);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject contentItemField,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+            IValidateAndRepairContext context)
         {
             string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 

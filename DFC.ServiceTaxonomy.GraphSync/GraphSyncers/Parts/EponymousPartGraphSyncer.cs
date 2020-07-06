@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CustomFields.Fields;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -37,9 +36,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content, context);

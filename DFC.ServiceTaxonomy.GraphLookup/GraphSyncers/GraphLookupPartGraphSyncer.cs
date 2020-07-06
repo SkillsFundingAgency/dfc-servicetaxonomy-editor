@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
@@ -42,9 +41,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)

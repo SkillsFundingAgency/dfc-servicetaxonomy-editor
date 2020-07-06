@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -27,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            ValidateAndRepairContext context)
+            IValidateAndRepairContext context)
         {
             string nodeBasePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 

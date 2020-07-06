@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -27,9 +26,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(HtmlPropertyName), htmlValue.As<string>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);

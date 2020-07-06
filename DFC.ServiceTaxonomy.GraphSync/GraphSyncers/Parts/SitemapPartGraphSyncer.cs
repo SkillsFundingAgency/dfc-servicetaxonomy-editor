@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
@@ -44,9 +43,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 

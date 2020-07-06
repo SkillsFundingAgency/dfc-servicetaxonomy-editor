@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using Newtonsoft.Json.Linq;
@@ -39,9 +38,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =
                 await _flowPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(

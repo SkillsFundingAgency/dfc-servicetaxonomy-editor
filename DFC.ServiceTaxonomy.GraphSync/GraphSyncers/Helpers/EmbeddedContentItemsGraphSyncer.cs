@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
@@ -73,9 +72,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JArray? contentItems,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JArray? contentItems,
+            IValidateAndRepairContext context)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 

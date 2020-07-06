@@ -9,9 +9,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    //todo: contexts folder, and move top level back to top level
-    //todo: interfaces for contexts
-    public class ValidateAndRepairContext
+    public class ValidateAndRepairContext : IValidateAndRepairContext
     {
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; }
         public IGraphSyncHelper GraphSyncHelper { get; }

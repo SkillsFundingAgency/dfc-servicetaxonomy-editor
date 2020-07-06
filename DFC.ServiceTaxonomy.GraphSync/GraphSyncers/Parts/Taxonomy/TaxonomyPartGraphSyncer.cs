@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using Newtonsoft.Json.Linq;
@@ -30,9 +29,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ValidateAndRepairContext context)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =
                 await _taxonomyPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
