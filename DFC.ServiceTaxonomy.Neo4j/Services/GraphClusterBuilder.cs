@@ -40,25 +40,34 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
             //todo: throw nice exceptions on missing config
 
-            var neoEndpoints = currentConfig.Endpoints.Select(epc =>
-                ActivatorUtilities.CreateInstance<NeoEndpoint>(_serviceProvider,
-                epc.Name!, GraphDatabase.Driver(
-                    epc.Uri, AuthTokens.Basic(epc.Username, epc.Password),
-                    o => o.WithLogger(_logger))));
+            var neoEndpoints = currentConfig.Endpoints
+                .Where(epc => epc.Enabled)
+                .Select(epc =>
+                    ActivatorUtilities.CreateInstance<NeoEndpoint>(
+                        _serviceProvider,
+                        epc.Name!,
+                        GraphDatabase.Driver(
+                            epc.Uri,
+                            AuthTokens.Basic(epc.Username, epc.Password),
+                            o => o.WithLogger(_logger))));
 
-            var graphReplicaSets = currentConfig.ReplicaSets.Select(rsc =>
-                new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
+            var graphReplicaSets = currentConfig.ReplicaSets
+                .Select(rsc =>
+                    new GraphReplicaSetLowLevel(rsc.ReplicaSetName!, ConstructGraphs(rsc, neoEndpoints)));
 
             return new GraphClusterLowLevel(graphReplicaSets);
         }
 
         private IEnumerable<Graph> ConstructGraphs(ReplicaSetConfiguration replicaSetConfiguration, IEnumerable<NeoEndpoint> neoEndpoints)
         {
-            return replicaSetConfiguration.GraphInstances.Select((gic, index) =>
-                new Graph(neoEndpoints.First(ep => ep.Name == gic.Endpoint),
-                    gic.GraphName!,
-                    gic.DefaultGraph,
-                    index));
+            return replicaSetConfiguration.GraphInstances
+                .Where(gic => gic.Enabled)
+                .Select((gic, index) =>
+                    new Graph(
+                        neoEndpoints.First(ep => ep.Name == gic.Endpoint),
+                        gic.GraphName!,
+                        gic.DefaultGraph,
+                        index));
         }
     }
 }
