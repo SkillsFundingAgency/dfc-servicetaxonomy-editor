@@ -82,6 +82,56 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (bothSame, bothSame?"":$"content property value was '{contentItemFieldValue.ToString(CultureInfo.CurrentCulture)}', but node property value was '{nodePropertyValue}'");
         }
 
+        public (bool matched, string failureReason) ContentArrayPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode,
+            Func<JValue, object, bool> areBothSame)
+        {
+            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+
+            JArray? contentItemFieldArray = (JArray?)contentItemField?[contentKey];
+            if (contentItemFieldArray == null || contentItemFieldArray.Type == JTokenType.Null)
+            {
+                bool bothNull = nodePropertyValue == null;
+                return (bothNull, bothNull?"":"content property array was null, but node property array was not null");
+            }
+
+            if (nodePropertyValue == null)
+            {
+                return (false, "node property array was null, but content property array was not null");
+            }
+
+            IEnumerable<object> nodePropertyValues = (IEnumerable<object>)nodePropertyValue;
+
+            if (contentItemFieldArray.Count != nodePropertyValues.Count())
+            {
+                return (false, GenerateErrorMessage($"content property array has {contentItemFieldArray.Count} items, node property array has {nodePropertyValues.Count()} items"));
+            }
+
+            var areSame = contentItemFieldArray.Zip(nodePropertyValues, (cv, nv) => areBothSame((JValue)cv, nv));
+            if (areSame.Any(same => !same))
+                return (false, GenerateErrorMessage());
+
+            return (true, "");
+
+            string GenerateErrorMessage(string? prefix = null)
+            {
+                return $"{prefix}{(prefix!=null?": ":"")}content property array was '{string.Join(", ", contentItemFieldArray)}', but node property value was '{string.Join(", ", (IEnumerable<object>)nodePropertyValue)}'";
+            }
+        }
+
+        public (bool matched, string failureReason) StringArrayContentPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+        {
+            return ContentArrayPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
+                (contentValue, nodeValue) => nodeValue is string && Equals((string)contentValue!, nodeValue));
+        }
+
         public (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,

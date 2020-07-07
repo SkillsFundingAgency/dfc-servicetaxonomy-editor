@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             ContentTypePartDefinition contentTypePartDefinition,
             IGraphSyncHelper graphSyncHelper)
         {
-            mergeNodeCommand.AddProperty(NodeTitlePropertyName, content, _contentTitlePropertyName);
+            mergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
 
             return Task.CompletedTask;
         }
