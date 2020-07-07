@@ -9,7 +9,6 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFieldGraphSyncerTests
 {
-    //todo: factor out common code in tests
     public class NumericFieldGraphSyncer_AddSyncComponentsTests : FieldGraphSyncer_AddSyncComponentsTests
     {
         public NumericFieldSettings NumericFieldSettings { get; set; }
