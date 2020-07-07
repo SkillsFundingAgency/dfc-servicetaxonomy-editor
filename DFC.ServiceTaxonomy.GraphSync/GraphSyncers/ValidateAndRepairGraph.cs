@@ -173,14 +173,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ContentTypeDefinition contentTypeDefinition,
             DateTime lastSynced)
         {
-            (bool? latest, bool published) = contentItemVersion.ContentItemIndexFilterTerms;
+            (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
 
             return await _session
                 .Query<ContentItem, ContentItemIndex>(x =>
                     x.ContentType == contentTypeDefinition.Name
                     && (latest == null || x.Latest == latest)
-                    && x.Published == published
-                    && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+                    && (published == null || x.Published == published)
+                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
                 .ListAsync();
         }
 

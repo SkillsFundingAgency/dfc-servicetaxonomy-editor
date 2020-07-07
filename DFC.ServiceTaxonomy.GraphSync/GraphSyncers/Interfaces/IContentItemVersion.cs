@@ -7,7 +7,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     public interface IContentItemVersion
     {
         VersionOptions VersionOptions { get; }
-        (bool? latest, bool published) ContentItemIndexFilterTerms { get; }
+        (bool? latest, bool? published) ContentItemIndexFilterTerms { get; }
         string GraphReplicaSetName { get; }
 
         Task<ContentItem> GetContentItemAsync(IContentManager contentManager, string id);

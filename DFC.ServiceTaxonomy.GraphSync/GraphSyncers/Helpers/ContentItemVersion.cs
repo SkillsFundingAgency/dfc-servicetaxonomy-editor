@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     break;
                 case "draft":
                     VersionOptions = VersionOptions.Draft;
-                    ContentItemIndexFilterTerms = (true, false);
+                    ContentItemIndexFilterTerms = (true, null);
                     break;
                 default:
                     throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.");
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //     1        1        new (replacement) published version
         //     <Not Kept>        old (replaced) draft version
         //     1        0        new (replacement) draft version
-        public (bool? latest, bool published) ContentItemIndexFilterTerms { get; }
+        public (bool? latest, bool? published) ContentItemIndexFilterTerms { get; }
 
         //todo: static Published and Draft ContentItemVersions?
         // with GraphReplicaSetName property, used in ToString?
