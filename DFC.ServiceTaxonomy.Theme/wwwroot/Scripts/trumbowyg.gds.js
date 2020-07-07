@@ -16,9 +16,15 @@
             {name: 'h3', class: "govuk-heading-m"},
             {name: 'h4', class: "govuk-heading-s"}
         ],
-        fontWeights: [
-            {name: 'bold', class: 'govuk-!-font-weight-bold'},
-            {name: 'regular', class: 'govuk-!-font-weight-regular'}
+        fontSizes: [
+            {name: '14px', class: 'govuk-!-font-size-14'},
+            {name: '16px', class: 'govuk-!-font-size-16'},
+            {name: '19px', class: 'govuk-!-font-size-19'},
+            {name: '24px', class: 'govuk-!-font-size-24'},
+            {name: '27px', class: 'govuk-!-font-size-27'},
+            {name: '36px', class: 'govuk-!-font-size-36'},
+            {name: '48px', class: 'govuk-!-font-size-48'},
+            {name: '80px', class: 'govuk-!-font-size-80'},
         ]
     };
 
@@ -52,7 +58,6 @@
             gds: {
                 // Code called by Trumbowyg core to register the plugin
                 init: function (trumbowyg) {
-
                     //todo: we want to negate TheAdmin theme's css
                     //trumbowyg.o.resetCss = true;
 
@@ -61,6 +66,58 @@
                         defaultOptions,
                         trumbowyg.o.plugins.gds || {}
                     );
+
+                    trumbowyg.addBtnDef('sectionBreak', {
+                        dropdown: buildSectionBreaksDropdown(trumbowyg),
+                        title: 'Section Break',
+                        ico: 'horizontal-rule'
+                    });
+
+                    trumbowyg.addBtnDef('links', {
+                        dropdown: buildLinksDropdown(trumbowyg),
+                        ico: 'link',
+                        title: 'Link'
+                    });
+
+                    trumbowyg.addBtnDef('fontSize', {
+                        dropdown: buildFontSizesDropdown(trumbowyg),
+                        ico: 'fontsize',
+                        title: 'Font Size'
+                    });
+
+                    trumbowyg.addBtnDef('list', {
+                        text: 'List',
+                        //todo: better icon?
+                        ico: 'unordered-list',
+                        fn: function () {
+                            trumbowyg.execCmd('insertUnorderedList');
+
+                            var selection = trumbowyg.doc.getSelection();
+                            $(selection.focusNode).closest('ul').addClass("govuk-list");
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('bulletList', {
+                        text: 'Bulleted List',
+                        ico: 'unordered-list',
+                        fn: function () {
+                            trumbowyg.execCmd('insertUnorderedList');
+
+                            var selection = trumbowyg.doc.getSelection();
+                            $(selection.focusNode).closest('ul').addClass("govuk-list govuk-list--bullet");
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('numberList', {
+                        text: 'Numbered List',
+                        ico: 'ordered-list',
+                        fn: function () {
+                            trumbowyg.execCmd('insertOrderedList');
+
+                            var selection = trumbowyg.doc.getSelection();
+                            $(selection.focusNode).closest('ol').addClass("govuk-list govuk-list--number");
+                        }
+                    });
 
                     trumbowyg.addBtnDef('paragraph', {
                         dropdown: buildParagraphsDropdown(trumbowyg),
@@ -76,10 +133,14 @@
                     });
 
                     trumbowyg.addBtnDef('fontWeight', {
-                        dropdown: buildFontWeightsDropdown(trumbowyg),
                         ico: 'strong',
-                        title: trumbowyg.lang.fontWeight
+                        title: trumbowyg.lang.fontWeight,
+                        fn: function () {
+                            setFontWeightOrSize(trumbowyg, { name: 'bold', class: 'govuk-!-font-weight-bold' });
+                        }
                     });
+
+                    setColourTitles();
                 },
                 // Return a list of button names which are active on current element
                 tagHandler: function (element, trumbowyg) {
@@ -120,16 +181,124 @@
         $(selection.focusNode.parentNode).addClass(heading.class);
     }
 
-    // some browsers set <b>, some, <strong>, but semantic rewriting should convert to strong anyway
-    //todo: govuk-!-font-weight-bold can be set on other elements such as <p> and <span>, so we could be more clever in what we do
-    function setFontWeight(trumbowyg, fontWeight) {
-
-        trumbowyg.execCmd('formatBlock', fontWeight.name);
-
-        //todo: if heading.name == 'regular' replace <strong> with <span> containing class
+    function setFontWeightOrSize(trumbowyg, fontWeightOrSize) {
+        trumbowyg.$ed.focus();
+        trumbowyg.saveRange();
 
         var selection = trumbowyg.doc.getSelection();
-        $(selection.focusNode.parentNode).addClass(fontWeight.name);
+        var classSelector = fontWeightOrSize.class.substring(0, fontWeightOrSize.class.lastIndexOf('-'));
+        
+        if (trumbowyg.range.startOffset === trumbowyg.range.endOffset) {
+            //no text selection, add class to parent paragraph, remove it if it's already there
+            var $parent = $(selection.focusNode).closest('p');
+
+            if ($parent.hasClass(fontWeightOrSize.class)) {
+                $parent.removeClass(fontWeightOrSize.class);
+
+                if ($parent[0].className.trim().length === 0) {
+                    $parent.removeAttr('class');
+                }
+            } else {
+                $parent.removeClass(function (index, className) {
+                    return className.split(' ').filter(x => x.startsWith(classSelector)).join(' ');
+                }).addClass(fontWeightOrSize.class);
+
+                //remove any previously added span elements
+                $parent.find('span[class^="' + classSelector + '"').contents().unwrap();
+            }
+        } else {
+            //if the selection is a link, go up another level, so the link is always the inner most node
+            var node = selection.focusNode.parentNode.tagName === 'A' ?
+                selection.focusNode.parentNode :
+                selection.focusNode;
+
+            if (node.parentNode.tagName === 'SPAN') {
+                if ($(node.parentNode).hasClass(fontWeightOrSize.class)) {
+                    $(node.parentNode).removeClass(fontWeightOrSize.class);
+
+                    alert(node.parentNode.className.trim());
+
+                    if (node.parentNode.className.trim().length === 0) {
+                        $(node.parentNode).contents().unwrap();
+                    }
+                } else {
+                    $(node.parentNode).removeClass(function (index, className) {
+                        return className.split(' ').filter(x => x.startsWith(classSelector)).join(' ');
+                    }).addClass(fontWeightOrSize.class);
+                }
+            } else {
+                $(node).wrap('<span class="' + fontWeightOrSize.class + '"></span>');
+            }
+        }
+
+        trumbowyg.restoreRange();
+    }
+
+    function createLink(trumbowyg, openInNewTab) {
+        trumbowyg.$ed.focus();
+        trumbowyg.saveRange();
+
+        if (trumbowyg.range.startOffset !== trumbowyg.range.endOffset) {
+            var selection = trumbowyg.doc.getSelection();
+
+            var options = {
+                url: {
+                    label: 'URL',
+                    required: true,
+                    value: ''
+                }
+            };
+
+            if (selection.focusNode.parentNode.tagName === 'A') {
+                options.url.value = $(selection.focusNode.parentNode).attr('href');
+            }
+
+            trumbowyg.openModalInsert(openInNewTab ? 'Link in New Tab' : 'Link', options, function (v) {
+                var $link;
+
+                if (selection.focusNode.parentNode.tagName === 'A') {
+                    $link = $(selection.focusNode.parentNode);
+                    $link.attr('href', v.url);
+                } else {
+                    $link = $('<a href="' + v.url + '" class="govuk-link"></a>');
+                    $(selection.focusNode).wrap($link);
+                }
+
+                if (openInNewTab) {
+                    $link
+                        .attr('target', '_blank')
+                        .attr('rel', 'noreferrer noopener');
+                } else {
+                    $link
+                        .removeAttr('target')
+                        .removeAttr('rel', 'noreferrer noopener');
+                }
+
+                return true;
+            });
+        }
+
+        trumbowyg.restoreRange();
+    }
+
+    function createSectionBreak(trumbowyg, size, visible) {
+        trumbowyg.execCmd('insertHorizontalRule');
+
+        var classes = 'govuk-section-break';
+
+        if (size === 'm' || size === 'l' || size === 'xl') {
+            classes += ' govuk-section-break--' + size;
+        }
+
+        if (visible) {
+            classes += ' govuk-section-break--visible';
+        }
+
+        var selection = trumbowyg.doc.getSelection();
+
+        $(selection.anchorNode)
+            .find('hr')
+            .addClass(classes);
     }
 
     //todo: use this instead?
@@ -150,6 +319,122 @@
     //     }
     //     return parentEl;
     // }
+
+    function buildSectionBreaksDropdown(trumbowyg) {
+        trumbowyg.addBtnDef('defaultSectionBreak', {
+            text: 'Section Break',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 's', false);
+            }
+        });
+
+        trumbowyg.addBtnDef('defaultSectionBreakVisible', {
+            text: 'Section Break (Visible)',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 's', true);
+            }
+        });
+
+        trumbowyg.addBtnDef('mediumSectionBreak', {
+            text: 'Medium Section Break',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 'm', false);
+            }
+        });
+
+        trumbowyg.addBtnDef('mediumSectionBreakVisible', {
+            text: 'Medium Section Break (Visible)',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 'm', true);
+            }
+        });
+
+        trumbowyg.addBtnDef('largeSectionBreak', {
+            text: 'Large Section Break',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 'l', false);
+            }
+        });
+
+        trumbowyg.addBtnDef('largeSectionBreakVisible', {
+            text: 'Large Section Break (Visible)',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 'l', true);
+            }
+        });
+
+        trumbowyg.addBtnDef('xlargeSectionBreak', {
+            text: 'Extra-Large Section Break',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 'xl', false);
+            }
+        });
+
+        trumbowyg.addBtnDef('xlargeSectionBreakVisible', {
+            text: 'Extra-Large Section Break (Visible)',
+            ico: 'horizontal-rule',
+            fn: function () {
+                createSectionBreak(trumbowyg, 'xl', true);
+            }
+        });
+
+        return [
+            'defaultSectionBreak',
+            'defaultSectionBreakVisible',
+            'mediumSectionBreak',
+            'mediumSectionBreakVisible',
+            'largeSectionBreak',
+            'largeSectionBreakVisible',
+            'xlargeSectionBreak',
+            'xlargeSectionBreakVisible'
+        ];
+    }
+
+    function buildLinksDropdown(trumbowyg) {
+        trumbowyg.addBtnDef('createLink', {
+            text: 'Link',
+            ico: 'create-link',
+            fn: function () {
+                createLink(trumbowyg, false);
+            }
+        });
+
+        trumbowyg.addBtnDef('createNewTabLink', {
+            text: 'Link in New Tab',
+            //todo: find a suitable icon
+            ico: 'create-link',
+            fn: function () {
+                createLink(trumbowyg, true);
+            }
+        });
+
+        return ['createLink', 'createNewTabLink', 'unlink'];
+    }
+
+    function buildFontSizesDropdown(trumbowyg) {
+        var dropdown = [];
+
+        $.each(trumbowyg.o.plugins.gds.fontSizes, function (index, fontSize) {
+            trumbowyg.addBtnDef('fontSize_' + fontSize.name, {
+                text: '<span class="' + fontSize.class + '">' + fontSize.name + '</span>',
+                //todo: find a suitable icon
+                hasIcon: false,
+                fn: function () {
+                    setFontWeightOrSize(trumbowyg, fontSize);
+                }
+            });
+            dropdown.push('fontSize_' + fontSize.name);
+        });
+
+        return dropdown;
+    }
 
     function buildParagraphsDropdown(trumbowyg) {
         var dropdown = [];
@@ -192,24 +477,41 @@
         return dropdown;
     }
 
-    function buildFontWeightsDropdown(trumbowyg) {
-        var dropdown = [];
+    function setColourTitles() {
+        var colors = [
+            { code: '#0b0c0c', label: 'Primary Text, Active Links, Input Border, Focus Text State' },
+            { code: '#626a6e', label: 'Secondary Text' },
+            { code: '#1d70b8', label: 'Links, Brand colour' },
+            { code: '#003078', label: 'Hover Links' },
+            { code: '#4c2c92', label: 'Visited Links' },
+            { code: '#b1b4b6', label: 'Border' },
+            { code: '#ffdd00', label: 'Focus State' },
+            { code: '#d4351c', label: 'Error State' },
+            { code: '#003a69', label: 'DfE Brand' },
+            { code: '#347ca9', label: 'DfE Brand Websafe' },
+            { code: '#00703c', label: 'Green' },
+            { code: '#5694ca', label: 'Light Blue' },
+            { code: '#f3f2f1', label: 'Light Grey' },
+            { code: '#ffffff', label: 'White' },
+            { code: '#6f72af', label: 'Light Purple' },
+            { code: '#912b88', label: 'Bright Purple' },
+            { code: '#d53880', label: 'Pink' },
+            { code: '#f499be', label: 'Light Pink' },
+            { code: '#f47738', label: 'Orange' },
+            { code: '#b58840', label: 'Brown' },
+            { code: '#85994b', label: 'Light Green' },
+            { code: '#28a197', label: 'Turquoise' }
+        ]
 
-        $.each(trumbowyg.o.plugins.gds.fontWeights, function (index, fontWeight) {
-            var buttonName = 'fontWeight_' + fontWeight.name;
-            trumbowyg.addBtnDef(buttonName, {
-                text: '<span>' + (trumbowyg.lang.fontWeights[fontWeight.name] || fontWeight.name) + '</span>',
-                //todo: add icon to fontWeight, find one suitable for regular
-                ico: 'strong',
-                tag: 'strong',
-                fn: function () {
-                    setFontWeight(trumbowyg, fontWeight);
+        //need to allow time for the editor to initialise, there doesn't seem to be a callback we can hook into unfortunately.
+        setTimeout(function () {
+            $('.trumbowyg-dropdown-foreColor button, .trumbowyg-dropdown-backColor button').each(function () {
+                var color = colors.find(x => x.code === $(this).text());
+
+                if (color) {
+                    $(this).attr('title', color.label);
                 }
             });
-            dropdown.push(buttonName);
-        });
-
-        return dropdown;
+        }, 500);
     }
-
 })(jQuery);
