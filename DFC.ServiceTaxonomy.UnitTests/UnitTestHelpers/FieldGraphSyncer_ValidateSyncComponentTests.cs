@@ -13,6 +13,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
 {
+    //todo: some tests are basically common - move into here
     public class FieldGraphSyncer_ValidateSyncComponentTests
     {
         public JObject ContentItemField { get; set; }
