@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using FakeItEasy;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -31,7 +29,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
         public IGraphMergeContext GraphMergeContext { get; set; }
 
         public IContentFieldGraphSyncer? ContentFieldGraphSyncer { get; set; }
-        public ILogger<ContentPickerFieldGraphSyncer> Logger { get; set; }
 
         public const string _fieldName = "TestField";
 
@@ -68,8 +65,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
             A.CallTo(() => GraphMergeContext.ContentItemVersion).Returns(ContentItemVersion);
             A.CallTo(() => GraphMergeContext.ContentTypePartDefinition).Returns(ContentTypePartDefinition);
             A.CallTo(() => GraphMergeContext.ContentPartFieldDefinition).Returns(ContentPartFieldDefinition);
-
-            Logger = A.Fake<ILogger<ContentPickerFieldGraphSyncer>>();
         }
 
         public async Task CallAddSyncComponents()
