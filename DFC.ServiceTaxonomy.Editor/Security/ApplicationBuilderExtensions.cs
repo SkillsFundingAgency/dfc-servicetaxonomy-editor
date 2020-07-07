@@ -30,7 +30,8 @@ namespace DFC.ServiceTaxonomy.Editor.Security
                         .AllowUnsafeInline()
                         .From("fonts.googleapis.com")
                         .From("code.jquery.com")
-                        .From("cdn.jsdelivr.net");
+                        .From("cdn.jsdelivr.net")
+                        .From("cdnjs.cloudflare.com");
 
                     csp.AllowImages.FromSelf()
                         .DataScheme();
