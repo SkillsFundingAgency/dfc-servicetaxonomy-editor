@@ -48,9 +48,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
 
             // GetAsync should be returning ContentItem? as it can be null
+            //todo: think just getting the latest should be fine, we only use them for the id, which should be the same whether draft or published
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
-                contentItemIds.Select(async contentItemId =>
-                    await context.ContentManager.GetAsync(contentItemId, VersionOptions.Latest));
+                contentItemIds.Select(async contentItemId =>    //todo: add method to context?
+                    await context.ContentItemVersion.GetContentItemAsync(context.ContentManager, contentItemId));
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
@@ -95,7 +96,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string contentItemId = (string)item!;
 
-                ContentItem destinationContentItem = await context.ContentManager.GetAsync(contentItemId);
+                ContentItem destinationContentItem = await context.ContentItemVersion.GetContentItemAsync(
+                    context.ContentManager, contentItemId);
 
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = context.GraphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
