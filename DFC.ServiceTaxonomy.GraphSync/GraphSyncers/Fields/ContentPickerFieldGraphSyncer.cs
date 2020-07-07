@@ -49,6 +49,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             // GetAsync should be returning ContentItem? as it can be null
             //todo: think just getting the latest should be fine, we only use them for the id, which should be the same whether draft or published
+            // but if saving a published item which has references to draft content items, then draft item won't be in the published graph
+            // need to decide between...
+            // * don't create relationships from a pub to draft items, then when a draft item is published, query the draft graph for incoming relationships, and create those incoming relationships on the newly published item in the published graph
+            // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
                 contentItemIds.Select(async contentItemId =>    //todo: add method to context?
                     await context.ContentItemVersion.GetContentItemAsync(context.ContentManager, contentItemId));
