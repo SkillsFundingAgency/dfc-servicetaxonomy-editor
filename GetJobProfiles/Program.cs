@@ -135,7 +135,6 @@ namespace GetJobProfiles
 
             const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
-
             string whereClause = "";
             string occupationMatch = "";
             int totalOccupations = 2942;
@@ -173,6 +172,7 @@ namespace GetJobProfiles
             }
 
             const string cypherToContentRecipesPath = "CypherToContentRecipes";
+
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", totalOccupationLabels, tokens);
             await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", totalSkillLabels, tokens);
 
