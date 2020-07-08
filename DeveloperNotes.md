@@ -10,7 +10,6 @@
 * draft/pub
  visualizer: show draft/pub buttons
  query runner: pick draft/pub through ui?
- graph lookup - ?
 if use property to cloak draft items in published graph, have standard user defined procedure to filter out cloaked items
 <story> add story for 'Delete Field From Graph' workflow
   current behaviour is wrong anyway.
