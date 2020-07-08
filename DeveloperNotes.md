@@ -8,12 +8,14 @@
 * Page Location > add alias part for uri, title as display text
 
 * draft/pub
- content picker preview - show draft only preview
- visualizer: show draft/pub
- query runner: pick draft/pub
- validate results: rejig
- graph lookup - ??
+ visualizer: show draft/pub buttons
+ query runner: pick draft/pub through ui?
+ graph lookup - ?
 if use property to cloak draft items in published graph, have standard user defined procedure to filter out cloaked items
+<story> add story for 'Delete Field From Graph' workflow
+  current behaviour is wrong anyway.
+  when field is removed from content type, all items of that content type are currently published (even if there is only currently a draft version).
+  needs to update published items and update draft items
 
 * use graph clustering algorithms to pick out real user groupings, and potentially match then to personas (or discover new ones)
 
