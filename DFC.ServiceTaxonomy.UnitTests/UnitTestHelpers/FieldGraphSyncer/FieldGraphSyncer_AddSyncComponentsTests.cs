@@ -10,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
+namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
 {
     //todo: inheritance or composition?
     public class FieldGraphSyncer_AddSyncComponentsTests

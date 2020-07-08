@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
+namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
 {
     //todo: some tests are basically common - move into here
     public class FieldGraphSyncer_ValidateSyncComponentTests

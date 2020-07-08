@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers;
+using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using Xunit;

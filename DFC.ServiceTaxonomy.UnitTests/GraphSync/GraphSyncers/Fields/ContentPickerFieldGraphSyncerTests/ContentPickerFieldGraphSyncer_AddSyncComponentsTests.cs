@@ -1,5 +1,5 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers;
+using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentFields.Settings;
