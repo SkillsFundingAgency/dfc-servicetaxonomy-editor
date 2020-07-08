@@ -9,8 +9,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 {
     public class HtmlBodyPartGraphSyncer_ValidateSyncComponentTests : PartGraphSyncer_ValidateSyncComponentTests
     {
-        const string ContentKey = "Html";
-        const string NodeTitlePropertyName = "htmlbody_Html";
+        public const string ContentKey = "Html";
+        public const string NodeTitlePropertyName = "htmlbody_Html";
 
         public HtmlBodyPartGraphSyncer_ValidateSyncComponentTests()
         {

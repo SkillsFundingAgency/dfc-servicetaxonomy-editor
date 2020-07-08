@@ -9,8 +9,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLa
 {
     public class UnpublishLaterPartGraphSyncer_ValidateSyncComponentTests : PartGraphSyncer_ValidateSyncComponentTests
     {
-        const string ContentKey = "ScheduledUnpublishUtc";
-        const string NodeTitlePropertyName = "unpublishlater_ScheduledUnpublishUtc";
+        public const string ContentKey = "ScheduledUnpublishUtc";
+        public const string NodeTitlePropertyName = "unpublishlater_ScheduledUnpublishUtc";
 
         public UnpublishLaterPartGraphSyncer_ValidateSyncComponentTests()
         {

@@ -9,8 +9,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
 {
     public class PublishLaterPartGraphSyncer_ValidateSyncComponentTests : PartGraphSyncer_ValidateSyncComponentTests
     {
-        const string ContentKey = "ScheduledPublishUtc";
-        const string NodeTitlePropertyName = "publishlater_ScheduledPublishUtc";
+        public const string ContentKey = "ScheduledPublishUtc";
+        public const string NodeTitlePropertyName = "publishlater_ScheduledPublishUtc";
 
         public PublishLaterPartGraphSyncer_ValidateSyncComponentTests()
         {
