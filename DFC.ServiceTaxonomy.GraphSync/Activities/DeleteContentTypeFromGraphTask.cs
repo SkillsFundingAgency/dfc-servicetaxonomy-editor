@@ -48,7 +48,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 typeToDelete = GetTypeFromWorkflowContext(workflowContext);
 
                 //Delete all nodes by type
-                await _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Published, typeToDelete);
+                await Task.WhenAll(
+                    _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Published, typeToDelete),
+                    _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Draft, typeToDelete));
                 return Outcomes("Done");
             }
             catch (Exception)
