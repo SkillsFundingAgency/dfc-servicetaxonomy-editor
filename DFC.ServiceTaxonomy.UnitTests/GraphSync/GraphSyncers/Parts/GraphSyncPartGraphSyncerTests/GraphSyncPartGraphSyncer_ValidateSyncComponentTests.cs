@@ -9,8 +9,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
 {
     public class GraphSyncPartGraphSyncer_ValidateSyncComponentTests : PartGraphSyncer_ValidateSyncComponentTests
     {
-        const string ContentIdPropertyName = "Text";
-        const string NodeTitlePropertyName = "skos__prefLabel";
+        public const string ContentIdPropertyName = "Text";
+        public const string NodeTitlePropertyName = "skos__prefLabel";
 
         public GraphSyncPartGraphSyncer_ValidateSyncComponentTests()
         {

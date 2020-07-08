@@ -9,8 +9,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
 {
     public class AutoroutePartGraphSyncer_ValidateSyncComponentTests : PartGraphSyncer_ValidateSyncComponentTests
     {
-        const string ContentKey = "Path";
-        const string NodeTitlePropertyName = "autoroute_path";
+        public const string ContentKey = "Path";
+        public const string NodeTitlePropertyName = "autoroute_path";
 
         public AutoroutePartGraphSyncer_ValidateSyncComponentTests()
         {
