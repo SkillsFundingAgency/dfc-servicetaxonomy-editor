@@ -44,7 +44,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer
 
             GraphReplicaSet = A.Fake<IGraphReplicaSet>();
 
-            //todo: this isn't going to work!
             ContentItem = A.Fake<ContentItem>();
             ContentManager = A.Fake<IContentManager>();
             ContentItemVersion = A.Fake<IContentItemVersion>();
