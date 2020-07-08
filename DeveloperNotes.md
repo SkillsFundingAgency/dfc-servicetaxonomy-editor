@@ -1,5 +1,7 @@
 #ToDo
 
+* add link to edit failed item in validate page
+
 * looks like we have an exemption from gds to be able to use different colours (see https://skillsfundingagency.atlassian.net/wiki/spaces/DFC/pages/1998946687/GDS+toolkit+flexibility+exemption+-+EW+JT)
    update html editor
 
