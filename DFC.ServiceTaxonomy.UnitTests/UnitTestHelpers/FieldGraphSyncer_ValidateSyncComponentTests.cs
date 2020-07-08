@@ -30,8 +30,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
         public IValidateAndRepairGraph ValidateAndRepairGraph { get; set; }
         public IValidateAndRepairContext ValidateAndRepairContext { get; set; }
 
-        public const string _fieldNameBase = "baseFieldName";
-        public const string _fieldNameTransformed = "transformedFieldName";
+        public const string FieldNameBase = "baseFieldName";
+        public const string FieldNameTransformed = "transformedFieldName";
 
         public FieldGraphSyncer_ValidateSyncComponentTests()
         {
@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
 
             ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
-            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldNameBase);
+            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(FieldNameBase);
 
             ContentManager = A.Fake<IContentManager>();
 
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers
             A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
 
             GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldNameBase)).Returns(_fieldNameTransformed);
+            A.CallTo(() => GraphSyncHelper.PropertyName(FieldNameBase)).Returns(FieldNameTransformed);
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 

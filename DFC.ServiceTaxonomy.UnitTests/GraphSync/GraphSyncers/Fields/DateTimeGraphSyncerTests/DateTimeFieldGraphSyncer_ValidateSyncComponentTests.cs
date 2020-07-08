@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.DateTimeFi
             A.CallTo(() => GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 ContentKey,
                 A<JObject>._,
-                _fieldNameTransformed,
+                FieldNameTransformed,
                 SourceNode)).Returns((dateTimeMatches, ""));
 
             (bool validated, _) = await CallValidateSyncComponent();

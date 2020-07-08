@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.TextFieldG
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 A<JObject>._,
-                _fieldNameTransformed,
+                FieldNameTransformed,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
             (bool validated, _) = await CallValidateSyncComponent();
