@@ -13,8 +13,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer
 {
     public class PartGraphSyncer_AddSyncComponentsTests
     {
-        //todo: remove nullable?
-        public JObject? Content { get; set; }
+        public JObject Content { get; set; }
         public ContentItem ContentItem { get; set; }
         public IMergeNodeCommand MergeNodeCommand { get; set; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
