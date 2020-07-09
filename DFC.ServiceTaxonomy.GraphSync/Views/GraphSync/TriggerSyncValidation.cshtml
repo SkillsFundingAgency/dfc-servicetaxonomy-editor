@@ -66,14 +66,14 @@
 
                 @* copying thead-light *@
                 <li class="list-group-item" style=" color: #495057; background-color: #e9ecef;">
-                    Instance: #<strong>@graphResult.GraphInstance</strong> (Endpoint: '<strong>@graphResult.EndpointName</strong>', Graph: '<strong>@graphResult.GraphName</strong>'@if(graphResult.DefaultGraph){<text>*</text>})
+                    Instance: #<strong>@graphResult.GraphInstance</strong>, Endpoint: '<strong>@graphResult.EndpointName</strong>', Graph: '<strong>@graphResult.GraphName</strong>'@if(graphResult.DefaultGraph){<text>*</text>}
                 </li>
 
-                <li href="#validated" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <li href="#validated-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                     <span><i class="fas fa-chevron-right fa-fw"></i> Validated</span>
                     <span class="badge badge-pill badge-primary">@graphResult.Validated.Count</span>
                 </li>
-                <ul class="list-group collapse" id="validated">
+                <ul class="list-group collapse" id="validated-@graphResult.EndpointName-@graphResult.GraphName">
                     @foreach (ContentItem contentItem in graphResult.Validated)
                     {
                         <li href="#" class="list-group-item d-flex justify-content-between align-items-center">
@@ -93,11 +93,11 @@
                     }
                 </ul>
 
-                <li href="#failed-validation" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <li href="#failed-validation-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                     <span><i class="fas fa-chevron-right fa-fw"></i> Failed Validation</span>
                     <span class="badge badge-pill badge-primary">@graphResult.ValidationFailures.Count</span>
                 </li>
-                <ul class="list-group collapse" id="failed-validation">
+                <ul class="list-group collapse" id="failed-validation-@graphResult.EndpointName-@graphResult.GraphName">
                     @foreach (ValidationFailure validationFailure in graphResult.ValidationFailures)
                     {
                         <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
@@ -111,22 +111,22 @@
                     }
                 </ul>
 
-                <li href="#repaired" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <li href="#repaired-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                     <span><i class="fas fa-chevron-right fa-fw"></i> Repaired</span>
                     <span class="badge badge-pill badge-primary">@graphResult.Repaired.Count</span>
                 </li>
-                <ul class="list-group collapse" id="repaired">
+                <ul class="list-group collapse" id="repaired-@graphResult.EndpointName-@graphResult.GraphName">
                     @foreach (ContentItem contentItem in graphResult.Repaired)
                     {
                         <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.DisplayText @contentItem.ContentItemId</li>
                     }
                 </ul>
 
-                <li href="#repair-failed" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
+                <li href="#repair-failed-@graphResult.EndpointName-@graphResult.GraphName" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                     <span><i class="fas fa-chevron-right fa-fw"></i> Repair Failed</span>
                     <span class="badge badge-pill badge-primary">@graphResult.RepairFailures.Count</span>
                 </li>
-                <ul class="list-group collapse" id="repair-failed">
+                <ul class="list-group collapse" id="repair-failed-@graphResult.EndpointName-@graphResult.GraphName">
                     @foreach (RepairFailure repairFailure in graphResult.RepairFailures)
                     {
                         <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
