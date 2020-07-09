@@ -11,12 +11,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         public bool DefaultGraph { get; }
         public int Instance { get; }
         public IGraphReplicaSetLowLevel GraphReplicaSetLowLevel { get; internal set; }
-
-        private readonly INeoEndpoint _endpoint;
+        public INeoEndpoint Endpoint { get; }
 
         public Graph(INeoEndpoint endpoint, string graphName, bool defaultGraph, int instance)
         {
-            _endpoint = endpoint;
+            Endpoint = endpoint;
             GraphName = graphName;
             DefaultGraph = defaultGraph;
             Instance = instance;
@@ -27,12 +26,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         public Task<List<T>> Run<T>(IQuery<T> query)
         {
-            return _endpoint.Run(query, GraphName, DefaultGraph);
+            return Endpoint.Run(query, GraphName, DefaultGraph);
         }
 
         public Task Run(params ICommand[] commands)
         {
-            return _endpoint.Run(commands, GraphName, DefaultGraph);
+            return Endpoint.Run(commands, GraphName, DefaultGraph);
         }
 
         public IGraphReplicaSetLowLevel GetReplicaSetLimitedToThisGraph()

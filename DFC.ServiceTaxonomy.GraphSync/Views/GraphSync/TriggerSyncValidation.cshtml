@@ -51,7 +51,7 @@
         foreach (var graphResult in Model.ValidateAndRepairResults.GraphInstanceResults)
         {
             //todo: add an extra 2 top levels for set & instance?
-            <div class="display-4">Replica set: '@graphResult.GraphReplicaSetName', instance: #@graphResult.GraphInstance (Graph: '@graphResult.GraphName'@if(graphResult.DefaultGraph){<text>*</text>}</div>
+            <div class="display-4">Replica set: '@graphResult.GraphReplicaSetName', instance: #@graphResult.GraphInstance (Endpoint: '@graphResult.EndpointName', Graph: '@graphResult.GraphName'@if(graphResult.DefaultGraph){<text>*</text>}</div>
 
             // would have thought that embedded ul should be wrapped in li, but that doesn't seem to work -> check other browsers
             <ul id="results" class="list-group">

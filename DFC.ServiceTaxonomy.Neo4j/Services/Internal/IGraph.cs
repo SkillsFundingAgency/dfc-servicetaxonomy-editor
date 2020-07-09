@@ -11,6 +11,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         bool DefaultGraph { get; }
         int Instance { get; }
         IGraphReplicaSetLowLevel GraphReplicaSetLowLevel { get; }
+        INeoEndpoint Endpoint { get; }
 
         Task<List<T>> Run<T>(IQuery<T> query);
         Task Run(params ICommand[] commands);

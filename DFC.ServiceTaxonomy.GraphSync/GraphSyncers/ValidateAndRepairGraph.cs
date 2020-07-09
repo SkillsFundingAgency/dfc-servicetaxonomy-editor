@@ -84,9 +84,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 {
                     ValidateAndRepairResult result = new ValidateAndRepairResult(
                         graphReplicaSetName,
+                        graph.Instance,
+                        graph.Endpoint.Name,
                         graph.GraphName,
-                        graph.DefaultGraph,
-                        graph.Instance);
+                        graph.DefaultGraph);
                     results.GraphInstanceResults.Add(result);
 
                     // make current graph available for when parts/fields call back into ValidateContentItem
