@@ -1,5 +1,7 @@
 #ToDo
 
+* taxonomy sync: the different settings (hierarchical taxonomy) gets stored without TaxonomyPart in the content, but with the taconomy part's Terms directly in the content root (and that content item can have a terms conrtent item too)
+
 * add link to edit failed item in validate page
 
 * looks like we have an exemption from gds to be able to use different colours (see https://skillsfundingagency.atlassian.net/wiki/spaces/DFC/pages/1998946687/GDS+toolkit+flexibility+exemption+-+EW+JT)
