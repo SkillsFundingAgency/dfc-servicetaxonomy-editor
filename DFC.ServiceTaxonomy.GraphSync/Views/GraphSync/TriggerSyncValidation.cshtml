@@ -14,8 +14,8 @@
 
     if (!validations && !validationFailures)
     {
-        <h3 class="display-4 text-center">No new or modified content items since</h3>
-        <h3 class="display-4 text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</h3>
+        <h3 class="text-center">No new or modified content items since</h3>
+        <h3 class="text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</h3>
 
         ShowThumb(true);
     }
@@ -77,18 +77,7 @@
                     @foreach (ContentItem contentItem in graphResult.Validated)
                     {
                         <li href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            <span><a href="/Admin/Contents/ContentItems/@(contentItem.ContentItemId)/Edit">
-                                <strong>
-                                    @if (string.IsNullOrWhiteSpace(contentItem.DisplayText))
-                                    {
-                                        <text>Id (No Title): @contentItem.ContentItemId</text>
-                                    }
-                                    else
-                                    {
-                                        <text>'@contentItem.DisplayText'</text>
-                                    }
-                                </strong>
-                            </a> (<strong>@contentItem.ContentType</strong>)</span>
+                            @{ ShowContentItem(contentItem); }
                         </li>
                     }
                 </ul>
@@ -102,7 +91,7 @@
                     {
                         <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                             @* todo: user id in results *@
-                            <span><i class="fas fa-chevron-right fa-fw"></i> @validationFailure.ContentItem.ContentType @validationFailure.ContentItem.ContentItemId</span>
+                            <span><i class="fas fa-chevron-right fa-fw"></i> @{ ShowContentItem(validationFailure.ContentItem); }</span>
                         </li>
 
                         <ul class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
@@ -118,7 +107,7 @@
                 <ul class="list-group collapse" id="repaired-@graphResult.EndpointName-@graphResult.GraphName">
                     @foreach (ContentItem contentItem in graphResult.Repaired)
                     {
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center">@contentItem.ContentType @contentItem.DisplayText @contentItem.ContentItemId</li>
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center"> @{ ShowContentItem(contentItem); }</li>
                     }
                 </ul>
 
@@ -131,7 +120,7 @@
                     {
                         <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                             @* todo: user id in results *@
-                            <span><i class="fas fa-chevron-right fa-fw"></i> @repairFailure.ContentItem.ContentType @repairFailure.ContentItem.ContentItemId</span>
+                            <span><i class="fas fa-chevron-right fa-fw"></i> @{ ShowContentItem(repairFailure.ContentItem); }</span>
                         </li>
 
                         <ul class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
@@ -156,5 +145,21 @@
         {
             <div class="display-1 text-center" style="color: darkred"><i class="far fa-thumbs-down"></i></div>
         }
+    }
+
+    private void ShowContentItem(ContentItem contentItem)
+    {
+        <span><a href="/Admin/Contents/ContentItems/@(contentItem.ContentItemId)/Edit">
+            <strong>
+                @if (string.IsNullOrWhiteSpace(contentItem.DisplayText))
+                {
+                    <text>Id (No Title): @contentItem.ContentItemId</text>
+                }
+                else
+                {
+                    <text>'@contentItem.DisplayText'</text>
+                }
+            </strong>
+        </a> (<strong>@contentItem.ContentType</strong>)</span>
     }
 }
