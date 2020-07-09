@@ -98,10 +98,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                     foreach (ContentTypeDefinition contentTypeDefinition in syncableContentTypeDefinitions)
                     {
-                        //todo: validate & repair on instance
-                        //todo: remove endpoint from individual validate syncers
-                        //todo: update visualizer to have results per graph
-                        //todo: why isn't this returning ValidateAndRepairResult
                         List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(
                             contentItemVersion,
                             contentTypeDefinition,
