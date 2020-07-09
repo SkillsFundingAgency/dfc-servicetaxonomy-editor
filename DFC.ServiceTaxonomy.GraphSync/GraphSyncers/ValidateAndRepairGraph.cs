@@ -75,6 +75,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var results = new ValidateAndRepairResults(auditSyncLog.LastSynced);
 
+            //todo: we could optimise to only get content items from the oc database once for each replica set,
+            // rather than for each instance
             foreach (string graphReplicaSetName in graphReplicaSetNamesToValidate)
             {
                 IGraphReplicaSetLowLevel graphReplicaSetLowLevel = _graphClusterLowLevel.GetGraphReplicaSetLowLevel(graphReplicaSetName);
@@ -82,13 +84,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 foreach (IGraph graph in graphReplicaSetLowLevel.GraphInstances)
                 {
-                    ValidateAndRepairResult result = new ValidateAndRepairResult(
+                    ValidateAndRepairResult result = results.AddNewValidateAndRepairResult(
                         graphReplicaSetName,
                         graph.Instance,
                         graph.Endpoint.Name,
                         graph.GraphName,
                         graph.DefaultGraph);
-                    results.GraphInstanceResults.Add(result);
 
                     // make current graph available for when parts/fields call back into ValidateContentItem
                     // seems a little messy, and will make concurrent validation a pita,
@@ -112,18 +113,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         }
                     }
                 }
-
-                //todo: move into results
-                var repairFailures = results.GraphInstanceResults.SelectMany(r => r.RepairFailures);
-                if (!repairFailures.Any())
-                {
-                    _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
-
-                    auditSyncLog.LastSynced = timestamp;
-                    _session.Save(auditSyncLog);
-                    await _session.CommitAsync();
-                }
             }
+
+            if (results.AnyRepairFailures)
+                return results;
+
+            _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
+
+            auditSyncLog.LastSynced = timestamp;
+            _session.Save(auditSyncLog);
+            await _session.CommitAsync();
 
             return results;
         }
@@ -183,7 +182,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     x.ContentType == contentTypeDefinition.Name
                     && (latest == null || x.Latest == latest)
                     && (published == null || x.Published == published)
-                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+                    && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
                 .ListAsync();
         }
 
