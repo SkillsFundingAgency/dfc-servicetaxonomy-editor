@@ -10,7 +10,7 @@ Commands are sent to all configured graphs, whilst queries are round-robined.
 
 ### Config
 
-Example local (Enterprise edition) config for 2 replica sets of 1 graph instance each.
+Example appsettings.Development.json (Enterprise edition) config for 2 replica sets of 2 graph instance each.
 
 ```
     "Neo4j": {
@@ -19,7 +19,17 @@ Example local (Enterprise edition) config for 2 replica sets of 1 graph instance
                 "Name": "desktop_enterprise",
                 "Uri": "bolt://localhost:7687",
                 "Username": "neo4j",
-                "Password": "ESCO"
+                "Password": "ESCO",
+                "Enabled": true
+            },
+            {
+                "Enabled": false
+            },
+            {
+                "Enabled": false
+            },
+            {
+                "Enabled": false
             }
         ],
         "ReplicaSets": [
@@ -29,22 +39,74 @@ Example local (Enterprise edition) config for 2 replica sets of 1 graph instance
                     {
                         "Endpoint": "desktop_enterprise",
                         "GraphName": "neo4j",
-                        "DefaultGraph": true
+                        "DefaultGraph": true,
+                        "Enabled": true
+                    },
+                    {
+                        "Endpoint": "desktop_enterprise",
+                        "GraphName": "published1",
+                        "DefaultGraph": false,
+                        "Enabled": true
                     }
                 ]
             },
             {
-                "ReplicaSetName": "draft",
+                "ReplicaSetName": "preview",
                 "GraphInstances": [
                     {
                         "Endpoint": "desktop_enterprise",
-                        "GraphName": "draft",
-                        "DefaultGraph": false
+                        "GraphName": "preview0",
+                        "DefaultGraph": false,
+                        "Enabled": true
+                    },
+                    {
+                        "Endpoint": "desktop_enterprise",
+                        "GraphName": "preview1",
+                        "DefaultGraph": false,
+                        "Enabled": true
                     }
                 ]
             }
         ]
     }
+```
+
+Note: when transforming arrays in appsettings.json with environment appsettings files, you need to provide an array instance for every instance in the base appsettings.json file. See this [page](https://rimdev.io/avoiding-aspnet-core-configuration-pitfalls-with-array-values/) for more details.
+
+The example above has an extra 3 endpoints set to `"Enabled": false`, because the base `appsettings.json` has 4 endpoints...
+
+```
+    "Neo4j": {
+        "Endpoints": [
+            {
+                "Name": "published_instance_0",
+                "Uri": "__Neo4jUrl__",
+                "Username": "__Neo4jUser__",
+                "Password": "__Neo4jPassword__",
+                "Enabled": "<DEVOPS_TODO>"
+            },
+            {
+                "Name": "published_instance_1",
+                "Uri": "<DEVOPS_TODO>",
+                "Username": "<DEVOPS_TODO>",
+                "Password": "<DEVOPS_TODO>",
+                "Enabled": "<DEVOPS_TODO>"
+            },
+            {
+                "Name": "preview_instance_0",
+                "Uri": "<DEVOPS_TODO>",
+                "Username": "<DEVOPS_TODO>",
+                "Password": "<DEVOPS_TODO>",
+                "Enabled": "<DEVOPS_TODO>"
+            },
+            {
+                "Name": "preview_instance_1",
+                "Uri": "<DEVOPS_TODO>",
+                "Username": "<DEVOPS_TODO>",
+                "Password": "<DEVOPS_TODO>",
+                "Enabled": "<DEVOPS_TODO>"
+            }
+        ],
 ```
 
 ### Add Services
