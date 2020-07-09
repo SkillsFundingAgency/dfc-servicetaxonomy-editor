@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -29,7 +30,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
         public GraphCluster Build(Action<Neo4jOptions>? configure = null)
         {
             Neo4jOptions? currentConfig = _neo4JConfigurationOptions.CurrentValue;
-            //todo: null
             //todo: ok to mutate returned CurrentValue?
             //todo: pass back builder
             configure?.Invoke(currentConfig);
@@ -38,7 +38,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             // TrustStrategy
             //o=>o.WithEncryptionLevel(EncryptionLevel.None));
 
-            //todo: throw nice exceptions on missing config
+            if (!currentConfig.Endpoints.Any())
+                throw new ConfigurationErrorsException($"No endpoints configured.");
 
             var neoEndpoints = currentConfig.Endpoints
                 .Where(epc => epc.Enabled)
@@ -50,6 +51,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                             epc.Uri,
                             AuthTokens.Basic(epc.Username, epc.Password),
                             o => o.WithLogger(_logger))));
+
+            if (!currentConfig.ReplicaSets.Any())
+                throw new ConfigurationErrorsException($"No replica sets configured.");
 
             var graphReplicaSets = currentConfig.ReplicaSets
                 .Select(rsc =>
