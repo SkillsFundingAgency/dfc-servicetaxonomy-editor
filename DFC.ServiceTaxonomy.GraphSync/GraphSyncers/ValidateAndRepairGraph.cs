@@ -84,6 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 {
                     ValidateAndRepairResult result = new ValidateAndRepairResult(
                         graphReplicaSetName,
+                        graph.GraphName,
+                        graph.DefaultGraph,
                         graph.Instance);
                     results.GraphInstanceResults.Add(result);
 

@@ -60,5 +60,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             return contentItem ?? await contentManager.GetAsync(id, VersionOptions.Published);
         }
+
+        // ?
+        // public IGraphReplicaSet GraphReplicaSet(IGraphCluster graphCluster)
+        // {
+        //     return graphCluster.GetGraphReplicaSet(GraphReplicaSetName);
+        // }
     }
 }
