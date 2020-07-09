@@ -11,7 +11,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 {
     public class GraphCluster : IGraphCluster
     {
-        //todo: best type of dic?
         private protected readonly ImmutableDictionary<string, IGraphReplicaSetLowLevel> _graphReplicaSets;
 
         public IEnumerable<string> GraphReplicaSetNames => _graphReplicaSets.Keys;

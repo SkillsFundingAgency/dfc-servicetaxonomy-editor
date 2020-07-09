@@ -29,7 +29,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         private int _currentInstance;
 
-        //todo: remove instance param here
         public Task<List<T>> Run<T>(IQuery<T> query)
         {
             // round robin might select wrong graph after overflow, but everything will still work
@@ -39,11 +38,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             return _graphInstances[instance].Run(query);
         }
 
-        // alternative is to expose IGraph instances, so validate doesn't have to use for loop
-        // but want to keep IGraph hidden from consumers, to allow more freedom for refactoring
-        // (and validate is low-level anyway).
-        // would be nice to hide low-level options like running a command against a particular instance
-        // from normal consumers to stop them fscking up, using something like c++ friends
         public Task Run(params ICommand[] commands)
         {
             if (_limitToGraphInstance != null)
