@@ -199,7 +199,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                //todo: need to sync to _currentGraph, not replica set
                 IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
                 await mergeGraphSyncer.SyncToGraphReplicaSet(graphReplicaSet, failure.ContentItem, _contentManager);
 
