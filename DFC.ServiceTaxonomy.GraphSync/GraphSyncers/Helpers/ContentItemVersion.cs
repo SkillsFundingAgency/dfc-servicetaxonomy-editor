@@ -8,19 +8,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     public class ContentItemVersion : IContentItemVersion
     {
         //todo: private ctor that takes 3 args?
-        private static ContentItemVersion Published => new ContentItemVersion("published");
-        private static ContentItemVersion Draft => new ContentItemVersion("draft");
+        public static ContentItemVersion Published => new ContentItemVersion(GraphReplicaSetNames.Published);
+        public static ContentItemVersion Preview => new ContentItemVersion(GraphReplicaSetNames.Preview);
 
         public ContentItemVersion(string graphReplicaSetName)
         {
             GraphReplicaSetName = graphReplicaSetName;
             switch (graphReplicaSetName)
             {
-                case "published":
+                case GraphReplicaSetNames.Published:
                     VersionOptions = VersionOptions.Published;
                     ContentItemIndexFilterTerms = (null, true);
                     break;
-                case "draft":
+                case GraphReplicaSetNames.Preview:
                     VersionOptions = VersionOptions.Draft;
                     ContentItemIndexFilterTerms = (true, null);
                     break;
@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public async Task<ContentItem> GetContentItemAsync(IContentManager contentManager, string id)
         {
             ContentItem? contentItem = null;
-            if (GraphReplicaSetName == "draft")
+            if (GraphReplicaSetName == GraphReplicaSetNames.Preview)
                 contentItem = await contentManager.GetAsync(id, VersionOptions.Draft);
 
             return contentItem ?? await contentManager.GetAsync(id, VersionOptions.Published);

@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 //Delete all nodes by type
                 await Task.WhenAll(
                     _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Published, typeToDelete),
-                    _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Draft, typeToDelete));
+                    _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Preview, typeToDelete));
                 return Outcomes("Done");
             }
             catch (Exception)

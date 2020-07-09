@@ -2,7 +2,7 @@
 {
     public static class GraphReplicaSetNames
     {
-        public const string Draft = "draft";
+        public const string Preview = "preview";
         public const string Published = "published";
     }
 }

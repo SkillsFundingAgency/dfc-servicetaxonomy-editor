@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            await SyncToGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem, contentManager);
+            await SyncToGraphReplicaSet(GraphReplicaSetNames.Preview, context.ContentItem, contentManager);
         }
 
         //todo: context contains cancel! (might have to use publishing though)
@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
             await Task.WhenAll(
-                SyncToGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem, contentManager),
+                SyncToGraphReplicaSet(GraphReplicaSetNames.Preview, context.ContentItem, contentManager),
                 SyncToGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem, contentManager));
         }
 
@@ -72,7 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         public override async Task RemovedAsync(RemoveContentContext context)
         {
             await Task.WhenAll(
-                DeleteFromGraphReplicaSet(GraphReplicaSetNames.Draft, context.ContentItem),
+                DeleteFromGraphReplicaSet(GraphReplicaSetNames.Preview, context.ContentItem),
                 DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem));
         }
 

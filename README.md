@@ -15,7 +15,7 @@ Download [Neo4j desktop](https://neo4j.com/download/), install and run it.
 
 Neo4j desktop installs the Enterprise edition of Neo4j. The Enterprise edition supports multiple user databases in a single instance of Neo4j, and each user database can contain a single graph.
 
-We use the multi-graph facility to easily run 2 separate graphs on a development machine. One graph is used to contain published content items, and the other is used to store the latest version of content items (so can contain a mix of published and draft items). (In the environments, each graph lives in a separate Community intance of Neo4j, within a Kubernetes cluster.)
+We use the multi-graph facility to easily run 2 separate graphs on a development machine. One graph is used to contain only published content items, and the other is used to store the latest version of content items (so can contain a mix of published and draft items), which can be used to render a preview. (In the environments, each graph lives in a separate Community intance of Neo4j, within a Kubernetes cluster.)
 
 #### Create A Default 'Published' Graph
 
@@ -58,15 +58,15 @@ To confirm the import worked ok, check the schema using
 CALL db.schema.visualization()
 ```
 
-#### Create A 'Latest' Graph
+#### Create A 'Preview' Graph
 
 Working with multiple-graphs is [documented on the Neo4j website](https://neo4j.com/developer/manage-multiple-databases/).
 
-To create the 'latest' graph, run these Cypher commands...
+To create the 'preview' graph, run these Cypher commands...
 
 ```
-create database draft;
-:use draft;
+create database preview;
+:use preview;
 CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE;
 ```
 
@@ -122,11 +122,11 @@ Copy the `appsettings.Development_template.json` file in the editor project to `
                 ]
             },
             {
-                "ReplicaSetName": "draft",
+                "ReplicaSetName": "preview",
                 "GraphInstances": [
                     {
                         "Endpoint": "desktop_enterprise",
-                        "GraphName": "draft",
+                        "GraphName": "preview",
                         "DefaultGraph": false,
                         "Enabled": true
                     },
