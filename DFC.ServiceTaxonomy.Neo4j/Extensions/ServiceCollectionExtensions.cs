@@ -9,7 +9,6 @@ using Neo4j.Driver;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    //todo: best place for this file to live?
     public static class ServiceCollectionExtensions
     {
         public static void AddGraphCluster(this IServiceCollection services, Action<Neo4jOptions> setupAction)
