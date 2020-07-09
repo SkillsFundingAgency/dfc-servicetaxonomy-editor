@@ -63,16 +63,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
             // graph database
-            //services.AddTransient<ILogger, NeoLogger>();
-            //todo:?
+            //todo: should we do this in each library that used the graph cluster, or just once in the root editor project?
             //services.AddGraphCluster();
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
-            // services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
-            // services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
-            // services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
-            // services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
-            // services.AddTransient<ICustomCommand, CustomCommand>();
 
             // GraphSyncPart
             services.AddContentPart<GraphSyncPart>()
