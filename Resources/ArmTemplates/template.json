@@ -35,6 +35,15 @@
         "Neo4jPassword": {
             "type": "securestring"
         },
+        "Neo4jUrlDraft": {
+            "type": "string"
+        },
+        "Neo4jUserDraft": {
+            "type": "string"
+        },
+        "Neo4jPasswordDraft": {
+            "type": "securestring"
+        },
         "SqlElasticPoolName": {
             "type": "string"
         },
@@ -174,6 +183,70 @@
                             {
                                 "name": "Neo4j__Endpoints__0__Enabled",
                                 "value": "true"
+                            },
+                            {
+                                "name": "Neo4j__ReplicaSets__0__GraphInstances__0__Enabled",
+                                "value": "true"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__1__Uri",
+                                "value": "tbc"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__1__Username",
+                                "value": "tbc"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__1__Password",
+                                "value": "tbc"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__1__Enabled",
+                                "value": "false"
+                            },
+                            {
+                                "name": "Neo4j__ReplicaSets__0__GraphInstances__1__Enabled",
+                                "value": "false"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__2__Uri",
+                                "value": "[parameters('Neo4jUrlDraft')]"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__2__Username",
+                                "value": "[parameters('Neo4jUserDraft')]"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__2__Password",
+                                "value": "[parameters('Neo4jPasswordDraft')]"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__2__Enabled",
+                                "value": "true"
+                            },
+                            {
+                                "name": "Neo4j__ReplicaSets__1__GraphInstances__0__Enabled",
+                                "value": "true"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__3__Uri",
+                                "value": "tbc"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__3__Username",
+                                "value": "tbc"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__3__Password",
+                                "value": "tbc"
+                            },
+                            {
+                                "name": "Neo4j__Endpoints__3__Enabled",
+                                "value": "false"
+                            },
+                            {
+                                "name": "Neo4j__ReplicaSets__1__GraphInstances__1__Enabled",
+                                "value": "false"
                             },
                             {
                                 "name": "OwlDataGeneratorConfigModel__DefaultLanguage",

@@ -32,6 +32,15 @@
         "Neo4jPassword": {
             "value": "__Neo4jPassword__"
         },
+        "Neo4jUrlDraft": {
+            "value": "__Neo4jUrlDraft__"
+        },
+        "Neo4jUserDraft": {
+            "value": "__Neo4jUserDraft__"
+        },
+        "Neo4jPasswordDraft": {
+            "value": "__Neo4jPasswordDraft__"
+        },
         "SqlElasticPoolName": {
             "value": "__elasticPoolName__"
         },
