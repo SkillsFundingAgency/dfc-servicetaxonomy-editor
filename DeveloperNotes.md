@@ -1,5 +1,7 @@
 #ToDo
 
+* switch off creatable/listable for page location? (check still creatable/viewable in page locations taxonomy)
+
 * shared content preview in page editor should just show content, not title
 
 * graphsync 2 settings, 1 for published 1 for preview

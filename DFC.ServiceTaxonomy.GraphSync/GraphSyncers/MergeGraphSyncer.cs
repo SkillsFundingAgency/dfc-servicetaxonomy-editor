@@ -127,6 +127,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
 
+                //todo: taxonomy type has all its part definitions returned by GetTypeDefinition :+1:
+                // the embedded PageLocation content type, only has some of its part definitions returned by GetTypeDefinition
+                // or actually, it returns all the part definitions for the parts its designed with,
+                // but it returns a "TermPart" content and a "Terms" content with no corresponding part definition
+                // so currently they don't get synced
+
+                /*
+                 *     "TermPart": {
+                          "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                        },
+                        "Terms": [
+                          {
+                            "ContentItemId": "4pksnz9106ngbwq74w66snan5x",
+                            "ContentItemVersionId": null,
+                 */
+
+                // terms contains recursive content items, (in a similar manner to under TaxonomyPart => Terms in the taxonomy content type)
+                // and we'll need to recurse to handle the hierarchy
+
                 var contentTypePartDefinitions =
                     contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentItem.ContentType, p.PartDefinition));
 
