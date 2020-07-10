@@ -32,6 +32,15 @@
         "Neo4jPassword": {
             "value": "not-a-real-password"
         },
+        "Neo4jUrlDraft": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUserDraft": {
+            "value": "not-a-real-username"
+        },
+        "Neo4jPasswordDraft": {
+            "value": "not-a-real-password"
+        },
         "SqlElasticPoolName": {
             "value": "an-elastic-pool"
         },
