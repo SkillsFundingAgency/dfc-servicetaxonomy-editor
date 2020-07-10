@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 
@@ -17,39 +12,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Value";
 
-        public async Task AddSyncComponents(
-            JObject contentItemField,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             JValue? value = (JValue?)contentItemField?[ContentKey];
             if (value == null || value.Type == JTokenType.Null)
                 return;
 
-            var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
+            var fieldSettings = context.ContentPartFieldDefinition!.GetSettings<NumericFieldSettings>();
 
-            string propertyName = await graphSyncHelper!.PropertyName(contentPartFieldDefinition.Name);
+            string propertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
             if (fieldSettings.Scale == 0)
             {
-                mergeNodeCommand.Properties.Add(propertyName, (int)value);
+                context.MergeNodeCommand.Properties.Add(propertyName, (int)value);
             }
             else
             {
-                mergeNodeCommand.Properties.Add(propertyName, (decimal)value);
+                context.MergeNodeCommand.Properties.Add(propertyName, (decimal)value);
             }
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+            IValidateAndRepairContext context)
         {
-            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
-            nodeWithOutgoingRelationships.SourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            context.NodeWithOutgoingRelationships.SourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
             JToken? contentItemFieldValue = contentItemField[ContentKey];
             if (contentItemFieldValue == null || contentItemFieldValue.Type == JTokenType.Null)
@@ -61,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             if (nodePropertyValue == null)
                 return (false, "node property value was null, but content property value was not null");
 
-            var fieldSettings = contentPartFieldDefinition.GetSettings<NumericFieldSettings>();
+            var fieldSettings = context.ContentPartFieldDefinition.GetSettings<NumericFieldSettings>();
 
             if (fieldSettings.Scale == 0)
             {

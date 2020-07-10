@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Sitemaps.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -26,76 +21,68 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             PriorityPropertyName = "Priority",
             ExcludePropertyName = "Exclude";
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
+            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
             //todo: helper for these?
             JValue? value = (JValue?)content[OverrideSitemapConfigPropertyName];
             if (value != null && value.Type != JTokenType.Null) //first bool?
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName), value.As<bool>());
 
+            //todo: we want the change frequency value lowercase (as the sitemap xml format wants it lowercase),
+            // but we probably want enums to serialise using normal casing, so can Enum.Parse etc.
+            // add flag to any enum helpers, such as EnumContentPropertyMatchesNodeProperty
             value = (JValue?)content[ChangeFrequencyPropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ChangeFrequencyPropertyName), ((ChangeFrequency)value.As<int>()).ToString().ToLowerInvariant());
 
             value = (JValue?)content[PriorityPropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(PriorityPropertyName), value.As<int>());
 
             value = (JValue?)content[ExcludePropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                mergeNodeCommand.Properties.Add(await graphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
+                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
+            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
-            (bool matched, string failureReason) = graphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+            (bool matched, string failureReason) = context.GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 OverrideSitemapConfigPropertyName,
                 content,
-                await graphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName),
-                nodeWithOutgoingRelationships.SourceNode);
+                await context.GraphSyncHelper.PropertyName(OverrideSitemapConfigPropertyName),
+                context.NodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
                 return (false, $"{OverrideSitemapConfigPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = graphValidationHelper.EnumContentPropertyMatchesNodeProperty<ChangeFrequency>(
+            (matched, failureReason) = context.GraphValidationHelper.EnumContentPropertyMatchesNodeProperty<ChangeFrequency>(
                 ChangeFrequencyPropertyName,
                 content,
-                await graphSyncHelper.PropertyName(ChangeFrequencyPropertyName),
-                nodeWithOutgoingRelationships.SourceNode);
+                await context.GraphSyncHelper.PropertyName(ChangeFrequencyPropertyName),
+                context.NodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
                 return (false, $"{ChangeFrequencyPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = graphValidationHelper.LongContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = context.GraphValidationHelper.LongContentPropertyMatchesNodeProperty(
                 PriorityPropertyName,
                 content,
-                await graphSyncHelper.PropertyName(PriorityPropertyName),
-                nodeWithOutgoingRelationships.SourceNode);
+                await context.GraphSyncHelper.PropertyName(PriorityPropertyName),
+                context.NodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
                 return (false, $"{PriorityPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = graphValidationHelper.BoolContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = context.GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 ExcludePropertyName,
                 content,
-                await graphSyncHelper.PropertyName(ExcludePropertyName),
-                nodeWithOutgoingRelationships.SourceNode);
+                await context.GraphSyncHelper.PropertyName(ExcludePropertyName),
+                context.NodeWithOutgoingRelationships.SourceNode);
 
             return matched ? (true, "") : (false, $"{ExcludePropertyName} did not validate: {failureReason}");
         }

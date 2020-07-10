@@ -170,7 +170,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             where T : Enum
         {
             return ContentPropertyMatchesNodeProperty(contentKey, contentItemField, nodePropertyName, sourceNode,
-                (contentValue, nodeValue) => Equals(((T)(object)(int)contentValue).ToString(), nodeValue.As<string>()));
+                (contentValue, nodeValue) => Equals(((T)(object)(int)contentValue).ToString().ToLowerInvariant(), nodeValue.As<string>()));
         }
 
         public (bool matched, string failureReason) DateTimeContentPropertyMatchesNodeProperty(

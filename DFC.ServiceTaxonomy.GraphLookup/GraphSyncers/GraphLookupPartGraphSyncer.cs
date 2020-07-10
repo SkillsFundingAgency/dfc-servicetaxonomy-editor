@@ -1,15 +1,10 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 {
@@ -19,14 +14,9 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
         private const string NodesPropertyName = "Nodes";
 
-        public Task AddSyncComponents(JObject graphLookupContent,
-            ContentItem contentItem,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public Task AddSyncComponents(JObject graphLookupContent, IGraphMergeContext context)
         {
-            var settings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
+            var settings = context.ContentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
             JArray? nodes = (JArray?)graphLookupContent[NodesPropertyName];
             if (nodes == null || nodes.Count == 0)
@@ -34,13 +24,13 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.PropertyName != null)
             {
-                mergeNodeCommand.Properties.Add(settings.PropertyName, GetId(nodes.First()));
+                context.MergeNodeCommand.Properties.Add(settings.PropertyName, GetId(nodes.First()));
             }
 
             if (settings.RelationshipType != null)
             {
                 //todo: settings should contains destnodelabels
-                replaceRelationshipsCommand.AddRelationshipsTo(
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                     settings.RelationshipType!,
                     null,
                     new[] {settings.NodeLabel!},
@@ -51,27 +41,21 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();
             if (graphLookupPart == null)
                 throw new GraphSyncException("Missing GraphLookupPart in content");
 
-            GraphLookupPartSettings graphLookupPartSettings = contentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
+            GraphLookupPartSettings graphLookupPartSettings = context.ContentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
             foreach (var node in graphLookupPart.Nodes)
             {
                 string relationshipType = graphLookupPartSettings.RelationshipType!;
 
-                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
-                    nodeWithOutgoingRelationships,
+                (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithOutgoingRelationships,
                     relationshipType,
                     graphLookupPartSettings.ValueFieldName!,
                     node.Id);
@@ -80,8 +64,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                     return Task.FromResult((false, failureReason));
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
-                expectedRelationshipCounts[relationshipType] = ++currentCount;
+                context.ExpectedRelationshipCounts.TryGetValue(relationshipType, out int currentCount);
+                context.ExpectedRelationshipCounts[relationshipType] = ++currentCount;
             }
 
             return Task.FromResult((true, ""));

@@ -1,47 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer;
 using FakeItEasy;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePartGraphSyncerTests
 {
-    public class AutoroutePartGraphSyncer_ValidateSyncComponentTests
+    public class AutoroutePartGraphSyncer_ValidateSyncComponentTests : PartGraphSyncer_ValidateSyncComponentTests
     {
-        public JObject Content { get; set; }
-        public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
-        public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
-        public INode SourceNode { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public IGraphValidationHelper GraphValidationHelper { get; set; }
-        public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
-        public AutoroutePartGraphSyncer AutoroutePartGraphSyncer { get; set; }
-
-        const string _contentKey = "Path";
-        const string _nodeTitlePropertyName = "autoroute_path";
+        public const string ContentKey = "Path";
+        public const string NodeTitlePropertyName = "autoroute_path";
 
         public AutoroutePartGraphSyncer_ValidateSyncComponentTests()
         {
-            Content = JObject.Parse("{}");
-
-            ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
-
-            SourceNode = A.Fake<INode>();
-            NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
-            A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
-
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-
-            GraphValidationHelper = A.Fake<IGraphValidationHelper>();
-
-            ExpectedRelationshipCounts = new Dictionary<string, int>();
-
-            AutoroutePartGraphSyncer = new AutoroutePartGraphSyncer();
+            ContentPartGraphSyncer = new AutoroutePartGraphSyncer();
         }
 
         [Theory]
@@ -50,9 +23,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
         public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentKey,
+                ContentKey,
                 A<JObject>._,
-                _nodeTitlePropertyName,
+                NodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
             (bool validated, _) = await CallValidateSyncComponent();
@@ -62,17 +35,5 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.AutoroutePa
 
         //todo: test that verifies that failure reason is returned
         //todo: test to check nothing added to ExpectedRelationshipCounts
-
-        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
-        {
-            return await AutoroutePartGraphSyncer.ValidateSyncComponent(
-                Content,
-                ContentTypePartDefinition,
-                NodeWithOutgoingRelationships,
-                GraphSyncHelper,
-                GraphValidationHelper,
-                ExpectedRelationshipCounts,
-                string.Empty);
-        }
     }
 }

@@ -75,7 +75,7 @@ function initVueMultiselectPreview(element) {
                 self.asyncFind();
                 if (self.arrayOfItems.length > 0) {
                     for (var i = 0; i < self.arrayOfItems.length; i++) {
-                        self.showPreview(self.arrayOfItems[i].id);
+                        self.showPreview(self.arrayOfItems[i].id, self.arrayOfItems[i].hasPublished);
                     }
                 }
             },
@@ -84,14 +84,14 @@ function initVueMultiselectPreview(element) {
                     var self = this;
                     debouncedSearch(self, query);
                 },
-                showPreview(contentItemId) {
+                showPreview(contentItemId, hasPublished) {
                     var self = this;
 
                     // todo use fetch then
                     // we could use the observed selectedIds, but we'd have to calc if something was added or deleted
                     // just use onSelect instead?
                     $.ajax({
-                        url : '/Contents/ContentItems/' + contentItemId,
+                        url : '/Contents/ContentItems/' + contentItemId + (hasPublished?'':'/preview'),
                         type: 'GET',
                         async: false,
                         success: function (data) {
@@ -135,7 +135,7 @@ function initVueMultiselectPreview(element) {
                     }
 
                     self.arrayOfItems.push(selectedOption);
-                    this.showPreview(selectedOption.id);
+                    this.showPreview(selectedOption.id, selectedOption.hasPublished);
                 },
                 remove: function (item) {
                     var itemIndex = this.arrayOfItems.indexOf(item);

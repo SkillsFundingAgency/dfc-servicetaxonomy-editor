@@ -11,7 +11,6 @@ using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Data.Migration;
 using DFC.ServiceTaxonomy.GraphSync.Drivers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
@@ -19,13 +18,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
-using DFC.ServiceTaxonomy.Neo4j.Commands;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Configuration;
-using DFC.ServiceTaxonomy.Neo4j.Log;
-using DFC.ServiceTaxonomy.Neo4j.Services;
-using Microsoft.Extensions.Configuration;
-using Neo4j.Driver;
 using OrchardCore.Modules;
 using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
@@ -33,6 +25,7 @@ using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
@@ -47,6 +40,9 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
 
@@ -56,13 +52,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            // configuration
-            var serviceProvider = services.BuildServiceProvider();
-            var configuration = serviceProvider.GetService<IConfiguration>();
-
-            services.Configure<Neo4jConfiguration>(configuration.GetSection("Neo4j"));
-            services.Configure<GraphSyncPartSettingsConfiguration>(configuration.GetSection(nameof(GraphSyncPartSettings)));
-
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
@@ -74,14 +63,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IGetContentItemsAsJsonQuery, GetContentItemsAsJsonQuery>();
 
             // graph database
-            services.AddTransient<ILogger, NeoLogger>();
-            services.AddSingleton<INeoDriverBuilder, NeoDriverBuilder>();
-            services.AddSingleton<IGraphDatabase, NeoGraphDatabase>();
-            services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
-            services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
-            services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
-            services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
-            services.AddTransient<ICustomCommand, CustomCommand>();
+            //todo: should we do this in each library that used the graph cluster, or just once in the root editor project?
+            //services.AddGraphCluster();
+            services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
+            services.AddScoped<IContentHandler, GraphSyncContentHandler>();
 
             // GraphSyncPart
             services.AddContentPart<GraphSyncPart>()

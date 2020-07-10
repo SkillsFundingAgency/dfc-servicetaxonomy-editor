@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using Microsoft.Extensions.Options;
 using Neo4j.Driver;
-using System.Linq;
 
 namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
 {
@@ -12,24 +12,24 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
     {
         private readonly IDriver _driver;
 
-        public TestNeoGraphDatabase(IOptionsMonitor<Neo4jConfiguration> neo4jConfigurationOptions)
+        public TestNeoGraphDatabase(IOptionsMonitor<Neo4jOptions> neo4jOptionsMonitor)
         {
             // Each IDriver instance maintains a pool of connections inside, as a result, it is recommended to only use one driver per application.
             // It is considerably cheap to create new sessions and transactions, as sessions and transactions do not create new connections as long as there are free connections available in the connection pool.
             //  driver is thread-safe, while the session or the transaction is not thread-safe.
             //todo: add configuration/settings menu item/page so user can enter this
-            var neo4jConfiguration = neo4jConfigurationOptions.CurrentValue;
+            var neo4jOptions = neo4jOptionsMonitor.CurrentValue;
 
             //todo: pass logger, see https://github.com/neo4j/neo4j-dotnet-driver
             // o => o.WithLogger(logger)
-            var driverToTest = neo4jConfiguration.Endpoints.FirstOrDefault(x => x.Enabled);
+            var endpointToTest = neo4jOptions.Endpoints.FirstOrDefault(x => x.Enabled);
 
-            if(driverToTest == null)
+            if(endpointToTest == null)
             {
-                throw new InvalidOperationException("No driver specified as Primary and Enabled in Neo4jConfiguration");
+                throw new InvalidOperationException("No enabled endpoint in Neo4j configuration.");
             }
 
-            _driver = GraphDatabase.Driver(driverToTest.Uri, AuthTokens.Basic(driverToTest.Username, driverToTest.Password));
+            _driver = GraphDatabase.Driver(endpointToTest.Uri, AuthTokens.Basic(endpointToTest.Username, endpointToTest.Password));
         }
 
         public async Task<IGraphDatabaseTestRun> StartTestRun()

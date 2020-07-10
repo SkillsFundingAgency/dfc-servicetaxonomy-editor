@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer;
 using FakeItEasy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -11,36 +9,16 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFieldGraphSyncerTests
 {
-    //todo: factor out common code in tests
-    public class NumericFieldGraphSyncer_AddSyncComponentsTests
+    public class NumericFieldGraphSyncer_AddSyncComponentsTests : FieldGraphSyncer_AddSyncComponentsTests
     {
-        public JObject? ContentItemField { get; set; }
-        public IMergeNodeCommand MergeNodeCommand { get; set; }
-        public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
-        public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
         public NumericFieldSettings NumericFieldSettings { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public NumericFieldGraphSyncer NumericFieldGraphSyncer { get; set; }
-
-        const string _fieldName = "TestField";
 
         public NumericFieldGraphSyncer_AddSyncComponentsTests()
         {
-            MergeNodeCommand = A.Fake<IMergeNodeCommand>();
-            //todo: best way to do this?
-            MergeNodeCommand.Properties = new Dictionary<string, object>();
-
-            ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
-
-            ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
-            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
             NumericFieldSettings = new NumericFieldSettings();
             A.CallTo(() => ContentPartFieldDefinition.GetSettings<NumericFieldSettings>()).Returns(NumericFieldSettings);
 
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
-
-            NumericFieldGraphSyncer = new NumericFieldGraphSyncer();
+            ContentFieldGraphSyncer = new NumericFieldGraphSyncer();
         }
 
         [Fact]
@@ -94,15 +72,5 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
 
         //todo: assert that nothing else is done to the commands
         //todo: assert that graphsynchelper's contenttype is not set
-
-        private async Task CallAddSyncComponents()
-        {
-            await NumericFieldGraphSyncer.AddSyncComponents(
-                ContentItemField!,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentPartFieldDefinition,
-                GraphSyncHelper);
-        }
     }
 }

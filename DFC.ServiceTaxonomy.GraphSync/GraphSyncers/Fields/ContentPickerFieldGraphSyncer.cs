@@ -6,9 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -21,32 +19,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public string FieldTypeName => "ContentPickerField";
 
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
-        private readonly IContentManager _contentManager;
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
         public ContentPickerFieldGraphSyncer(
-            IContentManager contentManager,
             ILogger<ContentPickerFieldGraphSyncer> logger)
         {
-            _contentManager = contentManager;
             _logger = logger;
         }
 
-        public async Task AddSyncComponents(
-            JObject contentItemField,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
-                contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
+                context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.GraphSyncHelper);
 
             //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-            IEnumerable<string> destNodeLabels = await graphSyncHelper.NodeLabels(pickedContentType);
+            IEnumerable<string> destNodeLabels = await context.GraphSyncHelper.NodeLabels(pickedContentType);
 
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
@@ -58,9 +48,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
 
             // GetAsync should be returning ContentItem? as it can be null
+            //todo: think just getting the latest should be fine, we only use them for the id, which should be the same whether draft or published
+            // but if saving a published item which has references to draft content items, then draft item won't be in the published graph
+            // need to decide between...
+            // * don't create relationships from a pub to draft items, then when a draft item is published, query the draft graph for incoming relationships, and create those incoming relationships on the newly published item in the published graph
+            // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
-                contentItemIds.Select(async contentItemId =>
-                    await _contentManager.GetAsync(contentItemId, VersionOptions.Latest));
+                contentItemIds.Select(async contentItemId =>    //todo: add method to context?
+                    await context.ContentItemVersion.GetContentItemAsync(context.ContentManager, contentItemId));
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
@@ -68,34 +63,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 destinationContentItems.Where(ci => ci != null);
 
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
-                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {mergeNodeCommand}.");
+                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
 
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
-                foundDestinationContentItems.Select(ci => GetNodeId(ci!, graphSyncHelper));
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, context.GraphSyncHelper));
 
-            replaceRelationshipsCommand.AddRelationshipsTo(
+            context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
                 null,
                 destNodeLabels,
-                graphSyncHelper!.IdPropertyName(pickedContentType),
+                context.GraphSyncHelper.IdPropertyName(pickedContentType),
                 foundDestinationNodeIds.ToArray());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+            IValidateAndRepairContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
-                contentPartFieldDefinition.GetSettings<ContentPickerFieldSettings>();
+                context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, graphSyncHelper);
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.GraphSyncHelper);
 
-            IOutgoingRelationship[] actualRelationships = nodeWithOutgoingRelationships.OutgoingRelationships
+            IOutgoingRelationship[] actualRelationships = context.NodeWithOutgoingRelationships.OutgoingRelationships
                 .Where(r => r.Relationship.Type == relationshipType)
                 .ToArray();
 
@@ -109,16 +100,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string contentItemId = (string)item!;
 
-                ContentItem destinationContentItem = await _contentManager.GetAsync(contentItemId);
+                ContentItem destinationContentItem = await context.ContentItemVersion.GetContentItemAsync(
+                    context.ContentManager, contentItemId);
 
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
-                object destinationId = graphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
+                object destinationId = context.GraphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
 
                 string destinationIdPropertyName =
-                    graphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
+                    context.GraphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
 
-                (bool validated, string failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
-                    nodeWithOutgoingRelationships,
+                (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithOutgoingRelationships,
                     relationshipType,
                     destinationIdPropertyName,
                     destinationId);
@@ -127,7 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     return (false, failureReason);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.IncreaseCount(relationshipType);
+                context.ExpectedRelationshipCounts.IncreaseCount(relationshipType);
             }
 
             return (true, "");

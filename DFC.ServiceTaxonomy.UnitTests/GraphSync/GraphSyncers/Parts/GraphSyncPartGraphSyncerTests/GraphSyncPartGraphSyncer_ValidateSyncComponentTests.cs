@@ -1,49 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer;
 using FakeItEasy;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement.Metadata.Models;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPartGraphSyncerTests
 {
-    public class GraphSyncPartGraphSyncer_ValidateSyncComponentTests
+    public class GraphSyncPartGraphSyncer_ValidateSyncComponentTests : PartGraphSyncer_ValidateSyncComponentTests
     {
-        public JObject Content { get; set; }
-        public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
-        public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
-        public INode SourceNode { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public IGraphValidationHelper GraphValidationHelper { get; set; }
-        public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
-        public GraphSyncPartGraphSyncer GraphSyncPartGraphSyncer { get; set; }
-
-        const string _contentIdPropertyName = "Text";
-        const string _nodeTitlePropertyName = "skos__prefLabel";
+        public const string ContentIdPropertyName = "Text";
+        public const string NodeTitlePropertyName = "skos__prefLabel";
 
         public GraphSyncPartGraphSyncer_ValidateSyncComponentTests()
         {
-            Content = JObject.Parse("{}");
+            A.CallTo(() => GraphSyncHelper.ContentIdPropertyName).Returns(ContentIdPropertyName);
+            A.CallTo(() => GraphSyncHelper.IdPropertyName()).Returns(NodeTitlePropertyName);
 
-            ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
-
-            SourceNode = A.Fake<INode>();
-            NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
-            A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
-
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.ContentIdPropertyName).Returns(_contentIdPropertyName);
-            A.CallTo(() => GraphSyncHelper.IdPropertyName()).Returns(_nodeTitlePropertyName);
-
-            GraphValidationHelper = A.Fake<IGraphValidationHelper>();
-
-            ExpectedRelationshipCounts = new Dictionary<string, int>();
-
-            GraphSyncPartGraphSyncer = new GraphSyncPartGraphSyncer();
+            ContentPartGraphSyncer = new GraphSyncPartGraphSyncer();
         }
 
         [Theory]
@@ -52,9 +26,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
         public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentIdPropertyName,
+                ContentIdPropertyName,
                 A<JObject>._,
-                _nodeTitlePropertyName,
+                NodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
             (bool validated, _) = await CallValidateSyncComponent();
@@ -64,17 +38,5 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
 
         //todo: test that verifies that failure reason is returned
         //todo: test to check nothing added to ExpectedRelationshipCounts
-
-        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
-        {
-            return await GraphSyncPartGraphSyncer.ValidateSyncComponent(
-                Content,
-                ContentTypePartDefinition,
-                NodeWithOutgoingRelationships,
-                GraphSyncHelper,
-                GraphValidationHelper,
-                ExpectedRelationshipCounts,
-                string.Empty);
-        }
     }
 }

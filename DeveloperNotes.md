@@ -1,5 +1,30 @@
 #ToDo
 
+* add link to edit failed item in validate page
+
+* looks like we have an exemption from gds to be able to use different colours (see https://skillsfundingagency.atlassian.net/wiki/spaces/DFC/pages/1998946687/GDS+toolkit+flexibility+exemption+-+EW+JT)
+   update html editor
+
+* Page Location > add alias part for uri, title as display text
+
+* draft/pub
+ visualizer: show draft/pub buttons
+ query runner: pick draft/pub through ui?
+if use property to cloak draft items in published graph, have standard user defined procedure to filter out cloaked items
+<story> add story for 'Delete Field From Graph' workflow
+  current behaviour is wrong anyway.
+  when field is removed from content type, all items of that content type are currently published (even if there is only currently a draft version).
+  needs to update published items and update draft items
+
+* use graph clustering algorithms to pick out real user groupings, and potentially match then to personas (or discover new ones)
+
+* draft/pub graphs : update readme
+
+* pages
+  check that alias only allows unique names - if not make sure it does
+
+* think oc now supports tabs, switch to new support <- supported when rendering page, not admin by the look of it
+
 * domain topics
 add domain taxonomy (initial candidates are job profile & content)
 add taxonomy to all content types (allowing multiple and none)

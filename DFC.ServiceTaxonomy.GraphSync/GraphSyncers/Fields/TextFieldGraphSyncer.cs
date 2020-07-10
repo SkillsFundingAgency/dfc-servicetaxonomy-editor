@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -15,32 +11,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Text";
 
-        public async Task AddSyncComponents(
-            JObject contentItemField,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
-            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
+            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
-            mergeNodeCommand.AddProperty<string>(nodePropertyName, contentItemField, ContentKey);
+            context.MergeNodeCommand.AddProperty<string>(nodePropertyName, contentItemField, ContentKey);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
-            IContentPartFieldDefinition contentPartFieldDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+            IValidateAndRepairContext context)
         {
-            string nodePropertyName = await graphSyncHelper.PropertyName(contentPartFieldDefinition.Name);
+            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
-            return graphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            return context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 contentItemField,
                 nodePropertyName,
-                nodeWithOutgoingRelationships.SourceNode);
+                context.NodeWithOutgoingRelationships.SourceNode);
         }
     }
 }

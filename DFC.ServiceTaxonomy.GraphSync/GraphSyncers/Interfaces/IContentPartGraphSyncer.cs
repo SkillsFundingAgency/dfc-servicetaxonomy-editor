@@ -1,9 +1,5 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
@@ -17,21 +13,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             return contentPartDefinition.Name == PartName;
         }
 
-        //todo: change content to JObject
-        Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper);
+        //todo: have new interface for IContainedContentPartGraphSyncer : IContentPartGraphSyncer?????
+        Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
-        Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint);
+        Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context);
     }
 }

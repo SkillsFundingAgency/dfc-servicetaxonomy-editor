@@ -21,10 +21,10 @@ namespace DFC.ServiceTaxonomy.IntegrationTests.Helpers
                 .AddJsonFile("appsettings.Development.json", optional: true)
                 .Build();
 
-            Neo4jConfiguration neo4jConfiguration = configuration.GetSection("Neo4j").Get<Neo4jConfiguration>();
+            Neo4jOptions neo4jOptions = configuration.GetSection("Neo4j").Get<Neo4jOptions>();
 
-            var optionsMonitor = A.Fake<IOptionsMonitor<Neo4jConfiguration>>();
-            A.CallTo(() => optionsMonitor.CurrentValue).Returns(neo4jConfiguration);
+            var optionsMonitor = A.Fake<IOptionsMonitor<Neo4jOptions>>();
+            A.CallTo(() => optionsMonitor.CurrentValue).Returns(neo4jOptions);
 
             GraphTestDatabase = new TestNeoGraphDatabase(optionsMonitor);
 

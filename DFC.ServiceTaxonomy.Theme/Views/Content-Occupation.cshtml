@@ -54,6 +54,7 @@
         if (contentItemId == null)
             return string.Empty;
 
+        // as occupation's are read-only, getting the display text from the latest is fine
         ContentItem contentItem = await ContentManager.GetAsync(contentItemId, VersionOptions.Latest);
         return contentItem.ToString();
     }

@@ -2,9 +2,10 @@
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Queries;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
-using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -42,22 +43,26 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
     public class VisualiseController : Controller
     {
-        private readonly IGraphDatabase _neoGraphDatabase;
-        private readonly IContentDefinitionManager ContentDefinitionManager;
-        private readonly INeo4JToOwlGeneratorService Neo4JToOwlGeneratorService;
-        private readonly IOrchardToOwlGeneratorService OrchardToOwlGeneratorService;
+        private readonly IGraphCluster _neoGraphCluster;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
+        private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
 
-        private readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
+        private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
-        public VisualiseController(IGraphDatabase neoGraphDatabase, IContentDefinitionManager contentDefinitionManager, INeo4JToOwlGeneratorService neo4jToOwlGeneratorService, IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
+        public VisualiseController(
+            IGraphCluster neoGraphCluster,
+            IContentDefinitionManager contentDefinitionManager,
+            INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
+            IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
         {
-            _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
-            ContentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
-            Neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
-            OrchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
+            _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
+            _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
+            _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
+            _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
         }
 
         public ActionResult Viewer()
@@ -79,10 +84,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         private ActionResult GetOntology()
         {
-            var contentTypeDefinitions = ContentDefinitionManager.ListTypeDefinitions();
+            var contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
 
-            var owlDataModel = OrchardToOwlGeneratorService.CreateOwlDataModels(contentTypeDefinitions);
-            var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
+            var owlDataModel = _orchardToOwlGeneratorService.CreateOwlDataModels(contentTypeDefinitions);
+            var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
@@ -92,10 +97,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             const string prefLabel = "skos__prefLabel";
             var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
 
-            _ = await _neoGraphDatabase.Run(query);
+            //todo: allow user to visualise published and draft databases. new story?
+            await _neoGraphCluster.Run(GraphReplicaSetNames.Published, query);
 
-            var owlDataModel = Neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
-            var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
+            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
+            var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }

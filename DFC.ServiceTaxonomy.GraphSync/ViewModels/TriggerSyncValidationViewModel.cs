@@ -4,6 +4,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.ViewModels
 {
     public class TriggerSyncValidationViewModel
     {
-        public ValidateAndRepairResult? ValidateAndRepairResult { get; set; }
+        public ValidateAndRepairResults? ValidateAndRepairResults { get; set; }
     }
 }

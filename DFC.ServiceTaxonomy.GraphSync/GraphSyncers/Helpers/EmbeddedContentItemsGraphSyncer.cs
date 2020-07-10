@@ -6,8 +6,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,10 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 .ToDictionary(x => x.Name);
         }
 
-        public async Task AddSyncComponents(
-            JArray? contentItems,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -48,7 +43,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 //todo: if we want to support nested containers, would have to return queries also
-                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraph(contentItem);
+                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraphReplicaSet(
+                    context.GraphReplicaSet, contentItem, context.ContentManager);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -60,14 +56,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
                 string relationshipType = await RelationshipType(embeddedContentItemGraphSyncHelper);
 
-                var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, graphSyncHelper);
+                var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.GraphSyncHelper);
                 ++relationshipOrdinal;
 
                 //todo: if graphsyncpart text missing, return as null
                 //todo: where uri null create relationship using displaytext instead
                 //have fallback as flag, and only do it for taxonomy, or do it for all contained items?
 
-                replaceRelationshipsCommand.AddRelationshipsTo(
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                     relationshipType,
                     properties,
                     containedContentMergeNodeCommand.NodeLabels,
@@ -78,22 +74,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JArray? contentItems,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+            IValidateAndRepairContext context)
         {
             IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
             int relationshipOrdinal = 0;
             foreach (ContentItem embeddedContentItem in embeddedContentItems)
             {
-                var graphSyncValidator = _serviceProvider.GetRequiredService<IValidateAndRepairGraph>();
-
                 ContentTypeDefinition embeddedContentTypeDefinition = _contentTypes[embeddedContentItem.ContentType];
 
                 (bool validated, string failureReason) =
-                    await graphSyncValidator.ValidateContentItem(embeddedContentItem, embeddedContentTypeDefinition, endpoint);
+                    await context.ValidateAndRepairGraph.ValidateContentItem(
+                        embeddedContentItem, embeddedContentTypeDefinition, context.ContentItemVersion);
 
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
@@ -105,8 +97,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 string expectedRelationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
-                expectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
-                expectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
+                context.ExpectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
+                context.ExpectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
                 // we've already validated the destination node, so we can assume the id property is there
                 object destinationId = embeddedContentGraphSyncHelper.GetIdPropertyValue(embeddedContentItem.Content.GraphSyncPart);
@@ -117,8 +109,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     embeddedContentItem, relationshipOrdinal, embeddedContentGraphSyncHelper);
                 ++relationshipOrdinal;
 
-                (validated, failureReason) = graphValidationHelper.ValidateOutgoingRelationship(
-                    nodeWithOutgoingRelationships,
+                (validated, failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
+                    context.NodeWithOutgoingRelationships,
                     expectedRelationshipType,
                     embeddedContentIdPropertyName,
                     destinationId,

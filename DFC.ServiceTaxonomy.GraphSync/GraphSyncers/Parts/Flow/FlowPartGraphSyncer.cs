@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
@@ -32,59 +27,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
         }
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents(
-                (JArray?)content[ContainerName],
-                replaceRelationshipsCommand,
-                graphSyncHelper);
+            await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
 
             // FlowPart allows part definition level fields, but values are on each FlowPart instance
             // prefix flow field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
-            await _contentFieldsGraphSyncer.AddSyncComponents(
-                content,
-                mergeNodeCommand,
-                replaceRelationshipsCommand,
-                contentTypePartDefinition,
-                graphSyncHelper);
+            await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =
                 await _flowPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                    (JArray?)content[ContainerName],
-                    nodeWithOutgoingRelationships,
-                    graphValidationHelper,
-                    expectedRelationshipCounts,
-                    endpoint);
+                    (JArray?)content[ContainerName], context);
 
             if (!validated)
                 return (validated, failureReason);
 
-            using var _ = graphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
-                content,
-                contentTypePartDefinition,
-                nodeWithOutgoingRelationships,
-                graphSyncHelper,
-                graphValidationHelper,
-                expectedRelationshipCounts);
+                content, context);
         }
     }
 

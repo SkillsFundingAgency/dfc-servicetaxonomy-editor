@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Queries;
 using DFC.ServiceTaxonomy.GraphLookup.ViewModels;
-using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
 using OrchardCore.ContentManagement.Metadata;
@@ -16,12 +17,12 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
 {
     public class GraphLookupPartDisplayDriver : ContentPartDisplayDriver<GraphLookupPart>
     {
-        private readonly IGraphDatabase _graphDatabase;
+        private readonly IGraphCluster _graphCluster;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public GraphLookupPartDisplayDriver(IGraphDatabase graphDatabase, IContentDefinitionManager contentDefinitionManager)
+        public GraphLookupPartDisplayDriver(IGraphCluster graphCluster, IContentDefinitionManager contentDefinitionManager)
         {
-            _graphDatabase = graphDatabase;
+            _graphCluster = graphCluster;
             _contentDefinitionManager = contentDefinitionManager;
         }
 
@@ -67,7 +68,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Drivers
         {
             //todo: check if settings can be null
             //todo: interface and get from service provider
-            var results = await _graphDatabase.Run(new GetPropertyOnNodeQuery(
+            //todo: add which graph to lookup to settings
+            var results = await _graphCluster.Run(GraphReplicaSetNames.Published, new GetPropertyOnNodeQuery(
                 settings.NodeLabel!,
                 settings.ValueFieldName!,
                 id,

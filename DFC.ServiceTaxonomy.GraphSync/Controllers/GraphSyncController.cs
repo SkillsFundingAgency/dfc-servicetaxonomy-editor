@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,13 +74,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 return Forbid();
             }
 
-            ValidateAndRepairResult? validateAndRepairResult = null;
+            ValidateAndRepairResults? validateAndRepairResults = null;
             try
             {
                 //todo: display page straight away : show progress (log) in page
                 //todo: add name of user who triggered into logs (if not already sussable)
                 _logger.LogInformation("User sync validation triggered");
-                validateAndRepairResult = await _validateAndRepairGraph.ValidateGraph();
+                validateAndRepairResults = await _validateAndRepairGraph.ValidateGraph();
             }
             catch (Exception e)
             {
@@ -88,7 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
             return View(new TriggerSyncValidationViewModel
             {
-                ValidateAndRepairResult = validateAndRepairResult
+                ValidateAndRepairResults = validateAndRepairResults
             });
         }
     }

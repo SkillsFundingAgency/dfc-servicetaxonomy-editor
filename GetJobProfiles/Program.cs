@@ -133,8 +133,7 @@ namespace GetJobProfiles
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
             apprenticeshipStandardImporter.Import(jobProfileWorkbook, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
-            const string cypherToContentRecipesPath = "CypherToContentRecipes";
-
+            const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
             string whereClause = "";
             string occupationMatch = "";
@@ -160,17 +159,19 @@ namespace GetJobProfiles
             bool excludeGraphContentMutators = bool.Parse(config["ExcludeGraphContentMutators"] ?? "False");
             if (!(excludeGraphContentMutators || createTestFiles))
             {
-                await CopyRecipeWithTokenisation(cypherToContentRecipesPath, "CreateOccupationLabelNodes", tokens);
-                await CopyRecipeWithTokenisation(cypherToContentRecipesPath, "CreateOccupationPrefLabelNodes", tokens);
-                await CopyRecipeWithTokenisation(cypherToContentRecipesPath, "CreateSkillLabelNodes", tokens);
-                await CopyRecipe(cypherToContentRecipesPath, "CleanUpEscoData");
+                await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationLabelNodes", tokens);
+                await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateOccupationPrefLabelNodes", tokens);
+                await CopyRecipeWithTokenisation(cypherCommandRecipesPath, "CreateSkillLabelNodes", tokens);
+                await CopyRecipe(cypherCommandRecipesPath, "CleanUpEscoData");
             }
 
             bool excludeGraphIndexMutators = bool.Parse(config["ExcludeGraphIndexMutators"] ?? "False");
             if (!(excludeGraphIndexMutators || createTestFiles))
             {
-                await CopyRecipe(cypherToContentRecipesPath, "CreateFullTextSearchIndexes");
+                await CopyRecipe(cypherCommandRecipesPath, "CreateFullTextSearchIndexes");
             }
+
+            const string cypherToContentRecipesPath = "CypherToContentRecipes";
 
             await BatchRecipes(cypherToContentRecipesPath, "CreateOccupationLabelContentItems", occupationLabelsBatchSize, "OccupationLabels", totalOccupationLabels, tokens);
             await BatchRecipes(cypherToContentRecipesPath, "CreateSkillLabelContentItems", skillLabelsBatchSize, "SkillLabels", totalSkillLabels, tokens);

@@ -3,7 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Queries;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
-using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using OrchardCore.Admin;
 using OrchardCore.ContentManagement.Metadata;
@@ -14,12 +15,12 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
     public class GraphLookupAdminController : Controller
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IGraphDatabase _neoGraphDatabase;
+        private readonly IGraphCluster _neoGraphCluster;
 
-        public GraphLookupAdminController(IContentDefinitionManager contentDefinitionManager, IGraphDatabase neoGraphDatabase)
+        public GraphLookupAdminController(IContentDefinitionManager contentDefinitionManager, IGraphCluster neoGraphCluster)
         {
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
-            _neoGraphDatabase = neoGraphDatabase ?? throw new ArgumentNullException(nameof(neoGraphDatabase));
+            _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
         }
 
         public async Task<IActionResult> SearchLookupNodes(string part, string content, string query)
@@ -39,7 +40,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.Controllers
             }
 
             //todo: interface and get from service provider
-            var results = await _neoGraphDatabase.Run(new LookupQuery(
+            //todo: add lookup graph to settings
+            var results = await _neoGraphCluster.Run(GraphReplicaSetNames.Published, new LookupQuery(
                     query,
                     settings.NodeLabel!,        //todo: check can these be null (when no values entered in settings)?
                     settings.DisplayFieldName!,

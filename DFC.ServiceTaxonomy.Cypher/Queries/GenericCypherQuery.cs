@@ -7,14 +7,14 @@ namespace DFC.ServiceTaxonomy.Cypher.Queries
 {
     public class GenericCypherQuery : IQuery<IDictionary<string, object>>
     {
-        private readonly string template;
-        private readonly IDictionary<string, object> parameters;
+        private readonly string _template;
+        private readonly IDictionary<string, object> _parameters;
 
         //todo: ideally we want to keep the ctor for injection
         public GenericCypherQuery(string template, IDictionary<string, object> parameters)
         {
-            this.template = template;
-            this.parameters = parameters;
+            _template = template;
+            _parameters = parameters;
         }
 
         public List<string> ValidationErrors()
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Cypher.Queries
         {
             get
             {
-                return new Query(template, parameters);
+                return new Query(_template, _parameters);
             }
         }
 
@@ -34,9 +34,7 @@ namespace DFC.ServiceTaxonomy.Cypher.Queries
         {
             var kvpList = (from key in record.Keys select new KeyValuePair<string, object>(key, record[key])).ToList();
 
-            var dictionary = kvpList.ToDictionary(pair => pair.Key, pair => pair.Value);
-
-            return dictionary;
+            return kvpList.ToDictionary(pair => pair.Key, pair => pair.Value);
         }
     }
 }

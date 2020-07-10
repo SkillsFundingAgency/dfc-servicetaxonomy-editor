@@ -312,8 +312,6 @@
                     "DisplayName": "HTML",
                     "Settings": {
                         "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Stereotype": "Widget",
@@ -369,8 +367,6 @@
                     "DisplayName": "HTML Shared",
                     "Settings": {
                         "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
                             "Draftable": true,
                             "Versionable": true,
                             "Stereotype": "Widget",
@@ -4398,90 +4394,6 @@
         {
             "name": "WorkflowType",
             "data": [
-                {
-                    "WorkflowTypeId": "4kz20q1zgypcexsys5tm5cyddy",
-                    "Name": "Sync to Graph",
-                    "IsEnabled": true,
-                    "IsSingleton": false,
-                    "DeleteFinishedWorkflows": false,
-                    "Activities": [
-                        {
-                            "ActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
-                            "Name": "ContentPublishedEvent",
-                            "X": 250,
-                            "Y": 0,
-                            "IsStart": true,
-                            "Properties": {
-                                "ContentTypeFilter": [],
-                                "ActivityMetadata": {
-                                    "Title": null
-                                }
-                            }
-                        },
-                        {
-                            "ActivityId": "4j7rp5wf8a06artv1vs2g01txe",
-                            "Name": "SyncToGraphTask",
-                            "X": 120,
-                            "Y": 280,
-                            "IsStart": false,
-                            "Properties": {
-                                "ActivityMetadata": {
-                                    "Title": null
-                                }
-                            }
-                        }
-                    ],
-                    "Transitions": [
-                        {
-                            "Id": 0,
-                            "SourceActivityId": "4w8mxc4s0982y3e8gpnb4hkfmz",
-                            "SourceOutcomeName": "Done",
-                            "DestinationActivityId": "4j7rp5wf8a06artv1vs2g01txe"
-                        }
-                    ]
-                },
-                {
-                    "WorkflowTypeId": "4nz01f9zjxazbsmdked5ktbfcs",
-                    "Name": "Delete From Graph",
-                    "IsEnabled": true,
-                    "IsSingleton": false,
-                    "DeleteFinishedWorkflows": false,
-                    "Activities": [
-                        {
-                            "ActivityId": "49fa3gg6jvfcwznwmhk09rzg5b",
-                            "Name": "ContentDeletedEvent",
-                            "X": 250,
-                            "Y": 0,
-                            "IsStart": true,
-                            "Properties": {
-                                "ContentTypeFilter": [],
-                                "ActivityMetadata": {
-                                    "Title": null
-                                }
-                            }
-                        },
-                        {
-                            "ActivityId": "4e1pzdgtnww4e5jt4w4cac5qma",
-                            "Name": "DeleteFromGraphTask",
-                            "X": 120,
-                            "Y": 280,
-                            "IsStart": false,
-                            "Properties": {
-                                "ActivityMetadata": {
-                                    "Title": null
-                                }
-                            }
-                        }
-                    ],
-                    "Transitions": [
-                        {
-                            "Id": 0,
-                            "SourceActivityId": "49fa3gg6jvfcwznwmhk09rzg5b",
-                            "SourceOutcomeName": "Done",
-                            "DestinationActivityId": "4e1pzdgtnww4e5jt4w4cac5qma"
-                        }
-                    ]
-                },
                 {
                     "WorkflowTypeId": "4wwrjw1kq3qffwgqp7x02spad1",
                     "Name": "Delete Content Type From Graph",

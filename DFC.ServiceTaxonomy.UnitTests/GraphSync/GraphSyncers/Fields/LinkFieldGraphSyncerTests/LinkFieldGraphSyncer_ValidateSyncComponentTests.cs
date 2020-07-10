@@ -1,54 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer;
 using FakeItEasy;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldGraphSyncerTests
 {
-    public class LinkFieldGraphSyncer_ValidateSyncComponentTests
+    public class LinkFieldGraphSyncer_ValidateSyncComponentTests : FieldGraphSyncer_ValidateSyncComponentTests
     {
-        public JObject ContentItemField { get; set; }
-        public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
-        public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
-        public INode SourceNode { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public IGraphValidationHelper GraphValidationHelper { get; set; }
-        public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
-        public LinkFieldGraphSyncer LinkFieldGraphSyncer { get; set; }
+        public const string ContentKeyText = "Text";
+        public const string ContentKeyUrl = "Url";
 
-        const string _contentKeyText = "Text";
-        const string _contentKeyUrl = "Url";
-
-        const string _fieldNameBase = "baseFieldName";
-        const string _fieldNameTransformed = "transformedFieldName";
-        const string _fieldNameText = "transformedFieldName_text";
-        const string _fieldNameUrl = "transformedFieldName_url";
+        public const string FieldNameText = "transformedFieldName_text";
+        public const string FieldNameUrl = "transformedFieldName_url";
 
         public LinkFieldGraphSyncer_ValidateSyncComponentTests()
         {
-            ContentItemField = JObject.Parse("{}");
-
-            ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
-            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldNameBase);
-
-            SourceNode = A.Fake<INode>();
-            NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
-            A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
-
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldNameBase)).Returns(_fieldNameTransformed);
-
-            GraphValidationHelper = A.Fake<IGraphValidationHelper>();
-
-            ExpectedRelationshipCounts = new Dictionary<string, int>();
-
-            LinkFieldGraphSyncer = new LinkFieldGraphSyncer();
+            ContentFieldGraphSyncer = new LinkFieldGraphSyncer();
         }
 
         [Theory]
@@ -62,15 +31,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
             bool textStringContentPropertyMatchesNodePropertyReturns)
         {
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentKeyText,
+                ContentKeyText,
                 A<JObject>._,
-                _fieldNameText,
+                FieldNameText,
                 SourceNode)).Returns((textStringContentPropertyMatchesNodePropertyReturns, ""));
 
             A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
-                _contentKeyUrl,
+                ContentKeyUrl,
                 A<JObject>._,
-                _fieldNameUrl,
+                FieldNameUrl,
                 SourceNode)).Returns((urlStringContentPropertyMatchesNodePropertyReturns, ""));
 
             (bool validated, _) = await CallValidateSyncComponent();
@@ -79,16 +48,5 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.LinkFieldG
         }
 
         //todo: failure message tests
-
-        private async Task<(bool validated, string failureReason)> CallValidateSyncComponent()
-        {
-            return await LinkFieldGraphSyncer.ValidateSyncComponent(
-                ContentItemField,
-                ContentPartFieldDefinition,
-                NodeWithOutgoingRelationships,
-                GraphSyncHelper,
-                GraphValidationHelper,
-                ExpectedRelationshipCounts);
-        }
     }
 }

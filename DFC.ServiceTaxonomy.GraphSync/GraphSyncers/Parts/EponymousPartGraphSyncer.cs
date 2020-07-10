@@ -3,10 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -34,37 +31,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
         }
 
-        public async Task AddSyncComponents(JObject content,
-            ContentItem contentItem,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            await _contentFieldsGraphSyncer.AddSyncComponents(
-                content,
-                mergeNodeCommand,
-                replaceRelationshipsCommand,
-                contentTypePartDefinition,
-                graphSyncHelper);
+            await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
-            string endpoint)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
-                content,
-                contentTypePartDefinition,
-                nodeWithOutgoingRelationships,
-                graphSyncHelper,
-                graphValidationHelper,
-                expectedRelationshipCounts);
+                content, context);
         }
     }
 }

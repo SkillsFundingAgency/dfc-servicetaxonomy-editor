@@ -1,4 +1,6 @@
 using DFC.ServiceTaxonomy.Editor.Security;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
+using DFC.ServiceTaxonomy.Neo4j.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,14 @@ namespace DFC.ServiceTaxonomy.Editor
                 options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
             services.AddOrchardCms();
+
+            services.AddEventGridPublishing(Configuration);
+
+            //todo: do this in each library??? if so, make sure it doesn't add services or config twice
+            services.AddGraphCluster(options =>
+                Configuration.GetSection(Neo4jOptions.Neo4j).Bind(options));
+
+            services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)

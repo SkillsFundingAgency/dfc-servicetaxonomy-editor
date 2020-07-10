@@ -1,42 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using FakeItEasy;
+using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldGraphSyncerTests
 {
-    //todo: factor out common code in tests
-    public class HtmlFieldGraphSyncer_AddSyncComponentsTests
+    public class HtmlFieldGraphSyncer_AddSyncComponentsTests : FieldGraphSyncer_AddSyncComponentsTests
     {
-        public JObject? ContentItemField { get; set; }
-        public IMergeNodeCommand MergeNodeCommand { get; set; }
-        public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; set; }
-        public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
-        public HtmlFieldGraphSyncer HtmlFieldGraphSyncer { get; set; }
-
-        const string _fieldName = "TestField";
-
         public HtmlFieldGraphSyncer_AddSyncComponentsTests()
         {
-            MergeNodeCommand = A.Fake<IMergeNodeCommand>();
-            //todo: best way to do this?
-            MergeNodeCommand.Properties = new Dictionary<string, object>();
-
-            ReplaceRelationshipsCommand = A.Fake<IReplaceRelationshipsCommand>();
-
-            ContentPartFieldDefinition = A.Fake<IContentPartFieldDefinition>();
-            A.CallTo(() => ContentPartFieldDefinition.Name).Returns(_fieldName);
-
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
-
-            HtmlFieldGraphSyncer = new HtmlFieldGraphSyncer();
+            ContentFieldGraphSyncer = new HtmlFieldGraphSyncer();
         }
 
         [Fact]
@@ -67,15 +42,5 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
 
         //todo: assert that nothing else is done to the commands
         //todo: assert that graphsynchelper's contenttype is not set
-
-        private async Task CallAddSyncComponents()
-        {
-            await HtmlFieldGraphSyncer.AddSyncComponents(
-                ContentItemField!,
-                MergeNodeCommand,
-                ReplaceRelationshipsCommand,
-                ContentPartFieldDefinition,
-                GraphSyncHelper);
-        }
     }
 }

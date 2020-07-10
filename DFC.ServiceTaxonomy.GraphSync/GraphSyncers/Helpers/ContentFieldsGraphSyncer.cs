@@ -2,10 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -54,51 +50,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
-        public async Task AddSyncComponents(
-            dynamic content,
-            IMergeNodeCommand mergeNodeCommand,
-            IReplaceRelationshipsCommand replaceRelationshipsCommand,
-            ContentTypePartDefinition contentTypePartDefinition,
-            IGraphSyncHelper graphSyncHelper)
+        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
-                    contentTypePartDefinition.PartDefinition.Fields
+                    context.ContentTypePartDefinition.PartDefinition.Fields
                         .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    JObject? contentItemField = content[contentPartFieldDefinition.Name];
+                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 
-                    //todo: might need another level of indirection to be able to test this method :*(
-                    IContentPartFieldDefinition contentPartFieldDefinitionWrapper
-                        = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
 
-                    await contentFieldGraphSyncer.AddSyncComponents(
-                        contentItemField,
-                        mergeNodeCommand,
-                        replaceRelationshipsCommand,
-                        contentPartFieldDefinitionWrapper,
-                        graphSyncHelper);
+                    await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
                 }
+
+                context.SetContentPartFieldDefinition(default);
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            ContentTypePartDefinition contentTypePartDefinition,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
-            IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts)
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+            IValidateAndRepairContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
                 IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
-                    contentTypePartDefinition.PartDefinition.Fields
+                    context.ContentTypePartDefinition.PartDefinition.Fields
                         .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
@@ -110,16 +91,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         continue;
                     }
 
-                    IContentPartFieldDefinition contentPartFieldDefinitionWrapper
-                        = new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition);
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
 
                     (bool validated, string failureReason) = await contentFieldGraphSyncer.ValidateSyncComponent(
-                        contentItemField,
-                        contentPartFieldDefinitionWrapper,
-                        nodeWithOutgoingRelationships,
-                        graphSyncHelper,
-                        graphValidationHelper,
-                        expectedRelationshipCounts);
+                        contentItemField, context);
 
                     if (!validated)
                     {

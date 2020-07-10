@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Services;
+using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using YesSql;
@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class DeleteGraphSyncer : IDeleteGraphSyncer
     {
-        private readonly IGraphDatabase _graphDatabase;
+        private readonly IGraphCluster _graphCluster;
         private readonly IDeleteNodeCommand _deleteNodeCommand;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IDeleteNodesByTypeCommand _deleteNodesByTypeCommand;
@@ -19,14 +19,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ILogger<DeleteGraphSyncer> _logger;
 
         public DeleteGraphSyncer(
-            IGraphDatabase graphDatabase,
+            IGraphCluster graphCluster,
             IDeleteNodesByTypeCommand deleteNodesByTypeCommand,
             IDeleteNodeCommand deleteNodeCommand,
             IGraphSyncHelper graphSyncHelper,
             ISession session,
             ILogger<DeleteGraphSyncer> logger)
         {
-            _graphDatabase = graphDatabase;
+            _graphCluster = graphCluster;
             _deleteNodeCommand = deleteNodeCommand;
             _graphSyncHelper = graphSyncHelper;
             _deleteNodesByTypeCommand = deleteNodesByTypeCommand;
@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
         }
 
-        public async Task DeleteNodesByType(string contentType)
+        public async Task DeleteNodesByType(string graphReplicaSetName, string contentType)
         {
             if (string.IsNullOrWhiteSpace(contentType))
                 return;
@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             try
             {
-                await _graphDatabase.Run(_deleteNodesByTypeCommand);
+                await _graphCluster.Run(graphReplicaSetName, _deleteNodesByTypeCommand);
             }
             //TODO : specify which exceptions to handle?
             //todo: move this into task?
@@ -59,9 +59,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        public async Task DeleteFromGraph(ContentItem contentItem)
+        public async Task DeleteFromGraphReplicaSet(string graphReplicaSetName, ContentItem contentItem)
         {
-
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
@@ -74,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
 
-            await _graphDatabase.Run(_deleteNodeCommand);
+            await _graphCluster.Run(graphReplicaSetName, _deleteNodeCommand);
         }
     }
 }
