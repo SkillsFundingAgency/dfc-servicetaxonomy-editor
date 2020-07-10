@@ -1,5 +1,9 @@
 #ToDo
 
+* shared content preview in page editor should just show content, not title
+
+* graphsync 2 settings, 1 for published 1 for preview
+
 * taxonomy sync: the different settings (hierarchical taxonomy) gets stored without TaxonomyPart in the content, but with the taconomy part's Terms directly in the content root (and that content item can have a terms conrtent item too)
 
 * add link to edit failed item in validate page
