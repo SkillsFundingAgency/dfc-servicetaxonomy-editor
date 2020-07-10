@@ -5,6 +5,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IContentItemGraphSyncer
     {
+        int Priority { get; }
+
         bool CanHandle(ContentItem contentItem);
 
         Task AddSyncComponents(ContentItem contentItem, IGraphMergeContext context);

@@ -24,6 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
         private readonly ICustomContentDefintionManager _contentDefinitionManager;
+        private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IMergeNodeCommand _mergeNodeCommand;
@@ -33,6 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public MergeGraphSyncer(
             ICustomContentDefintionManager contentDefinitionManager,
+            IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
             IMergeNodeCommand mergeNodeCommand,
@@ -41,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ILogger<MergeGraphSyncer> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
+            _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _partSyncers = partSyncers;
             _graphSyncHelper = graphSyncHelper;
             _mergeNodeCommand = mergeNodeCommand;
@@ -107,8 +110,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // will need to factor out part handling for the new 1 to use
             // wrap current behaviour into a default contentitem handler and use composition/inheritance
 
+            // foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
+            // {
+            //
+            // }
+
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
+
+            //order in ctor?
+            // add priority field and order?
             var partSyncersWithGraphLookupFirst
                 = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
                     .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
@@ -155,7 +166,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // do we fake the definition or take it from the taxonomy?
 
                 // pass contentitem to canhandle
-                // new 
+                // new
 
                 var contentTypePartDefinitions =
                     contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentItem.ContentType, p.PartDefinition));
