@@ -103,6 +103,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task AddContentPartSyncComponents(IGraphReplicaSet graphReplicaSet, ContentItem contentItem, IContentManager contentManager)
         {
+            //todo: need contentitemgraphsyncers, with canhandle content : new one that looks for "Terms" content
+            // will need to factor out part handling for the new 1 to use
+            // wrap current behaviour into a default contentitem handler and use composition/inheritance
+
             // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
             string graphSyncPartName = nameof(GraphSyncPart);
             var partSyncersWithGraphLookupFirst
@@ -145,6 +149,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 // terms contains recursive content items, (in a similar manner to under TaxonomyPart => Terms in the taxonomy content type)
                 // and we'll need to recurse to handle the hierarchy
+
+                // can we tell if the content-type is used as a taxonomy from querying all taxonomies?
+                // if so, we can look for TermPart and Terms even though there's no part definition
+                // do we fake the definition or take it from the taxonomy?
+
+                // pass contentitem to canhandle
+                // new 
 
                 var contentTypePartDefinitions =
                     contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentItem.ContentType, p.PartDefinition));

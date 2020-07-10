@@ -29,6 +29,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
@@ -89,6 +90,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, BagPartEmbeddedContentItemsGraphSyncer>();
             services.AddTransient<IFlowPartEmbeddedContentItemsGraphSyncer, FlowPartEmbeddedContentItemsGraphSyncer>();
             services.AddTransient<ITaxonomyPartEmbeddedContentItemsGraphSyncer, TaxonomyPartEmbeddedContentItemsGraphSyncer>();
+
+            // content item syncers
+            services.AddTransient<IContentItemGraphSyncer, TaxonomyTermContentItemGraphSyncer>();
 
             // part syncers
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
