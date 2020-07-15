@@ -241,15 +241,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (nodeWithOutgoingRelationships == null)
                 return (false, FailureContext("Node not found.", contentItem));
 
-            IDictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
-
             ValidateAndRepairContext context = new ValidateAndRepairContext(
                 _contentManager,
                 contentItemVersion,
                 nodeWithOutgoingRelationships,
                 _graphSyncHelper,
                 _graphValidationHelper,
-                expectedRelationshipCounts,
                 this);
 
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
@@ -287,7 +284,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // check there aren't any more relationships of each type than there should be
             // we need to do this after all parts have added their own expected relationship counts
             // to handle different parts or multiple named instances of a part creating relationships of the same type
-            foreach ((string relationshipType, int relationshipsInDbCount) in expectedRelationshipCounts)
+            foreach ((string relationshipType, int relationshipsInDbCount) in context.ExpectedRelationshipCounts)
             {
                 int relationshipsInGraphCount =
                     nodeWithOutgoingRelationships.OutgoingRelationships.Count(r =>
