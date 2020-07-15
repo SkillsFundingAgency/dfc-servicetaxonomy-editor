@@ -25,6 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
+        private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentManager _contentManager;
         private readonly ISession _session;
@@ -37,6 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private IGraph? _currentGraph;
 
         public ValidateAndRepairGraph(
+            IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IContentDefinitionManager contentDefinitionManager,
             IContentManager contentManager,
             ISession session,
@@ -46,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IGraphValidationHelper graphValidationHelper,
             ILogger<ValidateAndRepairGraph> logger)
         {
+            _itemSyncers = itemSyncers;
             _contentDefinitionManager = contentDefinitionManager;
             _contentManager = contentManager;
             _session = session;

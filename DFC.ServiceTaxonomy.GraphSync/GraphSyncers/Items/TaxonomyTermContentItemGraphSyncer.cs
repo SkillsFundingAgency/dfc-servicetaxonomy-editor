@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
@@ -7,6 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 {
     public class TaxonomyTermContentItemGraphSyncer : IContentItemGraphSyncer
     {
+        private readonly ITaxonomyPartGraphSyncer _taxonomyPartGraphSyncer;
         private const string Terms = "Terms";
 
         public int Priority => 0;
@@ -19,8 +21,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                    && contentItem.ContentType != Terms;
         }
 
-        public Task AddSyncComponents(IGraphMergeItemSyncContext context)
+        public TaxonomyTermContentItemGraphSyncer(ITaxonomyPartGraphSyncer taxonomyPartGraphSyncer)
         {
+            _taxonomyPartGraphSyncer = taxonomyPartGraphSyncer;
+        }
+
+        public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
+        {
+            await _taxonomyPartGraphSyncer.AddSyncComponents(context.ContentItem.Content, context);
+
             //todo: taxonomy type has all its part definitions returned by GetTypeDefinition :+1:
             // the embedded PageLocation content type, only has some of its part definitions returned by GetTypeDefinition
             // or actually, it returns all the part definitions for the parts its designed with,
@@ -43,8 +52,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             // can we tell if the content-type is used as a taxonomy from querying all taxonomies?
             // if so, we can look for TermPart and Terms even though there's no part definition
             // do we fake the definition or take it from the taxonomy?
-
-            return Task.CompletedTask;
         }
 
         public Task<(bool validated, string failureReason)> ValidateSyncComponent(ContentItem contentItem, IValidateAndRepairContext context) => throw new System.NotImplementedException();
