@@ -147,17 +147,7 @@ function initVueMultiselectPreview(element) {
                     }
                 },
                 edit: function (item) {
-                    var self = this;
-
-                    confirmDialog({
-                        title: 'Warning',
-                        message: 'Any unsaved changes on the current page will be lost, are you sure you want to continue?',
-                        callback: function callback(r) {
-                            if (r) {
-                                window.location = self.$refs.editLink.href.replace(encodeURI('<<ID>>'), item.id).concat('?returnUrl=' + window.location.pathname);
-                            }
-                        }
-                    });
+                    openConfirmModal(this.$refs.editLink.href.replace(encodeURI('<<ID>>'), item.id).concat('?returnUrl=' + window.location.pathname));
                 }
             }
         })
@@ -167,10 +157,23 @@ function initVueMultiselectPreview(element) {
 $(function () {
     $(document).on('click', '.create-button', function (e) {
         e.preventDefault();
-        window.location = $(this).attr('href').concat('?returnUrl=' + window.location.pathname);
+        var url = $(this).attr('href').concat('?returnUrl=' + window.location.pathname);
+        openConfirmModal(url);
     });
 
     //TODO : find a better way of doing this? any widget collapsibles that don't contain the preview editor will start closed.
     //maybe we move this to some global JS file at least.
     $('.widget-editor').removeClass('collapsed');
 });
+
+function openConfirmModal(url) {
+    confirmDialog({
+        title: 'Warning',
+        message: 'Any unsaved changes on the current page will be lost, are you sure you want to continue?',
+        callback: function callback(r) {
+            if (r) {
+                window.location = url;
+            }
+        }
+    });
+}
