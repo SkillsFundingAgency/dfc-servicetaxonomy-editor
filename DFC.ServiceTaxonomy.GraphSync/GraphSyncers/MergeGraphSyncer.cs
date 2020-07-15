@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -23,9 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // so any validation failure rolls back the whole sync operation
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
-        private readonly ICustomContentDefintionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
-        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
@@ -33,18 +29,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         public MergeGraphSyncer(
-            ICustomContentDefintionManager contentDefinitionManager,
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
-            IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
             ILogger<MergeGraphSyncer> logger)
         {
-            _contentDefinitionManager = contentDefinitionManager;
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
-            _partSyncers = partSyncers;
             _graphSyncHelper = graphSyncHelper;
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
@@ -106,83 +98,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task AddContentPartSyncComponents(IGraphReplicaSet graphReplicaSet, ContentItem contentItem, IContentManager contentManager)
         {
-            //todo: need contentitemgraphsyncers, with canhandle content : new one that looks for "Terms" content
-            // will need to factor out part handling for the new 1 to use
-            // wrap current behaviour into a default contentitem handler and use composition/inheritance
-
-            // foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
-            // {
-            //
-            // }
-
-            // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
-            string graphSyncPartName = nameof(GraphSyncPart);
-
-            //order in ctor?
-            // add priority field and order?
-            var partSyncersWithGraphLookupFirst
-                = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
-                    .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
-
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-
-            var contentItemVersion = new ContentItemVersion(graphReplicaSet.Name);
-
             GraphMergeContext graphMergeContext = new GraphMergeContext(
                 _graphSyncHelper,
                 graphReplicaSet,
                 _mergeNodeCommand,
                 _replaceRelationshipsCommand,
                 contentItem,
-                contentManager,
-                contentItemVersion);
+                contentManager);
 
-            foreach (var partSync in partSyncersWithGraphLookupFirst)
+            foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
-                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
-                // (other non-named parts have the part name in both)
-
-                //todo: taxonomy type has all its part definitions returned by GetTypeDefinition :+1:
-                // the embedded PageLocation content type, only has some of its part definitions returned by GetTypeDefinition
-                // or actually, it returns all the part definitions for the parts its designed with,
-                // but it returns a "TermPart" content and a "Terms" content with no corresponding part definition
-                // so currently they don't get synced
-
-                /*
-                 *     "TermPart": {
-                          "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
-                        },
-                        "Terms": [
-                          {
-                            "ContentItemId": "4pksnz9106ngbwq74w66snan5x",
-                            "ContentItemVersionId": null,
-                 */
-
-                // terms contains recursive content items, (in a similar manner to under TaxonomyPart => Terms in the taxonomy content type)
-                // and we'll need to recurse to handle the hierarchy
-
-                // can we tell if the content-type is used as a taxonomy from querying all taxonomies?
-                // if so, we can look for TermPart and Terms even though there's no part definition
-                // do we fake the definition or take it from the taxonomy?
-
-                // pass contentitem to canhandle
-                // new
-
-                var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentItem.ContentType, p.PartDefinition));
-
-                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
-                {
-                    graphMergeContext.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    string namedPartName = contentTypePartDefinition.Name;
-
-                    JObject? partContent = contentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue; //todo: throw??
-
-                    await partSync.AddSyncComponents(partContent, graphMergeContext);
-                }
+                if (itemSyncer.CanSync(contentItem))
+                    await itemSyncer.AddSyncComponents(graphMergeContext);
             }
         }
 

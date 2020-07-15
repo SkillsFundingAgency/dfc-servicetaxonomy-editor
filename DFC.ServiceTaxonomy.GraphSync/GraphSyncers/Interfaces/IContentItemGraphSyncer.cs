@@ -7,9 +7,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         int Priority { get; }
 
-        bool CanHandle(ContentItem contentItem);
+        bool CanSync(ContentItem contentItem);
 
-        Task AddSyncComponents(ContentItem contentItem, IGraphMergeContext context);
+        Task AddSyncComponents(IGraphMergeItemSyncContext context);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             ContentItem contentItem,

@@ -255,7 +255,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
             {
                 IContentPartGraphSyncer partSyncer = _partSyncers.SingleOrDefault(ps =>
-                    ps.CanHandle(contentTypePartDefinition.ContentTypeDefinition.Name,
+                    ps.CanSync(contentTypePartDefinition.ContentTypeDefinition.Name,
                         contentTypePartDefinition.PartDefinition));
 
                 if (partSyncer == null)

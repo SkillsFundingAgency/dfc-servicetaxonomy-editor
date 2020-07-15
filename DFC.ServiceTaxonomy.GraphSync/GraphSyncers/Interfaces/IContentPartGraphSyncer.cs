@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         string PartName {get;}
 
-        public bool CanHandle(string contentType, ContentPartDefinition contentPartDefinition)
+        public bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
         {
             return contentPartDefinition.Name == PartName;
         }

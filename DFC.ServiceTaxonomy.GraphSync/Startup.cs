@@ -93,6 +93,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // content item syncers
             services.AddTransient<IContentItemGraphSyncer, TaxonomyTermContentItemGraphSyncer>();
+            services.AddTransient<IContentItemGraphSyncer, ContentItemGraphSyncer>();
 
             // part syncers
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();

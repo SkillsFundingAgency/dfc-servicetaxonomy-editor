@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             nameof(AccordionField)
         };
 
-        public bool CanHandle(string contentType, ContentPartDefinition contentPartDefinition)
+        public bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
         {
             return contentPartDefinition.Name == contentType
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
