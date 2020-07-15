@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
