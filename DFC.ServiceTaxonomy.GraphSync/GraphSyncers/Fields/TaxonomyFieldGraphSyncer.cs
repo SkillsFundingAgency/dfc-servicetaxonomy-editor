@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using Microsoft.Extensions.DependencyInjection;
+//using MoreLinq;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Taxonomies.Models;
@@ -14,6 +15,14 @@ using OrchardCore.Taxonomies.Models;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
     //todo: remove `The body of the content item.`
+
+    public static class Xyz
+    {
+        public static IEnumerable<T> Flatten<T>(
+            this IEnumerable<T> e
+            , Func<T, IEnumerable<T>> f
+        ) => e.SelectMany(c => f(c).Flatten(f)).Concat(e);
+    }
 
     /// <remarks>
     /// We don't bother syncing TermParts:
@@ -51,8 +60,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentManager, context.ContentItemVersion);
 
-            var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
-            string termContentType = taxonomyPartContent[TermContentType];
+            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
@@ -69,9 +78,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             relatedGraphSyncHelper.ContentType = termContentType;
 
             //todo: handle missing graphsynchelper. extract into GetNodeId method
-            JArray taxonomyTermsContent = (JArray)taxonomyPartContent[Terms];
+            JArray taxonomyTermsContent = GetTerms(taxonomyPartContent);
+
+            //var contentItems = taxonomyTermsContent.Values<ContentItem>();
+            var contentItems2 = taxonomyTermsContent.ToObject<IEnumerable<ContentItem>>();
+
+            //var abc = contentItems.Flatten(ci => ((JArray)((ContentItem)ci).Content)["Terms"]!.Values<ContentItem>());
+            //            var abc2 = contentItems2.Flatten(ci => ((JArray?)((JObject)((ContentItem)ci).Content)["Terms"])?.ToObject<IEnumerable<ContentItem>>());
+
+            var abc2 = contentItems2!.Flatten(ci => ((JArray?)((JObject)ci.Content)["Terms"])?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>());
+
+
+#pragma warning disable S1481
+
+            // could only get morelinq's flatten to produce the leaf nodes :(
+
+            //var cis = abc.Cast<ContentItem>();
+            //var cis2 = abc2.Cast<ContentItem>();
+
+            //var abc = MoreEnumerable.TraverseDepthFirst(contentItems)
+
+            //var xyz = taxonomyTermsContent.Flatten(token => (JArray)((JObject)token)["Terms"]!);
+            //var xyz = MoreEnumerable.TraverseDepthFirst(taxonomyTermsContent, )
+            //            var abc = (IEnumerable<JObject>)xyz;
+
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                GetNodeId(tid, taxonomyTermsContent, relatedGraphSyncHelper)!);
+                GetNodeId(tid, abc2, relatedGraphSyncHelper)!);
 
             IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
 
@@ -102,10 +134,50 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             context.MergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
         }
 
+        private static JArray GetTerms(JObject taxonomyPartContent)
+        {
+            JArray taxonomyTermsContent = (JArray) taxonomyPartContent[Terms]!;
+            return taxonomyTermsContent;
+        }
+
+        // private object? GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
+        // {
+        //     var xyz = taxonomyTermsContent.Flatten(token => (JArray)((JObject)token)["Terms"]!);
+        //
+        //     JObject? termContentItem;
+        //
+        //     do
+        //     {
+        //         termContentItem = (JObject)taxonomyTermsContent.FirstOrDefault(token =>
+        //             token["ContentItemId"]?.Value<string>() == termContentItemId);
+        //
+        //         if (termContentItem == null)
+        //         {
+        //             taxonomyTermsContent
+        //         }
+        //
+        //     } while (termContentItem == null);
+        //
+        //     return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
+        // }
+
+        // ToDictionary??
         private object? GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
         {
             JObject termContentItem = (JObject)taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == termContentItemId);
             return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
+        }
+
+        private object? GetNodeId(string termContentItemId, IEnumerable<JObject> taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
+        {
+            JObject termContentItem = taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == termContentItemId);
+            return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
+        }
+
+        private object? GetNodeId(string termContentItemId, IEnumerable<ContentItem> taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
+        {
+            ContentItem termContentItem = taxonomyTermsContent.First(ci => ci.ContentItemId == termContentItemId);
+            return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem.Content[nameof(GraphSyncPart)]!);
         }
 
         private async Task<ContentItem> GetTaxonomyContentItem(
