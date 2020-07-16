@@ -101,7 +101,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // add tagnames
             //using var _ = graphSyncHelper.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
 
+            //todo: this is there sometimes, but not others (Tag editor is selected and/or non-unique?)
             context.MergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
+
+            //todo: need to store location as string, e.g. "/contact-us"
+            // could alter flatten to also include parent and work backwards
+            // or do a search, recording the path
         }
 
         private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JObject taxonomyPartContent)
