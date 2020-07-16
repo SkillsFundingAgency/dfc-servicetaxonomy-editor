@@ -627,11 +627,29 @@ AltLabel is similar to prefLabel, in that there are nodes that follow the same p
 
 #Helpful Cypher
 
-##Delete ncs node data
+##Delete Page related
 
-To delete NCS node data (leaving the original ESCO data):
-
-```match (n) where any(l in labels(n) where l starts with "ncs__") detach delete n```
+:use neo4j;
+match (n:Page) detach delete n;
+match (n:SharedContent) detach delete n;
+match (n:PageLocation) detach delete n;
+match (n:Taxonomy) detach delete n;
+:use published1;
+match (n:Page) detach delete n;
+match (n:SharedContent) detach delete n;
+match (n:PageLocation) detach delete n;
+match (n:Taxonomy) detach delete n;
+:use preview0;
+match (n:Page) detach delete n;
+match (n:SharedContent) detach delete n;
+match (n:PageLocation) detach delete n;
+match (n:Taxonomy) detach delete n;
+:use preview1;
+match (n:Page) detach delete n;
+match (n:SharedContent) detach delete n;
+match (n:PageLocation) detach delete n;
+match (n:Taxonomy) detach delete n;
+:use neo4j;
 
 ##Testing graph validation
 
