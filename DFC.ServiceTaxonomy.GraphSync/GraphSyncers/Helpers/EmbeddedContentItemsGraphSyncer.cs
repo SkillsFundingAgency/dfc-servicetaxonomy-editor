@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             JArray? contentItems,
             IValidateAndRepairContext context)
         {
-            IEnumerable<ContentItem> embeddedContentItems = ValidateSyncComponentConvertToContentItems(contentItems);
+            IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
 
             int relationshipOrdinal = 0;
             foreach (ContentItem embeddedContentItem in embeddedContentItems)
@@ -134,11 +134,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (embeddedContentItems == null)
                 throw new GraphSyncException("Embedded content container does not contain ContentItems.");
             return embeddedContentItems;
-        }
-
-        protected virtual IEnumerable<ContentItem> ValidateSyncComponentConvertToContentItems(JArray? contentItems)
-        {
-            return ConvertToContentItems(contentItems);
         }
 
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)

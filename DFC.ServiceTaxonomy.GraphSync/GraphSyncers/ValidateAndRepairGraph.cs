@@ -255,7 +255,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 //todo: allow syncers to chain or not?
                 if (itemSyncer.CanSync(contentItem))
                 {
-                    await itemSyncer.ValidateSyncComponent(contentItem, context);
+                    (bool validated, string failureReason) =
+                        await itemSyncer.ValidateSyncComponent(contentItem, context);
+                    if (!validated)
+                        return (validated, failureReason);
                 }
             }
 
