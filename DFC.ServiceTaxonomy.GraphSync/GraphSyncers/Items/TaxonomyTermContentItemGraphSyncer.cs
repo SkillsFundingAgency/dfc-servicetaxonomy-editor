@@ -5,7 +5,6 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 {
-    //todo: set up locations
     //todo: location as /x/y/z : syncer with contenttypes to sync for. like filter call highest pri with chained nexts?
     public class TaxonomyTermContentItemGraphSyncer : IContentItemGraphSyncer
     {
@@ -13,8 +12,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         private const string Terms = "Terms";
 
         public int Priority => 0;
-
-        // we need separate CanSync & CanValidate methods, because CanSync shouldn't select leaf terms, but CanValidate needs to
 
         public bool CanSync(ContentItem contentItem)
         {
