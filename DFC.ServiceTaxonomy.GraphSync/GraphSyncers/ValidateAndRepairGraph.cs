@@ -14,7 +14,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -31,7 +30,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ISession _session;
         private readonly IGraphClusterLowLevel _graphClusterLowLevel;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
@@ -43,17 +41,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IContentManager contentManager,
             ISession session,
             IServiceProvider serviceProvider,
-            IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             ILogger<ValidateAndRepairGraph> logger)
         {
-            _itemSyncers = itemSyncers;
+            _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _contentDefinitionManager = contentDefinitionManager;
             _contentManager = contentManager;
             _session = session;
             _serviceProvider = serviceProvider;
-            _partSyncers = partSyncers;
             _graphSyncHelper = graphSyncHelper;
             _graphValidationHelper = graphValidationHelper;
             _logger = logger;
@@ -244,44 +240,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (nodeWithOutgoingRelationships == null)
                 return (false, FailureContext("Node not found.", contentItem));
 
-            ValidateAndRepairContext context = new ValidateAndRepairContext(
+            ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
                 _contentManager,
                 contentItemVersion,
                 nodeWithOutgoingRelationships,
                 _graphSyncHelper,
                 _graphValidationHelper,
-                this);
+                this,
+                contentTypeDefinition,
+                nodeId);
 
-            foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
+            foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
-                IContentPartGraphSyncer partSyncer = _partSyncers.SingleOrDefault(ps =>
-                    ps.CanSync(contentTypePartDefinition.ContentTypeDefinition.Name,
-                        contentTypePartDefinition.PartDefinition));
-
-                if (partSyncer == null)
+                if (itemSyncer.CanValidate(contentItem))
                 {
-                    _logger.LogInformation($"No IContentPartGraphSyncer registered to sync/validate {contentTypePartDefinition.ContentTypeDefinition.Name} parts, so ignoring");
-                    continue;
+                    await itemSyncer.ValidateSyncComponent(contentItem, context);
+                    break;
                 }
-
-                dynamic? partContent = contentItem.Content[contentTypePartDefinition.Name];
-                if (partContent == null)
-                    continue; //todo: throw??
-
-                // pass as param, rather than context?
-                context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
-                    (JObject)partContent, context);
-
-                if (validated)
-                    continue;
-
-                string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
-                string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition,
-                    contentItem, contentTypePartDefinition.PartDefinition.Name, partContent,
-                    nodeWithOutgoingRelationships);
-                return (false, failureContext);
             }
 
             // check there aren't any more relationships of each type than there should be
@@ -304,7 +279,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return (true, "");
         }
 
-        private string FailureContext(
+        public string FailureContext(
             string failureReason,
             ContentItem contentItem)
         {
@@ -312,31 +287,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 Content ----------------------------------------
           type: '{contentItem.ContentType}'
             ID: {contentItem.ContentItemId}";
-        }
-
-        //todo: output relationships destination label user id, instead of node id
-        private string FailureContext(
-            string failureReason,
-            object nodeId,
-            ContentTypePartDefinition contentTypePartDefinition,
-            ContentItem contentItem,
-            string partName,
-            dynamic partContent,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships)
-        {
-            return $@"{FailureContext(failureReason, contentItem)}
-part type name: '{partName}'
-     part name: '{contentTypePartDefinition.Name}'
-  part content:
-{partContent}
-Source Node ------------------------------------
-        ID: {nodeWithOutgoingRelationships.SourceNode.Id}
-   user ID: {nodeId}
-    labels: ':{string.Join(":", nodeWithOutgoingRelationships.SourceNode.Labels)}'
-properties:
-{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.SourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}
-Relationships ----------------------------------
-{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.OutgoingRelationships.Select(or => $"[:{or.Relationship.Type}]->({or.DestinationNode.Id})"))}";
         }
     }
 
