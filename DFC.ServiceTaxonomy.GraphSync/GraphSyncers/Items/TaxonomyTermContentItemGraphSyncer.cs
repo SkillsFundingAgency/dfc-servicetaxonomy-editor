@@ -2,13 +2,11 @@
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 {
     //todo: set up locations
     //todo: location as /x/y/z : syncer with contenttypes to sync for. like filter call highest pri with chained nexts?
-    //todo: validation
     public class TaxonomyTermContentItemGraphSyncer : IContentItemGraphSyncer
     {
         private readonly ITaxonomyPartGraphSyncer _taxonomyPartGraphSyncer;
@@ -26,14 +24,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                    && contentItem.ContentType != Terms;
         }
 
-        public bool CanValidate(ContentItem contentItem)
-        {
-            // this check means a 'TermPart' content type using a hierarchical taxonomy won't sync,
-            // but I think orchard core would blow up first anyway ;)
-            return ((JObject)contentItem.Content).ContainsKey(nameof(TermPart))
-                   && contentItem.ContentType != nameof(TermPart);
-        }
-
         public TaxonomyTermContentItemGraphSyncer(ITaxonomyPartGraphSyncer taxonomyPartGraphSyncer)
         {
             _taxonomyPartGraphSyncer = taxonomyPartGraphSyncer;
@@ -44,11 +34,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             await _taxonomyPartGraphSyncer.AddSyncComponents(context.ContentItem.Content, context);
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             ContentItem contentItem,
             IValidateAndRepairItemSyncContext context)
         {
-            return Task.FromResult((true, ""));
+            return await _taxonomyPartGraphSyncer.ValidateSyncComponent((JObject)contentItem.Content, context);
         }
     }
 }

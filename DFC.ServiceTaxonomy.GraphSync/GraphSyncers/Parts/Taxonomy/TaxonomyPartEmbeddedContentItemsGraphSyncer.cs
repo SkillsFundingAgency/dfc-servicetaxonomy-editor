@@ -32,14 +32,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             if (embeddedContentItems == null)
                 throw new GraphSyncException("Embedded content container does not contain ContentItems.");
 
-            return GetFlattenedTermsContentItems(embeddedContentItems);
+            return GetFlattenedNonLeafTermsContentItems(embeddedContentItems);
         }
 
-        private static ContentItem[] GetFlattenedTermsContentItems(IEnumerable<ContentItem> termsRootContentItems)
+        private static ContentItem[] GetFlattenedNonLeafTermsContentItems(IEnumerable<ContentItem> termsRootContentItems)
         {
             return termsRootContentItems
                 .Flatten(ci => ((JArray?)((JObject)ci.Content)["Terms"])
                     ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>())
+                .Where(ci => ci.Content["Terms"] != null)
                 .ToArray();
         }
     }

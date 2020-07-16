@@ -20,7 +20,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         public int Priority => int.MinValue;
 
         public bool CanSync(ContentItem contentItem) => true;
-        public bool CanValidate(ContentItem contentItem) => true;
 
         public ContentItemGraphSyncer(
             ICustomContentDefintionManager contentDefinitionManager,

@@ -252,10 +252,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
-                if (itemSyncer.CanValidate(contentItem))
+                //todo: allow syncers to chain or not?
+                if (itemSyncer.CanSync(contentItem))
                 {
                     await itemSyncer.ValidateSyncComponent(contentItem, context);
-                    break;
                 }
             }
 

@@ -108,10 +108,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
+                //todo: allow syncers to chain or not?
                 if (itemSyncer.CanSync(contentItem))
                 {
                     await itemSyncer.AddSyncComponents(graphMergeContext);
-                    break;
                 }
             }
         }
