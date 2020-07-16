@@ -42,21 +42,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
                     ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>())
                 .ToArray();
         }
-
-        //todo: if works share code?
-        // private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JObject taxonomyPartContent)
-        // {
-        //     IEnumerable<ContentItem> termsRootContentItems = GetTermsRootContentItems(taxonomyPartContent);
-        //
-        //     return termsRootContentItems
-        //         .Flatten(ci => ((JArray?) ((JObject) ci.Content)["Terms"])
-        //             ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>())
-        //         .ToDictionary(ci => ci.ContentItemId, ci => ci.ContentItem);
-        // }
-
-        // private static IEnumerable<ContentItem> GetTermsRootContentItems(JObject taxonomyPartContent)
-        // {
-        //     return ((JArray)taxonomyPartContent[Terms]!).ToObject<IEnumerable<ContentItem>>()!;
-        // }
     }
 }
