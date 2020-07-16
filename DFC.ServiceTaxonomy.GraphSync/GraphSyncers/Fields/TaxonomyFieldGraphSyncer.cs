@@ -14,6 +14,8 @@ using OrchardCore.Taxonomies.Models;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
     //todo: remove `The body of the content item.`
+    //todo: what happens when page references term that then gets deleted from the taxonomy? think sync would be ok, validate's GetNodeId wouldn't find any elements
+    // if that's a thing, how should we handle it?
 
     /// <remarks>
     /// We don't bother syncing TermParts:
@@ -68,12 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
             relatedGraphSyncHelper.ContentType = termContentType;
 
-            IEnumerable<ContentItem> termsRootContentItems = GetTermsRootContentItems(taxonomyPartContent);
-
-            IEnumerable<ContentItem> flattenedTermsContentItems =
-                termsRootContentItems
-                    .Flatten(ci => ((JArray?)((JObject)ci.Content)["Terms"])
-                        ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>());
+            var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
                 GetNodeId(tid, flattenedTermsContentItems, relatedGraphSyncHelper)!);
@@ -107,21 +104,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             context.MergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
         }
 
+        private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JObject taxonomyPartContent)
+        {
+            IEnumerable<ContentItem> termsRootContentItems = GetTermsRootContentItems(taxonomyPartContent);
+
+            return termsRootContentItems
+                .Flatten(ci => ((JArray?) ((JObject) ci.Content)["Terms"])
+                    ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>())
+                .ToDictionary(ci => ci.ContentItemId, ci => ci.ContentItem);
+        }
+
         private static IEnumerable<ContentItem> GetTermsRootContentItems(JObject taxonomyPartContent)
         {
             return ((JArray)taxonomyPartContent[Terms]!).ToObject<IEnumerable<ContentItem>>()!;
         }
 
         // ToDictionary??
-        private object? GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
+        private object? GetNodeId(string termContentItemId, IDictionary<string, ContentItem> taxonomyTerms, IGraphSyncHelper termGraphSyncHelper)
         {
-            JObject termContentItem = (JObject)taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == termContentItemId);
-            return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
-        }
-
-        private object? GetNodeId(string termContentItemId, IEnumerable<ContentItem> taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
-        {
-            ContentItem termContentItem = taxonomyTermsContent.First(ci => ci.ContentItemId == termContentItemId);
+            ContentItem termContentItem = taxonomyTerms[termContentItemId];
             return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem.Content[nameof(GraphSyncPart)]!);
         }
 
@@ -172,13 +173,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
             relatedGraphSyncHelper.ContentType = termContentType;
 
-            JArray taxonomyTermsContent = (JArray)taxonomyPartContent[Terms];
+            var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
             foreach (JToken item in contentItemIds)
             {
                 string contentItemId = (string)item!;
 
-                object? destinationId = GetNodeId(contentItemId, taxonomyTermsContent, relatedGraphSyncHelper)!;
+                object? destinationId = GetNodeId(contentItemId, flattenedTermsContentItems, relatedGraphSyncHelper)!;
 
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
                     context.NodeWithOutgoingRelationships,

@@ -5,6 +5,9 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 {
+    //todo: set up locations
+    //todo: location as /x/y/z : syncer with contenttypes to sync for. like filter call highest pri with chained nexts?
+    //todo: validation
     public class TaxonomyTermContentItemGraphSyncer : IContentItemGraphSyncer
     {
         private readonly ITaxonomyPartGraphSyncer _taxonomyPartGraphSyncer;
