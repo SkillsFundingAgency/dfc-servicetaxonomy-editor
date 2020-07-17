@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             //o=>o.WithEncryptionLevel(EncryptionLevel.None));
 
             if (!currentConfig.Endpoints.Any())
-                throw new ConfigurationErrorsException($"No endpoints configured.");
+                throw new ConfigurationErrorsException("No endpoints configured.");
 
             var neoEndpoints = currentConfig.Endpoints
                 .Where(epc => epc.Enabled)
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                             o => o.WithLogger(_logger))));
 
             if (!currentConfig.ReplicaSets.Any())
-                throw new ConfigurationErrorsException($"No replica sets configured.");
+                throw new ConfigurationErrorsException("No replica sets configured.");
 
             var graphReplicaSets = currentConfig.ReplicaSets
                 .Select(rsc =>

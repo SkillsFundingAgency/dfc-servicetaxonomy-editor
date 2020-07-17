@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
-                foundDestinationContentItems.Select(ci => GetNodeId(ci!, context.GraphSyncHelper));
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, context));
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
@@ -78,7 +78,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
             IValidateAndRepairContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
@@ -104,7 +105,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     context.ContentManager, contentItemId);
 
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
-                object destinationId = context.GraphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
+                object destinationId = context.GraphSyncHelper.GetIdPropertyValue(
+                    destinationContentItem.Content.GraphSyncPart, context.ContentItemVersion);
 
                 string destinationIdPropertyName =
                     context.GraphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
@@ -148,9 +150,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return relationshipType;
         }
 
-        private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
+        private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {
-            return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            return context.GraphSyncHelper.GetIdPropertyValue(
+                pickedContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
         }
     }
 }

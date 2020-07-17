@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -23,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: gotta be careful about lifetimes. might have to inject iserviceprovider
         private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly string _contentApiBaseUrl;
+        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private string? _contentType;
         private GraphSyncPartSettings? _graphSyncPartSettings;
         private readonly Stack<Func<string, string>> _propertyNameTransformers;
@@ -34,12 +33,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
             IContentDefinitionManager contentDefinitionManager,
-            IConfiguration configuration)
+            IContentItemVersionFactory contentItemVersionFactory)
         {
             _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
+            _contentItemVersionFactory = contentItemVersionFactory;
             _propertyNameTransformers = new Stack<Func<string, string>>();
-            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present");
         }
 
         public string? ContentType
@@ -164,7 +163,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
                 "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()" =>
-                $"{_contentApiBaseUrl}/{_contentType}/{newGuid}".ToLowerInvariant(),
+                $"<<ContentApiPrefix>>/{_contentType}/{newGuid}".ToLowerInvariant(),
+
+//todo: we need to split out transforming the <<ContentApiPrefix>>, so that we display it in the ui and replace it during the sync
 
                 _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
             };
@@ -172,9 +173,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public string ContentIdPropertyName => "Text";
 
-        public object? GetIdPropertyValue(JObject graphSyncContent)
+        //todo: see if we can get rid ov this version
+        public object? GetIdPropertyValue(JObject graphSyncContent, string graphReplicaSetName)
         {
-            return graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
+            return GetIdPropertyValue(graphSyncContent, _contentItemVersionFactory.Get(graphReplicaSetName));
+        }
+
+        public object? GetIdPropertyValue(JObject graphSyncContent, IContentItemVersion contentItemVersion)
+        {
+            object? untransformedIdValue = graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
+
+            string? untransformedIdString = untransformedIdValue as string;
+            if (untransformedIdString == null)
+                return untransformedIdValue;
+
+            return untransformedIdString.Replace("<<contentapiprefix>>", contentItemVersion.ContentApiBaseUrl);
         }
 
         private void CheckPreconditions()
@@ -194,7 +207,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private async Task<string> Transform(string transformCode, string untransformedValue, string contentType)
         {
-            untransformedValue = untransformedValue.Replace("<<contentapiprefix>>", _contentApiBaseUrl);
+            //untransformedValue = untransformedValue.Replace("<<contentapiprefix>>", _contentApiBaseUrl);
 
             _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
             _graphSyncHelperCSharpScriptGlobals.ContentType = contentType;

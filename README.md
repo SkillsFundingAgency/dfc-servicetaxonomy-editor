@@ -37,7 +37,7 @@ ncs.skill_synonyms_file_url=https://localhost:44346/graphsync/synonyms/skill/syn
 6) Enable the browser setting "Enable multi statement query editor"
 7) Paste and execute the following into the desktop graph browser (Manage > Open Browser).
 ```
-CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE
+CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE;
 call n10s.graphconfig.init( { handleMultival: "ARRAY", multivalPropList: ["http://www.w3.org/2004/02/skos/core#altLabel", "http://www.w3.org/2004/02/skos/core#hiddenLabel"] });
 call n10s.nsprefixes.add("esco", "http://data.europa.eu/esco/model#");
 call n10s.nsprefixes.add("iso-thes", "http://purl.org/iso25964/skos-thes#");

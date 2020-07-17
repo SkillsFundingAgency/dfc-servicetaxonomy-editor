@@ -33,7 +33,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<string> RelationshipTypeDefault(string destinationContentType);
 
         string ContentIdPropertyName { get; }
-        object? GetIdPropertyValue(JObject graphSyncContent);
+        object? GetIdPropertyValue(JObject graphSyncContent, string graphReplicaSetName);
+        object? GetIdPropertyValue(JObject graphSyncContent, IContentItemVersion contentItemVersion);
     }
     #pragma warning restore S4136
 }

@@ -136,6 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
             services.AddScoped<ISynonymService, SynonymService>();
+            services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
 
             // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();

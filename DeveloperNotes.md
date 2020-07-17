@@ -1,5 +1,9 @@
 #ToDo
 
+* custom part containing location, homepage, alias and url preview (similar to autoroute part)
+
+* pages : alias only has to be unique to location, not to page content type
+
 * deleting shared html widget from page doesn't update the graph correctly
 
 * deleting location : don't allow delete if in use by a page (list pages used by?)
@@ -23,11 +27,6 @@ if use property to cloak draft items in published graph, have standard user defi
   needs to update published items and update draft items
 
 * use graph clustering algorithms to pick out real user groupings, and potentially match then to personas (or discover new ones)
-
-* draft/pub graphs : update readme
-
-* pages
-  check that alias only allows unique names - if not make sure it does
 
 * think oc now supports tabs, switch to new support,
 see https://orcharddojo.net/blog/tabs-cards-and-columns-for-the-admin-rendertitle-option-this-week-in-orchard-03-07-2020

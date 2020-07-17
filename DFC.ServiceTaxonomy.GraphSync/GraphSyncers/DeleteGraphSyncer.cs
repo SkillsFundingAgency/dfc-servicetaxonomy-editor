@@ -59,6 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
+        //todo: pass IContentItemVersion instead?
         public async Task DeleteFromGraphReplicaSet(string graphReplicaSetName, ContentItem contentItem)
         {
             _graphSyncHelper.ContentType = contentItem.ContentType;
@@ -70,7 +71,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
-            _deleteNodeCommand.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
+            _deleteNodeCommand.IdPropertyValue =
+                _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, graphReplicaSetName);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
 
             await _graphCluster.Run(graphReplicaSetName, _deleteNodeCommand);

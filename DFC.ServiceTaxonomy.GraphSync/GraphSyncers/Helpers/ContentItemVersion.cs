@@ -1,32 +1,121 @@
-﻿using System.Threading.Tasks;
+﻿using System.Configuration;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
-    public class ContentItemVersion : IContentItemVersion
+    public interface IContentItemVersionFactory
     {
-        //todo: private ctor that takes 3 args?
-        public static ContentItemVersion Published => new ContentItemVersion(GraphReplicaSetNames.Published);
-        public static ContentItemVersion Preview => new ContentItemVersion(GraphReplicaSetNames.Preview);
+        ContentItemVersion Published { get; }
+        ContentItemVersion Preview { get; }
 
-        public ContentItemVersion(string graphReplicaSetName)
+        ContentItemVersion Get(string graphReplicaSetName);
+    }
+
+    public class ContentItemVersionFactory : IContentItemVersionFactory
+    {
+        private readonly IConfiguration _configuration;
+        private static ContentItemVersion? _published;
+        private static ContentItemVersion? _preview;
+        private static readonly object _publishedLock = new object();
+        private static readonly object _previewLock = new object();
+
+        #pragma warning disable S2696
+        public ContentItemVersion Published
         {
-            GraphReplicaSetName = graphReplicaSetName;
+            get
+            {
+                lock (_publishedLock)
+                {
+                    if (_published == null)
+                    {
+                        string contentApiBaseUrl = _configuration.GetValue<string>("ContentApiPrefix")
+                                                   ?? throw new ConfigurationErrorsException(
+                                                       "ContentApiPrefix not in config.");
+
+                        _published = new ContentItemVersion(
+                            GraphReplicaSetNames.Published,
+                            VersionOptions.Published,
+                            (null, true),
+                            contentApiBaseUrl);
+                    }
+                }
+
+                return _published;
+
+            }
+        }
+
+        public ContentItemVersion Preview
+        {
+            get
+            {
+                lock (_previewLock)
+                {
+                    if (_preview == null)
+                    {
+                        string contentApiBaseUrl = _configuration.GetValue<string>("PreviewContentApiPrefix")
+                                                   ?? throw new ConfigurationErrorsException(
+                                                       "PreviewContentApiPrefix not in config.");
+
+                        _preview = new ContentItemVersion(
+                            GraphReplicaSetNames.Published,
+                            VersionOptions.Published,
+                            (null, true),
+                            contentApiBaseUrl);
+                    }
+                }
+
+                return _preview;
+            }
+        }
+        #pragma warning restore S2696
+
+        public ContentItemVersionFactory(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public ContentItemVersion Get(string graphReplicaSetName)
+        {
             switch (graphReplicaSetName)
             {
                 case GraphReplicaSetNames.Published:
-                    VersionOptions = VersionOptions.Published;
-                    ContentItemIndexFilterTerms = (null, true);
-                    break;
+                    return Published;
                 case GraphReplicaSetNames.Preview:
-                    VersionOptions = VersionOptions.Draft;
-                    ContentItemIndexFilterTerms = (true, null);
-                    break;
+                    return Preview;
                 default:
                     throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.");
             }
+        }
+    }
+
+    public class ContentItemVersion : IContentItemVersion
+    {
+        //todo: private ctor that takes 3 args?
+        // public static ContentItemVersion Published => new ContentItemVersion(
+        //     GraphReplicaSetNames.Published,
+        //     VersionOptions.Published,
+        //     (null, true));
+        // public static ContentItemVersion Preview => new ContentItemVersion(
+        //     GraphReplicaSetNames.Preview,
+        //     VersionOptions.Draft,
+        //     (true, null));
+
+        //todo:  make private, pass VersionOptions, ContentItemIndexFilterTerms
+        public ContentItemVersion(
+            string graphReplicaSetName,
+            VersionOptions versionOptions,
+            (bool? latest, bool? published) contentItemIndexFilterTerms,
+            string contentApiBaseUrl)
+        {
+            GraphReplicaSetName = graphReplicaSetName;
+            VersionOptions = versionOptions;
+            ContentItemIndexFilterTerms = contentItemIndexFilterTerms;
+            ContentApiBaseUrl = contentApiBaseUrl;
         }
 
         public string GraphReplicaSetName { get; }
@@ -66,5 +155,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         // {
         //     return graphCluster.GetGraphReplicaSet(GraphReplicaSetName);
         // }
+
+        public string ContentApiBaseUrl { get; }
     }
 }

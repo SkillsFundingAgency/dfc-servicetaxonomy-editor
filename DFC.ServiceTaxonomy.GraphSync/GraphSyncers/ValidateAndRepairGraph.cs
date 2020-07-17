@@ -32,17 +32,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IServiceProvider _serviceProvider;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IGraphValidationHelper _graphValidationHelper;
+        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
 
-        public ValidateAndRepairGraph(
-            IEnumerable<IContentItemGraphSyncer> itemSyncers,
+        public ValidateAndRepairGraph(IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IContentDefinitionManager contentDefinitionManager,
             IContentManager contentManager,
             ISession session,
             IServiceProvider serviceProvider,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
+            IContentItemVersionFactory contentItemVersionFactory,
             ILogger<ValidateAndRepairGraph> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -52,6 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _serviceProvider = serviceProvider;
             _graphSyncHelper = graphSyncHelper;
             _graphValidationHelper = graphValidationHelper;
+            _contentItemVersionFactory = contentItemVersionFactory;
             _logger = logger;
             _currentGraph = default;
 
@@ -79,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (string graphReplicaSetName in graphReplicaSetNamesToValidate)
             {
                 IGraphReplicaSetLowLevel graphReplicaSetLowLevel = _graphClusterLowLevel.GetGraphReplicaSetLowLevel(graphReplicaSetName);
-                IContentItemVersion contentItemVersion = new ContentItemVersion(graphReplicaSetName);
+                IContentItemVersion contentItemVersion = _contentItemVersionFactory.Get(graphReplicaSetName);
 
                 foreach (IGraph graph in graphReplicaSetLowLevel.GraphInstances)
                 {
@@ -228,7 +230,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
-            object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
+            object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
                 new NodeWithOutgoingRelationshipsQuery(
