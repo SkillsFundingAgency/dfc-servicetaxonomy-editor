@@ -67,6 +67,13 @@ To create the 'preview' graph, run these Cypher commands...
 ```
 create database preview;
 :use preview;
+```
+
+If you decided to import the ESCO data into the published graph, you should also import the data into the preview graph. To import the data follow step 7 onwards from the 'Populate The Published Graph with ESCO Data' steps.
+
+If you don't import the data, you should run this step....
+
+```
 CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE;
 ```
 

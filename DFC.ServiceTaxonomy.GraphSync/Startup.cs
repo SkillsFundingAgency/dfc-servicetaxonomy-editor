@@ -29,6 +29,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
@@ -90,11 +91,16 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IFlowPartEmbeddedContentItemsGraphSyncer, FlowPartEmbeddedContentItemsGraphSyncer>();
             services.AddTransient<ITaxonomyPartEmbeddedContentItemsGraphSyncer, TaxonomyPartEmbeddedContentItemsGraphSyncer>();
 
+            // content item syncers
+            services.AddTransient<IContentItemGraphSyncer, TaxonomyTermContentItemGraphSyncer>();
+            services.AddTransient<IContentItemGraphSyncer, ContentItemGraphSyncer>();
+
             // part syncers
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, FlowPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TaxonomyPartGraphSyncer>();
+            services.AddTransient<ITaxonomyPartGraphSyncer, TaxonomyPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, HtmlBodyPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, PublishLaterPartGraphSyncer>();

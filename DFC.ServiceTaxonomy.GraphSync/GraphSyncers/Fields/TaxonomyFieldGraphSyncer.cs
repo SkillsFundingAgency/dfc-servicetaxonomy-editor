@@ -14,6 +14,8 @@ using OrchardCore.Taxonomies.Models;
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
     //todo: remove `The body of the content item.`
+    //todo: what happens when page references term that then gets deleted from the taxonomy? think sync would be ok, validate's GetNodeId wouldn't find any elements
+    // if that's a thing, how should we handle it?
 
     /// <remarks>
     /// We don't bother syncing TermParts:
@@ -51,8 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentManager, context.ContentItemVersion);
 
-            var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
-            string termContentType = taxonomyPartContent[TermContentType];
+            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
@@ -68,10 +70,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
             relatedGraphSyncHelper.ContentType = termContentType;
 
-            //todo: handle missing graphsynchelper. extract into GetNodeId method
-            JArray taxonomyTermsContent = (JArray)taxonomyPartContent[Terms];
+            var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
+
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                GetNodeId(tid, taxonomyTermsContent, relatedGraphSyncHelper)!);
+                GetNodeId(tid, flattenedTermsContentItems, relatedGraphSyncHelper)!);
 
             IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
 
@@ -99,13 +101,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // add tagnames
             //using var _ = graphSyncHelper.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
 
+            //todo: this is there sometimes, but not others (Tag editor is selected and/or non-unique?)
             context.MergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
+
+            //todo: need to store location as string, e.g. "/contact-us"
+            // could alter flatten to also include parent and work backwards
+            // or do a search, recording the path
         }
 
-        private object? GetNodeId(string termContentItemId, JArray taxonomyTermsContent, IGraphSyncHelper termGraphSyncHelper)
+        private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JObject taxonomyPartContent)
         {
-            JObject termContentItem = (JObject)taxonomyTermsContent.First(token => token["ContentItemId"]?.Value<string>() == termContentItemId);
-            return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem[nameof(GraphSyncPart)]!);
+            IEnumerable<ContentItem> termsRootContentItems = GetTermsRootContentItems(taxonomyPartContent);
+
+            return termsRootContentItems
+                .Flatten(ci => ((JArray?) ((JObject) ci.Content)["Terms"])
+                    ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>())
+                .ToDictionary(ci => ci.ContentItemId, ci => ci.ContentItem);
+        }
+
+        private static IEnumerable<ContentItem> GetTermsRootContentItems(JObject taxonomyPartContent)
+        {
+            return ((JArray)taxonomyPartContent[Terms]!).ToObject<IEnumerable<ContentItem>>()!;
+        }
+
+        private object? GetNodeId(string termContentItemId, IDictionary<string, ContentItem> taxonomyTerms, IGraphSyncHelper termGraphSyncHelper)
+        {
+            ContentItem termContentItem = taxonomyTerms[termContentItemId];
+            return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem.Content[nameof(GraphSyncPart)]!);
         }
 
         private async Task<ContentItem> GetTaxonomyContentItem(
@@ -155,13 +177,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
             relatedGraphSyncHelper.ContentType = termContentType;
 
-            JArray taxonomyTermsContent = (JArray)taxonomyPartContent[Terms];
+            var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
             foreach (JToken item in contentItemIds)
             {
                 string contentItemId = (string)item!;
 
-                object? destinationId = GetNodeId(contentItemId, taxonomyTermsContent, relatedGraphSyncHelper)!;
+                object? destinationId = GetNodeId(contentItemId, flattenedTermsContentItems, relatedGraphSyncHelper)!;
 
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
                     context.NodeWithOutgoingRelationships,

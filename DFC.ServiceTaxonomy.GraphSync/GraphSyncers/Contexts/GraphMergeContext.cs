@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -8,7 +9,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class GraphMergeContext : IGraphMergeContext
+    public class GraphMergeContext : IGraphMergeItemSyncContext
     {
         public IGraphSyncHelper GraphSyncHelper { get; }
         public IGraphReplicaSet GraphReplicaSet { get; }
@@ -27,8 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentItem contentItem,
-            IContentManager contentManager,
-            IContentItemVersion contentItemVersion)
+            IContentManager contentManager)
         {
             GraphSyncHelper = graphSyncHelper;
             GraphReplicaSet = graphReplicaSet;
@@ -36,7 +36,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ReplaceRelationshipsCommand = replaceRelationshipsCommand;
             ContentItem = contentItem;
             ContentManager = contentManager;
-            ContentItemVersion = contentItemVersion;
+
+            ContentItemVersion = new ContentItemVersion(graphReplicaSet.Name);
 
             ContentTypePartDefinition = default!;
         }

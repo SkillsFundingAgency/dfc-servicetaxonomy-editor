@@ -13,5 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
             ContentItem contentItem,
             ContentTypeDefinition contentTypeDefinition,
             IContentItemVersion contentItemVersion);
+
+        string FailureContext(string failureReason, ContentItem contentItem);
     }
 }
