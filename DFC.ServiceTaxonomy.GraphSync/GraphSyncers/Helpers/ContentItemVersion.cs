@@ -23,6 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private static readonly object _publishedLock = new object();
         private static readonly object _previewLock = new object();
 
+        //todo: inject (deferred ction) singletons from services
         #pragma warning disable S2696
         public ContentItemVersion Published
         {
