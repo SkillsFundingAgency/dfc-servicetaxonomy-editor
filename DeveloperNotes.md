@@ -1,6 +1,10 @@
 #ToDo
 
-* shared content preview in page editor should just show content, not title
+* deleting shared html widget from page doesn't update the graph correctly
+
+* deleting location : don't allow delete if in use by a page (list pages used by?)
+
+* shared content preview in page editor should just show content, not title -> just set RenderTitle to false on title?
 
 * graphsync 2 settings, 1 for published 1 for preview
 
@@ -25,7 +29,8 @@ if use property to cloak draft items in published graph, have standard user defi
 * pages
   check that alias only allows unique names - if not make sure it does
 
-* think oc now supports tabs, switch to new support <- supported when rendering page, not admin by the look of it
+* think oc now supports tabs, switch to new support,
+see https://orcharddojo.net/blog/tabs-cards-and-columns-for-the-admin-rendertitle-option-this-week-in-orchard-03-07-2020
 
 * domain topics
 add domain taxonomy (initial candidates are job profile & content)
