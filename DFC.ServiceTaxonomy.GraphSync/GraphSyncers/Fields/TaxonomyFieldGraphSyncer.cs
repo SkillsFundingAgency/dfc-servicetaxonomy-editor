@@ -124,7 +124,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return ((JArray)taxonomyPartContent[Terms]!).ToObject<IEnumerable<ContentItem>>()!;
         }
 
-        // ToDictionary??
         private object? GetNodeId(string termContentItemId, IDictionary<string, ContentItem> taxonomyTerms, IGraphSyncHelper termGraphSyncHelper)
         {
             ContentItem termContentItem = taxonomyTerms[termContentItemId];
