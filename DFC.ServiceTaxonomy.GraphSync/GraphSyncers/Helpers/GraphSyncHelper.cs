@@ -13,6 +13,8 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
+    //todo: don't need ContentApiPrefix setting in sites/default anymore
+
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
     //todo: better to break out into separate classes??
 #pragma warning disable S4136

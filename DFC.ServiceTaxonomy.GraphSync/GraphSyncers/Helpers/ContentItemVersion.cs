@@ -33,6 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     if (_published == null)
                     {
                         string contentApiBaseUrl = _configuration.GetValue<string>("ContentApiPrefix")
+                                                       ?.ToLowerInvariant()
                                                    ?? throw new ConfigurationErrorsException(
                                                        "ContentApiPrefix not in config.");
 
@@ -58,6 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     if (_preview == null)
                     {
                         string contentApiBaseUrl = _configuration.GetValue<string>("PreviewContentApiPrefix")
+                                                       ?.ToLowerInvariant()
                                                    ?? throw new ConfigurationErrorsException(
                                                        "PreviewContentApiPrefix not in config.");
 

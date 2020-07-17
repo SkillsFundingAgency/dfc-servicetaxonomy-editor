@@ -60,7 +60,7 @@
                                     }
                                 },
                                 "GraphSyncPart": {
-                                    "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/pagelocation/48b3f8cb-27c5-4e3a-9a53-69b6cfe8e408\u0027]"
+                                    "Text": "<<ContentApiPrefix>>/pagelocation/48b3f8cb-27c5-4e3a-9a53-69b6cfe8e408"
                                 },
                                 "TermPart": {
                                     "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
@@ -90,7 +90,7 @@
                                             }
                                         },
                                         "GraphSyncPart": {
-                                            "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/pagelocation/15711982-9609-41d6-a022-acd9cb4d199f\u0027]"
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/15711982-9609-41d6-a022-acd9cb4d199f"
                                         },
                                         "TermPart": {
                                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
@@ -120,7 +120,7 @@
                                             }
                                         },
                                         "GraphSyncPart": {
-                                            "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/pagelocation/370851eb-1185-48b5-8422-23f4afdde06e\u0027]"
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/370851eb-1185-48b5-8422-23f4afdde06e"
                                         },
                                         "TermPart": {
                                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
@@ -151,7 +151,7 @@
                                             }
                                         },
                                         "GraphSyncPart": {
-                                            "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/pagelocation/ca050db2-a967-4ddf-8c6b-287739696616\u0027]"
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/ca050db2-a967-4ddf-8c6b-287739696616"
                                         },
                                         "TermPart": {
                                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
@@ -181,7 +181,7 @@
                                             }
                                         },
                                         "GraphSyncPart": {
-                                            "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/pagelocation/78a04973-b9c0-4410-9018-9ef04db951c6\u0027]"
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/78a04973-b9c0-4410-9018-9ef04db951c6"
                                         },
                                         "TermPart": {
                                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
@@ -211,7 +211,7 @@
                                             }
                                         },
                                         "GraphSyncPart": {
-                                            "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/pagelocation/3d54a890-4660-49ea-83d5-5a350e0bf177\u0027]"
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/3d54a890-4660-49ea-83d5-5a350e0bf177"
                                         },
                                         "TermPart": {
                                             "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
@@ -226,7 +226,7 @@
                         "TermContentType": "PageLocation"
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/taxonomy/9a9e10ca-7102-49bc-a792-74d131bf58fb\u0027]"
+                        "Text": "<<ContentApiPrefix>>/taxonomy/9a9e10ca-7102-49bc-a792-74d131bf58fb"
                     }
                 }
             ]
