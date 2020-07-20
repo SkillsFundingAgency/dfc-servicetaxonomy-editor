@@ -1,72 +1,11 @@
 ﻿using System.Configuration;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
 {
-    public interface IContentItemVersionFactory
-    {
-        IContentItemVersion Get(string graphReplicaSetName);
-    }
-
-    // workaround for di not supporting names
-    public class ContentItemVersionFactory : IContentItemVersionFactory
-    {
-        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
-        private readonly IPreviewContentItemVersion _previewContentItemVersion;
-
-        public ContentItemVersionFactory(
-            IPublishedContentItemVersion publishedContentItemVersion,
-            IPreviewContentItemVersion previewContentItemVersion)
-        {
-            _publishedContentItemVersion = publishedContentItemVersion;
-            _previewContentItemVersion = previewContentItemVersion;
-        }
-
-        public IContentItemVersion Get(string graphReplicaSetName)
-        {
-            return graphReplicaSetName switch
-            {
-                GraphReplicaSetNames.Published => _publishedContentItemVersion,
-                GraphReplicaSetNames.Preview => _previewContentItemVersion,
-                _ => throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.")
-            };
-        }
-    }
-
-    public interface IPublishedContentItemVersion : IContentItemVersion
-    {
-    }
-
-    public class PublishedContentItemVersion : ContentItemVersion, IPublishedContentItemVersion
-    {
-        public PublishedContentItemVersion(IConfiguration configuration)
-            : base(GraphReplicaSetNames.Published,
-                VersionOptions.Published,
-                (null, true),
-                GetContentApiBaseUrlFromConfig(configuration, "ContentApiPrefix"))
-        {
-        }
-    }
-
-    public interface IPreviewContentItemVersion : IContentItemVersion
-    {
-    }
-
-    public class PreviewContentItemVersion : ContentItemVersion, IPreviewContentItemVersion
-    {
-        public PreviewContentItemVersion(IConfiguration configuration)
-            : base(GraphReplicaSetNames.Preview,
-                VersionOptions.Draft,
-                (true, null),
-                GetContentApiBaseUrlFromConfig(configuration, "PreviewContentApiPrefix"))
-        {
-        }
-    }
-
     public class ContentItemVersion : IContentItemVersion
     {
         protected ContentItemVersion(
