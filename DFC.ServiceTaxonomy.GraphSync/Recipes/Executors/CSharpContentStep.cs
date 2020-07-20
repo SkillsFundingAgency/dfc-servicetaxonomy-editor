@@ -4,14 +4,12 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.Recipes.Models;
 using OrchardCore.Recipes.Services;
 using YesSql;
-using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 {
@@ -27,7 +25,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IContentManagerSession _contentManagerSession;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
         private readonly ILogger<CSharpContentStep> _logger;
-        private readonly string _contentApiBaseUrl;
 
         public CSharpContentStep(
             IContentManager contentManager,
@@ -35,14 +32,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IContentManagerSession contentManagerSession,
             //todo: rename
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
-            IConfiguration configuration,
             ILogger<CSharpContentStep> logger)
         {
             _contentManager = contentManager;
             _session = session;
             _contentManagerSession = contentManagerSession;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
-            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present");
             _logger = logger;
         }
 
@@ -58,7 +53,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     return;
 
                 string dataString = model.Data.ToString();
-                dataString = ReplaceConfig(dataString);
                 string json = ReplaceCSharpHelpers(dataString, model.DebugImport);
                 JArray data = JArray.Parse(json);
 
@@ -101,11 +95,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                 _logger.LogWarning($"Exception: {ex}");
                 throw;
             }
-        }
-
-        private string ReplaceConfig(string data)
-        {
-            return data.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
         }
 
         //todo: move these instead of c&p if works

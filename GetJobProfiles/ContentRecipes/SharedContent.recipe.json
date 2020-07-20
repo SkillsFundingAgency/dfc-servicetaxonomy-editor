@@ -30,7 +30,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/c0117ac7-115a-4bc1-9350-3fb4b00c7857\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/c0117ac7-115a-4bc1-9350-3fb4b00c7857"
                     },
                     "TitlePart": {
                         "Title": "Contact us"
@@ -54,7 +54,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/77001b49-e398-4839-a157-47cdb096e8bf\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/77001b49-e398-4839-a157-47cdb096e8bf"
                     },
                     "TitlePart": {
                         "Title": "Thank you for contacting us"
@@ -78,7 +78,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/5f1c9379-6854-46c6-b895-cc6af7b9dfc0\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/5f1c9379-6854-46c6-b895-cc6af7b9dfc0"
                     },
                     "TitlePart": {
                         "Title": "Send us a letter"
@@ -102,7 +102,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/0fc70da1-ed83-495d-8972-d9a78c1973c5"
                     },
                     "TitlePart": {
                         "Title": "Get help using this service"
@@ -126,7 +126,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/dfde0410-b1ce-414e-ac2f-f3cffeac4f9b\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/dfde0410-b1ce-414e-ac2f-f3cffeac4f9b"
                     },
                     "TitlePart": {
                         "Title": "Support during Covid-19"
@@ -150,7 +150,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/5cb44bb4-7996-46cf-998a-897b429a6a82\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/5cb44bb4-7996-46cf-998a-897b429a6a82"
                     },
                     "TitlePart": {
                         "Title": "Other opportunities"
@@ -174,7 +174,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/57d7c037-fa3d-4217-ae22-03dfc4bcaf7b\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/57d7c037-fa3d-4217-ae22-03dfc4bcaf7b"
                     },
                     "TitlePart": {
                         "Title": "Skills assessment"
@@ -198,7 +198,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/2c9da1b3-3529-4834-afc9-9cd741e59788\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/2c9da1b3-3529-4834-afc9-9cd741e59788"
                     },
                     "TitlePart": {
                         "Title": "Speak to an adviser"
@@ -222,7 +222,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/sharedcontent/b96faeb8-4882-4e94-81aa-d599105da4cd\u0027]"
+                        "Text": "<<ContentApiPrefix>>/sharedcontent/b96faeb8-4882-4e94-81aa-d599105da4cd"
                     },
                     "TitlePart": {
                         "Title": "Other parts of the UK"

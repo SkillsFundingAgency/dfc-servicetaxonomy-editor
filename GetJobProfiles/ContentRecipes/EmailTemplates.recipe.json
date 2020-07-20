@@ -39,7 +39,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/email/e11a1137-01ca-446a-b60f-0de5ad5321cc\u0027]"
+                        "Text": "<<ContentApiPrefix>>/email/e11a1137-01ca-446a-b60f-0de5ad5321cc"
                     },
                     "TitlePart": {
                         "Title": "Contact Us - Callback Template"
@@ -72,7 +72,7 @@
                         }
                     },
                     "GraphSyncPart": {
-                        "Text": "[js:configuration(\u0027ContentApiPrefix\u0027).toLowerCase() \u002B \u0027/email/e11a1195-801d-479b-84b6-f5e443abfb86\u0027]"
+                        "Text": "<<ContentApiPrefix>>/email/e11a1195-801d-479b-84b6-f5e443abfb86"
                     },
                     "TitlePart": {
                         "Title": "Contact Us - Online Message Template"

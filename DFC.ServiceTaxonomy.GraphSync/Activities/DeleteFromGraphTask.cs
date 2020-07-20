@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -22,13 +21,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
             ISession session,
             IStringLocalizer<DeleteFromGraphTask> localizer,
             INotifier notifier,
-            IContentDefinitionManager contentDefinitionManager)
+            IContentDefinitionManager contentDefinitionManager,
+            IPublishedContentItemVersion publishedContentItemVersion)
         {
             _deleteGraphSyncer = deleteGraphSyncer;
             _session = session;
             _notifier = notifier;
             T = localizer;
             _contentDefinitionManager = contentDefinitionManager;
+            _publishedContentItemVersion = publishedContentItemVersion;
         }
 
         private IStringLocalizer T { get; }
@@ -36,6 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         private readonly ISession _session;
         private readonly INotifier _notifier;
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
 
         public override string Name => nameof(DeleteFromGraphTask);
         public override LocalizedString DisplayText => T["Delete content item from Neo4j graph"];
@@ -54,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
             try
             {
-                await _deleteGraphSyncer.DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, contentItem);
+                await _deleteGraphSyncer.Delete(contentItem, _publishedContentItemVersion);
             }
             catch (CommandValidationException ex)
             {

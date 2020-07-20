@@ -1,5 +1,20 @@
 #ToDo
 
+* when deleting get this message..
+The new Shared Content could not be removed because the associated node could not be deleted from the graph.
+
+* deleting a page needs to delete the widgets also and non-shared html
+
+it should have a notification for each of published/preview
+
+* instead of cloaked draft items in published graph, could:
+  update contentpicker (etc) to not try and create relationships to draft items
+  when unpublish, cancel if any incoming relationships (similar to how we handle delete)
+
+* custom part containing location, homepage, alias and url preview (similar to autoroute part)
+
+* pages : alias only has to be unique to location, not to page content type
+
 * deleting shared html widget from page doesn't update the graph correctly
 
 * deleting location : don't allow delete if in use by a page (list pages used by?)
@@ -23,11 +38,6 @@ if use property to cloak draft items in published graph, have standard user defi
   needs to update published items and update draft items
 
 * use graph clustering algorithms to pick out real user groupings, and potentially match then to personas (or discover new ones)
-
-* draft/pub graphs : update readme
-
-* pages
-  check that alias only allows unique names - if not make sure it does
 
 * think oc now supports tabs, switch to new support,
 see https://orcharddojo.net/blog/tabs-cards-and-columns-for-the-admin-rendertitle-option-this-week-in-orchard-03-07-2020

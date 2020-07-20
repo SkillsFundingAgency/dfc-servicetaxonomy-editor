@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
+        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         public MergeGraphSyncer(
@@ -34,6 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
+            IContentItemVersionFactory contentItemVersionFactory,
             ILogger<MergeGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -41,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
+            _contentItemVersionFactory = contentItemVersionFactory;
             _logger = logger;
         }
 
@@ -104,7 +107,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _mergeNodeCommand,
                 _replaceRelationshipsCommand,
                 contentItem,
-                contentManager);
+                contentManager,
+                _contentItemVersionFactory);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
@@ -130,7 +134,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // doesn't really belong here...
                 _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
                 _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
-                _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent);
+                _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+                    graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
 
                 commands.Add(_replaceRelationshipsCommand);
             }
