@@ -148,8 +148,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
             // this would be nice, but IContentManager is Scoped, so not available at startup
             //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
-            services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration));
-            services.AddSingleton<IPreviewContentItemVersion>(sp => new PreviewContentItemVersion(_configuration));
+            services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
+            services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
 
             // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
