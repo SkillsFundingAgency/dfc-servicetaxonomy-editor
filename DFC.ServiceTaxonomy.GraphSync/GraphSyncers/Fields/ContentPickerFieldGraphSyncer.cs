@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
                 contentItemIds.Select(async contentItemId =>    //todo: add method to context?
-                    await context.ContentItemVersion.GetContentItemAsync(context.ContentManager, contentItemId));
+                    await context.ContentItemVersion.GetContentItem(contentItemId));
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
@@ -101,8 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string contentItemId = (string)item!;
 
-                ContentItem destinationContentItem = await context.ContentItemVersion.GetContentItemAsync(
-                    context.ContentManager, contentItemId);
+                ContentItem destinationContentItem = await context.ContentItemVersion.GetContentItem(contentItemId);
 
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = context.GraphSyncHelper.GetIdPropertyValue(

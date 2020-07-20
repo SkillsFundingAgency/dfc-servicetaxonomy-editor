@@ -146,8 +146,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
             services.AddScoped<ISynonymService, SynonymService>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
-            services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
-            services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
+            services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
+            services.AddSingleton<IPreviewContentItemVersion>(sp => new PreviewContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
 
             // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();

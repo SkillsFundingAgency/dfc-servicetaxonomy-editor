@@ -8,12 +8,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
 {
     public class ContentItemVersion : IContentItemVersion
     {
+        private readonly IContentManager _contentManager;
+
         protected ContentItemVersion(
             string graphReplicaSetName,
             VersionOptions versionOptions,
             (bool? latest, bool? published) contentItemIndexFilterTerms,
-            string contentApiBaseUrl)
+            string contentApiBaseUrl,
+            IContentManager contentManager)
         {
+            _contentManager = contentManager;
             GraphReplicaSetName = graphReplicaSetName;
             VersionOptions = versionOptions;
             ContentItemIndexFilterTerms = contentItemIndexFilterTerms;
@@ -35,28 +39,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
         //     1        0        new (replacement) draft version
         public (bool? latest, bool? published) ContentItemIndexFilterTerms { get; }
 
-        //todo: static Published and Draft ContentItemVersions?
-        // with GraphReplicaSetName property, used in ToString?
-        // public override string ToString()
-        // {
-        //     return
-        // }
-
-        //todo: the structure of this class?
-        public async Task<ContentItem> GetContentItemAsync(IContentManager contentManager, string id)
+        public async Task<ContentItem> GetContentItem(string id)
         {
             ContentItem? contentItem = null;
             if (GraphReplicaSetName == GraphReplicaSetNames.Preview)
-                contentItem = await contentManager.GetAsync(id, VersionOptions.Draft);
+                contentItem = await _contentManager.GetAsync(id, VersionOptions.Draft);
 
-            return contentItem ?? await contentManager.GetAsync(id, VersionOptions.Published);
+            return contentItem ?? await _contentManager.GetAsync(id, VersionOptions.Published);
         }
-
-        // ?
-        // public IGraphReplicaSet GraphReplicaSet(IGraphCluster graphCluster)
-        // {
-        //     return graphCluster.GetGraphReplicaSet(GraphReplicaSetName);
-        // }
 
         public string ContentApiBaseUrl { get; }
 

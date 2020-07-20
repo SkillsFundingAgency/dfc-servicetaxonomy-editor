@@ -75,11 +75,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             // (either a separate draft version, or the published version)
         }
 
+        // State          Action     Context:latest      published     no active version left
+        // Pub            Delete            0            0                1
+        // Pub+Draft      Discard Draft     0            0                0
+        // Draft          Delete            0            0                1
+        // Pub+Draft      Delete            0            0                1
         public override async Task RemovedAsync(RemoveContentContext context)
         {
-            await Task.WhenAll(
-                DeleteFromGraphReplicaSet(context.ContentItem, _previewContentItemVersion),
-                DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion));
+            // we could be more selective deciding which replica set to delete from,
+            // but the context doesn't seem to be there, and our delete is idempotent
+
+            if (context.NoActiveVersionLeft)
+            {
+                await Task.WhenAll(
+                    DeleteFromGraphReplicaSet(context.ContentItem, _previewContentItemVersion),
+                    DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion));
+                return;
+            }
+
+            // discard draft event
+            ContentItem publishedContentItem = await _publishedContentItemVersion.GetContentItem(context.ContentItem.ContentItemId);
+
+            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            await SyncToGraphReplicaSet(GraphReplicaSetNames.Preview, publishedContentItem, contentManager);
         }
 
         private async Task DeleteFromGraphReplicaSet(ContentItem contentItem, IContentItemVersion contentItemVersion)
