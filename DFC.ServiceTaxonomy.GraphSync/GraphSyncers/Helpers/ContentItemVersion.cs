@@ -9,107 +9,67 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     public interface IContentItemVersionFactory
     {
-        ContentItemVersion Published { get; }
-        ContentItemVersion Preview { get; }
-
-        ContentItemVersion Get(string graphReplicaSetName);
+        IContentItemVersion Get(string graphReplicaSetName);
     }
 
+    // workaround for di not supporting names
     public class ContentItemVersionFactory : IContentItemVersionFactory
     {
-        private readonly IConfiguration _configuration;
-        private static ContentItemVersion? _published;
-        private static ContentItemVersion? _preview;
-        private static readonly object _publishedLock = new object();
-        private static readonly object _previewLock = new object();
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
 
-        //todo: inject (deferred ction) singletons from services
-        #pragma warning disable S2696
-        public ContentItemVersion Published
+        public ContentItemVersionFactory(
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion)
         {
-            get
-            {
-                lock (_publishedLock)
-                {
-                    if (_published == null)
-                    {
-                        string contentApiBaseUrl = _configuration.GetValue<string>("ContentApiPrefix")
-                                                       ?.ToLowerInvariant()
-                                                   ?? throw new ConfigurationErrorsException(
-                                                       "ContentApiPrefix not in config.");
-
-                        _published = new ContentItemVersion(
-                            GraphReplicaSetNames.Published,
-                            VersionOptions.Published,
-                            (null, true),
-                            contentApiBaseUrl);
-                    }
-                }
-
-                return _published;
-
-            }
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
         }
 
-        public ContentItemVersion Preview
+        public IContentItemVersion Get(string graphReplicaSetName)
         {
-            get
+            return graphReplicaSetName switch
             {
-                lock (_previewLock)
-                {
-                    if (_preview == null)
-                    {
-                        string contentApiBaseUrl = _configuration.GetValue<string>("PreviewContentApiPrefix")
-                                                       ?.ToLowerInvariant()
-                                                   ?? throw new ConfigurationErrorsException(
-                                                       "PreviewContentApiPrefix not in config.");
-
-                        _preview = new ContentItemVersion(
-                            GraphReplicaSetNames.Published,
-                            VersionOptions.Published,
-                            (null, true),
-                            contentApiBaseUrl);
-                    }
-                }
-
-                return _preview;
-            }
+                GraphReplicaSetNames.Published => _publishedContentItemVersion,
+                GraphReplicaSetNames.Preview => _previewContentItemVersion,
+                _ => throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.")
+            };
         }
-        #pragma warning restore S2696
+    }
 
-        public ContentItemVersionFactory(IConfiguration configuration)
+    public interface IPublishedContentItemVersion : IContentItemVersion
+    {
+    }
+
+    public class PublishedContentItemVersion : ContentItemVersion, IPublishedContentItemVersion
+    {
+        public PublishedContentItemVersion(IConfiguration configuration)
+            : base(GraphReplicaSetNames.Published,
+                VersionOptions.Published,
+                (null, true),
+                GetContentApiBaseUrlFromConfig(configuration, "ContentApiPrefix"))
         {
-            _configuration = configuration;
         }
+    }
 
-        public ContentItemVersion Get(string graphReplicaSetName)
+    public interface IPreviewContentItemVersion : IContentItemVersion
+    {
+    }
+
+    public class PreviewContentItemVersion : ContentItemVersion, IPreviewContentItemVersion
+    {
+        public PreviewContentItemVersion(IConfiguration configuration)
+            : base(GraphReplicaSetNames.Preview,
+                VersionOptions.Draft,
+                (true, null),
+                GetContentApiBaseUrlFromConfig(configuration, "PreviewContentApiPrefix"))
         {
-            switch (graphReplicaSetName)
-            {
-                case GraphReplicaSetNames.Published:
-                    return Published;
-                case GraphReplicaSetNames.Preview:
-                    return Preview;
-                default:
-                    throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.");
-            }
         }
     }
 
     public class ContentItemVersion : IContentItemVersion
     {
-        //todo: private ctor that takes 3 args?
-        // public static ContentItemVersion Published => new ContentItemVersion(
-        //     GraphReplicaSetNames.Published,
-        //     VersionOptions.Published,
-        //     (null, true));
-        // public static ContentItemVersion Preview => new ContentItemVersion(
-        //     GraphReplicaSetNames.Preview,
-        //     VersionOptions.Draft,
-        //     (true, null));
-
-        //todo:  make private, pass VersionOptions, ContentItemIndexFilterTerms
-        public ContentItemVersion(
+        protected ContentItemVersion(
             string graphReplicaSetName,
             VersionOptions versionOptions,
             (bool? latest, bool? published) contentItemIndexFilterTerms,
@@ -160,5 +120,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         // }
 
         public string ContentApiBaseUrl { get; }
+
+        protected static string GetContentApiBaseUrlFromConfig(IConfiguration configuration, string contentApiPrefixConfigName)
+        {
+            return configuration.GetValue<string?>(contentApiPrefixConfigName)
+                       ?.ToLowerInvariant()
+                   ?? throw new ConfigurationErrorsException(
+                       $"{contentApiPrefixConfigName} not in config.");
+        }
     }
 }

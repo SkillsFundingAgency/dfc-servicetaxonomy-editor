@@ -1,5 +1,9 @@
 #ToDo
 
+* instead of cloaked draft items in published graph, could:
+  update contentpicker (etc) to not try and create relationships to draft items
+  when unpublish, cancel if any incoming relationships (similar to how we handle delete)
+
 * custom part containing location, homepage, alias and url preview (similar to autoroute part)
 
 * pages : alias only has to be unique to location, not to page content type

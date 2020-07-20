@@ -43,6 +43,7 @@ using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
@@ -51,6 +52,13 @@ namespace DFC.ServiceTaxonomy.GraphSync
 {
     public class Startup : StartupBase
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public override void ConfigureServices(IServiceCollection services)
         {
             // recipe steps
@@ -137,6 +145,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
             services.AddScoped<ISynonymService, SynonymService>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
+            services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
+            services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
 
             // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
