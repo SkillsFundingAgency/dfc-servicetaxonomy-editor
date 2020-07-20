@@ -94,9 +94,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
 
             // discard draft event
-            ContentItem publishedContentItem = await _publishedContentItemVersion.GetContentItem(context.ContentItem.ContentItemId);
-
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            ContentItem publishedContentItem = await _publishedContentItemVersion.GetContentItem(contentManager, context.ContentItem.ContentItemId);
 
             await SyncToGraphReplicaSet(GraphReplicaSetNames.Preview, publishedContentItem, contentManager);
         }

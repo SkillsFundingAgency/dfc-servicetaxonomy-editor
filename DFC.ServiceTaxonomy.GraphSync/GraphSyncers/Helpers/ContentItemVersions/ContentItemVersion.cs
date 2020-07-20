@@ -8,16 +8,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
 {
     public class ContentItemVersion : IContentItemVersion
     {
-        private readonly IContentManager _contentManager;
+        // as Scoped, can't be got at startup
+        //private readonly IContentManager _contentManager;
 
         protected ContentItemVersion(
             string graphReplicaSetName,
             VersionOptions versionOptions,
             (bool? latest, bool? published) contentItemIndexFilterTerms,
-            string contentApiBaseUrl,
-            IContentManager contentManager)
+            string contentApiBaseUrl)
         {
-            _contentManager = contentManager;
             GraphReplicaSetName = graphReplicaSetName;
             VersionOptions = versionOptions;
             ContentItemIndexFilterTerms = contentItemIndexFilterTerms;
@@ -39,13 +38,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
         //     1        0        new (replacement) draft version
         public (bool? latest, bool? published) ContentItemIndexFilterTerms { get; }
 
-        public async Task<ContentItem> GetContentItem(string id)
+        public async Task<ContentItem> GetContentItem(IContentManager contentManager, string id)
         {
             ContentItem? contentItem = null;
             if (GraphReplicaSetName == GraphReplicaSetNames.Preview)
-                contentItem = await _contentManager.GetAsync(id, VersionOptions.Draft);
+                contentItem = await contentManager.GetAsync(id, VersionOptions.Draft);
 
-            return contentItem ?? await _contentManager.GetAsync(id, VersionOptions.Published);
+            return contentItem ?? await contentManager.GetAsync(id, VersionOptions.Published);
         }
 
         public string ContentApiBaseUrl { get; }

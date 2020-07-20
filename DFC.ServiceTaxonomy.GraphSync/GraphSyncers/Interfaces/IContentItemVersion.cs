@@ -11,6 +11,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         string GraphReplicaSetName { get; }
         string ContentApiBaseUrl { get; }
 
-        Task<ContentItem> GetContentItem(string id);
+        Task<ContentItem> GetContentItem(IContentManager contentManager, string id);
     }
 }

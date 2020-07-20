@@ -6,14 +6,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
 {
     public class PreviewContentItemVersion : ContentItemVersion, IPreviewContentItemVersion
     {
-        public PreviewContentItemVersion(
-            IConfiguration configuration,
-            IContentManager contentManager)
+        public PreviewContentItemVersion(IConfiguration configuration)
             : base(GraphReplicaSetNames.Preview,
                 VersionOptions.Draft,
                 (true, null),
-                GetContentApiBaseUrlFromConfig(configuration, "PreviewContentApiPrefix"),
-                contentManager)
+                GetContentApiBaseUrlFromConfig(configuration, "PreviewContentApiPrefix"))
         {
         }
     }
