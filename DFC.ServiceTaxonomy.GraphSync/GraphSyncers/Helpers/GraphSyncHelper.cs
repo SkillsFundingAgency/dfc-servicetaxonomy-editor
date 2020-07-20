@@ -187,7 +187,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (untransformedIdString == null)
                 return untransformedIdValue;
 
-            return untransformedIdString.Replace("<<contentapiprefix>>", contentItemVersion.ContentApiBaseUrl);
+            return untransformedIdString.Replace("<<ContentApiPrefix>>", contentItemVersion.ContentApiBaseUrl);
         }
 
         private void CheckPreconditions()
