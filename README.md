@@ -94,6 +94,7 @@ Copy the `appsettings.Development_template.json` file in the editor project to `
 ```
 {
     "ContentApiPrefix": "http://localhost:7071/api/execute",
+    "PreviewContentApiPrefix": "http://localhost:7081/api/execute",
     "Neo4j": {
         "Endpoints": [
             {
