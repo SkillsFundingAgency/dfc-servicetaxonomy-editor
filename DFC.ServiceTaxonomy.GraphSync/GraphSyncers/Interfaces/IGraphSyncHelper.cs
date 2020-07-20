@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
+    //todo: rename to something like IGraphArtifactNamer?
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
     #pragma warning disable S4136
     public interface IGraphSyncHelper
