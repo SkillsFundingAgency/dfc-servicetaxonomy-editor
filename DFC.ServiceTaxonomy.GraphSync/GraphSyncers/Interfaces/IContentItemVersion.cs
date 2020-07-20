@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         VersionOptions VersionOptions { get; }
         (bool? latest, bool? published) ContentItemIndexFilterTerms { get; }
         string GraphReplicaSetName { get; }
+        string ContentApiBaseUrl { get; }
 
         Task<ContentItem> GetContentItemAsync(IContentManager contentManager, string id);
     }

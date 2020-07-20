@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                GetNodeId(tid, flattenedTermsContentItems, relatedGraphSyncHelper)!);
+                GetNodeId(tid, flattenedTermsContentItems, relatedGraphSyncHelper, context.ContentItemVersion)!);
 
             IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
 
@@ -89,7 +89,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             relatedGraphSyncHelper.ContentType = taxonomyContentItem.ContentType;
             destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
-            object taxonomyIdValue = relatedGraphSyncHelper.GetIdPropertyValue(taxonomyContentItem.Content[nameof(GraphSyncPart)]);
+            object taxonomyIdValue = relatedGraphSyncHelper.GetIdPropertyValue(
+                taxonomyContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 taxonomyRelationshipType,
@@ -124,10 +125,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return ((JArray)taxonomyPartContent[Terms]!).ToObject<IEnumerable<ContentItem>>()!;
         }
 
-        private object? GetNodeId(string termContentItemId, IDictionary<string, ContentItem> taxonomyTerms, IGraphSyncHelper termGraphSyncHelper)
+        private object? GetNodeId(
+            string termContentItemId,
+            IDictionary<string, ContentItem> taxonomyTerms,
+            IGraphSyncHelper termGraphSyncHelper,
+            IContentItemVersion contentItemVersion)
         {
             ContentItem termContentItem = taxonomyTerms[termContentItemId];
-            return termGraphSyncHelper.GetIdPropertyValue((JObject)termContentItem.Content[nameof(GraphSyncPart)]!);
+            return termGraphSyncHelper.GetIdPropertyValue(
+                (JObject)termContentItem.Content[nameof(GraphSyncPart)]!, contentItemVersion);
         }
 
         private async Task<ContentItem> GetTaxonomyContentItem(
@@ -153,7 +159,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return $"has{taxonomyName}Taxonomy";
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
             IValidateAndRepairContext context)
         {
             ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
@@ -183,7 +190,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string contentItemId = (string)item!;
 
-                object? destinationId = GetNodeId(contentItemId, flattenedTermsContentItems, relatedGraphSyncHelper)!;
+                object? destinationId = GetNodeId(
+                    contentItemId, flattenedTermsContentItems, relatedGraphSyncHelper, context.ContentItemVersion)!;
 
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
                     context.NodeWithOutgoingRelationships,

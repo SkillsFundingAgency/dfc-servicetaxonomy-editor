@@ -1,32 +1,23 @@
-﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+﻿using System.Configuration;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
 {
     public class ContentItemVersion : IContentItemVersion
     {
-        //todo: private ctor that takes 3 args?
-        public static ContentItemVersion Published => new ContentItemVersion(GraphReplicaSetNames.Published);
-        public static ContentItemVersion Preview => new ContentItemVersion(GraphReplicaSetNames.Preview);
-
-        public ContentItemVersion(string graphReplicaSetName)
+        protected ContentItemVersion(
+            string graphReplicaSetName,
+            VersionOptions versionOptions,
+            (bool? latest, bool? published) contentItemIndexFilterTerms,
+            string contentApiBaseUrl)
         {
             GraphReplicaSetName = graphReplicaSetName;
-            switch (graphReplicaSetName)
-            {
-                case GraphReplicaSetNames.Published:
-                    VersionOptions = VersionOptions.Published;
-                    ContentItemIndexFilterTerms = (null, true);
-                    break;
-                case GraphReplicaSetNames.Preview:
-                    VersionOptions = VersionOptions.Draft;
-                    ContentItemIndexFilterTerms = (true, null);
-                    break;
-                default:
-                    throw new GraphSyncException($"Unknown graph replica set '{graphReplicaSetName}'.");
-            }
+            VersionOptions = versionOptions;
+            ContentItemIndexFilterTerms = contentItemIndexFilterTerms;
+            ContentApiBaseUrl = contentApiBaseUrl;
         }
 
         public string GraphReplicaSetName { get; }
@@ -66,5 +57,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         // {
         //     return graphCluster.GetGraphReplicaSet(GraphReplicaSetName);
         // }
+
+        public string ContentApiBaseUrl { get; }
+
+        protected static string GetContentApiBaseUrlFromConfig(IConfiguration configuration, string contentApiPrefixConfigName)
+        {
+            return configuration.GetValue<string?>(contentApiPrefixConfigName)
+                       ?.ToLowerInvariant()
+                   ?? throw new ConfigurationErrorsException(
+                       $"{contentApiPrefixConfigName} not in config.");
+        }
     }
 }
