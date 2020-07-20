@@ -3,6 +3,8 @@
 * when deleting get this message..
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
 
+* deleting a page needs to delete the widgets also and non-shared html
+
 it should have a notification for each of published/preview
 
 * instead of cloaked draft items in published graph, could:

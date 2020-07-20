@@ -167,8 +167,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()" =>
                 $"<<ContentApiPrefix>>/{_contentType}/{newGuid}".ToLowerInvariant(),
 
-//todo: we need to split out transforming the <<ContentApiPrefix>>, so that we display it in the ui and replace it during the sync
-
                 _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
             };
         }
@@ -209,8 +207,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private async Task<string> Transform(string transformCode, string untransformedValue, string contentType)
         {
-            //untransformedValue = untransformedValue.Replace("<<contentapiprefix>>", _contentApiBaseUrl);
-
             _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
             _graphSyncHelperCSharpScriptGlobals.ContentType = contentType;
 
