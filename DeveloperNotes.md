@@ -1,5 +1,10 @@
 #ToDo
 
+* when deleting get this message..
+The new Shared Content could not be removed because the associated node could not be deleted from the graph.
+
+it should have a notification for each of published/preview
+
 * instead of cloaked draft items in published graph, could:
   update contentpicker (etc) to not try and create relationships to draft items
   when unpublish, cancel if any incoming relationships (similar to how we handle delete)
