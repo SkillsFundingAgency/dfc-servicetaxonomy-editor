@@ -23,6 +23,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly ISession _session;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INotifier _notifier;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly ILogger<GraphSyncContentHandler> _logger;
 
         public GraphSyncContentHandler(
@@ -31,6 +33,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             ISession session,
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
             ILogger<GraphSyncContentHandler> logger)
         {
             _graphCluster = graphCluster;
@@ -38,6 +42,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _session = session;
             _contentDefinitionManager = contentDefinitionManager;
             _notifier = notifier;
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
             _logger = logger;
         }
 
@@ -63,7 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             //todo: we need to decide how to handle this. do we leave a placeholder node (in the pub graph)
             // with a property to say item has no published version
             // or check incoming relationships and cancel unpublish?
-            await DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem);
+            await DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion);
 
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
@@ -72,17 +78,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         public override async Task RemovedAsync(RemoveContentContext context)
         {
             await Task.WhenAll(
-                DeleteFromGraphReplicaSet(GraphReplicaSetNames.Preview, context.ContentItem),
-                DeleteFromGraphReplicaSet(GraphReplicaSetNames.Published, context.ContentItem));
+                DeleteFromGraphReplicaSet(context.ContentItem, _previewContentItemVersion),
+                DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion));
         }
 
-        private async Task DeleteFromGraphReplicaSet(string replicaSetName, ContentItem contentItem)
+        private async Task DeleteFromGraphReplicaSet(ContentItem contentItem, IContentItemVersion contentItemVersion)
         {
             try
             {
                 IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
-                await deleteGraphSyncer.DeleteFromGraphReplicaSet(replicaSetName, contentItem);
+                await deleteGraphSyncer.Delete(contentItem, contentItemVersion);
             }
             catch (CommandValidationException ex)
             {

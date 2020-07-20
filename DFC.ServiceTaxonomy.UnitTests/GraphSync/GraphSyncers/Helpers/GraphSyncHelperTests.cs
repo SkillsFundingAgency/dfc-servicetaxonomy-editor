@@ -1,7 +1,6 @@
 ﻿using System;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using FakeItEasy;
@@ -18,7 +17,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
         // using a real one is not ideal
         public ContentTypeDefinition ContentTypeDefinition { get; set; }
-        public IContentItemVersionFactory ContentItemVersionFactory { get; set; }
         public GraphSyncHelper GraphSyncHelper { get; set; }
 
         private const string _contentType = "ContentType";
@@ -36,9 +34,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
                 new JObject());
             A.CallTo(() => ContentDefinitionManager.GetTypeDefinition(_contentType)).Returns(ContentTypeDefinition);
 
-            ContentItemVersionFactory = A.Fake<IContentItemVersionFactory>();
-
-            GraphSyncHelper = new GraphSyncHelper(GraphSyncHelperCSharpScriptGlobals, ContentDefinitionManager, ContentItemVersionFactory);
+            GraphSyncHelper = new GraphSyncHelper(GraphSyncHelperCSharpScriptGlobals, ContentDefinitionManager);
         }
 
         [Fact]

@@ -24,7 +24,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: gotta be careful about lifetimes. might have to inject iserviceprovider
         private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private string? _contentType;
         private GraphSyncPartSettings? _graphSyncPartSettings;
         private readonly Stack<Func<string, string>> _propertyNameTransformers;
@@ -34,12 +33,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
-            IContentDefinitionManager contentDefinitionManager,
-            IContentItemVersionFactory contentItemVersionFactory)
+            IContentDefinitionManager contentDefinitionManager)
         {
             _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
-            _contentItemVersionFactory = contentItemVersionFactory;
             _propertyNameTransformers = new Stack<Func<string, string>>();
         }
 
@@ -172,12 +169,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public string ContentIdPropertyName => "Text";
-
-        //todo: see if we can get rid ov this version
-        public object? GetIdPropertyValue(JObject graphSyncContent, string graphReplicaSetName)
-        {
-            return GetIdPropertyValue(graphSyncContent, _contentItemVersionFactory.Get(graphReplicaSetName));
-        }
 
         public object? GetIdPropertyValue(JObject graphSyncContent, IContentItemVersion contentItemVersion)
         {

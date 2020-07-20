@@ -135,7 +135,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
                 _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
                 _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
-                    graphSyncPartContent, graphReplicaSet.Name);
+                    graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
 
                 commands.Add(_replaceRelationshipsCommand);
             }
