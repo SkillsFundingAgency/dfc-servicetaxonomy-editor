@@ -2,10 +2,13 @@
 
 * when deleting get this message..
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
+^ it should have a notification for each of published/preview
 
 * deleting a page needs to delete the widgets also and non-shared html
-
-it should have a notification for each of published/preview
+* deleting a widget needs to delete from graph also
+^ when no widgets left, will not delete existing
+does the same issue exist for all enbedded contentm, like pickers?
+allow empty destnodeids in replacerelationshipcommand?
 
 * instead of cloaked draft items in published graph, could:
   update contentpicker (etc) to not try and create relationships to draft items
