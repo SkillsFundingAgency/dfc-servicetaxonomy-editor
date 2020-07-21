@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         public string PartName => nameof(TaxonomyPart);
 
         private const string ContainerName = "Terms";
-        private const string TermContentTypePropertyName = "TermContentType";
+        internal const string TermContentTypePropertyName = "TermContentType";
 
         public TaxonomyPartGraphSyncer(
             ITaxonomyPartEmbeddedContentItemsGraphSyncer taxonomyPartEmbeddedContentItemsGraphSyncer)

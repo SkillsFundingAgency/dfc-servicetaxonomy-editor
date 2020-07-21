@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -7,6 +8,8 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItems
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Models;
+using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
@@ -23,6 +26,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             IServiceProvider serviceProvider)
             : base(contentDefinitionManager, serviceProvider)
         {
+        }
+
+        protected override IEnumerable<string> GetEmbeddableContentTypes(
+            ContentItem contentItem,
+            ContentTypePartDefinition contentTypePartDefinition)
+        {
+            return _contentDefinitionManager.ListTypeDefinitions()
+                .Where(t => t.GetSettings<ContentTypeSettings>().Stereotype == "Widget")
+                .Select(t => t.Name);
         }
 
         protected override async Task<Dictionary<string, object>?> GetRelationshipProperties(

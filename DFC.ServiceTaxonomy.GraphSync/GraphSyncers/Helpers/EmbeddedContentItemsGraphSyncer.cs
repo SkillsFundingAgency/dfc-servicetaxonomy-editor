@@ -16,15 +16,17 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
-    public class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
+    public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
+        protected readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
-        public EmbeddedContentItemsGraphSyncer(
+        protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
             IServiceProvider serviceProvider)
         {
+            _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
 
             _contentTypes = contentDefinitionManager
@@ -123,19 +125,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        private IEnumerable<ContentItem> ConvertToContentItems(JArray? contentItems)
-        {
-            if (contentItems == null)
-            {
-                // we've seen this when the import util generates bad data. we fail fast
-                throw new GraphSyncException("Embedded content container has missing array.");
-            }
-
-            IEnumerable<ContentItem>? embeddedContentItems = contentItems.ToObject<IEnumerable<ContentItem>>();
-            if (embeddedContentItems == null)
-                throw new GraphSyncException("Embedded content container does not contain ContentItems.");
-            return embeddedContentItems;
-        }
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(ContentItem contentItem,
+            ContentTypePartDefinition contentTypePartDefinition);
 
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
         {
@@ -149,6 +140,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphSyncHelper graphSyncHelper)
         {
             return Task.FromResult<Dictionary<string, object>?>(null);
+        }
+
+        private IEnumerable<ContentItem> ConvertToContentItems(JArray? contentItems)
+        {
+            if (contentItems == null)
+            {
+                // we've seen this when the import util generates bad data. we fail fast
+                throw new GraphSyncException("Embedded content container has missing array.");
+            }
+
+            IEnumerable<ContentItem>? embeddedContentItems = contentItems.ToObject<IEnumerable<ContentItem>>();
+            if (embeddedContentItems == null)
+                throw new GraphSyncException("Embedded content container does not contain ContentItems.");
+            return embeddedContentItems;
         }
     }
 }
