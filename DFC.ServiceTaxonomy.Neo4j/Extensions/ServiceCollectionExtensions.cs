@@ -15,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IGraphClusterBuilder, GraphClusterBuilder>();
             services.AddSingleton<IGraphCluster, GraphCluster>(provider => provider.GetRequiredService<IGraphClusterBuilder>().Build());
+//          services.AddSingleton(provider => new Lazy<IGraphCluster>(provider.GetRequiredService<IGraphClusterBuilder>().Build()));
 
             services.AddTransient<ILogger, NeoLogger>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
