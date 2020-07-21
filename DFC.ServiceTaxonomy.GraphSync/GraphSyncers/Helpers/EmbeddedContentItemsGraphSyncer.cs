@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
-            IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
+            ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
@@ -53,8 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 containedContentMergeNodeCommand.CheckIsValid();
 
                 var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
+
                 string relationshipType = await RelationshipType(embeddedContentItemGraphSyncHelper);
 
                 var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.GraphSyncHelper);
@@ -70,6 +70,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
+            }
+
+            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, embeddedContentItems);
+        }
+
+        private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
+            IGraphMergeContext context,
+            ContentItem[] embeddedContentItems)
+        {
+            IEnumerable<string> embeddableContentTypes =
+                GetEmbeddableContentTypes(context.ContentItem, context.ContentTypePartDefinition);
+            IEnumerable<string> embeddedContentTypes = embeddedContentItems
+                .Select(i => i.ContentType)
+                .Distinct(); // <= distinct is optional here
+
+            IEnumerable<string> notEmbeddedContentTypes = embeddableContentTypes.Except(embeddedContentTypes);
+
+            foreach (string notEmbeddedContentType in notEmbeddedContentTypes)
+            {
+                var notEmbeddedContentTypeGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                notEmbeddedContentTypeGraphSyncHelper.ContentType = notEmbeddedContentType;
+
+                string relationshipType = await RelationshipType(notEmbeddedContentTypeGraphSyncHelper);
+
+                IGraphSyncHelper graphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                graphSyncHelper.ContentType = notEmbeddedContentType;
+
+                //todo: different method to make it obvious what we're doing here? EnsureRelationshipsAreDeleted
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                    relationshipType,
+                    null,
+                    await graphSyncHelper.NodeLabels(notEmbeddedContentType),
+                    graphSyncHelper.IdPropertyName(notEmbeddedContentType));
             }
         }
 
@@ -91,10 +124,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
 
-                // check expected relationship is in graph
                 var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-
                 embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+
+                // check expected relationship is in graph
                 string expectedRelationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
@@ -125,13 +158,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        protected abstract IEnumerable<string> GetEmbeddableContentTypes(ContentItem contentItem,
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(
+            ContentItem contentItem,
             ContentTypePartDefinition contentTypePartDefinition);
 
-        protected virtual async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
+        protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
-            //todo: configurable?
-            return await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
+            return await embeddedContentGraphSyncHelper.RelationshipTypeDefault(embeddedContentGraphSyncHelper.ContentType!);
         }
 
         protected virtual Task<Dictionary<string, object>?> GetRelationshipProperties(
@@ -142,7 +175,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return Task.FromResult<Dictionary<string, object>?>(null);
         }
 
-        private IEnumerable<ContentItem> ConvertToContentItems(JArray? contentItems)
+        private ContentItem[] ConvertToContentItems(JArray? contentItems)
         {
             if (contentItems == null)
             {
@@ -150,7 +183,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 throw new GraphSyncException("Embedded content container has missing array.");
             }
 
-            IEnumerable<ContentItem>? embeddedContentItems = contentItems.ToObject<IEnumerable<ContentItem>>();
+            ContentItem[]? embeddedContentItems = contentItems.ToObject<ContentItem[]>();
             if (embeddedContentItems == null)
                 throw new GraphSyncException("Embedded content container does not contain ContentItems.");
             return embeddedContentItems;
