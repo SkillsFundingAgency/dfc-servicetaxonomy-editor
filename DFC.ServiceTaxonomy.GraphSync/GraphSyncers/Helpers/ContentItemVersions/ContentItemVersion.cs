@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
         {
             return configuration.GetValue<string?>(contentApiPrefixConfigName)
                        ?.ToLowerInvariant()
-                   ?? throw new ConfigurationErrorsException(
+                   ?? throw new GraphClusterConfigurationErrorException(
                        $"{contentApiPrefixConfigName} not in config.");
         }
     }
