@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Configuration;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.Extensions.Configuration;
@@ -53,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
         {
             return configuration.GetValue<string?>(contentApiPrefixConfigName)
                        ?.ToLowerInvariant()
-                   ?? throw new GraphClusterConfigurationErrorException(
+                   ?? throw new ConfigurationErrorsException(
                        $"{contentApiPrefixConfigName} not in config.");
         }
     }
