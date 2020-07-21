@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement;
 
