@@ -62,21 +62,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         {
             List<T>? values;
             JArray? jarray = (JArray?)content[contentPropertyName];
-            if (jarray != null && jarray.Type != JTokenType.Null)
-            {
-                values = jarray.ToObject<List<T>>();
 
-                if (values == null)
-                    throw new InvalidCastException($"Could not convert content property array {jarray} to type IEnumerable<{typeof(T)}>");
-
-                mergeNodeCommand.Properties.Add(nodePropertyName, values);
-            }
-            else
+            if (jarray != null)
             {
-                values = default;
+                values = AddArrayProperty<T>(mergeNodeCommand, nodePropertyName, jarray, contentPropertyName);
+                return values;
             }
 
-            return values;
+            return new List<T>();
         }
 
         public static List<T>? AddArrayProperty<T>(
