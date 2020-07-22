@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _logger = logger;
         }
 
-        public GraphCluster Build(Action<Neo4jOptions>? configure = null)
+        public IGraphCluster Build(Action<Neo4jOptions>? configure = null)
         {
             Neo4jOptions? currentConfig = _neo4JConfigurationOptions.CurrentValue;
             //todo: ok to mutate returned CurrentValue?
