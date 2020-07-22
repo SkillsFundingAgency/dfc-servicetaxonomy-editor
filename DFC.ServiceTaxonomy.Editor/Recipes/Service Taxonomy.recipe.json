@@ -78,7 +78,8 @@
                 "DFC.ServiceTaxonomy.GraphVisualiser",
                 "DFC.ServiceTaxonomy.Cypher",
                 "DFC.ServiceTaxonomy.CustomFields",
-                "DFC.ServiceTaxonomy.Events"
+                "DFC.ServiceTaxonomy.Events",
+                "DFC.ServiceTaxonomy.PageLocation"
             ]
         },
         {
@@ -130,15 +131,6 @@
                             }
                         },
                         {
-                            "PartName": "AliasPart",
-                            "Name": "AliasPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "Page",
                             "Name": "Page",
                             "Settings": {
@@ -178,6 +170,15 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
                             }
                         }
@@ -2505,25 +2506,10 @@
                                 "ContentIndexSettings": {},
                                 "TaxonomyFieldSettings": {
                                     "Required": true,
-                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                                    "TaxonomyContentItemId": "4w9kg8jhved372sg703ggkq5wx",
                                     "Unique": true
                                 },
-                                "TaxonomyFieldTagsEditorSettings": {
-                                    "Open": false
-                                }
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "RedirectLocations",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Redirect Locations",
-                                    "Editor": "TextArea",
-                                    "Position": "1"
-                                },
-                                "TextFieldSettings": {},
-                                "ContentIndexSettings": {}
+                                "TaxonomyFieldTagsEditorSettings": {}
                             }
                         },
                         {
@@ -2532,7 +2518,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Position": "2"
+                                    "Position": "1"
                                 }
                             }
                         }
@@ -2973,6 +2959,16 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Lookup node(s) from the graph and create relationships and/or set a property based on the selection."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "PageLocationPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds the page location part."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
