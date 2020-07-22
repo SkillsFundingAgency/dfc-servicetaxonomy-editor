@@ -119,101 +119,101 @@ stages:
               nuGetFeedType: external
               publishFeedCredentials: 'DFC Nuget'
 
-- stage: DeployToDev
-  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
-  displayName: Deploy to DEV_SERVICETAXONOMY
-  variables:
-  - group: dfc-shared-all
-  - group: dfc-stax-shared-all
-  - group: dfc-shared-dev
-  - group: dfc-app-shared-dev
-  - group: dfc-stax-shared-dev
-  - group: 'KeyVault - dfc-dev-shared-kv'
-  - template: VariableTemplates/SharedEnvironmentVariables.yml
-  - template: VariableTemplates/DevEnvironmentVariables.yml
-  jobs:
-  - template: JobTemplates/deploy-environment.yml
-    parameters:
-      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
-      Environment: DEV_SERVICETAXONOMY
-      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
-      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
-      Location: 'West Europe'
-      EnvironmentTag: '$(EnvironmentTag)'
-      ParentBusinessTag: '$(ParentBusiness)'
-      ServiceOfferingTag: '$(ServiceOffering)'
-      ResourceGroup: '$(ResourceGroup)'
-      WebAppName: '$(WebAppName)'
-      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
-      EditorAdminUsername: $(OrchardEditorAdminUserName)
-      EditorAdminUserEmail: $(EditorAdminUserEmail)
-      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
-      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
-      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
-      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+# - stage: DeployToDev
+#   condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+#   displayName: Deploy to DEV_SERVICETAXONOMY
+#   variables:
+#   - group: dfc-shared-all
+#   - group: dfc-stax-shared-all
+#   - group: dfc-shared-dev
+#   - group: dfc-app-shared-dev
+#   - group: dfc-stax-shared-dev
+#   - group: 'KeyVault - dfc-dev-shared-kv'
+#   - template: VariableTemplates/SharedEnvironmentVariables.yml
+#   - template: VariableTemplates/DevEnvironmentVariables.yml
+#   jobs:
+#   - template: JobTemplates/deploy-environment.yml
+#     parameters:
+#       AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+#       Environment: DEV_SERVICETAXONOMY
+#       PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+#       ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+#       Location: 'West Europe'
+#       EnvironmentTag: '$(EnvironmentTag)'
+#       ParentBusinessTag: '$(ParentBusiness)'
+#       ServiceOfferingTag: '$(ServiceOffering)'
+#       ResourceGroup: '$(ResourceGroup)'
+#       WebAppName: '$(WebAppName)'
+#       OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+#       EditorAdminUsername: $(OrchardEditorAdminUserName)
+#       EditorAdminUserEmail: $(EditorAdminUserEmail)
+#       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+#       DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+#       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+#       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
-- stage: DeployToSit
-  condition: and(eq(dependencies.DeployToDev.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
-  displayName: Deploy to SIT_SERVICETAXONOMY
-  variables:
-  - group: dfc-shared-all
-  - group: dfc-stax-shared-all
-  - group: dfc-shared-sit
-  - group: dfc-app-shared-sit
-  - group: dfc-stax-shared-sit
-  - group: 'KeyVault - dfc-sit-shared-kv'
-  - template: VariableTemplates/SharedEnvironmentVariables.yml
-  - template: VariableTemplates/SitEnvironmentVariables.yml
-  jobs:
-  - template: JobTemplates/deploy-environment.yml
-    parameters:
-      AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
-      Environment: SIT_SERVICETAXONOMY
-      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
-      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
-      Location: 'West Europe'
-      EnvironmentTag: '$(EnvironmentTag)'
-      ParentBusinessTag: '$(ParentBusiness)'
-      ServiceOfferingTag: '$(ServiceOffering)'
-      ResourceGroup: '$(ResourceGroup)'
-      WebAppName: '$(WebAppName)'
-      OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
-      EditorAdminUsername: $(OrchardEditorAdminUserName)
-      EditorAdminUserEmail: $(EditorAdminUserEmail)
-      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
-      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
-      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
-      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+# - stage: DeployToSit
+#   condition: and(eq(dependencies.DeployToDev.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+#   displayName: Deploy to SIT_SERVICETAXONOMY
+#   variables:
+#   - group: dfc-shared-all
+#   - group: dfc-stax-shared-all
+#   - group: dfc-shared-sit
+#   - group: dfc-app-shared-sit
+#   - group: dfc-stax-shared-sit
+#   - group: 'KeyVault - dfc-sit-shared-kv'
+#   - template: VariableTemplates/SharedEnvironmentVariables.yml
+#   - template: VariableTemplates/SitEnvironmentVariables.yml
+#   jobs:
+#   - template: JobTemplates/deploy-environment.yml
+#     parameters:
+#       AzureSubscription: 'SFA-CDH-Dev/Test (962cae10-2950-412a-93e3-d8ae92b17896)'
+#       Environment: SIT_SERVICETAXONOMY
+#       PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+#       ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+#       Location: 'West Europe'
+#       EnvironmentTag: '$(EnvironmentTag)'
+#       ParentBusinessTag: '$(ParentBusiness)'
+#       ServiceOfferingTag: '$(ServiceOffering)'
+#       ResourceGroup: '$(ResourceGroup)'
+#       WebAppName: '$(WebAppName)'
+#       OrchardCoreUri: 'https://$(WebAppName).azurewebsites.net/'
+#       EditorAdminUsername: $(OrchardEditorAdminUserName)
+#       EditorAdminUserEmail: $(EditorAdminUserEmail)
+#       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+#       DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+#       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+#       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
-- stage: DeployToPP
-  condition: and(eq(dependencies.DeployToSit.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
-  displayName: Deploy to PP_SERVICETAXONOMY
-  variables:
-  - group: dfc-shared-all
-  - group: dfc-stax-shared-all
-  - group: dfc-shared-pp
-  - group: dfc-app-shared-pp
-  - group: dfc-stax-shared-pp
-  - group: 'KeyVault - dfc-pp-shared-kv'
-  - template: VariableTemplates/SharedEnvironmentVariables.yml
-  - template: VariableTemplates/PPEnvironmentVariables.yml
-  jobs:
-  - template: JobTemplates/deploy-environment.yml
-    parameters:
-      AzureSubscription: 'SFA-DIG-PreProd (931bc9f6-359c-4f65-a753-1ee191a1fd6c)'
-      Environment: PP_SERVICETAXONOMY
-      PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
-      ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
-      Location: 'West Europe'
-      EnvironmentTag: '$(EnvironmentTag)'
-      ParentBusinessTag: '$(ParentBusiness)'
-      ServiceOfferingTag: '$(ServiceOffering)'
-      ResourceGroup: '$(ResourceGroup)'
-      WebAppName: '$(WebAppName)'
-      OrchardCoreUri: 'https://$(WebAppName).$(FunctionAppDomain)/'
-      EditorAdminUsername: $(OrchardEditorAdminUserName)
-      EditorAdminUserEmail: $(EditorAdminUserEmail)
-      EditorAdminUserPassword: $(OrchardEditorAdminPassword)
-      DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
-      DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
-      TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
+# - stage: DeployToPP
+#   condition: and(eq(dependencies.DeployToSit.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+#   displayName: Deploy to PP_SERVICETAXONOMY
+#   variables:
+#   - group: dfc-shared-all
+#   - group: dfc-stax-shared-all
+#   - group: dfc-shared-pp
+#   - group: dfc-app-shared-pp
+#   - group: dfc-stax-shared-pp
+#   - group: 'KeyVault - dfc-pp-shared-kv'
+#   - template: VariableTemplates/SharedEnvironmentVariables.yml
+#   - template: VariableTemplates/PPEnvironmentVariables.yml
+#   jobs:
+#   - template: JobTemplates/deploy-environment.yml
+#     parameters:
+#       AzureSubscription: 'SFA-DIG-PreProd (931bc9f6-359c-4f65-a753-1ee191a1fd6c)'
+#       Environment: PP_SERVICETAXONOMY
+#       PackageFile:  "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/DeploymentPackages/DFC.ServiceTaxonomy.Editor.zip"
+#       ArmTemplateFolder: "$(Agent.BuildDirectory)/DFC.ServiceTaxonomy.Editor/Azure/ArmTemplates/"
+#       Location: 'West Europe'
+#       EnvironmentTag: '$(EnvironmentTag)'
+#       ParentBusinessTag: '$(ParentBusiness)'
+#       ServiceOfferingTag: '$(ServiceOffering)'
+#       ResourceGroup: '$(ResourceGroup)'
+#       WebAppName: '$(WebAppName)'
+#       OrchardCoreUri: 'https://$(WebAppName).$(FunctionAppDomain)/'
+#       EditorAdminUsername: $(OrchardEditorAdminUserName)
+#       EditorAdminUserEmail: $(EditorAdminUserEmail)
+#       EditorAdminUserPassword: $(OrchardEditorAdminPassword)
+#       DFCAzureDevOpsProjectGuid: $(DFCAzureDevOpsProjectGuid)
+#       DfcServiceTaxonomyTestsBuildId: $(DfcServiceTaxonomyTestsBuildId)
+#       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
