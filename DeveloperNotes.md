@@ -1,6 +1,6 @@
 #ToDo
 
-* events need prefix replacing
+* revisit events
 
 * when deleting get this message..
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
