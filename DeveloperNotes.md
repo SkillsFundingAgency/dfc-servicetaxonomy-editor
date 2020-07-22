@@ -1,5 +1,7 @@
 #ToDo
 
+* events need prefix replacing
+
 * when deleting get this message..
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
 ^ it should have a notification for each of published/preview
@@ -67,8 +69,6 @@ publish events to appropriate domains
 * use content handler, rather than workflow for syncing?
 
 *sync/delete when unpublish
-
-* new sorted is case sensitive
 
 * pages app
 
