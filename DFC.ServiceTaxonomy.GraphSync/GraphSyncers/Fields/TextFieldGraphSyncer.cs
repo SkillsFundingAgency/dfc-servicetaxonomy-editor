@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 var val = contentItemField[ContentKey]!.ToString().Split("\r\n");
                 var array = JArray.FromObject(val);
-                context.MergeNodeCommand.AddArrayProperty<string>(nodePropertyName, array, ContentKey);
+                context.MergeNodeCommand.AddArrayProperty<string>(nodePropertyName, array);
                 return;
             }
 

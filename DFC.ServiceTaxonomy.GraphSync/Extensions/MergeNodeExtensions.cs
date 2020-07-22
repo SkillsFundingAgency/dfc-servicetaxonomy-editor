@@ -63,20 +63,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             List<T>? values;
             JArray? jarray = (JArray?)content[contentPropertyName];
 
-            if (jarray != null)
-            {
-                values = AddArrayProperty<T>(mergeNodeCommand, nodePropertyName, jarray, contentPropertyName);
-                return values;
-            }
+            values = AddArrayProperty<T>(mergeNodeCommand, nodePropertyName, jarray);
+            return values;
 
-            return new List<T>();
         }
 
         public static List<T>? AddArrayProperty<T>(
            this IMergeNodeCommand mergeNodeCommand,
            string nodePropertyName,
-           JArray content,
-           string contentPropertyName)
+           JArray? content)
         {
             List<T>? values;
             JArray? jarray = content;
