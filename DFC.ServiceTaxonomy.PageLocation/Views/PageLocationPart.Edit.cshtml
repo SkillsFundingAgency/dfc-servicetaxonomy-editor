@@ -1,0 +1,97 @@
+﻿@using DFC.ServiceTaxonomy.PageLocation.ViewModels
+@model PageLocationPartViewModel
+
+<div class="form-group">
+    <label asp-for="UrlName">@T["URL Name"]</label>
+    <input asp-for="UrlName" class="form-control" />
+    <span asp-validation-for="UrlName"></span>
+    <span class="hint">@T["The URL of the page. Leave empty to auto-generate it."]</span>
+</div>
+
+<div class="form-group">
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" asp-for="DefaultPageAtLocation" checked="@Model.DefaultPageAtLocation" />
+        <label class="custom-control-label" asp-for="DefaultPageAtLocation">@T["Default Page For Location?"]</label>
+        <span class="hint">— @T["Check to set this page as the default page to be shown at the specified location."]</span>
+    </div>
+</div>
+
+<div class="form-group">
+    <label asp-for="FullUrl">@T["Full URL"]</label>
+    <input asp-for="FullUrl" class="form-control" readonly="readonly" />
+    <span class="hint">@T["The full URL of the page. It will be automatically generated."]</span>
+</div>
+
+<div class="form-group">
+    <label asp-for="RedirectLocations">@T["Redirect Locations"]</label>
+    <textarea rows="2" asp-for="RedirectLocations" class="form-control"></textarea>
+    <span asp-validation-for="RedirectLocations"></span>
+</div>
+
+<script depends-on="jQuery" at="Foot">
+    $(function () {
+        var $urlNameInput = $('input[name="PageLocationPart.UrlName"]'),
+            $titleInput = $('input[name="TitlePart.Title"]'),
+            $pageLocationsFormGroup = $('input[name^="Page.PageLocations"]').first().closest('.form-group'),
+            $pageLocationsLabel = $pageLocationsFormGroup.prev('label'),
+            $pageLocationCheckboxes = $pageLocationsFormGroup.find('input[name^="Page.PageLocations"]'),
+            $fullUrlInput = $('input[name="PageLocationPart.FullUrl"]');
+
+        //taxonomy HTML structure is broke - there are some nested form groups which shouldn't be here
+        $pageLocationsFormGroup.find('.form-group').remove().insertAfter($pageLocationsFormGroup);
+
+        //now we can find the wrapping form group around the taxonomy field and move it where we want it.
+        $pageLocationsLabel.remove().insertAfter($urlNameInput.closest('.form-group'));
+        $pageLocationsFormGroup.remove().insertAfter($pageLocationsLabel);
+
+        $titleInput.blur(function () {
+            if ($urlNameInput.val().trim().length === 0) {
+                $urlNameInput.val(slugify($titleInput.val()));
+            }
+        });
+
+        $urlNameInput.on('change', buildFullUrl);
+        $pageLocationCheckboxes.on('change', buildFullUrl);
+
+        function slugify(string) {
+            return string
+                .toString()
+                .trim()
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w\-]+/g, "")
+                .replace(/\-\-+/g, "-")
+                .replace(/^-+/, "")
+                .replace(/-+$/, "");
+        }
+
+        function buildFullUrl() {
+            var $location = $pageLocationsFormGroup
+                .find('input[name^="Page.PageLocations"]:checked')
+                .first()
+                .siblings('label')
+                .first();
+
+            if ($urlNameInput.val().length > 0 && $location !== undefined) {
+                var locations = [$location.text().trim()];
+
+                while ($location.parent().parent().hasClass('pl-3')) {
+                    $location = $location
+                        .closest('.pl-3')
+                        .prev('.custom-control')
+                        .find('label')
+                        .first();
+
+                    locations.push($location.text().trim());
+                }
+
+                var locationString = "";
+                locations.reverse().map(location => {
+                    locationString += slugify(location) + "/";
+                });
+
+                $fullUrlInput.val(locationString + $urlNameInput.val());
+            }
+        }
+    });
+</script>
