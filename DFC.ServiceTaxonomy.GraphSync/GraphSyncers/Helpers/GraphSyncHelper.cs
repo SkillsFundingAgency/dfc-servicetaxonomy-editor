@@ -162,7 +162,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
                 "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()" =>
-                $"<<ContentApiPrefix>>/{_contentType}/{newGuid}".ToLowerInvariant(),
+                $"<<contentapiprefix>>/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
                 _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
             };
@@ -178,7 +178,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (untransformedIdString == null)
                 return untransformedIdValue;
 
-            return untransformedIdString.Replace("<<ContentApiPrefix>>", contentItemVersion.ContentApiBaseUrl);
+            return untransformedIdString.Replace("<<contentapiprefix>>", contentItemVersion.ContentApiBaseUrl);
         }
 
         private void CheckPreconditions()
