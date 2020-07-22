@@ -45,7 +45,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraphReplicaSet(
-                    context.GraphReplicaSet, contentItem, context.ContentManager);
+                    context.GraphReplicaSet,
+                    contentItem,
+                    context.ContentManager,
+                    context);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -79,8 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             ContentItem[] embeddedContentItems)
         {
-            IEnumerable<string> embeddableContentTypes =
-                GetEmbeddableContentTypes(context.ContentItem, context.ContentTypePartDefinition);
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
             IEnumerable<string> embeddedContentTypes = embeddedContentItems
                 .Select(i => i.ContentType)
                 .Distinct(); // <= distinct is optional here
@@ -158,9 +160,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        protected abstract IEnumerable<string> GetEmbeddableContentTypes(
-            ContentItem contentItem,
-            ContentTypePartDefinition contentTypePartDefinition);
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context);
 
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {

@@ -10,6 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task<IMergeNodeCommand?> SyncToGraphReplicaSet(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
-            IContentManager contentManager);
+            IContentManager contentManager,
+            IGraphMergeContext? parentGraphMergeContext = null);
     }
 }

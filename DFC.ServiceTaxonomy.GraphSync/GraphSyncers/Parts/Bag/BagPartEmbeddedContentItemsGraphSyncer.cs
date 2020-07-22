@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
@@ -20,11 +18,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
         {
         }
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(
-            ContentItem contentItem,
-            ContentTypePartDefinition contentTypePartDefinition)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
         {
-            BagPartSettings bagPartSettings = contentTypePartDefinition.GetSettings<BagPartSettings>();
+            BagPartSettings bagPartSettings = context.ContentTypePartDefinition.GetSettings<BagPartSettings>();
             return bagPartSettings.ContainedContentTypes;
         }
 
