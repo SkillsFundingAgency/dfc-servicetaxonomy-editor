@@ -58,6 +58,7 @@
                 "OrchardCore.Markdown",
                 "OrchardCore.Media",
                 "OrchardCore.Menu",
+                "OrchardCore.PublishLater",
                 "OrchardCore.Queries",
                 "OrchardCore.Sitemaps",
                 "OrchardCore.Title",
@@ -78,7 +79,8 @@
                 "DFC.ServiceTaxonomy.GraphVisualiser",
                 "DFC.ServiceTaxonomy.Cypher",
                 "DFC.ServiceTaxonomy.CustomFields",
-                "DFC.ServiceTaxonomy.Events"
+                "DFC.ServiceTaxonomy.Events",
+                "DFC.ServiceTaxonomy.UnpublishLater"
             ]
         },
         {
