@@ -99,8 +99,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 IGraphSyncHelper graphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
                 graphSyncHelper.ContentType = notEmbeddedContentType;
 
-                //todo: different method to make it obvious what we're doing here? EnsureRelationshipsAreDeleted
-                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
                     relationshipType,
                     null,
                     await graphSyncHelper.NodeLabels(notEmbeddedContentType),
