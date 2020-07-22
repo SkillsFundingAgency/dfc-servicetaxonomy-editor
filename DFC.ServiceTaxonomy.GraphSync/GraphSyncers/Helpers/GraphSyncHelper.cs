@@ -178,7 +178,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (untransformedIdString == null)
                 return untransformedIdValue;
 
-            return untransformedIdString.Replace("<<contentapiprefix>>", contentItemVersion.ContentApiBaseUrl);
+            // we ignore case, so that existing content items will still sync
+            // if we didn't have to worry about existing items in the oc db, we wouldn't need to
+            return untransformedIdString.Replace("<<contentapiprefix>>", contentItemVersion.ContentApiBaseUrl,
+                StringComparison.OrdinalIgnoreCase);
         }
 
         private void CheckPreconditions()
