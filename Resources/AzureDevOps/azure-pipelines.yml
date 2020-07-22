@@ -77,15 +77,25 @@ stages:
       inputs:
         versionSpec: '>=5.4.0'
 
-    - task: NuGetCommand@2
-      displayName: 'NuGet pack'
+    # - task: NuGetCommand@2
+    #   displayName: 'NuGet pack'
+    #   inputs:
+    #     command: pack
+    #     packagesToPack: '**/DFC.ServiceTaxonomy.Neo4j.csproj'
+    #     configuration: 'Release'
+    #     packDestination: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
+    #     versioningScheme: byEnvVar
+    #     versionEnvVar: GitVersion.MajorMinorPatch
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet pack'
       inputs:
         command: pack
         packagesToPack: '**/DFC.ServiceTaxonomy.Neo4j.csproj'
-        configuration: 'Release'
-        packDestination: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
+        configuration: Release
+        packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
         versionEnvVar: GitVersion.MajorMinorPatch
+        
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: $(build.artifactstagingdirectory)\DeploymentPackages\Nuget
