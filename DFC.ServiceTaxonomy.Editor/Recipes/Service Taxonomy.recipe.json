@@ -2522,7 +2522,9 @@
                                     "Editor": "TextArea",
                                     "Position": "1"
                                 },
-                                "TextFieldSettings": {},
+                                "TextFieldSettings": {
+                                    "Hint": "##SyncToArray"
+                                },
                                 "ContentIndexSettings": {}
                             }
                         },

@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var settings = context.ContentPartFieldDefinition.PartDefinition.Fields.FirstOrDefault(x => x.Name == context.ContentPartFieldDefinition!.Name);
 
-            if (settings != null && settings.GetSettings<TextFieldSettings>().Hint?.ToLower() == "synctoarray")
+            if (settings != null && settings.GetSettings<TextFieldSettings>().Hint?.ToLower().IndexOf("##synctoarray") != -1)
             {
                 var val = contentItemField[ContentKey]!.ToString().Split("\r\n");
                 var array = JArray.FromObject(val);
