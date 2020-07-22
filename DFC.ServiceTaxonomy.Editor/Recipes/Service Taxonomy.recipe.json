@@ -2524,7 +2524,9 @@
                                     "Editor": "TextArea",
                                     "Position": "1"
                                 },
-                                "TextFieldSettings": {},
+                                "TextFieldSettings": {
+                                    "Hint": "Add each redirect location on a new line ##SyncToArray"
+                                },
                                 "ContentIndexSettings": {}
                             }
                         },
