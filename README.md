@@ -37,7 +37,7 @@ ncs.skill_synonyms_file_url=https://localhost:44346/graphsync/synonyms/skill/syn
 6) Enable the browser setting "Enable multi statement query editor"
 7) Paste and execute the following into the desktop graph browser (Manage > Open Browser).
 ```
-CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE
+CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE;
 call n10s.graphconfig.init( { handleMultival: "ARRAY", multivalPropList: ["http://www.w3.org/2004/02/skos/core#altLabel", "http://www.w3.org/2004/02/skos/core#hiddenLabel"] });
 call n10s.nsprefixes.add("esco", "http://data.europa.eu/esco/model#");
 call n10s.nsprefixes.add("iso-thes", "http://purl.org/iso25964/skos-thes#");
@@ -67,6 +67,13 @@ To create the 'preview' graph, run these Cypher commands...
 ```
 create database preview;
 :use preview;
+```
+
+If you decided to import the ESCO data into the published graph, you should also import the data into the preview graph. To import the data follow step 7 onwards from the 'Populate The Published Graph with ESCO Data' steps.
+
+If you don't import the data, you should run this step....
+
+```
 CREATE CONSTRAINT n10s_unique_uri ON (r:Resource) ASSERT r.uri IS UNIQUE;
 ```
 
@@ -87,6 +94,7 @@ Copy the `appsettings.Development_template.json` file in the editor project to `
 ```
 {
     "ContentApiPrefix": "http://localhost:7071/api/execute",
+    "PreviewContentApiPrefix": "http://localhost:7081/api/execute",
     "Neo4j": {
         "Endpoints": [
             {

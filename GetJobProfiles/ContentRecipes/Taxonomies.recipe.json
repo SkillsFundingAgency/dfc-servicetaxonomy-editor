@@ -40,64 +40,187 @@
                     "TaxonomyPart": {
                         "Terms": [
                             {
-                                "ContentItemId": "4vx6b17n8c1j3tgjherk977ed2",
+                                "ContentItemId": "4y3qc9f2r818z1df41a1yryvny",
                                 "ContentItemVersionId": null,
                                 "ContentType": "PageLocation",
-                                "DisplayText": "Help",
+                                "DisplayText": "/",
                                 "Latest": false,
                                 "Published": false,
-                                "ModifiedUtc": "2020-06-16T13:16:50.5478626Z",
+                                "ModifiedUtc": "2020-07-10T09:21:37.9873898Z",
                                 "PublishedUtc": null,
                                 "CreatedUtc": null,
                                 "Owner": null,
                                 "Author": "admin",
-                                "SiteSection": {
+                                "TitlePart": {
+                                    "Title": "/"
+                                },
+                                "PageLocation": {
                                     "ContentsPage": {
-                                        "Value": true
+                                        "Value": false
                                     }
                                 },
                                 "GraphSyncPart": {
-                                    "Text": "c9c5b769-b6a7-43f4-8b37-b5c1a7155913"
-                                },
-                                "TitlePart": {
-                                    "Title": "Help"
+                                    "Text": "<<ContentApiPrefix>>/pagelocation/48b3f8cb-27c5-4e3a-9a53-69b6cfe8e408"
                                 },
                                 "TermPart": {
                                     "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
                                 },
                                 "@WeldedPartSettings": {
                                     "TermPart": {}
-                                }
-                            },
-                            {
-                                "ContentItemId": "47zxhfbgy5ggb13k168qgadxmx",
-                                "ContentItemVersionId": null,
-                                "ContentType": "PageLocation",
-                                "DisplayText": "Contact Us",
-                                "Latest": false,
-                                "Published": false,
-                                "ModifiedUtc": "2020-06-16T13:17:00.3841749Z",
-                                "PublishedUtc": null,
-                                "CreatedUtc": null,
-                                "Owner": null,
-                                "Author": "admin",
-                                "SiteSection": {
-                                    "ContentsPage": {
-                                        "Value": true
+                                },
+                                "Terms": [
+                                    {
+                                        "ContentItemId": "4fj8n537qn55d7q4kk6xxs3bn0",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "about-us",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:01.3440699Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "about-us"
+                                        },
+                                        "PageLocation": {
+                                            "ContentsPage": {
+                                                "Value": false
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/15711982-9609-41d6-a022-acd9cb4d199f"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4pksnz9106ngbwq74w66snan5x",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "contact-us",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-10T09:22:06.4433322Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "contact-us"
+                                        },
+                                        "PageLocation": {
+                                            "ContentsPage": {
+                                                "Value": false
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/370851eb-1185-48b5-8422-23f4afdde06e"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        },
+                                        "Terms": []
+                                    },
+                                    {
+                                        "ContentItemId": "4bj8dac5hskh76gp82ncd1hkx7",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "explore-careers",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:44:11.1555899Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "explore-careers"
+                                        },
+                                        "PageLocation": {
+                                            "ContentsPage": {
+                                                "Value": false
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/ca050db2-a967-4ddf-8c6b-287739696616"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4adkbgv2ceg0ew44w9xcqc26cg",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "find-a-course",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:39.2189373Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "find-a-course"
+                                        },
+                                        "PageLocation": {
+                                            "ContentsPage": {
+                                                "Value": false
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/78a04973-b9c0-4410-9018-9ef04db951c6"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
+                                    },
+                                    {
+                                        "ContentItemId": "4rk5qs3dmjc22t2wfvnvwe1p4x",
+                                        "ContentItemVersionId": null,
+                                        "ContentType": "PageLocation",
+                                        "DisplayText": "skills-assessment",
+                                        "Latest": false,
+                                        "Published": false,
+                                        "ModifiedUtc": "2020-07-16T13:43:53.6627996Z",
+                                        "PublishedUtc": null,
+                                        "CreatedUtc": null,
+                                        "Owner": null,
+                                        "Author": "admin",
+                                        "TitlePart": {
+                                            "Title": "skills-assessment"
+                                        },
+                                        "PageLocation": {
+                                            "ContentsPage": {
+                                                "Value": false
+                                            }
+                                        },
+                                        "GraphSyncPart": {
+                                            "Text": "<<ContentApiPrefix>>/pagelocation/3d54a890-4660-49ea-83d5-5a350e0bf177"
+                                        },
+                                        "TermPart": {
+                                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                        },
+                                        "@WeldedPartSettings": {
+                                            "TermPart": {}
+                                        }
                                     }
-                                },
-                                "GraphSyncPart": {
-                                    "Text": "52b417e4-aa22-41bb-8449-9f4a1d7156ee"
-                                },
-                                "TitlePart": {
-                                    "Title": "Contact Us"
-                                },
-                                "TermPart": {
-                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
-                                },
-                                "@WeldedPartSettings": {
-                                    "TermPart": {}
-                                }
+                                ]
                             }
                         ],
                         "TermContentType": "PageLocation"

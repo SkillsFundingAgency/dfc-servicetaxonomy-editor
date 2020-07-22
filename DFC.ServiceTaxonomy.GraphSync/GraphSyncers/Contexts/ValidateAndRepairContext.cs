@@ -22,13 +22,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentPartFieldDefinition? ContentPartFieldDefinition  { get; private set; }
 
-        public ValidateAndRepairContext(
-            IContentManager contentManager,
+        public ValidateAndRepairContext(IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
-            IDictionary<string, int> expectedRelationshipCounts,
             IValidateAndRepairGraph validateAndRepairGraph)
         {
             ContentManager = contentManager;
@@ -36,8 +34,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             NodeWithOutgoingRelationships = nodeWithOutgoingRelationships;
             GraphSyncHelper = graphSyncHelper;
             GraphValidationHelper = graphValidationHelper;
-            ExpectedRelationshipCounts = expectedRelationshipCounts;
             ValidateAndRepairGraph = validateAndRepairGraph;
+
+            ExpectedRelationshipCounts = new Dictionary<string, int>();
 
             ContentTypePartDefinition = default!;
         }

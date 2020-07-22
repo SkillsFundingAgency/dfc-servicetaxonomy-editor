@@ -2500,13 +2500,13 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Page Locations",
-                                    "Editor": "Tags",
-                                    "DisplayMode": "Tags",
                                     "Position": "0"
                                 },
                                 "ContentIndexSettings": {},
                                 "TaxonomyFieldSettings": {
-                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8"
+                                    "Required": true,
+                                    "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                                    "Unique": true
                                 },
                                 "TaxonomyFieldTagsEditorSettings": {
                                     "Open": false

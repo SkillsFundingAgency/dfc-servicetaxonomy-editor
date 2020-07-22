@@ -6,7 +6,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     public interface IDeleteGraphSyncer
     {
         //todo: pass IGraphReplicaSet rather than the name
-        Task DeleteFromGraphReplicaSet(string graphReplicaSetName, ContentItem contentItem);
+        Task Delete(ContentItem contentItem, IContentItemVersion contentItemVersion);
         Task DeleteNodesByType(string graphReplicaSetName, string contentType);
     }
 }

@@ -295,6 +295,10 @@
                             {
                                 "name": "ContentApiPrefix",
                                 "value": "[concat(parameters('apimProxyAddress'), '/content/GetContent/api/Execute')]"
+                            },
+                            {
+                                "name": "PreviewContentApiPrefix",
+                                "value": "[concat(parameters('apimProxyAddress'), '/content/GetDraftContent/api/Execute')]"
                             }
                         ]
                     }

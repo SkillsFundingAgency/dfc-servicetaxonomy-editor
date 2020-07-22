@@ -7,7 +7,7 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
-    public class TaxonomyPartGraphSyncer : IContentPartGraphSyncer
+    public class TaxonomyPartGraphSyncer : ITaxonomyPartGraphSyncer
     {
         private readonly ITaxonomyPartEmbeddedContentItemsGraphSyncer _taxonomyPartEmbeddedContentItemsGraphSyncer;
         public string PartName => nameof(TaxonomyPart);

@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            object? idValue = context.GraphSyncHelper.GetIdPropertyValue(content);
+            object? idValue = context.GraphSyncHelper.GetIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
                 context.MergeNodeCommand.Properties.Add(context.GraphSyncHelper.IdPropertyName(), idValue);
 

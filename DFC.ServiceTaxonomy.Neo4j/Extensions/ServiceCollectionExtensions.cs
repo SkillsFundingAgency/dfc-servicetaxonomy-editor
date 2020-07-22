@@ -14,7 +14,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static void AddGraphCluster(this IServiceCollection services, Action<Neo4jOptions> setupAction)
         {
             services.AddSingleton<IGraphClusterBuilder, GraphClusterBuilder>();
-            services.AddSingleton<IGraphCluster, GraphCluster>(provider => provider.GetRequiredService<IGraphClusterBuilder>().Build());
+            services.AddSingleton<IGraphCluster, GraphCluster>(provider => (GraphCluster)provider.GetRequiredService<IGraphClusterBuilder>().Build());
 
             services.AddTransient<ILogger, NeoLogger>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();

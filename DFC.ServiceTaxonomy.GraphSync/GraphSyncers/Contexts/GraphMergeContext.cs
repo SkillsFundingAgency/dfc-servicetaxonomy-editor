@@ -8,7 +8,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class GraphMergeContext : IGraphMergeContext
+    public class GraphMergeContext : IGraphMergeItemSyncContext
     {
         public IGraphSyncHelper GraphSyncHelper { get; }
         public IGraphReplicaSet GraphReplicaSet { get; }
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             ContentItem contentItem,
             IContentManager contentManager,
-            IContentItemVersion contentItemVersion)
+            IContentItemVersionFactory contentItemVersionFactory)
         {
             GraphSyncHelper = graphSyncHelper;
             GraphReplicaSet = graphReplicaSet;
@@ -36,7 +36,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ReplaceRelationshipsCommand = replaceRelationshipsCommand;
             ContentItem = contentItem;
             ContentManager = contentManager;
-            ContentItemVersion = contentItemVersion;
+
+            ContentItemVersion = contentItemVersionFactory.Get(graphReplicaSet.Name);
 
             ContentTypePartDefinition = default!;
         }

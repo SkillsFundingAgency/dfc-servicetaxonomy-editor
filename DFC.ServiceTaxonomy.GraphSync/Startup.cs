@@ -28,7 +28,9 @@ using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
@@ -42,6 +44,7 @@ using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
+using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
@@ -50,6 +53,13 @@ namespace DFC.ServiceTaxonomy.GraphSync
 {
     public class Startup : StartupBase
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public override void ConfigureServices(IServiceCollection services)
         {
             // recipe steps
@@ -90,11 +100,16 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IFlowPartEmbeddedContentItemsGraphSyncer, FlowPartEmbeddedContentItemsGraphSyncer>();
             services.AddTransient<ITaxonomyPartEmbeddedContentItemsGraphSyncer, TaxonomyPartEmbeddedContentItemsGraphSyncer>();
 
+            // content item syncers
+            services.AddTransient<IContentItemGraphSyncer, TaxonomyTermContentItemGraphSyncer>();
+            services.AddTransient<IContentItemGraphSyncer, ContentItemGraphSyncer>();
+
             // part syncers
             services.AddTransient<IContentPartGraphSyncer, TitlePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, BagPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, FlowPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TaxonomyPartGraphSyncer>();
+            services.AddTransient<ITaxonomyPartGraphSyncer, TaxonomyPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, HtmlBodyPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, PublishLaterPartGraphSyncer>();
@@ -130,6 +145,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
             services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
             services.AddScoped<ISynonymService, SynonymService>();
+            services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
+            // this would be nice, but IContentManager is Scoped, so not available at startup
+            //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
+            services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
+            services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
 
             // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
