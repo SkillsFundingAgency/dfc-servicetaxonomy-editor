@@ -161,7 +161,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"" =>
                 $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
-                "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()" =>
+                "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()" =>
                 $"<<contentapiprefix>>/{_contentType!.ToLowerInvariant()}/{newGuid}",
 
                 _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)

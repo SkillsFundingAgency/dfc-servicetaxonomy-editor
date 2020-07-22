@@ -12,7 +12,7 @@
         {
             "name": "CypherCommand",
             "commands": [
-                "match (o:esco__Occupation)\r\n[token:whereClause] unwind o.skos__prefLabel as prefLabel\r\ncreate (al:OccupationLabel:Resource {skos__prefLabel: prefLabel, uri: \"<<ContentApiPrefix>>/occupationlabel/\" + apoc.create.uuid()})\r\ncreate (o)-[:hasPrefLabel]->(al)"
+                "match (o:esco__Occupation)\r\n[token:whereClause] unwind o.skos__prefLabel as prefLabel\r\ncreate (al:OccupationLabel:Resource {skos__prefLabel: prefLabel, uri: \"<<contentapiprefix>>/occupationlabel/\" + apoc.create.uuid()})\r\ncreate (o)-[:hasPrefLabel]->(al)"
             ]
         }
     ]

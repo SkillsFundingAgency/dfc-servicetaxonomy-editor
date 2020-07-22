@@ -12,9 +12,9 @@
         {
             "name": "CypherCommand",
             "commands": [
-                "match [token:occupationMatch](n:esco__Skill)[token:whereClause]\r\nwith distinct n\r\nunwind n.skos__prefLabel as prefLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: prefLabels, uri: \"<<ContentApiPrefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasPrefLabel]->(l)",
-                "match [token:occupationMatch](n:esco__Skill)[token:whereClause]\r\nwith distinct n\r\nunwind n.skos__altLabel as altLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: altLabels, uri: \"<<ContentApiPrefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasAltLabel]->(l)",
-                "match [token:occupationMatch](n:esco__Skill)[token:whereClause]\r\nwith distinct n\r\nunwind n.skos__hiddenLabel as hiddenLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: hiddenLabels, uri: \"<<ContentApiPrefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasHiddenLabel]->(l)"
+                "match [token:occupationMatch](n:esco__Skill)[token:whereClause]\r\nwith distinct n\r\nunwind n.skos__prefLabel as prefLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: prefLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasPrefLabel]->(l)",
+                "match [token:occupationMatch](n:esco__Skill)[token:whereClause]\r\nwith distinct n\r\nunwind n.skos__altLabel as altLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: altLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasAltLabel]->(l)",
+                "match [token:occupationMatch](n:esco__Skill)[token:whereClause]\r\nwith distinct n\r\nunwind n.skos__hiddenLabel as hiddenLabels\r\ncreate (l:SkillLabel:Resource {skos__prefLabel: hiddenLabels, uri: \"<<contentapiprefix>>/SkillLabel/\" + apoc.create.uuid()})\r\ncreate (n)-[:hasHiddenLabel]->(l)"
             ]
         }
     ]
