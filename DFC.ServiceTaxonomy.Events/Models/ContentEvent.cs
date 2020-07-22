@@ -18,7 +18,6 @@ namespace DFC.ServiceTaxonomy.Events.Models
     {
         // use 2 part segmented eventType?
         public ContentEvent(
-            //IGraphSyncHelper graphSyncHelper,
             string correlationId,
             ContentItem contentItem,
             string userId,
@@ -30,7 +29,6 @@ namespace DFC.ServiceTaxonomy.Events.Models
             // do we assume id ends with a guid, or do we need a setting to extract the eventgrid id from the full id?
             // string userId = contentItem.Content.GraphSyncPart.Text;
 
-            //string userId = graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
             string itemId = userId.Substring(userId.Length - 36);
             Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";
 

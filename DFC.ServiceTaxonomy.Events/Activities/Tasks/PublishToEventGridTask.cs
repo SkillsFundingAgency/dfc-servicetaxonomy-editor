@@ -17,7 +17,8 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
 {
     //todo: revisit if/when we get ContentSavedEvent
     //todo: remove false-positives
-    //todo: publish draft when a new draft is cloned
+    //todo: publish draft when a new draft is cloned?
+    //todo: update comment and confluence with extra deleted events and which content uri prefix is used
 
     /// <summary>
     /// | existing state      | user action              | server      | post state         | event grid events          | notes                                   |
@@ -244,9 +245,6 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             ContentEventType eventType)
         {
             // would it be better to use the workflowid as the correlation id instead?
-            // ContentEvent contentEvent = ActivatorUtilities.CreateInstance<ContentEvent>(
-            //     _serviceProvider, workflowContext.CorrelationId, contentItem, eventType);
-
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, userId, eventType);
