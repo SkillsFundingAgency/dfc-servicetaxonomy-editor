@@ -185,8 +185,6 @@ namespace GetJobProfiles
 
             const string contentRecipesPath = "ContentRecipes";
 
-            await CopyRecipe(contentRecipesPath, "Taxonomies");
-
             if (!createTestFiles)
             {
                 await CopyRecipe(contentRecipesPath, "SharedContent");
