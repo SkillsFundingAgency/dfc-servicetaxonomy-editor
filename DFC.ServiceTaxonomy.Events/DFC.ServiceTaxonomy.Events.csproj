@@ -31,4 +31,8 @@
     <Content Include="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
+  </ItemGroup>
+
 </Project>

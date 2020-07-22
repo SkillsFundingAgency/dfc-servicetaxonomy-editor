@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -66,18 +67,27 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
         private readonly IEventGridContentClient _eventGridContentClient;
         private readonly IContentManager _contentManager;
+        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly ILogger<PublishToEventGridTask> _logger;
 
         public PublishToEventGridTask(
             IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
             IContentManager contentManager,
+            IGraphSyncHelper graphSyncHelper,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
             IStringLocalizer<PublishToEventGridTask> localizer,
             ILogger<PublishToEventGridTask> logger)
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
             _contentManager = contentManager;
+            _graphSyncHelper = graphSyncHelper;
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
             _logger = logger;
             T = localizer;
         }
@@ -141,17 +151,17 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 if (eventContentItem.ContentItemVersionId == null)
                     return;
 
-                string? eventType = null;
-                string? eventType2 = null;
+                ContentEventType? eventType = null;
+                ContentEventType? eventType2 = null;
 
                 string trigger = (string)workflowContext.Properties["Trigger"];
                 switch (trigger)
                 {
                     case "published":
-                        eventType = "published";
+                        eventType = ContentEventType.Published;
                         if (preDelayPublishedContentItem.CreatedUtc != preDelayPublishedContentItem.ModifiedUtc)
                         {
-                            eventType2 = "draft-discarded";
+                            eventType2 = ContentEventType.DraftDiscarded;
                         }
                         break;
                     case "updated":
@@ -161,14 +171,14 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                                 || (preDelayDraftContentItem?.ModifiedUtc == null ||
                                     eventContentItem.ModifiedUtc >= preDelayDraftContentItem.ModifiedUtc)))
                         {
-                            eventType = "draft";
+                            eventType = ContentEventType.Draft;
                         }
                         break;
                     case "unpublished":
-                        eventType = "unpublished";
+                        eventType = ContentEventType.Unpublished;
                         if (preDelayPublishedContentItem.ModifiedUtc == eventContentItem.ModifiedUtc)
                         {
-                            eventType2 = "draft";
+                            eventType2 = ContentEventType.Draft;
                         }
 
                         break;
@@ -176,11 +186,11 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                         if (preDelayPublishedContentItem?.Published == true)
                         {
                             // discard draft
-                            eventType = "draft-discarded";
+                            eventType = ContentEventType.DraftDiscarded;
                         }
                         else
                         {
-                            eventType = "deleted";
+                            eventType = ContentEventType.Deleted;
                         }
                         break;
                 }
@@ -188,12 +198,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 //todo: modified time as event time is probably wrong. either pick correct time, or just set to now
                 if (eventType != null)
                 {
-                    await PublishContentEvent(workflowContext, eventContentItem, eventType);
+                    await PublishContentEvents(workflowContext, eventContentItem, eventType.Value);
                 }
 
                 if (eventType2 != null)
                 {
-                    await PublishContentEvent(workflowContext, eventContentItem, eventType2);
+                    await PublishContentEvents(workflowContext, eventContentItem, eventType2.Value);
                 }
             }
             catch (Exception e)
@@ -203,10 +213,43 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             }
         }
 
-        private async Task PublishContentEvent(WorkflowExecutionContext workflowContext, ContentItem contentItem, string eventType)
+        private async Task PublishContentEvents(
+            WorkflowExecutionContext workflowContext,
+            ContentItem contentItem,
+            ContentEventType eventType)
+        {
+            switch (eventType)
+            {
+                case ContentEventType.Published:
+                case ContentEventType.Unpublished:
+                    await PublishContentEvent(workflowContext, contentItem, _publishedContentItemVersion, eventType);
+                    //todo: if there wasn't a draft version, would have to publish unpublished with pewview graph too
+                    break;
+                case ContentEventType.Draft:
+                case ContentEventType.DraftDiscarded:
+                    await PublishContentEvent(workflowContext, contentItem, _previewContentItemVersion, eventType);
+                    break;
+                case ContentEventType.Deleted:
+                    //todo: should only publish events if there was a published/preview version
+                    await PublishContentEvent(workflowContext, contentItem, _publishedContentItemVersion, eventType);
+                    await PublishContentEvent(workflowContext, contentItem, _previewContentItemVersion, eventType);
+                    break;
+            }
+        }
+
+        private async Task PublishContentEvent(
+            WorkflowExecutionContext workflowContext,
+            ContentItem contentItem,
+            IContentItemVersion contentItemVersion,
+            ContentEventType eventType)
         {
             // would it be better to use the workflowid as the correlation id instead?
-            ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, eventType);
+            // ContentEvent contentEvent = ActivatorUtilities.CreateInstance<ContentEvent>(
+            //     _serviceProvider, workflowContext.CorrelationId, contentItem, eventType);
+
+            string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+
+            ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, userId, eventType);
             await _eventGridContentClient.Publish(contentEvent);
         }
     }
