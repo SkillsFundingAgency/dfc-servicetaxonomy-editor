@@ -17,7 +17,8 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
         private const string
             UrlNamePropertyName = "UrlName",
             DefaultPageForLocationPropertyName = "DefaultPageForLocation",
-            FullUrlPropertyName = "FullUrl";
+            FullUrlPropertyName = "FullUrl",
+            RedirectLocationsPropertyName = "RedirectLocations";
 
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
@@ -26,6 +27,14 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
             context.MergeNodeCommand.AddProperty<bool>(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
             context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
+
+            var val = content["RedirectLocations"]?.ToString().Split("\r\n");
+
+            if (val != null)
+            {
+                var array = JArray.FromObject(val);
+                context.MergeNodeCommand.AddArrayProperty<string>(await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName), array);
+            }
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
@@ -57,7 +66,16 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
                 await context.GraphSyncHelper.PropertyName(FullUrlPropertyName),
                 context.NodeWithOutgoingRelationships.SourceNode);
 
-            return matched ? (true, "") : (false, $"{FullUrlPropertyName} did not validate: {failureReason}");
+            if (!matched)
+                return (false, $"{FullUrlPropertyName} did not validate: {failureReason}");
+
+            (matched, failureReason) = context.GraphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
+                RedirectLocationsPropertyName,
+                content,
+                await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName),
+                context.NodeWithOutgoingRelationships.SourceNode);
+
+            return matched ? (true, "") : (false, $"{RedirectLocationsPropertyName} did not validate: {failureReason}");
         }
     }
 #pragma warning restore S1481 // Unused local variables should be removed

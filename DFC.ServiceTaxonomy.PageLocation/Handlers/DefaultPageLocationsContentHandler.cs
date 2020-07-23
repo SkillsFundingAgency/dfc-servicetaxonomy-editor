@@ -47,9 +47,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                 {
                     var latestPublished = await contentManager.GetAsync(page.ContentItemId, VersionOptions.Published);
 
-                    if (latestPublished != null)
+                    if (latestPublished != null && Convert.ToBoolean(latestPublished.Content.PageLocationPart.DefaultPageForLocation.Value))
                     {
-                        latestPublished.Content.PageLocationPart.DefaultPageForLocation.Value = false;
+                        latestPublished!.Content.PageLocationPart.DefaultPageForLocation.Value = false;
                         latestPublished.Published = false;
                         await contentManager.PublishAsync(latestPublished);
                     }
@@ -70,9 +70,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                 {
                     var latestPreview = await _previewContentItemVersion.GetContentItem(contentManager, page.ContentItemId);
 
-                    if (latestPreview != null)
+                    if (latestPreview != null && Convert.ToBoolean(latestPreview.Content.PageLocationPart.DefaultPageForLocation.Value))
                     {
-                        latestPreview.Content.PageLocationPart.DefaultPageForLocation.Value = false;
+                        latestPreview!.Content.PageLocationPart.DefaultPageForLocation.Value = false;
 
                         await contentManager.SaveDraftAsync(latestPreview);
 
