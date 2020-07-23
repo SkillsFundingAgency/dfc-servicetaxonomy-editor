@@ -23,17 +23,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
 
-            JValue? value = (JValue?)content[UrlNamePropertyName];
-            if (value != null && value.Type != JTokenType.Null)
-                context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
-
-            value = (JValue?)content[DefaultPageForLocationPropertyName];
-            if (value != null && value.Type != JTokenType.Null) //first bool?
-                context.MergeNodeCommand.AddProperty<bool>(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
-
-            value = (JValue?)content[FullUrlPropertyName];
-            if (value != null && value.Type != JTokenType.Null)
-                context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
+            context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
+            context.MergeNodeCommand.AddProperty<bool>(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
+            context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
