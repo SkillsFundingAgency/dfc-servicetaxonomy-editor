@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             return Initialize<PageLocationPartViewModel>("PageLocationPart_Edit", model =>
             {
                 model.UrlName = pageLocationPart.UrlName;
-                model.DefaultPageAtLocation = pageLocationPart.DefaultPageAtLocation;
+                model.DefaultPageForLocation = pageLocationPart.DefaultPageForLocation;
                 model.FullUrl = pageLocationPart.FullUrl;
                 model.RedirectLocations = pageLocationPart.RedirectLocations;
                 model.PageLocationPart = pageLocationPart;
@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         public override async Task<IDisplayResult> UpdateAsync(PageLocationPart model, IUpdateModel updater, UpdatePartEditorContext context)
         {
-            await updater.TryUpdateModelAsync(model, Prefix, t => t.UrlName, t => t.DefaultPageAtLocation, t => t.RedirectLocations, t => t.FullUrl);
+            await updater.TryUpdateModelAsync(model, Prefix, t => t.UrlName, t => t.DefaultPageForLocation, t => t.RedirectLocations, t => t.FullUrl);
 
             await ValidateAsync(model, updater);
 
@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"Please do not use any of the following characters in your URL name: {invalidCharactersForMessage}. No spaces are allowed (please use dashes or underscores instead).");
             }
 
-            var otherPages = await _session.Query<ContentItem, PageLocationPartIndex>().ListAsync();
+            var otherPages = await _session.Query<ContentItem, PageLocationPartIndex>(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId).ListAsync();
 
             if (otherPages.Any(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId && x.Content.PageLocationPart.FullUrl == pageLocation.FullUrl))
             {
