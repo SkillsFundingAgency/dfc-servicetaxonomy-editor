@@ -1,6 +1,8 @@
 #ToDo
 
-* revisit events
+* revisit events - don't substitute contentitemprefix for delete events
+
+* MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 
 * when deleting get this message..
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
