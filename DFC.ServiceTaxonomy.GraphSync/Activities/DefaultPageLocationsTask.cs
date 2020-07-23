@@ -11,7 +11,6 @@ using System;
 using System.Linq;
 using GraphQL;
 using OrchardCore.ContentManagement.Workflows;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Activities
 {
@@ -67,24 +66,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                         }
                     }
 
-                    var contentItemVersion = new ContentItemVersion(GraphReplicaSetNames.Preview);
-                    (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
+                    //var contentItemVersion = new ContentItemVersion(GraphReplicaSetNames.Preview);
+                    //(bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
 
-                    var drafts = await _session.Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentEvent.ContentType &&
-                        (latest == null || x.Latest == latest) &&
-                        (published == null || x.Published == published)).ListAsync();
+                    //var drafts = await _session.Query<ContentItem, ContentItemIndex>(x =>
+                    //    x.ContentType == contentEvent.ContentType &&
+                    //    (latest == null || x.Latest == latest) &&
+                    //    (published == null || x.Published == published)).ListAsync();
 
-                    foreach (var draft in drafts.Where(x => x.ContentItemId != contentEvent.ContentItemId && x.Content.Page.PageLocations.TagNames[0] == contentItem.Content.Page.PageLocations.TagNames[0]))
-                    {
-                        var draftContentItem = await contentItemVersion.GetContentItemAsync(_contentManager, draft.ContentItemId);
+                    //foreach (var draft in drafts.Where(x => x.ContentItemId != contentEvent.ContentItemId && x.Content.Page.PageLocations.TagNames[0] == contentItem.Content.Page.PageLocations.TagNames[0]))
+                    //{
+                    //    var draftContentItem = await contentItemVersion.GetContentItemAsync(_contentManager, draft.ContentItemId);
 
-                        if (draftContentItem != null)
-                        {
-                            draftContentItem.Content.Page.DefaultPageAtLocation.Value = false;
-                            await _contentManager.SaveDraftAsync(draftContentItem);
-                        }
-                    }
+                    //    if (draftContentItem != null)
+                    //    {
+                    //        draftContentItem.Content.Page.DefaultPageAtLocation.Value = false;
+                    //        await _contentManager.SaveDraftAsync(draftContentItem);
+                    //    }
+                    //}
                 }
             }
 
