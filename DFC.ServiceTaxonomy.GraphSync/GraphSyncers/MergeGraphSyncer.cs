@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -23,36 +21,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     // so any validation failure rolls back the whole sync operation
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
-        private readonly ICustomContentDefintionManager _contentDefinitionManager;
-        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
+        private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IMergeNodeCommand _mergeNodeCommand;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
+        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         public MergeGraphSyncer(
-            ICustomContentDefintionManager contentDefinitionManager,
-            IEnumerable<IContentPartGraphSyncer> partSyncers,
+            IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IGraphSyncHelper graphSyncHelper,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
+            IContentItemVersionFactory contentItemVersionFactory,
             ILogger<MergeGraphSyncer> logger)
         {
-            _contentDefinitionManager = contentDefinitionManager;
-            _partSyncers = partSyncers;
+            _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _graphSyncHelper = graphSyncHelper;
             _mergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
+            _contentItemVersionFactory = contentItemVersionFactory;
             _logger = logger;
         }
 
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
-            IContentManager contentManager)
+            IContentManager contentManager,
+            IGraphMergeContext? parentGraphMergeContext = null)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -85,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (contentItem.ModifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
-            await AddContentPartSyncComponents(graphReplicaSet, contentItem, contentManager);
+            await AddContentPartSyncComponents(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
 
             //todo: bit hacky. best way to do this?
             // work-around new taxonomy terms created with only DisplayText set
@@ -101,18 +100,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return _mergeNodeCommand;
         }
 
-        private async Task AddContentPartSyncComponents(IGraphReplicaSet graphReplicaSet, ContentItem contentItem, IContentManager contentManager)
+        private async Task AddContentPartSyncComponents(
+            IGraphReplicaSet graphReplicaSet,
+            ContentItem contentItem,
+            IContentManager contentManager,
+            IGraphMergeContext? parentGraphMergeContext)
         {
-            // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
-            string graphSyncPartName = nameof(GraphSyncPart);
-            var partSyncersWithGraphLookupFirst
-                = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
-                    .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
-
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-
-            var contentItemVersion = new ContentItemVersion(graphReplicaSet.Name);
-
             GraphMergeContext graphMergeContext = new GraphMergeContext(
                 _graphSyncHelper,
                 graphReplicaSet,
@@ -120,27 +113,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _replaceRelationshipsCommand,
                 contentItem,
                 contentManager,
-                contentItemVersion);
+                _contentItemVersionFactory,
+                parentGraphMergeContext);
 
-            foreach (var partSync in partSyncersWithGraphLookupFirst)
+            foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
-                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
-                // (other non-named parts have the part name in both)
-
-                var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanHandle(contentItem.ContentType, p.PartDefinition));
-
-                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
+                //todo: allow syncers to chain or not?
+                if (itemSyncer.CanSync(contentItem))
                 {
-                    graphMergeContext.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    string namedPartName = contentTypePartDefinition.Name;
-
-                    JObject? partContent = contentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue; //todo: throw??
-
-                    await partSync.AddSyncComponents(partContent, graphMergeContext);
+                    await itemSyncer.AddSyncComponents(graphMergeContext);
                 }
             }
         }
@@ -159,7 +140,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 // doesn't really belong here...
                 _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
                 _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
-                _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent);
+                _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+                    graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
 
                 commands.Add(_replaceRelationshipsCommand);
             }

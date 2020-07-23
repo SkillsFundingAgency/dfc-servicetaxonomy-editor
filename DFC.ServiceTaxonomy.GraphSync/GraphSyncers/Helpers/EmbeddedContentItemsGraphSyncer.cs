@@ -16,15 +16,17 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
-    public class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
+    public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
+        protected readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
 
-        public EmbeddedContentItemsGraphSyncer(
+        protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
             IServiceProvider serviceProvider)
         {
+            _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
 
             _contentTypes = contentDefinitionManager
@@ -35,16 +37,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
-            IEnumerable<ContentItem> embeddedContentItems = ConvertToContentItems(contentItems);
+            ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                //todo: if we want to support nested containers, would have to return queries also
                 IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraphReplicaSet(
-                    context.GraphReplicaSet, contentItem, context.ContentManager);
+                    context.GraphReplicaSet,
+                    contentItem,
+                    context.ContentManager,
+                    context);
                 // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
                 if (containedContentMergeNodeCommand == null)
                     continue;
@@ -52,8 +56,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 containedContentMergeNodeCommand.CheckIsValid();
 
                 var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
+
                 string relationshipType = await RelationshipType(embeddedContentItemGraphSyncHelper);
 
                 var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.GraphSyncHelper);
@@ -69,6 +73,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
+            }
+
+            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, embeddedContentItems);
+        }
+
+        private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
+            IGraphMergeContext context,
+            ContentItem[] embeddedContentItems)
+        {
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+            IEnumerable<string> embeddedContentTypes = embeddedContentItems
+                .Select(i => i.ContentType)
+                .Distinct(); // <= distinct is optional here
+
+            IEnumerable<string> notEmbeddedContentTypes = embeddableContentTypes.Except(embeddedContentTypes);
+
+            foreach (string notEmbeddedContentType in notEmbeddedContentTypes)
+            {
+                var notEmbeddedContentTypeGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                notEmbeddedContentTypeGraphSyncHelper.ContentType = notEmbeddedContentType;
+
+                string relationshipType = await RelationshipType(notEmbeddedContentTypeGraphSyncHelper);
+
+                IGraphSyncHelper graphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                graphSyncHelper.ContentType = notEmbeddedContentType;
+
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    relationshipType,
+                    null,
+                    await graphSyncHelper.NodeLabels(notEmbeddedContentType),
+                    graphSyncHelper.IdPropertyName(notEmbeddedContentType));
             }
         }
 
@@ -90,10 +125,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
 
-                // check expected relationship is in graph
                 var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-
                 embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+
+                // check expected relationship is in graph
                 string expectedRelationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
@@ -101,7 +136,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 context.ExpectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
                 // we've already validated the destination node, so we can assume the id property is there
-                object destinationId = embeddedContentGraphSyncHelper.GetIdPropertyValue(embeddedContentItem.Content.GraphSyncPart);
+                object destinationId = embeddedContentGraphSyncHelper.GetIdPropertyValue(
+                    embeddedContentItem.Content.GraphSyncPart, context.ContentItemVersion);
 
                 string embeddedContentIdPropertyName = embeddedContentGraphSyncHelper.IdPropertyName(embeddedContentItem.ContentType);
 
@@ -123,24 +159,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        private static IEnumerable<ContentItem> ConvertToContentItems(JArray? contentItems)
-        {
-            if (contentItems == null)
-            {
-                // we've seen this when the import util generates bad data. we fail fast
-                throw new GraphSyncException("Embedded content container has missing array.");
-            }
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context);
 
-            IEnumerable<ContentItem>? embeddedContentItems = contentItems.ToObject<IEnumerable<ContentItem>>();
-            if (embeddedContentItems == null)
-                throw new GraphSyncException("Embedded content container does not contain ContentItems.");
-            return embeddedContentItems;
-        }
-
-        protected virtual async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
+        protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
-            //todo: configurable?
-            return await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
+            return await embeddedContentGraphSyncHelper.RelationshipTypeDefault(embeddedContentGraphSyncHelper.ContentType!);
         }
 
         protected virtual Task<Dictionary<string, object>?> GetRelationshipProperties(
@@ -149,6 +172,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphSyncHelper graphSyncHelper)
         {
             return Task.FromResult<Dictionary<string, object>?>(null);
+        }
+
+        private ContentItem[] ConvertToContentItems(JArray? contentItems)
+        {
+            if (contentItems == null)
+            {
+                // we've seen this when the import util generates bad data. we fail fast
+                throw new GraphSyncException("Embedded content container has missing array.");
+            }
+
+            ContentItem[]? embeddedContentItems = contentItems.ToObject<ContentItem[]>();
+            if (embeddedContentItems == null)
+                throw new GraphSyncException("Embedded content container does not contain ContentItems.");
+            return embeddedContentItems;
         }
     }
 }

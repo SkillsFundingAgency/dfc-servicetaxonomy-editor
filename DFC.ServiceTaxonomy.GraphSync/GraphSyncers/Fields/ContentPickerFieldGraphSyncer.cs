@@ -42,8 +42,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // add to docs & handle picked part not having graph sync part or throw exception
 
             JArray? contentItemIdsJArray = (JArray?)contentItemField["ContentItemIds"];
-            if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
-                return; //todo:
+            if (contentItemIdsJArray?.HasValues != true)
+            {
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    relationshipType,
+                    null,
+                    destNodeLabels,
+                    context.GraphSyncHelper.IdPropertyName(pickedContentType));
+                return;
+            }
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
 
@@ -54,8 +61,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // * don't create relationships from a pub to draft items, then when a draft item is published, query the draft graph for incoming relationships, and create those incoming relationships on the newly published item in the published graph
             // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
-                contentItemIds.Select(async contentItemId =>    //todo: add method to context?
-                    await context.ContentItemVersion.GetContentItemAsync(context.ContentManager, contentItemId));
+                contentItemIds.Select(async contentItemId => //todo: add method to context?
+                    await context.ContentItemVersion.GetContentItem(context.ContentManager, contentItemId));
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
@@ -63,12 +70,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 destinationContentItems.Where(ci => ci != null);
 
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
-                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
+                throw new GraphSyncException(
+                    $"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
 
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
-                foundDestinationContentItems.Select(ci => GetNodeId(ci!, context.GraphSyncHelper));
+                foundDestinationContentItems.Select(ci => GetNodeId(ci!, context));
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
@@ -78,7 +86,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 foundDestinationNodeIds.ToArray());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
             IValidateAndRepairContext context)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
@@ -100,11 +109,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string contentItemId = (string)item!;
 
-                ContentItem destinationContentItem = await context.ContentItemVersion.GetContentItemAsync(
-                    context.ContentManager, contentItemId);
+                ContentItem destinationContentItem = await context.ContentItemVersion.GetContentItem(context.ContentManager, contentItemId);
 
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
-                object destinationId = context.GraphSyncHelper.GetIdPropertyValue(destinationContentItem.Content.GraphSyncPart);
+                object destinationId = context.GraphSyncHelper.GetIdPropertyValue(
+                    destinationContentItem.Content.GraphSyncPart, context.ContentItemVersion);
 
                 string destinationIdPropertyName =
                     context.GraphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
@@ -148,9 +157,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return relationshipType;
         }
 
-        private object GetNodeId(ContentItem pickedContentItem, IGraphSyncHelper graphSyncHelper)
+        private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {
-            return graphSyncHelper.GetIdPropertyValue(pickedContentItem.Content[nameof(GraphSyncPart)]);
+            return context.GraphSyncHelper.GetIdPropertyValue(
+                pickedContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
         }
     }
 }

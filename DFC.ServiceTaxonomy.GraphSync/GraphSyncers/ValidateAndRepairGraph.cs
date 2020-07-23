@@ -14,7 +14,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -25,34 +24,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
+        private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentManager _contentManager;
         private readonly ISession _session;
         private readonly IGraphClusterLowLevel _graphClusterLowLevel;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IGraphValidationHelper _graphValidationHelper;
+        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
 
-        public ValidateAndRepairGraph(
+        public ValidateAndRepairGraph(IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IContentDefinitionManager contentDefinitionManager,
             IContentManager contentManager,
             ISession session,
             IServiceProvider serviceProvider,
-            IEnumerable<IContentPartGraphSyncer> partSyncers,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
+            IContentItemVersionFactory contentItemVersionFactory,
             ILogger<ValidateAndRepairGraph> logger)
         {
+            _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _contentDefinitionManager = contentDefinitionManager;
             _contentManager = contentManager;
             _session = session;
             _serviceProvider = serviceProvider;
-            _partSyncers = partSyncers;
             _graphSyncHelper = graphSyncHelper;
             _graphValidationHelper = graphValidationHelper;
+            _contentItemVersionFactory = contentItemVersionFactory;
             _logger = logger;
             _currentGraph = default;
 
@@ -80,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (string graphReplicaSetName in graphReplicaSetNamesToValidate)
             {
                 IGraphReplicaSetLowLevel graphReplicaSetLowLevel = _graphClusterLowLevel.GetGraphReplicaSetLowLevel(graphReplicaSetName);
-                IContentItemVersion contentItemVersion = new ContentItemVersion(graphReplicaSetName);
+                IContentItemVersion contentItemVersion = _contentItemVersionFactory.Get(graphReplicaSetName);
 
                 foreach (IGraph graph in graphReplicaSetLowLevel.GraphInstances)
                 {
@@ -229,7 +230,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
-            object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart);
+            object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
                 new NodeWithOutgoingRelationshipsQuery(
@@ -241,53 +242,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (nodeWithOutgoingRelationships == null)
                 return (false, FailureContext("Node not found.", contentItem));
 
-            IDictionary<string, int> expectedRelationshipCounts = new Dictionary<string, int>();
-
-            ValidateAndRepairContext context = new ValidateAndRepairContext(
+            ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
                 _contentManager,
                 contentItemVersion,
                 nodeWithOutgoingRelationships,
                 _graphSyncHelper,
                 _graphValidationHelper,
-                expectedRelationshipCounts,
-                this);
+                this,
+                contentTypeDefinition,
+                nodeId);
 
-            foreach (ContentTypePartDefinition contentTypePartDefinition in contentTypeDefinition.Parts)
+            foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
-                IContentPartGraphSyncer partSyncer = _partSyncers.SingleOrDefault(ps =>
-                    ps.CanHandle(contentTypePartDefinition.ContentTypeDefinition.Name,
-                        contentTypePartDefinition.PartDefinition));
-
-                if (partSyncer == null)
+                //todo: allow syncers to chain or not?
+                if (itemSyncer.CanSync(contentItem))
                 {
-                    _logger.LogInformation($"No IContentPartGraphSyncer registered to sync/validate {contentTypePartDefinition.ContentTypeDefinition.Name} parts, so ignoring");
-                    continue;
+                    (bool validated, string failureReason) =
+                        await itemSyncer.ValidateSyncComponent(contentItem, context);
+                    if (!validated)
+                        return (validated, failureReason);
                 }
-
-                dynamic? partContent = contentItem.Content[contentTypePartDefinition.Name];
-                if (partContent == null)
-                    continue; //todo: throw??
-
-                // pass as param, rather than context?
-                context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                (bool validated, string partFailureReason) = await partSyncer.ValidateSyncComponent(
-                    (JObject)partContent, context);
-
-                if (validated)
-                    continue;
-
-                string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
-                string failureContext = FailureContext(failureReason, nodeId, contentTypePartDefinition,
-                    contentItem, contentTypePartDefinition.PartDefinition.Name, partContent,
-                    nodeWithOutgoingRelationships);
-                return (false, failureContext);
             }
 
             // check there aren't any more relationships of each type than there should be
             // we need to do this after all parts have added their own expected relationship counts
             // to handle different parts or multiple named instances of a part creating relationships of the same type
-            foreach ((string relationshipType, int relationshipsInDbCount) in expectedRelationshipCounts)
+            foreach ((string relationshipType, int relationshipsInDbCount) in context.ExpectedRelationshipCounts)
             {
                 int relationshipsInGraphCount =
                     nodeWithOutgoingRelationships.OutgoingRelationships.Count(r =>
@@ -304,7 +284,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return (true, "");
         }
 
-        private string FailureContext(
+        public string FailureContext(
             string failureReason,
             ContentItem contentItem)
         {
@@ -312,31 +292,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 Content ----------------------------------------
           type: '{contentItem.ContentType}'
             ID: {contentItem.ContentItemId}";
-        }
-
-        //todo: output relationships destination label user id, instead of node id
-        private string FailureContext(
-            string failureReason,
-            object nodeId,
-            ContentTypePartDefinition contentTypePartDefinition,
-            ContentItem contentItem,
-            string partName,
-            dynamic partContent,
-            INodeWithOutgoingRelationships nodeWithOutgoingRelationships)
-        {
-            return $@"{FailureContext(failureReason, contentItem)}
-part type name: '{partName}'
-     part name: '{contentTypePartDefinition.Name}'
-  part content:
-{partContent}
-Source Node ------------------------------------
-        ID: {nodeWithOutgoingRelationships.SourceNode.Id}
-   user ID: {nodeId}
-    labels: ':{string.Join(":", nodeWithOutgoingRelationships.SourceNode.Labels)}'
-properties:
-{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.SourceNode.Properties.Select(p => $"{p.Key} = {(p.Value is IEnumerable<object> values ? string.Join(",", values.Select(v => v.ToString())) : p.Value)}"))}
-Relationships ----------------------------------
-{string.Join(Environment.NewLine, nodeWithOutgoingRelationships.OutgoingRelationships.Select(or => $"[:{or.Relationship.Type}]->({or.DestinationNode.Id})"))}";
         }
     }
 

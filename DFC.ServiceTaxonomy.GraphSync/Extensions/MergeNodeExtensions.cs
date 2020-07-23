@@ -62,6 +62,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         {
             List<T>? values;
             JArray? jarray = (JArray?)content[contentPropertyName];
+
+            values = AddArrayProperty<T>(mergeNodeCommand, nodePropertyName, jarray);
+            return values;
+
+        }
+
+        public static List<T>? AddArrayProperty<T>(
+           this IMergeNodeCommand mergeNodeCommand,
+           string nodePropertyName,
+           JArray? content)
+        {
+            List<T>? values;
+            JArray? jarray = content;
             if (jarray != null && jarray.Type != JTokenType.Null)
             {
                 values = jarray.ToObject<List<T>>();

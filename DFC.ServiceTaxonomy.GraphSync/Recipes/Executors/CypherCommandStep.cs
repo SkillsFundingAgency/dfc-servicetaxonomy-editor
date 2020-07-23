@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Recipes.Models;
@@ -20,18 +20,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
         private readonly IGraphCluster _graphCluster;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
+        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<CypherCommandStep> _logger;
-        private readonly string _contentApiBaseUrl;
 
         public CypherCommandStep(
             IGraphCluster graphCluster,
             IServiceProvider serviceProvider,
-            IConfiguration configuration,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
+            IContentItemVersionFactory contentItemVersionFactory,
             ILogger<CypherCommandStep> logger)
         {
             _graphCluster = graphCluster;
             _serviceProvider = serviceProvider;
-            _contentApiBaseUrl = configuration.GetValue<string>("ContentApiPrefix") ?? throw new ArgumentNullException($"ContentApiPrefix not present");
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
+            _contentItemVersionFactory = contentItemVersionFactory;
             _logger = logger;
         }
 
@@ -49,19 +55,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     if (command == null)
                         continue;
 
-                    var customCommand = CreateCustomCommand(command);
-
                     if (step!.GraphReplicaSets == null)
                     {
-                        _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {customCommand.Command} on all graph replica sets.");
+                        //todo: have enumerable replica sets, instead of this...
 
-                        await _graphCluster.RunOnAllReplicaSets(customCommand);
+                        await ExecuteCommand(_publishedContentItemVersion, command);
+                        await ExecuteCommand(_previewContentItemVersion, command);
                     }
                     else
                     {
                         foreach (string? graphReplicaSetName in step!.GraphReplicaSets)
                         {
-                            await ExecuteCommand(graphReplicaSetName, customCommand);
+                            await ExecuteCommand(_contentItemVersionFactory.Get(graphReplicaSetName), command);
                         }
                     }
                 }
@@ -73,17 +78,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
         }
 
-        private async Task ExecuteCommand(string graphReplicaSetName, ICustomCommand command)
+        private async Task ExecuteCommand(IContentItemVersion contentItemVersion, string command)
         {
-            _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {command.Command} on the {graphReplicaSetName} graph replica set.");
+            ICustomCommand customCommand = CreateCustomCommand(command, contentItemVersion.ContentApiBaseUrl);
 
-            await _graphCluster.Run(graphReplicaSetName, command);
+            _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {customCommand.Command} on the {contentItemVersion.GraphReplicaSetName} graph replica set.");
+
+            await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, customCommand);
         }
 
-        private ICustomCommand CreateCustomCommand(string command)
+        private ICustomCommand CreateCustomCommand(string command, string contentApiBaseUrl)
         {
             var customCommand = _serviceProvider.GetRequiredService<ICustomCommand>();
-            customCommand.Command = command.Replace("<<ContentApiPrefix>>", _contentApiBaseUrl);
+            customCommand.Command = command.Replace("<<contentapiprefix>>", contentApiBaseUrl);
             return customCommand;
         }
 
