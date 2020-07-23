@@ -1,7 +1,5 @@
 #ToDo
 
-* revisit events - don't substitute contentitemprefix for delete events
-
 * MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 
 * when deleting get this message..
