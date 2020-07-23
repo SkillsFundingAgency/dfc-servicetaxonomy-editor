@@ -80,7 +80,8 @@
                 "DFC.ServiceTaxonomy.Cypher",
                 "DFC.ServiceTaxonomy.CustomFields",
                 "DFC.ServiceTaxonomy.Events",
-                "DFC.ServiceTaxonomy.UnpublishLater"
+                "DFC.ServiceTaxonomy.UnpublishLater",
+                "DFC.ServiceTaxonomy.PageLocation"
             ]
         },
         {
@@ -132,15 +133,6 @@
                             }
                         },
                         {
-                            "PartName": "AliasPart",
-                            "Name": "AliasPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
                             "PartName": "Page",
                             "Name": "Page",
                             "Settings": {
@@ -180,6 +172,15 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PageLocationPart",
+                            "Name": "PageLocationPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
                                 }
                             }
                         }
@@ -2517,26 +2518,11 @@
                         },
                         {
                             "FieldName": "TextField",
-                            "Name": "RedirectLocations",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Redirect Locations",
-                                    "Editor": "TextArea",
-                                    "Position": "1"
-                                },
-                                "TextFieldSettings": {
-                                    "Hint": "Add each redirect location on a new line ##SyncToArray"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
                             "Name": "Description",
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Description",
-                                    "Position": "2"
+                                    "Position": "1"
                                 }
                             }
                         }
@@ -2977,6 +2963,16 @@
                         "ContentPartSettings": {
                             "Attachable": true,
                             "Description": "Lookup node(s) from the graph and create relationships and/or set a property based on the selection."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "PageLocationPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Adds the page location part."
                         }
                     },
                     "ContentPartFieldDefinitionRecords": []
