@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
@@ -25,15 +25,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             JValue? value = (JValue?)content[UrlNamePropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(UrlNamePropertyName), value.As<string>());
+                context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
 
             value = (JValue?)content[DefaultPageForLocationPropertyName];
             if (value != null && value.Type != JTokenType.Null) //first bool?
-                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), value.As<bool>());
+                context.MergeNodeCommand.AddProperty<bool>(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
 
             value = (JValue?)content[FullUrlPropertyName];
             if (value != null && value.Type != JTokenType.Null)
-                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), value.As<string>());
+                context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
