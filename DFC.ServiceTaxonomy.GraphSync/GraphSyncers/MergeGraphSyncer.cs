@@ -84,6 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (contentItem.ModifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
+            SetSourceNodeInReplaceRelationshipsCommand(graphReplicaSet, graphSyncPartContent);
+
             await AddContentPartSyncComponents(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
 
             //todo: bit hacky. best way to do this?
@@ -95,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             _logger.LogInformation($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId} to {_mergeNodeCommand}");
-            await SyncComponentsToGraphReplicaSet(graphReplicaSet, graphSyncPartContent);
+            await SyncComponentsToGraphReplicaSet(graphReplicaSet);
 
             return _mergeNodeCommand;
         }
@@ -126,27 +128,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        private async Task SyncComponentsToGraphReplicaSet(IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
+        private async Task SyncComponentsToGraphReplicaSet(IGraphReplicaSet graphReplicaSet)
         {
             List<ICommand> commands = new List<ICommand>();
 
             if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
-            {
                 commands.Add(_mergeNodeCommand);
-            }
 
             if (_replaceRelationshipsCommand.Relationships.Any())
-            {
-                // doesn't really belong here...
-                _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
-                _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
-                _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
-                    graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
-
                 commands.Add(_replaceRelationshipsCommand);
-            }
 
             await graphReplicaSet.Run(commands.ToArray());
+        }
+
+        private void SetSourceNodeInReplaceRelationshipsCommand(IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
+        {
+            _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
+            _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
+            _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+                graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
         }
     }
 }

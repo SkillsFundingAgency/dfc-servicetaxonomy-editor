@@ -6,6 +6,8 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +39,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
+            #pragma warning disable S1481
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            List<INodeWithOutgoingRelationships?> results = await context.GraphReplicaSet.Run(
+            new NodeWithOutgoingRelationshipsQuery(
+                context.ReplaceRelationshipsCommand.SourceNodeLabels,
+                context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
+                context.ReplaceRelationshipsCommand.SourceIdPropertyValue!));
+
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
             int relationshipOrdinal = 0;
