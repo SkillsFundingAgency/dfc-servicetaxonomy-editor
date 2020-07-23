@@ -5,7 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using Newtonsoft.Json.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 {
 #pragma warning disable S1481 // Unused local variables should be removed
     public class PageLocationPartGraphSyncer : IContentPartGraphSyncer

@@ -77,7 +77,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddGraphCluster();
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
-            services.AddScoped<IContentHandler, DefaultPageLocationsContentHandler>();
 
             // GraphSyncPart
             services.AddContentPart<GraphSyncPart>()
@@ -117,7 +116,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, SitemapPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, AutoroutePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, AliasPartGraphSyncer>();
-            services.AddTransient<IContentPartGraphSyncer, PageLocationPartGraphSyncer>();
 
             // field syncers
             services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
@@ -139,7 +137,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<ContentTypeFieldRemovedEvent, ContentTypeFieldRemovedEventDisplay>();
             services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
             services.AddActivity<PublishContentTypeContentItemsTask, PublishContentTypeContentItemsTaskDisplay>();
-            services.AddActivity<DefaultPageLocationsTask, DefaultPageLocationsTaskDisplay>();
 
             // notifiers
             services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());

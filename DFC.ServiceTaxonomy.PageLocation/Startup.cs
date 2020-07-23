@@ -1,4 +1,6 @@
-﻿using DFC.ServiceTaxonomy.PageLocation.Drivers;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.PageLocation.Drivers;
+using DFC.ServiceTaxonomy.PageLocation.GraphSyncers;
 using DFC.ServiceTaxonomy.PageLocation.Handlers;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using DFC.ServiceTaxonomy.PageLocation.Models;
@@ -7,6 +9,7 @@ using Fluid;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using YesSql.Indexes;
@@ -28,6 +31,10 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
             services.AddScoped<IDataMigration, Migrations>();
             services.AddSingleton<IIndexProvider, PageLocationPartIndexProvider>();
+
+            services.AddTransient<IContentPartGraphSyncer, PageLocationPartGraphSyncer>();
+
+            services.AddScoped<IContentHandler, DefaultPageLocationsContentHandler>();
         }
     }
 }
