@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Configuration;
+using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             _logger = logger;
         }
 
-        public GraphCluster Build(Action<Neo4jOptions>? configure = null)
+        public IGraphCluster Build(Action<Neo4jOptions>? configure = null)
         {
             Neo4jOptions? currentConfig = _neo4JConfigurationOptions.CurrentValue;
             //todo: ok to mutate returned CurrentValue?
@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             //o=>o.WithEncryptionLevel(EncryptionLevel.None));
 
             if (!currentConfig.Endpoints.Any())
-                throw new ConfigurationErrorsException("No endpoints configured.");
+                throw new GraphClusterConfigurationErrorException("No endpoints configured.");
 
             var neoEndpoints = currentConfig.Endpoints
                 .Where(epc => epc.Enabled)
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
                             o => o.WithLogger(_logger))));
 
             if (!currentConfig.ReplicaSets.Any())
-                throw new ConfigurationErrorsException("No replica sets configured.");
+                throw new GraphClusterConfigurationErrorException("No replica sets configured.");
 
             var graphReplicaSets = currentConfig.ReplicaSets
                 .Select(rsc =>

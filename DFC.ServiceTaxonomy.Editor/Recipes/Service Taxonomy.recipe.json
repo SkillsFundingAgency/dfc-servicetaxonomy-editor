@@ -58,6 +58,7 @@
                 "OrchardCore.Markdown",
                 "OrchardCore.Media",
                 "OrchardCore.Menu",
+                "OrchardCore.PublishLater",
                 "OrchardCore.Queries",
                 "OrchardCore.Sitemaps",
                 "OrchardCore.Title",
@@ -79,6 +80,7 @@
                 "DFC.ServiceTaxonomy.Cypher",
                 "DFC.ServiceTaxonomy.CustomFields",
                 "DFC.ServiceTaxonomy.Events",
+                "DFC.ServiceTaxonomy.UnpublishLater",
                 "DFC.ServiceTaxonomy.PageLocation"
             ]
         },
@@ -168,7 +170,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -251,7 +253,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -301,7 +303,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -356,7 +358,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": false
                                 }
                             }
@@ -396,7 +398,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": false
                                 }
                             }
@@ -437,7 +439,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 },
                                 "ContentIndexSettings": {}
@@ -488,7 +490,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "PropertyNameTransform": "Value",
                                     "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 },
                                 "ContentIndexSettings": {}
@@ -644,7 +646,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -739,7 +741,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -789,7 +791,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -839,7 +841,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -889,7 +891,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -939,7 +941,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -980,7 +982,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1083,7 +1085,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1137,7 +1139,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1192,7 +1194,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1247,7 +1249,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1296,7 +1298,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1350,7 +1352,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1404,7 +1406,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1458,7 +1460,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1512,7 +1514,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1561,7 +1563,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1610,7 +1612,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1659,7 +1661,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1708,7 +1710,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1757,7 +1759,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1806,7 +1808,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1855,7 +1857,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1904,7 +1906,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -1953,7 +1955,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2002,7 +2004,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2051,7 +2053,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2100,7 +2102,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2141,7 +2143,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2200,7 +2202,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2250,7 +2252,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2300,7 +2302,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2350,7 +2352,7 @@
                                     "NodeNameTransform": "ContentType",
                                     "IdPropertyName": "uri",
                                     "PropertyNameTransform": "Value",
-                                    "GenerateIdPropertyValue": "$\"<<ContentApiPrefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
                                 }
                             }
@@ -2509,7 +2511,9 @@
                                     "TaxonomyContentItemId": "4w9kg8jhved372sg703ggkq5wx",
                                     "Unique": true
                                 },
-                                "TaxonomyFieldTagsEditorSettings": {}
+                                "TaxonomyFieldTagsEditorSettings": {
+                                    "Open": false
+                                }
                             }
                         },
                         {

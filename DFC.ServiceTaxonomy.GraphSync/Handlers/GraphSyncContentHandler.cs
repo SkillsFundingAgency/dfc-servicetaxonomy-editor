@@ -135,7 +135,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             try
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                await mergeGraphSyncer.SyncToGraphReplicaSet(_graphCluster.GetGraphReplicaSet(replicaSetName), contentItem, contentManager);
+                await mergeGraphSyncer.SyncToGraphReplicaSet(
+                    _graphCluster.GetGraphReplicaSet(replicaSetName),
+                    contentItem,
+                    contentManager);
             }
             catch (Exception exception)
             {

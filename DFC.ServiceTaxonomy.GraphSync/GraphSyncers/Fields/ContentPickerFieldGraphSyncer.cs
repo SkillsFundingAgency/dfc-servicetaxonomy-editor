@@ -42,8 +42,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // add to docs & handle picked part not having graph sync part or throw exception
 
             JArray? contentItemIdsJArray = (JArray?)contentItemField["ContentItemIds"];
-            if (contentItemIdsJArray == null || !contentItemIdsJArray.HasValues)
-                return; //todo:
+            if (contentItemIdsJArray?.HasValues != true)
+            {
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    relationshipType,
+                    null,
+                    destNodeLabels,
+                    context.GraphSyncHelper.IdPropertyName(pickedContentType));
+                return;
+            }
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
 
@@ -54,7 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // * don't create relationships from a pub to draft items, then when a draft item is published, query the draft graph for incoming relationships, and create those incoming relationships on the newly published item in the published graph
             // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
-                contentItemIds.Select(async contentItemId =>    //todo: add method to context?
+                contentItemIds.Select(async contentItemId => //todo: add method to context?
                     await context.ContentItemVersion.GetContentItem(context.ContentManager, contentItemId));
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
@@ -63,7 +70,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 destinationContentItems.Where(ci => ci != null);
 
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
-                throw new GraphSyncException($"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
+                throw new GraphSyncException(
+                    $"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
 
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
