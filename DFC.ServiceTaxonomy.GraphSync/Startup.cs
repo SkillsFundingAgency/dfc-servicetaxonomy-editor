@@ -116,10 +116,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, SitemapPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, AutoroutePartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, AliasPartGraphSyncer>();
-            services.AddTransient<IContentPartGraphSyncer, PageLocationPartGraphSyncer>();
 
             // field syncers
             services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, BooleanFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, LinkFieldGraphSyncer>();
