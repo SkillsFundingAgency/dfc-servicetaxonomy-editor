@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
@@ -12,6 +15,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             IServiceProvider serviceProvider)
             : base(contentDefinitionManager, serviceProvider)
         {
+        }
+
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
+        {
+            IGraphMergeContext rootContext = context;
+            while (rootContext.ParentGraphMergeContext != null)
+            {
+                rootContext = rootContext.ParentGraphMergeContext;
+            }
+
+            return new string[]
+            {
+                rootContext.ContentItem.Content[nameof(TaxonomyPart)][TaxonomyPartGraphSyncer.TermContentTypePropertyName]
+            };
         }
     }
 }

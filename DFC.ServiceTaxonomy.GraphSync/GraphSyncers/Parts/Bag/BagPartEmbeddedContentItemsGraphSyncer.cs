@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
 {
@@ -16,12 +18,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
         {
         }
 
-        protected override async Task<string> RelationshipType(IGraphSyncHelper graphSyncHelper)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
+        {
+            BagPartSettings bagPartSettings = context.ContentTypePartDefinition.GetSettings<BagPartSettings>();
+            return bagPartSettings.ContainedContentTypes;
+        }
+
+        protected override async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
             //todo: what if want different relationships for same contenttype in different bags!
-            string? relationshipType = graphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
+            string? relationshipType = embeddedContentGraphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
             if (string.IsNullOrEmpty(relationshipType))
-                relationshipType = await graphSyncHelper.RelationshipTypeDefault(graphSyncHelper.ContentType!);
+                relationshipType = await base.RelationshipType(embeddedContentGraphSyncHelper);
 
             return relationshipType;
         }

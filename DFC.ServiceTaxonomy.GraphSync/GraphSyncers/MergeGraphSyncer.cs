@@ -50,7 +50,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
-            IContentManager contentManager)
+            IContentManager contentManager,
+            IGraphMergeContext? parentGraphMergeContext = null)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             // so we silently noop if it's not present
@@ -83,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (contentItem.ModifiedUtc.HasValue)
                 _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
-            await AddContentPartSyncComponents(graphReplicaSet, contentItem, contentManager);
+            await AddContentPartSyncComponents(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
 
             //todo: bit hacky. best way to do this?
             // work-around new taxonomy terms created with only DisplayText set
@@ -99,7 +100,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return _mergeNodeCommand;
         }
 
-        private async Task AddContentPartSyncComponents(IGraphReplicaSet graphReplicaSet, ContentItem contentItem, IContentManager contentManager)
+        private async Task AddContentPartSyncComponents(
+            IGraphReplicaSet graphReplicaSet,
+            ContentItem contentItem,
+            IContentManager contentManager,
+            IGraphMergeContext? parentGraphMergeContext)
         {
             GraphMergeContext graphMergeContext = new GraphMergeContext(
                 _graphSyncHelper,
@@ -108,7 +113,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _replaceRelationshipsCommand,
                 contentItem,
                 contentManager,
-                _contentItemVersionFactory);
+                _contentItemVersionFactory,
+                parentGraphMergeContext);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {

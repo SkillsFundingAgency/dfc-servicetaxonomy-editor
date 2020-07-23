@@ -15,6 +15,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddSingleton<IGraphClusterBuilder, GraphClusterBuilder>();
             services.AddSingleton<IGraphCluster, GraphCluster>(provider => (GraphCluster)provider.GetRequiredService<IGraphClusterBuilder>().Build());
+//          services.AddSingleton(provider => new Lazy<IGraphCluster>(provider.GetRequiredService<IGraphClusterBuilder>().Build()));
+// see... https://rehansaeed.com/asp-net-core-lazy-command-pattern/
+// https://stackoverflow.com/questions/44934511/does-net-core-dependency-injection-support-lazyt
+//https://github.com/Azure/azure-functions-host/issues/4685
 
             services.AddTransient<ILogger, NeoLogger>();
             services.AddTransient<IMergeNodeCommand, MergeNodeCommand>();
