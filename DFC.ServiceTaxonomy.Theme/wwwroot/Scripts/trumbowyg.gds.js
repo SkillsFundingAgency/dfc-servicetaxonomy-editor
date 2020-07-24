@@ -6,25 +6,31 @@
     // Plugin default options
     var defaultOptions = {
         paragraphs: [
-            {name: 'body', class: 'govuk-body'},
-            {name: 'lead', class: 'govuk-body-l'},
-            {name: 'small', class: "govuk-body-s"}
+            { name: 'body', class: 'govuk-body' },
+            { name: 'lead', class: 'govuk-body-l' },
+            { name: 'small', class: "govuk-body-s" }
         ],
         headings: [
-            {name: 'h1', class: 'govuk-heading-xl'},
-            {name: 'h2', class: 'govuk-heading-l'},
-            {name: 'h3', class: "govuk-heading-m"},
-            {name: 'h4', class: "govuk-heading-s"}
+            { name: 'h1', class: 'govuk-heading-xl' },
+            { name: 'h2', class: 'govuk-heading-l' },
+            { name: 'h3', class: "govuk-heading-m" },
+            { name: 'h4', class: "govuk-heading-s" }
         ],
         fontSizes: [
-            {name: '14px', class: 'govuk-!-font-size-14'},
-            {name: '16px', class: 'govuk-!-font-size-16'},
-            {name: '19px', class: 'govuk-!-font-size-19'},
-            {name: '24px', class: 'govuk-!-font-size-24'},
-            {name: '27px', class: 'govuk-!-font-size-27'},
-            {name: '36px', class: 'govuk-!-font-size-36'},
-            {name: '48px', class: 'govuk-!-font-size-48'},
-            {name: '80px', class: 'govuk-!-font-size-80'},
+            { name: '14px', class: 'govuk-!-font-size-14' },
+            { name: '16px', class: 'govuk-!-font-size-16' },
+            { name: '19px', class: 'govuk-!-font-size-19' },
+            { name: '24px', class: 'govuk-!-font-size-24' },
+            { name: '27px', class: 'govuk-!-font-size-27' },
+            { name: '36px', class: 'govuk-!-font-size-36' },
+            { name: '48px', class: 'govuk-!-font-size-48' },
+            { name: '80px', class: 'govuk-!-font-size-80' },
+        ],
+        accordion: [
+            { name: 'create', tag: 'Create accordion' },
+            { name: 'addRow', tag: 'Add a new row' },
+            { name: 'removeRow', tag: 'Remove a row' },
+            { name: 'delete', tag: 'Delete accordion' }
         ]
     };
 
@@ -132,6 +138,12 @@
                         title: trumbowyg.lang.heading
                     });
 
+                    trumbowyg.addBtnDef('Accordion', {
+                        dropdown: buildAccordionDropdown(trumbowyg),
+                        ico: 'Ac',
+                        text: 'Accordion'
+                    });
+
                     trumbowyg.addBtnDef('fontWeight', {
                         ico: 'strong',
                         title: trumbowyg.lang.fontWeight,
@@ -187,7 +199,7 @@
 
         var selection = trumbowyg.doc.getSelection();
         var classSelector = fontWeightOrSize.class.substring(0, fontWeightOrSize.class.lastIndexOf('-'));
-        
+
         if (trumbowyg.range.startOffset === trumbowyg.range.endOffset) {
             //no text selection, add class to parent paragraph, remove it if it's already there
             var $parent = $(selection.focusNode).closest('p');
@@ -299,6 +311,55 @@
         $(selection.anchorNode)
             .find('hr')
             .addClass(classes);
+    }
+
+    function accordionSelection(trumbowyg, method) {
+        switch (method) {
+            case 'create':
+                createAccordion(trumbowyg);
+                break;
+            case 'addRow':
+                addAccordionRow(trumbowyg);
+                break;
+            case 'removeRow':
+                removeAccordionRow(trumbowyg);
+                break;
+            case 'delete':
+                deleteAccordion(trumbowyg);
+                break;
+        }
+    }
+
+    function createAccordion(trumbowyg) {
+        var selection = trumbowyg.doc.getSelection();
+        $(selection.anchorNode).append(accordionBuilder());
+    }
+
+    function addAccordionRow(trumbowyg) {
+        var selection = trumbowyg.doc.getSelection();
+        var anchorNode = $(selection.anchorNode);
+        var accordion = anchorNode.closest($("div.govuk-accordion"));
+        $(accordion).append(accordionSectionBuilder(Date.now()));
+    }
+
+    function removeAccordionRow(trumbowyg) {
+        var selection = trumbowyg.doc.getSelection();
+        var anchorNode = $(selection.anchorNode);
+
+        if (anchorNode.hasClass('trumbowyg-editor') || anchorNode.hasClass('govuk-accordion')) {
+            return;
+        }
+        else {
+            $(anchorNode.closest($("div.govuk-accordion__section"))).remove();
+        }
+    }
+
+    function deleteAccordion(trumbowyg) {
+        var selection = trumbowyg.doc.getSelection();
+        var anchorNode = $(selection.anchorNode);
+
+        $(anchorNode.closest($("div.govuk-accordion"))).remove();
+
     }
 
     //todo: use this instead?
@@ -477,6 +538,25 @@
         return dropdown;
     }
 
+    function buildAccordionDropdown(trumbowyg) {
+        var dropdown = [];
+
+        $.each(trumbowyg.o.plugins.gds.accordion, function (index, heading) {
+            var buttonName = 'accordion_' + heading.name;
+            trumbowyg.addBtnDef(buttonName, {
+                text: heading.tag,
+                ico: heading.name,
+                tag: heading.name,
+                fn: function () {
+                    accordionSelection(trumbowyg, heading.name);
+                }
+            });
+            dropdown.push(buttonName);
+        });
+        return dropdown;
+
+    }
+
     function setColourTitles() {
         var colors = [
             { code: '#0b0c0c', label: 'Primary Text, Active Links, Input Border, Focus Text State' },
@@ -514,4 +594,43 @@
             });
         }, 500);
     }
+
+    function accordionBuilder() {
+        var divEnd = '</div>';
+        var accordionStart = '<div class=\"govuk-accordion\" data-module=\"govuk-accordion\" id=\"accordion-default\">';
+        var defaultRows = [
+            { id: 'Row1' },
+            { id: 'Row2' }
+        ];
+
+        var html = accordionStart;
+
+        $.each(defaultRows, function (index, row) {
+            html += accordionSectionBuilder(Date.now());
+        });
+
+        html += divEnd;
+
+        return html;
+    }
+
+    function accordionSectionBuilder(id) {
+        {
+            var textIdTag = '{IdValue}';
+            var divEnd = '</div>';
+            var accordionSection = '<div class="govuk-accordion__section">';
+            var accordionHeader = '<div class="govuk-accordion__section-header">';
+            var accordionH2 = '<h2 class="govuk-accordion__section-heading">';
+            var accordionH2End = '</h2>';
+            var accordionButton =
+                '<span class="govuk-accordion__section-button" id="accordion-default-heading-' + textIdTag + '">Heading</span>';
+            var accordionText = '<div id="accordion-default-content-' + textIdTag + '" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-' + textIdTag + '"> <p class="govuk-body">This is the content for Writing well for the web.</p></div>';
+
+
+            var html = accordionSection + accordionHeader + accordionH2 + accordionButton.replace(new RegExp(textIdTag, 'g'), id) + accordionH2End + divEnd;
+            html += accordionText.replace(new RegExp(textIdTag, 'g'), id) + divEnd;
+            return html;
+        }
+    }
+
 })(jQuery);
