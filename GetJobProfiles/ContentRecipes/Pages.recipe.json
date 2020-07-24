@@ -1,0 +1,330 @@
+﻿{
+    "name": "[token:recipeName]",
+    "displayName": "[token:recipeName]",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "CSharpContent",
+            "data": [
+                {
+                    "ContentItemId": "4y795j6arzcqzsy2vng3k553xp",
+                    "ContentItemVersionId": "4qe1809nhcgbssrsx7zkyzf0n0",
+                    "ContentType": "Page",
+                    "DisplayText": "4 Column Test Page",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-07-23T20:42:56.307346Z",
+                    "PublishedUtc": "2020-07-23T20:42:56.4528961Z",
+                    "CreatedUtc": "2020-07-23T20:42:22.8053653Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "4 Column Test Page"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4bj8dac5hskh76gp82ncd1hkx7"
+                            ]
+                        },
+                        "Description": {
+                            "Text": "4 25% width parts"
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4629xsvg5rqbw3b2b75x7sd4nt",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3228878Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Test Page</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/66da4936-d76b-4f8e-b7ca-8e862cf29681"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 100
+                                }
+                            },
+                            {
+                                "ContentItemId": "4xj2zrd589p69z92gedbv5krdp",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3366442Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 1</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/8e81a48e-1767-4565-b294-9e90803acda6"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            },
+                            {
+                                "ContentItemId": "4fdq02wy9q5fkxc0wt8r5f3hmx",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3516395Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 2</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/eff53ad8-7b66-40e6-863b-6fbfafe20557"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            },
+                            {
+                                "ContentItemId": "4pstqnsdvyr8rxtkjqam3vcdd6",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3672555Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 3</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/281a3bec-0300-45e9-ac15-b6887dd72a33"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            },
+                            {
+                                "ContentItemId": "4a08nzdzpk8c41s8a7rd9hda5y",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3812392Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 4</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/f23a1582-2e38-4bd3-96fc-10f66200ffa1"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/47f7f41a-eca6-4885-ae99-9fc88469b936"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "4-column-test-page",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/explore-careers/4-column-test-page"
+                    }
+                },
+                {
+                    "ContentItemId": "4yhev1xmryp1mvjkd9693kwqc9",
+                    "ContentItemVersionId": "48zyphtz9xjbqvjdy3twkxpq56",
+                    "ContentType": "Page",
+                    "DisplayText": "Send us a letter",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-07-24T12:07:16.9412206Z",
+                    "PublishedUtc": "2020-07-24T12:07:17.0919126Z",
+                    "CreatedUtc": "2020-07-24T10:59:54.3235574Z",
+                    "Owner": "StaxEditorAdmin",
+                    "Author": "StaxEditorAdmin",
+                    "TitlePart": {
+                        "Title": "Send us a letter"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4pksnz9106ngbwq74w66snan5x"
+                            ]
+                        },
+                        "Description": {
+                            "Text": "Send us a letter page"
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4x6aaq1asmjd97an2shd2a8d5d",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-24T12:07:16.9662066Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "StaxEditorAdmin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "4ehz9jy83xn32xe35bdk2fak41"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/d821663d-cef8-4d66-b9ba-40843759ed96"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 100
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/f680eadb-be22-4f4d-bfc2-c6c82ad04981"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "send-us-a-letter",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": "/contact-us/send\r\n/contact-us/letter",
+                        "FullUrl": "/contact-us/send-us-a-letter"
+                    }
+                },
+                {
+                    "ContentItemId": "46hshy0v8r1ab7s43xnv3erf4v",
+                    "ContentItemVersionId": "49eypssjgje983tsgbwsd5w1n4",
+                    "ContentType": "Page",
+                    "DisplayText": "Thank you for contacting us",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-07-24T12:06:56.1804352Z",
+                    "PublishedUtc": "2020-07-24T12:06:56.34147Z",
+                    "CreatedUtc": "2020-07-24T10:59:27.0850126Z",
+                    "Owner": "StaxEditorAdmin",
+                    "Author": "StaxEditorAdmin",
+                    "TitlePart": {
+                        "Title": "Thank you for contacting us"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4pksnz9106ngbwq74w66snan5x"
+                            ]
+                        },
+                        "Description": {
+                            "Text": "Thank you for contacting us page"
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "483kh69k8d6ar24cjwrbemw2xy",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTMLShared",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-24T12:06:56.2013802Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "StaxEditorAdmin",
+                                "HTMLShared": {
+                                    "SharedContent": {
+                                        "ContentItemIds": [
+                                            "48n2h43p729ve15yfhhr3ccgmd"
+                                        ]
+                                    }
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/htmlshared/e1e87a2f-8625-4872-a834-95467a114ab0"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 100
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/8b5280eb-741c-416a-95f6-7a53d4b8c441"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "thank-you-for-contacting-us",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": "contact-us/thanks",
+                        "FullUrl": "/contact-us/thank-you-for-contacting-us"
+                    }
+                }
+            ]
+        }
+    ]
+}
