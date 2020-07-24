@@ -8246,6 +8246,7 @@ webvowl.app =
                 //ste:
         const urlParams = new URLSearchParams(window.location.search);
         const visualise = urlParams.get('visualise');
+        const graphDataSet = urlParams.get('graph');
 
         var DEFAULT_JSON_NAME = "viz=" + visualise;
 
@@ -8475,7 +8476,7 @@ webvowl.app =
 	        loadingModule.from_IRI_URL(ontologyIdentifierFromURL);
 	        break;
             case 4: // no magic nums
-                loadingModule.from_GraphVisualiser(ontologyIdentifierFromURL);
+                loadingModule.from_GraphVisualiser(ontologyIdentifierFromURL, graphDataSet);
                 break;
 	      default:
 	        console.log("Could not identify loading method , or not IMPLEMENTED YET");
@@ -8489,7 +8490,7 @@ webvowl.app =
 	  // 3] Load From URL / IRI
 
                 //ste:
-                loadingModule.from_GraphVisualiser = function ( key ){
+                loadingModule.from_GraphVisualiser = function ( key, graph ){
                     // d3 now uses fetch, rather than xhr: https://stackoverflow.com/questions/18300942/how-to-load-data-using-xhr-in-d3
                     // or use jquery?
 
@@ -8501,7 +8502,7 @@ webvowl.app =
                             loadingModule.directInput(xhttp.responseText);
                         }
                     };
-                    xhttp.open("GET", "/visualise/data?uri=" + key, true);
+                    xhttp.open("GET", "/visualise/data?uri=" + key + "&graph=" + graph, true);
                     xhttp.send();
                 };
 

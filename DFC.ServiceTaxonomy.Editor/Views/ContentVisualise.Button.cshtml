@@ -18,6 +18,18 @@
        asp-controller="Visualise"
        asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
        asp-route-visualise="@graphSyncPartText"
+       asp-route-graph="published"
        target="_blank"
-       class="publish-button btn btn-info">@T["Visualise (last published)"]</a>
+       class="publish-button btn @(!Model.EditMode ? "btn-sm" : "") btn-info">@T["Visualise Published"]</a>
+}
+
+@if (graphSyncPartText != null)
+{
+    <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
+       asp-controller="Visualise"
+       asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
+       asp-route-visualise="@graphSyncPartText"
+       asp-route-graph="preview"
+       target="_blank"
+       class="publish-button btn @(!Model.EditMode ? "btn-sm" : "") btn-info">@T["Visualise Preview"]</a>
 }
