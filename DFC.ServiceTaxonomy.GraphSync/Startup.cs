@@ -95,7 +95,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
             services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
-            services.AddTransient<IEmbeddedContentItemsGraphSyncer, EmbeddedContentItemsGraphSyncer>();
             services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, BagPartEmbeddedContentItemsGraphSyncer>();
             services.AddTransient<IFlowPartEmbeddedContentItemsGraphSyncer, FlowPartEmbeddedContentItemsGraphSyncer>();
             services.AddTransient<ITaxonomyPartEmbeddedContentItemsGraphSyncer, TaxonomyPartEmbeddedContentItemsGraphSyncer>();
@@ -120,6 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // field syncers
             services.AddTransient<IContentFieldGraphSyncer, TextFieldGraphSyncer>();
+            services.AddTransient<IContentFieldGraphSyncer, BooleanFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, NumericFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, HtmlFieldGraphSyncer>();
             services.AddTransient<IContentFieldGraphSyncer, LinkFieldGraphSyncer>();
