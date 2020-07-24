@@ -5,13 +5,13 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
 {
     public class ContentVisualiseViewModel : ShapeViewModel
     {
-        public ContentVisualiseViewModel(ContentItem contentItem, string? buttonSize = null)
+        public ContentVisualiseViewModel(ContentItem contentItem, bool editMode = false)
         {
             ContentItem = contentItem;
-            ButtonSize = buttonSize;
+            EditMode = editMode;
         }
 
         public ContentItem ContentItem { get; set; }
-        public string? ButtonSize { get; set; }
+        public bool EditMode { get; set; }
     }
 }

@@ -20,7 +20,7 @@
        asp-route-visualise="@graphSyncPartText"
        asp-route-graph="published"
        target="_blank"
-       class="publish-button btn @(!string.IsNullOrWhiteSpace(Model.ButtonSize) ? "btn-sm" : "") btn-info">@T["Visualise (last published)"]</a>
+       class="publish-button btn @(!Model.EditMode ? "btn-sm" : "") btn-info">@T["Visualise Published"]</a>
 }
 
 @if (graphSyncPartText != null)
@@ -31,5 +31,5 @@
        asp-route-visualise="@graphSyncPartText"
        asp-route-graph="preview"
        target="_blank"
-       class="publish-button btn @(!string.IsNullOrWhiteSpace(Model.ButtonSize) ? "btn-sm" : "") btn-info">@T["Visualise (preview)"]</a>
+       class="publish-button btn @(!Model.EditMode ? "btn-sm" : "") btn-info">@T["Visualise Preview"]</a>
 }
