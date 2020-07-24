@@ -1,10 +1,12 @@
 using System;
+using DFC.ServiceTaxonomy.GraphVisualiser.Drivers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Modules;
 using OrchardCore.Navigation;
 
@@ -25,6 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             services.AddTransient<INeo4JToOwlGeneratorService, Neo4JToOwlGeneratorService>();
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
             services.AddScoped<INavigationProvider, AdminMenuService>();
+            services.AddScoped<IContentDisplayDriver, ContentVisualiseDriver>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

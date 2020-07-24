@@ -2,7 +2,6 @@
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Queries;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -70,15 +69,15 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Data([FromQuery] string? uri)
+        public async Task<ActionResult> Data([FromQuery] string? uri, [FromQuery] string? graph)
         {
-            if (string.IsNullOrWhiteSpace(uri) || uri.Equals("null"))
+            if (string.IsNullOrWhiteSpace(uri) || uri.Equals("null") || string.IsNullOrWhiteSpace(graph))
             {
                 return GetOntology();
             }
             else
             {
-                return await GetData(uri);
+                return await GetData(uri, graph);
             }
         }
 
@@ -92,13 +91,13 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
 
-        private async Task<ActionResult> GetData(string uri)
+        private async Task<ActionResult> GetData(string uri, string graph)
         {
             const string prefLabel = "skos__prefLabel";
             var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
 
             //todo: allow user to visualise published and draft databases. new story?
-            await _neoGraphCluster.Run(GraphReplicaSetNames.Published, query);
+            await _neoGraphCluster.Run(graph, query);
 
             var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
