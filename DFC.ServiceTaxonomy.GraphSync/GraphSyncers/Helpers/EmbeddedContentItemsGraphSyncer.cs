@@ -39,15 +39,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
-            #pragma warning disable S1481
-            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
-
-            List<INodeWithOutgoingRelationships?> results = await context.GraphReplicaSet.Run(
-            new NodeWithOutgoingRelationshipsQuery(
-                context.ReplaceRelationshipsCommand.SourceNodeLabels,
-                context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
-                context.ReplaceRelationshipsCommand.SourceIdPropertyValue!));
-
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
             int relationshipOrdinal = 0;
@@ -93,6 +84,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             ContentItem[] embeddedContentItems)
         {
+#pragma warning disable S1481
+            INodeWithOutgoingRelationships? existingGraphSync = (await context.GraphReplicaSet.Run(
+                    new NodeWithOutgoingRelationshipsQuery(
+                        context.ReplaceRelationshipsCommand.SourceNodeLabels,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
+                .FirstOrDefault();
+
+            //either work off content items, or what added to replacerelationship command
+
+            var existingRelationships = existingGraphSync?.ToCommandRelationships(context.GraphSyncHelper);
+
+            var existingRelationshipsX = existingRelationships.ToArray();
+
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
             IEnumerable<string> embeddedContentTypes = embeddedContentItems
                 .Select(i => i.ContentType)

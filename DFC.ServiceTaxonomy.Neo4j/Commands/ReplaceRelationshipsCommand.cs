@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
-using DFC.ServiceTaxonomy.Neo4j.Types;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
@@ -18,12 +17,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public string? SourceIdPropertyName { get; set; }
         public object? SourceIdPropertyValue { get; set; }
 
-        public IEnumerable<Relationship> Relationships
+        public IEnumerable<CommandRelationship> Relationships
         {
             get { return RelationshipsList; }
         }
 
-        private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
+        private List<CommandRelationship> RelationshipsList { get; set; } = new List<CommandRelationship>();
 
         public void AddRelationshipsTo(
             string relationshipType,
@@ -32,7 +31,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             string destIdPropertyName,
             params object[] destIdPropertyValues)
         {
-            RelationshipsList.Add(new Relationship(relationshipType, properties, destNodeLabels, destIdPropertyName,
+            RelationshipsList.Add(new CommandRelationship(relationshipType, properties, destNodeLabels, destIdPropertyName,
                 destIdPropertyValues));
         }
 

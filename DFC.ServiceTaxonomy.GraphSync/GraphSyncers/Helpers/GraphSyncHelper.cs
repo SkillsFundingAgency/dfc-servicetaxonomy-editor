@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private readonly Stack<Func<string, string>> _propertyNameTransformers;
 
         //todo: from config CommonNodeLabels
-        private const string CommonNodeLabel = "Resource";
+        public const string CommonNodeLabel = "Resource";
 
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
@@ -101,6 +101,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return new[] { nodeLabel, CommonNodeLabel };
         }
 
+        public string GetContentTypeFromNodeLabels(IEnumerable<string> nodeLabels)
+        {
+            return nodeLabels.First(l => l != CommonNodeLabel);
+        }
+
         // should only be used for fallbacks
         public async Task<string> RelationshipTypeDefault(string destinationContentType)
         {
@@ -142,6 +147,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public string IdPropertyName(string contentType)
         {
             return IdPropertyName(GetGraphSyncPartSettings(contentType));
+        }
+
+        public string IdPropertyNameFromNodeLabels(IEnumerable<string> nodeLabels)
+        {
+            return IdPropertyName(GetContentTypeFromNodeLabels(nodeLabels));
         }
 
         private string IdPropertyName(GraphSyncPartSettings graphSyncPartSettings)

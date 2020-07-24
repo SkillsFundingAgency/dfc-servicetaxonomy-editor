@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.Neo4j.Types;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 {
@@ -9,7 +8,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         string? SourceIdPropertyName { get; set; }
         object? SourceIdPropertyValue { get; set; }
 
-        IEnumerable<Relationship> Relationships { get; }
+        IEnumerable<CommandRelationship> Relationships { get; }
 
         /// <summary>
         /// One relationship will be created for each destIdPropertyValue.
