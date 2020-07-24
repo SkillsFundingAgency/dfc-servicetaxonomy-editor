@@ -35,6 +35,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 destIdPropertyValues));
         }
 
+        public void AddRelationshipsTo(IEnumerable<CommandRelationship> commandRelationship)
+        {
+            RelationshipsList.AddRange(commandRelationship);
+        }
+
         public List<string> ValidationErrors()
         {
             List<string> validationErrors = new List<string>();

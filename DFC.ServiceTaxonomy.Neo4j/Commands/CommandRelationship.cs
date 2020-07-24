@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public CommandRelationship(
             string relationshipType,
-            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destinationNodeLabels,
             string destinationNodeIdPropertyName,
             IEnumerable<object>? destinationNodeIdPropertyValues)

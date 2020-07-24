@@ -41,6 +41,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
+            List<CommandRelationship> requiredRelationships = new List<CommandRelationship>();
+
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
@@ -69,20 +71,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 //todo: where uri null create relationship using displaytext instead
                 //have fallback as flag, and only do it for taxonomy, or do it for all contained items?
 
-                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                requiredRelationships.Add(new CommandRelationship(
                     relationshipType,
                     properties,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
-                    containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
+                    Enumerable.Repeat(containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!], 1)));
+
+                // context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                //     relationshipType,
+                //     properties,
+                //     containedContentMergeNodeCommand.NodeLabels,
+                //     containedContentMergeNodeCommand.IdPropertyName!,
+                //     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
             }
 
-            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, embeddedContentItems);
+            context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
+
+            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, embeddedContentItems, requiredRelationships);
         }
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
             IGraphMergeContext context,
-            ContentItem[] embeddedContentItems)
+            ContentItem[] embeddedContentItems,
+            List<CommandRelationship> requiredRelationships)
         {
 #pragma warning disable S1481
             INodeWithOutgoingRelationships? existingGraphSync = (await context.GraphReplicaSet.Run(
@@ -94,11 +106,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             //either work off content items, or what added to replacerelationship command
 
-            var existingRelationships = existingGraphSync?.ToCommandRelationships(context.GraphSyncHelper);
+            if (existingGraphSync == null)    // nothing to do here, node is being newly created
+                return;
 
-            var existingRelationshipsX = existingRelationships.ToArray();
+            IEnumerable<CommandRelationship> existingRelationships = existingGraphSync.ToCommandRelationships(context.GraphSyncHelper);
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            var existingRelationshipsForEmbeddableContentTypes = existingRelationships
+                .Where(r => embeddableContentTypes.Contains(
+                    context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)));
+
+            var removingRelationships = GetRemovingRelationships(
+                existingRelationshipsForEmbeddableContentTypes,
+                requiredRelationships,
+                context.GraphSyncHelper);
+
             IEnumerable<string> embeddedContentTypes = embeddedContentItems
                 .Select(i => i.ContentType)
                 .Distinct(); // <= distinct is optional here
@@ -121,6 +144,61 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     await graphSyncHelper.NodeLabels(notEmbeddedContentType),
                     graphSyncHelper.IdPropertyName(notEmbeddedContentType));
             }
+        }
+
+        // RelationshipExcept
+        private List<CommandRelationship> GetRemovingRelationships(
+            IEnumerable<CommandRelationship> existing,
+            IEnumerable<CommandRelationship> required,
+            IGraphSyncHelper graphSyncHelper)
+        {
+            List<CommandRelationship> removingRelationships = new List<CommandRelationship>();
+
+            foreach (var existingRelationship in existing)
+            {
+                var matchingRequiredRelationships = required
+                    .Where(r =>
+                    r.RelationshipType == existingRelationship.RelationshipType &&
+                    // should really do orderby, sequenceeqals, orderby instead
+                    //todo: check if the generated relationshipcommand needs to do a sequence equals too
+                    //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
+                    graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == graphSyncHelper.GetContentTypeFromNodeLabels(existingRelationship.DestinationNodeLabels))
+                    .ToArray();
+
+                if (matchingRequiredRelationships.Any())
+                {
+                    //todo: another groupby like ToCommandRelationships
+                    //todo: should clone really
+                    //CommandRelationship partialExistingRelationships = new CommandRelationship(existingRelationship);
+
+                    var firstMatchingRequiredRelationship = matchingRequiredRelationships.First();
+
+                    IEnumerable<object> partialExistingRelationshipIdValues =
+                        existingRelationship.DestinationNodeIdPropertyValues;
+
+                    foreach (var matchingRequiredRelationship in matchingRequiredRelationships)
+                    {
+                        partialExistingRelationshipIdValues = partialExistingRelationshipIdValues.Except(
+                            matchingRequiredRelationship.DestinationNodeIdPropertyValues);
+
+                        // existingRelationship.DestinationNodeIdPropertyValues = existingRelationship.DestinationNodeIdPropertyValues.Except(matchingRequiredRelationship
+                        //     .DestinationNodeIdPropertyValues);
+                    }
+
+                    removingRelationships.Add(new CommandRelationship(
+                        firstMatchingRequiredRelationship.RelationshipType,
+                        firstMatchingRequiredRelationship.Properties,
+                        firstMatchingRequiredRelationship.DestinationNodeLabels,
+                        firstMatchingRequiredRelationship.DestinationNodeIdPropertyName,
+                        partialExistingRelationshipIdValues));
+                }
+                else
+                {
+                    removingRelationships.Add(existingRelationship);
+                }
+            }
+
+            return removingRelationships;
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
