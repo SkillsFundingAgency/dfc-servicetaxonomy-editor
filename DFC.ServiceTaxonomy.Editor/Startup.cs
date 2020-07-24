@@ -22,7 +22,12 @@ namespace DFC.ServiceTaxonomy.Editor
             services.AddApplicationInsightsTelemetry(options =>
                 options.InstrumentationKey = Configuration["APPINSIGHTS_INSTRUMENTATIONKEY"]);
 
-            services.AddOrchardCms();
+            services.AddOrchardCms().ConfigureServices(se => se.ConfigureHtmlSanitizer((sanitizer) =>
+            {
+                sanitizer.AllowDataAttributes = true;
+                sanitizer.AllowedAttributes.Add("id");
+                sanitizer.AllowedAttributes.Add("aria-labelledby");
+            }));
 
             services.AddEventGridPublishing(Configuration);
 
