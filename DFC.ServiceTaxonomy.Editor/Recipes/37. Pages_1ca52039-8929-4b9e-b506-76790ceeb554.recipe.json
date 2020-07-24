@@ -1,0 +1,184 @@
+{
+    "name": "Pages_1ca52039-8929-4b9e-b506-76790ceeb554",
+    "displayName": "Pages_1ca52039-8929-4b9e-b506-76790ceeb554",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "steps": [
+        {
+            "name": "CSharpContent",
+            "data": [
+                {
+                    "ContentItemId": "4y795j6arzcqzsy2vng3k553xp",
+                    "ContentItemVersionId": "4qe1809nhcgbssrsx7zkyzf0n0",
+                    "ContentType": "Page",
+                    "DisplayText": "4 Column Test Page",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-07-23T20:42:56.307346Z",
+                    "PublishedUtc": "2020-07-23T20:42:56.4528961Z",
+                    "CreatedUtc": "2020-07-23T20:42:22.8053653Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "TitlePart": {
+                        "Title": "4 Column Test Page"
+                    },
+                    "Page": {
+                        "PageLocations": {
+                            "TaxonomyContentItemId": "4eembshqzx66drajtdten34tc8",
+                            "TermContentItemIds": [
+                                "4bj8dac5hskh76gp82ncd1hkx7"
+                            ]
+                        },
+                        "Description": {
+                            "Text": "4 25% width parts"
+                        }
+                    },
+                    "SitemapPart": {
+                        "Priority": 5,
+                        "OverrideSitemapConfig": false,
+                        "ChangeFrequency": 0,
+                        "Exclude": false
+                    },
+                    "FlowPart": {
+                        "Widgets": [
+                            {
+                                "ContentItemId": "4629xsvg5rqbw3b2b75x7sd4nt",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3228878Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Test Page</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/66da4936-d76b-4f8e-b7ca-8e862cf29681"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 100
+                                }
+                            },
+                            {
+                                "ContentItemId": "4xj2zrd589p69z92gedbv5krdp",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3366442Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 1</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/8e81a48e-1767-4565-b294-9e90803acda6"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            },
+                            {
+                                "ContentItemId": "4fdq02wy9q5fkxc0wt8r5f3hmx",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3516395Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 2</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/eff53ad8-7b66-40e6-863b-6fbfafe20557"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            },
+                            {
+                                "ContentItemId": "4pstqnsdvyr8rxtkjqam3vcdd6",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3672555Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 3</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/281a3bec-0300-45e9-ac15-b6887dd72a33"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            },
+                            {
+                                "ContentItemId": "4a08nzdzpk8c41s8a7rd9hda5y",
+                                "ContentItemVersionId": null,
+                                "ContentType": "HTML",
+                                "DisplayText": null,
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2020-07-23T20:42:56.3812392Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": null,
+                                "Author": "admin",
+                                "HTML": {},
+                                "HtmlBodyPart": {
+                                    "Html": "<h1>Column 4</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br></p>"
+                                },
+                                "GraphSyncPart": {
+                                    "Text": "<<contentapiprefix>>/html/f23a1582-2e38-4bd3-96fc-10f66200ffa1"
+                                },
+                                "FlowMetadata": {
+                                    "Alignment": 3,
+                                    "Size": 25
+                                }
+                            }
+                        ]
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/page/47f7f41a-eca6-4885-ae99-9fc88469b936"
+                    },
+                    "PageLocationPart": {
+                        "UrlName": "4-column-test-page",
+                        "DefaultPageForLocation": false,
+                        "RedirectLocations": null,
+                        "FullUrl": "/explore-careers/4-column-test-page"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Import_1ca52039-8929-4b9e-b506-76790ceeb554",
+  "displayName": "Import_1ca52039-8929-4b9e-b506-76790ceeb554",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_1ca52039-8929-4b9e-b506-76790ceeb554", name:"SharedContent_1ca52039-8929-4b9e-b506-76790ceeb554" },
+{ "executionid": "Import_1ca52039-8929-4b9e-b506-76790ceeb554", name:"ContentHelp_1ca52039-8929-4b9e-b506-76790ceeb554" },
+{ "executionid": "Import_1ca52039-8929-4b9e-b506-76790ceeb554", name:"EmailTemplates_1ca52039-8929-4b9e-b506-76790ceeb554" },
+{ "executionid": "Import_1ca52039-8929-4b9e-b506-76790ceeb554", name:"Taxonomies_1ca52039-8929-4b9e-b506-76790ceeb554" },
+{ "executionid": "Import_1ca52039-8929-4b9e-b506-76790ceeb554", name:"Pages_1ca52039-8929-4b9e-b506-76790ceeb554" }
+      ]
+    }
+  ]
+}
