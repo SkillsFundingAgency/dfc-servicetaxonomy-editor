@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         public string PartName => nameof(TaxonomyPart);
 
         private const string ContainerName = "Terms";
-        private const string TermContentTypePropertyName = "TermContentType";
+        internal const string TermContentTypePropertyName = "TermContentType";
 
         public TaxonomyPartGraphSyncer(
             ITaxonomyPartEmbeddedContentItemsGraphSyncer taxonomyPartEmbeddedContentItemsGraphSyncer)
@@ -23,10 +23,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
-
             // useful if there are no terms yet?
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
+
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,

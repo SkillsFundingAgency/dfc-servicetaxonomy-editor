@@ -20,6 +20,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         IMergeNodeCommand MergeNodeCommand { get; }
         IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; }
 
+        IGraphMergeContext? ParentGraphMergeContext { get; }
+
         void SetContentPartFieldDefinition(ContentPartFieldDefinition? contentPartFieldDefinition);
     }
 }

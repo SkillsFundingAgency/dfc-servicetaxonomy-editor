@@ -10,16 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\ContentPreview.Button.cshtml" />
-    <Content Remove="Views\Contents-Button-Actions.SummaryAdmin.cshtml" />
+    <Content Remove="Views\ContentVisualise.Button.cshtml" />
     <Content Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Views\ContentPreview.Button.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Contents-Button-Actions.SummaryAdmin.cshtml">
+    <EmbeddedResource Include="Views\ContentVisualise.Button.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\_ViewImports.cshtml">
@@ -61,6 +57,7 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphLookup\DFC.ServiceTaxonomy.GraphLookup.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphSync\DFC.ServiceTaxonomy.GraphSync.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.GraphVisualiser\DFC.ServiceTaxonomy.GraphVisualiser.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.PageLocation\DFC.ServiceTaxonomy.PageLocation.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Theme\DFC.ServiceTaxonomy.Theme.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
   </ItemGroup>
