@@ -35,6 +35,8 @@ namespace DFC.ServiceTaxonomy.PageLocation
             services.AddTransient<IContentPartGraphSyncer, PageLocationPartGraphSyncer>();
 
             services.AddScoped<IContentHandler, DefaultPageLocationsContentHandler>();
+
+            services.AddScoped<IContentDisplayDriver, PageLocationDriver>();
         }
     }
 }
