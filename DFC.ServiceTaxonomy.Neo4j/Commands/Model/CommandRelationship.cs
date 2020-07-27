@@ -4,7 +4,7 @@ using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Extensions;
 
-namespace DFC.ServiceTaxonomy.Neo4j.Commands
+namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
 {
     // relationshiptocreate? as opposed to the driver's returned relationship
     public sealed class CommandRelationship : ICommandRelationship

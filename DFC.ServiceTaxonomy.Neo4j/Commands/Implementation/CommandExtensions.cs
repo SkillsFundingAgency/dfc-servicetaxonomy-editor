@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 
-namespace DFC.ServiceTaxonomy.Neo4j.Commands
+namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
 {
     public static class CommandExtensions
     {

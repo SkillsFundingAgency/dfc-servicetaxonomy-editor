@@ -1,5 +1,11 @@
 #ToDo
 
+* add publish later and unpublish later buttons to page type
+
+* fix visualisation buttons (substitute urls?)
+
+* switch visualisation buttons to dropdowns
+
 * MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 
 * when deleting get this message..

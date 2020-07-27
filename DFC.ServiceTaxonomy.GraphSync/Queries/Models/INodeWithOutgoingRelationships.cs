@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Commands;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models

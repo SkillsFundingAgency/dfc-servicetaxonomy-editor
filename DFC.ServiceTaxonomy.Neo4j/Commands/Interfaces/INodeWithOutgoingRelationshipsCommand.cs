@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 {
