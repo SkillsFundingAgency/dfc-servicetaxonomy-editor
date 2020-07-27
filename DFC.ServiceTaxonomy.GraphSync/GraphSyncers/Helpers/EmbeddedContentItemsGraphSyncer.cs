@@ -18,6 +18,19 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
+    //todo: need to handle this example scenario:
+    // 1 page has preview version that is only user of a page location
+    // user deletes page location and published taxonomy
+    // preview graph sync fails (correctly) as location is used by preview page
+    // published sync works as no page uses location
+    // we need to disable the publish of the location into oc's database
+    // but that would still leave the published graph without the location
+    // need to cancel the whole sync to both graphs too
+    // which means we can't work on the graph as the sync in ongoing
+    // instead we'll need to supply an ordered list of commands to the context
+    // and execute them all or none of them
+    // (we should be doing that anyway so that a sync is atomic)
+
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
