@@ -77,13 +77,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
                     Enumerable.Repeat(containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!], 1)));
-
-                // context.ReplaceRelationshipsCommand.AddRelationshipsTo(
-                //     relationshipType,
-                //     properties,
-                //     containedContentMergeNodeCommand.NodeLabels,
-                //     containedContentMergeNodeCommand.IdPropertyName!,
-                //     containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!]);
             }
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
