@@ -147,6 +147,60 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         // RelationshipExcept
+        // private List<CommandRelationship> GetRemovingRelationships(
+        //     IEnumerable<CommandRelationship> existing,
+        //     IEnumerable<CommandRelationship> required,
+        //     IGraphSyncHelper graphSyncHelper)
+        // {
+        //     List<CommandRelationship> removingRelationships = new List<CommandRelationship>();
+        //
+        //     foreach (var existingRelationship in existing)
+        //     {
+        //         var matchingRequiredRelationships = required
+        //             .Where(r =>
+        //             r.RelationshipType == existingRelationship.RelationshipType &&
+        //             // should really do orderby, sequenceeqals, orderby instead
+        //             //todo: check if the generated relationshipcommand needs to do a sequence equals too
+        //             //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
+        //             graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == graphSyncHelper.GetContentTypeFromNodeLabels(existingRelationship.DestinationNodeLabels))
+        //             .ToArray();
+        //
+        //         if (matchingRequiredRelationships.Any())
+        //         {
+        //             //todo: another groupby like ToCommandRelationships
+        //             //todo: should clone really
+        //             //CommandRelationship partialExistingRelationships = new CommandRelationship(existingRelationship);
+        //
+        //             var firstMatchingRequiredRelationship = matchingRequiredRelationships.First();
+        //
+        //             IEnumerable<object> partialExistingRelationshipIdValues =
+        //                 existingRelationship.DestinationNodeIdPropertyValues;
+        //
+        //             foreach (var matchingRequiredRelationship in matchingRequiredRelationships)
+        //             {
+        //                 partialExistingRelationshipIdValues = partialExistingRelationshipIdValues.Except(
+        //                     matchingRequiredRelationship.DestinationNodeIdPropertyValues);
+        //
+        //                 // existingRelationship.DestinationNodeIdPropertyValues = existingRelationship.DestinationNodeIdPropertyValues.Except(matchingRequiredRelationship
+        //                 //     .DestinationNodeIdPropertyValues);
+        //             }
+        //
+        //             removingRelationships.Add(new CommandRelationship(
+        //                 firstMatchingRequiredRelationship.RelationshipType,
+        //                 firstMatchingRequiredRelationship.Properties,
+        //                 firstMatchingRequiredRelationship.DestinationNodeLabels,
+        //                 firstMatchingRequiredRelationship.DestinationNodeIdPropertyName,
+        //                 partialExistingRelationshipIdValues));
+        //         }
+        //         else
+        //         {
+        //             removingRelationships.Add(existingRelationship);
+        //         }
+        //     }
+        //
+        //     return removingRelationships;
+        // }
+
         private List<CommandRelationship> GetRemovingRelationships(
             IEnumerable<CommandRelationship> existing,
             IEnumerable<CommandRelationship> required,
@@ -154,48 +208,49 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             List<CommandRelationship> removingRelationships = new List<CommandRelationship>();
 
-            foreach (var existingRelationship in existing)
+            var distinctExistingRelationshipsTypes = existing
+                .Select(r => (r.RelationshipType,
+                    DestinationNodeLabel: graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)))
+                .Distinct();
+
+            foreach (var distinctExistingRelationshipsType in distinctExistingRelationshipsTypes)
             {
-                var matchingRequiredRelationships = required
+                var existingRelationshipsOfType = existing
                     .Where(r =>
-                    r.RelationshipType == existingRelationship.RelationshipType &&
-                    // should really do orderby, sequenceeqals, orderby instead
-                    //todo: check if the generated relationshipcommand needs to do a sequence equals too
-                    //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
-                    graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == graphSyncHelper.GetContentTypeFromNodeLabels(existingRelationship.DestinationNodeLabels))
+                        r.RelationshipType == distinctExistingRelationshipsType.RelationshipType &&
+                        // should really do orderby, sequenceeqals, orderby instead
+                        //todo: check if the generated relationshipcommand needs to do a sequence equals too
+                        //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
+                        graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == distinctExistingRelationshipsType.DestinationNodeLabel)
                     .ToArray();
 
-                if (matchingRequiredRelationships.Any())
-                {
-                    //todo: another groupby like ToCommandRelationships
-                    //todo: should clone really
-                    //CommandRelationship partialExistingRelationships = new CommandRelationship(existingRelationship);
+                var existingIdPropertyValues = existingRelationshipsOfType.SelectMany(r => r.DestinationNodeIdPropertyValues);
+                if (!existingIdPropertyValues.Any())
+                    continue;
 
-                    var firstMatchingRequiredRelationship = matchingRequiredRelationships.First();
+                var requiredRelationshipsOfType = required
+                    .Where(r =>
+                        r.RelationshipType == distinctExistingRelationshipsType.RelationshipType &&
+                        // should really do orderby, sequenceeqals, orderby instead
+                        //todo: check if the generated relationshipcommand needs to do a sequence equals too
+                        //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
+                        graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == distinctExistingRelationshipsType.DestinationNodeLabel)
+                    .ToArray();
 
-                    IEnumerable<object> partialExistingRelationshipIdValues =
-                        existingRelationship.DestinationNodeIdPropertyValues;
+                var requiredIdPropertyValues = requiredRelationshipsOfType.SelectMany(r => r.DestinationNodeIdPropertyValues);
 
-                    foreach (var matchingRequiredRelationship in matchingRequiredRelationships)
-                    {
-                        partialExistingRelationshipIdValues = partialExistingRelationshipIdValues.Except(
-                            matchingRequiredRelationship.DestinationNodeIdPropertyValues);
+                var removingIdPropertyValuesForRelationshipType = existingIdPropertyValues.Except(requiredIdPropertyValues);
+                if (!removingIdPropertyValuesForRelationshipType.Any())
+                    continue;
 
-                        // existingRelationship.DestinationNodeIdPropertyValues = existingRelationship.DestinationNodeIdPropertyValues.Except(matchingRequiredRelationship
-                        //     .DestinationNodeIdPropertyValues);
-                    }
-
-                    removingRelationships.Add(new CommandRelationship(
-                        firstMatchingRequiredRelationship.RelationshipType,
-                        firstMatchingRequiredRelationship.Properties,
-                        firstMatchingRequiredRelationship.DestinationNodeLabels,
-                        firstMatchingRequiredRelationship.DestinationNodeIdPropertyName,
-                        partialExistingRelationshipIdValues));
-                }
-                else
-                {
-                    removingRelationships.Add(existingRelationship);
-                }
+                var firstExistingRelationshipsOfType = existingRelationshipsOfType.First();
+                removingRelationships.Add(new CommandRelationship(
+                    //firstExistingRelationshipsOfType.RelationshipType,
+                    distinctExistingRelationshipsType.RelationshipType,
+                    null,    // don't need properties for delete (plus they'd be different)
+                    firstExistingRelationshipsOfType.DestinationNodeLabels,
+                    firstExistingRelationshipsOfType.DestinationNodeIdPropertyName,
+                    removingIdPropertyValuesForRelationshipType));
             }
 
             return removingRelationships;
