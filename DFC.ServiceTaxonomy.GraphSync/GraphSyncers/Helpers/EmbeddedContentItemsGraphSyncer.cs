@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     // neo looking into recovery point feature, but not yet supported
     // compensating transaction would be painful
     // is there any support for a 2 phase commit? https://groups.google.com/forum/#!topic/neo4j/E2HvHViX8Ac
-
+//looks like had 2 phase commit, but
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
@@ -155,7 +155,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             List<CommandRelationship> removingRelationships = new List<CommandRelationship>();
 
-            //todo: this has effectively already been done
             var distinctExistingRelationshipsTypes = existing
                 .Select(r => (r.RelationshipType,
                     DestinationNodeLabel: graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)))
