@@ -1,0 +1,100 @@
+01. CreateOccupationLabelNodes_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+02. CreateOccupationPrefLabelNodes_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+03. CreateSkillLabelNodes_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+04. CleanUpEscoData_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+05. CreateOccupationLabelContentItems0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+06. CreateSkillLabelContentItems0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+07. CreateSkillLabelContentItems400_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+08. CreateSkillLabelContentItems800_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+09. CreateSkillLabelContentItems1200_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+10. CreateSkillLabelContentItems1600_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+11. CreateSkillLabelContentItems2000_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+12. CreateSkillLabelContentItems2400_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+13. CreateSkillLabelContentItems2800_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+14. CreateSkillLabelContentItems3200_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+15. CreateSkillLabelContentItems3600_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+16. CreateSkillLabelContentItems4000_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+17. CreateSkillLabelContentItems4400_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+18. CreateSkillLabelContentItems4800_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+19. CreateSkillLabelContentItems5200_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+20. CreateSkillLabelContentItems5600_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+21. CreateSkillLabelContentItems6000_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+22. CreateSkillLabelContentItems6400_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+23. CreateSkillLabelContentItems6800_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+24. CreateSkillLabelContentItems7200_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+25. CreateSkillLabelContentItems7600_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+26. CreateSkillLabelContentItems8000_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+27. CreateSkillLabelContentItems8400_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+28. CreateSkillLabelContentItems8800_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+29. CreateSkillContentItems0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+30. CreateSkillContentItems400_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+31. CreateSkillContentItems800_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+32. CreateOccupationContentItems0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+33. SharedContent_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+34. ContentHelp_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+35. EmailTemplates_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+36. Taxonomies_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+37. Pages_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 
+38. QCFLevels0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 10
+39. ApprenticeshipStandardRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 18
+40. ApprenticeshipStandards0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+41. ApprenticeshipStandards1_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 181
+42. RequirementsPrefixes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 6
+43. ApprenticeshipLinks0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 3
+44. ApprenticeshipRequirements0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 9
+45. CollegeLinks0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 5
+46. CollegeRequirements0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 5
+47. UniversityLinks0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 6
+48. UniversityRequirements0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 8
+49. DayToDayTasks0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 137
+50. OtherRequirements0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 7
+51. Registrations0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 3
+52. Restrictions0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 14
+53. SocCodes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 370
+54. ONetOccupationalCodes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 400
+55. ONetOccupationalCodes1_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 110
+56. WorkingEnvironments0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 14
+57. WorkingLocations0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 17
+58. WorkingUniforms0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 2
+59. ApprenticeshipRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 18
+60. CollegeRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 13
+61. UniversityRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 7
+62. DirectRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 13
+63. OtherRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 5
+64. VolunteeringRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 9
+65. WorkRoutes0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 10
+66. JobProfiles0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 20
+67. JobCategories0_1ca52039-8929-4b9e-b506-76790ceeb554.recipe.json: 26
+# Totals
+    OccupationLabels: 223
+SkillLabels: 9000
+Skills: 1137
+Occupations: 20
+QCFLevels: 10
+ApprenticeshipStandardRoutes: 18
+ApprenticeshipStandards: 581
+RequirementsPrefixes: 6
+ApprenticeshipLinks: 3
+ApprenticeshipRequirements: 9
+CollegeLinks: 5
+CollegeRequirements: 5
+UniversityLinks: 6
+UniversityRequirements: 8
+DayToDayTasks: 137
+OtherRequirements: 7
+Registrations: 3
+Restrictions: 14
+SocCodes: 370
+ONetOccupationalCodes: 510
+WorkingEnvironments: 14
+WorkingLocations: 17
+WorkingUniforms: 2
+ApprenticeshipRoutes: 18
+CollegeRoutes: 13
+UniversityRoutes: 7
+DirectRoutes: 13
+OtherRoutes: 5
+VolunteeringRoutes: 9
+WorkRoutes: 10
+JobProfiles: 20
+JobCategories: 26
