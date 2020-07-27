@@ -38,5 +38,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         {
             AddRelationshipsTo(relationshipType, properties, destNodeLabels, destIdPropertyName);
         }
+
+        ICommand GetDeleteRelationshipsCommand(bool deleteDestinationNodes);
     }
 }

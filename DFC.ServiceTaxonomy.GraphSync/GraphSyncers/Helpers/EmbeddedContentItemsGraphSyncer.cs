@@ -81,12 +81,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
 
-            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, embeddedContentItems, requiredRelationships);
+//            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, embeddedContentItems, requiredRelationships);
+            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, requiredRelationships);
         }
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
             IGraphMergeContext context,
-            ContentItem[] embeddedContentItems,
+            //ContentItem[] embeddedContentItems,
             List<CommandRelationship> requiredRelationships)
         {
 #pragma warning disable S1481
@@ -115,28 +116,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 requiredRelationships,
                 context.GraphSyncHelper);
 
-            IEnumerable<string> embeddedContentTypes = embeddedContentItems
-                .Select(i => i.ContentType)
-                .Distinct(); // <= distinct is optional here
+            if (!removingRelationships.Any())    // nothing to do here, not removing any relationships
+                return;
 
-            IEnumerable<string> notEmbeddedContentTypes = embeddableContentTypes.Except(embeddedContentTypes);
+            //todo: copy ctor with bool to copy destid values?
+            var command = new ReplaceRelationshipsCommand();
+            command.SourceNodeLabels = context.ReplaceRelationshipsCommand.SourceNodeLabels;
+            command.SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName;
+            command.SourceIdPropertyValue = context.ReplaceRelationshipsCommand.SourceIdPropertyValue;
+            command.AddRelationshipsTo(removingRelationships);
+            command.GetDeleteRelationshipsCommand(true);
 
-            foreach (string notEmbeddedContentType in notEmbeddedContentTypes)
-            {
-                var notEmbeddedContentTypeGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-                notEmbeddedContentTypeGraphSyncHelper.ContentType = notEmbeddedContentType;
+            //todo: need to add command to context, or otherwise execute it
 
-                string relationshipType = await RelationshipType(notEmbeddedContentTypeGraphSyncHelper);
-
-                IGraphSyncHelper graphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-                graphSyncHelper.ContentType = notEmbeddedContentType;
-
-                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
-                    relationshipType,
-                    null,
-                    await graphSyncHelper.NodeLabels(notEmbeddedContentType),
-                    graphSyncHelper.IdPropertyName(notEmbeddedContentType));
-            }
+            // IEnumerable<string> embeddedContentTypes = embeddedContentItems
+            //     .Select(i => i.ContentType)
+            //     .Distinct(); // <= distinct is optional here
+            //
+            // IEnumerable<string> notEmbeddedContentTypes = embeddableContentTypes.Except(embeddedContentTypes);
+            //
+            // foreach (string notEmbeddedContentType in notEmbeddedContentTypes)
+            // {
+            //     var notEmbeddedContentTypeGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+            //     notEmbeddedContentTypeGraphSyncHelper.ContentType = notEmbeddedContentType;
+            //
+            //     string relationshipType = await RelationshipType(notEmbeddedContentTypeGraphSyncHelper);
+            //
+            //     IGraphSyncHelper graphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+            //     graphSyncHelper.ContentType = notEmbeddedContentType;
+            //
+            //     context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+            //         relationshipType,
+            //         null,
+            //         await graphSyncHelper.NodeLabels(notEmbeddedContentType),
+            //         graphSyncHelper.IdPropertyName(notEmbeddedContentType));
+            // }
         }
 
         // RelationshipExcept

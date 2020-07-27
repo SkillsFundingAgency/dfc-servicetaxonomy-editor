@@ -177,9 +177,9 @@ delete {existingRelationshipsVariablesString}
                 throw CreateValidationException(resultSummary, "New relationships not returned.");
 
             // could store variable name to type dic and use that to check instead
-            List<string> unorderedExpectedRelationshipTypes = (RelationshipsList.SelectMany(
+            List<string> unorderedExpectedRelationshipTypes = RelationshipsList.SelectMany(
                 relationship => relationship.DestinationNodeIdPropertyValues,
-                (relationship, _) => relationship.RelationshipType)).ToList();
+                (relationship, _) => relationship.RelationshipType).ToList();
 
             var expectedRelationshipTypes = unorderedExpectedRelationshipTypes
                 .OrderBy(t => t);
@@ -212,6 +212,12 @@ delete {existingRelationshipsVariablesString}
             return $@"(:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
 Relationships:
 {string.Join(Environment.NewLine, RelationshipsList)}";
+        }
+
+        //todo: enum?
+        public ICommand GetDeleteRelationshipsCommand(bool deleteDestinationNodes)
+        {
+            return new DeleteRelationshipsCommand(this, deleteDestinationNodes);
         }
     }
 }
