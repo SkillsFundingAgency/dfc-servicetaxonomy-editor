@@ -125,9 +125,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             command.SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName;
             command.SourceIdPropertyValue = context.ReplaceRelationshipsCommand.SourceIdPropertyValue;
             command.AddRelationshipsTo(removingRelationships);
-            command.GetDeleteRelationshipsCommand(true);
+            var deleteRelationshipCommand = command.GetDeleteRelationshipsCommand(true);
 
             //todo: need to add command to context, or otherwise execute it
+            // should add commands to be executed (in order) to context (same with embedded items)
+            // so that everything syncs as a unit or not within a transaction
+            await context.GraphReplicaSet.Run(deleteRelationshipCommand);
 
             // IEnumerable<string> embeddedContentTypes = embeddedContentItems
             //     .Select(i => i.ContentType)
