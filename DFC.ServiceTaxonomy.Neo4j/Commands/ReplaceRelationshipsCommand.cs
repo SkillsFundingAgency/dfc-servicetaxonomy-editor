@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
@@ -107,7 +106,7 @@ delete {existingRelationshipsVariablesString}
             //todo: validate deletes?
             // we should only query if the quick tests have failed, otherwise we'll slow down import a lot if we queried after every update
 
-            int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
+            int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count);
             if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
                 throw CreateValidationException(resultSummary,
                     $"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
@@ -139,15 +138,6 @@ delete {existingRelationshipsVariablesString}
             if (!createdRelationships.Skip(1).All(r => r.StartNodeId == firstStartNodeId))
                 throw CreateValidationException(resultSummary,
                     "Not all created relationships have the same source node.");
-        }
-
-        private CommandValidationException CreateValidationException(IResultSummary resultSummary, string message)
-        {
-            return new CommandValidationException(@$"{message}
-{nameof(ReplaceRelationshipsCommand)}:
-{this}
-
-{resultSummary}");
         }
     }
 }

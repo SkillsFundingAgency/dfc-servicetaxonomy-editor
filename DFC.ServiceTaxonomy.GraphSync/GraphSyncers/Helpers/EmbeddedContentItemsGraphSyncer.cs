@@ -39,6 +39,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     // doesn't seem to be support for 2-phase commit
     // even fabric doesn't support write operations across graphs in the same transaction
     // (https://neo4j.com/docs/operations-manual/current/fabric/considerations/index.html)
+
+    // as a workaround, we'll query each graph first to see if we expect the delete to be successful
+    // or blocked, and only attempy the deletion, if we expect the query will succeed
+    // it leaves a small window between query and command, where things could change
+    // and the graphs could get out of sync, but it should mostly work
+
+    //todo: also cancel the publish/save in the content handler if it does fail
+
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;

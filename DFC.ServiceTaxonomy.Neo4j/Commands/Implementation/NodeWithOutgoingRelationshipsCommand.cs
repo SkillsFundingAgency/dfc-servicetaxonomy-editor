@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
+using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
@@ -76,5 +77,15 @@ Relationships:
 
         public abstract Query Query { get; }
         public abstract void ValidateResults(List<IRecord> records, IResultSummary resultSummary);
+
+        protected CommandValidationException CreateValidationException(IResultSummary resultSummary, string message)
+        {
+            //todo: do we need to explicitly add the command class name?
+            return new CommandValidationException(@$"{message}
+{GetType().Name}:
+{this}
+
+{resultSummary}");
+        }
     }
 }

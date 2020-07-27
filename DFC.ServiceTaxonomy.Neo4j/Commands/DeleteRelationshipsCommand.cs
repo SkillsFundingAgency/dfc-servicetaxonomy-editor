@@ -87,13 +87,34 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     queryBuilder.AppendLine($"delete {AllVariablesString(destinationNodeVariableBase, ordinal)}");
                 }
 
+                // don't use _expectedDeleted instead of ordinal, as could be changed by other threads calling Query
+                // we should probably make class immutable, or stop mutations after Query has been called
+                _expectedDeleted = ordinal;
+
                 return new Query(queryBuilder.ToString(), parameters);
             }
         }
 
+        private int _expectedDeleted;
+
         public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
-            //todo:
+            //todo: check this
+            if (DeleteDestinationNodes)
+            {
+                if (resultSummary.Counters.NodesDeleted != _expectedDeleted)
+                    throw CreateValidationException(resultSummary,
+                        $"Expected {_expectedDeleted} nodes to be deleted, but {resultSummary.Counters.NodesDeleted} were deleted.");
+
+                // we don't know (without querying) how many relationships are deleted, if DeleteDestinationNodes is true
+                // (due to not knowing how many outgoing relationships are on the destination nodes)
+            }
+            else
+            {
+                if (resultSummary.Counters.RelationshipsDeleted != _expectedDeleted)
+                    throw CreateValidationException(resultSummary,
+                        $"Expected {_expectedDeleted} relationships to be deleted, but {resultSummary.Counters.RelationshipsDeleted} were deleted.");
+            }
         }
     }
 }
