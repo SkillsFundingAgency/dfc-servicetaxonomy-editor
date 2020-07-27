@@ -20,16 +20,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     //todo: need to handle this example scenario:
     // 1 page has preview version that is only user of a page location
-    // user deletes page location and published taxonomy
+    // user deletes that page location and published taxonomy
     // preview graph sync fails (correctly) as location is used by preview page
     // published sync works as no page uses location
     // we need to disable the publish of the location into oc's database
-    // but that would still leave the published graph without the location
-    // need to cancel the whole sync to both graphs too
-    // which means we can't work on the graph as the sync in ongoing
+    // but that would still leave the published graph without the location.
+    // we need to cancel the whole sync to both graphs too
+    // which means we can't work on the graph as the sync is ongoing
     // instead we'll need to supply an ordered list of commands to the context
-    // and execute them all or none of them
+    // and execute them all, or none of them
     // (we should be doing that anyway so that a sync is atomic)
+    // issue is sync to both published and preview graph needs to be atomic
+    // how do we handle one graph succeeding and one failing?
+    // neo looking into recovery point feature, but not yet supported
+    // compensating transaction would be painful
+    // is there any support for a 2 phase commit? https://groups.google.com/forum/#!topic/neo4j/E2HvHViX8Ac
 
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
@@ -94,16 +99,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
 
-//            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, embeddedContentItems, requiredRelationships);
             await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, requiredRelationships);
         }
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
             IGraphMergeContext context,
-            //ContentItem[] embeddedContentItems,
             List<CommandRelationship> requiredRelationships)
         {
-#pragma warning disable S1481
             INodeWithOutgoingRelationships? existingGraphSync = (await context.GraphReplicaSet.Run(
                     new NodeWithOutgoingRelationshipsQuery(
                         context.ReplaceRelationshipsCommand.SourceNodeLabels,
