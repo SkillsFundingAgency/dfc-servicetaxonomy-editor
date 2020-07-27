@@ -34,8 +34,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     // how do we handle one graph succeeding and one failing?
     // neo looking into recovery point feature, but not yet supported
     // compensating transaction would be painful
-    // is there any support for a 2 phase commit? https://groups.google.com/forum/#!topic/neo4j/E2HvHViX8Ac
-//looks like had 2 phase commit, but
+    // doesn't seem to be support for 2-phase commit
+    // even fabric doesn't support write operations across graphs in the same transaction
+    // (https://neo4j.com/docs/operations-manual/current/fabric/considerations/index.html)
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
@@ -113,8 +114,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
                 .FirstOrDefault();
 
-            //either work off content items, or what added to replacerelationship command
-
             if (existingGraphSync == null)    // nothing to do here, node is being newly created
                 return;
 
@@ -162,31 +161,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             foreach (var distinctExistingRelationshipsType in distinctExistingRelationshipsTypes)
             {
-                var existingRelationshipsOfType = existing
-                    .Where(r =>
-                        r.RelationshipType == distinctExistingRelationshipsType.RelationshipType &&
-                        // should really do orderby, sequenceeqals, orderby instead
-                        //todo: check if the generated relationshipcommand needs to do a sequence equals too
-                        //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
-                        graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == distinctExistingRelationshipsType.DestinationNodeLabel)
-                    .ToArray();
-
-                var existingIdPropertyValues = existingRelationshipsOfType.SelectMany(r => r.DestinationNodeIdPropertyValues);
+                var (existingIdPropertyValues, existingRelationshipsOfType)
+                    = GetIdPropertyValuesAndRelationshipsOfType(
+                        existing, distinctExistingRelationshipsType, graphSyncHelper);
                 if (!existingIdPropertyValues.Any())
                     continue;
 
-                var requiredRelationshipsOfType = required
-                    .Where(r =>
-                        r.RelationshipType == distinctExistingRelationshipsType.RelationshipType &&
-                        // should really do orderby, sequenceeqals, orderby instead
-                        //todo: check if the generated relationshipcommand needs to do a sequence equals too
-                        //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
-                        graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == distinctExistingRelationshipsType.DestinationNodeLabel)
+                var (requiredIdPropertyValues, _) = GetIdPropertyValuesAndRelationshipsOfType(
+                    required, distinctExistingRelationshipsType, graphSyncHelper);
+
+                var removingIdPropertyValuesForRelationshipType = existingIdPropertyValues
+                    .Except(requiredIdPropertyValues)
                     .ToArray();
-
-                var requiredIdPropertyValues = requiredRelationshipsOfType.SelectMany(r => r.DestinationNodeIdPropertyValues);
-
-                var removingIdPropertyValuesForRelationshipType = existingIdPropertyValues.Except(requiredIdPropertyValues);
                 if (!removingIdPropertyValuesForRelationshipType.Any())
                     continue;
 
@@ -201,6 +187,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
 
             return removingRelationships;
+        }
+
+        private (object[] IdPropertyValues, CommandRelationship[] RelationshipsOfType)
+            GetIdPropertyValuesAndRelationshipsOfType(
+                IEnumerable<CommandRelationship> relationships,
+                (string RelationshipType, string DestinationNodeLabel) relationshipType,
+                IGraphSyncHelper graphSyncHelper)
+        {
+            var relationshipsOfType = relationships
+                .Where(r =>
+                    // should really do orderby, sequenceeqals, orderby instead
+                    //todo: check if the generated relationshipcommand needs to do a sequence equals too
+                    //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
+                    graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == relationshipType.DestinationNodeLabel)
+                .ToArray();
+
+            var idPropertyValues = relationshipsOfType
+                .SelectMany(r => r.DestinationNodeIdPropertyValues)
+                .ToArray();
+
+            return (idPropertyValues, relationshipsOfType);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
