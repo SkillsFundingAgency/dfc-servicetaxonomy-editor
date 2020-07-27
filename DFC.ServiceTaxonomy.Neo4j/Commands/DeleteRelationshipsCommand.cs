@@ -36,15 +36,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 //todo: lots of shared code
                 this.CheckIsValid();
 
+                //todo: rename variables to match delete?
                 const string sourceNodeVariableName = "s";
                 const string destinationNodeVariableBase = "d";
                 const string newRelationshipVariableBase = "nr";
+                const string destinationNodeOutgoingRelationshipsVariableBase = "dr";
 
                 //todo: bi-directional relationships
                 const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
                 StringBuilder nodeMatchBuilder = new StringBuilder(
                         $"match ({sourceNodeVariableName}:{string.Join(':', _replaceRelationshipsCommand.SourceNodeLabels)} {{{_replaceRelationshipsCommand.SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
-                // StringBuilder mergeBuilder = new StringBuilder();
+                StringBuilder destNodeOutgoingRelationshipsBuilder = new StringBuilder();
                 var parameters =
                     new Dictionary<string, object> {{sourceIdPropertyValueParamName, _replaceRelationshipsCommand.SourceIdPropertyValue!}};
                 int ordinal = 0;
@@ -64,37 +66,32 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                         string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
                         string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
                         string destIdPropertyValueParamName = $"{destNodeVariable}Value";
+                        string destinationNodeOutgoingRelationshipsVariable = $"{destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
 
                         //todo: relationshiptype as parameter?
                         nodeMatchBuilder.Append(
                             $"\r\nmatch ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
                         parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
 
-                        // mergeBuilder.Append(
-                        //     $"\r\nmerge ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable})");
-
-                        // mergeBuilder.Append($"\r\ndelete {relationshipVariable}");
-                        // if (_deleteDestinationNodes)
-                        //     mergeBuilder.Append($"\r\ndelete {destNodeVariable}");
+                        if (_deleteDestinationNodes)
+                        {
+                            destNodeOutgoingRelationshipsBuilder.Append(
+                                $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
+                        }
                     }
                 }
 
-                string deleteRelationships = $"delete {AllVariablesString(newRelationshipVariableBase, ordinal)}";
-                string destNodesVariablesString = _deleteDestinationNodes
-                    ? $"delete {AllVariablesString(destinationNodeVariableBase, ordinal)}"
-                    : "";
+                StringBuilder queryBuilder = new StringBuilder($"{nodeMatchBuilder}\r\n");
+                queryBuilder.AppendLine($"delete {AllVariablesString(newRelationshipVariableBase, ordinal)}");
 
-                // (string existingRelationshipsOptionalMatches, string existingRelationshipsVariablesString)
-                //     = GenerateExistingRelationships(distinctRelationshipTypeToDestNode, sourceNodeVariableName);
-                //
-                // string returnString =
-                //     mergeBuilder.Length > 0 ? $"return {newRelationshipsVariablesString}" : string.Empty;
+                if (_deleteDestinationNodes)
+                {
+                    queryBuilder.AppendLine($"delete {AllVariablesString(destinationNodeVariableBase, ordinal)}");
+                    queryBuilder.AppendLine(destNodeOutgoingRelationshipsBuilder.ToString());
+                    queryBuilder.AppendLine($"delete {AllVariablesString(destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
+                }
 
-                return new Query(
-$@"{nodeMatchBuilder}
-{deleteRelationships}
-{destNodesVariablesString}",
-                    parameters);
+                return new Query(queryBuilder.ToString(), parameters);
             }
         }
 

@@ -119,7 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (!removingRelationships.Any())    // nothing to do here, not removing any relationships
                 return;
 
-            //todo: copy ctor with bool to copy destid values?
+            //todo: copy ctor with bool to copy destid values? or existing relationships
             var command = new ReplaceRelationshipsCommand();
             command.SourceNodeLabels = context.ReplaceRelationshipsCommand.SourceNodeLabels;
             command.SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName;
