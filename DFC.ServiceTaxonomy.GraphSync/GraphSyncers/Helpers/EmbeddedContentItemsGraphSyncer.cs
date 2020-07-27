@@ -217,7 +217,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphSyncHelper graphSyncHelper)
         {
             List<CommandRelationship> removingRelationships = new List<CommandRelationship>();
-
+//todo: this has effectively already been done
             var distinctExistingRelationshipsTypes = existing
                 .Select(r => (r.RelationshipType,
                     DestinationNodeLabel: graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)))

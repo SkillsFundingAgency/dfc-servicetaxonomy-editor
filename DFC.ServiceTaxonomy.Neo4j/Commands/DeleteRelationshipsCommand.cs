@@ -82,13 +82,25 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 }
 
                 StringBuilder queryBuilder = new StringBuilder($"{nodeMatchBuilder}\r\n");
+
+                if (_deleteDestinationNodes)
+                {
+                    // delete outgoing relationships on destination nodes first
+                    queryBuilder.AppendLine(destNodeOutgoingRelationshipsBuilder.ToString());
+                    queryBuilder.AppendLine(
+                        $"delete {AllVariablesString(destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
+                }
+
+                // delete relationships from source node to destination nodes
                 queryBuilder.AppendLine($"delete {AllVariablesString(newRelationshipVariableBase, ordinal)}");
 
                 if (_deleteDestinationNodes)
                 {
+                    // then delete destination nodes
+                    // note: any incoming relationships to the destination nodes (not from our source node)
+                    // will stop this from executing
+                    //todo: cancel publish/save if this fails (will e.g. stop taxonomy location terms being deleted if in use by pages)
                     queryBuilder.AppendLine($"delete {AllVariablesString(destinationNodeVariableBase, ordinal)}");
-                    queryBuilder.AppendLine(destNodeOutgoingRelationshipsBuilder.ToString());
-                    queryBuilder.AppendLine($"delete {AllVariablesString(destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
                 }
 
                 return new Query(queryBuilder.ToString(), parameters);
