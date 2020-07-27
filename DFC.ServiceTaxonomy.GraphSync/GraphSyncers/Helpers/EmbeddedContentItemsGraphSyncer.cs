@@ -134,12 +134,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return;
 
             //todo: copy ctor with bool to copy destid values? or existing relationships
-            var command = new ReplaceRelationshipsCommand();
-            command.SourceNodeLabels = context.ReplaceRelationshipsCommand.SourceNodeLabels;
-            command.SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName;
-            command.SourceIdPropertyValue = context.ReplaceRelationshipsCommand.SourceIdPropertyValue;
-            command.AddRelationshipsTo(removingRelationships);
-            var deleteRelationshipCommand = command.GetDeleteRelationshipsCommand(true);
+            var deleteRelationshipCommand = new DeleteRelationshipsCommand
+            {
+                DeleteDestinationNodes = true,
+                SourceNodeLabels = context.ReplaceRelationshipsCommand.SourceNodeLabels,
+                SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName,
+                SourceIdPropertyValue = context.ReplaceRelationshipsCommand.SourceIdPropertyValue
+            };
+            deleteRelationshipCommand.AddRelationshipsTo(removingRelationships);
 
             //todo: need to add command to context, or otherwise execute it
             // should add commands to be executed (in order) to context (same with embedded items)

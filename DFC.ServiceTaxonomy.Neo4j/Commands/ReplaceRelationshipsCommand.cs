@@ -8,10 +8,30 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
-    //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
-    //todo: refactor to only create relationships to one dest node label?
+    public interface INodeWithOutgoingRelationshipsCommand : ICommand
+    {
+        HashSet<string> SourceNodeLabels { get; set; }
+        string? SourceIdPropertyName { get; set; }
+        object? SourceIdPropertyValue { get; set; }
 
-    public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
+        IEnumerable<CommandRelationship> Relationships { get; }
+
+        /// <summary>
+        /// One relationship will be created for each destIdPropertyValue.
+        /// If no destIdPropertyValues are supplied, then no relationships will be created,
+        /// but any relationships of relationshipType, from the source node to nodes with destNodeLabels will still be removed.
+        /// </summary>
+        void AddRelationshipsTo(
+            string relationshipType,
+            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<string> destNodeLabels,
+            string destIdPropertyName,
+            params object[] destIdPropertyValues);
+
+        void AddRelationshipsTo(IEnumerable<CommandRelationship> commandRelationship);
+    }
+
+    public abstract class NodeWithOutgoingRelationshipsCommand : INodeWithOutgoingRelationshipsCommand
     {
         public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
@@ -22,7 +42,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             get { return RelationshipsList; }
         }
 
-        private List<CommandRelationship> RelationshipsList { get; set; } = new List<CommandRelationship>();
+        protected List<CommandRelationship> RelationshipsList { get; set; } = new List<CommandRelationship>();
 
         public void AddRelationshipsTo(
             string relationshipType,
@@ -40,7 +60,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             RelationshipsList.AddRange(commandRelationship);
         }
 
-        public List<string> ValidationErrors()
+        public virtual List<string> ValidationErrors()
         {
             List<string> validationErrors = new List<string>();
 
@@ -65,7 +85,80 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             return validationErrors;
         }
 
-        public Query Query
+        public static implicit operator Query(NodeWithOutgoingRelationshipsCommand c) => c.Query;
+
+        protected static string AllVariablesString(string variableBase, int ordinal) =>
+            string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"{variableBase}{o}"));
+
+        public override string ToString()
+        {
+            return $@"(:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
+Relationships:
+{string.Join(Environment.NewLine, RelationshipsList)}";
+        }
+
+        public abstract Query Query { get; }
+        public abstract void ValidateResults(List<IRecord> records, IResultSummary resultSummary);
+    }
+
+    //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
+    //todo: refactor to only create relationships to one dest node label?
+
+    public class ReplaceRelationshipsCommand : NodeWithOutgoingRelationshipsCommand, IReplaceRelationshipsCommand
+    {
+        // public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
+        // public string? SourceIdPropertyName { get; set; }
+        // public object? SourceIdPropertyValue { get; set; }
+        //
+        // public IEnumerable<CommandRelationship> Relationships
+        // {
+        //     get { return RelationshipsList; }
+        // }
+        //
+        // private List<CommandRelationship> RelationshipsList { get; set; } = new List<CommandRelationship>();
+        //
+        // public void AddRelationshipsTo(
+        //     string relationshipType,
+        //     IReadOnlyDictionary<string, object>? properties,
+        //     IEnumerable<string> destNodeLabels,
+        //     string destIdPropertyName,
+        //     params object[] destIdPropertyValues)
+        // {
+        //     RelationshipsList.Add(new CommandRelationship(relationshipType, properties, destNodeLabels, destIdPropertyName,
+        //         destIdPropertyValues));
+        // }
+        //
+        // public void AddRelationshipsTo(IEnumerable<CommandRelationship> commandRelationship)
+        // {
+        //     RelationshipsList.AddRange(commandRelationship);
+        // }
+        //
+        // public List<string> ValidationErrors()
+        // {
+        //     List<string> validationErrors = new List<string>();
+        //
+        //     if (!SourceNodeLabels.Any())
+        //         validationErrors.Add($"Missing {nameof(SourceNodeLabels)}.");
+        //
+        //     if (SourceIdPropertyName == null)
+        //         validationErrors.Add($"{nameof(SourceIdPropertyName)} is null.");
+        //
+        //     if (SourceIdPropertyValue == null)
+        //         validationErrors.Add($"{nameof(SourceIdPropertyValue)} is null.");
+        //
+        //     foreach (var relationship in RelationshipsList)
+        //     {
+        //         var relationshipValidationErrors = relationship.ValidationErrors;
+        //         if (relationshipValidationErrors.Any())
+        //         {
+        //             validationErrors.Add($"{relationship.RelationshipType??"<Null Type>"} relationship invalid ({string.Join(",", relationshipValidationErrors)})");
+        //         }
+        //     }
+        //
+        //     return validationErrors;
+        // }
+
+        public override Query Query
         {
             get
             {
@@ -135,7 +228,7 @@ delete {existingRelationshipsVariablesString}
             }
         }
 
-        public static implicit operator Query(ReplaceRelationshipsCommand c) => c.Query;
+        // public static implicit operator Query(ReplaceRelationshipsCommand c) => c.Query;
 
         private static (string optionalMatches, string variablesString) GenerateExistingRelationships(
             HashSet<(string type, string labels)> distinctRelationshipTypeToDestNode,
@@ -155,10 +248,10 @@ delete {existingRelationshipsVariablesString}
             return (existingRelationshipsMatchBuilder.ToString(), AllVariablesString(existingRelationshipVariableBase, ordinal));
         }
 
-        private static string AllVariablesString(string variableBase, int ordinal) =>
-            string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"{variableBase}{o}"));
+        // private static string AllVariablesString(string variableBase, int ordinal) =>
+        //     string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"{variableBase}{o}"));
 
-        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
+        public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
             //todo: log query (doesn't work!) Query was: {resultSummary.Query}.
             //todo: validate deletes?
@@ -207,17 +300,17 @@ delete {existingRelationshipsVariablesString}
 {resultSummary}");
         }
 
-        public override string ToString()
-        {
-            return $@"(:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
-Relationships:
-{string.Join(Environment.NewLine, RelationshipsList)}";
-        }
+//         public override string ToString()
+//         {
+//             return $@"(:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
+// Relationships:
+// {string.Join(Environment.NewLine, RelationshipsList)}";
+//         }
 
         //todo: enum?
-        public ICommand GetDeleteRelationshipsCommand(bool deleteDestinationNodes)
-        {
-            return new DeleteRelationshipsCommand(this, deleteDestinationNodes);
-        }
+        // public ICommand GetDeleteRelationshipsCommand(bool deleteDestinationNodes)
+        // {
+        //     return new DeleteRelationshipsCommand(this, deleteDestinationNodes);
+        // }
     }
 }
