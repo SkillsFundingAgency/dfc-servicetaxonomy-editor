@@ -9,6 +9,20 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
     // INodeType?? -> GetDeleteNodeTypeCommand
     public interface IReplaceRelationshipsCommand : INodeWithOutgoingRelationshipsCommand
     {
+        //todo: this comment applies only to IReplaceRelationshipsCommand, but is declared in INodeWithOutgoingRelationshipsCommand
+
+        /// <summary>
+        /// One relationship will be created for each destIdPropertyValue.
+        /// If no destIdPropertyValues are supplied, then no relationships will be created,
+        /// but any relationships of relationshipType, from the source node to nodes with destNodeLabels will still be removed.
+        /// </summary>
+        // new void AddRelationshipsTo(
+        //     string relationshipType,
+        //     IReadOnlyDictionary<string, object>? properties,
+        //     IEnumerable<string> destNodeLabels,
+        //     string destIdPropertyName,
+        //     params object[] destIdPropertyValues);
+
         // have 'alias' to make it obvious what the intention is
         void RemoveAnyRelationshipsTo(
             string relationshipType,
