@@ -8,7 +8,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
-    //todo: common base class with NoteWithOutgoinfRelationships?
+    //todo: common base class with NoteWithOutgoingRelationships?
     public class NodeAndOutRelationshipsAndTheirInRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private IEnumerable<string> NodeLabels { get; }
@@ -45,19 +45,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
             {
                 this.CheckIsValid();
 
-//                 return new Query(
-// @$"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-// optional match (s)-[r]->(d)
-// with s, {{relationship: r, destinationNode: d}} as relationshipDetails
-// with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as sourceNodeWithOutgoingRelationships
-// return sourceNodeWithOutgoingRelationships");
-
                 return new Query(
                     $@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
 optional match (s)-[r]->(d)
 optional match (d)<-[ir]-(irn) where irn.uri <> s.uri
-with s, r, d, {{destIncomingRelationships: collect({{destIncomingRelationship:ir,  destIncomingRelSource:irn}})}} as destIncomingRelationships
-with s, {{destNode: d, relationship: r, destinationIncomingRelationships:collect(destIncomingRelationships)}} as relationshipDetails
+with s, {{destNode: d, relationship: r, destinationIncomingRelationships:collect({{destIncomingRelationship:ir,  destIncomingRelSource:irn}})}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as nodeAndOutRelationshipsAndTheirInRelationships
 return nodeAndOutRelationshipsAndTheirInRelationships");
             }
@@ -72,16 +64,23 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
             if (!(results["sourceNode"] is INode sourceNode))
                 return null;
 
-            // IEnumerable<(IRelationship, INode)> outgoingRelationships =
-            //     ((IEnumerable<object>)results["outgoingRelationships"])
-            //     .Cast<IDictionary<string, object>>()
-            //     .Select(or =>
-            //         ((IRelationship)or["relationship"], (INode)or["destNode"]));
-            //
-            // if (outgoingRelationships.Count() == 1 && outgoingRelationships.First().Item1 == null)
-            //     outgoingRelationships = Enumerable.Empty<(IRelationship, INode)>();
+            //todo: return as IOutgoingRelationships, rather than tuple then convert
 
-            return new NodeAndOutRelationshipsAndTheirInRelationships(sourceNode, null);
+            IEnumerable<(IRelationship, INode, IEnumerable<(IRelationship, INode)>)> outgoingRelationships =
+                ((IEnumerable<object>)results["outgoingRelationships"])
+                .Cast<IDictionary<string, object>>()
+                .Select(or =>
+                    ((IRelationship)or["relationship"],
+                        (INode)or["destNode"],
+                        ((IEnumerable<object>)or["destinationIncomingRelationships"])
+                        .Cast<IDictionary<string, object>>()
+                        .Select(ir =>
+                            ((IRelationship)ir["destIncomingRelationship"],
+                                (INode)ir["destIncomingRelSource"]))
+                        .Where(t => t.Item1 != null)))
+                .Where(t => t.Item1 != null);
+
+            return new NodeAndOutRelationshipsAndTheirInRelationships(sourceNode, outgoingRelationships);
         }
     }
 }

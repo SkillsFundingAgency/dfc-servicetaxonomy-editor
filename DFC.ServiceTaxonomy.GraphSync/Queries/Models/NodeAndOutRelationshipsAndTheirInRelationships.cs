@@ -10,23 +10,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models
     public class NodeAndOutRelationshipsAndTheirInRelationships : INodeAndOutRelationshipsAndTheirInRelationships
     {
         public INode SourceNode { get; set; }
-        //todo: new types for these rather than tuples
-        // rename
+        //todo: new types for these rather than tuples, or at least name
+        //todo: rename
+        //todo: IIncomingRelationship with common base, (or Relationship with flag??)
         public IEnumerable<(IOutgoingRelationship, IEnumerable<IOutgoingRelationship>)> OutgoingRelationships { get; set; }
 
         public NodeAndOutRelationshipsAndTheirInRelationships(
             INode sourceNode,
-            IEnumerable<(IRelationship relationship, INode destNode, IEnumerable<(IRelationship relationship, INode destNode)> destinationIncomingRelationships)>? outgoingRelationships)
+            IEnumerable<(IRelationship relationship, INode destNode, IEnumerable<(IRelationship relationship, INode destNode)> destinationIncomingRelationships)> outgoingRelationships)
         {
             SourceNode = sourceNode;
             //todo: can we get null?
             //OutgoingRelationships = outgoingRelationships ?? new List<IOutgoingRelationship>();
             OutgoingRelationships =
-                (IEnumerable<(IOutgoingRelationship, IEnumerable<IOutgoingRelationship>)>)outgoingRelationships
+                outgoingRelationships
                     .Select(or =>
-                        (new OutgoingRelationship(or.relationship, or.destNode),
+                        ((IOutgoingRelationship)new OutgoingRelationship(or.relationship, or.destNode),
                             or.destinationIncomingRelationships.Select(ir =>
-                                new OutgoingRelationship(ir.relationship, ir.destNode))));
+                                (IOutgoingRelationship)new OutgoingRelationship(ir.relationship, ir.destNode))));
         }
 
         public IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper)

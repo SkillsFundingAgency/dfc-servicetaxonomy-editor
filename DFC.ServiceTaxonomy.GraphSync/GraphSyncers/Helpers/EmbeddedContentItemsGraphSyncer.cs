@@ -117,6 +117,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             List<CommandRelationship> requiredRelationships)
         {
+            //todo: gonna havta be able to pass cancel in context, or throw exception (CancelSync(usernotificationmessage, logmessage)
+            // call cancel on context, so can switch later?
+            #pragma warning disable
+            INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
+                    new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
+                        context.ReplaceRelationshipsCommand.SourceNodeLabels,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
+                .FirstOrDefault();
+
             //todo: we could combine the check query and the fetch query into one query that returns
             // the data and a bool, or all the results and check in code (so query can be reused)
 
