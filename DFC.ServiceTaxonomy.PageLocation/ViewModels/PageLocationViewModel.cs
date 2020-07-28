@@ -10,7 +10,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.ViewModels
         public PageLocationViewModel(ContentItem contentItem)
         {
             IsDefault = contentItem.ContentType == "Page" &&
-                Convert.ToBoolean(contentItem.Content[nameof(PageLocationPart)][PageLocationPart.DefaultPageForLocationName].Value);
+                Convert.ToBoolean(contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.DefaultPageForLocation)].Value);
         }
 
         public bool IsDefault { get; }
