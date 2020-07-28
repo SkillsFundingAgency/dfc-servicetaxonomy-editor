@@ -8,5 +8,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Models
         public bool DefaultPageForLocation { get; set; }
         public string? RedirectLocations { get; set; }
         public string? FullUrl { get; set; }
+
+        public const string DefaultPageForLocationName = "DefaultPageForLocation";
     }
 }
