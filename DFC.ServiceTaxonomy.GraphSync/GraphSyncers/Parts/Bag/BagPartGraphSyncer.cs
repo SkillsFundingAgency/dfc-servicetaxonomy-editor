@@ -13,6 +13,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
 
         private const string ContainerName = "ContentItems";
 
+        public async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        {
+            return await _bagPartEmbeddedContentItemsGraphSyncer.AllowSync(contentItems, context);
+        }
+
         public BagPartGraphSyncer(IBagPartEmbeddedContentItemsGraphSyncer bagPartEmbeddedContentItemsGraphSyncer)
         {
             _bagPartEmbeddedContentItemsGraphSyncer = bagPartEmbeddedContentItemsGraphSyncer;

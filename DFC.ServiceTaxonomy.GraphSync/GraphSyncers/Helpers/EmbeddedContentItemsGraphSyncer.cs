@@ -66,6 +66,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 .ToDictionary(x => x.Name);
         }
 
+        public Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        {
+            return Task.FromResult(true);
+        }
+
         public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);

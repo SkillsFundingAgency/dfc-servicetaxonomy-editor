@@ -5,6 +5,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
 {
     public interface IEmbeddedContentItemsGraphSyncer
     {
+        Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context);
+
         Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(

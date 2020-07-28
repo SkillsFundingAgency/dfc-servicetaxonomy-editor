@@ -21,6 +21,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             _taxonomyPartEmbeddedContentItemsGraphSyncer = taxonomyPartEmbeddedContentItemsGraphSyncer;
         }
 
+        public async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        {
+            return await _taxonomyPartEmbeddedContentItemsGraphSyncer.AllowSync(contentItems, context);
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             // useful if there are no terms yet?

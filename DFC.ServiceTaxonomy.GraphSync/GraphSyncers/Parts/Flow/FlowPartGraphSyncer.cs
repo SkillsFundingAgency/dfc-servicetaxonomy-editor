@@ -27,6 +27,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
         }
 
+        public async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        {
+            return await _flowPartEmbeddedContentItemsGraphSyncer.AllowSync(contentItems, context)
+                && await _contentFieldsGraphSyncer.AllowSync(contentItems, context);
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
