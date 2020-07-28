@@ -115,10 +115,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
             IGraphMergeContext context,
-            List<CommandRelationship> requiredRelationships)
+            IEnumerable<CommandRelationship> requiredRelationships)
         {
             //todo: gonna havta be able to pass cancel in context, or throw exception (CancelSync(usernotificationmessage, logmessage)
             // call cancel on context, so can switch later?
+            //todo: gonna have to check published and preview graphs first, so can't do as part of sync
+            // will have to have new method on partsyncers proceedwithsync returning bool or somesuch
+            // and if either returns false, don't proceed with the sync
+            // also partly solves the problem of an atomic sync
             #pragma warning disable
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
                     new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
@@ -126,6 +130,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
                         context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
                 .FirstOrDefault();
+
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            existing = new NodeAndOutRelationshipsAndTheirInRelationships(
+                existing.SourceNode,
+                existing.OutgoingRelationships
+                    .Where(or =>
+                        embeddableContentTypes.Contains(
+                            context.GraphSyncHelper.GetContentTypeFromNodeLabels(
+                                or.outgoingRelationship.DestinationNode.Labels))));
+
+            //todo: don't magic preflabel
+            var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
+                .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
+                .Select(ir => (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels), title: (string?)ir.DestinationNode.Properties["skos__prefLabel"]));
+
+            //todo: needs to union itemsreferencing with removing relationships
+            // if (itemsReferencingEmbeddedItems.Any())
+            // {
+            //     //todo: put contenttype/display name in message somewhere
+            //     string message = $"Can't sync because these are in use:{Environment.NewLine}{itemsReferencingEmbeddedItems.Select(t => $"{t.title}{Environment.NewLine}")}";
+            //     throw new GraphSyncException(message);
+            // }
 
             //todo: we could combine the check query and the fetch query into one query that returns
             // the data and a bool, or all the results and check in code (so query can be reused)
@@ -143,9 +170,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (existingGraphSync == null)    // nothing to do here, node is being newly created
                 return;
 
+            //todo: filter by embedded first, then convert to command? (more efficient)
             IEnumerable<CommandRelationship> existingRelationships = existingGraphSync.ToCommandRelationships(context.GraphSyncHelper);
 
-            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+//            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
             var existingRelationshipsForEmbeddableContentTypes = existingRelationships
                 .Where(r => embeddableContentTypes.Contains(

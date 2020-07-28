@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models
     public interface INodeAndOutRelationshipsAndTheirInRelationships
     {
         INode SourceNode { get; set; }
-        public IEnumerable<(IOutgoingRelationship, IEnumerable<IOutgoingRelationship>)> OutgoingRelationships { get; set; }
+        public IEnumerable<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)> OutgoingRelationships { get; set; }
 
         IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper);
     }

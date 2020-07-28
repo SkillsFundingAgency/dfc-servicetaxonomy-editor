@@ -13,7 +13,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models
         //todo: new types for these rather than tuples, or at least name
         //todo: rename
         //todo: IIncomingRelationship with common base, (or Relationship with flag??)
-        public IEnumerable<(IOutgoingRelationship, IEnumerable<IOutgoingRelationship>)> OutgoingRelationships { get; set; }
+        public IEnumerable<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)> OutgoingRelationships { get; set; }
+
+        public NodeAndOutRelationshipsAndTheirInRelationships(
+            INode sourceNode,
+            IEnumerable<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)> outgoingRelationships)
+        {
+            SourceNode = sourceNode;
+            OutgoingRelationships = outgoingRelationships;
+        }
 
         public NodeAndOutRelationshipsAndTheirInRelationships(
             INode sourceNode,
