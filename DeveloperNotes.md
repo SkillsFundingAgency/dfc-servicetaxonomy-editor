@@ -1,5 +1,7 @@
 #ToDo
 
+* the validation needs to de-substitute the actual urls back to <<contentapiprefix>> before it checks for equality
+
 * add publish later and unpublish later buttons to page type
 
 * fix visualisation buttons (substitute urls?)
@@ -652,21 +654,29 @@ match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use published1;
 match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use preview0;
 match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use preview1;
 match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use neo4j;
 
 ##Testing graph validation

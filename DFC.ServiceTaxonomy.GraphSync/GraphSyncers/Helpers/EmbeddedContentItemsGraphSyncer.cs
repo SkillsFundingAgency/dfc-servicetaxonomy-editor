@@ -117,6 +117,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             List<CommandRelationship> requiredRelationships)
         {
+            //todo: we could combine the check query and the fetch query into one query that returns
+            // the data and a bool, or all the results and check in code (so query can be reused)
+
+            //todo: we only need to query once per contentitem, and reuse the results by filtering (as we currently do)
+            // (^^ user data in the context so don't refetch)
+            // or we filter by embeddable in the query itself
             INodeWithOutgoingRelationships? existingGraphSync = (await context.GraphReplicaSet.Run(
                     new NodeWithOutgoingRelationshipsQuery(
                         context.ReplaceRelationshipsCommand.SourceNodeLabels,
