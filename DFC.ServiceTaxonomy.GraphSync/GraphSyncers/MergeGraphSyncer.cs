@@ -74,7 +74,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphMergeContext = null;
         }
 
-        public async Task<SyncStatus> AllowSync(
+        public async Task<SyncStatus> SyncToGraphReplicaSetIfAllowed(
+            IGraphReplicaSet graphReplicaSet,
+            ContentItem contentItem,
+            IContentManager contentManager,
+            IGraphMergeContext? parentGraphMergeContext = null)
+        {
+            SyncStatus syncStatus = await SyncAllowed(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
+
+            if (syncStatus == SyncStatus.Allowed)
+                await SyncToGraphReplicaSet();
+
+            return syncStatus;
+        }
+
+        public async Task<SyncStatus> SyncAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
@@ -126,7 +140,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
         {
             if (_graphMergeContext == null)
-                throw new GraphSyncException($"You must call {nameof(AllowSync)} before calling {nameof(SyncToGraphReplicaSet)}");
+                throw new GraphSyncException($"You must call {nameof(SyncAllowed)} before calling {nameof(SyncToGraphReplicaSet)}");
 
             await AddContentPartSyncComponents(_contentItem!);
 

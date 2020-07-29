@@ -7,7 +7,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IMergeGraphSyncer
     {
-        Task<SyncStatus> AllowSync(
+        Task<SyncStatus> SyncToGraphReplicaSetIfAllowed(
+            IGraphReplicaSet graphReplicaSet,
+            ContentItem contentItem,
+            IContentManager contentManager,
+            IGraphMergeContext? parentGraphMergeContext = null);
+
+        Task<SyncStatus> SyncAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,

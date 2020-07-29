@@ -179,7 +179,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             try
             {
-                return await mergeGraphSyncer.AllowSync(
+                return await mergeGraphSyncer.SyncAllowed(
                     _graphCluster.GetGraphReplicaSet(replicaSetName),
                     contentItem,
                     contentManager);
