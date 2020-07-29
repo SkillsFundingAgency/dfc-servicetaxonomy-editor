@@ -118,12 +118,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             IEnumerable<CommandRelationship> requiredRelationships)
         {
-            //todo: gonna havta be able to pass cancel in context, or throw exception (CancelSync(usernotificationmessage, logmessage)
-            // call cancel on context, so can switch later?
-            //todo: gonna have to check published and preview graphs first, so can't do as part of sync
-            // will have to have new method on partsyncers proceedwithsync returning bool or somesuch
-            // and if either returns false, don't proceed with the sync
-            // also partly solves the problem of an atomic sync
             #pragma warning disable
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
                     new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(

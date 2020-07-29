@@ -9,6 +9,7 @@ using Neo4j.Driver;
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
     //todo: common base class with NoteWithOutgoingRelationships?
+    //todo: move generic queries into neo4j
     public class NodeAndOutRelationshipsAndTheirInRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private IEnumerable<string> NodeLabels { get; }
@@ -45,10 +46,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries
             {
                 this.CheckIsValid();
 
+                // irn might have a different IdPropertyName, but if it has, it isn't the source node, so the where is ok
                 return new Query(
                     $@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
 optional match (s)-[r]->(d)
-optional match (d)<-[ir]-(irn) where irn.uri <> s.uri
+optional match (d)<-[ir]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName}
 with s, {{destNode: d, relationship: r, destinationIncomingRelationships:collect({{destIncomingRelationship:ir,  destIncomingRelSource:irn}})}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as nodeAndOutRelationshipsAndTheirInRelationships
 return nodeAndOutRelationshipsAndTheirInRelationships");
