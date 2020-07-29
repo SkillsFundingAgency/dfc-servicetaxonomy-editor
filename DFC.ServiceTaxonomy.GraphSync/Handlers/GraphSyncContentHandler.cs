@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     SyncToGraphReplicaSet(previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem),
                     SyncToGraphReplicaSet(publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem));
             }
-        }
+        }//todo: cancel oc db creation if not allowed (allow if sync fails)
 
         public override async Task UnpublishedAsync(PublishContentContext context)
         {

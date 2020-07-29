@@ -80,6 +80,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
                 .FirstOrDefault();
 
+            if (existing?.OutgoingRelationships.Any() != true)
+            {
+                // nothing to do here, node is being newly created or existing node has no relationships
+                return true;
+            }
+
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
             // existing filtered by the allowable content types
@@ -107,8 +113,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 requiredRelationships,
                 context.GraphSyncHelper);
 
-            if (!_removingRelationships.Any())    // nothing to do here, not removing any relationships
+
+            if (!_removingRelationships.Any())
+            {
+                // nothing to do here, not removing any relationships
                 return true;
+            }
 
             //todo: get incoming against removing
 
@@ -240,8 +250,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             //     requiredRelationships,
             //     context.GraphSyncHelper);
 
-            if (!_removingRelationships!.Any())    // nothing to do here, not removing any relationships
+            if (_removingRelationships?.Any() != true)
+            {
+                // nothing to do here, not removing any relationships
                 return;
+            }
 
             //todo: copy ctor with bool to copy destid values? or existing relationships
             var deleteRelationshipCommand = new DeleteRelationshipsCommand
