@@ -84,7 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 .AddHandler<GraphSyncPartHandler>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+            services.AddTransient<IGraphSyncPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();

@@ -74,6 +74,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
             //order in ctor?
             // add priority field and order?
+            //or use IGraphSyncPartSyncer?
             var partSyncersWithGraphLookupFirst
                 = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
                     .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));

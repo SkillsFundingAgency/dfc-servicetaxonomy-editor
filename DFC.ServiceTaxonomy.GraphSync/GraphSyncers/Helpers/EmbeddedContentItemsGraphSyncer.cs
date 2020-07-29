@@ -148,6 +148,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 if (syncEmbeddedContentItems)
                     await mergeGraphSyncer.SyncToGraphReplicaSet();
+                else
+                {
+                    // we need to get the id
+                    var graphSyncPartGraphSyncer = _serviceProvider.GetRequiredService<IGraphSyncPartGraphSyncer>();
+                    graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
+                        mergeGraphSyncer.GraphMergeContext);
+                    //todo: delegate to mergeGraphSyncer then ContentItemGraphSyncer?
+                    //await mergeGraphSyncer.
+                }
 
                 //todo: need to allow first?
                 // need to get merge node and create relationship commands without syncing

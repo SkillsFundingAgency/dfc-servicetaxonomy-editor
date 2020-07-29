@@ -52,7 +52,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
+        //todo: tidy this up too
         private GraphMergeContext? _graphMergeContext;
+        public IGraphMergeContext? GraphMergeContext => _graphMergeContext;
         private ContentItem? _contentItem;
 
         public MergeGraphSyncer(
@@ -190,6 +192,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 }
             }
         }
+
+        // public async Task AddIdSyncComponents(ContentItem contentItem)
+        // {
+        //
+        // }
 
         private async Task SyncComponentsToGraphReplicaSet(IGraphReplicaSet graphReplicaSet)
         {
