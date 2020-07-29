@@ -54,6 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private List<CommandRelationship>? _requiredRelationships;
+        private List<CommandRelationship>? _removingRelationships;
 
         protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
@@ -95,6 +96,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                                 or.outgoingRelationship.DestinationNode.Labels))));
 
             //todo: only need to get items referencing to delete embedded items
+
+
+            IEnumerable<CommandRelationship> existingRelationshipsForEmbeddableContentTypes =
+                existing.ToCommandRelationships(context.GraphSyncHelper);
+
+            // var existingRelationshipsForEmbeddableContentTypes = existingRelationships
+            //     .Where(r => embeddableContentTypes.Contains(
+            //         context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)));
+
+            _removingRelationships = GetRemovingRelationships(
+                existingRelationshipsForEmbeddableContentTypes,
+                _requiredRelationships,
+                context.GraphSyncHelper);
+
+            if (!_removingRelationships.Any())    // nothing to do here, not removing any relationships
+                return true;
+
+            //todo: get incoming against removing
 
             var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
                 .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
@@ -152,12 +171,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(_requiredRelationships);
 
-            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, _requiredRelationships);
+            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
-        private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
-            IGraphMergeContext context,
-            IEnumerable<CommandRelationship> requiredRelationships)
+        private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)
         {
             // if (itemsReferencingEmbeddedItems.Any())
             // {
@@ -172,31 +189,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             //todo: we only need to query once per contentitem, and reuse the results by filtering (as we currently do)
             // (^^ user data in the context so don't refetch)
             // or we filter by embeddable in the query itself
-            INodeWithOutgoingRelationships? existingGraphSync = (await context.GraphReplicaSet.Run(
-                    new NodeWithOutgoingRelationshipsQuery(
-                        context.ReplaceRelationshipsCommand.SourceNodeLabels,
-                        context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
-                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
-                .FirstOrDefault();
+            // INodeWithOutgoingRelationships? existingGraphSync = (await context.GraphReplicaSet.Run(
+            //         new NodeWithOutgoingRelationshipsQuery(
+            //             context.ReplaceRelationshipsCommand.SourceNodeLabels,
+            //             context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
+            //             context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
+            //     .FirstOrDefault();
+            //
+            // if (existingGraphSync == null)    // nothing to do here, node is being newly created
+            //     return;
+            //
+            // //todo: filter by embedded first, then convert to command? (more efficient)
+            // IEnumerable<CommandRelationship> existingRelationships = existingGraphSync.ToCommandRelationships(context.GraphSyncHelper);
+            //
+            // IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+            //
+            // var existingRelationshipsForEmbeddableContentTypes = existingRelationships
+            //     .Where(r => embeddableContentTypes.Contains(
+            //         context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)));
+            //
+            // var removingRelationships = GetRemovingRelationships(
+            //     existingRelationshipsForEmbeddableContentTypes,
+            //     requiredRelationships,
+            //     context.GraphSyncHelper);
 
-            if (existingGraphSync == null)    // nothing to do here, node is being newly created
-                return;
-
-            //todo: filter by embedded first, then convert to command? (more efficient)
-            IEnumerable<CommandRelationship> existingRelationships = existingGraphSync.ToCommandRelationships(context.GraphSyncHelper);
-
-            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
-
-            var existingRelationshipsForEmbeddableContentTypes = existingRelationships
-                .Where(r => embeddableContentTypes.Contains(
-                    context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)));
-
-            var removingRelationships = GetRemovingRelationships(
-                existingRelationshipsForEmbeddableContentTypes,
-                requiredRelationships,
-                context.GraphSyncHelper);
-
-            if (!removingRelationships.Any())    // nothing to do here, not removing any relationships
+            if (!_removingRelationships!.Any())    // nothing to do here, not removing any relationships
                 return;
 
             //todo: copy ctor with bool to copy destid values? or existing relationships
@@ -207,7 +224,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName,
                 SourceIdPropertyValue = context.ReplaceRelationshipsCommand.SourceIdPropertyValue
             };
-            deleteRelationshipCommand.AddRelationshipsTo(removingRelationships);
+            deleteRelationshipCommand.AddRelationshipsTo(_removingRelationships);
 
             //todo: need to add command to context, or otherwise execute it
             // should add commands to be executed (in order) to context (same with embedded items)
