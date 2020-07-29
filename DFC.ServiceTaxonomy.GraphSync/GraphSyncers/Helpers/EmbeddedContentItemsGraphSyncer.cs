@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
@@ -128,6 +129,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
+            // existing filtered by the allowable content types
+            //todo: we should check for the relationship type also
             existing = new NodeAndOutRelationshipsAndTheirInRelationships(
                 existing.SourceNode,
                 existing.OutgoingRelationships
@@ -136,10 +139,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                             context.GraphSyncHelper.GetContentTypeFromNodeLabels(
                                 or.outgoingRelationship.DestinationNode.Labels))));
 
-            //todo: don't magic preflabel
             var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
                 .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
-                .Select(ir => (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels), title: (string?)ir.DestinationNode.Properties["skos__prefLabel"]));
+                .Select(ir =>
+                    (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
+                        title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
 
             //todo: needs to union itemsreferencing with removing relationships
             // if (itemsReferencingEmbeddedItems.Any())
