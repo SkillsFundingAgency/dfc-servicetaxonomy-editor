@@ -13,6 +13,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public int Priority => 0;
 
+        public TaxonomyTermContentItemGraphSyncer(ITaxonomyPartGraphSyncer taxonomyPartGraphSyncer)
+        {
+            _taxonomyPartGraphSyncer = taxonomyPartGraphSyncer;
+        }
+
         public bool CanSync(ContentItem contentItem)
         {
             // this check means a 'Terms' content type using a hierarchical taxonomy won't sync,
@@ -21,9 +26,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                    && contentItem.ContentType != Terms;
         }
 
-        public TaxonomyTermContentItemGraphSyncer(ITaxonomyPartGraphSyncer taxonomyPartGraphSyncer)
+        public async Task<bool> AllowSync(IGraphMergeItemSyncContext context)
         {
-            _taxonomyPartGraphSyncer = taxonomyPartGraphSyncer;
+            return await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context);
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)

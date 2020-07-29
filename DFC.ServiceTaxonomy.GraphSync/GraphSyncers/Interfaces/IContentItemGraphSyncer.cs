@@ -9,8 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         bool CanSync(ContentItem contentItem);
 
-        Task<bool> AllowSync(IGraphMergeItemSyncContext context) => Task.FromResult(true);
-//        Task<bool> AllowSync(ContentItem contentItem, IGraphMergeContext context) => Task.FromResult(true);
+        Task<bool> AllowSync(IGraphMergeItemSyncContext context);
 
         Task AddSyncComponents(IGraphMergeItemSyncContext context);
 
