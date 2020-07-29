@@ -55,6 +55,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             await SyncToGraphReplicaSetIfAllowed(GraphReplicaSetNames.Preview, context.ContentItem, contentManager);
         }
 
+        //todo: dow do we pass the mergegraphsyncers on to publishedasync?
+        // public override async Task PublishingAsync(PublishContentContext context)
+        // {
+        //     IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+        //     IMergeGraphSyncer previewMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+        //     IMergeGraphSyncer publishedMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+        //
+        //     var syncAllowed = await Task.WhenAll(
+        //         AllowSyncToGraphReplicaSet(previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem, contentManager),
+        //         AllowSyncToGraphReplicaSet(publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
+        //
+        //     // sad paths have already been notified to the user and logged
+        //     if (syncAllowed[0] != SyncStatus.Allowed || syncAllowed[1] != SyncStatus.Allowed)
+        //     {
+        //         context.Cancel = true;
+        //     }
+        // }
+
         //todo: context contains cancel! (might have to use publishing though)
         public override async Task PublishedAsync(PublishContentContext context)
         {
@@ -72,8 +90,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 await Task.WhenAll(
                     SyncToGraphReplicaSet(previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem),
                     SyncToGraphReplicaSet(publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem));
+                return;
             }
-        }//todo: cancel oc db creation if not allowed (allow if sync fails)
+
+            //todo: cancel oc db creation if not allowed (allow if sync fails)
+            //todo: move allowsync into publishingasync
+            _session.Cancel();
+            _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), "publish/save draft has been cancelled because: repeat> the published/preview graph has a contenttype called displayname that is using displayname of whats being deleted"));
+        }
 
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
