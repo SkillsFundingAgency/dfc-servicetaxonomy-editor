@@ -100,7 +100,8 @@
                 "RequireHttps": true,
                 "RequireHttpsPermanent": true,
                 "SslPort": null
-            }
+            },
+            "TimeZoneId": "Europe/London"
         },
         {
             "name": "themes",
@@ -2534,11 +2535,11 @@
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
                         {
-                            "FieldName": "BooleanField",
-                            "Name": "ContentsPage",
+                            "FieldName": "TextField",
+                            "Name": "BreadcrumbText",
                             "Settings": {
                                 "ContentPartFieldSettings": {
-                                    "DisplayName": "Contents Page",
+                                    "DisplayName": "Breadcrumb Text",
                                     "Position": "0"
                                 }
                             }
