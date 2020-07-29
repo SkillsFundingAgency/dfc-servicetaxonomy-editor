@@ -45,7 +45,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
-        private readonly IMergeNodeCommand _mergeNodeCommand;
+        //todo: tidy this up
+        public IMergeNodeCommand MergeNodeCommand { get; }
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
@@ -65,7 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _graphSyncHelper = graphSyncHelper;
-            _mergeNodeCommand = mergeNodeCommand;
+            MergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
@@ -114,21 +115,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
-            _mergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
-            _mergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
+            MergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
+            MergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
 
             //Add created and modified dates to all content items
             //todo: store as neo's DateTime? especially if api doesn't match the string format
             if (contentItem.CreatedUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("CreatedDate"), contentItem.CreatedUtc.Value);
+                MergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("CreatedDate"), contentItem.CreatedUtc.Value);
 
             if (contentItem.ModifiedUtc.HasValue)
-                _mergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
+                MergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("ModifiedDate"), contentItem.ModifiedUtc.Value);
 
             SetSourceNodeInReplaceRelationshipsCommand(graphReplicaSet, graphSyncPartContent);
 
             _graphMergeContext = new GraphMergeContext(
-                _graphSyncHelper, graphReplicaSet, _mergeNodeCommand, _replaceRelationshipsCommand,
+                _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
             // move into context?
@@ -156,6 +157,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncAllowed;
         }
 
+        //todo: need to split generating commands, and syncing
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
         {
             if (_graphMergeContext == null)
@@ -165,16 +167,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             //todo: bit hacky. best way to do this?
             // work-around new taxonomy terms created with only DisplayText set
-            if (!_mergeNodeCommand.Properties.ContainsKey(_graphSyncHelper.IdPropertyName())
-                && _mergeNodeCommand.Properties.ContainsKey(TitlePartGraphSyncer.NodeTitlePropertyName))
+            if (!MergeNodeCommand.Properties.ContainsKey(_graphSyncHelper.IdPropertyName())
+                && MergeNodeCommand.Properties.ContainsKey(TitlePartGraphSyncer.NodeTitlePropertyName))
             {
-                _mergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
+                MergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
             }
 
-            _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {_mergeNodeCommand}");
+            _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {MergeNodeCommand}");
             await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet);
 
-            return _mergeNodeCommand;
+            return MergeNodeCommand;
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
@@ -194,7 +196,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             List<ICommand> commands = new List<ICommand>();
 
             if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
-                commands.Add(_mergeNodeCommand);
+                commands.Add(MergeNodeCommand);
 
             if (_replaceRelationshipsCommand.Relationships.Any())
                 commands.Add(_replaceRelationshipsCommand);
@@ -204,8 +206,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private void SetSourceNodeInReplaceRelationshipsCommand(IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
         {
-            _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(_mergeNodeCommand.NodeLabels);
-            _replaceRelationshipsCommand.SourceIdPropertyName = _mergeNodeCommand.IdPropertyName;
+            _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(MergeNodeCommand.NodeLabels);
+            _replaceRelationshipsCommand.SourceIdPropertyName = MergeNodeCommand.IdPropertyName;
             _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
                 graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
         }

@@ -7,6 +7,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IMergeGraphSyncer
     {
+        //todo: tidy this up
+        public IMergeNodeCommand MergeNodeCommand { get; }
+
         Task<SyncStatus> SyncToGraphReplicaSetIfAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,

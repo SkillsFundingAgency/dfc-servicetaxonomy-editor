@@ -53,7 +53,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         protected readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
-        private List<CommandRelationship>? _requiredRelationships;
         private List<CommandRelationship>? _removingRelationships;
 
         protected EmbeddedContentItemsGraphSyncer(
@@ -67,13 +66,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
-
-            _requiredRelationships = null;
         }
 
         public virtual async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
         {
-            _requiredRelationships = await GetRequiredRelationships(contentItems, context);
+            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context, false);
 
 #pragma warning disable
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
@@ -107,7 +104,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             _removingRelationships = GetRemovingRelationships(
                 existingRelationshipsForEmbeddableContentTypes,
-                _requiredRelationships,
+                requiredRelationships,
                 context.GraphSyncHelper);
 
             if (!_removingRelationships.Any())    // nothing to do here, not removing any relationships
@@ -126,7 +123,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return true;
         }
 
-        private async Task<List<CommandRelationship>> GetRequiredRelationships(JArray? contentItems, IGraphMergeContext context)
+        //todo: rename
+        private async Task<List<CommandRelationship>> GetRequiredRelationships(
+            JArray? contentItems,
+            IGraphMergeContext context,
+            bool syncEmbeddedContentItems)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -137,12 +138,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                IMergeNodeCommand? containedContentMergeNodeCommand = await mergeGraphSyncer.SyncToGraphReplicaSet();
-                // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
-                if (containedContentMergeNodeCommand == null)
+                SyncStatus syncStatus = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
+                if (syncStatus != SyncStatus.Allowed) //todo: Blocked??
                     continue;
 
+                IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
+
                 containedContentMergeNodeCommand.CheckIsValid();
+
+                if (syncEmbeddedContentItems)
+                    await mergeGraphSyncer.SyncToGraphReplicaSet();
+
+                //todo: need to allow first?
+                // need to get merge node and create relationship commands without syncing
+                // return or get out of mergegraphsyncer??
+                // IMergeNodeCommand? containedContentMergeNodeCommand =
+                //     await mergeGraphSyncer.SyncToGraphReplicaSet();
+                // // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
+                // if (containedContentMergeNodeCommand == null)
+                //     continue;
+                //
+                // containedContentMergeNodeCommand.CheckIsValid();
 
                 var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
@@ -169,7 +185,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
-            context.ReplaceRelationshipsCommand.AddRelationshipsTo(_requiredRelationships);
+            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context, true);
+
+            context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
 
             await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
