@@ -120,13 +120,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return true;
             }
 
+            foreach (var removingRelationship in _removingRelationships)
+            {
+                foreach (object destinationNodeIdPropertyValue in removingRelationship.DestinationNodeIdPropertyValues)
+                {
+                    //todo: what do we need to match on? just id? relationship type? dest node labels? all three?
+                    //todo: where, first??
+                    //todo: helper to get id (without hardcoding)
+                    //use destinationNodeIdPropertyValue on removingRelationship -> should be ok if we're matching type
+                    var existingForRemoving = existing.OutgoingRelationships
+                        .Where(er =>
+                            er.outgoingRelationship.DestinationNode.Properties["uri"] ==
+                            destinationNodeIdPropertyValue);
+
+                    var itemsReferencingEmbeddedItems = existingForRemoving
+                        .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
+                        .Select(ir =>
+                            (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
+                                title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
+
+                    if (itemsReferencingEmbeddedItems.Any())
+                        return false;
+                }
+            }
+
             //todo: get incoming against removing
 
-            var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
-                .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
-                .Select(ir =>
-                    (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
-                        title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
+            // var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
+            //     .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
+            //     .Select(ir =>
+            //         (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
+            //             title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
 
             //todo: needs to union itemsreferencing with removing relationships
 
