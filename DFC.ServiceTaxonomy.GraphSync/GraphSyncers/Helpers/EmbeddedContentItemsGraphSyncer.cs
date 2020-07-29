@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _requiredRelationships = null;
         }
 
-        public async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        public virtual async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
         {
             _requiredRelationships = await GetRequiredRelationships(contentItems, context);
 

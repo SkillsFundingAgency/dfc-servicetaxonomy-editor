@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Flows.Models;
 
@@ -17,6 +18,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             : base(contentDefinitionManager, serviceProvider)
         {
         }
+        // nothing should be creating incoming relationships to embedded bag items, so we shortcut the check
+        // if we do start adding incoming relationships, we should let the base class do its stuff
+        public override Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context) => Task.FromResult(true);
 
         protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
         {

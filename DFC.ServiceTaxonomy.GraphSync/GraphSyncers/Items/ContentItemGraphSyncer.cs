@@ -19,8 +19,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         private readonly ILogger<ContentItemGraphSyncer> _logger;
         public int Priority => int.MinValue;
 
-        public bool CanSync(ContentItem contentItem) => true;
-
         public ContentItemGraphSyncer(
             ICustomContentDefintionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
@@ -29,6 +27,43 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             _contentDefinitionManager = contentDefinitionManager;
             _partSyncers = partSyncers;
             _logger = logger;
+        }
+
+        public bool CanSync(ContentItem contentItem) => true;
+
+        public async Task<bool> AllowSync(IGraphMergeItemSyncContext context)
+        {
+            bool syncAllowed = true;
+
+            //todo: common code, use callback
+            foreach (var partSync in _partSyncers)
+            {
+                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
+                // (other non-named parts have the part name in both)
+
+                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
+                var contentTypePartDefinitions =
+                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
+
+                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
+                {
+                    context.ContentTypePartDefinition = contentTypePartDefinition;
+
+                    string namedPartName = contentTypePartDefinition.Name;
+
+                    JObject? partContent = context.ContentItem.Content[namedPartName];
+                    if (partContent == null)
+                        continue; //todo: throw??
+
+                    if (!await partSync.AllowSync(partContent, context))
+                    {
+                        syncAllowed = false;
+                        //todo: collate all reasons can't sync and return
+                    }
+                }
+            }
+
+            return syncAllowed;
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)

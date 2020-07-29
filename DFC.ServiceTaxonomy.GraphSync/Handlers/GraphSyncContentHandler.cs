@@ -149,6 +149,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
+            //todo: use MergeGraphSyncer syncifallowed?
+
             SyncStatus? syncStatus = await AllowSyncToGraphReplicaSet(mergeGraphSyncer, replicaSetName, contentItem, contentManager);
 
             switch (syncStatus)

@@ -108,7 +108,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _logger.LogInformation($"Not syncing {contentItem.ContentType}:{contentItem.ContentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
                 return SyncStatus.NotRequired;
             }
-
+//todo: change log message - add log to actual sync
             _logger.LogDebug($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId}");
 
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
@@ -134,7 +134,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // move into context?
             _contentItem = contentItem;
 
-            return SyncStatus.Allowed;
+            return await SyncAllowed(contentItem)
+                ? SyncStatus.Allowed
+                : SyncStatus.Blocked;
+        }
+
+        private async Task<bool> SyncAllowed(ContentItem contentItem)
+        {
+            bool syncAllowed = true;
+
+            foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
+            {
+                //todo: allow syncers to chain or not?
+                if (itemSyncer.CanSync(contentItem) && !await itemSyncer.AllowSync(_graphMergeContext!))
+                {
+                    syncAllowed = false;
+                    //todo: collate all reasons can't sync and return
+                }
+            }
+
+            return syncAllowed;
         }
 
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()

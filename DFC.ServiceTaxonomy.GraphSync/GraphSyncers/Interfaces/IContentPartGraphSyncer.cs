@@ -8,14 +8,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         string PartName {get;}
 
-        //todo: return userdata or add through context? think can be stored in the part syncer itself
-//        Task<(bool AllowSync, object? UserData)> AllowSync(JArray? contentItems, IGraphMergeContext context)
-        Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context) => Task.FromResult(true);
-
         bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
         {
             return contentPartDefinition.Name == PartName;
         }
+
+        //todo: return userdata or add through context? think can be stored in the part syncer itself
+//        Task<(bool AllowSync, object? UserData)> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        Task<bool> AllowSync(JObject content, IGraphMergeContext context) => Task.FromResult(true);
 
         //todo: have new interface for IContainedContentPartGraphSyncer : IContentPartGraphSyncer?????
         Task AddSyncComponents(JObject content, IGraphMergeContext context);
