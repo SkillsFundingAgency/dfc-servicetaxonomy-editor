@@ -17,6 +17,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 .ConfigureLogging(logging => logging.ClearProviders())
                 .ConfigureWebHostDefaults(webBuilder => webBuilder
                         .UseNLogWeb()
+                        .ConfigureKestrel(options => options.AddServerHeader = false)
                         //todo: remove theme's we don't need
                         // .UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey,
                         //"TheComingSoonTheme;TheBlogTheme;TheTheme")
