@@ -53,6 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         protected readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
+        private List<CommandRelationship>? _requiredRelationships;
 
         protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
@@ -65,14 +66,48 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)))
                 .ToDictionary(x => x.Name);
+
+            _requiredRelationships = null;
         }
 
-        public Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        public async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
         {
-            return Task.FromResult(true);
+            _requiredRelationships = await GetRequiredRelationships(contentItems, context);
+
+#pragma warning disable
+            INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
+                    new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
+                        context.ReplaceRelationshipsCommand.SourceNodeLabels,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
+                .FirstOrDefault();
+
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            // existing filtered by the allowable content types
+            //todo: we should check for the relationship type also
+            existing = new NodeAndOutRelationshipsAndTheirInRelationships(
+                existing.SourceNode,
+                existing.OutgoingRelationships
+                    .Where(or =>
+                        embeddableContentTypes.Contains(
+                            context.GraphSyncHelper.GetContentTypeFromNodeLabels(
+                                or.outgoingRelationship.DestinationNode.Labels))));
+
+            //todo: only need to get items referencing to delete embedded items
+
+            var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
+                .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
+                .Select(ir =>
+                    (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
+                        title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
+
+            //todo: needs to union itemsreferencing with removing relationships
+
+            return true;
         }
 
-        public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
+        private async Task<List<CommandRelationship>> GetRequiredRelationships(JArray? contentItems, IGraphMergeContext context)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -110,42 +145,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     Enumerable.Repeat(containedContentMergeNodeCommand.Properties[containedContentMergeNodeCommand.IdPropertyName!], 1)));
             }
 
-            context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
+            return requiredRelationships;
+        }
 
-            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, requiredRelationships);
+        public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
+        {
+            context.ReplaceRelationshipsCommand.AddRelationshipsTo(_requiredRelationships);
+
+            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context, _requiredRelationships);
         }
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(
             IGraphMergeContext context,
             IEnumerable<CommandRelationship> requiredRelationships)
         {
-            #pragma warning disable
-            INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
-                    new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
-                        context.ReplaceRelationshipsCommand.SourceNodeLabels,
-                        context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
-                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
-                .FirstOrDefault();
-
-            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
-
-            // existing filtered by the allowable content types
-            //todo: we should check for the relationship type also
-            existing = new NodeAndOutRelationshipsAndTheirInRelationships(
-                existing.SourceNode,
-                existing.OutgoingRelationships
-                    .Where(or =>
-                        embeddableContentTypes.Contains(
-                            context.GraphSyncHelper.GetContentTypeFromNodeLabels(
-                                or.outgoingRelationship.DestinationNode.Labels))));
-
-            var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
-                .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
-                .Select(ir =>
-                    (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
-                        title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
-
-            //todo: needs to union itemsreferencing with removing relationships
             // if (itemsReferencingEmbeddedItems.Any())
             // {
             //     //todo: put contenttype/display name in message somewhere
@@ -172,7 +185,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             //todo: filter by embedded first, then convert to command? (more efficient)
             IEnumerable<CommandRelationship> existingRelationships = existingGraphSync.ToCommandRelationships(context.GraphSyncHelper);
 
-//            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
             var existingRelationshipsForEmbeddableContentTypes = existingRelationships
                 .Where(r => embeddableContentTypes.Contains(
