@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -14,6 +15,27 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+    public enum SyncStatus
+    {
+        /// <summary>
+        /// Syncing is not required, because either the ContentItem doesn't have a GraphSyncPart,
+        /// or syncing has been temporarily disabled for the content item.
+        /// </summary>
+        NotRequired,
+        /// <summary>
+        /// All components have given the go ahead.
+        /// </summary>
+        Allowed,
+        /// <summary>
+        /// A component has blocked the sync.
+        /// As neo4j doesn't support 2 phase commit, or write transactions across graphs (even in fabric),
+        /// we allow components to block a sync before we attempt to sync.
+        /// This allows us to keep OC's db, and the published and preview graphs consistent
+        /// (even though there is a small window to break this).
+        /// </summary>
+        Blocked
+    }
+
     //todo: have to refactor sync. currently with bags, a single sync will occur in multiple transactions
     // so if a validation fails for example, the graph will be left in an incomplete synced state
     // need to gather up all commands, then execute them in a single transaction
@@ -28,6 +50,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<MergeGraphSyncer> _logger;
+
+        private GraphMergeContext? _graphMergeContext;
+        private ContentItem? _contentItem;
 
         public MergeGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
@@ -45,9 +70,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
             _logger = logger;
+
+            _graphMergeContext = null;
         }
 
-        public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet(
+        public async Task<SyncStatus> AllowSync(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
@@ -59,13 +86,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: text -> id?
             //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
-                return null;
+                return SyncStatus.NotRequired;
 
             string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
             if (disableSyncContentItemVersionId != null)
             {
                 _logger.LogInformation($"Not syncing {contentItem.ContentType}:{contentItem.ContentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
-                return null;
+                return SyncStatus.NotRequired;
             }
 
             _logger.LogDebug($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId}");
@@ -86,7 +113,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             SetSourceNodeInReplaceRelationshipsCommand(graphReplicaSet, graphSyncPartContent);
 
-            await AddContentPartSyncComponents(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
+            _graphMergeContext = new GraphMergeContext(
+                _graphSyncHelper, graphReplicaSet, _mergeNodeCommand, _replaceRelationshipsCommand,
+                contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
+
+            // move into context?
+            _contentItem = contentItem;
+
+            return SyncStatus.Allowed;
+        }
+
+        public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
+        {
+            if (_graphMergeContext == null)
+                throw new GraphSyncException($"You must call {nameof(AllowSync)} before calling {nameof(SyncToGraphReplicaSet)}");
+
+            await AddContentPartSyncComponents(_contentItem!);
 
             //todo: bit hacky. best way to do this?
             // work-around new taxonomy terms created with only DisplayText set
@@ -96,34 +138,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _mergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
             }
 
-            _logger.LogInformation($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId} to {_mergeNodeCommand}");
-            await SyncComponentsToGraphReplicaSet(graphReplicaSet);
+            _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {_mergeNodeCommand}");
+            await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet);
 
             return _mergeNodeCommand;
         }
 
-        private async Task AddContentPartSyncComponents(
-            IGraphReplicaSet graphReplicaSet,
-            ContentItem contentItem,
-            IContentManager contentManager,
-            IGraphMergeContext? parentGraphMergeContext)
+        private async Task AddContentPartSyncComponents(ContentItem contentItem)
         {
-            GraphMergeContext graphMergeContext = new GraphMergeContext(
-                _graphSyncHelper,
-                graphReplicaSet,
-                _mergeNodeCommand,
-                _replaceRelationshipsCommand,
-                contentItem,
-                contentManager,
-                _contentItemVersionFactory,
-                parentGraphMergeContext);
-
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
                 //todo: allow syncers to chain or not?
                 if (itemSyncer.CanSync(contentItem))
                 {
-                    await itemSyncer.AddSyncComponents(graphMergeContext);
+                    await itemSyncer.AddSyncComponents(_graphMergeContext!);
                 }
             }
         }

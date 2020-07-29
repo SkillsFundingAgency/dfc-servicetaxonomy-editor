@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -73,10 +72,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
                 contentType = contentItem.ContentType;
 #pragma warning restore S1854
 
-                await _mergeGraphSyncer.SyncToGraphReplicaSet(
-                    _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Published),
-                    contentItem,
-                    _contentManager);
+                await _mergeGraphSyncer.SyncToGraphReplicaSet();
 
                 return Outcomes("Done");
             }

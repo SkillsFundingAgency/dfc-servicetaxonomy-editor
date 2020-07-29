@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                await mergeGraphSyncer.SyncToGraphReplicaSet(_graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Preview), contentItem, contentManager);
+                await mergeGraphSyncer.SyncToGraphReplicaSet();
             }
             catch (Exception exception)
             {
