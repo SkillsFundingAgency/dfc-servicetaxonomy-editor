@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                                 $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
 
                             destNodeOutgoingRelationshipsBuilder.Append(
-                                $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable}: {{twoWay: TRUE}}]-()");
+                                $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable} {{twoWay: TRUE}}]-()");
                         }
                     }
                 }
