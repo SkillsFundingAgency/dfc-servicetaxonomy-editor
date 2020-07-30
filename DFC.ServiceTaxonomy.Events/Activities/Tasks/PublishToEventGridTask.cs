@@ -199,12 +199,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 //todo: modified time as event time is probably wrong. either pick correct time, or just set to now
                 if (eventType != null)
                 {
-                    await PublishContentEvents(workflowContext, eventContentItem, eventType.Value);
+                    await PublishContentEvents(eventContentItem, eventType.Value);
                 }
 
                 if (eventType2 != null)
                 {
-                    await PublishContentEvents(workflowContext, eventContentItem, eventType2.Value);
+                    await PublishContentEvents(eventContentItem, eventType2.Value);
                 }
             }
             catch (Exception e)
@@ -215,7 +215,6 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         }
 
         private async Task PublishContentEvents(
-            WorkflowExecutionContext workflowContext,
             ContentItem contentItem,
             ContentEventType eventType)
         {
@@ -223,23 +222,22 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             {
                 case ContentEventType.Published:
                 case ContentEventType.Unpublished:
-                    await PublishContentEvent(workflowContext, contentItem, _publishedContentItemVersion, eventType);
+                    await PublishContentEvent(contentItem, _publishedContentItemVersion, eventType);
                     //todo: if there wasn't a draft version, would have to publish unpublished with pewview graph too
                     break;
                 case ContentEventType.Draft:
                 case ContentEventType.DraftDiscarded:
-                    await PublishContentEvent(workflowContext, contentItem, _previewContentItemVersion, eventType);
+                    await PublishContentEvent(contentItem, _previewContentItemVersion, eventType);
                     break;
                 case ContentEventType.Deleted:
                     //todo: should only publish events if there was a published/preview version
-                    await PublishContentEvent(workflowContext, contentItem, _publishedContentItemVersion, eventType);
-                    await PublishContentEvent(workflowContext, contentItem, _previewContentItemVersion, eventType);
+                    await PublishContentEvent(contentItem, _publishedContentItemVersion, eventType);
+                    await PublishContentEvent(contentItem, _previewContentItemVersion, eventType);
                     break;
             }
         }
 
         private async Task PublishContentEvent(
-            WorkflowExecutionContext workflowContext,
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             ContentEventType eventType)
@@ -247,7 +245,7 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             // would it be better to use the workflowid as the correlation id instead?
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
-            ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, userId, eventType);
+            ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
             await _eventGridContentClient.Publish(contentEvent);
         }
     }
