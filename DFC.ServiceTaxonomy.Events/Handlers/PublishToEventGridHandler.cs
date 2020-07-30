@@ -31,11 +31,13 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
 
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
+            _logger.LogInformation("PublishToEventGridHandler::Inside DraftSavedAsync");
             await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.Draft);
         }
 
         public override async Task PublishedAsync(PublishContentContext context)
         {
+            _logger.LogInformation("PublishToEventGridHandler::Inside PublishedAsync");
             await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Published);
 
             if (context.ContentItem.CreatedUtc != context.ContentItem.ModifiedUtc)
@@ -46,12 +48,14 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
 
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
+            _logger.LogInformation("PublishToEventGridHandler::Inside UnpublishedAsync");
             await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Unpublished);
             await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.Draft);
         }
 
         public override async Task RemovedAsync(RemoveContentContext context)
         {
+            _logger.LogInformation("PublishToEventGridHandler::Inside RemovedAsync");
             if (context.ContentItem.Published)
             {
                 // discard draft
@@ -69,11 +73,15 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
             IContentItemVersion contentItemVersion,
             ContentEventType eventType)
         {
+            _logger.LogInformation("PublishToEventGridHandler::Inside PublishContentEvent");
+
             if (!_eventGridConfiguration.CurrentValue.PublishEvents)
             {
                 _logger.LogInformation("Event grid publishing is disabled. No events will be published.");
                 return;
             }
+
+            _logger.LogInformation($"PublishToEventGridHandler::Publishing event: {eventType}");
 
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
