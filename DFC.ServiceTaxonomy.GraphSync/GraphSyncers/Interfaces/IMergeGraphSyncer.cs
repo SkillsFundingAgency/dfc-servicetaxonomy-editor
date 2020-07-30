@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using OrchardCore.ContentManagement;
@@ -11,13 +12,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         public IMergeNodeCommand MergeNodeCommand { get; }
         IGraphMergeContext? GraphMergeContext { get; }
 
-        Task<SyncStatus> SyncToGraphReplicaSetIfAllowed(
+        Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
             IGraphMergeContext? parentGraphMergeContext = null);
 
-        Task<SyncStatus> SyncAllowed(
+        Task<IAllowSyncResult> SyncAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,

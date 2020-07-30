@@ -30,7 +30,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
         // nothing should be creating incoming relationships to embedded widgets, so we shortcut the check
         // if we do start adding incoming relationships, we should let the base class do its stuff
-        public override Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context) => Task.FromResult(true);
+        public override Task AllowSync(JArray? contentItems, IGraphMergeContext context,
+            IAllowSyncResult allowSyncResult) => Task.FromResult(true);
 
         protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
         {

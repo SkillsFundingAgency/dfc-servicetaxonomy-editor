@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -26,9 +27,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                    && contentItem.ContentType != Terms;
         }
 
-        public async Task<bool> AllowSync(IGraphMergeItemSyncContext context)
+        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
-            return await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context);
+            await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context, allowSyncResult);
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)

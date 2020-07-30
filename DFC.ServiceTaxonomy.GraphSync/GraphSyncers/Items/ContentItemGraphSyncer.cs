@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -31,10 +32,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public bool CanSync(ContentItem contentItem) => true;
 
-        public async Task<bool> AllowSync(IGraphMergeItemSyncContext context)
+        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
-            bool syncAllowed = true;
-
             //todo: common code, use callback
             foreach (var partSync in _partSyncers)
             {
@@ -55,15 +54,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    if (!await partSync.AllowSync(partContent, context))
-                    {
-                        syncAllowed = false;
-                        //todo: collate all reasons can't sync and return
-                    }
+                    await partSync.AllowSync(partContent, context, allowSyncResult);
                 }
             }
-
-            return syncAllowed;
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)

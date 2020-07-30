@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,6 +49,85 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
     //todo: also cancel the publish/save in the content handler if it does fail
 
+    public interface ISyncBlocker
+    {
+    }
+
+    public class SyncBlocker : ISyncBlocker
+    {
+
+    }
+
+    public enum SyncStatus
+    {
+        /// <summary>
+        /// Sync status hasn't been checked
+        /// </summary>
+        NotChecked,
+        /// <summary>
+        /// Syncing is not required, because either the ContentItem doesn't have a GraphSyncPart,
+        /// or syncing has been temporarily disabled for the content item.
+        /// </summary>
+        NotRequired,
+        /// <summary>
+        /// All components have given the go ahead.
+        /// </summary>
+        Allowed,
+        /// <summary>
+        /// A component has blocked the sync.
+        /// As neo4j doesn't support 2 phase commit, or write transactions across graphs (even in fabric),
+        /// we allow components to block a sync before we attempt to sync.
+        /// This allows us to keep OC's db, and the published and preview graphs consistent
+        /// (even though there is a small window to break this).
+        /// </summary>
+        Blocked
+    }
+
+    public interface IAllowSyncResult
+    {
+        SyncStatus AllowSync { get; }
+
+        //ConcurrentDictionary<ISyncBlocker> SyncBlockers { get; set; }
+        ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; }
+
+        // void BlockSync();
+        void AddSyncBlocker(ISyncBlocker syncBlocker);
+        // better name?
+        void AddRelated(IAllowSyncResult allowSyncResult);
+    }
+
+    // we could have this as part of the context
+    // if we did, we'd get the embedded hierarchy for free, with the results in the chained contexts
+    public class AllowSyncResult : IAllowSyncResult
+    {
+        public static IAllowSyncResult NotChecked => new AllowSyncResult {AllowSync = SyncStatus.NotChecked};
+        public static IAllowSyncResult NotRequired => new AllowSyncResult {AllowSync = SyncStatus.NotRequired};
+
+        public SyncStatus AllowSync { get; private set; } = SyncStatus.Allowed;
+
+        //public ConcurrentDictionary<ISyncBlocker> SyncBlockers { get; set; } = new ConcurrentDictionary<ISyncBlocker>();
+        public ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; } = new ConcurrentBag<ISyncBlocker>();
+
+        // public void BlockSync()
+        // {
+        //     AllowSync = false;
+        // }
+
+        public void AddSyncBlocker(ISyncBlocker syncBlocker)
+        {
+            AllowSync = SyncStatus.Blocked;
+        }
+
+        public void AddRelated(IAllowSyncResult allowSyncResult)
+        {
+            if (allowSyncResult.AllowSync != SyncStatus.Blocked)
+                return;
+
+            AllowSync = SyncStatus.Blocked;
+            SyncBlockers = new ConcurrentBag<ISyncBlocker>(SyncBlockers.Union(allowSyncResult.SyncBlockers));
+        }
+    }
+
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
@@ -68,7 +148,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 .ToDictionary(x => x.Name);
         }
 
-        public virtual async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        public virtual async Task AllowSync(
+            JArray? contentItems,
+            IGraphMergeContext context,
+            IAllowSyncResult allowSyncResult)
         {
             List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context, false);
 
@@ -83,7 +166,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (existing?.OutgoingRelationships.Any() != true)
             {
                 // nothing to do here, node is being newly created or existing node has no relationships
-                return true;
+                return;
             }
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
@@ -117,7 +200,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (!_removingRelationships.Any())
             {
                 // nothing to do here, not removing any relationships
-                return true;
+                return;
             }
 
             foreach (var removingRelationship in _removingRelationships)
@@ -140,7 +223,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                                 title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
 
                     if (itemsReferencingEmbeddedItems.Any())
-                        return false;
+                    {
+                        allowSyncResult.AddSyncBlocker(new SyncBlocker());
+                        return;
+                    }
                 }
             }
 
@@ -154,14 +240,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             //todo: needs to union itemsreferencing with removing relationships
 
-            return true;
+            return;
         }
 
         //todo: rename
         private async Task<List<CommandRelationship>> GetRequiredRelationships(
             JArray? contentItems,
             IGraphMergeContext context,
-            bool syncEmbeddedContentItems)
+            bool syncEmbeddedContentItems,
+            IAllowSyncResult? allowSyncResult = null)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -172,16 +259,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                SyncStatus syncStatus = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
-                if (syncStatus != SyncStatus.Allowed) //todo: Blocked??
+                IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
+                allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
                     continue;
 
                 IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
 
                 containedContentMergeNodeCommand.CheckIsValid();
 
-                if (syncEmbeddedContentItems)
+                if (allowSyncResult == null)
+                {
+                    // we're actually syncing, not checking if it's allowed
                     await mergeGraphSyncer.SyncToGraphReplicaSet();
+                }
                 else
                 {
                     // we need to get the id

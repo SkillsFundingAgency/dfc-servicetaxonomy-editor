@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CustomFields.Fields;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -31,9 +32,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
         }
 
-        public async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        public async Task AllowSync(JArray? contentItems, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
         {
-            return await _contentFieldsGraphSyncer.AllowSync(contentItems, context);
+            await _contentFieldsGraphSyncer.AllowSync(contentItems, context, allowSyncResult);
         }
 
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
@@ -85,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 AllowSyncToGraphReplicaSet(publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
 
             // sad paths have already been notified to the user and logged
-            if (syncAllowed[0] == SyncStatus.Allowed && syncAllowed[1] == SyncStatus.Allowed)
+            if (syncAllowed[0].AllowSync == SyncStatus.Allowed && syncAllowed[1].AllowSync == SyncStatus.Allowed)
             {
                 await Task.WhenAll(
                     SyncToGraphReplicaSet(previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem),
@@ -175,29 +174,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             //todo: use MergeGraphSyncer syncifallowed?
 
-            SyncStatus? syncStatus = await AllowSyncToGraphReplicaSet(mergeGraphSyncer, replicaSetName, contentItem, contentManager);
+            IAllowSyncResult allowSyncResult = await AllowSyncToGraphReplicaSet(mergeGraphSyncer, replicaSetName, contentItem, contentManager);
 
-            switch (syncStatus)
+            switch (allowSyncResult.AllowSync)
             {
                 case SyncStatus.Allowed:
                     await SyncToGraphReplicaSet(mergeGraphSyncer, replicaSetName, contentItem);
                     break;
                 case SyncStatus.Blocked:
-                    //todo: need to get reason out of AllowSyncToGraphReplicaSet
                     string contentType = GetContentTypeDisplayName(contentItem);
 
+                    //todo:
                     string message = $"Syncing {contentItem.DisplayText} {contentType} to the {replicaSetName} graph has been blocked: todo reason";
                     _logger.LogInformation(message);
                     _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
                     break;
-                // case null:                        // exception already caught and dealt with
-                //     return;
-                // case SyncStatus.NotRequired:
-                //     return;
             }
         }
 
-        private async Task<SyncStatus?> AllowSyncToGraphReplicaSet(
+        private async Task<IAllowSyncResult> AllowSyncToGraphReplicaSet(
             IMergeGraphSyncer mergeGraphSyncer,
             string replicaSetName,
             ContentItem contentItem,
@@ -219,7 +214,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
             }
 
-            return null;
+            return AllowSyncResult.NotChecked;
         }
 
         private async Task SyncToGraphReplicaSet(

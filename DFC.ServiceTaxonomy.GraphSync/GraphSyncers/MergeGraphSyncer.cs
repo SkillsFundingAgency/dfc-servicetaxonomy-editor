@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -15,27 +16,6 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
-    public enum SyncStatus
-    {
-        /// <summary>
-        /// Syncing is not required, because either the ContentItem doesn't have a GraphSyncPart,
-        /// or syncing has been temporarily disabled for the content item.
-        /// </summary>
-        NotRequired,
-        /// <summary>
-        /// All components have given the go ahead.
-        /// </summary>
-        Allowed,
-        /// <summary>
-        /// A component has blocked the sync.
-        /// As neo4j doesn't support 2 phase commit, or write transactions across graphs (even in fabric),
-        /// we allow components to block a sync before we attempt to sync.
-        /// This allows us to keep OC's db, and the published and preview graphs consistent
-        /// (even though there is a small window to break this).
-        /// </summary>
-        Blocked
-    }
-
     //todo: have to refactor sync. currently with bags, a single sync will occur in multiple transactions
     // so if a validation fails for example, the graph will be left in an incomplete synced state
     // need to gather up all commands, then execute them in a single transaction
@@ -77,21 +57,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphMergeContext = null;
         }
 
-        public async Task<SyncStatus> SyncToGraphReplicaSetIfAllowed(
+        public async Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
             IGraphMergeContext? parentGraphMergeContext = null)
         {
-            SyncStatus syncStatus = await SyncAllowed(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
+            IAllowSyncResult allowSyncResult = await SyncAllowed(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
 
-            if (syncStatus == SyncStatus.Allowed)
+            if (allowSyncResult.AllowSync == SyncStatus.Allowed)
                 await SyncToGraphReplicaSet();
 
-            return syncStatus;
+            return allowSyncResult;
         }
 
-        public async Task<SyncStatus> SyncAllowed(
+        public async Task<IAllowSyncResult> SyncAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
@@ -103,16 +83,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: text -> id?
             //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
-                return SyncStatus.NotRequired;
+                return AllowSyncResult.NotRequired;
 
             string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
             if (disableSyncContentItemVersionId != null)
             {
                 _logger.LogInformation($"Not syncing {contentItem.ContentType}:{contentItem.ContentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
-                return SyncStatus.NotRequired;
+                return AllowSyncResult.NotRequired;
             }
 //todo: change log message - add log to actual sync
-            _logger.LogDebug($"Syncing {contentItem.ContentType} : {contentItem.ContentItemId}");
+            _logger.LogDebug($"Checking if sync allowed for {contentItem.ContentType} : {contentItem.ContentItemId}");
 
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _graphSyncHelper.ContentType = contentItem.ContentType;
@@ -137,26 +117,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // move into context?
             _contentItem = contentItem;
 
-            return await SyncAllowed(contentItem)
-                ? SyncStatus.Allowed
-                : SyncStatus.Blocked;
+            return await SyncAllowed(contentItem);
         }
 
-        private async Task<bool> SyncAllowed(ContentItem contentItem)
+        private async Task<IAllowSyncResult> SyncAllowed(ContentItem contentItem)
         {
-            bool syncAllowed = true;
+            IAllowSyncResult syncAllowedResult = new AllowSyncResult();
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
                 //todo: allow syncers to chain or not?
-                if (itemSyncer.CanSync(contentItem) && !await itemSyncer.AllowSync(_graphMergeContext!))
+                if (itemSyncer.CanSync(contentItem))
                 {
-                    syncAllowed = false;
-                    //todo: collate all reasons can't sync and return
+                    await itemSyncer.AllowSync(_graphMergeContext!, syncAllowedResult);
                 }
             }
 
-            return syncAllowed;
+            return syncAllowedResult;
         }
 
         //todo: need to split generating commands, and syncing

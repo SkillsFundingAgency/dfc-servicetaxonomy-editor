@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using Newtonsoft.Json.Linq;
@@ -13,9 +14,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
 
         private const string ContainerName = "ContentItems";
 
-        public async Task<bool> AllowSync(JArray? contentItems, IGraphMergeContext context)
+        public async Task AllowSync(JArray? contentItems, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
         {
-            return await _bagPartEmbeddedContentItemsGraphSyncer.AllowSync(contentItems, context);
+            await _bagPartEmbeddedContentItemsGraphSyncer.AllowSync(contentItems, context, allowSyncResult);
         }
 
         public BagPartGraphSyncer(IBagPartEmbeddedContentItemsGraphSyncer bagPartEmbeddedContentItemsGraphSyncer)
