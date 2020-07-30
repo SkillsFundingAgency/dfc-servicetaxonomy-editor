@@ -29,9 +29,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            // useful if there are no terms yet?
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
 
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = true;
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+        }
+
+        public async Task AddSyncComponentsForNonRoot(JObject content, IGraphMergeContext context)
+        {
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = false;
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 

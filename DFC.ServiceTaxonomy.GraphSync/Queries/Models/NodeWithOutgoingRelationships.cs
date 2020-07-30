@@ -27,6 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models
             var commandRelationshipGroups = OutgoingRelationships.GroupBy(
                 or => new CommandRelationship(
                     or.Relationship.Type,
+                    null,
                     or.Relationship.Properties,
                     or.DestinationNode.Labels,
                     graphSyncHelper.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels),

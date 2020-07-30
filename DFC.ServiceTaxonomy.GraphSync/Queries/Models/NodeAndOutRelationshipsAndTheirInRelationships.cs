@@ -44,6 +44,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models
             var commandRelationshipGroups = OutgoingRelationships.GroupBy(
                 or => new CommandRelationship(
                     or.outgoingRelationship.Relationship.Type,
+                    null,
                     or.outgoingRelationship.Relationship.Properties,
                     or.outgoingRelationship.DestinationNode.Labels,
                     graphSyncHelper.IdPropertyNameFromNodeLabels(or.outgoingRelationship.DestinationNode.Labels),

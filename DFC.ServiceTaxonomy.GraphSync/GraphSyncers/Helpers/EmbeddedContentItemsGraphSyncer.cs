@@ -308,6 +308,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 requiredRelationships.Add(new CommandRelationship(
                     relationshipType,
+                    await TwoWayIncomingRelationshipType(embeddedContentItemGraphSyncHelper),
                     properties,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
@@ -420,6 +421,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 removingRelationships.Add(new CommandRelationship(
                     //firstExistingRelationshipsOfType.RelationshipType,
                     distinctExistingRelationshipsType.RelationshipType,
+                    null,
                     null,    // don't need properties for delete (plus they'd be different)
                     firstExistingRelationshipsOfType.DestinationNodeLabels,
                     firstExistingRelationshipsOfType.DestinationNodeIdPropertyName,
@@ -507,6 +509,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
             return await embeddedContentGraphSyncHelper.RelationshipTypeDefault(embeddedContentGraphSyncHelper.ContentType!);
+        }
+
+        protected virtual Task<string?> TwoWayIncomingRelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
+        {
+            return Task.FromResult(default(string));
         }
 
         protected virtual Task<Dictionary<string, object>?> GetRelationshipProperties(

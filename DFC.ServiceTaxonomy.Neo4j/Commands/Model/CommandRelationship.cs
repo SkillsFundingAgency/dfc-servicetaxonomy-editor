@@ -10,19 +10,22 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
     public sealed class CommandRelationship : ICommandRelationship
     {
         public string RelationshipType { get; } // RelationshipType, not type to differentiate from System.Type
+        public string? IncomingRelationshipType { get; }
         public IDictionary<string, object>? Properties { get; }
         public IEnumerable<string> DestinationNodeLabels { get; }
         public string DestinationNodeIdPropertyName { get; }
         public IList<object> DestinationNodeIdPropertyValues { get; }
 
         public CommandRelationship(
-            string relationshipType,
+            string outgoingRelationshipType,
+            string? incomingRelationshipType,
             IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destinationNodeLabels,
             string destinationNodeIdPropertyName,
             IEnumerable<object>? destinationNodeIdPropertyValues)
         {
-            RelationshipType = relationshipType;
+            RelationshipType = outgoingRelationshipType;
+            IncomingRelationshipType = incomingRelationshipType;
             Properties = properties?.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
             DestinationNodeLabels = destinationNodeLabels;
             DestinationNodeIdPropertyName = destinationNodeIdPropertyName;
@@ -77,6 +80,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
 
         public override string ToString()
         {
+            //todo: incoming relationship
             return $@"[:{RelationshipType}]->(:{string.Join(":", DestinationNodeLabels)} {string.Join(",", Properties.ToCypherPropertiesString())})
 {DestinationNodeIdPropertyName}:
 {string.Join(Environment.NewLine, DestinationNodeIdPropertyValues)}";

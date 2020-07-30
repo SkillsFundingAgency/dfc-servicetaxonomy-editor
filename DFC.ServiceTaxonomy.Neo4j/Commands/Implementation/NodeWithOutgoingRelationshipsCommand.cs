@@ -29,13 +29,39 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
             string destIdPropertyName,
             params object[] destIdPropertyValues)
         {
-            RelationshipsList.Add(new CommandRelationship(relationshipType, properties, destNodeLabels, destIdPropertyName,
+            RelationshipsList.Add(new CommandRelationship(
+                relationshipType,
+                null,
+                properties,
+                destNodeLabels,
+                destIdPropertyName,
                 destIdPropertyValues));
         }
 
         public void AddRelationshipsTo(IEnumerable<CommandRelationship> commandRelationship)
         {
             RelationshipsList.AddRange(commandRelationship);
+        }
+
+        // public void AddIncomingRelationshipsFrom()
+        // {
+        // }
+
+        public void AddTwoWayRelationships(
+            string outgoingRelationshipType,
+            string? incomingRelationshipType,
+            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<string> destNodeLabels,
+            string destIdPropertyName,
+            params object[] destIdPropertyValues)
+        {
+            RelationshipsList.Add(new CommandRelationship(
+                outgoingRelationshipType,
+                incomingRelationshipType,
+                properties,
+                destNodeLabels,
+                destIdPropertyName,
+                destIdPropertyValues));
         }
 
         public virtual List<string> ValidationErrors()
