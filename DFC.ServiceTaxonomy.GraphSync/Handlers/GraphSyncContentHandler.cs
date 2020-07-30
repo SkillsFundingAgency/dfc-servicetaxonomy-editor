@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -95,7 +96,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             //todo: cancel oc db creation if not allowed (allow if sync fails)
             //todo: move allowsync into publishingasync
             _session.Cancel();
-            _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), "publish/save draft has been cancelled because: repeat> the published/preview graph has a contenttype called displayname that is using displayname of whats being deleted"));
+
+            AddBlockedNotifier(GraphReplicaSetNames.Preview, syncAllowed[0], context.ContentItem);
+            AddBlockedNotifier(GraphReplicaSetNames.Published, syncAllowed[1], context.ContentItem);
+        }
+
+        private void AddBlockedNotifier(string graphReplicaSetName, IAllowSyncResult allowSyncResult, ContentItem contentItem)
+        {
+            if (allowSyncResult.AllowSync != SyncStatus.Blocked)
+                return;
+
+            var messageBuilder = new StringBuilder($"Publishing has been cancelled because the {graphReplicaSetName} {contentItem.DisplayText} {contentItem.ContentType} has <todo items being blocked>:{Environment.NewLine}");
+
+            //todo: delegate string creation?
+            foreach (var syncBlocker in allowSyncResult.SyncBlockers)
+            {
+                messageBuilder.AppendLine($"{syncBlocker.Title} {syncBlocker.ContentType}");
+            }
+
+            //todo: need details of the content item with incoming relationships
+            _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
+                messageBuilder.ToString()));
         }
 
         public override async Task UnpublishedAsync(PublishContentContext context)

@@ -91,7 +91,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _logger.LogInformation($"Not syncing {contentItem.ContentType}:{contentItem.ContentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
                 return AllowSyncResult.NotRequired;
             }
-//todo: change log message - add log to actual sync
+
+            //todo: add log to actual sync
             _logger.LogDebug($"Checking if sync allowed for {contentItem.ContentType} : {contentItem.ContentItemId}");
 
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?

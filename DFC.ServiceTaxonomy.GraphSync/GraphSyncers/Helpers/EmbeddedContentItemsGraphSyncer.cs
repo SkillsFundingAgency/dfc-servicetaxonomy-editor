@@ -51,11 +51,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
     public interface ISyncBlocker
     {
+        string ContentType { get; }
+        string? Title { get; }
     }
 
     public class SyncBlocker : ISyncBlocker
     {
+        public string ContentType { get; }
+        public string? Title { get; }
 
+        public SyncBlocker(string contentType, string? title)
+        {
+            ContentType = contentType;
+            Title = title;
+        }
     }
 
     public enum SyncStatus
@@ -92,6 +101,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         // void BlockSync();
         void AddSyncBlocker(ISyncBlocker syncBlocker);
+
+        void AddSyncBlockers(IEnumerable<ISyncBlocker> syncBlockers);
         // better name?
         void AddRelated(IAllowSyncResult allowSyncResult);
     }
@@ -116,6 +127,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public void AddSyncBlocker(ISyncBlocker syncBlocker)
         {
             AllowSync = SyncStatus.Blocked;
+            SyncBlockers.Add(syncBlocker);
+        }
+
+        public void AddSyncBlockers(IEnumerable<ISyncBlocker> syncBlockers)
+        {
+            AllowSync = SyncStatus.Blocked;
+            SyncBlockers = new ConcurrentBag<ISyncBlocker>(SyncBlockers.Union(syncBlockers));
         }
 
         public void AddRelated(IAllowSyncResult allowSyncResult)
@@ -222,11 +240,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                             (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
                                 title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
 
-                    if (itemsReferencingEmbeddedItems.Any())
-                    {
-                        allowSyncResult.AddSyncBlocker(new SyncBlocker());
-                        return;
-                    }
+                    allowSyncResult.AddSyncBlockers(
+                        itemsReferencingEmbeddedItems.Select(i => new SyncBlocker(i.contentType, i.title)));
+
+                    // if (itemsReferencingEmbeddedItems.Any())
+                    // {
+                    //     allowSyncResult.AddSyncBlocker(new SyncBlocker());
+                    //     return;
+                    // }
                 }
             }
 
@@ -258,8 +279,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
+                //todo: now we've added the 2 way relationships on taxonomies, we'll have to discount those
+                //property on the relationship marked as 2 way??
                 IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
-                allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                allowSyncResult?.AddRelated(embeddedAllowSyncResult);
                 if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
                     continue;
 
