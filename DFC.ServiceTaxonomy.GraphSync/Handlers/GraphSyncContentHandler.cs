@@ -113,7 +113,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 messageBuilder.AppendLine($"{syncBlocker.Title} {syncBlocker.ContentType}");
             }
-
+//todo: we get each blocker twice because of 2 graphs in replica (think) - either list blockers by graph or distinct them
             //todo: need details of the content item with incoming relationships
             _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
                 messageBuilder.ToString()));

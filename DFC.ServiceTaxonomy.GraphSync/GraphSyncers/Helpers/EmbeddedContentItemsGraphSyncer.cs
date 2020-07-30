@@ -273,8 +273,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             //             title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
 
             //todo: needs to union itemsreferencing with removing relationships
-
-            return;
         }
 
         //todo: rename
