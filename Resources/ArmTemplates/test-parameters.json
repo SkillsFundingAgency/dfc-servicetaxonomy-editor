@@ -85,6 +85,12 @@
         },
         "EventGridTopicSku": {
             "value": "basic"
+        },
+        "appSharedCosmosEndpointUrl": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
+        "appSharedCosmosPrimaryKey": {
+            "value": "not-a-real-key"
         }
     }
 }
