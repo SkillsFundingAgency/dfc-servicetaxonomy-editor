@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
     public class TaxonomyTermContentItemGraphSyncer : IContentItemGraphSyncer
     {
         private readonly ITaxonomyPartGraphSyncer _taxonomyPartGraphSyncer;
-        private readonly ITermPartGraphSyncer _termPartGraphSyncer;
+        //private readonly ITermPartGraphSyncer _termPartGraphSyncer;
         private const string Terms = "Terms";
 
         public int Priority => 0;
@@ -23,17 +23,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         }
 
         public TaxonomyTermContentItemGraphSyncer(
-            ITaxonomyPartGraphSyncer taxonomyPartGraphSyncer,
-            ITermPartGraphSyncer termPartGraphSyncer)
+            ITaxonomyPartGraphSyncer taxonomyPartGraphSyncer)
+            //ITermPartGraphSyncer termPartGraphSyncer)
         {
             _taxonomyPartGraphSyncer = taxonomyPartGraphSyncer;
-            _termPartGraphSyncer = termPartGraphSyncer;
+            //_termPartGraphSyncer = termPartGraphSyncer;
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             //todo: concurrent?
-            await _taxonomyPartGraphSyncer.AddSyncComponents(context.ContentItem.Content, context);
+            await _taxonomyPartGraphSyncer.AddSyncComponentsForNonRoot(context.ContentItem.Content, context);
             //todo: taxonomy isn't there yet, need to order
             //await _termPartGraphSyncer.AddSyncComponents(context.ContentItem.Content[_termPartGraphSyncer.PartName], context);
         }

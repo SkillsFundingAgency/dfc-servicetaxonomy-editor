@@ -201,9 +201,9 @@ delete {existingRelationshipsVariablesString}
 
             int expectedOutgoingRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
 
-            // we don't know if we're creating incoming relationships, as we don't delete them first,
+            // we don't know how many will be created if we're creating incoming relationships, as we don't delete them first,
             // so we don't check RelationshipsCreated if we have any
-            if (RelationshipsList.All(r => r.IncomingRelationshipType != null)
+            if (RelationshipsList.All(r => r.IncomingRelationshipType == null)
                 && resultSummary.Counters.RelationshipsCreated != expectedOutgoingRelationshipsCreated)
             {
                 throw CreateValidationException(resultSummary,

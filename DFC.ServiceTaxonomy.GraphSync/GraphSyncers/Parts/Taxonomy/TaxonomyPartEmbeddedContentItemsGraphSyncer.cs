@@ -32,9 +32,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             };
         }
 
+        public bool IsRoot { get; set; }
+
         protected override async Task<string?> TwoWayIncomingRelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
-            return $"{await RelationshipType(embeddedContentGraphSyncHelper)}Parent";
+            return IsRoot ? null : $"{await RelationshipType(embeddedContentGraphSyncHelper)}Parent";
         }
     }
 }
