@@ -171,7 +171,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             IAllowSyncResult allowSyncResult)
         {
-            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context);
+            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context, allowSyncResult);
 
 #pragma warning disable
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(

@@ -73,6 +73,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                                 $"\r\nmerge ({sourceNodeVariableName})<-[{incomingRelationshipVariable}:{relationship.IncomingRelationshipType}]-({destNodeVariable})");
                         }
 
+                        // set a property to indicate this is a 2 way relationship
+                        mergeBuilder.Append($" set {incomingRelationshipVariable}.twoWay=TRUE");
+
                         //todo: set properties also on incoming relationship?
                     }
                 }
