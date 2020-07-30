@@ -56,15 +56,16 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
         public override async Task RemovedAsync(RemoveContentContext context)
         {
             _logger.LogInformation("PublishToEventGridHandler::Inside RemovedAsync");
-            if (context.ContentItem.Published)
-            {
-                // discard draft
-                await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.DraftDiscarded);
-            }
-            else
+
+            if (context.NoActiveVersionLeft)
             {
                 await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Deleted);
                 await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.Deleted);
+            }
+            else
+            {
+                // discard draft
+                await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.DraftDiscarded);
             }
         }
 
