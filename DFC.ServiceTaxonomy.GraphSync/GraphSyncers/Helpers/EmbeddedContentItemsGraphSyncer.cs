@@ -153,7 +153,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             IAllowSyncResult allowSyncResult)
         {
-            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context, false);
+            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context);
 
 #pragma warning disable
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
@@ -247,7 +247,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private async Task<List<CommandRelationship>> GetRequiredRelationships(
             JArray? contentItems,
             IGraphMergeContext context,
-            bool syncEmbeddedContentItems,
             IAllowSyncResult? allowSyncResult = null)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
@@ -320,7 +319,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context)
         {
-            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context, true);
+            List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context);
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
 
