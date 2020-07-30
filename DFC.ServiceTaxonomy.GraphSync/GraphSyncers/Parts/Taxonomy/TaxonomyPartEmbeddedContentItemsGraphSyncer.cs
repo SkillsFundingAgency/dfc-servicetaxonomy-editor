@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
@@ -29,6 +30,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             {
                 rootContext.ContentItem.Content[nameof(TaxonomyPart)][TaxonomyPartGraphSyncer.TermContentTypePropertyName]
             };
+        }
+
+        protected override async Task<string?> TwoWayIncomingRelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
+        {
+            return $"{await RelationshipType(embeddedContentGraphSyncHelper)}Parent";
         }
     }
 }

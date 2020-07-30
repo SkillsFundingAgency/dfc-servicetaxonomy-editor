@@ -9,7 +9,7 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public class TermPartGraphSyncer : IContentPartGraphSyncer
+    public class TermPartGraphSyncer : ITermPartGraphSyncer
     {
         public string PartName => nameof(TermPart);
 
@@ -35,10 +35,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             //todo: override/extension that takes a contentitem
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
-                $"hasParent{contentItem.ContentType}",
+                //todo: go through graphSyncHelper
+                $"has{contentItem.ContentType}",
                 null,
                 await termGraphSyncHelper.NodeLabels(),
-                termGraphSyncHelper.ContentIdPropertyName,
+                termGraphSyncHelper.IdPropertyName(),
                 termGraphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
         }
 
