@@ -35,6 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
+        //todo: we now need to validate any 2 way incoming relationships we created
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             IValidateAndRepairContext context)
         {
