@@ -234,14 +234,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                             er.outgoingRelationship.DestinationNode.Properties["uri"] ==
                             destinationNodeIdPropertyValue);
 
-                    var itemsReferencingEmbeddedItems = existingForRemoving
-                        .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
-                        .Select(ir =>
-                            (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
-                                title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
+                    // var itemsReferencingEmbeddedItems = existingForRemoving
+                    //     .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
+                    //     .Select(ir =>
+                    //         (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
+                    //             title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
 
-                    allowSyncResult.AddSyncBlockers(
-                        itemsReferencingEmbeddedItems.Select(i => new SyncBlocker(i.contentType, i.title)));
+                    // allowSyncResult.AddSyncBlockers(
+                    //     itemsReferencingEmbeddedItems.Select(i => new SyncBlocker(i.contentType, i.title)));
+
+                    var nonTwoWayIncomingRelationshipsToEmbeddedItems = existingForRemoving
+                        .SelectMany(or => or.incomingRelationships) //todo: null or throws?
+                        .Where(ir => !ir.Relationship.Properties.ContainsKey("twoWay"));    //todo: reference original string
+                        // .Select(ir =>
+                        //     (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
+                        //         title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
+
+                        allowSyncResult.AddSyncBlockers(
+                            nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
+                                new SyncBlocker(
+                                    context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
+                                    (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
 
                     // if (itemsReferencingEmbeddedItems.Any())
                     // {
