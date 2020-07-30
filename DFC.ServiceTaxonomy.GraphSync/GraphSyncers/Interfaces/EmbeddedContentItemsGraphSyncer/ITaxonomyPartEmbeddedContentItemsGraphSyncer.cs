@@ -2,5 +2,6 @@
 {
     public interface ITaxonomyPartEmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
+        bool IsRoot { get; set; }
     }
 }

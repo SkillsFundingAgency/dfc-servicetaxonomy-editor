@@ -67,8 +67,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 //todo: where uri null create relationship using displaytext instead
                 //have fallback as flag, and only do it for taxonomy, or do it for all contained items?
 
-                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+                context.ReplaceRelationshipsCommand.AddTwoWayRelationships(
                     relationshipType,
+                    await TwoWayIncomingRelationshipType(embeddedContentItemGraphSyncHelper),
                     properties,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
@@ -164,6 +165,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
             return await embeddedContentGraphSyncHelper.RelationshipTypeDefault(embeddedContentGraphSyncHelper.ContentType!);
+        }
+
+        protected virtual Task<string?> TwoWayIncomingRelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
+        {
+            return Task.FromResult(default(string));
         }
 
         protected virtual Task<Dictionary<string, object>?> GetRelationshipProperties(

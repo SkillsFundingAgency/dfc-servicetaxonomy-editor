@@ -109,6 +109,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, FlowPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, TaxonomyPartGraphSyncer>();
             services.AddTransient<ITaxonomyPartGraphSyncer, TaxonomyPartGraphSyncer>();
+            services.AddTransient<ITermPartGraphSyncer, TermPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, EponymousPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, HtmlBodyPartGraphSyncer>();
             services.AddTransient<IContentPartGraphSyncer, PublishLaterPartGraphSyncer>();
