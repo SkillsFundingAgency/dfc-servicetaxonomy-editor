@@ -25,6 +25,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 const string destinationNodeVariableBase = "d";
                 const string newRelationshipVariableBase = "nr";
                 const string destinationNodeOutgoingRelationshipsVariableBase = "dr";
+                const string destinationNodeIncomingTwoWayRelationshipsVariableBase = "it";
 
                 //todo: bi-directional relationships
                 const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
@@ -51,6 +52,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                         string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
                         string destIdPropertyValueParamName = $"{destNodeVariable}Value";
                         string destinationNodeOutgoingRelationshipsVariable = $"{destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
+                        string destinationNodeIncomingTwoWayRelationshipsVariable = $"{destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
 
                         //todo: relationshiptype as parameter?
                         nodeMatchBuilder.Append(
@@ -61,6 +63,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                         {
                             destNodeOutgoingRelationshipsBuilder.Append(
                                 $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
+
+                            destNodeOutgoingRelationshipsBuilder.Append(
+                                $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable}: {{twoWay: TRUE}}]-()");
                         }
                     }
                 }
@@ -71,6 +76,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 {
                     // delete outgoing relationships on destination nodes first
                     queryBuilder.AppendLine(destNodeOutgoingRelationshipsBuilder.ToString());
+
+                    queryBuilder.AppendLine(
+                        $"delete {AllVariablesString(destinationNodeIncomingTwoWayRelationshipsVariableBase, ordinal)}");
+
                     queryBuilder.AppendLine(
                         $"delete {AllVariablesString(destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
                 }

@@ -189,15 +189,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
-            // existing filtered by the allowable content types
-            //todo: we should check for the relationship type also
+            //todo: temp hack
+            string relationshipType = "hasPageLocation";
+
             existing = new NodeAndOutRelationshipsAndTheirInRelationships(
                 existing.SourceNode,
                 existing.OutgoingRelationships
                     .Where(or =>
                         embeddableContentTypes.Contains(
                             context.GraphSyncHelper.GetContentTypeFromNodeLabels(
-                                or.outgoingRelationship.DestinationNode.Labels))));
+                                or.outgoingRelationship.DestinationNode.Labels))
+                        && or.outgoingRelationship.Relationship.Type == relationshipType));
+
+            // existing filtered by the allowable content types
+            //todo: we should check for the relationship type also
+            // existing = new NodeAndOutRelationshipsAndTheirInRelationships(
+            //     existing.SourceNode,
+            //     existing.OutgoingRelationships
+            //         .Where(or =>
+            //             embeddableContentTypes.Contains(
+            //                 context.GraphSyncHelper.GetContentTypeFromNodeLabels(
+            //                     or.outgoingRelationship.DestinationNode.Labels))));
 
             //todo: only need to get items referencing to delete embedded items
 
