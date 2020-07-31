@@ -41,6 +41,7 @@ namespace DFC.ServiceTaxonomy.Editor
             {
                options.Secure = CookieSecurePolicy.Always;
             });
+            services.AddEventGridPublishing(Configuration);
             services.AddOrchardCore().ConfigureServices(s => s.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "stax_Default";
