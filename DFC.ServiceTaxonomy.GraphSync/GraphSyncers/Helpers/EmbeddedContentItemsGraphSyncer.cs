@@ -81,19 +81,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                                 or.outgoingRelationship.DestinationNode.Labels))
                         && relationshipTypes.Contains(or.outgoingRelationship.Relationship.Type)));
 
-            // existing filtered by the allowable content types
-            //todo: we should check for the relationship type also
-            // existing = new NodeAndOutRelationshipsAndTheirInRelationships(
-            //     existing.SourceNode,
-            //     existing.OutgoingRelationships
-            //         .Where(or =>
-            //             embeddableContentTypes.Contains(
-            //                 context.GraphSyncHelper.GetContentTypeFromNodeLabels(
-            //                     or.outgoingRelationship.DestinationNode.Labels))));
-
-            //todo: only need to get items referencing to delete embedded items
-
-
             IEnumerable<CommandRelationship> existingRelationshipsForEmbeddableContentTypes =
                 existing.ToCommandRelationships(context.GraphSyncHelper);
 
@@ -120,15 +107,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         .Where(er =>
                             er.outgoingRelationship.DestinationNode.Properties["uri"] ==
                             destinationNodeIdPropertyValue);
-
-                    // var itemsReferencingEmbeddedItems = existingForRemoving
-                    //     .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
-                    //     .Select(ir =>
-                    //         (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
-                    //             title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
-
-                    // allowSyncResult.AddSyncBlockers(
-                    //     itemsReferencingEmbeddedItems.Select(i => new SyncBlocker(i.contentType, i.title)));
 
                     var nonTwoWayIncomingRelationshipsToEmbeddedItems = existingForRemoving
                         .SelectMany(or => or.incomingRelationships) //todo: null or throws?
