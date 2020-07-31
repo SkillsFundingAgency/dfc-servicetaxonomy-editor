@@ -48,7 +48,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             List<CommandRelationship> requiredRelationships = await GetRequiredRelationships(contentItems, context, allowSyncResult);
 
-#pragma warning disable
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
                     new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
                         context.ReplaceRelationshipsCommand.SourceNodeLabels,
@@ -64,8 +63,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
-            //todo: temp hack
-            string relationshipType = "hasPageLocation";
+            var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+
+            IEnumerable<string> relationshipTypes = await Task.WhenAll(
+                embeddableContentTypes.Select(async ct =>
+                {
+                    embeddedContentGraphSyncHelper.ContentType = ct;
+                    return await RelationshipType(embeddedContentGraphSyncHelper);
+                }));
 
             existing = new NodeAndOutRelationshipsAndTheirInRelationships(
                 existing.SourceNode,
@@ -74,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         embeddableContentTypes.Contains(
                             context.GraphSyncHelper.GetContentTypeFromNodeLabels(
                                 or.outgoingRelationship.DestinationNode.Labels))
-                        && or.outgoingRelationship.Relationship.Type == relationshipType));
+                        && relationshipTypes.Contains(or.outgoingRelationship.Relationship.Type)));
 
             // existing filtered by the allowable content types
             //todo: we should check for the relationship type also
@@ -365,6 +370,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context);
 
+        //todo: need to separate GraphSyncHelper into stateful and stateless
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
             return await embeddedContentGraphSyncHelper.RelationshipTypeDefault(embeddedContentGraphSyncHelper.ContentType!);
