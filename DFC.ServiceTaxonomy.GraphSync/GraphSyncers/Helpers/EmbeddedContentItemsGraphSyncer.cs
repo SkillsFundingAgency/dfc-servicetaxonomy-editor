@@ -135,8 +135,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                //todo: now we've added the 2 way relationships on taxonomies, we'll have to discount those
-                //property on the relationship marked as 2 way??
                 IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
                 allowSyncResult?.AddRelated(embeddedAllowSyncResult);
                 if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
@@ -158,19 +156,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
                         mergeGraphSyncer.GraphMergeContext);
                     //todo: delegate to mergeGraphSyncer then ContentItemGraphSyncer?
-                    //await mergeGraphSyncer.
                 }
-
-                //todo: need to allow first?
-                // need to get merge node and create relationship commands without syncing
-                // return or get out of mergegraphsyncer??
-                // IMergeNodeCommand? containedContentMergeNodeCommand =
-                //     await mergeGraphSyncer.SyncToGraphReplicaSet();
-                // // if the contained content type wasn't synced (i.e. it doesn't have a graph sync part), then there's nothing to create a relationship to
-                // if (containedContentMergeNodeCommand == null)
-                //     continue;
-                //
-                // containedContentMergeNodeCommand.CheckIsValid();
 
                 var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
@@ -179,10 +165,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.GraphSyncHelper);
                 ++relationshipOrdinal;
-
-                //todo: if graphsyncpart text missing, return as null
-                //todo: where uri null create relationship using displaytext instead
-                //have fallback as flag, and only do it for taxonomy, or do it for all contained items?
 
                 requiredRelationships.Add(new CommandRelationship(
                     relationshipType,
