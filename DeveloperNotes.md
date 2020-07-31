@@ -1,5 +1,7 @@
 #ToDo
 
+* sync contentitemid (& contentitemversion) into graphs?
+
 * wysiwyg alignment in flow part (if we need to support justification)
 
 * the validation needs to de-substitute the actual urls back to <<contentapiprefix>> before it checks for equality

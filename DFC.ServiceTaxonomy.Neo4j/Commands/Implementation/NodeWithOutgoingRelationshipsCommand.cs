@@ -11,6 +11,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
     //todo: move into subfolder?
     public abstract class NodeWithOutgoingRelationshipsCommand : INodeWithOutgoingRelationshipsCommand
     {
+        public const string TwoWayRelationshipPropertyName = "twoWay";
+
         public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
         public string? SourceIdPropertyName { get; set; }
         public object? SourceIdPropertyValue { get; set; }
