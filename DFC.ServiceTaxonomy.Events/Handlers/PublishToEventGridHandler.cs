@@ -37,20 +37,14 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
 
         public override async Task PublishedAsync(PublishContentContext context)
         {
-            _logger.LogInformation("PublishToEventGridHandler::Inside PublishedAsync");
+            _logger.LogInformation("PublishToEventGridHandler::Inside PublishingAsync");
             await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Published);
-
-            if (context.ContentItem.CreatedUtc != context.ContentItem.ModifiedUtc)
-            {
-                await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.DraftDiscarded);
-            }
         }
 
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
             _logger.LogInformation("PublishToEventGridHandler::Inside UnpublishedAsync");
             await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Unpublished);
-            await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.Draft);
         }
 
         public override async Task RemovedAsync(RemoveContentContext context)
@@ -59,6 +53,7 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
 
             if (context.NoActiveVersionLeft)
             {
+                //TODO : refactor to new way where only a single event is fired
                 await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Deleted);
                 await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.Deleted);
             }
