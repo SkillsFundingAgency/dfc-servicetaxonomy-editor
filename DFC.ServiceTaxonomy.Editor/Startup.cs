@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("aria-labelledby");
             }));
 
-            services.AddEventGridPublishing(Configuration);
+           
 
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
             services.AddGraphCluster(options =>
@@ -41,6 +41,16 @@ namespace DFC.ServiceTaxonomy.Editor
             {
                options.Secure = CookieSecurePolicy.Always;
             });
+            services.AddEventGridPublishing(Configuration);
+            services.AddOrchardCore().ConfigureServices(s => s.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "stax_Default";
+            }), order:10);
+
+            services.AddOrchardCore().ConfigureServices(s => s.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "staxantiforgery_Default";
+            }), order:10);
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
