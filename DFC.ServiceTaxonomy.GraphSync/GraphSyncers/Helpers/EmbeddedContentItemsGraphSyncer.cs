@@ -242,7 +242,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 var firstExistingRelationshipsOfType = existingRelationshipsOfType.First();
                 removingRelationships.Add(new CommandRelationship(
-                    //firstExistingRelationshipsOfType.RelationshipType,
+                    // or we could use firstExistingRelationshipsOfType.RelationshipType,
                     distinctExistingRelationshipsType.RelationshipType,
                     null,
                     null,    // don't need properties for delete (plus they'd be different)

@@ -8,7 +8,6 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
 {
-    //todo: move into subfolder?
     public abstract class NodeWithOutgoingRelationshipsCommand : INodeWithOutgoingRelationshipsCommand
     {
         public const string TwoWayRelationshipPropertyName = "twoWay";
@@ -44,10 +43,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
         {
             RelationshipsList.AddRange(commandRelationship);
         }
-
-        // public void AddIncomingRelationshipsFrom()
-        // {
-        // }
 
         public void AddTwoWayRelationships(
             string outgoingRelationshipType,
