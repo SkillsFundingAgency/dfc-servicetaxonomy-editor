@@ -21,33 +21,6 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
-    //todo: need to handle this example scenario:
-    // 1 page has preview version that is only user of a page location
-    // user deletes that page location and published taxonomy
-    // preview graph sync fails (correctly) as location is used by preview page
-    // published sync works as no page uses location
-    // we need to disable the publish of the location into oc's database
-    // but that would still leave the published graph without the location.
-    // we need to cancel the whole sync to both graphs too
-    // which means we can't work on the graph as the sync is ongoing
-    // instead we'll need to supply an ordered list of commands to the context
-    // and execute them all, or none of them
-    // (we should be doing that anyway so that a sync is atomic)
-    // issue is sync to both published and preview graph needs to be atomic
-    // how do we handle one graph succeeding and one failing?
-    // neo looking into recovery point feature, but not yet supported
-    // compensating transaction would be painful
-    // doesn't seem to be support for 2-phase commit
-    // even fabric doesn't support write operations across graphs in the same transaction
-    // (https://neo4j.com/docs/operations-manual/current/fabric/considerations/index.html)
-
-    // as a workaround, we'll query each graph first to see if we expect the delete to be successful
-    // or blocked, and only attempy the deletion, if we expect the query will succeed
-    // it leaves a small window between query and command, where things could change
-    // and the graphs could get out of sync, but it should mostly work
-
-    //todo: also cancel the publish/save in the content handler if it does fail
-
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
@@ -119,15 +92,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IEnumerable<CommandRelationship> existingRelationshipsForEmbeddableContentTypes =
                 existing.ToCommandRelationships(context.GraphSyncHelper);
 
-            // var existingRelationshipsForEmbeddableContentTypes = existingRelationships
-            //     .Where(r => embeddableContentTypes.Contains(
-            //         context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)));
-
             _removingRelationships = GetRemovingRelationships(
                 existingRelationshipsForEmbeddableContentTypes,
                 requiredRelationships,
                 context.GraphSyncHelper);
-
 
             if (!_removingRelationships.Any())
             {
@@ -160,33 +128,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     var nonTwoWayIncomingRelationshipsToEmbeddedItems = existingForRemoving
                         .SelectMany(or => or.incomingRelationships) //todo: null or throws?
                         .Where(ir => !ir.Relationship.Properties.ContainsKey("twoWay"));    //todo: reference original string
-                        // .Select(ir =>
-                        //     (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
-                        //         title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
 
                         allowSyncResult.AddSyncBlockers(
                             nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
                                 new SyncBlocker(
                                     context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
                                     (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
-
-                    // if (itemsReferencingEmbeddedItems.Any())
-                    // {
-                    //     allowSyncResult.AddSyncBlocker(new SyncBlocker());
-                    //     return;
-                    // }
                 }
             }
-
-            //todo: get incoming against removing
-
-            // var itemsReferencingEmbeddedItems = existing.OutgoingRelationships
-            //     .SelectMany(or => or.incomingRelationships)    //todo: null or throws?
-            //     .Select(ir =>
-            //         (contentType: context.GraphSyncHelper.GetContentTypeFromNodeLabels(ir.DestinationNode.Labels),
-            //             title: (string?)ir.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]));
-
-            //todo: needs to union itemsreferencing with removing relationships
         }
 
         //todo: rename
@@ -276,43 +225,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)
         {
-            // if (itemsReferencingEmbeddedItems.Any())
-            // {
-            //     //todo: put contenttype/display name in message somewhere
-            //     string message = $"Can't sync because these are in use:{Environment.NewLine}{itemsReferencingEmbeddedItems.Select(t => $"{t.title}{Environment.NewLine}")}";
-            //     throw new GraphSyncException(message);
-            // }
-
-            //todo: we could combine the check query and the fetch query into one query that returns
-            // the data and a bool, or all the results and check in code (so query can be reused)
-
-            //todo: we only need to query once per contentitem, and reuse the results by filtering (as we currently do)
-            // (^^ user data in the context so don't refetch)
-            // or we filter by embeddable in the query itself
-            // INodeWithOutgoingRelationships? existingGraphSync = (await context.GraphReplicaSet.Run(
-            //         new NodeWithOutgoingRelationshipsQuery(
-            //             context.ReplaceRelationshipsCommand.SourceNodeLabels,
-            //             context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
-            //             context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
-            //     .FirstOrDefault();
-            //
-            // if (existingGraphSync == null)    // nothing to do here, node is being newly created
-            //     return;
-            //
-            // //todo: filter by embedded first, then convert to command? (more efficient)
-            // IEnumerable<CommandRelationship> existingRelationships = existingGraphSync.ToCommandRelationships(context.GraphSyncHelper);
-            //
-            // IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
-            //
-            // var existingRelationshipsForEmbeddableContentTypes = existingRelationships
-            //     .Where(r => embeddableContentTypes.Contains(
-            //         context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)));
-            //
-            // var removingRelationships = GetRemovingRelationships(
-            //     existingRelationshipsForEmbeddableContentTypes,
-            //     requiredRelationships,
-            //     context.GraphSyncHelper);
-
             if (_removingRelationships?.Any() != true)
             {
                 // nothing to do here, not removing any relationships
