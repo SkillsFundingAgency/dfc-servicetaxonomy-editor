@@ -48,10 +48,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
         private bool Equals(CommandRelationship other)
         {
             return RelationshipType == other.RelationshipType
-                   && Equals(Properties, other.Properties)
-                   && DestinationNodeLabels.Equals(other.DestinationNodeLabels)
+                   && IncomingRelationshipType == other.IncomingRelationshipType
                    && DestinationNodeIdPropertyName == other.DestinationNodeIdPropertyName
-                   && DestinationNodeIdPropertyValues.Equals(other.DestinationNodeIdPropertyValues);
+
+                   && ((Properties == null && other.Properties == null)
+                        || (Properties != null && other.Properties != null
+                        && Properties.SequenceEqual(other.Properties)))    //todo: irrespective of order
+
+                   && DestinationNodeLabels.SequenceEqual(other.DestinationNodeLabels)
+
+                   && ((DestinationNodeIdPropertyValues == null && other.DestinationNodeIdPropertyValues == null)
+                       || (DestinationNodeIdPropertyValues != null && other.DestinationNodeIdPropertyValues != null
+                       && DestinationNodeIdPropertyValues.SequenceEqual(other.DestinationNodeIdPropertyValues)));    //todo: irrespective of order
         }
 
         public override bool Equals(object? obj)
@@ -72,6 +80,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
         {
             return HashCode.Combine(
                 RelationshipType,
+                IncomingRelationshipType,
                 Properties,
                 DestinationNodeLabels,
                 DestinationNodeIdPropertyName,
