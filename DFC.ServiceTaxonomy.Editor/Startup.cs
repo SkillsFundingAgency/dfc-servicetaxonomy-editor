@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
 
 namespace DFC.ServiceTaxonomy.Editor
 {
@@ -36,6 +37,10 @@ namespace DFC.ServiceTaxonomy.Editor
                 Configuration.GetSection(Neo4jOptions.Neo4j).Bind(options));
 
             services.Configure<GraphSyncPartSettingsConfiguration>(Configuration.GetSection(nameof(GraphSyncPartSettings)));
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+               options.Secure = CookieSecurePolicy.Always;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
@@ -44,8 +49,10 @@ namespace DFC.ServiceTaxonomy.Editor
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
+            app.UseCookiePolicy();
             // UseSecurityHeaders must come before UseOrchardCore
+            app.UsePoweredByOrchardCore(false);
             app.UseSecurityHeaders()
                 .UseOrchardCore();
         }
