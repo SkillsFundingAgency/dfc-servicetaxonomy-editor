@@ -83,9 +83,7 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
             IContentItemVersion contentItemVersion = eventType switch
             {
                 ContentEventType.Published => _publishedContentItemVersion,
-                ContentEventType.Unpublished => _publishedContentItemVersion,
                 ContentEventType.Draft => _previewContentItemVersion,
-                ContentEventType.DraftDiscarded => _previewContentItemVersion,
                 _ => _deletedContentItemVersion
             };
 
