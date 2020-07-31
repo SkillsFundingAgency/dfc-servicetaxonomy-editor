@@ -40,8 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string Terms = "Terms";
         private const string TaxonomyTermsNodePropertyName = "taxonomy_terms";
 
-        public TaxonomyFieldGraphSyncer(
-            IServiceProvider serviceProvider)
+        public TaxonomyFieldGraphSyncer(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }

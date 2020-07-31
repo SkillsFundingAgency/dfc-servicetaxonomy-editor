@@ -32,7 +32,33 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             string destIdPropertyName,
             params object[] destIdPropertyValues)
         {
-            RelationshipsList.Add(new Relationship(relationshipType, properties, destNodeLabels, destIdPropertyName,
+            RelationshipsList.Add(new Relationship(
+                relationshipType,
+                null,
+                properties,
+                destNodeLabels,
+                destIdPropertyName,
+                destIdPropertyValues));
+        }
+
+        // public void AddIncomingRelationshipsFrom()
+        // {
+        // }
+
+        public void AddTwoWayRelationships(
+            string outgoingRelationshipType,
+            string? incomingRelationshipType,
+            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<string> destNodeLabels,
+            string destIdPropertyName,
+            params object[] destIdPropertyValues)
+        {
+            RelationshipsList.Add(new Relationship(
+                outgoingRelationshipType,
+                incomingRelationshipType,
+                properties,
+                destNodeLabels,
+                destIdPropertyName,
                 destIdPropertyValues));
         }
 
@@ -70,6 +96,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 const string sourceNodeVariableName = "s";
                 const string destinationNodeVariableBase = "d";
                 const string newRelationshipVariableBase = "nr";
+                const string newIncomingRelationshipVariableBase = "nir";
                 const string relationshipPropertiesVariableBase = "rp";
 
                 //todo: bi-directional relationships
@@ -94,6 +121,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
                     {
                         string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
+                        string incomingRelationshipVariable = $"{newIncomingRelationshipVariableBase}{ordinal}";
                         string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
                         string destIdPropertyValueParamName = $"{destNodeVariable}Value";
 
@@ -110,6 +138,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                             mergeBuilder.Append($" set {relationshipVariable}=${relationshipPropertyName}");
                             parameters.Add(relationshipPropertyName, relationship.Properties);
                         }
+
+                        //todo: deleting incoming relationships? don't own incoming relationships
+                        // might have to look at old item (in publishing) and remove any existing we're removing
+
+                        if (relationship.IncomingRelationshipType != null)
+                        {
+                            mergeBuilder.Append(
+                                $"\r\nmerge ({sourceNodeVariableName})<-[{incomingRelationshipVariable}:{relationship.IncomingRelationshipType}]-({destNodeVariable})");
+                        }
+
+                        //todo: set properties also on incoming relationship?
                     }
                 }
 
@@ -160,10 +199,23 @@ delete {existingRelationshipsVariablesString}
             //todo: validate deletes?
             // we should only query if the quick tests have failed, otherwise we'll slow down import a lot if we queried after every update
 
-            int expectedRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
-            if (resultSummary.Counters.RelationshipsCreated != expectedRelationshipsCreated)
+            int expectedOutgoingRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
+
+            // we don't know how many will be created if we're creating incoming relationships, as we don't delete them first,
+            // so we don't check RelationshipsCreated if we have any
+            if (RelationshipsList.All(r => r.IncomingRelationshipType == null)
+                && resultSummary.Counters.RelationshipsCreated != expectedOutgoingRelationshipsCreated)
+            {
                 throw CreateValidationException(resultSummary,
-                    $"Expected {expectedRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+                    $"Expected {expectedOutgoingRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+            }
+
+            //todo: can we do better?
+            // int expectedIncomingRelationshipsCreated = RelationshipsList
+            //     .Where(r => r.IncomingRelationshipType != null)
+            //     .Sum(r => r.DestinationNodeIdPropertyValues.Count());
+            // int expectedRelationshipsCreated =
+            //     expectedOutgoingRelationshipsCreated + expectedIncomingRelationshipsCreated;
 
             if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
                 return;

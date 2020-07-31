@@ -32,5 +32,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         {
             AddRelationshipsTo(relationshipType, properties, destNodeLabels, destIdPropertyName);
         }
+
+        //todo: replace existing with this? if incoming is null, then just creates outgoing
+        public void AddTwoWayRelationships(
+            string outgoingRelationshipType,
+            string? incomingRelationshipType,
+            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<string> destNodeLabels,
+            string destIdPropertyName,
+            params object[] destIdPropertyValues);
     }
 }

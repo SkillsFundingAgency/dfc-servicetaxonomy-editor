@@ -85,6 +85,12 @@
         },
         "EventGridTopicSku": {
             "value": "__EventGridTopicSku__"
+        },
+        "appSharedCosmosEndpointUrl": {
+            "value": "__appSharedCosmosEndpointUrl__"
+        },
+        "appSharedCosmosPrimaryKey": {
+            "value": "__appSharedCosmosPrimaryKey__"
         }
     }
 }
