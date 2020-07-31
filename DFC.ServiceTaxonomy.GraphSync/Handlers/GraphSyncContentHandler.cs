@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -133,22 +133,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         //     AddBlockedNotifier(GraphReplicaSetNames.Published, syncAllowed[1], context.ContentItem);
         // }
 
+        #pragma warning disable
         private void AddBlockedNotifier(string graphReplicaSetName, IAllowSyncResult allowSyncResult, ContentItem contentItem)
         {
             if (allowSyncResult.AllowSync != SyncStatus.Blocked)
                 return;
 
-            var messageBuilder = new StringBuilder($"Publishing has been cancelled because the {graphReplicaSetName} {contentItem.DisplayText} {contentItem.ContentType} has <todo items being blocked>:{Environment.NewLine}");
-
             //todo: delegate string creation?
-            foreach (var syncBlocker in allowSyncResult.SyncBlockers)
-            {
-                messageBuilder.AppendLine($"{syncBlocker.Title} {syncBlocker.ContentType}");
-            }
-//todo: we get each blocker twice because of 2 graphs in replica (think) - either list blockers by graph or distinct them
+
+            //todo: we get each blocker twice because of 2 graphs in replica (think) - either list blockers by graph or distinct them
             //todo: need details of the content item with incoming relationships
             _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-                messageBuilder.ToString()));
+                $"Publishing to the {graphReplicaSetName} graphs has been cancelled. These items relate: {string.Join(", ", allowSyncResult.SyncBlockers.Select(b => $"{b.Title} {b.ContentType}"))}"));
         }
 
         public override Task UpdatedAsync(UpdateContentContext context)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,103 +47,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     // and the graphs could get out of sync, but it should mostly work
 
     //todo: also cancel the publish/save in the content handler if it does fail
-
-    public interface ISyncBlocker
-    {
-        string ContentType { get; }
-        string? Title { get; }
-    }
-
-    public class SyncBlocker : ISyncBlocker
-    {
-        public string ContentType { get; }
-        public string? Title { get; }
-
-        public SyncBlocker(string contentType, string? title)
-        {
-            ContentType = contentType;
-            Title = title;
-        }
-    }
-
-    public enum SyncStatus
-    {
-        /// <summary>
-        /// Sync status hasn't been checked
-        /// </summary>
-        NotChecked,
-        /// <summary>
-        /// Syncing is not required, because either the ContentItem doesn't have a GraphSyncPart,
-        /// or syncing has been temporarily disabled for the content item.
-        /// </summary>
-        NotRequired,
-        /// <summary>
-        /// All components have given the go ahead.
-        /// </summary>
-        Allowed,
-        /// <summary>
-        /// A component has blocked the sync.
-        /// As neo4j doesn't support 2 phase commit, or write transactions across graphs (even in fabric),
-        /// we allow components to block a sync before we attempt to sync.
-        /// This allows us to keep OC's db, and the published and preview graphs consistent
-        /// (even though there is a small window to break this).
-        /// </summary>
-        Blocked
-    }
-
-    public interface IAllowSyncResult
-    {
-        SyncStatus AllowSync { get; }
-
-        //ConcurrentDictionary<ISyncBlocker> SyncBlockers { get; set; }
-        ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; }
-
-        // void BlockSync();
-        void AddSyncBlocker(ISyncBlocker syncBlocker);
-
-        void AddSyncBlockers(IEnumerable<ISyncBlocker> syncBlockers);
-        // better name?
-        void AddRelated(IAllowSyncResult allowSyncResult);
-    }
-
-    // we could have this as part of the context
-    // if we did, we'd get the embedded hierarchy for free, with the results in the chained contexts
-    public class AllowSyncResult : IAllowSyncResult
-    {
-        public static IAllowSyncResult NotChecked => new AllowSyncResult {AllowSync = SyncStatus.NotChecked};
-        public static IAllowSyncResult NotRequired => new AllowSyncResult {AllowSync = SyncStatus.NotRequired};
-
-        public SyncStatus AllowSync { get; private set; } = SyncStatus.Allowed;
-
-        //public ConcurrentDictionary<ISyncBlocker> SyncBlockers { get; set; } = new ConcurrentDictionary<ISyncBlocker>();
-        public ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; } = new ConcurrentBag<ISyncBlocker>();
-
-        // public void BlockSync()
-        // {
-        //     AllowSync = false;
-        // }
-
-        public void AddSyncBlocker(ISyncBlocker syncBlocker)
-        {
-            AllowSync = SyncStatus.Blocked;
-            SyncBlockers.Add(syncBlocker);
-        }
-
-        public void AddSyncBlockers(IEnumerable<ISyncBlocker> syncBlockers)
-        {
-            AllowSync = SyncStatus.Blocked;
-            SyncBlockers = new ConcurrentBag<ISyncBlocker>(SyncBlockers.Union(syncBlockers));
-        }
-
-        public void AddRelated(IAllowSyncResult allowSyncResult)
-        {
-            if (allowSyncResult.AllowSync != SyncStatus.Blocked)
-                return;
-
-            AllowSync = SyncStatus.Blocked;
-            SyncBlockers = new ConcurrentBag<ISyncBlocker>(SyncBlockers.Union(allowSyncResult.SyncBlockers));
-        }
-    }
 
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
