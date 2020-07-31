@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
@@ -19,6 +20,8 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly ILogger<PublishToEventGridHandler> _logger;
 
+        private static readonly DeletedContentItemVersion _deletedContentItemVersion = new DeletedContentItemVersion();
+
         public PublishToEventGridHandler(IOptionsMonitor<EventGridConfiguration> eventGridConfiguration, IEventGridContentClient eventGridContentClient, IGraphSyncHelper graphSyncHelper, IPublishedContentItemVersion publishedContentItemVersion, IPreviewContentItemVersion previewContentItemVersion, ILogger<PublishToEventGridHandler> logger)
         {
             _eventGridConfiguration = eventGridConfiguration;
@@ -32,19 +35,19 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
             _logger.LogInformation("PublishToEventGridHandler::Inside DraftSavedAsync");
-            await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.Draft);
+            await PublishContentEvent(context.ContentItem, ContentEventType.Draft);
         }
 
         public override async Task PublishedAsync(PublishContentContext context)
         {
             _logger.LogInformation("PublishToEventGridHandler::Inside PublishingAsync");
-            await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Published);
+            await PublishContentEvent(context.ContentItem, ContentEventType.Published);
         }
 
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
             _logger.LogInformation("PublishToEventGridHandler::Inside UnpublishedAsync");
-            await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Unpublished);
+            await PublishContentEvent(context.ContentItem, ContentEventType.Unpublished);
         }
 
         public override async Task RemovedAsync(RemoveContentContext context)
@@ -54,19 +57,17 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
             if (context.NoActiveVersionLeft)
             {
                 //TODO : refactor to new way where only a single event is fired
-                await PublishContentEvent(context.ContentItem, _publishedContentItemVersion, ContentEventType.Deleted);
-                await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.Deleted);
+                await PublishContentEvent(context.ContentItem, ContentEventType.Deleted);
             }
             else
             {
                 // discard draft
-                await PublishContentEvent(context.ContentItem, _previewContentItemVersion, ContentEventType.DraftDiscarded);
+                await PublishContentEvent(context.ContentItem, ContentEventType.DraftDiscarded);
             }
         }
 
         private async Task PublishContentEvent(
             ContentItem contentItem,
-            IContentItemVersion contentItemVersion,
             ContentEventType eventType)
         {
             _logger.LogInformation("PublishToEventGridHandler::Inside PublishContentEvent");
@@ -79,10 +80,29 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
 
             _logger.LogInformation($"PublishToEventGridHandler::Publishing event: {eventType}");
 
+            IContentItemVersion contentItemVersion = eventType switch
+            {
+                ContentEventType.Published => _publishedContentItemVersion,
+                ContentEventType.Unpublished => _publishedContentItemVersion,
+                ContentEventType.Draft => _previewContentItemVersion,
+                ContentEventType.DraftDiscarded => _previewContentItemVersion,
+                _ => _deletedContentItemVersion
+            };
+
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
             await _eventGridContentClient.Publish(contentEvent);
+        }
+
+        private class DeletedContentItemVersion : IContentItemVersion
+        {
+            public string ContentApiBaseUrl => "";
+
+            public VersionOptions VersionOptions => throw new NotImplementedException();
+            public (bool? latest, bool? published) ContentItemIndexFilterTerms => throw new NotImplementedException();
+            public string GraphReplicaSetName => throw new NotImplementedException();
+            public Task<ContentItem> GetContentItem(IContentManager contentManager, string id) => throw new NotImplementedException();
         }
     }
 }
