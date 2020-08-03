@@ -91,5 +91,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 
             return values;
         }
+
+        public static string[] AddArrayPropertyFromMultilineString(
+            this IMergeNodeCommand mergeNodeCommand,
+            string nodePropertyName,
+            JObject content,
+            string contentPropertyName)
+        {
+            string[]? valueStrings;
+            JToken? values = content[contentPropertyName];
+            if (values != null && values.Type != JTokenType.Null)
+            {
+                valueStrings = values.Value<string>().Split("\r\n");
+            }
+            else
+            {
+                valueStrings = new string[0];
+            }
+
+            mergeNodeCommand.Properties.Add(nodePropertyName, valueStrings);
+
+            return valueStrings;
+        }
     }
 }

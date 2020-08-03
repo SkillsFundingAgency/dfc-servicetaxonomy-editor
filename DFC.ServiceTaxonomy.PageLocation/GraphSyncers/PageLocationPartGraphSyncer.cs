@@ -28,13 +28,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             context.MergeNodeCommand.AddProperty<bool>(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
             context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
 
-            var val = content["RedirectLocations"]?.ToString().Split("\r\n");
-
-            if (val != null)
-            {
-                var array = JArray.FromObject(val);
-                context.MergeNodeCommand.AddArrayProperty<string>(await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName), array);
-            }
+            context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
+                await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName), content,
+                RedirectLocationsPropertyName);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
@@ -69,7 +65,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             if (!matched)
                 return (false, $"{FullUrlPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = context.GraphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = context.GraphValidationHelper.ContentMultilineStringPropertyMatchesNodeProperty(
                 RedirectLocationsPropertyName,
                 content,
                 await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName),
