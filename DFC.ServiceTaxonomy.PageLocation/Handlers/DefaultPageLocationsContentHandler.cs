@@ -87,16 +87,24 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
         private async Task SyncToPreviewGraph(ContentItem contentItem)
         {
+            SyncStatus syncStatus = SyncStatus.Blocked;
+            string message = $"Unable to sync {contentItem.DisplayText} Page to {GraphReplicaSetNames.Preview} graph(s).";
+
             try
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-                await mergeGraphSyncer.SyncToGraphReplicaSet();
+                IAllowSyncResult allowSyncResult = await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(
+                    _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Preview), contentItem, contentManager);
+                syncStatus = allowSyncResult.AllowSync;
             }
             catch (Exception exception)
             {
-                string message = $"Unable to sync {contentItem.DisplayText} Page to {GraphReplicaSetNames.Preview} graph(s).";
                 _logger.LogError(exception, message);
+            }
+
+            if (syncStatus == SyncStatus.Blocked)
+            {
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DefaultPageLocationsContentHandler), message));
             }
         }
