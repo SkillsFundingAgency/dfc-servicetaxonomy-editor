@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             if (settings != null && settings.GetSettings<TextFieldSettings>().Hint != null && settings.GetSettings<TextFieldSettings>().Hint!.ToLower().IndexOf("##synctoarray") != -1)
             {
+                //todo: fix empty string case : add helper
                 var val = contentItemField[ContentKey]!.ToString().Split("\r\n");
                 var array = JArray.FromObject(val);
                 context.MergeNodeCommand.AddArrayProperty<string>(nodePropertyName, array);
@@ -35,6 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
+            //todo: fix validating split string
             return context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 contentItemField,
