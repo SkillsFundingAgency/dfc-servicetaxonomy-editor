@@ -130,8 +130,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentFieldGraphSyncer, TaxonomyFieldGraphSyncer>();
 
             // workflow activities
-            services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
-            services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
             services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
             services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
             services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
