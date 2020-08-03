@@ -262,10 +262,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             var relationshipsOfType = relationships
                 .Where(r =>
-                    // should really do orderby, sequenceeqals, orderby instead
-                    //todo: check if the generated relationshipcommand needs to do a sequence equals too
-                    //r.DestinationNodeLabels.Equals(existingRelationship.DestinationNodeLabels))
-                    graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) == relationshipType.DestinationNodeLabel)
+                    graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) ==
+                    relationshipType.DestinationNodeLabel)
                 .ToArray();
 
             var idPropertyValues = relationshipsOfType
