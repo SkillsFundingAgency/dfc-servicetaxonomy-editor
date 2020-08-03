@@ -170,11 +170,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        //??
-        // public async Task AddIdSyncComponents(ContentItem contentItem)
-        // {
-        //
-        // }
+        //todo: should we add a AddIdSyncComponents method?
 
         private async Task SyncComponentsToGraphReplicaSet(IGraphReplicaSet graphReplicaSet)
         {
