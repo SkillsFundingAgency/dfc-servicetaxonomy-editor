@@ -170,6 +170,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
+        //??
         // public async Task AddIdSyncComponents(ContentItem contentItem)
         // {
         //
