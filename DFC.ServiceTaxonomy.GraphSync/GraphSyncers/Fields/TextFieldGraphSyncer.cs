@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 
@@ -19,8 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
-            string? hint = context.ContentPartFieldDefinition.GetSettings<TextFieldSettings>().Hint;
-            if (hint != null && hint.ToLower().IndexOf(SyncToArrayFlag, StringComparison.Ordinal) != -1)
+            if (SyncMultilineToArray(context.ContentPartFieldDefinition))
             {
                 context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
                     nodePropertyName, contentItemField, ContentKey);
@@ -30,17 +30,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             context.MergeNodeCommand.AddProperty<string>(nodePropertyName, contentItemField, ContentKey);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject contentItemField,
             IValidateAndRepairContext context)
         {
             string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
-            //todo: fix validating split string
+            if (SyncMultilineToArray(context.ContentPartFieldDefinition))
+            {
+                return context.GraphValidationHelper.ContentMultilineStringPropertyMatchesNodeProperty(
+                    ContentKey,
+                    contentItemField,
+                    nodePropertyName,
+                    context.NodeWithOutgoingRelationships.SourceNode);
+            }
+
             return context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,
                 contentItemField,
                 nodePropertyName,
                 context.NodeWithOutgoingRelationships.SourceNode);
+        }
+
+        private bool SyncMultilineToArray(IContentPartFieldDefinition contentPartFieldDefinition)
+        {
+            string? hint = contentPartFieldDefinition.GetSettings<TextFieldSettings>().Hint;
+            return hint != null && hint.ToLower().IndexOf(SyncToArrayFlag, StringComparison.Ordinal) != -1;
         }
     }
 }

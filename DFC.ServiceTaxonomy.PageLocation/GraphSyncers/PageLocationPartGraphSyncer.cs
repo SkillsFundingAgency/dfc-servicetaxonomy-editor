@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             if (!matched)
                 return (false, $"{FullUrlPropertyName} did not validate: {failureReason}");
 
-            (matched, failureReason) = context.GraphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
+            (matched, failureReason) = context.GraphValidationHelper.ContentMultilineStringPropertyMatchesNodeProperty(
                 RedirectLocationsPropertyName,
                 content,
                 await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName),

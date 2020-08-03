@@ -28,6 +28,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             string nodePropertyName,
             INode sourceNode);
 
+        (bool matched, string failureReason) ContentMultilineStringPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode);
+
         (bool matched, string failureReason) StringContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,

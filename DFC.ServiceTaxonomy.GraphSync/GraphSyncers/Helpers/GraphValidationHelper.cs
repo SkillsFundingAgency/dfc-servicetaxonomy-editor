@@ -122,6 +122,47 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
+        public (bool matched, string failureReason) ContentMultilineStringPropertyMatchesNodeProperty(
+            string contentKey,
+            JObject contentItemField,
+            string nodePropertyName,
+            INode sourceNode)
+            //Func<string, string, bool> areBothSame)
+        {
+            sourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
+
+            IEnumerable<string>? nodeStrings = (nodePropertyValue as IEnumerable<object>)?.Cast<string>();
+
+            if (nodeStrings == null)
+                return (false, "expecting node property array of string");
+
+            JToken? contentMultilineString = contentItemField?[contentKey];
+            if (contentMultilineString == null || contentMultilineString.Type == JTokenType.Null)
+            {
+                bool bothEmpty = !nodeStrings.Any();
+                return (bothEmpty, bothEmpty?"":"content multiline string was null, but node property array had value(s)");
+            }
+
+            string[] contentStrings = contentMultilineString.Value<string>().Split("\r\n");
+
+            if (contentStrings.Count() != nodeStrings.Count())
+            {
+                return (false, GenerateErrorMessage($"content multiline string had {contentStrings.Count()} lines, but node property array has {nodeStrings.Count()} items"));
+            }
+
+            //var areSame = contentStrings.Zip(nodeStrings, (cv, nv) => areBothSame(cv, nv));
+            var areSame = contentStrings.Zip(nodeStrings, string.Equals);
+            if (areSame.Any(same => !same))
+                return (false, GenerateErrorMessage());
+
+            return (true, "");
+
+            string GenerateErrorMessage(string? prefix = null)
+            {
+                return $"{prefix}{(prefix!=null?": ":"")}content multiline string was '{string.Join(", ", contentStrings)}', but node property value was '{string.Join(", ", nodeStrings)}'";
+            }
+        }
+
         public (bool matched, string failureReason) StringArrayContentPropertyMatchesNodeProperty(
             string contentKey,
             JObject contentItemField,
