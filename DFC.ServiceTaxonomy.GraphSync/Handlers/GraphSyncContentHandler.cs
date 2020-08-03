@@ -16,7 +16,6 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
-    //todo: add eventgrid content handler too
     public class GraphSyncContentHandler : ContentHandlerBase
     {
         private readonly IGraphCluster _graphCluster;
@@ -55,26 +54,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             await SyncToGraphReplicaSetIfAllowed(GraphReplicaSetNames.Preview, context.ContentItem, contentManager);
         }
 
-        //todo: dow do we pass the mergegraphsyncers on to publishedasync?
-        // public override async Task PublishingAsync(PublishContentContext context)
-        // {
-        //     IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-        //     IMergeGraphSyncer previewMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-        //     IMergeGraphSyncer publishedMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-        //
-        //     var syncAllowed = await Task.WhenAll(
-        //         AllowSyncToGraphReplicaSet(previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem, contentManager),
-        //         AllowSyncToGraphReplicaSet(publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
-        //
-        //     // sad paths have already been notified to the user and logged
-        //     if (syncAllowed[0] != SyncStatus.Allowed || syncAllowed[1] != SyncStatus.Allowed)
-        //     {
-        //         context.Cancel = true;
-        //     }
-        // }
-
-        private IMergeGraphSyncer? _previewMergeGraphSyncer = null;
-        private IMergeGraphSyncer? _publishedMergeGraphSyncer = null;
+        private IMergeGraphSyncer? _previewMergeGraphSyncer;
+        private IMergeGraphSyncer? _publishedMergeGraphSyncer;
 
         public override async Task PublishingAsync(PublishContentContext context)
         {
@@ -97,41 +78,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
-        //todo: context contains cancel! (might have to use publishing though)
         public override async Task PublishedAsync(PublishContentContext context)
         {
             await Task.WhenAll(
                 SyncToGraphReplicaSet(_previewMergeGraphSyncer!, GraphReplicaSetNames.Preview, context.ContentItem),
                 SyncToGraphReplicaSet(_publishedMergeGraphSyncer!, GraphReplicaSetNames.Published, context.ContentItem));
         }
-
-        // //todo: context contains cancel! (might have to use publishing though)
-        // public override async Task PublishedAsync(PublishContentContext context)
-        // {
-        //     IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-        //     IMergeGraphSyncer previewMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-        //     IMergeGraphSyncer publishedMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-        //
-        //     var syncAllowed = await Task.WhenAll(
-        //         AllowSyncToGraphReplicaSet(previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem, contentManager),
-        //         AllowSyncToGraphReplicaSet(publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
-        //
-        //     // sad paths have already been notified to the user and logged
-        //     if (syncAllowed[0].AllowSync == SyncStatus.Allowed && syncAllowed[1].AllowSync == SyncStatus.Allowed)
-        //     {
-        //         await Task.WhenAll(
-        //             SyncToGraphReplicaSet(previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem),
-        //             SyncToGraphReplicaSet(publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem));
-        //         return;
-        //     }
-        //
-        //     //todo: cancel oc db creation if not allowed (allow if sync fails)
-        //     //todo: move allowsync into publishingasync
-        //     _session.Cancel();
-        //
-        //     AddBlockedNotifier(GraphReplicaSetNames.Preview, syncAllowed[0], context.ContentItem);
-        //     AddBlockedNotifier(GraphReplicaSetNames.Published, syncAllowed[1], context.ContentItem);
-        // }
 
         #pragma warning disable
         private void AddBlockedNotifier(string graphReplicaSetName, IAllowSyncResult allowSyncResult, ContentItem contentItem)

@@ -13,7 +13,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             return contentPartDefinition.Name == PartName;
         }
 
-        //todo: return userdata or add through context? think can be stored in the part syncer itself
         Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult) =>
             Task.CompletedTask;
 
