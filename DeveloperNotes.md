@@ -5,6 +5,7 @@
 * wysiwyg alignment in flow part (if we need to support justification)
 
 * the validation needs to de-substitute the actual urls back to <<contentapiprefix>> before it checks for equality
+* validate twoway relationships
 
 * add publish later and unpublish later buttons to page type
 
