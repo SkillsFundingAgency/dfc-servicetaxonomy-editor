@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -26,6 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly ILogger<GraphSyncContentHandler> _logger;
+        private readonly IGraphSyncHelper _graphSyncHelper;
 
         public GraphSyncContentHandler(
             IGraphCluster graphCluster,
@@ -35,7 +37,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             INotifier notifier,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
-            ILogger<GraphSyncContentHandler> logger)
+            ILogger<GraphSyncContentHandler> logger,
+            IGraphSyncHelper graphSyncHelper)
         {
             _graphCluster = graphCluster;
             _serviceProvider = serviceProvider;
@@ -45,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _logger = logger;
+            _graphSyncHelper = graphSyncHelper;
         }
 
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
@@ -73,6 +77,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
+        }
+
+        public override async Task ClonedAsync(CloneContentContext context)
+        {
+            if (context.CloneContentItem.Content[nameof(GraphSyncPart)] != null)
+            {
+                _graphSyncHelper.ContentType = context.CloneContentItem.ContentType;
+                context.CloneContentItem.Content[nameof(GraphSyncPart)][nameof(GraphSyncPart.Text)] = await _graphSyncHelper.GenerateIdPropertyValue();
+            }
         }
 
         // State          Action     Context:latest      published     no active version left
