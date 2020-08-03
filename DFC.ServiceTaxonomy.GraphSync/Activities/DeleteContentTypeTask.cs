@@ -4,8 +4,6 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentTypes.Events;
 using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Workflows.Abstractions.Models;
 using OrchardCore.Workflows.Activities;
@@ -16,26 +14,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     public class DeleteContentTypeTask : TaskActivity
     {
         public DeleteContentTypeTask(
-            IStringLocalizer<DeleteFromGraphTask> localizer,
+            IStringLocalizer<DeleteContentTypeTask> localizer,
             INotifier notifier,
             IOrchardCoreContentDefinitionService contentDefinitionService,
-            IEnumerable<IContentDefinitionEventHandler> contentDefinitionEventHandlers,
-            ILogger<DeleteContentTypeTask> logger,
-            IContentDefinitionStore contentDefinitionStore)
+            ILogger<DeleteContentTypeTask> logger)
         {
             _notifier = notifier;
             T = localizer;
             _contentDefinitionService = contentDefinitionService;
-            _contentDefinitionEventHandlers = contentDefinitionEventHandlers;
             Logger = logger;
-            _contentDefinitionStore = contentDefinitionStore;
         }
 
         private IStringLocalizer T { get; }
         private readonly INotifier _notifier;
         private readonly IOrchardCoreContentDefinitionService _contentDefinitionService;
-        private readonly IEnumerable<IContentDefinitionEventHandler> _contentDefinitionEventHandlers;
-        private readonly IContentDefinitionStore _contentDefinitionStore;
 
         public ILogger Logger { get; }
 

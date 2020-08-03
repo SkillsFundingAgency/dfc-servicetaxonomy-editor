@@ -29,12 +29,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         string IdPropertyName();
         Task<string> GenerateIdPropertyValue();
 
+        // the following do not require ContentType to be set first
         string IdPropertyName(string contentType);
+        string IdPropertyNameFromNodeLabels(IEnumerable<string> nodeLabels);
         Task<IEnumerable<string>> NodeLabels(string contentType);
         Task<string> RelationshipTypeDefault(string destinationContentType);
 
+        string GetContentTypeFromNodeLabels(IEnumerable<string> nodeLabels);
         string ContentIdPropertyName { get; }
         object? GetIdPropertyValue(JObject graphSyncContent, IContentItemVersion contentItemVersion);
+        string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion);
     }
     #pragma warning restore S4136
 }

@@ -29,7 +29,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private readonly Stack<Func<string, string>> _propertyNameTransformers;
 
         //todo: from config CommonNodeLabels
-        private const string CommonNodeLabel = "Resource";
+        public const string CommonNodeLabel = "Resource";
+        // needs to be all lowercase
+        public const string ContentApiPrefixToken = "<<contentapiprefix>>";
 
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
@@ -101,11 +103,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return new[] { nodeLabel, CommonNodeLabel };
         }
 
+        public string GetContentTypeFromNodeLabels(IEnumerable<string> nodeLabels)
+        {
+            return nodeLabels.First(l => l != CommonNodeLabel);
+        }
+
         // should only be used for fallbacks
         public async Task<string> RelationshipTypeDefault(string destinationContentType)
         {
-            CheckPreconditions();
-
             var graphSyncPartSettings = GetGraphSyncPartSettings(destinationContentType);
 
             return await TransformOrDefault(
@@ -144,6 +149,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return IdPropertyName(GetGraphSyncPartSettings(contentType));
         }
 
+        public string IdPropertyNameFromNodeLabels(IEnumerable<string> nodeLabels)
+        {
+            return IdPropertyName(GetContentTypeFromNodeLabels(nodeLabels));
+        }
+
         private string IdPropertyName(GraphSyncPartSettings graphSyncPartSettings)
         {
             return graphSyncPartSettings.IdPropertyName ?? "userId";
@@ -180,7 +190,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             // we ignore case, so that existing content items will still sync
             // if we didn't have to worry about existing items in the oc db, we wouldn't need to
-            return untransformedIdString.Replace("<<contentapiprefix>>", contentItemVersion.ContentApiBaseUrl,
+            return untransformedIdString.Replace(ContentApiPrefixToken, contentItemVersion.ContentApiBaseUrl,
+                StringComparison.OrdinalIgnoreCase);
+        }
+
+        public string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion)
+        {
+            return nodeIdValue.Replace(contentItemVersion.ContentApiBaseUrl, ContentApiPrefixToken,
                 StringComparison.OrdinalIgnoreCase);
         }
 

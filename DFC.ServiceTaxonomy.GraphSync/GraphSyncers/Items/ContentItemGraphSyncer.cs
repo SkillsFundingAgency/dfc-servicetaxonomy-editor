@@ -19,8 +19,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         private readonly ILogger<ContentItemGraphSyncer> _logger;
         public int Priority => int.MinValue;
 
-        public bool CanSync(ContentItem contentItem) => true;
-
         public ContentItemGraphSyncer(
             ICustomContentDefintionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
@@ -31,6 +29,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             _logger = logger;
         }
 
+        public bool CanSync(ContentItem contentItem) => true;
+
+        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
+        {
+            //todo: common code, use callback
+            foreach (var partSync in _partSyncers)
+            {
+                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
+                // (other non-named parts have the part name in both)
+
+                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
+                var contentTypePartDefinitions =
+                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
+
+                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
+                {
+                    context.ContentTypePartDefinition = contentTypePartDefinition;
+
+                    string namedPartName = contentTypePartDefinition.Name;
+
+                    JObject? partContent = context.ContentItem.Content[namedPartName];
+                    if (partContent == null)
+                        continue; //todo: throw??
+
+                    await partSync.AllowSync(partContent, context, allowSyncResult);
+                }
+            }
+        }
+
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             //todo: use Priority instead?
@@ -39,6 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
             //order in ctor?
             // add priority field and order?
+            //or use IGraphSyncPartSyncer?
             var partSyncersWithGraphLookupFirst
                 = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
                     .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));

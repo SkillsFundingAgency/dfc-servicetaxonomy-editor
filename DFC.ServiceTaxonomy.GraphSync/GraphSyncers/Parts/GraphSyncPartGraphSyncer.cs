@@ -5,7 +5,11 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
+    public interface IGraphSyncPartGraphSyncer : IContentPartGraphSyncer
+    {
+    }
+
+    public class GraphSyncPartGraphSyncer : IGraphSyncPartGraphSyncer
     {
         public string PartName => nameof(GraphSyncPart);
 
@@ -18,14 +22,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
-            return Task.FromResult(context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            return Task.FromResult(context.GraphValidationHelper.ContentPropertyMatchesNodeProperty(
                 context.GraphSyncHelper.ContentIdPropertyName,
                 content,
                 context.GraphSyncHelper.IdPropertyName(),
-                context.NodeWithOutgoingRelationships.SourceNode));
+                context.NodeWithOutgoingRelationships.SourceNode,
+                (contentValue, nodeValue) =>
+                    nodeValue is string nodeValueString
+                    && Equals((string)contentValue!,
+                        context.GraphSyncHelper.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion))));
         }
     }
 }

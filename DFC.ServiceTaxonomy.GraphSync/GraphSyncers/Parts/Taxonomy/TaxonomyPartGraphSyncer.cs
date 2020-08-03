@@ -21,6 +21,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             _taxonomyPartEmbeddedContentItemsGraphSyncer = taxonomyPartEmbeddedContentItemsGraphSyncer;
         }
 
+        public async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AllowSync((JArray?)content[ContainerName], context, allowSyncResult);
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
@@ -35,6 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
+        //todo: we now need to validate any 2 way incoming relationships we created
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             IValidateAndRepairContext context)
         {

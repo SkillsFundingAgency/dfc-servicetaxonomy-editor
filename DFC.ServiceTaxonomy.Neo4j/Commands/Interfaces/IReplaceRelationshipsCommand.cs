@@ -1,27 +1,27 @@
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.Neo4j.Types;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 {
-    public interface IReplaceRelationshipsCommand : ICommand
+    // IRelationshipsCommandBuilder (or IRelationshipsFromNode), plus methods GetReplaceRelationshipsCommand, GetDeleteRelationshipsCommand(bool deleteDestinationNode)
+    // commands would accept IEnumerable<IRelationshipsFromNode> (could also accept graphreplicaSet, but prob not)
+    // could do same with INode with methods GetDeleteNodeCommand & GetMergeNodeCommand
+    // rename ICommandRelationship to relationship
+    // INodeType?? -> GetDeleteNodeTypeCommand
+    public interface IReplaceRelationshipsCommand : INodeWithOutgoingRelationshipsCommand
     {
-        HashSet<string> SourceNodeLabels { get; set; }
-        string? SourceIdPropertyName { get; set; }
-        object? SourceIdPropertyValue { get; set; }
-
-        IEnumerable<Relationship> Relationships { get; }
+        //todo: this comment applies only to IReplaceRelationshipsCommand, but is declared in INodeWithOutgoingRelationshipsCommand
 
         /// <summary>
         /// One relationship will be created for each destIdPropertyValue.
         /// If no destIdPropertyValues are supplied, then no relationships will be created,
         /// but any relationships of relationshipType, from the source node to nodes with destNodeLabels will still be removed.
         /// </summary>
-        void AddRelationshipsTo(
-            string relationshipType,
-            IReadOnlyDictionary<string, object>? properties,
-            IEnumerable<string> destNodeLabels,
-            string destIdPropertyName,
-            params object[] destIdPropertyValues);
+        // new void AddRelationshipsTo(
+        //     string relationshipType,
+        //     IReadOnlyDictionary<string, object>? properties,
+        //     IEnumerable<string> destNodeLabels,
+        //     string destIdPropertyName,
+        //     params object[] destIdPropertyValues);
 
         // have 'alias' to make it obvious what the intention is
         void RemoveAnyRelationshipsTo(
@@ -32,14 +32,5 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         {
             AddRelationshipsTo(relationshipType, properties, destNodeLabels, destIdPropertyName);
         }
-
-        //todo: replace existing with this? if incoming is null, then just creates outgoing
-        public void AddTwoWayRelationships(
-            string outgoingRelationshipType,
-            string? incomingRelationshipType,
-            IReadOnlyDictionary<string, object>? properties,
-            IEnumerable<string> destNodeLabels,
-            string destIdPropertyName,
-            params object[] destIdPropertyValues);
     }
 }

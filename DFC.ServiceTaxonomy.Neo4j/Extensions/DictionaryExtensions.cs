@@ -3,9 +3,9 @@ using System.Text;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Extensions
 {
-    public static class ReadOnlyDictionaryExtensions
+    public static class DictionaryExtensions
     {
-        public static string ToCypherPropertiesString(this IReadOnlyDictionary<string,object>? properties)
+        public static string ToCypherPropertiesString(this IEnumerable<KeyValuePair<string, object>>? properties)
         {
             if (properties == null)
                 return "";

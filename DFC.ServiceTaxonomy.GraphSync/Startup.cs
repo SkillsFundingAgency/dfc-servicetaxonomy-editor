@@ -84,7 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
                 .AddHandler<GraphSyncPartHandler>();
             services.AddScoped<IContentTypePartDefinitionDisplayDriver, GraphSyncPartSettingsDisplayDriver>();
             services.AddScoped<IDataMigration, Migrations>();
-            services.AddScoped<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+            services.AddTransient<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
+            services.AddTransient<IGraphSyncPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
@@ -129,8 +130,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentFieldGraphSyncer, TaxonomyFieldGraphSyncer>();
 
             // workflow activities
-            services.AddActivity<SyncToGraphTask, SyncToGraphTaskDisplay>();
-            services.AddActivity<DeleteFromGraphTask, DeleteFromGraphTaskDisplay>();
             services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
             services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
             services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();

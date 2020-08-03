@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
-using DFC.ServiceTaxonomy.Neo4j.Exceptions;
-using DFC.ServiceTaxonomy.Neo4j.Types;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
@@ -12,82 +10,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
     //todo: refactor to only create relationships to one dest node label?
 
-    public class ReplaceRelationshipsCommand : IReplaceRelationshipsCommand
+    public class ReplaceRelationshipsCommand : NodeWithOutgoingRelationshipsCommand, IReplaceRelationshipsCommand
     {
-        public HashSet<string> SourceNodeLabels { get; set; } = new HashSet<string>();
-        public string? SourceIdPropertyName { get; set; }
-        public object? SourceIdPropertyValue { get; set; }
-
-        public IEnumerable<Relationship> Relationships
-        {
-            get { return RelationshipsList; }
-        }
-
-        private List<Relationship> RelationshipsList { get; set; } = new List<Relationship>();
-
-        public void AddRelationshipsTo(
-            string relationshipType,
-            IReadOnlyDictionary<string, object>? properties,
-            IEnumerable<string> destNodeLabels,
-            string destIdPropertyName,
-            params object[] destIdPropertyValues)
-        {
-            RelationshipsList.Add(new Relationship(
-                relationshipType,
-                null,
-                properties,
-                destNodeLabels,
-                destIdPropertyName,
-                destIdPropertyValues));
-        }
-
-        // public void AddIncomingRelationshipsFrom()
-        // {
-        // }
-
-        public void AddTwoWayRelationships(
-            string outgoingRelationshipType,
-            string? incomingRelationshipType,
-            IReadOnlyDictionary<string, object>? properties,
-            IEnumerable<string> destNodeLabels,
-            string destIdPropertyName,
-            params object[] destIdPropertyValues)
-        {
-            RelationshipsList.Add(new Relationship(
-                outgoingRelationshipType,
-                incomingRelationshipType,
-                properties,
-                destNodeLabels,
-                destIdPropertyName,
-                destIdPropertyValues));
-        }
-
-        public List<string> ValidationErrors()
-        {
-            List<string> validationErrors = new List<string>();
-
-            if (!SourceNodeLabels.Any())
-                validationErrors.Add($"Missing {nameof(SourceNodeLabels)}.");
-
-            if (SourceIdPropertyName == null)
-                validationErrors.Add($"{nameof(SourceIdPropertyName)} is null.");
-
-            if (SourceIdPropertyValue == null)
-                validationErrors.Add($"{nameof(SourceIdPropertyValue)} is null.");
-
-            foreach (var relationship in RelationshipsList)
-            {
-                var relationshipValidationErrors = relationship.ValidationErrors;
-                if (relationshipValidationErrors.Any())
-                {
-                    validationErrors.Add($"{relationship.RelationshipType??"<Null Type>"} relationship invalid ({string.Join(",", relationshipValidationErrors)})");
-                }
-            }
-
-            return validationErrors;
-        }
-
-        public Query Query
+        public override Query Query
         {
             get
             {
@@ -146,9 +71,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                         {
                             mergeBuilder.Append(
                                 $"\r\nmerge ({sourceNodeVariableName})<-[{incomingRelationshipVariable}:{relationship.IncomingRelationshipType}]-({destNodeVariable})");
-                        }
 
-                        //todo: set properties also on incoming relationship?
+                            // set a property to indicate this is a 2 way relationship
+                            mergeBuilder.Append($" set {incomingRelationshipVariable}.{TwoWayRelationshipPropertyName}=TRUE");
+
+                            //todo: set properties also on incoming relationship?
+                        }
                     }
                 }
 
@@ -170,8 +98,6 @@ delete {existingRelationshipsVariablesString}
             }
         }
 
-        public static implicit operator Query(ReplaceRelationshipsCommand c) => c.Query;
-
         private static (string optionalMatches, string variablesString) GenerateExistingRelationships(
             HashSet<(string type, string labels)> distinctRelationshipTypeToDestNode,
             string sourceNodeVariableName)
@@ -190,10 +116,7 @@ delete {existingRelationshipsVariablesString}
             return (existingRelationshipsMatchBuilder.ToString(), AllVariablesString(existingRelationshipVariableBase, ordinal));
         }
 
-        private static string AllVariablesString(string variableBase, int ordinal) =>
-            string.Join(',', Enumerable.Range(1, ordinal).Select(o => $"{variableBase}{o}"));
-
-        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
+        public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
             //todo: log query (doesn't work!) Query was: {resultSummary.Query}.
             //todo: validate deletes?
@@ -225,9 +148,9 @@ delete {existingRelationshipsVariablesString}
                 throw CreateValidationException(resultSummary, "New relationships not returned.");
 
             // could store variable name to type dic and use that to check instead
-            List<string> unorderedExpectedRelationshipTypes = (RelationshipsList.SelectMany(
+            List<string> unorderedExpectedRelationshipTypes = RelationshipsList.SelectMany(
                 relationship => relationship.DestinationNodeIdPropertyValues,
-                (relationship, _) => relationship.RelationshipType)).ToList();
+                (relationship, _) => relationship.RelationshipType).ToList();
 
             var expectedRelationshipTypes = unorderedExpectedRelationshipTypes
                 .OrderBy(t => t);
@@ -244,22 +167,6 @@ delete {existingRelationshipsVariablesString}
             if (!createdRelationships.Skip(1).All(r => r.StartNodeId == firstStartNodeId))
                 throw CreateValidationException(resultSummary,
                     "Not all created relationships have the same source node.");
-        }
-
-        private CommandValidationException CreateValidationException(IResultSummary resultSummary, string message)
-        {
-            return new CommandValidationException(@$"{message}
-{nameof(ReplaceRelationshipsCommand)}:
-{this}
-
-{resultSummary}");
-        }
-
-        public override string ToString()
-        {
-            return $@"(:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}: '{SourceIdPropertyValue}'}})
-Relationships:
-{string.Join(Environment.NewLine, RelationshipsList)}";
         }
     }
 }

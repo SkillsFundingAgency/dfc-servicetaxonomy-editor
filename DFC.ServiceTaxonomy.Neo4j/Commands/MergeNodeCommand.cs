@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Neo4j.Driver;

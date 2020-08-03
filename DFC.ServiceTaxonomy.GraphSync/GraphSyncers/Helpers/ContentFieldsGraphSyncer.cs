@@ -73,7 +73,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)

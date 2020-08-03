@@ -5,10 +5,10 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models
 {
-    public interface INodeWithOutgoingRelationships
+    public interface INodeAndOutRelationshipsAndTheirInRelationships
     {
         INode SourceNode { get; set; }
-        IEnumerable<IOutgoingRelationship> OutgoingRelationships { get; set; }
+        public IEnumerable<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)> OutgoingRelationships { get; set; }
 
         IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper);
     }

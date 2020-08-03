@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using Newtonsoft.Json.Linq;
@@ -27,8 +28,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
         }
 
+        public async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        {
+            await Task.WhenAll(
+                _flowPartEmbeddedContentItemsGraphSyncer.AllowSync((JArray?)content[ContainerName], context, allowSyncResult),
+                _contentFieldsGraphSyncer.AllowSync(content, context, allowSyncResult));
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
+            //todo: make concurrent
             await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
 
             // FlowPart allows part definition level fields, but values are on each FlowPart instance
