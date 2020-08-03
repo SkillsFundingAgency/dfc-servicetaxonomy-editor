@@ -102,7 +102,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //using var _ = graphSyncHelper.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
 
             //todo: this is there sometimes, but not others (Tag editor is selected and/or non-unique?)
-            context.MergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
+            // find out when it should be there: need to know to know how to validate it
+            //context.MergeNodeCommand.AddArrayProperty<string>(TaxonomyTermsNodePropertyName, contentItemField, TagNames);
 
             //todo: need to store location as string, e.g. "/contact-us"
             // could alter flatten to also include parent and work backwards
@@ -205,11 +206,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 context.ExpectedRelationshipCounts.IncreaseCount(termRelationshipType);
             }
 
-            return context.GraphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
-                TagNames,
-                contentItemField,
-                TaxonomyTermsNodePropertyName,
-                context.NodeWithOutgoingRelationships.SourceNode);
+            // return context.GraphValidationHelper.StringArrayContentPropertyMatchesNodeProperty(
+            //     TagNames,
+            //     contentItemField,
+            //     TaxonomyTermsNodePropertyName,
+            //     context.NodeWithOutgoingRelationships.SourceNode);
+
+            return (true, "");
         }
     }
 }

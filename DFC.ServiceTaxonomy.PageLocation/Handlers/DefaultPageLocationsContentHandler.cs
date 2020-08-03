@@ -15,6 +15,7 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 {
+    //todo: IContentPartHandler now has support for DraftSavedAsync, so we should switch to using it
     public class DefaultPageLocationsContentHandler : ContentHandlerBase
     {
         private readonly IServiceProvider _serviceProvider;
