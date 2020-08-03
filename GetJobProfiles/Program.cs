@@ -191,7 +191,7 @@ namespace GetJobProfiles
                 await CopyRecipe(contentRecipesPath, "ContentHelp");
                 await CopyRecipe(contentRecipesPath, "EmailTemplates");
                 await CopyRecipe(contentRecipesPath, "Taxonomies");
-                await CopyRecipe(contentRecipesPath, "Pages");
+                await CopyRecipe(contentRecipesPath, "TestPages");
             }
 
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");
