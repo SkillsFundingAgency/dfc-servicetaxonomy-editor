@@ -15,47 +15,33 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
     //todo: update comment and confluence with extra deleted events and which content uri prefix is used	
 
     /// <summary>	
-    /// |Id| existing state      | user action              | post state         | event grid events          | notes                                   |	
-    /// |  |                     |                          |                    |                            |                                         |	
-    /// |  |                     |                          |                    |                            |                                         |	
-    /// |--|---------------------|--------------------------|--------------------|----------------------------|-----------------------------------------|	
-    /// |1 | n/a                 | save draft               | draft              | draft                      |                                         |	
-    /// |2 | n/a                 | save draft               | n/a                | n/a                        |                                         |	
-    /// |3 | n/a>draft val fail  | save draft               | draft              | draft                      |                                         |	
-    /// |4 | n/a>draft val fail  | save draft               | n/a                | n/a                        |                                         |	
-    /// |5 | n/a>pub val fail    | save draft               | draft              | draft                      |                                         |	
-    /// |6 | n/a>pub val fail    | save draft               | n/a                | n/a                        |                                         |	
-    /// |7 | n/a                 | publish                  | published          | published                  |                                         |	
-    /// |8 | n/a                 | publish                  | n/a                | n/a                        |                                         |	
-    /// |9 | n/a>draft val fail  | publish                  | published          | published                  |                                         |	
-    /// |10| n/a>draft val fail  | publish                  | n/a                | n/a                        |                                         |	
-    /// |11| n/a>pub val fail    | publish                  | published          | published                  |                                         |	
-    /// |12| n/a>pub val fail    | publish                  | n/a                | n/a                        |                                         |	
-    /// |13| draft               | save draft               | draft              | draft                      |                                         |	
-    /// |14| draft               | save draft               | draft              | draft                      |                                         |	
-    /// |15| draft               | publish                  | published          | published                  |                                         |	
-    /// |16| draft               | publish                  | draft              | draft                      |                                         |	
-    /// |17| draft               | publish draft from list  | published          | published                  |                                         |	
-    /// |18| published           | save draft               | draft+published    | draft                      |                                         |	
-    /// |19| published           | save draft               | published          | draft                      |                                         |	
-    /// |20| published           | publish                  | published          | published                  |                                         |	
-    /// |21| published           | publish                  | published          | draft                      |                                         |	
-    /// |22| published           | publish draft from list  | published          | n/a                        | publishing without changes is a no-op   |	
-    /// |23| draft+published     | save draft               | draft+published    | draft                      |                                         |	
-    /// |24| draft+published     | save draft               | draft+published    | draft                      |                                         |	
-    /// |25| draft+published     | publish                  | published          | published                  |                                         |	
-    /// |26| draft+published     | publish                  | draft+published    | draft                      |                                         |	
-    /// |27| draft+published     | publish from list        | published          | published                  |                                         |	
-    /// |28| published           | unpublish from list      | draft              | unpublished                |                                         |	
-    /// |29| draft+published     | unpublish from list      | draft              | unpublished                | draft is unchanged                      |	
-    /// |30| draft+published     | discard draft from list  | published          | draft-discarded            |                                         |	
-    /// |31| draft               | delete from list         | n/a                | deleted                    |                                         |	
-    /// |32| published           | delete from list         | n/a                | deleted                    |                                         |	
-    /// |33| draft+published     | delete from list         | n/a                | deleted                    |                                         |	
-    /// |34| draft               | clone from list          | new draft          | draft                      |                                         |	
-    /// |35| published           | clone from list          | new draft          | draft                      |                                         |	
-    /// |36| draft+published     | clone from list          | new draft          | draft                      |                                         |	
-    /// |37| n/a                 | import recipe (publish)  | published          | published                  | re-importing not tested as it has issues that should be fixed by the current oc idempotent recipes pr |	
+    /// |Id| existing state | user action | post state | event grid events | notes |
+    /// |--|---------------------|--------------------------|-------------|--------------------|----------------------------|-----------------------------------------|
+    /// |1 | n/a                 | save draft               | draft              | draft                      |                                         |
+    /// |2 | n/a>draft val fail  | save draft               | draft              | draft                      |                                         |
+    /// |3 | n/a>pub val fail    | save draft               | draft              | draft                      |                                         |
+    /// |4 | n/a                 | publish                  | published          | published                  |                                         |
+    /// |5 | n/a>draft val fail  | publish                  | published          | published                  |                                         |
+    /// |6| n/a>pub val fail     | publish                  | published          | published                  |                                         |
+    /// |7| draft                | save draft               | draft              | draft                      |                                         |
+    /// |8| draft                | publish                  | published          | published+draft-discarded  |                                         |
+    /// |9| draft                | publish draft from list  | published          | published                  |                                         |
+    /// |10| published           | save draft               | draft+published    | draft                      |                                         |
+    /// |11| published           | publish                  | published          | published                  |                                         |
+    /// |12| published           | publish draft from list  | published          | n/a                        | publishing without changes is a no-op   |
+    /// |13| draft+published     | save draft               | draft+published    | draft                      |                                         |
+    /// |14| draft+published     | publish                  | published          | published+draft-discarded  |                                         |
+    /// |15| draft+published     | publish from list        | published          | published+draft-discarded  |                                         |
+    /// |16| published           | unpublish from list      | draft              | unpublished+draft          |                                         |
+    /// |17| draft+published     | unpublish from list      | draft              | unpublished                | draft is unchanged                      |
+    /// |18| draft+published     | discard draft from list  | published          | draft-discarded            |                                         |
+    /// |19| draft               | delete from list         | n/a                | deleted                    |                                         |
+    /// |20| published           | delete from list         | n/a                | deleted                    |                                         |
+    /// |21| draft+published     | delete from list         | n/a                | deleted                    |                                         |
+    /// |22| draft               | clone from list          | new draft          | draft                      |                                         |
+    /// |23| published           | clone from list          | new draft          | draft                      |                                         |
+    /// |24| draft+published     | clone from list          | new draft          | draft                      |                                         |
+    /// |25| n/a                 | import recipe (publish)  | published          | published                  | re-importing not tested as it has issues that should be fixed by the current oc idempotent recipes pr |
     /// </summary>
     public class PublishToEventGridHandler : ContentHandlerBase
     {
