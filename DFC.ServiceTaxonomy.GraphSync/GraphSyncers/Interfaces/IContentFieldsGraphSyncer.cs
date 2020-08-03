@@ -5,8 +5,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IContentFieldsGraphSyncer
     {
-        Task AllowSync(JArray? contentItems, IGraphMergeContext context, IAllowSyncResult allowSyncResult) =>
-            Task.CompletedTask;
+        Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+            => Task.CompletedTask;
 
         Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
