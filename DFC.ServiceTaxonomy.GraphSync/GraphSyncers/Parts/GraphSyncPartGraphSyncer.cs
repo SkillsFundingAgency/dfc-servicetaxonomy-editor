@@ -5,7 +5,11 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public class GraphSyncPartGraphSyncer : IContentPartGraphSyncer
+    public interface IGraphSyncPartGraphSyncer : IContentPartGraphSyncer
+    {
+    }
+
+    public class GraphSyncPartGraphSyncer : IGraphSyncPartGraphSyncer
     {
         public string PartName => nameof(GraphSyncPart);
 

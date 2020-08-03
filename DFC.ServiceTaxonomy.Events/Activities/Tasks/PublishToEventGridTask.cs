@@ -73,6 +73,8 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly ILogger<PublishToEventGridTask> _logger;
 
+        private static readonly DeletedContentItemVersion _deletedContentItemVersion = new DeletedContentItemVersion();
+
         public PublishToEventGridTask(
             IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
@@ -199,12 +201,12 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
                 //todo: modified time as event time is probably wrong. either pick correct time, or just set to now
                 if (eventType != null)
                 {
-                    await PublishContentEvents(workflowContext, eventContentItem, eventType.Value);
+                    await PublishContentEvent(workflowContext, eventContentItem, eventType.Value);
                 }
 
                 if (eventType2 != null)
                 {
-                    await PublishContentEvents(workflowContext, eventContentItem, eventType2.Value);
+                    await PublishContentEvent(workflowContext, eventContentItem, eventType2.Value);
                 }
             }
             catch (Exception e)
@@ -214,41 +216,33 @@ namespace DFC.ServiceTaxonomy.Events.Activities.Tasks
             }
         }
 
-        private async Task PublishContentEvents(
-            WorkflowExecutionContext workflowContext,
-            ContentItem contentItem,
-            ContentEventType eventType)
-        {
-            switch (eventType)
-            {
-                case ContentEventType.Published:
-                case ContentEventType.Unpublished:
-                    await PublishContentEvent(workflowContext, contentItem, _publishedContentItemVersion, eventType);
-                    //todo: if there wasn't a draft version, would have to publish unpublished with pewview graph too
-                    break;
-                case ContentEventType.Draft:
-                case ContentEventType.DraftDiscarded:
-                    await PublishContentEvent(workflowContext, contentItem, _previewContentItemVersion, eventType);
-                    break;
-                case ContentEventType.Deleted:
-                    //todo: should only publish events if there was a published/preview version
-                    await PublishContentEvent(workflowContext, contentItem, _publishedContentItemVersion, eventType);
-                    await PublishContentEvent(workflowContext, contentItem, _previewContentItemVersion, eventType);
-                    break;
-            }
-        }
-
         private async Task PublishContentEvent(
             WorkflowExecutionContext workflowContext,
             ContentItem contentItem,
-            IContentItemVersion contentItemVersion,
             ContentEventType eventType)
         {
+            IContentItemVersion contentItemVersion = eventType switch
+            {
+                ContentEventType.Published => _publishedContentItemVersion,
+                ContentEventType.Draft => _previewContentItemVersion,
+                _ => _deletedContentItemVersion
+            };
+
             // would it be better to use the workflowid as the correlation id instead?
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             ContentEvent contentEvent = new ContentEvent(workflowContext.CorrelationId, contentItem, userId, eventType);
             await _eventGridContentClient.Publish(contentEvent);
+        }
+
+        private class DeletedContentItemVersion : IContentItemVersion
+        {
+            public string ContentApiBaseUrl => "";
+
+            public VersionOptions VersionOptions => throw new NotImplementedException();
+            public (bool? latest, bool? published) ContentItemIndexFilterTerms => throw new NotImplementedException();
+            public string GraphReplicaSetName => throw new NotImplementedException();
+            public Task<ContentItem> GetContentItem(IContentManager contentManager, string id) => throw new NotImplementedException();
         }
     }
 }

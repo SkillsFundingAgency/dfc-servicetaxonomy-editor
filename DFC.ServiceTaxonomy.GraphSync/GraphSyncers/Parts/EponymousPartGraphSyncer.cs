@@ -31,12 +31,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
         }
 
+        public async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _contentFieldsGraphSyncer.AllowSync(content, context, allowSyncResult);
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(

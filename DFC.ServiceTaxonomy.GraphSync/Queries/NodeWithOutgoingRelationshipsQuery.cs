@@ -8,6 +8,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Queries
 {
+    //todo: rename to NodeAndOutRelationships
     public class NodeWithOutgoingRelationshipsQuery : IQuery<INodeWithOutgoingRelationships?>
     {
         private IEnumerable<string> NodeLabels { get; }

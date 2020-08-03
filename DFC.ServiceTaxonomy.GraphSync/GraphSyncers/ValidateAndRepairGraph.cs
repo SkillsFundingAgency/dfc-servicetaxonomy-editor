@@ -200,8 +200,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
-                await mergeGraphSyncer.SyncToGraphReplicaSet(graphReplicaSet, failure.ContentItem, _contentManager);
+                //todo: see if allowed
+                // add combined method to graph syncer
+                //IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
+                await mergeGraphSyncer.SyncToGraphReplicaSet();
 
                 //todo: split into smaller methods
 

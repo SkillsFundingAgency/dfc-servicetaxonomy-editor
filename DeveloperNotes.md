@@ -1,6 +1,19 @@
 #ToDo
 
-* revisit events
+* sync contentitemid (& contentitemversion) into graphs?
+
+* wysiwyg alignment in flow part (if we need to support justification)
+
+* the validation needs to de-substitute the actual urls back to <<contentapiprefix>> before it checks for equality
+* validate twoway relationships
+
+* add publish later and unpublish later buttons to page type
+
+* fix visualisation buttons (substitute urls?)
+
+* switch visualisation buttons to dropdowns
+
+* MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 
 * when deleting get this message..
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
@@ -646,21 +659,29 @@ match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use published1;
 match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use preview0;
 match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use preview1;
 match (n:Page) detach delete n;
 match (n:SharedContent) detach delete n;
 match (n:PageLocation) detach delete n;
 match (n:Taxonomy) detach delete n;
+match (n:HTML) detach delete n;
+match (n:HTMLShared) detach delete n;
 :use neo4j;
 
 ##Testing graph validation

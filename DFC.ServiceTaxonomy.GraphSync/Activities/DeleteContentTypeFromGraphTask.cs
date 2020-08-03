@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
     {
         public DeleteContentTypeFromGraphTask(
             IDeleteGraphSyncer deleteGraphSyncer,
-            IStringLocalizer<DeleteFromGraphTask> localizer,
+            IStringLocalizer<DeleteContentTypeFromGraphTask> localizer,
             INotifier notifier)
         {
             _deleteGraphSyncer = deleteGraphSyncer;

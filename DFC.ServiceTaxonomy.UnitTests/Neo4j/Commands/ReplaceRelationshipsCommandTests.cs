@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Neo4j.Commands;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.Neo4j.Commands
