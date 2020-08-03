@@ -206,6 +206,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 //todo: if this check is needed after the published/draft work, don't rely on the message!
                 if (ex.Message != "Expecting 1 node to be deleted, but 0 were actually deleted.")
                 {
+                    //todo: use Removing event instead
                     _session.Cancel();
                     AddFailureNotifier(contentItem);
                     throw;

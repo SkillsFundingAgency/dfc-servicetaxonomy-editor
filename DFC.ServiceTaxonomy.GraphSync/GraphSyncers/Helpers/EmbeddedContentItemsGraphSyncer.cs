@@ -207,7 +207,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             //todo: need to add command to context, or otherwise execute it
             // should add commands to be executed (in order) to context (same with embedded items)
-            // so that everything syncs as a unit or not within a transaction
+            // so that everything syncs as a unit (atomically) or not within a transaction
             await context.GraphReplicaSet.Run(deleteRelationshipCommand);
         }
 
