@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Newtonsoft.Json.Linq;
-using System.Linq;
 using OrchardCore.ContentFields.Settings;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -13,18 +13,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private const string ContentKey = "Text";
 
+        private const string SyncToArrayFlag = "##synctoarray";
+
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
             string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
 
-            var settings = context.ContentPartFieldDefinition.PartDefinition.Fields.FirstOrDefault(x => x.Name == context.ContentPartFieldDefinition!.Name);
-
-            if (settings != null && settings.GetSettings<TextFieldSettings>().Hint != null && settings.GetSettings<TextFieldSettings>().Hint!.ToLower().IndexOf("##synctoarray") != -1)
+            string? hint = context.ContentPartFieldDefinition.GetSettings<TextFieldSettings>().Hint;
+            if (hint != null && hint.ToLower().IndexOf(SyncToArrayFlag, StringComparison.Ordinal) != -1)
             {
-                //todo: fix empty string case : add helper
-                var val = contentItemField[ContentKey]!.ToString().Split("\r\n");
-                var array = JArray.FromObject(val);
-                context.MergeNodeCommand.AddArrayProperty<string>(nodePropertyName, array);
+                context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
+                    nodePropertyName, contentItemField, ContentKey);
                 return;
             }
 

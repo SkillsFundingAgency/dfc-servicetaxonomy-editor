@@ -28,19 +28,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             context.MergeNodeCommand.AddProperty<bool>(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
             context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
 
-            JArray? redirectLocationsJArray;
-            JToken? redirectLocations = content["RedirectLocations"];
-            if (redirectLocations != null && redirectLocations.Type != JTokenType.Null)
-            {
-                var redirectLocationsArray = redirectLocations.Value<string>().Split("\r\n");
-                redirectLocationsJArray = JArray.FromObject(redirectLocationsArray);
-            }
-            else
-            {
-                redirectLocationsJArray = new JArray();
-            }
-
-            context.MergeNodeCommand.AddArrayProperty<string>(await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName), redirectLocationsJArray);
+            context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
+                await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName), content,
+                RedirectLocationsPropertyName);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
