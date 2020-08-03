@@ -30,6 +30,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         //todo: from config CommonNodeLabels
         public const string CommonNodeLabel = "Resource";
+        // needs to be all lowercase
+        public const string ContentApiPrefixToken = "<<contentapiprefix>>";
 
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
@@ -188,7 +190,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             // we ignore case, so that existing content items will still sync
             // if we didn't have to worry about existing items in the oc db, we wouldn't need to
-            return untransformedIdString.Replace("<<contentapiprefix>>", contentItemVersion.ContentApiBaseUrl,
+            return untransformedIdString.Replace(ContentApiPrefixToken, contentItemVersion.ContentApiBaseUrl,
+                StringComparison.OrdinalIgnoreCase);
+        }
+
+        public string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion)
+        {
+            return nodeIdValue.Replace(contentItemVersion.ContentApiBaseUrl, ContentApiPrefixToken,
                 StringComparison.OrdinalIgnoreCase);
         }
 

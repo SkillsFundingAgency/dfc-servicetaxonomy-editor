@@ -38,6 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         string GetContentTypeFromNodeLabels(IEnumerable<string> nodeLabels);
         string ContentIdPropertyName { get; }
         object? GetIdPropertyValue(JObject graphSyncContent, IContentItemVersion contentItemVersion);
+        string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion);
     }
     #pragma warning restore S4136
 }
