@@ -25,14 +25,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IGraphSyncHelper _graphSyncHelper;
-        //todo: tidy this up
-        public IMergeNodeCommand MergeNodeCommand { get; }
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
-        //todo: tidy this up too
+        //todo: tidy these up? make more public??
+        public IMergeNodeCommand MergeNodeCommand { get; }
         private GraphMergeContext? _graphMergeContext;
         public IGraphMergeContext? GraphMergeContext => _graphMergeContext;
         private ContentItem? _contentItem;
