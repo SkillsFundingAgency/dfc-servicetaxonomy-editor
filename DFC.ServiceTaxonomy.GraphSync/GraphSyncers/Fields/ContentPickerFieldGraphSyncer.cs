@@ -80,6 +80,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
             {
+                //todo: better to add property to picker relationships in preview graph that aren't in published graph
+                // then can query them and recreate them on item publish (merge node)
+                // rather than storing the triplets separately
+
                 // split foundDestinationContentItems into those that only have draft versions and all the others
                 // all others create relationships as normal
 
