@@ -40,6 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private GraphMergeContext? _graphMergeContext;
         public IGraphMergeContext? GraphMergeContext => _graphMergeContext;
         private ContentItem? _contentItem;
+        private List<INodeWithOutgoingRelationships>? _incomingGhostRelationships;
 
         public MergeGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
@@ -61,6 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
 
             _graphMergeContext = null;
+            _incomingGhostRelationships = null;
         }
 
         public async Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
@@ -121,7 +123,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
-            var incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(_graphMergeContext.ContentItemVersion);
+            //should it go in the context?
+            _incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(graphReplicaSet);
 
             // move into context?
             _contentItem = contentItem;
@@ -153,7 +156,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             await AddContentPartSyncComponents(_contentItem!);
 
-            //todo: bit hacky. best way to do this?
+            //todo: bit hacky. best way to do this? remove this now?
             // work-around new taxonomy terms created with only DisplayText set
             if (!MergeNodeCommand.Properties.ContainsKey(_graphSyncHelper.IdPropertyName())
                 && MergeNodeCommand.Properties.ContainsKey(TitlePartGraphSyncer.NodeTitlePropertyName))
@@ -161,10 +164,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 MergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
             }
 
+            IEnumerable<IReplaceRelationshipsCommand> recreateGhostRelationshipsCommands =
+                GetRecreateGhostRelationshipCommands();
+
             _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {MergeNodeCommand}");
-            await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet);
+            await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet, recreateGhostRelationshipsCommands);
 
             return MergeNodeCommand;
+        }
+
+        private IEnumerable<IReplaceRelationshipsCommand> GetRecreateGhostRelationshipCommands()
+        {
+            //todo: need to support twoway
+            if (_incomingGhostRelationships?.Any() == true)
+            {
+                return _incomingGhostRelationships
+                    .Select(r => r.ToReplaceRelationshipsCommand(_graphSyncHelper));
+            }
+
+            return Enumerable.Empty<IReplaceRelationshipsCommand>();
         }
 
         //todo: return null?
@@ -187,10 +205,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             //todo: return IEnumerable??
 
+            #pragma warning disable S1905 // Sonar needs updating to know about nullable references
             return incomingGhostRelationships
                 .Where(n => n != null)
                 .Cast<INodeWithOutgoingRelationships>()
                 .ToList();
+            #pragma warning restore S1905
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
@@ -207,12 +227,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         //todo: should we add a AddIdSyncComponents method?
 
-        private async Task SyncComponentsToGraphReplicaSet(IGraphReplicaSet graphReplicaSet)
+        private async Task SyncComponentsToGraphReplicaSet(
+            IGraphReplicaSet graphReplicaSet,
+            IEnumerable<ICommand> extraCommands)
         {
             List<ICommand> commands = new List<ICommand>();
 
             if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                 commands.Add(MergeNodeCommand);
+
+            if (extraCommands.Any())
+                commands.AddRange(extraCommands);
 
             if (_replaceRelationshipsCommand.Relationships.Any())
                 commands.Add(_replaceRelationshipsCommand);

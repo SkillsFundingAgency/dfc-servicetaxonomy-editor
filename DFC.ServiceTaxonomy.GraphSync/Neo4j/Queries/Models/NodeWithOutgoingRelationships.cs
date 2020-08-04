@@ -2,6 +2,8 @@
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Commands;
+using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
 using Neo4j.Driver;
 using OrchardCore.Workflows.Helpers;
@@ -41,6 +43,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
                 g.Key.DestinationNodeIdPropertyValues.AddRange(g);
                 return g.Key;
             });
+        }
+
+        public IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(IGraphSyncHelper graphSyncHelper)
+        {
+            string sourceIdPropertyName = graphSyncHelper.IdPropertyNameFromNodeLabels(SourceNode.Labels);
+
+            IReplaceRelationshipsCommand replaceRelationshipsCommand = new ReplaceRelationshipsCommand
+            {
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = SourceNode.Properties[sourceIdPropertyName],
+                SourceNodeLabels = new HashSet<string>(SourceNode.Labels)
+            };
+
+            //todo: twoway
+            replaceRelationshipsCommand.AddRelationshipsTo(ToCommandRelationships(graphSyncHelper));
+
+            return replaceRelationshipsCommand;
         }
     }
 }

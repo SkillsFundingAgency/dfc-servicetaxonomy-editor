@@ -79,5 +79,5 @@ return sourceNodeWithOutgoingRelationships");
 
             return nodeWithOutgoingRelationships;
         }
-    }    }
+    }
 }
