@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,12 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -28,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         //todo: tidy these up? make more public??
@@ -43,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
             IContentItemVersionFactory contentItemVersionFactory,
+            IServiceProvider serviceProvider,
             ILogger<MergeGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -51,6 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
+            _serviceProvider = serviceProvider;
             _logger = logger;
 
             _graphMergeContext = null;
@@ -114,6 +121,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
+            var incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(_graphMergeContext.ContentItemVersion);
+
             // move into context?
             _contentItem = contentItem;
 
@@ -156,6 +165,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet);
 
             return MergeNodeCommand;
+        }
+
+        //todo: return null?
+        private async Task<List<INodeWithOutgoingRelationships>> GetIncomingGhostRelationshipsWhenPublishing(
+            //IContentItemVersion contentItemVersion,
+            IGraphReplicaSet graphReplicaSet)
+        {
+            // if (contentItemVersion.GraphReplicaSetName != GraphReplicaSetNames.Published)
+            //     return;
+
+            if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
+                return new List<INodeWithOutgoingRelationships>();
+
+            IGetDraftRelationships getDraftRelationships = _serviceProvider.GetRequiredService<IGetDraftRelationships>();
+
+            //populate
+
+            //todo: does it need to be ?
+            List<INodeWithOutgoingRelationships?> incomingGhostRelationships = await graphReplicaSet.Run(getDraftRelationships);
+
+            //todo: return IEnumerable??
+
+            return incomingGhostRelationships
+                .Where(n => n != null)
+                .Cast<INodeWithOutgoingRelationships>()
+                .ToList();
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
