@@ -12,9 +12,9 @@ using OrchardCore.ContentManagement.Handlers;
 namespace DFC.ServiceTaxonomy.Events.Handlers
 {
     //todo: revisit if/when we get ContentSavedEvent
-    //todo: update comment and confluence with extra deleted events and which content uri prefix is used	
+    //todo: update comment and confluence with extra deleted events and which content uri prefix is used
 
-    /// <summary>	
+    /// <summary>
     /// |Id| existing state | user action | post state | event grid events | notes |
     /// |--|---------------------|--------------------------|-------------|--------------------|----------------------------|-----------------------------------------|
     /// |1 | n/a                 | save draft               | draft              | draft                      |                                         |
@@ -24,14 +24,14 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
     /// |5 | n/a>draft val fail  | publish                  | published          | published                  |                                         |
     /// |6| n/a>pub val fail     | publish                  | published          | published                  |                                         |
     /// |7| draft                | save draft               | draft              | draft                      |                                         |
-    /// |8| draft                | publish                  | published          | published+draft-discarded  |                                         |
+    /// |8| draft                | publish                  | published          | published                  |                                         |
     /// |9| draft                | publish draft from list  | published          | published                  |                                         |
     /// |10| published           | save draft               | draft+published    | draft                      |                                         |
     /// |11| published           | publish                  | published          | published                  |                                         |
     /// |12| published           | publish draft from list  | published          | n/a                        | publishing without changes is a no-op   |
     /// |13| draft+published     | save draft               | draft+published    | draft                      |                                         |
-    /// |14| draft+published     | publish                  | published          | published+draft-discarded  |                                         |
-    /// |15| draft+published     | publish from list        | published          | published+draft-discarded  |                                         |
+    /// |14| draft+published     | publish                  | published          | published                  |                                         |
+    /// |15| draft+published     | publish from list        | published          | published                  |                                         |
     /// |16| published           | unpublish from list      | draft              | unpublished+draft          |                                         |
     /// |17| draft+published     | unpublish from list      | draft              | unpublished                | draft is unchanged                      |
     /// |18| draft+published     | discard draft from list  | published          | draft-discarded            |                                         |
