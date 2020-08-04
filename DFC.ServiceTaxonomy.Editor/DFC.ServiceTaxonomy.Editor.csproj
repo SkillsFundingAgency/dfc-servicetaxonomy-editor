@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Contents-Button-Edit.SummaryAdmin.cshtml" />
     <Content Remove="Views\ContentVisualise.Button.cshtml" />
     <Content Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
@@ -34,6 +35,7 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
+    <None Include="Views\Contents-Button-Edit.SummaryAdmin.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
