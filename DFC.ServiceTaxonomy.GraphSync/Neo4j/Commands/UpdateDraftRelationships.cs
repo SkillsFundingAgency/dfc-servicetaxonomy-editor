@@ -15,6 +15,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Commands
         public string? IdPropertyName { get; set; }
         public object? IdPropertyValue { get; set; }
 
+        public const string GhostLabelPrefix = "Ghost_";
+
         // need also properties
 
         public List<string> ValidationErrors()
@@ -30,7 +32,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Commands
             {
                 this.CheckIsValid();
 
-                return new Query("");
+                //"match (s)-[r]->(d:{GhostLabelPrefix}{ContentType} {{{PreviewIdPropertyName}: `{IdPropertyValue}`}})
+                return new Query($"create (s)-[r]->(d:");
             }
         }
 

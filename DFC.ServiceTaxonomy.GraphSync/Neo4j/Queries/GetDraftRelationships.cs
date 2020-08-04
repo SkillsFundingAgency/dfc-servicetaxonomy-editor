@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Commands;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
@@ -23,7 +24,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         public string ContentType { get; set; }
         public object IdPropertyValue { get; set; }
 
-        private const string GhostLabelPrefix = "Ghost_";
         // either reuse uri (for the constraint index), or add an index for what we use
         // uri will contain a new guid everytime to enforce uniqueness
         private const string PreviewIdPropertyName = "previewId";
@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
                 //todo: non-string id's wouldn't need ''
                 //todo: could simplify as will only ever be a single triplet ()-[]->()
                 return new Query(
-                    @$"match (s)-[r]->(d:{GhostLabelPrefix}{ContentType} {{{PreviewIdPropertyName}: `{IdPropertyValue}`}})
+                    @$"match (s)-[r]->(d:{UpdateDraftRelationships.GhostLabelPrefix}{ContentType} {{{PreviewIdPropertyName}: `{IdPropertyValue}`}})
 with s, {{relationship: r, destinationNode: d}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as sourceNodeWithOutgoingRelationships
 return sourceNodeWithOutgoingRelationships");
