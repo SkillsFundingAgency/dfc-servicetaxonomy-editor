@@ -5,48 +5,38 @@ using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
-using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
-    public interface IGetDraftRelationships : IQuery<INodeWithOutgoingRelationships?>
-    {
-        string ContentType { get; set; }
-        object IdPropertyValue { get; set; }
-    }
-
     //todo: common base with NodeWithOutgoingRelationshipsQuery??
     //rename ghost?
     public class GetDraftRelationships : IGetDraftRelationships
     {
         //private IEnumerable<string> NodeLabels { get; }
-        public string ContentType { get; set; }
-        public object IdPropertyValue { get; set; }
-
-        // either reuse uri (for the constraint index), or add an index for what we use
-        // uri will contain a new guid everytime to enforce uniqueness
-        private const string PreviewIdPropertyName = "previewId";
+        public string? ContentType { get; set; }
+        public object? IdPropertyValue { get; set; }
 
         // we'll also need to filter by incoming source id & relationship type
         // but probably better to fetch all, then filter later in code?
         // public GetDraftRelationships(IEnumerable<string> nodeLabels, string idPropertyName, object idPropertyValue)
         // {
         //     NodeLabels = nodeLabels;
-        public GetDraftRelationships(string contentType, object idPropertyValue)
-        {
-            ContentType = contentType;
-            IdPropertyValue = idPropertyValue;
-        }
+        // public GetDraftRelationships(string contentType, object idPropertyValue)
+        // {
+        //     ContentType = contentType;
+        //     IdPropertyValue = idPropertyValue;
+        // }
 
         public List<string> ValidationErrors()
         {
             var validationErrors = new List<string>();
 
-            // if(!NodeLabels.Any())
-            // {
-            //     validationErrors.Add("At least one NodeLabel must be provided.");
-            // }
+            if (ContentType == null)
+                validationErrors.Add($"{nameof(ContentType)} is null.");
+
+            if (IdPropertyValue == null)
+                validationErrors.Add($"{nameof(IdPropertyValue)} is null.");
 
             return validationErrors;
         }
@@ -60,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
                 //todo: non-string id's wouldn't need ''
                 //todo: could simplify as will only ever be a single triplet ()-[]->()
                 return new Query(
-                    @$"match (s)-[r]->(d:{UpdateDraftRelationships.GhostLabelPrefix}{ContentType} {{{PreviewIdPropertyName}: `{IdPropertyValue}`}})
+                    @$"match (s)-[r]->(d:{UpdateDraftRelationships.GhostLabelPrefix}{ContentType} {{{UpdateDraftRelationships.PreviewIdPropertyName}: `{IdPropertyValue}`}})
 with s, {{relationship: r, destinationNode: d}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as sourceNodeWithOutgoingRelationships
 return sourceNodeWithOutgoingRelationships");

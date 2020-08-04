@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
@@ -76,6 +77,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
+
+            if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
+            {
+                // split foundDestinationContentItems into those that only have draft versions and all the others
+                // all others create relationships as normal
+
+                // draft only create
+                // if republish, don't want to create new ghost triplets, but want them to be unique and not relate to each other
+                // store source+ghost id in source and dest to make unique and match on both
+            }
 
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works

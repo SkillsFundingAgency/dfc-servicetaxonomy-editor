@@ -44,6 +44,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
             RelationshipsList.AddRange(commandRelationship);
         }
 
+        //todo: ienumerable keyvalue?
         public void AddTwoWayRelationships(
             string outgoingRelationshipType,
             string? incomingRelationshipType,
