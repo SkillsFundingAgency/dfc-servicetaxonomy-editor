@@ -35,7 +35,9 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
-    <None Include="Views\Contents-Button-Edit.SummaryAdmin.cshtml" />
+    <EmbeddedResource Include="Views\Contents-Button-Edit.SummaryAdmin.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
