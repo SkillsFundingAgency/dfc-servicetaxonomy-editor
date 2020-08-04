@@ -1,0 +1,43 @@
+﻿@using OrchardCore.ContentManagement
+@using DFC.ServiceTaxonomy.Editor.Constants
+@using DFC.ServiceTaxonomy.PageLocation.Models
+@using Microsoft.Extensions.Options
+@using DFC.ServiceTaxonomy.Editor.Configuration 
+@inject IContentManager ContentManager
+@inject IOptions<PagesConfiguration> Config
+
+@{
+    ContentItem contentItem = Model.ContentItem;
+    var hasPublished = await ContentManager.HasPublishedVersionAsync(contentItem);
+    var PageConfig = Config.Value;
+}
+
+<a edit-for="@contentItem" asp-route-returnUrl="@FullRequestPath" class="btn btn-primary btn-sm">@T["Edit"]</a>
+
+@if (hasPublished && contentItem.ContentType != ContentTypes.Page)
+{
+    <a display-for="@contentItem" class="btn btn-success btn-sm" itemprop="">@T["View"]</a>
+}
+
+@if (contentItem.ContentType == ContentTypes.Page)
+{
+    string url = contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
+
+    <div class="btn-group">
+        <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="viewButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @T["View"]
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="viewButton">
+            <a href="@($"{PageConfig.PreviewAppPrefix}{url}")"
+               target="_blank"
+               class="dropdown-item btn-sm">@T["View draft content"]</a>
+
+            @if (hasPublished)
+            {
+                <a href="@($"{PageConfig.PublishedAppPrefix}{url}")"
+                   target="_blank"
+                   class="dropdown-item btn-sm">@T["View published content"]</a>
+            }
+        </div>
+    </div>
+}
