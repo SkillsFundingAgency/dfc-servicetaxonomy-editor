@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
 using Neo4j.Driver;
 using Newtonsoft.Json;
