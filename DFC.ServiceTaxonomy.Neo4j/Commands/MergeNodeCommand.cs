@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         public string? IdPropertyName { get; set; }
         public IDictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
 
-        public List<string> ValidationErrors()
+        public virtual List<string> ValidationErrors()
         {
             List<string> validationErrors = new List<string>();
 
@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         }
 
         //todo: pass back if node was created or updated and use that to better validate
-        public Query Query
+        public virtual Query Query
         {
             get
             {
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public static implicit operator Query(MergeNodeCommand c) => c.Query;
 
-        public void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
+        public virtual void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
             int expectedPropertyCount = Properties.Count, expectedLabelsAdded;
             switch (resultSummary.Counters.NodesCreated)
