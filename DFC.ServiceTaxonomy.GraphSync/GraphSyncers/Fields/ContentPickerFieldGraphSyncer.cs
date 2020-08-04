@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
@@ -18,6 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
     {
         public string FieldTypeName => "ContentPickerField";
 
+        //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
@@ -59,6 +60,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // but if saving a published item which has references to draft content items, then draft item won't be in the published graph
             // need to decide between...
             // * don't create relationships from a pub to draft items, then when a draft item is published, query the draft graph for incoming relationships, and create those incoming relationships on the newly published item in the published graph
+            // other things, e.g. non oc controlled things might have incoming relationships. check all contentpicker content part definitions, that can pick the content. then check all the items in all parts? or query incoming on draft and use uri to pick from content items/create index?
+            // create oc table of all draft items with referencing published items? or store in graph?
+            // create ghosted items not connected to published content? in own graph?
             // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
             IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
                 contentItemIds.Select(async contentItemId => //todo: add method to context?

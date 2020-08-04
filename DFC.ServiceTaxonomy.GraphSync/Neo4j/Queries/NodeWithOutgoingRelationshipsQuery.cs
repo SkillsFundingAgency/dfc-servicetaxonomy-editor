@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Queries
+namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
     //todo: rename to NodeAndOutRelationships
     public class NodeWithOutgoingRelationshipsQuery : IQuery<INodeWithOutgoingRelationships?>

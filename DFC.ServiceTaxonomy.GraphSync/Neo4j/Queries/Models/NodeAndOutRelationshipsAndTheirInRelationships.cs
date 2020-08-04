@@ -5,7 +5,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
 using Neo4j.Driver;
 using OrchardCore.Workflows.Helpers;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Queries.Models
+namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
 {
     public class NodeAndOutRelationshipsAndTheirInRelationships : INodeAndOutRelationshipsAndTheirInRelationships
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.Queries.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 
