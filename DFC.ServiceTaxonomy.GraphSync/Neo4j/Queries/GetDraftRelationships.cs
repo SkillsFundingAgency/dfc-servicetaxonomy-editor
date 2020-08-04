@@ -11,20 +11,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
     public interface IGetDraftRelationships : IQuery<INodeWithOutgoingRelationships?>
     {
+        string ContentType { get; set; }
+        object IdPropertyValue { get; set; }
     }
 
+    //todo: common base with NodeWithOutgoingRelationshipsQuery??
+    //rename ghost?
     public class GetDraftRelationships : IGetDraftRelationships
     {
-        private IEnumerable<string> NodeLabels { get; }
-        private string IdPropertyName { get; }
-        private object IdPropertyValue { get; }
+        //private IEnumerable<string> NodeLabels { get; }
+        public string ContentType { get; set; }
+        public object IdPropertyValue { get; set; }
+
+        private const string GhostLabelPrefix = "Ghost_";
+        // either reuse uri (for the constraint index), or add an index for what we use
+        // uri will contain a new guid everytime to enforce uniqueness
+        private const string PreviewIdPropertyName = "previewId";
 
         // we'll also need to filter by incoming source id & relationship type
         // but probably better to fetch all, then filter later in code?
-        public GetDraftRelationships(IEnumerable<string> nodeLabels, string idPropertyName, object idPropertyValue)
+        // public GetDraftRelationships(IEnumerable<string> nodeLabels, string idPropertyName, object idPropertyValue)
+        // {
+        //     NodeLabels = nodeLabels;
+        public GetDraftRelationships(string contentType, object idPropertyValue)
         {
-            NodeLabels = nodeLabels;
-            IdPropertyName = idPropertyName;
+            ContentType = contentType;
             IdPropertyValue = idPropertyValue;
         }
 
@@ -32,10 +43,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             var validationErrors = new List<string>();
 
-            if(!NodeLabels.Any())
-            {
-                validationErrors.Add("At least one NodeLabel must be provided.");
-            }
+            // if(!NodeLabels.Any())
+            // {
+            //     validationErrors.Add("At least one NodeLabel must be provided.");
+            // }
 
             return validationErrors;
         }
@@ -46,12 +57,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
             {
                 this.CheckIsValid();
 
+                //todo: non-string id's wouldn't need ''
+                //todo: could simplify as will only ever be a single triplet ()-[]->()
                 return new Query(
-@$"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-optional match (s)-[r]->(d)
+                    @$"match (s)-[r]->(d:{GhostLabelPrefix}{ContentType} {{{PreviewIdPropertyName}: `{IdPropertyValue}`}})
 with s, {{relationship: r, destinationNode: d}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as sourceNodeWithOutgoingRelationships
 return sourceNodeWithOutgoingRelationships");
+// @$"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
+// optional match (s)-[r]->(d)
+// with s, {{relationship: r, destinationNode: d}} as relationshipDetails
+// with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as sourceNodeWithOutgoingRelationships
+// return sourceNodeWithOutgoingRelationships");
             }
         }
 

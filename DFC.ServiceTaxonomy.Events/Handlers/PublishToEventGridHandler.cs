@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
@@ -11,8 +10,7 @@ using OrchardCore.ContentManagement.Handlers;
 
 namespace DFC.ServiceTaxonomy.Events.Handlers
 {
-    //todo: revisit if/when we get ContentSavedEvent
-    //todo: update comment and confluence with extra deleted events and which content uri prefix is used
+    //todo: update comment and confluence with which content uri prefix is used
 
     /// <summary>
     /// |Id| existing state | user action | post state | event grid events | notes |
@@ -50,17 +48,24 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
+        private readonly INeutralContentItemVersion _neutralContentItemVersion;
         private readonly ILogger<PublishToEventGridHandler> _logger;
 
-        private static readonly DeletedContentItemVersion _deletedContentItemVersion = new DeletedContentItemVersion();
-
-        public PublishToEventGridHandler(IOptionsMonitor<EventGridConfiguration> eventGridConfiguration, IEventGridContentClient eventGridContentClient, IGraphSyncHelper graphSyncHelper, IPublishedContentItemVersion publishedContentItemVersion, IPreviewContentItemVersion previewContentItemVersion, ILogger<PublishToEventGridHandler> logger)
+        public PublishToEventGridHandler(
+            IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
+            IEventGridContentClient eventGridContentClient,
+            IGraphSyncHelper graphSyncHelper,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
+            INeutralContentItemVersion neutralContentItemVersion,
+            ILogger<PublishToEventGridHandler> logger)
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
             _graphSyncHelper = graphSyncHelper;
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
+            _neutralContentItemVersion = neutralContentItemVersion;
             _logger = logger;
         }
 
@@ -111,23 +116,13 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
             {
                 ContentEventType.Published => _publishedContentItemVersion,
                 ContentEventType.Draft => _previewContentItemVersion,
-                _ => _deletedContentItemVersion
+                _ => _neutralContentItemVersion
             };
 
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
             await _eventGridContentClient.Publish(contentEvent);
-        }
-
-        private class DeletedContentItemVersion : IContentItemVersion
-        {
-            public string ContentApiBaseUrl => "";
-
-            public VersionOptions VersionOptions => throw new NotImplementedException();
-            public (bool? latest, bool? published) ContentItemIndexFilterTerms => throw new NotImplementedException();
-            public string GraphReplicaSetName => throw new NotImplementedException();
-            public Task<ContentItem> GetContentItem(IContentManager contentManager, string id) => throw new NotImplementedException();
         }
     }
 }

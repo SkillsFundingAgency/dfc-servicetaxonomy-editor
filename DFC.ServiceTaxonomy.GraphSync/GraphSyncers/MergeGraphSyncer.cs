@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
+        private readonly INeutralContentItemVersion _neutralContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
@@ -49,6 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
             IContentItemVersionFactory contentItemVersionFactory,
+            INeutralContentItemVersion neutralContentItemVersion,
             IServiceProvider serviceProvider,
             ILogger<MergeGraphSyncer> logger)
         {
@@ -58,6 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
+            _neutralContentItemVersion = neutralContentItemVersion;
             _serviceProvider = serviceProvider;
             _logger = logger;
 
@@ -124,7 +127,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
             //should it go in the context?
-            _incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(graphReplicaSet);
+            _incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(
+                graphReplicaSet,
+                graphSyncPartContent);
 
             // move into context?
             _contentItem = contentItem;
@@ -167,6 +172,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<IReplaceRelationshipsCommand> recreateGhostRelationshipsCommands =
                 GetRecreateGhostRelationshipCommands();
 
+            //todo: get delete ghost command: no need for them now relationships have been stored?
+
             _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {MergeNodeCommand}");
             await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet, recreateGhostRelationshipsCommands);
 
@@ -187,18 +194,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         //todo: return null?
         private async Task<List<INodeWithOutgoingRelationships>> GetIncomingGhostRelationshipsWhenPublishing(
-            //IContentItemVersion contentItemVersion,
-            IGraphReplicaSet graphReplicaSet)
+            IGraphReplicaSet graphReplicaSet,
+            dynamic graphSyncPartContent)
         {
-            // if (contentItemVersion.GraphReplicaSetName != GraphReplicaSetNames.Published)
-            //     return;
-
             if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
                 return new List<INodeWithOutgoingRelationships>();
 
             IGetDraftRelationships getDraftRelationships = _serviceProvider.GetRequiredService<IGetDraftRelationships>();
 
-            //populate
+            getDraftRelationships.ContentType = _contentItem!.ContentType;
+            getDraftRelationships.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+                graphSyncPartContent, _neutralContentItemVersion);
 
             //todo: does it need to be ?
             List<INodeWithOutgoingRelationships?> incomingGhostRelationships = await graphReplicaSet.Run(getDraftRelationships);
