@@ -8,6 +8,7 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
+    //todo: doesn't seem to be used (and it deletes the relationship and optionally deletes the node)
     public class DeleteNodeCommand : IDeleteNodeCommand
     {
         public HashSet<string> NodeLabels { get; set; } = new HashSet<string>();
