@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Net.Http;
-using DFC.ServiceTaxonomy.Events.Activities.Tasks;
 using DFC.ServiceTaxonomy.Events.Configuration;
-using DFC.ServiceTaxonomy.Events.Drivers;
 using DFC.ServiceTaxonomy.Events.Services;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using OrchardCore.Workflows.Helpers;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
@@ -62,9 +59,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             services.AddTransient<IEventGridContentRestHttpClientFactory, EventGridContentRestHttpClientFactory>();
-
-            // workflow activities
-            services.AddActivity<PublishToEventGridTask, PublishToEventGridTaskDisplay>();
         }
     }
 }

@@ -18,7 +18,6 @@ namespace DFC.ServiceTaxonomy.Events.Models
     {
         // use 2 part segmented eventType?
         public ContentEvent(
-            string correlationId,
             ContentItem contentItem,
             string userId,
             ContentEventType contentEventType)
@@ -32,7 +31,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
             string itemId = userId.Substring(userId.Length - 36);
             Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";
 
-            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, correlationId, Activity.Current);
+            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, Activity.Current);
             EventType = GetEventType(contentEventType);
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
             MetadataVersion = null;
