@@ -154,6 +154,10 @@ Copy the `appsettings.Development_template.json` file in the editor project to `
                 "AegSasKey": "<Insert your topic's key here>"
             }
         ]
+    },
+    "Pages": {
+        "PublishedAppPrefix": "shell URI",
+        "PreviewAppPrefix": "draft shell URI"
     }
 }
 ```
