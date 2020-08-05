@@ -71,21 +71,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
 
-            IEnumerable<ContentItem?> foundDestinationContentItems =
-                destinationContentItems.Where(ci => ci != null);
+            //todo: helper for this
+            #pragma warning disable S1905
+            IEnumerable<ContentItem> foundDestinationContentItems = destinationContentItems
+                    .Where(ci => ci != null)
+                    .Cast<ContentItem>();
+            #pragma warning restore S1905
 
             if (foundDestinationContentItems.Count() != contentItemIds.Count())
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
 
+            //todo: extract
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
             {
                 //todo: better to add property to picker relationships in preview graph that aren't in published graph
                 // then can query them and recreate them on item publish (merge node)
                 // rather than storing the triplets separately
 
-                // split foundDestinationContentItems into those that only have draft versions and all the others
+                // split foundDestinationContentItems into those that are published and all the others
                 // all others create relationships as normal
+
+                //just where?
+                ILookup<bool, ContentItem> arePublishedContentItems = foundDestinationContentItems
+                    .ToLookup(i => i!.Published);
+
+                foundDestinationContentItems = arePublishedContentItems[true];
 
                 // draft only create
                 // if republish, don't want to create new ghost triplets, but want them to be unique and not relate to each other
@@ -119,17 +130,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 .ToArray();
 
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
-            if (contentItemIds.Count != actualRelationships.Length)
+
+            IEnumerable<ContentItem> destinationContentItems = await Task.WhenAll(contentItemIds
+                .Select(idJToken => (string)idJToken!)
+                .Select(async id => await context.ContentItemVersion.GetContentItem(context.ContentManager, id)));
+
+            //todo: equals on ContentItemVersion that checks GraphReplicaSetName
+            if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
             {
-                return (false, $"expecting {contentItemIds.Count} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
+                destinationContentItems = destinationContentItems
+                    .Where(i => i.Published)
+                    .ToArray();
             }
 
-            foreach (JToken item in contentItemIds)
+            if (destinationContentItems.Count() != actualRelationships.Length)
             {
-                string contentItemId = (string)item!;
+                return (false, $"expecting {destinationContentItems.Count()} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
+            }
 
-                ContentItem destinationContentItem = await context.ContentItemVersion.GetContentItem(context.ContentManager, contentItemId);
-
+            foreach (ContentItem destinationContentItem in destinationContentItems)
+            {
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
                 object destinationId = context.GraphSyncHelper.GetIdPropertyValue(
                     destinationContentItem.Content.GraphSyncPart, context.ContentItemVersion);
