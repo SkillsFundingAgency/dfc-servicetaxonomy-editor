@@ -1,5 +1,7 @@
 #ToDo
 
+* notifier with dropdown containing technical details/exceptions?
+
 * dev env is reporting its production
 AspNetCoreEnvironment : Production
 

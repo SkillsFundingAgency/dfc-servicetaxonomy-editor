@@ -61,40 +61,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return;
             }
 
-            //todo: think just getting the latest should be fine, we only use them for the id, which should be the same whether draft or published
-            // but if saving a published item which has references to draft content items, then draft item won't be in the published graph
-            // need to decide between...
-            // * don't create relationships from a pub to draft items, then when a draft item is published, query the draft graph for incoming relationships, and create those incoming relationships on the newly published item in the published graph
-            // other things, e.g. non oc controlled things might have incoming relationships. check all contentpicker content part definitions, that can pick the content. then check all the items in all parts? or query incoming on draft and use uri to pick from content items/create index?
-            // create oc table of all draft items with referencing published items? or store in graph?
-            // create ghosted items not connected to published content? in own graph?
-            // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
-
             ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, context);
 
             if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
 
-            //todo: extract
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
             {
-                //todo: better to add property to picker relationships in preview graph that aren't in published graph
-                // then can query them and recreate them on item publish (merge node)
-                // rather than storing the triplets separately
-
-                // split foundDestinationContentItems into those that are published and all the others
-                // all others create relationships as normal
-
-                //just where?
-                ILookup<bool, ContentItem> arePublishedContentItems = foundDestinationContentItems
-                    .ToLookup(i => i!.Published);
-
-                foundDestinationContentItems = arePublishedContentItems[true].ToArray();
-
-                // draft only create
-                // if republish, don't want to create new ghost triplets, but want them to be unique and not relate to each other
-                // store source+ghost id in source and dest to make unique and match on both
+                foundDestinationContentItems = foundDestinationContentItems
+                    .Where(i => i.Published)
+                    .ToArray();
             }
 
             // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
