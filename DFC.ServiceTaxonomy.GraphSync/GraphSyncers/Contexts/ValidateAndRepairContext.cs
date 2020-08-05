@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
@@ -9,7 +10,7 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class ValidateAndRepairContext : IValidateAndRepairContext
+    public class ValidateAndRepairContext : GraphOperationContext, IValidateAndRepairContext
     {
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; }
         public IGraphSyncHelper GraphSyncHelper { get; }

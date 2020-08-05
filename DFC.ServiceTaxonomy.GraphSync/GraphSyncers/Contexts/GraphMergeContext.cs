@@ -1,4 +1,5 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -8,7 +9,8 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class GraphMergeContext : IGraphMergeItemSyncContext
+    //todo: common base class for GraphMergeContext and ValidateAndRepairContext
+    public class GraphMergeContext : GraphOperationContext, IGraphMergeItemSyncContext
     {
         public IGraphSyncHelper GraphSyncHelper { get; }
         public IGraphReplicaSet GraphReplicaSet { get; }

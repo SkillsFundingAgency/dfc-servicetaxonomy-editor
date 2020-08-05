@@ -5,9 +5,9 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
-    public interface IValidateAndRepairContext
+    public interface IValidateAndRepairContext : IGraphOperationContext
     {
         IContentManager ContentManager { get; }
         IContentItemVersion ContentItemVersion { get; }

@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -54,9 +55,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return;
             }
 
-            IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToString());
-
-            // GetAsync should be returning ContentItem? as it can be null
             //todo: think just getting the latest should be fine, we only use them for the id, which should be the same whether draft or published
             // but if saving a published item which has references to draft content items, then draft item won't be in the published graph
             // need to decide between...
@@ -65,22 +63,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // create oc table of all draft items with referencing published items? or store in graph?
             // create ghosted items not connected to published content? in own graph?
             // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
-            IEnumerable<Task<ContentItem>> destinationContentItemsTasks =
-                contentItemIds.Select(async contentItemId => //todo: add method to context?
-                    await context.ContentItemVersion.GetContentItem(context.ContentManager, contentItemId));
 
-            ContentItem?[] destinationContentItems = await Task.WhenAll(destinationContentItemsTasks);
+            ContentItem[] foundDestinationContentItems = await GetContentItemsFromIds(contentItemIdsJArray, context.ContentItemVersion, context.ContentManager);
 
-            //todo: helper for this
-            #pragma warning disable S1905
-            IEnumerable<ContentItem> foundDestinationContentItems = destinationContentItems
-                    .Where(ci => ci != null)
-                    .Cast<ContentItem>();
-            #pragma warning restore S1905
-
-            if (foundDestinationContentItems.Count() != contentItemIds.Count())
+            if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
                 throw new GraphSyncException(
-                    $"Missing picked content items. Looked for {string.Join(",", contentItemIds)}. Found {string.Join(",", foundDestinationContentItems)}. Current merge node command: {context.MergeNodeCommand}.");
+                    $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
 
             //todo: extract
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
@@ -96,7 +84,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 ILookup<bool, ContentItem> arePublishedContentItems = foundDestinationContentItems
                     .ToLookup(i => i!.Published);
 
-                foundDestinationContentItems = arePublishedContentItems[true];
+                foundDestinationContentItems = arePublishedContentItems[true].ToArray();
 
                 // draft only create
                 // if republish, don't want to create new ghost triplets, but want them to be unique and not relate to each other
@@ -129,11 +117,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 .Where(r => r.Relationship.Type == relationshipType)
                 .ToArray();
 
+            //todo: move into helper
             var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
 
-            IEnumerable<ContentItem> destinationContentItems = await Task.WhenAll(contentItemIds
-                .Select(idJToken => (string)idJToken!)
-                .Select(async id => await context.ContentItemVersion.GetContentItem(context.ContentManager, id)));
+            ContentItem[] destinationContentItems = await GetContentItemsFromIds(contentItemIds, context.ContentItemVersion, context.ContentManager);
+
+            //todo: separate check for missing items, before check relationships
+            // move into helper??? prob not
 
             //todo: equals on ContentItemVersion that checks GraphReplicaSetName
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
@@ -171,6 +161,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
 
             return (true, "");
+        }
+
+        //todo: IGraphOperationContext
+        private async Task<ContentItem[]> GetContentItemsFromIds(JArray contentItemIds, IContentItemVersion contentItemVersion, IContentManager contentManager)
+        {
+            // GetAsync should be returning ContentItem? as it can be null
+
+            ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
+                .Select(idJToken => idJToken.ToObject<string?>())
+                .Select(async id => await contentItemVersion.GetContentItem(contentManager, id!)));
+
+            #pragma warning disable S1905
+            return contentItems
+                .Where(ci => ci != null)
+                .Cast<ContentItem>()
+                .ToArray();
+            #pragma warning restore S1905
         }
 
         private async Task<string> RelationshipTypeContentPicker(
