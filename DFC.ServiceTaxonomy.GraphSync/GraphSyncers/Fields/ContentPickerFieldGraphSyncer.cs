@@ -20,6 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
     {
         public string FieldTypeName => "ContentPickerField";
 
+        private const string ContentItemIdsKey = "ContentItemIds";
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
@@ -44,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
 
-            JArray? contentItemIdsJArray = (JArray?)contentItemField["ContentItemIds"];
+            JArray? contentItemIdsJArray = (JArray?)contentItemField[ContentItemIdsKey];
             if (contentItemIdsJArray?.HasValues != true)
             {
                 context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
@@ -117,8 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 .Where(r => r.Relationship.Type == relationshipType)
                 .ToArray();
 
-            //todo: move into helper
-            var contentItemIds = (JArray)contentItemField["ContentItemIds"]!;
+            var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
 
             ContentItem[] destinationContentItems = await GetContentItemsFromIds(contentItemIds, context.ContentItemVersion, context.ContentManager);
 
