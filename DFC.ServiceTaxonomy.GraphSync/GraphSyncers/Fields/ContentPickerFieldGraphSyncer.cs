@@ -25,6 +25,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
+        public const string ContentPickerRelationshipPropertyName = "contentPicker";
+
+        private static readonly IReadOnlyDictionary<string, object> _contentPickerRelationshipProperties =
+            new Dictionary<string, object> {{ContentPickerRelationshipPropertyName, true}};
+
         public ContentPickerFieldGraphSyncer(
             ILogger<ContentPickerFieldGraphSyncer> logger)
         {
@@ -65,7 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // create ghosted items not connected to published content? in own graph?
             // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
 
-            ContentItem[] foundDestinationContentItems = await GetContentItemsFromIds(contentItemIdsJArray, context);
+            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, context);
 
             if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
                 throw new GraphSyncException(
@@ -99,7 +104,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                null,
+                _contentPickerRelationshipProperties,
                 destNodeLabels,
                 context.GraphSyncHelper.IdPropertyName(pickedContentType),
                 foundDestinationNodeIds.ToArray());
@@ -120,7 +125,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
 
-            ContentItem[] destinationContentItems = await GetContentItemsFromIds(contentItemIds, context);
+            ContentItem[] destinationContentItems = await GetLatestContentItemsFromIds(contentItemIds, context);
 
             //todo: separate check for missing items, before check relationships
             // move into helper??? prob not
@@ -137,6 +142,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 return (false, $"expecting {destinationContentItems.Count()} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
             }
+
+            //todo: validate that _contentPickerRelationshipProperties are there
 
             foreach (ContentItem destinationContentItem in destinationContentItems)
             {
@@ -163,13 +170,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return (true, "");
         }
 
-        private async Task<ContentItem[]> GetContentItemsFromIds(JArray contentItemIds, IGraphOperationContext context)
+        private async Task<ContentItem[]> GetLatestContentItemsFromIds(JArray contentItemIds, IGraphOperationContext context)
         {
             // GetAsync should be returning ContentItem? as it can be null
 
             ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
                 .Select(idJToken => idJToken.ToObject<string?>())
-                .Select(async id => await context.ContentItemVersion.GetContentItem(context.ContentManager, id!)));
+                //.Select(async id => await context.ContentItemVersion.GetContentItem(context.ContentManager, id!)));
+                .Select(async id => await context.ContentManager.GetAsync(id, VersionOptions.Latest)));
 
             #pragma warning disable S1905
             return contentItems

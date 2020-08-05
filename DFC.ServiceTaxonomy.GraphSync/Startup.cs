@@ -79,6 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
             services.AddTransient<IGetDraftRelationships, GetDraftRelationships>();
+            services.AddTransient<IGetIncomingContentPickerRelationshipsQuery, GetIncomingContentPickerRelationshipsQuery>();
 
             // GraphSyncPart
             services.AddContentPart<GraphSyncPart>()

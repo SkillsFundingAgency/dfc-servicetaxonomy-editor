@@ -13,6 +13,7 @@ using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 //using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
@@ -193,43 +194,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         //todo: return null?
-        private Task<List<INodeWithOutgoingRelationships>> GetIncomingGhostRelationshipsWhenPublishing(
+        private async Task<List<INodeWithOutgoingRelationships>> GetIncomingGhostRelationshipsWhenPublishing(
             IGraphReplicaSet graphReplicaSet,
             dynamic graphSyncPartContent)
         {
-            throw new NotImplementedException();
-            // if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
-            //     return new List<INodeWithOutgoingRelationships>();
-            //
-            // IGetDraftRelationships getDraftRelationships = _serviceProvider.GetRequiredService<IGetDraftRelationships>();
-            //
-            //
-            // //inject directly instead?
-            // var previewContentItem = _contentItemVersionFactory.Get(graphReplicaSet.Name);
-            //
-            // getDraftRelationships.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
-            // graphSyncPartContent, previewContentItem);
-            //
-            // List<INodeWithOutgoingRelationships?> incomingGhostRelationships = await graphReplicaSet.Run(getDraftRelationships);
+            if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
+                return new List<INodeWithOutgoingRelationships>();
+
+            IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
+                _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
+
+            //inject directly instead?
+            var previewContentItem = _contentItemVersionFactory.Get(graphReplicaSet.Name);
+
+            getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
+            getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
+            getDraftRelationshipsQuery.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+                graphSyncPartContent, previewContentItem);
+
+            List<INodeWithOutgoingRelationships?> incomingContentPickerRelationships =
+                await graphReplicaSet.Run(getDraftRelationshipsQuery);
 
 
-            // IGetDraftRelationships getDraftRelationships = _serviceProvider.GetRequiredService<IGetDraftRelationships>();
-            //
-            // getDraftRelationships.ContentType = _contentItem!.ContentType;
-            // getDraftRelationships.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
-            //     graphSyncPartContent, _neutralContentItemVersion);
-            //
-            // //todo: does it need to be ?
-            // List<INodeWithOutgoingRelationships?> incomingGhostRelationships = await graphReplicaSet.Run(getDraftRelationships);
-            //
-            // //todo: return IEnumerable??
-            //
-            // #pragma warning disable S1905 // Sonar needs updating to know about nullable references
-            // return incomingGhostRelationships
-            //     .Where(n => n != null)
-            //     .Cast<INodeWithOutgoingRelationships>()
-            //     .ToList();
-            // #pragma warning restore S1905
+            #pragma warning disable S1905 // Sonar needs updating to know about nullable references
+            return incomingContentPickerRelationships
+                .Where(n => n != null)
+                .Cast<INodeWithOutgoingRelationships>()
+                .ToList();
+            #pragma warning restore S1905
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
