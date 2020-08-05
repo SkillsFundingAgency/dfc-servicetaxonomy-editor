@@ -252,7 +252,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                string message = $"Unable to sync {contentItem.DisplayText} {contentType} to {replicaSetName} graph.";
+                string message = $"Unable to sync '{contentItem.DisplayText}' {contentType} to {replicaSetName} graph.";
                 _logger.LogError(exception, message);
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
             }
