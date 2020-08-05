@@ -1,5 +1,8 @@
 #ToDo
 
+* dev env is reporting its production
+AspNetCoreEnvironment : Production
+
 * sync contentitemid (& contentitemversion) into graphs?
 
 * move page flow into own tab, so have Metadata, Content and SEO?
