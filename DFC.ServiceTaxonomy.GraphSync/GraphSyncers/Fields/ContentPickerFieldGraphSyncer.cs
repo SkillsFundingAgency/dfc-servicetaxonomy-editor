@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             // create ghosted items not connected to published content? in own graph?
             // * create placeholder node in the published database when a draft version is saved and there's no published version, then filter our relationships to placeholder nodes in content api etc.
 
-            ContentItem[] foundDestinationContentItems = await GetContentItemsFromIds(contentItemIdsJArray, context.ContentItemVersion, context.ContentManager);
+            ContentItem[] foundDestinationContentItems = await GetContentItemsFromIds(contentItemIdsJArray, context);
 
             if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
                 throw new GraphSyncException(
@@ -120,7 +120,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
 
-            ContentItem[] destinationContentItems = await GetContentItemsFromIds(contentItemIds, context.ContentItemVersion, context.ContentManager);
+            ContentItem[] destinationContentItems = await GetContentItemsFromIds(contentItemIds, context);
 
             //todo: separate check for missing items, before check relationships
             // move into helper??? prob not
@@ -163,14 +163,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return (true, "");
         }
 
-        //todo: IGraphOperationContext
-        private async Task<ContentItem[]> GetContentItemsFromIds(JArray contentItemIds, IContentItemVersion contentItemVersion, IContentManager contentManager)
+        private async Task<ContentItem[]> GetContentItemsFromIds(JArray contentItemIds, IGraphOperationContext context)
         {
             // GetAsync should be returning ContentItem? as it can be null
 
             ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
                 .Select(idJToken => idJToken.ToObject<string?>())
-                .Select(async id => await contentItemVersion.GetContentItem(contentManager, id!)));
+                .Select(async id => await context.ContentItemVersion.GetContentItem(context.ContentManager, id!)));
 
             #pragma warning disable S1905
             return contentItems
