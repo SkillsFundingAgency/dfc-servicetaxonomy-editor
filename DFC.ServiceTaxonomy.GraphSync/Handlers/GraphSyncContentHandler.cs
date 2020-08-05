@@ -72,8 +72,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 AllowSyncToGraphReplicaSet(_publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
 
             // sad paths have already been notified to the user and logged
-            context.Cancel = syncAllowed[0].AllowSync == SyncStatus.Blocked ||
-                             syncAllowed[1].AllowSync == SyncStatus.Blocked;
+            context.Cancel = syncAllowed[0].AllowSync == SyncStatus.Blocked
+                             || syncAllowed[0].AllowSync == SyncStatus.CheckFailed
+                             || syncAllowed[1].AllowSync == SyncStatus.Blocked
+                             || syncAllowed[1].AllowSync == SyncStatus.CheckFailed;
 
             if (context.Cancel)
             {
@@ -234,7 +236,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
             }
 
-            return AllowSyncResult.NotChecked;
+            return AllowSyncResult.CheckFailed;
         }
 
         private async Task SyncToGraphReplicaSet(
