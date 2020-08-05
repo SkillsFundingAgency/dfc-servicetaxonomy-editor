@@ -35,6 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly INeutralContentItemVersion _neutralContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IGraphCluster _graphCluster;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         //todo: tidy these up? make more public??
@@ -53,6 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IContentItemVersionFactory contentItemVersionFactory,
             INeutralContentItemVersion neutralContentItemVersion,
             IServiceProvider serviceProvider,
+            IGraphCluster graphCluster,
             ILogger<MergeGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -63,6 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _contentItemVersionFactory = contentItemVersionFactory;
             _neutralContentItemVersion = neutralContentItemVersion;
             _serviceProvider = serviceProvider;
+            _graphCluster = graphCluster;
             _logger = logger;
 
             _graphMergeContext = null;
@@ -205,7 +208,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
 
             //inject directly instead?
-            var previewContentItem = _contentItemVersionFactory.Get(graphReplicaSet.Name);
+            var previewContentItem = _contentItemVersionFactory.Get(GraphReplicaSetNames.Preview);
 
             getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
             getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
@@ -213,8 +216,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 graphSyncPartContent, previewContentItem);
 
             List<INodeWithOutgoingRelationships?> incomingContentPickerRelationships =
-                await graphReplicaSet.Run(getDraftRelationshipsQuery);
-
+                await _graphCluster.Run(previewContentItem.GraphReplicaSetName, getDraftRelationshipsQuery);
 
             #pragma warning disable S1905 // Sonar needs updating to know about nullable references
             return incomingContentPickerRelationships
