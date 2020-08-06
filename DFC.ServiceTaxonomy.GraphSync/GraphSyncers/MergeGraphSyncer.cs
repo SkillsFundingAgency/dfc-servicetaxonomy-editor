@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private GraphMergeContext? _graphMergeContext;
         public IGraphMergeContext? GraphMergeContext => _graphMergeContext;
         private ContentItem? _contentItem;
-        private IEnumerable<INodeWithOutgoingRelationships>? _incomingGhostRelationships;
+        private IEnumerable<INodeWithOutgoingRelationships>? _incomingPreviewContentPickerRelationships;
 
         public MergeGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
 
             _graphMergeContext = null;
-            _incomingGhostRelationships = null;
+            _incomingPreviewContentPickerRelationships = null;
         }
 
         public async Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
@@ -133,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
             //should it go in the context?
-            _incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(
+            _incomingPreviewContentPickerRelationships = await GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
                 graphReplicaSet,
                 graphSyncPartContent);
 
@@ -189,13 +189,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private IEnumerable<IReplaceRelationshipsCommand> GetRecreateGhostRelationshipCommands()
         {
             //todo: need to support twoway
-            if (_incomingGhostRelationships?.Any() == true)
+            if (_incomingPreviewContentPickerRelationships?.Any() == true)
             {
                 //todo: mustn't delete existing - will delete pub->pub relationships!!
                 //add relationships command (or replace existing flag)
                 //todo: check relationship properties include any others that were already there
 
-                return _incomingGhostRelationships
+                return _incomingPreviewContentPickerRelationships
                     .Select(r => r.ToReplaceRelationshipsCommand(
                         _graphSyncHelper,
                         _previewContentItemVersion,
@@ -206,7 +206,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         //todo: return null?
-        private async Task<IEnumerable<INodeWithOutgoingRelationships>> GetIncomingGhostRelationshipsWhenPublishing(
+        private async Task<IEnumerable<INodeWithOutgoingRelationships>> GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
             IGraphReplicaSet graphReplicaSet,
             dynamic graphSyncPartContent)
         {
