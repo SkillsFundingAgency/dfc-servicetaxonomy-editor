@@ -91,6 +91,12 @@
         },
         "appSharedCosmosPrimaryKey": {
             "value": "not-a-real-key"
+        },
+        "PublishedAppPrefix": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
+        "PreviewAppPrefix": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
         }
     }
 }
