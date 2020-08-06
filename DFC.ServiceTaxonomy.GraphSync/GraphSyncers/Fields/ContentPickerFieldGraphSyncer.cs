@@ -105,7 +105,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentItem[] destinationContentItems = await GetLatestContentItemsFromIds(contentItemIds, context);
 
             //todo: separate check for missing items, before check relationships
-            // move into helper??? prob not
+            //todo: move into helper?
 
             //todo: equals on ContentItemVersion that checks GraphReplicaSetName
             if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)

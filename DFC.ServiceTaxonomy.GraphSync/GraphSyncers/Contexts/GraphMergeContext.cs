@@ -6,7 +6,6 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    //todo: common base class for GraphMergeContext and ValidateAndRepairContext
     public class GraphMergeContext : GraphOperationContext, IGraphMergeItemSyncContext
     {
         public IGraphReplicaSet GraphReplicaSet { get; }
