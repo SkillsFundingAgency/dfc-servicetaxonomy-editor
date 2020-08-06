@@ -40,17 +40,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
                 this.CheckIsValid();
 
                 //todo: non-string id's wouldn't need ''
-                //todo: could simplify as will only ever be a single triplet ()-[]->()
                 return new Query(
                     @$"match (s)-[r {{{ContentPickerFieldGraphSyncer.ContentPickerRelationshipPropertyName}:true}}]->(d:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
 with s, {{relationship: r, destinationNode: d}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as sourceNodeWithOutgoingRelationships
 return sourceNodeWithOutgoingRelationships");
-// @$"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-// optional match (s)-[r]->(d)
-// with s, {{relationship: r, destinationNode: d}} as relationshipDetails
-// with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as sourceNodeWithOutgoingRelationships
-// return sourceNodeWithOutgoingRelationships");
             }
         }
 
