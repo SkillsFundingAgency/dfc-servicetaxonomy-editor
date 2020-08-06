@@ -25,7 +25,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces
         IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(
             IGraphSyncHelper graphSyncHelper,
             IContentItemVersion fromContentItemVersion,
-            IContentItemVersion toContentItemVersion);
+            IContentItemVersion toContentItemVersion,
+            bool replaceExistingRelationships = true);
         #pragma warning restore S4136
     }
 }

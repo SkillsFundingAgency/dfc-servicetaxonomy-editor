@@ -8,10 +8,12 @@ using Neo4j.Driver;
 namespace DFC.ServiceTaxonomy.Neo4j.Commands
 {
     //todo: now we delete all relationships, we should be able to just create rather than merge. change once we have integration test coverage
-    //todo: refactor to only create relationships to one dest node label?
+    //todo: rename now don't necessarily replace existing relationships
 
     public class ReplaceRelationshipsCommand : NodeWithOutgoingRelationshipsCommand, IReplaceRelationshipsCommand
     {
+        public bool ReplaceExistingRelationships { get; set; } = true;
+
         public override Query Query
         {
             get
@@ -82,19 +84,24 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
                 string newRelationshipsVariablesString = AllVariablesString(newRelationshipVariableBase, ordinal);
 
-                (string existingRelationshipsOptionalMatches, string existingRelationshipsVariablesString)
-                    = GenerateExistingRelationships(distinctRelationshipTypeToDestNode, sourceNodeVariableName);
-
                 string returnString =
                     mergeBuilder.Length > 0 ? $"return {newRelationshipsVariablesString}" : string.Empty;
 
-                return new Query(
-$@"{nodeMatchBuilder}
-{existingRelationshipsOptionalMatches}
-delete {existingRelationshipsVariablesString}
-{mergeBuilder}
-{returnString}",
-                    parameters);
+                StringBuilder queryBuilder = new StringBuilder();
+                queryBuilder.AppendLine(nodeMatchBuilder.ToString());
+                if (ReplaceExistingRelationships)
+                {
+                    (string existingRelationshipsOptionalMatches, string existingRelationshipsVariablesString)
+                        = GenerateExistingRelationships(distinctRelationshipTypeToDestNode, sourceNodeVariableName);
+
+                    queryBuilder.AppendLine(existingRelationshipsOptionalMatches);
+                    queryBuilder.AppendLine($"delete {existingRelationshipsVariablesString}");
+                }
+
+                queryBuilder.AppendLine(mergeBuilder.ToString());
+                queryBuilder.AppendLine(returnString);
+
+                return new Query(queryBuilder.ToString(), parameters);
             }
         }
 

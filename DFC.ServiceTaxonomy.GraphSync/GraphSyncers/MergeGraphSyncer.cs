@@ -191,15 +191,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: need to support twoway
             if (_incomingPreviewContentPickerRelationships?.Any() == true)
             {
-                //todo: mustn't delete existing - will delete pub->pub relationships!!
-                //add relationships command (or replace existing flag)
                 //todo: check relationship properties include any others that were already there
 
                 return _incomingPreviewContentPickerRelationships
                     .Select(r => r.ToReplaceRelationshipsCommand(
                         _graphSyncHelper,
                         _previewContentItemVersion,
-                        _publishedContentItemVersion));
+                        _publishedContentItemVersion,
+                        false));
             }
 
             return Enumerable.Empty<IReplaceRelationshipsCommand>();

@@ -100,7 +100,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
         public IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(
             IGraphSyncHelper graphSyncHelper,
             IContentItemVersion fromContentItemVersion,
-            IContentItemVersion toContentItemVersion)
+            IContentItemVersion toContentItemVersion,
+            bool replaceExistingRelationships = true)
         {
             string sourceIdPropertyName = graphSyncHelper.IdPropertyNameFromNodeLabels(SourceNode.Labels);
 
@@ -111,7 +112,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
                     (string)SourceNode.Properties[sourceIdPropertyName],
                     fromContentItemVersion,
                     toContentItemVersion),
-                SourceNodeLabels = new HashSet<string>(SourceNode.Labels)
+                SourceNodeLabels = new HashSet<string>(SourceNode.Labels),
+                ReplaceExistingRelationships = replaceExistingRelationships
             };
 
             //todo: twoway
