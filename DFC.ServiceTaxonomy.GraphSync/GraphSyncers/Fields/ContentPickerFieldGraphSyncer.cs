@@ -154,7 +154,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
                 .Select(idJToken => idJToken.ToObject<string?>())
-                //.Select(async id => await context.ContentItemVersion.GetContentItem(context.ContentManager, id!)));
                 .Select(async id => await context.ContentManager.GetAsync(id, VersionOptions.Latest)));
 
             #pragma warning disable S1905
