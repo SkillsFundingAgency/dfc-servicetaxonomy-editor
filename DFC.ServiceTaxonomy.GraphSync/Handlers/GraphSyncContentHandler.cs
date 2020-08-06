@@ -71,6 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 AllowSyncToGraphReplicaSet(_previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem, contentManager),
                 AllowSyncToGraphReplicaSet(_publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
 
+            //todo: can be improved in c#9
             // sad paths have already been notified to the user and logged
             context.Cancel = syncAllowed[0].AllowSync == SyncStatus.Blocked
                              || syncAllowed[0].AllowSync == SyncStatus.CheckFailed
