@@ -93,10 +93,10 @@
             "value": "__appSharedCosmosPrimaryKey__"
         },
         "PublishedAppPrefix": {
-            "value": "__OrchardCoreUri__"
+            "value": "__PublishedAppPrefix__"
         },
         "PreviewAppPrefix": {
-            "value": "__OrchardCoreUri__"
+            "value": "__PreviewAppPrefix__"
         }
     }
 }
