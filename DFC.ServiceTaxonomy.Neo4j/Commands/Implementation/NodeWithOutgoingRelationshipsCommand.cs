@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
 
         public void AddRelationshipsTo(
             string relationshipType,
-            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destNodeLabels,
             string destIdPropertyName,
             params object[] destIdPropertyValues)
@@ -44,11 +44,10 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
             RelationshipsList.AddRange(commandRelationship);
         }
 
-        //todo: ienumerable keyvalue?
         public void AddTwoWayRelationships(
             string outgoingRelationshipType,
             string? incomingRelationshipType,
-            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destNodeLabels,
             string destIdPropertyName,
             params object[] destIdPropertyValues)

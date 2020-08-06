@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
-        private static readonly IReadOnlyDictionary<string, object> _contentPickerRelationshipProperties =
+        public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
             new Dictionary<string, object> {{ContentPickerRelationshipPropertyName, true}};
 
         public ContentPickerFieldGraphSyncer(
@@ -81,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                _contentPickerRelationshipProperties,
+                ContentPickerRelationshipProperties,
                 destNodeLabels,
                 context.GraphSyncHelper.IdPropertyName(pickedContentType),
                 foundDestinationNodeIds.ToArray());

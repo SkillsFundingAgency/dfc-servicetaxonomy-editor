@@ -110,12 +110,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             return Task.CompletedTask;
         }
 
+        //todo: switch to ing handlers
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
             //todo: we need to decide how to handle this. do we leave a placeholder node (in the pub graph)
             // with a property to say item has no published version
             // or check incoming relationships and cancel unpublish?
-            await DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion);
+            await DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion, true);
 
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
@@ -157,13 +158,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             await SyncToGraphReplicaSetIfAllowed(GraphReplicaSetNames.Preview, publishedContentItem, contentManager);
         }
 
-        private async Task DeleteFromGraphReplicaSet(ContentItem contentItem, IContentItemVersion contentItemVersion)
+        private async Task DeleteFromGraphReplicaSet(
+            ContentItem contentItem,
+            IContentItemVersion contentItemVersion,
+            bool unpublish = false)
         {
             try
             {
                 IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
-                await deleteGraphSyncer.Delete(contentItem, contentItemVersion);
+                if (unpublish)
+                    await deleteGraphSyncer.Unpublish(contentItem, contentItemVersion);
+                else
+                    await deleteGraphSyncer.Delete(contentItem, contentItemVersion);
             }
             catch (CommandValidationException ex)
             {
