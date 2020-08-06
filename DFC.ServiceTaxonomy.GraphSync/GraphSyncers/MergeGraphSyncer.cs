@@ -159,7 +159,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncAllowedResult;
         }
 
-        //todo: need to split generating commands, and syncing
+        //todo: need to split generating commands, and syncing, to make sync to a graph atomic
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
         {
             if (_graphMergeContext == null)
@@ -175,20 +175,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 MergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
             }
 
-            IEnumerable<IReplaceRelationshipsCommand> recreateGhostRelationshipsCommands =
-                GetRecreateGhostRelationshipCommands();
-
-            //todo: get delete ghost command: no need for them now relationships have been stored?
+            IEnumerable<IReplaceRelationshipsCommand> recreateIncomingPreviewContentPickerRelationshipsCommands =
+                GetRecreateIncomingPreviewContentPickerRelationshipsCommands();
 
             _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {MergeNodeCommand}");
-            await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet, recreateGhostRelationshipsCommands);
+            await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet, recreateIncomingPreviewContentPickerRelationshipsCommands);
 
             return MergeNodeCommand;
         }
 
-        private IEnumerable<IReplaceRelationshipsCommand> GetRecreateGhostRelationshipCommands()
+        private IEnumerable<IReplaceRelationshipsCommand> GetRecreateIncomingPreviewContentPickerRelationshipsCommands()
         {
-            //todo: need to support twoway
+            //todo: need to support twoway, although not yet
             if (_incomingPreviewContentPickerRelationships?.Any() == true)
             {
                 //todo: check relationship properties include any others that were already there
