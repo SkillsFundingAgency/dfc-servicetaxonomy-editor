@@ -14,7 +14,6 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
-//using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -33,7 +32,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
-        private readonly INeutralContentItemVersion _neutralContentItemVersion;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
         private readonly IGraphCluster _graphCluster;
         private readonly ILogger<MergeGraphSyncer> _logger;
@@ -52,7 +52,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
             IContentItemVersionFactory contentItemVersionFactory,
-            INeutralContentItemVersion neutralContentItemVersion,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
             IServiceProvider serviceProvider,
             IGraphCluster graphCluster,
             ILogger<MergeGraphSyncer> logger)
@@ -63,7 +64,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
-            _neutralContentItemVersion = neutralContentItemVersion;
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
             _graphCluster = graphCluster;
             _logger = logger;
@@ -131,6 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
             //should it go in the context?
+            //todo: change to ienumerable?
             _incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(
                 graphReplicaSet,
                 graphSyncPartContent);
@@ -189,8 +192,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: need to support twoway
             if (_incomingGhostRelationships?.Any() == true)
             {
+                //todo: mustn't delete existing - will delete pub->pub relationships!!
+                //add relationships command (or replace existing flag)
+                //todo: check relationship properties include any others that were already there
+
                 return _incomingGhostRelationships
-                    .Select(r => r.ToReplaceRelationshipsCommand(_graphSyncHelper));
+                    .Select(r => r.ToReplaceRelationshipsCommand(
+                        _graphSyncHelper,
+                        _previewContentItemVersion,
+                        _publishedContentItemVersion));
             }
 
             return Enumerable.Empty<IReplaceRelationshipsCommand>();
@@ -207,24 +217,48 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
                 _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
 
-            //inject directly instead?
-            var previewContentItem = _contentItemVersionFactory.Get(GraphReplicaSetNames.Preview);
-
             getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
             getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
             getDraftRelationshipsQuery.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
-                graphSyncPartContent, previewContentItem);
+                graphSyncPartContent, _previewContentItemVersion);
 
-            List<INodeWithOutgoingRelationships?> incomingContentPickerRelationships =
-                await _graphCluster.Run(previewContentItem.GraphReplicaSetName, getDraftRelationshipsQuery);
+            IEnumerable<INodeWithOutgoingRelationships?> incomingContentPickerRelationshipsOrDefault =
+                await _graphCluster.Run(_previewContentItemVersion.GraphReplicaSetName, getDraftRelationshipsQuery);
 
             #pragma warning disable S1905 // Sonar needs updating to know about nullable references
-            return incomingContentPickerRelationships
-                .Where(n => n != null)
-                .Cast<INodeWithOutgoingRelationships>()
-                .ToList();
+            return incomingContentPickerRelationshipsOrDefault
+                    .Where(n => n != null)
+                    .Cast<INodeWithOutgoingRelationships>()
+                    .ToList();
             #pragma warning restore S1905
+
+            // #pragma warning disable S1905 // Sonar needs updating to know about nullable references
+            // IEnumerable<INodeWithOutgoingRelationships> incomingContentPickerRelationships
+            //     = incomingContentPickerRelationshipsOrDefault
+            //         .Where(n => n != null)
+            //         .Cast<INodeWithOutgoingRelationships>();
+            // #pragma warning restore S1905
+
+            //inject directly instead?
+            // var publishedContentItem = _contentItemVersionFactory.Get(GraphReplicaSetNames.Published);
+            //
+            // //todo: need to check multiple published content item types picking same item
+            //
+            // return incomingContentPickerRelationships
+            //     .Select(r => SetVersion(r, publishedContentItem))
+            //     .ToList();
         }
+
+        //todo: add to a derived NodeWithOutgoingRelationships or extension method
+        /// <summary>
+        /// Copy the command with the id's set appropriately for the supplied contentItemVersion
+        /// </summary>
+        // private INodeWithOutgoingRelationships SetVersion(
+        //     INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+        //     IContentItemVersion contentItemVersion)
+        // {
+        //     return new NodeWithOutgoingRelationships();
+        // }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
         {

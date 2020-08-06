@@ -10,6 +10,7 @@ using OrchardCore.Workflows.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
 {
+    //todo: generic enough for neo4j project
     public class NodeWithOutgoingRelationships : INodeWithOutgoingRelationships
     {
         public INode SourceNode { get; set; }
@@ -24,6 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
                 outgoingRelationships.Select(or => new OutgoingRelationship(or.relationship, or.destinationNode));
         }
 
+        #pragma warning disable S4136
         public IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper)
         {
             //todo: don't get id twice
@@ -61,5 +63,59 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
 
             return replaceRelationshipsCommand;
         }
+
+        //todo: this belongs in a derived class in graph sync, with the current command in neo4j
+        public IEnumerable<CommandRelationship> ToCommandRelationships(
+            IGraphSyncHelper graphSyncHelper,
+            IContentItemVersion fromContentItemVersion,
+            IContentItemVersion toContentItemVersion)
+        {
+            //todo: don't get id twice
+            var commandRelationshipGroups = OutgoingRelationships.GroupBy(
+                or => new CommandRelationship(
+                    or.Relationship.Type,
+                    null,
+                    or.Relationship.Properties,
+                    or.DestinationNode.Labels,
+                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels),
+                    null),
+                or => or.DestinationNode.Properties[
+                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels)]);
+
+            return commandRelationshipGroups.Select(g =>
+            {
+                var toContentItemVersionIds = g
+                    .Select(fromContentItemVersionId => graphSyncHelper.IdPropertyValueFromNodeValue(
+                        (string)fromContentItemVersionId, fromContentItemVersion, toContentItemVersion));
+                g.Key.DestinationNodeIdPropertyValues.AddRange(toContentItemVersionIds);
+                return g.Key;
+            });
+        }
+
+
+        //todo: this belongs in a derived class in graph sync, with the current command in neo4j
+        public IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(
+            IGraphSyncHelper graphSyncHelper,
+            IContentItemVersion fromContentItemVersion,
+            IContentItemVersion toContentItemVersion)
+        {
+            string sourceIdPropertyName = graphSyncHelper.IdPropertyNameFromNodeLabels(SourceNode.Labels);
+
+            IReplaceRelationshipsCommand replaceRelationshipsCommand = new ReplaceRelationshipsCommand
+            {
+                SourceIdPropertyName = sourceIdPropertyName,
+                SourceIdPropertyValue = graphSyncHelper.IdPropertyValueFromNodeValue(
+                    (string)SourceNode.Properties[sourceIdPropertyName],
+                    fromContentItemVersion,
+                    toContentItemVersion),
+                SourceNodeLabels = new HashSet<string>(SourceNode.Labels)
+            };
+
+            //todo: twoway
+            replaceRelationshipsCommand.AddRelationshipsTo(ToCommandRelationships(graphSyncHelper));
+
+            return replaceRelationshipsCommand;
+        }
+        #pragma warning restore S4136
     }
 }

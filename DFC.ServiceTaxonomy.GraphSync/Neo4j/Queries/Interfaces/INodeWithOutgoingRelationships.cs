@@ -11,8 +11,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces
         INode SourceNode { get; set; }
         IEnumerable<IOutgoingRelationship> OutgoingRelationships { get; set; }
 
+        #pragma warning disable S4136
         IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper);
 
         IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(IGraphSyncHelper graphSyncHelper);
+
+        //todo: these belongs in a derived class in graph sync, with the current command in neo4j
+        IEnumerable<CommandRelationship> ToCommandRelationships(
+            IGraphSyncHelper graphSyncHelper,
+            IContentItemVersion fromContentItemVersion,
+            IContentItemVersion toContentItemVersion);
+
+        IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(
+            IGraphSyncHelper graphSyncHelper,
+            IContentItemVersion fromContentItemVersion,
+            IContentItemVersion toContentItemVersion);
+        #pragma warning restore S4136
     }
 }
