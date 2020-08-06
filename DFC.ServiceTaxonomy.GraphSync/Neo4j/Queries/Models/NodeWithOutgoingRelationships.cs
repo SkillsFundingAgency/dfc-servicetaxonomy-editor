@@ -94,6 +94,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
 
 
         //todo: this belongs in a derived class in graph sync, with the current command in neo4j
+        /// <summary>
+        /// Creates the command with the id's set appropriately for the supplied contentItemVersions
+        /// </summary>
         public IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(
             IGraphSyncHelper graphSyncHelper,
             IContentItemVersion fromContentItemVersion,

@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private GraphMergeContext? _graphMergeContext;
         public IGraphMergeContext? GraphMergeContext => _graphMergeContext;
         private ContentItem? _contentItem;
-        private List<INodeWithOutgoingRelationships>? _incomingGhostRelationships;
+        private IEnumerable<INodeWithOutgoingRelationships>? _incomingGhostRelationships;
 
         public MergeGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
@@ -133,7 +133,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
             //should it go in the context?
-            //todo: change to ienumerable?
             _incomingGhostRelationships = await GetIncomingGhostRelationshipsWhenPublishing(
                 graphReplicaSet,
                 graphSyncPartContent);
@@ -207,7 +206,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         //todo: return null?
-        private async Task<List<INodeWithOutgoingRelationships>> GetIncomingGhostRelationshipsWhenPublishing(
+        private async Task<IEnumerable<INodeWithOutgoingRelationships>> GetIncomingGhostRelationshipsWhenPublishing(
             IGraphReplicaSet graphReplicaSet,
             dynamic graphSyncPartContent)
         {
@@ -228,37 +227,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             #pragma warning disable S1905 // Sonar needs updating to know about nullable references
             return incomingContentPickerRelationshipsOrDefault
                     .Where(n => n != null)
-                    .Cast<INodeWithOutgoingRelationships>()
-                    .ToList();
+                    .Cast<INodeWithOutgoingRelationships>();
             #pragma warning restore S1905
 
-            // #pragma warning disable S1905 // Sonar needs updating to know about nullable references
-            // IEnumerable<INodeWithOutgoingRelationships> incomingContentPickerRelationships
-            //     = incomingContentPickerRelationshipsOrDefault
-            //         .Where(n => n != null)
-            //         .Cast<INodeWithOutgoingRelationships>();
-            // #pragma warning restore S1905
-
-            //inject directly instead?
-            // var publishedContentItem = _contentItemVersionFactory.Get(GraphReplicaSetNames.Published);
-            //
-            // //todo: need to check multiple published content item types picking same item
-            //
-            // return incomingContentPickerRelationships
-            //     .Select(r => SetVersion(r, publishedContentItem))
-            //     .ToList();
+            //todo: need to check multiple published content item types picking same item
         }
-
-        //todo: add to a derived NodeWithOutgoingRelationships or extension method
-        /// <summary>
-        /// Copy the command with the id's set appropriately for the supplied contentItemVersion
-        /// </summary>
-        // private INodeWithOutgoingRelationships SetVersion(
-        //     INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-        //     IContentItemVersion contentItemVersion)
-        // {
-        //     return new NodeWithOutgoingRelationships();
-        // }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
         {
