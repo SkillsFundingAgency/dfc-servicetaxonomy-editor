@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;

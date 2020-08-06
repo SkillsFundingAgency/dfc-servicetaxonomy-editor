@@ -11,9 +11,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 
         IEnumerable<CommandRelationship> Relationships { get; }
 
-        void AddRelationshipsTo(
-            string relationshipType,
-            IReadOnlyDictionary<string, object>? properties,
+        void AddRelationshipsTo(string relationshipType,
+            IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destNodeLabels,
             string destIdPropertyName,
             params object[] destIdPropertyValues);
@@ -21,10 +20,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         void AddRelationshipsTo(IEnumerable<CommandRelationship> commandRelationship);
 
         //todo: replace existing with this? if incoming is null, then just creates outgoing
-        public void AddTwoWayRelationships(
-            string outgoingRelationshipType,
+        public void AddTwoWayRelationships(string outgoingRelationshipType,
             string? incomingRelationshipType,
-            IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destNodeLabels,
             string destIdPropertyName,
             params object[] destIdPropertyValues);

@@ -3,9 +3,9 @@
     public enum SyncStatus
     {
         /// <summary>
-        /// Sync status hasn't been checked
+        /// Sync status check failed, i.e. threw an exception
         /// </summary>
-        NotChecked,
+        CheckFailed,
         /// <summary>
         /// Syncing is not required, because either the ContentItem doesn't have a GraphSyncPart,
         /// or syncing has been temporarily disabled for the content item.

@@ -200,6 +200,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 StringComparison.OrdinalIgnoreCase);
         }
 
+        //todo: new ContentItemVersion (similar to neutral) with ContentApiPrefixToken as ContentApiBaseUrl and have one version of this method with default from?
+        public string IdPropertyValueFromNodeValue(
+            string nodeIdValue,
+            IContentItemVersion fromContentItemVersion,
+            IContentItemVersion toContentItemVersion)
+        {
+            return nodeIdValue.Replace(
+                fromContentItemVersion.ContentApiBaseUrl,
+                toContentItemVersion.ContentApiBaseUrl,
+                StringComparison.OrdinalIgnoreCase);
+        }
+
         private void CheckPreconditions()
         {
             if (_contentType == null)

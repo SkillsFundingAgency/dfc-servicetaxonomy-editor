@@ -15,7 +15,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Recipes.Executors;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using OrchardCore.Modules;
@@ -42,6 +41,8 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Managers;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.Configuration;
@@ -77,6 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddGraphCluster();
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
+            services.AddTransient<IGetIncomingContentPickerRelationshipsQuery, GetIncomingContentPickerRelationshipsQuery>();
 
             // GraphSyncPart
             services.AddContentPart<GraphSyncPart>()
@@ -150,6 +152,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
             services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
+            services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
 
             // managers
             services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();

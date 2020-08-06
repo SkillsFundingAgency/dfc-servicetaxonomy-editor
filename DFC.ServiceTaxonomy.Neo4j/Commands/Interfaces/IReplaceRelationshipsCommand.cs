@@ -9,6 +9,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
     // INodeType?? -> GetDeleteNodeTypeCommand
     public interface IReplaceRelationshipsCommand : INodeWithOutgoingRelationshipsCommand
     {
+        bool ReplaceExistingRelationships { get; set; }
+
         //todo: this comment applies only to IReplaceRelationshipsCommand, but is declared in INodeWithOutgoingRelationshipsCommand
 
         /// <summary>
