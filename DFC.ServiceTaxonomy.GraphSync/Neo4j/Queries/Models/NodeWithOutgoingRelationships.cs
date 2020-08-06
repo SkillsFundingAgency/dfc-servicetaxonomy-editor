@@ -112,7 +112,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
             };
 
             //todo: twoway
-            replaceRelationshipsCommand.AddRelationshipsTo(ToCommandRelationships(graphSyncHelper));
+            replaceRelationshipsCommand.AddRelationshipsTo(ToCommandRelationships(
+                graphSyncHelper,
+                fromContentItemVersion,
+                toContentItemVersion));
 
             return replaceRelationshipsCommand;
         }
