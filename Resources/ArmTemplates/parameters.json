@@ -91,6 +91,12 @@
         },
         "appSharedCosmosPrimaryKey": {
             "value": "__appSharedCosmosPrimaryKey__"
+        },
+        "PublishedAppPrefix": {
+            "value": "__OrchardCoreUri__"
+        },
+        "PreviewAppPrefix": {
+            "value": "__OrchardCoreUri__"
         }
     }
 }
