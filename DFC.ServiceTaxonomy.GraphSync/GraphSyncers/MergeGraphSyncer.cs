@@ -202,13 +202,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return Enumerable.Empty<IReplaceRelationshipsCommand>();
         }
 
-        //todo: return null?
         private async Task<IEnumerable<INodeWithOutgoingRelationships>> GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
             IGraphReplicaSet graphReplicaSet,
             dynamic graphSyncPartContent)
         {
             if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
-                return new List<INodeWithOutgoingRelationships>();
+                return Enumerable.Empty<INodeWithOutgoingRelationships>();
 
             IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
                 _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
@@ -226,8 +225,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     .Where(n => n != null)
                     .Cast<INodeWithOutgoingRelationships>();
             #pragma warning restore S1905
-
-            //todo: need to check multiple published content item types picking same item
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
