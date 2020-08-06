@@ -70,6 +70,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             string relationshipType,
             string destinationIdPropertyName,
             object destinationId,
-            IReadOnlyDictionary<string, object>? properties = null);
+            IEnumerable<KeyValuePair<string, object>>? properties = null);
     }
 }

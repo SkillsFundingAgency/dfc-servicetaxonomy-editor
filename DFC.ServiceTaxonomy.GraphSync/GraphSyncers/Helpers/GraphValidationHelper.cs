@@ -240,7 +240,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             string relationshipType,
             string destinationIdPropertyName,
             object destinationId,
-            IReadOnlyDictionary<string, object>? properties = null)
+            IEnumerable<KeyValuePair<string, object>>? properties = null)
         {
             IOutgoingRelationship outgoingRelationship =
                 nodeWithOutgoingRelationships.OutgoingRelationships.SingleOrDefault(or =>
@@ -261,10 +261,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return $"relationship of type ':{relationshipType}' to destination node with id '{destinationIdPropertyName}={destinationId}'";
         }
 
-        private bool AreEqual<K, V>(IReadOnlyDictionary<K, V> first, IReadOnlyDictionary<K, V> second)
+        private bool AreEqual<K, V>(IEnumerable<KeyValuePair<K, V>> first, IEnumerable<KeyValuePair<K, V>> second)
             where K : notnull
         {
-            return first.Count == second.Count && !first.Except(second).Any();
+            return first.Count() == second.Count() && !first.Except(second).Any();
         }
     }
 }

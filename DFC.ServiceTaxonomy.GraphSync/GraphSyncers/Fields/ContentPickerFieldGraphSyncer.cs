@@ -120,8 +120,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return (false, $"expecting {destinationContentItems.Count()} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
             }
 
-            //todo: validate that _contentPickerRelationshipProperties are there
-
             foreach (ContentItem destinationContentItem in destinationContentItems)
             {
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
@@ -131,11 +129,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 string destinationIdPropertyName =
                     context.GraphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
 
+                //todo: we might want to check that all the supplied relationship properties are there,
+                // whilst not failing validation if other other properties are present?
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
                     context.NodeWithOutgoingRelationships,
                     relationshipType,
                     destinationIdPropertyName,
-                    destinationId);
+                    destinationId,
+                    ContentPickerRelationshipProperties);
 
                 if (!validated)
                     return (false, failureReason);
