@@ -321,11 +321,11 @@
                                 "value": "[parameters('appSharedCosmosPrimaryKey')]"
                             },
                             {
-                                "name": "PublishedAppPrefix",
+                                "name": "Pages__PublishedAppPrefix",
                                 "value": "[parameters('PublishedAppPrefix')]"
                             },
                             {
-                                "name": "PreviewAppPrefix",
+                                "name": "Pages__PreviewAppPrefix",
                                 "value": "[parameters('PreviewAppPrefix')]"
                             }
                         ]
