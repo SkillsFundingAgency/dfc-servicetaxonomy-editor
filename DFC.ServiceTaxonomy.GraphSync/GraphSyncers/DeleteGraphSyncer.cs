@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -61,18 +62,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task Delete(ContentItem contentItem, IContentItemVersion contentItemVersion)
         {
+            await Delete(contentItem, contentItemVersion, "deleting");
+        }
+
+        public async Task Unpublish(ContentItem contentItem, IContentItemVersion contentItemVersion)
+        {
+            await Delete(contentItem, contentItemVersion, "unpublishing", ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
+        }
+
+        private async Task Delete(
+            ContentItem contentItem,
+            IContentItemVersion contentItemVersion,
+            string operation,
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)
+        {
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                 return;
 
-            _logger.LogInformation($"Sync: deleting {contentItem.ContentType}");
+            _logger.LogInformation($"Sync: {operation} '{contentItem.DisplayText}' {contentItem.ContentType} ({contentItem.ContentItemId}) from {contentItemVersion.GraphReplicaSetName} replica set.");
 
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
             _deleteNodeCommand.IdPropertyValue =
                 _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
+            _deleteNodeCommand.DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
 
             await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, _deleteNodeCommand);
         }

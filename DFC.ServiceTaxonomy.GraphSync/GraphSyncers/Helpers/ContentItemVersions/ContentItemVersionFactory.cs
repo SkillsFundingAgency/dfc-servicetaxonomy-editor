@@ -17,6 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
             _previewContentItemVersion = previewContentItemVersion;
         }
 
+        // we _could_ return NeutralContentItemVersion if null
         public IContentItemVersion Get(string graphReplicaSetName)
         {
             return graphReplicaSetName switch

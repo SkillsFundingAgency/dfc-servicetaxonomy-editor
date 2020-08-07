@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.Neo4j.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
-using DFC.ServiceTaxonomy.Neo4j.Queries;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Queries
+namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
     public class MatchSynonymsQuery : IQuery<IRecord>
     {

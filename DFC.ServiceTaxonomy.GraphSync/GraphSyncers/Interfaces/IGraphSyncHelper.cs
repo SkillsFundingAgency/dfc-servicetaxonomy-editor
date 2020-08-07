@@ -39,6 +39,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         string ContentIdPropertyName { get; }
         object? GetIdPropertyValue(JObject graphSyncContent, IContentItemVersion contentItemVersion);
         string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion);
+        string IdPropertyValueFromNodeValue(
+            string nodeIdValue,
+            IContentItemVersion fromContentItemVersion,
+            IContentItemVersion toContentItemVersion);
     }
     #pragma warning restore S4136
 }

@@ -45,4 +45,8 @@
     <ProjectReference Include="..\DFC.ServiceTaxonomy.UnpublishLater\DFC.ServiceTaxonomy.UnpublishLater.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Neo4j\Commands\Interfaces" />
+  </ItemGroup>
+
 </Project>

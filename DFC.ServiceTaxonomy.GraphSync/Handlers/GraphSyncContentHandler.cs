@@ -71,9 +71,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 AllowSyncToGraphReplicaSet(_previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem, contentManager),
                 AllowSyncToGraphReplicaSet(_publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
 
+            //todo: can be improved in c#9
             // sad paths have already been notified to the user and logged
-            context.Cancel = syncAllowed[0].AllowSync == SyncStatus.Blocked ||
-                             syncAllowed[1].AllowSync == SyncStatus.Blocked;
+            context.Cancel = syncAllowed[0].AllowSync == SyncStatus.Blocked
+                             || syncAllowed[0].AllowSync == SyncStatus.CheckFailed
+                             || syncAllowed[1].AllowSync == SyncStatus.Blocked
+                             || syncAllowed[1].AllowSync == SyncStatus.CheckFailed;
 
             if (context.Cancel)
             {
@@ -108,12 +111,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             return Task.CompletedTask;
         }
 
+        //todo: switch to ing handlers
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
             //todo: we need to decide how to handle this. do we leave a placeholder node (in the pub graph)
             // with a property to say item has no published version
             // or check incoming relationships and cancel unpublish?
-            await DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion);
+            await DeleteFromGraphReplicaSet(context.ContentItem, _publishedContentItemVersion, true);
 
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
@@ -155,13 +159,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             await SyncToGraphReplicaSetIfAllowed(GraphReplicaSetNames.Preview, publishedContentItem, contentManager);
         }
 
-        private async Task DeleteFromGraphReplicaSet(ContentItem contentItem, IContentItemVersion contentItemVersion)
+        private async Task DeleteFromGraphReplicaSet(
+            ContentItem contentItem,
+            IContentItemVersion contentItemVersion,
+            bool unpublish = false)
         {
             try
             {
                 IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
-                await deleteGraphSyncer.Delete(contentItem, contentItemVersion);
+                if (unpublish)
+                    await deleteGraphSyncer.Unpublish(contentItem, contentItemVersion);
+                else
+                    await deleteGraphSyncer.Delete(contentItem, contentItemVersion);
             }
             catch (CommandValidationException ex)
             {
@@ -234,7 +244,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
             }
 
-            return AllowSyncResult.NotChecked;
+            return AllowSyncResult.CheckFailed;
         }
 
         private async Task SyncToGraphReplicaSet(
@@ -250,7 +260,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                string message = $"Unable to sync {contentItem.DisplayText} {contentType} to {replicaSetName} graph.";
+                string message = $"Unable to sync '{contentItem.DisplayText}' {contentType} to {replicaSetName} graph.";
                 _logger.LogError(exception, message);
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
             }
