@@ -64,12 +64,6 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 urlNameIsValid = false;
             }
 
-            if (urlNameIsValid && pageLocation.UrlName!.All(c => !char.IsLetterOrDigit(c)))
-            {
-                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"'UrlName' must contain at least one alphanumeric character.");
-                urlNameIsValid = false;
-            }
-
             if (urlNameIsValid && pageLocation.UrlName!.All(c => !char.IsLetter(c)))
             {
                 updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"'UrlName' must contain at least one letter.");
