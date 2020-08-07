@@ -49,20 +49,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentTypeRemoved(ContentTypeRemovedContext context)
         {
-            //todo:
-            // try
-            // {
-            //     //Delete all nodes by type
-            //     await Task.WhenAll(
-            //         _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Published, context.ContentTypeDefinition.Name),
-            //         _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Preview, context.ContentTypeDefinition.Name));
-            // }
-            // catch (Exception)
-            // {
-            //     _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask),
-            //         $"Error: The {typeToDelete} could not be removed because the associated node could not be deleted from the graph. Most likely due to {typeToDelete} having incoming relationships."));
-            //     throw;
-            // }
+            try
+            {
+                //todo: does it need to be 2 phase?
+                IDeleteGraphSyncer publishedDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+                IDeleteGraphSyncer previewDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+
+                // delete all nodes by type
+                Task.WhenAll(
+                    publishedDeleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Published, context.ContentTypeDefinition.Name),
+                    previewDeleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Preview, context.ContentTypeDefinition.Name))
+                    .GetAwaiter().GetResult();
+            }
+            catch (Exception e)
+            {
+                string message =
+                    $"Graph resync failed after deleting the {context.ContentTypeDefinition.Name} content type.";
+                _logger.LogError(e, message);
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler), message));
+                throw;
+            }
         }
 
         public void ContentTypeImporting(ContentTypeImportingContext context)
@@ -130,8 +136,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 string message =
                     $"Graph resync failed after deleting the {context.ContentFieldName} field from {context.ContentPartName} parts.";
                 _logger.LogError(e, message);
-                _notifier.Add(NotifyType.Error,
-                    new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler), message));
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler), message));
                 throw;
             }
         }
