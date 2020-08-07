@@ -36,7 +36,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
-using OrchardCore.ContentTypes.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
@@ -47,6 +46,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Handlers;
+using OrchardCore.ContentTypes.Events;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
 
@@ -78,6 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddGraphCluster();
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
+            services.AddScoped<IContentDefinitionEventHandler, GraphSyncContentDefinitionHandler>();
             services.AddTransient<IGetIncomingContentPickerRelationshipsQuery, GetIncomingContentPickerRelationshipsQuery>();
 
             // GraphSyncPart
@@ -144,8 +145,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
 
             // services
-            services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
-            services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
+            //services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
+            //services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
             services.AddScoped<ISynonymService, SynonymService>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
             // this would be nice, but IContentManager is Scoped, so not available at startup

@@ -130,6 +130,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
             return _orchardCoreContentDefinitionService.LoadTypes();
         }
 
+        //todo: handle directly or use workflow event?
         public void RemoveFieldFromPart(string fieldName, string partName)
         {
             var typeBeingUpdated = _contentDefinitionManager.GetTypeDefinition(partName);
@@ -149,6 +150,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
             _orchardCoreContentDefinitionService.RemovePart(name);
         }
 
+        //todo: think we need to update following a part removal, in addition to a field removal
         public void RemovePartFromType(string partName, string typeName)
         {
             _orchardCoreContentDefinitionService.RemovePartFromType(partName, typeName);
