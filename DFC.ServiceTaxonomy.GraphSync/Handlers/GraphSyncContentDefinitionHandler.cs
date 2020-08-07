@@ -146,6 +146,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             var contentItems = await _contentItemsService.GetPublishedOnly(contentType);
 
+            //todo: old data isn't removed from content item's contents
+            // check removed field is removed from the sync (i.e. should do if the the part's field definitions have been updated by this point)
+
             foreach (ContentItem contentItem in contentItems)
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
