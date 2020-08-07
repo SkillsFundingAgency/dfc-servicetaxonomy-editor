@@ -20,10 +20,8 @@ using DFC.ServiceTaxonomy.GraphSync.Settings;
 using OrchardCore.Modules;
 using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
@@ -38,8 +36,6 @@ using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
-using DFC.ServiceTaxonomy.GraphSync.Managers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -133,13 +129,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentFieldGraphSyncer, TaxonomyFieldGraphSyncer>();
 
             // workflow activities
-            services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
-            services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
-            services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
             services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
-            services.AddActivity<ContentTypeFieldRemovedEvent, ContentTypeFieldRemovedEventDisplay>();
-            services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
-            services.AddActivity<PublishContentTypeContentItemsTask, PublishContentTypeContentItemsTaskDisplay>();
 
             // notifiers
             services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
@@ -155,9 +145,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
             services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
             services.AddScoped<IContentItemsService, ContentItemsService>();
-
-            // managers
-            services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();

@@ -6,11 +6,14 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Events;
+using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
@@ -21,17 +24,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly IContentItemsService _contentItemsService;
         private readonly IServiceProvider _serviceProvider;
         private readonly IGraphCluster _graphCluster;
+        private readonly INotifier _notifier;
+        private readonly ILogger<GraphSyncContentDefinitionHandler> _logger;
 
         public GraphSyncContentDefinitionHandler(
             IContentDefinitionManager contentDefinitionManager,
             IContentItemsService contentItemsService,
             IServiceProvider serviceProvider,
-            IGraphCluster graphCluster)
+            IGraphCluster graphCluster,
+            INotifier notifier,
+            ILogger<GraphSyncContentDefinitionHandler> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _contentItemsService = contentItemsService;
             _serviceProvider = serviceProvider;
             _graphCluster = graphCluster;
+            _notifier = notifier;
+            _logger = logger;
         }
 
         public void ContentTypeCreated(ContentTypeCreatedContext context)
@@ -40,6 +49,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentTypeRemoved(ContentTypeRemovedContext context)
         {
+            //todo:
+            // try
+            // {
+            //     //Delete all nodes by type
+            //     await Task.WhenAll(
+            //         _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Published, context.ContentTypeDefinition.Name),
+            //         _deleteGraphSyncer.DeleteNodesByType(GraphReplicaSetNames.Preview, context.ContentTypeDefinition.Name));
+            // }
+            // catch (Exception)
+            // {
+            //     _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(DeleteContentTypeFromGraphTask),
+            //         $"Error: The {typeToDelete} could not be removed because the associated node could not be deleted from the graph. Most likely due to {typeToDelete} having incoming relationships."));
+            //     throw;
+            // }
         }
 
         public void ContentTypeImporting(ContentTypeImportingContext context)
@@ -56,6 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentPartRemoved(ContentPartRemovedContext context)
         {
+            //todo: think we need to update following a part removal, in addition to a field removal: add story
         }
 
         public void ContentPartAttached(ContentPartAttachedContext context)
@@ -83,25 +107,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             //todo: looks like old code assumed field was deleted from eponymous part (check)
             // so wouln't work with custom parts (as used in job profiles)
 
-//todo: need to get types that use the part
-            #pragma warning disable
-//            var partDefinition = _contentDefinitionManager.GetPartDefinition(context.ContentPartName);
-
-            IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
-            var affectedContentTypeDefinitions = contentTypeDefinitions
-                .Where(t => t.Parts
-//                    .Any(p => p.PartDefinition.Name == partDefinition.Name))
-                    .Any(p => p.PartDefinition.Name == context.ContentPartName))
-                .ToArray();
-
-            //todo: do in one
-            var affectedContentTypeNames = affectedContentTypeDefinitions.Select(t => t.Name);
-
-            // what's the difference between load and get?
-
-            foreach (string affectedContentTypeName in affectedContentTypeNames)
+            try
             {
-                ResyncContentItems(affectedContentTypeName).GetAwaiter().GetResult();
+                #pragma warning disable
+
+                IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
+                var affectedContentTypeNames = contentTypeDefinitions
+                    .Where(t => t.Parts
+                        .Any(p => p.PartDefinition.Name == context.ContentPartName))
+                    .Select(t => t.Name);;
+
+                // what's the difference between load and get?
+
+                foreach (string affectedContentTypeName in affectedContentTypeNames)
+                {
+                    ResyncContentItems(affectedContentTypeName).GetAwaiter().GetResult();
+                }
+
+            }
+            catch (Exception e)
+            {
+                string message =
+                    $"Graph resync failed after deleting the {context.ContentFieldName} field from {context.ContentPartName} parts.";
+                _logger.LogError(e, message);
+                _notifier.Add(NotifyType.Error,
+                    new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler), message));
+                throw;
             }
         }
         #pragma warning restore S1186
