@@ -122,6 +122,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
                 await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(publishedGraphReplicaSet, contentItem, contentManager);
+
+                mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                //todo: inject?
+                contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
                 await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(previewGraphReplicaSet, contentItem, contentManager);
             }
 
