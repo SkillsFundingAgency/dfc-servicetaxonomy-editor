@@ -4,6 +4,8 @@
 An unhandled error occurred while executing an activity. Workflow ID: '980956'. Activity: '4mvaxsfc5ntc90s0pbs7xtds4x', 'AuditSyncIssuesTask'. Putting the workflow in the faulted state.
 An expression of non-boolean type specified in a context where a condition is expected, near 'or'.
 
+story: * if sync fails, shouldn't publish event : move event publishing into graphsynccontenthandling
+
 * make clear in message after sync sanity check that sync happened, but there might be an issue (perhaps suggest a sync validation)
 
 * publishing sometimes fails sanity check (pub/draft)
