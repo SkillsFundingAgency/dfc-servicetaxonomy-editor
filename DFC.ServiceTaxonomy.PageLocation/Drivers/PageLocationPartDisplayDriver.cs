@@ -11,12 +11,13 @@ using YesSql;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
     public class PageLocationPartDisplayDriver : ContentPartDisplayDriver<PageLocationPart>
     {
-        public static char[] InvalidCharactersForPath = ":?#[]@!$&'()*+,.;=<>\\/|%".ToCharArray();
+        private readonly string UrlNamePattern = "^[A-Za-z0-9_-]+$";
 
         private readonly ISession _session;
 
@@ -49,15 +50,30 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         private async Task ValidateAsync(PageLocationPart pageLocation, IUpdateModel updater)
         {
-            if (string.IsNullOrWhiteSpace(pageLocation.UrlName))
+            bool urlNameIsValid = true;
+
+            if (urlNameIsValid && string.IsNullOrWhiteSpace(pageLocation.UrlName))
             {
                 updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), "A value is required for 'UrlName'");
+                urlNameIsValid = false;
             }
 
-            if (pageLocation.UrlName?.IndexOfAny(InvalidCharactersForPath) > -1 || pageLocation.UrlName?.IndexOf(' ') > -1)
+            if (urlNameIsValid && !Regex.IsMatch(pageLocation.UrlName!, UrlNamePattern))
             {
-                var invalidCharactersForMessage = string.Join(", ", InvalidCharactersForPath.Select(c => $"\"{c}\""));
-                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"Please do not use any of the following characters in your URL name: {invalidCharactersForMessage}. No spaces are allowed (please use dashes or underscores instead).");
+                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"'UrlName' contains invalid characters. Valid characters include A-Z, 0-9, '-' and '_'.");
+                urlNameIsValid = false;
+            }
+
+            if (urlNameIsValid && pageLocation.UrlName!.All(c => !char.IsLetterOrDigit(c)))
+            {
+                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"'UrlName' must contain at least one alphanumeric character.");
+                urlNameIsValid = false;
+            }
+
+            if (urlNameIsValid && pageLocation.UrlName!.All(c => !char.IsLetter(c)))
+            {
+                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), $"'UrlName' must contain at least one letter.");
+                urlNameIsValid = false;
             }
 
             var otherPages = await _session.Query<ContentItem, PageLocationPartIndex>(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId).ListAsync();
