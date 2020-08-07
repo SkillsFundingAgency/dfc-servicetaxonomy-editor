@@ -110,8 +110,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentFieldDetached(ContentFieldDetachedContext context)
         {
-            //todo: looks like old code assumed field was deleted from eponymous part (check)
-            // so wouln't work with custom parts (as used in job profiles)
+            //todo: the content field definition isn't removed until after calling this event :(
+            // so the field isn't removed from the graph
+            // can we add a flag to the field's settings to say it's a zombie?
+            // could pass something through mergegraphsync
+            // ask oc devs to remove field definition first / what they have to say
+            // singleton service containing zombie fields?
 
             try
             {
@@ -150,9 +154,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             var previewGraphReplicaSet = _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Preview);
 
             var contentItems = await _contentItemsService.GetPublishedOnly(contentType);
-
-            //todo: old data isn't removed from content item's contents
-            // check removed field is removed from the sync (i.e. should do if the the part's field definitions have been updated by this point)
 
             foreach (ContentItem contentItem in contentItems)
             {

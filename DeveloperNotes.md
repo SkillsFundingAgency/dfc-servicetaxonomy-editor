@@ -2,6 +2,8 @@
 
 * priority: fix sanity check, pub/draft embedded item sync, events only if synced ok, clone?
 
+* need to resync following part deletion too
+
 * in dev seeing this exception:
 An unhandled error occurred while executing an activity. Workflow ID: '980956'. Activity: '4mvaxsfc5ntc90s0pbs7xtds4x', 'AuditSyncIssuesTask'. Putting the workflow in the faulted state.
 An expression of non-boolean type specified in a context where a condition is expected, near 'or'.
