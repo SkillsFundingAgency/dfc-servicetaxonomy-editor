@@ -1,19 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
-    public interface IContentItemsService
-    {
-        Task<List<ContentItem>> GetPublishedOnly(string contentType);
-        Task<List<ContentItem>> GetPublishedWithDraftVersion(string contentType);
-        Task<List<ContentItem>> GetDraft(string contentType);
-    }
-
     //todo: better name
     public class ContentItemsService : IContentItemsService
     {

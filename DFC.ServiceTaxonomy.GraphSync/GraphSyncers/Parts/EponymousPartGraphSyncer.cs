@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             nameof(AccordionField)
         };
 
+        //todo: sync custom parts with no grouping field : have eponymous as syncer of last resort? have dummy syncers for non-user parts that cause issues?
         public bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
         {
             return contentPartDefinition.Name == contentType
