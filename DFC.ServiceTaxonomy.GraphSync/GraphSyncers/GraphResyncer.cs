@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -31,43 +32,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var previewGraphReplicaSet = _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Preview);
 
             var contentItems = await _contentItemsService.GetPublishedOnly(contentType);
-
-            //todo: helper
-            foreach (ContentItem contentItem in contentItems)
-            {
-                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(publishedGraphReplicaSet, contentItem, contentManager);
-
-                mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(previewGraphReplicaSet, contentItem, contentManager);
-            }
+            await Sync(contentItems, publishedGraphReplicaSet);
+            await Sync(contentItems, previewGraphReplicaSet);
 
             contentItems = await _contentItemsService.GetPublishedWithDraftVersion(contentType);
-
-            foreach (ContentItem contentItem in contentItems)
-            {
-                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(publishedGraphReplicaSet, contentItem, contentManager);
-            }
+            await Sync(contentItems, publishedGraphReplicaSet);
 
             contentItems = await _contentItemsService.GetDraft(contentType);
+            await Sync(contentItems, previewGraphReplicaSet);
+        }
 
+        private async Task Sync(IEnumerable<ContentItem> contentItems, IGraphReplicaSet graphReplicaSet)
+        {
             foreach (ContentItem contentItem in contentItems)
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
                 //todo: inject?
                 IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(previewGraphReplicaSet, contentItem, contentManager);
+                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, contentItem, contentManager);
             }
         }
     }
