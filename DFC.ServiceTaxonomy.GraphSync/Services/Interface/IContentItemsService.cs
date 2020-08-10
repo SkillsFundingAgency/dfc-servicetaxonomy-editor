@@ -9,5 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
         Task<List<ContentItem>> GetPublishedOnly(string contentType);
         Task<List<ContentItem>> GetPublishedWithDraftVersion(string contentType);
         Task<List<ContentItem>> GetDraft(string contentType);
+
+        Task<bool> HasExistingPublishedVersion(string contentItemId);
     }
 }
