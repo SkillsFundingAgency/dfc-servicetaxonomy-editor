@@ -209,6 +209,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
                 return Enumerable.Empty<INodeWithOutgoingRelationships>();
 
+            //todo: only need to do this if there's only currently just a draft version
+            // might have to pass contentitem from event instead of fetching
+            // (doing it unnecessarily might mess up the incoming relationships
+            // and depends on whether published or preview is synced first!)
+
             IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
                 _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
 
