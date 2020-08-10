@@ -17,14 +17,17 @@
   },
   "homepage": "https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor#readme",
   "devDependencies": {
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-csso": "^4.0.1",
     "gulp-dart-sass": "^1.0.2",
     "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.0.0",
     "gulp-sourcemaps": "^2.6.5",
     "sass": "^1.26.5"
   },
   "dependencies": {
-    "govuk-frontend": "^3.6.0"
+    "govuk-frontend": "^3.6.0",
+    "nationalcareers_toolkit": "1.0.0"
   }
 }
