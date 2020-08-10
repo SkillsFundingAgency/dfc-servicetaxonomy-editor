@@ -4,12 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
-using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Events;
@@ -21,9 +18,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     public class GraphSyncContentDefinitionHandler : IContentDefinitionEventHandler
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IContentItemsService _contentItemsService;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IGraphCluster _graphCluster;
+        private readonly IGraphResyncer _graphResyncer;
         private readonly INotifier _notifier;
         private readonly ILogger<GraphSyncContentDefinitionHandler> _logger;
 
@@ -31,16 +27,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public GraphSyncContentDefinitionHandler(
             IContentDefinitionManager contentDefinitionManager,
-            IContentItemsService contentItemsService,
             IServiceProvider serviceProvider,
-            IGraphCluster graphCluster,
+            IGraphResyncer graphResyncer,
             INotifier notifier,
             ILogger<GraphSyncContentDefinitionHandler> logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
-            _contentItemsService = contentItemsService;
             _serviceProvider = serviceProvider;
-            _graphCluster = graphCluster;
+            _graphResyncer = graphResyncer;
             _notifier = notifier;
             _logger = logger;
         }
@@ -119,12 +113,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
                 var affectedContentTypeDefinitions = contentTypeDefinitions
                     .Where(t => t.Parts
-                        .Any(p => p.PartDefinition.Name == context.ContentPartName));
+                        .Any(p => p.PartDefinition.Name == context.ContentPartName))
+                    .ToArray();
 
                 var affectedContentTypeNames = affectedContentTypeDefinitions
                     .Select(t => t.Name);
 
-                //todo: if works, get part first, then get types from parts?
                 var affectedContentFieldDefinitions = affectedContentTypeDefinitions
                     .SelectMany(td => td.Parts)
                     .Where(pd => pd.PartDefinition.Name == context.ContentPartName)
@@ -140,7 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
                 foreach (string affectedContentTypeName in affectedContentTypeNames)
                 {
-                    ResyncContentItems(affectedContentTypeName).GetAwaiter().GetResult();
+                    _graphResyncer.ResyncContentItems(affectedContentTypeName).GetAwaiter().GetResult();
                 }
 
             }
@@ -154,53 +148,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
         #pragma warning restore S1186
-
-        //todo: where does this belong?
-        public async Task ResyncContentItems(string contentType)
-        {
-            //inject Preview|publishedContentItemversion?
-            var publishedGraphReplicaSet = _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Published);
-            var previewGraphReplicaSet = _graphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Preview);
-
-            var contentItems = await _contentItemsService.GetPublishedOnly(contentType);
-
-            //todo: helper
-            foreach (ContentItem contentItem in contentItems)
-            {
-                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(publishedGraphReplicaSet, contentItem, contentManager);
-
-                mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(previewGraphReplicaSet, contentItem, contentManager);
-            }
-
-            contentItems = await _contentItemsService.GetPublishedWithDraftVersion(contentType);
-
-            foreach (ContentItem contentItem in contentItems)
-            {
-                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(publishedGraphReplicaSet, contentItem, contentManager);
-            }
-
-            contentItems = await _contentItemsService.GetDraft(contentType);
-
-            foreach (ContentItem contentItem in contentItems)
-            {
-                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(previewGraphReplicaSet, contentItem, contentManager);
-            }
-        }
     }
 }

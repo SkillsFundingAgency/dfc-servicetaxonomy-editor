@@ -90,6 +90,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
+            services.AddTransient<IGraphResyncer, GraphResyncer>();
 
             services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
             services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
