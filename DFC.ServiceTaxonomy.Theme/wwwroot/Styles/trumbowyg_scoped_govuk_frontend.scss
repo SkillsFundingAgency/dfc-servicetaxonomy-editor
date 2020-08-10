@@ -94,5 +94,5 @@
         text-align: left;
     }
 
-    @include meta.load-css("./ncs-toolkit");
+    @include meta.load-css("../../node_modules/nationalcareers_toolkit/assets/dist/css/all");
 }
