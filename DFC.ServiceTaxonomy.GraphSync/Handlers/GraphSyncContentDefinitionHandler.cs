@@ -108,8 +108,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             try
             {
-                #pragma warning disable
-
                 IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
                 var affectedContentTypeDefinitions = contentTypeDefinitions
                     .Where(t => t.Parts
@@ -129,7 +127,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 {
                     // the content field definition isn't removed until after this event,
                     // so we set a flag not to sync the removed field
-                    affectedContentFieldDefinition.Settings["ContentPartFieldSettings"][FieldZombieFlag] = true;
+                    affectedContentFieldDefinition.Settings["ContentPartFieldSettings"]![FieldZombieFlag] = true;
                 }
 
                 foreach (string affectedContentTypeName in affectedContentTypeNames)
