@@ -27,6 +27,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly INotifier _notifier;
         private readonly ILogger<GraphSyncContentDefinitionHandler> _logger;
 
+        public const string FieldZombieFlag = "Zombie";
+
         public GraphSyncContentDefinitionHandler(
             IContentDefinitionManager contentDefinitionManager,
             IContentItemsService contentItemsService,
@@ -110,24 +112,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentFieldDetached(ContentFieldDetachedContext context)
         {
-            //todo: the content field definition isn't removed until after calling this event :(
-            // so the field isn't removed from the graph
-            // can we add a flag to the field's settings to say it's a zombie?
-            // could pass something through mergegraphsync
-            // ask oc devs to remove field definition first / what they have to say
-            // singleton service containing zombie fields?
-
             try
             {
                 #pragma warning disable
 
                 IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
-                var affectedContentTypeNames = contentTypeDefinitions
+                var affectedContentTypeDefinitions = contentTypeDefinitions
                     .Where(t => t.Parts
-                        .Any(p => p.PartDefinition.Name == context.ContentPartName))
-                    .Select(t => t.Name);;
+                        .Any(p => p.PartDefinition.Name == context.ContentPartName));
 
-                // what's the difference between load and get?
+                var affectedContentTypeNames = affectedContentTypeDefinitions
+                    .Select(t => t.Name);
+
+                //todo: if works, get part first, then get types from parts?
+                var affectedContentFieldDefinitions = affectedContentTypeDefinitions
+                    .SelectMany(td => td.Parts)
+                    .Where(pd => pd.PartDefinition.Name == context.ContentPartName)
+                    .SelectMany(pd => pd.PartDefinition.Fields)
+                    .Where(fd => fd.Name == context.ContentFieldName);
+
+                foreach (var affectedContentFieldDefinition in affectedContentFieldDefinitions)
+                {
+                    // the content field definition isn't removed until after this event,
+                    // so we set a flag not to sync the removed field
+                    affectedContentFieldDefinition.Settings["ContentPartFieldSettings"][FieldZombieFlag] = true;
+                }
 
                 foreach (string affectedContentTypeName in affectedContentTypeNames)
                 {
@@ -155,6 +164,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             var contentItems = await _contentItemsService.GetPublishedOnly(contentType);
 
+            //todo: helper
             foreach (ContentItem contentItem in contentItems)
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
