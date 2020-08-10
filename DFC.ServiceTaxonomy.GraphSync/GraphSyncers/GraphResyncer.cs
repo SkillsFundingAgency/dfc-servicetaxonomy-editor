@@ -15,15 +15,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentItemsService _contentItemsService;
         private readonly IServiceProvider _serviceProvider;
         private readonly IGraphCluster _graphCluster;
+        private readonly IContentManager _contentManager;
 
         public GraphResyncer(
             IContentItemsService contentItemsService,
             IServiceProvider serviceProvider,
-            IGraphCluster graphCluster)
+            IGraphCluster graphCluster,
+            IContentManager contentManager)
         {
             _contentItemsService = contentItemsService;
             _serviceProvider = serviceProvider;
             _graphCluster = graphCluster;
+            _contentManager = contentManager;
         }
 
         public async Task ResyncContentItems(string contentType)
@@ -47,10 +50,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             foreach (ContentItem contentItem in contentItems)
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //todo: inject?
-                IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, contentItem, contentManager);
+                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, contentItem, _contentManager);
             }
         }
     }
