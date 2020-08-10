@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -60,6 +62,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
+                    // if we're syncing after field has been detached from the part, don't sync it
+                    if (contentPartFieldDefinition.Settings["ContentPartFieldSettings"]?
+                        [GraphSyncContentDefinitionHandler.FieldZombieFlag]?.Value<bool>() == true)
+                        continue;
+
                     JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;

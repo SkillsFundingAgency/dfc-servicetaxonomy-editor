@@ -94,6 +94,12 @@
         },
         "appSharedCosmosPrimaryKey": {
             "type": "securestring"
+        },
+        "PublishedAppPrefix": {
+            "type": "string"
+        },
+        "PreviewAppPrefix": {
+            "type": "string"
         }
     },
     "variables": {
@@ -313,6 +319,14 @@
                             {
                                 "name": "EventStoreKey",
                                 "value": "[parameters('appSharedCosmosPrimaryKey')]"
+                            },
+                            {
+                                "name": "Pages__PublishedAppPrefix",
+                                "value": "[parameters('PublishedAppPrefix')]"
+                            },
+                            {
+                                "name": "Pages__PreviewAppPrefix",
+                                "value": "[parameters('PreviewAppPrefix')]"
                             }
                         ]
                     }

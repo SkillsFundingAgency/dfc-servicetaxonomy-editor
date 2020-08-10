@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,11 +6,14 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -28,6 +32,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IGraphCluster _graphCluster;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         //todo: tidy these up? make more public??
@@ -35,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private GraphMergeContext? _graphMergeContext;
         public IGraphMergeContext? GraphMergeContext => _graphMergeContext;
         private ContentItem? _contentItem;
+        private IEnumerable<INodeWithOutgoingRelationships>? _incomingPreviewContentPickerRelationships;
 
         public MergeGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
@@ -43,6 +52,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
             IContentItemVersionFactory contentItemVersionFactory,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
+            IServiceProvider serviceProvider,
+            IGraphCluster graphCluster,
             ILogger<MergeGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -51,9 +64,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
             _contentItemVersionFactory = contentItemVersionFactory;
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
+            _serviceProvider = serviceProvider;
+            _graphCluster = graphCluster;
             _logger = logger;
 
             _graphMergeContext = null;
+            _incomingPreviewContentPickerRelationships = null;
         }
 
         public async Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
@@ -114,6 +132,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
 
+            //should it go in the context?
+            _incomingPreviewContentPickerRelationships = await GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
+                graphReplicaSet,
+                graphSyncPartContent);
+
             // move into context?
             _contentItem = contentItem;
 
@@ -136,7 +159,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncAllowedResult;
         }
 
-        //todo: need to split generating commands, and syncing
+        //todo: need to split generating commands, and syncing, to make sync to a graph atomic
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
         {
             if (_graphMergeContext == null)
@@ -144,7 +167,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             await AddContentPartSyncComponents(_contentItem!);
 
-            //todo: bit hacky. best way to do this?
+            //todo: bit hacky. best way to do this? remove this now?
             // work-around new taxonomy terms created with only DisplayText set
             if (!MergeNodeCommand.Properties.ContainsKey(_graphSyncHelper.IdPropertyName())
                 && MergeNodeCommand.Properties.ContainsKey(TitlePartGraphSyncer.NodeTitlePropertyName))
@@ -152,10 +175,61 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 MergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
             }
 
+            IEnumerable<IReplaceRelationshipsCommand> recreateIncomingPreviewContentPickerRelationshipsCommands =
+                GetRecreateIncomingPreviewContentPickerRelationshipsCommands();
+
             _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {MergeNodeCommand}");
-            await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet);
+            await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet, recreateIncomingPreviewContentPickerRelationshipsCommands);
 
             return MergeNodeCommand;
+        }
+
+        private IEnumerable<IReplaceRelationshipsCommand> GetRecreateIncomingPreviewContentPickerRelationshipsCommands()
+        {
+            //todo: need to support twoway, although not yet
+            if (_incomingPreviewContentPickerRelationships?.Any() == true)
+            {
+                //todo: check relationship properties include any others that were already there
+
+                return _incomingPreviewContentPickerRelationships
+                    .Select(r => r.ToReplaceRelationshipsCommand(
+                        _graphSyncHelper,
+                        _previewContentItemVersion,
+                        _publishedContentItemVersion,
+                        false));
+            }
+
+            return Enumerable.Empty<IReplaceRelationshipsCommand>();
+        }
+
+        private async Task<IEnumerable<INodeWithOutgoingRelationships>> GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
+            IGraphReplicaSet graphReplicaSet,
+            dynamic graphSyncPartContent)
+        {
+            if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
+                return Enumerable.Empty<INodeWithOutgoingRelationships>();
+
+            //todo: only need to do this if there's only currently just a draft version
+            // might have to pass contentitem from event instead of fetching
+            // (doing it unnecessarily might mess up the incoming relationships
+            // and depends on whether published or preview is synced first!)
+
+            IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
+                _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
+
+            getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
+            getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
+            getDraftRelationshipsQuery.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+                graphSyncPartContent, _previewContentItemVersion);
+
+            IEnumerable<INodeWithOutgoingRelationships?> incomingContentPickerRelationshipsOrDefault =
+                await _graphCluster.Run(_previewContentItemVersion.GraphReplicaSetName, getDraftRelationshipsQuery);
+
+            #pragma warning disable S1905 // Sonar needs updating to know about nullable references
+            return incomingContentPickerRelationshipsOrDefault
+                    .Where(n => n != null)
+                    .Cast<INodeWithOutgoingRelationships>();
+            #pragma warning restore S1905
         }
 
         private async Task AddContentPartSyncComponents(ContentItem contentItem)
@@ -172,12 +246,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         //todo: should we add a AddIdSyncComponents method?
 
-        private async Task SyncComponentsToGraphReplicaSet(IGraphReplicaSet graphReplicaSet)
+        private async Task SyncComponentsToGraphReplicaSet(
+            IGraphReplicaSet graphReplicaSet,
+            IEnumerable<ICommand> extraCommands)
         {
             List<ICommand> commands = new List<ICommand>();
 
             if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                 commands.Add(MergeNodeCommand);
+
+            if (extraCommands.Any())
+                commands.AddRange(extraCommands);
 
             if (_replaceRelationshipsCommand.Relationships.Any())
                 commands.Add(_replaceRelationshipsCommand);

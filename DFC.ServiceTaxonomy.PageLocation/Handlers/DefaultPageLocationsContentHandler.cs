@@ -89,7 +89,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         private async Task SyncToPreviewGraph(ContentItem contentItem)
         {
             SyncStatus syncStatus = SyncStatus.Blocked;
-            string message = $"Unable to sync {contentItem.DisplayText} Page to {GraphReplicaSetNames.Preview} graph(s).";
+            string message = $"Unable to sync '{contentItem.DisplayText}' Page to {GraphReplicaSetNames.Preview} graph(s).";
 
             try
             {

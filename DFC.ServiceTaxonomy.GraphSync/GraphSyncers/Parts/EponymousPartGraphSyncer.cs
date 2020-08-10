@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CustomFields.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -25,6 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             nameof(AccordionField)
         };
 
+        //todo: sync custom parts with no grouping field : have eponymous as syncer of last resort? have dummy syncers for non-user parts that cause issues?
         public bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
         {
             return contentPartDefinition.Name == contentType

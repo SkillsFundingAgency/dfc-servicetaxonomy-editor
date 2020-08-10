@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 {
     public class ContentItemGraphSyncer : IContentItemGraphSyncer
     {
-        private readonly ICustomContentDefintionManager _contentDefinitionManager;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
         private readonly ILogger<ContentItemGraphSyncer> _logger;
         public int Priority => int.MinValue;
 
         public ContentItemGraphSyncer(
-            ICustomContentDefintionManager contentDefinitionManager,
+            IContentDefinitionManager contentDefinitionManager,
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             ILogger<ContentItemGraphSyncer> logger)
         {
