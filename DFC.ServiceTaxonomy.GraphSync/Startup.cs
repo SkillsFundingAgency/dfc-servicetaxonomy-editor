@@ -20,10 +20,8 @@ using DFC.ServiceTaxonomy.GraphSync.Settings;
 using OrchardCore.Modules;
 using OrchardCore.Recipes;
 using OrchardCore.Workflows.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Activities.Events;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Drivers.Events;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
@@ -36,17 +34,15 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
-using OrchardCore.ContentTypes.Services;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.Managers.Interface;
-using DFC.ServiceTaxonomy.GraphSync.Managers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement.Handlers;
+using OrchardCore.ContentTypes.Events;
 using OrchardCore.Navigation;
 using OrchardCore.Security.Permissions;
 
@@ -78,6 +74,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddGraphCluster();
             services.AddSingleton(sp => (IGraphClusterLowLevel)sp.GetRequiredService<IGraphCluster>());
             services.AddScoped<IContentHandler, GraphSyncContentHandler>();
+            services.AddScoped<IContentDefinitionEventHandler, GraphSyncContentDefinitionHandler>();
             services.AddTransient<IGetIncomingContentPickerRelationshipsQuery, GetIncomingContentPickerRelationshipsQuery>();
 
             // GraphSyncPart
@@ -93,6 +90,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
+            services.AddTransient<IGraphResyncer, GraphResyncer>();
 
             services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
             services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
@@ -132,20 +130,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentFieldGraphSyncer, TaxonomyFieldGraphSyncer>();
 
             // workflow activities
-            services.AddActivity<DeleteContentTypeFromGraphTask, DeleteContentTypeFromGraphTaskDisplay>();
-            services.AddActivity<ContentTypeDeletedEvent, ContentTypeDeletedEventDisplay>();
-            services.AddActivity<DeleteContentTypeTask, DeleteContentTypeTaskDisplay>();
             services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
-            services.AddActivity<ContentTypeFieldRemovedEvent, ContentTypeFieldRemovedEventDisplay>();
-            services.AddActivity<RemoveFieldFromContentItemsTask, RemoveFieldFromContentItemsTaskDisplay>();
-            services.AddActivity<PublishContentTypeContentItemsTask, PublishContentTypeContentItemsTaskDisplay>();
 
             // notifiers
             services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
 
             // services
-            services.AddScoped<IOrchardCoreContentDefinitionService, OrchardCoreContentDefinitionService>();
-            services.Replace(ServiceDescriptor.Scoped<IContentDefinitionService, CustomContentDefinitionService>());
             services.AddScoped<ISynonymService, SynonymService>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
             // this would be nice, but IContentManager is Scoped, so not available at startup
@@ -153,9 +143,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
             services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
-
-            // managers
-            services.AddScoped<ICustomContentDefintionManager, CustomContentDefinitionManager>();
+            services.AddScoped<IContentItemsService, ContentItemsService>();
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();
