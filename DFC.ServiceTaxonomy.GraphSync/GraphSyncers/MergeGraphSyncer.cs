@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
@@ -36,6 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
         private readonly IGraphCluster _graphCluster;
+        private readonly IContentItemsService _contentItemsService;
         private readonly ILogger<MergeGraphSyncer> _logger;
 
         //todo: tidy these up? make more public??
@@ -56,6 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IPreviewContentItemVersion previewContentItemVersion,
             IServiceProvider serviceProvider,
             IGraphCluster graphCluster,
+            IContentItemsService contentItemsService,
             ILogger<MergeGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -68,6 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
             _graphCluster = graphCluster;
+            _contentItemsService = contentItemsService;
             _logger = logger;
 
             _graphMergeContext = null;
@@ -135,7 +139,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //should it go in the context?
             _incomingPreviewContentPickerRelationships = await GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
                 graphReplicaSet,
-                graphSyncPartContent);
+                graphSyncPartContent,
+                contentItem.ContentItemId);
 
             // move into context?
             _contentItem = contentItem;
@@ -202,18 +207,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return Enumerable.Empty<IReplaceRelationshipsCommand>();
         }
 
+        //todo: don't want to do this for embedded items
         private async Task<IEnumerable<INodeWithOutgoingRelationships>> GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
             IGraphReplicaSet graphReplicaSet,
-            dynamic graphSyncPartContent)
+            dynamic graphSyncPartContent,
+            string contentItemId)
         {
-            if (graphReplicaSet.Name != GraphReplicaSetNames.Published)
+            // we only need to recreate incoming relationships
+            // if we're publishing and there isn't currently a published version
+            if (graphReplicaSet.Name != GraphReplicaSetNames.Published
+                || await _contentItemsService.HasExistingPublishedVersion(contentItemId))
+            {
                 return Enumerable.Empty<INodeWithOutgoingRelationships>();
+            }
 
-            //todo: only need to do this if there's only currently just a draft version
-            // might have to pass contentitem from event instead of fetching
-            // (doing it unnecessarily might mess up the incoming relationships
-            // and depends on whether published or preview is synced first!)
-
+            // allow sync is called concurrently for preview and published
+            // so we could get the before or after incoming relationships
+            // either should do, but perhaps we should do it serially to consistently fetch the _before_ incoming relationships?
             IGetIncomingContentPickerRelationshipsQuery getDraftRelationshipsQuery =
                 _serviceProvider.GetRequiredService<IGetIncomingContentPickerRelationshipsQuery>();
 
