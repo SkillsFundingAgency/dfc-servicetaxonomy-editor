@@ -125,27 +125,33 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
-            //todo: log query (doesn't work!) Query was: {resultSummary.Query}.
-            //todo: validate deletes?
-            // we should only query if the quick tests have failed, otherwise we'll slow down import a lot if we queried after every update
+            int expectedOutgoingRelationshipsCreated = RelationshipsList
+                .Sum(r => r.IncomingRelationshipType == null
+                    ? r.DestinationNodeIdPropertyValues.Count
+                    : r.DestinationNodeIdPropertyValues.Count * 2);
 
-            int expectedOutgoingRelationshipsCreated = RelationshipsList.Sum(r => r.DestinationNodeIdPropertyValues.Count());
-
-            // we don't know how many will be created if we're creating incoming relationships, as we don't delete them first,
-            // so we don't check RelationshipsCreated if we have any
-            if (RelationshipsList.All(r => r.IncomingRelationshipType == null)
-                && resultSummary.Counters.RelationshipsCreated != expectedOutgoingRelationshipsCreated)
+            if (ReplaceExistingRelationships
+                && RelationshipsList.All(r => r.IncomingRelationshipType == null))
             {
-                throw CreateValidationException(resultSummary,
-                    $"Expected {expectedOutgoingRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+                if (resultSummary.Counters.RelationshipsCreated != expectedOutgoingRelationshipsCreated)
+                {
+                    throw CreateValidationException(resultSummary,
+                        $"Expected {expectedOutgoingRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+                }
             }
-
-            //todo: can we do better?
-            // int expectedIncomingRelationshipsCreated = RelationshipsList
-            //     .Where(r => r.IncomingRelationshipType != null)
-            //     .Sum(r => r.DestinationNodeIdPropertyValues.Count());
-            // int expectedRelationshipsCreated =
-            //     expectedOutgoingRelationshipsCreated + expectedIncomingRelationshipsCreated;
+            else
+            {
+                // we don't know how many will be created if we're:
+                // * creating incoming relationships
+                // * not replacing existing relationships
+                // as the number created depends on the initial graph state,
+                // so instead we check that we haven't created more than expected
+                if (resultSummary.Counters.RelationshipsCreated > expectedOutgoingRelationshipsCreated)
+                {
+                    throw CreateValidationException(resultSummary,
+                        $"Expected no more than {expectedOutgoingRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
+                }
+            }
 
             if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
                 return;
