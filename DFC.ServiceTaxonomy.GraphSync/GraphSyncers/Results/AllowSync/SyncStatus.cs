@@ -1,4 +1,4 @@
-﻿namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+﻿namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
 {
     public enum SyncStatus
     {

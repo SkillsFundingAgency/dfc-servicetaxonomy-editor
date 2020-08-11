@@ -1,6 +1,6 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
 {
     public class SyncBlocker : ISyncBlocker
     {

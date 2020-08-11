@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync
 {
     public interface IAllowSyncResult
     {

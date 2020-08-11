@@ -1,10 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
 {
     // we could have this as part of the context
     // if we did, we'd get the embedded hierarchy for free, with the results in the chained contexts
