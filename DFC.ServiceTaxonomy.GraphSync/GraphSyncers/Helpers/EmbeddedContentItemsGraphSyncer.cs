@@ -201,7 +201,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
             {
-                IGraphSyncHelper graphSyncHelperForType = _serviceProvider.GetRequiredService<GraphSyncHelper>();
+                IGraphSyncHelper graphSyncHelperForType = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
                 graphSyncHelperForType.ContentType = embeddedContentItemsOfType.Key;
 
                 var typesNodeLabels = await graphSyncHelperForType.NodeLabels();
