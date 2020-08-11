@@ -8,7 +8,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         public IGraphReplicaSet GraphReplicaSet { get; }
         IMergeNodeCommand MergeNodeCommand { get; }
         IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; }
-
-        IGraphMergeContext? ParentGraphMergeContext { get; }
     }
 }

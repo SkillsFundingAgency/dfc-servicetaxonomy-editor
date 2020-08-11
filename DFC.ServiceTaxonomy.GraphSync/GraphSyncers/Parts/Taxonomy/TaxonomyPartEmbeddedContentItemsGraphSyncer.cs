@@ -24,12 +24,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         {
         }
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
         {
-            IGraphMergeContext rootContext = context;
-            while (rootContext.ParentGraphMergeContext != null)
+            IGraphOperationContext rootContext = context;
+            while (rootContext.ParentContext != null)
             {
-                rootContext = rootContext.ParentGraphMergeContext;
+                rootContext = rootContext.ParentContext;
             }
 
             return new string[]

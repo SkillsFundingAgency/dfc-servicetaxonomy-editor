@@ -17,17 +17,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public IContentPartFieldDefinition? ContentPartFieldDefinition { get; private set; }
 
         public IGraphSyncHelper GraphSyncHelper { get; }
+        // only used by GraphMergeContext and GraphOperationContext, not ValidateAndRepairContext
+        // new base class, or just leave null for validate??
+        //todo: provide subclass in derived?
+        public IGraphOperationContext? ParentContext { get; }
 
         protected GraphOperationContext(
             ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
-            IContentItemVersion contentItemVersion)
+            IContentItemVersion contentItemVersion,
+            IGraphOperationContext? parentContext)
         {
             ContentItem = contentItem;
             GraphSyncHelper = graphSyncHelper;
             ContentManager = contentManager;
             ContentItemVersion = contentItemVersion;
+            ParentContext = parentContext;
 
             // will be set before any syncers receive a context
             ContentTypePartDefinition = default!;

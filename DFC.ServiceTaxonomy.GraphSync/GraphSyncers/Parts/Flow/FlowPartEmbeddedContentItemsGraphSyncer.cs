@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
         public override Task AllowSync(JArray? contentItems, IGraphMergeContext context,
             IAllowSyncResult allowSyncResult) => Task.FromResult(true);
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
         {
             return _contentDefinitionManager.ListTypeDefinitions()
                 .Where(t => t.GetSettings<ContentTypeSettings>().Stereotype == "Widget")

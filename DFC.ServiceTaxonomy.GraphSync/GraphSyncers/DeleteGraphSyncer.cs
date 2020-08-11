@@ -2,11 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -74,46 +78,62 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
         }
 
-        public async Task Delete(ContentItem contentItem, IContentItemVersion contentItemVersion)
+        public async Task Delete()
         {
-            await Delete(contentItem, contentItemVersion, "deleting");
+            await Delete("deleting");
         }
 
-        public async Task Unpublish(ContentItem contentItem, IContentItemVersion contentItemVersion)
+        public async Task Unpublish()
         {
             //todo: ContentPickerRelationshipProperties for delete too?
-            await Delete(contentItem, contentItemVersion, "unpublishing", ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
+            await Delete("unpublishing", ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
         }
 
-        private async Task Delete(
+        //todo: needs to be called from embedded for taxonomy
+        public Task<IAllowSyncResult> DeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
-            string operation,
-            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)
+            //string operation,
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null, // put into context
+            IGraphDeleteItemSyncContext? parentContext = null)
         {
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
-                return;
-
-            _logger.LogInformation($"Sync: {operation} '{contentItem.DisplayText}' {contentItem.ContentType} ({contentItem.ContentItemId}) from {contentItemVersion.GraphReplicaSetName} replica set.");
+                return Task.FromResult(AllowSyncResult.NotRequired);
 
             _graphDeleteItemSyncContext = new GraphDeleteItemSyncContext(
                 contentItem,
                 _graphSyncHelper,
                 _contentManager,
-                contentItemVersion);
+                contentItemVersion,
+                parentContext);
 
-            await ContentPartDelete();
+            return Task.FromResult((IAllowSyncResult)new AllowSyncResult());
+        }
 
+        private async Task Delete(
+            //ContentItem contentItem,
+            //IContentItemVersion contentItemVersion,
+            string operation,
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)
+        {
+            if (_graphDeleteItemSyncContext == null)
+                throw new GraphSyncException($"You must call {nameof(DeleteAllowed)} before calling {nameof(Delete)}.");
+
+            _logger.LogInformation($"Sync: {operation} '{_graphDeleteItemSyncContext.ContentItem.DisplayText}' {_graphDeleteItemSyncContext.ContentItem.ContentType} ({_graphDeleteItemSyncContext.ContentItem.ContentItemId}) from {_graphDeleteItemSyncContext.ContentItemVersion.GraphReplicaSetName} replica set.");
+
+            //todo: move into method
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
             _deleteNodeCommand.IdPropertyValue =
-                _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+                _graphSyncHelper.GetIdPropertyValue(_graphDeleteItemSyncContext.ContentItem.Content.GraphSyncPart, _graphDeleteItemSyncContext.ContentItemVersion);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
             _deleteNodeCommand.DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
 
-            await DeleteFromGraphReplicaSet(contentItemVersion);
+            await ContentPartDelete();
+
+            await DeleteFromGraphReplicaSet(_graphDeleteItemSyncContext.ContentItemVersion);
         }
 
         private async Task ContentPartDelete()

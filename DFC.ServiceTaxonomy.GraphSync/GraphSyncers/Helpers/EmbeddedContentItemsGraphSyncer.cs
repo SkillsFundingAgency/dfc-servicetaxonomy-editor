@@ -197,7 +197,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
-            var embeddedContentItemsByType = embeddedContentItems.GroupBy(ci => ci.ContentType);
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            var embeddedContentItemsByType = embeddedContentItems
+                .GroupBy(ci => ci.ContentType)
+                .Where(g => embeddableContentTypes.Contains(g.Key));
 
             foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
             {
@@ -360,7 +364,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context);
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context);
 
         //todo: need to separate GraphSyncHelper into stateful and stateless
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)

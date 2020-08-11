@@ -13,8 +13,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public IMergeNodeCommand MergeNodeCommand { get; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; }
 
-        public IGraphMergeContext? ParentGraphMergeContext { get; }
-
         public GraphMergeContext(
             IGraphSyncHelper graphSyncHelper,
             IGraphReplicaSet graphReplicaSet,
@@ -24,12 +22,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersionFactory contentItemVersionFactory,
             IGraphMergeContext? parentGraphMergeContext)
-        : base(contentItem, graphSyncHelper, contentManager, contentItemVersionFactory.Get(graphReplicaSet.Name))
+        : base(contentItem, graphSyncHelper, contentManager, contentItemVersionFactory.Get(graphReplicaSet.Name), parentGraphMergeContext)
         {
             GraphReplicaSet = graphReplicaSet;
             MergeNodeCommand = mergeNodeCommand;
             ReplaceRelationshipsCommand = replaceRelationshipsCommand;
-            ParentGraphMergeContext = parentGraphMergeContext;
         }
     }
 }

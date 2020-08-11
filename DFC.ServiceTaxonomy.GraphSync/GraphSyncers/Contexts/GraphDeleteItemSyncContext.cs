@@ -15,8 +15,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
-            IContentItemVersion contentItemVersion)
-            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion)
+            IContentItemVersion contentItemVersion,
+            IGraphDeleteItemSyncContext? parentGraphDeleteItemSyncContext)
+            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentGraphDeleteItemSyncContext)
         {
             Commands = new Queue<ICommand>();
         }

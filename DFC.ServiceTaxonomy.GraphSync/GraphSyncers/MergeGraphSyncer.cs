@@ -169,7 +169,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
         {
             if (_graphMergeContext == null)
-                throw new GraphSyncException($"You must call {nameof(SyncAllowed)} before calling {nameof(SyncToGraphReplicaSet)}");
+                throw new GraphSyncException($"You must call {nameof(SyncAllowed)} before calling {nameof(SyncToGraphReplicaSet)}.");
 
             await AddContentPartSyncComponents(_graphMergeContext.ContentItem);
 
