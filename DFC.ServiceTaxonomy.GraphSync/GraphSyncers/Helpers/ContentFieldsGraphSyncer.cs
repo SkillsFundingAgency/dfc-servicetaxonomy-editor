@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;

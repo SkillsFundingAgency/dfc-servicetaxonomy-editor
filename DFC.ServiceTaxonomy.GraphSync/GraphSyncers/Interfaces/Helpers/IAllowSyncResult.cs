@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 {
     public interface IAllowSyncResult
     {

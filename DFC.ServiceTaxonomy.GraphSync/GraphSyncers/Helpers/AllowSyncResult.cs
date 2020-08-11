@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {

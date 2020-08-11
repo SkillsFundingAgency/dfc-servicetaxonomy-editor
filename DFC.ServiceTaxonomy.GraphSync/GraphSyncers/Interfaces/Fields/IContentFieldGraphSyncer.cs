@@ -2,7 +2,7 @@
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using Newtonsoft.Json.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields
 {
     public interface IContentFieldGraphSyncer
     {

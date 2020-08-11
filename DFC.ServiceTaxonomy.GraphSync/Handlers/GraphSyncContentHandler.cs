@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;

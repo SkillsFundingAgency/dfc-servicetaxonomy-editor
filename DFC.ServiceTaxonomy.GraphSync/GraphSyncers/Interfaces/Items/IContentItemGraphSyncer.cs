@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items
 {
     public interface IContentItemGraphSyncer
     {
