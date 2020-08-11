@@ -62,8 +62,6 @@
                 "OrchardCore.Queries",
                 "OrchardCore.Sitemaps",
                 "OrchardCore.Title",
-                "OrchardCore.Taxonomies",
-                "OrchardCore.Taxonomies.ContentsAdminList",
                 "OrchardCore.Templates",
                 "OrchardCore.Widgets",
                 // Workflows
@@ -81,6 +79,8 @@
                 "DFC.ServiceTaxonomy.Cypher",
                 "DFC.ServiceTaxonomy.CustomFields",
                 "DFC.ServiceTaxonomy.Events",
+                "DFC.ServiceTaxonomy.Taxonomies",
+                "DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList",
                 "DFC.ServiceTaxonomy.UnpublishLater",
                 "DFC.ServiceTaxonomy.PageLocation"
             ]
