@@ -9,10 +9,10 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
-    public class TaxonomyPartGraphSyncer : ITaxonomyPartGraphSyncer
+    public class TaxonomyPartGraphSyncer : ContentPartGraphSyncer, ITaxonomyPartGraphSyncer
     {
         private readonly ITaxonomyPartEmbeddedContentItemsGraphSyncer _taxonomyPartEmbeddedContentItemsGraphSyncer;
-        public string PartName => nameof(TaxonomyPart);
+        public override string PartName => nameof(TaxonomyPart);
 
         private const string ContainerName = "Terms";
         internal const string TermContentTypePropertyName = "TermContentType";
@@ -23,12 +23,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             _taxonomyPartEmbeddedContentItemsGraphSyncer = taxonomyPartEmbeddedContentItemsGraphSyncer;
         }
 
-        public async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
         {
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AllowSync((JArray?)content[ContainerName], context, allowSyncResult);
         }
 
-        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
 
@@ -43,7 +43,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         }
 
         //todo: we now need to validate any 2 way incoming relationships we created
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =

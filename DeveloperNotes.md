@@ -2,6 +2,8 @@
 
 unpublishing page leaves HTML
 
+* html settings missing button for accordion
+
 * pub/draft embedded item sync, events only if synced ok, clone?
 
 * need to resync following part deletion too

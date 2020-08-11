@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.Sitemaps.Models;
@@ -10,9 +9,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
 #pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
 
-    public class SitemapPartGraphSyncer : IContentPartGraphSyncer
+    public class SitemapPartGraphSyncer : ContentPartGraphSyncer
     {
-        public string PartName => nameof(SitemapPart);
+        public override string PartName => nameof(SitemapPart);
 
         private static readonly Func<string, string> _sitemapPropertyNameTransform = n => $"sitemap_{n}";
 
@@ -22,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             PriorityPropertyName = "Priority",
             ExcludePropertyName = "Exclude";
 
-        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);
 
@@ -47,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ExcludePropertyName), value.As<bool>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_sitemapPropertyNameTransform);

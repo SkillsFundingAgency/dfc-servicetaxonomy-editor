@@ -11,9 +11,9 @@ using OrchardCore.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public class TermPartGraphSyncer : ITermPartGraphSyncer
+    public class TermPartGraphSyncer : ContentPartGraphSyncer, ITermPartGraphSyncer
     {
-        public string PartName => nameof(TermPart);
+        public override string PartName => nameof(TermPart);
 
         private const string TaxonomyContentItemId = "TaxonomyContentItemId";
 
@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             _serviceProvider = serviceProvider;
         }
 
-        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             string? taxonomyContentItemId = (string?)content[TaxonomyContentItemId];
             if (taxonomyContentItemId == null)
@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 termGraphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
         {

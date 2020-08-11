@@ -35,86 +35,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
-            //todo: common code, use callback
-            foreach (var partSync in _partSyncers)
-            {
-                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
-                // (other non-named parts have the part name in both)
-
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
-                var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
-
-                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
-                {
-                    context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    string namedPartName = contentTypePartDefinition.Name;
-
-                    JObject? partContent = context.ContentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue; //todo: throw??
-
-                    await partSync.AllowSync(partContent, context, allowSyncResult);
-                }
-            }
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult));
         }
 
         //todo: rename IAllowSyncResult
         public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
-            //todo: common code, use callback
-            foreach (var partSync in _partSyncers)
-            {
-                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
-                // (other non-named parts have the part name in both)
-
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
-                var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
-
-                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
-                {
-                    context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    string namedPartName = contentTypePartDefinition.Name;
-
-                    JObject? partContent = context.ContentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue; //todo: throw??
-
-                    await partSync.AllowDelete(partContent, context, allowSyncResult);
-                }
-            }
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.AllowDelete(partContent, context, allowSyncResult));
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
-            foreach (var partSync in _partSyncers)
-            {
-                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
-                // (other non-named parts have the part name in both)
-
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
-                var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
-
-                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
-                {
-                    context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    string namedPartName = contentTypePartDefinition.Name;
-
-                    JObject? partContent = context.ContentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue; //todo: throw??
-
-                    await partSync.AddSyncComponents(partContent, context);
-                }
-            }
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.AddSyncComponents(partContent, context));
         }
 
-        public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
+        public async Task DeleteComponents(
+            IGraphDeleteItemSyncContext context,
+            Func<IContentPartGraphSyncer, JObject?, Task> action)
+        {
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.DeleteComponents(partContent, context));
+        }
+
+        public async Task IteratePartSyncers(
+            IItemSyncContext context,
+            Func<IContentPartGraphSyncer, JObject, Task> action)
         {
             foreach (var partSync in _partSyncers)
             {
@@ -135,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    await partSync.DeleteComponents(partContent, context);
+                    await action(partSync, partContent);
                 }
             }
         }

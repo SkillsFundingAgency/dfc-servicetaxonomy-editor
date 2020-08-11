@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.PublishLater.Models;
@@ -10,14 +9,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
 #pragma warning disable S1481 // need the variable for the new using syntax, see https://github.com/dotnet/csharplang/issues/2235
 
-    public class PublishLaterPartGraphSyncer : IContentPartGraphSyncer
+    public class PublishLaterPartGraphSyncer : ContentPartGraphSyncer
     {
-        public string PartName => nameof(PublishLaterPart);
+        public override string PartName => nameof(PublishLaterPart);
 
         private static readonly Func<string, string> _publishLaterFieldsPropertyNameTransform = n => $"publishlater_{n}";
         private const string ScheduledPublishUtcPropertyName = "ScheduledPublishUtc";
 
-        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
@@ -27,7 +26,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ScheduledPublishUtcPropertyName), scheduledPublishValue.As<DateTime>());
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names

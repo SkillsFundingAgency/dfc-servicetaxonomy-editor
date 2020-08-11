@@ -6,13 +6,14 @@ using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public class GraphSyncPartGraphSyncer : IGraphSyncPartGraphSyncer
+    public class GraphSyncPartGraphSyncer : ContentPartGraphSyncer, IGraphSyncPartGraphSyncer
     {
-        // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
-        int Priority { get => int.MaxValue; }
-        public string PartName => nameof(GraphSyncPart);
+        // ensure graph sync part is processed first,
+        // as other part syncers require the node's id value to be populated in the MergeNodeCommand
+        public override int Priority { get => int.MaxValue; }
+        public override string PartName => nameof(GraphSyncPart);
 
-        public Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             object? idValue = context.GraphSyncHelper.GetIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
@@ -21,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
         {

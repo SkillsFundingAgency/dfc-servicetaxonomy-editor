@@ -1,18 +1,16 @@
 using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 {
-#pragma warning disable S1481 // Unused local variables should be removed
-    public class PageLocationPartGraphSyncer : IContentPartGraphSyncer
+    public class PageLocationPartGraphSyncer : ContentPartGraphSyncer
     {
-        public string PartName => nameof(PageLocationPart);
+        public override string PartName => nameof(PageLocationPart);
 
         private static readonly Func<string, string> _pageLocationPropertyNameTransform = n => $"pagelocation_{n}";
 
@@ -22,7 +20,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             FullUrlPropertyName = "FullUrl",
             RedirectLocationsPropertyName = "RedirectLocations";
 
-        public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
 
@@ -35,7 +33,8 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
                 RedirectLocationsPropertyName);
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
@@ -76,5 +75,4 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             return matched ? (true, "") : (false, $"{RedirectLocationsPropertyName} did not validate: {failureReason}");
         }
     }
-#pragma warning restore S1481 // Unused local variables should be removed
 }

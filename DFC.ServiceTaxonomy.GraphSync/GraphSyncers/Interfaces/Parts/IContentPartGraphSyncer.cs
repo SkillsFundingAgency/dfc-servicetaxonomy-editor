@@ -8,25 +8,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
 {
     public interface IContentPartGraphSyncer
     {
-        int Priority { get => 0; }
+        public int Priority { get; }
         string PartName { get; }
 
-        bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
-        {
-            return contentPartDefinition.Name == PartName;
-        }
+        bool CanSync(string contentType, ContentPartDefinition contentPartDefinition);
 
-        Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult) =>
-            Task.CompletedTask;
-
+        Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult);
         //todo: have new interface for IContainedContentPartGraphSyncer : IContentPartGraphSyncer?????
         Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
-        Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult) =>
-            Task.CompletedTask;
-
-        Task DeleteComponents(JObject content, IGraphDeleteContext context) =>
-            Task.CompletedTask;
+        Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult);
+        Task DeleteComponents(JObject content, IGraphDeleteContext context);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
