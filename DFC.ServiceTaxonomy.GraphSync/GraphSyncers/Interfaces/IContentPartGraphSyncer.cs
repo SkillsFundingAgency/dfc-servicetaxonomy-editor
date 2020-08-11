@@ -7,7 +7,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IContentPartGraphSyncer
     {
-        string PartName {get;}
+        int Priority { get => 0; }
+        string PartName { get; }
 
         bool CanSync(string contentType, ContentPartDefinition contentPartDefinition)
         {

@@ -1,15 +1,11 @@
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public interface IGraphSyncPartGraphSyncer : IContentPartGraphSyncer
-    {
-    }
-
     public class GraphSyncPartGraphSyncer : IGraphSyncPartGraphSyncer
     {
         public string PartName => nameof(GraphSyncPart);
