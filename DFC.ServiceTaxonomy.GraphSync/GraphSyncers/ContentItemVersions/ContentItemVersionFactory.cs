@@ -1,7 +1,8 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions
 {
     // workaround for di not supporting names
     public class ContentItemVersionFactory : IContentItemVersionFactory
