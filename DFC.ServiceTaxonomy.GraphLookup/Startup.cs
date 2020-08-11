@@ -11,7 +11,7 @@ using DFC.ServiceTaxonomy.GraphLookup.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphLookup.Handlers;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using OrchardCore.Modules;
 
 namespace DFC.ServiceTaxonomy.GraphLookup
