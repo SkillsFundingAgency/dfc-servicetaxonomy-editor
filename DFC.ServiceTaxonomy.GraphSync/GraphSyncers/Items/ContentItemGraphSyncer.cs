@@ -59,6 +59,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             }
         }
 
+        //todo: rename IAllowSyncResult
+        public Task AllowDelete(IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        {
+            //todo: common code, use callback
+            foreach (var partSync in _partSyncers)
+            {
+                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
+                // (other non-named parts have the part name in both)
+
+                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
+                var contentTypePartDefinitions =
+                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
+
+                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
+                {
+                    // context.ContentTypePartDefinition = contentTypePartDefinition;
+                    //
+                    // string namedPartName = contentTypePartDefinition.Name;
+                    //
+                    // JObject? partContent = context.ContentItem.Content[namedPartName];
+                    // if (partContent == null)
+                    //     continue; //todo: throw??
+                    //
+                    // await partSync.AllowDelete(partContent, context, allowSyncResult);
+                }
+            }
+            throw new NotImplementedException();
+        }
+
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             //todo: use Priority instead?
@@ -97,7 +126,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            ContentItem contentItem,
             IValidateAndRepairItemSyncContext context)
         {
             foreach (ContentTypePartDefinition contentTypePartDefinition in context.ContentTypeDefinition.Parts)
@@ -113,7 +141,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                     continue;
                 }
 
-                dynamic? partContent = contentItem.Content[contentTypePartDefinition.Name];
+                dynamic? partContent = context.ContentItem.Content[contentTypePartDefinition.Name];
                 if (partContent == null)
                     continue; //todo: throw??
 
@@ -128,7 +156,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
                 string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
                 string failureContext = FailureContext(failureReason, context, contentTypePartDefinition,
-                    contentItem, contentTypePartDefinition.PartDefinition.Name, partContent);
+                    context.ContentItem, contentTypePartDefinition.PartDefinition.Name, partContent);
                 return (false, failureContext);
             }
 

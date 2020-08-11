@@ -241,6 +241,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return (false, FailureContext("Node not found.", contentItem));
 
             ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
+                contentItem,
                 _contentManager,
                 contentItemVersion,
                 nodeWithOutgoingRelationships,
@@ -256,7 +257,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (itemSyncer.CanSync(contentItem))
                 {
                     (bool validated, string failureReason) =
-                        await itemSyncer.ValidateSyncComponent(contentItem, context);
+                        await itemSyncer.ValidateSyncComponent(context);
                     if (!validated)
                         return (validated, failureReason);
                 }

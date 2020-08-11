@@ -12,6 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class DeleteGraphSyncer : IDeleteGraphSyncer
     {
+        private readonly IContentItemGraphSyncer _contentItemGraphSyncer;
         private readonly IGraphCluster _graphCluster;
         private readonly IDeleteNodeCommand _deleteNodeCommand;
         private readonly IGraphSyncHelper _graphSyncHelper;
@@ -20,6 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ILogger<DeleteGraphSyncer> _logger;
 
         public DeleteGraphSyncer(
+            IContentItemGraphSyncer contentItemGraphSyncer,
             IGraphCluster graphCluster,
             IDeleteNodesByTypeCommand deleteNodesByTypeCommand,
             IDeleteNodeCommand deleteNodeCommand,
@@ -27,6 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ISession session,
             ILogger<DeleteGraphSyncer> logger)
         {
+            _contentItemGraphSyncer = contentItemGraphSyncer;
             _graphCluster = graphCluster;
             _deleteNodeCommand = deleteNodeCommand;
             _graphSyncHelper = graphSyncHelper;

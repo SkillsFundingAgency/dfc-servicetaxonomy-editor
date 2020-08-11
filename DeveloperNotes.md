@@ -1,6 +1,8 @@
 #ToDo
 
-* priority: fix sanity check, pub/draft embedded item sync, events only if synced ok, clone?
+unpublishing page leaves HTML
+
+* pub/draft embedded item sync, events only if synced ok, clone?
 
 * need to resync following part deletion too
 

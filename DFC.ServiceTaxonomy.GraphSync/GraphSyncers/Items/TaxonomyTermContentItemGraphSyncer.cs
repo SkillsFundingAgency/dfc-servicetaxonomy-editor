@@ -33,6 +33,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context, allowSyncResult);
         }
 
+        public Task AllowDelete(IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        {
+            return Task.CompletedTask;
+        }
+
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             //todo: concurrent?
@@ -42,10 +47,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            ContentItem contentItem,
             IValidateAndRepairItemSyncContext context)
         {
-            return await _taxonomyPartGraphSyncer.ValidateSyncComponent((JObject)contentItem.Content, context);
+            return await _taxonomyPartGraphSyncer.ValidateSyncComponent((JObject)context.ContentItem.Content, context);
         }
     }
 }

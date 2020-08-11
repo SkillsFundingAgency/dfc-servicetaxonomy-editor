@@ -111,6 +111,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             return Task.CompletedTask;
         }
 
+        public override async Task UnpublishingAsync(PublishContentContext context)
+        {
+
+        }
+
         //todo: switch to ing handlers
         public override async Task UnpublishedAsync(PublishContentContext context)
         {

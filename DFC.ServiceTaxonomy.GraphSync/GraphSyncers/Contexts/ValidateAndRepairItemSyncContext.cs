@@ -13,6 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public object NodeId { get; }
 
         public ValidateAndRepairItemSyncContext(
+            ContentItem contentItem,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
@@ -22,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ContentTypeDefinition contentTypeDefinition,
             object nodeId)
 
-            : base(contentManager, contentItemVersion, nodeWithOutgoingRelationships,
+            : base(contentItem, contentManager, contentItemVersion, nodeWithOutgoingRelationships,
                 graphSyncHelper, graphValidationHelper, validateAndRepairGraph)
         {
             ContentTypeDefinition = contentTypeDefinition;

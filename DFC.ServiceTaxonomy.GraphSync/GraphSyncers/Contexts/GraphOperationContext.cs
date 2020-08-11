@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class GraphOperationContext : IGraphOperationContext
     {
+        public ContentItem ContentItem { get; }
         public IContentManager ContentManager { get; }
         public IContentItemVersion ContentItemVersion { get; protected set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
@@ -17,9 +18,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public IGraphSyncHelper GraphSyncHelper { get; }
 
         protected GraphOperationContext(
+            ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager)
         {
+            ContentItem = contentItem;
             GraphSyncHelper = graphSyncHelper;
             ContentManager = contentManager;
 

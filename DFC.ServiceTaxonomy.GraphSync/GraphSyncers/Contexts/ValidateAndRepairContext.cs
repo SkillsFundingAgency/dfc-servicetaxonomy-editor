@@ -14,13 +14,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public IDictionary<string, int> ExpectedRelationshipCounts { get; }
         public IValidateAndRepairGraph ValidateAndRepairGraph { get; }
 
-        public ValidateAndRepairContext(IContentManager contentManager,
+        public ValidateAndRepairContext(
+            ContentItem contentItem,
+            IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph)
-            : base(graphSyncHelper, contentManager)
+            : base(contentItem, graphSyncHelper, contentManager)
         {
             ContentItemVersion = contentItemVersion;
             NodeWithOutgoingRelationships = nodeWithOutgoingRelationships;
