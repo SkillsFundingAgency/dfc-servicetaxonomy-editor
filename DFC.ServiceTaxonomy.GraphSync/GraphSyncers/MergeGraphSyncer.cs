@@ -49,7 +49,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public IMergeNodeCommand MergeNodeCommand { get; }
         private GraphMergeContext? _graphMergeContext;
         public IGraphMergeContext? GraphMergeContext => _graphMergeContext;
-        private ContentItem? _contentItem;
         private IEnumerable<INodeWithOutgoingRelationships>? _incomingPreviewContentPickerRelationships;
 
         public MergeGraphSyncer(
@@ -147,22 +146,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 graphSyncPartContent,
                 contentItem.ContentItemId);
 
-            // move into context?
-            _contentItem = contentItem;
-
-            return await SyncAllowed(contentItem);
+            return await SyncAllowed();
         }
 
-        private async Task<IAllowSyncResult> SyncAllowed(ContentItem contentItem)
+        private async Task<IAllowSyncResult> SyncAllowed()
         {
             IAllowSyncResult syncAllowedResult = new AllowSyncResult();
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
-                //todo: allow syncers to chain or not?
-                if (itemSyncer.CanSync(contentItem))
+                //todo: allow syncers to chain or not? probably not
+                if (itemSyncer.CanSync(_graphMergeContext!.ContentItem))
                 {
-                    await itemSyncer.AllowSync(_graphMergeContext!, syncAllowedResult);
+                    await itemSyncer.AllowSync(_graphMergeContext, syncAllowedResult);
                 }
             }
 
@@ -175,7 +171,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (_graphMergeContext == null)
                 throw new GraphSyncException($"You must call {nameof(SyncAllowed)} before calling {nameof(SyncToGraphReplicaSet)}");
 
-            await AddContentPartSyncComponents(_contentItem!);
+            await AddContentPartSyncComponents(_graphMergeContext.ContentItem);
 
             //todo: bit hacky. best way to do this? remove this now?
             // work-around new taxonomy terms created with only DisplayText set
@@ -188,7 +184,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<IReplaceRelationshipsCommand> recreateIncomingPreviewContentPickerRelationshipsCommands =
                 GetRecreateIncomingPreviewContentPickerRelationshipsCommands();
 
-            _logger.LogInformation($"Syncing {_contentItem!.ContentType} : {_contentItem.ContentItemId} to {MergeNodeCommand}");
+            _logger.LogInformation($"Syncing {_graphMergeContext.ContentItem.ContentType} : {_graphMergeContext.ContentItem.ContentItemId} to {MergeNodeCommand}");
             await SyncComponentsToGraphReplicaSet(_graphMergeContext.GraphReplicaSet, recreateIncomingPreviewContentPickerRelationshipsCommands);
 
             return MergeNodeCommand;

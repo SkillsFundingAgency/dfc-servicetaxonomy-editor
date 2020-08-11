@@ -52,15 +52,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 async (partSyncer, partContent) => await partSyncer.AddSyncComponents(partContent, context));
         }
 
-        public async Task DeleteComponents(
-            IGraphDeleteItemSyncContext context,
-            Func<IContentPartGraphSyncer, JObject?, Task> action)
+        public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
         {
             await IteratePartSyncers(context,
                 async (partSyncer, partContent) => await partSyncer.DeleteComponents(partContent, context));
         }
 
-        public async Task IteratePartSyncers(
+        private async Task IteratePartSyncers(
             IItemSyncContext context,
             Func<IContentPartGraphSyncer, JObject, Task> action)
         {

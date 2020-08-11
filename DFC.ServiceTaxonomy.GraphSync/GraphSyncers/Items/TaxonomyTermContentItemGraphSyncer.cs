@@ -48,6 +48,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             //await _termPartGraphSyncer.AddSyncComponents(context.ContentItem.Content[_termPartGraphSyncer.PartName], context);
         }
 
+        public Task DeleteComponents(IGraphDeleteItemSyncContext context)
+        {
+            return Task.CompletedTask;
+        }
+
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             IValidateAndRepairItemSyncContext context)
         {

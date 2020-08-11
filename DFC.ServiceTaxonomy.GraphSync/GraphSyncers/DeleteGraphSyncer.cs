@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
@@ -15,30 +17,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
     public class DeleteGraphSyncer : IDeleteGraphSyncer
     {
-        private readonly IContentItemGraphSyncer _contentItemGraphSyncer;
+        private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IGraphCluster _graphCluster;
         private readonly IDeleteNodeCommand _deleteNodeCommand;
         private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly IContentManager _contentManager;
         private readonly IDeleteNodesByTypeCommand _deleteNodesByTypeCommand;
         private readonly ISession _session;
         private readonly ILogger<DeleteGraphSyncer> _logger;
+        private GraphDeleteItemSyncContext? _graphDeleteItemSyncContext;
 
         public DeleteGraphSyncer(
-            IContentItemGraphSyncer contentItemGraphSyncer,
+            IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IGraphCluster graphCluster,
             IDeleteNodesByTypeCommand deleteNodesByTypeCommand,
             IDeleteNodeCommand deleteNodeCommand,
             IGraphSyncHelper graphSyncHelper,
+            IContentManager contentManager,
             ISession session,
             ILogger<DeleteGraphSyncer> logger)
         {
-            _contentItemGraphSyncer = contentItemGraphSyncer;
+            _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _graphCluster = graphCluster;
             _deleteNodeCommand = deleteNodeCommand;
             _graphSyncHelper = graphSyncHelper;
+            _contentManager = contentManager;
             _deleteNodesByTypeCommand = deleteNodesByTypeCommand;
             _session = session;
             _logger = logger;
+
+            _graphDeleteItemSyncContext = null;
         }
 
         public async Task DeleteNodesByType(string graphReplicaSetName, string contentType)
@@ -89,6 +97,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation($"Sync: {operation} '{contentItem.DisplayText}' {contentItem.ContentType} ({contentItem.ContentItemId}) from {contentItemVersion.GraphReplicaSetName} replica set.");
 
+            _graphDeleteItemSyncContext = new GraphDeleteItemSyncContext(
+                contentItem,
+                _graphSyncHelper,
+                _contentManager);
+
+            await ContentPartDelete();
+
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
             _deleteNodeCommand.IdPropertyValue =
@@ -97,6 +112,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand.DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
 
             await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, _deleteNodeCommand);
+        }
+
+        private async Task ContentPartDelete()
+        {
+            foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
+            {
+                //todo: allow syncers to chain or not? probably not
+                //todo: code shared with MergeGraphSyncer. might want to introduce common base if sharing continues
+                if (itemSyncer.CanSync(_graphDeleteItemSyncContext!.ContentItem))
+                {
+                    await itemSyncer.DeleteComponents(_graphDeleteItemSyncContext!);
+                }
+            }
         }
     }
 }
