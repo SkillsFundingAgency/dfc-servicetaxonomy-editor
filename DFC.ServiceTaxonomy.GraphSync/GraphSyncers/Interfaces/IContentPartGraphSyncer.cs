@@ -20,6 +20,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         //todo: have new interface for IContainedContentPartGraphSyncer : IContentPartGraphSyncer?????
         Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
+        Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult) =>
+            Task.CompletedTask;
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);

@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         }
 
         //todo: rename IAllowSyncResult
-        public Task AllowDelete(IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
             //todo: common code, use callback
             foreach (var partSync in _partSyncers)
@@ -74,18 +74,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
                 foreach (var contentTypePartDefinition in contentTypePartDefinitions)
                 {
-                    // context.ContentTypePartDefinition = contentTypePartDefinition;
-                    //
-                    // string namedPartName = contentTypePartDefinition.Name;
-                    //
-                    // JObject? partContent = context.ContentItem.Content[namedPartName];
-                    // if (partContent == null)
-                    //     continue; //todo: throw??
-                    //
-                    // await partSync.AllowDelete(partContent, context, allowSyncResult);
+                    context.ContentTypePartDefinition = contentTypePartDefinition;
+
+                    string namedPartName = contentTypePartDefinition.Name;
+
+                    JObject? partContent = context.ContentItem.Content[namedPartName];
+                    if (partContent == null)
+                        continue; //todo: throw??
+
+                    await partSync.AllowDelete(partContent, context, allowSyncResult);
                 }
             }
-            throw new NotImplementedException();
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)

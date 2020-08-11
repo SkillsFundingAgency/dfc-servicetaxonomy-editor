@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult);
         Task AddSyncComponents(IGraphMergeItemSyncContext context);
 
-        Task AllowDelete(IGraphDeleteContext context, IAllowSyncResult allowSyncResult);
+        Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(IValidateAndRepairItemSyncContext context);
     }

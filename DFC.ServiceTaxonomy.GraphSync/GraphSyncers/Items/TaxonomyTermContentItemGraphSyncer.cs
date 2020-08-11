@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context, allowSyncResult);
         }
 
-        public Task AllowDelete(IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        public Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
             return Task.CompletedTask;
         }
