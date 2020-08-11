@@ -21,14 +21,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         protected GraphOperationContext(
             ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
-            IContentManager contentManager)
+            IContentManager contentManager,
+            IContentItemVersion contentItemVersion)
         {
             ContentItem = contentItem;
             GraphSyncHelper = graphSyncHelper;
             ContentManager = contentManager;
+            ContentItemVersion = contentItemVersion;
 
-            // needs to be set by the derived class: how to enforce?
-            ContentItemVersion = default!;
             // will be set before any syncers receive a context
             ContentTypePartDefinition = default!;
         }

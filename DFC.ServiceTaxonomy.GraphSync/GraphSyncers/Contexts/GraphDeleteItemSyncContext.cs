@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
@@ -13,8 +14,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public GraphDeleteItemSyncContext(
             ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
-            IContentManager contentManager)
-            : base(contentItem, graphSyncHelper, contentManager)
+            IContentManager contentManager,
+            IContentItemVersion contentItemVersion)
+            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion)
         {
             Commands = new Queue<ICommand>();
         }

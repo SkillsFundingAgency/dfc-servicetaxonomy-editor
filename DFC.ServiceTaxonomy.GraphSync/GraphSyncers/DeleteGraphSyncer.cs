@@ -101,7 +101,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphDeleteItemSyncContext = new GraphDeleteItemSyncContext(
                 contentItem,
                 _graphSyncHelper,
-                _contentManager);
+                _contentManager,
+                contentItemVersion);
 
             await ContentPartDelete();
 
@@ -111,8 +112,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
             _deleteNodeCommand.DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
-
-            //await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, _deleteNodeCommand);
 
             await DeleteFromGraphReplicaSet(contentItemVersion);
         }
@@ -129,6 +128,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 }
             }
         }
+
+        //todo: 2x delete node commands
+        //todo: not deleted
 
         private async Task DeleteFromGraphReplicaSet(IContentItemVersion contentItemVersion)
             //IGraphReplicaSet graphReplicaSet)
