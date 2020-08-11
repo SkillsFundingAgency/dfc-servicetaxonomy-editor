@@ -1,6 +1,6 @@
 ﻿using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
 {
     public class ValidationFailure
     {

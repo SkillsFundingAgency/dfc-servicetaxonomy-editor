@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
 {
     public class ValidateAndRepairResults
     {
