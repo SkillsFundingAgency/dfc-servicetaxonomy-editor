@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Settings;
 using Microsoft.CodeAnalysis.CSharp.Scripting;

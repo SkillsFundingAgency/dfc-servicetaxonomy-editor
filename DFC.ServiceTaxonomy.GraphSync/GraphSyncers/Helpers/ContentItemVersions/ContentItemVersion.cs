@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using Microsoft.Extensions.Configuration;
 using OrchardCore.ContentManagement;
 

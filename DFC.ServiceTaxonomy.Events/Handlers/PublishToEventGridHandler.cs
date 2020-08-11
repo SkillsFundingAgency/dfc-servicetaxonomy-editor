@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;

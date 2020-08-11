@@ -1,4 +1,5 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;

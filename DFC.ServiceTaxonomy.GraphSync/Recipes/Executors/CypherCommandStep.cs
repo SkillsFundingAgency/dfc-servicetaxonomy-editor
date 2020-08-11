@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;

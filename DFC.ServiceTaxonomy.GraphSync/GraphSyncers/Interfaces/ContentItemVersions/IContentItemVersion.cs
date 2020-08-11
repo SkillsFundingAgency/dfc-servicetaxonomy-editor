@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions
 {
     //todo: better name(s)
     public interface IContentItemVersion
