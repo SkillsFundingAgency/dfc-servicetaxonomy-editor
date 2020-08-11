@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.ViewModels;

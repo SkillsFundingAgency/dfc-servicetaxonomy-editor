@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using Newtonsoft.Json.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
 {
     public interface ITaxonomyPartGraphSyncer : IContentPartGraphSyncer
     {

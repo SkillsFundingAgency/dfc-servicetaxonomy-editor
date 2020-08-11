@@ -12,7 +12,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;

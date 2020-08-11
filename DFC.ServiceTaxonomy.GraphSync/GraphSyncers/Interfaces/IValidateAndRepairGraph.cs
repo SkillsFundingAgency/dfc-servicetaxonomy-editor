@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Services.Interface
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IValidateAndRepairGraph
     {
