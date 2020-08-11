@@ -97,28 +97,28 @@ namespace DFC.ServiceTaxonomy.Taxonomies
 
             routes.MapAreaControllerRoute(
                 name: "Taxonomies.Create",
-                areaName: "OrchardCore.Taxonomies",
+                areaName: "DFC.ServiceTaxonomy.Taxonomies",
                 pattern: _adminOptions.AdminUrlPrefix + "/Taxonomies/Create/{id}",
                 defaults: new { controller = taxonomyControllerName, action = nameof(AdminController.Create) }
             );
 
             routes.MapAreaControllerRoute(
                 name: "Taxonomies.Edit",
-                areaName: "OrchardCore.Taxonomies",
+                areaName: "DFC.ServiceTaxonomy.Taxonomies",
                 pattern: _adminOptions.AdminUrlPrefix + "/Taxonomies/Edit/{taxonomyContentItemId}/{taxonomyItemId}",
                 defaults: new { controller = taxonomyControllerName, action = nameof(AdminController.Edit) }
             );
 
             routes.MapAreaControllerRoute(
                 name: "Taxonomies.Delete",
-                areaName: "OrchardCore.Taxonomies",
+                areaName: "DFC.ServiceTaxonomy.Taxonomies",
                 pattern: _adminOptions.AdminUrlPrefix + "/Taxonomies/Delete/{taxonomyContentItemId}/{taxonomyItemId}",
                 defaults: new { controller = taxonomyControllerName, action = nameof(AdminController.Delete) }
             );
         }
     }
 
-    [Feature("OrchardCore.Taxonomies.ContentsAdminList")]
+    [Feature("DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList")]
     public class ContentsAdminListStartup : StartupBase
     {
         public override void ConfigureServices(IServiceCollection services)
@@ -131,7 +131,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
         }
     }
 
-    [Feature("OrchardCore.Taxonomies.ContentsAdminList")]
+    [Feature("DFC.ServiceTaxonomy.Taxonomies.ContentsAdminList")]
     [RequireFeatures("OrchardCore.Deployment")]
     public class ContentsAdminListDeploymentStartup : StartupBase
     {

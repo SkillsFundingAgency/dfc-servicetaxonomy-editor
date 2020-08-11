@@ -15,7 +15,7 @@
             <div class="related">
                 <a asp-action="Edit"
                    asp-controller="Admin"
-                   asp-route-area="OrchardCore.Taxonomies"
+                   asp-route-area="DFC.ServiceTaxonomy.Taxonomies"
                    asp-route-taxonomyContentItemId="@Model.TaxonomyPart.ContentItem.ContentItemId"
                    asp-route-taxonomyItemId="@Model.ContentItem.ContentItemId"
                    class="btn btn-success btn-sm">
@@ -27,12 +27,12 @@
                     asp-route-id="@Model.TaxonomyPart.TermContentType"
                     asp-route-taxonomyContentItemId="@Model.TaxonomyPart.ContentItem.ContentItemId"
                     asp-route-taxonomyItemId="@Model.ContentItem.ContentItemId"
-                    asp-route-area="OrchardCore.Taxonomies">
+                    asp-route-area="DFC.ServiceTaxonomy.Taxonomies">
                     @T["Add"]
                 </a>
                 <a asp-action="Delete"
                    asp-controller="Admin"
-                   asp-route-area="OrchardCore.Taxonomies"
+                   asp-route-area="DFC.ServiceTaxonomy.Taxonomies"
                    asp-route-taxonomyContentItemId="@Model.TaxonomyPart.ContentItem.ContentItemId"
                    asp-route-taxonomyItemId="@Model.ContentItem.ContentItemId"
                    itemprop="RemoveUrl UnsafeUrl"
