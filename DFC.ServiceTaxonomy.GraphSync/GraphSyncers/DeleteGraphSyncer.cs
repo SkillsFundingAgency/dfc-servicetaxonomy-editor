@@ -112,7 +112,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
             _deleteNodeCommand.DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
 
-            await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, _deleteNodeCommand);
+            //await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, _deleteNodeCommand);
+
+            await DeleteFromGraphReplicaSet(contentItemVersion);
         }
 
         private async Task ContentPartDelete()
@@ -123,9 +125,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 //todo: code shared with MergeGraphSyncer. might want to introduce common base if sharing continues
                 if (itemSyncer.CanSync(_graphDeleteItemSyncContext!.ContentItem))
                 {
-                    await itemSyncer.DeleteComponents(_graphDeleteItemSyncContext!);
+                    await itemSyncer.DeleteComponents(_graphDeleteItemSyncContext);
                 }
             }
+        }
+
+        private async Task DeleteFromGraphReplicaSet(IContentItemVersion contentItemVersion)
+            //IGraphReplicaSet graphReplicaSet)
+        {
+            List<ICommand> commands = new List<ICommand> {_deleteNodeCommand};
+
+            if (_graphDeleteItemSyncContext!.Commands.Any())
+                commands.AddRange(_graphDeleteItemSyncContext.Commands);
+
+            await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, commands.ToArray());
+            //await graphReplicaSet.Run(commands.ToArray());
         }
     }
 }

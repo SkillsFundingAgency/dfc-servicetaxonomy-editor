@@ -5,6 +5,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
     public interface IGraphDeleteContext : IGraphOperationContext
     {
+        Queue<ICommand> Commands { get; }
+
         void AddCommand(ICommand command);
         void AddCommands(IEnumerable<ICommand> commands);
     }
