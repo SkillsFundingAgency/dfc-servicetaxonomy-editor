@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -27,8 +26,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             ILogger<ContentItemGraphSyncer> logger)
         {
+            _partSyncers = partSyncers.OrderByDescending(s => s.Priority);
             _contentDefinitionManager = contentDefinitionManager;
-            _partSyncers = partSyncers;
             _logger = logger;
         }
 
@@ -91,18 +90,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
-            //todo: use Priority instead?
-            // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
-            string graphSyncPartName = nameof(GraphSyncPart);
-
-            //order in ctor?
-            // add priority field and order?
-            //or use IGraphSyncPartSyncer?
-            var partSyncersWithGraphLookupFirst
-                = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
-                    .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
-
-            foreach (var partSync in partSyncersWithGraphLookupFirst)
+            foreach (var partSync in _partSyncers)
             {
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)
@@ -128,18 +116,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
         {
-            //todo: use Priority instead?
-            // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
-            string graphSyncPartName = nameof(GraphSyncPart);
-
-            //order in ctor?
-            // add priority field and order?
-            //or use IGraphSyncPartSyncer?
-            var partSyncersWithGraphLookupFirst
-                = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
-                    .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
-
-            foreach (var partSync in partSyncersWithGraphLookupFirst)
+            foreach (var partSync in _partSyncers)
             {
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
                 // (other non-named parts have the part name in both)

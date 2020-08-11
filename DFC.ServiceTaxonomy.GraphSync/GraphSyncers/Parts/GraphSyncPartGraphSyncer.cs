@@ -8,6 +8,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : IGraphSyncPartGraphSyncer
     {
+        // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
+        int Priority { get => int.MaxValue; }
         public string PartName => nameof(GraphSyncPart);
 
         public Task AddSyncComponents(JObject content, IGraphMergeContext context)
