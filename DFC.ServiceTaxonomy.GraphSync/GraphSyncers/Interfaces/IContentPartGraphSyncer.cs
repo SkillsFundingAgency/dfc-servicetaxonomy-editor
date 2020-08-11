@@ -23,6 +23,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult) =>
             Task.CompletedTask;
 
+        Task DeleteComponents(JObject content, IGraphDeleteContext context) =>
+            Task.CompletedTask;
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);
