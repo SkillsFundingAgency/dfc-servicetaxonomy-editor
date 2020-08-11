@@ -11,6 +11,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
 
         Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context);
 
+        Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context);
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JArray? contentItems,
             IValidateAndRepairContext context);

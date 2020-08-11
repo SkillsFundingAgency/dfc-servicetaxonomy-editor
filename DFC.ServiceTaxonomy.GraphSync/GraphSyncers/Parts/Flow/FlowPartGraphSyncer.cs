@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            //todo: make concurrent
+            //todo: make concurrent?
             await _flowPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
 
             // FlowPart allows part definition level fields, but values are on each FlowPart instance
@@ -46,6 +46,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
+        }
+
+        public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
+        {
+            await _flowPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,

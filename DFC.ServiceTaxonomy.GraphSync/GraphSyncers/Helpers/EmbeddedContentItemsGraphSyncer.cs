@@ -193,6 +193,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
+        public async Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context)
+        {
+            ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
+
+            var embeddedContentItemsByType = embeddedContentItems.GroupBy(ci => ci.ContentType);
+
+            foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
+            {
+                IGraphSyncHelper graphSyncHelperForType = _serviceProvider.GetRequiredService<GraphSyncHelper>();
+                graphSyncHelperForType.ContentType = embeddedContentItemsOfType.Key;
+
+                var typesNodeLabels = await graphSyncHelperForType.NodeLabels();
+                string idPropertyName = graphSyncHelperForType.IdPropertyName();
+
+                context.AddCommands(embeddedContentItems.Select(ci =>
+                    new DeleteNodeCommand
+                    {
+                        //todo: twoway for terms
+                        NodeLabels = new HashSet<string>(typesNodeLabels),
+                        IdPropertyName = idPropertyName,
+                        IdPropertyValue = graphSyncHelperForType.GetIdPropertyValue(
+                            ci.Content.GraphSyncPart, context.ContentItemVersion),
+                        DeleteNode = true
+                        //todo:?
+                        //DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
+                    }));
+            }
+        }
+
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)
         {
             if (_removingRelationships?.Any() != true)

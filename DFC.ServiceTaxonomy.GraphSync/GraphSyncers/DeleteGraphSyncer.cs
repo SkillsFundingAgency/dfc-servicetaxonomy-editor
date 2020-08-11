@@ -81,6 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task Unpublish(ContentItem contentItem, IContentItemVersion contentItemVersion)
         {
+            //todo: ContentPickerRelationshipProperties for delete too?
             await Delete(contentItem, contentItemVersion, "unpublishing", ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
         }
 
