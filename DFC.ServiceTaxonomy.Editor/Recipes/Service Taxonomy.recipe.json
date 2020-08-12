@@ -195,7 +195,7 @@
                         "ContentTypeSettings": {
                             "Creatable": true,
                             "Listable": true,
-                            "Draftable": true,
+                            "Draftable": false,
                             "Versionable": true
                         },
                         "FullTextAspectSettings": {}
@@ -269,7 +269,7 @@
                         "ContentTypeSettings": {
                             "Creatable": true,
                             "Listable": true,
-                            "Draftable": true,
+                            "Draftable": false,
                             "Versionable": true,
                             "Securable": true
                         },
