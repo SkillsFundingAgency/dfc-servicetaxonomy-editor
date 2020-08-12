@@ -29,6 +29,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
+        public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _bagPartEmbeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSyncResult);
+        }
+
         public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
         {
             await _bagPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);

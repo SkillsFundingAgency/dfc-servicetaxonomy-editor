@@ -87,18 +87,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await Delete("unpublishing", ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
         }
 
-        //todo: needs to be called from embedded for taxonomy
-        public Task<IAllowSyncResult> DeleteAllowed(
+        public async Task<IAllowSyncResult> DeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             //string operation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null, // put into context
-            IGraphDeleteItemSyncContext? parentContext = null)
+            IGraphDeleteContext? parentContext = null)
         {
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
-                return Task.FromResult(AllowSyncResult.NotRequired);
+                return AllowSyncResult.NotRequired;
 
             _graphDeleteItemSyncContext = new GraphDeleteItemSyncContext(
                 contentItem,
@@ -107,9 +106,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 contentItemVersion,
                 parentContext);
 
-            return Task.FromResult((IAllowSyncResult)new AllowSyncResult());
+            return await DeleteAllowed();
         }
 
+        private async Task<IAllowSyncResult> DeleteAllowed()
+        {
+            IAllowSyncResult syncAllowedResult = new AllowSyncResult();
+
+            foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
+            {
+                //todo: allow syncers to chain or not? probably not
+                if (itemSyncer.CanSync(_graphDeleteItemSyncContext!.ContentItem))
+                {
+                    await itemSyncer.AllowDelete(_graphDeleteItemSyncContext, syncAllowedResult);
+                }
+            }
+
+            return syncAllowedResult;
+        }
+
+        //todo: only root taxonomy terms are getting deleted
         private async Task Delete(
             string operation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)

@@ -193,6 +193,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
+        public async Task AllowDelete(
+            JArray? contentItems,
+            IGraphDeleteContext context,
+            IAllowSyncResult allowSyncResult)
+        {
+            ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
+
+            foreach (ContentItem contentItem in embeddedContentItems)
+            {
+                IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+
+                IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
+                    //todo: deleteincomingrelationshipproperties
+                    contentItem, context.ContentItemVersion, null, context);
+
+                allowSyncResult.AddRelated(embeddedAllowSyncResult);
+            }
+        }
+
         public async Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);

@@ -36,11 +36,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
+        public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSyncResult);
+        }
+
         //todo: need to support twoway first
-        // public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
-        // {
-        //     await _taxonomyPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
-        // }
+        public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
+        {
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
+        }
 
         public async Task AddSyncComponentsForNonRoot(JObject content, IGraphMergeContext context)
         {

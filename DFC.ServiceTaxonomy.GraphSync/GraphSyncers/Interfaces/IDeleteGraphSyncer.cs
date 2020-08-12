@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             IContentItemVersion contentItemVersion,
             //string operation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null, // put into context
-            IGraphDeleteItemSyncContext? parentContext = null);
+            IGraphDeleteContext? parentContext = null);
 
         //todo: pass IGraphReplicaSet rather than the name
         Task Delete();

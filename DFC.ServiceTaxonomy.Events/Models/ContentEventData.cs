@@ -9,8 +9,8 @@ namespace DFC.ServiceTaxonomy.Events.Models
         public string VersionId { get; }
         public string DisplayText { get; }
         public string Author { get; }
-        public string TraceId { get; private set; }
-        public string ParentId { get; private set; }
+        public string TraceId { get; }
+        public string ParentId { get; }
 
         public ContentEventData(string api, string itemId, string versionId, string displayText, string author, Activity activity)
         {

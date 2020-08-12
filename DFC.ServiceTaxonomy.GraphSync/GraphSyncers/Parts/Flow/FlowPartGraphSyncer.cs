@@ -48,6 +48,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
 
+        public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _flowPartEmbeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSyncResult);
+        }
+
         public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
         {
             await _flowPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
