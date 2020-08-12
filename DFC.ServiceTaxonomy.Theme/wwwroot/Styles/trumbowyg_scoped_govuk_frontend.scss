@@ -1,6 +1,6 @@
 ﻿@use "sass:meta";
 
-.trumbowyg-editor {
+.trumbowyg-box .trumbowyg-editor {
     // looks like we may need css4's revert, but it's only supported in a few browsers at the moment https://developer.mozilla.org/en-US/docs/Web/CSS/all
     //all: revert;
     //* {
@@ -66,7 +66,7 @@
     }
 
     *, *::before, *::after {
-        box-sizing: inherit;
+        box-sizing: initial;
     }
 
     img,
@@ -94,5 +94,5 @@
         text-align: left;
     }
 
-    @include meta.load-css("../../node_modules/govuk-frontend/govuk/all");
+    @include meta.load-css("../../node_modules/nationalcareers_toolkit/assets/dist/css/all");
 }
