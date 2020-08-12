@@ -68,8 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 await _graphCluster.Run(graphReplicaSetName, _deleteNodesByTypeCommand);
             }
-            //TODO : specify which exceptions to handle?
-            //todo: move this into task?
+            //todo: specify which exceptions to handle?
             catch
             {
                 //this forces a rollback of the current OC db transaction
@@ -85,8 +84,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task Unpublish()
         {
-            //todo: ContentPickerRelationshipProperties for delete too?
-            //todo: test unpublish when there's no draft: do you lose incoming picker relationships?
             await Delete("unpublishing", ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
         }
 
