@@ -211,7 +211,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 var typesNodeLabels = await graphSyncHelperForType.NodeLabels();
                 string idPropertyName = graphSyncHelperForType.IdPropertyName();
 
-                context.AddCommands(embeddedContentItems.Select(ci =>
+                context.AddCommands(embeddedContentItemsOfType.Select(ci =>
                     new DeleteNodeCommand
                     {
                         //todo: twoway for terms
