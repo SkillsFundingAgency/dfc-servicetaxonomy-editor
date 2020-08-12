@@ -137,7 +137,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 taxonomyItems.Add(JObject.FromObject(contentItem));
             }
 
-            _session.Save(taxonomy);
+            await _contentManager.PublishAsync(taxonomy);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
@@ -236,7 +236,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Merge doesn't copy the properties
             taxonomyItem[nameof(ContentItem.DisplayText)] = contentItem.DisplayText;
 
-            _session.Save(taxonomy);
+            await _contentManager.PublishAsync(taxonomy);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
@@ -277,7 +277,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             taxonomyItem.Remove();
-            _session.Save(taxonomy);
+            await _contentManager.PublishAsync(taxonomy);
 
             _notifier.Success(H["Taxonomy item deleted successfully"]);
 
