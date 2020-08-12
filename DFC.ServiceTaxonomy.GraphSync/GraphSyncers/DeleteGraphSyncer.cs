@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IDeleteNodesByTypeCommand _deleteNodesByTypeCommand;
         private readonly ISession _session;
         private readonly ILogger<DeleteGraphSyncer> _logger;
-        private GraphDeleteItemSyncContext? _graphDeleteItemSyncContext;
+        private GraphDeleteContext? _graphDeleteItemSyncContext;
 
         public DeleteGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
@@ -79,19 +79,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task Delete()
         {
-            await Delete("deleting");
-        }
+            if (_graphDeleteItemSyncContext == null)
+                throw new GraphSyncException($"You must call {nameof(DeleteAllowed)} before calling {nameof(Delete)}.");
 
-        public async Task Unpublish()
-        {
-            await Delete("unpublishing", ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
+            _logger.LogInformation($"Sync: {(_graphDeleteItemSyncContext.DeleteOperation==DeleteOperation.Delete?"deleting":"unpublishing")} '{_graphDeleteItemSyncContext.ContentItem.DisplayText}' {_graphDeleteItemSyncContext.ContentItem.ContentType} ({_graphDeleteItemSyncContext.ContentItem.ContentItemId}) from {_graphDeleteItemSyncContext.ContentItemVersion.GraphReplicaSetName} replica set.");
+
+            await PopulateDeleteNodeCommand();
+
+            await ContentPartDelete();
+
+            await DeleteFromGraphReplicaSet();
         }
 
         public async Task<IAllowSyncResult> DeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
-            //string operation,
-            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null, // put into context
+            DeleteOperation deleteOperation,
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
             IGraphDeleteContext? parentContext = null)
         {
             _graphSyncHelper.ContentType = contentItem.ContentType;
@@ -99,11 +103,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                 return AllowSyncResult.NotRequired;
 
-            _graphDeleteItemSyncContext = new GraphDeleteItemSyncContext(
+            //todo: extract method
+            // var allDeleteIncomingRelationshipsProperties = new List<KeyValuePair<string, object>>();
+            //
+            // if (deleteOperation == DeleteOperation.Unpublish)
+            // {
+            //     allDeleteIncomingRelationshipsProperties.AddRange(ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
+            // }
+            //
+            // if (deleteIncomingRelationshipsProperties != null)
+            // {
+            //     allDeleteIncomingRelationshipsProperties.AddRange(deleteIncomingRelationshipsProperties);
+            // }
+
+            _graphDeleteItemSyncContext = new GraphDeleteContext(
                 contentItem,
+                deleteOperation,
                 _graphSyncHelper,
                 _contentManager,
                 contentItemVersion,
+                deleteIncomingRelationshipsProperties,
                 parentContext);
 
             return await DeleteAllowed();
@@ -125,25 +144,44 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncAllowedResult;
         }
 
-        //todo: only root taxonomy terms are getting deleted
-        private async Task Delete(
-            string operation,
-            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)
+        public async Task<IAllowSyncResult> DeleteIfAllowed(
+            ContentItem contentItem,
+            IContentItemVersion contentItemVersion,
+            DeleteOperation deleteOperation,
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
+            IGraphDeleteContext? parentContext = null)
         {
-            if (_graphDeleteItemSyncContext == null)
-                throw new GraphSyncException($"You must call {nameof(DeleteAllowed)} before calling {nameof(Delete)}.");
+            IAllowSyncResult allowSyncResult = await DeleteAllowed(
+                contentItem,
+                contentItemVersion,
+                deleteOperation,
+                deleteIncomingRelationshipsProperties,
+                parentContext);
 
-            _logger.LogInformation($"Sync: {operation} '{_graphDeleteItemSyncContext.ContentItem.DisplayText}' {_graphDeleteItemSyncContext.ContentItem.ContentType} ({_graphDeleteItemSyncContext.ContentItem.ContentItemId}) from {_graphDeleteItemSyncContext.ContentItemVersion.GraphReplicaSetName} replica set.");
+            if (allowSyncResult.AllowSync == SyncStatus.Allowed)
+                await Delete();
 
-            await PopulateDeleteNodeCommand(deleteIncomingRelationshipsProperties);
-
-            await ContentPartDelete();
-
-            await DeleteFromGraphReplicaSet();
+            return allowSyncResult;
         }
 
-        private async Task PopulateDeleteNodeCommand(IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties)
+        private async Task PopulateDeleteNodeCommand()
         {
+            var deleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
+
+            //todo: where's the best place for this logic?
+            // will anything require prior visibility of ContentPickerRelationshipProperties?
+            if (_graphDeleteItemSyncContext!.DeleteIncomingRelationshipsProperties != null)
+            {
+                deleteIncomingRelationshipsProperties.UnionWith(
+                    _graphDeleteItemSyncContext.DeleteIncomingRelationshipsProperties);
+            }
+
+            if (_graphDeleteItemSyncContext.DeleteOperation == DeleteOperation.Unpublish)
+            {
+                deleteIncomingRelationshipsProperties.UnionWith(
+                    ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
+            }
+
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
             _deleteNodeCommand.IdPropertyValue =

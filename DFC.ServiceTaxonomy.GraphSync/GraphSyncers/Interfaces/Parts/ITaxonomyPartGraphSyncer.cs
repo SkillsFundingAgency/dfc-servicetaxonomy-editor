@@ -7,5 +7,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
     public interface ITaxonomyPartGraphSyncer : IContentPartGraphSyncer
     {
         Task AddSyncComponentsForNonRoot(JObject content, IGraphMergeContext context);
+        Task DeleteComponentsForNonRoot(JObject content, IGraphDeleteContext context);
     }
 }

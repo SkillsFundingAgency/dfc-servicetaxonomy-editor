@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
@@ -122,8 +123,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             _publishedDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
-            var deleteAllowed =
-                await AllowDeleteFromReplicaSet(_publishedDeleteGraphSyncer, context.ContentItem, _publishedContentItemVersion);
+            var deleteAllowed = await AllowDeleteFromReplicaSet(
+                _publishedDeleteGraphSyncer,
+                context.ContentItem,
+                _publishedContentItemVersion,
+                DeleteOperation.Unpublish);
 
             //todo: unpublish is passed a PublishContentContext, so cancel is probably ignored
             context.Cancel = deleteAllowed.AllowSync == SyncStatus.Blocked
@@ -141,7 +145,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             //todo: we need to decide how to handle this. do we leave a placeholder node (in the pub graph)
             // with a property to say item has no published version
             // or check incoming relationships and cancel unpublish?
-            await DeleteFromGraphReplicaSet(_publishedDeleteGraphSyncer, context.ContentItem, true);
+            await DeleteFromGraphReplicaSet(_publishedDeleteGraphSyncer, context.ContentItem);
 
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
@@ -150,15 +154,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private async Task<IAllowSyncResult> AllowDeleteFromReplicaSet(
             IDeleteGraphSyncer deleteGraphSyncer,
             ContentItem contentItem,
-            IContentItemVersion contentItemVersion)
+            IContentItemVersion contentItemVersion,
+            DeleteOperation deleteOperation)
         {
             try
             {
                 return await deleteGraphSyncer.DeleteAllowed(
                     contentItem,
                     contentItemVersion,
-                    null, //todo:
-                    null);
+                    deleteOperation);
             }
             catch (Exception exception)
             {
@@ -188,8 +192,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _previewDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
             var deleteAllowed = await Task.WhenAll(
-                AllowDeleteFromReplicaSet(_previewDeleteGraphSyncer, context.ContentItem, _previewContentItemVersion),
-                AllowDeleteFromReplicaSet(_publishedDeleteGraphSyncer, context.ContentItem, _publishedContentItemVersion));
+                AllowDeleteFromReplicaSet(_previewDeleteGraphSyncer, context.ContentItem, _previewContentItemVersion, DeleteOperation.Delete),
+                AllowDeleteFromReplicaSet(_publishedDeleteGraphSyncer, context.ContentItem, _publishedContentItemVersion, DeleteOperation.Delete));
 
             //todo: helpers for repeated code
             bool cancelPreview = deleteAllowed[0].AllowSync == SyncStatus.Blocked
@@ -242,17 +246,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             await SyncToGraphReplicaSetIfAllowed(GraphReplicaSetNames.Preview, publishedContentItem, contentManager);
         }
 
-        private async Task DeleteFromGraphReplicaSet(
-            IDeleteGraphSyncer deleteGraphSyncer,
-            ContentItem contentItem,
-            bool unpublish = false)
+        private async Task DeleteFromGraphReplicaSet(IDeleteGraphSyncer deleteGraphSyncer, ContentItem contentItem)
         {
             try
             {
-                if (unpublish)
-                    await deleteGraphSyncer.Unpublish();
-                else
-                    await deleteGraphSyncer.Delete();
+                await deleteGraphSyncer.Delete();
             }
             catch (CommandValidationException ex)
             {

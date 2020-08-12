@@ -36,21 +36,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
+        public async Task AddSyncComponentsForNonRoot(JObject content, IGraphMergeContext context)
+        {
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = false;
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+        }
+
         public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
         {
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSyncResult);
         }
 
-        //todo: need to support twoway first
         public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
         {
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = true;
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
-        public async Task AddSyncComponentsForNonRoot(JObject content, IGraphMergeContext context)
+        public async Task DeleteComponentsForNonRoot(JObject content, IGraphDeleteContext context)
         {
             _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = false;
-            await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+            await _taxonomyPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
         //todo: we now need to validate any 2 way incoming relationships we created

@@ -198,19 +198,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphDeleteContext context,
             IAllowSyncResult allowSyncResult)
         {
+            //todo: helper for common code
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
-            foreach (ContentItem contentItem in embeddedContentItems)
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            var embeddedContentItemsByType = embeddedContentItems
+                .GroupBy(ci => ci.ContentType)
+                .Where(g => embeddableContentTypes.Contains(g.Key));
+
+            foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
             {
-                IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+                foreach (ContentItem contentItem in embeddedContentItemsOfType)
+                {
+                    IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
-                IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
-                    //todo: deleteincomingrelationshipproperties
-                    contentItem, context.ContentItemVersion, null, context);
+                    IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
+                        contentItem,
+                        context.ContentItemVersion,
+                        context.DeleteOperation,
+                        context.DeleteIncomingRelationshipsProperties,
+                        context);
 
-                allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                    allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                }
             }
         }
+
+        //todo: best place for this to live?
+        private static IEnumerable<KeyValuePair<string, object>> TwoWayRelationshipProperties { get; } =
+            new Dictionary<string, object> {{NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName, true}};
 
         public async Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context)
         {
@@ -224,24 +241,44 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
             {
-                IGraphSyncHelper graphSyncHelperForType = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-                graphSyncHelperForType.ContentType = embeddedContentItemsOfType.Key;
+                // var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                // embeddedContentItemGraphSyncHelper.ContentType = embeddedContentItemsOfType.Key;
 
-                var typesNodeLabels = await graphSyncHelperForType.NodeLabels();
-                string idPropertyName = graphSyncHelperForType.IdPropertyName();
+                //string? twoWayRelationshipType = await TwoWayIncomingRelationshipType(embeddedContentItemGraphSyncHelper);
+                foreach (ContentItem contentItem in embeddedContentItemsOfType)
+                {
+                    IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+                    //todo: incoming properties. pass parent?
+                    //todo: return command, instead of executing it
+                    //todo: unlike sync where the leaves need syncing first and then up the tree,
+                    // delete needs to do it the other way, i.e. delete root first then down the tree
+                    // breadth first or depth first doesn't matter
+                    await deleteGraphSyncer.DeleteIfAllowed(
+                        contentItem,
+                        context.ContentItemVersion,
+                        context.DeleteOperation,
+                        TwoWayRelationshipProperties,
+                        context);
+                }
 
-                context.AddCommands(embeddedContentItemsOfType.Select(ci =>
-                    new DeleteNodeCommand
-                    {
-                        //todo: twoway for terms
-                        NodeLabels = new HashSet<string>(typesNodeLabels),
-                        IdPropertyName = idPropertyName,
-                        IdPropertyValue = graphSyncHelperForType.GetIdPropertyValue(
-                            ci.Content.GraphSyncPart, context.ContentItemVersion),
-                        DeleteNode = true
-                        //todo:?
-                        //DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
-                    }));
+                // IGraphSyncHelper graphSyncHelperForType = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                // graphSyncHelperForType.ContentType = embeddedContentItemsOfType.Key;
+                //
+                // var typesNodeLabels = await graphSyncHelperForType.NodeLabels();
+                // string idPropertyName = graphSyncHelperForType.IdPropertyName();
+                //
+                // context.AddCommands(embeddedContentItemsOfType.Select(ci =>
+                //     new DeleteNodeCommand
+                //     {
+                //         //todo: twoway for terms
+                //         NodeLabels = new HashSet<string>(typesNodeLabels),
+                //         IdPropertyName = idPropertyName,
+                //         IdPropertyValue = graphSyncHelperForType.GetIdPropertyValue(
+                //             ci.Content.GraphSyncPart, context.ContentItemVersion),
+                //         DeleteNode = true
+                //         //todo:?
+                //         //DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
+                //     }));
             }
         }
 

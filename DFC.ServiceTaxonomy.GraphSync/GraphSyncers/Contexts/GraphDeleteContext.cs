@@ -7,18 +7,24 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class GraphDeleteItemSyncContext : GraphOperationContext, IGraphDeleteItemSyncContext
+    public class GraphDeleteContext : GraphOperationContext, IGraphDeleteItemSyncContext
     {
+        public DeleteOperation DeleteOperation { get; }
+        public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
         public Queue<ICommand> Commands { get; }
 
-        public GraphDeleteItemSyncContext(
+        public GraphDeleteContext(
             ContentItem contentItem,
+            DeleteOperation deleteOperation,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties,
             IGraphDeleteContext? parentGraphDeleteContext)
             : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentGraphDeleteContext)
         {
+            DeleteOperation = deleteOperation;
+            DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
             Commands = new Queue<ICommand>();
         }
 
