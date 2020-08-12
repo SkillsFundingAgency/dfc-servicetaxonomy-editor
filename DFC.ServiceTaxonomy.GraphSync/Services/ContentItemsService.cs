@@ -12,10 +12,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
     public class ContentItemsService : IContentItemsService
     {
         private readonly ISession _session;
+        private readonly IContentManagerSession _contentManagerSession;
 
-        public ContentItemsService(ISession session)
+        public ContentItemsService(
+            ISession session,
+            IContentManagerSession contentManagerSession)
         {
             _session = session;
+            _contentManagerSession = contentManagerSession;
         }
 
         public async Task<List<ContentItem>> GetPublishedOnly(string contentType)
@@ -31,6 +35,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
         public async Task<List<ContentItem>> GetDraft(string contentType)
         {
             return await Get(contentType, true, false);
+        }
+
+        public async Task<bool> HasExistingPublishedVersion(string contentItemId)
+        {
+            // check if one exists, without loading it and running handlers etc.
+
+            // this might be valid optimisation, but would need to dig deeper before enabling it
+            // if (_contentManagerSession.RecallPublishedItemId(contentItemId, out ContentItem _))
+            //     return true;
+
+            return (await _session
+                .Query<ContentItem, ContentItemIndex>(x =>
+                    x.ContentItemId == contentItemId && x.Published)
+                .FirstOrDefaultAsync())
+                != default;
         }
 
         private async Task<List<ContentItem>> Get(string contentType, bool latest, bool published)
