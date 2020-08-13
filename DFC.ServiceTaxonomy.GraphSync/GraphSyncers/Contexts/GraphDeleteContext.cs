@@ -9,6 +9,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class GraphDeleteContext : GraphOperationContext, IGraphDeleteItemSyncContext
     {
+        //public IDeleteGraphSyncer DeleteGraphSyncer { get; }
+        public IDeleteNodeCommand DeleteNodeCommand { get; }
         public DeleteOperation DeleteOperation { get; }
         public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
         public IEnumerable<IGraphDeleteContext> ChildContexts => _childContexts;
@@ -18,6 +20,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public GraphDeleteContext(
             ContentItem contentItem,
+            IDeleteNodeCommand deleteNodeCommand,
+            //IDeleteGraphSyncer deleteGraphSyncer,
             DeleteOperation deleteOperation,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
@@ -26,6 +30,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IGraphDeleteContext? parentGraphDeleteContext)
             : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentGraphDeleteContext)
         {
+            //DeleteGraphSyncer = deleteGraphSyncer;
+            DeleteNodeCommand = deleteNodeCommand;
             DeleteOperation = deleteOperation;
             DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
             Commands = new Queue<ICommand>();

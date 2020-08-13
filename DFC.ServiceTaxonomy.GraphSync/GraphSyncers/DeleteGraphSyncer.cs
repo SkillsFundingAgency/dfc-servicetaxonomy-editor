@@ -14,6 +14,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Logging;
+using MoreLinq;
 using OrchardCore.ContentManagement;
 using YesSql;
 
@@ -139,6 +140,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphDeleteItemSyncContext = new GraphDeleteContext(
                 contentItem,
+                //this,
+                _deleteNodeCommand,
                 deleteOperation,
                 _graphSyncHelper,
                 _contentManager,
@@ -264,12 +267,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task DeleteFromGraphReplicaSet()
         {
-            List<ICommand> commands = new List<ICommand> {_deleteNodeCommand};
+            var breadthFirstContexts = MoreEnumerable
+                .TraverseBreadthFirst((IGraphDeleteContext)_graphDeleteItemSyncContext!, ctx => ctx!.ChildContexts)
+                //.Select(ctx => ctx.DeleteGraphSyncer)
+                .Select(ctx => ctx.DeleteNodeCommand)
+                .Cast<ICommand>()
+                .ToArray();
 
-            if (_graphDeleteItemSyncContext!.Commands.Any())
-                commands.AddRange(_graphDeleteItemSyncContext.Commands);
+            //List<ICommand> commands = new List<ICommand> {_deleteNodeCommand};
 
-            await _graphCluster.Run(_graphDeleteItemSyncContext.ContentItemVersion.GraphReplicaSetName, commands.ToArray());
+            // if (_graphDeleteItemSyncContext!.Commands.Any())
+            //     commands.AddRange(_graphDeleteItemSyncContext.Commands);
+
+            //await _graphCluster.Run(_graphDeleteItemSyncContext.ContentItemVersion.GraphReplicaSetName, commands.ToArray());
+
+            await _graphCluster.Run(_graphDeleteItemSyncContext!.ContentItemVersion.GraphReplicaSetName, breadthFirstContexts);
         }
     }
 }
