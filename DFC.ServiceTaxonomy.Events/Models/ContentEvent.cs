@@ -31,7 +31,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
             string itemId = userId.Substring(userId.Length - 36);
             Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";
 
-            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, Activity.Current);
+            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, Activity.Current ?? new Activity(nameof(ContentEvent)).Start());
             EventType = GetEventType(contentEventType);
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
             MetadataVersion = null;
