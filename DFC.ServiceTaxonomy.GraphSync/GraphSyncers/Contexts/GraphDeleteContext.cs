@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -9,7 +10,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class GraphDeleteContext : GraphOperationContext, IGraphDeleteItemSyncContext
     {
-        //public IDeleteGraphSyncer DeleteGraphSyncer { get; }
+        public IDeleteGraphSyncer DeleteGraphSyncer { get; }
         public IDeleteNodeCommand DeleteNodeCommand { get; }
         public DeleteOperation DeleteOperation { get; }
         public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
@@ -21,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public GraphDeleteContext(
             ContentItem contentItem,
             IDeleteNodeCommand deleteNodeCommand,
-            //IDeleteGraphSyncer deleteGraphSyncer,
+            IDeleteGraphSyncer deleteGraphSyncer,
             DeleteOperation deleteOperation,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
@@ -30,7 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IGraphDeleteContext? parentGraphDeleteContext)
             : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentGraphDeleteContext)
         {
-            //DeleteGraphSyncer = deleteGraphSyncer;
+            DeleteGraphSyncer = deleteGraphSyncer;
             DeleteNodeCommand = deleteNodeCommand;
             DeleteOperation = deleteOperation;
             DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;

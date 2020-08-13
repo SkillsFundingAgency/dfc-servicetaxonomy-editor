@@ -140,8 +140,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphDeleteItemSyncContext = new GraphDeleteContext(
                 contentItem,
-                //this,
+                //todo: no need to put command in context?
                 _deleteNodeCommand,
+                this,
                 deleteOperation,
                 _graphSyncHelper,
                 _contentManager,
@@ -205,20 +206,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             //todo: shared code
 
-            _graphSyncHelper.ContentType = contentItem.ContentType;
-
-            if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+            if (contentItem.Content.GraphSyncPart == null)
                 return;
 
+            // _graphSyncHelper.ContentType = contentItem.ContentType;
+            //
+            // if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+            //     return;
+
             // here's one i made earlier
-            _graphDeleteItemSyncContext =
-                (GraphDeleteContext)parentContext.ChildContexts.Single(c =>
-                    c.ContentItem.ContentItemId == contentItem.ContentItemId);
+            // _graphDeleteItemSyncContext =
+            //     (GraphDeleteContext)parentContext.ChildContexts.Single(c =>
+            //         c.ContentItem.ContentItemId == contentItem.ContentItemId);
+
+            // _graphDeleteItemSyncContext =
+            //     (GraphDeleteContext)_graphDeleteItemSyncContext!.ChildContexts.Single(c =>
+            //         c.ContentItem.ContentItemId == contentItem.ContentItemId);
+
+            var embeddedDeleteContext = _graphDeleteItemSyncContext!.ChildContexts
+                .Single(c => c.ContentItem.ContentItemId == contentItem.ContentItemId);
+
+            var embeddedDeleteGraphSyncer = (DeleteGraphSyncer)embeddedDeleteContext.DeleteGraphSyncer;
+
+            // _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            if (embeddedDeleteGraphSyncer._graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+                return;
+
+            await ((DeleteGraphSyncer)embeddedDeleteContext.DeleteGraphSyncer).DeleteEmbedded();
 
             // var allowSyncResult = await DeleteAllowed();
 
             // if (allowSyncResult.AllowSync == SyncStatus.Allowed)
-                await DeleteEmbedded();
+                //await DeleteEmbedded();
 
             // return allowSyncResult;
         }

@@ -262,17 +262,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 //string? twoWayRelationshipType = await TwoWayIncomingRelationshipType(embeddedContentItemGraphSyncHelper);
                 foreach (ContentItem contentItem in embeddedContentItemsOfType)
                 {
-                    IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+                    //IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
                     //todo: incoming properties. pass parent?
                     //todo: return command, instead of executing it
                     //todo: unlike sync where the leaves need syncing first and then up the tree,
                     // delete needs to do it the other way, i.e. delete root first then down the tree
                     // breadth first or depth first doesn't matter
-                    await deleteGraphSyncer.DeleteEmbedded(
+                    await context.DeleteGraphSyncer.DeleteEmbedded(
                         contentItem,
-                        // context.ContentItemVersion,
-                        // context.DeleteOperation,
-                        // TwoWayRelationshipProperties,
+                        //todo: no need to pass context now
                         context);
                 }
 
