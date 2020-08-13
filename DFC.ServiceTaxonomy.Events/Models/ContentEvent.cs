@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text.Json.Serialization;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Events.Models
@@ -31,12 +30,11 @@ namespace DFC.ServiceTaxonomy.Events.Models
             string itemId = userId.Substring(userId.Length - 36);
             Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";
 
-            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, Activity.Current ?? new Activity(nameof(ContentEvent)).Start());
+            Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, contentItem.ContentType, Activity.Current ?? new Activity(nameof(ContentEvent)).Start());
             EventType = GetEventType(contentEventType);
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;
             MetadataVersion = null;
             DataVersion = "1.0";
-            ContentType = contentItem.ContentType;
         }
 
         public string Id { get; }
@@ -46,9 +44,6 @@ namespace DFC.ServiceTaxonomy.Events.Models
         public DateTime EventTime { get; }
         public string? MetadataVersion { get; }
         public string DataVersion { get; }
-
-        [JsonIgnore]
-        public string ContentType { get; }
 
         public override string ToString()
         {
