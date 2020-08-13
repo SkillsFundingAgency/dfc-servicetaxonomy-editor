@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -241,7 +242,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             //when editing we don't know what the parent id is, so we have to search for it
-            var parentTaxonomyTerm = FindParentTaxonomyTerm(contentItem, taxonomy);
+            var parentTaxonomyTerm = TaxonomyHelpers.FindParentTaxonomyTerm(contentItem, taxonomy);
 
             if (parentTaxonomyTerm == null)
                 return NotFound();
@@ -340,41 +341,10 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             return null;
         }
 
-        private ContentItem FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
-        {
-            List<ContentItem> terms = GetTerms(taxonomyContentItem);
-
-            if (terms == null)
-                return null;
-
-            if (terms.Any(x => x.ContentItemId == termContentItem.ContentItemId))
-                return taxonomyContentItem;
-
-            ContentItem result = null;
-
-            foreach (var term in terms)
-            {
-                result = FindParentTaxonomyTerm(termContentItem, term);
-
-                if (result != null)
-                {
-                    return result;
-                }
-            }
-
-            return null;
-        }
-
         private bool ValidateTaxonomyTerm(ContentItem parent, ContentItem term)
         {
-            List<ContentItem> terms = GetTerms(parent);
+            List<ContentItem> terms = TaxonomyHelpers.GetTerms(parent);
             return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
-        }
-
-        private List<ContentItem> GetTerms(ContentItem contentItem)
-        {
-            return contentItem.As<TaxonomyPart>()?.Terms ??
-                   contentItem.Content.Terms?.ToObject<List<ContentItem>>();
         }
 
         private IActionResult DuplicateTaxonomyTermError(dynamic model, ContentItem contentItem, string taxonomyContentItemId, string taxonomyItemId)

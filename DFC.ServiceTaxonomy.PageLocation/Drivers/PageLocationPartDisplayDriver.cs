@@ -12,6 +12,9 @@ using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using OrchardCore.ContentManagement.Records;
+using System;
+using DFC.ServiceTaxonomy.Taxonomies.Helper;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
@@ -110,6 +113,54 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"Redirect Location '{redirectLocation}' contains invalid characters. Valid characters include A-Z, 0-9, '-' and '_'.");
                         break;
                     }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(pageLocation.FullUrl))
+            {
+                ContentItem? taxonomy = await _session.Query<ContentItem, ContentItemIndex>(x =>
+                    //TODO: get rid of magic strings?
+                    x.ContentType == "Taxonomy" && x.DisplayText == "Page Locations" && x.Latest && x.Published).FirstOrDefaultAsync();
+
+                if (taxonomy != null)
+                {
+                    RecursivelyBuildUrls(taxonomy);
+
+                    if (PageLocations.Any(x => x.Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)))
+                    {
+                        updater.ModelState.AddModelError(Prefix, nameof(pageLocation.FullUrl), "This URL has already been used as a Page Location");
+                    }
+                }
+            }
+        }
+
+        private List<string> PageLocations = new List<string>();
+
+        private string BuildTermUrl(ContentItem term, ContentItem taxonomy)
+        {
+            string url = term.DisplayText;
+
+            ContentItem? parent = TaxonomyHelpers.FindParentTaxonomyTerm(term, taxonomy);
+
+            while (parent != null && parent.ContentType != "Taxonomy")
+            {
+                url = $"{parent.DisplayText}/{url}";
+                parent = TaxonomyHelpers.FindParentTaxonomyTerm(parent, taxonomy);
+            }
+
+            return url.Trim('/');
+        }
+
+        private void RecursivelyBuildUrls(ContentItem taxonomy)
+        {
+            List<ContentItem>? terms = TaxonomyHelpers.GetTerms(taxonomy);
+
+            if (terms != null)
+            {
+                foreach (ContentItem term in terms)
+                {
+                    PageLocations.Add(BuildTermUrl(term, taxonomy));
+                    RecursivelyBuildUrls(term);
                 }
             }
         }
