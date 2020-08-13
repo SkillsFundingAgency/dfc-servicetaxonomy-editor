@@ -52,6 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             //todo: share code with contentpickerfield?
 
+            //todo: better error message to user if taxonomy is missing
             ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
