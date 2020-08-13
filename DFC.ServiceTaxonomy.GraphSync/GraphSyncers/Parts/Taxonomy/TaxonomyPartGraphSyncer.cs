@@ -32,13 +32,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         {
             context.MergeNodeCommand.AddProperty<string>(TermContentTypePropertyName, content);
 
-            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = true;
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
-        public async Task AddSyncComponentsForNonRoot(JObject content, IGraphMergeContext context)
+        public async Task AddSyncComponentsForNonLeafEmbeddedTerm(JObject content, IGraphMergeContext context)
         {
-            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = false;
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
@@ -49,13 +49,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 
         public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
         {
-            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = true;
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = false;
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
-        public async Task DeleteComponentsForNonRoot(JObject content, IGraphDeleteContext context)
+        public async Task DeleteComponentsForNonLeafEmbeddedTerm(JObject content, IGraphDeleteContext context)
         {
-            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsRoot = false;
+            _taxonomyPartEmbeddedContentItemsGraphSyncer.IsNonLeafEmbeddedTerm = true;
             await _taxonomyPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
