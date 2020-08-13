@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
             //todo: log topic
             _logger.LogInformation($"Publishing single event {contentEvent}");
 
-            await _eventGridContentRestHttpClientFactory.CreateClient(contentEvent.ContentType)
+            await _eventGridContentRestHttpClientFactory.CreateClient(contentEvent.Data.ContentType)
                 .PostAsJson("", new[] {contentEvent}, cancellationToken);
         }
 
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.Events.Services
             // only required if we have a topic for each content type and we get called with ContentEvents with different ContentTypes
             //IEnumerable<string> distinctContentTypes = contentEvents.Select(e => e.ContentType).Distinct();
 
-            var distinctEventGroups = contentEvents.GroupBy(e => e.ContentType, e => e);
+            var distinctEventGroups = contentEvents.GroupBy(e => e.Data.ContentType, e => e);
 
             //todo: add logging
 
