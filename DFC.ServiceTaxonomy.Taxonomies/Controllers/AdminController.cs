@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -110,10 +112,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 return View(model);
             }
-
+            
             if (taxonomyItemId == null)
             {
                 // Use the taxonomy as the parent if no target is specified
+                if (!ValidateTaxonomyTerm(taxonomy, contentItem))
+                {
+                    return DuplicateTaxonomyTermError(model, contentItem, taxonomyContentItemId, taxonomyItemId);
+                }
+
                 taxonomy.Alter<TaxonomyPart>(part => part.Terms.Add(contentItem));
             }
             else
@@ -127,6 +134,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                     return NotFound();
                 }
 
+                if (!ValidateTaxonomyTerm(parentTaxonomyItem.ToObject<ContentItem>(), contentItem))
+                {
+                    return DuplicateTaxonomyTermError(model, contentItem, taxonomyContentItemId, taxonomyItemId);
+                }
+
                 var taxonomyItems = parentTaxonomyItem?.Terms as JArray;
 
                 if (taxonomyItems == null)
@@ -137,6 +149,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 taxonomyItems.Add(JObject.FromObject(contentItem));
             }
 
+            taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
@@ -227,6 +240,17 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 return View(model);
             }
 
+            //when editing we don't know what the parent id is, so we have to search for it
+            var parentTaxonomyTerm = FindParentTaxonomyTerm(contentItem, taxonomy);
+
+            if (parentTaxonomyTerm == null)
+                return NotFound();
+
+            if (!ValidateTaxonomyTerm(parentTaxonomyTerm, contentItem))
+            {
+                return DuplicateTaxonomyTermError(model, taxonomy, taxonomyContentItemId, taxonomyItemId);
+            }
+
             taxonomyItem.Merge(contentItem.Content, new JsonMergeSettings
             {
                 MergeArrayHandling = MergeArrayHandling.Replace,
@@ -236,6 +260,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             // Merge doesn't copy the properties
             taxonomyItem[nameof(ContentItem.DisplayText)] = contentItem.DisplayText;
 
+            taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
@@ -277,6 +302,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             taxonomyItem.Remove();
+            taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
             _notifier.Success(H["Taxonomy item deleted successfully"]);
@@ -312,6 +338,53 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             return null;
+        }
+
+        private ContentItem FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
+        {
+            List<ContentItem> terms = GetTerms(taxonomyContentItem);
+
+            if (terms == null)
+                return null;
+
+            if (terms.Any(x => x.ContentItemId == termContentItem.ContentItemId))
+                return taxonomyContentItem;
+
+            ContentItem result = null;
+
+            foreach (var term in terms)
+            {
+                result = FindParentTaxonomyTerm(termContentItem, term);
+
+                if (result != null)
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        private bool ValidateTaxonomyTerm(ContentItem parent, ContentItem term)
+        {
+            List<ContentItem> terms = GetTerms(parent);
+            return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
+        }
+
+        private List<ContentItem> GetTerms(ContentItem contentItem)
+        {
+            return contentItem.As<TaxonomyPart>()?.Terms ??
+                   contentItem.Content.Terms?.ToObject<List<ContentItem>>();
+        }
+
+        private IActionResult DuplicateTaxonomyTermError(dynamic model, ContentItem contentItem, string taxonomyContentItemId, string taxonomyItemId)
+        {
+            ModelState.AddModelError("", $"Another {contentItem.ContentType} already exists with this name.");
+
+            model.TaxonomyContentItemId = taxonomyContentItemId;
+            model.TaxonomyItemId = taxonomyItemId;
+
+            return View(model);
         }
     }
 }
