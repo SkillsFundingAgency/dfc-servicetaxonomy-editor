@@ -2,8 +2,6 @@
 
 unpublishing page leaves HTML
 
-* add content type to event's data
-
 * should we sync htmlshared widget in published if there are no published shared content items
 the user can't have no shared content items picked, so the only time a widget with no shared content item relationships is synced is when a pub page references only draft items
 so we should probably not sync 'empty' shared widgets

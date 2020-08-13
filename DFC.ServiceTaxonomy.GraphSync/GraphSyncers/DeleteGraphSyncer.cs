@@ -53,6 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphDeleteItemSyncContext = null;
         }
 
+        //todo: move into class
         public async Task DeleteNodesByType(string graphReplicaSetName, string contentType)
         {
             if (string.IsNullOrWhiteSpace(contentType))
@@ -79,6 +80,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task Delete()
         {
+            await DeleteEmbedded();
+
+            //todo: morelinq traversal
+            await DeleteFromGraphReplicaSet();
+        }
+
+        private async Task DeleteEmbedded()
+        {
             if (_graphDeleteItemSyncContext == null)
                 throw new GraphSyncException($"You must call {nameof(DeleteAllowed)} before calling {nameof(Delete)}.");
 
@@ -87,8 +96,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await PopulateDeleteNodeCommand();
 
             await ContentPartDelete();
-
-            await DeleteFromGraphReplicaSet();
         }
 
         public async Task<IAllowSyncResult> DeleteAllowed(
@@ -116,14 +123,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //     allDeleteIncomingRelationshipsProperties.AddRange(deleteIncomingRelationshipsProperties);
             // }
 
+            //todo: helper for this
+            var allDeleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
+
+            if (deleteIncomingRelationshipsProperties != null)
+            {
+                allDeleteIncomingRelationshipsProperties.UnionWith(deleteIncomingRelationshipsProperties);
+            }
+//todo: unions unnecessarily when called embeddedly : new deleteembeddedallowed method?
+            if (deleteOperation == DeleteOperation.Unpublish)
+            {
+                allDeleteIncomingRelationshipsProperties.UnionWith(
+                    ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
+            }
+
             _graphDeleteItemSyncContext = new GraphDeleteContext(
                 contentItem,
                 deleteOperation,
                 _graphSyncHelper,
                 _contentManager,
                 contentItemVersion,
-                deleteIncomingRelationshipsProperties,
+                allDeleteIncomingRelationshipsProperties,
                 parentContext);
+
+            parentContext?.AddChildContext(_graphDeleteItemSyncContext);
 
             return await DeleteAllowed();
         }
@@ -148,15 +171,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             DeleteOperation deleteOperation,
-            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
-            IGraphDeleteContext? parentContext = null)
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)
+                //todo:??
+//            IGraphDeleteContext? parentContext = null)
         {
             IAllowSyncResult allowSyncResult = await DeleteAllowed(
                 contentItem,
                 contentItemVersion,
                 deleteOperation,
-                deleteIncomingRelationshipsProperties,
-                parentContext);
+                deleteIncomingRelationshipsProperties);
+                //parentContext);
 
             if (allowSyncResult.AllowSync == SyncStatus.Allowed)
                 await Delete();
@@ -164,23 +188,55 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return allowSyncResult;
         }
 
+        //todo: rename to remove ifallowed -> isallowed will have already been checked, calling deleteallowed is just an implementation detail
+        public async Task DeleteEmbedded(
+            ContentItem contentItem,
+            IGraphDeleteContext parentContext)
+        {
+            // IAllowSyncResult allowSyncResult = await DeleteAllowed(
+            //     contentItem,
+            //     contentItemVersion,
+            //     deleteOperation,
+            //     deleteIncomingRelationshipsProperties,
+            //     parentContext);
+
+            //todo: shared code
+
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+                return;
+
+            // here's one i made earlier
+            _graphDeleteItemSyncContext =
+                (GraphDeleteContext)parentContext.ChildContexts.Single(c =>
+                    c.ContentItem.ContentItemId == contentItem.ContentItemId);
+
+            // var allowSyncResult = await DeleteAllowed();
+
+            // if (allowSyncResult.AllowSync == SyncStatus.Allowed)
+                await DeleteEmbedded();
+
+            // return allowSyncResult;
+        }
+
         private async Task PopulateDeleteNodeCommand()
         {
-            var deleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
-
-            //todo: where's the best place for this logic?
-            // will anything require prior visibility of ContentPickerRelationshipProperties?
-            if (_graphDeleteItemSyncContext!.DeleteIncomingRelationshipsProperties != null)
-            {
-                deleteIncomingRelationshipsProperties.UnionWith(
-                    _graphDeleteItemSyncContext.DeleteIncomingRelationshipsProperties);
-            }
-
-            if (_graphDeleteItemSyncContext.DeleteOperation == DeleteOperation.Unpublish)
-            {
-                deleteIncomingRelationshipsProperties.UnionWith(
-                    ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
-            }
+            // var deleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
+            //
+            // //todo: where's the best place for this logic?
+            // // will anything require prior visibility of ContentPickerRelationshipProperties?
+            // if (_graphDeleteItemSyncContext!.DeleteIncomingRelationshipsProperties != null)
+            // {
+            //     deleteIncomingRelationshipsProperties.UnionWith(
+            //         _graphDeleteItemSyncContext.DeleteIncomingRelationshipsProperties);
+            // }
+            //
+            // if (_graphDeleteItemSyncContext.DeleteOperation == DeleteOperation.Unpublish)
+            // {
+            //     deleteIncomingRelationshipsProperties.UnionWith(
+            //         ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
+            // }
 
             _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
             _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
@@ -188,7 +244,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _graphSyncHelper.GetIdPropertyValue(_graphDeleteItemSyncContext!.ContentItem.Content.GraphSyncPart,
                     _graphDeleteItemSyncContext.ContentItemVersion);
             _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
-            _deleteNodeCommand.DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
+//            _deleteNodeCommand.DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
+            _deleteNodeCommand.DeleteIncomingRelationshipsProperties =
+                _graphDeleteItemSyncContext.DeleteIncomingRelationshipsProperties;
         }
 
         private async Task ContentPartDelete()

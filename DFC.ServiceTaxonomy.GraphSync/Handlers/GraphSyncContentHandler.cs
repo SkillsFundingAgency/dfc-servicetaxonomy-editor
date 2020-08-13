@@ -266,8 +266,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     throw;
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                _logger.LogError(ex, "Couldn't delete from graph replica set.");
                 _session.Cancel();
                 AddFailureNotifier(contentItem);
                 throw;

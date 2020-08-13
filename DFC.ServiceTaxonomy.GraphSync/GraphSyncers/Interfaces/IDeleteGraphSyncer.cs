@@ -22,10 +22,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             DeleteOperation deleteOperation,
-            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
-            IGraphDeleteContext? parentContext = null);
+            IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null);
 
         Task Delete();
+
+        // Task<IAllowSyncResult> DeleteEmbedded(
+        //     ContentItem contentItem,
+        //     IContentItemVersion contentItemVersion,
+        //     DeleteOperation deleteOperation,
+        //     IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
+        //     IGraphDeleteContext? parentContext = null);
+
+        Task DeleteEmbedded(ContentItem contentItem, IGraphDeleteContext parentContext);
 
         Task DeleteNodesByType(string graphReplicaSetName, string contentType);
     }

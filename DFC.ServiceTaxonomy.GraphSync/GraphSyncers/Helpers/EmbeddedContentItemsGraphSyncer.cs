@@ -213,11 +213,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 {
                     IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
+                    //todo: probably belongs in deletegraphsyncer DeleteEmbeddedAllowed
+                    var allDeleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
+
+                    if (context.DeleteIncomingRelationshipsProperties != null)
+                    {
+                        allDeleteIncomingRelationshipsProperties.UnionWith(context.DeleteIncomingRelationshipsProperties);
+                    }
+
+                    allDeleteIncomingRelationshipsProperties.UnionWith(TwoWayRelationshipProperties);
+
+
+
+
+
                     IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
                         contentItem,
                         context.ContentItemVersion,
                         context.DeleteOperation,
-                        context.DeleteIncomingRelationshipsProperties,
+                        //context.DeleteIncomingRelationshipsProperties,
+                        allDeleteIncomingRelationshipsProperties,
                         context);
 
                     allowSyncResult.AddRelated(embeddedAllowSyncResult);
@@ -253,11 +268,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     //todo: unlike sync where the leaves need syncing first and then up the tree,
                     // delete needs to do it the other way, i.e. delete root first then down the tree
                     // breadth first or depth first doesn't matter
-                    await deleteGraphSyncer.DeleteIfAllowed(
+                    await deleteGraphSyncer.DeleteEmbedded(
                         contentItem,
-                        context.ContentItemVersion,
-                        context.DeleteOperation,
-                        TwoWayRelationshipProperties,
+                        // context.ContentItemVersion,
+                        // context.DeleteOperation,
+                        // TwoWayRelationshipProperties,
                         context);
                 }
 

@@ -11,7 +11,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
     {
         public DeleteOperation DeleteOperation { get; }
         public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
+        public IEnumerable<IGraphDeleteContext> ChildContexts => _childContexts;
         public Queue<ICommand> Commands { get; }
+
+        private readonly List<IGraphDeleteContext> _childContexts;
 
         public GraphDeleteContext(
             ContentItem contentItem,
@@ -26,6 +29,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             DeleteOperation = deleteOperation;
             DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
             Commands = new Queue<ICommand>();
+
+            _childContexts = new List<IGraphDeleteContext>();
+        }
+
+        public void AddChildContext(IGraphDeleteContext graphDeleteContext)
+        {
+            _childContexts.Add(graphDeleteContext);
         }
 
         //todo: replicate pattern for merge
