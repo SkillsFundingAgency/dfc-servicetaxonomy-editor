@@ -10,6 +10,8 @@ so we should probably not sync 'empty' shared widgets
 
 * contents of flow part widgets outside of the widgets (dom issue, not css)!
 
+* replicate taxonomy fix: https://mail.google.com/mail/u/0/#inbox/FMfcgxwJXLntMnZkqzJfcvWQKXsHKDGV
+
 * html settings missing button for accordion
 
 * pub/draft embedded item sync, events only if synced ok, clone?
