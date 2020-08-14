@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
         public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
-            new Dictionary<string, object> {{ContentPickerRelationshipPropertyName, true}};
+            new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } }.ToList();
 
         public ContentPickerFieldGraphSyncer(
             ILogger<ContentPickerFieldGraphSyncer> logger)
@@ -79,12 +79,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<object> foundDestinationNodeIds =
                 foundDestinationContentItems.Select(ci => GetNodeId(ci!, context));
 
-            context.ReplaceRelationshipsCommand.AddRelationshipsTo(
+            int ordinal = 0;
+
+            foreach (var item in foundDestinationNodeIds)
+            {
+                context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                ContentPickerRelationshipProperties,
+                ContentPickerRelationshipProperties.Union(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("Ordinal", ordinal) }),
                 destNodeLabels,
                 context.GraphSyncHelper.IdPropertyName(pickedContentType),
-                foundDestinationNodeIds.ToArray());
+                item);
+
+                ordinal++;
+            }
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -156,12 +163,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 .Select(idJToken => idJToken.ToObject<string?>())
                 .Select(async id => await context.ContentManager.GetAsync(id, VersionOptions.Latest)));
 
-            #pragma warning disable S1905
+#pragma warning disable S1905
             return contentItems
                 .Where(ci => ci != null)
                 .Cast<ContentItem>()
                 .ToArray();
-            #pragma warning restore S1905
+#pragma warning restore S1905
         }
 
         private async Task<string> RelationshipTypeContentPicker(
