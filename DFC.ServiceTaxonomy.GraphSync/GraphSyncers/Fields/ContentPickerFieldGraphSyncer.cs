@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
         public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
-            new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } }.ToList();
+            new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } };
 
         public ContentPickerFieldGraphSyncer(
             ILogger<ContentPickerFieldGraphSyncer> logger)
