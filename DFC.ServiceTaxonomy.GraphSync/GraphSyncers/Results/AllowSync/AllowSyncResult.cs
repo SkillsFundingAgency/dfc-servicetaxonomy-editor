@@ -9,7 +9,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
     // if we did, we'd get the embedded hierarchy for free, with the results in the chained contexts
     public class AllowSyncResult : IAllowSyncResult
     {
-        public static IAllowSyncResult CheckFailed => new AllowSyncResult {AllowSync = SyncStatus.CheckFailed};
         public static IAllowSyncResult NotRequired => new AllowSyncResult {AllowSync = SyncStatus.NotRequired};
 
         public ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; } = new ConcurrentBag<ISyncBlocker>();

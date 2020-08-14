@@ -3,10 +3,6 @@
     public enum SyncStatus
     {
         /// <summary>
-        /// Sync status check failed, i.e. threw an exception
-        /// </summary>
-        CheckFailed,
-        /// <summary>
         /// Syncing is not required, because either the ContentItem doesn't have a GraphSyncPart,
         /// or syncing has been temporarily disabled for the content item.
         /// </summary>
