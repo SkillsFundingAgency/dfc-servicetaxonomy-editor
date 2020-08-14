@@ -231,7 +231,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         contentItem,
                         context.ContentItemVersion,
                         context.DeleteOperation,
-                        //context.DeleteIncomingRelationshipsProperties,
                         allDeleteIncomingRelationshipsProperties,
                         context);
 
@@ -256,42 +255,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
             {
-                // var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-                // embeddedContentItemGraphSyncHelper.ContentType = embeddedContentItemsOfType.Key;
-
-                //string? twoWayRelationshipType = await TwoWayIncomingRelationshipType(embeddedContentItemGraphSyncHelper);
                 foreach (ContentItem contentItem in embeddedContentItemsOfType)
                 {
-                    //IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
-                    //todo: incoming properties. pass parent?
-                    //todo: return command, instead of executing it
-                    //todo: unlike sync where the leaves need syncing first and then up the tree,
-                    // delete needs to do it the other way, i.e. delete root first then down the tree
-                    // breadth first or depth first doesn't matter
-                    await context.DeleteGraphSyncer.DeleteEmbedded(
-                        contentItem,
+                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem,
                         //todo: no need to pass context now
                         context);
                 }
-
-                // IGraphSyncHelper graphSyncHelperForType = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-                // graphSyncHelperForType.ContentType = embeddedContentItemsOfType.Key;
-                //
-                // var typesNodeLabels = await graphSyncHelperForType.NodeLabels();
-                // string idPropertyName = graphSyncHelperForType.IdPropertyName();
-                //
-                // context.AddCommands(embeddedContentItemsOfType.Select(ci =>
-                //     new DeleteNodeCommand
-                //     {
-                //         //todo: twoway for terms
-                //         NodeLabels = new HashSet<string>(typesNodeLabels),
-                //         IdPropertyName = idPropertyName,
-                //         IdPropertyValue = graphSyncHelperForType.GetIdPropertyValue(
-                //             ci.Content.GraphSyncPart, context.ContentItemVersion),
-                //         DeleteNode = true
-                //         //todo:?
-                //         //DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
-                //     }));
             }
         }
 

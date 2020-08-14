@@ -127,7 +127,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphDeleteItemSyncContext = new GraphDeleteContext(
                 contentItem,
-                //todo: no need to put command in context?
                 _deleteNodeCommand,
                 this,
                 deleteOperation,
