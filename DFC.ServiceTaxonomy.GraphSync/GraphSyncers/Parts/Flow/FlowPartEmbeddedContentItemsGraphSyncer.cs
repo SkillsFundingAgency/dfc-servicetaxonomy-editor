@@ -6,7 +6,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -28,11 +27,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             : base(contentDefinitionManager, serviceProvider)
         {
         }
-
-        // nothing should be creating incoming relationships to embedded widgets, so we shortcut the check
-        // if we do start adding incoming relationships, we should let the base class do its stuff
-        public override Task AllowSync(JArray? contentItems, IGraphMergeContext context,
-            IAllowSyncResult allowSyncResult) => Task.FromResult(true);
 
         protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
         {
