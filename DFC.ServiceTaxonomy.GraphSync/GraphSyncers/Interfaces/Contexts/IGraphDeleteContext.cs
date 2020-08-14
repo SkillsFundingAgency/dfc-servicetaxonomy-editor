@@ -15,9 +15,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         IEnumerable<IGraphDeleteContext> ChildContexts { get; }
 
         void AddChildContext(IGraphDeleteContext graphDeleteContext);
-
-        Queue<ICommand> Commands { get; }
-        void AddCommand(ICommand command);
-        void AddCommands(IEnumerable<ICommand> commands);
     }
 }

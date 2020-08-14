@@ -15,8 +15,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public DeleteOperation DeleteOperation { get; }
         public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
         public IEnumerable<IGraphDeleteContext> ChildContexts => _childContexts;
-        public Queue<ICommand> Commands { get; }
-
         private readonly List<IGraphDeleteContext> _childContexts;
 
         public GraphDeleteContext(
@@ -35,7 +33,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             DeleteNodeCommand = deleteNodeCommand;
             DeleteOperation = deleteOperation;
             DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
-            Commands = new Queue<ICommand>();
 
             _childContexts = new List<IGraphDeleteContext>();
         }
@@ -43,20 +40,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public void AddChildContext(IGraphDeleteContext graphDeleteContext)
         {
             _childContexts.Add(graphDeleteContext);
-        }
-
-        //todo: replicate pattern for merge
-        public void AddCommand(ICommand command)
-        {
-            Commands.Enqueue(command);
-        }
-
-        public void AddCommands(IEnumerable<ICommand> commands)
-        {
-            foreach (ICommand command in commands)
-            {
-                Commands.Enqueue(command);
-            }
         }
     }
 }
