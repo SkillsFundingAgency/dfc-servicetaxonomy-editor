@@ -6,6 +6,8 @@ unpublishing page leaves HTML
 
 * widgets doesn't get deleted when removed from page and synced
 
+* if a shared content widget has no picked published content types, don't sync the html widget itself in the published graph set
+
 * should we sync htmlshared widget in published if there are no published shared content items
 the user can't have no shared content items picked, so the only time a widget with no shared content item relationships is synced is when a pub page references only draft items
 so we should probably not sync 'empty' shared widgets
