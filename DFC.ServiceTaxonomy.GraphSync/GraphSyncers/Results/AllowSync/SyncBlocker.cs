@@ -12,5 +12,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
             ContentType = contentType;
             Title = title;
         }
+
+        public override string ToString()
+        {
+            return $"'{Title ?? "n/a"}' {ContentType}";
+        }
     }
 }

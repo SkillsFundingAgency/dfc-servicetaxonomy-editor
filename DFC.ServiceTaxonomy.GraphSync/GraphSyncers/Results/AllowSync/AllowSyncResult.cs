@@ -35,5 +35,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
             AllowSync = SyncStatus.Blocked;
             SyncBlockers = new ConcurrentBag<ISyncBlocker>(SyncBlockers.Union(allowSyncResult.SyncBlockers));
         }
+
+        public override string ToString()
+        {
+            return string.Join(", ", SyncBlockers);
+        }
     }
 }

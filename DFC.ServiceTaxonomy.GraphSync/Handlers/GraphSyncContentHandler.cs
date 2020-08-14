@@ -294,9 +294,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 case SyncStatus.Blocked:
                     string contentType = GetContentTypeDisplayName(contentItem);
 
-                    //todo:
-                    string message = $"Syncing {contentItem.DisplayText} {contentType} to the {replicaSetName} graph has been blocked: todo reason";
-                    _logger.LogInformation(message);
+                    //todo: add reason
+                    string message = $"Syncing {contentItem.DisplayText} {contentType} to the {replicaSetName} graph has been blocked.";
+                    _logger.LogWarning($"{message}{Environment.NewLine}Blocked by {allowSyncResult}");
                     _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
                     break;
             }
