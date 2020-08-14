@@ -62,6 +62,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _graphSyncHelper = graphSyncHelper;
         }
 
+        //todo: DraftSavingAsync is missing a cancel
+        // need to cancel the session is the draft save isn't allowed
+        // cancel in saving is we can
+        // public override async Task DraftSavingAsync(SaveDraftContentContext context)
+        // {
+        //     _previewMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
+        //         GraphReplicaSetNames.Published, context.ContentItem, contentManager);
+        //
+        //     // sad paths have already been notified to the user and logged
+        //     context.Cancel = _publishedMergeGraphSyncer == null || _previewMergeGraphSyncer == null;
+        // }
+
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
