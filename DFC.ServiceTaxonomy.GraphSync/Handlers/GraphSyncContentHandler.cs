@@ -75,26 +75,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _previewMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
             _publishedMergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
+            //todo: not concurrent and published first (for recreating incoming relationships)
             var syncAllowed = await Task.WhenAll(
                 AllowSyncToGraphReplicaSet(_previewMergeGraphSyncer, GraphReplicaSetNames.Preview, context.ContentItem, contentManager),
                 AllowSyncToGraphReplicaSet(_publishedMergeGraphSyncer, GraphReplicaSetNames.Published, context.ContentItem, contentManager));
 
             //todo: can be improved in c#9
             // sad paths have already been notified to the user and logged
-            context.Cancel = syncAllowed[0].AllowSync == SyncStatus.Blocked
-                             || syncAllowed[0].AllowSync == SyncStatus.CheckFailed
-                             || syncAllowed[1].AllowSync == SyncStatus.Blocked
-                             || syncAllowed[1].AllowSync == SyncStatus.CheckFailed;
 
-            if (context.Cancel)
+            bool cancelPreview = syncAllowed[0].AllowSync == SyncStatus.Blocked
+                                 || syncAllowed[0].AllowSync == SyncStatus.CheckFailed;
+
+            bool cancelPublished = syncAllowed[1].AllowSync == SyncStatus.Blocked
+                                   || syncAllowed[1].AllowSync == SyncStatus.CheckFailed;
+
+            context.Cancel = cancelPreview || cancelPublished;
+
+            if (cancelPreview)
             {
                 AddBlockedNotifier(GraphReplicaSetNames.Preview, syncAllowed[0], context.ContentItem);
+            }
+
+            if (cancelPublished)
+            {
                 AddBlockedNotifier(GraphReplicaSetNames.Published, syncAllowed[1], context.ContentItem);
             }
         }
 
         public override async Task PublishedAsync(PublishContentContext context)
         {
+            //todo: not concurrent and published first (for recreating incoming relationships)
+            //(until expected atomic sync changes)
             await Task.WhenAll(
                 SyncToGraphReplicaSet(_previewMergeGraphSyncer!, GraphReplicaSetNames.Preview, context.ContentItem),
                 SyncToGraphReplicaSet(_publishedMergeGraphSyncer!, GraphReplicaSetNames.Published, context.ContentItem));
