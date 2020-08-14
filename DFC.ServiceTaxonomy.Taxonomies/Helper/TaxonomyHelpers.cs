@@ -37,5 +37,20 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 
             return null;
         }
+
+        public static string BuildTermUrl(ContentItem term, ContentItem taxonomy)
+        {
+            string url = term.DisplayText;
+
+            ContentItem parent = FindParentTaxonomyTerm(term, taxonomy);
+
+            while (parent != null && parent.ContentType != "Taxonomy")
+            {
+                url = $"{parent.DisplayText}/{url}";
+                parent = FindParentTaxonomyTerm(parent, taxonomy);
+            }
+
+            return url.Trim('/');
+        }
     }
 }

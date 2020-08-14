@@ -136,21 +136,6 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         private List<string> PageLocations = new List<string>();
 
-        private string BuildTermUrl(ContentItem term, ContentItem taxonomy)
-        {
-            string url = term.DisplayText;
-
-            ContentItem? parent = TaxonomyHelpers.FindParentTaxonomyTerm(term, taxonomy);
-
-            while (parent != null && parent.ContentType != "Taxonomy")
-            {
-                url = $"{parent.DisplayText}/{url}";
-                parent = TaxonomyHelpers.FindParentTaxonomyTerm(parent, taxonomy);
-            }
-
-            return url.Trim('/');
-        }
-
         private void RecursivelyBuildUrls(ContentItem taxonomy)
         {
             List<ContentItem>? terms = TaxonomyHelpers.GetTerms(taxonomy);
@@ -159,7 +144,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             {
                 foreach (ContentItem term in terms)
                 {
-                    PageLocations.Add(BuildTermUrl(term, taxonomy));
+                    PageLocations.Add(TaxonomyHelpers.BuildTermUrl(term, taxonomy));
                     RecursivelyBuildUrls(term);
                 }
             }

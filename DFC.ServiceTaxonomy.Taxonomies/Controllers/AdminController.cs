@@ -12,6 +12,7 @@ using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
+using OrchardCore.ContentManagement.Records;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
 using YesSql;
@@ -105,6 +106,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
+
+            if (!await ValidateTaxonomyTermURL(contentItem, taxonomy))
+            {
+                ModelState.AddModelError("", $"The generated URL for this {contentItem.ContentType} has already been used as a Page URL.");
+            }
 
             if (!ModelState.IsValid)
             {
@@ -233,6 +239,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
+            if (!await ValidateTaxonomyTermURL(contentItem, taxonomy))
+            {
+                ModelState.AddModelError("", $"The generated URL for this {contentItem.ContentType} has already been used as a Page URL.");
+            }
+
             if (!ModelState.IsValid)
             {
                 model.TaxonomyContentItemId = taxonomyContentItemId;
@@ -345,6 +356,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         {
             List<ContentItem> terms = TaxonomyHelpers.GetTerms(parent);
             return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
+        }
+
+        private async Task<bool> ValidateTaxonomyTermURL(ContentItem term, ContentItem taxonomy)
+        {
+            string url = TaxonomyHelpers.BuildTermUrl(term, taxonomy);
+            //TODO: check whether or not we only care about published pages, but I think we care about both
+            IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
+            //TODO: use nameof, but doing so would introduce a circular dependency between the page location and taxonomies projects
+            return pages.All(x => ((string)x.Content.PageLocationPart.FullUrl).Trim('/') != url);
         }
 
         private IActionResult DuplicateTaxonomyTermError(dynamic model, ContentItem contentItem, string taxonomyContentItemId, string taxonomyItemId)
