@@ -1,5 +1,7 @@
 #ToDo
 
+* add ordinal to shared content from widgets
+
 unpublishing page leaves HTML
 
 * widgets doesn't get deleted when removed from page and synced

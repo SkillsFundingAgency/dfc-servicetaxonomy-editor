@@ -7,7 +7,6 @@ using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    // introduced as default property implementations in interfaces seems buggy and confuses the debugger
     public abstract class ContentPartGraphSyncer : IContentPartGraphSyncer
     {
         public virtual int Priority => 0;
