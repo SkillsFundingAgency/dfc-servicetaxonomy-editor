@@ -23,6 +23,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
 
         public void AddSyncBlockers(IEnumerable<ISyncBlocker> syncBlockers)
         {
+            if (!syncBlockers.Any())
+                return;
+
             AllowSync = SyncStatus.Blocked;
             SyncBlockers = new ConcurrentBag<ISyncBlocker>(SyncBlockers.Union(syncBlockers));
         }
