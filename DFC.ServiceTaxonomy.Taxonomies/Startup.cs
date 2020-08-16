@@ -37,6 +37,7 @@ using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Services;
 using DFC.ServiceTaxonomy.Taxonomies.Settings;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
+using DFC.ServiceTaxonomy.Taxonomies.Helper;
 
 namespace DFC.ServiceTaxonomy.Taxonomies
 {
@@ -89,6 +90,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies
             services.AddContentPart<TermPart>();
             services.AddScoped<IContentHandler, TermPartContentHandler>();
             services.AddScoped<IContentDisplayDriver, TermPartContentDriver>();
+
+            // Helper.
+            services.AddSingleton<ITaxonomyHelper, TaxonomyHelper>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

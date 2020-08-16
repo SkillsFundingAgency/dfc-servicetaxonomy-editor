@@ -5,15 +5,15 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
-    public static class TaxonomyHelpers
+    public class TaxonomyHelper : ITaxonomyHelper
     {
-        public static List<ContentItem> GetTerms(ContentItem contentItem)
+        public List<ContentItem> GetTerms(ContentItem contentItem)
         {
             return contentItem.As<TaxonomyPart>()?.Terms ??
                    contentItem.Content.Terms?.ToObject<List<ContentItem>>();
         }
 
-        public static ContentItem FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
+        public ContentItem FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
         {
             List<ContentItem> terms = GetTerms(taxonomyContentItem);
 
@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
             return null;
         }
 
-        public static string BuildTermUrl(ContentItem term, ContentItem taxonomy)
+        public string BuildTermUrl(ContentItem term, ContentItem taxonomy)
         {
             string url = term.DisplayText;
 

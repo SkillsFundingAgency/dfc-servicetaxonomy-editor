@@ -33,6 +33,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly INotifier _notifier;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly IEnumerable<ITaxonomyTermValidator> _validators;
+        private readonly ITaxonomyHelper _taxonomyHelper;
 
         public AdminController(
             ISession session,
@@ -43,7 +44,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             INotifier notifier,
             IHtmlLocalizer<AdminController> localizer,
             IUpdateModelAccessor updateModelAccessor,
-            IEnumerable<ITaxonomyTermValidator> validators)
+            IEnumerable<ITaxonomyTermValidator> validators,
+            ITaxonomyHelper taxonomyHelper)
         {
             _contentManager = contentManager;
             _authorizationService = authorizationService;
@@ -54,6 +56,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _updateModelAccessor = updateModelAccessor;
             H = localizer;
             _validators = validators;
+            _taxonomyHelper = taxonomyHelper;
         }
 
         public async Task<IActionResult> Create(string id, string taxonomyContentItemId, string taxonomyItemId)
@@ -265,7 +268,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             //when editing we don't know what the parent id is, so we have to search for it
-            var parentTaxonomyTerm = TaxonomyHelpers.FindParentTaxonomyTerm(contentItem, taxonomy);
+            var parentTaxonomyTerm = _taxonomyHelper.FindParentTaxonomyTerm(contentItem, taxonomy);
 
             if (parentTaxonomyTerm == null)
                 return NotFound();
@@ -366,7 +369,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
         private bool ValidateTaxonomyTerm(ContentItem parent, ContentItem term)
         {
-            List<ContentItem> terms = TaxonomyHelpers.GetTerms(parent);
+            List<ContentItem> terms = _taxonomyHelper.GetTerms(parent);
             return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
         }
 

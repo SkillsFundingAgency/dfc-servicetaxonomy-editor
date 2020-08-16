@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
@@ -12,11 +13,13 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
     {
         private readonly ISession _session;
         private readonly IContentManager _contentManager;
+        private readonly ITaxonomyHelper _taxonomyHelper;
 
-        public PageLocationUrlValidator(ISession session, IContentManager contentManager)
+        public PageLocationUrlValidator(ISession session, IContentManager contentManager, ITaxonomyHelper taxonomyHelper)
         {
             _session = session;
             _contentManager = contentManager;
+            _taxonomyHelper = taxonomyHelper;
         }
 
         public string ErrorMessage => "The generated URL for this Page Location has already been used as a Page URL.";
@@ -28,7 +31,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                 return true;
             }
 
-            string url = TaxonomyHelpers.BuildTermUrl(term, taxonomy);
+            string url = _taxonomyHelper.BuildTermUrl(term, taxonomy);
             //TODO: check whether or not we only care about published pages, but I think we care about both
             IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
             
@@ -38,7 +41,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                 string draftUrl = ((string?)(await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Draft))?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? string.Empty;
                 string pubUrl = ((string?)(await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Published))?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? string.Empty;
 
-                if (draftUrl == url || pubUrl == url) return false;
+                if (draftUrl.Equals(url, StringComparison.OrdinalIgnoreCase) || pubUrl.Equals(url, StringComparison.OrdinalIgnoreCase)) return false;
             }
 
             return true;

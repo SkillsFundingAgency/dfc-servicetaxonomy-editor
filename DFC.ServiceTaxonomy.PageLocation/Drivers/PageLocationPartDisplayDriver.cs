@@ -24,10 +24,12 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
         private readonly string RedirectLocationUrlNamePattern = "^[A-Za-z0-9\\/_-]+$";
 
         private readonly ISession _session;
+        private readonly ITaxonomyHelper _taxonomyHelper;
 
-        public PageLocationPartDisplayDriver(ISession session)
+        public PageLocationPartDisplayDriver(ISession session, ITaxonomyHelper taxonomyHelper)
         {
             _session = session;
+            _taxonomyHelper = taxonomyHelper;
         }
 
         public override IDisplayResult Edit(PageLocationPart pageLocationPart, BuildPartEditorContext context)
@@ -138,13 +140,13 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         private void RecursivelyBuildUrls(ContentItem taxonomy)
         {
-            List<ContentItem>? terms = TaxonomyHelpers.GetTerms(taxonomy);
+            List<ContentItem>? terms = _taxonomyHelper.GetTerms(taxonomy);
 
             if (terms != null)
             {
                 foreach (ContentItem term in terms)
                 {
-                    PageLocations.Add(TaxonomyHelpers.BuildTermUrl(term, taxonomy));
+                    PageLocations.Add(_taxonomyHelper.BuildTermUrl(term, taxonomy));
                     RecursivelyBuildUrls(term);
                 }
             }
