@@ -121,8 +121,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
             if (!string.IsNullOrWhiteSpace(pageLocation.FullUrl))
             {
                 ContentItem? taxonomy = await _session.Query<ContentItem, ContentItemIndex>(x =>
-                    //TODO: get rid of magic strings?
-                    x.ContentType == "Taxonomy" && x.DisplayText == "Page Locations" && x.Latest && x.Published).FirstOrDefaultAsync();
+                    x.ContentType == Constants.TaxonomyContentType && x.DisplayText == Constants.PageLocationsDisplayText && x.Latest && x.Published).FirstOrDefaultAsync();
 
                 if (taxonomy != null)
                 {
