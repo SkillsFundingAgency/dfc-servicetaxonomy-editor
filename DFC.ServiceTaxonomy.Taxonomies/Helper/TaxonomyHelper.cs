@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using OrchardCore.ContentManagement;
@@ -7,15 +9,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public class TaxonomyHelper : ITaxonomyHelper
     {
-        public List<ContentItem> GetTerms(ContentItem contentItem)
+        public List<ContentItem>? GetTerms(ContentItem contentItem)
         {
             return contentItem.As<TaxonomyPart>()?.Terms ??
                    contentItem.Content.Terms?.ToObject<List<ContentItem>>();
         }
 
-        public ContentItem FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
+        public ContentItem? FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
         {
-            List<ContentItem> terms = GetTerms(taxonomyContentItem);
+            List<ContentItem>? terms = GetTerms(taxonomyContentItem);
 
             if (terms == null)
                 return null;
@@ -23,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
             if (terms.Any(x => x.ContentItemId == termContentItem.ContentItemId))
                 return taxonomyContentItem;
 
-            ContentItem result = null;
+            ContentItem? result = null;
 
             foreach (var term in terms)
             {
@@ -42,7 +44,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
         {
             string url = term.DisplayText;
 
-            ContentItem parent = FindParentTaxonomyTerm(term, taxonomy);
+            ContentItem? parent = FindParentTaxonomyTerm(term, taxonomy);
 
             while (parent != null && parent.ContentType != "Taxonomy")
             {
