@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
+using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
@@ -15,6 +17,7 @@ using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.ContentManagement.Records;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
+using Org.BouncyCastle.Asn1.X509.Qualified;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
@@ -29,6 +32,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly IHtmlLocalizer H;
         private readonly INotifier _notifier;
         private readonly IUpdateModelAccessor _updateModelAccessor;
+        private readonly IEnumerable<ITaxonomyTermValidator> _validators;
 
         public AdminController(
             ISession session,
@@ -38,7 +42,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
             IHtmlLocalizer<AdminController> localizer,
-            IUpdateModelAccessor updateModelAccessor)
+            IUpdateModelAccessor updateModelAccessor,
+            IEnumerable<ITaxonomyTermValidator> validators)
         {
             _contentManager = contentManager;
             _authorizationService = authorizationService;
@@ -48,6 +53,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _notifier = notifier;
             _updateModelAccessor = updateModelAccessor;
             H = localizer;
+            _validators = validators;
         }
 
         public async Task<IActionResult> Create(string id, string taxonomyContentItemId, string taxonomyItemId)
@@ -107,9 +113,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
 
-            if (!await ValidateTaxonomyTermURL(contentItem, taxonomy))
+            foreach (var validator in _validators)
             {
-                ModelState.AddModelError("", $"The generated URL for this {contentItem.ContentType} has already been used as a Page URL.");
+                if (!await validator.Validate(contentItem, taxonomy))
+                {
+                    ModelState.AddModelError("", validator.ErrorMessage);
+                }
             }
 
             if (!ModelState.IsValid)
@@ -239,9 +248,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
-            if (!await ValidateTaxonomyTermURL(contentItem, taxonomy))
+            foreach (var validator in _validators)
             {
-                ModelState.AddModelError("", $"The generated URL for this {contentItem.ContentType} has already been used as a Page URL.");
+                if (!await validator.Validate(contentItem, taxonomy))
+                {
+                    ModelState.AddModelError("", validator.ErrorMessage);
+                }
             }
 
             if (!ModelState.IsValid)
@@ -356,15 +368,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         {
             List<ContentItem> terms = TaxonomyHelpers.GetTerms(parent);
             return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
-        }
-
-        private async Task<bool> ValidateTaxonomyTermURL(ContentItem term, ContentItem taxonomy)
-        {
-            string url = TaxonomyHelpers.BuildTermUrl(term, taxonomy);
-            //TODO: check whether or not we only care about published pages, but I think we care about both
-            IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
-            //TODO: use nameof, but doing so would introduce a circular dependency between the page location and taxonomies projects
-            return pages.All(x => ((string)x.Content.PageLocationPart.FullUrl).Trim('/') != url);
         }
 
         private IActionResult DuplicateTaxonomyTermError(dynamic model, ContentItem contentItem, string taxonomyContentItemId, string taxonomyItemId)

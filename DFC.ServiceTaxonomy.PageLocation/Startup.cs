@@ -4,7 +4,9 @@ using DFC.ServiceTaxonomy.PageLocation.GraphSyncers;
 using DFC.ServiceTaxonomy.PageLocation.Handlers;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using DFC.ServiceTaxonomy.PageLocation.Models;
+using DFC.ServiceTaxonomy.PageLocation.Validators;
 using DFC.ServiceTaxonomy.PageLocation.ViewModels;
+using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Fluid;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
@@ -37,6 +39,8 @@ namespace DFC.ServiceTaxonomy.PageLocation
             services.AddScoped<IContentHandler, DefaultPageLocationsContentHandler>();
 
             services.AddScoped<IContentDisplayDriver, PageLocationDriver>();
+
+            services.AddTransient<ITaxonomyTermValidator, PageLocationUrlValidator>();
         }
     }
 }
