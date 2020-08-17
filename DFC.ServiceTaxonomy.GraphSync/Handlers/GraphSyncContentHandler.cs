@@ -102,22 +102,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public override async Task UnpublishingAsync(PublishContentContext context)
         {
-            IDeleteGraphSyncer? publishedDeleteGraphSyncer = await GetDeleteGraphSyncerIfDeleteAllowed(
-                context.ContentItem,
-                _publishedContentItemVersion,
-                DeleteOperation.Unpublish);
+            // no need to touch the draft graph, there should always be a valid version in there
+            // (either a separate draft version, or the published version)
 
-            if (publishedDeleteGraphSyncer == null)
+            if (!await DeleteFromGraphReplicaSetIfAllowed(
+                context, _publishedContentItemVersion, DeleteOperation.Unpublish))
             {
                 //todo: unpublish is passed a PublishContentContext, so cancel is probably ignored
                 context.Cancel = true;
-                return;
             }
+        }
 
-            context.Cancel = !await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer, context.ContentItem);
+        private async Task<bool> DeleteFromGraphReplicaSetIfAllowed(
+            ContentContextBase context,
+            IContentItemVersion contentItemVersion,
+            DeleteOperation deleteOperation)
+        {
+            IDeleteGraphSyncer? publishedDeleteGraphSyncer = await GetDeleteGraphSyncerIfDeleteAllowed(
+                context.ContentItem,
+                contentItemVersion,
+                deleteOperation);
 
-            // no need to touch the draft graph, there should always be a valid version in there
-            // (either a separate draft version, or the published version)
+            if (publishedDeleteGraphSyncer == null)
+                return false;
+
+            return await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer, context.ContentItem);
         }
 
         public override async Task ClonedAsync(CloneContentContext context)
@@ -179,7 +188,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         private async Task DiscardDraft(RemoveContentContext context)
         {
-            //todo: delete draft too!
             //todo: if not allowed cancel delete, return bool?
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
