@@ -82,7 +82,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 GraphReplicaSetNames.Published, context.ContentItem, contentManager);
 
             IMergeGraphSyncer? previewMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
-                GraphReplicaSetNames.Published, context.ContentItem, contentManager);
+                GraphReplicaSetNames.Preview, context.ContentItem, contentManager);
 
             if (publishedMergeGraphSyncer == null || previewMergeGraphSyncer == null)
             {
