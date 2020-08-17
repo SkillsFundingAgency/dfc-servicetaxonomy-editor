@@ -2,17 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
+using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
+using OrchardCore.ContentManagement.Records;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
+using Org.BouncyCastle.Asn1.X509.Qualified;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
@@ -27,6 +32,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly IHtmlLocalizer H;
         private readonly INotifier _notifier;
         private readonly IUpdateModelAccessor _updateModelAccessor;
+        private readonly IEnumerable<ITaxonomyTermValidator> _validators;
+        private readonly ITaxonomyHelper _taxonomyHelper;
 
         public AdminController(
             ISession session,
@@ -36,7 +43,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
             IHtmlLocalizer<AdminController> localizer,
-            IUpdateModelAccessor updateModelAccessor)
+            IUpdateModelAccessor updateModelAccessor,
+            IEnumerable<ITaxonomyTermValidator> validators,
+            ITaxonomyHelper taxonomyHelper)
         {
             _contentManager = contentManager;
             _authorizationService = authorizationService;
@@ -46,6 +55,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _notifier = notifier;
             _updateModelAccessor = updateModelAccessor;
             H = localizer;
+            _validators = validators;
+            _taxonomyHelper = taxonomyHelper;
         }
 
         public async Task<IActionResult> Create(string id, string taxonomyContentItemId, string taxonomyItemId)
@@ -104,6 +115,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             contentItem.Alter<TermPart>(t => t.TaxonomyContentItemId = taxonomyContentItemId);
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
+
+            foreach (var validator in _validators)
+            {
+                if (!await validator.Validate(contentItem, taxonomy))
+                {
+                    ModelState.AddModelError("", validator.ErrorMessage);
+                }
+            }
 
             if (!ModelState.IsValid)
             {
@@ -232,6 +251,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
+            foreach (var validator in _validators)
+            {
+                if (!await validator.Validate(contentItem, taxonomy))
+                {
+                    ModelState.AddModelError("", validator.ErrorMessage);
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 model.TaxonomyContentItemId = taxonomyContentItemId;
@@ -241,7 +268,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             //when editing we don't know what the parent id is, so we have to search for it
-            var parentTaxonomyTerm = FindParentTaxonomyTerm(contentItem, taxonomy);
+            var parentTaxonomyTerm = _taxonomyHelper.FindParentTaxonomyTerm(contentItem, taxonomy);
 
             if (parentTaxonomyTerm == null)
                 return NotFound();
@@ -340,41 +367,10 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             return null;
         }
 
-        private ContentItem FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
-        {
-            List<ContentItem> terms = GetTerms(taxonomyContentItem);
-
-            if (terms == null)
-                return null;
-
-            if (terms.Any(x => x.ContentItemId == termContentItem.ContentItemId))
-                return taxonomyContentItem;
-
-            ContentItem result = null;
-
-            foreach (var term in terms)
-            {
-                result = FindParentTaxonomyTerm(termContentItem, term);
-
-                if (result != null)
-                {
-                    return result;
-                }
-            }
-
-            return null;
-        }
-
         private bool ValidateTaxonomyTerm(ContentItem parent, ContentItem term)
         {
-            List<ContentItem> terms = GetTerms(parent);
+            List<ContentItem> terms = _taxonomyHelper.GetTerms(parent);
             return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
-        }
-
-        private List<ContentItem> GetTerms(ContentItem contentItem)
-        {
-            return contentItem.As<TaxonomyPart>()?.Terms ??
-                   contentItem.Content.Terms?.ToObject<List<ContentItem>>();
         }
 
         private IActionResult DuplicateTaxonomyTermError(dynamic model, ContentItem contentItem, string taxonomyContentItemId, string taxonomyItemId)
