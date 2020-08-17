@@ -1,5 +1,6 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
 using OrchardCore.ContentManagement;
@@ -9,22 +10,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class GraphOperationContext : IGraphOperationContext
     {
+        public ContentItem ContentItem { get; }
         public IContentManager ContentManager { get; }
         public IContentItemVersion ContentItemVersion { get; protected set; }
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentPartFieldDefinition? ContentPartFieldDefinition { get; private set; }
 
         public IGraphSyncHelper GraphSyncHelper { get; }
+        // only used by GraphMergeContext and GraphOperationContext, not ValidateAndRepairContext
+        // new base class, or just leave null for validate??
+        //todo: provide subclass in derived?
+        public IGraphOperationContext? ParentContext { get; }
 
         protected GraphOperationContext(
+            ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
-            IContentManager contentManager)
+            IContentManager contentManager,
+            IContentItemVersion contentItemVersion,
+            IGraphOperationContext? parentContext)
         {
+            ContentItem = contentItem;
             GraphSyncHelper = graphSyncHelper;
             ContentManager = contentManager;
+            ContentItemVersion = contentItemVersion;
+            ParentContext = parentContext;
 
-            // needs to be set by the derived class: how to enforce?
-            ContentItemVersion = default!;
             // will be set before any syncers receive a context
             ContentTypePartDefinition = default!;
         }

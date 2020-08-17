@@ -48,8 +48,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             try
             {
                 //todo: does it need to be 2 phase?
-                IDeleteGraphSyncer publishedDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
-                IDeleteGraphSyncer previewDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+                IDeleteTypeGraphSyncer publishedDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteTypeGraphSyncer>();
+                IDeleteTypeGraphSyncer previewDeleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteTypeGraphSyncer>();
 
                 // delete all nodes by type
                 Task.WhenAll(

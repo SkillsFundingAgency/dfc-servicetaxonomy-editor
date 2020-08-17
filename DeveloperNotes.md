@@ -1,6 +1,24 @@
 #ToDo
 
-* priority: fix sanity check, pub/draft embedded item sync, events only if synced ok, clone?
+* add ordinal to shared content from widgets
+
+unpublishing page leaves HTML
+
+* widgets doesn't get deleted when removed from page and synced
+
+* if a shared content widget has no picked published content types, don't sync the html widget itself in the published graph set
+
+* should we sync htmlshared widget in published if there are no published shared content items
+the user can't have no shared content items picked, so the only time a widget with no shared content item relationships is synced is when a pub page references only draft items
+so we should probably not sync 'empty' shared widgets
+
+* contents of flow part widgets outside of the widgets (dom issue, not css)!
+
+* replicate taxonomy fix: https://mail.google.com/mail/u/0/#inbox/FMfcgxwJXLntMnZkqzJfcvWQKXsHKDGV
+
+* html settings missing button for accordion
+
+* pub/draft embedded item sync, events only if synced ok, clone?
 
 * need to resync following part deletion too
 
@@ -205,41 +223,13 @@ would be better to report when html has been sanitized, rather than silently doi
 
 * trumbowyg plugin
 
-add tooltip to html colours to show semantic meaning (js?)
-
 auto add class="govuk-body" to p's
 ^ looks like not supported in trumbowyg (see keyup focus). perhaps leave as is (maybe hack or replace trumbowyg js, but then a pain to maintain)
 
 headings with captions??
 
-Add Font size custom dropdown button
-
-adds govuk-!-font-size-
-
 if possible add span if selection part of an elements content
 and add to existing element if selection is whole content of element
-
-replace bold button with 1 that sets govuk-!-font-weight-bold
-add button for regular too?? govuk-!-font-weight-regular
-
-replace unorder list and ordered list buttons with custom:
-list (govuk-list)
-bulleted list (govuk-list govuk-list--bullet)
-Numbered lists
-govuk-list govuk-list--number
-
-replace horizontalRule button with a custom section break dropdown button
-that allows setting these 4...
-<hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-<hr class="govuk-section-break govuk-section-break--visible">
-
-replace current with custom link dropdown button
-insert link > with class="govuk-link"
-insert link (new tab) > with class="govuk-link" rel="noreferrer noopener" target="_blank" plus remove target text box (or pre-populate it if difficult to remove)
-remove link
-
 
 add spacing and width override buttons?
 
@@ -253,48 +243,14 @@ don't allow to change font
 
 * GET https://localhost:5001/DFC.ServiceTaxonomy.Theme/Theme.png 404
 
-search > Run Cypher Query
-ArgumentNullException: Value cannot be null. (Parameter 'key')
-
 customs-officer not found in the jp dictionary
 
 store object of contentitemid and aggregate name as value
-
-unknown soc code (create a report)
-'9912', '9999'
 
 * add these to our theme?
 
     BaseTheme = "TheAdmin",
     Tags = new [] { "admin" }
-
-* event publishing threw during full import (working uniform)
-
-Delayed processing of workflow id {workflowContext.WorkflowId} failed: {e}
-
-Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously through TimeoutPolicy did not complete within the timeout.
- ---> System.Threading.Tasks.TaskCanceledException: The operation was canceled.
-   at System.Net.Http.CancellationHelper.ThrowOperationCanceledException(Exception innerException, CancellationToken cancellationToken)
-   at System.Net.Http.HttpConnection.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
-   at System.Net.Http.HttpConnectionPool.SendWithNtConnectionAuthAsync(HttpConnection connection, HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
-   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
-   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-   at System.Net.Http.DiagnosticsHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-   at Microsoft.Extensions.Http.Logging.LoggingHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-   at Polly.Timeout.AsyncTimeoutEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, Func`2 timeoutProvider, TimeoutStrategy timeoutStrategy, Func`5 onTimeoutAsync, Boolean continueOnCapturedContext)
-   --- End of inner exception stack trace ---
-   at Polly.Timeout.AsyncTimeoutEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, Func`2 timeoutProvider, TimeoutStrategy timeoutStrategy, Func`5 onTimeoutAsync, Boolean continueOnCapturedContext)
-   at Polly.AsyncPolicy`1.ExecuteAsync(Func`3 action, Context context, CancellationToken cancellationToken, Boolean continueOnCapturedContext)
-   at Microsoft.Extensions.Http.PolicyHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-   at Polly.Retry.AsyncRetryEngine.ImplementationAsync[TResult](Func`3 action, Context context, CancellationToken cancellationToken, ExceptionPredicates shouldRetryExceptionPredicates, ResultPredicates`1 shouldRetryResultPredicates, Func`5 onRetryAsync, Int32 permittedRetryCount, IEnumerable`1 sleepDurationsEnumerable, Func`4 sleepDurationProvider, Boolean continueOnCapturedContext)
-   at Polly.AsyncPolicy`1.ExecuteAsync(Func`3 action, Context context, CancellationToken cancellationToken, Boolean continueOnCapturedContext)
-   at Microsoft.Extensions.Http.PolicyHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-   at Microsoft.Extensions.Http.Logging.LoggingScopeHttpMessageHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
-   at DFC.ServiceTaxonomy.Events.Services.RestHttpClient.PostAsJson[TRequest](String uri, TRequest requestData, CancellationToken cancellationToken) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Services\RestHttpClient.cs:line 60
-   at DFC.ServiceTaxonomy.Events.Services.EventGridContentClient.Publish(ContentEvent contentEvent, CancellationToken cancellationToken) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Services\EventGridContentClient.cs:line 29
-   at DFC.ServiceTaxonomy.Events.Activities.Tasks.PublishToEventGridTask.PublishContentEvent(WorkflowExecutionContext workflowContext, ContentItem contentItem, String eventType) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Activities\Tasks\PublishToEventGridTask.cs:line 210
-   at DFC.ServiceTaxonomy.Events.Activities.Tasks.PublishToEventGridTask.ProcessEventAfterContentItemQuiesces(WorkflowExecutionContext workflowContext, ContentItem eventContentItem, ContentItem preDelayDraftContentItem, ContentItem preDelayPublishedContentItem) in I:\git\dfc-servicetaxonomy-editor\DFC.ServiceTaxonomy.Events\Activities\Tasks\PublishToEventGridTask.cs:line 191
 
 * add major.minor version number to content item. major for published and minor for draft. then add that to the published event grid event
 
@@ -308,17 +264,9 @@ Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously thr
 
 * make sure only 1 validate and repair is operating at once
 
-* how do we not publish events, if the operation is blocked by another workflow?
-
-* we could create a new contenthandler similar to OrchardCore.Contents.Workflows.Handlers.ContentsHandler to publish draft saved events, except looks like contenthandlers as is wouldn't support it
-
 * recommended connection string settingsL Maximum Pool Size=256;NoResetOnClose=true;Enlist=false;Max Auto Prepare=50
 
 * we need to make sure we have decent views for content items, as when there is a draft and published version, you can only view the published version (and only see the draft in edit)
-
-* don't pass endpoint to sync validators, set current in driver instead
-
-* update exceptions with code from ApiFunctionException.cs
 
 * api function
     load config into an optionsmonitor in a static field, getting the snapshot on each call, so that it should speed it up whilst also supporting changing the config without restarting the app service
@@ -328,9 +276,6 @@ Polly.Timeout.TimeoutRejectedException: The delegate executed asynchronously thr
 * add support for searching within content items e.g. filter content items by uri (add lucene indexes for content items?)
 
 * remove skip and take from importer
-
-* publish to event grid
-    open questions: event domain or multiple topics or single topic?
 
 have single topic for all content types and have subscriber which sends data into app insights - if not already supported
 see

@@ -23,10 +23,15 @@ using OrchardCore.Workflows.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting;
 using DFC.ServiceTaxonomy.GraphSync.CSharpScripting.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
@@ -89,6 +94,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
+            services.AddTransient<IDeleteTypeGraphSyncer, DeleteTypeGraphSyncer>();
             services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
             services.AddTransient<IGraphResyncer, GraphResyncer>();
 

@@ -4,12 +4,14 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -241,6 +243,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return (false, FailureContext("Node not found.", contentItem));
 
             ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
+                contentItem,
                 _contentManager,
                 contentItemVersion,
                 nodeWithOutgoingRelationships,
@@ -256,7 +259,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 if (itemSyncer.CanSync(contentItem))
                 {
                     (bool validated, string failureReason) =
-                        await itemSyncer.ValidateSyncComponent(contentItem, context);
+                        await itemSyncer.ValidateSyncComponent(context);
                     if (!validated)
                         return (validated, failureReason);
                 }

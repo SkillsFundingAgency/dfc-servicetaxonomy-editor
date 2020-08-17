@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             //todo: share code with contentpickerfield?
 
+            //todo: better error message to user if taxonomy is missing
             ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 

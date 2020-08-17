@@ -2,7 +2,8 @@
 using DFC.ServiceTaxonomy.Events.Configuration;
 using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
@@ -13,17 +14,17 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
     //todo: update comment and confluence with which content uri prefix is used
 
     /// <summary>
-    /// |Id| existing state | user action | post state | event grid events | notes |
-    /// |--|---------------------|--------------------------|-------------|--------------------|----------------------------|-----------------------------------------|
+    /// |Id| existing state      | user action              | post state         | event grid events          | notes                                   |
+    /// |--|---------------------|--------------------------|--------------------|----------------------------|-----------------------------------------|
     /// |1 | n/a                 | save draft               | draft              | draft                      |                                         |
     /// |2 | n/a>draft val fail  | save draft               | draft              | draft                      |                                         |
     /// |3 | n/a>pub val fail    | save draft               | draft              | draft                      |                                         |
     /// |4 | n/a                 | publish                  | published          | published                  |                                         |
     /// |5 | n/a>draft val fail  | publish                  | published          | published                  |                                         |
-    /// |6| n/a>pub val fail     | publish                  | published          | published                  |                                         |
-    /// |7| draft                | save draft               | draft              | draft                      |                                         |
-    /// |8| draft                | publish                  | published          | published                  |                                         |
-    /// |9| draft                | publish draft from list  | published          | published                  |                                         |
+    /// |6 | n/a>pub val fail    | publish                  | published          | published                  |                                         |
+    /// |7 | draft               | save draft               | draft              | draft                      |                                         |
+    /// |8 | draft               | publish                  | published          | published                  |                                         |
+    /// |9 | draft               | publish draft from list  | published          | published                  |                                         |
     /// |10| published           | save draft               | draft+published    | draft                      |                                         |
     /// |11| published           | publish                  | published          | published                  |                                         |
     /// |12| published           | publish draft from list  | published          | n/a                        | publishing without changes is a no-op   |

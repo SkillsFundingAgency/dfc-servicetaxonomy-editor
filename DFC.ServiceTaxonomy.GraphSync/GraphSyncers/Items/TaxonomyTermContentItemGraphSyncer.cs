@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
@@ -36,16 +38,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             //todo: concurrent?
-            await _taxonomyPartGraphSyncer.AddSyncComponentsForNonRoot(context.ContentItem.Content, context);
+            await _taxonomyPartGraphSyncer.AddSyncComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
             //todo: taxonomy isn't there yet, need to order
             //await _termPartGraphSyncer.AddSyncComponents(context.ContentItem.Content[_termPartGraphSyncer.PartName], context);
         }
 
+        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _taxonomyPartGraphSyncer.AllowDelete(context.ContentItem.Content, context, allowSyncResult);
+        }
+
+        public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
+        {
+            await _taxonomyPartGraphSyncer.DeleteComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
+        }
+
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            ContentItem contentItem,
             IValidateAndRepairItemSyncContext context)
         {
-            return await _taxonomyPartGraphSyncer.ValidateSyncComponent((JObject)contentItem.Content, context);
+            return await _taxonomyPartGraphSyncer.ValidateSyncComponent((JObject)context.ContentItem.Content, context);
         }
     }
 }

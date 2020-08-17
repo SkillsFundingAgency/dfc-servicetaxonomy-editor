@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
@@ -14,13 +15,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public IDictionary<string, int> ExpectedRelationshipCounts { get; }
         public IValidateAndRepairGraph ValidateAndRepairGraph { get; }
 
-        public ValidateAndRepairContext(IContentManager contentManager,
+        public ValidateAndRepairContext(
+            ContentItem contentItem,
+            IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph)
-            : base(graphSyncHelper, contentManager)
+            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, null)
         {
             ContentItemVersion = contentItemVersion;
             NodeWithOutgoingRelationships = nodeWithOutgoingRelationships;

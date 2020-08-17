@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -25,8 +26,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             IEnumerable<IContentPartGraphSyncer> partSyncers,
             ILogger<ContentItemGraphSyncer> logger)
         {
+            _partSyncers = partSyncers.OrderByDescending(s => s.Priority);
             _contentDefinitionManager = contentDefinitionManager;
-            _partSyncers = partSyncers;
             _logger = logger;
         }
 
@@ -34,7 +35,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
-            //todo: common code, use callback
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult));
+        }
+
+        //todo: rename IAllowSyncResult
+        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
+        {
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.AllowDelete(partContent, context, allowSyncResult));
+        }
+
+        public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
+        {
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.AddSyncComponents(partContent, context));
+        }
+
+        public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
+        {
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.DeleteComponents(partContent, context));
+        }
+
+        private async Task IteratePartSyncers(
+            IItemSyncContext context,
+            Func<IContentPartGraphSyncer, JObject, Task> action)
+        {
             foreach (var partSync in _partSyncers)
             {
                 // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
@@ -54,50 +81,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    await partSync.AllowSync(partContent, context, allowSyncResult);
-                }
-            }
-        }
-
-        public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
-        {
-            //todo: use Priority instead?
-            // ensure graph sync part is processed first, as other part syncers (current bagpart) require the node's id value
-            string graphSyncPartName = nameof(GraphSyncPart);
-
-            //order in ctor?
-            // add priority field and order?
-            //or use IGraphSyncPartSyncer?
-            var partSyncersWithGraphLookupFirst
-                = _partSyncers.Where(ps => ps.PartName != graphSyncPartName)
-                    .Prepend(_partSyncers.First(ps => ps.PartName == graphSyncPartName));
-
-            foreach (var partSync in partSyncersWithGraphLookupFirst)
-            {
-                // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
-                // (other non-named parts have the part name in both)
-
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
-                var contentTypePartDefinitions =
-                    contentTypeDefinition.Parts.Where(p => partSync.CanSync(context.ContentItem.ContentType, p.PartDefinition));
-
-                foreach (var contentTypePartDefinition in contentTypePartDefinitions)
-                {
-                    context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    string namedPartName = contentTypePartDefinition.Name;
-
-                    JObject? partContent = context.ContentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue; //todo: throw??
-
-                    await partSync.AddSyncComponents(partContent, context);
+                    await action(partSync, partContent);
                 }
             }
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            ContentItem contentItem,
             IValidateAndRepairItemSyncContext context)
         {
             foreach (ContentTypePartDefinition contentTypePartDefinition in context.ContentTypeDefinition.Parts)
@@ -113,7 +102,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                     continue;
                 }
 
-                dynamic? partContent = contentItem.Content[contentTypePartDefinition.Name];
+                dynamic? partContent = context.ContentItem.Content[contentTypePartDefinition.Name];
                 if (partContent == null)
                     continue; //todo: throw??
 
@@ -128,7 +117,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
                 string failureReason = $"{partSyncer.PartName} did not validate: {partFailureReason}";
                 string failureContext = FailureContext(failureReason, context, contentTypePartDefinition,
-                    contentItem, contentTypePartDefinition.PartDefinition.Name, partContent);
+                    context.ContentItem, contentTypePartDefinition.PartDefinition.Name, partContent);
                 return (false, failureContext);
             }
 
