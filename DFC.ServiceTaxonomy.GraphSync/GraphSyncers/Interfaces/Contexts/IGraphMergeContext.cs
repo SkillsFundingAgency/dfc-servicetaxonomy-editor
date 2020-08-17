@@ -3,7 +3,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
-    public interface IGraphMergeContext : IGraphOperationContext
+    public interface IGraphMergeContext : IGraphSyncContext
     {
         public IGraphReplicaSet GraphReplicaSet { get; }
         IMergeNodeCommand MergeNodeCommand { get; }

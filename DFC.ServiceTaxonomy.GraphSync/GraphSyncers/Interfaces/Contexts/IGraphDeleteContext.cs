@@ -4,7 +4,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
-    public interface IGraphDeleteContext : IGraphOperationContext
+    public interface IGraphDeleteContext : IGraphSyncContext
     {
         IDeleteGraphSyncer DeleteGraphSyncer { get; }
         IDeleteNodeCommand DeleteNodeCommand { get; }

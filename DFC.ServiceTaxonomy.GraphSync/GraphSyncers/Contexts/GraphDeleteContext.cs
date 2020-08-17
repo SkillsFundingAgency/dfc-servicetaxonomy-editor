@@ -8,7 +8,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class GraphDeleteContext : GraphOperationContext, IGraphDeleteItemSyncContext
+    public class GraphDeleteContext : GraphSyncContext, IGraphDeleteItemSyncContext
     {
         public IDeleteGraphSyncer DeleteGraphSyncer { get; }
         public IDeleteNodeCommand DeleteNodeCommand { get; }

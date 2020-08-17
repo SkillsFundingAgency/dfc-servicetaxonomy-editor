@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
         {
         }
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context)
         {
             BagPartSettings bagPartSettings = context.ContentTypePartDefinition.GetSettings<BagPartSettings>();
             return bagPartSettings.ContainedContentTypes;

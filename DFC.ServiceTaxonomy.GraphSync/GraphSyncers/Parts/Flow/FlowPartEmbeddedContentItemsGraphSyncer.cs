@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
         {
         }
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context)
         {
             return _contentDefinitionManager.ListTypeDefinitions()
                 .Where(t => t.GetSettings<ContentTypeSettings>().Stereotype == "Widget")

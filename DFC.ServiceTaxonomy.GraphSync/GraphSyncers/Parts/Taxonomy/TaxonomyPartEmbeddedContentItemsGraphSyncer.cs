@@ -24,9 +24,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         {
         }
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context)
         {
-            IGraphOperationContext rootContext = context;
+            IGraphSyncContext rootContext = context;
             while (rootContext.ParentContext != null)
             {
                 rootContext = rootContext.ParentContext;

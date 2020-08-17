@@ -7,7 +7,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class GraphMergeContext : GraphOperationContext, IGraphMergeItemSyncContext
+    public class GraphMergeContext : GraphSyncContext, IGraphMergeItemSyncContext
     {
         public IGraphReplicaSet GraphReplicaSet { get; }
         public IMergeNodeCommand MergeNodeCommand { get; }

@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph)
-            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, null)
+            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion)
         {
             ContentItemVersion = contentItemVersion;
             NodeWithOutgoingRelationships = nodeWithOutgoingRelationships;

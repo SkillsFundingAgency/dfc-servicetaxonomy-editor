@@ -398,7 +398,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context);
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context);
 
         //todo: need to separate GraphSyncHelper into stateful and stateless
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
