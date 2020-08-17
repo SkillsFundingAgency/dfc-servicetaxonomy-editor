@@ -133,7 +133,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         // Pub+Draft      Delete            0            0                1
         public override async Task RemovingAsync(RemoveContentContext context)
         {
-            //todo: test draft-discard
             if (context.NoActiveVersionLeft)
             {
                 if (!await Delete(context))
