@@ -8,6 +8,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         IEnumerable<IGraphSyncContext> ChildContexts { get; }
 
         void AddChildContext(IGraphSyncContext graphDeleteContext);
-
     }
 }

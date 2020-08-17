@@ -98,10 +98,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IGraphMergeContext? parentGraphMergeContext = null)
         {
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
-            // so we silently noop if it's not present
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
-            //todo: text -> id?
-            //todo: why graph sync has tags in features, others don't?
             if (graphSyncPartContent == null)
                 return AllowSyncResult.NotRequired;
 
@@ -121,8 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             MergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
             MergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
 
-            //Add created and modified dates to all content items
-            //todo: store as neo's DateTime? especially if api doesn't match the string format
+            // add created and modified dates to all content items
             if (contentItem.CreatedUtc.HasValue)
                 MergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName("CreatedDate"), contentItem.CreatedUtc.Value);
 
@@ -134,6 +130,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphMergeContext = new GraphMergeContext(
                 _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
+
+            parentGraphMergeContext?.AddChildContext(_graphMergeContext);
 
             //should it go in the context?
             _incomingPreviewContentPickerRelationships = await GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
