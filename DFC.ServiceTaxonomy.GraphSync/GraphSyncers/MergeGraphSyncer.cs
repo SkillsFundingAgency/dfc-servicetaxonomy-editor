@@ -160,7 +160,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncAllowedResult;
         }
 
-        //todo: need to split generating commands, and syncing, to make sync to a graph atomic
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
         {
             if (_graphMergeContext == null)
