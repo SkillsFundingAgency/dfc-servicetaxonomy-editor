@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
+using GraphQL;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -94,28 +95,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _previewMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
                 GraphReplicaSetNames.Published, context.ContentItem, contentManager);
 
-            // sad paths have already been notified to the user and logged
-            context.Cancel = _publishedMergeGraphSyncer == null || _previewMergeGraphSyncer == null;
-        }
-
-        public override async Task PublishedAsync(PublishContentContext context)
-        {
-            if (_publishedMergeGraphSyncer == null)
+            if (_publishedMergeGraphSyncer == null || _previewMergeGraphSyncer == null)
             {
-                throw new InvalidOperationException(
-                    $"{nameof(_publishedMergeGraphSyncer)} is null: publish should have been cancelled by the publishing handler.");
-            }
-
-            if (_previewMergeGraphSyncer == null)
-            {
-                throw new InvalidOperationException(
-                    $"{nameof(_previewMergeGraphSyncer)} is null: publish should have been cancelled by the publishing handler.");
+                // sad paths have already been notified to the user and logged
+                context.Cancel = true;
+                return;
             }
 
             // again, not concurrent and published first (for recreating incoming relationships)
             // (at least until until expected atomic sync changes)
-            await SyncToGraphReplicaSet(_publishedMergeGraphSyncer, context.ContentItem);
-            await SyncToGraphReplicaSet(_previewMergeGraphSyncer, context.ContentItem);
+            if (!await SyncToGraphReplicaSet(_publishedMergeGraphSyncer, context.ContentItem)
+                || !await SyncToGraphReplicaSet(_previewMergeGraphSyncer, context.ContentItem))
+            {
+                context.Cancel = true;
+            }
         }
 
         public override async Task UnpublishingAsync(PublishContentContext context)
@@ -341,11 +334,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         }
         #pragma warning restore S1172
 
-        private async Task SyncToGraphReplicaSet(IMergeGraphSyncer mergeGraphSyncer, ContentItem contentItem)
+        private async Task<bool> SyncToGraphReplicaSet(IMergeGraphSyncer mergeGraphSyncer, ContentItem contentItem)
         {
             try
             {
                 await mergeGraphSyncer.SyncToGraphReplicaSet();
+                return true;
             }
             catch (Exception exception)
             {
@@ -354,6 +348,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 string message = $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.";
                 _logger.LogError(exception, message);
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
+                return false;
             }
         }
 
