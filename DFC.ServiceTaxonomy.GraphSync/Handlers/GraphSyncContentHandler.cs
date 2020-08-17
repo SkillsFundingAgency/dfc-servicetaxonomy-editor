@@ -10,7 +10,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
-using GraphQL;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -35,12 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly ILogger<GraphSyncContentHandler> _logger;
         private readonly IGraphSyncHelper _graphSyncHelper;
 
-        private IMergeGraphSyncer? _previewMergeGraphSyncer;
-        private IMergeGraphSyncer? _publishedMergeGraphSyncer;
-
-        private IDeleteGraphSyncer? _previewDeleteGraphSyncer;
-        private IDeleteGraphSyncer? _publishedDeleteGraphSyncer;
-
         public GraphSyncContentHandler(
             IGraphCluster graphCluster,
             IServiceProvider serviceProvider,
@@ -63,23 +56,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _graphSyncHelper = graphSyncHelper;
         }
 
-        //todo: DraftSavingAsync is missing a cancel
-        // need to cancel the session is the draft save isn't allowed
-        // cancel in saving is we can
-        // public override async Task DraftSavingAsync(SaveDraftContentContext context)
-        // {
-        //     _previewMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
-        //         GraphReplicaSetNames.Published, context.ContentItem, contentManager);
-        //
-        //     // sad paths have already been notified to the user and logged
-        //     context.Cancel = _publishedMergeGraphSyncer == null || _previewMergeGraphSyncer == null;
-        // }
-
+        //todo: there's no DraftSavingAsync, and no cancel on the context
+        // either add them to oc, or raise an issue
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            await SyncToGraphReplicaSetIfAllowed(GraphReplicaSetNames.Preview, context.ContentItem, contentManager);
+            if (!await SyncToGraphReplicaSetIfAllowed(
+                GraphReplicaSetNames.Preview,
+                context.ContentItem,
+                contentManager))
+            {
+                _session.Cancel();
+            }
         }
 
         public override async Task PublishingAsync(PublishContentContext context)
@@ -89,13 +78,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             // need to leave these calls serial, with published first,
             // so that published can examine the existing preview graph,
             // when it's figuring out what relationships it needs to recreate
-            _publishedMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
+            IMergeGraphSyncer? publishedMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
                 GraphReplicaSetNames.Published, context.ContentItem, contentManager);
 
-            _previewMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
+            IMergeGraphSyncer? previewMergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(
                 GraphReplicaSetNames.Published, context.ContentItem, contentManager);
 
-            if (_publishedMergeGraphSyncer == null || _previewMergeGraphSyncer == null)
+            if (publishedMergeGraphSyncer == null || previewMergeGraphSyncer == null)
             {
                 // sad paths have already been notified to the user and logged
                 context.Cancel = true;
@@ -104,8 +93,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             // again, not concurrent and published first (for recreating incoming relationships)
             // (at least until until expected atomic sync changes)
-            if (!await SyncToGraphReplicaSet(_publishedMergeGraphSyncer, context.ContentItem)
-                || !await SyncToGraphReplicaSet(_previewMergeGraphSyncer, context.ContentItem))
+            if (!await SyncToGraphReplicaSet(publishedMergeGraphSyncer, context.ContentItem)
+                || !await SyncToGraphReplicaSet(previewMergeGraphSyncer, context.ContentItem))
             {
                 context.Cancel = true;
             }
@@ -113,24 +102,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public override async Task UnpublishingAsync(PublishContentContext context)
         {
-            _publishedDeleteGraphSyncer = await GetDeleteGraphSyncerIfDeleteAllowed(
+            IDeleteGraphSyncer? publishedDeleteGraphSyncer = await GetDeleteGraphSyncerIfDeleteAllowed(
                 context.ContentItem,
                 _publishedContentItemVersion,
                 DeleteOperation.Unpublish);
 
-            //todo: unpublish is passed a PublishContentContext, so cancel is probably ignored
-            context.Cancel = _publishedDeleteGraphSyncer == null;
-        }
-
-        public override async Task UnpublishedAsync(PublishContentContext context)
-        {
-            if (_publishedDeleteGraphSyncer == null)
+            if (publishedDeleteGraphSyncer == null)
             {
-                throw new InvalidOperationException(
-                    $"{nameof(_publishedDeleteGraphSyncer)} is null: unpublish should have been cancelled by the unpublishing handler.");
+                //todo: unpublish is passed a PublishContentContext, so cancel is probably ignored
+                context.Cancel = true;
+                return;
             }
 
-            await DeleteFromGraphReplicaSet(_publishedDeleteGraphSyncer, context.ContentItem);
+            context.Cancel = !await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer, context.ContentItem);
 
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
@@ -145,11 +129,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
+        // State          Action     Context:latest      published     no active version left
+        // Pub            Delete            0            0                1
+        // Pub+Draft      Discard Draft     0            0                0
+        // Draft          Delete            0            0                1
+        // Pub+Draft      Delete            0            0                1
         public override async Task RemovingAsync(RemoveContentContext context)
         {
             //todo: test draft-discard
-            if (!context.NoActiveVersionLeft)
+            if (context.NoActiveVersionLeft)
+            {
+                await Delete(context);
                 return;
+            }
+
+            await DiscardDraft(context);
+        }
+
+        private async Task Delete(RemoveContentContext context)
+        {
+            // we could be more selective deciding which replica set to delete from,
+            // but the context doesn't seem to be there, and our delete is idempotent
 
             var deleteGraphSyncers = await Task.WhenAll(
                 GetDeleteGraphSyncerIfDeleteAllowed(
@@ -157,58 +157,44 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 GetDeleteGraphSyncerIfDeleteAllowed(
                     context.ContentItem, _previewContentItemVersion, DeleteOperation.Delete));
 
-            _publishedDeleteGraphSyncer = deleteGraphSyncers[0];
-            _previewDeleteGraphSyncer = deleteGraphSyncers[1];
+            IDeleteGraphSyncer? publishedDeleteGraphSyncer = deleteGraphSyncers[0];
+            IDeleteGraphSyncer? previewDeleteGraphSyncer = deleteGraphSyncers[1];
 
             //todo: removing doesn't have it's own context with a cancel, so will have to cancel the session
-            //context.Cancel = cancelPreview || cancelPublished;
-        }
-
-        // State          Action     Context:latest      published     no active version left
-        // Pub            Delete            0            0                1
-        // Pub+Draft      Discard Draft     0            0                0
-        // Draft          Delete            0            0                1
-        // Pub+Draft      Delete            0            0                1
-        public override async Task RemovedAsync(RemoveContentContext context)
-        {
-            // we could be more selective deciding which replica set to delete from,
-            // but the context doesn't seem to be there, and our delete is idempotent
-
-            if (context.NoActiveVersionLeft)
+            if (publishedDeleteGraphSyncer == null || previewDeleteGraphSyncer == null)
             {
-                if (_publishedDeleteGraphSyncer == null)
-                {
-                    throw new InvalidOperationException(
-                        $"{nameof(_publishedDeleteGraphSyncer)} is null: removed should have been cancelled by the removing handler.");
-                }
-
-                if (_previewDeleteGraphSyncer == null)
-                {
-                    throw new InvalidOperationException(
-                        $"{nameof(_previewDeleteGraphSyncer)} is null: removed should have been cancelled by the removing handler.");
-                }
-
-                await Task.WhenAll(
-                    DeleteFromGraphReplicaSet(_publishedDeleteGraphSyncer, context.ContentItem),
-                    DeleteFromGraphReplicaSet(_previewDeleteGraphSyncer, context.ContentItem));
+                _session.Cancel();
                 return;
             }
 
-            // discard draft event
+            var results = await Task.WhenAll(
+                DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer, context.ContentItem),
+                DeleteFromGraphReplicaSet(previewDeleteGraphSyncer, context.ContentItem));
+
+            if (!results[0] || !results[1])
+            {
+                _session.Cancel();
+            }
+        }
+
+        private async Task DiscardDraft(RemoveContentContext context)
+        {
+            //todo: delete draft too!
             //todo: if not allowed cancel delete, return bool?
-            //todo: split across removing and removed
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            ContentItem publishedContentItem = await _publishedContentItemVersion.GetContentItem(contentManager, context.ContentItem.ContentItemId);
+            ContentItem publishedContentItem =
+                await _publishedContentItemVersion.GetContentItem(contentManager, context.ContentItem.ContentItemId);
 
             await SyncToGraphReplicaSetIfAllowed(GraphReplicaSetNames.Preview, publishedContentItem, contentManager);
         }
 
-        private async Task DeleteFromGraphReplicaSet(IDeleteGraphSyncer deleteGraphSyncer, ContentItem contentItem)
+        private async Task<bool> DeleteFromGraphReplicaSet(IDeleteGraphSyncer deleteGraphSyncer, ContentItem contentItem)
         {
             try
             {
                 await deleteGraphSyncer.Delete();
+                return true;
             }
             catch (CommandValidationException ex)
             {
@@ -221,7 +207,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     //todo: use Removing event instead
                     _session.Cancel();
                     AddFailureNotifier(contentItem);
-                    throw;
                 }
             }
             catch(Exception ex)
@@ -231,9 +216,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 AddFailureNotifier(contentItem);
                 throw;
             }
+            return false;
         }
 
-        private async Task SyncToGraphReplicaSetIfAllowed(
+        private async Task<bool> SyncToGraphReplicaSetIfAllowed(
             string replicaSetName,
             ContentItem contentItem,
             IContentManager contentManager)
@@ -243,8 +229,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             //todo: new operationdescription
             IMergeGraphSyncer? mergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(replicaSetName, contentItem, contentManager);
 
-            if (mergeGraphSyncer != null)
-                await SyncToGraphReplicaSet(mergeGraphSyncer, contentItem);
+            if (mergeGraphSyncer == null)
+                return false;
+
+            return await SyncToGraphReplicaSet(mergeGraphSyncer, contentItem);
         }
 
         private async Task<IMergeGraphSyncer?> GetMergeGraphSyncerIfSyncAllowed(
@@ -314,6 +302,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
+        private async Task<bool> SyncToGraphReplicaSet(IMergeGraphSyncer mergeGraphSyncer, ContentItem contentItem)
+        {
+            try
+            {
+                await mergeGraphSyncer.SyncToGraphReplicaSet();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                string contentType = GetContentTypeDisplayName(contentItem);
+
+                string message = $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.";
+                _logger.LogError(exception, message);
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
+                return false;
+            }
+        }
+
         #pragma warning disable S1172
         private void AddBlockedNotifier(
             string operationDescription,
@@ -333,24 +339,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
         }
         #pragma warning restore S1172
-
-        private async Task<bool> SyncToGraphReplicaSet(IMergeGraphSyncer mergeGraphSyncer, ContentItem contentItem)
-        {
-            try
-            {
-                await mergeGraphSyncer.SyncToGraphReplicaSet();
-                return true;
-            }
-            catch (Exception exception)
-            {
-                string contentType = GetContentTypeDisplayName(contentItem);
-
-                string message = $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.";
-                _logger.LogError(exception, message);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
-                return false;
-            }
-        }
 
         private void AddFailureNotifier(ContentItem contentItem)
         {
