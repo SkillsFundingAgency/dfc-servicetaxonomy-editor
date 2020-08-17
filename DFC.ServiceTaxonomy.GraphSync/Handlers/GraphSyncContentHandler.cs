@@ -250,7 +250,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 //todo: if this check is needed after the published/draft work, don't rely on the message!
                 if (ex.Message != "Expecting 1 node to be deleted, but 0 were actually deleted.")
                 {
-                    //todo: use Removing event instead
                     _session.Cancel();
                     AddFailureNotifier(contentItem);
                 }
@@ -270,9 +269,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             ContentItem contentItem,
             IContentManager contentManager)
         {
-            //todo: use MergeGraphSyncer syncifallowed?
-
-            //todo: new operationdescription
+            //todo: new operationdescription?
             IMergeGraphSyncer? mergeGraphSyncer = await GetMergeGraphSyncerIfSyncAllowed(replicaSetName, contentItem, contentManager);
 
             if (mergeGraphSyncer == null)
@@ -300,7 +297,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
                 AddBlockedNotifier("Syncing to", replicaSetName, allowSyncResult, contentItem);
                 return null;
-
             }
             catch (Exception exception)
             {
@@ -346,7 +342,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             _logger.LogWarning(message);
 
-            //todo: we get each blocker twice because of 2 graphs in replica (think) - either list blockers by graph or distinct them
             //todo: need details of the content item with incoming relationships
             _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
         }
