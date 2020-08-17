@@ -137,6 +137,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 if (!await Delete(context))
                 {
+                    // removing doesn't have it's own context with a cancel, so we cancel the session
                     _session.Cancel();
                 }
                 return;
@@ -168,11 +169,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 return false;
             }
 
-            var results = await Task.WhenAll(
-                DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer, context.ContentItem),
-                DeleteFromGraphReplicaSet(previewDeleteGraphSyncer, context.ContentItem));
+            // the preview graph contains a superset of the published graph,
+            // so we try deleting from the preview graph first, and only move onto published
+            // if the preview sync worked
+            //todo: add any failure checks into allow check
 
-            return results[0] && results[1];
+            if (!await DeleteFromGraphReplicaSet(previewDeleteGraphSyncer, context.ContentItem))
+            {
+                return false;
+            }
+
+            return await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer, context.ContentItem);
         }
 
         private async Task<bool> DiscardDraft(RemoveContentContext context)
@@ -352,7 +359,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             string contentType = GetContentTypeDisplayName(contentItem);
 
             _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-                $"The {contentItem.DisplayText} {contentType} could not be removed because the associated node could not be deleted from the graph."));
+                $"The '{contentItem.DisplayText}' {contentType} could not be removed because the associated node could not be deleted from the graph."));
         }
 
         private string GetContentTypeDisplayName(ContentItem contentItem)
