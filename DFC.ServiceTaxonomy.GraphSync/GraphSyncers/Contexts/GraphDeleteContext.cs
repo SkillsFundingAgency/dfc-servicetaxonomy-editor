@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -10,12 +11,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class GraphDeleteContext : GraphSyncContext, IGraphDeleteItemSyncContext
     {
+        public new IGraphDeleteContext? ParentContext { get; }
+        public new IEnumerable<IGraphDeleteContext> ChildContexts => _childContexts.Cast<IGraphDeleteContext>();
+
         public IDeleteGraphSyncer DeleteGraphSyncer { get; }
         public IDeleteNodeCommand DeleteNodeCommand { get; }
         public DeleteOperation DeleteOperation { get; }
         public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
-        public IEnumerable<IGraphDeleteContext> ChildContexts => _childContexts;
-        private readonly List<IGraphDeleteContext> _childContexts;
 
         public GraphDeleteContext(
             ContentItem contentItem,
@@ -33,13 +35,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             DeleteNodeCommand = deleteNodeCommand;
             DeleteOperation = deleteOperation;
             DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
-
-            _childContexts = new List<IGraphDeleteContext>();
-        }
-
-        public void AddChildContext(IGraphDeleteContext graphDeleteContext)
-        {
-            _childContexts.Add(graphDeleteContext);
         }
     }
 }
