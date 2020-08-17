@@ -300,7 +300,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 if (allowSyncResult.AllowSync == SyncStatus.Allowed)
                     return mergeGraphSyncer;
 
-                AddBlockedNotifier("Publishing to", replicaSetName, allowSyncResult, contentItem);
+                AddBlockedNotifier("Syncing to", replicaSetName, allowSyncResult, contentItem);
                 return null;
 
             }
