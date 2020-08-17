@@ -223,10 +223,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                     allDeleteIncomingRelationshipsProperties.UnionWith(TwoWayRelationshipProperties);
 
-
-
-
-
                     IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
                         contentItem,
                         context.ContentItemVersion,

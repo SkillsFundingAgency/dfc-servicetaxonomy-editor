@@ -146,8 +146,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ContentItem contentItem,
             IGraphDeleteContext parentContext)
         {
-            //todo: shared code
-
             if (contentItem.Content.GraphSyncPart == null)
                 return;
 
