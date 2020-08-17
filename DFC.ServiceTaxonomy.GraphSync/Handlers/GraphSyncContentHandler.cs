@@ -21,7 +21,6 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
-    //todo: test changes & split draft-discard & check cancels honoured & cancel session when no cancel or not honored & check operation descriptions all good
     public class GraphSyncContentHandler : ContentHandlerBase
     {
         private readonly IGraphCluster _graphCluster;

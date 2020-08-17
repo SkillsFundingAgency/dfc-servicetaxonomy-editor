@@ -16,7 +16,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using MoreLinq;
 using OrchardCore.ContentManagement;
-using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
@@ -27,19 +26,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IDeleteNodeCommand _deleteNodeCommand;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IContentManager _contentManager;
-        private readonly IDeleteNodesByTypeCommand _deleteNodesByTypeCommand;
-        private readonly ISession _session;
         private readonly ILogger<DeleteGraphSyncer> _logger;
         private GraphDeleteContext? _graphDeleteItemSyncContext;
 
         public DeleteGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IGraphCluster graphCluster,
-            IDeleteNodesByTypeCommand deleteNodesByTypeCommand,
             IDeleteNodeCommand deleteNodeCommand,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
-            ISession session,
             ILogger<DeleteGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -47,43 +42,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand = deleteNodeCommand;
             _graphSyncHelper = graphSyncHelper;
             _contentManager = contentManager;
-            _deleteNodesByTypeCommand = deleteNodesByTypeCommand;
-            _session = session;
             _logger = logger;
 
             _graphDeleteItemSyncContext = null;
-        }
-
-        //todo: move into class
-        public async Task DeleteNodesByType(string graphReplicaSetName, string contentType)
-        {
-            if (string.IsNullOrWhiteSpace(contentType))
-                return;
-
-            _logger.LogInformation($"Sync: deleting all nodes of {contentType}");
-
-            _graphSyncHelper.ContentType = contentType;
-
-            _deleteNodesByTypeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels(contentType));
-
-            try
-            {
-                await _graphCluster.Run(graphReplicaSetName, _deleteNodesByTypeCommand);
-            }
-            //todo: specify which exceptions to handle?
-            catch
-            {
-                //this forces a rollback of the current OC db transaction
-                _session.Cancel();
-                throw;
-            }
         }
 
         public async Task Delete()
         {
             await DeleteEmbedded();
 
-            //todo: morelinq traversal
             await DeleteFromGraphReplicaSet();
         }
 
