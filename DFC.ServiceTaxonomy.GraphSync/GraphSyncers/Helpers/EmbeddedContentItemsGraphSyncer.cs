@@ -253,9 +253,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 foreach (ContentItem contentItem in embeddedContentItemsOfType)
                 {
-                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem,
-                        //todo: no need to pass context now
-                        context);
+                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem);
                 }
             }
         }

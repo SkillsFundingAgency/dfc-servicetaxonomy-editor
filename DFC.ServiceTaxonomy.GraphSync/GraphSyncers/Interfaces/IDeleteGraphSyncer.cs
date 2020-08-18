@@ -26,6 +26,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         Task Delete();
 
-        Task DeleteEmbedded(ContentItem contentItem, IGraphDeleteContext parentContext);
+        Task DeleteEmbedded(ContentItem contentItem);
     }
 }

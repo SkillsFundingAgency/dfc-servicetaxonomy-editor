@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -11,15 +12,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class GraphMergeContext : GraphSyncContext, IGraphMergeItemSyncContext
     {
-        //todo: can we use c#9 covariant returns in interfaces?
         public new IGraphMergeContext? ParentContext { get; }
         public new IEnumerable<IGraphMergeContext> ChildContexts => _childContexts.Cast<IGraphMergeContext>();
 
+        public IMergeGraphSyncer MergeGraphSyncer { get; }
         public IGraphReplicaSet GraphReplicaSet { get; }
         public IMergeNodeCommand MergeNodeCommand { get; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; }
+        public IEnumerable<IReplaceRelationshipsCommand>? RecreateIncomingPreviewContentPickerRelationshipsCommands { get; set; }
 
         public GraphMergeContext(
+            IMergeGraphSyncer mergeGraphSyncer,
             IGraphSyncHelper graphSyncHelper,
             IGraphReplicaSet graphReplicaSet,
             IMergeNodeCommand mergeNodeCommand,
@@ -30,9 +33,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IGraphMergeContext? parentGraphMergeContext)
         : base(contentItem, graphSyncHelper, contentManager, contentItemVersionFactory.Get(graphReplicaSet.Name), parentGraphMergeContext)
         {
+            MergeGraphSyncer = mergeGraphSyncer;
             GraphReplicaSet = graphReplicaSet;
             MergeNodeCommand = mergeNodeCommand;
             ReplaceRelationshipsCommand = replaceRelationshipsCommand;
+
+            RecreateIncomingPreviewContentPickerRelationshipsCommands = null;
         }
     }
 }
