@@ -94,5 +94,19 @@
         text-align: left;
     }
 
+    .govuk-accordion {
+        border-bottom: 1px solid #b1b4b6;
+        margin-bottom: 30px;
+    }
+
+    .govuk-accordion__section-header {
+        border-top: 1px solid #b1b4b6;
+    }
+
+    .govuk-accordion__section-content {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
     @include meta.load-css("../../node_modules/nationalcareers_toolkit/assets/dist/css/all");
 }
