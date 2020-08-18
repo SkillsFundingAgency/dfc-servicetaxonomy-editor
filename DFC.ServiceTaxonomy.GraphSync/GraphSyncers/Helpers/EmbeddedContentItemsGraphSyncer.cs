@@ -7,7 +7,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
@@ -152,14 +151,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
-                IMergeGraphSyncer mergeGraphSyncer = allowSyncResult == null
-                    ? context.MergeGraphSyncer
-                    : GetNewMergeGraphSyncer();
+                IMergeGraphSyncer mergeGraphSyncer;
 
-                IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
-                allowSyncResult?.AddRelated(embeddedAllowSyncResult);
-                if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
-                    continue;
+                if (allowSyncResult == null)
+                {
+                    // we're actually syncing, not checking if it's allowed
+                    mergeGraphSyncer = context.MergeGraphSyncer;
+                }
+                else
+                {
+                    mergeGraphSyncer = GetNewMergeGraphSyncer();
+
+                    IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
+                    allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                    if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
+                        continue;
+                }
 
                 IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
 
@@ -173,9 +180,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 else
                 {
                     // we need to get the id
-                    var graphSyncPartGraphSyncer = _serviceProvider.GetRequiredService<IGraphSyncPartGraphSyncer>();
-                    graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
-                        mergeGraphSyncer.GraphMergeContext);
+                    // var graphSyncPartGraphSyncer = _serviceProvider.GetRequiredService<IGraphSyncPartGraphSyncer>();
+                    // graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
+                    //     mergeGraphSyncer.GraphMergeContext);
                     //todo: delegate to mergeGraphSyncer then ContentItemGraphSyncer?
                 }
 

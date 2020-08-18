@@ -10,6 +10,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
@@ -30,6 +31,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     public class MergeGraphSyncer : IMergeGraphSyncer
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
+        private readonly IGraphSyncPartGraphSyncer _graphSyncPartGraphSyncer;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
@@ -50,8 +52,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private const string CreatedDatePropertyName = "CreatedDate";
         private const string ModifiedDatePropertyName = "ModifiedDate";
 
+        //todo: commands only in context and create context using ActivatorUtilities.CreateInstance
+
         public MergeGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
+            IGraphSyncPartGraphSyncer graphSyncPartGraphSyncer,
             IGraphSyncHelper graphSyncHelper,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -65,6 +70,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ILogger<MergeGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
+            _graphSyncPartGraphSyncer = graphSyncPartGraphSyncer;
             _graphSyncHelper = graphSyncHelper;
             MergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
@@ -119,15 +125,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
-            await PopulateMergeNodeCommand(contentItem);
-
-            SetSourceNodeInReplaceRelationshipsCommand(graphReplicaSet, graphSyncPartContent);
-
             _graphMergeContext = new GraphMergeContext(
                 this, _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext, _serviceProvider);
 
             parentGraphMergeContext?.AddChildContext(_graphMergeContext);
+
+            await PopulateMergeNodeCommand(graphSyncPartContent);
+
+            SetSourceNodeInReplaceRelationshipsCommand(); //graphReplicaSet, graphSyncPartContent);
 
             //should it go in the context?
             _incomingPreviewContentPickerRelationships = await GetIncomingPreviewContentPickerRelationshipsWhenPublishing(
@@ -138,23 +144,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return await SyncAllowed();
         }
 
-        private async Task PopulateMergeNodeCommand(ContentItem contentItem)
+        private async Task PopulateMergeNodeCommand(JObject graphSyncPartContent)
         {
             MergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
             MergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
-
+//todo: only need the times at sync time, not allowed!?
             // add created and modified dates to all content items
-            if (contentItem.CreatedUtc.HasValue)
+            if (_graphMergeContext!.ContentItem.CreatedUtc.HasValue)
             {
-                MergeNodeCommand.Properties.Add(
-                    await _graphSyncHelper.PropertyName(CreatedDatePropertyName), contentItem.CreatedUtc.Value);
+                MergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName(CreatedDatePropertyName),
+                    _graphMergeContext.ContentItem.CreatedUtc.Value);
             }
 
-            if (contentItem.ModifiedUtc.HasValue)
+            if (_graphMergeContext.ContentItem.ModifiedUtc.HasValue)
             {
-                MergeNodeCommand.Properties.Add(
-                    await _graphSyncHelper.PropertyName(ModifiedDatePropertyName), contentItem.ModifiedUtc.Value);
+                MergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName(ModifiedDatePropertyName),
+                    _graphMergeContext.ContentItem.ModifiedUtc.Value);
             }
+
+            await _graphSyncPartGraphSyncer.AddSyncComponents(graphSyncPartContent, _graphMergeContext!);
         }
 
         private async Task<IAllowSyncResult> SyncAllowed()
@@ -187,7 +195,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task SyncEmbedded(ContentItem contentItem)
         {
-            _logger.LogDebug("Syncing embedded {ContentItem}.", _graphMergeContext?.ContentItem.ToString());
+            _logger.LogDebug("Syncing embedded {ContentItem}.", contentItem.ToString());
 
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
@@ -315,25 +323,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (!ctx.GraphSyncHelper.GraphSyncPartSettings.PreexistingNode)
                         nodeCommands.Add(ctx.MergeNodeCommand);
 
-                    if (_graphMergeContext!.RecreateIncomingPreviewContentPickerRelationshipsCommands?.Any() == true)
-                        nodeCommands.AddRange(_graphMergeContext!.RecreateIncomingPreviewContentPickerRelationshipsCommands);
+                    if (ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands?.Any() == true)
+                        nodeCommands.AddRange(ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands);
 
-                    if (_replaceRelationshipsCommand.Relationships.Any())
-                        nodeCommands.Add(_replaceRelationshipsCommand);
+                    if (ctx.ReplaceRelationshipsCommand.Relationships.Any())
+                        nodeCommands.Add(ctx.ReplaceRelationshipsCommand);
 
                     return nodeCommands;
                 })
+                //.Reverse()
                 .ToArray();
 
             await _graphMergeContext!.GraphReplicaSet.Run(breadthFirstContexts.ToArray());
         }
 
-        private void SetSourceNodeInReplaceRelationshipsCommand(IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
+        private void SetSourceNodeInReplaceRelationshipsCommand()//IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
         {
             _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(MergeNodeCommand.NodeLabels);
             _replaceRelationshipsCommand.SourceIdPropertyName = MergeNodeCommand.IdPropertyName;
-            _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
-                graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
+            // _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+            //     graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
+            //todo: helper for this, used elsewhere
+            _replaceRelationshipsCommand.SourceIdPropertyValue =
+                _graphMergeContext!.MergeNodeCommand.Properties[_graphMergeContext.MergeNodeCommand.IdPropertyName!];
         }
     }
 }
