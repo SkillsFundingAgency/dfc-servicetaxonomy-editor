@@ -6,7 +6,11 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
@@ -189,6 +193,73 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
+        public async Task AllowDelete(
+            JArray? contentItems,
+            IGraphDeleteContext context,
+            IAllowSyncResult allowSyncResult)
+        {
+            //todo: helper for common code
+            ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
+
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            var embeddedContentItemsByType = embeddedContentItems
+                .GroupBy(ci => ci.ContentType)
+                .Where(g => embeddableContentTypes.Contains(g.Key));
+
+            foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
+            {
+                foreach (ContentItem contentItem in embeddedContentItemsOfType)
+                {
+                    IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+
+                    //todo: probably belongs in deletegraphsyncer DeleteEmbeddedAllowed
+                    var allDeleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
+
+                    if (context.DeleteIncomingRelationshipsProperties != null)
+                    {
+                        allDeleteIncomingRelationshipsProperties.UnionWith(context.DeleteIncomingRelationshipsProperties);
+                    }
+
+                    allDeleteIncomingRelationshipsProperties.UnionWith(TwoWayRelationshipProperties);
+
+                    IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
+                        contentItem,
+                        context.ContentItemVersion,
+                        context.DeleteOperation,
+                        allDeleteIncomingRelationshipsProperties,
+                        context);
+
+                    allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                }
+            }
+        }
+
+        //todo: best place for this to live?
+        private static IEnumerable<KeyValuePair<string, object>> TwoWayRelationshipProperties { get; } =
+            new Dictionary<string, object> {{NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName, true}};
+
+        public async Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context)
+        {
+            ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
+
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            var embeddedContentItemsByType = embeddedContentItems
+                .GroupBy(ci => ci.ContentType)
+                .Where(g => embeddableContentTypes.Contains(g.Key));
+
+            foreach (var embeddedContentItemsOfType in embeddedContentItemsByType)
+            {
+                foreach (ContentItem contentItem in embeddedContentItemsOfType)
+                {
+                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem,
+                        //todo: no need to pass context now
+                        context);
+                }
+            }
+        }
+
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)
         {
             if (_removingRelationships?.Any() != true)
@@ -327,7 +398,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context);
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context);
 
         //todo: need to separate GraphSyncHelper into stateful and stateless
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)

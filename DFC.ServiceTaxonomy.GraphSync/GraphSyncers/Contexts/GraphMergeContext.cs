@@ -1,5 +1,6 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using OrchardCore.ContentManagement;
@@ -12,10 +13,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public IMergeNodeCommand MergeNodeCommand { get; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; }
 
-        public ContentItem ContentItem { get; }
-
-        public IGraphMergeContext? ParentGraphMergeContext { get; }
-
         public GraphMergeContext(
             IGraphSyncHelper graphSyncHelper,
             IGraphReplicaSet graphReplicaSet,
@@ -25,15 +22,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersionFactory contentItemVersionFactory,
             IGraphMergeContext? parentGraphMergeContext)
-        : base(graphSyncHelper, contentManager)
+        : base(contentItem, graphSyncHelper, contentManager, contentItemVersionFactory.Get(graphReplicaSet.Name), parentGraphMergeContext)
         {
             GraphReplicaSet = graphReplicaSet;
             MergeNodeCommand = mergeNodeCommand;
             ReplaceRelationshipsCommand = replaceRelationshipsCommand;
-            ContentItem = contentItem;
-            ParentGraphMergeContext = parentGraphMergeContext;
-
-            ContentItemVersion = contentItemVersionFactory.Get(graphReplicaSet.Name);
         }
     }
 }

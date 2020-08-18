@@ -3,19 +3,19 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
 using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 {
-    public class GraphLookupPartGraphSyncer : IContentPartGraphSyncer
+    public class GraphLookupPartGraphSyncer : ContentPartGraphSyncer
     {
-        public string PartName => nameof(GraphLookupPart);
+        public override string PartName => nameof(GraphLookupPart);
 
         private const string NodesPropertyName = "Nodes";
 
-        public Task AddSyncComponents(JObject graphLookupContent, IGraphMergeContext context)
+        public override Task AddSyncComponents(JObject graphLookupContent, IGraphMergeContext context)
         {
             var settings = context.ContentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
 
@@ -42,7 +42,8 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             GraphLookupPart? graphLookupPart = content.ToObject<GraphLookupPart>();

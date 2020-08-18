@@ -45,15 +45,19 @@ $@"MATCH (n:{string.Join(':',NodeLabels)} {{{IdPropertyName}:'{IdPropertyValue}'
 OPTIONAL MATCH (n)-[r]->()
 ");
 
+                Dictionary<string, object>? parameters = null;
+
                 if (DeleteIncomingRelationshipsProperties?.Any() == true)
                 {
+                    parameters = new Dictionary<string, object>(DeleteIncomingRelationshipsProperties);
+
                     queryBuilder.AppendLine("OPTIONAL MATCH ()-[ir]->(n)");
 
-                    foreach (var property in DeleteIncomingRelationshipsProperties)
-                    {
-                        //todo: (helper to) optionally add '' depending on value type
-                        queryBuilder.AppendLine($"WHERE ir.{property.Key}={property.Value}");
-                    }
+                    queryBuilder.Append("WHERE ");
+
+                    var constraints = DeleteIncomingRelationshipsProperties.Select(p => $"ir.{p.Key}=${p.Key}");
+
+                    queryBuilder.AppendLine(string.Join(" OR ", constraints));
 
                     queryBuilder.AppendLine($"DELETE {(DeleteNode ? "n, r, ir" : "r, ir")}");
                 }
@@ -62,7 +66,7 @@ OPTIONAL MATCH (n)-[r]->()
                     queryBuilder.AppendLine($"DELETE {(DeleteNode ? "n, r" : "r")}");
                 }
 
-                return new Query(queryBuilder.ToString());
+                return new Query(queryBuilder.ToString(), parameters);
             }
         }
 

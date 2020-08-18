@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.Taxonomies.Models;
+using DFC.ServiceTaxonomy.Taxonomies.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
@@ -22,12 +24,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         {
         }
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphMergeContext context)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
         {
-            IGraphMergeContext rootContext = context;
-            while (rootContext.ParentGraphMergeContext != null)
+            IGraphOperationContext rootContext = context;
+            while (rootContext.ParentContext != null)
             {
-                rootContext = rootContext.ParentGraphMergeContext;
+                rootContext = rootContext.ParentContext;
             }
 
             return new string[]
@@ -37,12 +39,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             };
         }
 
-        public bool IsRoot { get; set; }
+        public bool IsNonLeafEmbeddedTerm { get; set; }
 
         protected override async Task<string?> TwoWayIncomingRelationshipType(
             IGraphSyncHelper embeddedContentGraphSyncHelper)
         {
-            return IsRoot ? null : $"{await RelationshipType(embeddedContentGraphSyncHelper)}Parent";
+            return IsNonLeafEmbeddedTerm ? $"{await RelationshipType(embeddedContentGraphSyncHelper)}Parent" : null;
         }
 
         public override async Task AllowSync(

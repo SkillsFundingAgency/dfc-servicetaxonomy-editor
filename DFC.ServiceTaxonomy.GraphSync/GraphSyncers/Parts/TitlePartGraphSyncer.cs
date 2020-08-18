@@ -1,22 +1,21 @@
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using Newtonsoft.Json.Linq;
 using OrchardCore.Title.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
-    public class TitlePartGraphSyncer : IContentPartGraphSyncer
+    public class TitlePartGraphSyncer : ContentPartGraphSyncer
     {
-        public string PartName => nameof(TitlePart);
+        public override string PartName => nameof(TitlePart);
 
         private const string _contentTitlePropertyName = "Title";
 
         //todo: configurable??
         public const string NodeTitlePropertyName = "skos__prefLabel";
 
-        public Task AddSyncComponents(JObject content, IGraphMergeContext context)
+        public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             string? title = context.MergeNodeCommand.AddProperty<string>(NodeTitlePropertyName, content, _contentTitlePropertyName);
             if (title == null)
@@ -25,7 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
-        public Task<(bool validated, string failureReason)> ValidateSyncComponent(
+        public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
         {

@@ -1,4 +1,4 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 
 namespace DFC.ServiceTaxonomy.GraphSync.ViewModels
 {

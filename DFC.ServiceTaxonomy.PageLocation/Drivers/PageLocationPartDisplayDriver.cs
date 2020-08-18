@@ -12,18 +12,24 @@ using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using OrchardCore.ContentManagement.Records;
+using System;
+using DFC.ServiceTaxonomy.Taxonomies.Helper;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
     public class PageLocationPartDisplayDriver : ContentPartDisplayDriver<PageLocationPart>
     {
         private readonly string UrlNamePattern = "^[A-Za-z0-9_-]+$";
+        private readonly string RedirectLocationUrlNamePattern = "^[A-Za-z0-9\\/_-]+$";
 
         private readonly ISession _session;
+        private readonly ITaxonomyHelper _taxonomyHelper;
 
-        public PageLocationPartDisplayDriver(ISession session)
+        public PageLocationPartDisplayDriver(ISession session, ITaxonomyHelper taxonomyHelper)
         {
             _session = session;
+            _taxonomyHelper = taxonomyHelper;
         }
 
         public override IDisplayResult Edit(PageLocationPart pageLocationPart, BuildPartEditorContext context)
@@ -88,7 +94,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                     var redirectConflict = otherPageRedirectLocations.FirstOrDefault(x => redirectLocations.Any(y => y == x));
 
                     if (redirectConflict != null)
-                    {                        
+                    {
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"'{redirectConflict}' has already been used as a redirect location for another page.'");
                         break;
                     }
@@ -100,6 +106,47 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"'{fullUrlConflict}' has already been used as the URL for another page.'");
                         break;
                     }
+                }
+
+                foreach (var redirectLocation in redirectLocations)
+                {
+                    if (!Regex.IsMatch(redirectLocation, RedirectLocationUrlNamePattern))
+                    {
+                        updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"Redirect Location '{redirectLocation}' contains invalid characters. Valid characters include A-Z, 0-9, '-' and '_'.");
+                        break;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(pageLocation.FullUrl))
+            {
+                ContentItem? taxonomy = await _session.Query<ContentItem, ContentItemIndex>(x =>
+                    x.ContentType == Constants.TaxonomyContentType && x.DisplayText == Constants.PageLocationsDisplayText && x.Latest && x.Published).FirstOrDefaultAsync();
+
+                if (taxonomy != null)
+                {
+                    RecursivelyBuildUrls(taxonomy);
+
+                    if (PageLocations.Any(x => x.Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)))
+                    {
+                        updater.ModelState.AddModelError(Prefix, nameof(pageLocation.FullUrl), "This URL has already been used as a Page Location");
+                    }
+                }
+            }
+        }
+
+        private List<string> PageLocations = new List<string>();
+
+        private void RecursivelyBuildUrls(ContentItem taxonomy)
+        {
+            List<ContentItem>? terms = _taxonomyHelper.GetTerms(taxonomy);
+
+            if (terms != null)
+            {
+                foreach (ContentItem term in terms)
+                {
+                    PageLocations.Add(_taxonomyHelper.BuildTermUrl(term, taxonomy));
+                    RecursivelyBuildUrls(term);
                 }
             }
         }

@@ -2,10 +2,8 @@
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
-    public interface IValidateAndRepairItemSyncContext : IValidateAndRepairContext
+    public interface IValidateAndRepairItemSyncContext : IItemSyncContext, IValidateAndRepairContext
     {
-        new ContentTypePartDefinition ContentTypePartDefinition { get; set; }
-
         ContentTypeDefinition ContentTypeDefinition { get; }
         object NodeId { get; }
     }
