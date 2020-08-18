@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IDeleteNodeCommand _deleteNodeCommand;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IContentManager _contentManager;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<DeleteGraphSyncer> _logger;
         private GraphDeleteContext? _graphDeleteItemSyncContext;
 
@@ -35,6 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IDeleteNodeCommand deleteNodeCommand,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
+            IServiceProvider serviceProvider,
             ILogger<DeleteGraphSyncer> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -42,6 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _deleteNodeCommand = deleteNodeCommand;
             _graphSyncHelper = graphSyncHelper;
             _contentManager = contentManager;
+            _serviceProvider = serviceProvider;
             _logger = logger;
 
             _graphDeleteItemSyncContext = null;
@@ -75,7 +79,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphDeleteItemSyncContext = new GraphDeleteContext(
                 contentItem, _deleteNodeCommand, this, deleteOperation, _graphSyncHelper,
-                _contentManager, contentItemVersion, allDeleteIncomingRelationshipsProperties, parentContext);
+                _contentManager, contentItemVersion, allDeleteIncomingRelationshipsProperties, parentContext,
+                _serviceProvider);
 
             parentContext?.AddChildContext(_graphDeleteItemSyncContext);
 

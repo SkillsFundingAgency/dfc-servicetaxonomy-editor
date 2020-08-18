@@ -55,10 +55,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _graphSyncHelper = graphSyncHelper;
         }
 
+        //todo: add log scopes for these operations
+
         //todo: there's no DraftSavingAsync, and no cancel on the context
         // either add them to oc, or raise an issue
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
+            _logger.LogDebug("DraftSaved: Syncing '{ContentItem}' {ContentType} to Preview.",
+                context.ContentItem.ToString(), context.ContentItem.ContentType);
+
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
             if (!await SyncToGraphReplicaSetIfAllowed(
@@ -72,6 +77,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public override async Task PublishingAsync(PublishContentContext context)
         {
+            _logger.LogDebug("Publishing: Syncing '{ContentItem}' {ContentType} to Published and Preview.",
+                context.ContentItem.ToString(), context.ContentItem.ContentType);
+
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
             // need to leave these calls serial, with published first,
@@ -105,6 +113,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public override async Task UnpublishingAsync(PublishContentContext context)
         {
+            _logger.LogDebug("Unpublishing: Removing '{ContentItem}' {ContentType} from Published.",
+                context.ContentItem.ToString(), context.ContentItem.ContentType);
+
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
 
@@ -135,6 +146,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             if (context.NoActiveVersionLeft)
             {
+                _logger.LogDebug("Removing: Removing '{ContentItem}' {ContentType} from Published and/or Preview.",
+                    context.ContentItem.ToString(), context.ContentItem.ContentType);
+
                 if (!await Delete(context))
                 {
                     // removing doesn't have it's own context with a cancel, so we cancel the session
@@ -142,6 +156,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 }
                 return;
             }
+
+            _logger.LogDebug("Removing: Discarding draft '{ContentItem}' {ContentType} by syncing existing Published to Preview.",
+                context.ContentItem.ToString(), context.ContentItem.ContentType);
 
             if (!await DiscardDraft(context))
             {

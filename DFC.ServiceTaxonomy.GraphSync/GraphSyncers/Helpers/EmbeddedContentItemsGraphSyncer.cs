@@ -20,6 +20,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -31,15 +32,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private List<CommandRelationship>? _removingRelationships;
 
         protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
+            _logger = logger;
 
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()
@@ -52,6 +56,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             IAllowSyncResult allowSyncResult)
         {
+            _logger.LogDebug("Do embedded items allow sync?");
+
             List<CommandRelationship> requiredRelationships = await GetRequiredRelationshipsAndOptionallySync(contentItems, context, allowSyncResult);
 
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
@@ -127,6 +133,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
+        private IMergeGraphSyncer GetNewMergeGraphSyncer()
+        {
+            _logger.LogDebug("Getting new IMergeGraphSyncer.");
+
+            return _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+        }
+
         private async Task<List<CommandRelationship>> GetRequiredRelationshipsAndOptionallySync(
             JArray? contentItems,
             IGraphMergeContext context,
@@ -139,7 +152,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
-                var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                IMergeGraphSyncer mergeGraphSyncer = allowSyncResult == null
+                    ? context.MergeGraphSyncer
+                    : GetNewMergeGraphSyncer();
 
                 IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
                 allowSyncResult?.AddRelated(embeddedAllowSyncResult);
@@ -153,7 +168,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 if (allowSyncResult == null)
                 {
                     // we're actually syncing, not checking if it's allowed
-                    await mergeGraphSyncer.SyncToGraphReplicaSet();
+                    await mergeGraphSyncer.SyncEmbedded(contentItem);
                 }
                 else
                 {

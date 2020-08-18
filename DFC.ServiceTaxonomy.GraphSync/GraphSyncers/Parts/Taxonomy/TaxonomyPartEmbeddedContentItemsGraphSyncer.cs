@@ -11,6 +11,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
+using Microsoft.Extensions.Logging;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 {
@@ -19,8 +20,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
     {
         public TaxonomyPartEmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider)
-            : base(contentDefinitionManager, serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger<TaxonomyPartEmbeddedContentItemsGraphSyncer> logger)
+            : base(contentDefinitionManager, serviceProvider, logger)
         {
         }
 

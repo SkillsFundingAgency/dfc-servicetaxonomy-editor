@@ -2,6 +2,7 @@
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
@@ -18,8 +19,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
-            IGraphSyncContext? parentContext)
-            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion)
+            IGraphSyncContext? parentContext,
+            ILogger logger)
+            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, logger)
         {
             ParentContext = parentContext;
 
@@ -28,6 +30,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public void AddChildContext(IGraphSyncContext graphSyncContext)
         {
+            _logger.LogDebug("Adding child to {Context}: {ChildContext}.", ToString(), graphSyncContext.ToString());
+
             _childContexts.Add(graphSyncContext);
         }
     }

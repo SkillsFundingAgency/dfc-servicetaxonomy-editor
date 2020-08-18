@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -18,12 +19,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public IGraphSyncHelper GraphSyncHelper { get; }
 
+        protected readonly ILogger _logger;
+
         protected GraphOperationContext(
             ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
-            IContentItemVersion contentItemVersion)
+            IContentItemVersion contentItemVersion,
+            ILogger logger)
         {
+            _logger = logger;
             ContentItem = contentItem;
             GraphSyncHelper = graphSyncHelper;
             ContentManager = contentManager;
@@ -37,6 +42,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         {
             ContentPartFieldDefinition = contentPartFieldDefinition != null
                 ? new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition) : default;
+        }
+
+        public override string ToString()
+        {
+            return ContentItem.ToString();
         }
     }
 }

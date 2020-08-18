@@ -101,6 +101,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IContentManager contentManager,
             IGraphMergeContext? parentGraphMergeContext = null)
         {
+            _logger.LogDebug("SyncAllowed to {GraphReplicaSetName} for '{ContentItem}' {ContentType}?",
+                graphReplicaSet.Name, contentItem.ToString(), contentItem.ContentType);
+
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
@@ -113,9 +116,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return AllowSyncResult.NotRequired;
             }
 
-            //todo: add log to actual sync
-            _logger.LogDebug($"Checking if sync allowed for {contentItem.ContentType} : {contentItem.ContentItemId}");
-
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
@@ -125,7 +125,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphMergeContext = new GraphMergeContext(
                 this, _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
-                contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext);
+                contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext, _serviceProvider);
 
             parentGraphMergeContext?.AddChildContext(_graphMergeContext);
 
@@ -175,7 +175,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()
         {
-            //todo: syncembedded
+            _logger.LogDebug("Syncing {ContentItem}.", _graphMergeContext?.ContentItem.ToString());
+
             await SyncEmbedded();
 
             _logger.LogInformation($"Syncing {_graphMergeContext!.ContentItem.ContentType} : {_graphMergeContext.ContentItem.ContentItemId} to {MergeNodeCommand}");
@@ -186,12 +187,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task SyncEmbedded(ContentItem contentItem)
         {
+            _logger.LogDebug("Syncing embedded {ContentItem}.", _graphMergeContext?.ContentItem.ToString());
+
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
                 return;
 
             var embeddedMergeContext = _graphMergeContext!.ChildContexts
                 .Single(c => c.ContentItem.ContentItemId == contentItem.ContentItemId);
+
+            _logger.LogDebug("Found existing GraphMergeContext for {ContentItem}.", contentItem.ToString());
 
             var embeddedMergeGraphSyncer = (MergeGraphSyncer)embeddedMergeContext.MergeGraphSyncer;
 
@@ -300,19 +305,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         //todo: should we add a AddIdSyncComponents method?
 
         private async Task SyncComponentsToGraphReplicaSet()
-            // IGraphReplicaSet graphReplicaSet,
-            // IEnumerable<ICommand> extraCommands)
         {
-            List<ICommand> commands = new List<ICommand>();
-
-            if (!_graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
-                commands.Add(MergeNodeCommand);
-
             var breadthFirstContexts = MoreEnumerable
                 .TraverseBreadthFirst((IGraphMergeContext)_graphMergeContext!, ctx => ctx!.ChildContexts)
                 .SelectMany(ctx =>
                 {
-                    var nodeCommands = new List<ICommand> {ctx.MergeNodeCommand};
+                    var nodeCommands = new List<ICommand>();
+
+                    if (!ctx.GraphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+                        nodeCommands.Add(ctx.MergeNodeCommand);
 
                     if (_graphMergeContext!.RecreateIncomingPreviewContentPickerRelationshipsCommands?.Any() == true)
                         nodeCommands.AddRange(_graphMergeContext!.RecreateIncomingPreviewContentPickerRelationshipsCommands);
@@ -322,16 +323,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                     return nodeCommands;
                 })
-                //.Cast<ICommand>()
                 .ToArray();
-
-            // if (extraCommands.Any())
-            //     commands.AddRange(extraCommands);
-            // if (_graphMergeContext!.RecreateIncomingPreviewContentPickerRelationshipsCommands?.Any() == true)
-            //     commands.AddRange(_graphMergeContext!.RecreateIncomingPreviewContentPickerRelationshipsCommands);
-            //
-            // if (_replaceRelationshipsCommand.Relationships.Any())
-            //     commands.Add(_replaceRelationshipsCommand);
 
             await _graphMergeContext!.GraphReplicaSet.Run(breadthFirstContexts.ToArray());
         }

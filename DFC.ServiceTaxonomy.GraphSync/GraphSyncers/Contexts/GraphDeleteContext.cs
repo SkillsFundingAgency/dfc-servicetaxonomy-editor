@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
@@ -29,8 +32,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties,
-            IGraphDeleteContext? parentGraphDeleteContext)
-            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentGraphDeleteContext)
+            IGraphDeleteContext? parentGraphDeleteContext,
+            IServiceProvider serviceProvider)
+            : base(
+                contentItem,
+                graphSyncHelper,
+                contentManager,
+                contentItemVersion,
+                parentGraphDeleteContext,
+                serviceProvider.GetRequiredService<ILogger<GraphDeleteContext>>())
         {
             DeleteGraphSyncer = deleteGraphSyncer;
             DeleteNodeCommand = deleteNodeCommand;

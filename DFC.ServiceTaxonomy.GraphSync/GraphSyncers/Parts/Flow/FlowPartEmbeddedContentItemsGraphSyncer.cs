@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -23,8 +24,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
         public FlowPartEmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider)
-            : base(contentDefinitionManager, serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger<FlowPartEmbeddedContentItemsGraphSyncer> logger)
+            : base(contentDefinitionManager, serviceProvider, logger)
         {
         }
 
