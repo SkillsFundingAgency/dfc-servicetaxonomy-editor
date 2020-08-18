@@ -2,6 +2,7 @@
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphVisualiser.Queries;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -46,6 +47,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
 
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
@@ -56,12 +59,16 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IGraphCluster neoGraphCluster,
             IContentDefinitionManager contentDefinitionManager,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
-            IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
+            IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion)
         {
             _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
             _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
+            _publishedContentItemVersion = publishedContentItemVersion ?? throw new ArgumentNullException(nameof(publishedContentItemVersion));
+            _previewContentItemVersion = previewContentItemVersion ?? throw new ArgumentNullException(nameof(previewContentItemVersion));
         }
 
         public ActionResult Viewer()
@@ -94,7 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private async Task<ActionResult> GetData(string uri, string graph)
         {
             const string prefLabel = "skos__prefLabel";
-            var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
+            var query = new GetNodesCypherQuery(nameof(uri), ReplaceUri(uri, graph), prefLabel, prefLabel);
 
             //todo: allow user to visualise published and draft databases. new story?
             await _neoGraphCluster.Run(graph, query);
@@ -103,6 +110,16 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
+        }
+
+        private string ReplaceUri(string uri, string graph)
+        {
+            if (graph.ToLowerInvariant().Equals("published"))
+            {
+                return  uri.Replace("<<contentapiprefix>>", _publishedContentItemVersion.ContentApiBaseUrl);
+            }
+
+            return uri.Replace("<<contentapiprefix>>", _previewContentItemVersion.ContentApiBaseUrl);
         }
     }
 }

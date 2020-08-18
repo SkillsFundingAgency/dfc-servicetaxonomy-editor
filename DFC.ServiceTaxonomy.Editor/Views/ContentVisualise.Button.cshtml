@@ -22,7 +22,7 @@
             <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
                asp-controller="Visualise"
                asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
-               asp-route-visualise="@graphSyncPartText"
+               asp-route-visualise="@(graphSyncPartText +"&graph=draft")"
                asp-route-graph="preview"
                target="_blank"
                class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise draft graph"]</a>
@@ -32,7 +32,7 @@
                 <a asp-action="@nameof(DFC.ServiceTaxonomy.GraphVisualiser.Controllers.VisualiseController.Viewer)"
                    asp-controller="Visualise"
                    asp-area="@typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup)!.Namespace"
-                   asp-route-visualise="@graphSyncPartText"
+                   asp-route-visualise="@(graphSyncPartText +"&graph=published")"
                    asp-route-graph="published"
                    target="_blank"
                    class="dropdown-item @(!Model.EditMode ? "btn-sm" : "")">@T["Visualise published graph"]</a>
