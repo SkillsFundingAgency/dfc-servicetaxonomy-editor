@@ -8,16 +8,13 @@ using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
-using OrchardCore.ContentManagement.Records;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
-using Org.BouncyCastle.Asn1.X509.Qualified;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
@@ -116,14 +113,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
 
-            foreach (var validator in _validators)
-            {
-                if (!await validator.Validate(contentItem, taxonomy))
-                {
-                    ModelState.AddModelError("", validator.ErrorMessage);
-                }
-            }
-
             if (!ModelState.IsValid)
             {
                 model.TaxonomyContentItemId = taxonomyContentItemId;
@@ -137,7 +126,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 // Use the taxonomy as the parent if no target is specified
                 if (!ValidateTaxonomyTerm(taxonomy, contentItem))
                 {
-                    return DuplicateTaxonomyTermError(model, contentItem, taxonomyContentItemId, taxonomyItemId);
+                    return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
                 }
 
                 taxonomy.Alter<TaxonomyPart>(part => part.Terms.Add(contentItem));
@@ -155,7 +144,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 if (!ValidateTaxonomyTerm(parentTaxonomyItem.ToObject<ContentItem>(), contentItem))
                 {
-                    return DuplicateTaxonomyTermError(model, contentItem, taxonomyContentItemId, taxonomyItemId);
+                    return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
                 }
 
                 var taxonomyItems = parentTaxonomyItem?.Terms as JArray;
@@ -166,6 +155,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
                 }
 
                 taxonomyItems.Add(JObject.FromObject(contentItem));
+            }
+
+            foreach (var validator in _validators)
+            {
+                if (!await validator.Validate(contentItem, taxonomy))
+                {
+                    return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
+                }
             }
 
             taxonomy.Published = false;
@@ -251,14 +248,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
-            foreach (var validator in _validators)
-            {
-                if (!await validator.Validate(contentItem, taxonomy))
-                {
-                    ModelState.AddModelError("", validator.ErrorMessage);
-                }
-            }
-
             if (!ModelState.IsValid)
             {
                 model.TaxonomyContentItemId = taxonomyContentItemId;
@@ -275,7 +264,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             if (!ValidateTaxonomyTerm(parentTaxonomyTerm, contentItem))
             {
-                return DuplicateTaxonomyTermError(model, taxonomy, taxonomyContentItemId, taxonomyItemId);
+                return ValidationError($"Another {contentItem.ContentType} already exists with this name.", model, taxonomyContentItemId, taxonomyItemId);
             }
 
             taxonomyItem.Merge(contentItem.Content, new JsonMergeSettings
@@ -286,6 +275,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             // Merge doesn't copy the properties
             taxonomyItem[nameof(ContentItem.DisplayText)] = contentItem.DisplayText;
+
+            foreach (var validator in _validators)
+            {
+                if (!await validator.Validate(contentItem, taxonomy))
+                {
+                    return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
+                }
+            }
 
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
@@ -367,15 +364,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             return null;
         }
 
-        private bool ValidateTaxonomyTerm(ContentItem parent, ContentItem term)
+        private bool ValidateTaxonomyTerm(dynamic parent, ContentItem term)
         {
-            List<ContentItem> terms = _taxonomyHelper.GetTerms(parent);
+            List<dynamic> terms = _taxonomyHelper.GetTerms(parent);
             return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
         }
 
-        private IActionResult DuplicateTaxonomyTermError(dynamic model, ContentItem contentItem, string taxonomyContentItemId, string taxonomyItemId)
+        private IActionResult ValidationError(string errorMessage, dynamic model, string taxonomyContentItemId, string taxonomyItemId)
         {
-            ModelState.AddModelError("", $"Another {contentItem.ContentType} already exists with this name.");
+            ModelState.AddModelError("", errorMessage);
 
             model.TaxonomyContentItemId = taxonomyContentItemId;
             model.TaxonomyItemId = taxonomyItemId;
