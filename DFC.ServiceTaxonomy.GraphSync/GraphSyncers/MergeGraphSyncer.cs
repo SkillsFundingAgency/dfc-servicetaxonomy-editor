@@ -314,27 +314,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task SyncComponentsToGraphReplicaSet()
         {
-            var breadthFirstContexts = MoreEnumerable
+            var commands = MoreEnumerable
                 .TraverseBreadthFirst((IGraphMergeContext)_graphMergeContext!, ctx => ctx!.ChildContexts)
                 .SelectMany(ctx =>
                 {
                     var nodeCommands = new List<ICommand>();
 
-                    if (!ctx.GraphSyncHelper.GraphSyncPartSettings.PreexistingNode)
-                        nodeCommands.Add(ctx.MergeNodeCommand);
+                    if (ctx.ReplaceRelationshipsCommand.Relationships.Any())
+                        nodeCommands.Add(ctx.ReplaceRelationshipsCommand);
 
                     if (ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands?.Any() == true)
                         nodeCommands.AddRange(ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands);
 
-                    if (ctx.ReplaceRelationshipsCommand.Relationships.Any())
-                        nodeCommands.Add(ctx.ReplaceRelationshipsCommand);
+                    if (!ctx.GraphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+                        nodeCommands.Add(ctx.MergeNodeCommand);
 
                     return nodeCommands;
                 })
-                //.Reverse()
+                .Reverse()
                 .ToArray();
 
-            await _graphMergeContext!.GraphReplicaSet.Run(breadthFirstContexts.ToArray());
+            await _graphMergeContext!.GraphReplicaSet.Run(commands);
         }
 
         private void SetSourceNodeInReplaceRelationshipsCommand()//IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
