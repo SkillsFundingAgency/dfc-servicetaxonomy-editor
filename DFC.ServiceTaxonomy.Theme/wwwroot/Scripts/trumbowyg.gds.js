@@ -138,9 +138,9 @@
                         title: trumbowyg.lang.heading
                     });
 
-                    trumbowyg.addBtnDef('Accordion', {
+                    trumbowyg.addBtnDef('accordion', {
                         dropdown: buildAccordionDropdown(trumbowyg),
-                        ico: 'Ac',
+                        ico: 'ordered-list',
                         text: 'Accordion'
                     });
 
