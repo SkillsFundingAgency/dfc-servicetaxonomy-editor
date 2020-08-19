@@ -16,7 +16,7 @@
                     "ContentItemId": "4eembshqzx66drajtdten34tc8",
                     "ContentItemVersionId": "415erye21mz2k0ayxp9br5cpdr",
                     "ContentType": "Taxonomy",
-                    "DisplayText": "Page Location",
+                    "DisplayText": "Page Locations",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2020-06-17T13:05:41.7199601Z",
@@ -25,13 +25,13 @@
                     "Owner": "admin",
                     "Author": "admin",
                     "TitlePart": {
-                        "Title": "Page Location"
+                        "Title": "Page Locations"
                     },
                     "AliasPart": {
-                        "Alias": "page-location"
+                        "Alias": "page-locations"
                     },
                     "AutoroutePart": {
-                        "Path": "page-location",
+                        "Path": "page-locations",
                         "SetHomepage": false,
                         "Disabled": false,
                         "RouteContainedItems": false,
@@ -55,8 +55,8 @@
                                     "Title": "/"
                                 },
                                 "PageLocation": {
-                                    "ContentsPage": {
-                                        "Value": false
+                                    "BreadcrumbText": {
+                                        "Text": "Home"
                                     }
                                 },
                                 "GraphSyncPart": {
@@ -85,8 +85,8 @@
                                             "Title": "about-us"
                                         },
                                         "PageLocation": {
-                                            "ContentsPage": {
-                                                "Value": false
+                                            "BreadcrumbText": {
+                                                "Text": "About Us"
                                             }
                                         },
                                         "GraphSyncPart": {
@@ -115,8 +115,8 @@
                                             "Title": "contact-us"
                                         },
                                         "PageLocation": {
-                                            "ContentsPage": {
-                                                "Value": false
+                                            "BreadcrumbText": {
+                                                "Text": "Contact Us"
                                             }
                                         },
                                         "GraphSyncPart": {
@@ -146,8 +146,8 @@
                                             "Title": "explore-careers"
                                         },
                                         "PageLocation": {
-                                            "ContentsPage": {
-                                                "Value": false
+                                            "BreadcrumbText": {
+                                                "Text": "Explore Careers"
                                             }
                                         },
                                         "GraphSyncPart": {
@@ -176,8 +176,8 @@
                                             "Title": "find-a-course"
                                         },
                                         "PageLocation": {
-                                            "ContentsPage": {
-                                                "Value": false
+                                            "BreadcrumbText": {
+                                                "Text": "Find a Course"
                                             }
                                         },
                                         "GraphSyncPart": {
@@ -206,8 +206,8 @@
                                             "Title": "skills-assessment"
                                         },
                                         "PageLocation": {
-                                            "ContentsPage": {
-                                                "Value": false
+                                            "BreadcrumbText": {
+                                                "Text": "Skills Assessment"
                                             }
                                         },
                                         "GraphSyncPart": {
