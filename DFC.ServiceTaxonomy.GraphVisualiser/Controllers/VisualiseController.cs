@@ -12,6 +12,7 @@ using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Fields;
 using OrchardCore.ContentManagement;
@@ -109,7 +110,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 contentItemVersion = _previewContentItemVersion;
             }
 
-            return await GetData(contentItemId);
+            return await GetData(contentItemId, graph);
         }
 
         private static void ValidateParameters(string? graph)
@@ -133,7 +134,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private static string[] RelationshipParts = { nameof(GraphLookupPart) };
         private static string[] RelationshipFields = { nameof(ContentPickerField) };
 
-        private async Task<ActionResult> GetData(string contentItemId)
+        private async Task<ActionResult> GetData(string contentItemId, string graph)
         {
             //todo: don't need contenttype!
             ContentItem contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Published);
@@ -221,9 +222,13 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             }
 
             var nodeWithOutgoingRelationships = new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(await _graphSyncHelper.NodeLabels(), _graphSyncHelper.IdPropertyName(), _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent, contentItemVersion), destIdPropertyValues.Select(x => (string)x).ToList());
-            Console.WriteLine(nodeWithOutgoingRelationships);
 
-            string owlResponseString = "{}";
+            var result = await _neoGraphCluster.Run(graph, nodeWithOutgoingRelationships);
+
+            var relationshipResult = result.FirstOrDefault();
+            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(relationshipResult!.SourceNode.Id, relationshipResult.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode).Union(new List<INode>() { relationshipResult.SourceNode }), relationshipResult.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship).ToHashSet<IRelationship>(), "skos__prefLabel");
+            var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
+            //var owlResponseString = "{}";
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }

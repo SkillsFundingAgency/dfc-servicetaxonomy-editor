@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
+using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -35,6 +36,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ILogger<ContentPickerFieldGraphSyncer> logger)
         {
             _logger = logger;
+        }
+
+        public async Task<IEnumerable<IRelationship>> GetRelationships(IDescribeRelationshipsContext describeRelationshipsContext)
+        {
+            ContentPickerFieldSettings contentPickerFieldSettings =
+               describeRelationshipsContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, describeRelationshipsContext.GraphSyncHelper);
+
+
         }
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
