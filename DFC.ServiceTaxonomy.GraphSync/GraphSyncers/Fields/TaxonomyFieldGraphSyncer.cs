@@ -218,5 +218,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             return (true, "");
         }
+
+        public Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -30,5 +30,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 nodePropertyName,
                 context.NodeWithOutgoingRelationships.SourceNode);
         }
+
+        public Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -5,14 +5,15 @@ using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Models;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Fields;
 using OrchardCore.ContentManagement;
@@ -60,6 +61,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
+        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
+        private readonly IEnumerable<IContentFieldGraphSyncer> _fieldSyncers;
+        private readonly IServiceProvider _serviceProvider;
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -75,7 +79,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IGraphSyncHelper graphSyncHelper,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
             IPublishedContentItemVersion publishedContentItemVersion,
-            IPreviewContentItemVersion previewContentItemVersion)
+            IPreviewContentItemVersion previewContentItemVersion,
+            IEnumerable<IContentPartGraphSyncer> contentPartGraphSyncers,
+            IEnumerable<IContentFieldGraphSyncer> contentFieldsGraphSyncers,
+            IServiceProvider serviceProvider)
         {
             _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
             _contentManager = contentManager;
@@ -85,6 +92,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
+            _partSyncers = contentPartGraphSyncers;
+            _serviceProvider = serviceProvider;
+            _fieldSyncers = contentFieldsGraphSyncers;
         }
 
         public ActionResult Viewer()
@@ -134,12 +144,68 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private static string[] RelationshipParts = { nameof(GraphLookupPart) };
         private static string[] RelationshipFields = { nameof(ContentPickerField) };
 
+        private async Task GetRelationshipsForContentItem(ContentItem contentItem, IDescribeRelationshipsContext context)
+        {
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+
+            //var fields =
+            //    contentTypeDefinition.Parts.SelectMany(p => p.PartDefinition.Fields);
+
+            //var relationshipFields =
+            //    fields.Where(f => RelationshipFields.Contains(f.FieldDefinition.Name));
+
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            //dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
+            //List<object> destIdPropertyValues = new List<object>();
+            var itemContext = new DescribeRelationshipsContext(contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, context, _serviceProvider);
+            foreach (var part in contentTypeDefinition.Parts)
+            {
+                var partSyncer = _partSyncers.FirstOrDefault(x => x.PartName == part.Name);
+
+                if (partSyncer != null)
+                {
+                    await partSyncer.AddRelationship(itemContext);
+                }
+
+                foreach (var relationshipField in part.PartDefinition.Fields)
+                {
+                    //var fieldContext = new DescribeRelationshipsContext(contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, partContext, _serviceProvider);
+                    itemContext.SetContentPartFieldDefinition(relationshipField);
+
+                    var fieldSyncer = _fieldSyncers.FirstOrDefault(x => x.FieldTypeName == relationshipField.FieldDefinition.Name);
+
+                    var contentItemIds =
+                           (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
+                               .ContentItemIds;
+
+                    if (contentItemIds != null)
+                    {
+                        foreach (var relatedContentItemId in contentItemIds)
+                        {
+                            await GetRelationshipsForContentItem(await _contentManager.GetAsync(relatedContentItemId.ToString()), itemContext);
+                        }
+                    }
+
+                    if (fieldSyncer != null)
+                    {
+                        await fieldSyncer.AddRelationship(itemContext);
+                    }
+
+                }
+
+                context.AddChildContext(itemContext);
+            }
+        }
+
         private async Task<ActionResult> GetData(string contentItemId, string graph)
         {
             //todo: don't need contenttype!
             ContentItem contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Published);
+            var rootContext = new DescribeRelationshipsContext(contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, null, _serviceProvider);
+            await GetRelationshipsForContentItem(contentItem, rootContext);
+            Console.WriteLine(graph);
 
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
             //var nodeIdToRelationships = new Dictionary<string, OutgoingRelationships>();
 
@@ -170,65 +236,57 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             // match (s)-[r]-(d) where d.uri in map
             // match (s)-[r]-(d) where d.userid in map
 
-            var fields =
-                contentTypeDefinition.Parts.SelectMany(p => p.PartDefinition.Fields);
 
-            var relationshipFields =
-                fields.Where(f => RelationshipFields.Contains(f.FieldDefinition.Name));
 
-            _graphSyncHelper.ContentType = contentItem.ContentType;
 
-            dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
-            List<object> destIdPropertyValues = new List<object>();
+            //foreach (var relationshipField in relationshipFields)
+            //{
+            //    //todo: inject IEnumerable field handlers
+            //    switch (relationshipField.FieldDefinition.Name)
+            //    {
+            //        case nameof(ContentPickerField):
+            //            //todo: have array of objects {fieldname, contentfieldname}
+            //            var contentItemIds =
+            //                (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
+            //                    .ContentItemIds;
 
-            foreach (var relationshipField in relationshipFields)
-            {
-                //todo: inject IEnumerable field handlers
-                switch (relationshipField.FieldDefinition.Name)
-                {
-                    case nameof(ContentPickerField):
-                        //todo: have array of objects {fieldname, contentfieldname}
-                        var contentItemIds =
-                            (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
-                                .ContentItemIds;
+            //            //ContentPickerFieldSettings contentPickerFieldSettings =
+            //            //    relationshipField.GetSettings<ContentPickerFieldSettings>();
 
-                        //ContentPickerFieldSettings contentPickerFieldSettings =
-                        //    relationshipField.GetSettings<ContentPickerFieldSettings>();
+            //            //string relationshipType =
+            //            //    await contentPickerFieldSettings.RelationshipType(_graphSyncHelper);
 
-                        //string relationshipType =
-                        //    await contentPickerFieldSettings.RelationshipType(_graphSyncHelper);
+            //            if (contentItemIds.Any())
+            //            {
+            //                ContentItem? relatedContentItem = null;
 
-                        if (contentItemIds.Any())
-                        {
-                            ContentItem? relatedContentItem = null;
+            //                foreach (var relatedContentItemId in contentItemIds)
+            //                {
+            //                    // use whenall, now getasync supports it
+            //                    relatedContentItem = await _contentManager.GetAsync(relatedContentItemId.ToString(),
+            //                        VersionOptions.Published);
+            //                    //todo: check it's got one!
+            //                    var relatedGraphSyncPart = relatedContentItem.Content.GraphSyncPart;
 
-                            foreach (var relatedContentItemId in contentItemIds)
-                            {
-                                // use whenall, now getasync supports it
-                                relatedContentItem = await _contentManager.GetAsync(relatedContentItemId.ToString(),
-                                    VersionOptions.Published);
-                                //todo: check it's got one!
-                                var relatedGraphSyncPart = relatedContentItem.Content.GraphSyncPart;
+            //                    //todo: need to get idpropertyname and value
+            //                    //todo: need GraphSyncHelper for this bit
+            //                    //var nodeid = relatedGraphSyncPart.Text.ToString();
 
-                                //todo: need to get idpropertyname and value
-                                //todo: need GraphSyncHelper for this bit
-                                //var nodeid = relatedGraphSyncPart.Text.ToString();
+            //                    destIdPropertyValues.Add(_graphSyncHelper.GetIdPropertyValue(relatedGraphSyncPart, contentItemVersion));
+            //                }
+            //            }
+            //            break;
+            //    }
+            //}
 
-                                destIdPropertyValues.Add(_graphSyncHelper.GetIdPropertyValue(relatedGraphSyncPart, contentItemVersion));
-                            }
-                        }
-                        break;
-                }
-            }
+            //var nodeWithOutgoingRelationships = new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(await _graphSyncHelper.NodeLabels(), _graphSyncHelper.IdPropertyName(), _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent, contentItemVersion), destIdPropertyValues.Select(x => (string)x).ToList());
 
-            var nodeWithOutgoingRelationships = new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(await _graphSyncHelper.NodeLabels(), _graphSyncHelper.IdPropertyName(), _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent, contentItemVersion), destIdPropertyValues.Select(x => (string)x).ToList());
+            //var result = await _neoGraphCluster.Run(graph, nodeWithOutgoingRelationships);
 
-            var result = await _neoGraphCluster.Run(graph, nodeWithOutgoingRelationships);
-
-            var relationshipResult = result.FirstOrDefault();
-            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(relationshipResult!.SourceNode.Id, relationshipResult.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode).Union(new List<INode>() { relationshipResult.SourceNode }), relationshipResult.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship).ToHashSet<IRelationship>(), "skos__prefLabel");
-            var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
-            //var owlResponseString = "{}";
+            //var relationshipResult = result.FirstOrDefault();
+            //var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(relationshipResult!.SourceNode.Id, relationshipResult.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode).Union(new List<INode>() { relationshipResult.SourceNode }), relationshipResult.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship).ToHashSet<IRelationship>(), "skos__prefLabel");
+            //var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
+            var owlResponseString = "{}";
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }

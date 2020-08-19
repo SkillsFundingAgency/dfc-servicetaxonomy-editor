@@ -1,48 +1,35 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
-    public class DescribeRelationshipsContext : IDescribeRelationshipsContext
+    public class DescribeRelationshipsContext : GraphSyncContext, IDescribeRelationshipsContext
     {
-        public ContentItem ContentItem { get; }
-        public IContentManager ContentManager { get; }
-        public IContentItemVersion ContentItemVersion { get; protected set; }
-        public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
-        public IContentPartFieldDefinition? ContentPartFieldDefinition { get; private set; }
+        public new IDescribeRelationshipsContext? ParentContext { get; }
+        public new IEnumerable<IDescribeRelationshipsContext> ChildContexts => _childContexts.Cast<IDescribeRelationshipsContext>();
+        public IEnumerable<string> AvailableRelationships { get; set; }
 
-        public IGraphSyncHelper GraphSyncHelper { get; }
-        // only used by GraphMergeContext and GraphOperationContext, not ValidateAndRepairContext
-        // new base class, or just leave null for validate??
-        //todo: provide subclass in derived?
-        public IGraphOperationContext? ParentContext { get; }
+        public IServiceProvider ServiceProvider { get; set; }
 
-        protected DescribeRelationshipsContext(
+        public DescribeRelationshipsContext(
             ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
-            IGraphOperationContext? parentContext)
+            IDescribeRelationshipsContext? parentContext,
+            IServiceProvider serviceProvider) : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentContext, serviceProvider.GetRequiredService<ILogger<GraphDeleteContext>>())
         {
-            ContentItem = contentItem;
-            GraphSyncHelper = graphSyncHelper;
-            ContentManager = contentManager;
-            ContentItemVersion = contentItemVersion;
-            ParentContext = parentContext;
-
-            // will be set before any syncers receive a context
-            ContentTypePartDefinition = default!;
+            AvailableRelationships = new List<string>();
+            ServiceProvider = serviceProvider;
         }
 
-        public void SetContentPartFieldDefinition(ContentPartFieldDefinition? contentPartFieldDefinition)
-        {
-            ContentPartFieldDefinition = contentPartFieldDefinition != null
-                ? new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition) : default;
-        }
     }
 }
+

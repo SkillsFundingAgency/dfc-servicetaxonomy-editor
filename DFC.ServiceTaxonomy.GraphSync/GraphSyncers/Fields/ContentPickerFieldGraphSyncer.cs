@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
-using Neo4j.Driver;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -38,14 +38,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             _logger = logger;
         }
 
-        public async Task<IEnumerable<IRelationship>> GetRelationships(IDescribeRelationshipsContext describeRelationshipsContext)
+        public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
-               describeRelationshipsContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+               parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, describeRelationshipsContext.GraphSyncHelper);
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.GraphSyncHelper);
 
+            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<string>() { relationshipType } };
 
+            parentContext.AddChildContext(describeRelationshipsContext);
         }
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)

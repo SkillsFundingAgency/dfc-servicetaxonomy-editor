@@ -52,5 +52,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             return (matched, matched ? "" : $"text did not validate: {failureReason}");
         }
+
+        public Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
