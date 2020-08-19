@@ -1,5 +1,9 @@
 #ToDo
 
+* Generate correlation I’d in handler?
+
+* some files (e.g. contenthandlers) might be better split into partials
+
 * unpublishing page leaves HTML
 
 * if a shared content widget has no picked published content types, don't sync the html widget itself in the published graph set

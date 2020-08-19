@@ -168,6 +168,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         continue;
                 }
 
+                //todo: need to pick out correct contained command
+                // we pick out correct contained somewhere already
                 IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
 
                 containedContentMergeNodeCommand.CheckIsValid();
