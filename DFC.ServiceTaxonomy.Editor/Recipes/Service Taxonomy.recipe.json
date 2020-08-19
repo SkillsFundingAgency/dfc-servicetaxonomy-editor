@@ -2542,6 +2542,9 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Breadcrumb Text",
                                     "Position": "0"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
                                 }
                             }
                         }
