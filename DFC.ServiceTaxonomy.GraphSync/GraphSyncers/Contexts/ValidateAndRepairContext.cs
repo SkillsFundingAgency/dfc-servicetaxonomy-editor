@@ -4,6 +4,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
@@ -22,8 +23,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
             IGraphSyncHelper graphSyncHelper,
             IGraphValidationHelper graphValidationHelper,
-            IValidateAndRepairGraph validateAndRepairGraph)
-            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, null)
+            IValidateAndRepairGraph validateAndRepairGraph,
+            ILogger logger)
+            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, logger)
         {
             ContentItemVersion = contentItemVersion;
             NodeWithOutgoingRelationships = nodeWithOutgoingRelationships;

@@ -7,7 +7,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
@@ -20,6 +19,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -31,15 +31,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private List<CommandRelationship>? _removingRelationships;
 
         protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
+            _logger = logger;
 
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()
@@ -52,6 +55,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             IAllowSyncResult allowSyncResult)
         {
+            _logger.LogDebug("Do embedded items allow sync?");
+
             List<CommandRelationship> requiredRelationships = await GetRequiredRelationshipsAndOptionallySync(contentItems, context, allowSyncResult);
 
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
@@ -127,6 +132,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
+        private IMergeGraphSyncer GetNewMergeGraphSyncer()
+        {
+            _logger.LogDebug("Getting new IMergeGraphSyncer.");
+
+            return _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+        }
+
         private async Task<List<CommandRelationship>> GetRequiredRelationshipsAndOptionallySync(
             JArray? contentItems,
             IGraphMergeContext context,
@@ -139,13 +151,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
-                var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                IMergeGraphSyncer mergeGraphSyncer;
 
-                IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
-                allowSyncResult?.AddRelated(embeddedAllowSyncResult);
-                if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
-                    continue;
+                if (allowSyncResult == null)
+                {
+                    // we're actually syncing, not checking if it's allowed
+                    mergeGraphSyncer = context.MergeGraphSyncer;
+                }
+                else
+                {
+                    mergeGraphSyncer = GetNewMergeGraphSyncer();
 
+                    IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
+                    allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                    if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
+                        continue;
+                }
+
+                //todo: need to pick out correct contained command
+                // we pick out correct contained somewhere already
                 IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
 
                 containedContentMergeNodeCommand.CheckIsValid();
@@ -153,14 +177,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 if (allowSyncResult == null)
                 {
                     // we're actually syncing, not checking if it's allowed
-                    await mergeGraphSyncer.SyncToGraphReplicaSet();
+                    await mergeGraphSyncer.SyncEmbedded(contentItem);
                 }
                 else
                 {
                     // we need to get the id
-                    var graphSyncPartGraphSyncer = _serviceProvider.GetRequiredService<IGraphSyncPartGraphSyncer>();
-                    graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
-                        mergeGraphSyncer.GraphMergeContext);
+                    // var graphSyncPartGraphSyncer = _serviceProvider.GetRequiredService<IGraphSyncPartGraphSyncer>();
+                    // graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
+                    //     mergeGraphSyncer.GraphMergeContext);
                     //todo: delegate to mergeGraphSyncer then ContentItemGraphSyncer?
                 }
 
@@ -253,9 +277,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 foreach (ContentItem contentItem in embeddedContentItemsOfType)
                 {
-                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem,
-                        //todo: no need to pass context now
-                        context);
+                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem);
                 }
             }
         }
@@ -398,7 +420,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context);
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context);
 
         //todo: need to separate GraphSyncHelper into stateful and stateless
         protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)

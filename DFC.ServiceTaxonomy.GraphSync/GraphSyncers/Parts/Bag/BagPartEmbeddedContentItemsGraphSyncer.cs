@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.Flows.Models;
 
@@ -14,12 +15,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
     {
         public BagPartEmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider)
-            : base(contentDefinitionManager, serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger<BagPartEmbeddedContentItemsGraphSyncer> logger)
+            : base(contentDefinitionManager, serviceProvider, logger)
         {
         }
 
-        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context)
+        protected override IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context)
         {
             BagPartSettings bagPartSettings = context.ContentTypePartDefinition.GetSettings<BagPartSettings>();
             return bagPartSettings.ContainedContentTypes;

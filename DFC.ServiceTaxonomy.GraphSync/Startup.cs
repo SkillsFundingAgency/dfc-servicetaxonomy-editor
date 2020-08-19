@@ -36,6 +36,8 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
@@ -90,6 +92,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IDataMigration, Migrations>();
             services.AddTransient<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartGraphSyncer, GraphSyncPartGraphSyncer>();
+
+            // orchestrators
+            services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
+            services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
 
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
