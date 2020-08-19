@@ -101,7 +101,12 @@
                 "RequireHttpsPermanent": true,
                 "SslPort": null
             },
-            "TimeZoneId": "Europe/London"
+            "TimeZoneId": "Europe/London",
+            "TaxonomyContentsAdminListSettings": {
+                "TaxonomyContentItemIds": [
+                    "4eembshqzx66drajtdten34tc8"
+                ]
+            }
         },
         {
             "name": "themes",
@@ -2542,6 +2547,9 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Breadcrumb Text",
                                     "Position": "0"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
                                 }
                             }
                         }
