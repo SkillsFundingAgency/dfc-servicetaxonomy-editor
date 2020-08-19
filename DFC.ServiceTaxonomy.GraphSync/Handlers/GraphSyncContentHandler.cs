@@ -7,10 +7,6 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
-#pragma warning disable S1172
-
-    // inject sync and delete classes
-
     public class GraphSyncContentHandler : ContentHandlerBase
     {
         private readonly ISyncOrchestrator _syncOrchestrator;
@@ -99,6 +95,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             context.Cancel = true;
         }
 
+#pragma warning disable S1172
+
         private void Cancel(SaveDraftContentContext context)
         {
             // there's no cancel on the SaveDraftContentContext context, so we have to cancel the session
@@ -114,7 +112,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
             _session.Cancel();
         }
-    }
 
 #pragma warning restore S1172
+    }
 }
