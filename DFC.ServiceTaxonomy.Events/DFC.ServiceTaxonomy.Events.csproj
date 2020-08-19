@@ -5,6 +5,17 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <Authors>Education and Skills Funding Agency Team</Authors>
+    <Description>DFC.ServiceTaxonomy.Events library</Description>
+    <PackageLicenseUrl>https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/SkillsFundingAgency/dfc-servicetaxonomy-editor</PackageProjectUrl>
+
+    <EmbedUntrackedSources>false</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
