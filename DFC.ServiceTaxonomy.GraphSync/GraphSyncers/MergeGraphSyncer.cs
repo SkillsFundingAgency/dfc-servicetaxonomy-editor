@@ -148,7 +148,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             MergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
             MergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
-//todo: only need the times at sync time, not allowed!?
+
+            //todo: we could move population of the time properties to later when syncing, rather than at syncallowed time
+
             // add created and modified dates to all content items
             if (_graphMergeContext!.ContentItem.CreatedUtc.HasValue)
             {
@@ -216,19 +218,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return embeddedMergeGraphSyncer;
         }
 
-        private async Task SyncEmbedded() //JObject graphSyncPartContent)
+        private async Task SyncEmbedded()
         {
-            // if (_graphMergeContext == null)
-            //     throw new GraphSyncException($"You must call {nameof(SyncAllowed)} first.");
-            //
-            // _logger.LogInformation($"Syncing '{_graphMergeContext.ContentItem.DisplayText}' {_graphMergeContext.ContentItem.ContentType} ({_graphMergeContext.ContentItem.ContentItemId}) to {_graphMergeContext.ContentItemVersion.GraphReplicaSetName} replica set.");
-            //
-            // await PopulateMergeNodeCommand(_graphMergeContext.ContentItem);
-            //
-            // SetSourceNodeInReplaceRelationshipsCommand(_graphMergeContext.GraphReplicaSet, graphSyncPartContent);
-            //
-            // await AddContentPartSyncComponents();
-
             if (_graphMergeContext == null)
                 throw new GraphSyncException($"You must call {nameof(SyncAllowed)} first.");
 
@@ -242,7 +233,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 MergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
             }
 
-            //IEnumerable<IReplaceRelationshipsCommand> recreateIncomingPreviewContentPickerRelationshipsCommands =
             _graphMergeContext.RecreateIncomingPreviewContentPickerRelationshipsCommands =
                 GetRecreateIncomingPreviewContentPickerRelationshipsCommands();
         }
@@ -339,12 +329,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await _graphMergeContext!.GraphReplicaSet.Run(commands);
         }
 
-        private void SetSourceNodeInReplaceRelationshipsCommand()//IGraphReplicaSet graphReplicaSet, dynamic graphSyncPartContent)
+        private void SetSourceNodeInReplaceRelationshipsCommand()
         {
             _replaceRelationshipsCommand.SourceNodeLabels = new HashSet<string>(MergeNodeCommand.NodeLabels);
             _replaceRelationshipsCommand.SourceIdPropertyName = MergeNodeCommand.IdPropertyName;
-            // _replaceRelationshipsCommand.SourceIdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
-            //     graphSyncPartContent, _contentItemVersionFactory.Get(graphReplicaSet.Name));
             //todo: helper for this, used elsewhere
             _replaceRelationshipsCommand.SourceIdPropertyValue =
                 _graphMergeContext!.MergeNodeCommand.Properties[_graphMergeContext.MergeNodeCommand.IdPropertyName!];
