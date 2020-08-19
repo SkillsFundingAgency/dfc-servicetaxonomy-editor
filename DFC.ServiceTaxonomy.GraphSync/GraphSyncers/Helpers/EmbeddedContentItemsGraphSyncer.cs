@@ -151,12 +151,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
-                IMergeGraphSyncer mergeGraphSyncer;
+                IMergeGraphSyncer? mergeGraphSyncer;
 
                 if (allowSyncResult == null)
                 {
                     // we're actually syncing, not checking if it's allowed
-                    mergeGraphSyncer = context.MergeGraphSyncer;
+                    mergeGraphSyncer = await context.MergeGraphSyncer.SyncEmbedded(contentItem);
                 }
                 else
                 {
@@ -168,25 +168,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         continue;
                 }
 
-                //todo: need to pick out correct contained command
-                // we pick out correct contained somewhere already
+                //todo: check embedded items with no graphsyncpart attached
+                if (mergeGraphSyncer == null)
+                    continue;
+
                 IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
-
                 containedContentMergeNodeCommand.CheckIsValid();
-
-                if (allowSyncResult == null)
-                {
-                    // we're actually syncing, not checking if it's allowed
-                    await mergeGraphSyncer.SyncEmbedded(contentItem);
-                }
-                else
-                {
-                    // we need to get the id
-                    // var graphSyncPartGraphSyncer = _serviceProvider.GetRequiredService<IGraphSyncPartGraphSyncer>();
-                    // graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
-                    //     mergeGraphSyncer.GraphMergeContext);
-                    //todo: delegate to mergeGraphSyncer then ContentItemGraphSyncer?
-                }
 
                 var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
                 embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;

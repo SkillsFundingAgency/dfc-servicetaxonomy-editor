@@ -193,13 +193,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return MergeNodeCommand;
         }
 
-        public async Task SyncEmbedded(ContentItem contentItem)
+        public async Task<IMergeGraphSyncer?> SyncEmbedded(ContentItem contentItem)
         {
             _logger.LogDebug("Syncing embedded {ContentItem}.", contentItem.ToString());
 
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
-                return;
+                return null;
 
             var embeddedMergeContext = _graphMergeContext!.ChildContexts
                 .Single(c => c.ContentItem.ContentItemId == contentItem.ContentItemId);
@@ -208,10 +208,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var embeddedMergeGraphSyncer = (MergeGraphSyncer)embeddedMergeContext.MergeGraphSyncer;
 
-            if (embeddedMergeGraphSyncer._graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
-                return;
+            if (!embeddedMergeGraphSyncer._graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+            {
+                await ((MergeGraphSyncer)embeddedMergeContext.MergeGraphSyncer).SyncEmbedded();
+            }
 
-            await ((MergeGraphSyncer)embeddedMergeContext.MergeGraphSyncer).SyncEmbedded(); //graphSyncPartContent);
+            return embeddedMergeGraphSyncer;
         }
 
         private async Task SyncEmbedded() //JObject graphSyncPartContent)

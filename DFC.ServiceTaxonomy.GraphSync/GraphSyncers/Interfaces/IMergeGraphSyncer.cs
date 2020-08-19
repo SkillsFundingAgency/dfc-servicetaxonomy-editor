@@ -53,6 +53,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 
         Task<IMergeNodeCommand?> SyncToGraphReplicaSet();
 
-        Task SyncEmbedded(ContentItem contentItem);
+        Task<IMergeGraphSyncer?> SyncEmbedded(ContentItem contentItem);
     }
 }
