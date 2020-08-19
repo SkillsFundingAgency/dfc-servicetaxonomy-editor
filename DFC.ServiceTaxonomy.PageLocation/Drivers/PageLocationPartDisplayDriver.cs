@@ -137,13 +137,13 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         private List<string> PageLocations = new List<string>();
 
-        private void RecursivelyBuildUrls(ContentItem taxonomy)
+        private void RecursivelyBuildUrls(dynamic taxonomy)
         {
-            List<ContentItem>? terms = _taxonomyHelper.GetTerms(taxonomy);
+            List<dynamic>? terms = _taxonomyHelper.GetTerms(taxonomy);
 
             if (terms != null)
             {
-                foreach (ContentItem term in terms)
+                foreach (dynamic term in terms)
                 {
                     PageLocations.Add(_taxonomyHelper.BuildTermUrl(term, taxonomy));
                     RecursivelyBuildUrls(term);

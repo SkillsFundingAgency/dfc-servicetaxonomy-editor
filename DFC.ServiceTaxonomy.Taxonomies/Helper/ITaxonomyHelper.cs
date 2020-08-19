@@ -1,16 +1,15 @@
 ﻿#nullable enable
 
 using System.Collections.Generic;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public interface ITaxonomyHelper
     {
-        List<ContentItem>? GetTerms(ContentItem contentItem);
+        List<dynamic>? GetTerms(dynamic contentItem);
 
-        ContentItem? FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem);
+        dynamic? FindParentTaxonomyTerm(dynamic termContentItem, dynamic taxonomyContentItem);
 
-        string BuildTermUrl(ContentItem term, ContentItem taxonomy);
+        string BuildTermUrl(dynamic term, dynamic taxonomy);
     }
 }
