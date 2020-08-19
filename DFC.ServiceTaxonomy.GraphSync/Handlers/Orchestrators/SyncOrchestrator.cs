@@ -98,7 +98,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger.LogDebug("DiscardDraft: Discarding draft '{ContentItem}' {ContentType} by syncing existing Published to Preview.",
                 contentItem.ToString(), contentItem.ContentType);
 
-            //todo: see if still get circular dependency if inject
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
             ContentItem publishedContentItem =
