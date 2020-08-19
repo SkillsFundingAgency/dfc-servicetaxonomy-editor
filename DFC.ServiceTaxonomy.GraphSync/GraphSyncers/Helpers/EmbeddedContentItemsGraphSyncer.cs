@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
                         context.ReplaceRelationshipsCommand.SourceNodeLabels,
                         context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
-                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!, null)))
                 .FirstOrDefault();
 
             if (existing?.OutgoingRelationships.Any() != true)

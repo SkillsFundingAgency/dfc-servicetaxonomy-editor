@@ -161,7 +161,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
             //todo: log adding content type + id? how would we (easily) get the contenttype??
 
-            await _contentManager.CreateAsync(contentItem);
+            await _contentManager.ImportAsync(new List<ContentItem> { contentItem });
             _contentManagerSession.Clear();
         }
 

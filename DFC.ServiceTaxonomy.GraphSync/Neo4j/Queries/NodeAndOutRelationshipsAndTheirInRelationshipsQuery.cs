@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
@@ -14,24 +15,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
     public class NodeAndOutRelationshipsAndTheirInRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private IEnumerable<string> NodeLabels { get; }
+        private List<string>? DestinationUris { get; set; }
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
 
         public NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
             IEnumerable<string> nodeLabels,
             string idPropertyName,
-            object idPropertyValue)
+            object idPropertyValue,
+            List<string>? destinationUris)
         {
             NodeLabels = nodeLabels;
             IdPropertyName = idPropertyName;
             IdPropertyValue = idPropertyValue;
+            DestinationUris = destinationUris;
         }
 
         public List<string> ValidationErrors()
         {
             var validationErrors = new List<string>();
 
-            if(!NodeLabels.Any())
+            if (!NodeLabels.Any())
             {
                 validationErrors.Add("At least one NodeLabel must be provided.");
             }
@@ -39,6 +43,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
             //todo: needs to validate id property name and value too
 
             return validationErrors;
+        }
+
+        private string GetDestinationNodes(string prefix, string destinationNodeName)
+        {
+            if (DestinationUris == null || DestinationUris.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            var uris = DestinationUris.ToArray();
+
+            return $" {prefix} {destinationNodeName}.uri IN {JsonSerializer.Serialize(uris)}";
         }
 
         public Query Query
@@ -50,8 +66,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
                 // irn might have a different IdPropertyName, but if it has, it isn't the source node, so the where is ok
                 return new Query(
                     $@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-optional match (s)-[r]->(d)
-optional match (d)<-[ir]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName}
+optional match (s)-[r]->(d) {GetDestinationNodes("WHERE", "d")}
+optional match (d)<-[ir]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName} {GetDestinationNodes("AND", "irn")}
 with s, {{destNode: d, relationship: r, destinationIncomingRelationships:collect({{destIncomingRelationship:ir,  destIncomingRelSource:irn}})}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as nodeAndOutRelationshipsAndTheirInRelationships
 return nodeAndOutRelationshipsAndTheirInRelationships");

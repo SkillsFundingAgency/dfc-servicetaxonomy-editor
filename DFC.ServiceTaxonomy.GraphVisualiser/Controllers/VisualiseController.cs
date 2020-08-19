@@ -1,11 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphVisualiser.Queries;
+using DFC.ServiceTaxonomy.GraphLookup.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using OrchardCore.ContentFields.Fields;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
 // visualise -> https://localhost:44346/Visualise/Viewer?visualise=<the graph sync part url>
@@ -43,25 +52,38 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
     public class VisualiseController : Controller
     {
         private readonly IGraphCluster _neoGraphCluster;
+        private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
+        private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
-
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
+        private IContentItemVersion? contentItemVersion = null;
+
         public VisualiseController(
             IGraphCluster neoGraphCluster,
+            IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
-            IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
+            IGraphSyncHelper graphSyncHelper,
+            IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion)
         {
             _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
+            _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
             _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
+            _graphSyncHelper = graphSyncHelper;
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
         }
 
         public ActionResult Viewer()
@@ -69,15 +91,32 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Data([FromQuery] string? uri, [FromQuery] string? graph)
+        public async Task<ActionResult> Data([FromQuery] string? contentItemId, [FromQuery] string? graph)
         {
-            if (string.IsNullOrWhiteSpace(uri) || uri.Equals("null") || string.IsNullOrWhiteSpace(graph))
+            ValidateParameters(graph);
+
+            if (string.IsNullOrWhiteSpace(contentItemId))
             {
                 return GetOntology();
             }
+
+            if (graph!.ToLowerInvariant() == "published")
+            {
+                contentItemVersion = _publishedContentItemVersion;
+            }
             else
             {
-                return await GetData(uri, graph);
+                contentItemVersion = _previewContentItemVersion;
+            }
+
+            return await GetData(contentItemId);
+        }
+
+        private static void ValidateParameters(string? graph)
+        {
+            if (string.IsNullOrEmpty(graph))
+            {
+                throw new ArgumentNullException(nameof(graph));
             }
         }
 
@@ -91,18 +130,107 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
 
-        private async Task<ActionResult> GetData(string uri, string graph)
+        private static string[] RelationshipParts = { nameof(GraphLookupPart) };
+        private static string[] RelationshipFields = { nameof(ContentPickerField) };
+
+        private async Task<ActionResult> GetData(string contentItemId)
         {
-            const string prefLabel = "skos__prefLabel";
-            var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
+            //todo: don't need contenttype!
+            ContentItem contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Published);
 
-            //todo: allow user to visualise published and draft databases. new story?
-            await _neoGraphCluster.Run(graph, query);
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
-            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
-            var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
+            //var nodeIdToRelationships = new Dictionary<string, OutgoingRelationships>();
+
+            // const string prefLabel = "skos__prefLabel";
+            // var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
+            //
+            // _ = await _neoGraphDatabase.Run(query);
+            //
+            // var owlDataModel = Neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
+            // var owlResponseString = JsonSerializer.Serialize(owlDataModel, JsonOptions);
+
+            // var contentTypePartDefinitions =
+            //     contentTypeDefinition.Parts.Where(
+            //         p => p.PartDefinition.Name == contentItem.ContentType ||
+            //              p.PartDefinition.Fields.Any(f => GroupingFields.Contains(f.FieldDefinition.Name)));
+
+            //var relationshipParts =
+            //    contentTypeDefinition.Parts.Where(p => RelationshipParts.Contains(p.PartDefinition.Name));
+
+            // var relationshipFields =
+            //     contentTypeDefinition.Parts.SelectMany(p => p.PartDefinition.Fields)
+            //         .Where(f => RelationshipFields.Contains(f.FieldDefinition.Name));
+
+            //alternatively work though the parts
+
+            //todo: keep recursing (perhaps in an iterator fashion not to blow stack) following relationship fields
+            //create query to get everything, either in 1 go, or 1 query per level
+            // match (s)-[r]-(d) where d.uri in map
+            // match (s)-[r]-(d) where d.userid in map
+
+            var fields =
+                contentTypeDefinition.Parts.SelectMany(p => p.PartDefinition.Fields);
+
+            var relationshipFields =
+                fields.Where(f => RelationshipFields.Contains(f.FieldDefinition.Name));
+
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+
+            dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
+            List<object> destIdPropertyValues = new List<object>();
+
+            foreach (var relationshipField in relationshipFields)
+            {
+                //todo: inject IEnumerable field handlers
+                switch (relationshipField.FieldDefinition.Name)
+                {
+                    case nameof(ContentPickerField):
+                        //todo: have array of objects {fieldname, contentfieldname}
+                        var contentItemIds =
+                            (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
+                                .ContentItemIds;
+
+                        //ContentPickerFieldSettings contentPickerFieldSettings =
+                        //    relationshipField.GetSettings<ContentPickerFieldSettings>();
+
+                        //string relationshipType =
+                        //    await contentPickerFieldSettings.RelationshipType(_graphSyncHelper);
+
+                        if (contentItemIds.Any())
+                        {
+                            ContentItem? relatedContentItem = null;
+
+                            foreach (var relatedContentItemId in contentItemIds)
+                            {
+                                // use whenall, now getasync supports it
+                                relatedContentItem = await _contentManager.GetAsync(relatedContentItemId.ToString(),
+                                    VersionOptions.Published);
+                                //todo: check it's got one!
+                                var relatedGraphSyncPart = relatedContentItem.Content.GraphSyncPart;
+
+                                //todo: need to get idpropertyname and value
+                                //todo: need GraphSyncHelper for this bit
+                                //var nodeid = relatedGraphSyncPart.Text.ToString();
+
+                                destIdPropertyValues.Add(_graphSyncHelper.GetIdPropertyValue(relatedGraphSyncPart, contentItemVersion));
+                            }
+                        }
+                        break;
+                }
+            }
+
+            var nodeWithOutgoingRelationships = new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(await _graphSyncHelper.NodeLabels(), _graphSyncHelper.IdPropertyName(), _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent, contentItemVersion), destIdPropertyValues.Select(x => (string)x).ToList());
+            Console.WriteLine(nodeWithOutgoingRelationships);
+
+            string owlResponseString = "{}";
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
+    }
+
+    //todo: more generic name
+    public class VisualizerQuery
+    {
     }
 }
