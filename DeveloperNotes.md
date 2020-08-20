@@ -1,5 +1,7 @@
 #ToDo
 
+* check moving a taxonomy term to a different level
+
 * does oc taxonomy module have unit tests? if so bring them in
 
 * have new handler and use to pubish event from contenthandler/orchestrators to publish events

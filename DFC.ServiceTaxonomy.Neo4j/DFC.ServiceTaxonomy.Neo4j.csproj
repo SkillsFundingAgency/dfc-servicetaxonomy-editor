@@ -3,6 +3,7 @@
     <PropertyGroup>
       <TargetFramework>netcoreapp3.1</TargetFramework>
       <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+      <NoWarn>NU5125</NoWarn>
       <Nullable>enable</Nullable>
       <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 

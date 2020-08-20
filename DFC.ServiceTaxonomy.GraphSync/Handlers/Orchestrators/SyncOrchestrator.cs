@@ -133,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         {
             try
             {
-                IMergeGraphSyncer? mergeGraphSyncer = GetRequiredService<IMergeGraphSyncer>();
+                IMergeGraphSyncer mergeGraphSyncer = GetRequiredService<IMergeGraphSyncer>();
 
                 IAllowSyncResult allowSyncResult = await mergeGraphSyncer.SyncAllowed(
                     _graphCluster.GetGraphReplicaSet(replicaSetName),
