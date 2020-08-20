@@ -68,16 +68,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
                 .Returns(ContentManager);
 
             //todo: will this work for extension?
-            //todo: gets passed proxy type
             MergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
-            //A.CallTo(() => ServiceProvider.GetService(typeof(IMergeGraphSyncer)))
-            //this will only work if it only gets one service :-O
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
                     t => t.Name == (nameof(IMergeGraphSyncer)))))
                 .Returns(MergeGraphSyncer);
-
-            // A.CallTo(() => ServiceProvider.GetService(A<Type>._))
-            //     .Returns(MergeGraphSyncer);
 
             PreviewAllowSyncResult = A.Fake<IAllowSyncResult>();
             A.CallTo(() => MergeGraphSyncer.SyncAllowed(
