@@ -1,8 +1,17 @@
 #ToDo
 
-* Generate correlation I’d in handler?
+* does oc taxonomy module have unit tests? if so bring them in
+
+* have new handler and use to pubish event from contenthandler/orchestrators to publish events
+publish/draft/discarddraft etc
+
+* remove oc dependency in events project
+
+* Generate correlation Id in handler?
 
 * some files (e.g. contenthandlers) might be better split into partials
+
+* create nuget out of events project for test project
 
 * unpublishing page leaves HTML
 
