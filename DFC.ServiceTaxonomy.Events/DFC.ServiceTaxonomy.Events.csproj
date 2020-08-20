@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>NU5125,NU5104</NoWarn>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
