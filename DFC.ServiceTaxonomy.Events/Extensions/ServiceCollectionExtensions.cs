@@ -59,19 +59,6 @@ namespace Microsoft.Extensions.DependencyInjection
             }
 
             services.AddTransient<IEventGridContentRestHttpClientFactory, EventGridContentRestHttpClientFactory>();
-
-            //todo: for reuse in a nuget, will need these and all that GraphSyncHelper brings in
-            // probably need to split GraphSyncHelper, so it doesn't need all the current dependencies
-            // services.AddScoped<IContentHandler, PublishToEventGridHandler>();
-            //
-            // services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            // services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
-            // services.AddTransient<IContentHelper, ContentHelper>();
-            // services.AddTransient<IServiceTaxonomyHelper, ServiceTaxonomyHelper>();
-            //
-            // services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(configuration));
-            // services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(configuration));
-            // services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
         }
     }
 }
