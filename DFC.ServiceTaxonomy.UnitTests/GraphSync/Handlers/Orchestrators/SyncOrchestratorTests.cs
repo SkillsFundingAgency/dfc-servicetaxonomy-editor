@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -48,13 +49,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
             A.CallTo(() => PublishedGraphReplicaSet.Name)
                 .Returns(GraphReplicaSetNames.Published);
 
-            GraphCluster = A.Fake<IGraphCluster>();
-            A.CallTo(() => GraphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Preview))
-                .Returns(PreviewGraphReplicaSet);
+            var graphReplicaSets = new Dictionary<string, IGraphReplicaSet>
+            {
+                { GraphReplicaSetNames.Preview, PreviewGraphReplicaSet },
+                { GraphReplicaSetNames.Published, PublishedGraphReplicaSet },
+            };
 
             GraphCluster = A.Fake<IGraphCluster>();
-            A.CallTo(() => GraphCluster.GetGraphReplicaSet(GraphReplicaSetNames.Published))
-                .Returns(PublishedGraphReplicaSet);
+            A.CallTo(() => GraphCluster.GetGraphReplicaSet(A<string>._))
+                .ReturnsLazily<IGraphReplicaSet, string>(graphReplicaSetName => graphReplicaSets[graphReplicaSetName]);
 
             PublishedContentItemVersion = A.Fake<IPublishedContentItemVersion>();
             ServiceProvider = A.Fake<IServiceProvider>();
@@ -94,11 +97,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
                 Logger);
         }
 
-        // [Theory]
-        // [InlineData(SyncStatus.Allowed, false, true)]
-        // [InlineData(SyncStatus.Allowed, true, false)]
-        // [InlineData(SyncStatus.Blocked, null, false)]
-        // [InlineData(SyncStatus.NotRequired, null, true)]
+        [Theory]
+        [InlineData(SyncStatus.Allowed, false, true)]
+        [InlineData(SyncStatus.Allowed, true, false)]
+        [InlineData(SyncStatus.Blocked, null, false)]
+        [InlineData(SyncStatus.NotRequired, null, true)]
         public async Task SaveDraft_SyncAllowedSyncMatrix_ReturnsBool(SyncStatus syncAllowedStatus, bool? syncToGraphReplicaSetThrows, bool expectedSuccess)
         {
             A.CallTo(() => PreviewAllowSyncResult.AllowSync)
