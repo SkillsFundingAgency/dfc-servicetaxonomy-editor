@@ -11,6 +11,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
+    //todo: this probably belongs in a module/project that sits on top of graphsync, as it's nothing to do with graph syncing
     //todo: update comment and confluence with which content uri prefix is used
 
     /// <summary>
