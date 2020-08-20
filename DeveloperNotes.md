@@ -1,6 +1,9 @@
 #ToDo
 
-* Generate correlation I’d in handler?
+* have new handler and use to pubish event from contenthandler/orchestrators to publish events
+publish/draft/discarddraft etc
+
+* Generate correlation Id in handler?
 
 * some files (e.g. contenthandlers) might be better split into partials
 
