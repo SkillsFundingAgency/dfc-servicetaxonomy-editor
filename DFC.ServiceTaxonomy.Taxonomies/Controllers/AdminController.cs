@@ -113,6 +113,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             dynamic model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
 
+            //only the very first page location can equal "/"
+            if (contentItem.DisplayText.Trim() == "/" && taxonomyItemId != null)
+            {
+                ModelState.AddModelError("", "'/' is not a valid Title for this page location");
+            }
+
             if (!ModelState.IsValid)
             {
                 model.TaxonomyContentItemId = taxonomyContentItemId;
