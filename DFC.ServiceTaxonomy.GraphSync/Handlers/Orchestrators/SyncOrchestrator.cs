@@ -8,7 +8,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -44,12 +43,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger.LogDebug("SaveDraft: Syncing '{ContentItem}' {ContentType} to Preview.",
                 contentItem.ToString(), contentItem.ContentType);
 
-            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+            IContentManager contentManager = GetRequiredService<IContentManager>();
 
             return await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager) == SyncStatus.Blocked;
+                contentManager);
         }
 
         /// <returns>true if publish to either graph was blocked.</returns>
@@ -58,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger.LogDebug("Publish: Syncing '{ContentItem}' {ContentType} to Published and Preview.",
                 contentItem.ToString(), contentItem.ContentType);
 
-            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+            IContentManager contentManager = GetRequiredService<IContentManager>();
 
             // need to leave these calls serial, with published first,
             // so that published can examine the existing preview graph,
@@ -98,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger.LogDebug("DiscardDraft: Discarding draft '{ContentItem}' {ContentType} by syncing existing Published to Preview.",
                 contentItem.ToString(), contentItem.ContentType);
 
-            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+            IContentManager contentManager = GetRequiredService<IContentManager>();
 
             ContentItem publishedContentItem =
                 await _publishedContentItemVersion.GetContentItem(contentManager, contentItem.ContentItemId);
@@ -106,10 +105,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
                 publishedContentItem,
-                contentManager) == SyncStatus.Blocked;
+                contentManager);
         }
 
-        private async Task<SyncStatus> SyncToGraphReplicaSetIfAllowed(
+        //todo: remove equivalent in mergegraphsyncer?
+        private async Task<bool> SyncToGraphReplicaSetIfAllowed(
             string replicaSetName,
             ContentItem contentItem,
             IContentManager contentManager)
@@ -118,12 +118,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             (SyncStatus syncStatus, IMergeGraphSyncer? mergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(replicaSetName, contentItem, contentManager);
 
-            if (syncStatus == SyncStatus.Allowed)
+            return syncStatus switch
             {
-                await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem);
-            }
-
-            return syncStatus;
+                SyncStatus.Blocked => false,
+                SyncStatus.Allowed => await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem),
+                /*SyncStatus.NotRequired*/ _ => true
+            };
         }
 
         private async Task<(SyncStatus, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
@@ -133,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         {
             try
             {
-                IMergeGraphSyncer? mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                IMergeGraphSyncer? mergeGraphSyncer = GetRequiredService<IMergeGraphSyncer>();
 
                 IAllowSyncResult allowSyncResult = await mergeGraphSyncer.SyncAllowed(
                     _graphCluster.GetGraphReplicaSet(replicaSetName),
@@ -178,6 +178,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
                 return false;
             }
+        }
+
+        // we could use MS Fakes and use the standard extension method instead
+        private T GetRequiredService<T>()
+        {
+            Type type = typeof(T);
+            var service =(T)_serviceProvider.GetService(type);
+            if (service == null)
+                throw new InvalidOperationException($"Couldn't get required service {type.Name}.");
+            return service;
         }
     }
 }
