@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
@@ -10,9 +11,16 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
     {
         public List<dynamic>? GetTerms(dynamic contentItem)
         {
-            return contentItem.Content?[nameof(TaxonomyPart)]?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
-                   contentItem.Content?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
-                   contentItem[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>();
+            try
+            {
+                return contentItem.Content?[nameof(TaxonomyPart)]?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
+                       contentItem.Content?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
+                       contentItem[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>();
+            }
+            catch (RuntimeBinderException)
+            {
+                return null;
+            }
         }
 
         public dynamic? FindParentTaxonomyTerm(dynamic termContentItem, dynamic taxonomyContentItem)
