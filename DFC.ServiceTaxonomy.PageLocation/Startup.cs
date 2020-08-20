@@ -42,6 +42,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
             services.AddScoped<IContentDisplayDriver, PageLocationDriver>();
 
             services.AddTransient<ITaxonomyTermValidator, PageLocationUrlValidator>();
+            services.AddTransient<ITaxonomyTermValidator, PageLocationTitleValidator>();
         }
     }
 }
