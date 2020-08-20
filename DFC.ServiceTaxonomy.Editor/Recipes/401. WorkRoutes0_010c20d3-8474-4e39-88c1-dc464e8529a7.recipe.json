@@ -1,0 +1,282 @@
+{
+  "name": "WorkRoutes0_010c20d3-8474-4e39-88c1-dc464e8529a7",
+  "displayName": "WorkRoutes0_010c20d3-8474-4e39-88c1-dc464e8529a7",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Plumber"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could start as a plumber\u0027s assistant or \u0027mate\u0027 and do training on the job to qualify.\u003C/p\u003E\u003Cp\u003EYou\u0027ll usually need some GCSEs, including English and maths, along with good practical skills.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/05f23b11-7c46-4196-b876-f88d6d72d161"
+    },
+    "ContentItemId": "46nscfth1vpwf6ce7k12303ydq",
+    "ContentItemVersionId": "464jhjkecb6jdzcjthdbsb60mn",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Plumber",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Train driver"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can start as a rail passenger assistant or train conductor, then apply for a trainee driver post. This is also a common way to become a London Underground driver.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/2c972769-a96f-44b1-8137-6e300a430b7f"
+    },
+    "ContentItemId": "44yhrn74p5xzcw0bq3a1bwsvms",
+    "ContentItemVersionId": "4wv3gx9zy7vc72rtrr18jmx1d4",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Train driver",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou might be able to start on a temporary contract through a recruitment agency. Sometimes this can lead to a permanent job. Qualifications in business administration may also help.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/4341e718-c1ee-450e-9d6b-0208d9876faf"
+    },
+    "ContentItemId": "4j4qr4g13d3cp0s6dperp75xcf",
+    "ContentItemVersionId": "4acrdy372x3sjy8tnd374ky6xj",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Postman or postwoman"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003ERoyal Mail often recruits temporary staff for the Christmas period from September each year.\nThis can be a useful way for you to get some experience and apply for permanent jobs as they come up.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/7607dbf4-6d06-4e66-a167-777811d703af"
+    },
+    "ContentItemId": "4vftgx82r5p452mwd2shrhqt5p",
+    "ContentItemVersionId": "4r627hj1gpm2d6gxmn36drckmd",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Postman or postwoman",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Civil engineer"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could start as a civil engineering technician and study part time for a degree while you work.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/3363d51f-e3be-4f2d-88e9-2a48a7baf671"
+    },
+    "ContentItemId": "4nbj7nvp5z9tp5q59649887jx7",
+    "ContentItemVersionId": "4dw3g1a91z894w5sze79s90ect",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Civil engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Force officer"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could join the Civil Service as a Border Force assistant officer, then apply for an officer post when vacancies become available.\u003C/p\u003E\u003Cp\u003ETo do this, you\u0027ll usually need 5 GCSEs at grades 9 to 4 (A* to C), including English and maths, or equivalent qualifications.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/e9d7d452-fed3-4005-8b7d-458cd8a5df0f"
+    },
+    "ContentItemId": "4tca7cpa4sb73teye5n31vwx5m",
+    "ContentItemVersionId": "4922hcrgjdxaatwkfmqjfkxscx",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Border Force officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Farmer"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou can get valuable experience and move into farm management by working as a supervisor, dairy or arable unit manager, or assistant manager.\u003C/p\u003E\u003Cp\u003EYou could also take qualifications on the job like the Level 4 Certificate in Work-based Agricultural Management.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/dee33dcd-e92d-4e4f-956c-c38cfb49bb5b"
+    },
+    "ContentItemId": "4jt0y6vh971rtw7h8xahn4zb52",
+    "ContentItemVersionId": "4e34pvd4v96g05ppaskw7e1hxg",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Farmer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Personal assistant"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could find a temporary job to get administration experience. You could then apply for permanent roles.\u003C/p\u003E\u003Cp\u003EIf you\u0027re already working as an administrator or secretary, you could become a personal assistant through company training and promotion.\u003C/p\u003E\u003Cp\u003ETo get work, you\u0027ll usually need GCSEs at grades 9 to 4 (A* to C) in English and maths, A levels, or equivalent qualifications.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/2949b6f7-407d-41ff-9911-b85c144aeb94"
+    },
+    "ContentItemId": "424b8jach8tq5svk57chdbznmh",
+    "ContentItemVersionId": "4mdqq0edv8fbcsb2xg5awjygxx",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Personal assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Primary school teacher"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could start as a teaching assistant and do a part-time degree. You could then move onto a postgraduate teaching course to qualify as a teacher.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/5e37c0a0-bfc5-4462-9ee0-662398a17749"
+    },
+    "ContentItemId": "44kscpf53wc9z44hwk9r4ggh4t",
+    "ContentItemVersionId": "4czd9kp33ktb04hnrtwme64p40",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Primary school teacher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sales assistant"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could apply for permanent jobs after getting some experience from:\u003Cul\u003E\u003Cli\u003Ea temporary job in a store at Christmas\u003C/li\u003E\u003Cli\u003Ea weekend job\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/be9c61f8-da55-4918-9478-e11a00ef4d50"
+    },
+    "ContentItemId": "45ky5ach850rxr23vz460w7e4t",
+    "ContentItemVersionId": "4x5zd3wztvqtt456bdm9s3x3nm",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Sales assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Chief executive"
+    },
+    "WorkRoute": {
+      "Description": {
+        "Html": "\u003Cp\u003EYou could move into this role if you\u0027ve got several years\u0027 experience of working at senior management level, along with commercial expertise.\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workroute/1f5485a1-038c-41b5-b229-2265d3e11b3e"
+    },
+    "ContentItemId": "4aj0n4djwawng7bnc3efz1ee4e",
+    "ContentItemVersionId": "4v5q8n5ws5nr1tewpwndx73n4b",
+    "ContentType": "WorkRoute",
+    "DisplayText": "Chief executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

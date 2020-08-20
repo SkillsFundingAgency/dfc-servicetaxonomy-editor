@@ -1,0 +1,90 @@
+{
+  "name": "Registrations0_010c20d3-8474-4e39-88c1-dc464e8529a7",
+  "displayName": "Registrations0_010c20d3-8474-4e39-88c1-dc464e8529a7",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "QTS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll usually need \u003Ca href=\u0022https://www.gov.uk/guidance/qualified-teacher-status-qts\u0022\u003Equalified teacher status\u003C/a\u003E (QTS) to teach in a state school in England\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/d069565b-7b35-4cea-ad12-45a5a24df83c"
+    },
+    "ContentItemId": "4p2dex985pk107abm26tad794q",
+    "ContentItemVersionId": "41g9537rrd1k9sngyvgf73dhx9",
+    "ContentType": "Registration",
+    "DisplayText": "QTS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "CSCS"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need a \u003Ca href=\u0022https://www.cscs.uk.com\u0022\u003EConstruction Skills Certification Scheme\u003C/a\u003E (CSCS) card or equivalent to train and work on a construction site\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/ab265b5b-964a-47d2-94a3-83050c756049"
+    },
+    "ContentItemId": "460xag5zbsfhzt5dp4swgytf4p",
+    "ContentItemVersionId": "4azr7vn50vg742ss3qf63xfx4q",
+    "ContentType": "Registration",
+    "DisplayText": "CSCS",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social Work England"
+    },
+    "Registration": {
+      "Description": {
+        "Html": "\u003Cp\u003Eyou\u0027ll need to register with \u003Ca href=\u0022https://www.socialworkengland.org.uk/registration/apply-to-register/\u0022\u003ESocial Work England\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/registration/9204a9f4-da03-4703-ad29-10f0ccc7e06b"
+    },
+    "ContentItemId": "4q0f1nsm7199nrx2zrqpht3rcc",
+    "ContentItemVersionId": "4r81r7b5mhv3900eb2htsmdv56",
+    "ContentType": "Registration",
+    "DisplayText": "Social Work England",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

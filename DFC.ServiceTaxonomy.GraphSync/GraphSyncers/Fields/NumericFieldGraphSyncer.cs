@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public Task AddRelationship(IDescribeRelationshipsContext parentContext)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }

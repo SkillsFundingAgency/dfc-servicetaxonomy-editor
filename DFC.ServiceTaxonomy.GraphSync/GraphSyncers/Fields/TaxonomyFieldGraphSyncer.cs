@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -219,9 +220,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return (true, "");
         }
 
-        public Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
         {
-            throw new NotImplementedException();
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+               parentContext.ContentItem.Content[FieldTypeName], parentContext.ContentItemVersion, parentContext.ContentManager);
+
+            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
+
+            string termRelationshipType = TermRelationshipType(termContentType);
+
+            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<string>() { termRelationshipType } };
+
+            parentContext.AddChildContext(describeRelationshipsContext);
         }
     }
 }

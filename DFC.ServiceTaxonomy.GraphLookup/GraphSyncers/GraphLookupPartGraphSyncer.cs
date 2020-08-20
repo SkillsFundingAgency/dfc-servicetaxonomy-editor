@@ -34,7 +34,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
                 context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                     settings.RelationshipType!,
                     null,
-                    new[] {settings.NodeLabel!},
+                    new[] { settings.NodeLabel! },
                     settings.ValueFieldName!,
                     nodes.Select(GetId).ToArray());
             }
@@ -71,6 +71,18 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             }
 
             return Task.FromResult((true, ""));
+        }
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async override Task AddRelationship(IDescribeRelationshipsContext parentContext)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            var settings = parentContext.ContentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
+
+            if (settings.RelationshipType != null)
+            {
+                parentContext.AvailableRelationships.Add(settings.RelationshipType);
+            }
         }
 
         private object GetId(JToken jToken)

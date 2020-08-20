@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
     {
         public new IDescribeRelationshipsContext? ParentContext { get; }
         public new IEnumerable<IDescribeRelationshipsContext> ChildContexts => _childContexts.Cast<IDescribeRelationshipsContext>();
-        public IEnumerable<string> AvailableRelationships { get; set; }
+        public List<string> AvailableRelationships { get; set; }
 
         public IServiceProvider ServiceProvider { get; set; }
 

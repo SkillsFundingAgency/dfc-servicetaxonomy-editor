@@ -1,0 +1,138 @@
+{
+  "name": "CollegeRequirements0_010c20d3-8474-4e39-88c1-dc464e8529a7",
+  "displayName": "CollegeRequirements0_010c20d3-8474-4e39-88c1-dc464e8529a7",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "HNC or HND"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, or equivalent, for a higher national certificate or higher national diploma\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegerequirement/5cf51038-9981-4770-a21e-ff37592b0b30"
+    },
+    "ContentItemId": "47y1ehtqb9w5y6jsvp22747648",
+    "ContentItemVersionId": "4s08yfsyfct6540vqe9pvxqh5t",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "HNC or HND",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 2 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or more GCSEs at grades 9 to 3 (A* to D), or equivalent, for a level 2 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegerequirement/16de3770-79a0-4bf2-8ea5-026347c486b4"
+    },
+    "ContentItemId": "4sqq45k4dfjagr5rn32zmgg35b",
+    "ContentItemVersionId": "49xt1r5ztw2c8154ktkgxca249",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 2 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 4 or 5 entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, a level 3 diploma or relevant experience for a level 4 or level 5 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegerequirement/8bb1c08b-dd11-4e13-a392-92dd13a1b9ef"
+    },
+    "ContentItemId": "49gxvqmdkh3bp4r9fe062yx1cr",
+    "ContentItemVersionId": "43rex9dwjenynway4wxtbx3tmr",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 4 or 5 entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 3 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E4 or 5 GCSEs at grades 9 to 4 (A* to C), or equivalent, for a level 3 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegerequirement/f7ad56e9-d162-40fe-810d-11a100dfe409"
+    },
+    "ContentItemId": "4n1ajzjhj2d9w6gcjvkqkzfr43",
+    "ContentItemVersionId": "48z218cmewdr1rj0awx48a0wwm",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 3 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Level 1 course entry reqs"
+    },
+    "CollegeRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or fewer GCSEs at grades 3 to 1 (D to G), or equivalent, for a level 1 course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegerequirement/3e4f0ec7-8e4c-46a5-aa30-e447915fcdcb"
+    },
+    "ContentItemId": "4t4jgcn59g5e1xky4gc2n5er42",
+    "ContentItemVersionId": "4wmkex2dky9dk195tkwqrepwc9",
+    "ContentType": "CollegeRequirement",
+    "DisplayText": "Level 1 course entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-18T11:49:37.1178896Z",
+    "PublishedUtc": "2020-08-18T11:49:37.1178896Z",
+    "CreatedUtc": "2020-08-18T11:49:37.1178896Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
