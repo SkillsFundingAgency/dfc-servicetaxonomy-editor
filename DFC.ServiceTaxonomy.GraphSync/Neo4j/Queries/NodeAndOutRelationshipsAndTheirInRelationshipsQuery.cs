@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
@@ -16,7 +14,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
     public class NodeAndOutRelationshipsAndTheirInRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private IEnumerable<string> NodeLabels { get; }
-        private List<string>? DestinationUris { get; set; }
         private List<string>? Relationships { get; set; }
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
@@ -25,13 +22,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
             IEnumerable<string> nodeLabels,
             string idPropertyName,
             object idPropertyValue,
-            List<string>? destinationUris,
             List<string>? relationships)
         {
             NodeLabels = nodeLabels;
             IdPropertyName = idPropertyName;
             IdPropertyValue = idPropertyValue;
-            DestinationUris = destinationUris;
             Relationships = relationships;
         }
 
@@ -49,18 +44,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
             return validationErrors;
         }
 
-        private string GetDestinationNodes(string prefix, string destinationNodeName)
-        {
-            if (DestinationUris == null || DestinationUris.Count == 0)
-            {
-                return string.Empty;
-            }
-
-            var uris = DestinationUris.ToArray();
-
-            return $" {prefix} {destinationNodeName}.uri IN {JsonSerializer.Serialize(uris)}";
-        }
-
         public Query Query
         {
             get
@@ -70,8 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
                 // irn might have a different IdPropertyName, but if it has, it isn't the source node, so the where is ok
                 return new Query(
                     $@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-optional match (s)-[{GetRelationships("r")}]->(d) {GetDestinationNodes("WHERE", "d")}
-optional match (d)<-[{GetRelationships("ir")}]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName} {GetDestinationNodes("AND", "irn")}
+optional match (s)-[{GetRelationships("r")}]->(d)
+optional match (d)<-[{GetRelationships("ir")}]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName}
 with s, {{destNode: d, relationship: r, destinationIncomingRelationships:collect({{destIncomingRelationship:ir,  destIncomingRelSource:irn}})}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as nodeAndOutRelationshipsAndTheirInRelationships
 return nodeAndOutRelationshipsAndTheirInRelationships");
