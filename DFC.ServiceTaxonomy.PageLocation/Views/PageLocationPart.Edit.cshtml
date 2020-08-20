@@ -47,10 +47,11 @@
         $titleInput.blur(function () {
             if ($urlNameInput.val().trim().length === 0) {
                 $urlNameInput.val(slugify($titleInput.val()));
+                buildFullUrl();
             }
         });
 
-        $urlNameInput.on('change', buildFullUrl);
+        $urlNameInput.on('input', buildFullUrl);
         $pageLocationCheckboxes.on('change', buildFullUrl);
 
         function slugify(string) {

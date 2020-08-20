@@ -88,6 +88,7 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
         public override async Task UnpublishedAsync(PublishContentContext context)
         {
             await PublishContentEvent(context.ContentItem, ContentEventType.Unpublished);
+            await PublishContentEvent(context.ContentItem, ContentEventType.Draft);
         }
 
         public override async Task RemovedAsync(RemoveContentContext context)

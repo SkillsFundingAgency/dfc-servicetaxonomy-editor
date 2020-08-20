@@ -3,21 +3,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
-using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public class TaxonomyHelper : ITaxonomyHelper
     {
-        public List<ContentItem>? GetTerms(ContentItem contentItem)
+        public List<dynamic>? GetTerms(dynamic contentItem)
         {
-            return contentItem.As<TaxonomyPart>()?.Terms ??
-                   contentItem.Content.Terms?.ToObject<List<ContentItem>>();
+            return contentItem.Content?[nameof(TaxonomyPart)]?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
+                   contentItem.Content?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
+                   contentItem[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>();
         }
 
-        public ContentItem? FindParentTaxonomyTerm(ContentItem termContentItem, ContentItem taxonomyContentItem)
+        public dynamic? FindParentTaxonomyTerm(dynamic termContentItem, dynamic taxonomyContentItem)
         {
-            List<ContentItem>? terms = GetTerms(taxonomyContentItem);
+            List<dynamic>? terms = GetTerms(taxonomyContentItem);
 
             if (terms == null)
                 return null;
@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
             if (terms.Any(x => x.ContentItemId == termContentItem.ContentItemId))
                 return taxonomyContentItem;
 
-            ContentItem? result = null;
+            dynamic? result = null;
 
             foreach (var term in terms)
             {
@@ -40,15 +40,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
             return null;
         }
 
-        public string BuildTermUrl(ContentItem term, ContentItem taxonomy)
+        public string BuildTermUrl(dynamic term, dynamic taxonomy)
         {
             string url = term.DisplayText;
 
-            ContentItem? parent = FindParentTaxonomyTerm(term, taxonomy);
+            dynamic? parent = FindParentTaxonomyTerm(term, taxonomy);
 
-            while (parent != null && parent.ContentType != "Taxonomy")
+            while (parent != null && parent!.ContentType != "Taxonomy")
             {
-                url = $"{parent.DisplayText}/{url}";
+                url = $"{parent!.DisplayText}/{url}";
                 parent = FindParentTaxonomyTerm(parent, taxonomy);
             }
 
