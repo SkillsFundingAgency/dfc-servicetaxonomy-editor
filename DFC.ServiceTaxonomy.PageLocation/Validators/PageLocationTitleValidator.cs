@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Validators
@@ -23,10 +25,15 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                 return Task.FromResult(true);
             }
 
-            var parent = _taxonomyHelper.FindParentTaxonomyTerm(term, taxonomy);
+            JObject? parent = _taxonomyHelper.FindParentTaxonomyTerm(JObject.FromObject(term), JObject.FromObject(taxonomy));
 
-            //only the very first page location can equal "/"
-            return Task.FromResult(term.DisplayText.Trim() != "/" || parent?.ContentType == Constants.TaxonomyContentType ?? true);
+            if (parent == null)
+                throw new InvalidOperationException($"Could not find parent taxonomy term for {term}");
+
+            if (term.DisplayText.Trim() != "/")
+                return Task.FromResult(true);
+
+            return Task.FromResult(parent.ToObject<ContentItem>()?.ContentType == Constants.TaxonomyContentType);
         }
     }
 }

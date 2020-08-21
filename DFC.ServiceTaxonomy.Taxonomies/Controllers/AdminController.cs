@@ -257,7 +257,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             //when editing we don't know what the parent id is, so we have to search for it
-            var parentTaxonomyTerm = _taxonomyHelper.FindParentTaxonomyTerm(contentItem, taxonomy);
+            var parentTaxonomyTerm = _taxonomyHelper.FindParentTaxonomyTerm(JObject.FromObject(contentItem), JObject.FromObject(taxonomy));
 
             if (parentTaxonomyTerm == null)
                 return NotFound();
@@ -366,8 +366,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
         private bool ValidateTaxonomyTerm(dynamic parent, ContentItem term)
         {
-            List<dynamic> terms = _taxonomyHelper.GetTerms(parent);
-            return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
+            JArray terms = _taxonomyHelper.GetTerms(JObject.FromObject(parent));
+            return terms?.All(x => (string)x["ContentItemId"] == term.ContentItemId || (string)x["DisplayText"] != term.DisplayText) ?? true;
         }
 
         private IActionResult ValidationError(string errorMessage, dynamic model, string taxonomyContentItemId, string taxonomyItemId)
