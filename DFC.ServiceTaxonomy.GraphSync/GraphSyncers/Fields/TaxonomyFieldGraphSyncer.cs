@@ -223,14 +223,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
         {
             ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
-               parentContext.ContentItem.Content[FieldTypeName], parentContext.ContentItemVersion, parentContext.ContentManager);
+               parentContext.ContentField!, parentContext.ContentItemVersion, parentContext.ContentManager);
 
             JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
-            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<string>() { termRelationshipType } };
+            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(parentContext.ContentItem.ContentType, termRelationshipType, await parentContext.GraphSyncHelper.NodeLabels(termContentType)) } };
 
             parentContext.AddChildContext(describeRelationshipsContext);
         }

@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             //var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<string>() { relationshipType } };
 
-            parentContext.AvailableRelationships.Add(relationshipType);
+            parentContext.AvailableRelationships.Add(new ContentItemRelationship(parentContext.ContentItem.ContentType, relationshipType, await parentContext.GraphSyncHelper.NodeLabels(contentPickerFieldSettings.DisplayedContentTypes.FirstOrDefault())));
         }
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)

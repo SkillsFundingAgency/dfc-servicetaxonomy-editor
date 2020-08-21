@@ -73,6 +73,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content, context);
         }
+
+        public override Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+
+            _flowPartEmbeddedContentItemsGraphSyncer.AddRelationship(parentContext);
+            return base.AddRelationship(parentContext);
+        }
     }
 
 #pragma warning restore S1481

@@ -123,11 +123,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         .Where(ir => !ir.Relationship.Properties.ContainsKey(
                             NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName));
 
-                        allowSyncResult.AddSyncBlockers(
-                            nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
-                                new SyncBlocker(
-                                    context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
-                                    (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
+                    allowSyncResult.AddSyncBlockers(
+                        nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
+                            new SyncBlocker(
+                                context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
+                                (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
                 }
             }
         }
@@ -248,7 +248,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         //todo: best place for this to live?
         private static IEnumerable<KeyValuePair<string, object>> TwoWayRelationshipProperties { get; } =
-            new Dictionary<string, object> {{NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName, true}};
+            new Dictionary<string, object> { { NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName, true } };
 
         public async Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context)
         {
@@ -440,6 +440,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (embeddedContentItems == null)
                 throw new GraphSyncException("Embedded content container does not contain ContentItems.");
             return embeddedContentItems;
+        }
+
+        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            var items = (JArray)context.ContentItem.Content["FlowPart"]["Widgets"];
+
+            var convertedItems = ConvertToContentItems(items);
+
+            foreach (var embeddedContentItem in convertedItems)
+            {
+                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+
+                string relationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
+                context.AvailableRelationships.Add(new ContentItemRelationship(context.ContentItem.ContentType, relationshipType, await context.GraphSyncHelper.NodeLabels(embeddedContentItem.ContentType)));
+
+                var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+                await describeRelationshipService.BuildRelationships(embeddedContentItem, context);
+            }
         }
     }
 }

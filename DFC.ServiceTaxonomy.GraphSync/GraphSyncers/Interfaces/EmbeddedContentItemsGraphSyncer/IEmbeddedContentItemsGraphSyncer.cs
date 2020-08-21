@@ -16,5 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JArray? contentItems,
             IValidateAndRepairContext context);
+
+        Task AddRelationship(IDescribeRelationshipsContext context);
     }
 }

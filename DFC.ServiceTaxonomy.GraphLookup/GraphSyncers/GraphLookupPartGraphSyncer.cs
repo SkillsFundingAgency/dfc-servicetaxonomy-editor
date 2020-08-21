@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphLookup.Models;
@@ -5,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphLookup.Settings;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
@@ -81,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.RelationshipType != null)
             {
-                parentContext.AvailableRelationships.Add(settings.RelationshipType);
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(parentContext.ContentItem.ContentType, settings.RelationshipType, new List<string>()));
             }
         }
 

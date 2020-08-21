@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
@@ -14,15 +17,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
     public class NodeAndOutRelationshipsAndTheirInRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private IEnumerable<string> NodeLabels { get; }
-        private List<string>? Relationships { get; set; }
+        private List<ContentItemRelationship>? Relationships { get; set; }
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
+
+        private IEnumerable<string>? NodeAliases { get; set; }
 
         public NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
             IEnumerable<string> nodeLabels,
             string idPropertyName,
             object idPropertyValue,
-            List<string>? relationships)
+            List<ContentItemRelationship>? relationships)
         {
             NodeLabels = nodeLabels;
             IdPropertyName = idPropertyName;
@@ -51,19 +56,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
                 this.CheckIsValid();
 
                 // irn might have a different IdPropertyName, but if it has, it isn't the source node, so the where is ok
-                return new Query(
-                    $@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-optional match (s)-[{GetRelationships("r")}]->(d)
-optional match (d)<-[{GetRelationships("ir")}]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName}
+                if (Relationships == null || Relationships.Count == 0)
+                {
+                    return new Query(
+                        $@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
+optional match (s)-[r]->(d)
+optional match (d)<-[ir]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName}
 with s, {{destNode: d, relationship: r, destinationIncomingRelationships:collect({{destIncomingRelationship:ir,  destIncomingRelSource:irn}})}} as relationshipDetails
 with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as nodeAndOutRelationshipsAndTheirInRelationships
 return nodeAndOutRelationshipsAndTheirInRelationships");
+                }
+                else
+                {
+                    return new Query($@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
+{BuildRelationships()}
+");
+                }
             }
+        }
+
+        private string BuildRelationships()
+        {
+            NodeAliases = new List<string>();
+            StringBuilder sb = new StringBuilder();
+
+            foreach(var relationship in Relationships)
+            {
+
+            }
+
+            throw new NotImplementedException();
         }
 
         private string GetRelationships(string v)
         {
-            if(Relationships == null || Relationships.Count == 0)
+            if (Relationships == null || Relationships.Count == 0)
             {
                 return v;
             }

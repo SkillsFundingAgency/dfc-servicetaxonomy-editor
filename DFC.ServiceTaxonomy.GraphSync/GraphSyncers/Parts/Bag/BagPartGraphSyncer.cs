@@ -45,5 +45,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             return await _bagPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
                 (JArray?)content[ContainerName], context);
         }
+
+        public override Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+            System.Console.WriteLine("hello");
+            return base.AddRelationship(parentContext);
+        }
     }
 }
