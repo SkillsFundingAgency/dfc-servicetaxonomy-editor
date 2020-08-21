@@ -156,6 +156,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
             services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
+            services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
+            services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
+
             services.AddScoped<IContentItemsService, ContentItemsService>();
 
             // permissions

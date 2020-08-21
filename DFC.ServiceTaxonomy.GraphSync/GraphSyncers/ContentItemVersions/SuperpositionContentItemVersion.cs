@@ -5,10 +5,9 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions
 {
-    //rename to something like EventNeutral??
-    public class NeutralContentItemVersion : INeutralContentItemVersion
+    public class SuperpositionContentItemVersion : ISuperpositionContentItemVersion
     {
-        public string ContentApiBaseUrl => "";
+        public string ContentApiBaseUrl => "<<contentapiprefix>>";
 
         public VersionOptions VersionOptions => throw new NotImplementedException();
         public (bool? latest, bool? published) ContentItemIndexFilterTerms => throw new NotImplementedException();

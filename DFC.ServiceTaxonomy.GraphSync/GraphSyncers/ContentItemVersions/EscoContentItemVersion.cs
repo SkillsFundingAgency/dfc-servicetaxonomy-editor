@@ -5,10 +5,10 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions
 {
-    //rename to something like EventNeutral??
-    public class NeutralContentItemVersion : INeutralContentItemVersion
+    // todo: split out ContentApiBaseUrl and everything else into different classes, and use the contentapi clas in t'other
+    public class EscoContentItemVersion : IEscoContentItemVersion
     {
-        public string ContentApiBaseUrl => "";
+        public string ContentApiBaseUrl => "http://data.europa.eu/esco";
 
         public VersionOptions VersionOptions => throw new NotImplementedException();
         public (bool? latest, bool? published) ContentItemIndexFilterTerms => throw new NotImplementedException();

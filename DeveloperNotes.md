@@ -1,5 +1,9 @@
 #ToDo
 
+* cyphertocontent needs to substitute <contentapiprefix>> into ids
+
+* need to publish events for terms too
+
 * check moving a taxonomy term to a different level
 
 * does oc taxonomy module have unit tests? if so bring them in

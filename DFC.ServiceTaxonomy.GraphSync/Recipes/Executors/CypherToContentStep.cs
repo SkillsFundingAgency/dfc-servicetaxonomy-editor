@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.CSharpScriptGlobals.CypherToContent.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
@@ -36,6 +39,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IContentManagerSession _contentManagerSession;
         private readonly IContentItemIdGenerator _idGenerator;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
+        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
+        private readonly IEscoContentItemVersion _escoContentItemVersion;
         private readonly IMemoryCache _memoryCache;
         private readonly ILogger<CypherToContentStep> _logger;
 
@@ -48,6 +55,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IContentManagerSession contentManagerSession,
             IContentItemIdGenerator idGenerator,
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
+            IGraphSyncHelper graphSyncHelper,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            ISuperpositionContentItemVersion superpositionContentItemVersion,
+            IEscoContentItemVersion escoContentItemVersion,
             IMemoryCache memoryCache,
             ILogger<CypherToContentStep> logger)
         {
@@ -57,6 +68,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _contentManagerSession = contentManagerSession;
             _idGenerator = idGenerator;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
+            _graphSyncHelper = graphSyncHelper;
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _superpositionContentItemVersion = superpositionContentItemVersion;
+            _escoContentItemVersion = escoContentItemVersion;
             _memoryCache = memoryCache;
             _logger = logger;
         }
@@ -139,6 +154,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             contentItem.Published = contentItem.Latest = true;
             contentItem.CreatedUtc = contentItem.ModifiedUtc = contentItem.PublishedUtc = DateTime.UtcNow;
             contentItem.Owner = contentItem.Author = "admin";
+
+            JObject graphSyncContent = contentItem.Content[nameof(GraphSyncPart)];
+            graphSyncContent[_graphSyncHelper.ContentIdPropertyName] =
+                JToken.FromObject(_graphSyncHelper.GetIdPropertyValue(
+                    graphSyncContent, _superpositionContentItemVersion,
+                    _publishedContentItemVersion, _escoContentItemVersion)!);
 
             return contentItem;
         }
