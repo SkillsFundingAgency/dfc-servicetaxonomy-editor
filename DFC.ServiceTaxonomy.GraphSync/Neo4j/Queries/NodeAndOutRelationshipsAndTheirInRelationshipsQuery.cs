@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         private string IdPropertyName { get; }
         private object IdPropertyValue { get; }
 
-        private IEnumerable<string>? NodeAliases { get; set; }
+        private List<string>? NodeAliases { get; set; }
 
         public NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
             IEnumerable<string> nodeLabels,
@@ -68,34 +68,61 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
                 }
                 else
                 {
-                    return new Query($@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-{BuildRelationships()}
-");
+                    var relationships = BuildRelationships();
+                    return new Query(relationships);
                 }
             }
         }
 
+        private static string IntToLetters(int value)
+        {
+            string result = string.Empty;
+            while (--value >= 0)
+            {
+                result = (char)('A' + value % 26) + result;
+                value /= 26;
+            }
+            return result;
+        }
+
+        private readonly Dictionary<List<string>, string> _aliasLookup = new Dictionary<List<string>, string>();
+
         private string BuildRelationships()
         {
+            int relationshipNumber = 1;
             NodeAliases = new List<string>();
             StringBuilder sb = new StringBuilder();
 
-            foreach(var relationship in Relationships)
-            {
+            sb.AppendLine($@"match (A:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})");
 
+            foreach (var relationship in Relationships!)
+            {
+                var sourceNodePrefix = _aliasLookup.FirstOrDefault(x => x.Key.Any(z => z == relationship.Source)).Value;
+
+                if (sourceNodePrefix == null)
+                {
+                    sourceNodePrefix = IntToLetters(relationshipNumber);
+                    relationshipNumber++;
+                    NodeAliases.Add(sourceNodePrefix);
+                    _aliasLookup.Add(new List<string> { relationship.Source! }, sourceNodePrefix);
+                }
+
+                var destinationNodePrefix = _aliasLookup.FirstOrDefault(x => x.Key == relationship.Destination).Value;
+
+                if(destinationNodePrefix == null)
+                {
+                    destinationNodePrefix = IntToLetters(relationshipNumber);
+                    relationshipNumber++;
+                    NodeAliases.Add(destinationNodePrefix);
+                    _aliasLookup.Add(relationship.Destination.ToList(), destinationNodePrefix);
+                }
+
+                sb.AppendLine($"optional match ({sourceNodePrefix}:{relationship.Source})-[{sourceNodePrefix}{destinationNodePrefix}:{relationship.Relationship}]->({destinationNodePrefix}:{string.Join(":", relationship.Destination!)})");
             }
 
-            throw new NotImplementedException();
-        }
+            sb.AppendLine($"return {string.Join(',', NodeAliases)}");
 
-        private string GetRelationships(string v)
-        {
-            if (Relationships == null || Relationships.Count == 0)
-            {
-                return v;
-            }
-
-            return $"{v}:{string.Join('|', Relationships)}";
+            return sb.ToString();
         }
 
         public INodeAndOutRelationshipsAndTheirInRelationships? ProcessRecord(IRecord record)
