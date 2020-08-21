@@ -22,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         private object IdPropertyValue { get; }
 
         private List<string>? NodeAliases { get; set; }
+        private List<string>? NodeRelationships { get; set; }
 
         public NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
             IEnumerable<string> nodeLabels,
@@ -91,7 +92,11 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
         {
             int relationshipNumber = 1;
             NodeAliases = new List<string>();
+            NodeRelationships = new List<string>();
+
             StringBuilder sb = new StringBuilder();
+            StringBuilder with = new StringBuilder();
+            List<string> withAliases = new List<string>();
 
             sb.AppendLine($@"match (A:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})");
 
@@ -117,12 +122,39 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
                     _aliasLookup.Add(relationship.Destination.ToList(), destinationNodePrefix);
                 }
 
-                sb.AppendLine($"optional match ({sourceNodePrefix}:{relationship.Source})-[{sourceNodePrefix}{destinationNodePrefix}:{relationship.Relationship}]->({destinationNodePrefix}:{string.Join(":", relationship.Destination!)})");
+                var relationshipName = $"{sourceNodePrefix}{destinationNodePrefix}";
+
+                var withAlias = $"{sourceNodePrefix}{destinationNodePrefix}RelationshipDetails";
+
+                NodeRelationships.Add($"{sourceNodePrefix}{destinationNodePrefix}");
+
+                with.AppendLine($"with <<ReplaceAliases>>,<<ReplaceRelationships>>,{$"{string.Join(',', withAliases)}"}{$"{(withAliases.Any() ? "," : "")}"} {{destNode: {destinationNodePrefix}, relationship: {relationshipName}, destinationIncomingRelationships:collect({{destIncomingRelationship:{relationshipName},  destIncomingRelSource:'todo'}})}} as {withAlias}");
+                sb.AppendLine($"optional match ({sourceNodePrefix}:{relationship.Source})-[{relationshipName}:{relationship.Relationship}]->({destinationNodePrefix}:{string.Join(":", relationship.Destination!)})");
+                withAliases.Add(withAlias);
             }
 
-            sb.AppendLine($"return {string.Join(',', NodeAliases)}");
+            with.AppendLine($"with {{sourceNode: A, outgoingRelationships: {BuildCollects(withAliases)}}} as nodeAndOutRelationshipsAndTheirInRelationships");
+            var withs = with.ToString();
+            withs = withs.Replace("<<ReplaceAliases>>", string.Join(',', NodeAliases));
+            withs = withs.Replace("<<ReplaceRelationships>>", string.Join(',', NodeRelationships));
+
+            Console.WriteLine(withs);
+
+            sb.AppendLine(withs);
+            sb.AppendLine($"return nodeAndOutRelationshipsAndTheirInRelationships");
 
             return sb.ToString();
+        }
+
+        private string BuildCollects(List<string> withAliases)
+        {
+            StringBuilder collectString = new StringBuilder();
+            foreach(var alias in withAliases)
+            {
+                collectString.Append($"collect({alias}) + ");
+            }
+
+            return collectString.ToString().TrimEnd(' ').Trim('+');
         }
 
         public INodeAndOutRelationshipsAndTheirInRelationships? ProcessRecord(IRecord record)
