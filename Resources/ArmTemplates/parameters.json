@@ -97,6 +97,30 @@
         },
         "PreviewAppPrefix": {
             "value": "__PreviewAppPrefix__"
+        },
+        "Neo4jEndpoints0Enabled": {
+            "value": __Neo4jEndpoints0Enabled__
+        },
+        "Neo4jEndpoints1Enabled": {
+            "value": __Neo4jEndpoints1Enabled__
+        },
+        "Neo4jEndpoints2Enabled": {
+            "value": __Neo4jEndpoints2Enabled__
+        },
+        "Neo4jEndpoints3Enabled": {
+            "value": __Neo4jEndpoints3Enabled__
+        },
+        "Neo4jReplicaSets0GraphInstances0Enabled": {
+            "value": __Neo4jReplicaSets0GraphInstances0Enabled__
+        },
+        "Neo4jReplicaSets0GraphInstances1Enabled": {
+            "value": __Neo4jReplicaSets0GraphInstances1Enabled__
+        },
+        "Neo4jReplicaSets1GraphInstances0Enabled": {
+            "value": __Neo4jReplicaSets1GraphInstances0Enabled__
+        },
+        "Neo4jReplicaSets1GraphInstances1Enabled": {
+            "value": __Neo4jReplicaSets1GraphInstances1Enabled__
         }
     }
 }

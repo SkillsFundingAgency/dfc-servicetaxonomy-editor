@@ -97,6 +97,30 @@
         },
         "PreviewAppPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
+        "Neo4jEndpoints0Enabled": {
+            "value": true
+        },
+        "Neo4jEndpoints1Enabled": {
+            "value": true
+        },
+        "Neo4jEndpoints2Enabled": {
+            "value": true
+        },
+        "Neo4jEndpoints3Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets0GraphInstances0Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets0GraphInstances1Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets1GraphInstances0Enabled": {
+            "value": true
+        },
+        "Neo4jReplicaSets1GraphInstances1Enabled": {
+            "value": true
         }
     }
 }

@@ -100,6 +100,30 @@
         },
         "PreviewAppPrefix": {
             "type": "string"
+        },
+        "Neo4jEndpoints0Enabled": {
+            "type": "bool"
+        },
+        "Neo4jEndpoints1Enabled": {
+            "type": "bool"
+        },
+        "Neo4jEndpoints2Enabled": {
+            "type": "bool"
+        },
+        "Neo4jEndpoints3Enabled": {
+            "type": "bool"
+        },
+        "Neo4jReplicaSets0GraphInstances0Enabled": {
+            "type": "bool"
+        },
+        "Neo4jReplicaSets0GraphInstances1Enabled": {
+            "type": "bool"
+        },
+        "Neo4jReplicaSets1GraphInstances0Enabled": {
+            "type": "bool"
+        },
+        "Neo4jReplicaSets1GraphInstances1Enabled": {
+            "type": "bool"
         }
     },
     "variables": {
@@ -194,11 +218,11 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__0__Enabled",
-                                "value": "true"
+                                "value": "[parameters('Neo4jEndpoints0Enabled')]"
                             },
                             {
                                 "name": "Neo4j__ReplicaSets__0__GraphInstances__0__Enabled",
-                                "value": "true"
+                                "value": "[parameters('Neo4jReplicaSets0GraphInstances0Enabled')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Uri",
@@ -214,11 +238,11 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Enabled",
-                                "value": "false"
+                                "value": "[parameters('Neo4jEndpoints1Enabled')]"
                             },
                             {
                                 "name": "Neo4j__ReplicaSets__0__GraphInstances__1__Enabled",
-                                "value": "false"
+                                "value": "[parameters('Neo4jReplicaSets0GraphInstances1Enabled')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__2__Uri",
@@ -234,11 +258,11 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__2__Enabled",
-                                "value": "true"
+                                "value": "[parameters('Neo4jEndpoints2Enabled')]"
                             },
                             {
                                 "name": "Neo4j__ReplicaSets__1__GraphInstances__0__Enabled",
-                                "value": "true"
+                                "value": "[parameters('Neo4jReplicaSets1GraphInstances0Enabled')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__3__Uri",
@@ -254,11 +278,11 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__3__Enabled",
-                                "value": "false"
+                                "value": "[parameters('Neo4jEndpoints3Enabled')]"
                             },
                             {
                                 "name": "Neo4j__ReplicaSets__1__GraphInstances__1__Enabled",
-                                "value": "false"
+                                "value": "[parameters('Neo4jReplicaSets1GraphInstances1Enabled')]"
                             },
                             {
                                 "name": "OwlDataGeneratorConfigModel__DefaultLanguage",
