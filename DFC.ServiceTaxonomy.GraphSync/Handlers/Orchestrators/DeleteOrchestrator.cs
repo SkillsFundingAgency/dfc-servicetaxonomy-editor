@@ -162,15 +162,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                     return true;
                 }
 
-                //_session.Cancel();
                 AddFailureNotifier(contentItem);
             }
             catch(Exception ex)
             {
                 _logger.LogError(ex, "Couldn't delete from graph replica set.");
-                //_session.Cancel();
                 AddFailureNotifier(contentItem);
-                //throw;
             }
             return false;
         }
