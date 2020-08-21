@@ -5,8 +5,7 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions
 {
-    //rename to something like EventNeutral??
-    public class NeutralContentItemVersion : INeutralContentItemVersion
+    public class NeutralEventContentItemVersion : INeutralEventContentItemVersion
     {
         public string ContentApiBaseUrl => "";
 

@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
-        private readonly INeutralContentItemVersion _neutralContentItemVersion;
+        private readonly INeutralEventContentItemVersion _neutralEventContentItemVersion;
         private readonly ILogger<EventGridPublishingHandler> _logger;
 
         public EventGridPublishingHandler(
@@ -59,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             IGraphSyncHelper graphSyncHelper,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
-            INeutralContentItemVersion neutralContentItemVersion,
+            INeutralEventContentItemVersion neutralEventContentItemVersion,
             ILogger<EventGridPublishingHandler> logger
             )
         {
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             _graphSyncHelper = graphSyncHelper;
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
-            _neutralContentItemVersion = neutralContentItemVersion;
+            _neutralEventContentItemVersion = neutralEventContentItemVersion;
             _logger = logger;
         }
 
@@ -118,7 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 ContentEventType.Published => _publishedContentItemVersion,
                 ContentEventType.Draft => _previewContentItemVersion,
-                _ => _neutralContentItemVersion
+                _ => _neutralEventContentItemVersion
             };
 
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);

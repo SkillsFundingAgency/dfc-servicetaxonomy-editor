@@ -1,6 +1,6 @@
 ﻿namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions
 {
-    public interface INeutralContentItemVersion : IContentItemVersion
+    public interface INeutralEventContentItemVersion : IContentItemVersion
     {
     }
 }
