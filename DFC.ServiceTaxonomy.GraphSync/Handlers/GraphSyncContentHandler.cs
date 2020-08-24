@@ -12,6 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     {
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IDeleteOrchestrator _deleteOrchestrator;
+        private readonly ICloneOrchestrator _cloneOrchestrator;
         private readonly ISession _session;
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
@@ -19,12 +20,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         public GraphSyncContentHandler(
             ISyncOrchestrator syncOrchestrator,
             IDeleteOrchestrator deleteOrchestrator,
+            ICloneOrchestrator cloneOrchestrator,
             ISession session,
             ISyncNameProvider syncNameProvider,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _syncOrchestrator = syncOrchestrator;
             _deleteOrchestrator = deleteOrchestrator;
+            _cloneOrchestrator = cloneOrchestrator;
             _session = session;
             _syncNameProvider = syncNameProvider;
             _contentOrchestrationHandlers = contentOrchestrationHandlers;
