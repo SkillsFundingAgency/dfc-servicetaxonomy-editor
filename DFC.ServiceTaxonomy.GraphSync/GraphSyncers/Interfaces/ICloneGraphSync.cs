@@ -5,6 +5,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface ICloneGraphSync
     {
-        Task MutateOnClone(ContentItem contentItem);
+        Task MutateOnClone(ContentItem contentItem, IContentManager contentManager);
     }
 }

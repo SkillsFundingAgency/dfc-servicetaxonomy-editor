@@ -77,6 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
+        //todo: use Cloning?
         public override async Task ClonedAsync(CloneContentContext context)
         {
             if (!await _cloneOrchestrator.Clone(context.CloneContentItem))

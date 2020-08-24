@@ -17,7 +17,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly ISyncNameProvider _syncNameProvider;
-        private readonly IContentManager _contentManager;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
         private readonly Logger<CloneGraphSync> _logger;
@@ -25,7 +24,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public CloneGraphSync(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
             ISyncNameProvider syncNameProvider,
-            IContentManager contentManager,
             IPreviewContentItemVersion previewContentItemVersion,    //todo: ??
             IServiceProvider serviceProvider,
             Logger<CloneGraphSync> logger
@@ -33,16 +31,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _syncNameProvider = syncNameProvider;
-            _contentManager = contentManager;
             _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
             _logger = logger;
         }
 
-        public async Task MutateOnClone(ContentItem contentItem)
+        public async Task MutateOnClone(ContentItem contentItem, IContentManager contentManager)
         {
             var context = ActivatorUtilities.CreateInstance<CloneContext>(_serviceProvider,
-                contentItem, _syncNameProvider, _contentManager, _previewContentItemVersion);
+                contentItem, _syncNameProvider, contentManager, _previewContentItemVersion);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
