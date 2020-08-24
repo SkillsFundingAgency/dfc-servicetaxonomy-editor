@@ -1,5 +1,7 @@
 #ToDo
 
+& renamr graphsynchelper to SyncNameProvider
+
 * need to publish events for terms too
 
 * if sync fails and changes cancelled, leave user on edit page with their changes intact
@@ -53,17 +55,10 @@ AspNetCoreEnvironment : Production
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
 ^ it should have a notification for each of published/preview
 
-* deleting a page needs to delete the widgets also and non-shared html
 * deleting a widget needs to delete from graph also
 ^ when no widgets left, will not delete existing
 does the same issue exist for all enbedded contentm, like pickers?
 allow empty destnodeids in replacerelationshipcommand?
-
-* instead of cloaked draft items in published graph, could:
-  update contentpicker (etc) to not try and create relationships to draft items
-  when unpublish, cancel if any incoming relationships (similar to how we handle delete)
-
-* custom part containing location, homepage, alias and url preview (similar to autoroute part)
 
 * pages : alias only has to be unique to location, not to page content type
 
