@@ -31,6 +31,12 @@
             { name: 'addRow', tag: 'Add a new row' },
             { name: 'removeRow', tag: 'Remove a row' },
             { name: 'delete', tag: 'Delete accordion' }
+        ],
+        tabs: [
+            { name: 'create', tag: 'Create tab section' },
+            { name: 'addPanel', tag: 'Add a new panel' },
+            { name: 'removePanel', tag: 'Remove a panel' },
+            { name: 'delete', tag: 'Delete tab section' }
         ]
     };
 
@@ -152,6 +158,12 @@
                         }
                     });
 
+                    trumbowyg.addBtnDef('tabs', {
+                        dropdown: buildTabsDropdown(trumbowyg),
+                        ico: 'ordered-list',
+                        text: 'Tab'
+                    });
+
                     setColourTitles();
                 },
                 // Return a list of button names which are active on current element
@@ -254,6 +266,11 @@
             var selection = trumbowyg.doc.getSelection();
 
             var options = {
+                text: {
+                    label: "Link Text",
+                    required: true,
+                    value: ''
+                },
                 url: {
                     label: 'URL',
                     required: true,
@@ -263,6 +280,7 @@
 
             if (selection.focusNode.parentNode.tagName === 'A') {
                 options.url.value = $(selection.focusNode.parentNode).attr('href');
+                options.text.value = $(selection.focusNode.parentNode).text();
             }
 
             trumbowyg.openModalInsert(openInNewTab ? 'Link in New Tab' : 'Link', options, function (v) {
@@ -271,6 +289,7 @@
                 if (selection.focusNode.parentNode.tagName === 'A') {
                     $link = $(selection.focusNode.parentNode);
                     $link.attr('href', v.url);
+                    $link.text(v.text);
                 } else {
                     $link = $('<a href="' + v.url + '" class="govuk-link"></a>');
                     $(selection.focusNode).wrap($link);
@@ -359,6 +378,54 @@
         var anchorNode = $(selection.anchorNode);
 
         $(anchorNode.closest($("div.govuk-accordion"))).remove();
+
+    }
+
+    function tabsSelection(trumbowyg, method) {
+        switch (method) {
+            case 'create':
+                createTabs(trumbowyg);
+                break;
+            case 'addPanel':
+                addPanel(trumbowyg);
+                break;
+            case 'removePanel':
+                removePanel(trumbowyg);
+                break;
+            case 'delete':
+                deleteTabs(trumbowyg);
+                break;
+        }
+    }
+
+    function createTabs(trumbowyg, method) {
+        var selection = trumbowyg.doc.getSelection();
+        $(selection.anchorNode).append(tabsBuilder());
+    }
+
+    function addPanel(trumbowyg) {
+        var selection = trumbowyg.doc.getSelection();
+        var anchorNode = $(selection.anchorNode);
+        var tabs = anchorNode.closest($("div.govuk-tabs"));
+        var contents = tabs.children("ul.govuk-tabs__list");
+        var id = Date.now();
+        $(tabs).append(panelBuilder(id));
+        $(contents).append(tabContentItemBuilder(id));
+    }
+
+    function removePanel(trumbowyg) {
+        var selection = trumbowyg.doc.getSelection();
+        var anchorNode = $(selection.anchorNode);
+        var panel = $(anchorNode.closest($("div.govuk-tabs__panel")));
+        var contents = $('a[href="#' + $(panel).attr('id') + '"]').parent();
+        $(panel).remove();
+        $(contents).remove();
+    }
+
+    function deleteTabs(trumbowyg) {
+        var selection = trumbowyg.doc.getSelection();
+        var anchorNode = $(selection.anchorNode);
+        $(anchorNode.closest($("div.govuk-tabs"))).remove();
 
     }
 
@@ -557,6 +624,25 @@
 
     }
 
+    function buildTabsDropdown(trumbowyg) {
+        var dropdown = [];
+
+        $.each(trumbowyg.o.plugins.gds.tabs, function (index, heading) {
+            var buttonName = 'tabs' + heading.name;
+            trumbowyg.addBtnDef(buttonName, {
+                text: heading.tag,
+                ico: heading.name,
+                tag: heading.name,
+                fn: function () {
+                    tabsSelection(trumbowyg, heading.name);
+                }
+            });
+            dropdown.push(buttonName);
+        });
+        return dropdown;
+
+    }
+
     function setColourTitles() {
         var colors = [
             { code: '#0b0c0c', label: 'Primary Text, Active Links, Input Border, Focus Text State' },
@@ -631,6 +717,34 @@
             html += accordionText.replace(new RegExp(textIdTag, 'g'), id) + divEnd;
             return html;
         }
+    }
+
+    function tabsBuilder() {
+        var tab1Id = Date.now()-1;
+        var tab2Id = Date.now();
+        var divEnd = '</div>';
+        var tab = '<div class="govuk-tabs" data-module="govuk-tabs"><h2 class="govuk-tabs__title">Contents</h2><ul class="govuk-tabs__list">';
+        tab += tabContentItemBuilder(tab1Id);
+        tab += tabContentItemBuilder(tab2Id);
+        tab += '</ul>';
+        tab += panelBuilder(tab1Id, true);
+        tab += panelBuilder(tab2Id);
+        tab += '</div>';
+
+        return tab;
+    }
+
+    function tabContentItemBuilder(id) {
+        return '<li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href = "#' + id + '" >[Tab Title For No Javascript pages]</a></li>';
+    }
+
+    function panelBuilder(id, show) {
+
+        var hidden = function (show) {
+            return show === undefined || show === false ? ' govuk-tabs__panel--hidden' : '';
+        };
+
+        return '<div class="govuk-tabs__panel' + hidden(show) + '" id="' + id + '"><h2 class="govuk-heading-l">[Insert Tab Title Here]</h2><div>[place tab content here]</div></div>';
     }
 
 })(jQuery);
