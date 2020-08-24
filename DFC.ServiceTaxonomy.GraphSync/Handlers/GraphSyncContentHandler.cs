@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
 using OrchardCore.ContentManagement.Handlers;
 using YesSql;
 
@@ -14,7 +12,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly IDeleteOrchestrator _deleteOrchestrator;
         private readonly ICloneOrchestrator _cloneOrchestrator;
         private readonly ISession _session;
-        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public GraphSyncContentHandler(
@@ -22,14 +19,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             IDeleteOrchestrator deleteOrchestrator,
             ICloneOrchestrator cloneOrchestrator,
             ISession session,
-            ISyncNameProvider syncNameProvider,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _syncOrchestrator = syncOrchestrator;
             _deleteOrchestrator = deleteOrchestrator;
             _cloneOrchestrator = cloneOrchestrator;
             _session = session;
-            _syncNameProvider = syncNameProvider;
             _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
@@ -82,13 +77,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
-        //todo: do in cloning
         public override async Task ClonedAsync(CloneContentContext context)
         {
-            if (context.CloneContentItem.Content[nameof(GraphSyncPart)] != null)
+            if (!await _cloneOrchestrator.Clone(context.CloneContentItem))
             {
-                _syncNameProvider.ContentType = context.CloneContentItem.ContentType;
-                context.CloneContentItem.Content[nameof(GraphSyncPart)][nameof(GraphSyncPart.Text)] = await _syncNameProvider.GenerateIdPropertyValue();
+                // sad paths have already been notified to the user and logged
+                Cancel(context);
+                return;
             }
 
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
@@ -153,6 +148,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             // removing doesn't have it's own context with a cancel, so we have to cancel the session
             //todo: either add them to oc, or raise an issue
 
+            _session.Cancel();
+        }
+
+        private void Cancel(CloneContentContext context)
+        {
             _session.Cancel();
         }
 
