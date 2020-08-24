@@ -23,16 +23,16 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             _taxonomyHelper = taxonomyHelper;
         }
 
-        public string ErrorMessage => "The generated URL for this Page Location has already been used as a Page URL.";
+        public string? ErrorMessage { get; private set; }
 
-        public async Task<bool> Validate(ContentItem term, ContentItem taxonomy)
+        public async Task<bool> Validate(JObject term, JObject taxonomy)
         {
-            if (term.Content.PageLocation == null)
+            if (!term.ContainsKey("PageLocation"))
             {
                 return true;
             }
 
-            string url = _taxonomyHelper.BuildTermUrl(JObject.FromObject(term), JObject.FromObject(taxonomy));
+            string url = _taxonomyHelper.BuildTermUrl(term, taxonomy);
             //TODO: check whether or not we only care about published pages, but I think we care about both
             IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
             
@@ -42,7 +42,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                 string? draftUrl = ((string?)(await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Draft))?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
                 string? pubUrl = ((string?)(await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Published))?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
 
-                if ((draftUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false) || (pubUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false)) return false;
+                if ((draftUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false) || (pubUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false))
+                {
+                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Page URL.";
+                    return false;
+                }
             }
 
             return true;

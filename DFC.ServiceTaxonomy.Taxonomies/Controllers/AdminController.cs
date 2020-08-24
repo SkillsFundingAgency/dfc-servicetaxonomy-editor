@@ -159,7 +159,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
-                if (!await validator.Validate(contentItem, taxonomy))
+                if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
                 {
                     return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
@@ -278,7 +278,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
-                if (!await validator.Validate(contentItem, taxonomy))
+                if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
                 {
                     return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
