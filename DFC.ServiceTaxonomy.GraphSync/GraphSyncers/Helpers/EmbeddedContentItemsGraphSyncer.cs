@@ -269,9 +269,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        public Task MutateOnClone(JArray? contentItems, ICloneContext context)
+        public async Task MutateOnClone(JArray? contentItems, ICloneContext context)
         {
-            return Task.CompletedTask;
+            ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
+
+            foreach (ContentItem contentItem in embeddedContentItems)
+            {
+                await context.CloneGraphSync.MutateOnClone(contentItem, context.ContentManager);
+            }
         }
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)

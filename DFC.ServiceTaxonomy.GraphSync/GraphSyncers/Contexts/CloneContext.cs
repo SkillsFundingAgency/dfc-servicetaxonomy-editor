@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using Microsoft.Extensions.Logging;
@@ -8,8 +9,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class CloneContext : GraphSyncContext, ICloneItemSyncContext
     {
+        public ICloneGraphSync CloneGraphSync { get; }
+
         public CloneContext(
             ContentItem contentItem,
+            ICloneGraphSync cloneGraphSync,
             ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
@@ -23,6 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
                 parentContext,
                 logger)
         {
+            CloneGraphSync = cloneGraphSync;
         }
     }
 }
