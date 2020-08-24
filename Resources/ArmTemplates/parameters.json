@@ -59,29 +59,17 @@
         "Neo4jUrlDraft1": {
             "value": "__Neo4jUrlDraft1__"
         },
-        "Neo4jUrlVisits": {
-            "value": "__Neo4jUrlVisits__"
-        },
-        "Neo4jUrlVisits1": {
-            "value": "__Neo4jUrlVisits1__"
-        },
         "Neo4jUser": {
             "value": "__Neo4jUser__"
         },
         "Neo4jUserDraft": {
             "value": "__Neo4jUserDraft__"
         },
-        "Neo4jUserVisits": {
-            "value": "__Neo4jUserVisits__"
-        },
         "Neo4jPassword": {
             "value": "__Neo4jPassword__"
         },
         "Neo4jPasswordDraft": {
             "value": "__Neo4jPasswordDraft__"
-        },
-        "Neo4jPasswordVisits": {
-            "value": "__Neo4jPasswordVisits__"
         },
         "SqlElasticPoolName": {
             "value": "__elasticPoolName__"
