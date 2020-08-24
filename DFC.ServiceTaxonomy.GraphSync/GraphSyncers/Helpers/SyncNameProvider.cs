@@ -168,20 +168,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             CheckPreconditions();
 
+            return await GenerateIdPropertyValue(_contentType!, GraphSyncPartSettings!);
+        }
+
+        public async Task<string> GenerateIdPropertyValue(string contentType)
+        {
+            return await GenerateIdPropertyValue(contentType, GetGraphSyncPartSettings(contentType));
+        }
+
+        private async Task<string> GenerateIdPropertyValue(string contentType, GraphSyncPartSettings graphSyncPartSettings)
+        {
             string newGuid = Guid.NewGuid().ToString("D");
 
-            return GraphSyncPartSettings!.GenerateIdPropertyValue switch
+            return graphSyncPartSettings.GenerateIdPropertyValue switch
             {
                 "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"" =>
-                $"http://data.europa.eu/esco/{_contentType!.ToLowerInvariant()}/{newGuid}",
+                    $"http://data.europa.eu/esco/{contentType.ToLowerInvariant()}/{newGuid}",
 
                 "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()" =>
-                $"<<contentapiprefix>>/{_contentType!.ToLowerInvariant()}/{newGuid}",
+                    $"<<contentapiprefix>>/{contentType.ToLowerInvariant()}/{newGuid}",
 
-                _ => await TransformOrDefault(GraphSyncPartSettings!.GenerateIdPropertyValue, newGuid, _contentType!)
+                _ => await TransformOrDefault(graphSyncPartSettings.GenerateIdPropertyValue, newGuid, contentType)
             };
         }
 
+        //todo: replace consumers with nameof(GraphSyncPart.Text)
         public string ContentIdPropertyName => "Text";
 
         public object? GetIdPropertyValue(

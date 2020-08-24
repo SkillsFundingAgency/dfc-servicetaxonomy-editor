@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 
         // the following do not require ContentType to be set first
         string IdPropertyName(string contentType);
+        Task<string> GenerateIdPropertyValue(string contentType);
         string IdPropertyNameFromNodeLabels(IEnumerable<string> nodeLabels);
         Task<IEnumerable<string>> NodeLabels(string contentType);
         Task<string> RelationshipTypeDefault(string destinationContentType);
