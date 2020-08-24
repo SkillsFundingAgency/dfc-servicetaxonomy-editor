@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items
         Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult);
         Task DeleteComponents(IGraphDeleteItemSyncContext context);
 
-        Task MutateOnClone(ICloneContext context);
+        Task MutateOnClone(ICloneItemSyncContext context);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(IValidateAndRepairItemSyncContext context);
     }

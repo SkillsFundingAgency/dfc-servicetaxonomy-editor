@@ -1,9 +1,7 @@
-﻿using OrchardCore.ContentManagement;
-
+﻿
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
-    public interface ICloneContext
+    public interface ICloneContext : IGraphSyncContext
     {
-        ContentItem ContentItem { get; set; }
     }
 }

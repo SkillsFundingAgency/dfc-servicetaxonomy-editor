@@ -58,9 +58,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 async (partSyncer, partContent) => await partSyncer.DeleteComponents(partContent, context));
         }
 
-        public Task MutateOnClone(ICloneContext context)
+        public async Task MutateOnClone(ICloneItemSyncContext context)
         {
-            throw new NotImplementedException();
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.MutateOnClone(partContent, context));
         }
 
         private async Task IteratePartSyncers(

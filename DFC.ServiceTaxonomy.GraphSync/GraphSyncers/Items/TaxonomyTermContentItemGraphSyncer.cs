@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             await _taxonomyPartGraphSyncer.DeleteComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
         }
 
-        public Task MutateOnClone(ICloneContext context)
+        public Task MutateOnClone(ICloneItemSyncContext context)
         {
             throw new NotImplementedException();
         }
