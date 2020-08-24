@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public Task MutateOnClone(ICloneItemSyncContext context)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(

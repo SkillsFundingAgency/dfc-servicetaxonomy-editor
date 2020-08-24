@@ -13,7 +13,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
-            //IServiceProvider serviceProvider,    //todo: use activate utilities
             ILogger<CloneContext> logger,
             ICloneContext? parentContext = null)
         : base (
@@ -21,9 +20,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
                 syncNameProvider,
                 contentManager,
                 contentItemVersion,
-                //contentItemVersionFactory.Get(graphReplicaSet.Name),
                 parentContext,
-                //serviceProvider.GetRequiredService<ILogger<GraphDeleteContext>>())
                 logger)
         {
         }
