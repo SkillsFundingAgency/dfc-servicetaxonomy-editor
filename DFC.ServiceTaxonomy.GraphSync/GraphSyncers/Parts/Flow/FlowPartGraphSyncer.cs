@@ -58,7 +58,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             await _flowPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task MutateOnClone(JObject content, ICloneContext context)
+        {
+            await _flowPartEmbeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
+        }
+
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             (bool validated, string failureReason) =

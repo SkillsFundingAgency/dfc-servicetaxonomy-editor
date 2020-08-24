@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
@@ -54,9 +53,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             await _taxonomyPartGraphSyncer.DeleteComponentsForNonLeafEmbeddedTerm(context.ContentItem.Content, context);
         }
 
-        public Task MutateOnClone(ICloneItemSyncContext context)
+        public async Task MutateOnClone(ICloneItemSyncContext context)
         {
-            return Task.CompletedTask;
+            await _taxonomyPartGraphSyncer.MutateOnClone(context.ContentItem.Content, context);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(

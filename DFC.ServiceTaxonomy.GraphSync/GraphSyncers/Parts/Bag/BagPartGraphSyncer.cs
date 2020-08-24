@@ -39,7 +39,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             await _bagPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject content,
+        public override async Task MutateOnClone(JObject content, ICloneContext context)
+        {
+            await _bagPartEmbeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
+        }
+
+        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
+            JObject content,
             IValidateAndRepairContext context)
         {
             return await _bagPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
