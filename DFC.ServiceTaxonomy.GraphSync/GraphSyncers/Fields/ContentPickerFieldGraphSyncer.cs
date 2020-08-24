@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -25,16 +26,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
-
+        private readonly IEscoContentItemVersion _escoContentItemVersion;
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
         public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
             new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } };
 
         public ContentPickerFieldGraphSyncer(
-            ILogger<ContentPickerFieldGraphSyncer> logger)
+            ILogger<ContentPickerFieldGraphSyncer> logger,
+            IEscoContentItemVersion escoContentItemVersion)
         {
             _logger = logger;
+            _escoContentItemVersion = escoContentItemVersion;
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
@@ -209,8 +212,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {
-            return context.GraphSyncHelper.GetIdPropertyValue(
-                pickedContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
+            return context.SyncNameProvider.GetIdPropertyValue(
+                pickedContentItem.Content[nameof(GraphSyncPart)], _escoContentItemVersion, context.ContentItemVersion);
         }
     }
 }

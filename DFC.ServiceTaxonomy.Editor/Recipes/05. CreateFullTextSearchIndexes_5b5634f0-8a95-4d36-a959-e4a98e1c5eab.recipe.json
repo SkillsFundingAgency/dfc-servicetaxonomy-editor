@@ -1,0 +1,21 @@
+{
+    "name": "CreateFullTextSearchIndexes_5b5634f0-8a95-4d36-a959-e4a98e1c5eab",
+    "displayName": "CreateFullTextSearchIndexes_5b5634f0-8a95-4d36-a959-e4a98e1c5eab",
+    "description": "",
+    "author": "",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": "",
+    "tags": [],
+    "steps": [
+        {
+            "name": "CypherCommand",
+            "commands": [
+                "CALL db.index.fulltext.createNodeIndex(\"OccupationLabels\",[\"OccupationLabel\"],[\"skos__prefLabel\"], { analyzer: \"synonym-occupation\"})",
+                "CALL db.index.fulltext.createNodeIndex(\"SkillLabels\",[\"SkillLabel\"],[\"skos__prefLabel\"], { analyzer: \"synonym-skill\"})",
+                "CALL db.index.fulltext.createNodeIndex(\"JobProfiles\",[\"JobProfile\"],[\"skos__prefLabel\"], {analyser: \"english\"})"
+            ]
+        }
+    ]
+}

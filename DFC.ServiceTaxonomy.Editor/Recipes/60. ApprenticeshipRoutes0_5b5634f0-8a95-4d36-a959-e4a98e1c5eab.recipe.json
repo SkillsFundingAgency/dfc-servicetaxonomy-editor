@@ -1,0 +1,836 @@
+{
+  "name": "ApprenticeshipRoutes0_5b5634f0-8a95-4d36-a959-e4a98e1c5eab",
+  "displayName": "ApprenticeshipRoutes0_5b5634f0-8a95-4d36-a959-e4a98e1c5eab",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Personal assistant"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do an intermediate or advanced level apprenticeship in business administration before working your way up to a personal assistant position.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4",
+          "4rtxne50qzqx4611gh5d0n98m5"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/d067d7f8-58e4-47fe-a130-f95c94040ef2"
+    },
+    "ContentItemId": "4bqzx7vmxwm39y3m1msj44gtxq",
+    "ContentItemVersionId": "4g6kr9m95dmzjvwgab76ncwv5z",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Personal assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Train driver"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can apply to a train operating company and begin a train driver advanced apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49pfq7q3rvh3134n2gctb6x9n7"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/667e456b-2e56-4890-8eb2-af678bc7e8fa"
+    },
+    "ContentItemId": "4xswv6r1xxcnx5hzk1k9yq20dz",
+    "ContentItemVersionId": "4553wjxjzn3dn5x3hpz6fc7mdn",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Train driver",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Border Force officer"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do a public service operational delivery advanced apprenticeship with the Civil Service.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "49b9swxydc0txwwpaatz2gyxw4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "49373r40xb4mhy14ettzkvvn4z"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/b1d40d7b-d83b-4feb-b1c8-57db61d45ba5"
+    },
+    "ContentItemId": "4nq751a6b4fsa7qh9844pae2wp",
+    "ContentItemVersionId": "4wmksygrned0b0dy6qvjxhavwk",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Border Force officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Electrician"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do an installation electrician advanced apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rtxne50qzqx4611gh5d0n98m5"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/4cb1ead4-97df-4acd-a431-eee1934a79eb"
+    },
+    "ContentItemId": "4pxbbxg61dpew7k70be1c25845",
+    "ContentItemVersionId": "49s2ge1jqy7k263ahb2ktpma4w",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Electrician",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Chief executive"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can get into this job through a senior leader master\u0027s degree in management apprenticeship.\u003C/p\u003E\u003Cp\u003EThis will usually take 2 to 3 years to complete. You\u0027ll do on-the-job training and spend time with a training provider.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EEmployers will set their own entry requirements.\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": []
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/3e1f9e20-3e10-4126-af0b-5786c1236a86"
+    },
+    "ContentItemId": "4pjthnb4yfrp6vh21h8dz4zfxe",
+    "ContentItemVersionId": "4y126gwgjk2mkzpbjc71zg7hc8",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Chief executive",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sales assistant"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could get into this job through a retailer intermediate apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/478992f5-a71e-4f5d-9a5b-9a58b7cc7f7d"
+    },
+    "ContentItemId": "4b5yp15ayzkvm3czwc352kv4xw",
+    "ContentItemVersionId": "41dhq4fyn174dww8s9gqem9vng",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Sales assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Police officer"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could start by doing a Police Constable Degree Apprenticeship (PCDA). It\u0027s a 3 year work-based programme that leads to a degree in Professional Policing Practice.\u003C/p\u003E\u003Cp\u003EYou can \u003Ca href=\u0022https://www.joiningthepolice.co.uk/whos-recruiting/apprenticeship\u0022\u003Eapply through your chosen force\u003C/a\u003E.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": "\u003Cp\u003EIf you want to work in non-emergency response situations you could do a serious and complex crime investigator degree apprenticeship.\u003C/p\u003E\u003Cp\u003EIn this role, as well as police forces you could also be employed by organisations like:\u003Cul\u003E\u003Cli\u003EThe National Crime Agency\u003C/li\u003E\u003Cli\u003EHer Majesty\u0027s Revenue and Customs\u003C/li\u003E\u003Cli\u003EThe Ministry of Defence\u003C/li\u003E\u003C/ul\u003E\u003C/p\u003E"
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4cxxj4fxd4a9d5a1a2gnkw3cmj"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/a4f5c2c6-2fe1-4c97-847c-ea3d54f4a100"
+    },
+    "ContentItemId": "430rb5mf4xjhxsndk4q9ve11c5",
+    "ContentItemVersionId": "4dke6n8f2tnxd1r0g30vkgd347",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Police officer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Plumber"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do an intermediate and advanced apprenticeship in plumbing and domestic heating. This can take up to 4 years.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4",
+          "4rtxne50qzqx4611gh5d0n98m5"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/42d3db86-95d1-4fa9-97b6-73406fce0f32"
+    },
+    "ContentItemId": "4jdnce0cs5wxx3cmbcbp6vp3w4",
+    "ContentItemVersionId": "4t483n2n9d6hnw7pj6b7hgtbdy",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Plumber",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Primary school teacher"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can get into this career through a postgraduate teaching apprenticeship, if you have a degree and want to teach 5 to 11 year olds.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "429a4657vatcg5ergtpmxq0sda",
+          "4xd59sn278jmr1m01c54hzffde",
+          "4z1s4eva79dadrjecwq9dafr4a"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4ngew70vx3y890xy11chaxz6m9",
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/6d3831bd-9452-45bc-9218-80c1772c2004"
+    },
+    "ContentItemId": "425c7a8anq882sd4tvynbmh9w4",
+    "ContentItemVersionId": "40fn7mb6g590y55qm5v7njbxwr",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Primary school teacher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Admin assistant"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could get into this job through an intermediate apprenticeship in business administration, or a business administrator advanced apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4",
+          "4rtxne50qzqx4611gh5d0n98m5"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/cdfd8b8a-76e6-4bcc-9ed1-cad516ae9f87"
+    },
+    "ContentItemId": "48mvsrsda54kar4tjbpx699f42",
+    "ContentItemVersionId": "4y43cvavs2z5jxwp7xzmx1vxnw",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Admin assistant",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Civil engineer"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could complete a civil engineer degree apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4jcfn40bnfab04sqwpss1px7m1"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/84e6a4e8-4abb-415a-9660-f4e9753d0e23"
+    },
+    "ContentItemId": "4ftd3bk8mtyaess5fe0hv54cd0",
+    "ContentItemVersionId": "4cy37b6q5gt1s5d1nncjy0dhca",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Civil engineer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Farmer"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can work towards this role through an advanced apprenticeship in agriculture.\u003C/p\u003E\u003Cp\u003EThis will usually take 18 months to complete. You\u0027ll do on-the-job training and spend time with a college or training provider.\u003C/p\u003E\u003Cp\u003EYou could do a higher apprenticeship in agricultural business management if you already have a lot of farming experience.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rtxne50qzqx4611gh5d0n98m5",
+          "4jcfn40bnfab04sqwpss1px7m1"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/023d7a86-5a2e-4a07-bd5e-b40cc1906d90"
+    },
+    "ContentItemId": "4v14m18bhpdhwwfzrg74ckvqck",
+    "ContentItemVersionId": "41x81j3mcqk77tkc1fg0jhk6nf",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Farmer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emergency medical dispatcher"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can get into this role through an advanced apprenticeship in emergency service contact handling.\u003C/p\u003E\u003Cp\u003EYou\u0027ll usually need to be over 18 years old and may need a GCSE grade 9 to 4 (A* to C) in English or equivalent.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4xfggwcvzw89b03bhpbe56tpcj"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": []
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/15886df5-9d3b-4ba9-8973-1d91cf5c131a"
+    },
+    "ContentItemId": "481djm3b0c49fvqhdpa684cc4f",
+    "ContentItemVersionId": "4j801jvqym9mwsyktg9vg8955v",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Emergency medical dispatcher",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social worker"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can complete a social worker degree apprenticeship, which takes around 3 years.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4cxxj4fxd4a9d5a1a2gnkw3cmj"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/aee60b7b-8c0b-43ff-af07-ae2a769289d9"
+    },
+    "ContentItemId": "4rm58f8a7814vrn513vcy9p1w7",
+    "ContentItemVersionId": "46d4cr3g6g4evypzcvkkb91549",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Social worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Postman or postwoman"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could do an express delivery operative intermediate apprenticeship, if you want to work as a delivery driver.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4zncsebcrsb283961k4trdvec3",
+          "4dacdp69dye3rwrzt9gacsdv56"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/2a3f451e-dee1-432c-a102-c1d35751db22"
+    },
+    "ContentItemId": "4q20m0dnp2vvzwez59pmd23kdr",
+    "ContentItemVersionId": "43c2pqd70e0xsrb8p46y7rkxms",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Postman or postwoman",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Care worker"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could get into this job through an adult care worker intermediate apprenticeship or a lead adult care worker advanced apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "45aepqn3qv57a2mhs9s500znns"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4",
+          "4rtxne50qzqx4611gh5d0n98m5"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/056b8f00-5d69-4d1b-a110-1da523c5c0e8"
+    },
+    "ContentItemId": "4e2qvvfz7695gsmmsjweb48bxd",
+    "ContentItemVersionId": "4fw8fdcs6c47sxqzm9m40yv0n5",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Care worker",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Waiter"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could get into this job through a hospitality team member intermediate apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/82fe3259-ccf6-49ac-a097-81c9d7eeed9e"
+    },
+    "ContentItemId": "44g0dxfjkmd250xhb1s7ceynx6",
+    "ContentItemVersionId": "4t9b5k711y74g61f3egh9scy4k",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Waiter",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Cabin crew"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou could start by doing a cabin crew advanced apprenticeship.\u003C/p\u003E\u003Cp\u003EThis will usually take 12 months to complete. You\u0027ll do on-the-job training and spend time with a college or training provider.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4rtxne50qzqx4611gh5d0n98m5"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/f414accc-4ae7-43b5-ae84-ecbbe246cff7"
+    },
+    "ContentItemId": "4rd7sx32k615bxdpykfbnspnmn",
+    "ContentItemVersionId": "4m7h6h2s6ct6w5dry8a5r7rm44",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Cabin crew",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction labourer"
+    },
+    "ApprenticeshipRoute": {
+      "RelevantSubjects": {
+        "Html": "\u003Cp\u003EYou can do a groundworker or construction operations intermediate apprenticeship.\u003C/p\u003E"
+      },
+      "FurtherInfo": {
+        "Html": ""
+      },
+      "RequirementsPrefix": {
+        "ContentItemIds": [
+          "4f8eehgqqzwqb0d3ncvcyygnm4"
+        ]
+      },
+      "Requirements": {
+        "ContentItemIds": [
+          "4ab3gk8g455yj0b18hj9mwvwx4"
+        ]
+      },
+      "Links": {
+        "ContentItemIds": [
+          "4dacdp69dye3rwrzt9gacsdv56",
+          "4zncsebcrsb283961k4trdvec3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/apprenticeshiproute/6f44c768-9aca-492d-b5f6-e87da6f8eb63"
+    },
+    "ContentItemId": "4kcg1shhfetvt30yth01nw35ne",
+    "ContentItemVersionId": "4bsrsdthqcpc8243k6q7s2grcg",
+    "ContentType": "ApprenticeshipRoute",
+    "DisplayText": "Construction labourer",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-08-24T12:03:14.5765252Z",
+    "PublishedUtc": "2020-08-24T12:03:14.5765252Z",
+    "CreatedUtc": "2020-08-24T12:03:14.5765252Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
