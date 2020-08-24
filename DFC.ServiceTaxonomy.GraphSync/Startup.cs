@@ -36,6 +36,8 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
@@ -90,6 +92,11 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<IDataMigration, Migrations>();
             services.AddTransient<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartGraphSyncer, GraphSyncPartGraphSyncer>();
+
+            // orchestrators & orchestration handlers
+            services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
+            services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
+            services.AddTransient<IContentOrchestrationHandler, EventGridPublishingHandler>();
 
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
@@ -148,7 +155,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
             services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
-            services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
+            services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
+            services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
+            services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
+
             services.AddScoped<IContentItemsService, ContentItemsService>();
 
             // permissions

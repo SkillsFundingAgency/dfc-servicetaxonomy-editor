@@ -4,13 +4,14 @@ using DFC.ServiceTaxonomy.Events.Models;
 using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Handlers;
 
-namespace DFC.ServiceTaxonomy.Events.Handlers
+namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 {
+    //todo: this probably belongs in a module/project that sits on top of graphsync, as it's nothing to do with graph syncing
     //todo: update comment and confluence with which content uri prefix is used
 
     /// <summary>
@@ -42,66 +43,65 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
     /// |24| draft+published     | clone from list          | new draft          | draft                      |                                         |
     /// |25| n/a                 | import recipe (publish)  | published          | published                  | re-importing not tested as it has issues that should be fixed by the current oc idempotent recipes pr |
     /// </summary>
-    public class PublishToEventGridHandler : ContentHandlerBase
+    public class EventGridPublishingHandler : IContentOrchestrationHandler
     {
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
         private readonly IEventGridContentClient _eventGridContentClient;
         private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
-        private readonly INeutralContentItemVersion _neutralContentItemVersion;
-        private readonly ILogger<PublishToEventGridHandler> _logger;
+        private readonly INeutralEventContentItemVersion _neutralEventContentItemVersion;
+        private readonly ILogger<EventGridPublishingHandler> _logger;
 
-        public PublishToEventGridHandler(
+        public EventGridPublishingHandler(
             IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
             IGraphSyncHelper graphSyncHelper,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
-            INeutralContentItemVersion neutralContentItemVersion,
-            ILogger<PublishToEventGridHandler> logger)
+            INeutralEventContentItemVersion neutralEventContentItemVersion,
+            ILogger<EventGridPublishingHandler> logger
+            )
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
             _graphSyncHelper = graphSyncHelper;
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
-            _neutralContentItemVersion = neutralContentItemVersion;
+            _neutralEventContentItemVersion = neutralEventContentItemVersion;
             _logger = logger;
         }
 
-        public override async Task ClonedAsync(CloneContentContext context)
+        //todo: switch to contexts?
+        public async Task DraftSaved(ContentItem contentItem)
         {
-            await PublishContentEvent(context.CloneContentItem, ContentEventType.Draft);
+            await PublishContentEvent(contentItem, ContentEventType.Draft);
         }
 
-        public override async Task DraftSavedAsync(SaveDraftContentContext context)
+        public async Task Published(ContentItem contentItem)
         {
-            await PublishContentEvent(context.ContentItem, ContentEventType.Draft);
+            await PublishContentEvent(contentItem, ContentEventType.Published);
         }
 
-        public override async Task PublishedAsync(PublishContentContext context)
+        public async Task Unpublished(ContentItem contentItem)
         {
-            await PublishContentEvent(context.ContentItem, ContentEventType.Published);
+            await PublishContentEvent(contentItem, ContentEventType.Unpublished);
+            await PublishContentEvent(contentItem, ContentEventType.Draft);
         }
 
-        public override async Task UnpublishedAsync(PublishContentContext context)
+        public async Task Cloned(ContentItem contentItem)
         {
-            await PublishContentEvent(context.ContentItem, ContentEventType.Unpublished);
-            await PublishContentEvent(context.ContentItem, ContentEventType.Draft);
+            await PublishContentEvent(contentItem, ContentEventType.Draft);
         }
 
-        public override async Task RemovedAsync(RemoveContentContext context)
+        public async Task Deleted(ContentItem contentItem)
         {
-            if (context.NoActiveVersionLeft)
-            {
-                await PublishContentEvent(context.ContentItem, ContentEventType.Deleted);
-            }
-            else
-            {
-                // discard draft
-                await PublishContentEvent(context.ContentItem, ContentEventType.DraftDiscarded);
-            }
+            await PublishContentEvent(contentItem, ContentEventType.Deleted);
+        }
+
+        public async Task DraftDiscarded(ContentItem contentItem)
+        {
+            await PublishContentEvent(contentItem, ContentEventType.DraftDiscarded);
         }
 
         private async Task PublishContentEvent(
@@ -118,7 +118,7 @@ namespace DFC.ServiceTaxonomy.Events.Handlers
             {
                 ContentEventType.Published => _publishedContentItemVersion,
                 ContentEventType.Draft => _previewContentItemVersion,
-                _ => _neutralContentItemVersion
+                _ => _neutralEventContentItemVersion
             };
 
             string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);

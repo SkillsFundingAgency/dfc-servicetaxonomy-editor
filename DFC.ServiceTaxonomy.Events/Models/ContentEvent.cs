@@ -4,15 +4,6 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Events.Models
 {
-    public enum ContentEventType
-    {
-        Published,
-        Unpublished,
-        Draft,
-        DraftDiscarded,
-        Deleted
-    }
-
     public class ContentEvent
     {
         // use 2 part segmented eventType?
