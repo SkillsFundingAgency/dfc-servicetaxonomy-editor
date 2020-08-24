@@ -242,7 +242,7 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Username",
-                                "value": "[parameters('Neo4jUser1')]"
+                                "value": "[parameters('Neo4jUser')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Password",
