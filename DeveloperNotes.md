@@ -1,7 +1,5 @@
 #ToDo
 
-* cyphertocontent needs to substitute <contentapiprefix>> into ids
-
 * need to publish events for terms too
 
 * if sync fails and changes cancelled, leave user on edit page with their changes intact
@@ -10,16 +8,9 @@
 
 * does oc taxonomy module have unit tests? if so bring them in
 
-* have new handler and use to pubish event from contenthandler/orchestrators to publish events
-publish/draft/discarddraft etc
-
-* remove oc dependency in events project
+* add new module for events, sitting on top of sync, using the new events library
 
 * Generate correlation Id in handler?
-
-* some files (e.g. contenthandlers) might be better split into partials
-
-* create nuget out of events project for test project
 
 * unpublishing page leaves HTML
 
@@ -35,8 +26,6 @@ so we should probably not sync 'empty' shared widgets
 
 * replicate taxonomy fix: https://mail.google.com/mail/u/0/#inbox/FMfcgxwJXLntMnZkqzJfcvWQKXsHKDGV
 
-* html settings missing button for accordion
-
 * pub/draft embedded item sync, events only if synced ok, clone?
 
 * need to resync following part deletion too
@@ -44,12 +33,6 @@ so we should probably not sync 'empty' shared widgets
 * in dev seeing this exception:
 An unhandled error occurred while executing an activity. Workflow ID: '980956'. Activity: '4mvaxsfc5ntc90s0pbs7xtds4x', 'AuditSyncIssuesTask'. Putting the workflow in the faulted state.
 An expression of non-boolean type specified in a context where a condition is expected, near 'or'.
-
-story: * if sync fails, shouldn't publish event : move event publishing into graphsynccontenthandling
-
-* make clear in message after sync sanity check that sync happened, but there might be an issue (perhaps suggest a sync validation)
-
-* publishing sometimes fails sanity check (pub/draft)
 
 * notifier with dropdown containing technical details/exceptions?
 
@@ -62,14 +45,7 @@ AspNetCoreEnvironment : Production
 
 * wysiwyg alignment in flow part (if we need to support justification)
 
-* the validation needs to de-substitute the actual urls back to <<contentapiprefix>> before it checks for equality
 * validate twoway relationships
-
-* add publish later and unpublish later buttons to page type
-
-* fix visualisation buttons (substitute urls?)
-
-* switch visualisation buttons to dropdowns
 
 * MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 
