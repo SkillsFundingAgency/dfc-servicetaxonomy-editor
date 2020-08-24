@@ -38,9 +38,6 @@
         "Neo4jPassword": {
             "type": "securestring"
         },
-        "Neo4jPassword1": {
-            "type": "securestring"
-        },
         "Neo4jUrlDraft": {
             "type": "string"
         },
@@ -243,7 +240,7 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Password",
-                                "value": "[parameters('Neo4jPassword1')]"
+                                "value": "[parameters('Neo4jPassword')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Enabled",
