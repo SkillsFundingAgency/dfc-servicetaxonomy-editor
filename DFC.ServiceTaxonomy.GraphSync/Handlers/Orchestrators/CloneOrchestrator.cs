@@ -13,28 +13,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
     public class CloneOrchestrator : Orchestrator, ICloneOrchestrator
     {
         private readonly ICloneGraphSync _cloneGraphSync;
+        private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IServiceProvider _serviceProvider;
 
         public CloneOrchestrator(
             ICloneGraphSync cloneGraphSync,
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
+            ISyncOrchestrator syncOrchestrator,
             IServiceProvider serviceProvider,
             ILogger<CloneOrchestrator> logger)
             : base(contentDefinitionManager, notifier, logger)
         {
             _cloneGraphSync = cloneGraphSync;
+            _syncOrchestrator = syncOrchestrator;
             _serviceProvider = serviceProvider;
         }
 
         public async Task<bool> Clone(ContentItem contentItem)
         {
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
-            // todo: do we still need this?
-            //GetRequiredService<IContentManager>();
 
             await _cloneGraphSync.MutateOnClone(contentItem, contentManager);
-            return true;
+
+            return await _syncOrchestrator.SaveDraft(contentItem);
         }
     }
 }
