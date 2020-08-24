@@ -35,9 +35,6 @@
         "Neo4jUser": {
             "type": "string"
         },
-        "Neo4jUser1": {
-            "type": "string"
-        },
         "Neo4jPassword": {
             "type": "securestring"
         },
