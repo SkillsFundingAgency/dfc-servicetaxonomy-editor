@@ -25,6 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         //todo: gotta be careful about lifetimes. might have to inject iserviceprovider
         private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private string? _contentType;
         private GraphSyncPartSettings? _graphSyncPartSettings;
         private readonly Stack<Func<string, string>> _propertyNameTransformers;
@@ -36,10 +37,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public GraphSyncHelper(
             IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
-            IContentDefinitionManager contentDefinitionManager)
+            IContentDefinitionManager contentDefinitionManager,
+            ISuperpositionContentItemVersion superpositionContentItemVersion)
         {
             _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
+            _superpositionContentItemVersion = superpositionContentItemVersion;
             _propertyNameTransformers = new Stack<Func<string, string>>();
         }
 
@@ -181,23 +184,39 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public string ContentIdPropertyName => "Text";
 
-        public object? GetIdPropertyValue(JObject graphSyncContent, IContentItemVersion contentItemVersion)
+        public object? GetIdPropertyValue(
+            JObject graphSyncContent,
+            IContentItemVersion contentItemVersion,
+            params IContentItemVersion[] fromContentItemVersions)
         {
-            object? untransformedIdValue = graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
+            object? idValue = graphSyncContent[ContentIdPropertyName]?.ToObject<object?>();
 
-            string? untransformedIdString = untransformedIdValue as string;
-            if (untransformedIdString == null)
-                return untransformedIdValue;
+            string? idString = idValue as string;
+            if (idString == null)
+                return idValue;
 
-            // we ignore case, so that existing content items will still sync
-            // if we didn't have to worry about existing items in the oc db, we wouldn't need to
-            return untransformedIdString.Replace(ContentApiPrefixToken, contentItemVersion.ContentApiBaseUrl,
-                StringComparison.OrdinalIgnoreCase);
+            if (fromContentItemVersions.Length == 0)    //static?
+                fromContentItemVersions = new IContentItemVersion[] { _superpositionContentItemVersion };
+
+            foreach (var fromContentItemVersion in fromContentItemVersions)
+            {
+                // we ignore case, so that existing content items will still sync
+                // if we didn't have to worry about existing items in the oc db, we wouldn't need to
+
+                // should we check start with, or just replace with all?
+                idString = idString.Replace(fromContentItemVersion.ContentApiBaseUrl,
+                    contentItemVersion.ContentApiBaseUrl,
+                    StringComparison.OrdinalIgnoreCase);
+            }
+
+            return idString;
         }
 
         public string IdPropertyValueFromNodeValue(string nodeIdValue, IContentItemVersion contentItemVersion)
         {
-            return nodeIdValue.Replace(contentItemVersion.ContentApiBaseUrl, ContentApiPrefixToken,
+            return nodeIdValue.Replace(
+                contentItemVersion.ContentApiBaseUrl,
+                _superpositionContentItemVersion.ContentApiBaseUrl,
                 StringComparison.OrdinalIgnoreCase);
         }
 

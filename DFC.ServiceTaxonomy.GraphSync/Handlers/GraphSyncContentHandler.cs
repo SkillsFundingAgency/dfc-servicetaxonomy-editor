@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Models;
@@ -13,17 +14,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly IDeleteOrchestrator _deleteOrchestrator;
         private readonly ISession _session;
         private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public GraphSyncContentHandler(
             ISyncOrchestrator syncOrchestrator,
             IDeleteOrchestrator deleteOrchestrator,
             ISession session,
-            IGraphSyncHelper graphSyncHelper)
+            IGraphSyncHelper graphSyncHelper,
+            IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _syncOrchestrator = syncOrchestrator;
             _deleteOrchestrator = deleteOrchestrator;
             _session = session;
             _graphSyncHelper = graphSyncHelper;
+            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
         //todo: add log scopes for these operations
@@ -35,6 +39,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);
+                return;
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftSaved(context.ContentItem);
             }
         }
 
@@ -44,6 +54,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);
+                return;
+            }
+
+            //todo: move these into 'ed' where available?
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Published(context.ContentItem);
             }
         }
 
@@ -53,6 +70,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);
+                return;
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Unpublished(context.ContentItem);
             }
         }
 
@@ -63,6 +86,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 _graphSyncHelper.ContentType = context.CloneContentItem.ContentType;
                 context.CloneContentItem.Content[nameof(GraphSyncPart)][nameof(GraphSyncPart.Text)] = await _graphSyncHelper.GenerateIdPropertyValue();
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Cloned(context.CloneContentItem);
             }
         }
 
@@ -78,6 +106,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 if (!await _deleteOrchestrator.Delete(context.ContentItem))
                 {
                     Cancel(context);
+                    return;
+                }
+
+                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+                {
+                    await contentOrchestrationHandler.Deleted(context.ContentItem);
                 }
                 return;
             }
@@ -85,6 +119,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             if (!await _syncOrchestrator.DiscardDraft(context.ContentItem))
             {
                 Cancel(context);
+                return;
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftDiscarded(context.ContentItem);
             }
         }
 

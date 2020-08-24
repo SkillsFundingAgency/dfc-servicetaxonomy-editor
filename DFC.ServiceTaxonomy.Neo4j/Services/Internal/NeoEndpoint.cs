@@ -86,7 +86,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         private void LogRun(string runType, string database, bool defaultDatabase)
         {
-            _logger.LogInformation($"Running {runType} on {Name} endpoint, using {(defaultDatabase?"default":database)} database.");
+            _logger.LogInformation("Running {RunType} on {Endpoint} endpoint, using {Database)} database.",
+                runType, Name, defaultDatabase?"default":database);
         }
 
         public void Dispose()

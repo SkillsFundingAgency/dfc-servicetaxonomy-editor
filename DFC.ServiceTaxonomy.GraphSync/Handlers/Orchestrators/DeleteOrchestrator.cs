@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return await DeleteFromGraphReplicaSetIfAllowed(
                 contentItem,
                 _publishedContentItemVersion,
-                DeleteOperation.Unpublish) == SyncStatus.Blocked;
+                DeleteOperation.Unpublish);
         }
 
         /// <returns>true if deleting from either graph was blocked.</returns>
@@ -89,7 +89,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem);
         }
 
-        private async Task<SyncStatus> DeleteFromGraphReplicaSetIfAllowed(
+        private async Task<bool> DeleteFromGraphReplicaSetIfAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             DeleteOperation deleteOperation)
@@ -100,13 +100,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                     contentItemVersion,
                     deleteOperation);
 
-            if (syncStatus == SyncStatus.Allowed
-                && !await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem))
+            return syncStatus switch
             {
-                return SyncStatus.Blocked;
-            }
-
-            return syncStatus;
+                SyncStatus.Blocked => false,
+                SyncStatus.Allowed => await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem),
+                /*SyncStatus.NotRequired*/ _ => true
+            };
         }
 
         private async Task<(SyncStatus, IDeleteGraphSyncer?)> GetDeleteGraphSyncerIfDeleteAllowed(
@@ -163,15 +162,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                     return true;
                 }
 
-                //_session.Cancel();
                 AddFailureNotifier(contentItem);
             }
             catch(Exception ex)
             {
                 _logger.LogError(ex, "Couldn't delete from graph replica set.");
-                //_session.Cancel();
                 AddFailureNotifier(contentItem);
-                //throw;
             }
             return false;
         }

@@ -1,5 +1,13 @@
 #ToDo
 
+* cyphertocontent needs to substitute <contentapiprefix>> into ids
+
+* need to publish events for terms too
+
+* if sync fails and changes cancelled, leave user on edit page with their changes intact
+
+* check moving a taxonomy term to a different level
+
 * does oc taxonomy module have unit tests? if so bring them in
 
 * have new handler and use to pubish event from contenthandler/orchestrators to publish events

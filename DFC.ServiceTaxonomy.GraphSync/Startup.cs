@@ -93,9 +93,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
-            // orchestrators
+            // orchestrators & orchestration handlers
             services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
             services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
+            services.AddTransient<IContentOrchestrationHandler, EventGridPublishingHandler>();
 
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
@@ -155,7 +156,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
             services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
-            services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
+            services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
+            services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
+            services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
+
             services.AddScoped<IContentItemsService, ContentItemsService>();
 
             // permissions
