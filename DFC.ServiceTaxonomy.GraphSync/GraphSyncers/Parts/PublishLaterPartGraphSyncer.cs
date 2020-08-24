@@ -19,11 +19,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
 
             JValue? scheduledPublishValue = (JValue?)content[ScheduledPublishUtcPropertyName];
             if (scheduledPublishValue != null && scheduledPublishValue.Type != JTokenType.Null)
-                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(ScheduledPublishUtcPropertyName), scheduledPublishValue.As<DateTime>());
+                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(ScheduledPublishUtcPropertyName), scheduledPublishValue.As<DateTime>());
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -31,12 +31,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IValidateAndRepairContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
 
             return context.GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                 ScheduledPublishUtcPropertyName,
                 content,
-                await context.GraphSyncHelper!.PropertyName(ScheduledPublishUtcPropertyName),
+                await context.SyncNameProvider!.PropertyName(ScheduledPublishUtcPropertyName),
                 context.NodeWithOutgoingRelationships.SourceNode);
         }
     }

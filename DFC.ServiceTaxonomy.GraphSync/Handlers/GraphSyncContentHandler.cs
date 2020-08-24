@@ -13,20 +13,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IDeleteOrchestrator _deleteOrchestrator;
         private readonly ISession _session;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public GraphSyncContentHandler(
             ISyncOrchestrator syncOrchestrator,
             IDeleteOrchestrator deleteOrchestrator,
             ISession session,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _syncOrchestrator = syncOrchestrator;
             _deleteOrchestrator = deleteOrchestrator;
             _session = session;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
             _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
@@ -84,8 +84,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             if (context.CloneContentItem.Content[nameof(GraphSyncPart)] != null)
             {
-                _graphSyncHelper.ContentType = context.CloneContentItem.ContentType;
-                context.CloneContentItem.Content[nameof(GraphSyncPart)][nameof(GraphSyncPart.Text)] = await _graphSyncHelper.GenerateIdPropertyValue();
+                _syncNameProvider.ContentType = context.CloneContentItem.ContentType;
+                context.CloneContentItem.Content[nameof(GraphSyncPart)][nameof(GraphSyncPart.Text)] = await _syncNameProvider.GenerateIdPropertyValue();
             }
 
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)

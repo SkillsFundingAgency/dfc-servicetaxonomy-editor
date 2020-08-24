@@ -12,20 +12,20 @@ using Xunit;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
 {
-    public class GraphSyncHelperTests
+    public class SyncNameProviderHelperTests
     {
-        public IGraphSyncHelperCSharpScriptGlobals GraphSyncHelperCSharpScriptGlobals { get; set; }
+        public ISyncNameProviderCSharpScriptGlobals SyncNameProviderCSharpScriptGlobals { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
         public ISuperpositionContentItemVersion SuperpositionContentItemVersion { get; set; }
         // using a real one is not ideal
         public ContentTypeDefinition ContentTypeDefinition { get; set; }
-        public GraphSyncHelper GraphSyncHelper { get; set; }
+        public SyncNameProvider SyncNameProvider { get; set; }
 
         private const string _contentType = "ContentType";
 
-        public GraphSyncHelperTests()
+        public SyncNameProviderHelperTests()
         {
-            GraphSyncHelperCSharpScriptGlobals = A.Fake<IGraphSyncHelperCSharpScriptGlobals>();
+            SyncNameProviderCSharpScriptGlobals = A.Fake<ISyncNameProviderCSharpScriptGlobals>();
 
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
             ContentTypeDefinition = new ContentTypeDefinition("name", "displayName",
@@ -38,24 +38,24 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers
 
             SuperpositionContentItemVersion = A.Fake<ISuperpositionContentItemVersion>();
 
-            GraphSyncHelper = new GraphSyncHelper(
-                GraphSyncHelperCSharpScriptGlobals,
+            SyncNameProvider = new SyncNameProvider(
+                SyncNameProviderCSharpScriptGlobals,
                 ContentDefinitionManager,
                 SuperpositionContentItemVersion);
         }
 
         [Fact]
-        public void GraphSyncHelper_ContentTypeSetToNull_ArgumentNullExceptionThrown()
+        public void SyncNameProvider_ContentTypeSetToNull_ArgumentNullExceptionThrown()
         {
-            Assert.Throws<ArgumentNullException>(() => GraphSyncHelper.ContentType = null);
+            Assert.Throws<ArgumentNullException>(() => SyncNameProvider.ContentType = null);
         }
 
         [Fact]
-        public void GraphSyncHelper_ContentTypeSet_GraphSyncPartSettingsReturned()
+        public void SyncNameProvider_ContentTypeSet_GraphSyncPartSettingsReturned()
         {
-            GraphSyncHelper.ContentType = _contentType;
+            SyncNameProvider.ContentType = _contentType;
 
-            GraphSyncPartSettings graphSyncPartSettings = GraphSyncHelper.GraphSyncPartSettings;
+            GraphSyncPartSettings graphSyncPartSettings = SyncNameProvider.GraphSyncPartSettings;
 
             Assert.NotNull(graphSyncPartSettings);
         }

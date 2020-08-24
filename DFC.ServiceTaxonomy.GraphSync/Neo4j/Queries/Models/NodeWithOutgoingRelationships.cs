@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
         }
 
         #pragma warning disable S4136
-        public IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper)
+        public IEnumerable<CommandRelationship> ToCommandRelationships(ISyncNameProvider syncNameProvider)
         {
             //todo: don't get id twice
             var commandRelationshipGroups = OutgoingRelationships.GroupBy(
@@ -36,10 +36,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
                     null,
                     or.Relationship.Properties,
                     or.DestinationNode.Labels,
-                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels),
+                    syncNameProvider.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels),
                     null),
                 or => or.DestinationNode.Properties[
-                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels)]);
+                    syncNameProvider.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels)]);
 
             return commandRelationshipGroups.Select(g =>
             {
@@ -48,9 +48,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
             });
         }
 
-        public IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(IGraphSyncHelper graphSyncHelper)
+        public IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(ISyncNameProvider syncNameProvider)
         {
-            string sourceIdPropertyName = graphSyncHelper.IdPropertyNameFromNodeLabels(SourceNode.Labels);
+            string sourceIdPropertyName = syncNameProvider.IdPropertyNameFromNodeLabels(SourceNode.Labels);
 
             IReplaceRelationshipsCommand replaceRelationshipsCommand = new ReplaceRelationshipsCommand
             {
@@ -60,14 +60,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
             };
 
             //todo: twoway
-            replaceRelationshipsCommand.AddRelationshipsTo(ToCommandRelationships(graphSyncHelper));
+            replaceRelationshipsCommand.AddRelationshipsTo(ToCommandRelationships(syncNameProvider));
 
             return replaceRelationshipsCommand;
         }
 
         //todo: this belongs in a derived class in graph sync, with the current command in neo4j
         public IEnumerable<CommandRelationship> ToCommandRelationships(
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentItemVersion fromContentItemVersion,
             IContentItemVersion toContentItemVersion)
         {
@@ -78,15 +78,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
                     null,
                     or.Relationship.Properties,
                     or.DestinationNode.Labels,
-                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels),
+                    syncNameProvider.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels),
                     null),
                 or => or.DestinationNode.Properties[
-                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels)]);
+                    syncNameProvider.IdPropertyNameFromNodeLabels(or.DestinationNode.Labels)]);
 
             return commandRelationshipGroups.Select(g =>
             {
                 var toContentItemVersionIds = g
-                    .Select(fromContentItemVersionId => graphSyncHelper.IdPropertyValueFromNodeValue(
+                    .Select(fromContentItemVersionId => syncNameProvider.IdPropertyValueFromNodeValue(
                         (string)fromContentItemVersionId, fromContentItemVersion, toContentItemVersion));
                 g.Key.DestinationNodeIdPropertyValues.AddRange(toContentItemVersionIds);
                 return g.Key;
@@ -99,17 +99,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
         /// Creates the command with the id's set appropriately for the supplied contentItemVersions
         /// </summary>
         public IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentItemVersion fromContentItemVersion,
             IContentItemVersion toContentItemVersion,
             bool replaceExistingRelationships = true)
         {
-            string sourceIdPropertyName = graphSyncHelper.IdPropertyNameFromNodeLabels(SourceNode.Labels);
+            string sourceIdPropertyName = syncNameProvider.IdPropertyNameFromNodeLabels(SourceNode.Labels);
 
             IReplaceRelationshipsCommand replaceRelationshipsCommand = new ReplaceRelationshipsCommand
             {
                 SourceIdPropertyName = sourceIdPropertyName,
-                SourceIdPropertyValue = graphSyncHelper.IdPropertyValueFromNodeValue(
+                SourceIdPropertyValue = syncNameProvider.IdPropertyValueFromNodeValue(
                     (string)SourceNode.Properties[sourceIdPropertyName],
                     fromContentItemVersion,
                     toContentItemVersion),
@@ -119,7 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
 
             //todo: twoway
             replaceRelationshipsCommand.AddRelationshipsTo(ToCommandRelationships(
-                graphSyncHelper,
+                syncNameProvider,
                 fromContentItemVersion,
                 toContentItemVersion));
 

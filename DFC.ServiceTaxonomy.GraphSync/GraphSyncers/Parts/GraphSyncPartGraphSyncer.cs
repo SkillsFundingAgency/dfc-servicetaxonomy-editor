@@ -13,14 +13,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            object? idValue = context.GraphSyncHelper.GetIdPropertyValue(content, context.ContentItemVersion);
+            object? idValue = context.SyncNameProvider.GetIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
             {
                 // id is added as a special case as part of SyncAllowed,
                 // so we allow an overwrite, which will occur as part of syncing
                 //todo: something cleaner
-                context.MergeNodeCommand.Properties[context.GraphSyncHelper.IdPropertyName()] = idValue;
-                //context.MergeNodeCommand.Properties.Add(context.GraphSyncHelper.IdPropertyName(), idValue);
+                context.MergeNodeCommand.Properties[context.SyncNameProvider.IdPropertyName()] = idValue;
+                //context.MergeNodeCommand.Properties.Add(context.SyncNameProvider.IdPropertyName(), idValue);
             }
 
             return Task.CompletedTask;
@@ -31,14 +31,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IValidateAndRepairContext context)
         {
             return Task.FromResult(context.GraphValidationHelper.ContentPropertyMatchesNodeProperty(
-                context.GraphSyncHelper.ContentIdPropertyName,
+                context.SyncNameProvider.ContentIdPropertyName,
                 content,
-                context.GraphSyncHelper.IdPropertyName(),
+                context.SyncNameProvider.IdPropertyName(),
                 context.NodeWithOutgoingRelationships.SourceNode,
                 (contentValue, nodeValue) =>
                     nodeValue is string nodeValueString
                     && Equals((string)contentValue!,
-                        context.GraphSyncHelper.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion))));
+                        context.SyncNameProvider.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion))));
         }
     }
 }

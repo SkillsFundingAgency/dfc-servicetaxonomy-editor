@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
         public IContentManager ContentManager { get; set; }
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
         public INode SourceNode { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
+        public ISyncNameProvider SyncNameProvider { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
         public IContentFieldGraphSyncer? ContentFieldGraphSyncer { get; set; }
@@ -51,8 +51,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
             NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
             A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
 
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(FieldNameBase)).Returns(FieldNameTransformed);
+            SyncNameProvider = A.Fake<ISyncNameProvider>();
+            A.CallTo(() => SyncNameProvider.PropertyName(FieldNameBase)).Returns(FieldNameTransformed);
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 
@@ -63,7 +63,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
             ValidateAndRepairGraph = A.Fake<IValidateAndRepairGraph>();
 
             ValidateAndRepairContext = A.Fake<IValidateAndRepairContext>();
-            A.CallTo(() => ValidateAndRepairContext.GraphSyncHelper).Returns(GraphSyncHelper);
+            A.CallTo(() => ValidateAndRepairContext.SyncNameProvider).Returns(SyncNameProvider);
             A.CallTo(() => ValidateAndRepairContext.ContentManager).Returns(ContentManager);
             A.CallTo(() => ValidateAndRepairContext.ContentItemVersion).Returns(ContentItemVersion);
             A.CallTo(() => ValidateAndRepairContext.ContentTypePartDefinition).Returns(ContentTypePartDefinition);

@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
                 A<JObject>._,
                 NodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
-            A.CallTo(() => GraphSyncHelper.PropertyName("Html")).Returns("htmlbody_Html");
+            A.CallTo(() => SyncNameProvider.PropertyName("Html")).Returns("htmlbody_Html");
 
             (bool validated, _) = await CallValidateSyncComponent();
 

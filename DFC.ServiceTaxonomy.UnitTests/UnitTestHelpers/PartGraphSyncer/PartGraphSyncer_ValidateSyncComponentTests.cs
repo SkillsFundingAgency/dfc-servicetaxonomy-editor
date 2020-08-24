@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer
         public IContentItemVersion ContentItemVersion { get; set; }
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; set; }
         public INode SourceNode { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
+        public ISyncNameProvider SyncNameProvider { get; set; }
         public IGraphValidationHelper GraphValidationHelper { get; set; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; set; }
         public IValidateAndRepairGraph ValidateAndRepairGraph { get; set; }
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer
             NodeWithOutgoingRelationships = A.Fake<INodeWithOutgoingRelationships>();
             A.CallTo(() => NodeWithOutgoingRelationships.SourceNode).Returns(SourceNode);
 
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
+            SyncNameProvider = A.Fake<ISyncNameProvider>();
 
             GraphValidationHelper = A.Fake<IGraphValidationHelper>();
 
@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer
             A.CallTo(() => ValidateAndRepairContext.ContentItemVersion).Returns(ContentItemVersion);
             A.CallTo(() => ValidateAndRepairContext.ContentTypePartDefinition).Returns(ContentTypePartDefinition);
             A.CallTo(() => ValidateAndRepairContext.NodeWithOutgoingRelationships).Returns(NodeWithOutgoingRelationships);
-            A.CallTo(() => ValidateAndRepairContext.GraphSyncHelper).Returns(GraphSyncHelper);
+            A.CallTo(() => ValidateAndRepairContext.SyncNameProvider).Returns(SyncNameProvider);
             A.CallTo(() => ValidateAndRepairContext.GraphValidationHelper).Returns(GraphValidationHelper);
             A.CallTo(() => ValidateAndRepairContext.ExpectedRelationshipCounts).Returns(ExpectedRelationshipCounts);
             A.CallTo(() => ValidateAndRepairContext.ValidateAndRepairGraph).Returns(ValidateAndRepairGraph);

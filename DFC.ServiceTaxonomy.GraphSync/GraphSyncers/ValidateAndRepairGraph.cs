@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ISession _session;
         private readonly IGraphClusterLowLevel _graphClusterLowLevel;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IContentManager contentManager,
             ISession session,
             IServiceProvider serviceProvider,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IContentItemVersionFactory contentItemVersionFactory,
             ILogger<ValidateAndRepairGraph> logger)
@@ -53,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _contentManager = contentManager;
             _session = session;
             _serviceProvider = serviceProvider;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
             _graphValidationHelper = graphValidationHelper;
             _contentItemVersionFactory = contentItemVersionFactory;
             _logger = logger;
@@ -229,14 +229,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger.LogDebug("Validating {ContentType} {ContentItemId} '{ContentDisplayText}'.",
                 contentItem.ContentType, contentItem.ContentItemId, contentItem.DisplayText);
 
-            _graphSyncHelper.ContentType = contentItem.ContentType;
+            _syncNameProvider.ContentType = contentItem.ContentType;
 
-            object nodeId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+            object nodeId = _syncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
                 new NodeWithOutgoingRelationshipsQuery(
-                    await _graphSyncHelper.NodeLabels(),
-                    _graphSyncHelper.IdPropertyName(),
+                    await _syncNameProvider.NodeLabels(),
+                    _syncNameProvider.IdPropertyName(),
                     nodeId));
 
             INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
@@ -245,7 +245,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
                 contentItem, _contentManager, contentItemVersion, nodeWithOutgoingRelationships,
-                _graphSyncHelper, _graphValidationHelper, this,
+                _syncNameProvider, _graphValidationHelper, this,
                 contentTypeDefinition, nodeId, _serviceProvider);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)

@@ -71,6 +71,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.NumericFie
         }
 
         //todo: assert that nothing else is done to the commands
-        //todo: assert that graphsynchelper's contenttype is not set
+        //todo: assert that SyncNameProvider's contenttype is not set
     }
 }
