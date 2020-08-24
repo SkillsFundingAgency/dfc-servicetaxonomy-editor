@@ -1,16 +1,35 @@
 #ToDo
 
-* add ordinal to shared content from widgets
+* cyphertocontent needs to substitute <contentapiprefix>> into ids
 
-unpublishing page leaves HTML
+* need to publish events for terms too
 
-* widgets doesn't get deleted when removed from page and synced
+* if sync fails and changes cancelled, leave user on edit page with their changes intact
+
+* check moving a taxonomy term to a different level
+
+* does oc taxonomy module have unit tests? if so bring them in
+
+* have new handler and use to pubish event from contenthandler/orchestrators to publish events
+publish/draft/discarddraft etc
+
+* remove oc dependency in events project
+
+* Generate correlation Id in handler?
+
+* some files (e.g. contenthandlers) might be better split into partials
+
+* create nuget out of events project for test project
+
+* unpublishing page leaves HTML
 
 * if a shared content widget has no picked published content types, don't sync the html widget itself in the published graph set
 
 * should we sync htmlshared widget in published if there are no published shared content items
 the user can't have no shared content items picked, so the only time a widget with no shared content item relationships is synced is when a pub page references only draft items
 so we should probably not sync 'empty' shared widgets
+
+* why graph sync has tags in features, but others don't?
 
 * contents of flow part widgets outside of the widgets (dom issue, not css)!
 

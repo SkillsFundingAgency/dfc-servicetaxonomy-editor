@@ -31,8 +31,6 @@ namespace DFC.ServiceTaxonomy.Editor
                 sanitizer.AllowedAttributes.Add("aria-labelledby");
             }));
 
-           
-
             //todo: do this in each library??? if so, make sure it doesn't add services or config twice
             services.AddGraphCluster(options =>
                 Configuration.GetSection(Neo4jOptions.Neo4j).Bind(options));
@@ -62,7 +60,7 @@ namespace DFC.ServiceTaxonomy.Editor
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseCookiePolicy();
             // UseSecurityHeaders must come before UseOrchardCore
             app.UsePoweredByOrchardCore(false);

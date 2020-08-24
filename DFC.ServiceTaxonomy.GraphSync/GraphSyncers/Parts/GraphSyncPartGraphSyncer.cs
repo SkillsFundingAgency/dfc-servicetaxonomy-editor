@@ -8,8 +8,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : ContentPartGraphSyncer, IGraphSyncPartGraphSyncer
     {
-        // ensure graph sync part is processed first,
-        // as other part syncers require the node's id value to be populated in the MergeNodeCommand
         public override int Priority { get => int.MaxValue; }
         public override string PartName => nameof(GraphSyncPart);
 
@@ -17,7 +15,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             object? idValue = context.GraphSyncHelper.GetIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
-                context.MergeNodeCommand.Properties.Add(context.GraphSyncHelper.IdPropertyName(), idValue);
+            {
+                // id is added as a special case as part of SyncAllowed,
+                // so we allow an overwrite, which will occur as part of syncing
+                //todo: something cleaner
+                context.MergeNodeCommand.Properties[context.GraphSyncHelper.IdPropertyName()] = idValue;
+                //context.MergeNodeCommand.Properties.Add(context.GraphSyncHelper.IdPropertyName(), idValue);
+            }
 
             return Task.CompletedTask;
         }

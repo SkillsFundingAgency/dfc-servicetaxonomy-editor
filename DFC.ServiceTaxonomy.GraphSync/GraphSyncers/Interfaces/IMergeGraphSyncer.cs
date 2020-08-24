@@ -52,5 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
             IGraphMergeContext? parentGraphMergeContext = null);
 
         Task<IMergeNodeCommand?> SyncToGraphReplicaSet();
+
+        Task<IMergeGraphSyncer?> SyncEmbedded(ContentItem contentItem);
     }
 }

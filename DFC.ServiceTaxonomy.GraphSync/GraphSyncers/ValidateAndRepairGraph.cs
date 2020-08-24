@@ -140,7 +140,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             if (!contentTypeContentItems.Any())
             {
-                _logger.LogDebug($"No {contentTypeDefinition.Name} content items found that require validation.");
+                _logger.LogDebug("No {ContentType} content items found that require validation.", contentTypeDefinition.Name);
                 return syncFailures;
             }
 
@@ -226,7 +226,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ContentTypeDefinition contentTypeDefinition,
             IContentItemVersion contentItemVersion)
         {
-            _logger.LogDebug($"Validating {contentItem.ContentType} {contentItem.ContentItemId} '{contentItem.DisplayText}'");
+            _logger.LogDebug("Validating {ContentType} {ContentItemId} '{ContentDisplayText}'.",
+                contentItem.ContentType, contentItem.ContentItemId, contentItem.DisplayText);
 
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
@@ -243,15 +244,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 return (false, FailureContext("Node not found.", contentItem));
 
             ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
-                contentItem,
-                _contentManager,
-                contentItemVersion,
-                nodeWithOutgoingRelationships,
-                _graphSyncHelper,
-                _graphValidationHelper,
-                this,
-                contentTypeDefinition,
-                nodeId);
+                contentItem, _contentManager, contentItemVersion, nodeWithOutgoingRelationships,
+                _graphSyncHelper, _graphValidationHelper, this,
+                contentTypeDefinition, nodeId, _serviceProvider);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
