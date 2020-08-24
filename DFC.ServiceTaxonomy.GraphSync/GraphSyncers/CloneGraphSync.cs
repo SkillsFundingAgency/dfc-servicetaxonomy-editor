@@ -19,15 +19,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly Logger<CloneGraphSync> _logger;
+        private readonly ILogger<CloneGraphSync> _logger;
 
         public CloneGraphSync(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
             ISyncNameProvider syncNameProvider,
             IPreviewContentItemVersion previewContentItemVersion,    //todo: ??
             IServiceProvider serviceProvider,
-            Logger<CloneGraphSync> logger
-            )
+            ILogger<CloneGraphSync> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _syncNameProvider = syncNameProvider;
