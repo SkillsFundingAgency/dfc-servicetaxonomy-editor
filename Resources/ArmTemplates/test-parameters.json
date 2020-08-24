@@ -26,13 +26,25 @@
         "Neo4jUrl": {
             "value": "https://some_endpoint/"
         },
-        "Neo4jUsername": {
+        "Neo4jUrl1": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUser": {
+            "value": "not-a-real-username"
+        },
+        "Neo4jUser1": {
             "value": "not-a-real-username"
         },
         "Neo4jPassword": {
             "value": "not-a-real-password"
         },
+        "Neo4jPassword1": {
+            "value": "not-a-real-password"
+        },
         "Neo4jUrlDraft": {
+            "value": "https://some_endpoint/"
+        },
+        "Neo4jUrlDraft1": {
             "value": "https://some_endpoint/"
         },
         "Neo4jUserDraft": {

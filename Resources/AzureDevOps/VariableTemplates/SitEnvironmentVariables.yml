@@ -15,19 +15,3 @@ variables:
   value: true
 - name: EventGridTopicSku
   value: basic
-- name: Neo4jEndpoints0Enabled
-  value: true
-- name: Neo4jEndpoints1Enabled
-  value: false
-- name: Neo4jEndpoints2Enabled
-  value: true
-- name: Neo4jEndpoints3Enabled
-  value: false
-- name: Neo4jReplicaSets0GraphInstances0Enabled
-  value: true
-- name: Neo4jReplicaSets0GraphInstances1Enabled
-  value: false
-- name: Neo4jReplicaSets1GraphInstances0Enabled
-  value: true
-- name: Neo4jReplicaSets1GraphInstances1Enabled
-  value: false

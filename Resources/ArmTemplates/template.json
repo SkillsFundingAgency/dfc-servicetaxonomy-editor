@@ -29,13 +29,25 @@
         "Neo4jUrl": {
             "type": "string"
         },
-        "Neo4jUsername": {
+        "Neo4jUrl1": {
+            "type": "string"
+        },
+        "Neo4jUser": {
+            "type": "string"
+        },
+        "Neo4jUser1": {
             "type": "string"
         },
         "Neo4jPassword": {
             "type": "securestring"
         },
+        "Neo4jPassword1": {
+            "type": "securestring"
+        },
         "Neo4jUrlDraft": {
+            "type": "string"
+        },
+        "Neo4jUrlDraft1": {
             "type": "string"
         },
         "Neo4jUserDraft": {
@@ -210,7 +222,7 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__0__Username",
-                                "value": "[parameters('Neo4jUsername')]"
+                                "value": "[parameters('Neo4jUser')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__0__Password",
@@ -226,15 +238,15 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Uri",
-                                "value": "tbc"
+                                "value": "[parameters('Neo4jUrl1')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Username",
-                                "value": "tbc"
+                                "value": "[parameters('Neo4jUser1')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Password",
-                                "value": "tbc"
+                                "value": "[parameters('Neo4jPassword1')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__1__Enabled",
@@ -266,15 +278,15 @@
                             },
                             {
                                 "name": "Neo4j__Endpoints__3__Uri",
-                                "value": "tbc"
+                                "value": "[parameters('Neo4jUrlDraft1')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__3__Username",
-                                "value": "tbc"
+                                "value": "[parameters('Neo4jUserDraft')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__3__Password",
-                                "value": "tbc"
+                                "value": "[parameters('Neo4jPasswordDraft')]"
                             },
                             {
                                 "name": "Neo4j__Endpoints__3__Enabled",
