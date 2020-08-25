@@ -19,14 +19,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return;
 
             context.MergeNodeCommand.Properties.Add(
-                await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name),
+                await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name),
                 value.As<string>());
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             return context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 ContentKey,

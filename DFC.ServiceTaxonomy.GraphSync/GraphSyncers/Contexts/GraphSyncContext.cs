@@ -16,12 +16,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         protected GraphSyncContext(
             ContentItem contentItem,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             IGraphSyncContext? parentContext,
             ILogger logger)
-            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, logger)
+            : base(contentItem, syncNameProvider, contentManager, contentItemVersion, logger)
         {
             ParentContext = parentContext;
 

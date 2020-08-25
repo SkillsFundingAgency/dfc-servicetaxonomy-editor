@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
                                 (IOutgoingRelationship)new OutgoingRelationship(ir.relationship, ir.destNode))));
         }
 
-        public IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper)
+        public IEnumerable<CommandRelationship> ToCommandRelationships(ISyncNameProvider syncNameProvider)
         {
             //todo: don't get id twice
             var commandRelationshipGroups = OutgoingRelationships.GroupBy(
@@ -48,10 +48,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models
                     null,
                     or.outgoingRelationship.Relationship.Properties,
                     or.outgoingRelationship.DestinationNode.Labels,
-                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.outgoingRelationship.DestinationNode.Labels),
+                    syncNameProvider.IdPropertyNameFromNodeLabels(or.outgoingRelationship.DestinationNode.Labels),
                     null),
                 or => or.outgoingRelationship.DestinationNode.Properties[
-                    graphSyncHelper.IdPropertyNameFromNodeLabels(or.outgoingRelationship.DestinationNode.Labels)]);
+                    syncNameProvider.IdPropertyNameFromNodeLabels(or.outgoingRelationship.DestinationNode.Labels)]);
 
             return commandRelationshipGroups.Select(g =>
             {

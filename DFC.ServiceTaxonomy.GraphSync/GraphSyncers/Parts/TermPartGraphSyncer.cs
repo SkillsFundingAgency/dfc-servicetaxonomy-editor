@@ -32,17 +32,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
             ContentItem contentItem = await context.ContentItemVersion.GetContentItem(context.ContentManager, taxonomyContentItemId);
 
-            IGraphSyncHelper termGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-            termGraphSyncHelper.ContentType = contentItem.ContentType;
+            ISyncNameProvider termSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+            termSyncNameProvider.ContentType = contentItem.ContentType;
 
             //todo: override/extension that takes a contentitem
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
-                //todo: go through graphSyncHelper
+                //todo: go through syncNameProvider
                 $"has{contentItem.ContentType}",
                 null,
-                await termGraphSyncHelper.NodeLabels(),
-                termGraphSyncHelper.IdPropertyName(),
-                termGraphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
+                await termSyncNameProvider.NodeLabels(),
+                termSyncNameProvider.IdPropertyName(),
+                termSyncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(

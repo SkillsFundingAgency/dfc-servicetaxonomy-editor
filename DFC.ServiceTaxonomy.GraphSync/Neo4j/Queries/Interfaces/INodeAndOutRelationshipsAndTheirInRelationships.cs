@@ -10,6 +10,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces
         INode SourceNode { get; set; }
         public IEnumerable<(IOutgoingRelationship outgoingRelationship, IEnumerable<IOutgoingRelationship> incomingRelationships)> OutgoingRelationships { get; set; }
 
-        IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper);
+        IEnumerable<CommandRelationship> ToCommandRelationships(ISyncNameProvider syncNameProvider);
     }
 }

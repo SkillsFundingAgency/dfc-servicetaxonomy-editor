@@ -19,11 +19,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
             JValue? htmlValue = (JValue?)content[HtmlPropertyName];
             if (htmlValue != null && htmlValue.Type != JTokenType.Null)
-                context.MergeNodeCommand.Properties.Add(await context.GraphSyncHelper.PropertyName(HtmlPropertyName), htmlValue.As<string>());
+                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(HtmlPropertyName), htmlValue.As<string>());
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -31,12 +31,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IValidateAndRepairContext context)
         {
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_htmlBodyFieldsPropertyNameTransform);
 
             return context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 HtmlPropertyName,
                 content,
-                await context.GraphSyncHelper!.PropertyName(HtmlPropertyName),
+                await context.SyncNameProvider!.PropertyName(HtmlPropertyName),
                 context.NodeWithOutgoingRelationships.SourceNode);
         }
     }

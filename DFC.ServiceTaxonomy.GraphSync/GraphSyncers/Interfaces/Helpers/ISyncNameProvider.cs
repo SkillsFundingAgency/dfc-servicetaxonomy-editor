@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
     //todo: rename to something like IGraphArtifactNamer?
     // we group methods by whether they work off the set ContentType property, or pass in a contentType
     #pragma warning disable S4136
-    public interface IGraphSyncHelper
+    public interface ISyncNameProvider
     {
         /// <summary>
         /// The content type of the content item being synced.
@@ -32,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 
         // the following do not require ContentType to be set first
         string IdPropertyName(string contentType);
+        Task<string> GenerateIdPropertyValue(string contentType);
         string IdPropertyNameFromNodeLabels(IEnumerable<string> nodeLabels);
         Task<IEnumerable<string>> NodeLabels(string contentType);
         Task<string> RelationshipTypeDefault(string destinationContentType);
