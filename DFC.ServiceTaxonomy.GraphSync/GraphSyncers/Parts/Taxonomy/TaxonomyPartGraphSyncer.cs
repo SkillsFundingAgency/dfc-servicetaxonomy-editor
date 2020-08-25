@@ -50,11 +50,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
             await _embeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
         }
 
-        public override async Task MutateOnClone(JObject content, ICloneContext context)
-        {
-            await _taxonomyPartEmbeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
-        }
-
         //todo: we now need to validate any 2 way incoming relationships we created
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
