@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 {
     public static class MergeNodeExtensions
     {
-        // either here, or graphsynchelper?
+        // where should these live? extension methods harder to test
         //todo: unit tests for these
 
         [return: MaybeNull]

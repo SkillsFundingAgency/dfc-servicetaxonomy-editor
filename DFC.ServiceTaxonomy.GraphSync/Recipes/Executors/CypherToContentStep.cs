@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private readonly IContentManagerSession _contentManagerSession;
         private readonly IContentItemIdGenerator _idGenerator;
         private readonly ICypherToContentCSharpScriptGlobals _cypherToContentCSharpScriptGlobals;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private readonly IEscoContentItemVersion _escoContentItemVersion;
@@ -55,7 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             IContentManagerSession contentManagerSession,
             IContentItemIdGenerator idGenerator,
             ICypherToContentCSharpScriptGlobals cypherToContentCSharpScriptGlobals,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IPublishedContentItemVersion publishedContentItemVersion,
             ISuperpositionContentItemVersion superpositionContentItemVersion,
             IEscoContentItemVersion escoContentItemVersion,
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             _contentManagerSession = contentManagerSession;
             _idGenerator = idGenerator;
             _cypherToContentCSharpScriptGlobals = cypherToContentCSharpScriptGlobals;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
             _publishedContentItemVersion = publishedContentItemVersion;
             _superpositionContentItemVersion = superpositionContentItemVersion;
             _escoContentItemVersion = escoContentItemVersion;
@@ -156,8 +156,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             contentItem.Owner = contentItem.Author = "admin";
 
             JObject graphSyncContent = contentItem.Content[nameof(GraphSyncPart)];
-            graphSyncContent[_graphSyncHelper.ContentIdPropertyName] =
-                JToken.FromObject(_graphSyncHelper.GetIdPropertyValue(
+            graphSyncContent[_syncNameProvider.ContentIdPropertyName] =
+                JToken.FromObject(_syncNameProvider.GetIdPropertyValue(
                     graphSyncContent, _superpositionContentItemVersion,
                     _publishedContentItemVersion, _escoContentItemVersion)!);
 

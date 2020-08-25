@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph,
             ContentTypeDefinition contentTypeDefinition,
@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IServiceProvider serviceProvider)
 
             : base(contentItem, contentManager, contentItemVersion, nodeWithOutgoingRelationships,
-                graphSyncHelper, graphValidationHelper, validateAndRepairGraph,
+                syncNameProvider, graphValidationHelper, validateAndRepairGraph,
                 serviceProvider.GetRequiredService<ILogger<ValidateAndRepairItemSyncContext>>())
         {
             ContentTypeDefinition = contentTypeDefinition;

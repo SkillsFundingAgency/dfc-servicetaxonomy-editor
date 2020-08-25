@@ -20,10 +20,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     //todo: better to break out into separate classes??
 #pragma warning disable S4136
 
-    public class GraphSyncHelper : IGraphSyncHelper
+    public class SyncNameProvider : ISyncNameProvider
     {
         //todo: gotta be careful about lifetimes. might have to inject iserviceprovider
-        private readonly IGraphSyncHelperCSharpScriptGlobals _graphSyncHelperCSharpScriptGlobals;
+        private readonly ISyncNameProviderCSharpScriptGlobals _syncNameProviderCSharpScriptGlobals;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private string? _contentType;
@@ -35,12 +35,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         // needs to be all lowercase
         public const string ContentApiPrefixToken = "<<contentapiprefix>>";
 
-        public GraphSyncHelper(
-            IGraphSyncHelperCSharpScriptGlobals graphSyncHelperCSharpScriptGlobals,
+        public SyncNameProvider(
+            ISyncNameProviderCSharpScriptGlobals syncNameProviderCSharpScriptGlobals,
             IContentDefinitionManager contentDefinitionManager,
             ISuperpositionContentItemVersion superpositionContentItemVersion)
         {
-            _graphSyncHelperCSharpScriptGlobals = graphSyncHelperCSharpScriptGlobals;
+            _syncNameProviderCSharpScriptGlobals = syncNameProviderCSharpScriptGlobals;
             _contentDefinitionManager = contentDefinitionManager;
             _superpositionContentItemVersion = superpositionContentItemVersion;
             _propertyNameTransformers = new Stack<Func<string, string>>();
@@ -249,12 +249,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private async Task<string> Transform(string transformCode, string untransformedValue, string contentType)
         {
-            _graphSyncHelperCSharpScriptGlobals.Value = untransformedValue;
-            _graphSyncHelperCSharpScriptGlobals.ContentType = contentType;
+            _syncNameProviderCSharpScriptGlobals.Value = untransformedValue;
+            _syncNameProviderCSharpScriptGlobals.ContentType = contentType;
 
             return await CSharpScript.EvaluateAsync<string>(transformCode,
                 ScriptOptions.Default.WithImports("System"),
-                _graphSyncHelperCSharpScriptGlobals);
+                _syncNameProviderCSharpScriptGlobals);
         }
 
         private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)

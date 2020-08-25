@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
             // FlowPart allows part definition level fields, but values are on each FlowPart instance
             // prefix flow field property names, so there's no possibility of a clash with the eponymous fields property names
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
             await _contentFieldsGraphSyncer.AddSyncComponents(content, context);
         }
@@ -68,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             if (!validated)
                 return (validated, failureReason);
 
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_flowFieldsPropertyNameTransform);
 
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content, context);

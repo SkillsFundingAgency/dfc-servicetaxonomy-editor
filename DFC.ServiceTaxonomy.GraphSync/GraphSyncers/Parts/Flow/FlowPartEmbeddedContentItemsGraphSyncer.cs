@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
         protected override async Task<Dictionary<string, object>?> GetRelationshipProperties(
             ContentItem contentItem,
             int ordinal,
-            IGraphSyncHelper graphSyncHelper)
+            ISyncNameProvider syncNameProvider)
         {
             // set the FlowMetaData as the relationship's properties
 
@@ -55,9 +55,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             JObject flowMetaDataContent = (JObject)contentItem.Content[FlowMetaData]!;
 
             FlowAlignment alignment = (FlowAlignment)(int)flowMetaDataContent[Alignment]!;
-            flowMetaData.Add(await graphSyncHelper!.PropertyName(Alignment), alignment.ToString());
+            flowMetaData.Add(await syncNameProvider!.PropertyName(Alignment), alignment.ToString());
 
-            flowMetaData.Add(await graphSyncHelper!.PropertyName(Size), (long)flowMetaDataContent[Size]!);
+            flowMetaData.Add(await syncNameProvider!.PropertyName(Size), (long)flowMetaDataContent[Size]!);
 
             return flowMetaData;
         }

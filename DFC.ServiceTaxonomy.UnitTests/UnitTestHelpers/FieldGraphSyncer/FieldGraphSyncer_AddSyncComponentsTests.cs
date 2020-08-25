@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
         //todo: do we need to introduce a IContentTypePartDefinition (like ContentTypePartDefinition)
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentPartFieldDefinition ContentPartFieldDefinition { get; set; }
-        public IGraphSyncHelper GraphSyncHelper { get; set; }
+        public ISyncNameProvider SyncNameProvider { get; set; }
         public IGraphReplicaSet GraphReplicaSet { get; set; }
         public IContentManager ContentManager { get; set; }
         public IContentItemVersion ContentItemVersion { get; set; }
@@ -50,8 +50,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
 
             ContentTypePartDefinition = A.Fake<ContentTypePartDefinition>();
 
-            GraphSyncHelper = A.Fake<IGraphSyncHelper>();
-            A.CallTo(() => GraphSyncHelper.PropertyName(_fieldName)).Returns(_fieldName);
+            SyncNameProvider = A.Fake<ISyncNameProvider>();
+            A.CallTo(() => SyncNameProvider.PropertyName(_fieldName)).Returns(_fieldName);
 
             GraphReplicaSet = A.Fake<IGraphReplicaSet>();
 
@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.FieldGraphSyncer
             ContentItemVersion = A.Fake<IContentItemVersion>();
 
             GraphMergeContext = A.Fake<IGraphMergeContext>();
-            A.CallTo(() => GraphMergeContext.GraphSyncHelper).Returns(GraphSyncHelper);
+            A.CallTo(() => GraphMergeContext.SyncNameProvider).Returns(SyncNameProvider);
             A.CallTo(() => GraphMergeContext.GraphReplicaSet).Returns(GraphReplicaSet);
             A.CallTo(() => GraphMergeContext.MergeNodeCommand).Returns(MergeNodeCommand);
             A.CallTo(() => GraphMergeContext.ReplaceRelationshipsCommand).Returns(ReplaceRelationshipsCommand);

@@ -28,7 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IDeleteNodeCommand deleteNodeCommand,
             IDeleteGraphSyncer deleteGraphSyncer,
             DeleteOperation deleteOperation,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties,
@@ -36,7 +36,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IServiceProvider serviceProvider)
             : base(
                 contentItem,
-                graphSyncHelper,
+                syncNameProvider,
                 contentManager,
                 contentItemVersion,
                 parentGraphDeleteContext,
