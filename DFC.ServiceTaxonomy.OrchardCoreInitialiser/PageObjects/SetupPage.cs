@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support.PageObjects;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -78,10 +79,12 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             try
             {
                 _webDriver.FindElement(By.Id("recipeButton")).Click();
-                //var element = _webDriver.FindElement(By.XPath("//span[contains(.,'" + recipeName + "')]"));
-                _webDriver.FindElement(By.XPath("//*[@id='recipes']/div/a[8]")).Click();
-             //   _webDriver.FindElement(By.XPath("//*[@data-recipe-display-name='Service Taxonomy Editor']/div/a[8]")).Click();
-                //element.Click();
+                var element = _webDriver.FindElement(By.XPath("//span[contains(.,'" + recipeName + "')]"));
+                Actions builder = new Actions(_webDriver);
+                var mouseUp = builder.MoveToElement(element)
+                                     .Click()
+                                     .Build(); ;
+                mouseUp.Perform();
             }
             catch( Exception e)
             {
