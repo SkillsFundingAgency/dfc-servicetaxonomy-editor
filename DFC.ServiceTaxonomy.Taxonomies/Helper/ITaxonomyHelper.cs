@@ -1,15 +1,17 @@
 ﻿#nullable enable
 
-using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public interface ITaxonomyHelper
     {
-        List<dynamic>? GetTerms(dynamic contentItem);
+        JArray? GetAllTerms(JObject taxonomy);
 
-        dynamic? FindParentTaxonomyTerm(dynamic termContentItem, dynamic taxonomyContentItem);
+        JArray? GetTerms(JObject contentItem);
 
-        string BuildTermUrl(dynamic term, dynamic taxonomy);
+        JObject? FindParentTaxonomyTerm(JObject termContentItem, JObject taxonomyContentItem);
+
+        string BuildTermUrl(JObject term, JObject taxonomy);
     }
 }
