@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public GraphMergeContext(
             IMergeGraphSyncer mergeGraphSyncer,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IGraphReplicaSet graphReplicaSet,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
@@ -37,7 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IServiceProvider serviceProvider)
             : base(
                 contentItem,
-                graphSyncHelper,
+                syncNameProvider,
                 contentManager,
                 contentItemVersionFactory.Get(graphReplicaSet.Name),
                 parentGraphMergeContext,

@@ -41,6 +41,6 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.HtmlFieldG
         }
 
         //todo: assert that nothing else is done to the commands
-        //todo: assert that graphsynchelper's contenttype is not set
+        //todo: assert that syncnameprovider's contenttype is not set
     }
 }
