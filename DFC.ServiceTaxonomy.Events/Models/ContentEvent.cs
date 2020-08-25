@@ -4,15 +4,6 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.Events.Models
 {
-    public enum ContentEventType
-    {
-        Published,
-        Unpublished,
-        Draft,
-        DraftDiscarded,
-        Deleted
-    }
-
     public class ContentEvent
     {
         // use 2 part segmented eventType?
@@ -23,7 +14,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
         {
             Id = Guid.NewGuid().ToString();
 
-            //todo: use GraphSyncHelper?
+            //todo: use SyncNameProvider?
             // do we assume id ends with a guid, or do we need a setting to extract the eventgrid id from the full id?
             // string userId = contentItem.Content.GraphSyncPart.Text;
 

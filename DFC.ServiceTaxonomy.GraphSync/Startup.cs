@@ -36,6 +36,8 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using OrchardCore.DisplayManagement.Notify;
@@ -91,15 +93,22 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IContentPartGraphSyncer, GraphSyncPartGraphSyncer>();
             services.AddTransient<IGraphSyncPartGraphSyncer, GraphSyncPartGraphSyncer>();
 
+            // orchestrators & orchestration handlers
+            services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
+            services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
+            services.AddTransient<ICloneOrchestrator, CloneOrchestrator>();
+            services.AddTransient<IContentOrchestrationHandler, EventGridPublishingHandler>();
+
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IDeleteTypeGraphSyncer, DeleteTypeGraphSyncer>();
+            services.AddTransient<ICloneGraphSync, CloneGraphSync>();
             services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
             services.AddTransient<IGraphResyncer, GraphResyncer>();
 
-            services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
+            services.AddTransient<ISyncNameProvider, SyncNameProvider>();
+            services.AddTransient<ISyncNameProviderCSharpScriptGlobals, SyncNameProviderCSharpScriptGlobals>();
             services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
             services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, BagPartEmbeddedContentItemsGraphSyncer>();
@@ -148,7 +157,10 @@ namespace DFC.ServiceTaxonomy.GraphSync
             //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
             services.AddSingleton<IPublishedContentItemVersion>(new PublishedContentItemVersion(_configuration));
             services.AddSingleton<IPreviewContentItemVersion>(new PreviewContentItemVersion(_configuration));
-            services.AddSingleton<INeutralContentItemVersion>(new NeutralContentItemVersion());
+            services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
+            services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
+            services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
+
             services.AddScoped<IContentItemsService, ContentItemsService>();
 
             // permissions

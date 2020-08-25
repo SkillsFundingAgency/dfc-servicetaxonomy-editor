@@ -22,14 +22,14 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
 
-            context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
-            context.MergeNodeCommand.AddProperty<bool>(await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
-            context.MergeNodeCommand.AddProperty<string>(await context.GraphSyncHelper.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
+            context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(UrlNamePropertyName), content, UrlNamePropertyName);
+            context.MergeNodeCommand.AddProperty<bool>(await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName), content, DefaultPageForLocationPropertyName);
+            context.MergeNodeCommand.AddProperty<string>(await context.SyncNameProvider.PropertyName(FullUrlPropertyName), content, FullUrlPropertyName);
 
             context.MergeNodeCommand.AddArrayPropertyFromMultilineString(
-                await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName), content,
+                await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName), content,
                 RedirectLocationsPropertyName);
         }
 
@@ -37,12 +37,12 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             JObject content,
             IValidateAndRepairContext context)
         {
-            using var _ = context.GraphSyncHelper.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
+            using var _ = context.SyncNameProvider.PushPropertyNameTransform(_pageLocationPropertyNameTransform);
 
             (bool matched, string failureReason) = context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 UrlNamePropertyName,
                 content,
-                await context.GraphSyncHelper.PropertyName(UrlNamePropertyName),
+                await context.SyncNameProvider.PropertyName(UrlNamePropertyName),
                 context.NodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             (matched, failureReason) = context.GraphValidationHelper.BoolContentPropertyMatchesNodeProperty(
                 DefaultPageForLocationPropertyName,
                 content,
-                await context.GraphSyncHelper.PropertyName(DefaultPageForLocationPropertyName),
+                await context.SyncNameProvider.PropertyName(DefaultPageForLocationPropertyName),
                 context.NodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             (matched, failureReason) = context.GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
                 FullUrlPropertyName,
                 content,
-                await context.GraphSyncHelper.PropertyName(FullUrlPropertyName),
+                await context.SyncNameProvider.PropertyName(FullUrlPropertyName),
                 context.NodeWithOutgoingRelationships.SourceNode);
 
             if (!matched)
@@ -69,7 +69,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.GraphSyncers
             (matched, failureReason) = context.GraphValidationHelper.ContentMultilineStringPropertyMatchesNodeProperty(
                 RedirectLocationsPropertyName,
                 content,
-                await context.GraphSyncHelper.PropertyName(RedirectLocationsPropertyName),
+                await context.SyncNameProvider.PropertyName(RedirectLocationsPropertyName),
                 context.NodeWithOutgoingRelationships.SourceNode);
 
             return matched ? (true, "") : (false, $"{RedirectLocationsPropertyName} did not validate: {failureReason}");

@@ -90,6 +90,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         private ICustomCommand CreateCustomCommand(string command, string contentApiBaseUrl)
         {
             var customCommand = _serviceProvider.GetRequiredService<ICustomCommand>();
+            //todo: use IContentItemVersion
             customCommand.Command = command.Replace("<<contentapiprefix>>", contentApiBaseUrl);
             return customCommand;
         }

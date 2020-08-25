@@ -10,11 +10,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
 {
     public class GraphSyncPartDisplayDriver : ContentPartDisplayDriver<GraphSyncPart>
     {
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
 
-        public GraphSyncPartDisplayDriver(IGraphSyncHelper graphSyncHelper)
+        public GraphSyncPartDisplayDriver(ISyncNameProvider syncNameProvider)
         {
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
         }
 
         // public override IDisplayResult Display(GraphSyncPart GraphSyncPart)
@@ -43,10 +43,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Drivers
         private async Task BuildViewModel(GraphSyncPartViewModel model, GraphSyncPart part)
         {
             //todo: pass content type instead?
-            _graphSyncHelper.ContentType = part.ContentItem.ContentType;
-            model.Text = part.Text ?? await _graphSyncHelper.GenerateIdPropertyValue();
-            model.Readonly = _graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
-            model.DisplayId = _graphSyncHelper.GraphSyncPartSettings.DisplayId;
+            _syncNameProvider.ContentType = part.ContentItem.ContentType;
+            model.Text = part.Text ?? await _syncNameProvider.GenerateIdPropertyValue();
+            model.Readonly = _syncNameProvider.GraphSyncPartSettings.PreexistingNode;
+            model.DisplayId = _syncNameProvider.GraphSyncPartSettings.DisplayId;
         }
     }
 }

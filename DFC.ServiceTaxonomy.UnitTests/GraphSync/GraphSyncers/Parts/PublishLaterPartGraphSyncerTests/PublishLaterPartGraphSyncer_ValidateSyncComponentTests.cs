@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
                 A<JObject>._,
                 NodeTitlePropertyName,
                 SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
-            A.CallTo(() => GraphSyncHelper.PropertyName("ScheduledPublishUtc")).Returns("publishlater_ScheduledPublishUtc");
+            A.CallTo(() => SyncNameProvider.PropertyName("ScheduledPublishUtc")).Returns("publishlater_ScheduledPublishUtc");
 
             (bool validated, _) = await CallValidateSyncComponent();
 

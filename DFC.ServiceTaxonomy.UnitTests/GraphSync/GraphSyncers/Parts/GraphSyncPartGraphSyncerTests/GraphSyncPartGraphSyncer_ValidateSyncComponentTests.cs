@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.UnitTests.UnitTestHelpers.PartGraphSyncer;
 using FakeItEasy;
@@ -14,8 +15,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
 
         public GraphSyncPartGraphSyncer_ValidateSyncComponentTests()
         {
-            A.CallTo(() => GraphSyncHelper.ContentIdPropertyName).Returns(ContentIdPropertyName);
-            A.CallTo(() => GraphSyncHelper.IdPropertyName()).Returns(NodeTitlePropertyName);
+            A.CallTo(() => SyncNameProvider.ContentIdPropertyName).Returns(ContentIdPropertyName);
+            A.CallTo(() => SyncNameProvider.IdPropertyName()).Returns(NodeTitlePropertyName);
 
             ContentPartGraphSyncer = new GraphSyncPartGraphSyncer();
         }
@@ -25,11 +26,12 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.GraphSyncPa
         [InlineData(false, false)]
         public async Task ValidateSyncComponentTests(bool expected, bool stringContentPropertyMatchesNodePropertyReturns)
         {
-            A.CallTo(() => GraphValidationHelper.StringContentPropertyMatchesNodeProperty(
+            A.CallTo(() => GraphValidationHelper.ContentPropertyMatchesNodeProperty(
                 ContentIdPropertyName,
                 A<JObject>._,
                 NodeTitlePropertyName,
-                SourceNode)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
+                SourceNode,
+                A<Func<JValue, object, bool>>._)).Returns((stringContentPropertyMatchesNodePropertyReturns, ""));
 
             (bool validated, _) = await CallValidateSyncComponent();
 

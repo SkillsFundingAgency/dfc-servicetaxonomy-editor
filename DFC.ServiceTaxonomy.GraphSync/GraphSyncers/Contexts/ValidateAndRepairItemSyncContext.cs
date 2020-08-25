@@ -1,8 +1,11 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
+﻿using System;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -18,14 +21,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph,
             ContentTypeDefinition contentTypeDefinition,
-            object nodeId)
+            object nodeId,
+            IServiceProvider serviceProvider)
 
             : base(contentItem, contentManager, contentItemVersion, nodeWithOutgoingRelationships,
-                graphSyncHelper, graphValidationHelper, validateAndRepairGraph)
+                syncNameProvider, graphValidationHelper, validateAndRepairGraph,
+                serviceProvider.GetRequiredService<ILogger<ValidateAndRepairItemSyncContext>>())
         {
             ContentTypeDefinition = contentTypeDefinition;
             NodeId = nodeId;

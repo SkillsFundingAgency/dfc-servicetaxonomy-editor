@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.OrchardCore.Wrappers;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -16,24 +17,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentPartFieldDefinition? ContentPartFieldDefinition { get; private set; }
 
-        public IGraphSyncHelper GraphSyncHelper { get; }
-        // only used by GraphMergeContext and GraphOperationContext, not ValidateAndRepairContext
-        // new base class, or just leave null for validate??
-        //todo: provide subclass in derived?
-        public IGraphOperationContext? ParentContext { get; }
+        public ISyncNameProvider SyncNameProvider { get; }
+
+        protected readonly ILogger _logger;
 
         protected GraphOperationContext(
             ContentItem contentItem,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
-            IGraphOperationContext? parentContext)
+            ILogger logger)
         {
+            _logger = logger;
             ContentItem = contentItem;
-            GraphSyncHelper = graphSyncHelper;
+            SyncNameProvider = syncNameProvider;
             ContentManager = contentManager;
             ContentItemVersion = contentItemVersion;
-            ParentContext = parentContext;
 
             // will be set before any syncers receive a context
             ContentTypePartDefinition = default!;
@@ -43,6 +42,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         {
             ContentPartFieldDefinition = contentPartFieldDefinition != null
                 ? new ContentPartFieldDefinitionWrapper(contentPartFieldDefinition) : default;
+        }
+
+        public override string ToString()
+        {
+            return ContentItem.ToString();
         }
     }
 }

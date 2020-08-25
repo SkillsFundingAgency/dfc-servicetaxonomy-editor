@@ -58,6 +58,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 async (partSyncer, partContent) => await partSyncer.DeleteComponents(partContent, context));
         }
 
+        public async Task MutateOnClone(ICloneItemSyncContext context)
+        {
+            await IteratePartSyncers(context,
+                async (partSyncer, partContent) => await partSyncer.MutateOnClone(partContent, context));
+        }
+
         private async Task IteratePartSyncers(
             IItemSyncContext context,
             Func<IContentPartGraphSyncer, JObject, Task> action)
@@ -91,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         {
             foreach (ContentTypePartDefinition contentTypePartDefinition in context.ContentTypeDefinition.Parts)
             {
-                IContentPartGraphSyncer partSyncer = _partSyncers.SingleOrDefault(ps =>
+                IContentPartGraphSyncer? partSyncer = _partSyncers.SingleOrDefault(ps =>
                     ps.CanSync(contentTypePartDefinition.ContentTypeDefinition.Name,
                         contentTypePartDefinition.PartDefinition));
 
