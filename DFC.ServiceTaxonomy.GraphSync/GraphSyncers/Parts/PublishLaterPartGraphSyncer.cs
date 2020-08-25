@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using Neo4j.Driver;
 using Newtonsoft.Json.Linq;
 using OrchardCore.PublishLater.Models;
 
@@ -21,9 +21,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             // prefix field property names, so there's no possibility of a clash with the eponymous fields property names
             using var _ = context.SyncNameProvider.PushPropertyNameTransform(_publishLaterFieldsPropertyNameTransform);
 
-            JValue? scheduledPublishValue = (JValue?)content[ScheduledPublishUtcPropertyName];
-            if (scheduledPublishValue != null && scheduledPublishValue.Type != JTokenType.Null)
-                context.MergeNodeCommand.Properties.Add(await context.SyncNameProvider.PropertyName(ScheduledPublishUtcPropertyName), scheduledPublishValue.As<DateTime>());
+            context.MergeNodeCommand.AddProperty<DateTime>(
+                await context.SyncNameProvider.PropertyName(ScheduledPublishUtcPropertyName),
+                content, ScheduledPublishUtcPropertyName);
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(

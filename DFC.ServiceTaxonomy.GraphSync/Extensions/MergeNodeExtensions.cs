@@ -31,6 +31,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
             JValue? jvalue = (JValue?)content[contentPropertyName];
             if (jvalue != null && jvalue.Type != JTokenType.Null)
             {
+                //todo: JObject/JValue auto interprets dates (and it gets it wrong)
+                // so handle dates as utc
+                // could tostring on the content, then deserialize using system.text.json which seems to handle dates correctly
+                // https://docs.microsoft.com/en-us/dotnet/standard/datetime/system-text-json-support
+
                 value = jvalue.Value<T>();
 
                 if (value == null)

@@ -38,6 +38,8 @@ Actual:   Dictionary<String, Object> [[unpublishlater_ScheduledUnpublishUtc, 6/2
 
 * need to publish events for terms too
 
+* ensure all cypher queries and commands use parameters
+
 * if sync fails and changes cancelled, leave user on edit page with their changes intact
 
 * check moving a taxonomy term to a different level
