@@ -168,6 +168,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
+            //force publish the new term content item to trigger events etc
+            await _contentManager.PublishAsync(contentItem);
+
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
 
@@ -287,6 +290,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
+            //force publish the new term content item to trigger events etc
+            await _contentManager.PublishAsync(contentItem);
+
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
 
@@ -328,6 +334,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomyItem.Remove();
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
+
+            //force remove the new term content item to trigger events etc
+            await _contentManager.RemoveAsync(taxonomyItem.ToObject<ContentItem>());
 
             _notifier.Success(H["Taxonomy item deleted successfully"]);
 
