@@ -26,6 +26,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
+        public override async Task MutateOnClone(JObject content, ICloneContext context)
+        {
+            content[nameof(GraphSyncPart.Text)] =
+                await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
+        }
+
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)

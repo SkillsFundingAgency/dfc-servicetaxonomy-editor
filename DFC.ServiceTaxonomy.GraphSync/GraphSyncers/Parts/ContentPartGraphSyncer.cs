@@ -34,6 +34,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return Task.CompletedTask;
         }
 
+        public virtual Task MutateOnClone(JObject content, ICloneContext context)
+        {
+            return Task.CompletedTask;
+        }
+
         public abstract Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);
