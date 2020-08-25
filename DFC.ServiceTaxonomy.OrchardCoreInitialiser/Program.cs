@@ -79,9 +79,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 errorMessage += "\tpassword\n";
             }
 
-            if ( missingArgs && !shouldShowHelp )
+            if (missingArgs && !shouldShowHelp)
             {
-                Console.WriteLine(errorMessage+"\n");
+                Console.WriteLine(errorMessage + "\n");
                 shouldShowHelp = true;
             }
 
@@ -160,28 +160,28 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 }
                     
 
-                //// Logon
-                Console.WriteLine("Initial setup complete, logging on ...");
-                LogonScreen logonScreen = new LogonScreen(webDriver);
-                StartPage startPage = logonScreen.SubmitLogonDetails(uri, userName, password);
+                ////// Logon
+                //Console.WriteLine("Initial setup complete, logging on ...");
+                //LogonScreen logonScreen = new LogonScreen(webDriver);
+                //StartPage startPage = logonScreen.SubmitLogonDetails(uri, userName, password);
 
-                if (!alreadySetup || runPublishIfAlreadySetUp)
-                {
-                    //// remove content types
-                    //ContentTypesAdmin contentTypesAdmin = startPage.NavitateToContentTypeAdmin(uri);
-                    //contentTypesAdmin.RemoveAllContentTypes();
+                //if (!alreadySetup || runPublishIfAlreadySetUp)
+                //{
+                //    //// remove content types
+                //    //ContentTypesAdmin contentTypesAdmin = startPage.NavitateToContentTypeAdmin(uri);
+                //    //contentTypesAdmin.RemoveAllContentTypes();
 
-                    // publish all items
-                    Console.WriteLine("Logged on, starting Service Taxonomy Editor configuration ...");
-                    ManageContent manageContent = startPage.NavigateToManageContent(uri);
-                    manageContent.PublishAll("Job Category");
-                    manageContent.PublishAll("Job Profile");
-                    manageContent.LogOut();
-                }
-                else
-                {
-                    startPage.LogOut();
-                }
+                //    // publish all items
+                //    Console.WriteLine("Logged on, starting Service Taxonomy Editor configuration ...");
+                //    ManageContent manageContent = startPage.NavigateToManageContent(uri);
+                //    manageContent.PublishAll("Job Category");
+                //    manageContent.PublishAll("Job Profile");
+                //    manageContent.LogOut();
+                //}
+                //else
+                //{
+                //    startPage.LogOut();
+                //}
 
 
 
