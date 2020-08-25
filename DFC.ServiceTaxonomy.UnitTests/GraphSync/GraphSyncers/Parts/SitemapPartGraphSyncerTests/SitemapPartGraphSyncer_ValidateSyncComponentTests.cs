@@ -12,10 +12,10 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.SitemapPart
     {
         public SitemapPartGraphSyncer_ValidateSyncComponentTests()
         {
-            A.CallTo(() => GraphSyncHelper.PropertyName("OverrideSitemapConfig")).Returns("sitemap_OverrideSitemapConfig");
-            A.CallTo(() => GraphSyncHelper.PropertyName("ChangeFrequency")).Returns("sitemap_ChangeFrequency");
-            A.CallTo(() => GraphSyncHelper.PropertyName("Priority")).Returns("sitemap_Priority");
-            A.CallTo(() => GraphSyncHelper.PropertyName("Exclude")).Returns("sitemap_Exclude");
+            A.CallTo(() => SyncNameProvider.PropertyName("OverrideSitemapConfig")).Returns("sitemap_OverrideSitemapConfig");
+            A.CallTo(() => SyncNameProvider.PropertyName("ChangeFrequency")).Returns("sitemap_ChangeFrequency");
+            A.CallTo(() => SyncNameProvider.PropertyName("Priority")).Returns("sitemap_Priority");
+            A.CallTo(() => SyncNameProvider.PropertyName("Exclude")).Returns("sitemap_Exclude");
 
             ContentPartGraphSyncer = new SitemapPartGraphSyncer();
         }

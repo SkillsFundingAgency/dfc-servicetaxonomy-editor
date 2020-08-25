@@ -8,18 +8,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class GraphSyncPartGraphSyncer : ContentPartGraphSyncer, IGraphSyncPartGraphSyncer
     {
-        // ensure graph sync part is processed first,
-        // as other part syncers require the node's id value to be populated in the MergeNodeCommand
         public override int Priority { get => int.MaxValue; }
         public override string PartName => nameof(GraphSyncPart);
 
         public override Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
-            object? idValue = context.GraphSyncHelper.GetIdPropertyValue(content, context.ContentItemVersion);
+            object? idValue = context.SyncNameProvider.GetIdPropertyValue(content, context.ContentItemVersion);
             if (idValue != null)
-                context.MergeNodeCommand.Properties.Add(context.GraphSyncHelper.IdPropertyName(), idValue);
+            {
+                // id is added as a special case as part of SyncAllowed,
+                // so we allow an overwrite, which will occur as part of syncing
+                //todo: something cleaner
+                context.MergeNodeCommand.Properties[context.SyncNameProvider.IdPropertyName()] = idValue;
+                //context.MergeNodeCommand.Properties.Add(context.SyncNameProvider.IdPropertyName(), idValue);
+            }
 
             return Task.CompletedTask;
+        }
+
+        public override async Task MutateOnClone(JObject content, ICloneContext context)
+        {
+            content[nameof(GraphSyncPart.Text)] =
+                await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
@@ -27,14 +37,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             IValidateAndRepairContext context)
         {
             return Task.FromResult(context.GraphValidationHelper.ContentPropertyMatchesNodeProperty(
-                context.GraphSyncHelper.ContentIdPropertyName,
+                context.SyncNameProvider.ContentIdPropertyName,
                 content,
-                context.GraphSyncHelper.IdPropertyName(),
+                context.SyncNameProvider.IdPropertyName(),
                 context.NodeWithOutgoingRelationships.SourceNode,
                 (contentValue, nodeValue) =>
                     nodeValue is string nodeValueString
                     && Equals((string)contentValue!,
-                        context.GraphSyncHelper.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion))));
+                        context.SyncNameProvider.IdPropertyValueFromNodeValue(nodeValueString, context.ContentItemVersion))));
         }
     }
 }

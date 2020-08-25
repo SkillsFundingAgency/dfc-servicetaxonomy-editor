@@ -7,7 +7,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
@@ -20,6 +19,7 @@ using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -31,15 +31,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
         private List<CommandRelationship>? _removingRelationships;
 
         protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
+            _logger = logger;
 
             _contentTypes = contentDefinitionManager
                 .ListTypeDefinitions()
@@ -52,6 +55,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IGraphMergeContext context,
             IAllowSyncResult allowSyncResult)
         {
+            _logger.LogDebug("Do embedded items allow sync?");
+
             List<CommandRelationship> requiredRelationships = await GetRequiredRelationshipsAndOptionallySync(contentItems, context, allowSyncResult);
 
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
@@ -69,13 +74,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
-            var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+            var embeddedContentNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
 
             IEnumerable<string> relationshipTypes = await Task.WhenAll(
                 embeddableContentTypes.Select(async ct =>
                 {
-                    embeddedContentGraphSyncHelper.ContentType = ct;
-                    return await RelationshipType(embeddedContentGraphSyncHelper);
+                    embeddedContentNameProvider.ContentType = ct;
+                    return await RelationshipType(embeddedContentNameProvider);
                 }));
 
             existing = new NodeAndOutRelationshipsAndTheirInRelationships(
@@ -83,17 +88,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 existing.OutgoingRelationships
                     .Where(or =>
                         embeddableContentTypes.Contains(
-                            context.GraphSyncHelper.GetContentTypeFromNodeLabels(
+                            context.SyncNameProvider.GetContentTypeFromNodeLabels(
                                 or.outgoingRelationship.DestinationNode.Labels))
                         && relationshipTypes.Contains(or.outgoingRelationship.Relationship.Type)));
 
             IEnumerable<CommandRelationship> existingRelationshipsForEmbeddableContentTypes =
-                existing.ToCommandRelationships(context.GraphSyncHelper);
+                existing.ToCommandRelationships(context.SyncNameProvider);
 
             _removingRelationships = GetRemovingRelationships(
                 existingRelationshipsForEmbeddableContentTypes,
                 requiredRelationships,
-                context.GraphSyncHelper);
+                context.SyncNameProvider);
 
             if (!_removingRelationships.Any())
             {
@@ -108,8 +113,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     var existingForRemoving = existing.OutgoingRelationships
                         .Where(er =>
                             er.outgoingRelationship.DestinationNode.Properties[
-                                context.GraphSyncHelper.IdPropertyName(
-                                    context.GraphSyncHelper.GetContentTypeFromNodeLabels(
+                                context.SyncNameProvider.IdPropertyName(
+                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(
                                         er.outgoingRelationship.DestinationNode.Labels))] ==
                             destinationNodeIdPropertyValue);
 
@@ -121,10 +126,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         allowSyncResult.AddSyncBlockers(
                             nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
                                 new SyncBlocker(
-                                    context.GraphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
+                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
                                     (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
                 }
             }
+        }
+
+        private IMergeGraphSyncer GetNewMergeGraphSyncer()
+        {
+            _logger.LogDebug("Getting new IMergeGraphSyncer.");
+
+            return _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
         }
 
         private async Task<List<CommandRelationship>> GetRequiredRelationshipsAndOptionallySync(
@@ -139,42 +151,41 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             int relationshipOrdinal = 0;
             foreach (ContentItem contentItem in embeddedContentItems)
             {
-                var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-
-                IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
-                allowSyncResult?.AddRelated(embeddedAllowSyncResult);
-                if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
-                    continue;
-
-                IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
-
-                containedContentMergeNodeCommand.CheckIsValid();
+                IMergeGraphSyncer? mergeGraphSyncer;
 
                 if (allowSyncResult == null)
                 {
                     // we're actually syncing, not checking if it's allowed
-                    await mergeGraphSyncer.SyncToGraphReplicaSet();
+                    mergeGraphSyncer = await context.MergeGraphSyncer.SyncEmbedded(contentItem);
                 }
                 else
                 {
-                    // we need to get the id
-                    var graphSyncPartGraphSyncer = _serviceProvider.GetRequiredService<IGraphSyncPartGraphSyncer>();
-                    graphSyncPartGraphSyncer.AddSyncComponents(contentItem.Content[nameof(GraphSyncPart)],
-                        mergeGraphSyncer.GraphMergeContext);
-                    //todo: delegate to mergeGraphSyncer then ContentItemGraphSyncer?
+                    mergeGraphSyncer = GetNewMergeGraphSyncer();
+
+                    IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
+                    allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                    if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
+                        continue;
                 }
 
-                var embeddedContentItemGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-                embeddedContentItemGraphSyncHelper.ContentType = contentItem.ContentType;
+                //todo: check embedded items with no graphsyncpart attached
+                if (mergeGraphSyncer == null)
+                    continue;
 
-                string relationshipType = await RelationshipType(embeddedContentItemGraphSyncHelper);
+                IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
+                containedContentMergeNodeCommand.CheckIsValid();
 
-                var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.GraphSyncHelper);
+                var embeddedContentItemNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+                embeddedContentItemNameProvider.ContentType = contentItem.ContentType;
+
+                string relationshipType = await RelationshipType(embeddedContentItemNameProvider);
+
+                var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.SyncNameProvider);
                 ++relationshipOrdinal;
 
                 requiredRelationships.Add(new CommandRelationship(
                     relationshipType,
-                    await TwoWayIncomingRelationshipType(embeddedContentItemGraphSyncHelper),
+                    await TwoWayIncomingRelationshipType(embeddedContentItemNameProvider),
                     properties,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
@@ -253,9 +264,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 foreach (ContentItem contentItem in embeddedContentItemsOfType)
                 {
-                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem,
-                        //todo: no need to pass context now
-                        context);
+                    await context.DeleteGraphSyncer.DeleteEmbedded(contentItem);
                 }
             }
         }
@@ -287,25 +296,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private List<CommandRelationship> GetRemovingRelationships(
             IEnumerable<CommandRelationship> existing,
             IEnumerable<CommandRelationship> required,
-            IGraphSyncHelper graphSyncHelper)
+            ISyncNameProvider syncNameProvider)
         {
             List<CommandRelationship> removingRelationships = new List<CommandRelationship>();
 
             var distinctExistingRelationshipsTypes = existing
                 .Select(r => (r.RelationshipType,
-                    DestinationNodeLabel: graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)))
+                    DestinationNodeLabel: syncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNodeLabels)))
                 .Distinct();
 
             foreach (var distinctExistingRelationshipsType in distinctExistingRelationshipsTypes)
             {
                 var (existingIdPropertyValues, existingRelationshipsOfType)
                     = GetIdPropertyValuesAndRelationshipsOfType(
-                        existing, distinctExistingRelationshipsType, graphSyncHelper);
+                        existing, distinctExistingRelationshipsType, syncNameProvider);
                 if (!existingIdPropertyValues.Any())
                     continue;
 
                 var (requiredIdPropertyValues, _) = GetIdPropertyValuesAndRelationshipsOfType(
-                    required, distinctExistingRelationshipsType, graphSyncHelper);
+                    required, distinctExistingRelationshipsType, syncNameProvider);
 
                 var removingIdPropertyValuesForRelationshipType = existingIdPropertyValues
                     .Except(requiredIdPropertyValues)
@@ -331,11 +340,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             GetIdPropertyValuesAndRelationshipsOfType(
                 IEnumerable<CommandRelationship> relationships,
                 (string RelationshipType, string DestinationNodeLabel) relationshipType,
-                IGraphSyncHelper graphSyncHelper)
+                ISyncNameProvider syncNameProvider)
         {
             var relationshipsOfType = relationships
                 .Where(r =>
-                    graphSyncHelper.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) ==
+                    syncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNodeLabels) ==
                     relationshipType.DestinationNodeLabel)
                 .ToArray();
 
@@ -364,24 +373,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 if (!validated)
                     return (false, $"contained item failed validation: {failureReason}");
 
-                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-                embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+                var embeddedContentNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+                embeddedContentNameProvider.ContentType = embeddedContentItem.ContentType;
 
                 // check expected relationship is in graph
-                string expectedRelationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
+                string expectedRelationshipType = await RelationshipType(embeddedContentNameProvider);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
                 context.ExpectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
                 context.ExpectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
                 // we've already validated the destination node, so we can assume the id property is there
-                object destinationId = embeddedContentGraphSyncHelper.GetIdPropertyValue(
+                object destinationId = embeddedContentNameProvider.GetIdPropertyValue(
                     embeddedContentItem.Content.GraphSyncPart, context.ContentItemVersion);
 
-                string embeddedContentIdPropertyName = embeddedContentGraphSyncHelper.IdPropertyName(embeddedContentItem.ContentType);
+                string embeddedContentIdPropertyName = embeddedContentNameProvider.IdPropertyName(embeddedContentItem.ContentType);
 
                 var expectedRelationshipProperties = await GetRelationshipProperties(
-                    embeddedContentItem, relationshipOrdinal, embeddedContentGraphSyncHelper);
+                    embeddedContentItem, relationshipOrdinal, embeddedContentNameProvider);
                 ++relationshipOrdinal;
 
                 (validated, failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
@@ -398,15 +407,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
-        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphOperationContext context);
+        protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context);
 
-        //todo: need to separate GraphSyncHelper into stateful and stateless
-        protected virtual async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
+        //todo: need to separate SyncNameProvider into stateful and stateless
+        protected virtual async Task<string> RelationshipType(ISyncNameProvider embeddedContentSyncNameProvider)
         {
-            return await embeddedContentGraphSyncHelper.RelationshipTypeDefault(embeddedContentGraphSyncHelper.ContentType!);
+            return await embeddedContentSyncNameProvider.RelationshipTypeDefault(embeddedContentSyncNameProvider.ContentType!);
         }
 
-        protected virtual Task<string?> TwoWayIncomingRelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
+        protected virtual Task<string?> TwoWayIncomingRelationshipType(ISyncNameProvider embeddedContentSyncNameProvider)
         {
             return Task.FromResult(default(string));
         }
@@ -414,7 +423,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         protected virtual Task<Dictionary<string, object>?> GetRelationshipProperties(
             ContentItem contentItem,
             int ordinal,
-            IGraphSyncHelper graphSyncHelper)
+            ISyncNameProvider syncNameProvider)
         {
             return Task.FromResult<Dictionary<string, object>?>(null);
         }

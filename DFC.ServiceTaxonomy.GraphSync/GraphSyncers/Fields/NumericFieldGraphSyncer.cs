@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var fieldSettings = context.ContentPartFieldDefinition!.GetSettings<NumericFieldSettings>();
 
-            string propertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string propertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
             if (fieldSettings.Scale == 0)
             {
                 context.MergeNodeCommand.Properties.Add(propertyName, (int)value);
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
             context.NodeWithOutgoingRelationships.SourceNode.Properties.TryGetValue(nodePropertyName, out object? nodePropertyValue);
 
             JToken? contentItemFieldValue = contentItemField[ContentKey];

@@ -51,7 +51,6 @@ stages:
         BuildPlatform: 'any cpu'
         BuildConfiguration: 'release'
         DotNetCoreVersion: '3.1.201'
-        TestSuffix: UnitTests
     - template: AzureDevOpsTemplates\Build\StepTemplates\dfc-dotnetcore-build-notests.yml@dfc-devops
       parameters:
         SolutionBaseName: $(SolutionBaseName).OrchardCoreInitialiser
@@ -78,10 +77,20 @@ stages:
         versionSpec: '>=5.4.0'
 
     - task: DotNetCoreCLI@2
-      displayName: 'dotnet pack'
+      displayName: 'dotnet pack - Neo4j'
       inputs:
         command: pack
         packagesToPack: '**/DFC.ServiceTaxonomy.Neo4j.csproj'
+        configuration: Release
+        packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
+        versioningScheme: byEnvVar
+        versionEnvVar: GitVersion.MajorMinorPatch
+
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet pack - Events'
+      inputs:
+        command: pack
+        packagesToPack: '**/DFC.ServiceTaxonomy.Events.csproj'
         configuration: Release
         packDirectory: '$(build.artifactstagingdirectory)\DeploymentPackages\Nuget'
         versioningScheme: byEnvVar
@@ -154,7 +163,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToSit
-  condition: and(eq(dependencies.DeployToDev.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
@@ -187,7 +196,7 @@ stages:
       TestArtifactBranch: ${{ parameters.DfcServiceTaxonomyTestBranch }}
 
 - stage: DeployToPP
-  condition: and(eq(dependencies.DeployToSit.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: Deploy to PP_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all

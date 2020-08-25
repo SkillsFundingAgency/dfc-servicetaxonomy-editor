@@ -15,7 +15,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
-            string basePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string basePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             JValue? value = (JValue?)contentItemField[UrlFieldKey];
             if (value != null && value.Type != JTokenType.Null)
@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            string nodeBasePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string nodeBasePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             string nodeUrlPropertyName = $"{nodeBasePropertyName}{LinkUrlPostfix}";
 

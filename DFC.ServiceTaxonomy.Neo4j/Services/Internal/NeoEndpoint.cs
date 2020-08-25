@@ -60,13 +60,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
                         var records = await result.ToListAsync(r => r);
                         var resultSummary = await result.ConsumeAsync();
 
-                        _logger.LogDebug(
-                            $"Query result available after: {resultSummary.ResultAvailableAfter}, consumed after: {resultSummary.ResultConsumedAfter}");
+                        _logger.LogDebug("Query result available after: {ResultAvailableAfter}, consumed after: {ResultConsumedAfter}",
+                            resultSummary.ResultAvailableAfter, resultSummary.ResultConsumedAfter);
 
                         if (resultSummary.Notifications.Any())
                         {
-                            _logger.LogWarning(
-                                $"Query had notifications{Environment.NewLine}:{string.Join(Environment.NewLine, resultSummary.Notifications)}");
+                            _logger.LogWarning($"Query had notifications{Environment.NewLine}:{string.Join(Environment.NewLine, resultSummary.Notifications)}");
                         }
 
                         command.ValidateResults(records, resultSummary);
@@ -87,7 +86,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
 
         private void LogRun(string runType, string database, bool defaultDatabase)
         {
-            _logger.LogInformation($"Running {runType} on {Name} endpoint, using {(defaultDatabase?"default":database)} database.");
+            _logger.LogInformation("Running {RunType} on {Endpoint} endpoint, using {Database)} database.",
+                runType, Name, defaultDatabase?"default":database);
         }
 
         public void Dispose()

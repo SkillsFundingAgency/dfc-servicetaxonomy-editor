@@ -23,20 +23,50 @@
         "SharedAppServicePlanResourceGroup": {
             "value": "__StaxSharedResourceGroup__"
         },
+        "Neo4jEndpoints0Enabled": {
+            "value": __Neo4jEndpoints0Enabled__
+        },
+        "Neo4jEndpoints1Enabled": {
+            "value": __Neo4jEndpoints1Enabled__
+        },
+        "Neo4jEndpoints2Enabled": {
+            "value": __Neo4jEndpoints2Enabled__
+        },
+        "Neo4jEndpoints3Enabled": {
+            "value": __Neo4jEndpoints3Enabled__
+        },
+        "Neo4jReplicaSets0GraphInstances0Enabled": {
+            "value": __Neo4jReplicaSets0GraphInstances0Enabled__
+        },
+        "Neo4jReplicaSets0GraphInstances1Enabled": {
+            "value": __Neo4jReplicaSets0GraphInstances1Enabled__
+        },
+        "Neo4jReplicaSets1GraphInstances0Enabled": {
+            "value": __Neo4jReplicaSets1GraphInstances0Enabled__
+        },
+        "Neo4jReplicaSets1GraphInstances1Enabled": {
+            "value": __Neo4jReplicaSets1GraphInstances1Enabled__
+        },
         "Neo4jUrl": {
             "value": "__Neo4jUrl__"
         },
-        "Neo4jUsername": {
-            "value": "__Neo4jUser__"
-        },
-        "Neo4jPassword": {
-            "value": "__Neo4jPassword__"
+        "Neo4jUrl1": {
+            "value": "__Neo4jUrl1__"
         },
         "Neo4jUrlDraft": {
             "value": "__Neo4jUrlDraft__"
         },
+        "Neo4jUrlDraft1": {
+            "value": "__Neo4jUrlDraft1__"
+        },
+        "Neo4jUser": {
+            "value": "__Neo4jUser__"
+        },
         "Neo4jUserDraft": {
             "value": "__Neo4jUserDraft__"
+        },
+        "Neo4jPassword": {
+            "value": "__Neo4jPassword__"
         },
         "Neo4jPasswordDraft": {
             "value": "__Neo4jPasswordDraft__"
