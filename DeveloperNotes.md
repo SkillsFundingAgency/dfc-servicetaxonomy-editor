@@ -5,6 +5,35 @@ DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsF
 AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties
 AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties
 
+[xUnit.net 00:00:03.60]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(expectedMessage: "content property value was '15/06/2020 14:24:00', "..., nodeValue: "") [FAIL]
+  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(expectedMessage: "content property value was '15/06/2020 14:24:00', "..., nodeValue: "") [3ms]
+  Error Message:
+   Assert.Equal() Failure
+                                 ↓ (pos 28)
+Expected: ···property value was '15/06/2020 14:24:00', but node property v···
+Actual:   ···property value was '6/15/2020 2:24:00 PM', but node property ···
+                                 ↑ (pos 28)
+  Stack Trace:
+     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(String expectedMessage, String nodeValue) in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Helpers\GraphValidationHelper\GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.cs:line 106
+[xUnit.net 00:00:03.68]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties [FAIL]
+  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties [8ms]
+  Error Message:
+   Assert.Equal() Failure
+Expected: Dictionary<String, Object> [[publishlater_ScheduledPublishUtc, 6/28/2020 8:58:00 AM]]
+Actual:   Dictionary<String, Object> [[publishlater_ScheduledPublishUtc, 6/28/2020 9:58:00 AM]]
+  Stack Trace:
+     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties() in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Parts\PublishLaterPartGraphSyncerTests\PublishLaterPartGraphSyncer_AddSyncComponentsTests.cs:line 34
+--- End of stack trace from previous location where exception was thrown ---
+[xUnit.net 00:00:03.72]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties [FAIL]
+  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties [3ms]
+  Error Message:
+   Assert.Equal() Failure
+Expected: Dictionary<String, Object> [[unpublishlater_ScheduledUnpublishUtc, 6/28/2020 8:58:00 AM]]
+Actual:   Dictionary<String, Object> [[unpublishlater_ScheduledUnpublishUtc, 6/28/2020 9:58:00 AM]]
+  Stack Trace:
+     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties() in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Parts\UnpublishLaterPartGraphSyncerTests\UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.cs:line 33
+
+
 & renamr graphsynchelper to SyncNameProvider
 
 * need to publish events for terms too

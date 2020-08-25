@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
@@ -79,7 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             bool bothSame = areBothSame(contentItemFieldValue, nodePropertyValue);
 
-            return (bothSame, bothSame?"":$"content property value was '{contentItemFieldValue.ToString(CultureInfo.CurrentCulture)}', but node property value was '{nodePropertyValue}'");
+            return (bothSame, bothSame?"":$"content property value was '{contentItemFieldValue.ToString("u")}', but node property value was '{nodePropertyValue}'");
         }
 
         public (bool matched, string failureReason) ContentArrayPropertyMatchesNodeProperty(
