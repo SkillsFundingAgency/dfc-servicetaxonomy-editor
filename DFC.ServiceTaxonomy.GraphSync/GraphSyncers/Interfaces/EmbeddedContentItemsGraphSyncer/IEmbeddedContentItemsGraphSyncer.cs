@@ -13,6 +13,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
         Task AllowDelete(JArray? contentItems, IGraphDeleteContext context, IAllowSyncResult allowSyncResult);
         Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context);
 
+        Task MutateOnClone(JArray? contentItems, ICloneContext context);
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JArray? contentItems,
             IValidateAndRepairContext context);
