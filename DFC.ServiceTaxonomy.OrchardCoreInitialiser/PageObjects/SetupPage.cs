@@ -78,7 +78,10 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             try
             {
                 _webDriver.FindElement(By.Id("recipeButton")).Click();
-                _webDriver.FindElement(By.XPath("//span[contains(.,'" + recipeName +"')]")).Click();
+                //var element = _webDriver.FindElement(By.XPath("//span[contains(.,'" + recipeName + "')]"));
+                _webDriver.FindElement(By.XPath("//*[@id='recipes']/div/a[8]")).Click();
+             //   _webDriver.FindElement(By.XPath("//*[@data-recipe-display-name='Service Taxonomy Editor']/div/a[8]")).Click();
+                //element.Click();
             }
             catch( Exception e)
             {
