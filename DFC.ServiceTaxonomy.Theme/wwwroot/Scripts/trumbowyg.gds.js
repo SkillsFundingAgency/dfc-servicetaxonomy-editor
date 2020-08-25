@@ -240,8 +240,6 @@
                 if ($(node.parentNode).hasClass(fontWeightOrSize.class)) {
                     $(node.parentNode).removeClass(fontWeightOrSize.class);
 
-                    alert(node.parentNode.className.trim());
-
                     if (node.parentNode.className.trim().length === 0) {
                         $(node.parentNode).contents().unwrap();
                     }
