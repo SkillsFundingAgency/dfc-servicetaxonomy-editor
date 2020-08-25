@@ -41,6 +41,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             var mutatedContentItems = await _embeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
             var mutatedContentItemsJArray = JArray.FromObject(mutatedContentItems);
             content[ContainerName] = mutatedContentItemsJArray;
+
+            // we could return the mutated contentitems from this method and the derived class could use Alter with the appropriate part
+            // context.ContentItem.Alter<FlowPart>(p => p.Widgets = mutatedContentItems.ToList());
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
