@@ -1,55 +1,16 @@
-﻿using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using Newtonsoft.Json.Linq;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using OrchardCore.Flows.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
 {
-    public class BagPartGraphSyncer : ContentPartGraphSyncer
+    public class BagPartGraphSyncer : EmbeddingContentPartGraphSyncer
     {
-        private readonly IBagPartEmbeddedContentItemsGraphSyncer _bagPartEmbeddedContentItemsGraphSyncer;
         public override string PartName => nameof(BagPart);
+        protected override string ContainerName => "ContentItems";
 
-        private const string ContainerName = "ContentItems";
-
-        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public BagPartGraphSyncer(IBagPartEmbeddedContentItemsGraphSyncer embeddedContentItemsGraphSyncer)
+            : base(embeddedContentItemsGraphSyncer)
         {
-            await _bagPartEmbeddedContentItemsGraphSyncer.AllowSync((JArray?)content[ContainerName], context, allowSyncResult);
-        }
-
-        public BagPartGraphSyncer(IBagPartEmbeddedContentItemsGraphSyncer bagPartEmbeddedContentItemsGraphSyncer)
-        {
-            _bagPartEmbeddedContentItemsGraphSyncer = bagPartEmbeddedContentItemsGraphSyncer;
-        }
-
-        public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
-        {
-            await _bagPartEmbeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
-        }
-
-        public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
-        {
-            await _bagPartEmbeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSyncResult);
-        }
-
-        public override async Task DeleteComponents(JObject content, IGraphDeleteContext context)
-        {
-            await _bagPartEmbeddedContentItemsGraphSyncer.DeleteComponents((JArray?)content[ContainerName], context);
-        }
-
-        public override async Task MutateOnClone(JObject content, ICloneContext context)
-        {
-            await _bagPartEmbeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
-        }
-
-        public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(
-            JObject content,
-            IValidateAndRepairContext context)
-        {
-            return await _bagPartEmbeddedContentItemsGraphSyncer.ValidateSyncComponent(
-                (JArray?)content[ContainerName], context);
         }
     }
 }

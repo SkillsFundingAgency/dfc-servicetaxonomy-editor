@@ -269,13 +269,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
+        //todo: change sigs to accept ContentItem[]??
         public async Task MutateOnClone(JArray? contentItems, ICloneContext context)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
-            foreach (ContentItem contentItem in embeddedContentItems)
+            foreach (var contentItem in embeddedContentItems)
             {
-                await context.CloneGraphSync.MutateOnClone(contentItem, context.ContentManager);
+                ICloneGraphSync cloneGraphSync = _serviceProvider.GetRequiredService<ICloneGraphSync>();
+
+                await cloneGraphSync.MutateOnClone(contentItem, context.ContentManager);
             }
         }
 

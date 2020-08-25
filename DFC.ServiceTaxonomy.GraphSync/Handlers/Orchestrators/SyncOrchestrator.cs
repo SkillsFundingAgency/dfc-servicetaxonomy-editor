@@ -108,6 +108,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 contentManager);
         }
 
+        /// <returns>true if discarding draft was blocked.</returns>
+        public async Task<bool> Clone(ContentItem contentItem)
+        {
+            IContentManager contentManager = GetRequiredService<IContentManager>();
+            ICloneGraphSync cloneGraphSync = GetRequiredService<ICloneGraphSync>();
+
+            await cloneGraphSync.MutateOnClone(contentItem, contentManager);
+
+            return await SyncToGraphReplicaSetIfAllowed(
+                GraphReplicaSetNames.Preview,
+                contentItem,
+                contentManager);
+        }
+
         //todo: remove equivalent in mergegraphsyncer?
         private async Task<bool> SyncToGraphReplicaSetIfAllowed(
             string replicaSetName,
