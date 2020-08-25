@@ -83,7 +83,7 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
 
             if (settings.RelationshipType != null)
             {
-                parentContext.AvailableRelationships.Add(new ContentItemRelationship(parentContext.ContentItem.ContentType, settings.RelationshipType, new List<string>()));
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType), settings.RelationshipType, new List<string>()));
             }
         }
 

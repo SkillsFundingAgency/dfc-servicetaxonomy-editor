@@ -198,6 +198,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             if (fromContentItemVersions.Length == 0)    //static?
                 fromContentItemVersions = new IContentItemVersion[] { _superpositionContentItemVersion };
 
+            //var settings = GetGraphSyncPartSettings()
             foreach (var fromContentItemVersion in fromContentItemVersions)
             {
                 // we ignore case, so that existing content items will still sync

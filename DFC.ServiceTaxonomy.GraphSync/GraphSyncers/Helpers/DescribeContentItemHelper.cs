@@ -60,7 +60,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 currentList.AddRange(context.AvailableRelationships);
             }
 
-            foreach(var childContext in context.ChildContexts)
+            foreach (var childContext in context.ChildContexts)
             {
                 await GetRelationships((IDescribeRelationshipsContext)childContext, currentList);
             }
@@ -86,28 +86,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (var relationshipField in part.PartDefinition.Fields)
                 {
-                    //var fieldContext = new DescribeRelationshipsContext(contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, partContext, _serviceProvider);
-                    itemContext.SetContentPartFieldDefinition(relationshipField);
-                    itemContext.SetContentField((JObject)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]);
-                    var fieldSyncer = _contentFieldsGraphSyncers.FirstOrDefault(x => x.FieldTypeName == relationshipField.FieldDefinition.Name);
-
-                    var contentItemIds =
-                           (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
-                               .ContentItemIds;
-
-                    if (contentItemIds != null)
+                    try
                     {
-                        foreach (var relatedContentItemId in contentItemIds)
+                        //var fieldContext = new DescribeRelationshipsContext(contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, partContext, _serviceProvider);
+                        itemContext.SetContentPartFieldDefinition(relationshipField);
+                        itemContext.SetContentField((JObject)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]);
+                        var fieldSyncer = _contentFieldsGraphSyncers.FirstOrDefault(x => x.FieldTypeName == relationshipField.FieldDefinition.Name);
+
+                        var contentItemIds =
+                               (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
+                                   .ContentItemIds;
+
+                        if (contentItemIds != null)
                         {
-                            await BuildRelationships(await _contentManager.GetAsync(relatedContentItemId.ToString()), itemContext);
+                            foreach (var relatedContentItemId in contentItemIds)
+                            {
+                                await BuildRelationships(await _contentManager.GetAsync(relatedContentItemId.ToString()), itemContext);
+                            }
+                        }
+
+                        if (fieldSyncer != null)
+                        {
+                            await fieldSyncer.AddRelationship(itemContext);
                         }
                     }
-
-                    if (fieldSyncer != null)
+                    catch (Exception e)
                     {
-                        await fieldSyncer.AddRelationship(itemContext);
+                        Console.WriteLine(e);
                     }
-
                 }
             }
 

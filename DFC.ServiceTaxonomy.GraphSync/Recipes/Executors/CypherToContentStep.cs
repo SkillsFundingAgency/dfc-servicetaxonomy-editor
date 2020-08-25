@@ -159,7 +159,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             graphSyncContent[_graphSyncHelper.ContentIdPropertyName] =
                 JToken.FromObject(_graphSyncHelper.GetIdPropertyValue(
                     graphSyncContent, _superpositionContentItemVersion,
-                    _publishedContentItemVersion, _escoContentItemVersion)!);
+                    _publishedContentItemVersion)!);
 
             return contentItem;
         }

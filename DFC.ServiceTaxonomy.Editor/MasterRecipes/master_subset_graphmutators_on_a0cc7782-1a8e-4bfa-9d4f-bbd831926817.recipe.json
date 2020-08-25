@@ -1,0 +1,48 @@
+{
+  "name": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817",
+  "displayName": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "recipes",
+      "values": [
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"QCFLevels0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ApprenticeshipStandardRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ApprenticeshipStandards0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ApprenticeshipStandards1_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"RequirementsPrefixes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ApprenticeshipLinks0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ApprenticeshipRequirements0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"CollegeLinks0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"CollegeRequirements0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"UniversityLinks0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"UniversityRequirements0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"DayToDayTasks0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"OtherRequirements0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"Registrations0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"Restrictions0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"SocCodes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ONetOccupationalCodes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ONetOccupationalCodes1_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"WorkingEnvironments0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"WorkingLocations0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"WorkingUniforms0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"ApprenticeshipRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"CollegeRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"UniversityRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"DirectRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"OtherRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"VolunteeringRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"WorkRoutes0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"JobProfiles0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" },
+{ "executionid": "Import_a0cc7782-1a8e-4bfa-9d4f-bbd831926817", name:"JobCategories0_a0cc7782-1a8e-4bfa-9d4f-bbd831926817" }
+      ]
+    }
+  ]
+}

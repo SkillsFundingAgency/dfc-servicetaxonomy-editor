@@ -100,24 +100,36 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
 
             sb.AppendLine($@"match (A:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})");
 
-            foreach (var relationship in Relationships!)
-            {
-                var sourceNodePrefix = _aliasLookup.FirstOrDefault(x => x.Key.Any(z => z == relationship.Source)).Value;
+            var groupedRelationships = Relationships
+    .GroupBy(x => new { Source = string.Join(',', x.Source!),  x.Relationship, Destination = string.Join(',', x.Destination!) })
+    .Select(y => new ContentItemRelationship(y!.Key!.Source!.Split(','), y!.Key!.Relationship!, y!.Key!.Destination!.Split(',')));
+
+            foreach (var relationship in groupedRelationships)
+            {   
+                var sourceNodePrefix = _aliasLookup.FirstOrDefault(x => x.Key.Any(z => relationship.Source.Any(y=> y == z))).Value;
 
                 if (sourceNodePrefix == null)
                 {
-                    sourceNodePrefix = IntToLetters(relationshipNumber);
-                    relationshipNumber++;
+                    while (sourceNodePrefix == null || NodeRelationships.Any(x => x == sourceNodePrefix))
+                    {
+                        sourceNodePrefix = IntToLetters(relationshipNumber);
+                        relationshipNumber++;
+                    }
+
                     NodeAliases.Add(sourceNodePrefix);
-                    _aliasLookup.Add(new List<string> { relationship.Source! }, sourceNodePrefix);
+                    _aliasLookup.Add(new List<string> { relationship.Source.FirstOrDefault(z=>z.ToLowerInvariant() != "resource") }, sourceNodePrefix);
                 }
 
                 var destinationNodePrefix = _aliasLookup.FirstOrDefault(x => x.Key == relationship.Destination).Value;
 
-                if(destinationNodePrefix == null)
+                if (destinationNodePrefix == null)
                 {
-                    destinationNodePrefix = IntToLetters(relationshipNumber);
-                    relationshipNumber++;
+                    while (destinationNodePrefix == null || NodeRelationships.Any(x => x == destinationNodePrefix))
+                    {
+                        destinationNodePrefix = IntToLetters(relationshipNumber);
+                        relationshipNumber++;
+                    }
+                   
                     NodeAliases.Add(destinationNodePrefix);
                     _aliasLookup.Add(relationship.Destination.ToList(), destinationNodePrefix);
                 }
@@ -127,9 +139,9 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
                 var withAlias = $"{sourceNodePrefix}{destinationNodePrefix}RelationshipDetails";
 
                 NodeRelationships.Add($"{sourceNodePrefix}{destinationNodePrefix}");
-
+                //_aliasLookup.Add($"{sourceNodePrefix}{destinationNodePrefix}");
                 with.AppendLine($"with <<ReplaceAliases>>,<<ReplaceRelationships>>,{$"{string.Join(',', withAliases)}"}{$"{(withAliases.Any() ? "," : "")}"} {{destNode: {destinationNodePrefix}, relationship: {relationshipName}, destinationIncomingRelationships:collect({{destIncomingRelationship:{relationshipName},  destIncomingRelSource:'todo'}})}} as {withAlias}");
-                sb.AppendLine($"optional match ({sourceNodePrefix}:{relationship.Source})-[{relationshipName}:{relationship.Relationship}]->({destinationNodePrefix}:{string.Join(":", relationship.Destination!)})");
+                sb.AppendLine($"optional match ({sourceNodePrefix}:{string.Join(":", relationship.Source!)})-[{relationshipName}:{relationship.Relationship}]->({destinationNodePrefix}:{string.Join(":", relationship.Destination!)})");
                 withAliases.Add(withAlias);
             }
 
@@ -149,7 +161,7 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
         private string BuildCollects(List<string> withAliases)
         {
             StringBuilder collectString = new StringBuilder();
-            foreach(var alias in withAliases)
+            foreach (var alias in withAliases)
             {
                 collectString.Append($"collect({alias}) + ");
             }
