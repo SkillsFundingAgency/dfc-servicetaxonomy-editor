@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
@@ -28,9 +29,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override async Task MutateOnClone(JObject content, ICloneContext context)
         {
-            //todo: use Alter?
-            content[nameof(GraphSyncPart.Text)] =
-                await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
+            //todo: use Alter? if this works, pass contentpart to mutateonclone, rather than context
+
+            string newIdPropertyValue = await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
+            // content[nameof(GraphSyncPart.Text)] =
+            //     await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
+
+            context.ContentItem.Alter<GraphSyncPart>(p => p.Text = newIdPropertyValue);
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(

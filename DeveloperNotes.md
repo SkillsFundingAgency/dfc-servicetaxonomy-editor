@@ -1,5 +1,10 @@
 #ToDo
 
+* these tests failing on the build server due to culture issues:
+DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage
+AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties
+AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties
+
 & renamr graphsynchelper to SyncNameProvider
 
 * need to publish events for terms too

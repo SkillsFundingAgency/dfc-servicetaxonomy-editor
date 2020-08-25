@@ -82,8 +82,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 _contentManager, contentItemVersion, allDeleteIncomingRelationshipsProperties, parentContext,
                 _serviceProvider);
 
-            parentContext?.AddChildContext(_graphDeleteItemSyncContext);
-
             return await DeleteAllowed();
         }
 

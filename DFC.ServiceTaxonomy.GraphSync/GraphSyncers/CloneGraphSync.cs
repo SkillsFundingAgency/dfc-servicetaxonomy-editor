@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 
@@ -35,10 +35,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _logger = logger;
         }
 
-        public async Task MutateOnClone(ContentItem contentItem, IContentManager contentManager)
+        public async Task MutateOnClone(
+            ContentItem contentItem,
+            IContentManager contentManager,
+            ICloneContext? parentContext = null)
         {
-            var context = ActivatorUtilities.CreateInstance<CloneContext>(_serviceProvider,
-                contentItem, _syncNameProvider, contentManager, _previewContentItemVersion);
+            // var context = ActivatorUtilities.CreateInstance<CloneContext>(_serviceProvider,
+            //     contentItem, _syncNameProvider, contentManager, _previewContentItemVersion,
+            //     parentContext);
+
+            var context = new CloneContext(contentItem, this, _syncNameProvider, contentManager,
+                _previewContentItemVersion, _serviceProvider, parentContext);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {

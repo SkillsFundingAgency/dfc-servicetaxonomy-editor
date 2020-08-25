@@ -278,7 +278,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 ICloneGraphSync cloneGraphSync = _serviceProvider.GetRequiredService<ICloneGraphSync>();
 
-                await cloneGraphSync.MutateOnClone(contentItem, context.ContentManager);
+                await cloneGraphSync.MutateOnClone(contentItem, context.ContentManager, context);
             }
         }
 
