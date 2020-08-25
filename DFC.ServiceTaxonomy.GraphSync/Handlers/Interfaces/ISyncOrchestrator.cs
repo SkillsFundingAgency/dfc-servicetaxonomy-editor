@@ -8,5 +8,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces
         Task<bool> SaveDraft(ContentItem contentItem);
         Task<bool> Publish(ContentItem contentItem);
         Task<bool> DiscardDraft(ContentItem contentItem);
+        Task<bool> Clone(ContentItem contentItem);
     }
 }

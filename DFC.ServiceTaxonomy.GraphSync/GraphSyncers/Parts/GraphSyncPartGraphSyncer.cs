@@ -28,6 +28,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override async Task MutateOnClone(JObject content, ICloneContext context)
         {
+            //todo: use Alter?
             content[nameof(GraphSyncPart.Text)] =
                 await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
         }
