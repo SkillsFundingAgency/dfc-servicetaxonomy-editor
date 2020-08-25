@@ -2,6 +2,7 @@
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer
 {
@@ -13,7 +14,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
         Task AllowDelete(JArray? contentItems, IGraphDeleteContext context, IAllowSyncResult allowSyncResult);
         Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context);
 
-        Task MutateOnClone(JArray? contentItems, ICloneContext context);
+        Task<ContentItem[]> MutateOnClone(JArray? contentItems, ICloneContext context);
 
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JArray? contentItems,

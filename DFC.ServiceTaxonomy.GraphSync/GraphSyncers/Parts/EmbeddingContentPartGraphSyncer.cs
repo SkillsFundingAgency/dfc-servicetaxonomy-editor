@@ -38,7 +38,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override async Task MutateOnClone(JObject content, ICloneContext context)
         {
-            await _embeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
+            var mutatedContentItems = await _embeddedContentItemsGraphSyncer.MutateOnClone((JArray?)content[ContainerName], context);
+            var mutatedContentItemsJArray = JArray.FromObject(mutatedContentItems);
+            content[ContainerName] = mutatedContentItemsJArray;
         }
 
         public override async Task<(bool validated, string failureReason)> ValidateSyncComponent(

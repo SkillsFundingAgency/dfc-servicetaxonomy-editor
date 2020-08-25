@@ -270,8 +270,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         //todo: change sigs to accept ContentItem[]??
-        public async Task MutateOnClone(JArray? contentItems, ICloneContext context)
+        public async Task<ContentItem[]> MutateOnClone(JArray? contentItems, ICloneContext context)
         {
+            //todo: these content items are new copies
+            // either: replace jarray with contentitems after mutation
+            // pass jobects rather than contentitems
+            // call mutators with parts, but how to get parts from embedded items?
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
             foreach (var contentItem in embeddedContentItems)
@@ -280,6 +284,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 await cloneGraphSync.MutateOnClone(contentItem, context.ContentManager, context);
             }
+
+            return embeddedContentItems;
         }
 
         private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)
