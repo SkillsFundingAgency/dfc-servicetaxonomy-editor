@@ -20,6 +20,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
                 .Returns(CloneGraphSync);
         }
 
+        [Fact]
+        public async Task Clone_CloneGraphSyncsMutateOnCloneCalled()
+        {
+            bool success = await SyncOrchestrator.Clone(ContentItem);
+
+            Assert.True(success);
+
+            A.CallTo(() => CloneGraphSync.MutateOnClone(ContentItem, ContentManager, null))
+                .MustHaveHappened();
+        }
+
         [Theory]
         [InlineData(SyncStatus.Allowed, false, true)]
         [InlineData(SyncStatus.Allowed, true, false)]
