@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
@@ -29,25 +31,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         {
             T value;
             JValue? jvalue = (JValue?)content[contentPropertyName];
-            if (jvalue != null && jvalue.Type != JTokenType.Null)
+
+            if (jvalue == null)
+                return default;
+
+            switch (jvalue.Type)
             {
-                //todo: JObject/JValue auto interprets dates (and it gets it wrong)
-                // so handle dates as utc
-                // could tostring on the content, then deserialize using system.text.json which seems to handle dates correctly
-                // https://docs.microsoft.com/en-us/dotnet/standard/datetime/system-text-json-support
+                case JTokenType.Null:
+                    return default;
+                case JTokenType.Date:
+                    string utcdate = jvalue.ToString(Formatting.None).Trim('"');
+                    DateTime utcTime = DateTime.ParseExact(utcdate, "yyyy-MM-ddTHH:mm:ssK",
+                        CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
-                value = jvalue.Value<T>();
-
-                if (value == null)
-                    throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
-
-                mergeNodeCommand.Properties.Add(nodePropertyName, value);
+                    value = (T)(object)utcTime;
+                    break;
+                default:
+                    value = jvalue.Value<T>();
+                    if (value == null)
+                        throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
+                    break;
             }
-            else
-            {
-                value = default;
-            }
-
+            mergeNodeCommand.Properties.Add(nodePropertyName, value);
             return value;
         }
 

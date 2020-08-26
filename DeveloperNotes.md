@@ -1,5 +1,9 @@
 #ToDo
 
+* need to test branch, not master!
+
+* clean up logs, ensure exceptions are getting logged correctly, switch any remaining logs over to params
+
 * these tests failing on the build server due to culture issues:
 DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage
 AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties
