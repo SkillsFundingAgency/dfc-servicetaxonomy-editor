@@ -22,14 +22,14 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPar
             A.CallTo(() => SyncNameProvider.PropertyName("ScheduledPublishUtc")).Returns("publishlater_ScheduledPublishUtc");
 
             const string scheduledDateUtc = "2020-06-28T09:58:00Z";
+            DateTime expectedDateUtc = new DateTime(2020, 6, 28, 9, 58, 0, DateTimeKind.Utc);
 
             Content = JObject.Parse($"{{\"ScheduledPublishUtc\": \"{scheduledDateUtc}\"}}");
 
             await CallAddSyncComponents();
 
-            //Date compare culture is skewed and ends up an hour different
             IDictionary<string, object> expectedProperties = new Dictionary<string, object>
-                {{"publishlater_ScheduledPublishUtc", DateTime.Parse(scheduledDateUtc).AddHours(-1)}};
+                {{"publishlater_ScheduledPublishUtc", expectedDateUtc}};
 
             Assert.Equal(expectedProperties, MergeNodeCommand.Properties);
         }
