@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
@@ -42,16 +43,37 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                     ? $"/{pageUrlName}"
                     : $"/{termUrl}/{pageUrlName}";
 
-                page.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
-
-                if (page.Published)
+                //load and alter the draft page first
+                ContentItem draftPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Draft);
+                if (draftPage != null)
                 {
-                    page.Published = false;
-                    await _contentManager.PublishAsync(page);
-                    return;
+                    draftPage.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
                 }
 
-                await _contentManager.SaveDraftAsync(page);
+                //load and alter the published page
+                ContentItem publishedPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Published);
+
+                if (publishedPage != null)
+                {
+                    publishedPage.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
+                }
+
+                if (publishedPage != null && ((draftPage?.Latest ?? false) || draftPage == null))
+                {
+                    publishedPage.Published = false;
+                    await _contentManager.PublishAsync(publishedPage);
+                }
+
+                if (draftPage != null)
+                {
+                    await _contentManager.SaveDraftAsync(draftPage);
+                }
+
+                if (publishedPage != null && draftPage != null && !draftPage.Latest)
+                {
+                    publishedPage.Published = false;
+                    await _contentManager.PublishAsync(publishedPage);
+                }
             }
         }
     }
