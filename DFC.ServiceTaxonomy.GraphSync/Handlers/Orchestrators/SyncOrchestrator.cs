@@ -112,6 +112,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         /// <returns>true if discarding draft was blocked.</returns>
         public async Task<bool> Clone(ContentItem contentItem)
         {
+            _logger.LogDebug("Clone: Syncing mutated cloned '{ContentItem}' {ContentType} to Preview.",
+                contentItem.ToString(), contentItem.ContentType);
+
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
             ICloneGraphSync cloneGraphSync = _serviceProvider.GetRequiredService<ICloneGraphSync>();
 
