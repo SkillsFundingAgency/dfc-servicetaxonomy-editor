@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphVali
         }
 
         [Theory]
-        [InlineData("content property value was '15/06/2020 14:24:00', but node property value was ''", "")]
+        [InlineData("content property value was '2020-06-15 14:24:00Z', but node property value was ''", "")]
         public void DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(string expectedMessage, string nodeValue)
         {
             const string contentDateTimeString = "2020-06-15T14:24:00Z";

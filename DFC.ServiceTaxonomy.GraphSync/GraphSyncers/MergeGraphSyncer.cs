@@ -129,8 +129,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 this, _syncNameProvider, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext, _serviceProvider);
 
-            parentGraphMergeContext?.AddChildContext(_graphMergeContext);
-
             await PopulateMergeNodeCommand(graphSyncPartContent);
 
             SetSourceNodeInReplaceRelationshipsCommand(); //graphReplicaSet, graphSyncPartContent);

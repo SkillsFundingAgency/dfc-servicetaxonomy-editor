@@ -24,6 +24,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             : base(contentItem, syncNameProvider, contentManager, contentItemVersion, logger)
         {
             ParentContext = parentContext;
+            parentContext?.AddChildContext(this);
 
             _childContexts = new List<IGraphSyncContext>();
         }
