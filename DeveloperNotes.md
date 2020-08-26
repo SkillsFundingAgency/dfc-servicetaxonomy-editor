@@ -2,6 +2,8 @@
 
 * need to test branch, not master!
 
+* disable cloning taxonomies?? backdoor to creating a draft taxonomy (although it works, so perhaps we leave it)
+
 * clean up logs, ensure exceptions are getting logged correctly, switch any remaining logs over to params
 
 * these tests failing on the build server due to culture issues:

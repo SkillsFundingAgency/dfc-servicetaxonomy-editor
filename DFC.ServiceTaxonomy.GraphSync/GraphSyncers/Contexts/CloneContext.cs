@@ -19,8 +19,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
-            // ActivatorUtilities.CreateInstance can't handle nulls, even with multiple ctors
-            //ILogger<CloneContext> logger,
             IServiceProvider serviceProvider,
             ICloneContext? parentContext = null)
             : base (

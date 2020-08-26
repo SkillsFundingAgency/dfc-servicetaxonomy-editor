@@ -40,10 +40,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IContentManager contentManager,
             ICloneContext? parentContext = null)
         {
-            // var context = ActivatorUtilities.CreateInstance<CloneContext>(_serviceProvider,
-            //     contentItem, _syncNameProvider, contentManager, _previewContentItemVersion,
-            //     parentContext);
-
             var context = new CloneContext(contentItem, this, _syncNameProvider, contentManager,
                 _previewContentItemVersion, _serviceProvider, parentContext);
 
