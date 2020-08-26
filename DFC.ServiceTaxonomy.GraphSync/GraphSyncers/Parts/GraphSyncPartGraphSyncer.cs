@@ -29,13 +29,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override async Task MutateOnClone(JObject content, ICloneContext context)
         {
-            //todo: use Alter? if this works, pass contentpart to mutateonclone, rather than context
-
             string newIdPropertyValue = await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
-            // content[nameof(GraphSyncPart.Text)] =
-            //     await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
 
-            context.ContentItem.Alter<GraphSyncPart>(p => p.Text = newIdPropertyValue);
+            //todo: which is the best way? if we want to use Alter, we'd have to pass the part, rather than content
+            // (so that named parts work, where >1 type of part is in a content type)
+
+            content[nameof(GraphSyncPart.Text)] = newIdPropertyValue;
+            //context.ContentItem.Alter<GraphSyncPart>(p => p.Text = newIdPropertyValue);
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
