@@ -1,5 +1,6 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.PageLocation.Drivers;
+using DFC.ServiceTaxonomy.PageLocation.Filters;
 using DFC.ServiceTaxonomy.PageLocation.GraphSyncers;
 using DFC.ServiceTaxonomy.PageLocation.Handlers;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
@@ -9,12 +10,14 @@ using DFC.ServiceTaxonomy.PageLocation.ViewModels;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Fluid;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
+using OrchardCore.ResourceManagement;
 using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.PageLocation
@@ -45,6 +48,13 @@ namespace DFC.ServiceTaxonomy.PageLocation
             services.AddTransient<ITaxonomyTermValidator, PageLocationTitleValidator>();
 
             services.AddTransient<ITaxonomyTermHandler, PageLocationTaxonomyTermHandler>();
+
+            services.AddScoped<IResourceManifestProvider, ResourceManifest>();
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(typeof(ResourceInjectionFilter));
+            });
         }
     }
 }
