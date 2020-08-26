@@ -1,41 +1,36 @@
 ﻿#nullable enable
 
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
-using Microsoft.CSharp.RuntimeBinder;
+using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Helper
 {
     public class TaxonomyHelper : ITaxonomyHelper
     {
-        public List<dynamic>? GetTerms(dynamic contentItem)
+        public JArray? GetTerms(JObject contentItem)
         {
-            try
-            {
-                return contentItem.Content?[nameof(TaxonomyPart)]?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
-                       contentItem.Content?[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>() ??
-                       contentItem[nameof(TaxonomyPart.Terms)]?.ToObject<List<dynamic>?>();
-            }
-            catch (RuntimeBinderException)
-            {
-                return null;
-            }
+            //make sure we always check for terms at the root of the object first, or the taxonomy reshuffle validation won't work.
+            if (contentItem.ContainsKey(nameof(TaxonomyPart.Terms)))
+                return contentItem[nameof(TaxonomyPart.Terms)] as JArray;
+
+            return contentItem[nameof(TaxonomyPart)]?[nameof(TaxonomyPart.Terms)] as JArray;
         }
 
-        public dynamic? FindParentTaxonomyTerm(dynamic termContentItem, dynamic taxonomyContentItem)
+        public JObject? FindParentTaxonomyTerm(JObject termContentItem, JObject taxonomyContentItem)
         {
-            List<dynamic>? terms = GetTerms(taxonomyContentItem);
+            JArray? terms = GetTerms(taxonomyContentItem);
 
             if (terms == null)
                 return null;
 
-            if (terms.Any(x => x.ContentItemId == termContentItem.ContentItemId))
+            if (terms.Any(x => (string?)x["ContentItemId"] == (string?)termContentItem["ContentItemId"]))
                 return taxonomyContentItem;
 
-            dynamic? result = null;
+            JObject? result = null;
 
-            foreach (var term in terms)
+            foreach (JObject term in terms)
             {
                 result = FindParentTaxonomyTerm(termContentItem, term);
 
@@ -48,19 +43,45 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Helper
             return null;
         }
 
-        public string BuildTermUrl(dynamic term, dynamic taxonomy)
+        public string BuildTermUrl(JObject term, JObject taxonomy)
         {
-            string url = term.DisplayText;
+            string? url = term["DisplayText"]?.Value<string?>();
 
-            dynamic? parent = FindParentTaxonomyTerm(term, taxonomy);
+            if (url == null)
+                throw new InvalidOperationException($"No DisplayText property found on: {term}");
 
-            while (parent != null && parent!.ContentType != "Taxonomy")
+            JObject? parent = FindParentTaxonomyTerm(term, taxonomy);
+
+            while (parent != null && (string?)parent!["ContentType"] != "Taxonomy")
             {
-                url = $"{parent!.DisplayText}/{url}";
+                url = $"{parent!["DisplayText"]}/{url}";
                 parent = FindParentTaxonomyTerm(parent, taxonomy);
             }
 
             return url.Trim('/');
+        }
+
+        public JArray GetAllTerms(JObject taxonomy)
+        {
+            var results = new JArray();
+            return GetAllTermsInternal(taxonomy, results);
+        }
+
+        private JArray GetAllTermsInternal(JObject taxonomy, JArray results)
+        {
+            var terms = GetTerms(taxonomy);
+
+            if (terms != null)
+            {
+                results.Merge(terms);
+
+                foreach (dynamic term in terms)
+                {
+                    GetAllTermsInternal(term, results);
+                }
+            }
+
+            return results;
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using OrchardCore.ContentManagement.Records;
 using System;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
+using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
@@ -125,7 +126,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
                 if (taxonomy != null)
                 {
-                    RecursivelyBuildUrls(taxonomy);
+                    RecursivelyBuildUrls(JObject.FromObject(taxonomy));
 
                     if (PageLocations.Any(x => x.Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)))
                     {
@@ -137,13 +138,13 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
         private List<string> PageLocations = new List<string>();
 
-        private void RecursivelyBuildUrls(dynamic taxonomy)
+        private void RecursivelyBuildUrls(JObject taxonomy)
         {
-            List<dynamic>? terms = _taxonomyHelper.GetTerms(taxonomy);
+            JArray? terms = _taxonomyHelper.GetTerms(taxonomy);
 
             if (terms != null)
             {
-                foreach (dynamic term in terms)
+                foreach (JObject term in terms)
                 {
                     PageLocations.Add(_taxonomyHelper.BuildTermUrl(term, taxonomy));
                     RecursivelyBuildUrls(term);
