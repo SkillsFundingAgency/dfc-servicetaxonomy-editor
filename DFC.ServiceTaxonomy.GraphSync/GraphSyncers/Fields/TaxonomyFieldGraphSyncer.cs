@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {

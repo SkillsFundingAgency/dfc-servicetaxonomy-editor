@@ -26,6 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string ContentItemIdsKey = "ContentItemIds";
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
+        private readonly IEscoContentItemVersion _escoContentItemVersion;
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
 
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
@@ -34,8 +35,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } };
 
         public ContentPickerFieldGraphSyncer(
+            IEscoContentItemVersion escoContentItemVersion,
             ILogger<ContentPickerFieldGraphSyncer> logger)
         {
+            _escoContentItemVersion = escoContentItemVersion;
             _logger = logger;
         }
 
@@ -222,8 +225,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {
             //Do replacement here
-            _graphSyncHelper.ContentType = pickedContentItem.ContentType;
-            var syncSettings = _graphSyncHelper.GraphSyncPartSettings;
+            context.GraphSyncHelper.ContentType = pickedContentItem.ContentType;
+            var syncSettings = context.GraphSyncHelper.GraphSyncPartSettings;
 
             if (syncSettings.GenerateIdPropertyValue != null && syncSettings.GenerateIdPropertyValue!.ToLowerInvariant().Contains("esco"))
             {
