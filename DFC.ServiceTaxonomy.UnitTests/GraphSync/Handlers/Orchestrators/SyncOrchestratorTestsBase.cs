@@ -26,7 +26,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
         public ILogger<SyncOrchestrator> Logger { get; set; }
 
         public ContentItem ContentItem { get; set; }
-        public IMergeGraphSyncer MergeGraphSyncer { get; set; }
+        public IMergeGraphSyncer PreviewMergeGraphSyncer { get; set; }
+        public IMergeGraphSyncer PublishedMergeGraphSyncer { get; set; }
         public IAllowSyncResult PreviewAllowSyncResult { get; set; }
         public IAllowSyncResult PublishedAllowSyncResult { get; set; }
         public IContentManager ContentManager { get; set; }
@@ -67,20 +68,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
                     t => t.Name == nameof(IContentManager))))
                 .Returns(ContentManager);
 
-            //todo: will this work for extension?
-            MergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
-            A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
-                    t => t.Name == (nameof(IMergeGraphSyncer)))))
-                .Returns(MergeGraphSyncer);
+            PreviewMergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
+            PublishedMergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
 
             PreviewAllowSyncResult = A.Fake<IAllowSyncResult>();
-            A.CallTo(() => MergeGraphSyncer.SyncAllowed(
+            A.CallTo(() => PreviewMergeGraphSyncer.SyncAllowed(
                     A<IGraphReplicaSet>.That.Matches(s => s.Name == GraphReplicaSetNames.Preview),
                     A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
                 .Returns(PreviewAllowSyncResult);
 
             PublishedAllowSyncResult = A.Fake<IAllowSyncResult>();
-            A.CallTo(() => MergeGraphSyncer.SyncAllowed(
+            A.CallTo(() => PublishedMergeGraphSyncer.SyncAllowed(
                     A<IGraphReplicaSet>.That.Matches(s => s.Name == GraphReplicaSetNames.Published),
                     A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
                 .Returns(PublishedAllowSyncResult);
