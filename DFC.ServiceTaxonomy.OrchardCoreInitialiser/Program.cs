@@ -79,9 +79,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 errorMessage += "\tpassword\n";
             }
 
-            if (missingArgs && !shouldShowHelp)
+            if ( missingArgs && !shouldShowHelp )
             {
-                Console.WriteLine(errorMessage + "\n");
+                Console.WriteLine(errorMessage+"\n");
                 shouldShowHelp = true;
             }
 
@@ -158,33 +158,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     Console.WriteLine(string.Format("Initial configuration already completed, navigating to {0}", uri));
                     webDriver.Navigate().GoToUrl(uri);
                 }
-                    
-
-                ////// Logon
-                //Console.WriteLine("Initial setup complete, logging on ...");
-                //LogonScreen logonScreen = new LogonScreen(webDriver);
-                //StartPage startPage = logonScreen.SubmitLogonDetails(uri, userName, password);
-
-                //if (!alreadySetup || runPublishIfAlreadySetUp)
-                //{
-                //    //// remove content types
-                //    //ContentTypesAdmin contentTypesAdmin = startPage.NavitateToContentTypeAdmin(uri);
-                //    //contentTypesAdmin.RemoveAllContentTypes();
-
-                //    // publish all items
-                //    Console.WriteLine("Logged on, starting Service Taxonomy Editor configuration ...");
-                //    ManageContent manageContent = startPage.NavigateToManageContent(uri);
-                //    manageContent.PublishAll("Job Category");
-                //    manageContent.PublishAll("Job Profile");
-                //    manageContent.LogOut();
-                //}
-                //else
-                //{
-                //    startPage.LogOut();
-                //}
-
-
-
+                   
             }
             catch( Exception e)
             {
