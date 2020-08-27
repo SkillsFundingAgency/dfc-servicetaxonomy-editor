@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public Task AddRelationship(IDescribeRelationshipsContext context)
         {
-            throw new System.NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }
