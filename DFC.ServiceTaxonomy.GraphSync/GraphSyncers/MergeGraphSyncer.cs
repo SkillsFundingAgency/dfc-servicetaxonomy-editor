@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IGraphSyncPartGraphSyncer _graphSyncPartGraphSyncer;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IReplaceRelationshipsCommand _replaceRelationshipsCommand;
         private readonly IMemoryCache _memoryCache;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
@@ -57,7 +57,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public MergeGraphSyncer(
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IGraphSyncPartGraphSyncer graphSyncPartGraphSyncer,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,
             IMemoryCache memoryCache,
@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _graphSyncPartGraphSyncer = graphSyncPartGraphSyncer;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
             MergeNodeCommand = mergeNodeCommand;
             _replaceRelationshipsCommand = replaceRelationshipsCommand;
             _memoryCache = memoryCache;
@@ -123,13 +123,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
-            _graphSyncHelper.ContentType = contentItem.ContentType;
+            _syncNameProvider.ContentType = contentItem.ContentType;
 
             _graphMergeContext = new GraphMergeContext(
-                this, _graphSyncHelper, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
+                this, _syncNameProvider, graphReplicaSet, MergeNodeCommand, _replaceRelationshipsCommand,
                 contentItem, contentManager, _contentItemVersionFactory, parentGraphMergeContext, _serviceProvider);
-
-            parentGraphMergeContext?.AddChildContext(_graphMergeContext);
 
             await PopulateMergeNodeCommand(graphSyncPartContent);
 
@@ -146,21 +144,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task PopulateMergeNodeCommand(JObject graphSyncPartContent)
         {
-            MergeNodeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels());
-            MergeNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
+            MergeNodeCommand.NodeLabels.UnionWith(await _syncNameProvider.NodeLabels());
+            MergeNodeCommand.IdPropertyName = _syncNameProvider.IdPropertyName();
 
             //todo: we could move population of the time properties to later when syncing, rather than at syncallowed time
 
             // add created and modified dates to all content items
             if (_graphMergeContext!.ContentItem.CreatedUtc.HasValue)
             {
-                MergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName(CreatedDatePropertyName),
+                MergeNodeCommand.Properties.Add(await _syncNameProvider.PropertyName(CreatedDatePropertyName),
                     _graphMergeContext.ContentItem.CreatedUtc.Value);
             }
 
             if (_graphMergeContext.ContentItem.ModifiedUtc.HasValue)
             {
-                MergeNodeCommand.Properties.Add(await _graphSyncHelper.PropertyName(ModifiedDatePropertyName),
+                MergeNodeCommand.Properties.Add(await _syncNameProvider.PropertyName(ModifiedDatePropertyName),
                     _graphMergeContext.ContentItem.ModifiedUtc.Value);
             }
 
@@ -210,7 +208,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var embeddedMergeGraphSyncer = (MergeGraphSyncer)embeddedMergeContext.MergeGraphSyncer;
 
-            if (!embeddedMergeGraphSyncer._graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+            if (!embeddedMergeGraphSyncer._syncNameProvider.GraphSyncPartSettings.PreexistingNode)
             {
                 await ((MergeGraphSyncer)embeddedMergeContext.MergeGraphSyncer).SyncEmbedded();
             }
@@ -227,7 +225,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             //todo: bit hacky. best way to do this? remove this now?
             // work-around new taxonomy terms created with only DisplayText set
-            if (!MergeNodeCommand.Properties.ContainsKey(_graphSyncHelper.IdPropertyName())
+            if (!MergeNodeCommand.Properties.ContainsKey(_syncNameProvider.IdPropertyName())
                 && MergeNodeCommand.Properties.ContainsKey(TitlePartGraphSyncer.NodeTitlePropertyName))
             {
                 MergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
@@ -246,7 +244,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 return _incomingPreviewContentPickerRelationships
                     .Select(r => r.ToReplaceRelationshipsCommand(
-                        _graphSyncHelper,
+                        _syncNameProvider,
                         _previewContentItemVersion,
                         _publishedContentItemVersion,
                         false));
@@ -277,7 +275,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             getDraftRelationshipsQuery.NodeLabels = MergeNodeCommand.NodeLabels;
             getDraftRelationshipsQuery.IdPropertyName = MergeNodeCommand.IdPropertyName;
-            getDraftRelationshipsQuery.IdPropertyValue = _graphSyncHelper.GetIdPropertyValue(
+            getDraftRelationshipsQuery.IdPropertyValue = _syncNameProvider.GetIdPropertyValue(
                 graphSyncPartContent, _previewContentItemVersion);
 
             IEnumerable<INodeWithOutgoingRelationships?> incomingContentPickerRelationshipsOrDefault =
@@ -318,7 +316,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands?.Any() == true)
                         nodeCommands.AddRange(ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands);
 
-                    if (!ctx.GraphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+                    if (!ctx.SyncNameProvider.GraphSyncPartSettings.PreexistingNode)
                         nodeCommands.Add(ctx.MergeNodeCommand);
 
                     return nodeCommands;

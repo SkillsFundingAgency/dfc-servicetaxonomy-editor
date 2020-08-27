@@ -42,11 +42,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.GraphSyncHelper);
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
 
             //todo: support multiple pickable content types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-            IEnumerable<string> destNodeLabels = await context.GraphSyncHelper.NodeLabels(pickedContentType);
+            IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(pickedContentType);
 
             //todo requires 'picked' part has a graph sync part
             // add to docs & handle picked part not having graph sync part or throw exception
@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     relationshipType,
                     null,
                     destNodeLabels,
-                    context.GraphSyncHelper.IdPropertyName(pickedContentType));
+                    context.SyncNameProvider.IdPropertyName(pickedContentType));
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                     .ToArray();
             }
 
-            // warning: we should logically be passing an IGraphSyncHelper with its ContentType set to pickedContentType
+            // warning: we should logically be passing an ISyncNameProvider with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
                 foundDestinationContentItems.Select(ci => GetNodeId(ci!, context));
@@ -88,7 +88,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 relationshipType,
                 ContentPickerRelationshipProperties.Union(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("Ordinal", ordinal) }),
                 destNodeLabels,
-                context.GraphSyncHelper.IdPropertyName(pickedContentType),
+                context.SyncNameProvider.IdPropertyName(pickedContentType),
                 item);
 
                 ordinal++;
@@ -102,7 +102,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.GraphSyncHelper);
+            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, context.SyncNameProvider);
 
             IOutgoingRelationship[] actualRelationships = context.NodeWithOutgoingRelationships.OutgoingRelationships
                 .Where(r => r.Relationship.Type == relationshipType)
@@ -131,11 +131,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             foreach (ContentItem destinationContentItem in destinationContentItems)
             {
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
-                object destinationId = context.GraphSyncHelper.GetIdPropertyValue(
+                object destinationId = context.SyncNameProvider.GetIdPropertyValue(
                     destinationContentItem.Content.GraphSyncPart, context.ContentItemVersion);
 
                 string destinationIdPropertyName =
-                    context.GraphSyncHelper.IdPropertyName(destinationContentItem.ContentType);
+                    context.SyncNameProvider.IdPropertyName(destinationContentItem.ContentType);
 
                 //todo: we might want to check that all the supplied relationship properties are there,
                 // whilst not failing validation if other other properties are present?
@@ -174,7 +174,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private async Task<string> RelationshipTypeContentPicker(
             ContentPickerFieldSettings contentPickerFieldSettings,
-            IGraphSyncHelper graphSyncHelper)
+            ISyncNameProvider syncNameProvider)
         {
             //todo: handle multiple types
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
@@ -190,14 +190,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
 
             if (relationshipType == null)
-                relationshipType = await graphSyncHelper!.RelationshipTypeDefault(pickedContentType);
+                relationshipType = await syncNameProvider!.RelationshipTypeDefault(pickedContentType);
 
             return relationshipType;
         }
 
         private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {
-            return context.GraphSyncHelper.GetIdPropertyValue(
+            return context.SyncNameProvider.GetIdPropertyValue(
                 pickedContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
         }
     }

@@ -17,20 +17,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public ContentTypePartDefinition ContentTypePartDefinition { get; set; }
         public IContentPartFieldDefinition? ContentPartFieldDefinition { get; private set; }
 
-        public IGraphSyncHelper GraphSyncHelper { get; }
+        public ISyncNameProvider SyncNameProvider { get; }
 
         protected readonly ILogger _logger;
 
         protected GraphOperationContext(
             ContentItem contentItem,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             ILogger logger)
         {
             _logger = logger;
             ContentItem = contentItem;
-            GraphSyncHelper = graphSyncHelper;
+            SyncNameProvider = syncNameProvider;
             ContentManager = contentManager;
             ContentItemVersion = contentItemVersion;
 

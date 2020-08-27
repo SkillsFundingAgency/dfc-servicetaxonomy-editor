@@ -12,20 +12,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
     {
         private readonly IGraphCluster _graphCluster;
         private readonly IDeleteNodesByTypeCommand _deleteNodesByTypeCommand;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly ISession _session;
         private readonly ILogger<DeleteTypeGraphSyncer> _logger;
 
         public DeleteTypeGraphSyncer(
             IGraphCluster graphCluster,
             IDeleteNodesByTypeCommand deleteNodesByTypeCommand,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             ISession session,
             ILogger<DeleteTypeGraphSyncer> logger)
         {
             _graphCluster = graphCluster;
             _deleteNodesByTypeCommand = deleteNodesByTypeCommand;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
             _session = session;
             _logger = logger;
         }
@@ -37,9 +37,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation($"Sync: deleting all nodes of {contentType}");
 
-            _graphSyncHelper.ContentType = contentType;
+            _syncNameProvider.ContentType = contentType;
 
-            _deleteNodesByTypeCommand.NodeLabels.UnionWith(await _graphSyncHelper.NodeLabels(contentType));
+            _deleteNodesByTypeCommand.NodeLabels.UnionWith(await _syncNameProvider.NodeLabels(contentType));
 
             try
             {

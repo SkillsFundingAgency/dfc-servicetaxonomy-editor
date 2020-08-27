@@ -102,11 +102,12 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
             services.AddTransient<IDeleteGraphSyncer, DeleteGraphSyncer>();
             services.AddTransient<IDeleteTypeGraphSyncer, DeleteTypeGraphSyncer>();
+            services.AddTransient<ICloneGraphSync, CloneGraphSync>();
             services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
             services.AddTransient<IGraphResyncer, GraphResyncer>();
 
-            services.AddTransient<IGraphSyncHelper, GraphSyncHelper>();
-            services.AddTransient<IGraphSyncHelperCSharpScriptGlobals, GraphSyncHelperCSharpScriptGlobals>();
+            services.AddTransient<ISyncNameProvider, SyncNameProvider>();
+            services.AddTransient<ISyncNameProviderCSharpScriptGlobals, SyncNameProviderCSharpScriptGlobals>();
             services.AddTransient<IGraphValidationHelper, GraphValidationHelper>();
             services.AddTransient<IContentFieldsGraphSyncer, ContentFieldsGraphSyncer>();
             services.AddTransient<IBagPartEmbeddedContentItemsGraphSyncer, BagPartEmbeddedContentItemsGraphSyncer>();

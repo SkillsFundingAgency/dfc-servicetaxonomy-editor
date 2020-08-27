@@ -5,7 +5,6 @@ parameters:
   BuildPlatform: 'any cpu'
   BuildConfiguration: 'release'
   DotNetCoreVersion: ''
-  TestSuffix: Tests
 
 steps:
  - task: UseDotNet@2
@@ -33,7 +32,7 @@ steps:
    displayName: 'Test - dotnet test application ${{ parameters.SolutionBaseName }}'
    inputs:
      command: test
-     projects: '${{ parameters.SolutionBaseName }}.${{ parameters.TestSuffix }}\${{ parameters.SolutionBaseName }}.${{ parameters.TestSuffix }}.csproj'
+     projects: '*.UnitTests\*.csproj'
      arguments: '--configuration ${{ parameters.BuildConfiguration }} --collect "Code coverage"'
 
  - task: CopyFiles@2

@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         ContentTypePartDefinition ContentTypePartDefinition { get; }
         IContentPartFieldDefinition? ContentPartFieldDefinition  { get; }
 
-        IGraphSyncHelper GraphSyncHelper { get; }
+        ISyncNameProvider SyncNameProvider { get; }
 
         void SetContentPartFieldDefinition(ContentPartFieldDefinition? contentPartFieldDefinition);
     }

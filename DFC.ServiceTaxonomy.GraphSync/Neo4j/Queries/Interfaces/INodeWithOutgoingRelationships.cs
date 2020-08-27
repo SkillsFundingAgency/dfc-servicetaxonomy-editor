@@ -13,18 +13,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces
         IEnumerable<IOutgoingRelationship> OutgoingRelationships { get; set; }
 
         #pragma warning disable S4136
-        IEnumerable<CommandRelationship> ToCommandRelationships(IGraphSyncHelper graphSyncHelper);
+        IEnumerable<CommandRelationship> ToCommandRelationships(ISyncNameProvider syncNameProvider);
 
-        IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(IGraphSyncHelper graphSyncHelper);
+        IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(ISyncNameProvider syncNameProvider);
 
         //todo: these belongs in a derived class in graph sync, with the current command in neo4j
         IEnumerable<CommandRelationship> ToCommandRelationships(
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentItemVersion fromContentItemVersion,
             IContentItemVersion toContentItemVersion);
 
         IReplaceRelationshipsCommand ToReplaceRelationshipsCommand(
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentItemVersion fromContentItemVersion,
             IContentItemVersion toContentItemVersion,
             bool replaceExistingRelationships = true);

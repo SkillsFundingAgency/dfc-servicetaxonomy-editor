@@ -70,40 +70,40 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             IEnumerable<string> contentItemIds = contentItemIdsJArray.Select(jtoken => jtoken.ToObject<string>()!);
 
-            IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-            relatedGraphSyncHelper.ContentType = termContentType;
+            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+            relatedSyncNameProvider.ContentType = termContentType;
 
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
             IEnumerable<object> foundDestinationNodeIds = contentItemIds.Select(tid =>
-                GetNodeId(tid, flattenedTermsContentItems, relatedGraphSyncHelper, context.ContentItemVersion)!);
+                GetNodeId(tid, flattenedTermsContentItems, relatedSyncNameProvider, context.ContentItemVersion)!);
 
-            IEnumerable<string> destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
+            IEnumerable<string> destNodeLabels = await relatedSyncNameProvider.NodeLabels();
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 termRelationshipType,
                 null,
                 destNodeLabels,
-                relatedGraphSyncHelper!.IdPropertyName(),
+                relatedSyncNameProvider!.IdPropertyName(),
                 foundDestinationNodeIds.ToArray());
 
             // add relationship to taxonomy
             string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
 
-            relatedGraphSyncHelper.ContentType = taxonomyContentItem.ContentType;
-            destNodeLabels = await relatedGraphSyncHelper.NodeLabels();
-            object taxonomyIdValue = relatedGraphSyncHelper.GetIdPropertyValue(
+            relatedSyncNameProvider.ContentType = taxonomyContentItem.ContentType;
+            destNodeLabels = await relatedSyncNameProvider.NodeLabels();
+            object taxonomyIdValue = relatedSyncNameProvider.GetIdPropertyValue(
                 taxonomyContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 taxonomyRelationshipType,
                 null,
                 destNodeLabels,
-                relatedGraphSyncHelper!.IdPropertyName(),
+                relatedSyncNameProvider!.IdPropertyName(),
                 taxonomyIdValue);
 
             // add tagnames
-            //using var _ = graphSyncHelper.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
+            //using var _ = s  yncNameProvider.PushPropertyNameTransform(_taxonomyPropertyNameTransform);
 
             //todo: this is there sometimes, but not others (Tag editor is selected and/or non-unique?)
             // find out when it should be there: need to know to know how to validate it
@@ -132,11 +132,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private object? GetNodeId(
             string termContentItemId,
             IDictionary<string, ContentItem> taxonomyTerms,
-            IGraphSyncHelper termGraphSyncHelper,
+            ISyncNameProvider termSyncNameProvider,
             IContentItemVersion contentItemVersion)
         {
             ContentItem termContentItem = taxonomyTerms[termContentItemId];
-            return termGraphSyncHelper.GetIdPropertyValue(
+            return termSyncNameProvider.GetIdPropertyValue(
                 (JObject)termContentItem.Content[nameof(GraphSyncPart)]!, contentItemVersion);
         }
 
@@ -185,8 +185,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return (false, $"expecting {contentItemIds.Count} relationships of type {termRelationshipType} in graph, but found {actualRelationships.Length}");
             }
 
-            IGraphSyncHelper relatedGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
-            relatedGraphSyncHelper.ContentType = termContentType;
+            ISyncNameProvider relatedSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+            relatedSyncNameProvider.ContentType = termContentType;
 
             var flattenedTermsContentItems = GetFlattenedTermsContentItems(taxonomyPartContent);
 
@@ -195,12 +195,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 string contentItemId = (string)item!;
 
                 object? destinationId = GetNodeId(
-                    contentItemId, flattenedTermsContentItems, relatedGraphSyncHelper, context.ContentItemVersion)!;
+                    contentItemId, flattenedTermsContentItems, relatedSyncNameProvider, context.ContentItemVersion)!;
 
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
                     context.NodeWithOutgoingRelationships,
                     termRelationshipType,
-                    relatedGraphSyncHelper!.IdPropertyName(),
+                    relatedSyncNameProvider!.IdPropertyName(),
                     destinationId);
 
                 if (!validated)
