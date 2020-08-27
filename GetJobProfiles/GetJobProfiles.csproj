@@ -29,6 +29,7 @@
     <Content Include="ContentRecipes\*.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Remove="ContentRecipes\ContactUsPages.recipe.json" />
     <None Update="SeedData\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
