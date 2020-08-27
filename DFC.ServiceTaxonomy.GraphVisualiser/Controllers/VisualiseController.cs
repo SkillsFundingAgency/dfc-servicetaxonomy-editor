@@ -171,13 +171,21 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
             foreach (var command in relationshipCommands)
             {
-                var result = await _neoGraphCluster.Run(graph, new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(command!));
+                var result = await _neoGraphCluster.Run(graph, new NodeAndOutRelationshipsAndTheirInRelationshipsQueryFromCommand(command!));
                 resultList.AddRange(result);
             }
 
-            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(resultList.FirstOrDefault()!.SourceNode.Id, resultList.SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode)).Union(new List<INode>() { resultList!.FirstOrDefault()!.SourceNode }), resultList!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship)).ToHashSet<IRelationship>(), "skos__prefLabel");
-            var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
-            //var owlResponseString = "{}";
+            string owlResponseString = "";
+
+            if (resultList.Any())
+            {
+                var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(resultList.FirstOrDefault()!.SourceNode.Id, resultList.SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode)).Union(new List<INode>() { resultList!.FirstOrDefault()!.SourceNode }), resultList!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship)).ToHashSet<IRelationship>(), "skos__prefLabel");
+                owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
+            }
+            else
+            {
+                owlResponseString = "{}";
+            }
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }

@@ -441,5 +441,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 throw new GraphSyncException("Embedded content container does not contain ContentItems.");
             return embeddedContentItems;
         }
+
+        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            var items = (JArray)context.ContentItem.Content["FlowPart"]["Widgets"];
+
+            var convertedItems = ConvertToContentItems(items);
+
+            foreach (var embeddedContentItem in convertedItems)
+            {
+                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+
+                string relationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
+                context.AvailableRelationships.Add(new ContentItemRelationship(await context.GraphSyncHelper.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.GraphSyncHelper.NodeLabels(embeddedContentItem.ContentType)));
+
+                var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+                await describeRelationshipService.BuildRelationships(embeddedContentItem, context, context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels);
+            }
+        }
     }
 }
