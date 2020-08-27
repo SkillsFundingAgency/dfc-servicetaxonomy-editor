@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
-using DFC.ServiceTaxonomy.Neo4j.Queries;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Neo4j.Driver;
 
@@ -11,51 +11,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
     //todo: common base class with NoteWithOutgoingRelationships?
     //todo: move generic queries into neo4j
-    public class NodeAndOutRelationshipsAndTheirInRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
+    public class NodeAndOutRelationshipsAndTheirInRelationshipsQueryFromCommand : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
-        private IEnumerable<string> NodeLabels { get; }
-        private string IdPropertyName { get; }
-        private object IdPropertyValue { get; }
-
-        public NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
-            IEnumerable<string> nodeLabels,
-            string idPropertyName,
-            object idPropertyValue)
+        public NodeAndOutRelationshipsAndTheirInRelationshipsQueryFromCommand(
+           string command)
         {
-            NodeLabels = nodeLabels;
-            IdPropertyName = idPropertyName;
-            IdPropertyValue = idPropertyValue;
+            Query = new Query(command);
         }
 
         public List<string> ValidationErrors()
         {
-            var validationErrors = new List<string>();
-
-            if (!NodeLabels.Any())
-            {
-                validationErrors.Add("At least one NodeLabel must be provided.");
-            }
-
-            //todo: needs to validate id property name and value too
-
-            return validationErrors;
+            return new List<string>();
         }
 
         public Query Query
         {
-            get
-            {
-                this.CheckIsValid();
-
-                // irn might have a different IdPropertyName, but if it has, it isn't the source node, so the where is ok
-                return new Query(
-                    $@"match (s:{string.Join(":", NodeLabels)} {{{IdPropertyName}: '{IdPropertyValue}'}})
-optional match (s)-[r]->(d)
-optional match (d)<-[ir]-(irn) where irn.{IdPropertyName} <> s.{IdPropertyName}
-with s, {{destNode: d, relationship: r, destinationIncomingRelationships:collect({{destIncomingRelationship:ir,  destIncomingRelSource:irn}})}} as relationshipDetails
-with {{sourceNode: s, outgoingRelationships: collect(relationshipDetails)}} as nodeAndOutRelationshipsAndTheirInRelationships
-return nodeAndOutRelationshipsAndTheirInRelationships");
-            }
+            get;set;
         }
 
         public INodeAndOutRelationshipsAndTheirInRelationships? ProcessRecord(IRecord record)
@@ -66,6 +37,16 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
 
             if (!(results["sourceNode"] is INode sourceNode))
                 return null;
+
+
+            foreach (IDictionary<string, object> item in (IEnumerable<object>)results["outgoingRelationships"])
+            {
+                var itemAsRelationship = (IRelationship)item["relationship"];
+                if (itemAsRelationship != null)
+                {
+                    Console.WriteLine(itemAsRelationship.Type);
+                }
+            }
 
             //todo: return as IOutgoingRelationships, rather than tuple then convert
 
@@ -87,3 +68,4 @@ return nodeAndOutRelationshipsAndTheirInRelationships");
         }
     }
 }
+
