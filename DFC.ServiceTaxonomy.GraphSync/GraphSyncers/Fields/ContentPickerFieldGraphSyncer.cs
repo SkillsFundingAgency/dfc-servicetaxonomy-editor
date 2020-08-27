@@ -14,6 +14,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using System;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -35,6 +37,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ILogger<ContentPickerFieldGraphSyncer> logger)
         {
             _logger = logger;
+        }
+
+        public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+            ContentPickerFieldSettings contentPickerFieldSettings =
+               parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+
+            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField![ContentItemIdsKey];
+
+            if (contentItemIdsJArray != null && contentItemIdsJArray.Count > 0)
+            {
+                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.GraphSyncHelper);
+                var sourceNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType);
+                var destinationNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(contentPickerFieldSettings.DisplayedContentTypes.FirstOrDefault());
+
+
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destinationNodeLabels));
+            }
+            else
+            {
+                Console.WriteLine("some sanity checking here");
+            }
         }
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
@@ -197,6 +221,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {
+            //Do replacement here
+            _graphSyncHelper.ContentType = pickedContentItem.ContentType;
+            var syncSettings = _graphSyncHelper.GraphSyncPartSettings;
+
+            if (syncSettings.GenerateIdPropertyValue != null && syncSettings.GenerateIdPropertyValue!.ToLowerInvariant().Contains("esco"))
+            {
+                return context.GraphSyncHelper.GetIdPropertyValue(
+                    pickedContentItem.Content[nameof(GraphSyncPart)], _escoContentItemVersion, context.ContentItemVersion);
+            }
+
             return context.GraphSyncHelper.GetIdPropertyValue(
                 pickedContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
         }

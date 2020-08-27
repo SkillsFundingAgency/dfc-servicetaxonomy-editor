@@ -218,5 +218,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             return (true, "");
         }
+
+        public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+               parentContext.ContentField!, parentContext.ContentItemVersion, parentContext.ContentManager);
+
+            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
+
+            string termRelationshipType = TermRelationshipType(termContentType);
+
+            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.GraphSyncHelper.NodeLabels(termContentType)) } };
+
+            parentContext.AddChildContext(describeRelationshipsContext);
+        }
     }
 }

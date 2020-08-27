@@ -1,11 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphVisualiser.Queries;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Neo4j.Driver;
+using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
 // visualise -> https://localhost:44346/Visualise/Viewer?visualise=<the graph sync part url>
@@ -43,25 +55,53 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
     public class VisualiseController : Controller
     {
         private readonly IGraphCluster _neoGraphCluster;
+        private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
+        private readonly IGraphSyncHelper _graphSyncHelper;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
-
+        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
+        private readonly IPreviewContentItemVersion _previewContentItemVersion;
+        private readonly IEnumerable<IContentPartGraphSyncer> _partSyncers;
+        private readonly IEnumerable<IContentFieldGraphSyncer> _fieldSyncers;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IDescribeContentItemHelper _describeContentItemHelper;
+        private readonly IContentItemGraphSyncer _contentItemGraphSyncer;
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
+        private IContentItemVersion? contentItemVersion = null;
+
         public VisualiseController(
             IGraphCluster neoGraphCluster,
+            IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
-            IOrchardToOwlGeneratorService orchardToOwlGeneratorService)
+            IGraphSyncHelper graphSyncHelper,
+            IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
+            IEnumerable<IContentPartGraphSyncer> contentPartGraphSyncers,
+            IEnumerable<IContentFieldGraphSyncer> contentFieldsGraphSyncers,
+            IServiceProvider serviceProvider,
+            IDescribeContentItemHelper describeContentItemHelper,
+            IContentItemGraphSyncer contentItemGraphSyncer)
         {
             _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
+            _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
             _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
+            _graphSyncHelper = graphSyncHelper;
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
+            _publishedContentItemVersion = publishedContentItemVersion;
+            _previewContentItemVersion = previewContentItemVersion;
+            _partSyncers = contentPartGraphSyncers;
+            _serviceProvider = serviceProvider;
+            _describeContentItemHelper = describeContentItemHelper;
+            _fieldSyncers = contentFieldsGraphSyncers;
+            _contentItemGraphSyncer = contentItemGraphSyncer;
         }
 
         public ActionResult Viewer()
@@ -69,15 +109,32 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Data([FromQuery] string? uri, [FromQuery] string? graph)
+        public async Task<ActionResult> Data([FromQuery] string? contentItemId, [FromQuery] string? graph)
         {
-            if (string.IsNullOrWhiteSpace(uri) || uri.Equals("null") || string.IsNullOrWhiteSpace(graph))
+            ValidateParameters(graph);
+
+            if (string.IsNullOrWhiteSpace(contentItemId))
             {
                 return GetOntology();
             }
+
+            if (graph!.ToLowerInvariant() == "published")
+            {
+                contentItemVersion = _publishedContentItemVersion;
+            }
             else
             {
-                return await GetData(uri, graph);
+                contentItemVersion = _previewContentItemVersion;
+            }
+
+            return await GetData(contentItemId, graph);
+        }
+
+        private static void ValidateParameters(string? graph)
+        {
+            if (string.IsNullOrEmpty(graph))
+            {
+                throw new ArgumentNullException(nameof(graph));
             }
         }
 
@@ -91,18 +148,43 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
 
-        private async Task<ActionResult> GetData(string uri, string graph)
+        private async Task<ActionResult> GetData(string contentItemId, string graph)
         {
-            const string prefLabel = "skos__prefLabel";
-            var query = new GetNodesCypherQuery(nameof(uri), uri, prefLabel, prefLabel);
+            //todo: don't need contenttype!
+            ContentItem contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Published);
+            dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
 
-            //todo: allow user to visualise published and draft databases. new story?
-            await _neoGraphCluster.Run(graph, query);
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+            var sourceNodeId = _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
+            var sourceNodeLabels = await _graphSyncHelper.NodeLabels();
+            var sourceNodeIdPropertyName = _graphSyncHelper.IdPropertyName();
 
-            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(query.SelectedNodeId, query.Nodes, query.Relationships, prefLabel);
+            var rootContext = new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, null, _serviceProvider);
+
+            _describeContentItemHelper.SetRootContentItem(contentItem);
+            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
+
+            var relationships = new List<ContentItemRelationship>();
+            var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
+
+            var resultList = new List<INodeAndOutRelationshipsAndTheirInRelationships?>();
+
+            foreach (var command in relationshipCommands)
+            {
+                var result = await _neoGraphCluster.Run(graph, new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(command!));
+                resultList.AddRange(result);
+            }
+
+            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(resultList.FirstOrDefault()!.SourceNode.Id, resultList.SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode)).Union(new List<INode>() { resultList!.FirstOrDefault()!.SourceNode }), resultList!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship)).ToHashSet<IRelationship>(), "skos__prefLabel");
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
+            //var owlResponseString = "{}";
 
             return Content(owlResponseString, MediaTypeNames.Application.Json);
         }
+    }
+
+    //todo: more generic name
+    public class VisualizerQuery
+    {
     }
 }
