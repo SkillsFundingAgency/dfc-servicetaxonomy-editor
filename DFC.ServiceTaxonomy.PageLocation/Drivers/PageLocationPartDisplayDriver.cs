@@ -132,6 +132,17 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                     {
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.FullUrl), "This URL has already been used as a Page Location");
                     }
+
+                    if (redirectLocations != null)
+                    {
+                        foreach (var redirectLocation in redirectLocations)
+                        {
+                            if (PageLocations.Any(x => x.Equals(redirectLocation.Trim('/'), StringComparison.OrdinalIgnoreCase)))
+                            {
+                                updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"Redirect Location '{redirectLocation}' has already been used as a Page Location.");
+                            }
+                        }
+                    }
                 }
             }
         }
