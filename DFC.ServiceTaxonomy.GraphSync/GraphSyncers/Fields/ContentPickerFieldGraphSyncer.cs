@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using System;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -48,11 +49,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.GraphSyncHelper);
+            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField![ContentItemIdsKey];
 
-            //var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<string>() { relationshipType } };
+            if (contentItemIdsJArray != null && contentItemIdsJArray.Count > 0)
+            {
+                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.GraphSyncHelper);
+                var sourceNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType);
+                var destinationNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(contentPickerFieldSettings.DisplayedContentTypes.FirstOrDefault());
 
-            parentContext.AvailableRelationships.Add(new ContentItemRelationship(await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType), relationshipType, await parentContext.GraphSyncHelper.NodeLabels(contentPickerFieldSettings.DisplayedContentTypes.FirstOrDefault())));
+
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destinationNodeLabels));
+            }
+            else
+            {
+                Console.WriteLine("some sanity checking here");
+            }
         }
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
@@ -217,7 +228,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         {
             //Do replacement here
             _graphSyncHelper.ContentType = pickedContentItem.ContentType;
-            var syncSettings =  _graphSyncHelper.GraphSyncPartSettings;
+            var syncSettings = _graphSyncHelper.GraphSyncPartSettings;
 
             if (syncSettings.GenerateIdPropertyValue != null && syncSettings.GenerateIdPropertyValue!.ToLowerInvariant().Contains("esco"))
             {

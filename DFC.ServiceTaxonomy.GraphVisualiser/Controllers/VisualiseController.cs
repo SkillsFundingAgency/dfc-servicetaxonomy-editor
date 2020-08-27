@@ -8,9 +8,11 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly IEnumerable<IContentFieldGraphSyncer> _fieldSyncers;
         private readonly IServiceProvider _serviceProvider;
         private readonly IDescribeContentItemHelper _describeContentItemHelper;
+        private readonly IContentItemGraphSyncer _contentItemGraphSyncer;
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -83,7 +86,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IEnumerable<IContentPartGraphSyncer> contentPartGraphSyncers,
             IEnumerable<IContentFieldGraphSyncer> contentFieldsGraphSyncers,
             IServiceProvider serviceProvider,
-            IDescribeContentItemHelper describeContentItemHelper)
+            IDescribeContentItemHelper describeContentItemHelper,
+            IContentItemGraphSyncer contentItemGraphSyncer)
         {
             _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
             _contentManager = contentManager;
@@ -97,6 +101,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             _serviceProvider = serviceProvider;
             _describeContentItemHelper = describeContentItemHelper;
             _fieldSyncers = contentFieldsGraphSyncers;
+            _contentItemGraphSyncer = contentItemGraphSyncer;
         }
 
         public ActionResult Viewer()
@@ -147,24 +152,30 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         {
             //todo: don't need contenttype!
             ContentItem contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Published);
-            var rootContext = new DescribeRelationshipsContext(contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, null, _serviceProvider);
-
-            _describeContentItemHelper.SetRootContentItem(contentItem);
-            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
-
-            _graphSyncHelper.ContentType = contentItem.ContentType;
-
             dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
 
+            _graphSyncHelper.ContentType = contentItem.ContentType;
+            var sourceNodeId = _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
+            var sourceNodeLabels = await _graphSyncHelper.NodeLabels();
+            var sourceNodeIdPropertyName = _graphSyncHelper.IdPropertyName();
+
+            var rootContext = new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, null, _serviceProvider);
+
+            _describeContentItemHelper.SetRootContentItem(contentItem);
+            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
+
             var relationships = new List<ContentItemRelationship>();
-            await _describeContentItemHelper.GetRelationships(rootContext, relationships);
-           
-            var nodeWithOutgoingRelationships = new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(await _graphSyncHelper.NodeLabels(), _graphSyncHelper.IdPropertyName(), _graphSyncHelper.GetIdPropertyValue(graphSyncPartContent, contentItemVersion), relationships);
+            var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
 
-            var result = await _neoGraphCluster.Run(graph, nodeWithOutgoingRelationships);
+            var resultList = new List<INodeAndOutRelationshipsAndTheirInRelationships?>();
 
-            var relationshipResult = result.FirstOrDefault();
-            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(relationshipResult!.SourceNode.Id, relationshipResult.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode).Union(new List<INode>() { relationshipResult.SourceNode }), relationshipResult.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship).ToHashSet<IRelationship>(), "skos__prefLabel");
+            foreach (var command in relationshipCommands)
+            {
+                var result = await _neoGraphCluster.Run(graph, new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(command!));
+                resultList.AddRange(result);
+            }
+
+            var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(resultList.FirstOrDefault()!.SourceNode.Id, resultList.SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode)).Union(new List<INode>() { resultList!.FirstOrDefault()!.SourceNode }), resultList!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship)).ToHashSet<IRelationship>(), "skos__prefLabel");
             var owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
             //var owlResponseString = "{}";
 

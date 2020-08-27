@@ -230,7 +230,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             string termRelationshipType = TermRelationshipType(termContentType);
 
-            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.GraphSyncHelper.NodeLabels(termContentType)) } };
+            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.GraphSyncHelper.NodeLabels(termContentType)) } };
 
             parentContext.AddChildContext(describeRelationshipsContext);
         }

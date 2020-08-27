@@ -14,6 +14,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 
         public JObject? ContentField { get; }
 
+        public string SourceNodeId { get; set; }
+
+        public IEnumerable<string> SourceNodeLabels { get; set; }
+
+        public int CurrentDepth { get; set; }
+
+        public string SourceNodeIdPropertyName { get; set; }
+
         void SetContentField(JObject jObject);
     }
 }

@@ -20,8 +20,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public IServiceProvider ServiceProvider { get; set; }
         public JObject? ContentField { get; private set; }
+        public int CurrentDepth { get; set; }
+        public string SourceNodeId { get; set; }
+        public string SourceNodeIdPropertyName { get; set; }
+        public IEnumerable<string> SourceNodeLabels { get; set; }
 
         public DescribeRelationshipsContext(
+            string sourceNodeIdPropertyName,
+            string sourceNodeId,
+            IEnumerable<string> sourceNodeLabels,
             ContentItem contentItem,
             IGraphSyncHelper graphSyncHelper,
             IContentManager contentManager,
@@ -31,6 +38,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         {
             AvailableRelationships = new List<ContentItemRelationship>();
             ServiceProvider = serviceProvider;
+            SourceNodeId = sourceNodeId;
+            SourceNodeLabels = sourceNodeLabels;
+            SourceNodeIdPropertyName = sourceNodeIdPropertyName;
         }
 
         public void SetContentField(JObject jObject)
