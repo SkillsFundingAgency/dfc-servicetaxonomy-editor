@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
 
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered");
+            _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered.");
 
             await _validateAndRepairGraph.ValidateGraph();
 

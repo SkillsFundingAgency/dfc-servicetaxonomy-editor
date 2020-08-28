@@ -103,8 +103,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
                 if (partSyncer == null)
                 {
-                    _logger.LogInformation(
-                        $"No IContentPartGraphSyncer registered to sync/validate {contentTypePartDefinition.ContentTypeDefinition.Name} parts, so ignoring");
+                    _logger.LogInformation("No IContentPartGraphSyncer registered to sync/validate {ContentTypeDefinitionName} parts, so ignoring.",
+                        contentTypePartDefinition.ContentTypeDefinition.Name);
                     continue;
                 }
 

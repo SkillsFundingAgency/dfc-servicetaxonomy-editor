@@ -113,7 +113,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (_graphDeleteItemSyncContext == null)
                 throw new GraphSyncException($"You must call {nameof(DeleteAllowed)} first.");
 
-            _logger.LogInformation($"{(_graphDeleteItemSyncContext.DeleteOperation==DeleteOperation.Delete?"Deleting":"Unpublishing")} '{_graphDeleteItemSyncContext.ContentItem.DisplayText}' {_graphDeleteItemSyncContext.ContentItem.ContentType} ({_graphDeleteItemSyncContext.ContentItem.ContentItemId}) from {_graphDeleteItemSyncContext.ContentItemVersion.GraphReplicaSetName} replica set.");
+            _logger.LogInformation("{DeleteOperation} '{ContentItemDisplayText}' {ContentType} ({ContentItemId}) from {GraphReplicaSetName} replica set.",
+            _graphDeleteItemSyncContext.DeleteOperation==DeleteOperation.Delete?"Deleting":"Unpublishing",
+            _graphDeleteItemSyncContext.ContentItem.DisplayText,
+            _graphDeleteItemSyncContext.ContentItem.ContentType,
+            _graphDeleteItemSyncContext.ContentItem.ContentItemId,
+            _graphDeleteItemSyncContext.ContentItemVersion.GraphReplicaSetName);
 
             await PopulateDeleteNodeCommand();
 

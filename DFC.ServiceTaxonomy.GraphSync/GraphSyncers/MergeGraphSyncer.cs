@@ -118,7 +118,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
             if (disableSyncContentItemVersionId != null)
             {
-                _logger.LogInformation($"Not syncing {contentItem.ContentType}:{contentItem.ContentItemId}, version {disableSyncContentItemVersionId} as syncing has been disabled for it");
+                _logger.LogInformation("Not syncing {ContentType}:{ContentItemId}, version {ContentItemVersionId} as syncing has been disabled for it.",
+                    contentItem.ContentType, contentItem.ContentItemId, disableSyncContentItemVersionId);
                 return AllowSyncResult.NotRequired;
             }
 
@@ -131,7 +132,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             await PopulateMergeNodeCommand(graphSyncPartContent);
 
-            SetSourceNodeInReplaceRelationshipsCommand(); //graphReplicaSet, graphSyncPartContent);
+            SetSourceNodeInReplaceRelationshipsCommand();
 
             //should it go in the context?
             _incomingPreviewContentPickerRelationships = await GetIncomingPreviewContentPickerRelationshipsWhenPublishing(

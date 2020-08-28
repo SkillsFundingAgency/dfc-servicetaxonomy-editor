@@ -91,7 +91,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
                     if (cypherToContent == null)
                         continue;
 
-                    _logger.LogInformation($"{StepName} step");
+                    _logger.LogInformation("{StepName} step", StepName);
 
                     var getContentItemsAsJsonQuery = _serviceProvider.GetRequiredService<IGetContentItemsAsJsonQuery>();
 
