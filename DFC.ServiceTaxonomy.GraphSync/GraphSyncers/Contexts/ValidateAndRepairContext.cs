@@ -21,11 +21,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph,
             ILogger logger)
-            : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, logger)
+            : base(contentItem, syncNameProvider, contentManager, contentItemVersion, logger)
         {
             ContentItemVersion = contentItemVersion;
             NodeWithOutgoingRelationships = nodeWithOutgoingRelationships;

@@ -183,15 +183,21 @@ namespace GetJobProfiles
 
             converter.UpdateRouteItemsWithSharedNames();
 
+
+
+            // remove calls to pages related recipe file generation
+            // comment out as may need to re-generate later
+
             const string contentRecipesPath = "ContentRecipes";
 
             if (!createTestFiles)
             {
-                await CopyRecipe(contentRecipesPath, "SharedContent");
-                await CopyRecipe(contentRecipesPath, "ContentHelp");
-                await CopyRecipe(contentRecipesPath, "EmailTemplates");
-                await CopyRecipe(contentRecipesPath, "Taxonomies");
-                await CopyRecipe(contentRecipesPath, "TestPages");
+            //    await CopyRecipe(contentRecipesPath, "SharedContent");
+            //    await CopyRecipe(contentRecipesPath, "ContentHelp");
+                  await CopyRecipe(contentRecipesPath, "EmailTemplates");
+                  await CopyRecipe(contentRecipesPath, "ContactUsPages");
+            //    await CopyRecipe(contentRecipesPath, "Taxonomies");
+            //    await CopyRecipe(contentRecipesPath, "TestPages");
             }
 
             await BatchSerializeToFiles(qcfLevelBuilder.QCFLevelContentItems, batchSize, $"{filenamePrefix}QCFLevels");

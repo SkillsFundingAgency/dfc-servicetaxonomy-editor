@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Extensions
 {
     public static class MergeNodeExtensions
     {
-        // either here, or graphsynchelper?
+        // where should these live? extension methods harder to test
         //todo: unit tests for these
 
         [return: MaybeNull]
@@ -29,20 +31,28 @@ namespace DFC.ServiceTaxonomy.GraphSync.Extensions
         {
             T value;
             JValue? jvalue = (JValue?)content[contentPropertyName];
-            if (jvalue != null && jvalue.Type != JTokenType.Null)
+
+            if (jvalue == null)
+                return default;
+
+            switch (jvalue.Type)
             {
-                value = jvalue.Value<T>();
+                case JTokenType.Null:
+                    return default;
+                case JTokenType.Date:
+                    string utcdate = jvalue.ToString(Formatting.None).Trim('"');
+                    DateTime utcTime = DateTime.ParseExact(utcdate, "yyyy-MM-ddTHH:mm:ssK",
+                        CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal);
 
-                if (value == null)
-                    throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
-
-                mergeNodeCommand.Properties.Add(nodePropertyName, value);
+                    value = (T)(object)utcTime;
+                    break;
+                default:
+                    value = jvalue.Value<T>();
+                    if (value == null)
+                        throw new InvalidCastException($"Could not convert content property {jvalue} to type {typeof(T)}");
+                    break;
             }
-            else
-            {
-                value = default;
-            }
-
+            mergeNodeCommand.Properties.Add(nodePropertyName, value);
             return value;
         }
 

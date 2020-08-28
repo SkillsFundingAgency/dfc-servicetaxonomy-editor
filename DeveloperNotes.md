@@ -1,8 +1,52 @@
 #ToDo
 
-* cyphertocontent needs to substitute <contentapiprefix>> into ids
+* need to test branch, not master!
+
+* disable cloning taxonomies?? backdoor to creating a draft taxonomy (although it works, so perhaps we leave it)
+
+* pass part instances to syncers, rather than jobjects??
+
+* clean up logs, ensure exceptions are getting logged correctly, switch any remaining logs over to params
+
+* these tests failing on the build server due to culture issues:
+DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage
+AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties
+AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties
+
+[xUnit.net 00:00:03.60]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(expectedMessage: "content property value was '15/06/2020 14:24:00', "..., nodeValue: "") [FAIL]
+  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(expectedMessage: "content property value was '15/06/2020 14:24:00', "..., nodeValue: "") [3ms]
+  Error Message:
+   Assert.Equal() Failure
+                                 ↓ (pos 28)
+Expected: ···property value was '15/06/2020 14:24:00', but node property v···
+Actual:   ···property value was '6/15/2020 2:24:00 PM', but node property ···
+                                 ↑ (pos 28)
+  Stack Trace:
+     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(String expectedMessage, String nodeValue) in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Helpers\GraphValidationHelper\GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.cs:line 106
+[xUnit.net 00:00:03.68]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties [FAIL]
+  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties [8ms]
+  Error Message:
+   Assert.Equal() Failure
+Expected: Dictionary<String, Object> [[publishlater_ScheduledPublishUtc, 6/28/2020 8:58:00 AM]]
+Actual:   Dictionary<String, Object> [[publishlater_ScheduledPublishUtc, 6/28/2020 9:58:00 AM]]
+  Stack Trace:
+     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties() in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Parts\PublishLaterPartGraphSyncerTests\PublishLaterPartGraphSyncer_AddSyncComponentsTests.cs:line 34
+--- End of stack trace from previous location where exception was thrown ---
+[xUnit.net 00:00:03.72]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties [FAIL]
+  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties [3ms]
+  Error Message:
+   Assert.Equal() Failure
+Expected: Dictionary<String, Object> [[unpublishlater_ScheduledUnpublishUtc, 6/28/2020 8:58:00 AM]]
+Actual:   Dictionary<String, Object> [[unpublishlater_ScheduledUnpublishUtc, 6/28/2020 9:58:00 AM]]
+  Stack Trace:
+     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties() in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Parts\UnpublishLaterPartGraphSyncerTests\UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.cs:line 33
+
+
+& renamr graphsynchelper to SyncNameProvider
 
 * need to publish events for terms too
+
+* ensure all cypher queries and commands use parameters
 
 * if sync fails and changes cancelled, leave user on edit page with their changes intact
 
@@ -10,16 +54,9 @@
 
 * does oc taxonomy module have unit tests? if so bring them in
 
-* have new handler and use to pubish event from contenthandler/orchestrators to publish events
-publish/draft/discarddraft etc
-
-* remove oc dependency in events project
+* add new module for events, sitting on top of sync, using the new events library
 
 * Generate correlation Id in handler?
-
-* some files (e.g. contenthandlers) might be better split into partials
-
-* create nuget out of events project for test project
 
 * unpublishing page leaves HTML
 
@@ -35,8 +72,6 @@ so we should probably not sync 'empty' shared widgets
 
 * replicate taxonomy fix: https://mail.google.com/mail/u/0/#inbox/FMfcgxwJXLntMnZkqzJfcvWQKXsHKDGV
 
-* html settings missing button for accordion
-
 * pub/draft embedded item sync, events only if synced ok, clone?
 
 * need to resync following part deletion too
@@ -44,12 +79,6 @@ so we should probably not sync 'empty' shared widgets
 * in dev seeing this exception:
 An unhandled error occurred while executing an activity. Workflow ID: '980956'. Activity: '4mvaxsfc5ntc90s0pbs7xtds4x', 'AuditSyncIssuesTask'. Putting the workflow in the faulted state.
 An expression of non-boolean type specified in a context where a condition is expected, near 'or'.
-
-story: * if sync fails, shouldn't publish event : move event publishing into graphsynccontenthandling
-
-* make clear in message after sync sanity check that sync happened, but there might be an issue (perhaps suggest a sync validation)
-
-* publishing sometimes fails sanity check (pub/draft)
 
 * notifier with dropdown containing technical details/exceptions?
 
@@ -62,14 +91,7 @@ AspNetCoreEnvironment : Production
 
 * wysiwyg alignment in flow part (if we need to support justification)
 
-* the validation needs to de-substitute the actual urls back to <<contentapiprefix>> before it checks for equality
 * validate twoway relationships
-
-* add publish later and unpublish later buttons to page type
-
-* fix visualisation buttons (substitute urls?)
-
-* switch visualisation buttons to dropdowns
 
 * MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 
@@ -77,17 +99,10 @@ AspNetCoreEnvironment : Production
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
 ^ it should have a notification for each of published/preview
 
-* deleting a page needs to delete the widgets also and non-shared html
 * deleting a widget needs to delete from graph also
 ^ when no widgets left, will not delete existing
 does the same issue exist for all enbedded contentm, like pickers?
 allow empty destnodeids in replacerelationshipcommand?
-
-* instead of cloaked draft items in published graph, could:
-  update contentpicker (etc) to not try and create relationships to draft items
-  when unpublish, cancel if any incoming relationships (similar to how we handle delete)
-
-* custom part containing location, homepage, alias and url preview (similar to autoroute part)
 
 * pages : alias only has to be unique to location, not to page content type
 
@@ -127,8 +142,6 @@ publish events to appropriate domains
 
 * multiple parts on same page eg htmlbody_html -> support when syncing <- only supported for named parts
 
-* sync redirections as list
-
 * check publish later actually publishes
 
 * support custom part/field sync as part of a particular content type
@@ -136,10 +149,6 @@ publish events to appropriate domains
 * deleting taxonomy in page doesn't remove from graph
 
 * preview pages app could use the synced publish/unpublish later data to give the user a timeline control sto show a preview of the page at a particular point in time
-
-* use content handler, rather than workflow for syncing?
-
-*sync/delete when unpublish
 
 * pages app
 
@@ -384,26 +393,7 @@ config(input('ContentItem') + '-aeg-sas-key')
     avoid initial ajax call if pre-populated
     add settings, edit button? start open etc.
 
-* use api url for id's
-
-* trumbowyg : apply gds styles to html editor content, but see https://github.com/Alex-D/Trumbowyg/issues/940
-https://github.com/Alex-D/Trumbowyg/issues/167
-
-could create new editor for html that uses trumbowyg, but uses it in a shadow dom, and prefs can specify a set of css files
-^ tumbowyg might not work inside shadow dom (e.g. if it uses jquery selector) https://robdodson.me/dont-use-jquery-with-shadow-dom/
-or find a wysiwyg component with shadow dom support and create a new html editor using it
-
-or include gds sass and use this: https://sass-lang.com/documentation/modules/meta#load-css
-note: GovUK front end plan to switch to sass modules (they have to, as import is being deprecated), see
-https://github.com/alphagov/govuk-frontend/issues/1791
-https://github.com/alphagov/govuk-design-system-architecture/pull/22
-
-not sure if govuk is compatible with bringing bits in using meta.load-css yet though. will have to suck it and see
-might have to be selective about which parts of govuk frontend we bring in
-
 "C:\Users\live\Downloads\dart-sass-1.26.3-windows-x64\dart-sass\sass" trumbowyg_scoped_govuk_frontend.scss trumbowyg_scoped_govuk_frontend.css
-
-<style asp-name="trumbowyg_scoped_govuk_frontend"></style>
 
 importer: generate this structure
 /masterrecipes/subset-no-mutators_xxx.recipe.json
@@ -412,8 +402,6 @@ importer: generate this structure
 /recipes/all the sub recipes (edited)
 ^ that way its easier to see and pick the master recipes
 also don't add the guid to the master recipe filename
-
-* ithc hsts > enable https feature??
 
 * shared content: how safe is it to allow users to create content with  urls/classes etc.
  \ will need devs to be able to change content, e.g. to change classes etc.
@@ -437,16 +425,11 @@ check zip => json doesn't cause issues
 recipes in editor/recipes -> available in dev?
 logging? (will slow down import though)
 
-* validation: exclude readonly nodes like occupation, except for relationships
-soccode issue
-
 * create index recipe > if exists, drop, then create (or some other sequence that doesn't cause the master recipe to go boom)
 
 * update import so only occupation labels that are required for the jp set are imported
 * we should explicitly set (and check) required and multiple settings for all content pickers
-* add Enable Admin Menu filter to recipe
 
-* convert datetime fields from text to real datetime
 * sync validation:
      safer to check all content items!?
      test when multiple graphs

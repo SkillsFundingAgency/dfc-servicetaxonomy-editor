@@ -138,6 +138,36 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     throw CreateValidationException(resultSummary,
                         $"Expected {expectedOutgoingRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
                 }
+
+                if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
+                    return;
+
+                //todo: we might be able to do some similar checks in the else clause below
+
+                IEnumerable<IRelationship>? createdRelationships = records?.FirstOrDefault()?.Values?.Values.Cast<IRelationship>();
+                if (createdRelationships == null)
+                    throw CreateValidationException(resultSummary, "New relationships not returned.");
+
+                // could store variable name to type dic and use that to check instead
+                List<string> unorderedExpectedRelationshipTypes = RelationshipsList.SelectMany(
+                    relationship => relationship.DestinationNodeIdPropertyValues,
+                    (relationship, _) => relationship.RelationshipType).ToList();
+
+                var expectedRelationshipTypes = unorderedExpectedRelationshipTypes
+                    .OrderBy(t => t);
+
+                var actualRelationshipTypes = createdRelationships
+                    .Select(r => r.Type)
+                    .OrderBy(t => t);
+
+                if (!expectedRelationshipTypes.SequenceEqual(actualRelationshipTypes))
+                    throw CreateValidationException(resultSummary,
+                        $"Relationship types created ({string.Join(",", actualRelationshipTypes)}) does not match expected ({string.Join(",", expectedRelationshipTypes)})");
+
+                var firstStartNodeId = createdRelationships.First().StartNodeId;
+                if (!createdRelationships.Skip(1).All(r => r.StartNodeId == firstStartNodeId))
+                    throw CreateValidationException(resultSummary,
+                        "Not all created relationships have the same source node.");
             }
             else
             {
@@ -152,34 +182,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                         $"Expected no more than {expectedOutgoingRelationshipsCreated} relationships to be created, but {resultSummary.Counters.RelationshipsCreated} were created.");
                 }
             }
-
-            if (!RelationshipsList.Any() || RelationshipsList.All(r => !r.DestinationNodeIdPropertyValues.Any()))
-                return;
-
-            IEnumerable<IRelationship>? createdRelationships = records?.FirstOrDefault()?.Values?.Values.Cast<IRelationship>();
-            if (createdRelationships == null)
-                throw CreateValidationException(resultSummary, "New relationships not returned.");
-
-            // could store variable name to type dic and use that to check instead
-            List<string> unorderedExpectedRelationshipTypes = RelationshipsList.SelectMany(
-                relationship => relationship.DestinationNodeIdPropertyValues,
-                (relationship, _) => relationship.RelationshipType).ToList();
-
-            var expectedRelationshipTypes = unorderedExpectedRelationshipTypes
-                .OrderBy(t => t);
-
-            var actualRelationshipTypes = createdRelationships
-                .Select(r => r.Type)
-                .OrderBy(t => t);
-
-            if (!expectedRelationshipTypes.SequenceEqual(actualRelationshipTypes))
-                throw CreateValidationException(resultSummary,
-                    $"Relationship types created ({string.Join(",", actualRelationshipTypes)}) does not match expected ({string.Join(",", expectedRelationshipTypes)})");
-
-            var firstStartNodeId = createdRelationships.First().StartNodeId;
-            if (!createdRelationships.Skip(1).All(r => r.StartNodeId == firstStartNodeId))
-                throw CreateValidationException(resultSummary,
-                    "Not all created relationships have the same source node.");
         }
     }
 }

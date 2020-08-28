@@ -19,7 +19,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
-            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             if (SyncMultilineToArray(context.ContentPartFieldDefinition))
             {
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             if (SyncMultilineToArray(context.ContentPartFieldDefinition))
             {

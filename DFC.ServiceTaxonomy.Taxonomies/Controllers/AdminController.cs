@@ -159,7 +159,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
-                if (!await validator.Validate(contentItem, taxonomy))
+                if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
                 {
                     return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
@@ -167,6 +167,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
+
+            //force publish the new term content item to trigger events etc
+            await _contentManager.PublishAsync(contentItem);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
@@ -257,7 +260,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             }
 
             //when editing we don't know what the parent id is, so we have to search for it
-            var parentTaxonomyTerm = _taxonomyHelper.FindParentTaxonomyTerm(contentItem, taxonomy);
+            var parentTaxonomyTerm = _taxonomyHelper.FindParentTaxonomyTerm(JObject.FromObject(contentItem), JObject.FromObject(taxonomy));
 
             if (parentTaxonomyTerm == null)
                 return NotFound();
@@ -278,7 +281,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             foreach (var validator in _validators)
             {
-                if (!await validator.Validate(contentItem, taxonomy))
+                if (!await validator.Validate(JObject.FromObject(contentItem), JObject.FromObject(taxonomy)))
                 {
                     return ValidationError(validator.ErrorMessage, model, taxonomyContentItemId, taxonomyItemId);
                 }
@@ -286,6 +289,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
+
+            //force publish the new term content item to trigger events etc
+            await _contentManager.PublishAsync(contentItem);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
@@ -329,6 +335,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
+            //force remove the new term content item to trigger events etc
+            await _contentManager.RemoveAsync(taxonomyItem.ToObject<ContentItem>());
+
             _notifier.Success(H["Taxonomy item deleted successfully"]);
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
@@ -366,8 +375,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
         private bool ValidateTaxonomyTerm(dynamic parent, ContentItem term)
         {
-            List<dynamic> terms = _taxonomyHelper.GetTerms(parent);
-            return terms?.All(x => x.ContentItemId == term.ContentItemId || x.DisplayText != term.DisplayText) ?? true;
+            JArray terms = _taxonomyHelper.GetTerms(JObject.FromObject(parent));
+            return terms?.All(x => (string)x["ContentItemId"] == term.ContentItemId || (string)x["DisplayText"] != term.DisplayText) ?? true;
         }
 
         private IActionResult ValidationError(string errorMessage, dynamic model, string taxonomyContentItemId, string taxonomyItemId)

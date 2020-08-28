@@ -27,12 +27,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             return bagPartSettings.ContainedContentTypes;
         }
 
-        protected override async Task<string> RelationshipType(IGraphSyncHelper embeddedContentGraphSyncHelper)
+        protected override async Task<string> RelationshipType(ISyncNameProvider embeddedContentSyncNameProvider)
         {
             //todo: what if want different relationships for same contenttype in different bags!
-            string? relationshipType = embeddedContentGraphSyncHelper.GraphSyncPartSettings.BagPartContentItemRelationshipType;
+            string? relationshipType = embeddedContentSyncNameProvider.GraphSyncPartSettings.BagPartContentItemRelationshipType;
             if (string.IsNullOrEmpty(relationshipType))
-                relationshipType = await base.RelationshipType(embeddedContentGraphSyncHelper);
+                relationshipType = await base.RelationshipType(embeddedContentSyncNameProvider);
 
             return relationshipType;
         }

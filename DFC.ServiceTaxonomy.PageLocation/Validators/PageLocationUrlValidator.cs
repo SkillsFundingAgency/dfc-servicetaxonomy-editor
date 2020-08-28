@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
+using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using YesSql;
@@ -22,11 +24,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             _taxonomyHelper = taxonomyHelper;
         }
 
-        public string ErrorMessage => "The generated URL for this Page Location has already been used as a Page URL.";
+        public string? ErrorMessage { get; private set; }
 
-        public async Task<bool> Validate(ContentItem term, ContentItem taxonomy)
+        public async Task<bool> Validate(JObject term, JObject taxonomy)
         {
-            if (term.Content.PageLocation == null)
+            if (!term.ContainsKey("PageLocation"))
             {
                 return true;
             }
@@ -37,11 +39,27 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             
             foreach (var page in pages)
             {
-                //TODO: use nameof, but doing so would introduce a circular dependency between the page location and taxonomies projects
-                string draftUrl = ((string?)(await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Draft))?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? string.Empty;
-                string pubUrl = ((string?)(await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Published))?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? string.Empty;
+                ContentItem? draftPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Draft);
+                ContentItem? publishedPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Published);
 
-                if (draftUrl.Equals(url, StringComparison.OrdinalIgnoreCase) || pubUrl.Equals(url, StringComparison.OrdinalIgnoreCase)) return false;
+                //TODO: use nameof, but doing so would introduce a circular dependency between the page location and taxonomies projects
+                string? draftUrl = ((string?)draftPage?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
+                string? pubUrl = ((string?)publishedPage?.Content.PageLocationPart.FullUrl)?.Trim('/') ?? null;
+
+                string[]? draftRedirectLocations = draftPage?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
+                string[]? publishedRedirectLocations = publishedPage?.Content.PageLocationPart.RedirectLocations?.ToObject<string?>()?.Split("\r\n");
+
+                if ((draftUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false) || (pubUrl?.Equals(url, StringComparison.OrdinalIgnoreCase) ?? false))
+                {
+                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Page URL.";
+                    return false;
+                }
+
+                if ((draftRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false) || (publishedRedirectLocations?.Any(x => x.Trim('/').Equals(url, StringComparison.OrdinalIgnoreCase)) ?? false))
+                {
+                    ErrorMessage = $"The generated URL for '{term["DisplayText"]}' has already been used as a Page Redirect Location";
+                    return false;
+                }
             }
 
             return true;

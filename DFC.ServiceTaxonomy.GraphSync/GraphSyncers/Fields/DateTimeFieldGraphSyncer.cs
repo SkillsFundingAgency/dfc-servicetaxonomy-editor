@@ -18,7 +18,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             if (value == null || value.Type == JTokenType.Null)
                 return;
 
-            string propertyName = await context.GraphSyncHelper!.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string propertyName = await context.SyncNameProvider!.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             context.MergeNodeCommand.Properties.Add(propertyName, (DateTime)value);
         }
@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            string nodePropertyName = await context.GraphSyncHelper.PropertyName(context.ContentPartFieldDefinition!.Name);
+            string nodePropertyName = await context.SyncNameProvider.PropertyName(context.ContentPartFieldDefinition!.Name);
 
             return context.GraphValidationHelper.DateTimeContentPropertyMatchesNodeProperty(
                ContentKey,

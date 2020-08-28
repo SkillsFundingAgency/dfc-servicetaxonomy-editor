@@ -61,30 +61,6 @@
                     }
                 },
                 {
-                    "ContentItemId": "4ehz9jy83xn32xe35bdk2fak41",
-                    "ContentItemVersionId": "44g0nt5h3gz511sv46gsbveqn9",
-                    "ContentType": "SharedContent",
-                    "DisplayText": "Send us a letter",
-                    "Latest": true,
-                    "Published": true,
-                    "ModifiedUtc": "2020-06-16T13:17:08.7941956Z",
-                    "PublishedUtc": "2020-06-16T13:17:08.8187653Z",
-                    "CreatedUtc": "2020-06-16T13:17:08.7941956Z",
-                    "Owner": "admin",
-                    "Author": "admin",
-                    "SharedContent": {
-                        "Content": {
-                            "Html": "<h1>Send us a letter</h1><p>Please post your letter to:</p><p>National Careers Service<br>PO Box 1331<br>Newcastle Upon Tyne<br>NE99 5EB</p><p>Please allow up to 14 days for a response to your letter. If you would prefer us to respond by phone or email, please include those details in your letter.</p><p>If you would like a response sooner, you can <a href=\"/contact-us\" class=\"govuk-link\">contact us online</a></p>"
-                        }
-                    },
-                    "GraphSyncPart": {
-                        "Text": "<<contentapiprefix>>/sharedcontent/5f1c9379-6854-46c6-b895-cc6af7b9dfc0"
-                    },
-                    "TitlePart": {
-                        "Title": "Send us a letter"
-                    }
-                },
-                {
                     "ContentItemId": "4s74rsf6v05dz396qb658f7fxx",
                     "ContentItemVersionId": "47bpdzm2yqfxmzms23artf4dwx",
                     "ContentType": "SharedContent",

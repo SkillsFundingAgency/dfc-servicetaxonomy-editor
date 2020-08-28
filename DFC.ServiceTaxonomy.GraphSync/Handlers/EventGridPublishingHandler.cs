@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     {
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
         private readonly IEventGridContentClient _eventGridContentClient;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly INeutralEventContentItemVersion _neutralEventContentItemVersion;
@@ -56,7 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         public EventGridPublishingHandler(
             IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
             IEventGridContentClient eventGridContentClient,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
             INeutralEventContentItemVersion neutralEventContentItemVersion,
@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
             _eventGridConfiguration = eventGridConfiguration;
             _eventGridContentClient = eventGridContentClient;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _neutralEventContentItemVersion = neutralEventContentItemVersion;
@@ -121,7 +121,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 _ => _neutralEventContentItemVersion
             };
 
-            string userId = _graphSyncHelper.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+            string userId = _syncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
             ContentEvent contentEvent = new ContentEvent(contentItem, userId, eventType);
             await _eventGridContentClient.Publish(contentEvent);

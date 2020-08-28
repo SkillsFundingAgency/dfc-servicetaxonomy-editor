@@ -44,9 +44,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         public bool IsNonLeafEmbeddedTerm { get; set; }
 
         protected override async Task<string?> TwoWayIncomingRelationshipType(
-            IGraphSyncHelper embeddedContentGraphSyncHelper)
+            ISyncNameProvider embeddedContentSyncNameProvider)
         {
-            return IsNonLeafEmbeddedTerm ? $"{await RelationshipType(embeddedContentGraphSyncHelper)}Parent" : null;
+            return IsNonLeafEmbeddedTerm ? $"{await RelationshipType(embeddedContentSyncNameProvider)}Parent" : null;
         }
 
         public override async Task AllowSync(

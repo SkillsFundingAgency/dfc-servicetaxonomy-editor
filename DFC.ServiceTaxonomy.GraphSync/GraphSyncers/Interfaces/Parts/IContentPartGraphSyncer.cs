@@ -20,6 +20,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
         Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult);
         Task DeleteComponents(JObject content, IGraphDeleteContext context);
 
+        Task MutateOnClone(JObject content, ICloneContext context);
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);

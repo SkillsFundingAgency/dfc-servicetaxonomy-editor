@@ -25,7 +25,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
         private readonly IGraphCluster _graphCluster;
         private readonly IDeleteNodeCommand _deleteNodeCommand;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IContentManager _contentManager;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<DeleteGraphSyncer> _logger;
@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IGraphCluster graphCluster,
             IDeleteNodeCommand deleteNodeCommand,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IServiceProvider serviceProvider,
             ILogger<DeleteGraphSyncer> logger)
@@ -43,7 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
             _graphCluster = graphCluster;
             _deleteNodeCommand = deleteNodeCommand;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = syncNameProvider;
             _contentManager = contentManager;
             _serviceProvider = serviceProvider;
             _logger = logger;
@@ -58,9 +58,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
             IGraphDeleteContext? parentContext = null)
         {
-            _graphSyncHelper.ContentType = contentItem.ContentType;
+            _syncNameProvider.ContentType = contentItem.ContentType;
 
-            if (contentItem.Content.GraphSyncPart == null || _graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+            if (contentItem.Content.GraphSyncPart == null || _syncNameProvider.GraphSyncPartSettings.PreexistingNode)
                 return AllowSyncResult.NotRequired;
 
             //todo: helper for this
@@ -78,11 +78,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             _graphDeleteItemSyncContext = new GraphDeleteContext(
-                contentItem, _deleteNodeCommand, this, deleteOperation, _graphSyncHelper,
+                contentItem, _deleteNodeCommand, this, deleteOperation, _syncNameProvider,
                 _contentManager, contentItemVersion, allDeleteIncomingRelationshipsProperties, parentContext,
                 _serviceProvider);
-
-            parentContext?.AddChildContext(_graphDeleteItemSyncContext);
 
             return await DeleteAllowed();
         }
@@ -150,7 +148,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             var embeddedDeleteGraphSyncer = (DeleteGraphSyncer)embeddedDeleteContext.DeleteGraphSyncer;
 
-            if (embeddedDeleteGraphSyncer._graphSyncHelper.GraphSyncPartSettings.PreexistingNode)
+            if (embeddedDeleteGraphSyncer._syncNameProvider.GraphSyncPartSettings.PreexistingNode)
                 return;
 
             await ((DeleteGraphSyncer)embeddedDeleteContext.DeleteGraphSyncer).DeleteEmbedded();
@@ -158,12 +156,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         private async Task PopulateDeleteNodeCommand()
         {
-            _deleteNodeCommand.NodeLabels = new HashSet<string>(await _graphSyncHelper.NodeLabels());
-            _deleteNodeCommand.IdPropertyName = _graphSyncHelper.IdPropertyName();
+            _deleteNodeCommand.NodeLabels = new HashSet<string>(await _syncNameProvider.NodeLabels());
+            _deleteNodeCommand.IdPropertyName = _syncNameProvider.IdPropertyName();
             _deleteNodeCommand.IdPropertyValue =
-                _graphSyncHelper.GetIdPropertyValue(_graphDeleteItemSyncContext!.ContentItem.Content.GraphSyncPart,
+                _syncNameProvider.GetIdPropertyValue(_graphDeleteItemSyncContext!.ContentItem.Content.GraphSyncPart,
                     _graphDeleteItemSyncContext.ContentItemVersion);
-            _deleteNodeCommand.DeleteNode = !_graphSyncHelper.GraphSyncPartSettings.PreexistingNode;
+            _deleteNodeCommand.DeleteNode = !_syncNameProvider.GraphSyncPartSettings.PreexistingNode;
             _deleteNodeCommand.DeleteIncomingRelationshipsProperties =
                 _graphDeleteItemSyncContext.DeleteIncomingRelationshipsProperties;
         }
