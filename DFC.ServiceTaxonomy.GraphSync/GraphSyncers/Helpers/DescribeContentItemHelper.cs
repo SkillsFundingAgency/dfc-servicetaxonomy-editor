@@ -58,12 +58,47 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public async Task<IEnumerable<string?>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
         {
             var allRelationships = await GetRelationships(context, currentList, parentContext);
-            var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
+            var groupedCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
+            var uniqueCommands = new List<string>();
+
+            //Remove any commands containing other commands from the call structure
+            foreach (var command in groupedCommands)
+            {
+                if (command == null)
+                {
+                    continue;
+                }
+
+                if (!groupedCommands.Any(z => z!.Contains(command) && z.Length > command.Length))
+                {
+                    uniqueCommands.Add(command);
+                }
+            }
+
+            List<string> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
+            BuildIncomingRelationshipCommands(commandsToReturn, context);
+
+            return commandsToReturn;
+        }
+
+        private void BuildIncomingRelationshipCommands(List<string> commandsToReturn, IDescribeRelationshipsContext context)
+        {
+            var commandStringBuilder = new StringBuilder($"match (s)-[r]->(d:{string.Join(":", context.SourceNodeLabels)} {{{context.SourceNodeIdPropertyName}: '{context.SourceNodeId}'}})");
+            commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'todo',  destIncomingRelSource:'todo'})} as relationshipDetails");
+            commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(relationshipDetails)} as nodeAndOutRelationshipsAndTheirInRelationships");
+            commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
+
+            commandsToReturn.Add(commandStringBuilder.ToString());
+        }
+
+        private static List<string> BuildOutgoingRelationshipCommands(IEnumerable<string?> uniqueCommands)
+        {
             var commandsToReturn = new List<string>();
 
             foreach (var command in uniqueCommands.ToList())
             {
-                var withString = new StringBuilder();
+                var withStringBuilder = new StringBuilder();
+
                 int currentDepth = 1;
                 int depthCount = Regex.Matches(command, "d[0-9]+:").Count;
 
@@ -73,14 +108,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 {
                     relationshipClauses.Add($"{{destNode: d{currentDepth}, relationship: r{currentDepth}, destinationIncomingRelationships:collect({{destIncomingRelationship:'todo',  destIncomingRelSource:'todo'}})}} as dr{currentDepth}RelationshipDetails");
 
-                    collectClauses.Add($"COLLECT(dr{currentDepth}RelationshipDetails)");
+                    collectClauses.Add($"collect(dr{currentDepth}RelationshipDetails)");
                     currentDepth++;
                 }
 
-                withString.AppendLine($"with s,{string.Join(',', relationshipClauses)}");
-                withString.AppendLine($"with {{sourceNode: s, outgoingRelationships: {string.Join('+', collectClauses)}}} as nodeAndOutRelationshipsAndTheirInRelationships");
-                withString.AppendLine("return nodeAndOutRelationshipsAndTheirInRelationships");
-                commandsToReturn.Add($"{command} {withString}");
+                withStringBuilder.AppendLine($"with s,{string.Join(',', relationshipClauses)}");
+                withStringBuilder.AppendLine($"with {{sourceNode: s, outgoingRelationships: {string.Join('+', collectClauses)}}} as nodeAndOutRelationshipsAndTheirInRelationships");
+                withStringBuilder.AppendLine("return nodeAndOutRelationshipsAndTheirInRelationships");
+                commandsToReturn.Add($"{command} {withStringBuilder}");
             }
 
             return commandsToReturn;
@@ -100,7 +135,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         {
                             if (!string.IsNullOrEmpty(parentRelationship.RelationshipPathString))
                             {
-                                var relationshipString = $"{parentRelationship.RelationshipPathString}-[r{context.CurrentDepth}:{child.Relationship}]->(d{context.CurrentDepth}:{string.Join(":", child.Destination!)})";
+                                var relationshipString = $"{parentRelationship.RelationshipPathString}-[r{context.CurrentDepth}:{child.Relationship}]-(d{context.CurrentDepth}:{string.Join(":", child.Destination!)})";
                                 child.RelationshipPathString = relationshipString;
                                 Console.WriteLine(relationshipString);
                             }
@@ -108,7 +143,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         else
                         {
                             context.CurrentDepth = 1;
-                            child.RelationshipPathString = $@"match (s:{string.Join(":", context.SourceNodeLabels)} {{{context.SourceNodeIdPropertyName}: '{context.SourceNodeId}'}})-[r{1}:{child.Relationship}]->(d{1}:{string.Join(":", child.Destination!)})";
+                            child.RelationshipPathString = $@"match (s:{string.Join(":", context.SourceNodeLabels)} {{{context.SourceNodeIdPropertyName}: '{context.SourceNodeId}'}})-[r{1}:{child.Relationship}]-(d{1}:{string.Join(":", child.Destination!)})";
                         }
                     }
                 }

@@ -16,6 +16,8 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using System;
+using OrchardCore.ContentManagement.Metadata;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -28,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IEscoContentItemVersion _escoContentItemVersion;
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
-
+        private readonly IContentDefinitionManager _contentDefinitionManager;
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
         public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
@@ -36,10 +38,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public ContentPickerFieldGraphSyncer(
             IEscoContentItemVersion escoContentItemVersion,
-            ILogger<ContentPickerFieldGraphSyncer> logger)
+            ILogger<ContentPickerFieldGraphSyncer> logger,
+            IContentDefinitionManager contentDefinitionManager)
         {
             _escoContentItemVersion = escoContentItemVersion;
             _logger = logger;
+            _contentDefinitionManager = contentDefinitionManager;
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
@@ -53,10 +57,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.GraphSyncHelper);
                 var sourceNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType);
-                var destinationNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(contentPickerFieldSettings.DisplayedContentTypes.FirstOrDefault());
+                string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
+                IEnumerable<string> destNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(pickedContentType);
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
 
+                ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, parentContext.ContentManager);
 
-                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destinationNodeLabels));
+                foreach (var item in foundDestinationContentItems)
+                {
+                    var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(item.ContentType);
+                    var partsWithContentPickers = contentTypeDefinition.Parts.Where(z => z.PartDefinition.Fields.Any(y => y.FieldDefinition.Name == FieldTypeName));
+
+                    Console.WriteLine(contentTypeDefinition);
+                    if (partsWithContentPickers.Any())
+                    {
+                        foreach (var partWithContentPicker in partsWithContentPickers)
+                        {
+                            var contentPickers = partWithContentPicker.PartDefinition.Fields.Where(x => x.FieldDefinition.Name == FieldTypeName);
+
+                            foreach (var contentPicker in contentPickers)
+                            {
+                                var childContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, item, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider);
+                                childContext.SetContentPartFieldDefinition(contentPicker);
+                                childContext.SetContentField((JObject)item!.Content[partWithContentPicker.PartDefinition.Name][contentPicker.Name]);
+
+                                parentContext.AddChildContext(childContext);
+                                await AddRelationship(childContext);
+                            }
+                        }
+                    }
+                }
             }
             else
             {
@@ -89,7 +119,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return;
             }
 
-            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, context);
+            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, context.ContentManager);
 
             if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
                 throw new GraphSyncException(
@@ -137,7 +167,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
 
-            ContentItem[] destinationContentItems = await GetLatestContentItemsFromIds(contentItemIds, context);
+            ContentItem[] destinationContentItems = await GetLatestContentItemsFromIds(contentItemIds, context.ContentManager);
 
             //todo: separate check for missing items, before check relationships
             //todo: move into helper?
@@ -183,13 +213,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return (true, "");
         }
 
-        private async Task<ContentItem[]> GetLatestContentItemsFromIds(JArray contentItemIds, IGraphOperationContext context)
+        private async Task<ContentItem[]> GetLatestContentItemsFromIds(JArray contentItemIds, IContentManager contentManager)
         {
             // GetAsync should be returning ContentItem? as it can be null
 
             ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
                 .Select(idJToken => idJToken.ToObject<string?>())
-                .Select(async id => await context.ContentManager.GetAsync(id, VersionOptions.Latest)));
+                .Select(async id => await contentManager.GetAsync(id, VersionOptions.Latest)));
 
 #pragma warning disable S1905
             return contentItems
