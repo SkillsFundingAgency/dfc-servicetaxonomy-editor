@@ -173,11 +173,53 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
 
+            // this works when using sqlite, but it seems there's a bug in yessql when executing the query against azure sql
+
+            // return await _session
+            //     .Query<ContentItem, ContentItemIndex>(x =>
+            //         x.ContentType == contentTypeDefinition.Name
+            //         && (latest == null || x.Latest == latest)
+            //         && (published == null || x.Published == published)
+            //         && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+            //     .ListAsync();
+
+            // so instead we pick one of 4 different queries depending on whether latest or published is null
+
+            if (latest != null && published != null)
+            {
+                return await _session
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.ContentType == contentTypeDefinition.Name
+                        && x.Latest == latest && x.Published == published
+                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+                    .ListAsync();
+            }
+
+            if (latest == null && published != null)
+            {
+                return await _session
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.ContentType == contentTypeDefinition.Name
+                        && x.Published == published
+                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+                    .ListAsync();
+            }
+
+            if (latest != null && published == null)
+            {
+                return await _session
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.ContentType == contentTypeDefinition.Name
+                        && x.Latest == latest
+                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
+                    .ListAsync();
+            }
+
+            // latest == null && published == null
+
             return await _session
                 .Query<ContentItem, ContentItemIndex>(x =>
                     x.ContentType == contentTypeDefinition.Name
-                    && (latest == null || x.Latest == latest)
-                    && (published == null || x.Published == published)
                     && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
                 .ListAsync();
         }
