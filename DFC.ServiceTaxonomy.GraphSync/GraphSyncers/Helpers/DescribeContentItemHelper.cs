@@ -131,14 +131,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     {
                         context.CurrentDepth = parentContext.CurrentDepth + 1;
                         var parentRelationship = parentContext.AvailableRelationships.FirstOrDefault(x => x.Destination.All(child.Source.Contains));
-                        if (parentRelationship != null)
+
+                        if (parentRelationship != null && !string.IsNullOrEmpty(parentRelationship.RelationshipPathString))
                         {
-                            if (!string.IsNullOrEmpty(parentRelationship.RelationshipPathString))
-                            {
-                                var relationshipString = $"{parentRelationship.RelationshipPathString}-[r{context.CurrentDepth}:{child.Relationship}]-(d{context.CurrentDepth}:{string.Join(":", child.Destination!)})";
-                                child.RelationshipPathString = relationshipString;
-                                Console.WriteLine(relationshipString);
-                            }
+                            var relationshipString = $"{parentRelationship.RelationshipPathString}-[r{context.CurrentDepth}:{child.Relationship}]-(d{context.CurrentDepth}:{string.Join(":", child.Destination!)})";
+                            child.RelationshipPathString = relationshipString;
                         }
                         else
                         {
@@ -147,6 +144,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         }
                     }
                 }
+
                 currentList.AddRange(context.AvailableRelationships);
             }
 
@@ -165,6 +163,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _graphSyncHelper.ContentType = contentItem.ContentType;
 
             var itemContext = contentItem == RootContentItem ? context : new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, context, _serviceProvider);
+
             foreach (var part in contentTypeDefinition.Parts)
             {
                 var partSyncer = _contentPartGraphSyncers.FirstOrDefault(x => x.PartName == part.Name);
@@ -176,33 +175,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (var relationshipField in part.PartDefinition.Fields)
                 {
-                    try
+                    itemContext.SetContentPartFieldDefinition(relationshipField);
+                    itemContext.SetContentField((JObject)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]);
+
+                    var fieldSyncer = _contentFieldsGraphSyncers.FirstOrDefault(x => x.FieldTypeName == relationshipField.FieldDefinition.Name);
+
+                    var contentItemIds =
+                           (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
+                               .ContentItemIds;
+
+                    if (contentItemIds != null)
                     {
-                        //var fieldContext = new DescribeRelationshipsContext(contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, partContext, _serviceProvider);
-                        itemContext.SetContentPartFieldDefinition(relationshipField);
-                        itemContext.SetContentField((JObject)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]);
-                        var fieldSyncer = _contentFieldsGraphSyncers.FirstOrDefault(x => x.FieldTypeName == relationshipField.FieldDefinition.Name);
-
-                        var contentItemIds =
-                               (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
-                                   .ContentItemIds;
-
-                        if (contentItemIds != null)
+                        foreach (var relatedContentItemId in contentItemIds)
                         {
-                            foreach (var relatedContentItemId in contentItemIds)
-                            {
-                                await BuildRelationships(await _contentManager.GetAsync(relatedContentItemId.ToString()), itemContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
-                            }
-                        }
-
-                        if (fieldSyncer != null)
-                        {
-                            await fieldSyncer.AddRelationship(itemContext);
+                            await BuildRelationships(await _contentManager.GetAsync(relatedContentItemId.ToString()), itemContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
                         }
                     }
-                    catch (Exception e)
+
+                    if (fieldSyncer != null)
                     {
-                        Console.WriteLine(e);
+                        await fieldSyncer.AddRelationship(itemContext);
                     }
                 }
             }

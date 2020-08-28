@@ -64,29 +64,33 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 IEnumerable<string> destNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(pickedContentType);
                 parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
 
-                ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, parentContext.ContentManager);
+                await GetRelationshipsForNestedContentPickers(parentContext, contentItemIdsJArray);
+            }
+        }
 
-                foreach (var item in foundDestinationContentItems)
+        private async Task GetRelationshipsForNestedContentPickers(IDescribeRelationshipsContext parentContext, JArray? contentItemIdsJArray)
+        {
+            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray!, parentContext.ContentManager);
+
+            foreach (var item in foundDestinationContentItems)
+            {
+                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(item.ContentType);
+                var partsWithContentPickers = contentTypeDefinition.Parts.Where(z => z.PartDefinition.Fields.Any(y => y.FieldDefinition.Name == FieldTypeName));
+
+                if (partsWithContentPickers.Any())
                 {
-                    var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(item.ContentType);
-                    var partsWithContentPickers = contentTypeDefinition.Parts.Where(z => z.PartDefinition.Fields.Any(y => y.FieldDefinition.Name == FieldTypeName));
-
-                    Console.WriteLine(contentTypeDefinition);
-                    if (partsWithContentPickers.Any())
+                    foreach (var partWithContentPicker in partsWithContentPickers)
                     {
-                        foreach (var partWithContentPicker in partsWithContentPickers)
+                        var contentPickers = partWithContentPicker.PartDefinition.Fields.Where(x => x.FieldDefinition.Name == FieldTypeName);
+
+                        foreach (var contentPicker in contentPickers)
                         {
-                            var contentPickers = partWithContentPicker.PartDefinition.Fields.Where(x => x.FieldDefinition.Name == FieldTypeName);
+                            var childContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, item, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider);
+                            childContext.SetContentPartFieldDefinition(contentPicker);
+                            childContext.SetContentField((JObject)item!.Content[partWithContentPicker.PartDefinition.Name][contentPicker.Name]);
 
-                            foreach (var contentPicker in contentPickers)
-                            {
-                                var childContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, item, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider);
-                                childContext.SetContentPartFieldDefinition(contentPicker);
-                                childContext.SetContentField((JObject)item!.Content[partWithContentPicker.PartDefinition.Name][contentPicker.Name]);
-
-                                parentContext.AddChildContext(childContext);
-                                await AddRelationship(childContext);
-                            }
+                            parentContext.AddChildContext(childContext);
+                            await AddRelationship(childContext);
                         }
                     }
                 }
