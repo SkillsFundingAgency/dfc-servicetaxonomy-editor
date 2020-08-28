@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public GraphCommandContext(
             IMergeGraphSyncer mergeGraphSyncer,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider graphSyncHelper,
             IGraphReplicaSet graphReplicaSet,
             IMergeNodeCommand mergeNodeCommand,
             IReplaceRelationshipsCommand replaceRelationshipsCommand,

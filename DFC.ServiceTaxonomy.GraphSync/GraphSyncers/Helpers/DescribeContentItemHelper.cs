@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _graphSyncHelper;
         private readonly IEnumerable<IContentPartGraphSyncer> _contentPartGraphSyncers;
         private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldsGraphSyncers;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
@@ -33,7 +33,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public DescribeContentItemHelper(
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider graphSyncHelper,
             IEnumerable<IContentPartGraphSyncer> contentPartGraphSyncers,
             IEnumerable<IContentFieldGraphSyncer> contentFieldsGraphSyncers,
             IPublishedContentItemVersion publishedContentItemVersion,
