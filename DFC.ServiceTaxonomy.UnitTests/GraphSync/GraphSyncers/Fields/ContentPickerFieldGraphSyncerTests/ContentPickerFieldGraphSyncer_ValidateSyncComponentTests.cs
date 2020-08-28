@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
         public ContentPickerFieldGraphSyncer_ValidateSyncComponentTests()
         {
             Logger = A.Fake<ILogger<ContentPickerFieldGraphSyncer>>();
-            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(A.Fake<IPreExistingContentItemVersion>(), Logger, A.Fake<IContentDefinitionManager>());
+            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(A.Fake<IPreExistingContentItemVersion>(), A.Fake<IContentDefinitionManager>());
         }
 
         //todo: tests

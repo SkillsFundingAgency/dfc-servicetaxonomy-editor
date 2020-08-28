@@ -10,7 +10,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
@@ -29,8 +28,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IPreExistingContentItemVersion _preExistingContentItemVersion;
-        private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
-        private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
@@ -39,14 +36,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public ContentPickerFieldGraphSyncer(
             IPreExistingContentItemVersion preExistingContentItemVersion,
-            ILogger<ContentPickerFieldGraphSyncer> logger,
-            IContentDefinitionManager contentDefinitionManager,
-            ISuperpositionContentItemVersion superpositionContentItemVersion)
+            IContentDefinitionManager contentDefinitionManager)
         {
             _preExistingContentItemVersion = preExistingContentItemVersion;
-            _logger = logger;
             _contentDefinitionManager = contentDefinitionManager;
-            _superpositionContentItemVersion = superpositionContentItemVersion;
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
