@@ -51,10 +51,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             if (contentItemIdsJArray != null && contentItemIdsJArray.Count > 0)
             {
-                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.GraphSyncHelper);
-                var sourceNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(parentContext.ContentItem.ContentType);
+                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.SyncNameProvider);
+                var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
                 string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
-                IEnumerable<string> destNodeLabels = await parentContext.GraphSyncHelper.NodeLabels(pickedContentType);
+                IEnumerable<string> destNodeLabels = await parentContext.SyncNameProvider.NodeLabels(pickedContentType);
                 parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
 
                 await GetRelationshipsForNestedContentPickers(parentContext, contentItemIdsJArray);
@@ -78,7 +78,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                         foreach (var contentPicker in contentPickers)
                         {
-                            var childContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, item, parentContext.GraphSyncHelper, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider);
+                            var childContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, item, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider);
                             childContext.SetContentPartFieldDefinition(contentPicker);
                             childContext.SetContentField((JObject)item!.Content[partWithContentPicker.PartDefinition.Name][contentPicker.Name]);
 
@@ -250,12 +250,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {  
-            context.GraphSyncHelper.ContentType = pickedContentItem.ContentType;
-            var syncSettings = context.GraphSyncHelper.GraphSyncPartSettings;
+            context.SyncNameProvider.ContentType = pickedContentItem.ContentType;
+            var syncSettings = context.SyncNameProvider.GraphSyncPartSettings;
 
             _preExistingContentItemVersion.SetContentApiBaseUrl(syncSettings.PreExistingNodeUriPrefix ?? context.ContentItemVersion.ContentApiBaseUrl);
            
-            return context.GraphSyncHelper.GetIdPropertyValue(
+            return context.SyncNameProvider.GetIdPropertyValue(
                       pickedContentItem.Content[nameof(GraphSyncPart)], _preExistingContentItemVersion);
         }
     }

@@ -58,7 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
-        private readonly IGraphSyncHelper _graphSyncHelper;
+        private readonly ISyncNameProvider _graphSyncHelper;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
@@ -79,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider graphSyncHelper,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,

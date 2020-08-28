@@ -30,7 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             string sourceNodeId,
             IEnumerable<string> sourceNodeLabels,
             ContentItem contentItem,
-            IGraphSyncHelper graphSyncHelper,
+            ISyncNameProvider graphSyncHelper,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             IDescribeRelationshipsContext? parentContext,

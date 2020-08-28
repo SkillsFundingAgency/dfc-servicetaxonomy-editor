@@ -465,11 +465,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             foreach (var embeddedContentItem in convertedItems)
             {
-                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<IGraphSyncHelper>();
+                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<ISyncNameProvider>();
                 embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
 
                 string relationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
-                context.AvailableRelationships.Add(new ContentItemRelationship(await context.GraphSyncHelper.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.GraphSyncHelper.NodeLabels(embeddedContentItem.ContentType)));
+                context.AvailableRelationships.Add(new ContentItemRelationship(await context.SyncNameProvider.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.SyncNameProvider.NodeLabels(embeddedContentItem.ContentType)));
 
                 var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
                 await describeRelationshipService.BuildRelationships(embeddedContentItem, context, context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels);
