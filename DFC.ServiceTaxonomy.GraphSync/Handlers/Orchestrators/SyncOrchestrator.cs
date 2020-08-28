@@ -92,6 +92,47 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return true;
         }
 
+        /// <returns>true if updating either graph was blocked or failed.</returns>
+        public async Task<bool> Update(ContentItem publishedContentItem, ContentItem previewContentItem)
+        {
+            _logger.LogDebug("Update: Syncing '{PublishedContentItem}' {PublishedContentType} to Published and '{PreviewContentItem}' {PreviewContentType} to Preview.",
+                publishedContentItem.ToString(), publishedContentItem.ContentType,
+                previewContentItem.ToString(), previewContentItem.ContentType);
+
+            IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
+
+            // need to leave these calls serial, with published first,
+            // so that published can examine the existing preview graph,
+            // when it's figuring out what relationships it needs to recreate
+            (SyncStatus publishedSyncStatus, IMergeGraphSyncer? publishedMergeGraphSyncer) =
+                await GetMergeGraphSyncerIfSyncAllowed(
+                    GraphReplicaSetNames.Published, publishedContentItem, contentManager);
+
+            if (publishedSyncStatus == SyncStatus.Blocked)
+            {
+                return false;
+            }
+
+            (SyncStatus previewSyncStatus, IMergeGraphSyncer? previewMergeGraphSyncer) =
+                await GetMergeGraphSyncerIfSyncAllowed(
+                    GraphReplicaSetNames.Preview, previewContentItem, contentManager);
+
+            if (previewSyncStatus == SyncStatus.Blocked)
+            {
+                return false;
+            }
+
+            // again, not concurrent and published first (for recreating incoming relationships)
+
+            if ((publishedSyncStatus == SyncStatus.Allowed && !await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, publishedContentItem))
+                || (previewSyncStatus == SyncStatus.Allowed && !await SyncToGraphReplicaSet(previewMergeGraphSyncer!, previewContentItem)))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         /// <returns>true if discarding draft was blocked or failed.</returns>
         public async Task<bool> DiscardDraft(ContentItem contentItem)
         {

@@ -18,6 +18,11 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
                     t => t.Name == (nameof(ICloneGraphSync)))))
                 .Returns(CloneGraphSync);
+
+            A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
+                    t => t.Name == (nameof(IMergeGraphSyncer)))))
+                .Returns(PreviewMergeGraphSyncer)
+                .Once();
         }
 
         [Fact]
@@ -44,7 +49,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
 
             if (syncToGraphReplicaSetThrows == true)
             {
-                A.CallTo(() => MergeGraphSyncer.SyncToGraphReplicaSet())
+                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                     .Throws(() => new Exception());
             }
 
@@ -54,7 +59,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
 
             if (syncToGraphReplicaSetThrows == null)
             {
-                A.CallTo(() => MergeGraphSyncer.SyncToGraphReplicaSet())
+                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                     .MustNotHaveHappened();
             }
         }
