@@ -201,7 +201,7 @@ store object of contentitemid and aggregate name as value
 
 * add properties to csharpcontent: addtosessioncache
 
-* enforce readonly nodes by not allowing user to delete the corresponding content item
+* enforce readonly nodes by not allowing user to delete the corresponding content item?
 
 * make sure only 1 validate and repair is operating at once
 
@@ -345,7 +345,6 @@ logging? (will slow down import though)
 
 * sync validation:
      safer to check all content items!?
-     test when multiple graphs
      we could validate a content items parts concurrently to speed it up (ConcurrentDictionary for expectedRelationshipCounts at least)
      ^ we could report all validation errors, although not necessary, as if there's at least 1 error then we need to attempt a repair
      we could validate content items concurrently
@@ -387,7 +386,6 @@ could fix when create new content recipe step
 
 ##ToDo UI Improvements
 
-* order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
 * provide error/warning to use if they try to add a tab and an accordion to the same part - it isn't supported!
 
