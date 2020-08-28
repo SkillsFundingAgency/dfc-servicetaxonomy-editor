@@ -67,17 +67,9 @@ The new Shared Content could not be removed because the associated node could no
 
 * support custom part/field sync as part of a particular content type
 
-* deleting taxonomy in page doesn't remove from graph
-
 * preview pages app could use the synced publish/unpublish later data to give the user a timeline control sto show a preview of the page at a particular point in time
 
 * pages app
-
-location part with taxonomy & text?
-default to slugified title?
-check for url clashes on main and redirect and conforms to gds - new field/part for the check/validation
-
-when sync page, make sure url is unique
 
 Add facility for displaying a content type (or a specific content item) within a section of a page
 using a template created by the ux/ur/content users.
