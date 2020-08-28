@@ -38,6 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     model.CreateRelationshipType = graphSyncPartSettings.CreateRelationshipType;
                     model.IdPropertyName = graphSyncPartSettings.IdPropertyName;
                     model.GenerateIdPropertyValue = graphSyncPartSettings.GenerateIdPropertyValue;
+                    model.PreExistingNodeUriPrefix = graphSyncPartSettings.PreExistingNodeUriPrefix;
 
                     BuildGraphSyncPartSettingsList(model);
                 })
@@ -62,6 +63,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     && IsEqual(model.CreateRelationshipType, item.CreateRelationshipType)
                     && IsEqual(model.IdPropertyName, item.IdPropertyName)
                     && IsEqual(model.GenerateIdPropertyValue, item.GenerateIdPropertyValue)
+                    && IsEqual(model.PreExistingNodeUriPrefix, item.PreExistingNodeUriPrefix)
                     && model.PreexistingNode == item.PreexistingNode
                     && model.DisplayId == item.DisplayId)
                 {
@@ -92,7 +94,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 m => m.PropertyNameTransform,
                 m => m.CreateRelationshipType,
                 m => m.IdPropertyName,
-                m => m.GenerateIdPropertyValue))
+                m => m.GenerateIdPropertyValue,
+                m => m.PreExistingNodeUriPrefix))
             {
                 context.Builder.WithSettings(new GraphSyncPartSettings
                 {
@@ -103,7 +106,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     PropertyNameTransform = model.PropertyNameTransform,
                     CreateRelationshipType = model.CreateRelationshipType,
                     IdPropertyName = model.IdPropertyName,
-                    GenerateIdPropertyValue = model.GenerateIdPropertyValue
+                    GenerateIdPropertyValue = model.GenerateIdPropertyValue,
+                    PreExistingNodeUriPrefix = model.PreExistingNodeUriPrefix
                 });
             }
 

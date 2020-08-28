@@ -159,6 +159,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<INeutralEventContentItemVersion>(new NeutralEventContentItemVersion());
             services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
             services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
+            services.AddSingleton<IPreExistingContentItemVersion>(new PreExistingContentItemVersion());
 
             services.AddScoped<IContentItemsService, ContentItemsService>();
 

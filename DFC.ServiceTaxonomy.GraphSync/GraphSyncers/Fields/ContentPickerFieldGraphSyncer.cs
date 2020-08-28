@@ -28,7 +28,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string ContentItemIdsKey = "ContentItemIds";
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
-        private readonly IEscoContentItemVersion _escoContentItemVersion;
+        private readonly IPreExistingContentItemVersion _preExistingContentItemVersion;
+        private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
@@ -37,13 +38,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } };
 
         public ContentPickerFieldGraphSyncer(
-            IEscoContentItemVersion escoContentItemVersion,
+            IPreExistingContentItemVersion preExistingContentItemVersion,
             ILogger<ContentPickerFieldGraphSyncer> logger,
-            IContentDefinitionManager contentDefinitionManager)
+            IContentDefinitionManager contentDefinitionManager,
+            ISuperpositionContentItemVersion superpositionContentItemVersion)
         {
-            _escoContentItemVersion = escoContentItemVersion;
+            _preExistingContentItemVersion = preExistingContentItemVersion;
             _logger = logger;
             _contentDefinitionManager = contentDefinitionManager;
+            _superpositionContentItemVersion = superpositionContentItemVersion;
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
@@ -87,10 +90,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                         }
                     }
                 }
-            }
-            else
-            {
-                Console.WriteLine("some sanity checking here");
             }
         }
 
@@ -258,14 +257,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             context.GraphSyncHelper.ContentType = pickedContentItem.ContentType;
             var syncSettings = context.GraphSyncHelper.GraphSyncPartSettings;
 
-            if (syncSettings.GenerateIdPropertyValue != null && syncSettings.GenerateIdPropertyValue!.ToLowerInvariant().Contains("esco"))
-            {
-                return context.GraphSyncHelper.GetIdPropertyValue(
-                    pickedContentItem.Content[nameof(GraphSyncPart)], _escoContentItemVersion, context.ContentItemVersion);
-            }
-
+            _preExistingContentItemVersion.SetContentApiBaseUrl(syncSettings.PreExistingNodeUriPrefix ?? context.ContentItemVersion.ContentApiBaseUrl);
+           
             return context.GraphSyncHelper.GetIdPropertyValue(
-                pickedContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
+                      pickedContentItem.Content[nameof(GraphSyncPart)], _preExistingContentItemVersion);
         }
     }
 }
