@@ -97,7 +97,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     getContentItemsAsJsonQuery.QueryStatement = cypherToContent.Query;
 
-                    _logger.LogInformation($"Executing query to retrieve content for items:\r\n{cypherToContent.Query}");
+                    _logger.LogInformation("Executing query to retrieve content for items:\r\n{Query}",
+                        cypherToContent.Query);
 
                     // for now, populate from the published graph
                     // we _may_ want to introduce support for creating draft items from the draft replica set at some point
@@ -123,12 +124,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
 
                     //todo: log this, but ensure no double enumeration
                     // _logger.LogInformation($"Created {contentItemJObjects.Count()} content items in {stopwatch.Elapsed}");
-                    _logger.LogInformation($"Created content items in {stopwatch.Elapsed}");
+                    _logger.LogInformation("Created content items in {TimeTaken}.", stopwatch.Elapsed);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"Exception: {ex}");
+                _logger.LogWarning(ex, "CypherToContentStep execute exception.");
                 throw;
             }
         }

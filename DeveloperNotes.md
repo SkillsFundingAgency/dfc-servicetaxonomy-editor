@@ -6,8 +6,6 @@
 
 * pass part instances to syncers, rather than jobjects??
 
-* clean up logs, ensure exceptions are getting logged correctly, switch any remaining logs over to params
-
 * ensure all cypher queries and commands use parameters
 
 * if sync fails and changes cancelled, leave user on edit page with their changes intact
