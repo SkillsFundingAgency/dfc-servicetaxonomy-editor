@@ -10,20 +10,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
     {
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IDeleteOrchestrator _deleteOrchestrator;
-        private readonly ICloneOrchestrator _cloneOrchestrator;
         private readonly ISession _session;
         private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public GraphSyncContentHandler(
             ISyncOrchestrator syncOrchestrator,
             IDeleteOrchestrator deleteOrchestrator,
-            ICloneOrchestrator cloneOrchestrator,
             ISession session,
             IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _syncOrchestrator = syncOrchestrator;
             _deleteOrchestrator = deleteOrchestrator;
-            _cloneOrchestrator = cloneOrchestrator;
             _session = session;
             _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
@@ -77,10 +74,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
         }
 
-        //todo: use Cloning?
-        public override async Task ClonedAsync(CloneContentContext context)
+        public override async Task CloningAsync(CloneContentContext context)
         {
-            if (!await _cloneOrchestrator.Clone(context.CloneContentItem))
+            if (!await _syncOrchestrator.Clone(context.CloneContentItem))
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);

@@ -3,6 +3,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
@@ -28,8 +29,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public override async Task MutateOnClone(JObject content, ICloneContext context)
         {
-            content[nameof(GraphSyncPart.Text)] =
-                await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
+            string newIdPropertyValue = await context.SyncNameProvider.GenerateIdPropertyValue(context.ContentItem.ContentType);
+
+            //todo: which is the best way? if we want to use Alter, we'd have to pass the part, rather than content
+            // (so that named parts work, where >1 type of part is in a content type)
+
+            content[nameof(GraphSyncPart.Text)] = newIdPropertyValue;
+            //context.ContentItem.Alter<GraphSyncPart>(p => p.Text = newIdPropertyValue);
         }
 
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(

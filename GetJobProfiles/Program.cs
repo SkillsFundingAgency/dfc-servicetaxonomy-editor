@@ -195,6 +195,7 @@ namespace GetJobProfiles
             //    await CopyRecipe(contentRecipesPath, "SharedContent");
             //    await CopyRecipe(contentRecipesPath, "ContentHelp");
                   await CopyRecipe(contentRecipesPath, "EmailTemplates");
+                  await CopyRecipe(contentRecipesPath, "ContactUsPages");
             //    await CopyRecipe(contentRecipesPath, "Taxonomies");
             //    await CopyRecipe(contentRecipesPath, "TestPages");
             }
