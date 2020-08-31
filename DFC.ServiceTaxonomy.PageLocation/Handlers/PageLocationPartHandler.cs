@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.PageLocation.Models;
+using DFC.ServiceTaxonomy.PageLocation.Services;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Handlers;
 using OrchardCore.ContentManagement.Records;
@@ -14,10 +14,12 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
     public class PageLocationPartHandler : ContentPartHandler<PageLocationPart>
     {
         private readonly ISession _session;
+        private readonly IClonedPagePropertyGenerator _generator;
 
-        public PageLocationPartHandler(ISession session)
+        public PageLocationPartHandler(ISession session, IClonedPagePropertyGenerator generator)
         {
             _session = session;
+            _generator = generator;
         }
 
         public override Task InitializingAsync(InitializingContentContext context, PageLocationPart part)
@@ -34,53 +36,18 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
             IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
 
-            string urlSearchFragment = fullUrl.EndsWith("-clone") ?
-                fullUrl :
-                fullUrl.Contains("-clone") ?
-                    fullUrl.Substring(0, fullUrl.LastIndexOf("-")) :
-                    $"{fullUrl}-clone";
+            string urlSearchFragment = _generator.GenerateUrlSearchFragment(fullUrl);
 
             IEnumerable<ContentItem> existingClones = pages.Where(x => ((string)x.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]).Contains(urlSearchFragment));
 
-            string urlPostfix = "-clone";                
+            var result = _generator.GenerateClonedPageProperties(title, urlName, fullUrl, existingClones);
 
-            if (existingClones.Any())
-            {
-                string latestClonedUrl = existingClones
-                    .OrderBy(x => x.CreatedUtc)
-                    .Select(x => (string)x.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)])
-                    .Last();
-
-                if (latestClonedUrl.EndsWith("-clone"))
-                {
-                    urlPostfix += "-2";
-                }
-                else
-                {
-                    urlPostfix += $"-{Int32.Parse(latestClonedUrl.Substring(latestClonedUrl.LastIndexOf("-") + 1)) + 1}";
-                }
-            }
-
-            string newUrlName = string.Empty;
-            string newFullUrl = string.Empty;
-
-            if (fullUrl.Contains("-clone"))
-            {
-                newUrlName = $"{urlName.Substring(0, urlName.IndexOf("-clone"))}{urlPostfix}";
-                newFullUrl = $"{fullUrl.Substring(0, fullUrl.IndexOf("-clone"))}{urlPostfix}";
-            }
-            else
-            {        
-                newUrlName = $"{urlName}{urlPostfix}";
-                newFullUrl = $"{fullUrl}{urlPostfix}";
-            }
-
-            context.CloneContentItem.DisplayText = title.StartsWith("CLONE - ") ? title : $"CLONE - {title}";
-            context.CloneContentItem.Alter<TitlePart>(part => part.Title = title.StartsWith("CLONE - ") ? title : $"CLONE - {title}");
+            context.CloneContentItem.DisplayText = result.Title;
+            context.CloneContentItem.Alter<TitlePart>(part => part.Title = result.Title);
             context.CloneContentItem.Alter<PageLocationPart>(part =>
             {
-                part.UrlName = newUrlName;
-                part.FullUrl = newFullUrl;
+                part.UrlName = result.UrlName;
+                part.FullUrl = result.FullUrl;
                 part.DefaultPageForLocation = false;
                 part.RedirectLocations = null;
             });
