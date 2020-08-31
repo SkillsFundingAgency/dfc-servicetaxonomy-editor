@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
@@ -17,12 +17,14 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         private readonly ISession _session;
         private readonly ITaxonomyHelper _taxonomyHelper;
         private readonly IContentManager _contentManager;
+        private readonly ISyncOrchestrator _syncOrchestrator;
 
-        public PageLocationTaxonomyTermHandler(ISession session, ITaxonomyHelper taxonomyHelper, IContentManager contentManager)
+        public PageLocationTaxonomyTermHandler(ISession session, ITaxonomyHelper taxonomyHelper, IContentManager contentManager, ISyncOrchestrator syncOrchestrator)
         {
             _session = session;
             _taxonomyHelper = taxonomyHelper;
             _contentManager = contentManager;
+            _syncOrchestrator = syncOrchestrator;
         }
 
         public async Task UpdatedAsync(ContentItem term, ContentItem taxonomy)
@@ -58,21 +60,37 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                     publishedPage.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
                 }
 
-                if (publishedPage != null && ((draftPage?.Latest ?? false) || draftPage == null))
+                if (publishedPage != null)
                 {
-                    publishedPage.Published = false;
-                    await _contentManager.PublishAsync(publishedPage);
+                    _session.Save(publishedPage);
                 }
 
                 if (draftPage != null)
                 {
-                    await _contentManager.SaveDraftAsync(draftPage);
+                    _session.Save(draftPage);
                 }
 
-                if (publishedPage != null && draftPage != null && !draftPage.Latest)
+                if (publishedPage != null && draftPage != null)
                 {
-                    publishedPage.Published = false;
-                    await _contentManager.PublishAsync(publishedPage);
+                    //TODO (CHECK) : will this also fire events to the event store?
+                    if (!await _syncOrchestrator.Update(publishedPage, draftPage))
+                    {
+                        _session.Cancel();
+                    }
+                }
+                else if (publishedPage != null)
+                {
+                    if (!await _syncOrchestrator.Publish(publishedPage))
+                    {
+                        _session.Cancel();
+                    }
+                }
+                else if (draftPage != null)
+                {
+                    if (!await _syncOrchestrator.SaveDraft(draftPage))
+                    {
+                        _session.Cancel();
+                    }
                 }
             }
         }
