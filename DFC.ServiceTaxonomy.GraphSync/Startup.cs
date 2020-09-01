@@ -105,6 +105,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<ICloneGraphSync, CloneGraphSync>();
             services.AddTransient<IValidateAndRepairGraph, ValidateAndRepairGraph>();
             services.AddTransient<IGraphResyncer, GraphResyncer>();
+            services.AddTransient<IVisualiseGraphSyncer, VisualiseGraphSyncer>();
 
             services.AddTransient<ISyncNameProvider, SyncNameProvider>();
             services.AddTransient<ISyncNameProviderCSharpScriptGlobals, SyncNameProviderCSharpScriptGlobals>();

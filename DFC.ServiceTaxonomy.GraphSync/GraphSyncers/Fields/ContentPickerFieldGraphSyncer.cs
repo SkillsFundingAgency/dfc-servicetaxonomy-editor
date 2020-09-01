@@ -16,7 +16,7 @@ using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using System;
 using OrchardCore.ContentManagement.Metadata;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -29,6 +29,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IPreExistingContentItemVersion _preExistingContentItemVersion;
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IServiceProvider _serviceProvider;
+
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
         public static IEnumerable<KeyValuePair<string, object>> ContentPickerRelationshipProperties { get; } =
@@ -36,14 +38,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public ContentPickerFieldGraphSyncer(
             IPreExistingContentItemVersion preExistingContentItemVersion,
-            IContentDefinitionManager contentDefinitionManager)
+            IContentDefinitionManager contentDefinitionManager,
+            IServiceProvider serviceProvider)
         {
             _preExistingContentItemVersion = preExistingContentItemVersion;
             _contentDefinitionManager = contentDefinitionManager;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
         {
+            var describeContentItemHelper = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+
             ContentPickerFieldSettings contentPickerFieldSettings =
                parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
@@ -57,35 +63,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 IEnumerable<string> destNodeLabels = await parentContext.SyncNameProvider.NodeLabels(pickedContentType);
                 parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
 
-                await GetRelationshipsForNestedContentPickers(parentContext, contentItemIdsJArray);
-            }
-        }
-
-        private async Task GetRelationshipsForNestedContentPickers(IDescribeRelationshipsContext parentContext, JArray? contentItemIdsJArray)
-        {
-            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray!, parentContext.ContentManager);
-
-            foreach (var item in foundDestinationContentItems)
-            {
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(item.ContentType);
-                var partsWithContentPickers = contentTypeDefinition.Parts.Where(z => z.PartDefinition.Fields.Any(y => y.FieldDefinition.Name == FieldTypeName));
-
-                if (partsWithContentPickers.Any())
+                foreach (var nestedItem in contentItemIdsJArray)
                 {
-                    foreach (var partWithContentPicker in partsWithContentPickers)
-                    {
-                        var contentPickers = partWithContentPicker.PartDefinition.Fields.Where(x => x.FieldDefinition.Name == FieldTypeName);
-
-                        foreach (var contentPicker in contentPickers)
-                        {
-                            var childContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, item, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider);
-                            childContext.SetContentPartFieldDefinition(contentPicker);
-                            childContext.SetContentField((JObject)item!.Content[partWithContentPicker.PartDefinition.Name][contentPicker.Name]);
-
-                            parentContext.AddChildContext(childContext);
-                            await AddRelationship(childContext);
-                        }
-                    }
+                    await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext, parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, sourceNodeLabels);
                 }
             }
         }
@@ -249,14 +229,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
-        {  
-            context.SyncNameProvider.ContentType = pickedContentItem.ContentType;
-            var syncSettings = context.SyncNameProvider.GraphSyncPartSettings;
+        {
+            //Todo add GetNodeId support to TaxonomyFieldGraphSyncer
+            var syncSettings = context.SyncNameProvider.GetGraphSyncPartSettings(pickedContentItem.ContentType);
 
-            _preExistingContentItemVersion.SetContentApiBaseUrl(syncSettings.PreExistingNodeUriPrefix ?? context.ContentItemVersion.ContentApiBaseUrl);
-           
+            _preExistingContentItemVersion.SetContentApiBaseUrl(syncSettings.PreExistingNodeUriPrefix);
+
             return context.SyncNameProvider.GetIdPropertyValue(
-                      pickedContentItem.Content[nameof(GraphSyncPart)], _preExistingContentItemVersion);
+                      pickedContentItem.Content[nameof(GraphSyncPart)], syncSettings.PreExistingNodeUriPrefix == null ? context.ContentItemVersion : _preExistingContentItemVersion );
         }
     }
 }

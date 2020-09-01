@@ -58,10 +58,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string? hint = contentPartFieldDefinition.GetSettings<TextFieldSettings>().Hint;
             return hint != null && hint.ToLower().IndexOf(SyncToArrayFlag, StringComparison.Ordinal) != -1;
         }
-
-        public Task AddRelationship(IDescribeRelationshipsContext itemContext)
-        {
-            return Task.CompletedTask;
-        }
     }
 }

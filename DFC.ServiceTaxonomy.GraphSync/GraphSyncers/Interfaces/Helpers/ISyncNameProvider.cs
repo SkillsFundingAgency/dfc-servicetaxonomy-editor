@@ -49,6 +49,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
             string nodeIdValue,
             IContentItemVersion fromContentItemVersion,
             IContentItemVersion toContentItemVersion);
+
+        GraphSyncPartSettings GetGraphSyncPartSettings(string contentType);
     }
     #pragma warning restore S4136
 }

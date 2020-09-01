@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
@@ -8,14 +9,18 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
-    //todo: common base class with NoteWithOutgoingRelationships?
-    //todo: move generic queries into neo4j
-    public class NodeAndOutRelationshipsAndTheirInRelationshipsQueryFromCommand : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
+    public class NodeAndIncomingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
-        public NodeAndOutRelationshipsAndTheirInRelationshipsQueryFromCommand(
-            string command)
+        private readonly IEnumerable<string> _sourceNodeLabels;
+        private readonly string _sourceNodePropertyIdName;
+        private readonly string _sourceNodeId;
+
+        public NodeAndIncomingRelationshipsQuery(
+            IEnumerable<string> sourceNodeLabels, string sourceNodePropertyIdName, string sourceNodeId)
         {
-            Query = new Query(command);
+            _sourceNodeLabels = sourceNodeLabels;
+            _sourceNodePropertyIdName = sourceNodePropertyIdName;
+            _sourceNodeId = sourceNodeId;
         }
 
         public List<string> ValidationErrors()
@@ -23,7 +28,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
             return new List<string>();
         }
 
-        public Query Query { get; set; }
+        public Query Query
+        {
+            get
+            {
+                var commandStringBuilder = new StringBuilder($"match (s)-[r]->(d:{string.Join(":", _sourceNodeLabels)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
+                commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'todo',  destIncomingRelSource:'todo'})} as relationshipDetails");
+                commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(relationshipDetails)} as nodeAndOutRelationshipsAndTheirInRelationships");
+                commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
+                return new Query(commandStringBuilder.ToString());
+            }
+        }
 
         public INodeAndOutRelationshipsAndTheirInRelationships? ProcessRecord(IRecord record)
         {

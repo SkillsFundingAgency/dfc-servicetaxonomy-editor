@@ -12,9 +12,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions
             ContentApiBaseUrl = string.Empty;
         }
 
-        public void SetContentApiBaseUrl(string contentApiBaseUrl)
+        public void SetContentApiBaseUrl(string? contentApiBaseUrl)
         {
-            ContentApiBaseUrl = contentApiBaseUrl;
+            ContentApiBaseUrl = contentApiBaseUrl ?? string.Empty;
         }
 
         public string ContentApiBaseUrl { get; set; }

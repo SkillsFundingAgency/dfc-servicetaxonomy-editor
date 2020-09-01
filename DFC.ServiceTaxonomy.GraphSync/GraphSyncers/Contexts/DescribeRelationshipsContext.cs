@@ -25,6 +25,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public string SourceNodeIdPropertyName { get; set; }
         public IEnumerable<string> SourceNodeLabels { get; set; }
 
+        public ContentItem RootContentItem { get; set; }
+
         public DescribeRelationshipsContext(
             string sourceNodeIdPropertyName,
             string sourceNodeId,
@@ -34,13 +36,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             IDescribeRelationshipsContext? parentContext,
-            IServiceProvider serviceProvider) : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentContext, serviceProvider.GetRequiredService<ILogger<GraphDeleteContext>>())
+            IServiceProvider serviceProvider,
+            ContentItem rootContentItem) : base(contentItem, graphSyncHelper, contentManager, contentItemVersion, parentContext, serviceProvider.GetRequiredService<ILogger<GraphDeleteContext>>())
         {
             AvailableRelationships = new List<ContentItemRelationship>();
             ServiceProvider = serviceProvider;
             SourceNodeId = sourceNodeId;
             SourceNodeLabels = sourceNodeLabels;
             SourceNodeIdPropertyName = sourceNodeIdPropertyName;
+            RootContentItem = rootContentItem;
         }
 
         public void SetContentField(JObject jObject)

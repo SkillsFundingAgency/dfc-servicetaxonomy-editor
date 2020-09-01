@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
+using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -21,41 +21,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly ISyncNameProvider _graphSyncHelper;
+        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IEnumerable<IContentPartGraphSyncer> _contentPartGraphSyncers;
-        private readonly IEnumerable<IContentFieldGraphSyncer> _contentFieldsGraphSyncers;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-
-        public ContentItem? RootContentItem { get; private set; }
 
         public DescribeContentItemHelper(
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             ISyncNameProvider graphSyncHelper,
             IEnumerable<IContentPartGraphSyncer> contentPartGraphSyncers,
-            IEnumerable<IContentFieldGraphSyncer> contentFieldsGraphSyncers,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
             IServiceProvider serviceProvider)
         {
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
-            _graphSyncHelper = graphSyncHelper;
+            _syncNameProvider = graphSyncHelper;
             _contentPartGraphSyncers = contentPartGraphSyncers;
-            _contentFieldsGraphSyncers = contentFieldsGraphSyncers;
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
         }
 
-        public void SetRootContentItem(ContentItem contentItem)
-        {
-            RootContentItem = contentItem;
-        }
-
-        public async Task<IEnumerable<string?>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
+        public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
         {
             var allRelationships = await GetRelationships(context, currentList, parentContext);
             var groupedCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
@@ -75,47 +65,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 }
             }
 
-            List<string> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
+            List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
             BuildIncomingRelationshipCommands(commandsToReturn, context);
 
             return commandsToReturn;
         }
 
-        private void BuildIncomingRelationshipCommands(List<string> commandsToReturn, IDescribeRelationshipsContext context)
+        private void BuildIncomingRelationshipCommands(List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn, IDescribeRelationshipsContext context)
         {
-            var commandStringBuilder = new StringBuilder($"match (s)-[r]->(d:{string.Join(":", context.SourceNodeLabels)} {{{context.SourceNodeIdPropertyName}: '{context.SourceNodeId}'}})");
-            commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'todo',  destIncomingRelSource:'todo'})} as relationshipDetails");
-            commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(relationshipDetails)} as nodeAndOutRelationshipsAndTheirInRelationships");
-            commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
-
-            commandsToReturn.Add(commandStringBuilder.ToString());
+            commandsToReturn.Add(new NodeAndIncomingRelationshipsQuery(context.SourceNodeLabels, context.SourceNodeIdPropertyName, context.SourceNodeId));
         }
 
-        private static List<string> BuildOutgoingRelationshipCommands(IEnumerable<string?> uniqueCommands)
+        private static List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> BuildOutgoingRelationshipCommands(IEnumerable<string?> uniqueCommands)
         {
-            var commandsToReturn = new List<string>();
+            var commandsToReturn = new List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>();
 
             foreach (var command in uniqueCommands.ToList())
             {
-                var withStringBuilder = new StringBuilder();
-
-                int currentDepth = 1;
-                int depthCount = Regex.Matches(command, "d[0-9]+:").Count;
-
-                List<string> collectClauses = new List<string>();
-                List<string> relationshipClauses = new List<string>();
-                while (currentDepth <= depthCount)
-                {
-                    relationshipClauses.Add($"{{destNode: d{currentDepth}, relationship: r{currentDepth}, destinationIncomingRelationships:collect({{destIncomingRelationship:'todo',  destIncomingRelSource:'todo'}})}} as dr{currentDepth}RelationshipDetails");
-
-                    collectClauses.Add($"collect(dr{currentDepth}RelationshipDetails)");
-                    currentDepth++;
-                }
-
-                withStringBuilder.AppendLine($"with s,{string.Join(',', relationshipClauses)}");
-                withStringBuilder.AppendLine($"with {{sourceNode: s, outgoingRelationships: {string.Join('+', collectClauses)}}} as nodeAndOutRelationshipsAndTheirInRelationships");
-                withStringBuilder.AppendLine("return nodeAndOutRelationshipsAndTheirInRelationships");
-                commandsToReturn.Add($"{command} {withStringBuilder}");
+                commandsToReturn.Add(new NodeAndNestedOutgoingRelationshipsQuery(command!));
             }
 
             return commandsToReturn;
@@ -156,52 +123,55 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return currentList;
         }
 
+        public async Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context, string sourceNodeIdPropertyName, string sourceNodeId, IEnumerable<string> sourceNodeLabels)
+        {
+            var contentItem = await _contentManager.GetAsync(contentItemId, context.ContentItemVersion.VersionOptions);
+            var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, contentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+
+            context.AddChildContext(childContext);
+
+            await BuildRelationships(contentItem, childContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
+        }
+
         public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context, string sourceNodeIdPropertyName, string sourceNodeId, IEnumerable<string> sourceNodeLabels)
         {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-
-            _graphSyncHelper.ContentType = contentItem.ContentType;
-
-            var itemContext = contentItem == RootContentItem ? context : new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _graphSyncHelper, _contentManager, _publishedContentItemVersion, context, _serviceProvider);
-
-            foreach (var part in contentTypeDefinition.Parts)
+            try
             {
-                var partSyncer = _contentPartGraphSyncers.FirstOrDefault(x => x.PartName == part.Name);
+                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
-                if (partSyncer != null)
+                _syncNameProvider.ContentType = contentItem.ContentType;
+
+                //var itemContext = contentItem.ContentItemId == context.RootContentItem.ContentItemId ? context : new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider, _contentManager, _publishedContentItemVersion, context, _serviceProvider, context.RootContentItem);
+                Console.WriteLine($"Context Content Type: {contentItem.ContentType}");
+                foreach (var partSync in _contentPartGraphSyncers)
                 {
-                    await partSyncer.AddRelationship(itemContext);
-                }
 
-                foreach (var relationshipField in part.PartDefinition.Fields)
-                {
-                    itemContext.SetContentPartFieldDefinition(relationshipField);
-                    itemContext.SetContentField((JObject)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]);
+                    // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
+                    // (other non-named parts have the part name in both)
 
-                    var fieldSyncer = _contentFieldsGraphSyncers.FirstOrDefault(x => x.FieldTypeName == relationshipField.FieldDefinition.Name);
-
-                    var contentItemIds =
-                           (JArray)contentItem.Content[relationshipField.PartDefinition.Name][relationshipField.Name]
-                               .ContentItemIds;
-
-                    if (contentItemIds != null)
+                    foreach (var contentTypePartDefinition in contentTypeDefinition.Parts)
                     {
-                        foreach (var relatedContentItemId in contentItemIds)
-                        {
-                            await BuildRelationships(await _contentManager.GetAsync(relatedContentItemId.ToString()), itemContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
-                        }
-                    }
+                        string namedPartName = contentTypePartDefinition.Name;
 
-                    if (fieldSyncer != null)
-                    {
-                        await fieldSyncer.AddRelationship(itemContext);
+                        JObject? partContent = contentItem.Content[namedPartName];
+                        if (partContent == null)
+                            continue; //todo: throw??
+
+                        context.ContentTypePartDefinition = contentTypePartDefinition;
+
+                        context.SetContentField(partContent);
+                        await partSync.AddRelationship(context);
                     }
                 }
+
+                //if (contentItem.ContentItemId != context.RootContentItem.ContentItemId)
+                //{
+                //    context.AddChildContext(itemContext);
+                //}
             }
-
-            if (contentItem != RootContentItem)
+            catch (Exception ex2)
             {
-                context.AddChildContext(itemContext);
+                Console.WriteLine(ex2);
             }
         }
     }

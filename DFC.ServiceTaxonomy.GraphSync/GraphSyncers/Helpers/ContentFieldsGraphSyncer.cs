@@ -53,6 +53,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
+        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            //var itemContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, context.ContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+
+            foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
+            {
+                IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
+                    context.ContentTypePartDefinition.PartDefinition.Fields
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
+
+                foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
+                {
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
+                    context.SetContentField((JObject)context.ContentItem.Content[contentPartFieldDefinition.PartDefinition.Name][contentPartFieldDefinition.Name]);
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
+
+                    await contentFieldGraphSyncer.AddRelationship(context);
+                }
+
+                context.SetContentPartFieldDefinition(default);
+            }
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)

@@ -2,6 +2,6 @@
 {
     public interface IPreExistingContentItemVersion : IContentItemVersion
     {
-        void SetContentApiBaseUrl(string contentApiBaseUrl);
+        void SetContentApiBaseUrl(string? contentApiBaseUrl);
     }
 }

@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using Newtonsoft.Json.Linq;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata.Models;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 {
     public interface IDescribeRelationshipsContext : IGraphSyncContext
     {
-        public IServiceProvider ServiceProvider { get; set; }
+        IServiceProvider ServiceProvider { get; set; }
 
         public List<ContentItemRelationship> AvailableRelationships { get; set; }
 
@@ -23,5 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         public string SourceNodeIdPropertyName { get; set; }
 
         void SetContentField(JObject jObject);
+
+        new ContentTypePartDefinition ContentTypePartDefinition { get; set; }
+
+        public ContentItem RootContentItem { get; set; }
     }
 }

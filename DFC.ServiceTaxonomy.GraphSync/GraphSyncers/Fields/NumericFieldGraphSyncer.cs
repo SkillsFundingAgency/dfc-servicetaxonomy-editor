@@ -65,10 +65,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             return (doublesSame, doublesSame?"":$"double content property value was '{contentItemFieldValue}', but node property value was '{nodePropertyValue}' and allowable difference was {allowableDifference}");
         }
-
-        public Task AddRelationship(IDescribeRelationshipsContext itemContext)
-        {
-            return Task.CompletedTask;
-        }
     }
 }

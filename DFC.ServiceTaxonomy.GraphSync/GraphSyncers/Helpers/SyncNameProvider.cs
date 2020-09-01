@@ -54,6 +54,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
             set
             {
+                //if (!string.IsNullOrEmpty(_contentType))
+                //{
+                //    throw new InvalidOperationException($"Content Type has already been set to {_contentType}");
+                //}
+
                 _contentType = value ?? throw new ArgumentNullException($"Null is not an acceptable value for {nameof(ContentType)}.");
                 _graphSyncPartSettings = GetGraphSyncPartSettings(value);
             }
@@ -268,7 +273,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 _syncNameProviderCSharpScriptGlobals);
         }
 
-        private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
+        public GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
             var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));
