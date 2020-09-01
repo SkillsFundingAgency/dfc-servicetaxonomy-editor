@@ -135,43 +135,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context, string sourceNodeIdPropertyName, string sourceNodeId, IEnumerable<string> sourceNodeLabels)
         {
-            try
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+
+            foreach (var partSync in _contentPartGraphSyncers)
             {
-                var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-
-                _syncNameProvider.ContentType = contentItem.ContentType;
-
-                //var itemContext = contentItem.ContentItemId == context.RootContentItem.ContentItemId ? context : new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider, _contentManager, _publishedContentItemVersion, context, _serviceProvider, context.RootContentItem);
-                Console.WriteLine($"Context Content Type: {contentItem.ContentType}");
-                foreach (var partSync in _contentPartGraphSyncers)
+                foreach (var contentTypePartDefinition in contentTypeDefinition.Parts)
                 {
+                    string namedPartName = contentTypePartDefinition.Name;
 
-                    // bag part has p.Name == <<name>>, p.PartDefinition.Name == "BagPart"
-                    // (other non-named parts have the part name in both)
+                    JObject? partContent = contentItem.Content[namedPartName];
+                    if (partContent == null)
+                        continue;
 
-                    foreach (var contentTypePartDefinition in contentTypeDefinition.Parts)
-                    {
-                        string namedPartName = contentTypePartDefinition.Name;
+                    context.ContentTypePartDefinition = contentTypePartDefinition;
 
-                        JObject? partContent = contentItem.Content[namedPartName];
-                        if (partContent == null)
-                            continue; //todo: throw??
-
-                        context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                        context.SetContentField(partContent);
-                        await partSync.AddRelationship(context);
-                    }
+                    context.SetContentField(partContent);
+                    await partSync.AddRelationship(context);
                 }
-
-                //if (contentItem.ContentItemId != context.RootContentItem.ContentItemId)
-                //{
-                //    context.AddChildContext(itemContext);
-                //}
-            }
-            catch (Exception ex2)
-            {
-                Console.WriteLine(ex2);
             }
         }
     }
