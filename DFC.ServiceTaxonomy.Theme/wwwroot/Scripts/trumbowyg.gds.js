@@ -264,11 +264,6 @@
             var selection = trumbowyg.doc.getSelection();
 
             var options = {
-                text: {
-                    label: "Link Text",
-                    required: true,
-                    value: ''
-                },
                 url: {
                     label: 'URL',
                     required: true,
@@ -277,8 +272,13 @@
             };
 
             if (selection.focusNode.parentNode.tagName === 'A') {
+                options.text = {
+                    label: "Link Text",
+                    required: true,
+                    value: $(selection.focusNode.parentNode).text()
+                };
+
                 options.url.value = $(selection.focusNode.parentNode).attr('href');
-                options.text.value = $(selection.focusNode.parentNode).text();
             }
 
             trumbowyg.openModalInsert(openInNewTab ? 'Link in New Tab' : 'Link', options, function (v) {
@@ -288,19 +288,26 @@
                     $link = $(selection.focusNode.parentNode);
                     $link.attr('href', v.url);
                     $link.text(v.text);
+
+                    if (openInNewTab) {
+                        $link
+                            .attr('target', '_blank')
+                            .attr('rel', 'noreferrer noopener');
+                    } else {
+                        $link
+                            .removeAttr('target')
+                            .removeAttr('rel', 'noreferrer noopener');
+                    }
                 } else {
                     $link = $('<a href="' + v.url + '" class="govuk-link"></a>');
-                    $(selection.focusNode).wrap($link);
-                }
 
-                if (openInNewTab) {
-                    $link
-                        .attr('target', '_blank')
-                        .attr('rel', 'noreferrer noopener');
-                } else {
-                    $link
-                        .removeAttr('target')
-                        .removeAttr('rel', 'noreferrer noopener');
+                    if (openInNewTab) {
+                        $link
+                            .attr('target', '_blank')
+                            .attr('rel', 'noreferrer noopener');
+                    }
+
+                    $(selection.focusNode).wrap($link);
                 }
 
                 return true;
