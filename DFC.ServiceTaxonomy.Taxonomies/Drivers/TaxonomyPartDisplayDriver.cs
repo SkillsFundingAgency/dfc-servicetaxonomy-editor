@@ -74,7 +74,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 
                     part.Terms = taxonomyItems.ToObject<List<ContentItem>>();
 
-                    //make sure nothing has moved that has associated pages
+                    //TODO : ultimately this logic needs to move to keep taxonomies generic, not sure how it ended up here!
+                    //make sure nothing has moved that has associated pages anywhere down the tree
+                    //TODO : I think we need to change how this queries for pages and check both pub and draft separately as we do elsewhere?
                     IEnumerable<ContentItem> allPages = await _session
                         .Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest)
                         .ListAsync();
@@ -91,9 +93,12 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 
                         if (newParent.ContentItemId != null && newParent.ContentItemId != originalParent.ContentItemId)
                         {
-                            if (allPages.Any(x => (string)x.Content.Page.PageLocations.TermContentItemIds[0] == (string)term["ContentItemId"]))
+                            //find all child terms down the taxonomy tree
+                            var childTermsFromTree = _taxonomyHelper.GetAllTerms(term);
+                            
+                            if (allPages.Any(x => childTermsFromTree.Any(t => (string)t["ContentItemId"] == (string)x.Content.Page.PageLocations.TermContentItemIds[0])))
                             {
-                                updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), "You cannot move a Page Location which has associated Pages linked to it.");
+                                updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), "You cannot move a Page Location which has associated Pages linked to it, or any of its children.");
                             }
 
                             foreach (var validator in _validators)
