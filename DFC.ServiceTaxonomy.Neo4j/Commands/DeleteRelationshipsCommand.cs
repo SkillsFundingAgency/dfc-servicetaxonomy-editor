@@ -108,12 +108,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
 
         public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {
-            //todo: check this
             if (DeleteDestinationNodes)
             {
-                if (resultSummary.Counters.NodesDeleted != _expectedDeleted)
+                if (resultSummary.Counters.NodesDeleted > _expectedDeleted)
                     throw CreateValidationException(resultSummary,
-                        $"Expected {_expectedDeleted} nodes to be deleted, but {resultSummary.Counters.NodesDeleted} were deleted.");
+                        $"Expected no more than {_expectedDeleted} nodes to be deleted, but {resultSummary.Counters.NodesDeleted} were deleted.");
 
                 // we don't know (without querying) how many relationships are deleted, if DeleteDestinationNodes is true
                 // (due to not knowing how many outgoing relationships are on the destination nodes)

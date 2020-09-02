@@ -65,7 +65,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 {
                     // if we're syncing after field has been detached from the part, don't sync it
                     if (contentPartFieldDefinition.Settings["ContentPartFieldSettings"]?
-                        [GraphSyncContentDefinitionHandler.FieldZombieFlag]?.Value<bool>() == true)
+                        [GraphSyncContentDefinitionHandler.ZombieFlag]?.Value<bool>() == true)
                         continue;
 
                     JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];

@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -39,7 +40,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                 async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult));
         }
 
-        //todo: rename IAllowSyncResult
         public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
             await IteratePartSyncers(context,
@@ -49,7 +49,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             await IteratePartSyncers(context,
-                async (partSyncer, partContent) => await partSyncer.AddSyncComponents(partContent, context));
+                async (partSyncer, partContent) => await AddPartSyncComponents(partSyncer, partContent, context));
         }
 
         public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
@@ -62,6 +62,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         {
             await IteratePartSyncers(context,
                 async (partSyncer, partContent) => await partSyncer.MutateOnClone(partContent, context));
+        }
+
+        private async Task AddPartSyncComponents(
+            IContentPartGraphSyncer contentPartGraphSyncer,
+            JObject partContent,
+            IGraphMergeItemSyncContext context)
+        {
+            // if we're syncing after field has been detached from the part, don't sync it
+            if (context.ContentTypePartDefinition.PartDefinition.Settings["ContentPartSettings"]?
+                [GraphSyncContentDefinitionHandler.ZombieFlag]?.Value<bool>() == true)
+            {
+                return;
+            }
+
+            await contentPartGraphSyncer.AddSyncComponents(partContent, context);
         }
 
         private async Task IteratePartSyncers(

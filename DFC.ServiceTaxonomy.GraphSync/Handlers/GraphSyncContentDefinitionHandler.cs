@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly INotifier _notifier;
         private readonly ILogger<GraphSyncContentDefinitionHandler> _logger;
 
-        public const string FieldZombieFlag = "Zombie";
+        public const string ZombieFlag = "Zombie";
 
         public GraphSyncContentDefinitionHandler(
             IContentDefinitionManager contentDefinitionManager,
@@ -59,10 +59,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
             catch (Exception e)
             {
-                string message =
-                    $"Graph resync failed after deleting the {context.ContentTypeDefinition.Name} content type.";
-                _logger.LogError(e, message);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler), message));
+                _logger.LogError(e, "Graph resync failed after deleting the {ContentType} content type.",
+                    context.ContentTypeDefinition.Name);
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
+                    $"Graph resync failed after deleting the {context.ContentTypeDefinition.Name} content type."));
                 throw;
             }
         }
@@ -79,9 +79,49 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
         }
 
+        //todo: this isn't getting called. is the field removed below failing? or oc issue?
+        //todo: will need to delete embedded items of part, so will need to handle
+        // add PartRemoved to part syncer? and call instead of add components - most defaulting to noop
+        //todo: if graph sync part removed, remove all items???
         public void ContentPartRemoved(ContentPartRemovedContext context)
         {
-            //todo: think we need to update following a part removal, in addition to a field removal: add story
+            try
+            {
+                IEnumerable<ContentTypeDefinition> contentTypeDefinitions = _contentDefinitionManager.ListTypeDefinitions();
+                var affectedContentTypeDefinitions = contentTypeDefinitions
+                    .Where(t => t.Parts
+                        .Any(p => p.PartDefinition.Name == context.ContentPartDefinition.Name))
+                    .ToArray();
+
+                var affectedContentTypeNames = affectedContentTypeDefinitions
+                    .Select(t => t.Name);
+
+                var affectedContentPartDefinitions = affectedContentTypeDefinitions
+                    .SelectMany(td => td.Parts)
+                    .Where(pd => pd.PartDefinition.Name == context.ContentPartDefinition.Name);
+
+                foreach (var affectedContentPartDefinition in affectedContentPartDefinitions)
+                {
+                    // the content part isn't removed until after this event,
+                    // so we set a flag not to sync the removed part
+                    affectedContentPartDefinition.Settings["ContentPartSettings"]![ZombieFlag] = true;
+                }
+
+                foreach (string affectedContentTypeName in affectedContentTypeNames)
+                {
+                    _graphResyncer.ResyncContentItems(affectedContentTypeName).GetAwaiter().GetResult();
+                }
+
+            }
+            catch (Exception e)
+            {
+                //todo: do we need to cancel the session?
+                _logger.LogError(e, "Unable to update graphs following {ContentPart} part removal.",
+                    context.ContentPartDefinition.Name);
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
+                    $"Unable to update graphs following {context.ContentPartDefinition.Name} part removal."));
+                throw;
+            }
         }
 
         public void ContentPartAttached(ContentPartAttachedContext context)
@@ -127,7 +167,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 {
                     // the content field definition isn't removed until after this event,
                     // so we set a flag not to sync the removed field
-                    affectedContentFieldDefinition.Settings["ContentPartFieldSettings"]![FieldZombieFlag] = true;
+                    affectedContentFieldDefinition.Settings["ContentPartFieldSettings"]![ZombieFlag] = true;
                 }
 
                 foreach (string affectedContentTypeName in affectedContentTypeNames)
@@ -138,10 +178,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             }
             catch (Exception e)
             {
-                string message =
-                    $"Graph resync failed after deleting the {context.ContentFieldName} field from {context.ContentPartName} parts.";
-                _logger.LogError(e, message);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler), message));
+                _logger.LogError(e, "Unable to update graphs following {ContentField} field removed from {ContentPart} part.",
+                    context.ContentFieldName, context.ContentPartName);
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentDefinitionHandler),
+                    $"Unable to update graphs following {context.ContentFieldName} field removed from {context.ContentPartName} part."));
                 throw;
             }
         }
