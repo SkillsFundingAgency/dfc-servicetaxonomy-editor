@@ -63,18 +63,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
+
                     // if we're syncing after field has been detached from the part, don't sync it
                     if (contentPartFieldDefinition.Settings["ContentPartFieldSettings"]?
                         [ContentTypeOrchestrator.ZombieFlag]?.Value<bool>() == true)
-                        continue;
+                    {
+                        await contentFieldGraphSyncer.AddSyncComponentsDetaching(context);
+                    }
+                    else
+                    {
+                        JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
+                        if (contentItemField == null)
+                            continue;
 
-                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
-                    if (contentItemField == null)
-                        continue;
-
-                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
-
-                    await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
+                        await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
+                    }
                 }
 
                 context.SetContentPartFieldDefinition(default);

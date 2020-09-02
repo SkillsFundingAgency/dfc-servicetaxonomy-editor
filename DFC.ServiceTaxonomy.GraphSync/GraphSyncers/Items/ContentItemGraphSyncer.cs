@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         {
             await IteratePartSyncers(context,
                 async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult),
-                async (partSyncer, partContent) => await partSyncer.AllowSyncDetaching(partContent, context, allowSyncResult));
+                async (partSyncer, partContent) => await partSyncer.AllowSyncDetaching(context, allowSyncResult));
         }
 
         public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
@@ -51,7 +51,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         {
             await IteratePartSyncers(context,
                 async (partSyncer, partContent) => await partSyncer.AddSyncComponents(partContent, context),
-                async (partSyncer, partContent) => await partSyncer.AddSyncComponentsDetaching(partContent, context));
+                async (partSyncer, partContent) => await partSyncer.AddSyncComponentsDetaching(context));
         }
 
         public async Task DeleteComponents(IGraphDeleteItemSyncContext context)

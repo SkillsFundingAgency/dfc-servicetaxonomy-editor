@@ -88,6 +88,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
         }
 
+        //todo: need to handle field that do more than add properties to the node,
+        // such as content picker fields, where we need to remove relationships
         public void ContentFieldDetached(ContentFieldDetachedContext context)
         {
             _logger.LogInformation("User wants to remove {ContentField} from {ContentPart}.",
