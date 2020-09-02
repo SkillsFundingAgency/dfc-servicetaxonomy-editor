@@ -1,10 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Interactions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
 {
@@ -79,13 +75,9 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser.PageObjects
             try
             {
                 _webDriver.FindElement(By.Id("recipeButton")).Click();
-                var element = _webDriver.FindElement(By.XPath("//span[contains(.,'" + recipeName + "')]"));
-                Actions builder = new Actions(_webDriver);
-                var mouseUp = builder.MoveToElement(element)
-                                     .Click()
-                                     .Build(); ;
-                mouseUp.Perform();
-            }
+                var element = _webDriver.FindElement(By.XPath($"//a[@data-recipe-name='{recipeName}']"));
+                element.Click();
+             }
             catch( Exception e)
             {
                 throw new Exception("Setup page: Unable to select a Recipe", e);

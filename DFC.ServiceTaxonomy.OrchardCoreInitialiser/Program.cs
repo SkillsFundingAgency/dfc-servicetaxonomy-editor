@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             var shouldShowHelp = false;
             string uri = "https://localhost:44346";
             string siteName = "Service Taxonomy Editor";
-            string recipeName = "Service Taxonomy Editor";
+            string recipeName = "ServiceTaxonomyEditor";
             string databaseType = "";
             string tablePrefix = "";
             string sqlConnectionString = "";
@@ -58,7 +58,6 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 Console.WriteLine("Try `greet --help' for more information.");
                 return;
             }
-
 
             bool missingArgs = false;
             string errorMessage = "The following mandatory arguments were not supplied:\n";
