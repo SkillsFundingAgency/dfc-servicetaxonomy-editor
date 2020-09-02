@@ -25,6 +25,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentTypeRemoved(ContentTypeRemovedContext context)
         {
+            _logger.LogInformation("User wants to delete content type {ContentType}.",
+                context.ContentTypeDefinition.Name);
+
             _contentTypeOrchestrator.DeleteItemsOfType(context.ContentTypeDefinition.Name)
                 .GetAwaiter().GetResult();
         }
@@ -51,15 +54,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         //todo: will need to delete embedded items of part, so will need to handle
         // add PartRemoved to part syncer? and call instead of add components - most defaulting to noop
+        // and removing any relationships
         public void ContentPartDetached(ContentPartDetachedContext context)
         {
+            _logger.LogInformation("User wants to remove {ContentPart} from {ContentType}.",
+                context.ContentPartName, context.ContentTypeName);
+
             if (context.ContentPartName == nameof(GraphSyncPart))
             {
                 // if the graph sync part is removed that means we should remove all items of that type from the graphs
-                //todo: we should really get the user to confirm first
+                //todo: user gets a confirmation dialog, but would be better if we double checked, informing them of the consequences!
 
-                _contentTypeOrchestrator.DeleteItemsOfType(context.ContentTypeName)
-                    .GetAwaiter().GetResult();
+                _logger.LogInformation("Removing all items of {ContentType} as it no longer has a GraphSyncPart.",
+                    context.ContentTypeName);
+
+                _contentTypeOrchestrator.DeleteItemsOfType(context.ContentTypeName).GetAwaiter().GetResult();
                 return;
             }
 
@@ -81,10 +90,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
 
         public void ContentFieldDetached(ContentFieldDetachedContext context)
         {
+            _logger.LogInformation("User wants to remove {ContentField} from {ContentPart}.",
+                context.ContentFieldName, context.ContentPartName);
+
             _contentTypeOrchestrator.RemoveFieldFromItemsWithPart(context.ContentPartName, context.ContentFieldName)
                 .GetAwaiter().GetResult();
         }
     }
 #pragma warning disable S1186
-
 }
