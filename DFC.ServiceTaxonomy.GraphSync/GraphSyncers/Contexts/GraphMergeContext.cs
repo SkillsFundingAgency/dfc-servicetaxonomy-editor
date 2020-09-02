@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         public IGraphReplicaSet GraphReplicaSet { get; }
         public IMergeNodeCommand MergeNodeCommand { get; }
         public IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; }
-        public IEnumerable<IReplaceRelationshipsCommand>? RecreateIncomingPreviewContentPickerRelationshipsCommands { get; set; }
+        public List<ICommand> ExtraCommands { get; }
 
         public GraphMergeContext(
             IMergeGraphSyncer mergeGraphSyncer,
@@ -48,7 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             MergeNodeCommand = mergeNodeCommand;
             ReplaceRelationshipsCommand = replaceRelationshipsCommand;
 
-            RecreateIncomingPreviewContentPickerRelationshipsCommands = null;
+            ExtraCommands = new List<ICommand>();
         }
     }
 }
