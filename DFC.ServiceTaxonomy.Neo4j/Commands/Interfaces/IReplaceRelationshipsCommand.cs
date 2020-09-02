@@ -25,14 +25,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         //     string destIdPropertyName,
         //     params object[] destIdPropertyValues);
 
+        //todo: shouldn't require destIdPropertyName (& properties if not matching on)
+        // destIdPropertyName isn't actually used if no destIdPropertyIds
+        // neither is properties
+
         // have 'alias' to make it obvious what the intention is
         void RemoveAnyRelationshipsTo(
             string relationshipType,
-            IReadOnlyDictionary<string, object>? properties,
-            IEnumerable<string> destNodeLabels,
-            string destIdPropertyName)
+            //IReadOnlyDictionary<string, object>? properties,
+            IEnumerable<string> destNodeLabels)
+            //string destIdPropertyName)
         {
-            AddRelationshipsTo(relationshipType, properties, destNodeLabels, destIdPropertyName);
+            AddRelationshipsTo(relationshipType, null, destNodeLabels, null);
         }
     }
 }

@@ -56,9 +56,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             {
                 context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
                     relationshipType,
-                    null,
-                    destNodeLabels,
-                    context.SyncNameProvider.IdPropertyName(pickedContentType));
+                    //null,
+                    destNodeLabels);
+                    //context.SyncNameProvider.IdPropertyName(pickedContentType));
                 return;
             }
 

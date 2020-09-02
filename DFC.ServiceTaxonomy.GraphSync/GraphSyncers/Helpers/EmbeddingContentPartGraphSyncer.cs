@@ -27,6 +27,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
+        public override async Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            await _embeddedContentItemsGraphSyncer.AddSyncComponentsDetaching(context);
+        }
+
         public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
         {
             await _embeddedContentItemsGraphSyncer.AllowDelete((JArray?)content[ContainerName], context, allowSyncResult);

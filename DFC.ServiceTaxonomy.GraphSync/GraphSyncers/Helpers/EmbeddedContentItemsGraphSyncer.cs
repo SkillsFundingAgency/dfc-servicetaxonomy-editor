@@ -204,6 +204,55 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
+        public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            //(string[] embeddableContentTypes, IEnumerable<string> relationshipTypes) =
+            var possibleRelationships =
+                await GetEmbeddableContentTypesAndRelationshipTypes(context);
+
+            //todo: need to detach delete the embedded nodes
+            foreach (var possibleRelationship in possibleRelationships)
+            {
+                //todo: needs to delete dest node
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    possibleRelationship.RelationshipType,
+                    await context.SyncNameProvider.NodeLabels(possibleRelationship.ContentType));
+            }
+        }
+
+        //todo: better name
+        private class RelationshipTypeToContentType
+        {
+            public string RelationshipType { get; set; }
+            public string ContentType { get; set; }
+
+            public RelationshipTypeToContentType(string relationshipType, string contentType)
+            {
+                RelationshipType = relationshipType;
+                ContentType = contentType;
+            }
+        }
+
+        //todo: replace existing code with this helper
+        //todo: return single enumerable containing both??
+        //private async Task<(string[] embeddableContentTypes, IEnumerable<string> relationshipTypes)>
+        private async Task<IEnumerable<RelationshipTypeToContentType>>
+            GetEmbeddableContentTypesAndRelationshipTypes(IGraphSyncContext context)
+        {
+            string[] embeddableContentTypes = GetEmbeddableContentTypes(context).ToArray();
+
+            var embeddedContentNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+
+            IEnumerable<string> relationshipTypes = await Task.WhenAll(
+                embeddableContentTypes.Select(async ct =>
+                {
+                    embeddedContentNameProvider.ContentType = ct;
+                    return await RelationshipType(embeddedContentNameProvider);
+                }));
+
+            return relationshipTypes.Zip(embeddableContentTypes, (rt, ct) => new RelationshipTypeToContentType(rt, ct));
+        }
+
         public async Task AllowDelete(
             JArray? contentItems,
             IGraphDeleteContext context,
@@ -302,6 +351,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             };
             deleteRelationshipCommand.AddRelationshipsTo(_removingRelationships);
 
+            //todo: oops missed this
             //todo: need to add command to context, or otherwise execute it
             // should add commands to be executed (in order) to context (same with embedded items)
             // so that everything syncs as a unit (atomically) or not within a transaction
