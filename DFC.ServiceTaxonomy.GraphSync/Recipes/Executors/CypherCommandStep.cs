@@ -73,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
             catch (Exception exception)
             {
-                _logger.LogWarning(exception, $"{StepName} recipe step failed.");
+                _logger.LogWarning(exception, "{StepName} recipe step failed.", StepName);
                 throw;
             }
         }
@@ -82,7 +82,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
         {
             ICustomCommand customCommand = CreateCustomCommand(command, contentItemVersion.ContentApiBaseUrl);
 
-            _logger.LogInformation($"Retrieved cypher command from recipe's {StepName} step. Executing {customCommand.Command} on the {contentItemVersion.GraphReplicaSetName} graph replica set.");
+            _logger.LogInformation("Retrieved cypher command from recipe's {StepName} step. Executing {Command} on the {GraphReplicaSetName} graph replica set.",
+                StepName, customCommand.Command, contentItemVersion.GraphReplicaSetName);
 
             await _graphCluster.Run(contentItemVersion.GraphReplicaSetName, customCommand);
         }
