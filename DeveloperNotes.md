@@ -324,8 +324,6 @@ also don't add the guid to the master recipe filename
 
 * api: GetJobProfilesBySearchTerm should tolower the search term
 
-* don't log to file in env, only ai: add nlog.Development.config?
-
 * graph validator : group verified results in ui by content type
                     only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
                     log user id, not contentitemid
