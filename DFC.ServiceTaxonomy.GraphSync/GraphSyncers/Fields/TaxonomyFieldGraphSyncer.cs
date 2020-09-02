@@ -120,7 +120,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<ContentItem> termsRootContentItems = GetTermsRootContentItems(taxonomyPartContent);
 
             return termsRootContentItems
-                .Flatten(ci => ((JArray?) ((JObject) ci.Content)["Terms"])
+                .Flatten(ci => ((JArray?)((JObject)ci.Content)["Terms"])
                     ?.ToObject<IEnumerable<ContentItem>>() ?? Enumerable.Empty<ContentItem>())
                 .ToDictionary(ci => ci.ContentItemId, ci => ci.ContentItem);
         }
@@ -222,17 +222,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
         {
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
-               parentContext.ContentField!, parentContext.ContentItemVersion, parentContext.ContentManager);
+            try
+            {
+                ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+                   parentContext.ContentField!, parentContext.ContentItemVersion, parentContext.ContentManager);
 
-            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
-            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
+                JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+                string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
-            string termRelationshipType = TermRelationshipType(termContentType);
+                string termRelationshipType = TermRelationshipType(termContentType);
 
-            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider, parentContext.RootContentItem) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.SyncNameProvider.NodeLabels(termContentType)) } };
+                var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider, parentContext.RootContentItem) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.SyncNameProvider.NodeLabels(termContentType)) } };
 
-            parentContext.AddChildContext(describeRelationshipsContext);
+                parentContext.AddChildContext(describeRelationshipsContext);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

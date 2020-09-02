@@ -53,7 +53,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField![ContentItemIdsKey];
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField?[parentContext.ContentPartFieldDefinition!.Name][ContentItemIdsKey];
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
             if (contentItemIdsJArray != null && contentItemIdsJArray.Count > 0)
             {
@@ -65,7 +67,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 foreach (var nestedItem in contentItemIdsJArray)
                 {
-                    await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext, parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, sourceNodeLabels);
+                    await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext);
                 }
             }
         }

@@ -10,8 +10,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
 {
     public interface IDescribeContentItemHelper
     {
-        Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context, string sourceNodeIdPropertyName, string sourceNodeId, IEnumerable<string> sourceNodeLabels);
-        Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context, string sourceNodeIdPropertyName, string sourceNodeId, IEnumerable<string> sourceNodeLabels);
+        Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context);
+        Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context);
         Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext);
     }
 }

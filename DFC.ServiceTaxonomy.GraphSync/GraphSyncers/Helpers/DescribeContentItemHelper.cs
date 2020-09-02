@@ -6,13 +6,12 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
-using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -22,21 +21,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     {
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IEnumerable<IContentPartGraphSyncer> _contentPartGraphSyncers;
+        private readonly ISyncNameProvider _syncNameProvider;
+        private readonly IEnumerable<IContentItemGraphSyncer> _contentItemGraphSyncers;
         private readonly List<string> encounteredContentItems = new List<string>();
+        private readonly List<string> encounteredContentTypes = new List<string>();
 
         public DescribeContentItemHelper(
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             ISyncNameProvider syncNameProvider,
-            IEnumerable<IContentPartGraphSyncer> contentPartGraphSyncers,
+            IEnumerable<IContentItemGraphSyncer> contentItemGraphSyncers,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
             IServiceProvider serviceProvider)
         {
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
-            _contentPartGraphSyncers = contentPartGraphSyncers;
+            _syncNameProvider = syncNameProvider;
+            _contentItemGraphSyncers = contentItemGraphSyncers;
         }
 
         public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
@@ -82,44 +84,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return commandsToReturn;
         }
 
-        
 
-        public async Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context, string sourceNodeIdPropertyName, string sourceNodeId, IEnumerable<string> sourceNodeLabels)
+
+        public async Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context)
         {
             var contentItem = await _contentManager.GetAsync(contentItemId, context.ContentItemVersion.VersionOptions);
             var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, contentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
 
             context.AddChildContext(childContext);
 
-            await BuildRelationships(contentItem, childContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
+            await BuildRelationships(contentItem, childContext);
         }
 
-        public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context, string sourceNodeIdPropertyName, string sourceNodeId, IEnumerable<string> sourceNodeLabels)
+        public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context)
         {
-            if (encounteredContentItems.Any(x => x == contentItem.ContentItemId))
+            if (encounteredContentItems.Any(x => x == contentItem.ContentItemId) || encounteredContentTypes.Any(x => x == contentItem.ContentType))
             {
                 return;
             }
 
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-
-            foreach (var partSync in _contentPartGraphSyncers)
+            foreach (var itemSync in _contentItemGraphSyncers)
             {
-                foreach (var contentTypePartDefinition in contentTypeDefinition.Parts)
-                {
-                    string namedPartName = contentTypePartDefinition.Name;
+                await itemSync.AddRelationship(context);
 
-                    JObject? partContent = contentItem.Content[namedPartName];
-                    if (partContent == null)
-                        continue;
-
-                    context.ContentTypePartDefinition = contentTypePartDefinition;
-
-                    context.SetContentField(partContent);
-                    await partSync.AddRelationship(context);
-                }
             }
 
+            encounteredContentTypes.Add(contentItem.ContentType);
             encounteredContentItems.Add(contentItem.ContentItemId);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -55,19 +56,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddRelationship(IDescribeRelationshipsContext context)
         {
-            //var itemContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, context.ContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+            if (context.ContentField == null)
+            {
+                return;
+            }
 
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
-                IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
-                    context.ContentTypePartDefinition.PartDefinition.Fields
-                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
-
-                foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
+                foreach (var field in context.ContentTypePartDefinition.PartDefinition.Fields)
                 {
-                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
-                    context.SetContentField((JObject)context.ContentItem.Content[contentPartFieldDefinition.PartDefinition.Name][contentPartFieldDefinition.Name]);
-                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
+                    if (field == null)
+                    {
+                        continue;
+                    }
+
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+                    if (context.ContentField?[field!.Name!].GetType() == typeof(JValue)){
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+                        continue;
+                    }
+
+                    JObject? contentItemField = (JObject?)context.ContentField?[field!.Name!];
+                    if (contentItemField == null)
+                        continue;
+
+                    context.SetContentPartFieldDefinition(field);
 
                     await contentFieldGraphSyncer.AddRelationship(context);
                 }
@@ -135,7 +148,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 }
             }
 
-            return (true,"");
+            return (true, "");
         }
     }
 }

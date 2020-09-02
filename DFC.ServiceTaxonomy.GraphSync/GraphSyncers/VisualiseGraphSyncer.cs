@@ -38,8 +38,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             var sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
             var rootContext = new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
+            rootContext.SetContentField(contentItem.Content);
 
-            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext, sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels);
+            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
 
             var relationships = new List<ContentItemRelationship>();
             var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);

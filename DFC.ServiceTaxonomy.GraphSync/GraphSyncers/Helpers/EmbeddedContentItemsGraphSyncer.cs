@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -457,22 +458,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return embeddedContentItems;
         }
 
-        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        public async Task AddRelationship(JArray? contentItems, IDescribeRelationshipsContext context)
         {
-            var items = (JArray)context.ContentItem.Content["FlowPart"]["Widgets"];
-
-            var convertedItems = ConvertToContentItems(items);
-
-            foreach (var embeddedContentItem in convertedItems)
+            try
             {
-                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-                embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+                if (contentItems == null)
+                {
+                    return;
+                }
 
-                string relationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
-                context.AvailableRelationships.Add(new ContentItemRelationship(await context.SyncNameProvider.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.SyncNameProvider.NodeLabels(embeddedContentItem.ContentType)));
+                var convertedItems = ConvertToContentItems(contentItems);
 
-                var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
-                await describeRelationshipService.BuildRelationships(embeddedContentItem, context, context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels);
+                foreach (var embeddedContentItem in convertedItems)
+                {
+                    var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+                    embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+
+                    string relationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
+
+                    context.AvailableRelationships.Add(new ContentItemRelationship(await context.SyncNameProvider.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.SyncNameProvider.NodeLabels(embeddedContentItem.ContentType)));
+
+                    var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+
+                    var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, embeddedContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+                    childContext.SetContentField(embeddedContentItem.Content);
+                    await describeRelationshipService.BuildRelationships(embeddedContentItem, childContext);
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
     }

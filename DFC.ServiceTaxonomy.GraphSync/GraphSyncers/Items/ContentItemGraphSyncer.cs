@@ -153,5 +153,27 @@ properties:
 Relationships ----------------------------------
 {string.Join(Environment.NewLine, context.NodeWithOutgoingRelationships.OutgoingRelationships.Select(or => $"[:{or.Relationship.Type}]->({or.DestinationNode.Id})"))}";
         }
+
+        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentItem.ContentType);
+
+            foreach (var partSync in _partSyncers)
+            {
+                foreach (var contentTypePartDefinition in contentTypeDefinition.Parts)
+                {
+                    string namedPartName = contentTypePartDefinition.Name;
+
+                    JObject? partContent = context.ContentItem.Content[namedPartName];
+                    if (partContent == null)
+                        continue;
+
+                    context.ContentTypePartDefinition = contentTypePartDefinition;
+
+                    context.SetContentField(partContent);
+                    await partSync.AddRelationship(context);
+                }
+            }
+        }
     }
 }
