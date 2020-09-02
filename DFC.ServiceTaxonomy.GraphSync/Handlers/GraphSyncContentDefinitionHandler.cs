@@ -132,9 +132,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
         }
 
-        //todo: context only contains content part & field names, so presumably
-        // if different content items contain the same part and field names, this will remove the field from
-        // items it shouldn't!! check
         public void ContentFieldDetached(ContentFieldDetachedContext context)
         {
             try
