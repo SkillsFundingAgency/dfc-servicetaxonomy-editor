@@ -21,7 +21,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<DeleteOrchestrator> _logger;
 
         public DeleteOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -35,7 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
-            _logger = logger;
         }
 
         /// <returns>true if unpublish to publish graph was blocked.</returns>

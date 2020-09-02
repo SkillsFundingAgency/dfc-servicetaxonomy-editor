@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -71,7 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         {
             // if we're syncing after field has been detached from the part, don't sync it
             if (context.ContentTypePartDefinition.PartDefinition.Settings["ContentPartSettings"]?
-                [GraphSyncContentDefinitionHandler.ZombieFlag]?.Value<bool>() == true)
+                [ContentTypeOrchestrator.ZombieFlag]?.Value<bool>() == true)
             {
                 return;
             }
