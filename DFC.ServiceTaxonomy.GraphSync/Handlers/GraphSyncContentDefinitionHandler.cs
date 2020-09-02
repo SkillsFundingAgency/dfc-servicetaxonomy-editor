@@ -99,7 +99,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     .Single(t => t.Name == context.ContentTypeName);
 
                 var affectedContentPartDefinition = affectedContentTypeDefinition.Parts
-                    .Single(pd => pd.PartDefinition.Name == context.ContentPartName);
+                    .Single(pd => pd.PartDefinition.Name == context.ContentPartName)
+                    .PartDefinition;
 
                 //todo: this the case for parts?
                 // the content part isn't removed until after this event,
