@@ -54,10 +54,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
             set
             {
-                //if (!string.IsNullOrEmpty(_contentType))
-                //{
-                //    throw new InvalidOperationException($"Content Type has already been set to {_contentType}");
-                //}
+                if (!string.IsNullOrEmpty(_contentType))
+                {
+                    throw new InvalidOperationException($"Content Type has already been set to {_contentType}");
+                }
 
                 _contentType = value ?? throw new ArgumentNullException($"Null is not an acceptable value for {nameof(ContentType)}.");
                 _graphSyncPartSettings = GetGraphSyncPartSettings(value);

@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
+﻿using System;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
@@ -15,7 +16,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
         public ContentPickerFieldGraphSyncerAddSyncComponentsTestsBase()
         {
             Logger = A.Fake<ILogger<ContentPickerFieldGraphSyncer>>();
-            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(A.Fake<IPreExistingContentItemVersion>(), A.Fake<IContentDefinitionManager>());
+            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(A.Fake<IPreExistingContentItemVersion>(), A.Fake<IContentDefinitionManager>(), A.Fake<IServiceProvider>());
 
             ContentPickerFieldSettings = A.Fake<ContentPickerFieldSettings>();
 
