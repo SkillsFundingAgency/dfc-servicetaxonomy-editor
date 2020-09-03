@@ -74,10 +74,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return;
             }
 
-            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
-
-            IEnumerable<string> relationshipTypes = await Task.WhenAll(
-                embeddableContentTypes.Select(async ct => await RelationshipType(ct)));
+            (string[] embeddableContentTypes, IEnumerable<string> relationshipTypes) =
+                await GetEmbeddableContentTypesAndRelationshipTypes(context);
 
             existing = new NodeAndOutRelationshipsAndTheirInRelationships(
                 existing.SourceNode,
@@ -214,10 +212,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return;
             }
 
-            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
-
-            IEnumerable<string> relationshipTypes = await Task.WhenAll(
-                embeddableContentTypes.Select(async ct => await RelationshipType(ct)));
+            (string[] embeddableContentTypes, IEnumerable<string> relationshipTypes) =
+                await GetEmbeddableContentTypesAndRelationshipTypes(context);
 
             existing = new NodeAndOutRelationshipsAndTheirInRelationships(
                 existing.SourceNode,
@@ -263,10 +259,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             // delete all relationships of all embeddable relationship types and their destination nodes
             // (and the destination node's outgoing relationships and incoming two-way relationships)
 
-            //(string[] embeddableContentTypes, IEnumerable<string> relationshipTypes) =
-            var possibleRelationships =
-                await GetEmbeddableContentTypesAndRelationshipTypes(context);
-
             //todo: put serviceprovider into the context??
             var deleteRelationshipsCommand = _serviceProvider.GetRequiredService<IDeleteRelationshipsCommand>();
 
@@ -278,6 +270,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 context.ReplaceRelationshipsCommand.SourceIdPropertyValue;
 
             context.ExtraCommands.Add(deleteRelationshipsCommand);
+
+            (string[] embeddableContentTypes, IEnumerable<string> relationshipTypes) =
+                await GetEmbeddableContentTypesAndRelationshipTypes(context);
+
+            var possibleRelationships = relationshipTypes
+                .Zip(embeddableContentTypes, (rt, ct) => new RelationshipTypeToContentType(rt, ct));
 
             foreach (var possibleRelationship in possibleRelationships)
             {
@@ -302,10 +300,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        //todo: replace existing code with this helper
-        //todo: return single enumerable containing both??
-        //private async Task<(string[] embeddableContentTypes, IEnumerable<string> relationshipTypes)>
-        private async Task<IEnumerable<RelationshipTypeToContentType>>
+        private async Task<(string[] embeddableContentTypes, IEnumerable<string> relationshipTypes)>
             GetEmbeddableContentTypesAndRelationshipTypes(IGraphSyncContext context)
         {
             string[] embeddableContentTypes = GetEmbeddableContentTypes(context).ToArray();
@@ -313,7 +308,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IEnumerable<string> relationshipTypes = await Task.WhenAll(
                 embeddableContentTypes.Select(async ct => await RelationshipType(ct)));
 
-            return relationshipTypes.Zip(embeddableContentTypes, (rt, ct) => new RelationshipTypeToContentType(rt, ct));
+            return (embeddableContentTypes, relationshipTypes);
         }
 
         public async Task AllowDelete(
