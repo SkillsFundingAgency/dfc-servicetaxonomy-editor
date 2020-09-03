@@ -197,10 +197,65 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
-        public Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
         {
-            //todo: need to check if deleting as part of AddSyncComponentsDetaching is gonna fail the sync
-            return Task.CompletedTask;
+            //todo: factor out common code
+
+            INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
+                    new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
+                        context.ReplaceRelationshipsCommand.SourceNodeLabels,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyName!,
+                        context.ReplaceRelationshipsCommand.SourceIdPropertyValue!)))
+                .FirstOrDefault();
+
+            if (existing?.OutgoingRelationships.Any() != true)
+            {
+                // nothing to do here, existing node has no relationships
+                return;
+            }
+
+            IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
+
+            IEnumerable<string> relationshipTypes = await Task.WhenAll(
+                embeddableContentTypes.Select(async ct => await RelationshipType(ct)));
+
+            existing = new NodeAndOutRelationshipsAndTheirInRelationships(
+                existing.SourceNode,
+                existing.OutgoingRelationships
+                    .Where(or =>
+                        embeddableContentTypes.Contains(
+                            context.SyncNameProvider.GetContentTypeFromNodeLabels(
+                                or.outgoingRelationship.DestinationNode.Labels))
+                        && relationshipTypes.Contains(or.outgoingRelationship.Relationship.Type)));
+
+            IEnumerable<CommandRelationship> existingRelationshipsForEmbeddableContentTypes =
+                existing.ToCommandRelationships(context.SyncNameProvider);
+
+            //todo: might be able to simplify this code
+            foreach (var removingRelationship in existingRelationshipsForEmbeddableContentTypes)
+            {
+                foreach (object destinationNodeIdPropertyValue in removingRelationship.DestinationNodeIdPropertyValues)
+                {
+                    var existingForRemoving = existing.OutgoingRelationships
+                        .Where(er =>
+                            er.outgoingRelationship.DestinationNode.Properties[
+                                context.SyncNameProvider.IdPropertyName(
+                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(
+                                        er.outgoingRelationship.DestinationNode.Labels))] ==
+                            destinationNodeIdPropertyValue);
+
+                    var nonTwoWayIncomingRelationshipsToEmbeddedItems = existingForRemoving
+                        .SelectMany(or => or.incomingRelationships) //todo: null or throws?
+                        .Where(ir => !ir.Relationship.Properties.ContainsKey(
+                            NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName));
+
+                        allowSyncResult.AddSyncBlockers(
+                            nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
+                                new SyncBlocker(
+                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
+                                    (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
+                }
+            }
         }
 
         public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
