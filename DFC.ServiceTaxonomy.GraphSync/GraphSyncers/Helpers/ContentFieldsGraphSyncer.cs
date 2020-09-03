@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
@@ -63,24 +62,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
             {
-                foreach (var field in context.ContentTypePartDefinition.PartDefinition.Fields)
+                IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
+                    context.ContentTypePartDefinition.PartDefinition.Fields
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
+
+                foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    if (field == null)
-                    {
-                        continue;
-                    }
-
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-                    if (context.ContentField?[field!.Name!].GetType() == typeof(JValue)){
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-                        continue;
-                    }
-
-                    JObject? contentItemField = (JObject?)context.ContentField?[field!.Name!];
+                    JObject? contentItemField = (JObject?)context.ContentField[contentPartFieldDefinition.Name];
                     if (contentItemField == null)
                         continue;
 
-                    context.SetContentPartFieldDefinition(field);
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
 
                     await contentFieldGraphSyncer.AddRelationship(context);
                 }

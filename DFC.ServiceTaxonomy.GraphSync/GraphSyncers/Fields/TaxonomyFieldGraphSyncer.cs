@@ -221,11 +221,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
-        {
-            try
-            {
+        { 
                 ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
-                   parentContext.ContentField!, parentContext.ContentItemVersion, parentContext.ContentManager);
+                   (JObject)parentContext.ContentField![parentContext.ContentPartFieldDefinition!.Name!]!, parentContext.ContentItemVersion, parentContext.ContentManager);
 
                 JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
                 string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
@@ -235,11 +233,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider, parentContext.RootContentItem) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.SyncNameProvider.NodeLabels(termContentType)) } };
 
                 parentContext.AddChildContext(describeRelationshipsContext);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+          
         }
     }
 }
