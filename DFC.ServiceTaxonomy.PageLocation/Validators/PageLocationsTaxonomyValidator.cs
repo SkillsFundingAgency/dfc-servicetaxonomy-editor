@@ -27,6 +27,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
 
         public async Task<TaxonomyValidationResult> Validate(TaxonomyPart part)
         {
+            if (part.TermContentType != ContentTypes.PageLocation)
+            {
+                return new TaxonomyValidationResult(true, null);
+            }
+
             List<string> errors = new List<string>();
 
             //make sure nothing has moved that has associated pages anywhere down the tree
