@@ -68,7 +68,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                     .Single(pd => pd.PartDefinition.Name == contentPartName)
                     .PartDefinition;
 
-                //todo: this the case for parts?
                 // the content part isn't removed until after this event,
                 // so we set a flag not to sync the removed part
                 affectedContentPartDefinition.Settings["ContentPartSettings"]![ZombieFlag] = true;

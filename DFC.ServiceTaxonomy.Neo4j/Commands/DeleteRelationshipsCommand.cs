@@ -15,11 +15,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
         private int _expectedDeleted;
 
         //todo: rename variables to match delete
-        private const string sourceNodeVariableName = "s";
-        private const string destinationNodeVariableBase = "d";
-        private const string newRelationshipVariableBase = "nr";
-        private const string destinationNodeOutgoingRelationshipsVariableBase = "dr";
-        private const string destinationNodeIncomingTwoWayRelationshipsVariableBase = "it";
+        private const string _sourceNodeVariableName = "s";
+        private const string _destinationNodeVariableBase = "d";
+        private const string _newRelationshipVariableBase = "nr";
+        private const string _destinationNodeOutgoingRelationshipsVariableBase = "dr";
+        private const string _destinationNodeIncomingTwoWayRelationshipsVariableBase = "it";
 
         public override Query Query
         {
@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 //todo: bi-directional relationships
                 const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
                 StringBuilder nodeMatchBuilder = new StringBuilder(
-                        $"match ({sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
+                        $"match ({_sourceNodeVariableName}:{string.Join(':', SourceNodeLabels)} {{{SourceIdPropertyName}:${sourceIdPropertyValueParamName}}})");
                 StringBuilder destNodeOutgoingRelationshipsBuilder = new StringBuilder();
                 var parameters =
                     new Dictionary<string, object> {{sourceIdPropertyValueParamName, SourceIdPropertyValue!}};
@@ -71,14 +71,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     queryBuilder.AppendLine(destNodeOutgoingRelationshipsBuilder.ToString());
 
                     queryBuilder.AppendLine(
-                        $"delete {AllVariablesString(destinationNodeIncomingTwoWayRelationshipsVariableBase, ordinal)}");
+                        $"delete {AllVariablesString(_destinationNodeIncomingTwoWayRelationshipsVariableBase, ordinal)}");
 
                     queryBuilder.AppendLine(
-                        $"delete {AllVariablesString(destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
+                        $"delete {AllVariablesString(_destinationNodeOutgoingRelationshipsVariableBase, ordinal)}");
                 }
 
                 // delete relationships from source node to destination nodes
-                queryBuilder.AppendLine($"delete {AllVariablesString(newRelationshipVariableBase, ordinal)}");
+                queryBuilder.AppendLine($"delete {AllVariablesString(_newRelationshipVariableBase, ordinal)}");
 
                 if (DeleteDestinationNodes)
                 {
@@ -86,7 +86,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     // note: any incoming relationships to the destination nodes (not from our source node)
                     // will stop this from executing
                     //todo: cancel publish/save if this fails (will e.g. stop taxonomy location terms being deleted if in use by pages)
-                    queryBuilder.AppendLine($"delete {AllVariablesString(destinationNodeVariableBase, ordinal)}");
+                    queryBuilder.AppendLine($"delete {AllVariablesString(_destinationNodeVariableBase, ordinal)}");
                 }
 
                 // don't use _expectedDeleted instead of ordinal, as could be changed by other threads calling Query
@@ -103,20 +103,18 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             StringBuilder destNodeOutgoingRelationshipsBuilder,
             Dictionary<string, object> parameters,
             ICommandRelationship relationship,
-            // string relationshipType,
             string destNodeLabels,
-            // string? destinationNodeIdPropertyName = null,
             object? destIdPropertyValue = null)
         {
-            string relationshipVariable = $"{newRelationshipVariableBase}{ordinal}";
-            string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
+            string relationshipVariable = $"{_newRelationshipVariableBase}{ordinal}";
+            string destNodeVariable = $"{_destinationNodeVariableBase}{ordinal}";
             string destIdPropertyValueParamName = $"{destNodeVariable}Value";
-            string destinationNodeOutgoingRelationshipsVariable = $"{destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
-            string destinationNodeIncomingTwoWayRelationshipsVariable = $"{destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
+            string destinationNodeOutgoingRelationshipsVariable = $"{_destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
+            string destinationNodeIncomingTwoWayRelationshipsVariable = $"{_destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
 
             //todo: use AppendLine instead?
             nodeMatchBuilder.Append(
-                $"\r\nmatch ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels})");
+                $"\r\nmatch ({_sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels})");
             if (relationship.DestinationNodeIdPropertyName != null)
             {
                 nodeMatchBuilder.Append(

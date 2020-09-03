@@ -53,6 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 //todo: we need to better handle disallowed and failed syncs
                 // can we cancel the part/field detachment?
+                //todo: support many items being updated in a transaction
                 await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, contentItem, _contentManager);
             }
         }
