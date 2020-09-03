@@ -44,13 +44,14 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
                 if (DestinationNodeIdPropertyValues.Any()
                     && DestinationNodeIdPropertyName == null)
                 {
-                    errors.Add($"{DestinationNodeIdPropertyName} must be supplied if there are any {DestinationNodeIdPropertyValues}.");
+                    errors.Add($"{nameof(DestinationNodeIdPropertyName)} must be supplied if there are any {nameof(DestinationNodeIdPropertyValues)}.");
                 }
 
                 return errors;
             }
         }
 
+        //todo: not sure if these are actually used anymore. if not, remove them
         private bool Equals(CommandRelationship other)
         {
             return RelationshipType == other.RelationshipType
