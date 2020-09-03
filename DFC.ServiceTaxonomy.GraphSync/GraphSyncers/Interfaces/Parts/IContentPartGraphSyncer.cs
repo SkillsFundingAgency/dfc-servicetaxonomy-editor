@@ -17,12 +17,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
         //todo: have new interface for IContainedContentPartGraphSyncer : IContentPartGraphSyncer?????
         Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
-        //todo: when resyncing following a part detachment, we can't disallow sync, even if
-        // e.g. the sync will fail because an embedded item's in use
-        // can we remove AllowSyncDetaching? will still have to go through the 2 phase, but perhaps not
-        // call on the parts/fields
-        // how do we handle embedded items in use? just detach delete the buggers i guess
-        // so removing any incoming relationships
         Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult);
         Task AddSyncComponentsDetaching(IGraphMergeContext context);
 

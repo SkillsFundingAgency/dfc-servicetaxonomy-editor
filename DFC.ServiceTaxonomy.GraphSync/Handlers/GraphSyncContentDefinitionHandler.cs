@@ -52,9 +52,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
         }
 
-        //todo: will need to delete embedded items of part, so will need to handle
-        // add PartRemoved to part syncer? and call instead of add components - most defaulting to noop
-        // and removing any relationships
         public void ContentPartDetached(ContentPartDetachedContext context)
         {
             _logger.LogInformation("User wants to remove {ContentPart} from {ContentType}.",
@@ -88,8 +85,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         {
         }
 
-        //todo: need to handle field that do more than add properties to the node,
-        // such as content picker fields, where we need to remove relationships
         public void ContentFieldDetached(ContentFieldDetachedContext context)
         {
             _logger.LogInformation("User wants to remove {ContentField} from {ContentPart}.",
