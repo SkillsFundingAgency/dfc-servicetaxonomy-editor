@@ -55,6 +55,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DFC.ServiceTaxonomy.ContentPickerPreview\DFC.ServiceTaxonomy.ContentPickerPreview.csproj" />
+    <ProjectReference Include="..\DFC.ServiceTaxonomy.Content\DFC.ServiceTaxonomy.Content.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Cypher\DFC.ServiceTaxonomy.Cypher.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.CustomFields\DFC.ServiceTaxonomy.CustomFields.csproj" />
     <ProjectReference Include="..\DFC.ServiceTaxonomy.Events\DFC.ServiceTaxonomy.Events.csproj" />

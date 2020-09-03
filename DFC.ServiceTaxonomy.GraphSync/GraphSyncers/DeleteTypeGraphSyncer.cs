@@ -35,7 +35,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (string.IsNullOrWhiteSpace(contentType))
                 return;
 
-            _logger.LogInformation($"Sync: deleting all nodes of {contentType}");
+            _logger.LogInformation("Sync: deleting all nodes of {ContentType}", contentType);
 
             _syncNameProvider.ContentType = contentType;
 

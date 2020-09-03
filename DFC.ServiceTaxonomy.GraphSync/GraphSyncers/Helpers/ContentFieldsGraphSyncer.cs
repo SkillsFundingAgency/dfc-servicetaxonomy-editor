@@ -96,7 +96,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     JObject? contentItemField = content[contentPartFieldDefinition.Name] as JObject;
                     if (contentItemField == null)
                     {
-                        _logger.LogWarning($"Found unexpected content for {contentPartFieldDefinition.Name} field. Content: {content}");
+                        _logger.LogWarning("Found unexpected content for {ContentPartFieldDefinitionName} field. Content: {Content}",
+                            contentPartFieldDefinition.Name, content);
                         continue;
                     }
 

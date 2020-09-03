@@ -88,7 +88,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"Exception: {ex}");
+                _logger.LogWarning(ex, "ContentNoCacheStep execute exception.");
                 throw;
             }
         }

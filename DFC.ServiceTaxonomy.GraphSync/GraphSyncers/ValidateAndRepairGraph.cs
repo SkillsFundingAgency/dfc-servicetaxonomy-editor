@@ -151,12 +151,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 if (validated)
                 {
-                    _logger.LogInformation($"Sync validation passed for {contentItem.ContentType} {contentItem.ContentItemId} in {GraphDescription(_currentGraph!)}.");
+                    _logger.LogInformation("Sync validation passed for {ContentType} {ContentItemId} in {CurrentGraph}.",
+                        contentItem.ContentType,
+                        contentItem.ContentItemId,
+                        GraphDescription(_currentGraph!));
                     result.Validated.Add(contentItem);
                 }
                 else
                 {
-                    _logger.LogWarning($"Sync validation failed in {GraphDescription(_currentGraph!)}.{Environment.NewLine}{validationFailureReason}");
+                    string message = $"Sync validation failed in {{CurrentGraph}}.{Environment.NewLine}{{ValidationFailureReason}}.";
+                    _logger.LogWarning(message, GraphDescription(_currentGraph!), validationFailureReason);
                     ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!);
                     syncFailures.Add(validationFailure);
                     result.ValidationFailures.Add(validationFailure);
@@ -237,7 +241,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ValidateAndRepairResult result)
         {
             _logger.LogWarning(
-                $"Content items of type {contentTypeDefinition.Name} failed validation ({string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString()))}). Attempting to repair them.");
+                "Content items of type {ContentTypeDefinitionName} failed validation (ValidationFailures}). Attempting to repair them.",
+                contentTypeDefinition.Name,
+                string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString())));
 
             // if this throws should we carry on?
             foreach (var failure in syncValidationFailures)
@@ -252,12 +258,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                 if (validated)
                 {
-                    _logger.LogInformation($"Repair was successful on {failure.ContentItem.ContentType} {failure.ContentItem.ContentItemId} in {GraphDescription(_currentGraph!)}.");
+                    _logger.LogInformation("Repair was successful on {ContentType} {ContentItemId} in {CurrentGraph}.",
+                        failure.ContentItem.ContentType,
+                        failure.ContentItem.ContentItemId,
+                        GraphDescription(_currentGraph!));
                     result.Repaired.Add(failure.ContentItem);
                 }
                 else
                 {
-                    _logger.LogWarning($"Repair was unsuccessful.{Environment.NewLine}{validationFailureReason}");
+                    string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
+                    _logger.LogWarning(message, validationFailureReason);
                     result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
                 }
             }

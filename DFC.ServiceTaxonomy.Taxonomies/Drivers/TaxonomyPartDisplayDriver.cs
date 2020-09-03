@@ -6,30 +6,25 @@ using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using DFC.ServiceTaxonomy.Taxonomies.ViewModels;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.ContentManagement.Display.Models;
-using OrchardCore.ContentManagement.Records;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Views;
 using OrchardCore.Mvc.ModelBinding;
-using YesSql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 {
     public class TaxonomyPartDisplayDriver : ContentPartDisplayDriver<TaxonomyPart>
     {
         private readonly ITaxonomyHelper _taxonomyHelper;
-        private readonly ISession _session;
-        private readonly IEnumerable<ITaxonomyTermValidator> _validators;
+        private readonly IEnumerable<ITaxonomyValidator> _validators;
 
-        public TaxonomyPartDisplayDriver(ITaxonomyHelper taxonomyHelper, ISession session, IEnumerable<ITaxonomyTermValidator> validators)
+        public TaxonomyPartDisplayDriver(ITaxonomyHelper taxonomyHelper, IEnumerable<ITaxonomyValidator> validators)
         {
             _taxonomyHelper = taxonomyHelper;
-            _session = session;
             _validators = validators;
         }
 
@@ -74,41 +69,14 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
 
                     part.Terms = taxonomyItems.ToObject<List<ContentItem>>();
 
-                    //make sure nothing has moved that has associated pages
-                    IEnumerable<ContentItem> allPages = await _session
-                        .Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest)
-                        .ListAsync();
-
-                    var terms = _taxonomyHelper.GetAllTerms(JObject.FromObject(part.ContentItem));
-
-                    foreach (JObject term in terms)
+                    foreach (var validator in _validators)
                     {
-                        dynamic originalParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part.ContentItem));
-                        dynamic newParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part));
-
-                        if (originalParent == null || newParent == null)
-                            throw new InvalidOperationException($"Could not find parent taxonomy term for {(originalParent == null ? originalParent : newParent)}");
-
-                        if (newParent.ContentItemId != null && newParent.ContentItemId != originalParent.ContentItemId)
+                        TaxonomyValidationResult result = await validator.Validate(part);
+                        if (!result.Valid)
                         {
-                            if (allPages.Any(x => (string)x.Content.Page.PageLocations.TermContentItemIds[0] == (string)term["ContentItemId"]))
+                            foreach (var error in result.Errors)
                             {
-                                updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), "You cannot move a Page Location which has associated Pages linked to it.");
-                            }
-
-                            foreach (var validator in _validators)
-                            {
-                                if (!await validator.Validate(term, JObject.FromObject(part)))
-                                {
-                                    updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), validator.ErrorMessage);
-                                }
-                            }
-
-                            //make sure display text doesn't clash with any other term at this level
-                            JArray parentTerms = _taxonomyHelper.GetTerms(JObject.FromObject(newParent));
-                            if (parentTerms?.Any(x => (string)x["ContentItemId"] != (string)term["ContentItemId"] && (string)x["DisplayText"] == (string)term["DisplayText"]) ?? false)
-                            {
-                                updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), "Terms at the same hierarchical position must have unique titles.");
+                                updater.ModelState.AddModelError(Prefix, nameof(TaxonomyPart.Terms), error);
                             }
                         }
                     }
