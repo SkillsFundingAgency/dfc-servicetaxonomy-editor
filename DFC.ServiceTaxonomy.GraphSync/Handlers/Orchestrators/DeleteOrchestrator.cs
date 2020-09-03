@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Events.Configuration;
+using DFC.ServiceTaxonomy.Events.Models;
+using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
@@ -10,6 +14,7 @@ using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.DisplayManagement.Notify;
@@ -26,11 +31,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         public DeleteOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
+            IServiceProvider serviceProvider,
+            ILogger<DeleteOrchestrator> logger,
+            IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
+            IEventGridContentClient eventGridContentClient,
+            ISyncNameProvider syncNameProvider,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
-            IServiceProvider serviceProvider,
-            ILogger<DeleteOrchestrator> logger)
-            : base(contentDefinitionManager, notifier, logger)
+            INeutralEventContentItemVersion neutralEventContentItemVersion)
+            : base(contentDefinitionManager, notifier, logger, eventGridConfiguration, eventGridContentClient, syncNameProvider, publishedContentItemVersion, previewContentItemVersion, neutralEventContentItemVersion)
         {
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
@@ -47,10 +56,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
 
-            return await DeleteFromGraphReplicaSetIfAllowed(
+            if (!await DeleteFromGraphReplicaSetIfAllowed(
                 contentItem,
                 _publishedContentItemVersion,
-                DeleteOperation.Unpublish);
+                DeleteOperation.Unpublish))
+            {
+                return false;
+            }
+
+            //if unpublish was successful publish events
+            await PublishContentEvent(contentItem, ContentEventType.Unpublished);
+            await PublishContentEvent(contentItem, ContentEventType.Draft);
+
+            return true;
         }
 
         /// <returns>true if deleting from either graph was blocked.</returns>
@@ -86,7 +104,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
-            return await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem);
+            if (!await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem))
+            {
+                return false;
+            }
+
+            //if everything succeeded, publish event and return true
+            await PublishContentEvent(contentItem, ContentEventType.Deleted);
+
+            return true;
         }
 
         private async Task<bool> DeleteFromGraphReplicaSetIfAllowed(

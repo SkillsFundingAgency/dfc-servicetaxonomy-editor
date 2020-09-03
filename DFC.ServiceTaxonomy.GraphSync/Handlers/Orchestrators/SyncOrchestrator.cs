@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Events.Configuration;
+using DFC.ServiceTaxonomy.Events.Models;
+using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
@@ -10,6 +14,7 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.DisplayManagement.Notify;
@@ -27,10 +32,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
             IGraphCluster graphCluster,
-            IPublishedContentItemVersion publishedContentItemVersion,
             IServiceProvider serviceProvider,
-            ILogger<SyncOrchestrator> logger)
-            : base(contentDefinitionManager, notifier, logger)
+            ILogger<SyncOrchestrator> logger,
+            IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
+            IEventGridContentClient eventGridContentClient,
+            ISyncNameProvider syncNameProvider,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IPreviewContentItemVersion previewContentItemVersion,
+            INeutralEventContentItemVersion neutralEventContentItemVersion)
+            : base(contentDefinitionManager, notifier, logger, eventGridConfiguration, eventGridContentClient, syncNameProvider, publishedContentItemVersion, previewContentItemVersion, neutralEventContentItemVersion)
         {
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
@@ -38,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger = logger;
         }
 
+        //Doesn't this and the other similar methods on these orchestrators return false if it failed or was blocked?
         /// <returns>true if saving draft to preview graph was blocked or failed.</returns>
         public async Task<bool> SaveDraft(ContentItem contentItem)
         {
@@ -46,10 +57,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            return await SyncToGraphReplicaSetIfAllowed(
+            if (!await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager);
+                contentManager))
+            {
+                return false;
+            }
+
+            await PublishContentEvent(contentItem, ContentEventType.Draft);
+
+            return true;
         }
 
         /// <returns>true if publish to either graph was blocked or failed.</returns>
@@ -88,6 +106,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             {
                 return false;
             }
+
+            await PublishContentEvent(contentItem, ContentEventType.Published);
 
             return true;
         }
@@ -130,6 +150,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
+            await PublishContentEvent(previewContentItem, ContentEventType.Draft);
+            await PublishContentEvent(publishedContentItem, ContentEventType.Published);
+
             return true;
         }
 
@@ -144,10 +167,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             ContentItem publishedContentItem =
                 await _publishedContentItemVersion.GetContentItem(contentManager, contentItem.ContentItemId);
 
-            return await SyncToGraphReplicaSetIfAllowed(
+            if (!await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
                 publishedContentItem,
-                contentManager);
+                contentManager))
+            {
+                return false;
+            }
+
+            await PublishContentEvent(contentItem, ContentEventType.DraftDiscarded);
+
+            return true;
         }
 
         /// <returns>true if saving clone to preview graph was blocked or failed.</returns>
@@ -161,10 +191,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             await cloneGraphSync.MutateOnClone(contentItem, contentManager);
 
-            return await SyncToGraphReplicaSetIfAllowed(
+            if (!await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager);
+                contentManager))
+            {
+                return false;
+            }
+
+            await PublishContentEvent(contentItem, ContentEventType.Draft);
+
+            return true;
         }
 
         //todo: remove equivalent in mergegraphsyncer?
