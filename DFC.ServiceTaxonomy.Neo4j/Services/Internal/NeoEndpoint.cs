@@ -41,6 +41,31 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             }
         }
 
+        public async Task<List<T>> Run<T>(IEnumerable<IQuery<T>> queries, string databaseName, bool defaultDatabase)
+        {
+            IAsyncSession session = GetAsyncSession(databaseName, defaultDatabase);
+            try
+            {
+                LogRun("queries", databaseName, defaultDatabase);
+                var resultToReturn = new List<T>();
+
+                foreach (var query in queries)
+                {
+                    await session.ReadTransactionAsync(async tx =>
+                    {
+                        IResultCursor result = await tx.RunAsync(query.Query);
+                        resultToReturn.AddRange(await result.ToListAsync(query.ProcessRecord));
+                    });
+                }
+
+                return resultToReturn;
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+        }
+
         public async Task Run(ICommand[] commands, string databaseName, bool defaultDatabase)
         {
             IAsyncSession session = GetAsyncSession(databaseName, defaultDatabase);

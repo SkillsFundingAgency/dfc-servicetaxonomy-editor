@@ -138,23 +138,16 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private async Task<ActionResult> GetData(string contentItemId, string graph)
         {
             var relationshipCommands = await _visualiseGraphSyncer.BuildVisualisationCommands(contentItemId, contentItemVersion!);
-
-            var resultList = new List<INodeAndOutRelationshipsAndTheirInRelationships?>();
-
-            foreach (var command in relationshipCommands)
-            {
-                var result = await _neoGraphCluster.Run(graph, command);
-                resultList.AddRange(result);
-            }
-
+            var result = await _neoGraphCluster.Run(graph, relationshipCommands);
+           
             string owlResponseString = "";
 
-            if (resultList.Any())
+            if (result.Any())
             {
                 //Get all outgoing relationships from the query and add in any source nodes
-                var allNodeOutgoingRelationships = resultList.SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode)).Union(resultList.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode));
+                var allNodeOutgoingRelationships = result.SelectMany(x => x!.OutgoingRelationships.Select(x => x.outgoingRelationship.DestinationNode)).Union(result.GroupBy(x => x!.SourceNode).Select(z => z.FirstOrDefault()!.SourceNode));
 
-                var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(resultList.FirstOrDefault()!.SourceNode.Id, allNodeOutgoingRelationships, resultList!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship)).ToHashSet<IRelationship>(), "skos__prefLabel");
+                var owlDataModel = _neo4JToOwlGeneratorService.CreateOwlDataModels(result.FirstOrDefault()!.SourceNode.Id, allNodeOutgoingRelationships, result!.SelectMany(y => y!.OutgoingRelationships.Select(z => z.outgoingRelationship.Relationship)).ToHashSet<IRelationship>(), "skos__prefLabel");
                 owlResponseString = JsonSerializer.Serialize(owlDataModel, _jsonOptions);
             }
             else

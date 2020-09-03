@@ -14,6 +14,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         INeoEndpoint Endpoint { get; }
 
         Task<List<T>> Run<T>(IQuery<T> query);
+        Task<List<T>> Run<T>(IEnumerable<IQuery<T>> queries);
         Task Run(params ICommand[] commands);
 
         IGraphReplicaSetLowLevel GetReplicaSetLimitedToThisGraph();
