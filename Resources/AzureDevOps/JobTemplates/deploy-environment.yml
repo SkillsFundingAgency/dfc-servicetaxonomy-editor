@@ -92,7 +92,7 @@ jobs:
           condition: ne('', '${{ parameters.DotNetCoreVersion }}')
           inputs:
             version: ${{ parameters.DotNetCoreVersion }}
-        - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --sitename=${{ parameters. SiteName }} --recipename="Service Taxonomy Editor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
+        - script: DFC.ServiceTaxonomy.OrchardCoreInitialiser.exe --uri=${{ parameters.OrchardCoreUri }} --sitename=${{ parameters. SiteName }} --recipename="ServiceTaxonomyEditor" --username=${{ parameters.EditorAdminUsername }} --email=${{ parameters.EditorAdminUserEmail }} --password=${{ parameters.EditorAdminUserPassword }}
           displayName: 'Execute Orchard Core Initialiser'
           workingDirectory: $(InitialiserWorkingDir)
         - task: CopyFiles@2
