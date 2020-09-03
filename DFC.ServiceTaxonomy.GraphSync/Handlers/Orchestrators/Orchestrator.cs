@@ -33,13 +33,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         {
             //string contentType = GetContentTypeDisplayName(contentItem);
 
-            string message =
-                $"{operationDescription} the {graphReplicaSetName} graphs has been cancelled. These items relate: {allowSyncResult}.";
-
-            _logger.LogWarning(message);
+            _logger.LogWarning("{OperationDescription} the {GraphReplicaSetName} graphs has been cancelled. These items relate: {AllowSyncResult}.",
+                operationDescription, graphReplicaSetName, allowSyncResult);
 
             //todo: need details of the content item with incoming relationships
-            _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
+            _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
+                $"{operationDescription} the {graphReplicaSetName} graphs has been cancelled. These items relate: {allowSyncResult}."));
         }
 #pragma warning restore S1172
 

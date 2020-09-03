@@ -135,7 +135,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             {
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                //todo: use AddFailureNotifier?
+                //todo: use AddFailureNotifier? pass variables as params to log
                 string message = $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {(deleteOperation == DeleteOperation.Delete?"deleted":"unpublished")} from {contentItemVersion.GraphReplicaSetName} graph.";
                 _logger.LogError(exception, message);
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));

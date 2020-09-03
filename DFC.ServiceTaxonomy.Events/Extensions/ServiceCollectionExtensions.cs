@@ -51,7 +51,8 @@ namespace Microsoft.Extensions.DependencyInjection
                         .WaitAndRetryAsync(delay, (result, timespan, retryAttempt, context) =>
                         {
                             services.GetService<ILogger<EventGridContentClient>>()
-                                .LogWarning($"Delaying for {timespan}, then making retry {retryAttempt}.");
+                                .LogWarning("Delaying for {Timespan}, then making retry {RetryAttempt}.",
+                                    timespan, retryAttempt);
                         }))
                     .AddPolicyHandler(timeoutPolicy);
 

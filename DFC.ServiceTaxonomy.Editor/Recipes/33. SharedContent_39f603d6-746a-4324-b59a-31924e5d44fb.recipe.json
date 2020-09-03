@@ -251,6 +251,30 @@
                     "TitlePart": {
                         "Title": "About us"
                     }
+                },
+                {
+                    "ContentItemId": "4ck9hm7xwdwdvr90w5813g3an5",
+                    "ContentItemVersionId": "48xnyr9gkrhzs0rfvfgcs5ren7",
+                    "ContentType": "SharedContent",
+                    "DisplayText": "Other opportunities for Skills Toolkit",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2020-09-02T15:42:50.0149758Z",
+                    "PublishedUtc": "2020-09-02T15:42:50.0469287Z",
+                    "CreatedUtc": "2020-09-02T15:40:17.6784525Z",
+                    "Owner": "admin",
+                    "Author": "admin",
+                    "SharedContent": {
+                        "Content": {
+                            "Html": "<div class=\"govuk-!-margin-top-7\">\n    <h2 class=\"govuk-heading-m\">Other opportunities</h2>\n    <ul class=\"govuk-list\">\n        <li><a class=\"govuk-link\" href=\"/find-a-course/search\">Search other courses</a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/where-to-find-free-online-learning\">Where to find other online learning</a></li>\n        <li><a class=\"govuk-link\" href=\"/find-a-course/ways-to-develop-skills\">Other ways to develop skills</a></li>\n    </ul>\n</div>"
+                        }
+                    },
+                    "GraphSyncPart": {
+                        "Text": "<<contentapiprefix>>/sharedcontent/90e85448-c9e4-4b8f-99f4-8430bd8ddb46"
+                    },
+                    "TitlePart": {
+                        "Title": "Other opportunities for Skills Toolkit"
+                    }
                 }
             ]
         }
