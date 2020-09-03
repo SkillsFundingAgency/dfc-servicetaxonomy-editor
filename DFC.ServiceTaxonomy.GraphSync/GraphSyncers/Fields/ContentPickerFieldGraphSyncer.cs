@@ -53,9 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             ContentPickerFieldSettings contentPickerFieldSettings =
                parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField?[parentContext.ContentPartFieldDefinition!.Name][ContentItemIdsKey];
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField?[parentContext.ContentPartFieldDefinition!.Name]![ContentItemIdsKey];
 
             if (contentItemIdsJArray != null && contentItemIdsJArray.Count > 0)
             {
