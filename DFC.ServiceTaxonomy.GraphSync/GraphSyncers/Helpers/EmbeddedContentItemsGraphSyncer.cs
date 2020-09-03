@@ -194,7 +194,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(requiredRelationships);
 
-            await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
+            DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
         public Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
@@ -344,7 +344,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return embeddedContentItems;
         }
 
-        private async Task DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)
+        private void DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(IGraphMergeContext context)
         {
             if (_removingRelationships?.Any() != true)
             {
@@ -362,11 +362,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             deleteRelationshipsCommand.AddRelationshipsTo(_removingRelationships);
 
-            //todo: oops missed this
-            //todo: need to add command to context, or otherwise execute it
-            // should add commands to be executed (in order) to context (same with embedded items)
-            // so that everything syncs as a unit (atomically) or not within a transaction
-            await context.GraphReplicaSet.Run(deleteRelationshipsCommand);
+            context.ExtraCommands.Add(deleteRelationshipsCommand);
         }
 
         private List<CommandRelationship> GetRemovingRelationships(
