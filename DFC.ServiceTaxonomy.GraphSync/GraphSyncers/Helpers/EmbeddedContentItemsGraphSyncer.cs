@@ -287,7 +287,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             }
         }
 
-        //todo: better name
+        //todo: better name, or zip into ienumerable of tuple
         private class RelationshipTypeToContentType
         {
             public string RelationshipType { get; set; }
