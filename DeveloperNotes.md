@@ -2,6 +2,8 @@
 
 * need to test branch, not master!
 
+* move common field syncing such as modified/created/contentitemid to graphsyncpart?
+
 * disable cloning taxonomies?? backdoor to creating a draft taxonomy (although it works, so perhaps we leave it)
 
 * pass part instances to syncers, rather than jobjects??
