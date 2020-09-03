@@ -382,6 +382,31 @@ could fix when create new content recipe step
 * handle graph down/not running better (& quicker)
 * looks like might be some useful code in the [client](https://github.com/Readify/Neo4jClient), e.g. working with results
 
+* currently we don't properly recurse embedded items when removing a part that embeds other content items
+  we should add proper support for removing a containing/embedding part...
+
+  //todo: options:
+  // A)
+  // call sync skipping zombies
+  // call delete excluding non-zombies
+  // combine commands
+  // execute commands
+  // +ve
+  // -ve e.g. contentpickerfield sync doesn't explicitly remove relationships, it relies on the outgoing relationships being deleted with the node
+  // and as we wouldn't be deleting the node, we'd have to add relationship deletion to content picker, which it wouldn't need in a normal delete
+  // B)
+  // handle detachment explicitly
+  // +ve some delete code e.g. contentpickerfield is not actually shared with the normal delete
+  // -ve can't easily reuse delete code
+  // embedded recursion for delete is gonna be a pain - either have to create a delete context and add that into the sync tree
+  // or add a delete context to the mergecontext
+  // but can't call delete embedded directly anyway as needs delete phase1 to have already happened
+  // or use mergesync and pass flag to say actually deleting
+  // do we _need_ full recursion?
+  // don't think user can remove taxonomy part (just delete the taxonomy)
+  // flow : at the moment only have html & htmlshared widget and deleting those (with outgoing relationships) would be ok
+  // bag : does need proper recursion, but we don't use it atm
+
 ##ToDo UI Improvements
 
 * don't like new disabled select appearing once selected in single select scenario - nasty!
