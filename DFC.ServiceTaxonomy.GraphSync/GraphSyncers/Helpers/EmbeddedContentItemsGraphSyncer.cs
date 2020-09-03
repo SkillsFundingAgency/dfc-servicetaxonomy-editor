@@ -14,7 +14,6 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Models;
-using DFC.ServiceTaxonomy.Neo4j.Commands;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Implementation;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Model;
@@ -30,6 +29,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     public abstract class EmbeddedContentItemsGraphSyncer : IEmbeddedContentItemsGraphSyncer
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
+        protected readonly ISyncNameProvider _statelessSyncNameProvider;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger _logger;
         private readonly Dictionary<string, ContentTypeDefinition> _contentTypes;
@@ -37,10 +37,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         protected EmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
+            ISyncNameProvider statelessSyncNameProvider,
             IServiceProvider serviceProvider,
             ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
+            _statelessSyncNameProvider = statelessSyncNameProvider;
             _serviceProvider = serviceProvider;
             _logger = logger;
 
@@ -74,14 +76,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             IEnumerable<string> embeddableContentTypes = GetEmbeddableContentTypes(context);
 
-            var embeddedContentNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-
             IEnumerable<string> relationshipTypes = await Task.WhenAll(
-                embeddableContentTypes.Select(async ct =>
-                {
-                    embeddedContentNameProvider.ContentType = ct;
-                    return await RelationshipType(embeddedContentNameProvider);
-                }));
+                embeddableContentTypes.Select(async ct => await RelationshipType(ct)));
 
             existing = new NodeAndOutRelationshipsAndTheirInRelationships(
                 existing.SourceNode,
@@ -175,17 +171,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 IMergeNodeCommand containedContentMergeNodeCommand = mergeGraphSyncer.MergeNodeCommand;
                 containedContentMergeNodeCommand.CheckIsValid();
 
-                var embeddedContentItemNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-                embeddedContentItemNameProvider.ContentType = contentItem.ContentType;
-
-                string relationshipType = await RelationshipType(embeddedContentItemNameProvider);
+                string relationshipType = await RelationshipType(contentItem.ContentType);
 
                 var properties = await GetRelationshipProperties(contentItem, relationshipOrdinal, context.SyncNameProvider);
                 ++relationshipOrdinal;
 
                 requiredRelationships.Add(new CommandRelationship(
                     relationshipType,
-                    await TwoWayIncomingRelationshipType(embeddedContentItemNameProvider),
+                    await TwoWayIncomingRelationshipType(contentItem.ContentType),
                     properties,
                     containedContentMergeNodeCommand.NodeLabels,
                     containedContentMergeNodeCommand.IdPropertyName!,
@@ -206,9 +199,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
         {
+            // use DeleteRelationshipsCommand (altered to accept no dest node ids)
+            // on all embeddable content types/relationships
+
             //(string[] embeddableContentTypes, IEnumerable<string> relationshipTypes) =
             var possibleRelationships =
                 await GetEmbeddableContentTypesAndRelationshipTypes(context);
+
+            //todo: put serviceprovider into the context??
+            var deleteRelationshipsCommand = _serviceProvider.GetRequiredService<IDeleteRelationshipsCommand>();
+
+            //todo: method on deleteRelationshipsCommand for this??
+            // deleteRelationshipsCommand.SourceNodeLabels = new HashSet<string>(context.MergeNodeCommand.NodeLabels);
+            // deleteRelationshipsCommand.SourceIdPropertyName = context.MergeNodeCommand.IdPropertyName;
+            // deleteRelationshipsCommand.SourceIdPropertyValue = context.MergeNodeCommand.
+            deleteRelationshipsCommand.DeleteDestinationNodes = true;
+            deleteRelationshipsCommand.SourceNodeLabels = new HashSet<string>(context.ReplaceRelationshipsCommand.SourceNodeLabels);
+            deleteRelationshipsCommand.SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName;
+            deleteRelationshipsCommand.SourceIdPropertyValue =
+                context.ReplaceRelationshipsCommand.SourceIdPropertyValue;
+
+            context.ExtraCommands.Add(deleteRelationshipsCommand);
 
             //todo: need to detach delete the embedded nodes
             //todo: use DeleteRelationshipsCommand, but need to add support to sync
@@ -216,9 +227,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             foreach (var possibleRelationship in possibleRelationships)
             {
                 //todo: needs to delete dest node
-                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
-                    possibleRelationship.RelationshipType,
-                    await context.SyncNameProvider.NodeLabels(possibleRelationship.ContentType));
+                // context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                //     possibleRelationship.RelationshipType,
+                //     await context.SyncNameProvider.NodeLabels(possibleRelationship.ContentType));
+
+                //todo: add a RemoveAnyRelationshipsTo overload?
+                deleteRelationshipsCommand.AddRelationshipsTo(possibleRelationship.RelationshipType,
+                    null,
+                    await context.SyncNameProvider.NodeLabels(possibleRelationship.ContentType),
+                    null);
             }
         }
 
@@ -243,14 +260,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         {
             string[] embeddableContentTypes = GetEmbeddableContentTypes(context).ToArray();
 
-            var embeddedContentNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-
             IEnumerable<string> relationshipTypes = await Task.WhenAll(
-                embeddableContentTypes.Select(async ct =>
-                {
-                    embeddedContentNameProvider.ContentType = ct;
-                    return await RelationshipType(embeddedContentNameProvider);
-                }));
+                embeddableContentTypes.Select(async ct => await RelationshipType(ct)));
 
             return relationshipTypes.Zip(embeddableContentTypes, (rt, ct) => new RelationshipTypeToContentType(rt, ct));
         }
@@ -343,21 +354,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 return;
             }
 
-            //todo: copy ctor with bool to copy destid values? or existing relationships
-            var deleteRelationshipCommand = new DeleteRelationshipsCommand
-            {
-                DeleteDestinationNodes = true,
-                SourceNodeLabels = context.ReplaceRelationshipsCommand.SourceNodeLabels,
-                SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName,
-                SourceIdPropertyValue = context.ReplaceRelationshipsCommand.SourceIdPropertyValue
-            };
-            deleteRelationshipCommand.AddRelationshipsTo(_removingRelationships);
+            var deleteRelationshipsCommand = _serviceProvider.GetRequiredService<IDeleteRelationshipsCommand>();
+
+            deleteRelationshipsCommand.DeleteDestinationNodes = true;
+            deleteRelationshipsCommand.SourceNodeLabels = context.ReplaceRelationshipsCommand.SourceNodeLabels;
+            deleteRelationshipsCommand.SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName;
+            deleteRelationshipsCommand.SourceIdPropertyValue =
+                context.ReplaceRelationshipsCommand.SourceIdPropertyValue;
+
+            deleteRelationshipsCommand.AddRelationshipsTo(_removingRelationships);
 
             //todo: oops missed this
             //todo: need to add command to context, or otherwise execute it
             // should add commands to be executed (in order) to context (same with embedded items)
             // so that everything syncs as a unit (atomically) or not within a transaction
-            await context.GraphReplicaSet.Run(deleteRelationshipCommand);
+            await context.GraphReplicaSet.Run(deleteRelationshipsCommand);
         }
 
         private List<CommandRelationship> GetRemovingRelationships(
@@ -444,7 +455,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 embeddedContentNameProvider.ContentType = embeddedContentItem.ContentType;
 
                 // check expected relationship is in graph
-                string expectedRelationshipType = await RelationshipType(embeddedContentNameProvider);
+                string expectedRelationshipType = await RelationshipType(embeddedContentItem.ContentType);
 
                 // keep a count of how many relationships of a type we expect to be in the graph
                 context.ExpectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
@@ -477,12 +488,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         protected abstract IEnumerable<string> GetEmbeddableContentTypes(IGraphSyncContext context);
 
         //todo: need to separate SyncNameProvider into stateful and stateless
-        protected virtual async Task<string> RelationshipType(ISyncNameProvider embeddedContentSyncNameProvider)
+        protected virtual async Task<string> RelationshipType(string contentType)
         {
-            return await embeddedContentSyncNameProvider.RelationshipTypeDefault(embeddedContentSyncNameProvider.ContentType!);
+            return await _statelessSyncNameProvider.RelationshipTypeDefault(contentType);
         }
 
-        protected virtual Task<string?> TwoWayIncomingRelationshipType(ISyncNameProvider embeddedContentSyncNameProvider)
+        protected virtual Task<string?> TwoWayIncomingRelationshipType(string contentType)
         {
             return Task.FromResult(default(string));
         }

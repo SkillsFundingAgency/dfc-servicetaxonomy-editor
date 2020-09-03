@@ -12,14 +12,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
     public class ContentItemsService : IContentItemsService
     {
         private readonly ISession _session;
-        private readonly IContentManagerSession _contentManagerSession;
 
-        public ContentItemsService(
-            ISession session,
-            IContentManagerSession contentManagerSession)
+        public ContentItemsService(ISession session)
         {
             _session = session;
-            _contentManagerSession = contentManagerSession;
         }
 
         public async Task<List<ContentItem>> GetPublishedOnly(string contentType)

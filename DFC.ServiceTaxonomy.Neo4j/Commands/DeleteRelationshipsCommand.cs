@@ -12,6 +12,15 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
     {
         public bool DeleteDestinationNodes { get; set; }
 
+        private int _expectedDeleted;
+
+        //todo: rename variables to match delete
+        private const string sourceNodeVariableName = "s";
+        private const string destinationNodeVariableBase = "d";
+        private const string newRelationshipVariableBase = "nr";
+        private const string destinationNodeOutgoingRelationshipsVariableBase = "dr";
+        private const string destinationNodeIncomingTwoWayRelationshipsVariableBase = "it";
+
         public override Query Query
         {
             get
@@ -19,13 +28,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                 //todo: optional or not?
                 //todo: lots of shared code
                 this.CheckIsValid();
-
-                //todo: rename variables to match delete
-                const string sourceNodeVariableName = "s";
-                const string destinationNodeVariableBase = "d";
-                const string newRelationshipVariableBase = "nr";
-                const string destinationNodeOutgoingRelationshipsVariableBase = "dr";
-                const string destinationNodeIncomingTwoWayRelationshipsVariableBase = "it";
 
                 //todo: bi-directional relationships
                 const string sourceIdPropertyValueParamName = "sourceIdPropertyValue";
@@ -46,26 +48,39 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                     // add unit/integration tests for this ^^ scenario
                     distinctRelationshipTypeToDestNode.Add((relationship.RelationshipType, destNodeLabels));
 
-                    foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
+                    if (relationship.DestinationNodeIdPropertyName == null)
                     {
-                        string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
-                        string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
-                        string destIdPropertyValueParamName = $"{destNodeVariable}Value";
-                        string destinationNodeOutgoingRelationshipsVariable = $"{destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
-                        string destinationNodeIncomingTwoWayRelationshipsVariable = $"{destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
-
-                        //todo: relationshiptype as parameter?
-                        nodeMatchBuilder.Append(
-                            $"\r\nmatch ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels} {{{relationship.DestinationNodeIdPropertyName}:${destIdPropertyValueParamName}}})");
-                        parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
-
-                        if (DeleteDestinationNodes)
+                        BuildForRelationship(++ordinal, nodeMatchBuilder, destNodeOutgoingRelationshipsBuilder,
+                            parameters, relationship, destNodeLabels);
+                    }
+                    else
+                    {
+                        foreach (object destIdPropertyValue in relationship.DestinationNodeIdPropertyValues)
                         {
-                            destNodeOutgoingRelationshipsBuilder.Append(
-                                $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
-
-                            destNodeOutgoingRelationshipsBuilder.Append(
-                                $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable} {{{TwoWayRelationshipPropertyName}: TRUE}}]-()");
+                            BuildForRelationship(++ordinal, nodeMatchBuilder, destNodeOutgoingRelationshipsBuilder,
+                                parameters, relationship, destNodeLabels, destIdPropertyValue);
+                            // string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
+                            // string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
+                            // string destIdPropertyValueParamName = $"{destNodeVariable}Value";
+                            // string destinationNodeOutgoingRelationshipsVariable = $"{destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
+                            // string destinationNodeIncomingTwoWayRelationshipsVariable = $"{destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
+                            //
+                            // //todo: relationshiptype as parameter?
+                            // //todo: use AppendLine instead?
+                            // nodeMatchBuilder.Append(
+                            //     $"\r\nmatch ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels})");
+                            // nodeMatchBuilder.Append(
+                            //     $"\r\nwhere {destNodeVariable}.{relationship.DestinationNodeIdPropertyName} = ${destIdPropertyValueParamName}");
+                            // parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
+                            //
+                            // if (!DeleteDestinationNodes)
+                            //     continue;
+                            //
+                            // destNodeOutgoingRelationshipsBuilder.Append(
+                            //     $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
+                            //
+                            // destNodeOutgoingRelationshipsBuilder.Append(
+                            //     $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable} {{{TwoWayRelationshipPropertyName}: TRUE}}]-()");
                         }
                     }
                 }
@@ -104,7 +119,42 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
             }
         }
 
-        private int _expectedDeleted;
+        private void BuildForRelationship(
+            int ordinal,
+            StringBuilder nodeMatchBuilder,
+            StringBuilder destNodeOutgoingRelationshipsBuilder,
+            Dictionary<string, object> parameters,
+            ICommandRelationship relationship,
+            // string relationshipType,
+            string destNodeLabels,
+            // string? destinationNodeIdPropertyName = null,
+            object? destIdPropertyValue = null)
+        {
+            string relationshipVariable = $"{newRelationshipVariableBase}{ordinal}";
+            string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
+            string destIdPropertyValueParamName = $"{destNodeVariable}Value";
+            string destinationNodeOutgoingRelationshipsVariable = $"{destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
+            string destinationNodeIncomingTwoWayRelationshipsVariable = $"{destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
+
+            //todo: use AppendLine instead?
+            nodeMatchBuilder.Append(
+                $"\r\nmatch ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels})");
+            if (relationship.DestinationNodeIdPropertyName != null)
+            {
+                nodeMatchBuilder.Append(
+                    $"\r\nwhere {destNodeVariable}.{relationship.DestinationNodeIdPropertyName} = ${destIdPropertyValueParamName}");
+                parameters.Add(destIdPropertyValueParamName, destIdPropertyValue!);
+            }
+
+            if (!DeleteDestinationNodes)
+                return;
+
+            destNodeOutgoingRelationshipsBuilder.Append(
+                $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
+
+            destNodeOutgoingRelationshipsBuilder.Append(
+                $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable} {{{TwoWayRelationshipPropertyName}: TRUE}}]-()");
+        }
 
         public override void ValidateResults(List<IRecord> records, IResultSummary resultSummary)
         {

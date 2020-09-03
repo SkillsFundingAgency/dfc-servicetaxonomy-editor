@@ -25,6 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IDeleteNodeCommand, DeleteNodeCommand>();
             services.AddTransient<IDeleteNodesByTypeCommand, DeleteNodesByTypeCommand>();
             services.AddTransient<IReplaceRelationshipsCommand, ReplaceRelationshipsCommand>();
+            services.AddTransient<IDeleteRelationshipsCommand, DeleteRelationshipsCommand>();
             services.AddTransient<ICustomCommand, CustomCommand>();
 
             if (setupAction != null)

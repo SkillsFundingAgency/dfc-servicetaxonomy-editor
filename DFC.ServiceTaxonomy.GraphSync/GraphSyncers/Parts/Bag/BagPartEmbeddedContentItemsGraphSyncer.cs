@@ -15,9 +15,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
     {
         public BagPartEmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
+            ISyncNameProvider statelessSyncNameProvider,
             IServiceProvider serviceProvider,
             ILogger<BagPartEmbeddedContentItemsGraphSyncer> logger)
-            : base(contentDefinitionManager, serviceProvider, logger)
+            : base(contentDefinitionManager, statelessSyncNameProvider, serviceProvider, logger)
         {
         }
 
@@ -27,12 +28,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag
             return bagPartSettings.ContainedContentTypes;
         }
 
-        protected override async Task<string> RelationshipType(ISyncNameProvider embeddedContentSyncNameProvider)
+        protected override async Task<string> RelationshipType(string contentType)
         {
             //todo: what if want different relationships for same contenttype in different bags!
-            string? relationshipType = embeddedContentSyncNameProvider.GraphSyncPartSettings.BagPartContentItemRelationshipType;
+            string? relationshipType = _statelessSyncNameProvider
+                .GetGraphSyncPartSettings(contentType)
+                .BagPartContentItemRelationshipType;
+
             if (string.IsNullOrEmpty(relationshipType))
-                relationshipType = await base.RelationshipType(embeddedContentSyncNameProvider);
+                relationshipType = await base.RelationshipType(contentType);
 
             return relationshipType;
         }
