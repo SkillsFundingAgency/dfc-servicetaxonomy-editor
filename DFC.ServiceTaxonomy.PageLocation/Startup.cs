@@ -1,5 +1,4 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.PageLocation.Drivers;
 using DFC.ServiceTaxonomy.PageLocation.GraphSyncers;
 using DFC.ServiceTaxonomy.PageLocation.Handlers;
@@ -43,6 +42,7 @@ namespace DFC.ServiceTaxonomy.PageLocation
 
             services.AddTransient<ITaxonomyTermValidator, PageLocationUrlValidator>();
             services.AddTransient<ITaxonomyTermValidator, PageLocationTitleValidator>();
+            services.AddTransient<ITaxonomyValidator, PageLocationsTaxonomyValidator>();
         }
     }
 }
