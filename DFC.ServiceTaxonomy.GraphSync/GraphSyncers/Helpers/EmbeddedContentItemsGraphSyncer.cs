@@ -224,9 +224,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
             context.ExtraCommands.Add(deleteRelationshipsCommand);
 
-            //todo: need to detach delete the embedded nodes
-            //todo: use DeleteRelationshipsCommand, but need to add support to sync
-            // to add random commands into the atomic list
             foreach (var possibleRelationship in possibleRelationships)
             {
                 //todo: add a RemoveAnyRelationshipsTo overload?
