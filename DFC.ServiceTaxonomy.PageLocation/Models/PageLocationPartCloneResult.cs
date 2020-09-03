@@ -1,15 +1,13 @@
 ﻿namespace DFC.ServiceTaxonomy.PageLocation.Models
 {
-    public class PageCloneResult
+    public class PageLocationPartCloneResult
     {
-        public PageCloneResult(string title, string urlName, string fullUrl)
+        public PageLocationPartCloneResult(string urlName, string fullUrl)
         {
-            Title = title;
             UrlName = urlName;
             FullUrl = fullUrl;
         }
 
-        public string Title { get; }
         public string UrlName { get; }
         public string FullUrl { get; }
     }

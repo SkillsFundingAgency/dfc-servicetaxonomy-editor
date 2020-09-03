@@ -14,9 +14,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
     public class PageLocationPartHandler : ContentPartHandler<PageLocationPart>
     {
         private readonly ISession _session;
-        private readonly IClonedPagePropertyGenerator _generator;
+        private readonly IPageLocationClonePropertyGenerator _generator;
 
-        public PageLocationPartHandler(ISession session, IClonedPagePropertyGenerator generator)
+        public PageLocationPartHandler(ISession session, IPageLocationClonePropertyGenerator generator)
         {
             _session = session;
             _generator = generator;
@@ -28,29 +28,29 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             return Task.CompletedTask;
         }
 
-        public override async Task CloningAsync(CloneContentContext context, PageLocationPart part)
-        {
-            string title = context.CloneContentItem.Content[nameof(TitlePart)][nameof(TitlePart.Title)];
-            string urlName = context.CloneContentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.UrlName)];
-            string fullUrl = context.CloneContentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
+        //public override async Task CloningAsync(CloneContentContext context, PageLocationPart part)
+        //{
+        //    string title = context.CloneContentItem.Content[nameof(TitlePart)][nameof(TitlePart.Title)];
+        //    string urlName = context.CloneContentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.UrlName)];
+        //    string fullUrl = context.CloneContentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
 
-            IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
+        //    IEnumerable<ContentItem> pages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
 
-            string urlSearchFragment = _generator.GenerateUrlSearchFragment(fullUrl);
+        //    string urlSearchFragment = _generator.GenerateUrlSearchFragment(fullUrl);
 
-            IEnumerable<ContentItem> existingClones = pages.Where(x => ((string)x.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]).Contains(urlSearchFragment));
+        //    IEnumerable<ContentItem> existingClones = pages.Where(x => ((string)x.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)]).Contains(urlSearchFragment));
 
-            var result = _generator.GenerateClonedPageProperties(title, urlName, fullUrl, existingClones);
+        //    var result = _generator.GenerateClonedPageProperties(title, urlName, fullUrl, existingClones);
 
-            context.CloneContentItem.DisplayText = result.Title;
-            context.CloneContentItem.Alter<TitlePart>(part => part.Title = result.Title);
-            context.CloneContentItem.Alter<PageLocationPart>(part =>
-            {
-                part.UrlName = result.UrlName;
-                part.FullUrl = result.FullUrl;
-                part.DefaultPageForLocation = false;
-                part.RedirectLocations = null;
-            });
-        }
+        //    context.CloneContentItem.DisplayText = result.Title;
+        //    context.CloneContentItem.Alter<TitlePart>(part => part.Title = result.Title);
+        //    context.CloneContentItem.Alter<PageLocationPart>(part =>
+        //    {
+        //        part.UrlName = result.UrlName;
+        //        part.FullUrl = result.FullUrl;
+        //        part.DefaultPageForLocation = false;
+        //        part.RedirectLocations = null;
+        //    });
+        //}
     }
 }

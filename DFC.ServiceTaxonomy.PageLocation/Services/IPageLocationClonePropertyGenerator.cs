@@ -6,13 +6,13 @@ using OrchardCore.ContentManagement;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Services
 {
-    public interface IClonedPagePropertyGenerator
+    public interface IPageLocationClonePropertyGenerator
     {
         string GenerateUrlSearchFragment(string url);
-        PageCloneResult GenerateClonedPageProperties(string title, string urlName, string fullUrl, IEnumerable<ContentItem>? existingClones);
+        PageLocationPartCloneResult GenerateClonedPageLocationProperties(string urlName, string fullUrl, IEnumerable<ContentItem>? existingClones);
     }
 
-    public class ClonedPagePropertyGenerator : IClonedPagePropertyGenerator
+    public class PageLocationClonePropertyGenerator : IPageLocationClonePropertyGenerator
     {
         public string GenerateUrlSearchFragment(string url)
         {
@@ -23,7 +23,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Services
                     $"{url}-clone";
         }
 
-        public PageCloneResult GenerateClonedPageProperties(string title, string urlName, string fullUrl, IEnumerable<ContentItem>? existingClones)
+        public PageLocationPartCloneResult GenerateClonedPageLocationProperties(string urlName, string fullUrl, IEnumerable<ContentItem>? existingClones)
         {
             string urlPostfix = "-clone";
 
@@ -58,9 +58,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Services
                 newFullUrl = $"{fullUrl}{urlPostfix}";
             }
 
-            string newTitle = title.StartsWith("CLONE - ") ? title : $"CLONE - {title}";
-
-            return new PageCloneResult(newTitle, newUrlName, newFullUrl);
+            return new PageLocationPartCloneResult(newUrlName, newFullUrl);
         }
     }
 }

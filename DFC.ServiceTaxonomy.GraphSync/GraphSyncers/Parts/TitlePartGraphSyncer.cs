@@ -1,6 +1,8 @@
+using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Newtonsoft.Json.Linq;
 using OrchardCore.Title.Models;
 
@@ -8,6 +10,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 {
     public class TitlePartGraphSyncer : ContentPartGraphSyncer
     {
+        private readonly ITitlePartCloneGenerator _titlePartCloneGenerator;
+
+        public TitlePartGraphSyncer(ITitlePartCloneGenerator titlePartCloneGenerator)
+        {
+            _titlePartCloneGenerator = titlePartCloneGenerator;
+        }
+
         public override string PartName => nameof(TitlePart);
 
         private const string _contentTitlePropertyName = "Title";
@@ -33,6 +42,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 content,
                 NodeTitlePropertyName,
                 context.NodeWithOutgoingRelationships.SourceNode));
+        }
+
+        //we're now doing this for all cloned content items, we happy with that?
+        public override Task MutateOnClone(JObject content, ICloneContext context)
+        {
+            string? title = (string?)content[nameof(TitlePart.Title)];
+
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new InvalidOperationException($"Cannot mutate {nameof(TitlePart)} if {nameof(TitlePart.Title)} is missing.");
+            }
+
+            var newTitle = _titlePartCloneGenerator.Generate(title);
+
+            context.ContentItem.DisplayText = newTitle;
+            content[nameof(TitlePart.Title)] = newTitle;
+
+            return Task.CompletedTask;
         }
     }
 }
