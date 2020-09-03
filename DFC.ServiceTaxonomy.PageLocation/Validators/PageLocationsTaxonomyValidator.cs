@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
                     dynamic? newParent = _taxonomyHelper.FindParentTaxonomyTerm(term, JObject.FromObject(part));
 
                     if (originalParent == null || newParent == null)
-                        throw new InvalidOperationException($"Could not find parent taxonomy term for {(originalParent == null ? originalParent : newParent)}");
+                        throw new InvalidOperationException($"Could not find {(originalParent == null ? "original" : "new")} parent taxonomy term for {term}");
 
                     if (newParent?.ContentItemId != null && newParent?.ContentItemId != originalParent?.ContentItemId)
                     {
