@@ -79,7 +79,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
             var otherPages = await _session.Query<ContentItem, PageLocationPartIndex>(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId).ListAsync();
 
-            if (otherPages.Any(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId && x.Content.PageLocationPart.FullUrl == pageLocation.FullUrl))
+            if (otherPages.Any(x => x.ContentItemId != pageLocation.ContentItem.ContentItemId && ((string)x.Content.PageLocationPart.FullUrl).Equals(pageLocation.FullUrl, StringComparison.OrdinalIgnoreCase)))
             {
                 updater.ModelState.AddModelError(Prefix, nameof(pageLocation.UrlName), "There is already a page with this URL Name at the same Page Location. Please choose a different URL Name, or change the Page Location.");
             }
@@ -92,29 +92,34 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                 {
                     List<string> otherPageRedirectLocations = ((string)otherPage.Content.PageLocationPart.RedirectLocations)?.Split("\r\n").ToList() ?? new List<string>();
 
-                    var redirectConflict = otherPageRedirectLocations.FirstOrDefault(x => redirectLocations.Any(y => y == x));
+                    var redirectConflict = otherPageRedirectLocations.FirstOrDefault(x => redirectLocations.Any(y => y.Equals(x, StringComparison.OrdinalIgnoreCase)));
 
                     if (redirectConflict != null)
                     {
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"'{redirectConflict}' has already been used as a redirect location for another page.'");
-                        break;
                     }
 
-                    var fullUrlConflict = redirectLocations.FirstOrDefault(x => x == (string)otherPage.Content.PageLocationPart.FullUrl);
+                    var fullUrlConflict = redirectLocations.FirstOrDefault(x => x.Equals((string)otherPage.Content.PageLocationPart.FullUrl, StringComparison.OrdinalIgnoreCase));
 
                     if (fullUrlConflict != null)
                     {
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"'{fullUrlConflict}' has already been used as the URL for another page.'");
-                        break;
                     }
                 }
 
-                foreach (var redirectLocation in redirectLocations)
+                for (var i = 0; i < redirectLocations.Count; i++)
                 {
+                    var redirectLocation = redirectLocations[i];
+                    var otherRedirectLocations = redirectLocations.Where((item, index) => index != i);
+
+                    if (otherRedirectLocations.Any(x => x.Equals(redirectLocation, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"Redirect Location '{redirectLocation}' has been duplicated.");
+                    }
+
                     if (!Regex.IsMatch(redirectLocation, RedirectLocationUrlNamePattern))
                     {
                         updater.ModelState.AddModelError(Prefix, nameof(pageLocation.RedirectLocations), $"Redirect Location '{redirectLocation}' contains invalid characters. Valid characters include A-Z, 0-9, '-' and '_'.");
-                        break;
                     }
                 }
             }
