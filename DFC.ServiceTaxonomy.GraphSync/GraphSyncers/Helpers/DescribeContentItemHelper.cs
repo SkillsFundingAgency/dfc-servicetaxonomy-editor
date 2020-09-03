@@ -84,8 +84,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return commandsToReturn;
         }
 
-
-
         public async Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context)
         {
             var contentItem = await _contentManager.GetAsync(contentItemId, context.ContentItemVersion.VersionOptions);
@@ -106,7 +104,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             foreach (var itemSync in _contentItemGraphSyncers)
             {
                 await itemSync.AddRelationship(context);
-
             }
 
             encounteredContentTypes.Add(contentItem.ContentType);
