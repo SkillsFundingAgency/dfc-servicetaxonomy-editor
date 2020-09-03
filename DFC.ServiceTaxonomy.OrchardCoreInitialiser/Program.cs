@@ -17,7 +17,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
             var shouldShowHelp = false;
             string uri = "https://localhost:44346";
             string siteName = "Service Taxonomy Editor";
-            string recipeName = "Service Taxonomy Editor";
+            string recipeName = "ServiceTaxonomyEditor";
             string databaseType = "";
             string tablePrefix = "";
             string sqlConnectionString = "";
@@ -58,7 +58,6 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                 Console.WriteLine("Try `greet --help' for more information.");
                 return;
             }
-
 
             bool missingArgs = false;
             string errorMessage = "The following mandatory arguments were not supplied:\n";
@@ -158,33 +157,7 @@ namespace DFC.ServiceTaxonomy.OrchardCoreInitialiser
                     Console.WriteLine(string.Format("Initial configuration already completed, navigating to {0}", uri));
                     webDriver.Navigate().GoToUrl(uri);
                 }
-                    
-
-                //// Logon
-                Console.WriteLine("Initial setup complete, logging on ...");
-                LogonScreen logonScreen = new LogonScreen(webDriver);
-                StartPage startPage = logonScreen.SubmitLogonDetails(uri, userName, password);
-
-                if (!alreadySetup || runPublishIfAlreadySetUp)
-                {
-                    //// remove content types
-                    //ContentTypesAdmin contentTypesAdmin = startPage.NavitateToContentTypeAdmin(uri);
-                    //contentTypesAdmin.RemoveAllContentTypes();
-
-                    // publish all items
-                    Console.WriteLine("Logged on, starting Service Taxonomy Editor configuration ...");
-                    ManageContent manageContent = startPage.NavigateToManageContent(uri);
-                    manageContent.PublishAll("Job Category");
-                    manageContent.PublishAll("Job Profile");
-                    manageContent.LogOut();
-                }
-                else
-                {
-                    startPage.LogOut();
-                }
-
-
-
+                   
             }
             catch( Exception e)
             {
