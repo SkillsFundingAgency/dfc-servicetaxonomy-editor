@@ -124,11 +124,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         .Where(ir => !ir.Relationship.Properties.ContainsKey(
                             NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName));
 
-                        allowSyncResult.AddSyncBlockers(
-                            nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
-                                new SyncBlocker(
-                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
-                                    (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
+                    allowSyncResult.AddSyncBlockers(
+                        nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
+                            new SyncBlocker(
+                                context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
+                                (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
                 }
             }
         }
@@ -249,7 +249,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         //todo: best place for this to live?
         private static IEnumerable<KeyValuePair<string, object>> TwoWayRelationshipProperties { get; } =
-            new Dictionary<string, object> {{NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName, true}};
+            new Dictionary<string, object> { { NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName, true } };
 
         public async Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context)
         {
@@ -460,33 +460,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         public async Task AddRelationship(JArray? contentItems, IDescribeRelationshipsContext context)
         {
-            try
+            if (contentItems == null)
             {
-                if (contentItems == null)
-                {
-                    return;
-                }
+                return;
+            }
 
-                var convertedItems = ConvertToContentItems(contentItems);
+            var convertedItems = ConvertToContentItems(contentItems);
 
-                foreach (var embeddedContentItem in convertedItems)
-                {
-                    var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-                    embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
-
-                    string relationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
-
-                    context.AvailableRelationships.Add(new ContentItemRelationship(await context.SyncNameProvider.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.SyncNameProvider.NodeLabels(embeddedContentItem.ContentType)));
-
-                    var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
-
-                    var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, embeddedContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
-                    childContext.SetContentField(embeddedContentItem.Content);
-                    await describeRelationshipService.BuildRelationships(embeddedContentItem, childContext);
-                }
-            }catch(Exception ex)
+            foreach (var embeddedContentItem in convertedItems)
             {
-                Console.WriteLine(ex);
+                var embeddedContentGraphSyncHelper = _serviceProvider.GetRequiredService<ISyncNameProvider>();
+                embeddedContentGraphSyncHelper.ContentType = embeddedContentItem.ContentType;
+
+                string relationshipType = await RelationshipType(embeddedContentGraphSyncHelper);
+
+                context.AvailableRelationships.Add(new ContentItemRelationship(await context.SyncNameProvider.NodeLabels(context.ContentItem.ContentType), relationshipType, await context.SyncNameProvider.NodeLabels(embeddedContentItem.ContentType)));
+
+                var describeRelationshipService = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+
+                var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, embeddedContentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+                childContext.SetContentField(embeddedContentItem.Content);
+                await describeRelationshipService.BuildRelationships(embeddedContentItem, childContext);
             }
         }
     }
