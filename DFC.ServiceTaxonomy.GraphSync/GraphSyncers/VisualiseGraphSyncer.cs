@@ -30,22 +30,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion)
         {
             ContentItem contentItem = await _contentManager.GetAsync(contentItemId, contentItemVersion.VersionOptions);
-            dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
 
-            _syncNameProvider.ContentType = contentItem.ContentType;
-            var sourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
-            var sourceNodeLabels = await _syncNameProvider.NodeLabels();
-            var sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
+            if (contentItem != null)
+            {
 
-            var rootContext = new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
-            rootContext.SetContentField(contentItem.Content);
+                dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
 
-            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
+                _syncNameProvider.ContentType = contentItem.ContentType;
+                var sourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
+                var sourceNodeLabels = await _syncNameProvider.NodeLabels();
+                var sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
-            var relationships = new List<ContentItemRelationship>();
-            var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
+                var rootContext = new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
+                rootContext.SetContentField(contentItem.Content);
 
-            return relationshipCommands!;
+                await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
+
+                var relationships = new List<ContentItemRelationship>();
+                var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
+
+                return relationshipCommands!;
+            }
+
+            return new List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>();
         }
     }
 }

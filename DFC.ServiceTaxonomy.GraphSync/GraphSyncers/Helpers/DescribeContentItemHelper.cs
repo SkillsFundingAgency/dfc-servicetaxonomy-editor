@@ -20,8 +20,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
     public class DescribeContentItemHelper : IDescribeContentItemHelper
     {
         private readonly IContentManager _contentManager;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly ISyncNameProvider _syncNameProvider;
         private readonly IEnumerable<IContentItemGraphSyncer> _contentItemGraphSyncers;
         private readonly List<string> encounteredContentItems = new List<string>();
         private readonly List<string> encounteredContentTypes = new List<string>();
@@ -31,13 +29,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             IContentDefinitionManager contentDefinitionManager,
             ISyncNameProvider syncNameProvider,
             IEnumerable<IContentItemGraphSyncer> contentItemGraphSyncers,
-            IPublishedContentItemVersion publishedContentItemVersion,
-            IPreviewContentItemVersion previewContentItemVersion,
             IServiceProvider serviceProvider)
         {
             _contentManager = contentManager;
-            _contentDefinitionManager = contentDefinitionManager;
-            _syncNameProvider = syncNameProvider;
             _contentItemGraphSyncers = contentItemGraphSyncers;
         }
 
@@ -85,8 +79,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public async Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context)
-        {
-            var contentItem = await _contentManager.GetAsync(contentItemId, context.ContentItemVersion.VersionOptions);
+        {   
+            var contentItem = await context.ContentItemVersion.GetContentItem(_contentManager, contentItemId);
             var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, contentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
 
             context.AddChildContext(childContext);
