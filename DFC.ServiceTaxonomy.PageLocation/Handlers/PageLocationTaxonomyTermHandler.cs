@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Content;
+using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
@@ -18,76 +21,64 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         private readonly ITaxonomyHelper _taxonomyHelper;
         private readonly IContentManager _contentManager;
         private readonly ISyncOrchestrator _syncOrchestrator;
+        private readonly IContentItemsService _contentItemsService;
 
-        public PageLocationTaxonomyTermHandler(ISession session, ITaxonomyHelper taxonomyHelper, IContentManager contentManager, ISyncOrchestrator syncOrchestrator)
+        public PageLocationTaxonomyTermHandler(ISession session, ITaxonomyHelper taxonomyHelper, IContentManager contentManager, ISyncOrchestrator syncOrchestrator, IContentItemsService contentItemsService)
         {
             _session = session;
             _taxonomyHelper = taxonomyHelper;
             _contentManager = contentManager;
             _syncOrchestrator = syncOrchestrator;
+            _contentItemsService = contentItemsService;
         }
 
         public async Task UpdatedAsync(ContentItem term, ContentItem taxonomy)
         {
-            if (term.Content.PageLocation == null)
+            if (term.ContentType != ContentTypes.PageLocation)
                 return;
 
-            IEnumerable<ContentItem> allPages = await _session.Query<ContentItem, ContentItemIndex>(x => x.ContentType == "Page" && x.Latest).ListAsync();
-            IEnumerable<ContentItem> associatedPages = allPages.Where(x => x.Content.Page.PageLocations.TermContentItemIds[0] == term.ContentItemId);
+            List<ContentItem> allPages = await _contentItemsService.GetActive(ContentTypes.Page);
+            List<ContentItem> associatedPages = allPages.Where(x => x.Content.Page.PageLocations.TermContentItemIds[0] == term.ContentItemId).ToList();
 
-            foreach (var page in associatedPages)
+            var groups = associatedPages.GroupBy(x => x.ContentItemId);
+
+            foreach (var group in groups)
             {
-                //rebuild the Full URL to ensure it matches the current state of the term
-                var pageUrlName = page.As<PageLocationPart>().UrlName;
-                var termUrl = _taxonomyHelper.BuildTermUrl(JObject.FromObject(term), JObject.FromObject(taxonomy));
+                var pages = group.ToList();
 
-                var fullUrl = string.IsNullOrWhiteSpace(termUrl)
-                    ? $"/{pageUrlName}"
-                    : $"/{termUrl}/{pageUrlName}";
-
-                //load and alter the draft page first
-                ContentItem draftPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Draft);
-                if (draftPage != null)
+                foreach (var page in pages)
                 {
-                    draftPage.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
+                    //rebuild the Full URL to ensure it matches the current state of the term
+                    var pageUrlName = page.As<PageLocationPart>().UrlName;
+                    var termUrl = _taxonomyHelper.BuildTermUrl(JObject.FromObject(term), JObject.FromObject(taxonomy));
+
+                    var fullUrl = string.IsNullOrWhiteSpace(termUrl)
+                        ? $"/{pageUrlName}"
+                        : $"/{termUrl}/{pageUrlName}";
+
+                    _session.Save(page);
                 }
 
-                //load and alter the published page
-                ContentItem publishedPage = await _contentManager.GetAsync(page.ContentItemId, VersionOptions.Published);
-
-                if (publishedPage != null)
+                if (pages.Count > 1)
                 {
-                    publishedPage.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
-                }
+                    var publishedPage = pages.Single(x => x.Published);
+                    var draftPage = pages.Single(x => x.Latest);
 
-                if (publishedPage != null)
-                {
-                    _session.Save(publishedPage);
-                }
-
-                if (draftPage != null)
-                {
-                    _session.Save(draftPage);
-                }
-
-                if (publishedPage != null && draftPage != null)
-                {
                     //TODO (CHECK) : will this also fire events to the event store?
                     if (!await _syncOrchestrator.Update(publishedPage, draftPage))
                     {
                         _session.Cancel();
                     }
                 }
-                else if (publishedPage != null)
+                else
                 {
-                    if (!await _syncOrchestrator.Publish(publishedPage))
+                    var page = pages.Single();
+
+                    if (page.Published && !await _syncOrchestrator.Publish(page))
                     {
                         _session.Cancel();
                     }
-                }
-                else if (draftPage != null)
-                {
-                    if (!await _syncOrchestrator.SaveDraft(draftPage))
+                    else if (!page.Published && !await _syncOrchestrator.SaveDraft(page))
                     {
                         _session.Cancel();
                     }
