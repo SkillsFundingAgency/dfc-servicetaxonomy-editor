@@ -59,28 +59,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands
                         {
                             BuildForRelationship(++ordinal, nodeMatchBuilder, destNodeOutgoingRelationshipsBuilder,
                                 parameters, relationship, destNodeLabels, destIdPropertyValue);
-                            // string relationshipVariable = $"{newRelationshipVariableBase}{++ordinal}";
-                            // string destNodeVariable = $"{destinationNodeVariableBase}{ordinal}";
-                            // string destIdPropertyValueParamName = $"{destNodeVariable}Value";
-                            // string destinationNodeOutgoingRelationshipsVariable = $"{destinationNodeOutgoingRelationshipsVariableBase}{ordinal}";
-                            // string destinationNodeIncomingTwoWayRelationshipsVariable = $"{destinationNodeIncomingTwoWayRelationshipsVariableBase}{ordinal}";
-                            //
-                            // //todo: relationshiptype as parameter?
-                            // //todo: use AppendLine instead?
-                            // nodeMatchBuilder.Append(
-                            //     $"\r\nmatch ({sourceNodeVariableName})-[{relationshipVariable}:{relationship.RelationshipType}]->({destNodeVariable}:{destNodeLabels})");
-                            // nodeMatchBuilder.Append(
-                            //     $"\r\nwhere {destNodeVariable}.{relationship.DestinationNodeIdPropertyName} = ${destIdPropertyValueParamName}");
-                            // parameters.Add(destIdPropertyValueParamName, destIdPropertyValue);
-                            //
-                            // if (!DeleteDestinationNodes)
-                            //     continue;
-                            //
-                            // destNodeOutgoingRelationshipsBuilder.Append(
-                            //     $"\r\noptional match ({destNodeVariable})-[{destinationNodeOutgoingRelationshipsVariable}]->()");
-                            //
-                            // destNodeOutgoingRelationshipsBuilder.Append(
-                            //     $"\r\noptional match ({destNodeVariable})<-[{destinationNodeIncomingTwoWayRelationshipsVariable} {{{TwoWayRelationshipPropertyName}: TRUE}}]-()");
                         }
                     }
                 }

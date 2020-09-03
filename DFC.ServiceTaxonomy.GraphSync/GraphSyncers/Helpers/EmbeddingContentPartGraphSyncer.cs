@@ -27,6 +27,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
         }
 
+        public override async Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _embeddedContentItemsGraphSyncer.AllowSyncDetaching(context, allowSyncResult);
+        }
+
         public override async Task AddSyncComponentsDetaching(IGraphMergeContext context)
         {
             await _embeddedContentItemsGraphSyncer.AddSyncComponentsDetaching(context);

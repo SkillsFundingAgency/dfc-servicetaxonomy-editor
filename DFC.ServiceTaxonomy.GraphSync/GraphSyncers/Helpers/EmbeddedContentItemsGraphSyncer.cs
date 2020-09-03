@@ -197,10 +197,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             await DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
+        public Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        {
+            //todo: need to check if deleting as part of AddSyncComponentsDetaching is gonna fail the sync
+            return Task.CompletedTask;
+        }
+
         public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
         {
-            // use DeleteRelationshipsCommand (altered to accept no dest node ids)
-            // on all embeddable content types/relationships
+            // delete all relationships of all embeddable relationship types and their destination nodes
+            // (and the destination node's outgoing relationships and incoming two-way relationships)
 
             //(string[] embeddableContentTypes, IEnumerable<string> relationshipTypes) =
             var possibleRelationships =
@@ -210,9 +216,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             var deleteRelationshipsCommand = _serviceProvider.GetRequiredService<IDeleteRelationshipsCommand>();
 
             //todo: method on deleteRelationshipsCommand for this??
-            // deleteRelationshipsCommand.SourceNodeLabels = new HashSet<string>(context.MergeNodeCommand.NodeLabels);
-            // deleteRelationshipsCommand.SourceIdPropertyName = context.MergeNodeCommand.IdPropertyName;
-            // deleteRelationshipsCommand.SourceIdPropertyValue = context.MergeNodeCommand.
             deleteRelationshipsCommand.DeleteDestinationNodes = true;
             deleteRelationshipsCommand.SourceNodeLabels = new HashSet<string>(context.ReplaceRelationshipsCommand.SourceNodeLabels);
             deleteRelationshipsCommand.SourceIdPropertyName = context.ReplaceRelationshipsCommand.SourceIdPropertyName;
@@ -226,11 +229,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             // to add random commands into the atomic list
             foreach (var possibleRelationship in possibleRelationships)
             {
-                //todo: needs to delete dest node
-                // context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
-                //     possibleRelationship.RelationshipType,
-                //     await context.SyncNameProvider.NodeLabels(possibleRelationship.ContentType));
-
                 //todo: add a RemoveAnyRelationshipsTo overload?
                 deleteRelationshipsCommand.AddRelationshipsTo(possibleRelationship.RelationshipType,
                     null,
