@@ -14,6 +14,7 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using System;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -96,10 +97,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 contentItemIdsJArray,
                 context.ContentManager,
                 context.ContentItemVersion);
-//todo: need to allow for pub -> draft (not in pub)
-            if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
+
+            if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Preview
+                && foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
+            {
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
+            }
+            // if we're syncing to the published graph, some items may be draft only,
+            // so it's valid to have less found content items than are picked
+            //todo: we could also check when publishing and take into account how many we expect not to find as they are draft only
 
             // warning: we should logically be passing an ISyncNameProvider with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
