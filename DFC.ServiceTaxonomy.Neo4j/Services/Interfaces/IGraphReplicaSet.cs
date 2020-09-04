@@ -11,12 +11,12 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
         int InstanceCount { get; }
 
         /// <summary>
-        /// Run a query against a replica.
+        /// Run a collection of queries against a replica
         /// </summary>
-        /// <param name="query">The query to run.</param>
         /// <typeparam name="T"></typeparam>
+        /// <param name="queries">The queries to run</param>
         /// <returns></returns>
-        Task<List<T>> Run<T>(IQuery<T> query);
+        Task<List<T>> Run<T>(params IQuery<T>[] queries);
 
         /// <summary>
         /// Run commands, in order, within a write transaction, against all replicas in the set. No results returned.

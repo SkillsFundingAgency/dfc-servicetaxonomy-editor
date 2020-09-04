@@ -53,6 +53,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
+        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            if (context.ContentField == null)
+            {
+                return;
+            }
+
+            foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
+            {
+                IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
+                    context.ContentTypePartDefinition.PartDefinition.Fields
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
+
+                foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
+                {
+                    JObject? contentItemField = (JObject?)context.ContentField[contentPartFieldDefinition.Name];
+                    if (contentItemField == null)
+                        continue;
+
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
+
+                    await contentFieldGraphSyncer.AddRelationship(context);
+                }
+
+                context.SetContentPartFieldDefinition(default);
+            }
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
@@ -117,7 +145,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 }
             }
 
-            return (true,"");
+            return (true, "");
         }
     }
 }

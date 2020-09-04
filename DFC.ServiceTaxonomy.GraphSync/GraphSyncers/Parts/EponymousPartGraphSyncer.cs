@@ -51,5 +51,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             return await _contentFieldsGraphSyncer.ValidateSyncComponent(
                 content, context);
         }
+
+        public override async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            await _contentFieldsGraphSyncer.AddRelationship(context);
+        }
     }
 }

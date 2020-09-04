@@ -24,9 +24,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             GraphReplicaSetLowLevel = default!;
         }
 
-        public Task<List<T>> Run<T>(IQuery<T> query)
+        public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
-            return Endpoint.Run(query, GraphName, DefaultGraph);
+            return Endpoint.Run(queries, GraphName, DefaultGraph);
         }
 
         public Task Run(params ICommand[] commands)

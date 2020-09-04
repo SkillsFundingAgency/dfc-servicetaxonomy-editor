@@ -52,5 +52,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public abstract Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context);
+
+        public virtual Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            return Task.CompletedTask;
+        }
     }
 }
