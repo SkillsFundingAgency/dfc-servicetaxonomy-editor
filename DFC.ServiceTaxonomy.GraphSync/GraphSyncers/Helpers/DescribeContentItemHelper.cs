@@ -37,22 +37,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
         {
             var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext);
-            var groupedCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
-            var uniqueCommands = new List<string>();
-
-            //Remove any commands containing other commands from the call structure
-            foreach (var command in groupedCommands)
-            {
-                if (command == null)
-                {
-                    continue;
-                }
-
-                if (!groupedCommands.Any(z => z!.Contains(command) && z.Length > command.Length))
-                {
-                    uniqueCommands.Add(command);
-                }
-            }
+            var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
             List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
             BuildIncomingRelationshipCommands(commandsToReturn, context);
