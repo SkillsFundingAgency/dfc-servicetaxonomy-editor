@@ -1,12 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.Events.Configuration;
-using DFC.ServiceTaxonomy.Events.Models;
-using DFC.ServiceTaxonomy.Events.Services.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
@@ -14,7 +11,6 @@ using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.DisplayManagement.Notify;
@@ -26,6 +22,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -33,17 +30,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             IGraphCluster graphCluster,
             IServiceProvider serviceProvider,
             ILogger<SyncOrchestrator> logger,
-            IOptionsMonitor<EventGridConfiguration> eventGridConfiguration,
-            IEventGridContentClient eventGridContentClient,
-            ISyncNameProvider syncNameProvider,
             IPublishedContentItemVersion publishedContentItemVersion,
-            IPreviewContentItemVersion previewContentItemVersion,
-            INeutralEventContentItemVersion neutralEventContentItemVersion)
-            : base(contentDefinitionManager, notifier, logger, eventGridConfiguration, eventGridContentClient, syncNameProvider, publishedContentItemVersion, previewContentItemVersion, neutralEventContentItemVersion)
+            IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
+            : base(contentDefinitionManager, notifier, logger)
         {
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
             _serviceProvider = serviceProvider;
+            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
         /// <returns>false if saving draft to preview graph was blocked or failed.</returns>
@@ -62,7 +56,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
-            await PublishContentEvent(contentItem, ContentEventType.Draft);
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftSaved(contentItem);
+            }
 
             return true;
         }
@@ -104,7 +101,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
-            await PublishContentEvent(contentItem, ContentEventType.Published);
+            //todo: move these into 'ed' where available?
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Published(contentItem);
+            }
 
             return true;
         }
@@ -147,8 +148,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
-            await PublishContentEvent(previewContentItem, ContentEventType.Draft);
-            await PublishContentEvent(publishedContentItem, ContentEventType.Published);
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftSaved(previewContentItem);
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Published(publishedContentItem);
+            }
 
             return true;
         }
@@ -172,7 +180,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
-            await PublishContentEvent(contentItem, ContentEventType.DraftDiscarded);
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftDiscarded(contentItem);
+            }
 
             return true;
         }
@@ -196,7 +207,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
-            await PublishContentEvent(contentItem, ContentEventType.Draft);
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Cloned(contentItem);
+            }
 
             return true;
         }

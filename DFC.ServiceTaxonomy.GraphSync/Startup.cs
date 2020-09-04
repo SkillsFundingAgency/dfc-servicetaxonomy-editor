@@ -97,7 +97,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
             services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
             services.AddTransient<IContentTypeOrchestrator, ContentTypeOrchestrator>();
-            //services.AddTransient<IContentOrchestrationHandler, EventGridPublishingHandler>();
+            services.AddTransient<IContentOrchestrationHandler, EventGridPublishingHandler>();
 
             // syncers
             services.AddTransient<IMergeGraphSyncer, MergeGraphSyncer>();
