@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using FakeItEasy;
@@ -33,6 +35,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
         public IContentManager ContentManager { get; set; }
         public IGraphReplicaSet PreviewGraphReplicaSet { get; set; }
         public IGraphReplicaSet PublishedGraphReplicaSet { get; set; }
+        public IContentOrchestrationHandler EventGridPublishingHandler { get; set; }
 
         public SyncOrchestratorTestsBase()
         {
@@ -83,13 +86,22 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
                     A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
                 .Returns(PublishedAllowSyncResult);
 
+            EventGridPublishingHandler = A.Fake<IContentOrchestrationHandler>();
+            A.CallTo(() => EventGridPublishingHandler.Published(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Cloned(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Unpublished(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftDiscarded(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Deleted(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+
             SyncOrchestrator = new SyncOrchestrator(
                 ContentDefinitionManager,
                 Notifier,
                 GraphCluster,
-                PublishedContentItemVersion,
                 ServiceProvider,
-                Logger);
+                Logger,
+                PublishedContentItemVersion,
+                new List<IContentOrchestrationHandler> { EventGridPublishingHandler });
         }
     }
 }
