@@ -113,18 +113,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             IEnumerable<object> foundDestinationNodeIds =
                 foundDestinationContentItems.Select(ci => GetNodeId(ci!, context));
 
-            int ordinal = 0;
+            long ordinal = 0;
 
             foreach (var item in foundDestinationNodeIds)
             {
                 context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                ContentPickerRelationshipProperties.Union(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("Ordinal", ordinal) }),
+                ContentPickerRelationshipProperties.Concat(new[] { new KeyValuePair<string, object>("Ordinal", ordinal++) }),
                 destNodeLabels,
                 context.SyncNameProvider.IdPropertyName(pickedContentType),
                 item);
-
-                ordinal++;
             }
         }
 
@@ -162,6 +160,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return (false, $"expecting {destinationContentItems.Count()} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
             }
 
+            long ordinal = 0;
+
             foreach (ContentItem destinationContentItem in destinationContentItems)
             {
                 //todo: should logically be called using destination ContentType, but it makes no difference atm
@@ -171,14 +171,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 string destinationIdPropertyName =
                     context.SyncNameProvider.IdPropertyName(destinationContentItem.ContentType);
 
+                var expectedRelationshipProperties =
+                    ContentPickerRelationshipProperties.Concat(
+                        new[] {new KeyValuePair<string, object>("Ordinal", ordinal++)});
+
                 //todo: we might want to check that all the supplied relationship properties are there,
-                // whilst not failing validation if other other properties are present?
+                // whilst not failing validation if other properties are present?
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
                     context.NodeWithOutgoingRelationships,
                     relationshipType,
                     destinationIdPropertyName,
                     destinationId,
-                    ContentPickerRelationshipProperties);
+                    expectedRelationshipProperties);
 
                 if (!validated)
                     return (false, failureReason);
