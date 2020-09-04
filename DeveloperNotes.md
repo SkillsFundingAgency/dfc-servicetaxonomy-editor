@@ -2,63 +2,21 @@
 
 * need to test branch, not master!
 
+* move common field syncing such as modified/created/contentitemid to graphsyncpart?
+
 * disable cloning taxonomies?? backdoor to creating a draft taxonomy (although it works, so perhaps we leave it)
 
 * pass part instances to syncers, rather than jobjects??
 
-* clean up logs, ensure exceptions are getting logged correctly, switch any remaining logs over to params
-
-* these tests failing on the build server due to culture issues:
-DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage
-AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties
-AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties
-
-[xUnit.net 00:00:03.60]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(expectedMessage: "content property value was '15/06/2020 14:24:00', "..., nodeValue: "") [FAIL]
-  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(expectedMessage: "content property value was '15/06/2020 14:24:00', "..., nodeValue: "") [3ms]
-  Error Message:
-   Assert.Equal() Failure
-                                 ↓ (pos 28)
-Expected: ···property value was '15/06/2020 14:24:00', but node property v···
-Actual:   ···property value was '6/15/2020 2:24:00 PM', but node property ···
-                                 ↑ (pos 28)
-  Stack Trace:
-     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Helpers.GraphValidationHelper.GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.DateTimeContentPropertyMatchesNodeProperty_PropertySameTypeButDifferent_ReturnsFailedValidationMessage(String expectedMessage, String nodeValue) in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Helpers\GraphValidationHelper\GraphValidationHelper_DateTimeContentPropertyMatchesNodePropertyTests.cs:line 106
-[xUnit.net 00:00:03.68]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties [FAIL]
-  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties [8ms]
-  Error Message:
-   Assert.Equal() Failure
-Expected: Dictionary<String, Object> [[publishlater_ScheduledPublishUtc, 6/28/2020 8:58:00 AM]]
-Actual:   Dictionary<String, Object> [[publishlater_ScheduledPublishUtc, 6/28/2020 9:58:00 AM]]
-  Stack Trace:
-     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.HtmlBodyPartGraphSyncerTests.PublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledPublishUtcContent_TitleAddedToMergeNodeCommandsProperties() in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Parts\PublishLaterPartGraphSyncerTests\PublishLaterPartGraphSyncer_AddSyncComponentsTests.cs:line 34
---- End of stack trace from previous location where exception was thrown ---
-[xUnit.net 00:00:03.72]     DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties [FAIL]
-  X DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties [3ms]
-  Error Message:
-   Assert.Equal() Failure
-Expected: Dictionary<String, Object> [[unpublishlater_ScheduledUnpublishUtc, 6/28/2020 8:58:00 AM]]
-Actual:   Dictionary<String, Object> [[unpublishlater_ScheduledUnpublishUtc, 6/28/2020 9:58:00 AM]]
-  Stack Trace:
-     at DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Parts.UnpublishLaterPartGraphSyncerTests.UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.AddSyncComponents_ScheduledUnpublishUtcContent_TitleAddedToMergeNodeCommandsProperties() in I:\Build\_work\2\s\DFC.ServiceTaxonomy.UnitTests\GraphSync\GraphSyncers\Parts\UnpublishLaterPartGraphSyncerTests\UnpublishLaterPartGraphSyncer_AddSyncComponentsTests.cs:line 33
-
-
-& renamr graphsynchelper to SyncNameProvider
-
-* need to publish events for terms too
-
 * ensure all cypher queries and commands use parameters
 
 * if sync fails and changes cancelled, leave user on edit page with their changes intact
-
-* check moving a taxonomy term to a different level
 
 * does oc taxonomy module have unit tests? if so bring them in
 
 * add new module for events, sitting on top of sync, using the new events library
 
 * Generate correlation Id in handler?
-
-* unpublishing page leaves HTML
 
 * if a shared content widget has no picked published content types, don't sync the html widget itself in the published graph set
 
@@ -72,13 +30,7 @@ so we should probably not sync 'empty' shared widgets
 
 * replicate taxonomy fix: https://mail.google.com/mail/u/0/#inbox/FMfcgxwJXLntMnZkqzJfcvWQKXsHKDGV
 
-* pub/draft embedded item sync, events only if synced ok, clone?
-
 * need to resync following part deletion too
-
-* in dev seeing this exception:
-An unhandled error occurred while executing an activity. Workflow ID: '980956'. Activity: '4mvaxsfc5ntc90s0pbs7xtds4x', 'AuditSyncIssuesTask'. Putting the workflow in the faulted state.
-An expression of non-boolean type specified in a context where a condition is expected, near 'or'.
 
 * notifier with dropdown containing technical details/exceptions?
 
@@ -99,64 +51,25 @@ AspNetCoreEnvironment : Production
 The new Shared Content could not be removed because the associated node could not be deleted from the graph.
 ^ it should have a notification for each of published/preview
 
-* deleting a widget needs to delete from graph also
-^ when no widgets left, will not delete existing
-does the same issue exist for all enbedded contentm, like pickers?
-allow empty destnodeids in replacerelationshipcommand?
-
 * pages : alias only has to be unique to location, not to page content type
 
-* deleting shared html widget from page doesn't update the graph correctly
-
-* deleting location : don't allow delete if in use by a page (list pages used by?)
-
-* shared content preview in page editor should just show content, not title -> just set RenderTitle to false on title?
-
-* graphsync 2 settings, 1 for published 1 for preview
+* graphsync 2 settings, 1 for published 1 for preview?
 
 * looks like we have an exemption from gds to be able to use different colours (see https://skillsfundingagency.atlassian.net/wiki/spaces/DFC/pages/1998946687/GDS+toolkit+flexibility+exemption+-+EW+JT)
    update html editor
 
-* Page Location > add alias part for uri, title as display text
-
 * draft/pub
- visualizer: show draft/pub buttons
  query runner: pick draft/pub through ui?
-if use property to cloak draft items in published graph, have standard user defined procedure to filter out cloaked items
-<story> add story for 'Delete Field From Graph' workflow
-  current behaviour is wrong anyway.
-  when field is removed from content type, all items of that content type are currently published (even if there is only currently a draft version).
-  needs to update published items and update draft items
 
 * use graph clustering algorithms to pick out real user groupings, and potentially match then to personas (or discover new ones)
-
-* think oc now supports tabs, switch to new support,
-see https://orcharddojo.net/blog/tabs-cards-and-columns-for-the-admin-rendertitle-option-this-week-in-orchard-03-07-2020
-
-* domain topics
-add domain taxonomy (initial candidates are job profile & content)
-add taxonomy to all content types (allowing multiple and none)
-create topic though function when new domain (term) added
-delete topic through function when domain (term) deleted
-publish events to appropriate domains
-
-* multiple parts on same page eg htmlbody_html -> support when syncing <- only supported for named parts
 
 * check publish later actually publishes
 
 * support custom part/field sync as part of a particular content type
 
-* deleting taxonomy in page doesn't remove from graph
-
 * preview pages app could use the synced publish/unpublish later data to give the user a timeline control sto show a preview of the page at a particular point in time
 
 * pages app
-
-location part with taxonomy & text?
-default to slugified title?
-check for url clashes on main and redirect and conforms to gds - new field/part for the check/validation
-
-when sync page, make sure url is unique
 
 Add facility for displaying a content type (or a specific content item) within a section of a page
 using a template created by the ux/ur/content users.
@@ -288,7 +201,7 @@ store object of contentitemid and aggregate name as value
 
 * add properties to csharpcontent: addtosessioncache
 
-* enforce readonly nodes by not allowing user to delete the corresponding content item
+* enforce readonly nodes by not allowing user to delete the corresponding content item?
 
 * make sure only 1 validate and repair is operating at once
 
@@ -413,8 +326,6 @@ also don't add the guid to the master recipe filename
 
 * api: GetJobProfilesBySearchTerm should tolower the search term
 
-* don't log to file in env, only ai: add nlog.Development.config?
-
 * graph validator : group verified results in ui by content type
                     only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
                     log user id, not contentitemid
@@ -432,7 +343,6 @@ logging? (will slow down import though)
 
 * sync validation:
      safer to check all content items!?
-     test when multiple graphs
      we could validate a content items parts concurrently to speed it up (ConcurrentDictionary for expectedRelationshipCounts at least)
      ^ we could report all validation errors, although not necessary, as if there's at least 1 error then we need to attempt a repair
      we could validate content items concurrently
@@ -472,9 +382,33 @@ could fix when create new content recipe step
 * handle graph down/not running better (& quicker)
 * looks like might be some useful code in the [client](https://github.com/Readify/Neo4jClient), e.g. working with results
 
+* currently we don't properly recurse embedded items when removing a part that embeds other content items
+  we should add proper support for removing a containing/embedding part...
+
+  //todo: options:
+  // A)
+  // call sync skipping zombies
+  // call delete excluding non-zombies
+  // combine commands
+  // execute commands
+  // +ve
+  // -ve e.g. contentpickerfield sync doesn't explicitly remove relationships, it relies on the outgoing relationships being deleted with the node
+  // and as we wouldn't be deleting the node, we'd have to add relationship deletion to content picker, which it wouldn't need in a normal delete
+  // B)
+  // handle detachment explicitly
+  // +ve some delete code e.g. contentpickerfield is not actually shared with the normal delete
+  // -ve can't easily reuse delete code
+  // embedded recursion for delete is gonna be a pain - either have to create a delete context and add that into the sync tree
+  // or add a delete context to the mergecontext
+  // but can't call delete embedded directly anyway as needs delete phase1 to have already happened
+  // or use mergesync and pass flag to say actually deleting
+  // do we _need_ full recursion?
+  // don't think user can remove taxonomy part (just delete the taxonomy)
+  // flow : at the moment only have html & htmlshared widget and deleting those (with outgoing relationships) would be ok
+  // bag : does need proper recursion, but we don't use it atm
+
 ##ToDo UI Improvements
 
-* order content type in editor alphabetically (or programmatically)
 * don't like new disabled select appearing once selected in single select scenario - nasty!
 * provide error/warning to use if they try to add a tab and an accordion to the same part - it isn't supported!
 

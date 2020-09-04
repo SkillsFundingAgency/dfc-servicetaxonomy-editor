@@ -96,6 +96,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             // orchestrators & orchestration handlers
             services.AddTransient<IDeleteOrchestrator, DeleteOrchestrator>();
             services.AddTransient<ISyncOrchestrator, SyncOrchestrator>();
+            services.AddTransient<IContentTypeOrchestrator, ContentTypeOrchestrator>();
             services.AddTransient<IContentOrchestrationHandler, EventGridPublishingHandler>();
 
             // syncers
@@ -162,8 +163,6 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddSingleton<ISuperpositionContentItemVersion>(new SuperpositionContentItemVersion());
             services.AddSingleton<IEscoContentItemVersion>(new EscoContentItemVersion());
             services.AddSingleton<IPreExistingContentItemVersion>(new PreExistingContentItemVersion());
-
-            services.AddScoped<IContentItemsService, ContentItemsService>();
 
             // permissions
             services.AddScoped<IPermissionProvider, Permissions>();

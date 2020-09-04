@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.Taxonomies.Settings;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -113,6 +114,37 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //todo: need to store location as string, e.g. "/contact-us"
             // could alter flatten to also include parent and work backwards
             // or do a search, recording the path
+        }
+
+        public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            var taxonomyFieldSettings = context.ContentPartFieldDefinition!.GetSettings<TaxonomyFieldSettings>();
+
+            //todo: factor out common code
+            ContentItem taxonomyContentItem =  await context.ContentItemVersion.GetContentItem(
+                context.ContentManager,
+                taxonomyFieldSettings.TaxonomyContentItemId);
+
+            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
+
+            string termRelationshipType = TermRelationshipType(termContentType);
+
+            //todo: split into stefull and stateless and put both in the context
+            // then can stop stateful contenttype being reset
+            IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(termContentType);
+
+            context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                termRelationshipType,
+                destNodeLabels);
+
+            string taxonomyRelationshipType = TaxonomyRelationshipType(taxonomyContentItem);
+
+            destNodeLabels = await context.SyncNameProvider.NodeLabels(taxonomyContentItem.ContentType);
+
+            context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                taxonomyRelationshipType,
+                destNodeLabels);
         }
 
         private static Dictionary<string, ContentItem> GetFlattenedTermsContentItems(JObject taxonomyPartContent)

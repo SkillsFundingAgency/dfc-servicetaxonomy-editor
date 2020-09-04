@@ -72,6 +72,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
         {
+            //todo requires 'picked' part has a graph sync part
+            // add to docs & handle picked part not having graph sync part or throw exception
+
+            await AddSyncComponents(context, (JArray?)contentItemField[ContentItemIdsKey]);
+        }
+
+        private async Task AddSyncComponents(IGraphMergeContext context, JArray? contentItemIdsJArray = null)
+        {
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
 
@@ -81,17 +89,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
             IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(pickedContentType);
 
-            //todo requires 'picked' part has a graph sync part
-            // add to docs & handle picked part not having graph sync part or throw exception
-
-            JArray? contentItemIdsJArray = (JArray?)contentItemField[ContentItemIdsKey];
             if (contentItemIdsJArray?.HasValues != true)
             {
                 context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
                     relationshipType,
-                    null,
-                    destNodeLabels,
-                    context.SyncNameProvider.IdPropertyName(pickedContentType));
+                    destNodeLabels);
                 return;
             }
 
@@ -126,6 +128,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
                 ordinal++;
             }
+        }
+
+        public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            await AddSyncComponents(context);
         }
 
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(

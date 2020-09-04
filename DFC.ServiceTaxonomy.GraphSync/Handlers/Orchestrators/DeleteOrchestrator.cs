@@ -21,7 +21,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<DeleteOrchestrator> _logger;
 
         public DeleteOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -35,7 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
-            _logger = logger;
         }
 
         /// <returns>true if unpublish to publish graph was blocked.</returns>
@@ -135,7 +133,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             {
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                //todo: use AddFailureNotifier?
+                //todo: use AddFailureNotifier? pass variables as params to log
                 string message = $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {(deleteOperation == DeleteOperation.Delete?"deleted":"unpublished")} from {contentItemVersion.GraphReplicaSetName} graph.";
                 _logger.LogError(exception, message);
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));

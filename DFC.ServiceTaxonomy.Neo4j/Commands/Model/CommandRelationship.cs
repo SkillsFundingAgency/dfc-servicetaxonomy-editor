@@ -13,7 +13,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
         public string? IncomingRelationshipType { get; }
         public IDictionary<string, object>? Properties { get; }
         public IEnumerable<string> DestinationNodeLabels { get; }
-        public string DestinationNodeIdPropertyName { get; }
+        public string? DestinationNodeIdPropertyName { get; }
         public IList<object> DestinationNodeIdPropertyValues { get; }
 
         public CommandRelationship(
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
             string? incomingRelationshipType,
             IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destinationNodeLabels,
-            string destinationNodeIdPropertyName,
+            string? destinationNodeIdPropertyName,
             IEnumerable<object>? destinationNodeIdPropertyValues)
         {
             RelationshipType = outgoingRelationshipType;
@@ -41,10 +41,17 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Model
                 if (!DestinationNodeLabels.Any())
                     errors.Add($"Missing {nameof(DestinationNodeLabels)}.");
 
+                if (DestinationNodeIdPropertyValues.Any()
+                    && DestinationNodeIdPropertyName == null)
+                {
+                    errors.Add($"{nameof(DestinationNodeIdPropertyName)} must be supplied if there are any {nameof(DestinationNodeIdPropertyValues)}.");
+                }
+
                 return errors;
             }
         }
 
+        //todo: not sure if these are actually used anymore. if not, remove them
         private bool Equals(CommandRelationship other)
         {
             return RelationshipType == other.RelationshipType

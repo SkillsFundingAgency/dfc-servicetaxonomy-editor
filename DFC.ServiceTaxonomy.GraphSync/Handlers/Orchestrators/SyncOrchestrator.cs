@@ -21,7 +21,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<SyncOrchestrator> _logger;
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -35,7 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
             _serviceProvider = serviceProvider;
-            _logger = logger;
         }
 
         /// <returns>true if saving draft to preview graph was blocked or failed.</returns>
@@ -211,9 +209,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 //todo: use notifier helper
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                string message = $"Unable to check if {contentItem.DisplayText} {contentType} can be synced to {replicaSetName} graph.";
-                _logger.LogError(exception, message);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
+                _logger.LogError(exception,
+                    "Unable to check if {ContentItemDisplayText} {ContentType} can be synced to {ReplicaSetName} graph.",
+                    contentItem.DisplayText, contentType, replicaSetName);
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
+                    $"Unable to check if {contentItem.DisplayText} {contentType} can be synced to {replicaSetName} graph."));
 
                 return (SyncStatus.Blocked, null);
             }
@@ -232,9 +232,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                string message = $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.";
-                _logger.LogError(exception, message);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler), message));
+                _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' {ContentType} to {GraphReplicaSetName} graph.",
+                    contentItem.DisplayText, contentType, mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name);
+                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
+                    $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph."));
                 return false;
             }
         }

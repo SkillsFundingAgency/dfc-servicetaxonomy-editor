@@ -92,7 +92,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
             catch (Exception ex)
             {
-                _logger.LogWarning($"Exception: {ex}");
+                _logger.LogWarning(ex, "CSharpContentStep execute exception.");
                 throw;
             }
         }
@@ -142,7 +142,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Recipes.Executors
             }
             catch(Exception ex)
             {
-                _logger.LogError(ex, $"{contentType} with DisplayText '{displayText}' not found!");
+                _logger.LogError(ex, "{ContentType} with DisplayText '{DisplayText}' not found!",
+                    contentType, displayText);
             }
 
             return "";

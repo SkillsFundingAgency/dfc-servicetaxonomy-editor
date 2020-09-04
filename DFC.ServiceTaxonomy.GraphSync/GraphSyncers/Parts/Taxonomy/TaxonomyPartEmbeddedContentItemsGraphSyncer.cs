@@ -20,9 +20,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
     {
         public TaxonomyPartEmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
+            //todo: put one in the context??
+            ISyncNameProvider statelessSyncNameProvider,
             IServiceProvider serviceProvider,
             ILogger<TaxonomyPartEmbeddedContentItemsGraphSyncer> logger)
-            : base(contentDefinitionManager, serviceProvider, logger)
+            : base(contentDefinitionManager, statelessSyncNameProvider, serviceProvider, logger)
         {
         }
 
@@ -43,10 +45,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
 
         public bool IsNonLeafEmbeddedTerm { get; set; }
 
-        protected override async Task<string?> TwoWayIncomingRelationshipType(
-            ISyncNameProvider embeddedContentSyncNameProvider)
+        protected override async Task<string?> TwoWayIncomingRelationshipType(string contentType)
         {
-            return IsNonLeafEmbeddedTerm ? $"{await RelationshipType(embeddedContentSyncNameProvider)}Parent" : null;
+            return IsNonLeafEmbeddedTerm ? $"{await RelationshipType(contentType)}Parent" : null;
         }
 
         public override async Task AllowSync(

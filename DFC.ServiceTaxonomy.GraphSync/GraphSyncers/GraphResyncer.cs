@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
@@ -51,6 +51,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             {
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
+                //todo: we need to better handle disallowed and failed syncs
+                // can we cancel the part/field detachment?
+                //todo: support many items being updated in a transaction
                 await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, contentItem, _contentManager);
             }
         }
