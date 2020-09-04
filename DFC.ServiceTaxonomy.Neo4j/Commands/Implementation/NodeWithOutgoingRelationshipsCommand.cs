@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Implementation
             string relationshipType,
             IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destNodeLabels,
-            string destIdPropertyName,
+            string? destIdPropertyName,
             params object[] destIdPropertyValues)
         {
             RelationshipsList.Add(new CommandRelationship(

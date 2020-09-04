@@ -11,10 +11,11 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
 
         IEnumerable<CommandRelationship> Relationships { get; }
 
-        void AddRelationshipsTo(string relationshipType,
+        void AddRelationshipsTo(
+            string relationshipType,
             IEnumerable<KeyValuePair<string, object>>? properties,
             IEnumerable<string> destNodeLabels,
-            string destIdPropertyName,
+            string? destIdPropertyName,
             params object[] destIdPropertyValues);
 
         void AddRelationshipsTo(IEnumerable<CommandRelationship> commandRelationship);

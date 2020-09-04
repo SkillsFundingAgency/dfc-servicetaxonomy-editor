@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -21,24 +22,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<DeleteOrchestrator> _logger;
+        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public DeleteOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
+            IServiceProvider serviceProvider,
+            ILogger<DeleteOrchestrator> logger,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
-            IServiceProvider serviceProvider,
-            ILogger<DeleteOrchestrator> logger)
+            IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
             : base(contentDefinitionManager, notifier, logger)
         {
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _serviceProvider = serviceProvider;
-            _logger = logger;
+            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
-        /// <returns>true if unpublish to publish graph was blocked.</returns>
+        /// <returns>false if unpublish to publish graph was blocked.</returns>
         public async Task<bool> Unpublish(ContentItem contentItem)
         {
             _logger.LogDebug("Unpublish: Removing '{ContentItem}' {ContentType} from Published.",
@@ -47,13 +49,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             // no need to touch the draft graph, there should always be a valid version in there
             // (either a separate draft version, or the published version)
 
-            return await DeleteFromGraphReplicaSetIfAllowed(
+            if (!await DeleteFromGraphReplicaSetIfAllowed(
                 contentItem,
                 _publishedContentItemVersion,
-                DeleteOperation.Unpublish);
+                DeleteOperation.Unpublish))
+            {
+                return false;
+            }
+
+            //if unpublish was successful publish events
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Unpublished(contentItem);
+            }
+
+            return true;
         }
 
-        /// <returns>true if deleting from either graph was blocked.</returns>
+        /// <returns>false if deleting from either graph was blocked.</returns>
         public async Task<bool> Delete(ContentItem contentItem)
         {
             // we could be more selective deciding which replica set to delete from,
@@ -86,7 +99,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
-            return await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem);
+            if (!await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem))
+            {
+                return false;
+            }
+
+            //if everything succeeded, publish event and return true
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Deleted(contentItem);
+            }
+
+            return true;
         }
 
         private async Task<bool> DeleteFromGraphReplicaSetIfAllowed(

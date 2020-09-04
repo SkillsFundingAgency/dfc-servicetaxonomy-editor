@@ -34,12 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);
-                return;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftSaved(context.ContentItem);
             }
         }
 
@@ -49,13 +43,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);
-                return;
-            }
-
-            //todo: move these into 'ed' where available?
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Published(context.ContentItem);
             }
         }
 
@@ -65,12 +52,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);
-                return;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Unpublished(context.ContentItem);
             }
         }
 
@@ -80,12 +61,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
             {
                 // sad paths have already been notified to the user and logged
                 Cancel(context);
-                return;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.Cloned(context.CloneContentItem);
             }
         }
 
@@ -101,25 +76,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                 if (!await _deleteOrchestrator.Delete(context.ContentItem))
                 {
                     Cancel(context);
-                    return;
                 }
 
-                foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-                {
-                    await contentOrchestrationHandler.Deleted(context.ContentItem);
-                }
                 return;
             }
 
             if (!await _syncOrchestrator.DiscardDraft(context.ContentItem))
             {
                 Cancel(context);
-                return;
-            }
-
-            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
-            {
-                await contentOrchestrationHandler.DraftDiscarded(context.ContentItem);
             }
         }
 

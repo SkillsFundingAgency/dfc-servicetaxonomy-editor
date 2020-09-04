@@ -10,10 +10,13 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
+using System;
+using OrchardCore.ContentManagement.Metadata;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 {
@@ -24,7 +27,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         private const string ContentItemIdsKey = "ContentItemIds";
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
-        private readonly ILogger<ContentPickerFieldGraphSyncer> _logger;
+        private readonly IPreExistingContentItemVersion _preExistingContentItemVersion;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IServiceProvider _serviceProvider;
 
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
 
@@ -32,12 +37,48 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             new Dictionary<string, object> { { ContentPickerRelationshipPropertyName, true } };
 
         public ContentPickerFieldGraphSyncer(
-            ILogger<ContentPickerFieldGraphSyncer> logger)
+            IPreExistingContentItemVersion preExistingContentItemVersion,
+            IContentDefinitionManager contentDefinitionManager,
+            IServiceProvider serviceProvider)
         {
-            _logger = logger;
+            _preExistingContentItemVersion = preExistingContentItemVersion;
+            _contentDefinitionManager = contentDefinitionManager;
+            _serviceProvider = serviceProvider;
+        }
+
+        public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
+        {
+            var describeContentItemHelper = _serviceProvider.GetRequiredService<IDescribeContentItemHelper>();
+
+            ContentPickerFieldSettings contentPickerFieldSettings =
+               parentContext.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
+
+            JArray? contentItemIdsJArray = (JArray?)parentContext.ContentField?[parentContext.ContentPartFieldDefinition!.Name]![ContentItemIdsKey];
+
+            if (contentItemIdsJArray != null && contentItemIdsJArray.Count > 0)
+            {
+                string relationshipType = await RelationshipTypeContentPicker(contentPickerFieldSettings, parentContext.SyncNameProvider);
+                var sourceNodeLabels = await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType);
+                string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
+                IEnumerable<string> destNodeLabels = await parentContext.SyncNameProvider.NodeLabels(pickedContentType);
+                parentContext.AvailableRelationships.Add(new ContentItemRelationship(sourceNodeLabels, relationshipType, destNodeLabels));
+
+                foreach (var nestedItem in contentItemIdsJArray)
+                {
+                    await describeContentItemHelper.BuildRelationships(nestedItem.Value<string>(), parentContext);
+                }
+            }
         }
 
         public async Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context)
+        {
+            //todo requires 'picked' part has a graph sync part
+            // add to docs & handle picked part not having graph sync part or throw exception
+
+            await AddSyncComponents(context, (JArray?)contentItemField[ContentItemIdsKey]);
+        }
+
+        private async Task AddSyncComponents(IGraphMergeContext context, JArray? contentItemIdsJArray = null)
         {
             ContentPickerFieldSettings contentPickerFieldSettings =
                 context.ContentPartFieldDefinition!.GetSettings<ContentPickerFieldSettings>();
@@ -48,21 +89,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             string pickedContentType = contentPickerFieldSettings.DisplayedContentTypes[0];
             IEnumerable<string> destNodeLabels = await context.SyncNameProvider.NodeLabels(pickedContentType);
 
-            //todo requires 'picked' part has a graph sync part
-            // add to docs & handle picked part not having graph sync part or throw exception
-
-            JArray? contentItemIdsJArray = (JArray?)contentItemField[ContentItemIdsKey];
             if (contentItemIdsJArray?.HasValues != true)
             {
                 context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
                     relationshipType,
-                    null,
-                    destNodeLabels,
-                    context.SyncNameProvider.IdPropertyName(pickedContentType));
+                    destNodeLabels);
                 return;
             }
 
-            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, context);
+            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, context.ContentManager);
 
             if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
                 throw new GraphSyncException(
@@ -95,6 +130,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             }
         }
 
+        public async Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            await AddSyncComponents(context);
+        }
+
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject contentItemField,
             IValidateAndRepairContext context)
@@ -110,7 +150,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
 
-            ContentItem[] destinationContentItems = await GetLatestContentItemsFromIds(contentItemIds, context);
+            ContentItem[] destinationContentItems = await GetLatestContentItemsFromIds(contentItemIds, context.ContentManager);
 
             //todo: separate check for missing items, before check relationships
             //todo: move into helper?
@@ -156,13 +196,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return (true, "");
         }
 
-        private async Task<ContentItem[]> GetLatestContentItemsFromIds(JArray contentItemIds, IGraphOperationContext context)
+        private async Task<ContentItem[]> GetLatestContentItemsFromIds(JArray contentItemIds, IContentManager contentManager)
         {
             // GetAsync should be returning ContentItem? as it can be null
 
             ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
                 .Select(idJToken => idJToken.ToObject<string?>())
-                .Select(async id => await context.ContentManager.GetAsync(id, VersionOptions.Latest)));
+                .Select(async id => await contentManager.GetAsync(id, VersionOptions.Latest)));
 
 #pragma warning disable S1905
             return contentItems
@@ -197,8 +237,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         private object GetNodeId(ContentItem pickedContentItem, IGraphMergeContext context)
         {
+            //Todo add GetNodeId support to TaxonomyFieldGraphSyncer
+            var syncSettings = context.SyncNameProvider.GetGraphSyncPartSettings(pickedContentItem.ContentType);
+
+            _preExistingContentItemVersion.SetContentApiBaseUrl(syncSettings.PreExistingNodeUriPrefix);
+
             return context.SyncNameProvider.GetIdPropertyValue(
-                pickedContentItem.Content[nameof(GraphSyncPart)], context.ContentItemVersion);
+                      pickedContentItem.Content[nameof(GraphSyncPart)], syncSettings.PreExistingNodeUriPrefix == null ? context.ContentItemVersion : _preExistingContentItemVersion );
         }
     }
 }

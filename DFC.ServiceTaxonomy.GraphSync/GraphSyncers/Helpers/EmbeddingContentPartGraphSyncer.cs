@@ -2,9 +2,10 @@
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentItemsGraphSyncer;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts;
 using Newtonsoft.Json.Linq;
 
-namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
+namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 {
     public abstract class EmbeddingContentPartGraphSyncer : ContentPartGraphSyncer
     {
@@ -24,6 +25,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             await _embeddedContentItemsGraphSyncer.AddSyncComponents((JArray?)content[ContainerName], context);
+        }
+
+        public override async Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        {
+            await _embeddedContentItemsGraphSyncer.AllowSyncDetaching(context, allowSyncResult);
+        }
+
+        public override async Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            await _embeddedContentItemsGraphSyncer.AddSyncComponentsDetaching(context);
         }
 
         public override async Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
@@ -52,6 +63,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
         {
             return await _embeddedContentItemsGraphSyncer.ValidateSyncComponent(
                 (JArray?)content[ContainerName], context);
+        }
+
+        public override async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            await _embeddedContentItemsGraphSyncer.AddRelationship(
+              (JArray?)context.ContentField?[ContainerName], context);
         }
     }
 }

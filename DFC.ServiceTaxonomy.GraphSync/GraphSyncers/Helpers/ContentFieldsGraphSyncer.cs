@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.Handlers;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement.Metadata.Models;
@@ -53,6 +53,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             _logger = logger;
         }
 
+        public async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            if (context.ContentField == null)
+            {
+                return;
+            }
+
+            foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
+            {
+                IEnumerable<ContentPartFieldDefinition> contentPartFieldDefinitions =
+                    context.ContentTypePartDefinition.PartDefinition.Fields
+                        .Where(fd => fd.FieldDefinition.Name == contentFieldGraphSyncer.FieldTypeName);
+
+                foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
+                {
+                    JObject? contentItemField = (JObject?)context.ContentField[contentPartFieldDefinition.Name];
+                    if (contentItemField == null)
+                        continue;
+
+                    context.SetContentPartFieldDefinition(contentPartFieldDefinition);
+
+                    await contentFieldGraphSyncer.AddRelationship(context);
+                }
+
+                context.SetContentPartFieldDefinition(default);
+            }
+        }
+
         public async Task AddSyncComponents(JObject content, IGraphMergeContext context)
         {
             foreach (var contentFieldGraphSyncer in _contentFieldGraphSyncer)
@@ -63,18 +91,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 foreach (ContentPartFieldDefinition contentPartFieldDefinition in contentPartFieldDefinitions)
                 {
-                    // if we're syncing after field has been detached from the part, don't sync it
-                    if (contentPartFieldDefinition.Settings["ContentPartFieldSettings"]?
-                        [GraphSyncContentDefinitionHandler.FieldZombieFlag]?.Value<bool>() == true)
-                        continue;
-
-                    JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
-                    if (contentItemField == null)
-                        continue;
-
                     context.SetContentPartFieldDefinition(contentPartFieldDefinition);
 
-                    await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
+                    // if we're syncing after field has been detached from the part, don't sync it
+                    if (contentPartFieldDefinition.Settings["ContentPartFieldSettings"]?
+                        [ContentTypeOrchestrator.ZombieFlag]?.Value<bool>() == true)
+                    {
+                        await contentFieldGraphSyncer.AddSyncComponentsDetaching(context);
+                    }
+                    else
+                    {
+                        JObject? contentItemField = (JObject?)content[contentPartFieldDefinition.Name];
+                        if (contentItemField == null)
+                            continue;
+
+                        await contentFieldGraphSyncer.AddSyncComponents(contentItemField, context);
+                    }
                 }
 
                 context.SetContentPartFieldDefinition(default);
@@ -113,7 +145,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 }
             }
 
-            return (true,"");
+            return (true, "");
         }
     }
 }

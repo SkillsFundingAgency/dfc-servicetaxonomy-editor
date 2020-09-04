@@ -24,9 +24,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
 
         public FlowPartEmbeddedContentItemsGraphSyncer(
             IContentDefinitionManager contentDefinitionManager,
+            ISyncNameProvider statelessSyncNameProvider,
             IServiceProvider serviceProvider,
             ILogger<FlowPartEmbeddedContentItemsGraphSyncer> logger)
-            : base(contentDefinitionManager, serviceProvider, logger)
+            : base(contentDefinitionManager, statelessSyncNameProvider, serviceProvider, logger)
         {
         }
 
