@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _serviceProvider = serviceProvider;
         }
 
-        /// <returns>true if unpublish to publish graph was blocked.</returns>
+        /// <returns>false if unpublish to publish graph was blocked.</returns>
         public async Task<bool> Unpublish(ContentItem contentItem)
         {
             _logger.LogDebug("Unpublish: Removing '{ContentItem}' {ContentType} from Published.",
@@ -69,7 +69,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return true;
         }
 
-        /// <returns>true if deleting from either graph was blocked.</returns>
+        /// <returns>false if deleting from either graph was blocked.</returns>
         public async Task<bool> Delete(ContentItem contentItem)
         {
             // we could be more selective deciding which replica set to delete from,

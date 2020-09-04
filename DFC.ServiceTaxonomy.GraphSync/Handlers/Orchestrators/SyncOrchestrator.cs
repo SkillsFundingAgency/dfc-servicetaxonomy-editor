@@ -46,8 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _serviceProvider = serviceProvider;
         }
 
-        //Doesn't this and the other similar methods on these orchestrators return false if it failed or was blocked?
-        /// <returns>true if saving draft to preview graph was blocked or failed.</returns>
+        /// <returns>false if saving draft to preview graph was blocked or failed.</returns>
         public async Task<bool> SaveDraft(ContentItem contentItem)
         {
             _logger.LogDebug("SaveDraft: Syncing '{ContentItem}' {ContentType} to Preview.",
@@ -68,7 +67,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return true;
         }
 
-        /// <returns>true if publish to either graph was blocked or failed.</returns>
+        /// <returns>false if publish to either graph was blocked or failed.</returns>
         public async Task<bool> Publish(ContentItem contentItem)
         {
             _logger.LogDebug("Publish: Syncing '{ContentItem}' {ContentType} to Published and Preview.",
@@ -110,7 +109,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return true;
         }
 
-        /// <returns>true if updating either graph was blocked or failed.</returns>
+        /// <returns>false if updating either graph was blocked or failed.</returns>
         public async Task<bool> Update(ContentItem publishedContentItem, ContentItem previewContentItem)
         {
             _logger.LogDebug("Update: Syncing '{PublishedContentItem}' {PublishedContentType} to Published and '{PreviewContentItem}' {PreviewContentType} to Preview.",
@@ -154,7 +153,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return true;
         }
 
-        /// <returns>true if discarding draft was blocked or failed.</returns>
+        /// <returns>false if discarding draft was blocked or failed.</returns>
         public async Task<bool> DiscardDraft(ContentItem contentItem)
         {
             _logger.LogDebug("DiscardDraft: Discarding draft '{ContentItem}' {ContentType} by syncing existing Published to Preview.",
@@ -178,7 +177,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             return true;
         }
 
-        /// <returns>true if saving clone to preview graph was blocked or failed.</returns>
+        /// <returns>false if saving clone to preview graph was blocked or failed.</returns>
         public async Task<bool> Clone(ContentItem contentItem)
         {
             _logger.LogDebug("Clone: Syncing mutated cloned '{ContentItem}' {ContentType} to Preview.",
