@@ -13,8 +13,8 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
         IGraphReplicaSetLowLevel GraphReplicaSetLowLevel { get; }
         INeoEndpoint Endpoint { get; }
 
-        Task<List<T>> Run<T>(IQuery<T> query);
-        Task<List<T>> Run<T>(IEnumerable<IQuery<T>> queries);
+        Task<List<T>> Run<T>(params IQuery<T>[] queries);
+
         Task Run(params ICommand[] commands);
 
         IGraphReplicaSetLowLevel GetReplicaSetLimitedToThisGraph();

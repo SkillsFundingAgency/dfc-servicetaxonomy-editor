@@ -41,7 +41,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             }
         }
 
-        public async Task<List<T>> Run<T>(IEnumerable<IQuery<T>> queries, string databaseName, bool defaultDatabase)
+        public async Task<List<T>> Run<T>(IQuery<T>[] queries, string databaseName, bool defaultDatabase)
         {
             IAsyncSession session = GetAsyncSession(databaseName, defaultDatabase);
             try

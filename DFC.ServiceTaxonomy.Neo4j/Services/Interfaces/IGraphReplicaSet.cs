@@ -24,7 +24,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
         /// <typeparam name="T"></typeparam>
         /// <param name="queries">The queries to run</param>
         /// <returns></returns>
-        Task<List<T>> Run<T>(IEnumerable<IQuery<T>> queries);
+        Task<List<T>> Run<T>(params IQuery<T>[] queries);
 
         /// <summary>
         /// Run commands, in order, within a write transaction, against all replicas in the set. No results returned.

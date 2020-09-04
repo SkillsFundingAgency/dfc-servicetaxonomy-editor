@@ -29,7 +29,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             return Endpoint.Run(query, GraphName, DefaultGraph);
         }
 
-        public Task<List<T>> Run<T>(IEnumerable<IQuery<T>> queries)
+        public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
             return Endpoint.Run(queries, GraphName, DefaultGraph);
         }

@@ -10,7 +10,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
-using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -138,7 +137,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private async Task<ActionResult> GetData(string contentItemId, string graph)
         {
             var relationshipCommands = await _visualiseGraphSyncer.BuildVisualisationCommands(contentItemId, contentItemVersion!);
-            var result = await _neoGraphCluster.Run(graph, relationshipCommands);
+            var result = await _neoGraphCluster.Run(graph, relationshipCommands.ToArray());
            
             string owlResponseString = "";
 

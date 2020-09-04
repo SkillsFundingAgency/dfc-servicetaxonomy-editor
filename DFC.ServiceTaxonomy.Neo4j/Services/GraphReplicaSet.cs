@@ -38,7 +38,7 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
             return _graphInstances[instance].Run(query);
         }
 
-        public Task<List<T>> Run<T>(IEnumerable<IQuery<T>> queries)
+        public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
             int instance = _limitToGraphInstance ?? unchecked(++_currentInstance) % InstanceCount;
 
