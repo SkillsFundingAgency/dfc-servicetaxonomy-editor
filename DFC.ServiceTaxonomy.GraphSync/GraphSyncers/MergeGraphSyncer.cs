@@ -232,8 +232,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 MergeNodeCommand.IdPropertyName = TitlePartGraphSyncer.NodeTitlePropertyName;
             }
 
-            _graphMergeContext.RecreateIncomingPreviewContentPickerRelationshipsCommands =
-                GetRecreateIncomingPreviewContentPickerRelationshipsCommands();
+            _graphMergeContext.ExtraCommands.AddRange(
+                GetRecreateIncomingPreviewContentPickerRelationshipsCommands());
         }
 
         private IEnumerable<IReplaceRelationshipsCommand> GetRecreateIncomingPreviewContentPickerRelationshipsCommands()
@@ -314,8 +314,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     if (ctx.ReplaceRelationshipsCommand.Relationships.Any())
                         nodeCommands.Add(ctx.ReplaceRelationshipsCommand);
 
-                    if (ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands?.Any() == true)
-                        nodeCommands.AddRange(ctx.RecreateIncomingPreviewContentPickerRelationshipsCommands);
+                    if (ctx.ExtraCommands.Any())
+                        nodeCommands.AddRange(ctx.ExtraCommands);
 
                     if (!ctx.SyncNameProvider.GraphSyncPartSettings.PreexistingNode)
                         nodeCommands.Add(ctx.MergeNodeCommand);

@@ -21,7 +21,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<SyncOrchestrator> _logger;
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
@@ -35,7 +34,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
             _serviceProvider = serviceProvider;
-            _logger = logger;
         }
 
         /// <returns>true if saving draft to preview graph was blocked or failed.</returns>

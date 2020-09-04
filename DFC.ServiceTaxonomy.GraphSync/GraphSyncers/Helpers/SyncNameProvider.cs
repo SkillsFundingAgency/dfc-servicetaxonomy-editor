@@ -268,7 +268,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 _syncNameProviderCSharpScriptGlobals);
         }
 
-        private GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
+        public GraphSyncPartSettings GetGraphSyncPartSettings(string contentType)
         {
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
             var contentTypePartDefinition = contentTypeDefinition.Parts.FirstOrDefault(p => p.PartDefinition.Name == nameof(GraphSyncPart));

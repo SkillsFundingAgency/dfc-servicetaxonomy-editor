@@ -24,6 +24,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
 
         public abstract Task AddSyncComponents(JObject content, IGraphMergeContext context);
 
+        public virtual Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            return Task.CompletedTask;
+        }
+
         public virtual Task AllowDelete(JObject content, IGraphDeleteContext context, IAllowSyncResult allowSyncResult)
         {
             return Task.CompletedTask;

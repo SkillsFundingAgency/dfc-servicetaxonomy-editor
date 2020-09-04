@@ -15,6 +15,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
         public IGraphReplicaSet GraphReplicaSet { get; }
         IMergeNodeCommand MergeNodeCommand { get; }
         IReplaceRelationshipsCommand ReplaceRelationshipsCommand { get; }
-        IEnumerable<IReplaceRelationshipsCommand>? RecreateIncomingPreviewContentPickerRelationshipsCommands { get; }
+        List<ICommand> ExtraCommands { get; }
     }
 }
