@@ -1,4 +1,5 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
+﻿using System;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
@@ -6,7 +7,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Services
     {
         public string Generate(string title)
         {
-            return title.StartsWith("CLONE - ") ? title : $"CLONE - {title}";
+            if (title.StartsWith("CLONE - "))
+            {
+                return $"CLONE (2) - {title.Substring(8)}";
+            }
+
+            if (title.StartsWith("CLONE ("))
+            {
+                int index = Int32.Parse(title.Substring(7, 1));
+                return $"CLONE ({++index}) - {title.Substring(title.IndexOf('-') + 2)}";
+            }
+
+            return $"CLONE - {title}";
         }
     }
 }

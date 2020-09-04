@@ -44,15 +44,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 context.NodeWithOutgoingRelationships.SourceNode));
         }
 
-        //we're now doing this for all cloned content items, we happy with that?
         public override Task MutateOnClone(JObject content, ICloneContext context)
         {
-            string? title = (string?)content[nameof(TitlePart.Title)];
-
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new InvalidOperationException($"Cannot mutate {nameof(TitlePart)} if {nameof(TitlePart.Title)} is missing.");
-            }
+            string title = (string?)content[nameof(TitlePart.Title)] ?? string.Empty;
 
             var newTitle = _titlePartCloneGenerator.Generate(title);
 
