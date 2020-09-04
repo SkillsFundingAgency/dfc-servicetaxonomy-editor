@@ -9,7 +9,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
     {
         string Name { get; }
 
-        Task<List<T>> Run<T>(IQuery<T> query, string databaseName, bool defaultDatabase);
         Task<List<T>> Run<T>(IQuery<T>[] queries, string databaseName, bool defaultDatabase);
         Task Run(ICommand[] commands, string databaseName, bool defaultDatabase);
     }

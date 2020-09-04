@@ -22,25 +22,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Internal
             Name = endpointName;
         }
 
-        public async Task<List<T>> Run<T>(IQuery<T> query, string databaseName, bool defaultDatabase)
-        {
-            LogRun("query", databaseName, defaultDatabase);
-
-            IAsyncSession session = GetAsyncSession(databaseName, defaultDatabase);
-            try
-            {
-                return await session.ReadTransactionAsync(async tx =>
-                {
-                    IResultCursor result = await tx.RunAsync(query.Query);
-                    return await result.ToListAsync(query.ProcessRecord);
-                });
-            }
-            finally
-            {
-                await session.CloseAsync();
-            }
-        }
-
         public async Task<List<T>> Run<T>(IQuery<T>[] queries, string databaseName, bool defaultDatabase)
         {
             IAsyncSession session = GetAsyncSession(databaseName, defaultDatabase);

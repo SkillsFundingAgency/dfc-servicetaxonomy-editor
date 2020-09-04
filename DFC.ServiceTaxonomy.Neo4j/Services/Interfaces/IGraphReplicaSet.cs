@@ -11,14 +11,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services.Interfaces
         int InstanceCount { get; }
 
         /// <summary>
-        /// Run a query against a replica.
-        /// </summary>
-        /// <param name="query">The query to run.</param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        Task<List<T>> Run<T>(IQuery<T> query);
-
-        /// <summary>
         /// Run a collection of queries against a replica
         /// </summary>
         /// <typeparam name="T"></typeparam>
