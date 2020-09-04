@@ -6,6 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -36,10 +37,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
             await IteratePartSyncers(context,
-                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult));
+                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult),
+                async (partSyncer, partContent) => await partSyncer.AllowSyncDetaching(context, allowSyncResult));
         }
 
-        //todo: rename IAllowSyncResult
         public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
         {
             await IteratePartSyncers(context,
@@ -49,7 +50,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
         {
             await IteratePartSyncers(context,
-                async (partSyncer, partContent) => await partSyncer.AddSyncComponents(partContent, context));
+                async (partSyncer, partContent) => await partSyncer.AddSyncComponents(partContent, context),
+                async (partSyncer, partContent) => await partSyncer.AddSyncComponentsDetaching(context));
         }
 
         public async Task DeleteComponents(IGraphDeleteItemSyncContext context)
@@ -66,7 +68,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         private async Task IteratePartSyncers(
             IItemSyncContext context,
-            Func<IContentPartGraphSyncer, JObject, Task> action)
+            Func<IContentPartGraphSyncer, JObject, Task> action,
+            Func<IContentPartGraphSyncer, JObject, Task>? detachingPartAction = null)
         {
             foreach (var partSync in _partSyncers)
             {
@@ -87,7 +90,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                     if (partContent == null)
                         continue; //todo: throw??
 
-                    await action(partSync, partContent);
+                    if (detachingPartAction != null && context.ContentTypePartDefinition.PartDefinition
+                        .Settings["ContentPartSettings"]?[ContentTypeOrchestrator.ZombieFlag]?.Value<bool>() == true)
+                    {
+                        // we're syncing after this part has been detached from the item
+                        await detachingPartAction(partSync, partContent);
+                    }
+                    else
+                    {
+                        await action(partSync, partContent);
+                    }
                 }
             }
         }

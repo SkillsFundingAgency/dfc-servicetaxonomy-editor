@@ -45,6 +45,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 termSyncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, context.ContentItemVersion));
         }
 
+        //todo: would need to add AddSyncComponentsDetaching if we start using this
+
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)

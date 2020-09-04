@@ -2,6 +2,8 @@
 
 * need to test branch, not master!
 
+* move common field syncing such as modified/created/contentitemid to graphsyncpart?
+
 * disable cloning taxonomies?? backdoor to creating a draft taxonomy (although it works, so perhaps we leave it)
 
 * pass part instances to syncers, rather than jobjects??
@@ -324,8 +326,6 @@ also don't add the guid to the master recipe filename
 
 * api: GetJobProfilesBySearchTerm should tolower the search term
 
-* don't log to file in env, only ai: add nlog.Development.config?
-
 * graph validator : group verified results in ui by content type
                     only ask for relationship types that we'll be checking for (would have to ask all parts/fields for relationships they care about)
                     log user id, not contentitemid
@@ -381,6 +381,31 @@ could fix when create new content recipe step
 * graph lookup: use predefined list editor for node label?
 * handle graph down/not running better (& quicker)
 * looks like might be some useful code in the [client](https://github.com/Readify/Neo4jClient), e.g. working with results
+
+* currently we don't properly recurse embedded items when removing a part that embeds other content items
+  we should add proper support for removing a containing/embedding part...
+
+  //todo: options:
+  // A)
+  // call sync skipping zombies
+  // call delete excluding non-zombies
+  // combine commands
+  // execute commands
+  // +ve
+  // -ve e.g. contentpickerfield sync doesn't explicitly remove relationships, it relies on the outgoing relationships being deleted with the node
+  // and as we wouldn't be deleting the node, we'd have to add relationship deletion to content picker, which it wouldn't need in a normal delete
+  // B)
+  // handle detachment explicitly
+  // +ve some delete code e.g. contentpickerfield is not actually shared with the normal delete
+  // -ve can't easily reuse delete code
+  // embedded recursion for delete is gonna be a pain - either have to create a delete context and add that into the sync tree
+  // or add a delete context to the mergecontext
+  // but can't call delete embedded directly anyway as needs delete phase1 to have already happened
+  // or use mergesync and pass flag to say actually deleting
+  // do we _need_ full recursion?
+  // don't think user can remove taxonomy part (just delete the taxonomy)
+  // flow : at the moment only have html & htmlshared widget and deleting those (with outgoing relationships) would be ok
+  // bag : does need proper recursion, but we don't use it atm
 
 ##ToDo UI Improvements
 

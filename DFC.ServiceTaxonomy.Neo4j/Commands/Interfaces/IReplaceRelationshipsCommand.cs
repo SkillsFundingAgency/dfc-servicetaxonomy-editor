@@ -28,11 +28,9 @@ namespace DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces
         // have 'alias' to make it obvious what the intention is
         void RemoveAnyRelationshipsTo(
             string relationshipType,
-            IReadOnlyDictionary<string, object>? properties,
-            IEnumerable<string> destNodeLabels,
-            string destIdPropertyName)
+            IEnumerable<string> destNodeLabels)
         {
-            AddRelationshipsTo(relationshipType, properties, destNodeLabels, destIdPropertyName);
+            AddRelationshipsTo(relationshipType, null, destNodeLabels, null);
         }
     }
 }

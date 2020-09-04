@@ -10,6 +10,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields
 
         Task AddSyncComponents(JObject contentItemField, IGraphMergeContext context);
 
+        Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            return Task.CompletedTask;
+        }
+
         Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject contentItemField,
             IValidateAndRepairContext context);

@@ -16,8 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 {
     public class Orchestrator
     {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
-        //todo: temporary protected
+        protected readonly IContentDefinitionManager _contentDefinitionManager;
         protected readonly INotifier _notifier;
         private readonly ILogger _logger;
         private readonly IOptionsMonitor<EventGridConfiguration> _eventGridConfiguration;
