@@ -24,5 +24,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
         public string? GenerateIdPropertyValue { get; set; }
         public bool DisplayId { get; set; }
         public bool ReadOnly { get; internal set; }
+        public string? PreExistingNodeUriPrefix { get; set; }
     }
 }

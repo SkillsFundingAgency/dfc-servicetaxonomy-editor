@@ -64,5 +64,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return await _embeddedContentItemsGraphSyncer.ValidateSyncComponent(
                 (JArray?)content[ContainerName], context);
         }
+
+        public override async Task AddRelationship(IDescribeRelationshipsContext context)
+        {
+            await _embeddedContentItemsGraphSyncer.AddRelationship(
+              (JArray?)context.ContentField?[ContainerName], context);
+        }
     }
 }
