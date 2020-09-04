@@ -25,7 +25,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 
         public List<string> ValidationErrors()
         {
-            return new List<string>();
+            var validationErrors = new List<string>();
+
+            if (!_sourceNodeLabels.Any())
+            {
+                validationErrors.Add("At least one NodeLabel must be provided.");
+            }
+
+            return validationErrors;
         }
 
         public Query Query
