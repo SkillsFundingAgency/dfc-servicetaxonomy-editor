@@ -42,6 +42,20 @@ namespace DFC.ServiceTaxonomy.GraphLookup.GraphSyncers
             return Task.CompletedTask;
         }
 
+        public override Task AddSyncComponentsDetaching(IGraphMergeContext context)
+        {
+            var settings = context.ContentTypePartDefinition.GetSettings<GraphLookupPartSettings>();
+
+            if (settings.RelationshipType != null)
+            {
+                context.ReplaceRelationshipsCommand.RemoveAnyRelationshipsTo(
+                    settings.RelationshipType!,
+                    new[] {settings.NodeLabel!});
+            }
+
+            return Task.CompletedTask;
+        }
+
         public override Task<(bool validated, string failureReason)> ValidateSyncComponent(
             JObject content,
             IValidateAndRepairContext context)
