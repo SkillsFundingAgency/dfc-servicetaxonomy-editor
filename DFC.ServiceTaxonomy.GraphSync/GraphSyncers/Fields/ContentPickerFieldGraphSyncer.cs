@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -15,7 +14,7 @@ using OrchardCore.ContentFields.Settings;
 using OrchardCore.ContentManagement;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using System;
-using OrchardCore.ContentManagement.Metadata;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
@@ -28,7 +27,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         //todo: move into hidden ## section?
         private static readonly Regex _relationshipTypeRegex = new Regex("\\[:(.*?)\\]", RegexOptions.Compiled);
         private readonly IPreExistingContentItemVersion _preExistingContentItemVersion;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IServiceProvider _serviceProvider;
 
         public const string ContentPickerRelationshipPropertyName = "contentPicker";
@@ -38,11 +36,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
         public ContentPickerFieldGraphSyncer(
             IPreExistingContentItemVersion preExistingContentItemVersion,
-            IContentDefinitionManager contentDefinitionManager,
             IServiceProvider serviceProvider)
         {
             _preExistingContentItemVersion = preExistingContentItemVersion;
-            _contentDefinitionManager = contentDefinitionManager;
             _serviceProvider = serviceProvider;
         }
 
@@ -97,36 +93,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 return;
             }
 
-            ContentItem[] foundDestinationContentItems = await GetLatestContentItemsFromIds(contentItemIdsJArray, context.ContentManager);
+            ContentItem[] foundDestinationContentItems = await GetContentItemsFromIds(
+                contentItemIdsJArray,
+                context.ContentManager,
+                context.ContentItemVersion);
 
-            if (foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
+            if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Preview
+                && foundDestinationContentItems.Count() != contentItemIdsJArray.Count)
+            {
                 throw new GraphSyncException(
                     $"Missing picked content items. Looked for {string.Join(",", contentItemIdsJArray.Values<string?>())}. Found {string.Join(",", foundDestinationContentItems.Select(i => i.ContentItemId))}. Current merge node command: {context.MergeNodeCommand}.");
-
-            if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
-            {
-                foundDestinationContentItems = foundDestinationContentItems
-                    .Where(i => i.Published)
-                    .ToArray();
             }
+            // if we're syncing to the published graph, some items may be draft only,
+            // so it's valid to have less found content items than are picked
+            //todo: we could also check when publishing and take into account how many we expect not to find as they are draft only
 
             // warning: we should logically be passing an ISyncNameProvider with its ContentType set to pickedContentType
             // however, GetIdPropertyValue() doesn't use the set ContentType, so this works
             IEnumerable<object> foundDestinationNodeIds =
                 foundDestinationContentItems.Select(ci => GetNodeId(ci!, context));
 
-            int ordinal = 0;
+            long ordinal = 0;
 
             foreach (var item in foundDestinationNodeIds)
             {
                 context.ReplaceRelationshipsCommand.AddRelationshipsTo(
                 relationshipType,
-                ContentPickerRelationshipProperties.Union(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("Ordinal", ordinal) }),
+                ContentPickerRelationshipProperties.Concat(new[] { new KeyValuePair<string, object>("Ordinal", ordinal++) }),
                 destNodeLabels,
                 context.SyncNameProvider.IdPropertyName(pickedContentType),
                 item);
-
-                ordinal++;
             }
         }
 
@@ -150,23 +146,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
 
             var contentItemIds = (JArray)contentItemField[ContentItemIdsKey]!;
 
-            ContentItem[] destinationContentItems = await GetLatestContentItemsFromIds(contentItemIds, context.ContentManager);
+            ContentItem[] destinationContentItems = await GetContentItemsFromIds(
+                contentItemIds,
+                context.ContentManager,
+                context.ContentItemVersion);
 
             //todo: separate check for missing items, before check relationships
             //todo: move into helper?
 
-            //todo: equals on ContentItemVersion that checks GraphReplicaSetName
-            if (context.ContentItemVersion.GraphReplicaSetName == GraphReplicaSetNames.Published)
-            {
-                destinationContentItems = destinationContentItems
-                    .Where(i => i.Published)
-                    .ToArray();
-            }
-
+            //todo: have to allow for published picker referencing draft item
             if (destinationContentItems.Count() != actualRelationships.Length)
             {
                 return (false, $"expecting {destinationContentItems.Count()} relationships of type {relationshipType} in graph, but found {actualRelationships.Length}");
             }
+
+            long ordinal = 0;
 
             foreach (ContentItem destinationContentItem in destinationContentItems)
             {
@@ -177,14 +171,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 string destinationIdPropertyName =
                     context.SyncNameProvider.IdPropertyName(destinationContentItem.ContentType);
 
+                var expectedRelationshipProperties =
+                    ContentPickerRelationshipProperties.Concat(
+                        new[] {new KeyValuePair<string, object>("Ordinal", ordinal++)});
+
                 //todo: we might want to check that all the supplied relationship properties are there,
-                // whilst not failing validation if other other properties are present?
+                // whilst not failing validation if other properties are present?
                 (bool validated, string failureReason) = context.GraphValidationHelper.ValidateOutgoingRelationship(
                     context.NodeWithOutgoingRelationships,
                     relationshipType,
                     destinationIdPropertyName,
                     destinationId,
-                    ContentPickerRelationshipProperties);
+                    expectedRelationshipProperties);
 
                 if (!validated)
                     return (false, failureReason);
@@ -196,13 +194,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             return (true, "");
         }
 
-        private async Task<ContentItem[]> GetLatestContentItemsFromIds(JArray contentItemIds, IContentManager contentManager)
+        private async Task<ContentItem[]> GetContentItemsFromIds(
+            JArray contentItemIds,
+            IContentManager contentManager,
+            IContentItemVersion contentItemVersion)
         {
             // GetAsync should be returning ContentItem? as it can be null
 
             ContentItem?[] contentItems = await Task.WhenAll(contentItemIds
                 .Select(idJToken => idJToken.ToObject<string?>())
-                .Select(async id => await contentManager.GetAsync(id, VersionOptions.Latest)));
+                .Select(async id => await contentItemVersion.GetContentItem(contentManager, id!)));
 
 #pragma warning disable S1905
             return contentItems
