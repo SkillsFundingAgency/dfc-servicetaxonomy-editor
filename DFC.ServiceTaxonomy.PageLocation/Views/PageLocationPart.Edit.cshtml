@@ -54,18 +54,6 @@
         $urlNameInput.on('input', buildFullUrl);
         $pageLocationCheckboxes.on('change', buildFullUrl);
 
-        function slugify(string) {
-            return string
-                .toString()
-                .trim()
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^\w\-]+/g, "")
-                .replace(/\-\-+/g, "-")
-                .replace(/^-+/, "")
-                .replace(/-+$/, "");
-        }
-
         function buildFullUrl() {
             var $location = $pageLocationsFormGroup
                 .find('input[name^="Page.PageLocations"]:checked')
