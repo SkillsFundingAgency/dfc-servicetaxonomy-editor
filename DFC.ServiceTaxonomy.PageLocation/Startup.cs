@@ -1,10 +1,12 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.PageLocation.Drivers;
 using DFC.ServiceTaxonomy.PageLocation.Filters;
 using DFC.ServiceTaxonomy.PageLocation.GraphSyncers;
 using DFC.ServiceTaxonomy.PageLocation.Handlers;
 using DFC.ServiceTaxonomy.PageLocation.Indexes;
 using DFC.ServiceTaxonomy.PageLocation.Models;
+using DFC.ServiceTaxonomy.PageLocation.Services;
 using DFC.ServiceTaxonomy.PageLocation.Validators;
 using DFC.ServiceTaxonomy.PageLocation.ViewModels;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
@@ -56,6 +58,8 @@ namespace DFC.ServiceTaxonomy.PageLocation
             {
                 options.Filters.Add(typeof(ResourceInjectionFilter));
             });
+
+            services.AddTransient<IPageLocationClonePropertyGenerator, PageLocationClonePropertyGenerator>();
         }
     }
 }
