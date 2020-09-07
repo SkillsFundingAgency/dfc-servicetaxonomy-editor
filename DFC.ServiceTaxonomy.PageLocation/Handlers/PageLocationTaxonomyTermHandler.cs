@@ -56,6 +56,8 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                         ? $"/{pageUrlName}"
                         : $"/{termUrl}/{pageUrlName}";
 
+                    page.Alter<PageLocationPart>(part => part.FullUrl = fullUrl);
+
                     _session.Save(page);
                 }
 
