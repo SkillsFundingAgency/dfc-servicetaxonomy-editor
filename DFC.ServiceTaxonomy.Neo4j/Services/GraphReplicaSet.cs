@@ -29,15 +29,6 @@ namespace DFC.ServiceTaxonomy.Neo4j.Services
 
         private int _currentInstance;
 
-        public Task<List<T>> Run<T>(IQuery<T> query)
-        {
-            // round robin might select wrong graph after overflow, but everything will still work
-            //todo: unit test overflow
-            int instance = _limitToGraphInstance ?? unchecked(++_currentInstance) % InstanceCount;
-
-            return _graphInstances[instance].Run(query);
-        }
-
         public Task<List<T>> Run<T>(params IQuery<T>[] queries)
         {
             int instance = _limitToGraphInstance ?? unchecked(++_currentInstance) % InstanceCount;

@@ -153,6 +153,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // services
             services.AddScoped<ISynonymService, SynonymService>();
+            services.AddTransient<ITitlePartCloneGenerator, TitlePartCloneGenerator>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
             services.AddTransient<IDescribeContentItemHelper, DescribeContentItemHelper>();
             // this would be nice, but IContentManager is Scoped, so not available at startup

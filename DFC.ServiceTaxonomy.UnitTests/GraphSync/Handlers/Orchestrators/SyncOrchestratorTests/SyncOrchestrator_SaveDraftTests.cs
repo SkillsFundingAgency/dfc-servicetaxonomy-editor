@@ -43,5 +43,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
                     .MustNotHaveHappened();
             }
         }
+
+        [Fact]
+        public async Task SaveDraft_EventGridPublishingHandlerCalled()
+        {
+            bool success = await SyncOrchestrator.SaveDraft(ContentItem);
+
+            Assert.True(success);
+
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(ContentItem)).MustHaveHappened();
+        }
     }
 }

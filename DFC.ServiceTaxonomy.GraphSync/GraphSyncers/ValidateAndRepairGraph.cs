@@ -241,7 +241,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ValidateAndRepairResult result)
         {
             _logger.LogWarning(
-                "Content items of type {ContentTypeDefinitionName} failed validation (ValidationFailures}). Attempting to repair them.",
+                "Content items of type {ContentTypeDefinitionName} failed validation ({ValidationFailures}). Attempting to repair them.",
                 contentTypeDefinition.Name,
                 string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString())));
 
