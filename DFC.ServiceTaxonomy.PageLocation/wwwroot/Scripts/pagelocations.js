@@ -1,6 +1,6 @@
 ﻿$(function () {
     window.slugify = function (string) {
-        var result = string
+        return string
             .toString()
             .trim()
             .toLowerCase()
@@ -9,8 +9,6 @@
             .replace(/\-\-+/g, "-")
             .replace(/^-+/, "")
             .replace(/-+$/, "");
-
-        return (string.startsWith('/') ? '/' : '') + result;
     }
 
     if ($('h1:contains("Edit Page Location")').length) {
@@ -56,20 +54,24 @@
 
         $breadcrumbInput.blur(function () {
             if ($titleInput.val().trim().length === 0) {
-                $titleInput.val(slugify($breadcrumbInput.val()));
+                $titleInput.val(generatePath($breadcrumbInput.val()));
             }
         });
 
         $titleInput.blur(function () {
             if ($titleInput.val().trim().length === 0) {
-                $titleInput.val(slugify($breadcrumbInput.val()));
+                $titleInput.val(generatePath($breadcrumbInput.val()));
             } else {
-                $titleInput.val(slugify($titleInput.val()));
+                $titleInput.val(generatePath($titleInput.val()));
             }
         });
 
         $form.on('submit', function () {
-            $titleInput.val(slugify($titleInput.val()));
-        }); 
+            $titleInput.val(generatePath($titleInput.val()));
+        });
+
+        function generatePath(value) {
+            return (value.startsWith('/') ? '/' : '') + slugify(value);
+        }
     }
 });
