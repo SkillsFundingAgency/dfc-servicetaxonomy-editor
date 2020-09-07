@@ -503,6 +503,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 context.ExpectedRelationshipCounts.TryGetValue(expectedRelationshipType, out int currentCount);
                 context.ExpectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
 
+                #pragma warning disable S1481
+                string? twoWayRelationshipType = await TwoWayIncomingRelationshipType(embeddedContentItem.ContentType);
+                // only applies to outgoing relationships
+                // if (twoWayRelationshipType != null)
+                //     context.ExpectedRelationshipCounts[expectedRelationshipType] = ++currentCount;
+
                 // we've already validated the destination node, so we can assume the id property is there
                 object destinationId = embeddedContentNameProvider.GetIdPropertyValue(
                     embeddedContentItem.Content.GraphSyncPart, context.ContentItemVersion);
