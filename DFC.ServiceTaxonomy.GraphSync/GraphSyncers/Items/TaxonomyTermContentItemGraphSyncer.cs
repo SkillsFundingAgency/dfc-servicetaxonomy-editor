@@ -61,7 +61,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
         public async Task<(bool validated, string failureReason)> ValidateSyncComponent(
             IValidateAndRepairItemSyncContext context)
         {
-            return await _taxonomyPartGraphSyncer.ValidateSyncComponent((JObject)context.ContentItem.Content, context);
+            return await _taxonomyPartGraphSyncer.ValidateSyncComponentForNonLeafEmbeddedTerm((JObject)context.ContentItem.Content, context);
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext context)

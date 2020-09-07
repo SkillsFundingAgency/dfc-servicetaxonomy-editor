@@ -522,6 +522,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                 if (!validated)
                     return (false, failureReason);
+
+                string? twoWayRelationshipType = await TwoWayIncomingRelationshipType(embeddedContentItem.ContentType);
+                if (twoWayRelationshipType != null)
+                {
+                    (validated, failureReason) = context.GraphValidationHelper.ValidateIncomingRelationship(
+                        context.NodeWithIncomingRelationships,
+                        twoWayRelationshipType,
+                        embeddedContentIdPropertyName,
+                        destinationId,
+                        TwoWayRelationshipProperties);
+
+                    if (!validated)
+                        return (false, failureReason);
+                }
             }
 
             return (true, "");

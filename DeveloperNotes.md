@@ -67,8 +67,6 @@ AspNetCoreEnvironment : Production
 
 * wysiwyg alignment in flow part (if we need to support justification)
 
-* validate twoway relationships
-
 * MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 
 * when deleting get this message..
