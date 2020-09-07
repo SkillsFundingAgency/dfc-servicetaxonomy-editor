@@ -9,6 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
         public string? Type { get; set; }
         public string? Label { get; set; }
         public string? Comment { get; set; }
+        public string? ContentItemID { get; set; }
         public List<string> StaxProperties { get; set; } = new List<string>();
     }
 }

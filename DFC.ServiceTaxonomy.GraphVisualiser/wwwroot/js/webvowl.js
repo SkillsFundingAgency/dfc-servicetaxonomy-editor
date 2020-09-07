@@ -432,7 +432,9 @@ webvowl =
 	      var equivalentsString = that.equivalentsString();
 	      var suffixForFollowingEquivalents = equivalentsString ? "," : "";
 
-	      textBlock.addText(that.labelForCurrentLanguage(), "", suffixForFollowingEquivalents);
+            textBlock.addText(that.labelForCurrentLanguage(), "", suffixForFollowingEquivalents);
+            //Ste Add Content type to bubble for Nodes only
+            textBlock.addText(that.contentType(), "", "", "subtext italic");
 	      textBlock.addEquivalents(equivalentsString);
 	      if ( !graph.options().compactNotation() ) {
 	        textBlock.addSubText(that.indicationString());
@@ -903,6 +905,9 @@ webvowl =
             //ste:
             staxBackgroundColour,
             staxProperties,
+            contentType,
+            editUrl,
+            resetFocusUrl,
 
 	      backupLabel,
 	      // Other
@@ -927,8 +932,13 @@ webvowl =
               return this;
           };
 
+          this.contentType = function (p) {
+              if (!arguments.length) return contentType;
+              contentType = p;
+              return this;
+          };
 
-	    this.attributes = function ( p ){
+          this.attributes = function ( p ){
 	      if ( !arguments.length ) return attributes;
 	      attributes = p;
 	      return this;
@@ -966,9 +976,21 @@ webvowl =
 	      if ( !arguments.length ) return description;
 	      description = p;
 	      return this;
-	    };
+          };
 
-	    this.equivalents = function ( p ){
+        this.editUrl = function(p) {
+            if (!arguments.length) return editUrl;
+            editUrl = p;
+            return this;
+          };
+
+          this.resetFocusUrl = function (p) {
+              if (!arguments.length) return resetFocusUrl;
+              resetFocusUrl = p;
+            return this;
+        };
+
+      this.equivalents = function ( p ){
 	      if ( !arguments.length ) return equivalents;
 	      equivalents = p || [];
 	      return this;
@@ -1254,13 +1276,13 @@ webvowl =
 	CenteringTextElement.prototype = Object.create(AbstractTextElement.prototype);
 	CenteringTextElement.prototype.constructor = CenteringTextElement;
 
-	CenteringTextElement.prototype.addText = function ( text, prefix, suffix ){
+	CenteringTextElement.prototype.addText = function ( text, prefix, suffix, style ){
 	  if ( text ) {
-	    this.addTextline(text, this.CSS_CLASSES.default, prefix, suffix);
+          this.addTextline(text, style ? style : this.CSS_CLASSES.default, prefix, suffix);
 	  }
-	};
+    };
 
-	CenteringTextElement.prototype.addSubText = function ( text ){
+    CenteringTextElement.prototype.addSubText = function ( text ){
 	  if ( text ) {
 	    this.addTextline(text, this.CSS_CLASSES.subtext, "(", ")");
 	  }
@@ -13554,6 +13576,9 @@ webvowl =
 	            .label(element.label)
                   .staxBackgroundColour(element.staxBackgroundColour)
                   .staxProperties(element.staxProperties)
+                  .contentType(element.contentType)
+                  .editUrl(element.editUrl)
+                  .resetFocusUrl(element.resetFocusUrl)
 	            // .type(element.type) Ignore, because we predefined it
 	            .union(element.union)
 	            .iri(element.iri);
