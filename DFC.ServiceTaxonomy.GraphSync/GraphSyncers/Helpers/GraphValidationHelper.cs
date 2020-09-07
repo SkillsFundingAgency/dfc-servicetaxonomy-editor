@@ -265,9 +265,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             return (true, "");
         }
 
+        public (bool validated, string failureReason) ValidateIncomingRelationship(
+            INodeWithIncomingRelationships nodeWithIncomingRelationships,
+            string relationshipType,
+            string destinationIdPropertyName,
+            object destinationId,
+            IEnumerable<KeyValuePair<string, object>>? properties = null)
+        {
+            IOutgoingRelationship incomingRelationship =
+                nodeWithIncomingRelationships.IncomingRelationships.SingleOrDefault(or =>
+                    or.Relationship.Type == relationshipType
+                    && Equals(or.DestinationNode.Properties[destinationIdPropertyName], destinationId));
+
+            if (incomingRelationship == default)
+                return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} not found");
+
+            if (properties != null && !AreEqual(properties, incomingRelationship.Relationship.Properties))
+                return (false, $"{IncomingRelationshipDescription(relationshipType, destinationIdPropertyName, destinationId)} has incorrect properties. expecting {properties.ToCypherPropertiesString()}, found {incomingRelationship.Relationship.Properties.ToCypherPropertiesString()}");
+
+            return (true, "");
+        }
+
         private string RelationshipDescription(string relationshipType, string destinationIdPropertyName, object destinationId)
         {
             return $"relationship of type ':{relationshipType}' to destination node with id '{destinationIdPropertyName}={destinationId}'";
+        }
+
+        private string IncomingRelationshipDescription(string relationshipType, string destinationIdPropertyName, object destinationId)
+        {
+            return $"incoming relationship of type ':{relationshipType}' from node with id '{destinationIdPropertyName}={destinationId}'";
         }
 
         private bool AreEqual<K, V>(IEnumerable<KeyValuePair<K, V>> first, IEnumerable<KeyValuePair<K, V>> second)
