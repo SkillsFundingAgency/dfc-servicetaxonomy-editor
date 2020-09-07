@@ -8,6 +8,10 @@
     font-size: 12px;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .subtext {
     font-size: 9px;
 }

@@ -2475,3 +2475,18 @@ a#locateSearchResult {
 .disabledLabelForSlider {
     color: #808080;
 }
+
+.linkButton {
+    color: #fff;
+    padding: 12px 0px 12px 0px;
+    text-align: center;
+    color: #69c;
+    cursor: pointer;
+}
+
+.linkButton:hover {
+    /* box-sizing: border-box; */
+    background: #1B252E;
+    /*background : #d90;*/
+    color: #bdc3c7;
+}

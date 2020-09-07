@@ -46,7 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                                   Type = a.Labels.First(l => l != "Resource" || l == "esco__Occupation" || l == "esco__Skill"),
                                   Label = GetPropertyValue(a, new[] { prefLabel, "Description", "FurtherInfo" }),
                                   Comment = GetPropertyValue(a, new[] { "Description" }),
-                                  StaxProperties = a.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList(),
+                                  StaxProperties = a.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList()
                               }
             ).ToList();
         }
