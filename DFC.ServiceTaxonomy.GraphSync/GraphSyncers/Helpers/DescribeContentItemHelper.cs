@@ -10,7 +10,9 @@ using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Settings;
 using DFC.ServiceTaxonomy.Neo4j.Queries.Interfaces;
+using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
@@ -22,21 +24,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private readonly IEnumerable<IContentItemGraphSyncer> _contentItemGraphSyncers;
         private readonly List<string> encounteredContentItems = new List<string>();
         private readonly List<string> encounteredContentTypes = new List<string>();
+        private readonly IOptions<GraphSyncSettings> _graphSyncSettings;
 
         public DescribeContentItemHelper(
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             ISyncNameProvider syncNameProvider,
             IEnumerable<IContentItemGraphSyncer> contentItemGraphSyncers,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            IOptions<GraphSyncSettings> graphSyncSettings)
         {
             _contentManager = contentManager;
             _contentItemGraphSyncers = contentItemGraphSyncers;
+            _graphSyncSettings = graphSyncSettings;
         }
 
         public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>>> GetRelationshipCommands(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
         {
-            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext);
+            var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(context.ContentItem.ContentType);
+            int maxVisualiserDepth = graphSyncPartSettings?.VisualiserNodeDepth != null
+                ? Math.Min(graphSyncPartSettings.VisualiserNodeDepth.Value,
+                    _graphSyncSettings.Value.MaxVisualiserNodeDepth)
+                : _graphSyncSettings.Value.MaxVisualiserNodeDepth;
+
+            var allRelationships = await ContentItemRelationshipToCypherHelper.GetRelationships(context, currentList, parentContext, maxVisualiserDepth);
             var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
             List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
