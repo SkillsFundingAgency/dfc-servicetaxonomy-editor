@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
         public DeleteOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
-            INotifier notifier,
+            ICustomNotifier notifier,
             IServiceProvider serviceProvider,
             ILogger<DeleteOrchestrator> logger,
             IPublishedContentItemVersion publishedContentItemVersion,
@@ -173,6 +174,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             try
             {
                 await deleteGraphSyncer.Delete();
+
+                AddFailureNotifier(contentItem);
+
+
                 return true;
             }
             catch (CommandValidationException ex)

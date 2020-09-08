@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             IGraphResyncer graphResyncer,
             IServiceProvider serviceProvider,
             IContentDefinitionManager contentDefinitionManager,
-            INotifier notifier,
+            ICustomNotifier notifier,
             ILogger<ContentTypeOrchestrator> logger)
             : base(contentDefinitionManager, notifier, logger)
         {

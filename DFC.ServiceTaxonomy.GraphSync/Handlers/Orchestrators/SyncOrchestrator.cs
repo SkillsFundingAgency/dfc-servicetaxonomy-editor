@@ -7,6 +7,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
-            INotifier notifier,
+            ICustomNotifier notifier,
             IGraphCluster graphCluster,
             IServiceProvider serviceProvider,
             ILogger<SyncOrchestrator> logger,

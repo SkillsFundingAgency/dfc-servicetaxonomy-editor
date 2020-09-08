@@ -1,4 +1,6 @@
 ﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
@@ -10,12 +12,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
     public class Orchestrator
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
-        protected readonly INotifier _notifier;
+        protected readonly ICustomNotifier _notifier;
         protected readonly ILogger _logger;
 
         protected Orchestrator(
             IContentDefinitionManager contentDefinitionManager,
-            INotifier notifier,
+            ICustomNotifier notifier,
             ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;
@@ -43,10 +45,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
         protected void AddFailureNotifier(ContentItem contentItem)
         {
-            string contentType = GetContentTypeDisplayName(contentItem);
+            //string contentType = GetContentTypeDisplayName(contentItem);
 
-            _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-                $"The '{contentItem.DisplayText}' {contentType} could not be removed because the associated node could not be deleted from the graph."));
+            // _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
+            //     $"The '{contentItem.DisplayText}' {contentType} could not be removed because the associated node could not be deleted from the graph."));
+
+            _notifier.Add(NotifyType.Error, new HtmlString("User massage"), new HtmlString("Technical massage"));
         }
 
         //todo: todo temporarily protected

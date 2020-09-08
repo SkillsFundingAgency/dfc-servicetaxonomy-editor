@@ -149,7 +149,8 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
 
             // notifiers
-            services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
+            services.Replace(ServiceDescriptor.Scoped<ICustomNotifier, CustomNotifier>());
+            services.Replace(ServiceDescriptor.Scoped<INotifier>(sp => sp.GetRequiredService<ICustomNotifier>()));
 
             // services
             services.AddScoped<ISynonymService, SynonymService>();

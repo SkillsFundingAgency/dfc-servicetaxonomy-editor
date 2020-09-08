@@ -8,12 +8,12 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
 {
@@ -21,7 +21,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
     {
         public SyncOrchestrator SyncOrchestrator { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
-        public INotifier Notifier { get; set; }
+        public ICustomNotifier Notifier { get; set; }
         public IGraphCluster GraphCluster { get; set; }
         public IPublishedContentItemVersion PublishedContentItemVersion { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
@@ -40,7 +40,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
         public SyncOrchestratorTestsBase()
         {
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
-            Notifier = A.Fake<Notifier>();
+            Notifier = A.Fake<CustomNotifier>();
 
             PreviewGraphReplicaSet = A.Fake<IGraphReplicaSet>();
             A.CallTo(() => PreviewGraphReplicaSet.Name)
