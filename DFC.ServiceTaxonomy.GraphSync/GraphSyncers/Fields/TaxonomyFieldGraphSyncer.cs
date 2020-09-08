@@ -55,10 +55,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             //todo: share code with contentpickerfield?
 
             //todo: better error message to user if taxonomy is missing
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+            //todo: check for null
+            ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
-            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
             string termRelationshipType = TermRelationshipType(termContentType);
@@ -121,11 +122,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             var taxonomyFieldSettings = context.ContentPartFieldDefinition!.GetSettings<TaxonomyFieldSettings>();
 
             //todo: factor out common code
-            ContentItem taxonomyContentItem =  await context.ContentItemVersion.GetContentItem(
+            //todo: check for null
+            ContentItem? taxonomyContentItem =  await context.ContentItemVersion.GetContentItem(
                 context.ContentManager,
                 taxonomyFieldSettings.TaxonomyContentItemId);
 
-            JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
             string termRelationshipType = TermRelationshipType(termContentType);
@@ -173,7 +175,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
                 (JObject)termContentItem.Content[nameof(GraphSyncPart)]!, contentItemVersion);
         }
 
-        private async Task<ContentItem> GetTaxonomyContentItem(
+        private async Task<ContentItem?> GetTaxonomyContentItem(
             JObject contentItemField,
             IContentItemVersion contentItemVersion,
             IContentManager contentManager)
@@ -200,10 +202,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
             JObject contentItemField,
             IValidateAndRepairContext context)
         {
-            ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
+            //todo: check for null
+            ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
                 contentItemField, context.ContentItemVersion, context.ContentManager);
 
-            var taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
+            var taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
             string termContentType = taxonomyPartContent[TermContentType];
 
             string termRelationshipType = TermRelationshipType(termContentType);
@@ -253,19 +256,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Fields
         }
 
         public async Task AddRelationship(IDescribeRelationshipsContext parentContext)
-        { 
-                ContentItem taxonomyContentItem = await GetTaxonomyContentItem(
-                   (JObject)parentContext.ContentField![parentContext.ContentPartFieldDefinition!.Name!]!, parentContext.ContentItemVersion, parentContext.ContentManager);
+        {
+            //todo: check for null
+            ContentItem? taxonomyContentItem = await GetTaxonomyContentItem(
+               (JObject)parentContext.ContentField![parentContext.ContentPartFieldDefinition!.Name!]!, parentContext.ContentItemVersion, parentContext.ContentManager);
 
-                JObject taxonomyPartContent = taxonomyContentItem.Content[nameof(TaxonomyPart)];
-                string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
+            JObject taxonomyPartContent = taxonomyContentItem!.Content[nameof(TaxonomyPart)];
+            string termContentType = taxonomyPartContent[TermContentType]!.Value<string>();
 
-                string termRelationshipType = TermRelationshipType(termContentType);
+            string termRelationshipType = TermRelationshipType(termContentType);
 
-                var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider, parentContext.RootContentItem) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.SyncNameProvider.NodeLabels(termContentType)) } };
+            var describeRelationshipsContext = new DescribeRelationshipsContext(parentContext.SourceNodeIdPropertyName, parentContext.SourceNodeId, parentContext.SourceNodeLabels, parentContext.ContentItem, parentContext.SyncNameProvider, parentContext.ContentManager, parentContext.ContentItemVersion, parentContext, parentContext.ServiceProvider, parentContext.RootContentItem) { AvailableRelationships = new List<ContentItemRelationship>() { new ContentItemRelationship(await parentContext.SyncNameProvider.NodeLabels(parentContext.ContentItem.ContentType), termRelationshipType, await parentContext.SyncNameProvider.NodeLabels(termContentType)) } };
 
-                parentContext.AddChildContext(describeRelationshipsContext);
-          
+            parentContext.AddChildContext(describeRelationshipsContext);
         }
     }
 }

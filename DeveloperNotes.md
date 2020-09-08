@@ -1,5 +1,7 @@
 #ToDo
 
+* add visualiser settings page to admin menu for things such as global max depth setting etc
+
 * need to test branch, not master!
 
 * visualiser..
