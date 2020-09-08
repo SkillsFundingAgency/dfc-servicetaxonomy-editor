@@ -169,12 +169,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            ContentItem publishedContentItem =
+            //todo: check for null
+            ContentItem? publishedContentItem =
                 await _publishedContentItemVersion.GetContentItem(contentManager, contentItem.ContentItemId);
 
             if (!await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
-                publishedContentItem,
+                publishedContentItem!,
                 contentManager))
             {
                 return false;
