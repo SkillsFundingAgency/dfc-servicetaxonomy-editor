@@ -113,6 +113,9 @@
         "apimProxyAddress": {
             "value": "__ApimProxyAddress__"
         },
+        "ContentApiAddress": {
+            "value": "__ContentApiAddress__"
+        },
         "EventGridTopicSku": {
             "value": "__EventGridTopicSku__"
         },
