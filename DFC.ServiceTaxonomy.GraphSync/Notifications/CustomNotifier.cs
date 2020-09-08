@@ -30,13 +30,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
             string uniqueId = Guid.NewGuid().ToString("N");
-//hat-wizard, oil-can, wrench?
+
+            //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
                 .AppendHtml(userMessage)
-                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{{uniqueId}}\"><i class=\"fas fa-angle-double-down\"></i></button>")
-                .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\"><div class=\"card card-body\">")
+                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{{uniqueId}}\"><i class=\"fas fa-wrench\"></i></button>")
+                .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
                 .AppendHtml(technicalMessage)
-                .AppendHtml("</div></div>");
+                .AppendHtml("</div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
         }
