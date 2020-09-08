@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Notify;
@@ -28,11 +29,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
+            string uniqueId = Guid.NewGuid().ToString("N");
+//hat-wizard, oil-can, wrench?
             htmlContentBuilder
                 .AppendHtml(userMessage)
-                .AppendHtml("<ul class=\"list-group mb-3\"><li class=\"list-group-item\">")
+                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{{uniqueId}}\"><i class=\"fas fa-angle-double-down\"></i></button>")
+                .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\"><div class=\"card card-body\">")
                 .AppendHtml(technicalMessage)
-                .AppendHtml("</li></ul>");
+                .AppendHtml("</div></div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
         }
