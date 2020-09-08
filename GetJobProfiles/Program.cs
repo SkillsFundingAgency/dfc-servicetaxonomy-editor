@@ -133,6 +133,12 @@ namespace GetJobProfiles
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
             apprenticeshipStandardImporter.Import(jobProfileWorkbook, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
+            using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
+            var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
+
+            var dysacImporter = new DysacImporter();
+            dysacImporter.Import(jobCategoryImporter.JobCategoryContentItems, dysacWorkbook);
+
             const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
             string whereClause = "";

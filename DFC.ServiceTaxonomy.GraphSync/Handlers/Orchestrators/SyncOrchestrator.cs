@@ -228,15 +228,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             }
             catch (Exception exception)
             {
-                //todo: use notifier helper
+                ////todo: use notifier helper
 
                 string contentType = GetContentTypeDisplayName(contentItem);
 
                 _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' {ContentType} to {GraphReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-                    $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph."));
-                return false;
+                //_notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
+                //    $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph."));
+                //return false;
+
+                return true;
             }
         }
     }
