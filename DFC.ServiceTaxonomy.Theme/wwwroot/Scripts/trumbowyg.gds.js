@@ -5,6 +5,30 @@
 
     // Plugin default options
     var defaultOptions = {
+        colors: [
+            { code: '#0b0c0c', label: 'Primary Text, Active Links, Input Border, Focus Text State', class: 'black' },
+            { code: '#505a5f', label: 'Secondary Text', class: 'dark-grey' },
+            { code: '#1d70b8', label: 'Links, Brand colour', class: 'blue' },
+            { code: '#003078', label: 'Hover Links', class: 'dark-blue' },
+            { code: '#4c2c92', label: 'Visited Links', class: 'purple' },
+            { code: '#b1b4b6', label: 'Border', class: 'mid-grey' },
+            { code: '#ffdd00', label: 'Focus State', class: 'yellow' },
+            { code: '#d4351c', label: 'Error State', class: 'red' },
+            { code: '#003a69', label: 'DfE Brand', class: '' },
+            { code: '#347ca9', label: 'DfE Brand Websafe', class: '' },
+            { code: '#00703c', label: 'Green', class: 'green' },
+            { code: '#5694ca', label: 'Light Blue', class: 'light-blue' },
+            { code: '#f3f2f1', label: 'Light Grey', class: 'grey-1' },
+            { code: '#ffffff', label: 'White', class: 'white' },
+            { code: '#6f72af', label: 'Light Purple', class: 'mauve' },
+            { code: '#912b88', label: 'Bright Purple', class: 'fuschia' },
+            { code: '#d53880', label: 'Pink', class: 'pink' },
+            { code: '#f499be', label: 'Light Pink', class: 'baby-pink' },
+            { code: '#f47738', label: 'Orange', class: 'orange' },
+            { code: '#b58840', label: 'Brown', class: 'brown' },
+            { code: '#85994b', label: 'Light Green', class: 'grass-green' },
+            { code: '#28a197', label: 'Turquoise', class: 'turquoise' }
+        ],
         paragraphs: [
             { name: 'body', class: 'govuk-body' },
             { name: 'lead', class: 'govuk-body-l' },
@@ -164,7 +188,51 @@
                         text: 'Tab'
                     });
 
-                    setColourTitles();
+                    trumbowyg.addBtnDef('foreColor', {
+                        dropdown: buildForeColorDropdown(trumbowyg),
+                        ico: 'fore-color',
+                        text: 'Text color'
+                    });
+
+                    trumbowyg.addBtnDef('backColor', {
+                        dropdown: buildBackColorDropdown(trumbowyg),
+                        ico: 'back-color',
+                        text: 'Background color'
+                    });
+
+                    trumbowyg.addBtnDef('justifyLeft', {
+                        ico: 'justifyLeft',
+                        text: 'Justify Left',
+                        fn: function () {
+                            justify(trumbowyg, 'left');
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('justifyCenter', {
+                        ico: 'justifyCenter',
+                        text: 'Justify Center',
+                        fn: function () {
+                            justify(trumbowyg, 'center');
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('justifyRight', {
+                        ico: 'justifyRight',
+                        text: 'Justify Right',
+                        fn: function () {
+                            justify(trumbowyg, 'right');
+                        }
+                    });
+
+                    trumbowyg.addBtnDef('justifyFull', {
+                        ico: 'justifyFull',
+                        text: 'Justify Full',
+                        fn: function () {
+                            justify(trumbowyg, 'justify');
+                        }
+                    });
+
+                    setColourTitles(trumbowyg);
                 },
                 // Return a list of button names which are active on current element
                 tagHandler: function (element, trumbowyg) {
@@ -203,6 +271,79 @@
 
         var selection = trumbowyg.doc.getSelection();
         $(selection.focusNode.parentNode).addClass(heading.class);
+    }
+
+    function setForeColor(trumbowyg, color) {
+        trumbowyg.$ed.focus();
+        trumbowyg.saveRange();
+
+        if (trumbowyg.range.startOffset !== trumbowyg.range.endOffset) {
+            var selection = trumbowyg.doc.getSelection();
+
+            //look for existing forecolor elements
+            var parent = $(selection.focusNode).closest('.forecolor');
+
+            if (parent.length > 0) {
+                parent.removeClass().addClass('forecolor ' + color.class);
+            } else {
+                $(selection.focusNode).wrap($('<span class="forecolor ' + color.class + '"></span>'));
+            }
+        }
+    }
+
+    function removeForeColor(trumbowyg) {
+        trumbowyg.$ed.focus();
+        trumbowyg.saveRange();
+
+        if (trumbowyg.range.startOffset !== trumbowyg.range.endOffset) {
+            var selection = trumbowyg.doc.getSelection();
+
+            //look for wrapping forecolor elements
+            var parent = $(selection.focusNode).closest('.forecolor');
+
+            if (parent.length > 0) {
+                parent.contents().unwrap();
+            }
+        }
+    }
+
+    function setBackColor(trumbowyg, color) {
+        trumbowyg.$ed.focus();
+        trumbowyg.saveRange();
+
+        if (trumbowyg.range.startOffset !== trumbowyg.range.endOffset) {
+            var selection = trumbowyg.doc.getSelection();
+
+            //look for existing backcolor elements
+            var parent = $(selection.focusNode).closest('.backcolor');
+
+            if (parent.length > 0) {
+                parent.removeClass().addClass('backcolor ' + color.class + '-background');
+            } else {
+                $(selection.focusNode).wrap($('<span class="backcolor ' + color.class + '-background"></span>'));
+            }
+        }
+    }
+
+    function removeBackColor(trumbowyg) {
+        trumbowyg.$ed.focus();
+        trumbowyg.saveRange();
+
+        if (trumbowyg.range.startOffset !== trumbowyg.range.endOffset) {
+            var selection = trumbowyg.doc.getSelection();
+
+            //look for wrapping forecolor elements
+            var parent = $(selection.focusNode).closest('.backcolor');
+
+            if (parent.length > 0) {
+                parent.contents().unwrap();
+            }
+        }
+    }
+
+    function justify(trumbowyg, justification) {
+        var selection = trumbowyg.doc.getSelection();
+        $(selection.focusNode).closest('p').removeClass('text-left text-center text-right text-justify').addClass('text-' + justification);
     }
 
     function setFontWeightOrSize(trumbowyg, fontWeightOrSize) {
@@ -551,6 +692,68 @@
         return ['createLink', 'createNewTabLink', 'unlink'];
     }
 
+    function buildForeColorDropdown(trumbowyg) {
+        var dropdown = [];
+        
+        $.each(trumbowyg.o.plugins.gds.colors, function (index, color) {
+            trumbowyg.addBtnDef('foreColor_' + color.code, {
+                fn: function () {
+                    setForeColor(trumbowyg, color);
+                },
+                forceCss: true,
+                hasIcon: false,
+                text: trumbowyg.lang[color.code] || (color.code),
+                param: color.code,
+                style: 'background-color: ' + color.code + ';'
+            });
+            dropdown.push('foreColor_' + color.code);
+        });
+
+        // Remove color
+        trumbowyg.addBtnDef('foreColor_Remove', {
+            fn: function () {
+                removeForeColor(trumbowyg);
+            },
+            hasIcon: false,
+            param: 'foreColor',
+            style: 'background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkQAAfEJMRmwBYhoGBYQtMBYoAADziAp0jtJTgAAAAAElFTkSuQmCC);'
+        });
+        dropdown.push('foreColor_Remove');
+
+        return dropdown;
+    }
+
+    function buildBackColorDropdown(trumbowyg) {
+        var dropdown = [];
+
+        $.each(trumbowyg.o.plugins.gds.colors, function (index, color) {
+            trumbowyg.addBtnDef('backColor_' + color.code, {
+                fn: function () {
+                    setBackColor(trumbowyg, color);
+                },
+                forceCss: true,
+                hasIcon: false,
+                text: trumbowyg.lang[color.code] || (color.code),
+                param: color.code,
+                style: 'background-color: ' + color.code + ';'
+            });
+            dropdown.push('backColor_' + color.code);
+        });
+
+        // Remove color
+        trumbowyg.addBtnDef('backColor_Remove', {
+            fn: function () {
+                removeBackColor(trumbowyg);
+            },
+            hasIcon: false,
+            param: 'backColor',
+            style: 'background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQIW2NkQAAfEJMRmwBYhoGBYQtMBYoAADziAp0jtJTgAAAAAElFTkSuQmCC);'
+        });
+        dropdown.push('backColor_Remove');
+
+        return dropdown;
+    }
+
     function buildFontSizesDropdown(trumbowyg) {
         var dropdown = [];
 
@@ -648,36 +851,11 @@
 
     }
 
-    function setColourTitles() {
-        var colors = [
-            { code: '#0b0c0c', label: 'Primary Text, Active Links, Input Border, Focus Text State' },
-            { code: '#626a6e', label: 'Secondary Text' },
-            { code: '#1d70b8', label: 'Links, Brand colour' },
-            { code: '#003078', label: 'Hover Links' },
-            { code: '#4c2c92', label: 'Visited Links' },
-            { code: '#b1b4b6', label: 'Border' },
-            { code: '#ffdd00', label: 'Focus State' },
-            { code: '#d4351c', label: 'Error State' },
-            { code: '#003a69', label: 'DfE Brand' },
-            { code: '#347ca9', label: 'DfE Brand Websafe' },
-            { code: '#00703c', label: 'Green' },
-            { code: '#5694ca', label: 'Light Blue' },
-            { code: '#f3f2f1', label: 'Light Grey' },
-            { code: '#ffffff', label: 'White' },
-            { code: '#6f72af', label: 'Light Purple' },
-            { code: '#912b88', label: 'Bright Purple' },
-            { code: '#d53880', label: 'Pink' },
-            { code: '#f499be', label: 'Light Pink' },
-            { code: '#f47738', label: 'Orange' },
-            { code: '#b58840', label: 'Brown' },
-            { code: '#85994b', label: 'Light Green' },
-            { code: '#28a197', label: 'Turquoise' }
-        ]
-
+    function setColourTitles(trumbowyg) {
         //need to allow time for the editor to initialise, there doesn't seem to be a callback we can hook into unfortunately.
         setTimeout(function () {
             $('.trumbowyg-dropdown-foreColor button, .trumbowyg-dropdown-backColor button').each(function () {
-                var color = colors.find(x => x.code === $(this).text());
+                var color = trumbowyg.o.plugins.gds.colors.find(x => x.code === $(this).text());
 
                 if (color) {
                     $(this).attr('title', color.label);
