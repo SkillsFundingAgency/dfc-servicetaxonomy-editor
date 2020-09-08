@@ -251,7 +251,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
+                try
+                {
+                    await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Repair of {ContentItem} in {GraphReplicaSet} failed.",
+                        failure.ContentItem, graphReplicaSet);
+                }
 
                 (bool validated, string? validationFailureReason) =
                     await ValidateContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);

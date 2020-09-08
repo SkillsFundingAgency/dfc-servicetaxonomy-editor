@@ -63,13 +63,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         }
 
         public async Task BuildRelationships(string contentItemId, IDescribeRelationshipsContext context)
-        {   
-            var contentItem = await context.ContentItemVersion.GetContentItem(_contentManager, contentItemId);
-            var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, contentItem, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
+        {
+            //todo: check for null
+            ContentItem? contentItem = await context.ContentItemVersion.GetContentItem(_contentManager, contentItemId);
+            var childContext = new DescribeRelationshipsContext(context.SourceNodeIdPropertyName, context.SourceNodeId, context.SourceNodeLabels, contentItem!, context.SyncNameProvider, context.ContentManager, context.ContentItemVersion, context, context.ServiceProvider, context.RootContentItem);
 
             context.AddChildContext(childContext);
 
-            await BuildRelationships(contentItem, childContext);
+            await BuildRelationships(contentItem!, childContext);
         }
 
         public async Task BuildRelationships(ContentItem contentItem, IDescribeRelationshipsContext context)
