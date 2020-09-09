@@ -95,6 +95,9 @@
         "ContentApiAddress": {
             "type": "string"
         },
+        "PreviewContentApiPrefix": {
+            "type": "string"
+        },
         "EventGridTopicSku": {
             "type": "string"
         },
@@ -343,7 +346,7 @@
                             },
                             {
                                 "name": "PreviewContentApiPrefix",
-                                "value": "[concat(parameters('apimProxyAddress'), '/content/GetDraftContent/api/Execute')]"
+                                "value": "[concat(parameters('PreviewContentApiPrefix'), '/api/Execute')]"
                             },
                             {
                                 "name": "EventStoreUrl",
