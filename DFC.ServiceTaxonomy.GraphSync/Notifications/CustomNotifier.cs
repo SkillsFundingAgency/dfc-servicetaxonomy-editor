@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Notify;
@@ -19,12 +20,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _entries = new List<NotifyEntry>();
         }
 
-        public void Add(NotifyType type, HtmlString userMessage, HtmlString technicalMessage)
+        public void Add(HtmlString userMessage, HtmlString technicalMessage, Exception? exception = null, NotifyType type = NotifyType.Error)
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
-                _logger.LogInformation("Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message {NotificationTechnicalMessage}.",
-                    type, userMessage, technicalMessage);
+                _logger.LogInformation("Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'}.",
+                    type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
 
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
@@ -36,8 +37,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 .AppendHtml(userMessage)
                 .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{{uniqueId}}\"><i class=\"fas fa-wrench\"></i></button>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
+                .AppendHtml($"<p>Trace ID: {Activity.Current.TraceId}</p>")
                 .AppendHtml(technicalMessage)
                 .AppendHtml("</div>");
+
+            if (exception != null)
+            {
+                //todo: monospace
+                htmlContentBuilder.AppendHtml($"<div>{exception}</div>");
+            }
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
         }

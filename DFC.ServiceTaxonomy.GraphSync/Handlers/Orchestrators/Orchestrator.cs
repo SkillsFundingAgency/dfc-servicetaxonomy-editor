@@ -50,7 +50,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             // _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
             //     $"The '{contentItem.DisplayText}' {contentType} could not be removed because the associated node could not be deleted from the graph."));
 
-            _notifier.Add(NotifyType.Error, new HtmlString("User massage"), new HtmlString("Technical massage"));
+            _notifier.Add(new HtmlString("User massage"), new HtmlString("Technical massage"));
         }
 
         //todo: todo temporarily protected
