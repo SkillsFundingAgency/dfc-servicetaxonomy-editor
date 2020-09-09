@@ -107,6 +107,9 @@
         "PreviewAppPrefix": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
+        "PreviewContentApiPrefix": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
         "Neo4jEndpoints0Enabled": {
             "value": true
         },

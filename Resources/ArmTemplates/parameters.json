@@ -116,6 +116,9 @@
         "ContentApiAddress": {
             "value": "__ContentApiAddress__"
         },
+        "PreviewContentApiPrefix": {
+            "value": "__PreviewContentApiPrefix__"
+        },
         "EventGridTopicSku": {
             "value": "__EventGridTopicSku__"
         },
