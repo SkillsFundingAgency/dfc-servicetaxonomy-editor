@@ -1,0 +1,143 @@
+{
+  "name": "CollegeLinks0_114b25ff-c3c3-4d60-b2fd-78aaeab6f525",
+  "displayName": "CollegeLinks0_114b25ff-c3c3-4d60-b2fd-78aaeab6f525",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://nlbc.uk/partners/members/",
+        "Text": "search for agricultural colleges"
+      }
+    },
+    "TitlePart": {
+      "Title": "NLBC agri colleges"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/c7b61f43-d941-49a4-a414-d15eebafb2ca"
+    },
+    "ContentItemId": "4ma0vtm39befdznc3bp7jax1d0",
+    "ContentItemVersionId": "47jrnb176rk7v1c6jkxjg9qbd1",
+    "ContentType": "CollegeLink",
+    "DisplayText": "NLBC agri colleges",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-09T10:20:16.3108510Z",
+    "PublishedUtc": "2020-09-09T10:20:16.3108510Z",
+    "CreatedUtc": "2020-09-09T10:20:16.3108510Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels",
+        "Text": "equivalent entry requirements"
+      }
+    },
+    "TitlePart": {
+      "Title": "Show Equiv Entry Reqs"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/8899b587-c322-4547-a589-68cbae7e6952"
+    },
+    "ContentItemId": "4y1y5ayx5299qwfhy8c120wb4s",
+    "ContentItemVersionId": "4bkw2e10dc58sr8cvhgnqhhhdf",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Show Equiv Entry Reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-09T10:20:16.3108510Z",
+    "PublishedUtc": "2020-09-09T10:20:16.3108510Z",
+    "CreatedUtc": "2020-09-09T10:20:16.3108510Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/further-education-courses/financial-help",
+        "Text": "funding advice"
+      }
+    },
+    "TitlePart": {
+      "Title": "Financial Help FE"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/84a0fcb5-1896-4b5d-b06d-7867a47e4e4f"
+    },
+    "ContentItemId": "46fk1kq6824rnwx1mwmt2ek5me",
+    "ContentItemVersionId": "4yeax801nvykgv5peedbzgsbm8",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Financial Help FE",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-09T10:20:16.3108510Z",
+    "PublishedUtc": "2020-09-09T10:20:16.3108510Z",
+    "CreatedUtc": "2020-09-09T10:20:16.3108510Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "https://www.gov.uk/student-finance",
+        "Text": "funding advice for higher education courses in college"
+      }
+    },
+    "TitlePart": {
+      "Title": "Financial help for HNC-HND-FD "
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/9500254b-9757-42a7-aea0-f91d00e679b6"
+    },
+    "ContentItemId": "43zt5qvxm66ynz0f41ey70xxcd",
+    "ContentItemVersionId": "42j6e594aw6d8y6yvhq0dgg4ws",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Financial help for HNC-HND-FD ",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-09T10:20:16.3108510Z",
+    "PublishedUtc": "2020-09-09T10:20:16.3108510Z",
+    "CreatedUtc": "2020-09-09T10:20:16.3108510Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "CollegeLink": {
+      "Link": {
+        "Url": "/find-a-course",
+        "Text": "search for courses"
+      }
+    },
+    "TitlePart": {
+      "Title": "Find a course"
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/collegelink/5315ec57-29c9-455f-a1c3-7a2d2e32e71d"
+    },
+    "ContentItemId": "4z0w744eyxxwbtyx8q5840qyd8",
+    "ContentItemVersionId": "4p3pf2efwkfe50zz5z78h8nmny",
+    "ContentType": "CollegeLink",
+    "DisplayText": "Find a course",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-09T10:20:16.3108510Z",
+    "PublishedUtc": "2020-09-09T10:20:16.3108510Z",
+    "CreatedUtc": "2020-09-09T10:20:16.3108510Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
