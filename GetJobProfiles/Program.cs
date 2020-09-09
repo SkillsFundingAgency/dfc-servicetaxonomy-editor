@@ -133,6 +133,12 @@ namespace GetJobProfiles
             var apprenticeshipStandardImporter = new ApprenticeshipStandardImporter(apprenticeshipStandardsRefList);
             apprenticeshipStandardImporter.Import(jobProfileWorkbook, timestamp, qcfLevelBuilder.QCFLevelDictionary, jobProfiles);
 
+            using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
+            var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
+
+            var dysacImporter = new DysacImporter();
+            dysacImporter.Import(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
+
             const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
             string whereClause = "";
@@ -231,6 +237,8 @@ namespace GetJobProfiles
 
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
+
+            await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait");
 
             string masterRecipeName = config["MasterRecipeName"] ?? "master";
 

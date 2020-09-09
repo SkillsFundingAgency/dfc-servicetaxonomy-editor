@@ -3,18 +3,18 @@ using GetJobProfiles.Models.Recipe.Parts;
 
 namespace GetJobProfiles.Models.Recipe.ContentItems
 {
-    public class JobCategoryContentItem : ContentItem
+    public class PersonalityTraitContentItem : ContentItem
     {
-        public JobCategoryContentItem(string title, string timestamp, string contentItemId = null)
-            : base("JobCategory", title, timestamp, contentItemId)
+        public PersonalityTraitContentItem(string title, string timestamp, string contentItemId = null)
+          : base("PersonalityTrait", title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
-            GraphSyncPart = new GraphSyncPart("JobCategory");
+            GraphSyncPart = new GraphSyncPart("PersonalTrait");
             DisplayText = TitlePart.Title;
         }
 
         public TitlePart TitlePart { get; set; }
-        public JobCategoryPart EponymousPart { get; set; }
+        public PersonalityTraitPart EponymousPart { get; set; }
         public GraphSyncPart GraphSyncPart { get; set; }
     }
 }
