@@ -4,12 +4,16 @@ using GetJobProfiles.Models.Recipe.ContentItems;
 using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using NPOI.XSSF.UserModel;
+using OrchardCore.Entities;
 
 namespace GetJobProfiles.Importers
 {
     public class JobCategoryImporter
     {
+        private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
         public IEnumerable<JobCategoryContentItem> JobCategoryContentItems { get; private set; }
+
+        public Dictionary<string, string> JobCategoryContentItemIdDictionary { get; private set; }
 
         public void Import(XSSFWorkbook workbook, string timestamp, IEnumerable<JobProfileContentItem> jobProfiles)
         {
@@ -29,8 +33,10 @@ namespace GetJobProfiles.Importers
                 jobCategoryDictionary.Add(uri, categories);
             }
 
+            JobCategoryContentItemIdDictionary = jobCategoryDictionary.SelectMany(z=>z.Value).Distinct().Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc}).ToDictionary(y => y.Title, y => y.Id);
+
             JobCategoryContentItems = jobCategoryDictionary.SelectMany(dict => dict.Value).Distinct().ToList().Select(
-                category => new JobCategoryContentItem(category, timestamp)
+                category => new JobCategoryContentItem(category, timestamp, JobCategoryContentItemIdDictionary[category])
                 {
                     EponymousPart = new JobCategoryPart
                     {

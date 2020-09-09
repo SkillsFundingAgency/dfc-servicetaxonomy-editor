@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace GetJobProfiles.Models.API
 {
-    public class DysacTrait
+    public class PersonalityTrait
     {
         public string Title { get; set; }
         public string Description { get; set; }

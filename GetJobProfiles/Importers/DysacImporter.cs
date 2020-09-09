@@ -3,22 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using GetJobProfiles.Models.API;
 using GetJobProfiles.Models.Recipe.ContentItems;
+using GetJobProfiles.Models.Recipe.Fields;
+using GetJobProfiles.Models.Recipe.Parts;
+using GraphQL;
 using NPOI.XSSF.UserModel;
 
 namespace GetJobProfiles.Importers
 {
     public class DysacImporter
     {
-        internal void Import(IEnumerable<JobCategoryContentItem> jobCategoryContentItems, XSSFWorkbook dysacWorkbook)
+        public IEnumerable<PersonalityTraitContentItem> PersonalityTraitContentItems { get; private set; }
+
+        internal void Import(Dictionary<string,string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
         {
             var traits = ReadFromFile("Trait", dysacWorkbook);
+
+            PersonalityTraitContentItems = traits.Select(x => new PersonalityTraitContentItem(x.Title, timestamp)
+            {
+                EponymousPart = new PersonalityTraitPart
+                {
+                    Description = new TextField(x.Description),
+                    JobCategories = new ContentPicker
+                    {
+                        ContentItemIds = jobCategoryDictionary.Where(z => x.JobCategories.Select(y => y.ToLowerInvariant()).Contains(z.Key.ToLowerInvariant())).Select(k => k.Value)
+                    }
+                }
+            }).ToList();
         }
 
-        private IEnumerable<DysacTrait> ReadFromFile(string sheetName, XSSFWorkbook jobProfileWorkbook)
+        private IEnumerable<PersonalityTrait> ReadFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
         {
-            var listToReturn = new List<DysacTrait>();
+            var listToReturn = new List<PersonalityTrait>();
 
-            var sheet = jobProfileWorkbook.GetSheet(sheetName);
+            var sheet = dysacWorkbook.GetSheet(sheetName);
 
             var titleIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "Title").ColumnIndex;
             var jobProfileCategoriesIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "jobprofilecategories").ColumnIndex;
@@ -32,9 +49,10 @@ namespace GetJobProfiles.Importers
                 var jobCategories = row.GetCell(jobProfileCategoriesIndex).StringCellValue;
                 var description = row.GetCell(resultDisplayTextIndex).StringCellValue;
 
-                listToReturn.Add(new DysacTrait { Description = description, JobCategories = jobCategories.Split(',').ToList(), Title = title });
+                listToReturn.Add(new PersonalityTrait { Description = description, JobCategories = jobCategories.Split(',').ToList(), Title = title });
             }
 
             return listToReturn;
         }
     }
+}
