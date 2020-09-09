@@ -347,7 +347,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             {
                 if (!await validator.Validate(taxonomyItem, JObject.FromObject(taxonomy)))
                 {
-                    return View();
+                    _notifier.Error(H[validator.ErrorMessage]);
+                    return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
                 }
             }
 
