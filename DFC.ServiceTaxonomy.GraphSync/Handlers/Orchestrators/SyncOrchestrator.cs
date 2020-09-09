@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -21,22 +22,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
+        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
             INotifier notifier,
             IGraphCluster graphCluster,
-            IPublishedContentItemVersion publishedContentItemVersion,
             IServiceProvider serviceProvider,
-            ILogger<SyncOrchestrator> logger)
+            ILogger<SyncOrchestrator> logger,
+            IPublishedContentItemVersion publishedContentItemVersion,
+            IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
             : base(contentDefinitionManager, notifier, logger)
         {
             _graphCluster = graphCluster;
             _publishedContentItemVersion = publishedContentItemVersion;
             _serviceProvider = serviceProvider;
+            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
-        /// <returns>true if saving draft to preview graph was blocked or failed.</returns>
+        /// <returns>false if saving draft to preview graph was blocked or failed.</returns>
         public async Task<bool> SaveDraft(ContentItem contentItem)
         {
             _logger.LogDebug("SaveDraft: Syncing '{ContentItem}' {ContentType} to Preview.",
@@ -44,13 +48,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            return await SyncToGraphReplicaSetIfAllowed(
+            if (!await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager);
+                contentManager))
+            {
+                return false;
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftSaved(contentItem);
+            }
+
+            return true;
         }
 
-        /// <returns>true if publish to either graph was blocked or failed.</returns>
+        /// <returns>false if publish to either graph was blocked or failed.</returns>
         public async Task<bool> Publish(ContentItem contentItem)
         {
             _logger.LogDebug("Publish: Syncing '{ContentItem}' {ContentType} to Published and Preview.",
@@ -87,10 +101,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
+            //todo: move these into 'ed' where available?
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Published(contentItem);
+            }
+
             return true;
         }
 
-        /// <returns>true if updating either graph was blocked or failed.</returns>
+        /// <returns>false if updating either graph was blocked or failed.</returns>
         public async Task<bool> Update(ContentItem publishedContentItem, ContentItem previewContentItem)
         {
             _logger.LogDebug("Update: Syncing '{PublishedContentItem}' {PublishedContentType} to Published and '{PreviewContentItem}' {PreviewContentType} to Preview.",
@@ -128,10 +148,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 return false;
             }
 
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftSaved(previewContentItem);
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Published(publishedContentItem);
+            }
+
             return true;
         }
 
-        /// <returns>true if discarding draft was blocked or failed.</returns>
+        /// <returns>false if discarding draft was blocked or failed.</returns>
         public async Task<bool> DiscardDraft(ContentItem contentItem)
         {
             _logger.LogDebug("DiscardDraft: Discarding draft '{ContentItem}' {ContentType} by syncing existing Published to Preview.",
@@ -139,16 +169,27 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             IContentManager contentManager = _serviceProvider.GetRequiredService<IContentManager>();
 
-            ContentItem publishedContentItem =
+            //todo: check for null
+            ContentItem? publishedContentItem =
                 await _publishedContentItemVersion.GetContentItem(contentManager, contentItem.ContentItemId);
 
-            return await SyncToGraphReplicaSetIfAllowed(
+            if (!await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
-                publishedContentItem,
-                contentManager);
+                publishedContentItem!,
+                contentManager))
+            {
+                return false;
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.DraftDiscarded(contentItem);
+            }
+
+            return true;
         }
 
-        /// <returns>true if saving clone to preview graph was blocked or failed.</returns>
+        /// <returns>false if saving clone to preview graph was blocked or failed.</returns>
         public async Task<bool> Clone(ContentItem contentItem)
         {
             _logger.LogDebug("Clone: Syncing mutated cloned '{ContentItem}' {ContentType} to Preview.",
@@ -159,10 +200,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             await cloneGraphSync.MutateOnClone(contentItem, contentManager);
 
-            return await SyncToGraphReplicaSetIfAllowed(
+            if (!await SyncToGraphReplicaSetIfAllowed(
                 GraphReplicaSetNames.Preview,
                 contentItem,
-                contentManager);
+                contentManager))
+            {
+                return false;
+            }
+
+            foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
+            {
+                await contentOrchestrationHandler.Cloned(contentItem);
+            }
+
+            return true;
         }
 
         //todo: remove equivalent in mergegraphsyncer?

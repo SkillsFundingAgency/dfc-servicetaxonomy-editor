@@ -66,6 +66,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public override void ConfigureServices(IServiceCollection services)
         {
+
+            services.Configure<GraphSyncSettings>(_configuration.GetSection(nameof(GraphSyncSettings)));
+
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
@@ -153,6 +156,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
             // services
             services.AddScoped<ISynonymService, SynonymService>();
+            services.AddTransient<ITitlePartCloneGenerator, TitlePartCloneGenerator>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
             services.AddTransient<IDescribeContentItemHelper, DescribeContentItemHelper>();
             // this would be nice, but IContentManager is Scoped, so not available at startup

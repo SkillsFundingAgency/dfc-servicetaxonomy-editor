@@ -9,6 +9,8 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
+    //todo: this might be used to get incoming relationships, but it looks like it actually gets outgoing relationships
+    // so we should be able to get rid of this and use one of the other queries
     public class NodeAndIncomingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private readonly IEnumerable<string> _sourceNodeLabels;

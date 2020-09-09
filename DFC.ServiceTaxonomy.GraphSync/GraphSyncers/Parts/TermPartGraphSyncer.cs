@@ -30,10 +30,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
             if (taxonomyContentItemId == null)
                 throw new GraphSyncException($"{PartName} is missing {TaxonomyContentItemId}.");
 
-            ContentItem contentItem = await context.ContentItemVersion.GetContentItem(context.ContentManager, taxonomyContentItemId);
+            //todo: check for null
+            ContentItem? contentItem = await context.ContentItemVersion.GetContentItem(context.ContentManager, taxonomyContentItemId);
 
             ISyncNameProvider termSyncNameProvider = _serviceProvider.GetRequiredService<ISyncNameProvider>();
-            termSyncNameProvider.ContentType = contentItem.ContentType;
+            termSyncNameProvider.ContentType = contentItem!.ContentType;
 
             //todo: override/extension that takes a contentitem
             context.ReplaceRelationshipsCommand.AddRelationshipsTo(

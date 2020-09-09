@@ -4,7 +4,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentFields.Settings;
-using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPickerFieldGraphSyncerTests
 {
@@ -16,7 +15,9 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.GraphSyncers.Fields.ContentPic
         public ContentPickerFieldGraphSyncerAddSyncComponentsTestsBase()
         {
             Logger = A.Fake<ILogger<ContentPickerFieldGraphSyncer>>();
-            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(A.Fake<IPreExistingContentItemVersion>(), A.Fake<IContentDefinitionManager>(), A.Fake<IServiceProvider>());
+            ContentFieldGraphSyncer = new ContentPickerFieldGraphSyncer(
+                A.Fake<IPreExistingContentItemVersion>(),
+                A.Fake<IServiceProvider>());
 
             ContentPickerFieldSettings = A.Fake<ContentPickerFieldSettings>();
 

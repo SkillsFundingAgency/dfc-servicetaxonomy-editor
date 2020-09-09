@@ -8,6 +8,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
 {
     public abstract class OwlDataGeneratorService
     {
+        public const string EditBaseUrl = "/Admin/Contents/ContentItems/{ContentItemID}/Edit";
+        public const string ResetFocusBaseUrl = "/Visualise/Viewer?contentItemId={ContentItemID}";
+
         private readonly Dictionary<string, string> typeColours = new Dictionary<string, string>();
 
         private readonly OwlDataGeneratorConfigModel OwlDataGeneratorConfigModel;
@@ -129,12 +132,22 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
             return result;
         }
 
+        private string? CreateUrlFromContentItemId(string? contentItemId, string baseUrl)
+        {
+            return string.IsNullOrEmpty(contentItemId)
+                ? null
+                : baseUrl.Replace("{ContentItemID}", contentItemId);
+        }
+
         protected Class CreateClass(NodeDataModel nodeDataModel, string selectedNode)
         {
             var result = new Class
             {
                 Id = nodeDataModel.Id,
                 Type = $"owl:{(nodeDataModel.Id!.Equals("Class" + selectedNode) ? "equivalent" : string.Empty)}Class",
+                ContentType = nodeDataModel.Type,
+                EditUrl = CreateUrlFromContentItemId(nodeDataModel.ContentItemID, EditBaseUrl),
+                ResetFocusUrl = CreateUrlFromContentItemId(nodeDataModel.ContentItemID, ResetFocusBaseUrl)
             };
 
             return result;

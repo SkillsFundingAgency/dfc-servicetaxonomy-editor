@@ -89,6 +89,9 @@
         "apimProxyAddress": {
             "value": "https://foo.api.nationalcareersservice.org.uk"
         },
+        "ContentApiAddress": {
+            "value": "https://foo.api.nationalcareersservice.org.uk"
+        },
         "EventGridTopicSku": {
             "value": "basic"
         },

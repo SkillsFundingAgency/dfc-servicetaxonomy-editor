@@ -11,7 +11,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 {
     public class ValidateAndRepairContext : GraphOperationContext, IValidateAndRepairContext
     {
+        //todo: there can (should) be only one
         public INodeWithOutgoingRelationships NodeWithOutgoingRelationships { get; }
+        public INodeWithIncomingRelationships NodeWithIncomingRelationships { get; }
         public IGraphValidationHelper GraphValidationHelper { get; }
         public IDictionary<string, int> ExpectedRelationshipCounts { get; }
         public IValidateAndRepairGraph ValidateAndRepairGraph { get; }
@@ -21,6 +23,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
             INodeWithOutgoingRelationships nodeWithOutgoingRelationships,
+            INodeWithIncomingRelationships nodeWithIncomingRelationships,
             ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IValidateAndRepairGraph validateAndRepairGraph,
@@ -29,6 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         {
             ContentItemVersion = contentItemVersion;
             NodeWithOutgoingRelationships = nodeWithOutgoingRelationships;
+            NodeWithIncomingRelationships = nodeWithIncomingRelationships;
             GraphValidationHelper = graphValidationHelper;
             ValidateAndRepairGraph = validateAndRepairGraph;
 

@@ -39,7 +39,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.ContentItemVersions
         //     1        0        new (replacement) draft version
         public (bool? latest, bool? published) ContentItemIndexFilterTerms { get; }
 
-        public async Task<ContentItem> GetContentItem(IContentManager contentManager, string id)
+        public async Task<ContentItem?> GetContentItem(IContentManager contentManager, string id)
         {
             ContentItem? contentItem = null;
             if (GraphReplicaSetName == GraphReplicaSetNames.Preview)

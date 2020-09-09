@@ -8,7 +8,6 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.Content.Services
 {
-    //todo: better name
     public class ContentItemsService : IContentItemsService
     {
         private readonly ISession _session;

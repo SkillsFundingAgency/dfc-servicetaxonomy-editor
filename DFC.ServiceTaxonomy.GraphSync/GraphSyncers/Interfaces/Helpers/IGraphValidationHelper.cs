@@ -71,5 +71,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers
             string destinationIdPropertyName,
             object destinationId,
             IEnumerable<KeyValuePair<string, object>>? properties = null);
+
+        public (bool validated, string failureReason) ValidateIncomingRelationship(
+            INodeWithIncomingRelationships nodeWithIncomingRelationships,
+            string relationshipType,
+            string destinationIdPropertyName,
+            object destinationId,
+            IEnumerable<KeyValuePair<string, object>>? properties = null);
     }
 }

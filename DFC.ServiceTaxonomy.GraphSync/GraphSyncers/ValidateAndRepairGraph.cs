@@ -241,7 +241,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ValidateAndRepairResult result)
         {
             _logger.LogWarning(
-                "Content items of type {ContentTypeDefinitionName} failed validation (ValidationFailures}). Attempting to repair them.",
+                "Content items of type {ContentTypeDefinitionName} failed validation ({ValidationFailures}). Attempting to repair them.",
                 contentTypeDefinition.Name,
                 string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString())));
 
@@ -251,7 +251,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
-                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
+                try
+                {
+                    await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Repair of {ContentItem} in {GraphReplicaSet} failed.",
+                        failure.ContentItem, graphReplicaSet);
+                }
 
                 (bool validated, string? validationFailureReason) =
                     await ValidateContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
@@ -285,19 +293,31 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             object nodeId = _syncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
 
+            //todo: one query to fetch outgoing and incoming
             List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
                 new NodeWithOutgoingRelationshipsQuery(
                     await _syncNameProvider.NodeLabels(),
                     _syncNameProvider.IdPropertyName(),
                     nodeId));
 
+            //todo: does this belong in the query?
             INodeWithOutgoingRelationships? nodeWithOutgoingRelationships = results.FirstOrDefault();
             if (nodeWithOutgoingRelationships == null)
-                return (false, FailureContext("Node not found.", contentItem));
+                return (false, FailureContext("Node not found querying outgoing relationships.", contentItem));
+
+            List<INodeWithIncomingRelationships?> incomingResults = await _currentGraph!.Run(
+                new NodeWithIncomingRelationshipsQuery(
+                    await _syncNameProvider.NodeLabels(),
+                    _syncNameProvider.IdPropertyName(),
+                    nodeId));
+
+            INodeWithIncomingRelationships? nodeWithIncomingRelationships = incomingResults.FirstOrDefault();
+            if (nodeWithIncomingRelationships == null)
+                return (false, FailureContext("Node not found querying incoming relationships.", contentItem));
 
             ValidateAndRepairItemSyncContext context = new ValidateAndRepairItemSyncContext(
                 contentItem, _contentManager, contentItemVersion, nodeWithOutgoingRelationships,
-                _syncNameProvider, _graphValidationHelper, this,
+                nodeWithIncomingRelationships, _syncNameProvider, _graphValidationHelper, this,
                 contentTypeDefinition, nodeId, _serviceProvider);
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)

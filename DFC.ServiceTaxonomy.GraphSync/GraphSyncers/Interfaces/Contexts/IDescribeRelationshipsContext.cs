@@ -12,22 +12,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
     {
         IServiceProvider ServiceProvider { get; set; }
 
-        public List<ContentItemRelationship> AvailableRelationships { get; set; }
+        List<ContentItemRelationship> AvailableRelationships { get; set; }
 
-        public JObject? ContentField { get; }
+        JObject? ContentField { get; }
 
-        public string SourceNodeId { get; set; }
+        string SourceNodeId { get; set; }
 
-        public IEnumerable<string> SourceNodeLabels { get; set; }
+        IEnumerable<string> SourceNodeLabels { get; set; }
 
-        public int CurrentDepth { get; set; }
+        int CurrentDepth { get; set; }
 
-        public string SourceNodeIdPropertyName { get; set; }
+        string SourceNodeIdPropertyName { get; set; }
 
         void SetContentField(JObject jObject);
 
         new ContentTypePartDefinition ContentTypePartDefinition { get; set; }
 
-        public ContentItem RootContentItem { get; set; }
+        ContentItem RootContentItem { get; set; }
     }
 }
