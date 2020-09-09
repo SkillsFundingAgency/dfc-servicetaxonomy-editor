@@ -116,6 +116,60 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
+                    "Name": "PersonalityTrait",
+                    "DisplayName": "Personality Trait",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": false,
+                            "Listable": false,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalityTrait",
+                            "Name": "PersonalityTrait",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {
+                                    "Template": "undefined"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+                ,
+                {
                     "Name": "Email",
                     "DisplayName": "Email",
                     "Settings": {
@@ -213,6 +267,7 @@
                                     "NodeNameTransform": "$\"esco__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
+                                    "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
                                     "DisplayId": true
                                 },
                                 "ContentIndexSettings": {}
@@ -653,6 +708,7 @@
                                     "NodeNameTransform": "$\"esco__{ContentType}\"",
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"http://data.europa.eu/esco/{ContentType.ToLowerInvariant()}/{Value}\"",
+                                    "PreExistingNodeUriPrefix": "http://data.europa.eu/esco",
                                     "DisplayId": true
                                 }
                             }
@@ -1982,6 +2038,44 @@
                 }
             ],
             "ContentParts": [
+                {
+                    "Name": "PersonalityTrait",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "TextArea",
+                                    "Position": "0"
+                                },
+                                "TextFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "JobCategories",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Job Categories",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:hasJobCategory].",
+                                    "Required": true,
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "JobCategory"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
                 {
                     "Name": "ApprenticeshipStandard",
                     "Settings": {},
