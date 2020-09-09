@@ -27,7 +27,7 @@
     <PackageReference Include="OrchardCore.Navigation.Core" Version="1.0.0-rc3" />
     <PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc3" />
     <PackageReference Include="OrchardCore.Settings.Core" Version="1.0.0-rc3" />
-    <PackageReference Include="Fluid.Core" Version="1.0.0-beta-9672" />
+    <PackageReference Include="Fluid.Core" Version="1.0.0-beta-9681" />
   </ItemGroup>
 
 </Project>
