@@ -1,12 +1,13 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.ContentTypes.Editors;
 using OrchardCore.DisplayManagement.Views;
-using DFC.ServiceTaxonomy.GraphSync.Models;
-using Microsoft.Extensions.Options;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+using OrchardCore.Mvc.ModelBinding;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Settings
 {
@@ -39,6 +40,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     model.IdPropertyName = graphSyncPartSettings.IdPropertyName;
                     model.GenerateIdPropertyValue = graphSyncPartSettings.GenerateIdPropertyValue;
                     model.PreExistingNodeUriPrefix = graphSyncPartSettings.PreExistingNodeUriPrefix;
+                    model.VisualiserNodeDepth = graphSyncPartSettings.VisualiserNodeDepth;
 
                     BuildGraphSyncPartSettingsList(model);
                 })
@@ -85,6 +87,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
             }
 
             var model = new GraphSyncPartSettingsViewModel();
+            
 
             if (await context.Updater.TryUpdateModelAsync(model, Prefix,
                 m => m.BagPartContentItemRelationshipType,
@@ -95,7 +98,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                 m => m.CreateRelationshipType,
                 m => m.IdPropertyName,
                 m => m.GenerateIdPropertyValue,
-                m => m.PreExistingNodeUriPrefix))
+                m => m.PreExistingNodeUriPrefix,
+                m => m.VisualiserNodeDepth) && Valid(model, context))
             {
                 context.Builder.WithSettings(new GraphSyncPartSettings
                 {
@@ -107,11 +111,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Settings
                     CreateRelationshipType = model.CreateRelationshipType,
                     IdPropertyName = model.IdPropertyName,
                     GenerateIdPropertyValue = model.GenerateIdPropertyValue,
-                    PreExistingNodeUriPrefix = model.PreExistingNodeUriPrefix
+                    PreExistingNodeUriPrefix = model.PreExistingNodeUriPrefix,
+                    VisualiserNodeDepth = model.VisualiserNodeDepth
                 });
             }
 
             return Edit(contentTypePartDefinition);
+        }
+
+        private bool Valid(GraphSyncPartSettingsViewModel model, UpdateTypePartEditorContext context)
+        {
+            bool valid = true;
+
+            if (model.VisualiserNodeDepth != null && model.VisualiserNodeDepth < 1)
+            {
+                context.Updater.ModelState.AddModelError(Prefix, nameof(GraphSyncPartSettings.VisualiserNodeDepth),
+                    "Visualiser node depth must be greater than 0");
+                valid = false;
+            }
+
+            return valid;
         }
 
         private bool IsEqual(string? item, string? model)
