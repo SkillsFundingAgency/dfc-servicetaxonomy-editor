@@ -20,6 +20,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _entries = new List<NotifyEntry>();
         }
 
+        //todo: tooltip on wrench, show technical details and copy to clipboard
+//todo: add custom styles via scss
+
+        // copy raw text to clipboard and show using html
+    //     var data = [new ClipboardItem({ "text/plain": new Blob(["Text data"], { type: "text/plain" }) })];
+    // navigator.clipboard.write(data).then(function() {
+    // console.log("Copied to clipboard successfully!");
+    // }, function() {
+    // console.error("Unable to write to clipboard. :-(");
+    // });
+
+
+    //todo: why when there are 2 notifiers do only one (sometimes neither) of the collapses work? and not always the same one!!!!
         public void Add(HtmlString userMessage, HtmlString technicalMessage, Exception? exception = null, NotifyType type = NotifyType.Error)
         {
             if (_logger.IsEnabled(LogLevel.Information))
@@ -31,15 +44,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
             string uniqueId = Guid.NewGuid().ToString("N");
+            string onClickFunction = $"click_{uniqueId}";
+            string clipboardCopy = TechnicalClipboardCopy(
+                Activity.Current.TraceId.ToString(),
+                userMessage.ToString(),
+                technicalMessage.ToString(),
+                exception);
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
+                .AppendHtml(TechnicalScript(onClickFunction, clipboardCopy))
                 .AppendHtml(userMessage)
-                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{{uniqueId}}\"><i class=\"fas fa-wrench\"></i></button>")
-                .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
-                .AppendHtml($"<p>Trace ID: {Activity.Current.TraceId}</p>")
+                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
+                .AppendHtml($"<div class=\"collapse\" style=\"margin-top: 1em;\" id=\"{uniqueId}\">")
+                .AppendHtml($"<button onclick=\"{onClickFunction}()\" style=\"float: right; position: relative; left: 3em;\" type=\"button\"><i class=\"fas fa-copy\"></i></button>")
+                .AppendHtml($"<p>Trace ID: {Activity.Current.TraceId}</p><p>")
                 .AppendHtml(technicalMessage)
-                .AppendHtml("</div>");
+                .AppendHtml("</p></div>");
 
             if (exception != null)
             {
@@ -50,6 +71,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
         }
 
+        //todo: add Trace Id to std notifications?
         public void Add(NotifyType type, LocalizedHtmlString message)
         {
             if (_logger.IsEnabled(LogLevel.Information))
@@ -68,6 +90,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             return _entries;
+        }
+
+        //todo: one function in ncs.js and call that?
+        private IHtmlContent TechnicalScript(string onClickFunction, string clipboardText)
+        {
+            //var data = [new ClipboardItem({{ ""text/plain"": new Blob([`{clipboardText}`], {{ type: ""text/plain"" }}) }})];
+            //navigator.clipboard.write(data).then(function() {{
+
+            return new HtmlString(
+@$"<script type=""text/javascript"">
+function {onClickFunction}() {{
+    //window.focus();
+    navigator.clipboard.writeText(`{clipboardText}`).then(function() {{
+    console.log(""Copied to clipboard successfully!"");
+    }}, function(err) {{
+    console.error(""Unable to write to clipboard. :-("");
+    }});
+}}
+</script>"
+            );
+        }
+
+        private string TechnicalClipboardCopy(string traceId, string userMessage, string technicalMessage, Exception? exception = null)
+        {
+            return
+@$"Trace ID          : {traceId}
+User Message      : {userMessage}
+Technical Message : {technicalMessage}
+Exception         : {exception}";
         }
     }
 }
