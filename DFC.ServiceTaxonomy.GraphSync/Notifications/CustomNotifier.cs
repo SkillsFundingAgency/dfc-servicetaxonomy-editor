@@ -20,19 +20,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             _entries = new List<NotifyEntry>();
         }
 
-        //todo: tooltip on wrench, show technical details and copy to clipboard
-//todo: add custom styles via scss
-
-        // copy raw text to clipboard and show using html
-    //     var data = [new ClipboardItem({ "text/plain": new Blob(["Text data"], { type: "text/plain" }) })];
-    // navigator.clipboard.write(data).then(function() {
-    // console.log("Copied to clipboard successfully!");
-    // }, function() {
-    // console.error("Unable to write to clipboard. :-(");
-    // });
-
-
-    //todo: why when there are 2 notifiers do only one (sometimes neither) of the collapses work? and not always the same one!!!!
+        //todo: add custom styles via scss
+        //todo: why when there are 2 notifiers do only one (sometimes neither) of the collapses work? and not always the same one!!!!
         public void Add(HtmlString userMessage, HtmlString technicalMessage, Exception? exception = null, NotifyType type = NotifyType.Error)
         {
             if (_logger.IsEnabled(LogLevel.Information))
@@ -95,17 +84,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         //todo: one function in ncs.js and call that?
         private IHtmlContent TechnicalScript(string onClickFunction, string clipboardText)
         {
-            //var data = [new ClipboardItem({{ ""text/plain"": new Blob([`{clipboardText}`], {{ type: ""text/plain"" }}) }})];
-            //navigator.clipboard.write(data).then(function() {{
-
             return new HtmlString(
 @$"<script type=""text/javascript"">
 function {onClickFunction}() {{
-    //window.focus();
     navigator.clipboard.writeText(`{clipboardText}`).then(function() {{
-    console.log(""Copied to clipboard successfully!"");
+        console.log(""Copied technical error details to clipboard successfully!"");
     }}, function(err) {{
-    console.error(""Unable to write to clipboard. :-("");
+        console.error(""Unable to write technical error details to clipboard. :-("");
     }});
 }}
 </script>"
