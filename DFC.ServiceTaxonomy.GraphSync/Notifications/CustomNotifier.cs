@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             if (exception != null)
             {
                 //todo: monospace
-                htmlContentBuilder.AppendHtml($"<div>{exception}</div>");
+                htmlContentBuilder.AppendHtml($"<div><pre><code>{exception}</code></pre></div>");
             }
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });

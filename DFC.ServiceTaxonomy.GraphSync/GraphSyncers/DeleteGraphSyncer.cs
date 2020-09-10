@@ -51,6 +51,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphDeleteItemSyncContext = null;
         }
 
+        public string? GraphReplicaSetName => _graphDeleteItemSyncContext?.ContentItemVersion.GraphReplicaSetName;
+
         public async Task<IAllowSyncResult> DeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,

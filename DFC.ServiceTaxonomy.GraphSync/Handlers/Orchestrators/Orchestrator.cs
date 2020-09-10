@@ -1,14 +1,20 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+﻿using System.Collections.Generic;
+using System.Text;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 {
+    // public enum OperationDirection
+    // {
+    //     From,
+    //     To
+    // }
+
     public class Orchestrator
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
@@ -25,32 +31,36 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger = logger;
         }
 
-#pragma warning disable S1172
         protected void AddBlockedNotifier(
             string operationDescription,
-            string graphReplicaSetName,
-            IAllowSyncResult allowSyncResult,
-            ContentItem contentItem)
+            //OperationDirection operationDirection,
+            ContentItem contentItem,
+            IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers)
         {
-            //string contentType = GetContentTypeDisplayName(contentItem);
+            string contentType = GetContentTypeDisplayName(contentItem);
 
-            _logger.LogWarning("{OperationDescription} the {GraphReplicaSetName} graphs has been cancelled. These items relate: {AllowSyncResult}.",
-                operationDescription, graphReplicaSetName, allowSyncResult);
+            //{OperationDirection} the {GraphReplicaSetName} graphs
+            //operationDirection, graphReplicaSetName,
+            _logger.LogWarning("{OperationDescription} the '{ContentItem}' {ContentType} has been cancelled.",
+                operationDescription, contentItem.DisplayText, contentType);
+
+            StringBuilder technicalMessage = new StringBuilder();
+            technicalMessage.AppendLine("The operation has been blocked by the following items.");
+            foreach (var graphBlocker in graphBlockers)
+            {
+                _logger.LogWarning($"{graphBlocker.GraphReplicaSetName} graph blockers: {graphBlocker.AllowSyncResult}.");
+                AddSyncBlockersLine(technicalMessage, graphBlocker.GraphReplicaSetName, graphBlocker.AllowSyncResult);
+            }
 
             //todo: need details of the content item with incoming relationships
-            _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-                $"{operationDescription} the {graphReplicaSetName} graphs has been cancelled. These items relate: {allowSyncResult}."));
+            _notifier.Add(new HtmlString(
+                $"{operationDescription} the '{contentItem.DisplayText}' {contentType} has been cancelled."),
+                new HtmlString(technicalMessage.ToString()));
         }
-#pragma warning restore S1172
 
-        protected void AddFailureNotifier(ContentItem contentItem)
+        private void AddSyncBlockersLine(StringBuilder technicalMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
         {
-            //string contentType = GetContentTypeDisplayName(contentItem);
-
-            // _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-            //     $"The '{contentItem.DisplayText}' {contentType} could not be removed because the associated node could not be deleted from the graph."));
-
-            _notifier.Add(new HtmlString("User massage"), new HtmlString("Technical massage"));
+            technicalMessage.AppendLine($"<div class=\"card\"><div class=\"card-header\">{graphReplicaSetName}</div><div class=\"card-body\">{allowSyncResult}</div></div>");
         }
 
         //todo: todo temporarily protected

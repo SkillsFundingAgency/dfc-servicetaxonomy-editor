@@ -11,6 +11,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     //todo: rename? as deletes and unpublishes
     public interface IDeleteGraphSyncer
     {
+        string? GraphReplicaSetName { get; }
+
         Task<IAllowSyncResult> DeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,

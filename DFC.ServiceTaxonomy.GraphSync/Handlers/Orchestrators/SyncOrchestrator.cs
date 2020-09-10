@@ -76,28 +76,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             // need to leave these calls serial, with published first,
             // so that published can examine the existing preview graph,
             // when it's figuring out what relationships it needs to recreate
-            (SyncStatus publishedSyncStatus, IMergeGraphSyncer? publishedMergeGraphSyncer) =
+            (IAllowSyncResult publishedAllowSyncResult, IMergeGraphSyncer? publishedMergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(
                     GraphReplicaSetNames.Published, contentItem, contentManager);
 
-            if (publishedSyncStatus == SyncStatus.Blocked)
+            if (publishedAllowSyncResult.AllowSync == SyncStatus.Blocked)
             {
+                AddBlockedNotifier("Syncing", contentItem, new []{(GraphReplicaSetNames.Published, publishedAllowSyncResult)});
                 return false;
             }
 
-            (SyncStatus previewSyncStatus, IMergeGraphSyncer? previewMergeGraphSyncer) =
+            (IAllowSyncResult previewAllowSyncResult, IMergeGraphSyncer? previewMergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(
                     GraphReplicaSetNames.Preview, contentItem, contentManager);
 
-            if (previewSyncStatus == SyncStatus.Blocked)
+            if (previewAllowSyncResult.AllowSync == SyncStatus.Blocked)
             {
+                AddBlockedNotifier("Syncing", contentItem, new []{(GraphReplicaSetNames.Preview, previewAllowSyncResult)});
                 return false;
             }
 
             // again, not concurrent and published first (for recreating incoming relationships)
 
-            if ((publishedSyncStatus == SyncStatus.Allowed && !await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, contentItem))
-                || (previewSyncStatus == SyncStatus.Allowed && !await SyncToGraphReplicaSet(previewMergeGraphSyncer!, contentItem)))
+            if ((publishedAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, contentItem))
+                || (previewAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(previewMergeGraphSyncer!, contentItem)))
             {
                 return false;
             }
@@ -123,28 +125,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             // need to leave these calls serial, with published first,
             // so that published can examine the existing preview graph,
             // when it's figuring out what relationships it needs to recreate
-            (SyncStatus publishedSyncStatus, IMergeGraphSyncer? publishedMergeGraphSyncer) =
+            (IAllowSyncResult publishedAllowSyncResult, IMergeGraphSyncer? publishedMergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(
                     GraphReplicaSetNames.Published, publishedContentItem, contentManager);
 
-            if (publishedSyncStatus == SyncStatus.Blocked)
+            if (publishedAllowSyncResult.AllowSync == SyncStatus.Blocked)
             {
+                AddBlockedNotifier("Syncing", publishedContentItem, new []{(GraphReplicaSetNames.Published, publishedAllowSyncResult)});
                 return false;
             }
 
-            (SyncStatus previewSyncStatus, IMergeGraphSyncer? previewMergeGraphSyncer) =
+            (IAllowSyncResult previewAllowSyncResult, IMergeGraphSyncer? previewMergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(
                     GraphReplicaSetNames.Preview, previewContentItem, contentManager);
 
-            if (previewSyncStatus == SyncStatus.Blocked)
+            if (previewAllowSyncResult.AllowSync == SyncStatus.Blocked)
             {
+                AddBlockedNotifier("Syncing", previewContentItem, new []{(GraphReplicaSetNames.Preview, previewAllowSyncResult)});
                 return false;
             }
 
             // again, not concurrent and published first (for recreating incoming relationships)
 
-            if ((publishedSyncStatus == SyncStatus.Allowed && !await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, publishedContentItem))
-                || (previewSyncStatus == SyncStatus.Allowed && !await SyncToGraphReplicaSet(previewMergeGraphSyncer!, previewContentItem)))
+            if ((publishedAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, publishedContentItem))
+                || (previewAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(previewMergeGraphSyncer!, previewContentItem)))
             {
                 return false;
             }
@@ -224,18 +228,23 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             IContentManager contentManager)
         {
             //todo: new operationdescription?
-            (SyncStatus syncStatus, IMergeGraphSyncer? mergeGraphSyncer) =
+            (IAllowSyncResult allowSyncResult, IMergeGraphSyncer? mergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(replicaSetName, contentItem, contentManager);
 
-            return syncStatus switch
+            switch (allowSyncResult.AllowSync)
             {
-                SyncStatus.Blocked => false,
-                SyncStatus.Allowed => await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem),
-                /*SyncStatus.NotRequired*/ _ => true
-            };
+                case SyncStatus.Blocked:
+                    AddBlockedNotifier("Syncing", contentItem, new []{(replicaSetName, allowSyncResult)});
+                    return false;
+                case SyncStatus.Allowed:
+                    return await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem);
+                /*SyncStatus.NotRequired*/
+                default:
+                    return true;
+            }
         }
 
-        private async Task<(SyncStatus, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
+        private async Task<(IAllowSyncResult, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
             string replicaSetName,
             ContentItem contentItem,
             IContentManager contentManager)
@@ -249,12 +258,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                     contentItem,
                     contentManager);
 
-                if (allowSyncResult.AllowSync == SyncStatus.Blocked)
-                {
-                    AddBlockedNotifier("Syncing to", replicaSetName, allowSyncResult, contentItem);
-                }
-
-                return (allowSyncResult.AllowSync, mergeGraphSyncer);
+                return (allowSyncResult, mergeGraphSyncer);
             }
             catch (Exception exception)
             {
@@ -267,7 +271,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
                     $"Unable to check if {contentItem.DisplayText} {contentType} can be synced to {replicaSetName} graph."));
 
-                return (SyncStatus.Blocked, null);
+                return (AllowSyncResult.EmptyBlocked, null);
             }
         }
 
