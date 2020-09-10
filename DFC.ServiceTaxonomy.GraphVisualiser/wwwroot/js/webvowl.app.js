@@ -6271,6 +6271,15 @@ webvowl.app =
                             }
                         }
 
+                        function uneditableContentTypes(type) {
+
+                            var types = [
+                                "PageLocation"
+                            ];
+
+                            return types.indexOf(type) >= 0;
+                        }
+
                         function displayNodeInformation(node) {
                             showClassInformations();
 
@@ -6287,11 +6296,12 @@ webvowl.app =
                             var urlParams = new URLSearchParams(window.location.search);
                             graphType = urlParams.get('graph');
 
-                            d3.select("#editNode").classed("hidden", !node.editUrl());
-                            d3.select("#resetNodeFocus").classed("hidden", !node.resetFocusUrl());
+                            d3.select("#editNode").classed("hidden", !node.editUrl() || !node.labelForCurrentLanguage() || uneditableContentTypes(node.contentType()));
+                            d3.select("#resetNodeFocus").classed("hidden", !node.resetFocusUrl() || !node.labelForCurrentLanguage() || uneditableContentTypes(node.contentType()));
 
+                            d3.select("#editNode").selectAll("span").remove();
                             d3.select("#editNode").append("span").text(node.labelForCurrentLanguage());
-                            d3.select('#editNode').on("click", function () { window.open(node.editUrl(), '_blank'); });
+                            d3.select('#editNode').on("click", function () { window.open(node.editUrl() + "&graph=" + graphType, '_blank'); });
                             d3.select('#resetNodeFocus').on("click", function () { window.open(node.resetFocusUrl() + "&graph=" + graphType, "_self"); });
 
 

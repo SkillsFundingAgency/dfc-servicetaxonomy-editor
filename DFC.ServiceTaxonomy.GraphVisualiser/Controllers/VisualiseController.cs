@@ -10,12 +10,14 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
+using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Neo4j.Driver;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using YesSql;
 
 // visualise -> https://localhost:44346/Visualise/Viewer?visualise=<the graph sync part url>
 // ontology -> https://localhost:44346/Visualise/Viewer?visualise=
@@ -51,6 +53,10 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
     public class VisualiseController : Controller
     {
+        public const string EditBaseUrl = "/Admin/Contents/ContentItems/{ContentItemID}/Edit";
+        public const string ResetFocusBaseUrl = "/Visualise/Viewer?contentItemId={ContentItemID}&graph={graph}";
+        public const string ContentItemIdPlaceHolder = "{ContentItemID}";
+        public const string GraphPlaceHolder = "{graph}";
         private readonly IGraphCluster _neoGraphCluster;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
@@ -58,6 +64,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IVisualiseGraphSyncer _visualiseGraphSyncer;
+        private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
+        private readonly ISyncNameProvider _syncNameProvider;
+        private readonly ISession _session;
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -70,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
-            ISyncNameProvider _syncNameProvider,
+            ISyncNameProvider syncNameProvider,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
             IPublishedContentItemVersion publishedContentItemVersion,
             IPreviewContentItemVersion previewContentItemVersion,
@@ -79,7 +88,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             IServiceProvider serviceProvider,
             IDescribeContentItemHelper describeContentItemHelper,
             IContentItemGraphSyncer contentItemGraphSyncer,
-            IVisualiseGraphSyncer visualiseGraphSyncer)
+            IVisualiseGraphSyncer visualiseGraphSyncer,
+            ISuperpositionContentItemVersion superpositionContentItemVersion, ISession session)
         {
             _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
@@ -88,6 +98,9 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             _publishedContentItemVersion = publishedContentItemVersion;
             _previewContentItemVersion = previewContentItemVersion;
             _visualiseGraphSyncer = visualiseGraphSyncer;
+            _superpositionContentItemVersion = superpositionContentItemVersion;
+            _session = session;
+            _syncNameProvider = syncNameProvider;
         }
 
         public ActionResult Viewer()
@@ -114,6 +127,28 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
             }
 
             return await GetData(contentItemId, graph);
+        }
+
+        public async Task<ActionResult> NodeLink ([FromQuery] string nodeId, [FromQuery] string route, [FromQuery] string graph)
+        {
+            if (graph!.ToLowerInvariant() == "published")
+            {
+                contentItemVersion = _publishedContentItemVersion;
+            }
+            else
+            {
+                contentItemVersion = _previewContentItemVersion;
+            }
+
+            var graphSyncNodeId = _syncNameProvider.IdPropertyValueFromNodeValue(nodeId, contentItemVersion, _superpositionContentItemVersion);
+            
+            var contentItems = await _session.Query<ContentItem, GraphSyncPartIndex>(x => x.NodeId == graphSyncNodeId).ListAsync();
+
+            return route switch
+            {
+                "resetFocus" => Redirect(ResetFocusBaseUrl.Replace(ContentItemIdPlaceHolder, contentItems?.FirstOrDefault()?.ContentItemId).Replace(GraphPlaceHolder, graph)),
+                _ => Redirect(EditBaseUrl.Replace(ContentItemIdPlaceHolder, contentItems?.FirstOrDefault()?.ContentItemId)),
+            };
         }
 
         private static void ValidateParameters(string? graph)
