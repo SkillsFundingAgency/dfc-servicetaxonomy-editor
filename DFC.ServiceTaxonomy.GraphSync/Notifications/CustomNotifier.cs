@@ -66,7 +66,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         private void AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
         {
             //todo: ul or nested cards? or combo of both? (foreach syncblockers in ul)
-            technicalHtmlMessage.AppendLine($"<div class=\"card\"><div class=\"card-header\">{graphReplicaSetName}</div><div class=\"card-body\">{allowSyncResult}</div></div>");
+            technicalHtmlMessage.AppendLine($"<div class=\"card mb-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
+
+            technicalHtmlMessage.AppendLine("<ul class=\"list-group list-group-flush\">");
+            foreach (var syncBlocker in allowSyncResult.SyncBlockers)
+            {
+                technicalHtmlMessage.AppendLine($"<li class=\"list-group-item\">'{syncBlocker.Title}' {syncBlocker.ContentType}</li>");
+            }
+
+            technicalHtmlMessage.AppendLine("</ul></div></div>");
 
             technicalMessage.AppendLine($"{graphReplicaSetName} graph: {allowSyncResult}");
         }
@@ -109,11 +117,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 //                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
                 .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
-                .AppendHtml($"<button onclick=\"{onClickFunction}()\" class=\"pull-right\" style=\"position: relative; left: 3em;\" type=\"button\"><i class=\"fas fa-copy\"></i></button>")
-                .AppendHtml("<div class=\"card mt-2\"><div class=\"card-header\">Technical Details</div><div class=\"card-body\">")
-            //{allowSyncResult}</div></div>")
-                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle mb-2 text-muted\">{Activity.Current.TraceId}</h6>")
-                //.AppendHtml($"<p>Trace ID: {Activity.Current.TraceId}</p><p>")
+                .AppendHtml($"<div class=\"card mt-2\"><div class=\"card-header\">Technical Details <button onclick=\"{onClickFunction}()\" style=\"float: right;\" type=\"button\"><i class=\"fas fa-copy\"></i></button></div><div class=\"card-body\">")
+                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle mb-3 text-muted\">{Activity.Current.TraceId}</h6>")
                 .AppendHtml(technicalHtmlMessage ?? new HtmlString(technicalMessage))
                 .AppendHtml("</div></div></div>");
 
