@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement.Handlers;
 using YesSql;
 
@@ -11,15 +12,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IDeleteOrchestrator _deleteOrchestrator;
         private readonly ISession _session;
+        private readonly ILogger<GraphSyncContentHandler> _logger;
 
         public GraphSyncContentHandler(
             ISyncOrchestrator syncOrchestrator,
             IDeleteOrchestrator deleteOrchestrator,
-            ISession session)
+            ISession session,
+            ILogger<GraphSyncContentHandler> logger)
         {
             _syncOrchestrator = syncOrchestrator;
             _deleteOrchestrator = deleteOrchestrator;
             _session = session;
+            _logger = logger;
         }
 
         //todo: add log scopes for these operations
@@ -36,10 +40,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     Cancel(context);
                 }
             }
-            //todo: log exception, as although some exceptions will have already been logged, there might have been an 'unexpected' exception thrown
-            catch (Exception)
+            catch (Exception ex)
             {
-                // sad paths should have already been notified to the user and logged
+                // we log the exception, even though some exceptions will have already been logged,
+                // as there might have been an 'unexpected' exception thrown
+                _logger.LogError(ex, "Exception saving draft.");
                 Cancel(context);
             }
         }
@@ -54,9 +59,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     Cancel(context);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // sad paths should have already been notified to the user and logged
+                // we log the exception, even though some exceptions will have already been logged,
+                // as there might have been an 'unexpected' exception thrown
+                _logger.LogError(ex, "Exception publishing.");
                 Cancel(context);
             }
         }
@@ -71,9 +78,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     Cancel(context);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // sad paths should have already been notified to the user and logged
+                // we log the exception, even though some exceptions will have already been logged,
+                // as there might have been an 'unexpected' exception thrown
+                _logger.LogError(ex, "Exception unpublishing.");
                 Cancel(context);
             }
         }
@@ -88,9 +97,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     Cancel(context);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // sad paths should have already been notified to the user and logged
+                // we log the exception, even though some exceptions will have already been logged,
+                // as there might have been an 'unexpected' exception thrown
+                _logger.LogError(ex, "Exception cloning.");
                 Cancel(context);
             }
         }
@@ -119,9 +130,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
                     Cancel(context);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // sad paths should have already been notified to the user and logged
+                // we log the exception, even though some exceptions will have already been logged,
+                // as there might have been an 'unexpected' exception thrown
+                _logger.LogError(ex, "Exception removing (deleting or discarding draft).");
                 Cancel(context);
             }
         }
