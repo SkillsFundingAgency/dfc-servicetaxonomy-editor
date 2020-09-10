@@ -230,7 +230,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             {
                 SyncStatus.Blocked => false,
                 SyncStatus.Allowed => await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem),
-                /*SyncStatus.NotRequired*/ _ => true
+                /*SyncStatus.NotRequired*/
+                _ => true
             };
         }
 
