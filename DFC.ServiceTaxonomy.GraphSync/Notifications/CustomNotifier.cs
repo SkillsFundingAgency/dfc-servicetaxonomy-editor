@@ -32,7 +32,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             HtmlContentBuilder htmlContentBuilder = new HtmlContentBuilder();
 
-            string uniqueId = Guid.NewGuid().ToString("N");
+            string uniqueId = $"id{Guid.NewGuid():N}";
             string onClickFunction = $"click_{uniqueId}";
             string clipboardCopy = TechnicalClipboardCopy(
                 Activity.Current.TraceId.ToString(),
@@ -44,7 +44,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             htmlContentBuilder
                 .AppendHtml(TechnicalScript(onClickFunction, clipboardCopy))
                 .AppendHtml(userMessage)
-                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
+//                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
+                .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" style=\"margin-top: 1em;\" id=\"{uniqueId}\">")
                 .AppendHtml($"<button onclick=\"{onClickFunction}()\" style=\"float: right; position: relative; left: 3em;\" type=\"button\"><i class=\"fas fa-copy\"></i></button>")
                 .AppendHtml($"<p>Trace ID: {Activity.Current.TraceId}</p><p>")

@@ -44,6 +44,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger.LogWarning("{OperationDescription} the '{ContentItem}' {ContentType} has been cancelled.",
                 operationDescription, contentItem.DisplayText, contentType);
 
+            //todo: technical message on clipboard contains html
+
             StringBuilder technicalMessage = new StringBuilder();
             technicalMessage.AppendLine("The operation has been blocked by the following items.");
             foreach (var graphBlocker in graphBlockers)
