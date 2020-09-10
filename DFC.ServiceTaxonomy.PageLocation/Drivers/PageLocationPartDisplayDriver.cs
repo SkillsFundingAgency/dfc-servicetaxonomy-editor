@@ -16,6 +16,7 @@ using OrchardCore.ContentManagement.Records;
 using System;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
@@ -126,6 +127,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 
             if (!string.IsNullOrWhiteSpace(pageLocation.FullUrl))
             {
+                if (otherPages.Any(x => ((string)x.Content.PageLocationPart.RedirectLocations)?.Split("\r\n").Any(r => r.Trim('/').Equals(pageLocation.FullUrl.Trim('/'), StringComparison.OrdinalIgnoreCase)) ?? false))
+                {
+                    updater.ModelState.AddModelError(Prefix, nameof(pageLocation.FullUrl), "Another page is already using this URL as a redirect location");
+                }
+
                 ContentItem? taxonomy = await _session.Query<ContentItem, ContentItemIndex>(x =>
                     x.ContentType == Constants.TaxonomyContentType && x.DisplayText == Constants.PageLocationsDisplayText && x.Latest && x.Published).FirstOrDefaultAsync();
 
