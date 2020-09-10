@@ -29,7 +29,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         //todo: add log scopes for these operations
 
         //todo: there's no DraftSavingAsync (either add it to oc, or raise an issue)
-        //todo: check other consumers of the orchestrators handle exceptions
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
             try
