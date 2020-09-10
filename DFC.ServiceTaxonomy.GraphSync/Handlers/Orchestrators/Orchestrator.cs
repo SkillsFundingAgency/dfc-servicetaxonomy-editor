@@ -5,12 +5,6 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 {
-    // public enum OperationDirection
-    // {
-    //     From,
-    //     To
-    // }
-
     public class Orchestrator
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;

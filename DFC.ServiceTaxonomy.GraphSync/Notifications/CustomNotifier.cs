@@ -31,18 +31,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
         public void AddBlocked(
             string operationDescription,
-            //OperationDirection operationDirection,
             ContentItem contentItem,
             IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers)
         {
             string contentType = GetContentTypeDisplayName(contentItem);
 
-            //{OperationDirection} the {GraphReplicaSetName} graphs
-            //operationDirection, graphReplicaSetName,
             _logger.LogWarning("{OperationDescription} the '{ContentItem}' {ContentType} has been cancelled.",
                 operationDescription, contentItem.DisplayText, contentType);
-
-            //todo: technical message on clipboard contains html
 
             StringBuilder technicalMessage = new StringBuilder();
             StringBuilder technicalHtmlMessage = new StringBuilder();
@@ -60,12 +55,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             Add($"{operationDescription} the '{contentItem.DisplayText}' {contentType} has been cancelled.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
-
         }
 
         private void AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
         {
-            //todo: ul or nested cards? or combo of both? (foreach syncblockers in ul)
             technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
 
             technicalHtmlMessage.AppendLine("<ul class=\"list-group list-group-flush\">");
@@ -84,8 +77,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
         }
 
-        //todo: add custom styles via scss
-        //todo: why when there are 2 notifiers do only one (sometimes neither) of the collapses work? and not always the same one!!!!
+        //todo: add custom styles via scss?
         public void Add(
             string userMessage,
             string technicalMessage = "",
