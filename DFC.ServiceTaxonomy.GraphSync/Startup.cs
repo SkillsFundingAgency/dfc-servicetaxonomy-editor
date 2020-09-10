@@ -66,6 +66,9 @@ namespace DFC.ServiceTaxonomy.GraphSync
 
         public override void ConfigureServices(IServiceCollection services)
         {
+
+            services.Configure<GraphSyncSettings>(_configuration.GetSection(nameof(GraphSyncSettings)));
+
             // recipe steps
             services.AddRecipeExecutionStep<CypherCommandStep>();
             services.AddRecipeExecutionStep<CypherToContentStep>();
