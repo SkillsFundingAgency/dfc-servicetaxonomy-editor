@@ -7,18 +7,26 @@ using GetJobProfiles.Models.Recipe.Fields;
 using GetJobProfiles.Models.Recipe.Parts;
 using GraphQL;
 using NPOI.XSSF.UserModel;
+using OrchardCore.Entities;
 
 namespace GetJobProfiles.Importers
 {
     public class DysacImporter
     {
+        private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
+
         public IEnumerable<PersonalityTraitContentItem> PersonalityTraitContentItems { get; private set; }
+        public IEnumerable<PersonalityShortQuestionContentItem> PersonalityShortQuestionContentItems { get; private set; }
 
-        internal void Import(Dictionary<string,string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
+        private Dictionary<string, string> _personalityTraitContentItemIdDictionary { get; set; }
+      
+        internal void ImportTraits(Dictionary<string,string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
         {
-            var traits = ReadFromFile("Trait", dysacWorkbook);
+            var traits = ReadTraitsFromFile("Trait", dysacWorkbook);
 
-            PersonalityTraitContentItems = traits.Select(x => new PersonalityTraitContentItem(x.Title, timestamp)
+            _personalityTraitContentItemIdDictionary = traits.Select(z => z.Title).Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
+
+            PersonalityTraitContentItems = traits.Select(x => new PersonalityTraitContentItem(x.Title, timestamp, _personalityTraitContentItemIdDictionary[x.Title])
             {
                 EponymousPart = new PersonalityTraitPart
                 {
@@ -31,7 +39,48 @@ namespace GetJobProfiles.Importers
             }).ToList();
         }
 
-        private IEnumerable<PersonalityTrait> ReadFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
+        internal void ImportShortQuestions(XSSFWorkbook dysacWorkbook, string timestamp)
+        {
+            var questions = ReadShortQuestionsFromFile("Shortquestion", dysacWorkbook);
+
+            PersonalityShortQuestionContentItems = questions.Select(x => new PersonalityShortQuestionContentItem(x.Title, timestamp)
+            {
+                EponymousPart = new PersonalityShortQuestionPart
+                {
+                    Impact = new TextField(x.Impact.ToLowerInvariant() == "yes" ? "Negative" : "Positive"),
+                    Trait = new ContentPicker
+                    {
+                        ContentItemIds = new List<string> { _personalityTraitContentItemIdDictionary[x.Trait] }
+                    }
+                }
+            }).ToList();
+        }
+
+        private IEnumerable<PersonalityShortQuestion> ReadShortQuestionsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
+        {
+            var listToReturn = new List<PersonalityShortQuestion>();
+
+            var sheet = dysacWorkbook.GetSheet(sheetName);
+
+            var titleIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "QuestionText").ColumnIndex;
+            var impactIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "IsNegative").ColumnIndex;
+            var traitIndex = sheet.GetRow(0).Cells.Single(x => x.StringCellValue == "Trait").ColumnIndex;
+
+            for (int i = 1; i <= sheet.LastRowNum; i++)
+            {
+                var row = sheet.GetRow(i);
+
+                var title = row.GetCell(titleIndex).StringCellValue;
+                var impact = row.GetCell(impactIndex).StringCellValue;
+                var trait = row.GetCell(traitIndex).StringCellValue;
+
+                listToReturn.Add(new PersonalityShortQuestion { Title = title, Impact = impact, Trait = trait });
+            }
+
+            return listToReturn;
+        }
+
+        private IEnumerable<PersonalityTrait> ReadTraitsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
         {
             var listToReturn = new List<PersonalityTrait>();
 

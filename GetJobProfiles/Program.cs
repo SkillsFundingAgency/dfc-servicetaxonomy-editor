@@ -137,7 +137,8 @@ namespace GetJobProfiles
             var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
 
             var dysacImporter = new DysacImporter();
-            dysacImporter.Import(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
+            dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
+            dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
 
             const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
@@ -239,6 +240,7 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
 
             await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait");
+            await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion");
 
             string masterRecipeName = config["MasterRecipeName"] ?? "master";
 
