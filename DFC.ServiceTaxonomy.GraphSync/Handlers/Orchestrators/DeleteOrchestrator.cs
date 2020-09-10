@@ -9,7 +9,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -88,6 +87,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             (IAllowSyncResult publishedAllowSyncResult, IDeleteGraphSyncer? publishedDeleteGraphSyncer) = deleteGraphSyncers[0];
             (IAllowSyncResult previewAllowSyncResult, IDeleteGraphSyncer? previewDeleteGraphSyncer) = deleteGraphSyncers[1];
 
+
+            publishedAllowSyncResult = AllowSyncResult.TestBlocked;
+            previewAllowSyncResult = AllowSyncResult.TestBlocked;
+
+
+
             if (publishedAllowSyncResult.AllowSync == SyncStatus.Blocked || previewAllowSyncResult.AllowSync == SyncStatus.Blocked)
             {
                 var graphBlockers = new List<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)>();
@@ -101,7 +106,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                 }
 
                 //todo: no magic string, or const
-                AddBlockedNotifier("Deleting", contentItem, graphBlockers);
+                _notifier.AddBlocked("Deleting", contentItem, graphBlockers);
                 return false;
             }
 
@@ -143,7 +148,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             switch (allowSyncResult.AllowSync)
             {
                 case SyncStatus.Blocked:
-                    AddBlockedNotifier(
+                    _notifier.AddBlocked(
                         deleteOperation == DeleteOperation.Delete?"Deleting":"Unpublishing",
                         contentItem,
                         new[] {(contentItemVersion.GraphReplicaSetName, allowSyncResult)});
@@ -231,10 +236,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             _logger.LogError(exception, "{Operation} the '{ContentItem}' {ContentType} has been cancelled because the {GraphReplicaSetName} graph couldn't be updated.",
                 operation, contentItem.DisplayText, contentType, deleteGraphSyncer.GraphReplicaSetName);
 
-            _notifier.Add(
-                new HtmlString($"{operation} the '{contentItem.DisplayText}' {contentType} has been cancelled because the {deleteGraphSyncer.GraphReplicaSetName} graph couldn't be updated."),
-                new HtmlString(""),
-                exception);
+            _notifier.Add($"{operation} the '{contentItem.DisplayText}' {contentType} has been cancelled because the {deleteGraphSyncer.GraphReplicaSetName} graph couldn't be updated.",
+                exception: exception);
         }
     }
 }

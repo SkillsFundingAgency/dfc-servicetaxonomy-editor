@@ -5,24 +5,86 @@ using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Notify;
 using System.Linq;
+using System.Text;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using Microsoft.AspNetCore.Html;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
+    //todo: GraphSyncNotifier?
     public class CustomNotifier : ICustomNotifier
     {
+        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ILogger<CustomNotifier> _logger;
         private readonly IList<NotifyEntry> _entries;
 
-        public CustomNotifier(ILogger<CustomNotifier> logger)
+        public CustomNotifier(
+            IContentDefinitionManager contentDefinitionManager,
+            ILogger<CustomNotifier> logger)
         {
+            _contentDefinitionManager = contentDefinitionManager;
             _logger = logger;
             _entries = new List<NotifyEntry>();
         }
 
+        public void AddBlocked(
+            string operationDescription,
+            //OperationDirection operationDirection,
+            ContentItem contentItem,
+            IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers)
+        {
+            string contentType = GetContentTypeDisplayName(contentItem);
+
+            //{OperationDirection} the {GraphReplicaSetName} graphs
+            //operationDirection, graphReplicaSetName,
+            _logger.LogWarning("{OperationDescription} the '{ContentItem}' {ContentType} has been cancelled.",
+                operationDescription, contentItem.DisplayText, contentType);
+
+            //todo: technical message on clipboard contains html
+
+            StringBuilder technicalMessage = new StringBuilder();
+            StringBuilder technicalHtmlMessage = new StringBuilder();
+
+            technicalMessage.AppendLine($"{operationDescription} has been blocked by:");
+            technicalHtmlMessage.AppendLine($"<h5 class=\"card-title\">{operationDescription} has been blocked by</h5>");
+
+            foreach (var graphBlocker in graphBlockers)
+            {
+                _logger.LogWarning($"{graphBlocker.GraphReplicaSetName} graph blockers: {graphBlocker.AllowSyncResult}.");
+                AddSyncBlockers(technicalMessage, technicalHtmlMessage, graphBlocker.GraphReplicaSetName, graphBlocker.AllowSyncResult);
+            }
+
+            //todo: need details of the content item with incoming relationships
+            Add($"{operationDescription} the '{contentItem.DisplayText}' {contentType} has been cancelled.",
+                technicalMessage.ToString(),
+                technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
+
+        }
+
+        private void AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
+        {
+            //todo: ul or nested cards? or combo of both? (foreach syncblockers in ul)
+            technicalHtmlMessage.AppendLine($"<div class=\"card\"><div class=\"card-header\">{graphReplicaSetName}</div><div class=\"card-body\">{allowSyncResult}</div></div>");
+
+            technicalMessage.AppendLine($"{graphReplicaSetName} graph: {allowSyncResult}");
+        }
+
+        protected string GetContentTypeDisplayName(ContentItem contentItem)
+        {
+            return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
+        }
+
         //todo: add custom styles via scss
         //todo: why when there are 2 notifiers do only one (sometimes neither) of the collapses work? and not always the same one!!!!
-        public void Add(HtmlString userMessage, HtmlString technicalMessage, Exception? exception = null, NotifyType type = NotifyType.Error)
+        public void Add(
+            string userMessage,
+            string technicalMessage = "",
+            Exception? exception = null,
+            HtmlString? technicalHtmlMessage = null,
+            HtmlString? userHtmlMessage = null,
+            NotifyType type = NotifyType.Error)
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
@@ -36,21 +98,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             string onClickFunction = $"click_{uniqueId}";
             string clipboardCopy = TechnicalClipboardCopy(
                 Activity.Current.TraceId.ToString(),
-                userMessage.ToString(),
-                technicalMessage.ToString(),
+                userMessage,
+                technicalMessage,
                 exception);
 
             //fa-angle-double-down, hat-wizard, oil-can, fa-wrench?
             htmlContentBuilder
                 .AppendHtml(TechnicalScript(onClickFunction, clipboardCopy))
-                .AppendHtml(userMessage)
+                .AppendHtml(userHtmlMessage ?? new HtmlString(userMessage))
 //                .AppendHtml($"<button class=\"close\" style=\"right: 1.25em;\" type=\"button\" data-toggle=\"collapse\" data-target=\"#{uniqueId}\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></button>")
                 .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
-                .AppendHtml($"<div class=\"collapse\" style=\"margin-top: 1em;\" id=\"{uniqueId}\">")
-                .AppendHtml($"<button onclick=\"{onClickFunction}()\" style=\"float: right; position: relative; left: 3em;\" type=\"button\"><i class=\"fas fa-copy\"></i></button>")
-                .AppendHtml($"<p>Trace ID: {Activity.Current.TraceId}</p><p>")
-                .AppendHtml(technicalMessage)
-                .AppendHtml("</p></div>");
+                .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
+                .AppendHtml($"<button onclick=\"{onClickFunction}()\" class=\"pull-right\" style=\"position: relative; left: 3em;\" type=\"button\"><i class=\"fas fa-copy\"></i></button>")
+                .AppendHtml("<div class=\"card mt-2\"><div class=\"card-header\">Technical Details</div><div class=\"card-body\">")
+            //{allowSyncResult}</div></div>")
+                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle mb-2 text-muted\">{Activity.Current.TraceId}</h6>")
+                //.AppendHtml($"<p>Trace ID: {Activity.Current.TraceId}</p><p>")
+                .AppendHtml(technicalHtmlMessage ?? new HtmlString(technicalMessage))
+                .AppendHtml("</div></div></div>");
 
             if (exception != null)
             {
