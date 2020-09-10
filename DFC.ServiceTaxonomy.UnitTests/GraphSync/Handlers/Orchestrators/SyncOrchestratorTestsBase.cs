@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -17,7 +18,7 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
 {
-    public class SyncOrchestratorTestsBase
+    public class SyncOrchestratorTestsBase : IDisposable
     {
         public SyncOrchestrator SyncOrchestrator { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
@@ -36,6 +37,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
         public IGraphReplicaSet PreviewGraphReplicaSet { get; set; }
         public IGraphReplicaSet PublishedGraphReplicaSet { get; set; }
         public IContentOrchestrationHandler EventGridPublishingHandler { get; set; }
+        public Activity TestActivity { get; set; }
 
         public SyncOrchestratorTestsBase()
         {
@@ -102,6 +104,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
                 Logger,
                 PublishedContentItemVersion,
                 new List<IContentOrchestrationHandler> { EventGridPublishingHandler });
+
+            TestActivity = new Activity("UnitTest").Start();
+        }
+
+        public void Dispose()
+        {
+            TestActivity.Stop();
         }
     }
 }

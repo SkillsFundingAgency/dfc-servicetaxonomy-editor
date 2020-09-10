@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using OrchardCore.ContentManagement.Handlers;
@@ -11,55 +11,86 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IDeleteOrchestrator _deleteOrchestrator;
         private readonly ISession _session;
-        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public GraphSyncContentHandler(
             ISyncOrchestrator syncOrchestrator,
             IDeleteOrchestrator deleteOrchestrator,
-            ISession session,
-            IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
+            ISession session)
         {
             _syncOrchestrator = syncOrchestrator;
             _deleteOrchestrator = deleteOrchestrator;
             _session = session;
-            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
         //todo: add log scopes for these operations
 
         //todo: there's no DraftSavingAsync (either add it to oc, or raise an issue)
+        //todo: check other consumers of the orchestrators handle exceptions
         public override async Task DraftSavedAsync(SaveDraftContentContext context)
         {
-            if (!await _syncOrchestrator.SaveDraft(context.ContentItem))
+            try
             {
-                // sad paths have already been notified to the user and logged
+                if (!await _syncOrchestrator.SaveDraft(context.ContentItem))
+                {
+                    // sad paths have already been notified to the user and logged
+                    Cancel(context);
+                }
+            }
+            //todo: log exception, as although some exceptions will have already been logged, there might have been an 'unexpected' exception thrown
+            catch (Exception)
+            {
+                // sad paths should have already been notified to the user and logged
                 Cancel(context);
             }
         }
 
         public override async Task PublishingAsync(PublishContentContext context)
         {
-            if (!await _syncOrchestrator.Publish(context.ContentItem))
+            try
             {
-                // sad paths have already been notified to the user and logged
+                if (!await _syncOrchestrator.Publish(context.ContentItem))
+                {
+                    // sad paths have already been notified to the user and logged
+                    Cancel(context);
+                }
+            }
+            catch (Exception)
+            {
+                // sad paths should have already been notified to the user and logged
                 Cancel(context);
             }
         }
 
         public override async Task UnpublishingAsync(PublishContentContext context)
         {
-            if (!await _deleteOrchestrator.Unpublish(context.ContentItem))
+            try
             {
-                // sad paths have already been notified to the user and logged
+                if (!await _deleteOrchestrator.Unpublish(context.ContentItem))
+                {
+                    // sad paths have already been notified to the user and logged
+                    Cancel(context);
+                }
+            }
+            catch (Exception)
+            {
+                // sad paths should have already been notified to the user and logged
                 Cancel(context);
             }
         }
 
         public override async Task CloningAsync(CloneContentContext context)
         {
-            if (!await _syncOrchestrator.Clone(context.CloneContentItem))
+            try
             {
-                // sad paths have already been notified to the user and logged
+                if (!await _syncOrchestrator.Clone(context.CloneContentItem))
+                {
+                    // sad paths have already been notified to the user and logged
+                    Cancel(context);
+                }
+            }
+            catch (Exception)
+            {
+                // sad paths should have already been notified to the user and logged
                 Cancel(context);
             }
         }
@@ -71,18 +102,26 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers
         // Pub+Draft      Delete            0            0                1
         public override async Task RemovingAsync(RemoveContentContext context)
         {
-            if (context.NoActiveVersionLeft)
+            try
             {
-                if (!await _deleteOrchestrator.Delete(context.ContentItem))
+                if (context.NoActiveVersionLeft)
+                {
+                    if (!await _deleteOrchestrator.Delete(context.ContentItem))
+                    {
+                        Cancel(context);
+                    }
+
+                    return;
+                }
+
+                if (!await _syncOrchestrator.DiscardDraft(context.ContentItem))
                 {
                     Cancel(context);
                 }
-
-                return;
             }
-
-            if (!await _syncOrchestrator.DiscardDraft(context.ContentItem))
+            catch (Exception)
             {
+                // sad paths should have already been notified to the user and logged
                 Cancel(context);
             }
         }

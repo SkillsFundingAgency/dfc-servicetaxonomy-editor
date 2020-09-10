@@ -18,38 +18,54 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         }
 
         [Theory]
-        [InlineData(SyncStatus.Allowed, false, true)]
-        [InlineData(SyncStatus.Allowed, true, false)]
-        [InlineData(SyncStatus.Blocked, null, false)]
-        [InlineData(SyncStatus.NotRequired, null, true)]
-        public async Task SaveDraft_SyncAllowedSyncMatrix_ReturnsBool(SyncStatus syncAllowedStatus, bool? syncToGraphReplicaSetThrows, bool expectedSuccess)
+        [InlineData(SyncStatus.Allowed, true)]
+        [InlineData(SyncStatus.Blocked, false)]
+        [InlineData(SyncStatus.NotRequired, true)]
+        public async Task SaveDraft_SyncAllowedMatrix_ReturnsBool(
+            SyncStatus syncAllowedStatus,
+            bool expectedSuccess)
         {
             A.CallTo(() => PreviewAllowSyncResult.AllowSync)
                 .Returns(syncAllowedStatus);
 
-            if (syncToGraphReplicaSetThrows == true)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .Throws(() => new Exception());
-            }
-
             bool success = await SyncOrchestrator.SaveDraft(ContentItem);
 
             Assert.Equal(expectedSuccess, success);
+        }
 
-            if (syncToGraphReplicaSetThrows == null)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .MustNotHaveHappened();
-            }
+        [Theory]
+        [InlineData(SyncStatus.Allowed, true)]
+        [InlineData(SyncStatus.Blocked, false)]
+        [InlineData(SyncStatus.NotRequired, false)]
+        public async Task SaveDraft_SyncAllowedMatrix_SyncCalled(
+            SyncStatus syncAllowedStatus,
+            bool expectedSyncCalled)
+        {
+            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
+                .Returns(syncAllowedStatus);
+
+            await SyncOrchestrator.SaveDraft(ContentItem);
+
+            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+                .MustHaveHappened(expectedSyncCalled?1:0, Times.Exactly);
+        }
+
+        [Fact]
+        public async Task SaveDraft_MergeGraphSyncerThrows_ExceptionPropagates()
+        {
+            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
+                .Returns(SyncStatus.Allowed);
+
+            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+                .Throws(() => new Exception());
+
+            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.SaveDraft(ContentItem));
         }
 
         [Fact]
         public async Task SaveDraft_EventGridPublishingHandlerCalled()
         {
-            bool success = await SyncOrchestrator.SaveDraft(ContentItem);
-
-            Assert.True(success);
+            await SyncOrchestrator.SaveDraft(ContentItem);
 
             A.CallTo(() => EventGridPublishingHandler.DraftSaved(ContentItem)).MustHaveHappened();
         }

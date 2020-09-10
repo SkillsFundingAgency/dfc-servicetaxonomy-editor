@@ -9,12 +9,10 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 {
@@ -99,13 +97,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             // again, not concurrent and published first (for recreating incoming relationships)
 
-            if ((publishedAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, contentItem))
-                || (previewAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(previewMergeGraphSyncer!, contentItem)))
+            if (publishedAllowSyncResult.AllowSync == SyncStatus.Allowed)
             {
-                return false;
+                await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, contentItem);
             }
 
-            //todo: move these into 'ed' where available?
+            if (previewAllowSyncResult.AllowSync == SyncStatus.Allowed)
+            {
+                await SyncToGraphReplicaSet(previewMergeGraphSyncer!, contentItem);
+            }
+
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
             {
                 await contentOrchestrationHandler.Published(contentItem);
@@ -148,10 +149,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
 
             // again, not concurrent and published first (for recreating incoming relationships)
 
-            if ((publishedAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, publishedContentItem))
-                || (previewAllowSyncResult.AllowSync == SyncStatus.Allowed && !await SyncToGraphReplicaSet(previewMergeGraphSyncer!, previewContentItem)))
+            if (publishedAllowSyncResult.AllowSync == SyncStatus.Allowed)
             {
-                return false;
+                await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, publishedContentItem);
+            }
+
+            if (previewAllowSyncResult.AllowSync == SyncStatus.Allowed)
+            {
+                await SyncToGraphReplicaSet(previewMergeGraphSyncer!, previewContentItem);
             }
 
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
@@ -238,13 +243,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
                     _notifier.AddBlocked("Syncing", contentItem, new []{(replicaSetName, allowSyncResult)});
                     return false;
                 case SyncStatus.Allowed:
-                    return await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem);
-                /*SyncStatus.NotRequired*/
-                default:
-                    return true;
+                    await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem);
+                    break;
             }
+            return true;
         }
 
+        #pragma warning disable S1172
         private async Task<(IAllowSyncResult, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
             string replicaSetName,
             ContentItem contentItem,
@@ -252,6 +257,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
         {
             try
             {
+                //throw new GraphSyncException("bONKERs");
+
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 IAllowSyncResult allowSyncResult = await mergeGraphSyncer.SyncAllowed(
@@ -263,37 +270,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
             }
             catch (Exception exception)
             {
-                //todo: use notifier helper
                 string contentType = GetContentTypeDisplayName(contentItem);
 
                 _logger.LogError(exception,
                     "Unable to check if {ContentItemDisplayText} {ContentType} can be synced to {ReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, replicaSetName);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-                    $"Unable to check if {contentItem.DisplayText} {contentType} can be synced to {replicaSetName} graph."));
 
-                return (AllowSyncResult.EmptyBlocked, null);
+                _notifier.Add($"Unable to check if {contentItem.DisplayText} {contentType} can be synced to {replicaSetName} graph.",
+                    exception: exception);
+
+                throw;
             }
         }
 
-        private async Task<bool> SyncToGraphReplicaSet(IMergeGraphSyncer mergeGraphSyncer, ContentItem contentItem)
+        private async Task SyncToGraphReplicaSet(IMergeGraphSyncer mergeGraphSyncer, ContentItem contentItem)
         {
             try
             {
                 await mergeGraphSyncer.SyncToGraphReplicaSet();
-                return true;
             }
             catch (Exception exception)
             {
-                //todo: use notifier helper
-
                 string contentType = GetContentTypeDisplayName(contentItem);
 
-                _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' {ContentType} to {GraphReplicaSetName} graph.",
+                _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' {ContentType} to the {GraphReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name);
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncContentHandler),
-                    $"Unable to sync '{contentItem.DisplayText}' {contentType} to {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph."));
-                return false;
+                _notifier.Add($"Unable to sync '{contentItem.DisplayText}' {contentType} to the {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.",
+                    exception: exception);
+                throw;
             }
         }
     }

@@ -10,8 +10,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
     public class AllowSyncResult : IAllowSyncResult
     {
         public static IAllowSyncResult NotRequired => new AllowSyncResult {AllowSync = SyncStatus.NotRequired};
-        //todo: new syncstatus instead?
-        public static IAllowSyncResult EmptyBlocked => new AllowSyncResult {AllowSync = SyncStatus.Blocked};
 
         public static IAllowSyncResult TestBlocked => new AllowSyncResult {AllowSync = SyncStatus.Blocked,
             SyncBlockers = new ConcurrentBag<ISyncBlocker>
@@ -19,7 +17,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
                 new SyncBlocker("contenttype", "title"),
                 new SyncBlocker("contenttypeX", "titleX")
             }};
-
 
         public ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; } = new ConcurrentBag<ISyncBlocker>();
         public SyncStatus AllowSync { get; private set; } = SyncStatus.Allowed;

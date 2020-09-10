@@ -66,7 +66,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         private void AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
         {
             //todo: ul or nested cards? or combo of both? (foreach syncblockers in ul)
-            technicalHtmlMessage.AppendLine($"<div class=\"card mb-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
+            technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
 
             technicalHtmlMessage.AppendLine("<ul class=\"list-group list-group-flush\">");
             foreach (var syncBlocker in allowSyncResult.SyncBlockers)
@@ -79,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             technicalMessage.AppendLine($"{graphReplicaSetName} graph: {allowSyncResult}");
         }
 
-        protected string GetContentTypeDisplayName(ContentItem contentItem)
+        private string GetContentTypeDisplayName(ContentItem contentItem)
         {
             return _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType).DisplayName;
         }
@@ -94,9 +94,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             HtmlString? userHtmlMessage = null,
             NotifyType type = NotifyType.Error)
         {
+            //todo: log messages with params??
             if (_logger.IsEnabled(LogLevel.Information))
             {
-                _logger.LogInformation("Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'}.",
+                _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'}.",
                     type, userMessage, technicalMessage, exception?.ToString() ?? "None");
             }
 
@@ -118,15 +119,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 .AppendHtml($"<a class=\"close\" style=\"right: 1.25em;\" data-toggle=\"collapse\" href=\"#{uniqueId}\" role=\"button\" aria-expanded=\"false\" aria-controls=\"{uniqueId}\"><i class=\"fas fa-wrench\"></i></a>")
                 .AppendHtml($"<div class=\"collapse\" id=\"{uniqueId}\">")
                 .AppendHtml($"<div class=\"card mt-2\"><div class=\"card-header\">Technical Details <button onclick=\"{onClickFunction}()\" style=\"float: right;\" type=\"button\"><i class=\"fas fa-copy\"></i></button></div><div class=\"card-body\">")
-                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle mb-3 text-muted\">{Activity.Current.TraceId}</h6>")
+                .AppendHtml($"<h5 class=\"card-title\">Trace ID</h5><h6 class=\"card-subtitle text-muted\">{Activity.Current.TraceId}</h6>")
+                .AppendHtml("<div class=\"mt-3\">")
                 .AppendHtml(technicalHtmlMessage ?? new HtmlString(technicalMessage))
-                .AppendHtml("</div></div></div>");
+                .AppendHtml("</div>");
 
             if (exception != null)
             {
-                //todo: monospace
-                htmlContentBuilder.AppendHtml($"<div><pre><code>{exception}</code></pre></div>");
+                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception}</code></pre></div></div>");
             }
+
+            htmlContentBuilder.AppendHtml("</div></div></div>");
 
             _entries.Add(new NotifyEntry { Type = type, Message = htmlContentBuilder });
         }
