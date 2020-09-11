@@ -1,0 +1,378 @@
+{
+  "name": "Restrictions0_66356384-0bc3-4c3c-8a36-7f44f6773053",
+  "displayName": "Restrictions0_66356384-0bc3-4c3c-8a36-7f44f6773053",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Age - Over 18"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebe over 18 years of age\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/b70b44ea-d6bb-4e93-bbf1-2609941e4780"
+    },
+    "ContentItemId": "4r8a73vaandqpzjntcryqc1rx3",
+    "ContentItemVersionId": "4w9jpspwb7neb5fq0bm32rg44d",
+    "ContentType": "Restriction",
+    "DisplayText": "Age - Over 18",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Security Checks"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/government/publications/national-security-vetting-advice-for-people-who-are-being-vetted\u0022\u003Esecurity checks\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/3b823673-45d2-4451-8be0-825219886a22"
+    },
+    "ContentItemId": "414wp8q5qt2y2v6w1a6wkr3acy",
+    "ContentItemVersionId": "4dcdpsttk3gmbst33ajjs6xfd3",
+    "ContentType": "Restriction",
+    "DisplayText": "Security Checks",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "UK - 5 Years"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehave lived in the UK for the last 5 years\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/3cac2af6-92f1-44b5-a7ae-425dd8631166"
+    },
+    "ContentItemId": "40men3ey6v6je66mbnk8fzq2cx",
+    "ContentItemVersionId": "4fv0dqbywb7b34abrwrp1q045z",
+    "ContentType": "Restriction",
+    "DisplayText": "UK - 5 Years",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Physically fit"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehave a good level of fitness\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/ad3c3ee5-09a0-41df-8e48-e69bfad4a33b"
+    },
+    "ContentItemId": "41m1v0yz757yr2qeda59fanzwy",
+    "ContentItemVersionId": "47eks59t5st3byhmbgbs31yd4z",
+    "ContentType": "Restriction",
+    "DisplayText": "Physically fit",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Age - Over 20"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebe over 20 years of age\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/b0edc8c8-1b42-4c8d-af43-c5432bd43af0"
+    },
+    "ContentItemId": "4wfmpzyth7gscx8059bf9mvmmz",
+    "ContentItemVersionId": "4r1v06740ym0k1enqqf0fe1p4y",
+    "ContentType": "Restriction",
+    "DisplayText": "Age - Over 20",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "UK, Republic of Ireland or Commonwealth Citizen"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebe a UK, Republic of Ireland or Commonwealth citizen\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/7de2351d-7b60-48ca-bf5c-1c4bbc140314"
+    },
+    "ContentItemId": "4qcv0nr03zcj5y8e8ws57a1jns",
+    "ContentItemVersionId": "47yacp50v7h1057b6ytd7zpmn2",
+    "ContentType": "Restriction",
+    "DisplayText": "UK, Republic of Ireland or Commonwealth Citizen",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Numeracy and literacy"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Epass numeracy and literacy \u003Ca href=\u0022https://getintoteaching.education.gov.uk/post-teacher-training-application/preparing-for-the-professional-skills-tests\u0022\u003Eskills tests\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/fc61455b-39d2-4056-a4ff-d048e3ffd037"
+    },
+    "ContentItemId": "4dnv8x1m8ys7pxf8dgpyx2ks5z",
+    "ContentItemVersionId": "49ebkt5hpmj4sxnxfq0b59hk49",
+    "ContentType": "Restriction",
+    "DisplayText": "Numeracy and literacy",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Medical check"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Epass a medical check\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/911e9043-0a8d-4667-942f-61de0f7ed78a"
+    },
+    "ContentItemId": "43195c4sjd18zrhz7xj3gjrfmq",
+    "ContentItemVersionId": "4bvz86fczw2bv4y3ja154jt6nx",
+    "ContentType": "Restriction",
+    "DisplayText": "Medical check",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Age - Over 18 to sell alcohol"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebe over 18 to sell alcohol and other restricted goods\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/569f5a6e-21c5-4305-9b06-7be552092309"
+    },
+    "ContentItemId": "40nqxgb1qwyqn4frk33pfdaswx",
+    "ContentItemVersionId": "40df97dg2h2mezhknr4yrzttxx",
+    "ContentType": "Restriction",
+    "DisplayText": "Age - Over 18 to sell alcohol",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Live within 1hr"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Elive within 1 hour\u0027s travel of the depot you\u0027re applying to\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/b18a3ca3-8d93-4f8d-92f4-bd1afd494598"
+    },
+    "ContentItemId": "4bjmbsgpaedk33q94n0fn48ace",
+    "ContentItemVersionId": "4xs7ybmt19f07wtrq2tcqjbjds",
+    "ContentType": "Restriction",
+    "DisplayText": "Live within 1hr",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Driving Licence - Full"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ehave a full driving licence\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/504c4bb4-6fe1-4682-83be-55dfc89e270e"
+    },
+    "ContentItemId": "40pg7c6w8ayzd6fmvt8va31ewm",
+    "ContentItemVersionId": "4bfmr907pnw6jyxmvmnzhksk5j",
+    "ContentType": "Restriction",
+    "DisplayText": "Driving Licence - Full",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "DBS checks - not enhanced"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Ebackground checks\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/80cf1398-312b-403e-8056-302517323b2c"
+    },
+    "ContentItemId": "4ntheeh5mcfhj244973fhfwqxj",
+    "ContentItemVersionId": "4mdpp553ceaa045z10p6fpj5mw",
+    "ContentType": "Restriction",
+    "DisplayText": "DBS checks - not enhanced",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "DBS enhanced check"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Epass \u003Ca href=\u0022https://www.gov.uk/criminal-record-checks-apply-role\u0022\u003Eenhanced background checks\u003C/a\u003E\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/6779e39f-698a-48b0-85b0-3de3e057f18b"
+    },
+    "ContentItemId": "4a09fvnm04sg2y572ypk2vtnd4",
+    "ContentItemVersionId": "4ycg9m5y7c7yg0zsmksf9kxpwn",
+    "ContentType": "Restriction",
+    "DisplayText": "DBS enhanced check",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "UK Citizen"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebe a UK citizen\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/925a5f90-af58-4e7a-97d9-6b46534883fb"
+    },
+    "ContentItemId": "4q4n6hqp5jxapwbkx5bkn3rsmk",
+    "ContentItemVersionId": "410e9g6wenvvnytfsd8ves3jn0",
+    "ContentType": "Restriction",
+    "DisplayText": "UK Citizen",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Gas Safe - Corgi"
+    },
+    "Restriction": {
+      "Description": {
+        "Html": "\u003Cp\u003Ebe on the \u003Ca href=\u0022https://www.gassaferegister.co.uk/\u0022\u003EGas Safe Register\u003C/a\u003E to work with domestic gas heating systems\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/restriction/ec0d537b-53af-4765-9cf6-6016ed1f0c97"
+    },
+    "ContentItemId": "4smrj692a1dsrta6zd3d1yng5h",
+    "ContentItemVersionId": "4vat8r02d1yke57a8csvhg8gmx",
+    "ContentType": "Restriction",
+    "DisplayText": "Gas Safe - Corgi",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-11T09:09:37.6349532Z",
+    "PublishedUtc": "2020-09-11T09:09:37.6349532Z",
+    "CreatedUtc": "2020-09-11T09:09:37.6349532Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
