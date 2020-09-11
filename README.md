@@ -158,6 +158,9 @@ Copy the `appsettings.Development_template.json` file in the editor project to `
     "Pages": {
         "PublishedAppPrefix": "shell URI",
         "PreviewAppPrefix": "draft shell URI"
+    },
+    "GraphSyncSettings": {
+        "MaxVisualiserNodeDepth": 10
     }
 }
 ```
