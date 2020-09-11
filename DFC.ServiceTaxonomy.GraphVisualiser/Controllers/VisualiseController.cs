@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Text.Json;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Fields;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
@@ -61,12 +57,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
         private readonly IOrchardToOwlGeneratorService _orchardToOwlGeneratorService;
-        private readonly IPublishedContentItemVersion _publishedContentItemVersion;
-        private readonly IPreviewContentItemVersion _previewContentItemVersion;
         private readonly IVisualiseGraphSyncer _visualiseGraphSyncer;
         private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly ISession _session;
+        private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
@@ -76,30 +71,21 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         public VisualiseController(
             IGraphCluster neoGraphCluster,
-            IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
             INeo4JToOwlGeneratorService neo4jToOwlGeneratorService,
             ISyncNameProvider syncNameProvider,
             IOrchardToOwlGeneratorService orchardToOwlGeneratorService,
-            IPublishedContentItemVersion publishedContentItemVersion,
-            IPreviewContentItemVersion previewContentItemVersion,
-            IEnumerable<IContentPartGraphSyncer> contentPartGraphSyncers,
-            IEnumerable<IContentFieldGraphSyncer> contentFieldsGraphSyncers,
-            IServiceProvider serviceProvider,
-            IDescribeContentItemHelper describeContentItemHelper,
-            IContentItemGraphSyncer contentItemGraphSyncer,
             IVisualiseGraphSyncer visualiseGraphSyncer,
-            ISuperpositionContentItemVersion superpositionContentItemVersion, ISession session)
+            ISuperpositionContentItemVersion superpositionContentItemVersion, ISession session, IContentItemVersionFactory contentItemVersionFactory)
         {
             _neoGraphCluster = neoGraphCluster ?? throw new ArgumentNullException(nameof(neoGraphCluster));
             _contentDefinitionManager = contentDefinitionManager ?? throw new ArgumentNullException(nameof(contentDefinitionManager));
             _neo4JToOwlGeneratorService = neo4jToOwlGeneratorService ?? throw new ArgumentNullException(nameof(neo4jToOwlGeneratorService));
             _orchardToOwlGeneratorService = orchardToOwlGeneratorService ?? throw new ArgumentNullException(nameof(orchardToOwlGeneratorService));
-            _publishedContentItemVersion = publishedContentItemVersion;
-            _previewContentItemVersion = previewContentItemVersion;
             _visualiseGraphSyncer = visualiseGraphSyncer;
             _superpositionContentItemVersion = superpositionContentItemVersion;
             _session = session;
+            _contentItemVersionFactory = contentItemVersionFactory;
             _syncNameProvider = syncNameProvider;
         }
 
@@ -117,28 +103,14 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 return GetOntology();
             }
 
-            if (graph!.ToLowerInvariant() == "published")
-            {
-                contentItemVersion = _publishedContentItemVersion;
-            }
-            else
-            {
-                contentItemVersion = _previewContentItemVersion;
-            }
+            contentItemVersion = _contentItemVersionFactory.Get(graph!);
 
-            return await GetData(contentItemId, graph);
+            return await GetData(contentItemId, graph!);
         }
 
         public async Task<ActionResult> NodeLink ([FromQuery] string nodeId, [FromQuery] string route, [FromQuery] string graph)
         {
-            if (graph!.ToLowerInvariant() == "published")
-            {
-                contentItemVersion = _publishedContentItemVersion;
-            }
-            else
-            {
-                contentItemVersion = _previewContentItemVersion;
-            }
+            contentItemVersion = _contentItemVersionFactory.Get(graph);
 
             var graphSyncNodeId = _syncNameProvider.IdPropertyValueFromNodeValue(nodeId, contentItemVersion, _superpositionContentItemVersion);
             
