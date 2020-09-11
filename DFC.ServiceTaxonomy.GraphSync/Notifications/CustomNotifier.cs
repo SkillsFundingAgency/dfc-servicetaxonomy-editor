@@ -7,6 +7,7 @@ using OrchardCore.DisplayManagement.Notify;
 using System.Linq;
 using System.Text;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using Microsoft.AspNetCore.Html;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
@@ -30,20 +31,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         }
 
         public void AddBlocked(
-            string operationDescription,
+            SyncOperation syncOperation,
             ContentItem contentItem,
             IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers)
         {
             string contentType = GetContentTypeDisplayName(contentItem);
 
-            _logger.LogWarning("{OperationDescription} the '{ContentItem}' {ContentType} has been cancelled.",
-                operationDescription, contentItem.DisplayText, contentType);
+            _logger.LogWarning("{Operation} the '{ContentItem}' {ContentType} has been cancelled.",
+                syncOperation, contentItem.DisplayText, contentType);
 
             StringBuilder technicalMessage = new StringBuilder();
             StringBuilder technicalHtmlMessage = new StringBuilder();
 
-            technicalMessage.AppendLine($"{operationDescription} has been blocked by");
-            technicalHtmlMessage.AppendLine($"<h5 class=\"card-title\">{operationDescription} has been blocked by</h5>");
+            technicalMessage.AppendLine($"{syncOperation} has been blocked by");
+            technicalHtmlMessage.AppendLine($"<h5 class=\"card-title\">{syncOperation} has been blocked by</h5>");
 
             foreach (var graphBlocker in graphBlockers)
             {
@@ -52,7 +53,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             //todo: need details of the content item with incoming relationships
-            Add($"{operationDescription} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
+            Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }

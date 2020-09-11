@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
@@ -9,6 +8,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             if (!await DeleteFromGraphReplicaSetIfAllowed(
                 contentItem,
                 _publishedContentItemVersion,
-                DeleteOperation.Unpublish))
+                SyncOperation.Unpublish))
             {
                 return false;
             }
@@ -75,13 +75,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             _logger.LogDebug("Delete: Removing '{ContentItem}' {ContentType} from Published and/or Preview.",
                 contentItem.ToString(), contentItem.ContentType);
 
-            const DeleteOperation operation = DeleteOperation.Delete;
-
             var deleteGraphSyncers = await Task.WhenAll(
                 GetDeleteGraphSyncerIfDeleteAllowed(
-                    contentItem, _publishedContentItemVersion, operation),
+                    contentItem, _publishedContentItemVersion, SyncOperation.Delete),
                 GetDeleteGraphSyncerIfDeleteAllowed(
-                    contentItem, _previewContentItemVersion, operation));
+                    contentItem, _previewContentItemVersion, SyncOperation.Delete));
 
             (IAllowSyncResult publishedAllowSyncResult, IDeleteGraphSyncer? publishedDeleteGraphSyncer) = deleteGraphSyncers[0];
             (IAllowSyncResult previewAllowSyncResult, IDeleteGraphSyncer? previewDeleteGraphSyncer) = deleteGraphSyncers[1];
@@ -104,8 +102,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     graphBlockers.Add((_previewContentItemVersion.GraphReplicaSetName, previewAllowSyncResult));
                 }
 
-                //todo: no magic string, or const
-                _notifier.AddBlocked("Deleting", contentItem, graphBlockers);
+                _notifier.AddBlocked(SyncOperation.Delete, contentItem, graphBlockers);
                 return false;
             }
 
@@ -114,8 +111,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             // if the preview sync worked
             //todo: add any failure checks into allow check
 
-            await DeleteFromGraphReplicaSet(previewDeleteGraphSyncer!, contentItem, operation);
-            await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, operation);
+            await DeleteFromGraphReplicaSet(previewDeleteGraphSyncer!, contentItem, SyncOperation.Delete);
+            await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, SyncOperation.Delete);
 
             // if everything succeeded, publish event and return true
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
@@ -129,25 +126,25 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         private async Task<bool> DeleteFromGraphReplicaSetIfAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
-            DeleteOperation deleteOperation)
+            SyncOperation syncOperation)
         {
             (IAllowSyncResult allowSyncResult, IDeleteGraphSyncer? publishedDeleteGraphSyncer)
                 = await GetDeleteGraphSyncerIfDeleteAllowed(
                     contentItem,
                     contentItemVersion,
-                    deleteOperation);
+                    syncOperation);
 
             switch (allowSyncResult.AllowSync)
             {
                 case SyncStatus.Blocked:
                     _notifier.AddBlocked(
-                        deleteOperation == DeleteOperation.Delete?"Deleting":"Unpublishing",
+                        syncOperation,
                         contentItem,
                         new[] {(contentItemVersion.GraphReplicaSetName, allowSyncResult)});
                     return false;
 
                 case SyncStatus.Allowed:
-                    await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, deleteOperation);
+                    await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, syncOperation);
                     break;
             }
 
@@ -157,7 +154,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         private async Task<(IAllowSyncResult, IDeleteGraphSyncer?)> GetDeleteGraphSyncerIfDeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
-            DeleteOperation deleteOperation)
+            SyncOperation syncOperation)
         {
             try
             {
@@ -166,7 +163,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 IAllowSyncResult allowSyncResult = await deleteGraphSyncer.DeleteAllowed(
                     contentItem,
                     contentItemVersion,
-                    deleteOperation);
+                    syncOperation);
 
                 return (allowSyncResult, deleteGraphSyncer);
             }
@@ -176,19 +173,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
                 //todo: will get logged twice, but want to keep the param version
                 _logger.LogError(exception, "Unable to check if the '{ContentItem}' {ContentType} can be {DeleteOperation} from the {GraphReplicaSetName} graph.",
-                    contentItem.DisplayText, contentType, deleteOperation == DeleteOperation.Delete?"deleted":"unpublished", contentItemVersion.GraphReplicaSetName);
+                    contentItem.DisplayText, contentType, syncOperation.ToString("PrP", null).ToLower(), contentItemVersion.GraphReplicaSetName);
 
-                _notifier.Add($"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {(deleteOperation == DeleteOperation.Delete?"deleted":"unpublished")} from the {contentItemVersion.GraphReplicaSetName} graph.",
+                _notifier.Add($"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {syncOperation.ToString("PrP", null).ToLower()} from the {contentItemVersion.GraphReplicaSetName} graph.",
                     exception: exception);
 
                 throw;
             }
         }
 
-        private async Task DeleteFromGraphReplicaSet(
-            IDeleteGraphSyncer deleteGraphSyncer,
+        private async Task DeleteFromGraphReplicaSet(IDeleteGraphSyncer deleteGraphSyncer,
             ContentItem contentItem,
-            DeleteOperation deleteOperation)
+            SyncOperation syncOperation)
         {
             try
             {
@@ -205,27 +201,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     return;
                 }
 
-                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, deleteOperation);
+                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
             catch(Exception ex)
             {
-                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, deleteOperation);
+                AddFailureNotifier(deleteGraphSyncer, contentItem, ex, syncOperation);
                 throw;
             }
         }
 
-        private void AddFailureNotifier(
-            IDeleteGraphSyncer deleteGraphSyncer,
+        private void AddFailureNotifier(IDeleteGraphSyncer deleteGraphSyncer,
             ContentItem contentItem,
             Exception exception,
-            DeleteOperation deleteOperation)
+            SyncOperation syncOperation)
         {
             string contentType = GetContentTypeDisplayName(contentItem);
 
-            string operation = deleteOperation == DeleteOperation.Delete
-                ? "Deleting"
-                : "Unpublishing";
+            string operation = syncOperation.ToString("PrP", null);
 
             _logger.LogError(exception, "{Operation} the '{ContentItem}' {ContentType} has been cancelled because the {GraphReplicaSetName} graph couldn't be updated.",
                 operation, contentItem.DisplayText, contentType, deleteGraphSyncer.GraphReplicaSetName);

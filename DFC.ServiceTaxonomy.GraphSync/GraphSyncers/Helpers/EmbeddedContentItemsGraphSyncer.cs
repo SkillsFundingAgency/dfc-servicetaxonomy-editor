@@ -345,7 +345,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
                         contentItem,
                         context.ContentItemVersion,
-                        context.DeleteOperation,
+                        context.SyncOperation,
                         allDeleteIncomingRelationshipsProperties,
                         context);
 
