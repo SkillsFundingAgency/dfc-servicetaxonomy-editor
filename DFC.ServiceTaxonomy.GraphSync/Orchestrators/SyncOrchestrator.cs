@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Exceptions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
@@ -268,7 +267,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         }
 
         #pragma warning disable S1172
-        private Task<(IAllowSyncResult, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
+        private async Task<(IAllowSyncResult, IMergeGraphSyncer?)> GetMergeGraphSyncerIfSyncAllowed(
             SyncOperation syncOperation,
             string replicaSetName,
             ContentItem contentItem,
@@ -276,16 +275,16 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             try
             {
-                throw new GraphSyncException("Test esception");
+                // throw new GraphSyncException("Test esception");
 
-                // IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                //
-                // IAllowSyncResult allowSyncResult = await mergeGraphSyncer.SyncAllowed(
-                //     _graphCluster.GetGraphReplicaSet(replicaSetName),
-                //     contentItem,
-                //     contentManager);
-                //
-                // return (allowSyncResult, mergeGraphSyncer);
+                IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+
+                IAllowSyncResult allowSyncResult = await mergeGraphSyncer.SyncAllowed(
+                    _graphCluster.GetGraphReplicaSet(replicaSetName),
+                    contentItem,
+                    contentManager);
+
+                return (allowSyncResult, mergeGraphSyncer);
             }
             catch (Exception exception)
             {

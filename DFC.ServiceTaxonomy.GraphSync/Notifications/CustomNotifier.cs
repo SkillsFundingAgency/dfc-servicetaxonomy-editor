@@ -16,6 +16,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
     //todo: GraphSyncNotifier?
     //todo: make blocking items clickable: either need to sync ContentItemId or factor out new id to content item id code and use that
+    //"/Admin/Contents/ContentItems/@(contentItem.ContentItemId)/Edit"
     public class CustomNotifier : ICustomNotifier
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;

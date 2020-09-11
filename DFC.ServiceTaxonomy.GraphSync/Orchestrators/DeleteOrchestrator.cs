@@ -85,8 +85,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             (IAllowSyncResult previewAllowSyncResult, IDeleteGraphSyncer? previewDeleteGraphSyncer) = deleteGraphSyncers[1];
 
 
-            publishedAllowSyncResult = AllowSyncResult.TestBlocked;
-            previewAllowSyncResult = AllowSyncResult.TestBlocked;
+            // publishedAllowSyncResult = AllowSyncResult.TestBlocked;
+            // previewAllowSyncResult = AllowSyncResult.TestBlocked;
 
 
 
