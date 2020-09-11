@@ -151,9 +151,6 @@
                                     "IdPropertyName": "uri",
                                     "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
                                     "DisplayId": true
-                                },
-                                "ContentIndexSettings": {
-                                    "Template": "undefined"
                                 }
                             }
                         },
