@@ -59,7 +59,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
         private void BuildSourceNodeCommand(List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn, IDescribeRelationshipsContext context)
         {
-            commandsToReturn.Add(new NodeAndIncomingRelationshipsQuery(context.SourceNodeLabels, context.SourceNodeIdPropertyName, context.SourceNodeId, true));
+            commandsToReturn.Add(new NodeAndNestedOutgoingRelationshipsQuery(null, context.SourceNodeLabels, context.SourceNodeIdPropertyName, context.SourceNodeId, true));
         }
 
         private void BuildIncomingRelationshipCommands(List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn, IDescribeRelationshipsContext context)

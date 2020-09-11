@@ -16,15 +16,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         private readonly IEnumerable<string> _sourceNodeLabels;
         private readonly string _sourceNodePropertyIdName;
         private readonly string _sourceNodeId;
-        private readonly bool _ignoreIncomingRelationship;
 
         public NodeAndIncomingRelationshipsQuery(
-            IEnumerable<string> sourceNodeLabels, string sourceNodePropertyIdName, string sourceNodeId, bool ignoreIncomingRelationship = false)
+            IEnumerable<string> sourceNodeLabels, string sourceNodePropertyIdName, string sourceNodeId)
         {
             _sourceNodeLabels = sourceNodeLabels;
             _sourceNodePropertyIdName = sourceNodePropertyIdName;
             _sourceNodeId = sourceNodeId;
-            _ignoreIncomingRelationship = ignoreIncomingRelationship;
         }
 
         public List<string> ValidationErrors()
@@ -43,21 +41,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             get
             {
-                if (!_ignoreIncomingRelationship)
-                {
-                    var commandStringBuilder = new StringBuilder($"match (s)-[r]->(d:{string.Join(":", _sourceNodeLabels)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
-                    commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'',  destIncomingRelSource:'todo'})} as relationshipDetails");
-                    commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(relationshipDetails)} as nodeAndOutRelationshipsAndTheirInRelationships");
-                    commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
-                    return new Query(commandStringBuilder.ToString());
-                }
-                else
-                {
-                    var commandStringBuilder = new StringBuilder($"match (s:{string.Join(":", _sourceNodeLabels)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
-                    commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(null) } as nodeAndOutRelationshipsAndTheirInRelationships");
-                    commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
-                    return new Query(commandStringBuilder.ToString());
-                }
+                var commandStringBuilder = new StringBuilder($"match (s)-[r]->(d:{string.Join(":", _sourceNodeLabels)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
+                commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'',  destIncomingRelSource:'todo'})} as relationshipDetails");
+                commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(relationshipDetails)} as nodeAndOutRelationshipsAndTheirInRelationships");
+                commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
+                return new Query(commandStringBuilder.ToString());
             }
         }
 
