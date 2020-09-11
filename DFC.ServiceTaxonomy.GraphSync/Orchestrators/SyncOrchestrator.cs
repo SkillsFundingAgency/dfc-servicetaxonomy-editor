@@ -9,13 +9,14 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
+namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 {
     public class SyncOrchestrator : Orchestrator, ISyncOrchestrator
     {//todo: encode ` or any breaking chars in the msg

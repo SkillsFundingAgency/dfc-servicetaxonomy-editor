@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces
 {
     public interface IContentTypeOrchestrator
     {

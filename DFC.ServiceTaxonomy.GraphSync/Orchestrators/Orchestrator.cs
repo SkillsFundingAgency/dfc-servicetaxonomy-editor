@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
+namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 {
     public class Orchestrator
     {

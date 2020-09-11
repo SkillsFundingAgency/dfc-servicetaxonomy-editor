@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement.Handlers;
 using YesSql;

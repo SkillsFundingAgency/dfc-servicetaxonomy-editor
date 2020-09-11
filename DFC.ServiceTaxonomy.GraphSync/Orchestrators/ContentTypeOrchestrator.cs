@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Handlers;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,7 +14,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.DisplayManagement.Notify;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators
+namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 {
     public class ContentTypeOrchestrator : Orchestrator, IContentTypeOrchestrator
     {
