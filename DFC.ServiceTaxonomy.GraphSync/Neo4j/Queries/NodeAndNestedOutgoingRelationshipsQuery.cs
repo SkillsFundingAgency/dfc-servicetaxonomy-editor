@@ -15,20 +15,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
     //todo: move generic queries into neo4j
     public class NodeAndNestedOutgoingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
-        private readonly string? _command;
-        private readonly IEnumerable<string>? _sourceNodeLabels;
-        private readonly string? _sourceNodePropertyIdName;
-        private readonly string? _sourceNodeId;
-        private readonly bool _ignoreIncomingRelationship;
+        private readonly string _command;
 
         public NodeAndNestedOutgoingRelationshipsQuery(
-            string? command, IEnumerable<string>? sourceNodeLabels = null, string? sourceNodePropertyIdName = null, string? sourceNodeId = null, bool ignoreOutgoingRelationship = false)
+            string command)
         {
             _command = command;
-            _sourceNodeLabels = sourceNodeLabels;
-            _sourceNodePropertyIdName = sourceNodePropertyIdName;
-            _sourceNodeId = sourceNodeId;
-            _ignoreIncomingRelationship = ignoreOutgoingRelationship;
         }
 
         public List<string> ValidationErrors()
@@ -40,23 +32,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
         {
             get
             {
-                if (!_ignoreIncomingRelationship)
-                {
-                    return BuildCommand();
-                }
-                else
-                {
-                    return BuildSourceNodeCommand();
-                }
+                return BuildCommand();
             }
-        }
-
-        private Query BuildSourceNodeCommand()
-        {
-            var commandStringBuilder = new StringBuilder($"match (s:{string.Join(":", _sourceNodeLabels!)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
-            commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(null) } as nodeAndOutRelationshipsAndTheirInRelationships");
-            commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
-            return new Query(commandStringBuilder.ToString());
         }
 
         private Query BuildCommand()
