@@ -89,7 +89,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             HtmlString? userHtmlMessage = null,
             NotifyType type = NotifyType.Error)
         {
-            //todo: log messages with params??
             if (_logger.IsEnabled(LogLevel.Information))
             {
                 _logger.LogInformation(exception, "Notification '{NotificationType}' with user message '{NotificationUserMessage}' and technical message '{NotificationTechnicalMessage}' and exception '{Exception}'}.",
@@ -153,10 +152,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         //todo: one function in ncs.js and call that?
         private IHtmlContent TechnicalScript(string onClickFunction, string clipboardText)
         {
+            // we replace any ` (backticks) in the  clipboard text to stop them breaking the js
             return new HtmlString(
 @$"<script type=""text/javascript"">
 function {onClickFunction}() {{
-    navigator.clipboard.writeText(`{clipboardText}`).then(function() {{
+    navigator.clipboard.writeText(`{clipboardText.Replace('`', '\'')}`).then(function() {{
         console.log(""Copied technical error details to clipboard successfully!"");
     }}, function(err) {{
         console.error(""Unable to write technical error details to clipboard. :-("");

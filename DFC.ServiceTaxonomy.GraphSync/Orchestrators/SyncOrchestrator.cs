@@ -19,7 +19,7 @@ using OrchardCore.ContentManagement.Metadata;
 namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 {
     public class SyncOrchestrator : Orchestrator, ISyncOrchestrator
-    {//todo: encode ` or any breaking chars in the msg
+    {
         private readonly IGraphCluster _graphCluster;
         private readonly IPublishedContentItemVersion _publishedContentItemVersion;
         private readonly IServiceProvider _serviceProvider;
