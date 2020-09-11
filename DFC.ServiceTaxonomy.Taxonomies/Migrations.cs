@@ -5,6 +5,7 @@ using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.ContentManagement.Records;
 using OrchardCore.Data.Migration;
+using YesSql.Sql;
 
 namespace DFC.ServiceTaxonomy.Taxonomies
 {
@@ -41,7 +42,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies
                 .WithPart("TaxonomyPart", part => part.WithPosition("4"))
             );
 
-            SchemaBuilder.CreateMapIndexTable(nameof(TaxonomyIndex), table => table
+            SchemaBuilder.CreateMapIndexTable<TaxonomyIndex>(table => table
                 .Column<string>("TaxonomyContentItemId", c => c.WithLength(26))
                 .Column<string>("ContentItemId", c => c.WithLength(26))
                 .Column<string>("ContentType", column => column.WithLength(ContentItemIndex.MaxContentTypeSize))
