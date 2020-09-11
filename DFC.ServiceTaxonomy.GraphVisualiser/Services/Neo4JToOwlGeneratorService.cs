@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
@@ -57,7 +58,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                               }
             ).ToList();
         }
-        
+
         private void TransformData(HashSet<IRelationship> relationships)
         {
             relationshipDataModels = (from a in relationships
@@ -70,17 +71,26 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                                       }
             ).ToList();
         }
-        
+
         private string? GetNodeId(IReadOnlyDictionary<string, object> staxProperties, string? contentType)
         {
-            if (!staxProperties.Any() || contentType == null)
+            try
             {
+                if (!staxProperties.Any() || contentType == null)
+                {
+                    return null;
+                }
+
+                string? propertyId = _syncNameProvider.IdPropertyName(contentType);
+
+                return staxProperties.FirstOrDefault(x => x.Key == propertyId).Value.ToString();
+            }
+            catch (Exception)
+            {
+                //Exception caused by Content Types not being in OC e.g. ESCO__MemberData.
+                //To be rectified in a follow up story
                 return null;
             }
-
-            string? propertyId = _syncNameProvider.IdPropertyName(contentType);
-
-            return staxProperties.FirstOrDefault(x => x.Key == propertyId).Value.ToString();
         }
 
         private string GetPropertyValue(INode node, string[] names)

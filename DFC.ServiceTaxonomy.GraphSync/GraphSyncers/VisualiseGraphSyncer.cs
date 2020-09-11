@@ -20,6 +20,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IDescribeContentItemHelper _describeContentItemHelper;
         private readonly IServiceProvider _serviceProvider;
 
+        public string? SourceNodeId { get; private set; }
+        public IEnumerable<string>? SourceNodeLabels { get; private set; }
+        public string? SourceNodeIdPropertyName { get; private set; }
+
         public VisualiseGraphSyncer(IContentManager contentManager, ISyncNameProvider syncNameProvider, IDescribeContentItemHelper describeContentItemHelper, IServiceProvider serviceProvider)
         {
             _contentManager = contentManager;
@@ -39,11 +43,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
 
             _syncNameProvider.ContentType = contentItem.ContentType;
-            var sourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
-            var sourceNodeLabels = await _syncNameProvider.NodeLabels();
-            string? sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
 
-            var rootContext = new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
+            SourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
+            SourceNodeLabels = await _syncNameProvider.NodeLabels();
+            SourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
+
+            var rootContext = new DescribeRelationshipsContext(SourceNodeIdPropertyName, SourceNodeId, SourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
             rootContext.SetContentField(contentItem.Content);
 
             await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
