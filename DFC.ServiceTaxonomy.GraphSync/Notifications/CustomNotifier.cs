@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             StringBuilder technicalMessage = new StringBuilder();
             StringBuilder technicalHtmlMessage = new StringBuilder();
 
-            technicalMessage.AppendLine($"{operationDescription} has been blocked by:");
+            technicalMessage.AppendLine($"{operationDescription} has been blocked by");
             technicalHtmlMessage.AppendLine($"<h5 class=\"card-title\">{operationDescription} has been blocked by</h5>");
 
             foreach (var graphBlocker in graphBlockers)
@@ -52,7 +52,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             }
 
             //todo: need details of the content item with incoming relationships
-            Add($"{operationDescription} the '{contentItem.DisplayText}' {contentType} has been cancelled.",
+            Add($"{operationDescription} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
                 technicalMessage.ToString(),
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }

@@ -14,8 +14,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
         public static IAllowSyncResult TestBlocked => new AllowSyncResult {AllowSync = SyncStatus.Blocked,
             SyncBlockers = new ConcurrentBag<ISyncBlocker>
             {
-                new SyncBlocker("contenttype", "title"),
-                new SyncBlocker("contenttypeX", "titleX")
+                new SyncBlocker("Test A", "Page"),
+                new SyncBlocker("Test B", "Page")
             }};
 
         public ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; } = new ConcurrentBag<ISyncBlocker>();

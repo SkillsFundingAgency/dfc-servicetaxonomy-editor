@@ -1,5 +1,9 @@
 #ToDo
 
+* errors : make content item links that open in a new tab, so they don't lose the list of blockers
+add time
+instructions on what to do / contact someone from appsettings / update the following items
+
 * view and visualise buttons have non-unique ids
 
 * correlation id/operation id from request into event and shown in technical details notifications
