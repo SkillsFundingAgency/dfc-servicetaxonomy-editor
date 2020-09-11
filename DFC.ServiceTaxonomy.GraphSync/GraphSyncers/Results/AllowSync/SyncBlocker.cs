@@ -5,11 +5,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync
     public class SyncBlocker : ISyncBlocker
     {
         public string ContentType { get; }
+        public object Id { get; }
         public string? Title { get; }
 
-        public SyncBlocker(string contentType, string? title)
+        public SyncBlocker(string contentType, object id, string? title)
         {
             ContentType = contentType;
+            Id = id;
             Title = title;
         }
 

@@ -250,7 +250,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             ContentItem contentItem,
             IContentManager contentManager)
         {
-            //todo: new operationdescription?
             (IAllowSyncResult allowSyncResult, IMergeGraphSyncer? mergeGraphSyncer) =
                 await GetMergeGraphSyncerIfSyncAllowed(syncOperation, replicaSetName, contentItem, contentManager);
 
