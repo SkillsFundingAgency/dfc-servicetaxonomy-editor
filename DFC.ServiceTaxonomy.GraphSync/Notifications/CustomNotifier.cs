@@ -15,6 +15,7 @@ using OrchardCore.ContentManagement.Metadata;
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
     //todo: GraphSyncNotifier?
+    //todo: make blocking items clickable: either need to sync ContentItemId or factor out new id to content item id code and use that
     public class CustomNotifier : ICustomNotifier
     {
         private readonly IContentDefinitionManager _contentDefinitionManager;
