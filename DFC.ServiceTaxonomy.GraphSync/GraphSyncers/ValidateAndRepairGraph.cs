@@ -138,7 +138,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<ContentItem> contentTypeContentItems = await GetContentItems(
                 contentItemVersion, contentTypeDefinition, lastSynced);
 
-            if (!contentTypeContentItems.Any())
+            IEnumerable<ContentItem> deletedContentTypeContentItems = await GetDeletedContentItems(contentTypeDefinition);
+
+            if (!contentTypeContentItems.Any() && !deletedContentTypeContentItems.Any())
             {
                 _logger.LogDebug("No {ContentType} content items found that require validation.", contentTypeDefinition.Name);
                 return syncFailures;
@@ -162,6 +164,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                     string message = $"Sync validation failed in {{CurrentGraph}}.{Environment.NewLine}{{ValidationFailureReason}}.";
                     _logger.LogWarning(message, GraphDescription(_currentGraph!), validationFailureReason);
                     ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!);
+                    syncFailures.Add(validationFailure);
+                    result.ValidationFailures.Add(validationFailure);
+                }
+            }
+
+            foreach (ContentItem contentItem in deletedContentTypeContentItems)
+            {
+                (bool validated, string? validationFailureReason) =
+                    await ValidateDeletedContentItem(contentItem, contentTypeDefinition, contentItemVersion);
+
+                if (validated)
+                {
+                    _logger.LogInformation("Sync validation passed for deleted {ContentType} {ContentItemId} in {CurrentGraph}.",
+                        contentItem.ContentType,
+                        contentItem.ContentItemId,
+                        GraphDescription(_currentGraph!));
+                    result.Validated.Add(contentItem);
+                }
+                else
+                {
+                    string message = $"Sync validation failed in {{CurrentGraph}}.{Environment.NewLine}{{validationFailureReason}}.";
+                    _logger.LogWarning(message, GraphDescription(_currentGraph!), validationFailureReason);
+                    ValidationFailure validationFailure = new ValidationFailure(contentItem, validationFailureReason!, FailureType.Delete);
                     syncFailures.Add(validationFailure);
                     result.ValidationFailures.Add(validationFailure);
                 }
@@ -228,6 +253,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 .ListAsync();
         }
 
+        private async Task<IEnumerable<ContentItem>> GetDeletedContentItems(
+            ContentTypeDefinition contentTypeDefinition)
+        {
+            return await _session
+                .Query<ContentItem, ContentItemIndex>(x =>
+                    x.ContentType == contentTypeDefinition.Name &&
+                    !x.Latest &&
+                    !x.Published)
+                .ListAsync();
+        }
+
         //todo: ToString in Graph?
         private string GraphDescription(IGraph graph)
         {
@@ -248,35 +284,70 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // if this throws should we carry on?
             foreach (var failure in syncValidationFailures)
             {
-                var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
-                IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
-                try
+                if (failure.Type == FailureType.Merge)
                 {
-                    await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogWarning(ex, "Repair of {ContentItem} in {GraphReplicaSet} failed.",
-                        failure.ContentItem, graphReplicaSet);
-                }
+                    var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+                    IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
 
-                (bool validated, string? validationFailureReason) =
-                    await ValidateContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
+                    try
+                    {
+                        await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, "Repair of {ContentItem} in {GraphReplicaSet} failed.",
+                            failure.ContentItem, graphReplicaSet);
+                    }
 
-                if (validated)
-                {
-                    _logger.LogInformation("Repair was successful on {ContentType} {ContentItemId} in {CurrentGraph}.",
-                        failure.ContentItem.ContentType,
-                        failure.ContentItem.ContentItemId,
-                        GraphDescription(_currentGraph!));
-                    result.Repaired.Add(failure.ContentItem);
+                    (bool validated, string? validationFailureReason) =
+                        await ValidateContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
+
+                    if (validated)
+                    {
+                        _logger.LogInformation("Repair was successful on {ContentType} {ContentItemId} in {CurrentGraph}.",
+                            failure.ContentItem.ContentType,
+                            failure.ContentItem.ContentItemId,
+                            GraphDescription(_currentGraph!));
+                        result.Repaired.Add(failure.ContentItem);
+                    }
+                    else
+                    {
+                        string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
+                        _logger.LogWarning(message, validationFailureReason);
+                        result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
+                    }
                 }
                 else
                 {
-                    string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
-                    _logger.LogWarning(message, validationFailureReason);
-                    result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
+                    var deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+
+                    try
+                    {
+                        await deleteGraphSyncer.DeleteIfAllowed(failure.ContentItem, contentItemVersion, DeleteOperation.Delete);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, "Repair of deleted {ContentItem} failed.", failure.ContentItem);
+                    }
+
+                    (bool validated, string? validationFailureReason) =
+                        await ValidateDeletedContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
+
+                    if (validated)
+                    {
+                        _logger.LogInformation("Repair was successful on deleted {ContentType} {ContentItemId} in {CurrentGraph}.",
+                            failure.ContentItem.ContentType,
+                            failure.ContentItem.ContentItemId,
+                            GraphDescription(_currentGraph!));
+                        result.Repaired.Add(failure.ContentItem);
+                    }
+                    else
+                    {
+                        string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
+                        _logger.LogWarning(message, validationFailureReason);
+                        result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
+                    }
                 }
             }
         }
@@ -350,6 +421,30 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             return (true, "");
+        }
+
+        public async Task<(bool validated, string failureReason)> ValidateDeletedContentItem(
+            ContentItem contentItem,
+            ContentTypeDefinition contentTypeDefinition,
+            IContentItemVersion contentItemVersion)
+        {
+            _logger.LogDebug("Validating deleted {ContentType} {ContentItemId} '{ContentDisplayText}'.",
+                contentItem.ContentType, contentItem.ContentItemId, contentItem.DisplayText);
+
+            _syncNameProvider.ContentType = contentItem.ContentType;
+
+            object nodeId = _syncNameProvider.GetIdPropertyValue(contentItem.Content.GraphSyncPart, contentItemVersion);
+
+            //todo: one query to fetch outgoing and incoming
+            List<INodeWithOutgoingRelationships?> results = await _currentGraph!.Run(
+                new NodeWithOutgoingRelationshipsQuery(
+                    await _syncNameProvider.NodeLabels(),
+                    _syncNameProvider.IdPropertyName(),
+                    nodeId));
+
+            return results.Any()
+                ? (false, $"{contentTypeDefinition.DisplayName} {contentItem.ContentItemId} is still present in the graph.")
+                : (true, "");
         }
 
         public string FailureContext(
