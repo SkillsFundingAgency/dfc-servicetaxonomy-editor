@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Helpers
 {
     public static class ContentItemRelationshipToCypherHelper
     {
-        public static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext, int? maxVisualiserDepth = null)
+        internal static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext, int? maxVisualiserDepth = null)
         {
             if (context.AvailableRelationships != null)
             {

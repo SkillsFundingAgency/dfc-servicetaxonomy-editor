@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Owl;
@@ -12,7 +14,12 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
     {
         private long minRelationshipId;
 
-        public Neo4JToOwlGeneratorService(IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel) : base(owlDataGeneratorConfigModel) { }
+        private readonly ISyncNameProvider _syncNameProvider;
+
+        public Neo4JToOwlGeneratorService(IOptionsMonitor<OwlDataGeneratorConfigModel> owlDataGeneratorConfigModel, ISyncNameProvider syncNameProvider) : base(owlDataGeneratorConfigModel)
+        {
+            _syncNameProvider = syncNameProvider;
+        }
 
         public OwlDataModel CreateOwlDataModels(long selectedNodeId, IEnumerable<INode> nodes, HashSet<IRelationship> relationships, string prefLabel)
         {
@@ -46,7 +53,8 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                                   Type = a.Labels.First(l => l != "Resource" || l == "esco__Occupation" || l == "esco__Skill"),
                                   Label = GetPropertyValue(a, new[] { prefLabel, "Description", "FurtherInfo" }),
                                   Comment = GetPropertyValue(a, new[] { "Description" }),
-                                  StaxProperties = a.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList()
+                                  StaxProperties = a.Properties.Where(p => p.Key != prefLabel).Select(p => $"{p.Key}:{p.Value}").ToList(),
+                                  NodeId = GetNodeId(a.Properties, a.Labels.First(l => l != "Resource" || l == "esco__Occupation" || l == "esco__Skill"))
                               }
             ).ToList();
         }
@@ -62,6 +70,27 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Services
                                           Range = $"Class{a.EndNodeId}"
                                       }
             ).ToList();
+        }
+
+        private string? GetNodeId(IReadOnlyDictionary<string, object> staxProperties, string? contentType)
+        {
+            try
+            {
+                if (!staxProperties.Any() || contentType == null)
+                {
+                    return null;
+                }
+
+                string? propertyId = _syncNameProvider.IdPropertyName(contentType);
+
+                return staxProperties.FirstOrDefault(x => x.Key == propertyId).Value.ToString();
+            }
+            catch (Exception)
+            {
+                //Exception caused by Content Types not being in OC e.g. ESCO__MemberData.
+                //To be rectified in a follow up story
+                return null;
+            }
         }
 
         private string GetPropertyValue(INode node, string[] names)

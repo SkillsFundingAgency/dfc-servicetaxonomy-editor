@@ -116,6 +116,99 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
+                    "Name": "PersonalitySkill",
+                    "DisplayName": "Personality Skill",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalitySkill",
+                            "Name": "PersonalitySkill",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityShortQuestion",
+                    "DisplayName": "Personality Short Question",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalityShortQuestion",
+                            "Name": "PersonalityShortQuestion",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "PersonalityTrait",
                     "DisplayName": "Personality Trait",
                     "Settings": {
@@ -2039,6 +2132,22 @@
             ],
             "ContentParts": [
                 {
+                    "Name": "PersonalitySkill",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "PersonalityTrait",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
@@ -2070,6 +2179,56 @@
                                     "DisplayedContentTypes": [
                                         "JobCategory"
                                     ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "PersonalityShortQuestion",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Trait",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Trait",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Creates relationships of [:hasPersonalityTrait].",
+                                    "Required": true,
+                                    "DisplayedContentTypes": [
+                                        "PersonalityTrait"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Impact",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Impact",
+                                    "Editor": "PredefinedList",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {},
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "Positive",
+                                            "value": "Positive"
+                                        },
+                                        {
+                                            "name": "Negative",
+                                            "value": "Negative"
+                                        }
+                                    ],
+                                    "DefaultValue": "Positive"
                                 },
                                 "ContentIndexSettings": {}
                             }
