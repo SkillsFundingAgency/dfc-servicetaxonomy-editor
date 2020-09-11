@@ -20,6 +20,9 @@
     <None Update="appsettings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="ContentRecipes\PersonalitySkill.recipe.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="CypherCommandRecipes\*.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -29,6 +32,7 @@
     <Content Include="ContentRecipes\*.recipe.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Remove="ContentRecipes\PersonalitySkill.recipe.json" />
     <None Update="SeedData\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -51,9 +51,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             var uniqueCommands = allRelationships.Select(z => z.RelationshipPathString).GroupBy(x => x).Select(g => g.First());
 
             List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn = BuildOutgoingRelationshipCommands(uniqueCommands);
+            BuildSourceNodeCommand(commandsToReturn, context);
             BuildIncomingRelationshipCommands(commandsToReturn, context);
 
             return commandsToReturn;
+        }
+
+        private void BuildSourceNodeCommand(List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn, IDescribeRelationshipsContext context)
+        {
+            commandsToReturn.Add(new NodeAndIncomingRelationshipsQuery(context.SourceNodeLabels, context.SourceNodeIdPropertyName, context.SourceNodeId, true));
         }
 
         private void BuildIncomingRelationshipCommands(List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>> commandsToReturn, IDescribeRelationshipsContext context)
