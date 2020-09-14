@@ -10,8 +10,6 @@ instructions on what to do / contact someone from appsettings / update the follo
 
 * view and visualise buttons have non-unique ids
 
-* correlation id/operation id from request into event and shown in technical details notifications
-
 * add visualiser settings page to admin menu for things such as global max depth setting etc
 
 * need to test branch, not master!
