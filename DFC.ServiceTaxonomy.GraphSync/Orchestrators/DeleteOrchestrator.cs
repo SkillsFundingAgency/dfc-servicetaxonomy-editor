@@ -84,12 +84,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             (IAllowSyncResult publishedAllowSyncResult, IDeleteGraphSyncer? publishedDeleteGraphSyncer) = deleteGraphSyncers[0];
             (IAllowSyncResult previewAllowSyncResult, IDeleteGraphSyncer? previewDeleteGraphSyncer) = deleteGraphSyncers[1];
 
-
-            // publishedAllowSyncResult = AllowSyncResult.TestBlocked;
-            // previewAllowSyncResult = AllowSyncResult.TestBlocked;
-
-
-
             if (publishedAllowSyncResult.AllowSync == SyncStatus.Blocked || previewAllowSyncResult.AllowSync == SyncStatus.Blocked)
             {
                 var graphBlockers = new List<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)>();
