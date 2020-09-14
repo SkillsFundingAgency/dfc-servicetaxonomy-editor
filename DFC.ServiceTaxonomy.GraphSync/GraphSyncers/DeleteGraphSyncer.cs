@@ -127,7 +127,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await ContentPartDelete();
         }
 
-        public async Task<IAllowSyncResult> DeleteIfAllowed(ContentItem contentItem,
+        public async Task<IAllowSyncResult> DeleteIfAllowed(
+            ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             SyncOperation syncOperation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)

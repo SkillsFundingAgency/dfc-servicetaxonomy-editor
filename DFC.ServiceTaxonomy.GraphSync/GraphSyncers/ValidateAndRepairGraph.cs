@@ -12,6 +12,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -327,7 +328,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
                     try
                     {
-                        await deleteGraphSyncer.DeleteIfAllowed(failure.ContentItem, contentItemVersion, DeleteOperation.Delete);
+                        await deleteGraphSyncer.DeleteIfAllowed(failure.ContentItem, contentItemVersion, SyncOperation.Delete);
                     }
                     catch (Exception ex)
                     {
