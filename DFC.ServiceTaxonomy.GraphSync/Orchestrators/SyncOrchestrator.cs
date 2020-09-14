@@ -323,13 +323,5 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 throw;
             }
         }
-
-        private string GetSyncOperationCancelledUserMessage(
-            SyncOperation syncOperation,
-            string displayText,
-            string contentType)
-        {
-            return $"{syncOperation} the '{displayText}' {contentType} has been cancelled, due to an issue with graph syncing.";
-        }
     }
 }

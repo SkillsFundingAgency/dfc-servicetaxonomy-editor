@@ -175,7 +175,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 _logger.LogError(exception, "Unable to check if the '{ContentItem}' {ContentType} can be {DeleteOperation} from the {GraphReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, syncOperation.ToString("PrP", null).ToLower(), contentItemVersion.GraphReplicaSetName);
 
-                _notifier.Add($"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {syncOperation.ToString("PrP", null).ToLower()} from the {contentItemVersion.GraphReplicaSetName} graph.",
+                _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+                    $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be {syncOperation.ToString("PrP", null).ToLower()} from the {contentItemVersion.GraphReplicaSetName} graph.",
                     exception: exception);
 
                 throw;
@@ -223,7 +224,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             _logger.LogError(exception, "{Operation} the '{ContentItem}' {ContentType} has been cancelled because the {GraphReplicaSetName} graph couldn't be updated.",
                 operation, contentItem.DisplayText, contentType, deleteGraphSyncer.GraphReplicaSetName);
 
-            _notifier.Add($"{operation} the '{contentItem.DisplayText}' {contentType} has been cancelled because the {deleteGraphSyncer.GraphReplicaSetName} graph couldn't be updated.",
+            _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+                $"{operation} the '{contentItem.DisplayText}' {contentType} has been cancelled because the {deleteGraphSyncer.GraphReplicaSetName} graph couldn't be updated.",
                 exception: exception);
         }
     }
