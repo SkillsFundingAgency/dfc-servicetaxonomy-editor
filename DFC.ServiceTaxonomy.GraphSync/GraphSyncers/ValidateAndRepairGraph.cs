@@ -138,7 +138,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             IEnumerable<ContentItem> contentTypeContentItems = await GetContentItems(
                 contentItemVersion, contentTypeDefinition, lastSynced);
 
-            IEnumerable<ContentItem> deletedContentTypeContentItems = await GetDeletedContentItems(contentTypeDefinition);
+            IEnumerable<ContentItem> deletedContentTypeContentItems = await GetDeletedContentItems(contentTypeDefinition, lastSynced);
 
             if (!contentTypeContentItems.Any() && !deletedContentTypeContentItems.Any())
             {
@@ -254,14 +254,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         }
 
         private async Task<IEnumerable<ContentItem>> GetDeletedContentItems(
-            ContentTypeDefinition contentTypeDefinition)
+            ContentTypeDefinition contentTypeDefinition,
+            DateTime lastSynced)
         {
-            return await _session
+            return (await _session
                 .Query<ContentItem, ContentItemIndex>(x =>
                     x.ContentType == contentTypeDefinition.Name &&
-                    !x.Latest &&
-                    !x.Published)
-                .ListAsync();
+                    x.ModifiedUtc >= lastSynced)
+                .ListAsync())
+                .GroupBy(x => x.ContentItemId)
+                .Select(grp => grp.OrderByDescending(x => x.ModifiedUtc).First())
+                .Where(x => !x.Latest && !x.Published);
         }
 
         //todo: ToString in Graph?
