@@ -1,0 +1,854 @@
+{
+  "name": "JobCategories0_1b87982e-f116-4a53-9362-1b918e2dd43e",
+  "displayName": "JobCategories0_1b87982e-f116-4a53-9362-1b918e2dd43e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Hospitality and food"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EHospitality and food\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/hospitality-and-food"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "47rdhrm693kf5yn942xt5047mp"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/168523c7-4e60-4bc4-bbd1-c5fdfb2b0426"
+    },
+    "ContentItemId": "4d1a7nqay7ke727ykr46de06d8",
+    "ContentItemVersionId": "4gd376qn55dj97g4sm5jpyxjw9",
+    "ContentType": "JobCategory",
+    "DisplayText": "Hospitality and food",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Engineering and maintenance"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EEngineering and maintenance\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/engineering-and-maintenance"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4pzcy4q2yg5xh2c7tgkw6ergmf",
+          "4be2s4cmnxgww14akr0szzcyck",
+          "4bh4mzrcqcg6h1javn88ycw75y"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/ac975da5-1d60-465b-bed6-8af432cf30fb"
+    },
+    "ContentItemId": "4sf8hxezzpetz1qzxxf2cvehx7",
+    "ContentItemVersionId": "4dh744n6zk7jn7z7g6w777xhwq",
+    "ContentType": "JobCategory",
+    "DisplayText": "Engineering and maintenance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Manufacturing"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EManufacturing\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/manufacturing"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/b2400427-c1c5-4484-b2f3-869f04265424"
+    },
+    "ContentItemId": "4wxwqak7qmtd8zt5yy7320vem7",
+    "ContentItemVersionId": "415f9snvpnm3v46xhkatm4z8mn",
+    "ContentType": "JobCategory",
+    "DisplayText": "Manufacturing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Sports and leisure"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ESports and leisure\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/sports-and-leisure"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/7d77911c-57cd-48fd-a082-a7e42ecfe63b"
+    },
+    "ContentItemId": "4s017qh3jykgd41vern9kkecxz",
+    "ContentItemVersionId": "4tvc3k2bpnp0x5csmdcrkdzkw8",
+    "ContentType": "JobCategory",
+    "DisplayText": "Sports and leisure",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Beauty and wellbeing"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EBeauty and wellbeing\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/beauty-and-wellbeing"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/1f417fbe-aaff-426b-98ce-64ff0c4b2291"
+    },
+    "ContentItemId": "4sfarfr63dpy5561rtc49ban5v",
+    "ContentItemVersionId": "46h2h6n6sj1wfxt1mzkrwvx943",
+    "ContentType": "JobCategory",
+    "DisplayText": "Beauty and wellbeing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Administration"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EAdministration\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/administration"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4311vkgakzmb5410fhqmchnfw8",
+          "48w5g9029n7rv06dh2x4667gnv",
+          "4ydcvxtenkwe4vkvjaf757dpnm",
+          "4y8f94b6r3rs8tx6r0r90xjbm6"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/797e0f25-7946-445e-84c9-b20d9044f56b"
+    },
+    "ContentItemId": "4hp8pta21ddscrx1agxrarrz5q",
+    "ContentItemVersionId": "4p8g4aab6zq977ftaeg9tv1hm6",
+    "ContentType": "JobCategory",
+    "DisplayText": "Administration",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Managerial"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EManagerial\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/managerial"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "496wfy04ys3aw58gqnwqwf8fxf",
+          "4qpamhpfpjjqr07dqhxp9waxcm",
+          "4ydcvxtenkwe4vkvjaf757dpnm"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/f2a552b9-2880-461c-808d-6b6ff1fa066d"
+    },
+    "ContentItemId": "4kx0qrr2whqybyt1yawwsn2md8",
+    "ContentItemVersionId": "44g96ty87e9fsw3e88nkhyatm5",
+    "ContentType": "JobCategory",
+    "DisplayText": "Managerial",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Creative and media"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ECreative and media\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/creative-and-media"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "43zzy401pzzh67c6xkj5qxv34w"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/841a9606-1c5b-4d03-a747-49042052e4f2"
+    },
+    "ContentItemId": "4eap9bxt1fg6ewr7qhce3mf3xa",
+    "ContentItemVersionId": "4zbtnh920nf3eszy6hsv166zw0",
+    "ContentType": "JobCategory",
+    "DisplayText": "Creative and media",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Retail and sales"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ERetail and sales\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/retail-and-sales"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4r591ctbm49gqt62v7zefqkhwe",
+          "4z0bpqp8yxrzy4weqykhj4jxd2",
+          "4ycsvaq432m09wpvp5hz5qh7d1"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/23052976-dfd1-47f8-b4b9-92e33f001a14"
+    },
+    "ContentItemId": "429jm3dga5998sgz84n4k2q6dr",
+    "ContentItemVersionId": "4krte2wvx72jtzzgc5v1mzd7n1",
+    "ContentType": "JobCategory",
+    "DisplayText": "Retail and sales",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Government services"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EGovernment services\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/government-services"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "48w5g9029n7rv06dh2x4667gnv",
+          "477tg13zccb38xpzv2mq28y056"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/4950b137-5fc7-4652-8865-356b25da4ff4"
+    },
+    "ContentItemId": "46b72medrewqy6phtspanxst5j",
+    "ContentItemVersionId": "4mn8mb51tys5g0h35acp62acnv",
+    "ContentType": "JobCategory",
+    "DisplayText": "Government services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Transport"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ETransport\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/transport"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4r591ctbm49gqt62v7zefqkhwe",
+          "4bj7jwn7er77j42c9gdv5b7mmc"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/f454cf46-72d8-4d59-b250-3351f8576d52"
+    },
+    "ContentItemId": "4pfvs6e250p1gy19nb7epvb6m8",
+    "ContentItemVersionId": "4s4cqhp0s16njxtzcbq2t437mv",
+    "ContentType": "JobCategory",
+    "DisplayText": "Transport",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Science and research"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EScience and research\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/science-and-research"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/3599ba7f-f00b-48c5-a5d7-ef3506ded797"
+    },
+    "ContentItemId": "4kfpb0y8d7bmqwdqm7gdthvgch",
+    "ContentItemVersionId": "4hk6z800sg6q015sb4bdndn2c3",
+    "ContentType": "JobCategory",
+    "DisplayText": "Science and research",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Healthcare"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EHealthcare\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/healthcare"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4t4ddd83bsqh618a0ey3td74dv",
+          "4z0bpqp8yxrzy4weqykhj4jxd2"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/1aea48e0-21f8-4373-8ed8-c9634f5b1d2d"
+    },
+    "ContentItemId": "49wh2resnwhwbragthenedc4cj",
+    "ContentItemVersionId": "48yk0gr34q7nh19csyj3rm2xcr",
+    "ContentType": "JobCategory",
+    "DisplayText": "Healthcare",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Home services"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EHome services\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/home-services"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4t4ddd83bsqh618a0ey3td74dv",
+          "4hy057m5vgmm60ybjx4anyx9d3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/d07cd46c-f955-4f72-a3c9-e6dd829bf0b2"
+    },
+    "ContentItemId": "4jhefg258bw8939zk1fx8bgbn0",
+    "ContentItemVersionId": "4k2xcxf9zk2cfx41re9peyt9cy",
+    "ContentType": "JobCategory",
+    "DisplayText": "Home services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Social care"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ESocial care\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/social-care"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4t4ddd83bsqh618a0ey3td74dv",
+          "44zsmq1xtrxvc7zcjastjzwh46"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/4194a2cc-05c6-4aeb-bc4e-72750ee85664"
+    },
+    "ContentItemId": "478ab098c9y56z7ak5sq1zzwwq",
+    "ContentItemVersionId": "4gn1ss104mw9gwacvf2pqndpn2",
+    "ContentType": "JobCategory",
+    "DisplayText": "Social care",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Environment and land"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EEnvironment and land\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/environment-and-land"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4qpamhpfpjjqr07dqhxp9waxcm"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/497bfc45-0f2c-49c6-8029-0977bc19ddff"
+    },
+    "ContentItemId": "4tcmy099vkvsmw4j5znsy2fkcr",
+    "ContentItemVersionId": "485ct3bw5c2684s1t99bwcrhx9",
+    "ContentType": "JobCategory",
+    "DisplayText": "Environment and land",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Travel and tourism"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ETravel and tourism\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/travel-and-tourism"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4r591ctbm49gqt62v7zefqkhwe"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/ff06b589-8976-473c-9806-1e1b7cf068a4"
+    },
+    "ContentItemId": "4vaeqycwzrmke0ch5x0epw4an4",
+    "ContentItemVersionId": "4kafx1j8xq2jz36af9e8ambzcs",
+    "ContentType": "JobCategory",
+    "DisplayText": "Travel and tourism",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Animal care"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EAnimal care\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/animal-care"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4qpamhpfpjjqr07dqhxp9waxcm"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/018c33c8-f22d-4951-b76f-9d8d23596d4b"
+    },
+    "ContentItemId": "4m0wzk3b7jbb8tfn2m4xcppyda",
+    "ContentItemVersionId": "43sfeq452qkz201tcerf63wrwq",
+    "ContentType": "JobCategory",
+    "DisplayText": "Animal care",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Construction and trades"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EConstruction and trades\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/construction-and-trades"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4pzcy4q2yg5xh2c7tgkw6ergmf",
+          "43k5ramg3kj0x1j7yeef5vktxy",
+          "4be2s4cmnxgww14akr0szzcyck",
+          "4bh4mzrcqcg6h1javn88ycw75y"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/379f0fb3-dcfe-43df-a620-80ea839bc86d"
+    },
+    "ContentItemId": "40ehs005zwcjd0t2fja4cfv54r",
+    "ContentItemVersionId": "472gqvc84tdnf6gxxevqs7mzdh",
+    "ContentType": "JobCategory",
+    "DisplayText": "Construction and trades",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Teaching and education"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ETeaching and education\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/teaching-and-education"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "47epmshrbx6sy5h86fp3pm8xmc"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/efa0b4fa-f630-44b9-8979-fc9dc324b06c"
+    },
+    "ContentItemId": "47pkdbyqt9b0b025ma9tcp1n5r",
+    "ContentItemVersionId": "40r3y8j7e8a7h0v32y7mqhzsxb",
+    "ContentType": "JobCategory",
+    "DisplayText": "Teaching and education",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Business and finance"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EBusiness and finance\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/business-and-finance"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "496wfy04ys3aw58gqnwqwf8fxf"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/16163996-c8ad-4df9-837a-2c445cd313c6"
+    },
+    "ContentItemId": "4hhdyjvw1y16fv85af5p10kvxj",
+    "ContentItemVersionId": "4t1a3783t6xqs6h5eytqs29qm1",
+    "ContentType": "JobCategory",
+    "DisplayText": "Business and finance",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Computing"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EComputing\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/computing"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/e0d542a7-52ba-48a4-bfe1-6d2ec44c7022"
+    },
+    "ContentItemId": "4ngwheazbgypc438dzvfjb9xmq",
+    "ContentItemVersionId": "44dz3hjdz0d78yewsd7y0ccj5f",
+    "ContentType": "JobCategory",
+    "DisplayText": "Computing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": " technology and digital"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003E technology and digital\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/-technology-and-digital"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/7808a983-ee5a-4046-a6b8-7800f047f11b"
+    },
+    "ContentItemId": "403r1hb9v2kvv2s6sta076hhw9",
+    "ContentItemVersionId": "4ccexyv68xcx9rbt6h5b8t8wnb",
+    "ContentType": "JobCategory",
+    "DisplayText": " technology and digital",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Law and legal"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003ELaw and legal\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/law-and-legal"
+      },
+      "JobProfiles": {
+        "ContentItemIds": []
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/7d2c385c-a8ec-4636-b7f8-796198bf4d11"
+    },
+    "ContentItemId": "4aab5tvyn3s2tsbckate684yx3",
+    "ContentItemVersionId": "4j7yq5q1eb2z7ws7577z3cft5j",
+    "ContentType": "JobCategory",
+    "DisplayText": "Law and legal",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Delivery and storage"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EDelivery and storage\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/delivery-and-storage"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "4hy057m5vgmm60ybjx4anyx9d3"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/c3353fdf-0aea-454a-8933-f63b8431443b"
+    },
+    "ContentItemId": "4hzdafv54b729s3h34rn2xh9mw",
+    "ContentItemVersionId": "41ga27mnk9rpzzfqzh5a9mt5mc",
+    "ContentType": "JobCategory",
+    "DisplayText": "Delivery and storage",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Emergency and uniform services"
+    },
+    "JobCategory": {
+      "Description": {
+        "Html": "\u003Cp\u003EEmergency and uniform services\u003C/p\u003E"
+      },
+      "WebsiteURI": {
+        "Text": "/job-categories/emergency-and-uniform-services"
+      },
+      "JobProfiles": {
+        "ContentItemIds": [
+          "48w5g9029n7rv06dh2x4667gnv",
+          "477tg13zccb38xpzv2mq28y056"
+        ]
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/jobcategory/ac11c445-0b9b-423e-b6dd-44f985769040"
+    },
+    "ContentItemId": "421efwz71dcbzxvd2x9d85enc7",
+    "ContentItemVersionId": "4qgkdktd971hp4fjvenwyrqmx3",
+    "ContentType": "JobCategory",
+    "DisplayText": "Emergency and uniform services",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-14T08:27:00.8558207Z",
+    "PublishedUtc": "2020-09-14T08:27:00.8558207Z",
+    "CreatedUtc": "2020-09-14T08:27:00.8558207Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

@@ -203,7 +203,6 @@ namespace GetJobProfiles
             //    await CopyRecipe(contentRecipesPath, "ContentHelp");
                   await CopyRecipe(contentRecipesPath, "EmailTemplates");
                   await CopyRecipe(contentRecipesPath, "ContactUsPages");
-                  await CopyRecipe(contentRecipesPath, "PersonalitySkill");
             //      await CopyRecipe(contentRecipesPath, "SkillsToolKit");
                 //    await CopyRecipe(contentRecipesPath, "Taxonomies");
                 //    await CopyRecipe(contentRecipesPath, "TestPages");
@@ -239,9 +238,11 @@ namespace GetJobProfiles
 
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
-
+           
             await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait");
             await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion");
+            await CopyRecipe(contentRecipesPath, "PersonalitySkill");
+            await CopyRecipe(contentRecipesPath, "PersonalityFilteringQuestion");
 
             string masterRecipeName = config["MasterRecipeName"] ?? "master";
 
@@ -304,7 +305,7 @@ namespace GetJobProfiles
         private static async Task CopyRecipeWithTokenisation(string recipePath, string recipeName, IDictionary<string, string> tokens)
         {
             string sourceFilename = $"{recipeName}.recipe.json";
-            string recipe = await File.ReadAllTextAsync(Path.Combine(recipePath, sourceFilename));
+            string recipe = await File.ReadAllTextAsync(Path.Combine(recipePath, sourceFilename), Encoding.ASCII);
 
             // bit messy
             if (tokens.TryGetValue("skip", out string skip))
