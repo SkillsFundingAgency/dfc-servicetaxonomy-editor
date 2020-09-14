@@ -305,7 +305,7 @@ namespace GetJobProfiles
         private static async Task CopyRecipeWithTokenisation(string recipePath, string recipeName, IDictionary<string, string> tokens)
         {
             string sourceFilename = $"{recipeName}.recipe.json";
-            string recipe = await File.ReadAllTextAsync(Path.Combine(recipePath, sourceFilename), Encoding.ASCII);
+            string recipe = await File.ReadAllTextAsync(Path.Combine(recipePath, sourceFilename));
 
             // bit messy
             if (tokens.TryGetValue("skip", out string skip))
