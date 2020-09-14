@@ -9,12 +9,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
     public class Orchestrator
     {
         protected readonly IContentDefinitionManager _contentDefinitionManager;
-        protected readonly ICustomNotifier _notifier;
+        protected readonly IGraphSyncNotifier _notifier;
         protected readonly ILogger _logger;
 
         protected Orchestrator(
             IContentDefinitionManager contentDefinitionManager,
-            ICustomNotifier notifier,
+            IGraphSyncNotifier notifier,
             ILogger logger)
         {
             _contentDefinitionManager = contentDefinitionManager;

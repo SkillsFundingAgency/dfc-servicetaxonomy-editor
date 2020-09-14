@@ -26,7 +26,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
         public DeleteOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
-            ICustomNotifier notifier,
+            IGraphSyncNotifier notifier,
             IServiceProvider serviceProvider,
             ILogger<DeleteOrchestrator> logger,
             IPublishedContentItemVersion publishedContentItemVersion,

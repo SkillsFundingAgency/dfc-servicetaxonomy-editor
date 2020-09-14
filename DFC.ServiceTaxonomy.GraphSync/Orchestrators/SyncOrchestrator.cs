@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
         public SyncOrchestrator(
             IContentDefinitionManager contentDefinitionManager,
-            ICustomNotifier notifier,
+            IGraphSyncNotifier notifier,
             IGraphCluster graphCluster,
             IServiceProvider serviceProvider,
             ILogger<SyncOrchestrator> logger,

@@ -22,7 +22,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
     {
         public SyncOrchestrator SyncOrchestrator { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
-        public ICustomNotifier Notifier { get; set; }
+        public IGraphSyncNotifier Notifier { get; set; }
         public IGraphCluster GraphCluster { get; set; }
         public IPublishedContentItemVersion PublishedContentItemVersion { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
@@ -42,7 +42,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
         public SyncOrchestratorTestsBase()
         {
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
-            Notifier = A.Fake<CustomNotifier>();
+            Notifier = A.Fake<GraphSyncNotifier>();
 
             PreviewGraphReplicaSet = A.Fake<IGraphReplicaSet>();
             A.CallTo(() => PreviewGraphReplicaSet.Name)

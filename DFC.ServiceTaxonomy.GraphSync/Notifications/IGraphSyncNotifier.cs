@@ -9,7 +9,7 @@ using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
-    public interface ICustomNotifier : INotifier
+    public interface IGraphSyncNotifier : INotifier
     {
         Task AddBlocked(
             SyncOperation syncOperation,

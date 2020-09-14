@@ -18,22 +18,21 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
-    //todo: GraphSyncNotifier?
-    public class CustomNotifier : ICustomNotifier
+    public class GraphSyncNotifier : IGraphSyncNotifier
     {
         private readonly INodeContentItemLookup _nodeContentItemLookup;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly LinkGenerator _linkGenerator;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger<CustomNotifier> _logger;
+        private readonly ILogger<GraphSyncNotifier> _logger;
         private readonly IList<NotifyEntry> _entries;
 
-        public CustomNotifier(
+        public GraphSyncNotifier(
             INodeContentItemLookup nodeContentItemLookup,
             IContentDefinitionManager contentDefinitionManager,
             LinkGenerator linkGenerator,
             IHttpContextAccessor httpContextAccessor,
-            ILogger<CustomNotifier> logger)
+            ILogger<GraphSyncNotifier> logger)
         {
             _nodeContentItemLookup = nodeContentItemLookup;
             _contentDefinitionManager = contentDefinitionManager;
@@ -87,7 +86,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                     string editContentItemUrl = _linkGenerator.GetUriByAction(
                         _httpContextAccessor.HttpContext,
                         "Edit", "Admin",
-                        new {area = "OrchardCore.Contents", contentItemId = contentItemId});
+                        new {area = "OrchardCore.Contents", contentItemId});
 
                     title = $"<a href=\"{editContentItemUrl}\">'{syncBlocker.Title}'</a>";
                 }

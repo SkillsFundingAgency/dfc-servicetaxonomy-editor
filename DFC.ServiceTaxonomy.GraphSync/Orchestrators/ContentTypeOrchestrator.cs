@@ -27,7 +27,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             IGraphResyncer graphResyncer,
             IServiceProvider serviceProvider,
             IContentDefinitionManager contentDefinitionManager,
-            ICustomNotifier notifier,
+            IGraphSyncNotifier notifier,
             ILogger<ContentTypeOrchestrator> logger)
             : base(contentDefinitionManager, notifier, logger)
         {
