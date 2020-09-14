@@ -18,6 +18,15 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
+    //todo:
+    // the oc code stores the notification message in a cookie(!)
+    // which means when the message gets too long (e.g.  contains a long exception stack), the page breaks because you can only have ~4k's worth of cookies to a domain
+    // i've looked into replacing the OC notification filter with our own, but haven't found a way to do that
+    //the only options i can think of are...
+    // a) include a script in the notification message which calls back using ajax to get the contents (we'd have to store the message in a cache to provide it)
+    // b) implement a new separate notifications system (borrowing heavily from the current oc implementation)
+    // c) just replace the NotifyFilter, but there doesn't seem to be an easy way to do that
+    // in the meantime, we try and limit the notification message length (e.g. don't show the exception call stack)
     public class GraphSyncNotifier : IGraphSyncNotifier
     {
         private readonly INodeContentItemLookup _nodeContentItemLookup;
@@ -78,7 +87,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             foreach (var syncBlocker in allowSyncResult.SyncBlockers)
             {
                 string? contentItemId = await _nodeContentItemLookup.GetContentItemId((string)syncBlocker.Id, graphReplicaSetName);
-                // return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
 
                 string title;
                 if (contentItemId != null)
@@ -148,7 +156,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             if (exception != null)
             {
-                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception}</code></pre></div></div>");
+                //todo: we only include the exception's message (temporarily) to try to stop the notification message blowing up the page!
+                //htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception}</code></pre></div></div>");
+                htmlContentBuilder.AppendHtml($"<div class=\"card mt-3\"><div class=\"card-header\">Exception</div><div class=\"card-body\"><pre><code>{exception.Message}</code></pre></div></div>");
             }
 
             htmlContentBuilder.AppendHtml("</div></div></div>");
@@ -200,7 +210,9 @@ function {onClickFunction}() {{
 @$"Trace ID          : {traceId}
 User Message      : {userMessage}
 Technical Message : {technicalMessage}
-Exception         : {exception}";
+Exception         : {exception?.Message}";
+            //todo: we want the full exception really!
+//Exception         : {exception}";
         }
     }
 }

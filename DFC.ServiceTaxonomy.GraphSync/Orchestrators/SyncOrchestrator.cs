@@ -293,7 +293,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     "Unable to check if {ContentItemDisplayText} {ContentType} can be synced to {ReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, replicaSetName);
 
-                //todo: helper for std user message
                 _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
                     $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be synced to the {replicaSetName} graph, as {nameof(GetMergeGraphSyncerIfSyncAllowed)} threw an exception.",
                     exception: exception);
