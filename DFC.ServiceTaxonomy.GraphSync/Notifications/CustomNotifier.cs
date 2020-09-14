@@ -6,33 +6,44 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.DisplayManagement.Notify;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Services;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
     //todo: GraphSyncNotifier?
-    //todo: make blocking items clickable: either need to sync ContentItemId or factor out new id to content item id code and use that
-    //"/Admin/Contents/ContentItems/@(contentItem.ContentItemId)/Edit"
     public class CustomNotifier : ICustomNotifier
     {
+        private readonly INodeContentItemLookup _nodeContentItemLookup;
         private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly LinkGenerator _linkGenerator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<CustomNotifier> _logger;
         private readonly IList<NotifyEntry> _entries;
 
         public CustomNotifier(
+            INodeContentItemLookup nodeContentItemLookup,
             IContentDefinitionManager contentDefinitionManager,
+            LinkGenerator linkGenerator,
+            IHttpContextAccessor httpContextAccessor,
             ILogger<CustomNotifier> logger)
         {
+            _nodeContentItemLookup = nodeContentItemLookup;
             _contentDefinitionManager = contentDefinitionManager;
+            _linkGenerator = linkGenerator;
+            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
             _entries = new List<NotifyEntry>();
         }
 
-        public void AddBlocked(
+        public async Task AddBlocked(
             SyncOperation syncOperation,
             ContentItem contentItem,
             IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers)
@@ -51,7 +62,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
             foreach (var graphBlocker in graphBlockers)
             {
                 _logger.LogWarning($"{graphBlocker.GraphReplicaSetName} graph blockers: {graphBlocker.AllowSyncResult}.");
-                AddSyncBlockers(technicalMessage, technicalHtmlMessage, graphBlocker.GraphReplicaSetName, graphBlocker.AllowSyncResult);
+                await AddSyncBlockers(technicalMessage, technicalHtmlMessage, graphBlocker.GraphReplicaSetName, graphBlocker.AllowSyncResult);
             }
 
             //todo: need details of the content item with incoming relationships
@@ -60,14 +71,32 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }
 
-        private void AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
+        private async Task AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
         {
             technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
 
             technicalHtmlMessage.AppendLine("<ul class=\"list-group list-group-flush\">");
             foreach (var syncBlocker in allowSyncResult.SyncBlockers)
             {
-                technicalHtmlMessage.AppendLine($"<li class=\"list-group-item\">'{syncBlocker.Title}' {syncBlocker.ContentType}</li>");
+                string? contentItemId = await _nodeContentItemLookup.GetContentItemId((string)syncBlocker.Id, graphReplicaSetName);
+                // return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
+
+                string title;
+                if (contentItemId != null)
+                {
+                    string editContentItemUrl = _linkGenerator.GetUriByAction(
+                        _httpContextAccessor.HttpContext,
+                        "Edit", "Admin",
+                        new {area = "OrchardCore.Contents", contentItemId = contentItemId});
+
+                    title = $"<a href=\"{editContentItemUrl}\">'{syncBlocker.Title}'</a>";
+                }
+                else
+                {
+                    title = syncBlocker.Title != null ? $"'{syncBlocker.Title}'" : "[Missing Title]";
+                }
+
+                technicalHtmlMessage.AppendLine($"<li class=\"list-group-item\">'{title}' {syncBlocker.ContentType}</li>");
             }
 
             technicalHtmlMessage.AppendLine("</ul></div></div>");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using Microsoft.AspNetCore.Html;
@@ -10,7 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 {
     public interface ICustomNotifier : INotifier
     {
-        void AddBlocked(
+        Task AddBlocked(
             SyncOperation syncOperation,
             ContentItem contentItem,
             IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers);

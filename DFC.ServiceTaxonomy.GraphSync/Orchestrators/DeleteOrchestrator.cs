@@ -102,7 +102,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     graphBlockers.Add((_previewContentItemVersion.GraphReplicaSetName, previewAllowSyncResult));
                 }
 
-                _notifier.AddBlocked(SyncOperation.Delete, contentItem, graphBlockers);
+                await _notifier.AddBlocked(SyncOperation.Delete, contentItem, graphBlockers);
                 return false;
             }
 
@@ -137,7 +137,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             switch (allowSyncResult.AllowSync)
             {
                 case SyncStatus.Blocked:
-                    _notifier.AddBlocked(
+                    await _notifier.AddBlocked(
                         syncOperation,
                         contentItem,
                         new[] {(contentItemVersion.GraphReplicaSetName, allowSyncResult)});

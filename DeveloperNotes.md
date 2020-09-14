@@ -1,5 +1,7 @@
 #ToDo
 
+* use linkgenerator instead of hardcoding in visualiser and validate results, perhaps wrap in service
+
 * enhanced error notifications: publish to slack channel?
 
 * errors : make content item links that open in a new tab, so they don't lose the list of blockers

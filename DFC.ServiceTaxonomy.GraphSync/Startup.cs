@@ -163,6 +163,7 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddScoped<ISynonymService, SynonymService>();
             services.AddTransient<ITitlePartCloneGenerator, TitlePartCloneGenerator>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
+            services.AddTransient<INodeContentItemLookup, NodeContentItemLookup>();
             services.AddTransient<IDescribeContentItemHelper, DescribeContentItemHelper>();
             // this would be nice, but IContentManager is Scoped, so not available at startup
             //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));
