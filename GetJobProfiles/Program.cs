@@ -203,7 +203,6 @@ namespace GetJobProfiles
             //    await CopyRecipe(contentRecipesPath, "ContentHelp");
                   await CopyRecipe(contentRecipesPath, "EmailTemplates");
                   await CopyRecipe(contentRecipesPath, "ContactUsPages");
-                  await CopyRecipe(contentRecipesPath, "PersonalitySkill");
             //      await CopyRecipe(contentRecipesPath, "SkillsToolKit");
                 //    await CopyRecipe(contentRecipesPath, "Taxonomies");
                 //    await CopyRecipe(contentRecipesPath, "TestPages");
@@ -239,9 +238,11 @@ namespace GetJobProfiles
 
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
-
+           
             await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait");
             await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion");
+            await CopyRecipe(contentRecipesPath, "PersonalitySkill");
+            await CopyRecipe(contentRecipesPath, "PersonalityFilteringQuestion");
 
             string masterRecipeName = config["MasterRecipeName"] ?? "master";
 
