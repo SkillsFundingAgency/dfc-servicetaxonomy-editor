@@ -111,12 +111,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             if (publishedAllowSyncResult.AllowSync == SyncStatus.Allowed)
             {
-                await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, contentItem);
+                await SyncToGraphReplicaSet(SyncOperation.Publish, publishedMergeGraphSyncer!, contentItem);
             }
 
             if (previewAllowSyncResult.AllowSync == SyncStatus.Allowed)
             {
-                await SyncToGraphReplicaSet(previewMergeGraphSyncer!, contentItem);
+                await SyncToGraphReplicaSet(SyncOperation.Publish, previewMergeGraphSyncer!, contentItem);
             }
 
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
@@ -165,12 +165,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
             if (publishedAllowSyncResult.AllowSync == SyncStatus.Allowed)
             {
-                await SyncToGraphReplicaSet(publishedMergeGraphSyncer!, publishedContentItem);
+                await SyncToGraphReplicaSet(SyncOperation.Update, publishedMergeGraphSyncer!, publishedContentItem);
             }
 
             if (previewAllowSyncResult.AllowSync == SyncStatus.Allowed)
             {
-                await SyncToGraphReplicaSet(previewMergeGraphSyncer!, previewContentItem);
+                await SyncToGraphReplicaSet(SyncOperation.Update, previewMergeGraphSyncer!, previewContentItem);
             }
 
             foreach (var contentOrchestrationHandler in _contentOrchestrationHandlers)
@@ -259,7 +259,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     await _notifier.AddBlocked(syncOperation, contentItem, new []{(replicaSetName, allowSyncResult)});
                     return false;
                 case SyncStatus.Allowed:
-                    await SyncToGraphReplicaSet(mergeGraphSyncer!, contentItem);
+                    await SyncToGraphReplicaSet(syncOperation, mergeGraphSyncer!, contentItem);
                     break;
             }
             return true;
@@ -294,7 +294,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                     contentItem.DisplayText, contentType, replicaSetName);
 
                 //todo: helper for std user message
-                _notifier.Add($"{syncOperation} the '{contentItem.DisplayText}' {contentType} has been cancelled, due to an issue with graph syncing.",
+                _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
                     $"Unable to check if the '{contentItem.DisplayText}' {contentType} can be synced to the {replicaSetName} graph, as {nameof(GetMergeGraphSyncerIfSyncAllowed)} threw an exception.",
                     exception: exception);
 
@@ -302,7 +302,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             }
         }
 
-        private async Task SyncToGraphReplicaSet(IMergeGraphSyncer mergeGraphSyncer, ContentItem contentItem)
+        private async Task SyncToGraphReplicaSet(
+            SyncOperation syncOperation,
+            IMergeGraphSyncer mergeGraphSyncer,
+            ContentItem contentItem)
         {
             try
             {
@@ -314,10 +317,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
 
                 _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' {ContentType} to the {GraphReplicaSetName} graph.",
                     contentItem.DisplayText, contentType, mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name);
-                _notifier.Add($"Unable to sync '{contentItem.DisplayText}' {contentType} to the {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.",
+                _notifier.Add(GetSyncOperationCancelledUserMessage(syncOperation, contentItem.DisplayText, contentType),
+                    $"Unable to sync '{contentItem.DisplayText}' {contentType} to the {mergeGraphSyncer.GraphMergeContext?.GraphReplicaSet.Name} graph.",
                     exception: exception);
                 throw;
             }
+        }
+
+        private string GetSyncOperationCancelledUserMessage(
+            SyncOperation syncOperation,
+            string displayText,
+            string contentType)
+        {
+            return $"{syncOperation} the '{displayText}' {contentType} has been cancelled, due to an issue with graph syncing.";
         }
     }
 }
