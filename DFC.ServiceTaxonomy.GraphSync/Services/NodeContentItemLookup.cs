@@ -3,13 +3,14 @@ using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Indexes;
+using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using OrchardCore.ContentManagement;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Services
 {
     //todo: better name
-    public class NodeContentItemLookup
+    public class NodeContentItemLookup : INodeContentItemLookup
     {
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
         private readonly ISuperpositionContentItemVersion _superpositionContentItemVersion;

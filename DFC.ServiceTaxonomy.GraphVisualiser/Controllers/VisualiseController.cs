@@ -51,10 +51,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 {
     public class VisualiseController : Controller
     {
-        public const string EditBaseUrl = "/Admin/Contents/ContentItems/{ContentItemID}/Edit";
-        public const string ResetFocusBaseUrl = "/Visualise/Viewer?contentItemId={ContentItemID}&graph={graph}";
-        public const string ContentItemIdPlaceHolder = "{ContentItemID}";
-        public const string GraphPlaceHolder = "{graph}";
+        //todo: service(s) for url generation?
+        private const string EditBaseUrl = "/Admin/Contents/ContentItems/{ContentItemID}/Edit";
+        private const string ResetFocusBaseUrl = "/Visualise/Viewer?contentItemId={ContentItemID}&graph={graph}";
+        private const string ContentItemIdPlaceHolder = "{ContentItemID}";
+        private const string GraphPlaceHolder = "{graph}";
         private readonly IGraphCluster _neoGraphCluster;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly INeo4JToOwlGeneratorService _neo4JToOwlGeneratorService;
@@ -64,12 +65,11 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly ISession _session;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
+        private IContentItemVersion? _contentItemVersion;
         private readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
-
-        private IContentItemVersion? contentItemVersion = null;
 
         public VisualiseController(
             IGraphCluster neoGraphCluster,
@@ -105,16 +105,16 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
                 return GetOntology();
             }
 
-            contentItemVersion = _contentItemVersionFactory.Get(graph!);
+            _contentItemVersion = _contentItemVersionFactory.Get(graph!);
 
             return await GetData(contentItemId, graph!);
         }
 
         public async Task<ActionResult> NodeLink([FromQuery] string nodeId, [FromQuery] string route, [FromQuery] string graph)
         {
-            contentItemVersion = _contentItemVersionFactory.Get(graph);
+            _contentItemVersion = _contentItemVersionFactory.Get(graph);
 
-            var graphSyncNodeId = _syncNameProvider.IdPropertyValueFromNodeValue(nodeId, contentItemVersion, _superpositionContentItemVersion);
+            var graphSyncNodeId = _syncNameProvider.IdPropertyValueFromNodeValue(nodeId, _contentItemVersion, _superpositionContentItemVersion);
 
             var contentItems = await _session.Query<ContentItem, GraphSyncPartIndex>(x => x.NodeId == graphSyncNodeId).ListAsync();
 
@@ -145,7 +145,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Controllers
 
         private async Task<ActionResult> GetData(string contentItemId, string graph)
         {
-            var relationshipCommands = await _visualiseGraphSyncer.BuildVisualisationCommands(contentItemId, contentItemVersion!);
+            var relationshipCommands = await _visualiseGraphSyncer.BuildVisualisationCommands(contentItemId, _contentItemVersion!);
             var result = await _neoGraphCluster.Run(graph, relationshipCommands.ToArray());
 
             string owlResponseString = "";
