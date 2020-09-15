@@ -40,11 +40,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
 
         public async Task PublishedAsync(ContentItem term)
         {
-           foreach(var orchestrator in _contentOrchestrationHandlers)
-            {
-                if (term.ContentType != ContentTypes.PageLocation)
-                    return;
+            if (term.ContentType != ContentTypes.PageLocation)
+                return;
 
+            foreach (var orchestrator in _contentOrchestrationHandlers)
+            {
                 await orchestrator.Published(term);
             }
         }
