@@ -18,5 +18,9 @@ namespace DFC.ServiceTaxonomy.Content.Services.Interface
             DateTime since,
             bool? latest = null,
             bool? published = null);
+
+        Task<IEnumerable<ContentItem>> GetDeleted(
+            string contentType,
+            DateTime since);
     }
 }

@@ -22,7 +22,6 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
-using OrchardCore.ContentManagement.Records;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
@@ -158,10 +157,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
 
             //todo: do we want to batch up content items of type?
-            IEnumerable<ContentItem> contentTypeContentItems = await _contentItemsService.Get(
-                contentTypeDefinition.Name, lastSynced, latest: latest, published: published);
+            IEnumerable<ContentItem> contentTypeContentItems = await _contentItemsService
+                .Get(contentTypeDefinition.Name, lastSynced, latest: latest, published: published);
 
-            IEnumerable<ContentItem> deletedContentTypeContentItems = await GetDeletedContentItems(contentTypeDefinition, lastSynced);
+            IEnumerable<ContentItem> deletedContentTypeContentItems = await _contentItemsService
+                .GetDeleted(contentTypeDefinition.Name, lastSynced);
 
             if (!contentTypeContentItems.Any() && !deletedContentTypeContentItems.Any())
             {
@@ -216,20 +216,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             return syncFailures;
-        }
-
-        private async Task<IEnumerable<ContentItem>> GetDeletedContentItems(
-            ContentTypeDefinition contentTypeDefinition,
-            DateTime lastSynced)
-        {
-            return (await _session
-                .Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType == contentTypeDefinition.Name &&
-                    x.ModifiedUtc >= lastSynced)
-                .ListAsync())
-                .GroupBy(x => x.ContentItemId)
-                .Select(grp => grp.OrderByDescending(x => x.ModifiedUtc).First())
-                .Where(x => !x.Latest && !x.Published);
         }
 
         //todo: ToString in Graph?

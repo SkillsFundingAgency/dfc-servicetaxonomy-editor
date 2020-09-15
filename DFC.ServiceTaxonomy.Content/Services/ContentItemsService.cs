@@ -56,7 +56,8 @@ namespace DFC.ServiceTaxonomy.Content.Services
                 != default;
         }
 
-        public async Task<IEnumerable<ContentItem>> Get(string contentType,
+        public async Task<IEnumerable<ContentItem>> Get(
+            string contentType,
             DateTime since,
             bool? latest = null,
             bool? published = null)
@@ -110,6 +111,20 @@ namespace DFC.ServiceTaxonomy.Content.Services
                     x.ContentType == contentType
                     && (x.CreatedUtc >= since || x.ModifiedUtc >= since))
                 .ListAsync();
+        }
+
+        public async Task<IEnumerable<ContentItem>> GetDeleted(
+            string contentType,
+            DateTime since)
+        {
+            return (await _session
+                    .Query<ContentItem, ContentItemIndex>(x =>
+                        x.ContentType == contentType &&
+                        x.ModifiedUtc >= since)
+                    .ListAsync())
+                .GroupBy(x => x.ContentItemId)
+                .Select(grp => grp.OrderByDescending(x => x.ModifiedUtc).First())
+                .Where(x => !x.Latest && !x.Published);
         }
 
         private async Task<List<ContentItem>> Get(string contentType, bool latest, bool published)
