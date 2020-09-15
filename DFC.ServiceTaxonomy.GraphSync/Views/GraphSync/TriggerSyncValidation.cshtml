@@ -150,7 +150,7 @@
 
     private void ShowContentItem(ContentItem contentItem)
     {
-        <span><a href="/Admin/Contents/ContentItems/@(contentItem.ContentItemId)/Edit">
+        <span><a edit-for="@(contentItem.ContentItemId)" target="_blank">
             <strong>
                 @if (string.IsNullOrWhiteSpace(contentItem.DisplayText))
                 {
