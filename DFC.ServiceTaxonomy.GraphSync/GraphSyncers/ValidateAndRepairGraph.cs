@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -43,6 +44,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
+        private readonly IContentItemsService _contentItemsService;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
 
@@ -54,6 +56,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IContentItemVersionFactory contentItemVersionFactory,
+            IContentItemsService contentItemsService,
             ILogger<ValidateAndRepairGraph> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -64,6 +67,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _syncNameProvider = syncNameProvider;
             _graphValidationHelper = graphValidationHelper;
             _contentItemVersionFactory = contentItemVersionFactory;
+            _contentItemsService = contentItemsService;
             _logger = logger;
             _currentGraph = default;
 
@@ -151,9 +155,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             List<ValidationFailure> syncFailures = new List<ValidationFailure>();
 
+            (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
+
             //todo: do we want to batch up content items of type?
-            IEnumerable<ContentItem> contentTypeContentItems = await GetContentItems(
-                contentItemVersion, contentTypeDefinition, lastSynced);
+            IEnumerable<ContentItem> contentTypeContentItems = await _contentItemsService.Get(
+                contentTypeDefinition.Name, lastSynced, latest: latest, published: published);
 
             IEnumerable<ContentItem> deletedContentTypeContentItems = await GetDeletedContentItems(contentTypeDefinition, lastSynced);
 
@@ -210,65 +216,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
 
             return syncFailures;
-        }
-
-        //todo: move into ContentItemsService? (prob not uses IContentItemVersion) unless pass ContentItemIndexFilterTerms
-        private async Task<IEnumerable<ContentItem>> GetContentItems(
-            IContentItemVersion contentItemVersion,
-            ContentTypeDefinition contentTypeDefinition,
-            DateTime lastSynced)
-        {
-            (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
-
-            // this works when using sqlite, but it seems there's a bug in yessql when executing the query against azure sql
-
-            // return await _session
-            //     .Query<ContentItem, ContentItemIndex>(x =>
-            //         x.ContentType == contentTypeDefinition.Name
-            //         && (latest == null || x.Latest == latest)
-            //         && (published == null || x.Published == published)
-            //         && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-            //     .ListAsync();
-
-            // so instead we pick one of 4 different queries depending on whether latest or published is null
-
-            if (latest != null && published != null)
-            {
-                return await _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentTypeDefinition.Name
-                        && x.Latest == latest && x.Published == published
-                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                    .ListAsync();
-            }
-
-            if (latest == null && published != null)
-            {
-                return await _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentTypeDefinition.Name
-                        && x.Published == published
-                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                    .ListAsync();
-            }
-
-            if (latest != null && published == null)
-            {
-                return await _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentTypeDefinition.Name
-                        && x.Latest == latest
-                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                    .ListAsync();
-            }
-
-            // latest == null && published == null
-
-            return await _session
-                .Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType == contentTypeDefinition.Name
-                    && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                .ListAsync();
         }
 
         private async Task<IEnumerable<ContentItem>> GetDeletedContentItems(

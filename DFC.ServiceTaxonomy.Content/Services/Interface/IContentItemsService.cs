@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using OrchardCore.ContentManagement;
 
@@ -12,5 +13,10 @@ namespace DFC.ServiceTaxonomy.Content.Services.Interface
         Task<List<ContentItem>> GetActive(string contentType);
 
         Task<bool> HasExistingPublishedVersion(string contentItemId);
+
+        Task<IEnumerable<ContentItem>> Get(string contentType,
+            DateTime since,
+            bool? latest = null,
+            bool? published = null);
     }
 }
