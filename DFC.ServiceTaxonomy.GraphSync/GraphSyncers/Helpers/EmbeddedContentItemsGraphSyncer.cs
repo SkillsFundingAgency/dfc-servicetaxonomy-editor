@@ -56,11 +56,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public virtual async Task AllowSync(
             JArray? contentItems,
             IGraphMergeContext context,
-            IAllowSyncResult allowSyncResult)
+            IAllowSync allowSync)
         {
             _logger.LogDebug("Do embedded items allow sync?");
 
-            List<CommandRelationship> requiredRelationships = await GetRequiredRelationshipsAndOptionallySync(contentItems, context, allowSyncResult);
+            List<CommandRelationship> requiredRelationships = await GetRequiredRelationshipsAndOptionallySync(contentItems, context, allowSync);
 
             INodeAndOutRelationshipsAndTheirInRelationships? existing = (await context.GraphReplicaSet.Run(
                     new NodeAndOutRelationshipsAndTheirInRelationshipsQuery(
@@ -118,7 +118,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         .Where(ir => !ir.Relationship.Properties.ContainsKey(
                             NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName));
 
-                    allowSyncResult.AddSyncBlockers(
+                    allowSync.AddSyncBlockers(
                         nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
                         {
                             string contentType =
@@ -142,7 +142,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         private async Task<List<CommandRelationship>> GetRequiredRelationshipsAndOptionallySync(
             JArray? contentItems,
             IGraphMergeContext context,
-            IAllowSyncResult? allowSyncResult = null)
+            IAllowSync? allowSync = null)
         {
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
 
@@ -153,7 +153,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             {
                 IMergeGraphSyncer? mergeGraphSyncer;
 
-                if (allowSyncResult == null)
+                if (allowSync == null)
                 {
                     // we're actually syncing, not checking if it's allowed
                     mergeGraphSyncer = await context.MergeGraphSyncer.SyncEmbedded(contentItem);
@@ -162,9 +162,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                 {
                     mergeGraphSyncer = GetNewMergeGraphSyncer();
 
-                    IAllowSyncResult embeddedAllowSyncResult = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
-                    allowSyncResult.AddRelated(embeddedAllowSyncResult);
-                    if (embeddedAllowSyncResult.AllowSync != SyncStatus.Allowed)
+                    IAllowSync embeddedAllowSync = await mergeGraphSyncer.SyncAllowed(context.GraphReplicaSet, contentItem, context.ContentManager, context);
+                    allowSync.AddRelated(embeddedAllowSync);
+                    if (embeddedAllowSync.Result != AllowSyncResult.Allowed)
                         continue;
                 }
 
@@ -201,7 +201,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             DeleteRelationshipsOfNonEmbeddedButAllowedContentTypes(context);
         }
 
-        public async Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowSyncDetaching(IGraphMergeContext context, IAllowSync allowSync)
         {
             //todo: factor out common code
 
@@ -251,7 +251,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                         .Where(ir => !ir.Relationship.Properties.ContainsKey(
                             NodeWithOutgoingRelationshipsCommand.TwoWayRelationshipPropertyName));
 
-                        allowSyncResult.AddSyncBlockers(
+                        allowSync.AddSyncBlockers(
                             nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
                             {
                                 string contentType =
@@ -325,7 +325,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
         public async Task AllowDelete(
             JArray? contentItems,
             IGraphDeleteContext context,
-            IAllowSyncResult allowSyncResult)
+            IAllowSync allowSync)
         {
             //todo: helper for common code
             ContentItem[] embeddedContentItems = ConvertToContentItems(contentItems);
@@ -352,14 +352,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                     allDeleteIncomingRelationshipsProperties.UnionWith(TwoWayRelationshipProperties);
 
-                    IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
+                    IAllowSync embeddedAllowSync = await deleteGraphSyncer.DeleteAllowed(
                         contentItem,
                         context.ContentItemVersion,
                         context.SyncOperation,
                         allDeleteIncomingRelationshipsProperties,
                         context);
 
-                    allowSyncResult.AddRelated(embeddedAllowSyncResult);
+                    allowSync.AddRelated(embeddedAllowSync);
                 }
             }
         }

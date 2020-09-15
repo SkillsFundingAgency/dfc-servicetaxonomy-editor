@@ -29,11 +29,11 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow
             _contentFieldsGraphSyncer = contentFieldsGraphSyncer;
         }
 
-        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
             await Task.WhenAll(
-                base.AllowSync(content, context, allowSyncResult),
-                _contentFieldsGraphSyncer.AllowSync(content, context, allowSyncResult));
+                base.AllowSync(content, context, allowSync),
+                _contentFieldsGraphSyncer.AllowSync(content, context, allowSync));
         }
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)

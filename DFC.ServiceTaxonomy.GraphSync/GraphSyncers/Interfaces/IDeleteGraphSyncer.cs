@@ -13,14 +13,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
     {
         string? GraphReplicaSetName { get; }
 
-        Task<IAllowSyncResult> DeleteAllowed(
+        Task<IAllowSync> DeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             SyncOperation syncOperation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
             IGraphDeleteContext? parentContext = null);
 
-        Task<IAllowSyncResult> DeleteIfAllowed(
+        Task<IAllowSync> DeleteIfAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             SyncOperation syncOperation,
