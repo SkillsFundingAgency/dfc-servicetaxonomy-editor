@@ -11,10 +11,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items
 
         bool CanSync(ContentItem contentItem);
 
-        Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult);
+        Task AllowSync(IGraphMergeItemSyncContext context, IAllowSync allowSync);
         Task AddSyncComponents(IGraphMergeItemSyncContext context);
 
-        Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult);
+        Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSync allowSync);
         Task DeleteComponents(IGraphDeleteItemSyncContext context);
 
         Task MutateOnClone(ICloneItemSyncContext context);

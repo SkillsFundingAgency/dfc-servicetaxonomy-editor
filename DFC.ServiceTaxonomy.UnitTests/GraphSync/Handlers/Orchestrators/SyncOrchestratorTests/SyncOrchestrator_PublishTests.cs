@@ -19,26 +19,26 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         }
 
         [Theory]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, true)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Blocked, false)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Blocked, false)]
         //todo: throw an exception, if either is notrequired, would expect them both to be notrequired?
-        [InlineData(SyncStatus.Allowed, SyncStatus.NotRequired, true)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.Allowed, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.Blocked, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.NotRequired, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Allowed, true)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Blocked, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.NotRequired, true)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.NotRequired, true)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Allowed, false)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.NotRequired, false)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, true)]
         public async Task Publish_SyncAllowedSyncMatrix_ReturnsBool(
-            SyncStatus publishedSyncAllowedStatus,
-            SyncStatus previewSyncAllowedStatus,
+            AllowSyncResult publishedAllowSyncAllowedResult,
+            AllowSyncResult previewAllowSyncAllowedResult,
             bool expectedSuccess)
         {
-            A.CallTo(() => PublishedAllowSyncResult.AllowSync)
-                .Returns(publishedSyncAllowedStatus);
+            A.CallTo(() => PublishedAllowSync.Result)
+                .Returns(publishedAllowSyncAllowedResult);
 
-            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
-                .Returns(previewSyncAllowedStatus);
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(previewAllowSyncAllowedResult);
 
             bool success = await SyncOrchestrator.Publish(ContentItem);
 
