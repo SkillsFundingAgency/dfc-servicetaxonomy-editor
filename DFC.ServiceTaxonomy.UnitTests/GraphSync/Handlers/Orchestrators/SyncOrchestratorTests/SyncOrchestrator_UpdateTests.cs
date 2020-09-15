@@ -19,62 +19,34 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         }
 
         [Theory]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, false, false, true)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, false, true, false)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, true, false, false)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, true, true, false)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Blocked, null, null, false)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.Blocked, false)]
         //todo: throw an exception, if either is notrequired, would expect them both to be notrequired?
-        [InlineData(SyncStatus.Allowed, SyncStatus.NotRequired, false, null, true)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.NotRequired, true, null, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.Allowed, null, null, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.Blocked, null, null, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.NotRequired, null, null, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Allowed, null, false, true)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Allowed, null, true, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Blocked, null, null, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.NotRequired, null, null, true)]
+        [InlineData(AllowSyncResult.Allowed, AllowSyncResult.NotRequired, true)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Allowed, false)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.Blocked, AllowSyncResult.NotRequired, false)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.NotRequired, AllowSyncResult.NotRequired, true)]
         public async Task Update_SyncAllowedSyncMatrix_ReturnsBool(
-            SyncStatus publishedSyncAllowedStatus,
-            SyncStatus previewSyncAllowedStatus,
-            bool? publishedSyncToGraphReplicaSetThrows,
-            bool? previewSyncToGraphReplicaSetThrows,
+            AllowSyncResult publishedAllowSyncAllowedResult,
+            AllowSyncResult previewAllowSyncAllowedResult,
             bool expectedSuccess)
         {
-            A.CallTo(() => PublishedAllowSyncResult.AllowSync)
-                .Returns(publishedSyncAllowedStatus);
+            A.CallTo(() => PublishedAllowSync.Result)
+                .Returns(publishedAllowSyncAllowedResult);
 
-            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
-                .Returns(previewSyncAllowedStatus);
-
-            if (publishedSyncToGraphReplicaSetThrows == true)
-            {
-                A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .Throws(() => new Exception());
-            }
-
-            if (previewSyncToGraphReplicaSetThrows == true)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .Throws(() => new Exception());
-            }
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(previewAllowSyncAllowedResult);
 
             bool success = await SyncOrchestrator.Update(ContentItem, ContentItem);
 
             Assert.Equal(expectedSuccess, success);
-
-            if (publishedSyncToGraphReplicaSetThrows == null)
-            {
-                A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .MustNotHaveHappened();
-            }
-
-            if (previewSyncToGraphReplicaSetThrows == null)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .MustNotHaveHappened();
-            }
         }
+
+        //todo: SyncCalled theory needed
+        //todo: ExceptionPropagates theory needed
 
         [Fact]
         public async Task Update_EventGridPublishingHandlerCalled()

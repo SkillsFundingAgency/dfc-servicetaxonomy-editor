@@ -1,5 +1,15 @@
 #ToDo
 
+* use linkgenerator instead of hardcoding in visualiser and validate results, perhaps wrap in service
+
+* enhanced error notifications: publish to slack channel?
+
+* errors : make content item links that open in a new tab, so they don't lose the list of blockers
+add time
+instructions on what to do / contact someone from appsettings / update the following items
+
+* view and visualise buttons have non-unique ids
+
 * add visualiser settings page to admin menu for things such as global max depth setting etc
 
 * need to test branch, not master!

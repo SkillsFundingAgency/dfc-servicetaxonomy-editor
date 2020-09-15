@@ -4,5 +4,6 @@
     {
         string ContentType { get; }
         string? Title { get; }
+        object Id { get; }
     }
 }

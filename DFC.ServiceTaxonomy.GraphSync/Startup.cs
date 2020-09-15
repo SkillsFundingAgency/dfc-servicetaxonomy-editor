@@ -37,7 +37,6 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Bag;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Flow;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
 using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.GraphSync.Notifications;
@@ -46,6 +45,8 @@ using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Internal;
 using Microsoft.Extensions.Configuration;
@@ -155,12 +156,14 @@ namespace DFC.ServiceTaxonomy.GraphSync
             services.AddActivity<AuditSyncIssuesTask, AuditSyncIssuesTaskDisplay>();
 
             // notifiers
-            services.Replace(ServiceDescriptor.Scoped<INotifier, CustomNotifier>());
+            services.Replace(ServiceDescriptor.Scoped<IGraphSyncNotifier, GraphSyncNotifier>());
+            services.Replace(ServiceDescriptor.Scoped<INotifier>(sp => sp.GetRequiredService<IGraphSyncNotifier>()));
 
             // services
             services.AddScoped<ISynonymService, SynonymService>();
             services.AddTransient<ITitlePartCloneGenerator, TitlePartCloneGenerator>();
             services.AddTransient<IContentItemVersionFactory, ContentItemVersionFactory>();
+            services.AddTransient<INodeContentItemLookup, NodeContentItemLookup>();
             services.AddTransient<IDescribeContentItemHelper, DescribeContentItemHelper>();
             // this would be nice, but IContentManager is Scoped, so not available at startup
             //services.AddSingleton<IPublishedContentItemVersion>(sp => new PublishedContentItemVersion(_configuration, sp.GetRequiredService<IContentManager>()));

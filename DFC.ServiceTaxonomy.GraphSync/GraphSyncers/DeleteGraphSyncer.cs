@@ -12,6 +12,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using Microsoft.Extensions.Logging;
@@ -51,17 +52,18 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphDeleteItemSyncContext = null;
         }
 
-        public async Task<IAllowSyncResult> DeleteAllowed(
-            ContentItem contentItem,
+        public string? GraphReplicaSetName => _graphDeleteItemSyncContext?.ContentItemVersion.GraphReplicaSetName;
+
+        public async Task<IAllowSync> DeleteAllowed(ContentItem contentItem,
             IContentItemVersion contentItemVersion,
-            DeleteOperation deleteOperation,
+            SyncOperation syncOperation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null,
             IGraphDeleteContext? parentContext = null)
         {
             _syncNameProvider.ContentType = contentItem.ContentType;
 
             if (contentItem.Content.GraphSyncPart == null || _syncNameProvider.GraphSyncPartSettings.PreexistingNode)
-                return AllowSyncResult.NotRequired;
+                return AllowSync.NotRequired;
 
             //todo: helper for this
             var allDeleteIncomingRelationshipsProperties = new HashSet<KeyValuePair<string, object>>();
@@ -71,34 +73,34 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 allDeleteIncomingRelationshipsProperties.UnionWith(deleteIncomingRelationshipsProperties);
             }
             //todo: unions unnecessarily when called embeddedly : new deleteembeddedallowed method?
-            if (deleteOperation == DeleteOperation.Unpublish)
+            if (syncOperation == SyncOperation.Unpublish)
             {
                 allDeleteIncomingRelationshipsProperties.UnionWith(
                     ContentPickerFieldGraphSyncer.ContentPickerRelationshipProperties);
             }
 
             _graphDeleteItemSyncContext = new GraphDeleteContext(
-                contentItem, _deleteNodeCommand, this, deleteOperation, _syncNameProvider,
+                contentItem, _deleteNodeCommand, this, syncOperation, _syncNameProvider,
                 _contentManager, contentItemVersion, allDeleteIncomingRelationshipsProperties, parentContext,
                 _serviceProvider);
 
             return await DeleteAllowed();
         }
 
-        private async Task<IAllowSyncResult> DeleteAllowed()
+        private async Task<IAllowSync> DeleteAllowed()
         {
-            IAllowSyncResult syncAllowedResult = new AllowSyncResult();
+            IAllowSync syncAllowed = new AllowSync();
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
                 //todo: allow syncers to chain or not? probably not
                 if (itemSyncer.CanSync(_graphDeleteItemSyncContext!.ContentItem))
                 {
-                    await itemSyncer.AllowDelete(_graphDeleteItemSyncContext, syncAllowedResult);
+                    await itemSyncer.AllowDelete(_graphDeleteItemSyncContext, syncAllowed);
                 }
             }
 
-            return syncAllowedResult;
+            return syncAllowed;
         }
 
         public async Task Delete()
@@ -114,7 +116,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 throw new GraphSyncException($"You must call {nameof(DeleteAllowed)} first.");
 
             _logger.LogInformation("{DeleteOperation} '{ContentItemDisplayText}' {ContentType} ({ContentItemId}) from {GraphReplicaSetName} replica set.",
-            _graphDeleteItemSyncContext.DeleteOperation==DeleteOperation.Delete?"Deleting":"Unpublishing",
+            _graphDeleteItemSyncContext.SyncOperation.ToString(),
             _graphDeleteItemSyncContext.ContentItem.DisplayText,
             _graphDeleteItemSyncContext.ContentItem.ContentType,
             _graphDeleteItemSyncContext.ContentItem.ContentItemId,
@@ -125,22 +127,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await ContentPartDelete();
         }
 
-        public async Task<IAllowSyncResult> DeleteIfAllowed(
+        public async Task<IAllowSync> DeleteIfAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
-            DeleteOperation deleteOperation,
+            SyncOperation syncOperation,
             IEnumerable<KeyValuePair<string, object>>? deleteIncomingRelationshipsProperties = null)
         {
-            IAllowSyncResult allowSyncResult = await DeleteAllowed(
+            IAllowSync allowSync = await DeleteAllowed(
                 contentItem,
                 contentItemVersion,
-                deleteOperation,
+                syncOperation,
                 deleteIncomingRelationshipsProperties);
 
-            if (allowSyncResult.AllowSync == SyncStatus.Allowed)
+            if (allowSync.Result == AllowSyncResult.Allowed)
                 await Delete();
 
-            return allowSyncResult;
+            return allowSync;
         }
 
         public async Task DeleteEmbedded(ContentItem contentItem)

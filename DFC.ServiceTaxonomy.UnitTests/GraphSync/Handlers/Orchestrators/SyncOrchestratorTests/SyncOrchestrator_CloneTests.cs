@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
@@ -28,48 +27,61 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         [Fact]
         public async Task Clone_CloneGraphSyncsMutateOnCloneCalled()
         {
-            bool success = await SyncOrchestrator.Clone(ContentItem);
-
-            Assert.True(success);
+            await SyncOrchestrator.Clone(ContentItem);
 
             A.CallTo(() => CloneGraphSync.MutateOnClone(ContentItem, ContentManager, null))
                 .MustHaveHappened();
         }
 
         [Theory]
-        [InlineData(SyncStatus.Allowed, false, true)]
-        [InlineData(SyncStatus.Allowed, true, false)]
-        [InlineData(SyncStatus.Blocked, null, false)]
-        [InlineData(SyncStatus.NotRequired, null, true)]
-        public async Task Clone_SyncAllowedSyncMatrix_ReturnsBool(SyncStatus syncAllowedStatus,
-            bool? syncToGraphReplicaSetThrows, bool expectedSuccess)
+        [InlineData(AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.NotRequired, true)]
+        public async Task Clone_SyncAllowedMatrix_ReturnsBool(
+            AllowSyncResult allowSyncAllowedResult,
+            bool expectedSuccess)
         {
-            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
-                .Returns(syncAllowedStatus);
-
-            if (syncToGraphReplicaSetThrows == true)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .Throws(() => new Exception());
-            }
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(allowSyncAllowedResult);
 
             bool success = await SyncOrchestrator.Clone(ContentItem);
 
             Assert.Equal(expectedSuccess, success);
+        }
 
-            if (syncToGraphReplicaSetThrows == null)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .MustNotHaveHappened();
-            }
+        [Theory]
+        [InlineData(AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.NotRequired, false)]
+        public async Task Clone_SyncAllowedMatrix_SyncCalled(
+            AllowSyncResult allowSyncAllowedResult,
+            bool expectedSyncCalled)
+        {
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(allowSyncAllowedResult);
+
+            await SyncOrchestrator.Clone(ContentItem);
+
+            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+                .MustHaveHappened(expectedSyncCalled?1:0, Times.Exactly);
+        }
+
+        [Fact]
+        public async Task Clone_MergeGraphSyncerThrows_ExceptionPropagates()
+        {
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(AllowSyncResult.Allowed);
+
+            A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
+                .Throws(() => new Exception());
+
+            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Clone(ContentItem));
         }
 
         [Fact]
         public async Task Clone_EventGridPublishingHandlerCalled()
         {
-            bool success = await SyncOrchestrator.Clone(ContentItem);
-
-            Assert.True(success);
+            await SyncOrchestrator.Clone(ContentItem);
 
             A.CallTo(() => EventGridPublishingHandler.Cloned(ContentItem)).MustHaveHappened();
         }
