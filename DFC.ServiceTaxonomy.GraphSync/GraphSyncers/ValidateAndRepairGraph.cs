@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -25,6 +26,12 @@ using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+    public enum ValidationScope
+    {
+        ModifiedSinceLastValidation,
+        AllItems
+    }
+
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
@@ -63,21 +70,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
         }
 
-        public async Task<ValidateAndRepairResults> ValidateGraph(params string[] graphReplicaSetNames)
+        public async Task<ValidateAndRepairResults> ValidateGraph(
+            ValidationScope validationScope,
+            params string[] graphReplicaSetNames)
         {
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
 
             DateTime timestamp = DateTime.UtcNow;
-            AuditSyncLog auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
-                                        new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
 
             IEnumerable<string> graphReplicaSetNamesToValidate = graphReplicaSetNames.Any()
                 ? graphReplicaSetNames
                 : _graphClusterLowLevel.GraphReplicaSetNames;
 
-            var results = new ValidateAndRepairResults(auditSyncLog.LastSynced);
+            DateTime validateFrom = await GetValidateFromTime(validationScope);
+            var results = new ValidateAndRepairResults(validateFrom);
 
             //todo: we could optimise to only get content items from the oc database once for each replica set,
             // rather than for each instance
@@ -105,7 +113,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(
                             contentItemVersion,
                             contentTypeDefinition,
-                            auditSyncLog.LastSynced,
+                            validateFrom,
                             result);
                         if (syncFailures.Any())
                         {
@@ -120,11 +128,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
 
-            auditSyncLog.LastSynced = timestamp;
-            _session.Save(auditSyncLog);
+            _session.Save(new AuditSyncLog(timestamp));
             await _session.CommitAsync();
 
             return results;
+        }
+
+        private async Task<DateTime> GetValidateFromTime(ValidationScope validationScope)
+        {
+            if (validationScope == ValidationScope.AllItems)
+                return SqlDateTime.MinValue.Value;
+
+            var auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync();
+            return auditSyncLog?.LastSynced ?? SqlDateTime.MinValue.Value;
         }
 
         private async Task<List<ValidationFailure>> ValidateContentItemsOfContentType(
@@ -196,6 +212,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncFailures;
         }
 
+        //todo: move into ContentItemsService? (prob not uses IContentItemVersion) unless pass ContentItemIndexFilterTerms
         private async Task<IEnumerable<ContentItem>> GetContentItems(
             IContentItemVersion contentItemVersion,
             ContentTypeDefinition contentTypeDefinition,
@@ -460,10 +477,5 @@ Content ----------------------------------------
           type: '{contentItem.ContentType}'
             ID: {contentItem.ContentItemId}";
         }
-    }
-
-    public class AuditSyncLog
-    {
-        public DateTime LastSynced { get; set; }
     }
 }
