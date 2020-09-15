@@ -1,25 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
+using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using DFC.ServiceTaxonomy.Neo4j.Services.Interfaces;
 using FakeItEasy;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
 {
-    public class SyncOrchestratorTestsBase
+    public class SyncOrchestratorTestsBase : IDisposable
     {
         public SyncOrchestrator SyncOrchestrator { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
-        public INotifier Notifier { get; set; }
+        public IGraphSyncNotifier Notifier { get; set; }
         public IGraphCluster GraphCluster { get; set; }
         public IPublishedContentItemVersion PublishedContentItemVersion { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
@@ -33,11 +36,13 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
         public IContentManager ContentManager { get; set; }
         public IGraphReplicaSet PreviewGraphReplicaSet { get; set; }
         public IGraphReplicaSet PublishedGraphReplicaSet { get; set; }
+        public IContentOrchestrationHandler EventGridPublishingHandler { get; set; }
+        public Activity TestActivity { get; set; }
 
         public SyncOrchestratorTestsBase()
         {
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
-            Notifier = A.Fake<Notifier>();
+            Notifier = A.Fake<GraphSyncNotifier>();
 
             PreviewGraphReplicaSet = A.Fake<IGraphReplicaSet>();
             A.CallTo(() => PreviewGraphReplicaSet.Name)
@@ -83,13 +88,29 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
                     A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
                 .Returns(PublishedAllowSyncResult);
 
+            EventGridPublishingHandler = A.Fake<IContentOrchestrationHandler>();
+            A.CallTo(() => EventGridPublishingHandler.Published(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Cloned(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Unpublished(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.DraftDiscarded(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+            A.CallTo(() => EventGridPublishingHandler.Deleted(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
+
             SyncOrchestrator = new SyncOrchestrator(
                 ContentDefinitionManager,
                 Notifier,
                 GraphCluster,
-                PublishedContentItemVersion,
                 ServiceProvider,
-                Logger);
+                Logger,
+                PublishedContentItemVersion,
+                new List<IContentOrchestrationHandler> { EventGridPublishingHandler });
+
+            TestActivity = new Activity("UnitTest").Start();
+        }
+
+        public void Dispose()
+        {
+            TestActivity.Stop();
         }
     }
 }

@@ -192,7 +192,8 @@
                             }
                         }
                     ]
-                },
+                }
+                ,
                 {
                     "Name": "Taxonomy",
                     "DisplayName": "Taxonomy",
@@ -286,7 +287,7 @@
                             "Name": "TitlePart",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "0"
+                                    "Position": "1"
                                 }
                             }
                         },
@@ -295,7 +296,7 @@
                             "Name": "PageLocation",
                             "Settings": {
                                 "ContentTypePartSettings": {
-                                    "Position": "1"
+                                    "Position": "0"
                                 }
                             }
                         },

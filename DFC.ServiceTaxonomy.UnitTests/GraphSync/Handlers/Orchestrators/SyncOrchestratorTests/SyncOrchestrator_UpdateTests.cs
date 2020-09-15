@@ -19,26 +19,19 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         }
 
         [Theory]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, false, false, true)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, false, true, false)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, true, false, false)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, true, true, false)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.Blocked, null, null, false)]
+        [InlineData(SyncStatus.Allowed, SyncStatus.Allowed, true)]
+        [InlineData(SyncStatus.Allowed, SyncStatus.Blocked, false)]
         //todo: throw an exception, if either is notrequired, would expect them both to be notrequired?
-        [InlineData(SyncStatus.Allowed, SyncStatus.NotRequired, false, null, true)]
-        [InlineData(SyncStatus.Allowed, SyncStatus.NotRequired, true, null, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.Allowed, null, null, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.Blocked, null, null, false)]
-        [InlineData(SyncStatus.Blocked, SyncStatus.NotRequired, null, null, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Allowed, null, false, true)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Allowed, null, true, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.Blocked, null, null, false)]
-        [InlineData(SyncStatus.NotRequired, SyncStatus.NotRequired, null, null, true)]
+        [InlineData(SyncStatus.Allowed, SyncStatus.NotRequired, true)]
+        [InlineData(SyncStatus.Blocked, SyncStatus.Allowed, false)]
+        [InlineData(SyncStatus.Blocked, SyncStatus.Blocked, false)]
+        [InlineData(SyncStatus.Blocked, SyncStatus.NotRequired, false)]
+        [InlineData(SyncStatus.NotRequired, SyncStatus.Allowed, true)]
+        [InlineData(SyncStatus.NotRequired, SyncStatus.Blocked, false)]
+        [InlineData(SyncStatus.NotRequired, SyncStatus.NotRequired, true)]
         public async Task Update_SyncAllowedSyncMatrix_ReturnsBool(
             SyncStatus publishedSyncAllowedStatus,
             SyncStatus previewSyncAllowedStatus,
-            bool? publishedSyncToGraphReplicaSetThrows,
-            bool? previewSyncToGraphReplicaSetThrows,
             bool expectedSuccess)
         {
             A.CallTo(() => PublishedAllowSyncResult.AllowSync)
@@ -47,33 +40,23 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
             A.CallTo(() => PreviewAllowSyncResult.AllowSync)
                 .Returns(previewSyncAllowedStatus);
 
-            if (publishedSyncToGraphReplicaSetThrows == true)
-            {
-                A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .Throws(() => new Exception());
-            }
-
-            if (previewSyncToGraphReplicaSetThrows == true)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .Throws(() => new Exception());
-            }
-
             bool success = await SyncOrchestrator.Update(ContentItem, ContentItem);
 
             Assert.Equal(expectedSuccess, success);
+        }
 
-            if (publishedSyncToGraphReplicaSetThrows == null)
-            {
-                A.CallTo(() => PublishedMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .MustNotHaveHappened();
-            }
+        //todo: SyncCalled theory needed
+        //todo: ExceptionPropagates theory needed
 
-            if (previewSyncToGraphReplicaSetThrows == null)
-            {
-                A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
-                    .MustNotHaveHappened();
-            }
+        [Fact]
+        public async Task Update_EventGridPublishingHandlerCalled()
+        {
+            bool success = await SyncOrchestrator.Update(ContentItem, ContentItem);
+
+            Assert.True(success);
+
+            A.CallTo(() => EventGridPublishingHandler.DraftSaved(ContentItem)).MustHaveHappened();
+            A.CallTo(() => EventGridPublishingHandler.Published(ContentItem)).MustHaveHappened();
         }
     }
 }

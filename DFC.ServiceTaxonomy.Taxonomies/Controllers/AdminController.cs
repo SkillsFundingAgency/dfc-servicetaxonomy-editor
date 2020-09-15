@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Taxonomies.Handlers;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
@@ -30,6 +31,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
         private readonly INotifier _notifier;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly IEnumerable<ITaxonomyTermValidator> _validators;
+        private readonly IEnumerable<ITaxonomyTermDeleteValidator> _deleteValidators;
+        private readonly IEnumerable<ITaxonomyTermHandler> _handlers;
         private readonly ITaxonomyHelper _taxonomyHelper;
 
         public AdminController(
@@ -42,6 +45,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             IHtmlLocalizer<AdminController> localizer,
             IUpdateModelAccessor updateModelAccessor,
             IEnumerable<ITaxonomyTermValidator> validators,
+            IEnumerable<ITaxonomyTermDeleteValidator> deleteValidators,
+            IEnumerable<ITaxonomyTermHandler> handlers,
             ITaxonomyHelper taxonomyHelper)
         {
             _contentManager = contentManager;
@@ -53,6 +58,8 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             _updateModelAccessor = updateModelAccessor;
             H = localizer;
             _validators = validators;
+            _deleteValidators = deleteValidators;
+            _handlers = handlers;
             _taxonomyHelper = taxonomyHelper;
         }
 
@@ -293,6 +300,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             //force publish the new term content item to trigger events etc
             await _contentManager.PublishAsync(contentItem);
 
+            foreach (var handler in _handlers)
+            {
+                await handler.UpdatedAsync(contentItem, taxonomy);
+            }
+
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
 
@@ -329,6 +341,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             if (taxonomyItem == null)
             {
                 return NotFound();
+            }
+
+            foreach (var validator in _deleteValidators)
+            {
+                if (!await validator.Validate(taxonomyItem, JObject.FromObject(taxonomy)))
+                {
+                    _notifier.Error(H[validator.ErrorMessage]);
+                    return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
+                }
             }
 
             taxonomyItem.Remove();

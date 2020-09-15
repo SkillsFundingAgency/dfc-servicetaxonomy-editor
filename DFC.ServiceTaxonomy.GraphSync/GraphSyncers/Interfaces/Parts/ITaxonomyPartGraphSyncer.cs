@@ -8,5 +8,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts
     {
         Task AddSyncComponentsForNonLeafEmbeddedTerm(JObject content, IGraphMergeContext context);
         Task DeleteComponentsForNonLeafEmbeddedTerm(JObject content, IGraphDeleteContext context);
+
+        Task<(bool validated, string failureReason)> ValidateSyncComponentForNonLeafEmbeddedTerm(
+            JObject content,
+            IValidateAndRepairContext context);
     }
 }

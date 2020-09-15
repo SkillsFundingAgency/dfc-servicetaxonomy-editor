@@ -21,6 +21,7 @@ namespace DFC.ServiceTaxonomy.Events.Models
             string itemId = userId.Substring(userId.Length - 36);
             Subject = $"/content/{contentItem.ContentType.ToLower()}/{itemId}";
 
+            //todo: the new activity should be Stop()ed
             Data = new ContentEventData(userId, itemId, contentItem.ContentItemVersionId, contentItem.DisplayText, contentItem.Author, contentItem.ContentType, Activity.Current ?? new Activity(nameof(ContentEvent)).Start());
             EventType = GetEventType(contentEventType);
             EventTime = (contentItem.ModifiedUtc ?? contentItem.CreatedUtc)!.Value;

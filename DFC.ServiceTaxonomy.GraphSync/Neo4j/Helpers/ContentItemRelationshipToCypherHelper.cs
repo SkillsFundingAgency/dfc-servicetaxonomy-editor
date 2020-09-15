@@ -9,7 +9,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Helpers
 {
     public static class ContentItemRelationshipToCypherHelper
     {
-        public static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext)
+        internal static async Task<IEnumerable<ContentItemRelationship>> GetRelationships(IDescribeRelationshipsContext context, List<ContentItemRelationship> currentList, IDescribeRelationshipsContext parentContext, int? maxVisualiserDepth = null)
         {
             if (context.AvailableRelationships != null)
             {
@@ -36,9 +36,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Helpers
                 currentList.AddRange(context.AvailableRelationships);
             }
 
+            if (maxVisualiserDepth != null && context.CurrentDepth >= maxVisualiserDepth.Value)
+            {
+                return currentList;
+            }
+
             foreach (var childContext in context.ChildContexts)
             {
-                await GetRelationships((IDescribeRelationshipsContext)childContext, currentList, context);
+                var graphSyncPartSettings = context.SyncNameProvider.GetGraphSyncPartSettings(childContext.ContentItem.ContentType);
+
+                int? childMaxDepth = maxVisualiserDepth;
+
+                if (graphSyncPartSettings?.VisualiserNodeDepth != null && graphSyncPartSettings.VisualiserNodeDepth.Value < maxVisualiserDepth &&
+                    maxVisualiserDepth - context.CurrentDepth >= context.CurrentDepth + graphSyncPartSettings.VisualiserNodeDepth)
+                {
+                        childMaxDepth = context.CurrentDepth + graphSyncPartSettings.VisualiserNodeDepth;
+                }
+
+                await GetRelationships((IDescribeRelationshipsContext)childContext, currentList, context, childMaxDepth);
             }
 
             return currentList;

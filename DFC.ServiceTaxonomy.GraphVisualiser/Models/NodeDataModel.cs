@@ -10,5 +10,6 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser.Models
         public string? Label { get; set; }
         public string? Comment { get; set; }
         public List<string> StaxProperties { get; set; } = new List<string>();
+        public string? NodeId { get; set; }
     }
 }

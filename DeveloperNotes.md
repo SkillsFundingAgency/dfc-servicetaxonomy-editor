@@ -1,6 +1,42 @@
 #ToDo
 
+* use linkgenerator instead of hardcoding in visualiser and validate results, perhaps wrap in service
+
+* enhanced error notifications: publish to slack channel?
+
+* errors : make content item links that open in a new tab, so they don't lose the list of blockers
+add time
+instructions on what to do / contact someone from appsettings / update the following items
+
+* view and visualise buttons have non-unique ids
+
+* add visualiser settings page to admin menu for things such as global max depth setting etc
+
 * need to test branch, not master!
+
+* visualiser..
+
+// settings min degrees, max degrees, max nodes
+// 1st pass all relations/bags
+// 2+ pass all relations/bags:
+//   if node already encountered, add relationship, don't follow further
+//   if content type already encountered, don't add node or relationship, don't follow further???
+// if 2+ pass takes nodes past max nodes, don't add any of pass (will need to stage)
+// ignore maxnodes for 1 degree??
+
+will interact with webvowl doing something similar...
+`The number of visualized elements has been automatically reduced.`
+
+
+* should skill and occupation labels be creatable?
+
+* section break's have broke - they look wrong in the html editor
+
+* revisit recipes following idempotent recipes changes. create/import? create generates new ids(?) find different way to disable sync
+see https://github.com/OrchardCMS/OrchardCore/pull/5487
+https://github.com/OrchardCMS/OrchardCore/issues/1970
+
+* check config asap at startup and check for presence of __placeholders__ (or missing/bad config in general) still in config
 
 * move common field syncing such as modified/created/contentitemid to graphsyncpart?
 
@@ -42,8 +78,6 @@ AspNetCoreEnvironment : Production
 * move page flow into own tab, so have Metadata, Content and SEO?
 
 * wysiwyg alignment in flow part (if we need to support justification)
-
-* validate twoway relationships
 
 * MergeNodeCommand.AddProperty helpers need to call graphsynchelper PropertyName
 

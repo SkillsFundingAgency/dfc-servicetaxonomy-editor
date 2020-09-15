@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
@@ -19,6 +20,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IDescribeContentItemHelper _describeContentItemHelper;
         private readonly IServiceProvider _serviceProvider;
 
+        public string? SourceNodeId { get; private set; }
+        public IEnumerable<string>? SourceNodeLabels { get; private set; }
+        public string? SourceNodeIdPropertyName { get; private set; }
+
         public VisualiseGraphSyncer(IContentManager contentManager, ISyncNameProvider syncNameProvider, IDescribeContentItemHelper describeContentItemHelper, IServiceProvider serviceProvider)
         {
             _contentManager = contentManager;
@@ -29,30 +34,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
         public async Task<IEnumerable<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>> BuildVisualisationCommands(string contentItemId, IContentItemVersion contentItemVersion)
         {
-            ContentItem contentItem = await _contentManager.GetAsync(contentItemId, contentItemVersion.VersionOptions);
-
-            if (contentItem != null)
+            ContentItem? contentItem = await contentItemVersion.GetContentItem(_contentManager, contentItemId);
+            if (contentItem == null)
             {
-
-                dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
-
-                _syncNameProvider.ContentType = contentItem.ContentType;
-                var sourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
-                var sourceNodeLabels = await _syncNameProvider.NodeLabels();
-                var sourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
-
-                var rootContext = new DescribeRelationshipsContext(sourceNodeIdPropertyName, sourceNodeId, sourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
-                rootContext.SetContentField(contentItem.Content);
-
-                await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
-
-                var relationships = new List<ContentItemRelationship>();
-                var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
-
-                return relationshipCommands!;
+                return Enumerable.Empty<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>();
             }
 
-            return new List<IQuery<INodeAndOutRelationshipsAndTheirInRelationships>>();
+            dynamic? graphSyncPartContent = contentItem.Content[nameof(GraphSyncPart)];
+
+            _syncNameProvider.ContentType = contentItem.ContentType;
+
+            SourceNodeId = _syncNameProvider.GetIdPropertyValue(graphSyncPartContent, contentItemVersion);
+            SourceNodeLabels = await _syncNameProvider.NodeLabels();
+            SourceNodeIdPropertyName = _syncNameProvider.IdPropertyName();
+
+            var rootContext = new DescribeRelationshipsContext(SourceNodeIdPropertyName, SourceNodeId, SourceNodeLabels, contentItem, _syncNameProvider, _contentManager, contentItemVersion, null, _serviceProvider, contentItem);
+            rootContext.SetContentField(contentItem.Content);
+
+            await _describeContentItemHelper.BuildRelationships(contentItem, rootContext);
+
+            var relationships = new List<ContentItemRelationship>();
+            var relationshipCommands = await _describeContentItemHelper.GetRelationshipCommands(rootContext, relationships, rootContext);
+
+            return relationshipCommands!;
         }
     }
 }

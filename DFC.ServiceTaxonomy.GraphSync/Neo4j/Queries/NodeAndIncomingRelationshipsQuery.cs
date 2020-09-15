@@ -9,6 +9,8 @@ using Neo4j.Driver;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
 {
+    //todo: this might be used to get incoming relationships, but it looks like it actually gets outgoing relationships
+    // so we should be able to get rid of this and use one of the other queries
     public class NodeAndIncomingRelationshipsQuery : IQuery<INodeAndOutRelationshipsAndTheirInRelationships?>
     {
         private readonly IEnumerable<string> _sourceNodeLabels;
@@ -40,7 +42,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries
             get
             {
                 var commandStringBuilder = new StringBuilder($"match (s)-[r]->(d:{string.Join(":", _sourceNodeLabels)} {{{_sourceNodePropertyIdName}: '{_sourceNodeId}'}})");
-                commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'todo',  destIncomingRelSource:'todo'})} as relationshipDetails");
+                commandStringBuilder.AppendLine(" with s, {destNode: d, relationship: r, destinationIncomingRelationships:collect({destIncomingRelationship:'',  destIncomingRelSource:'todo'})} as relationshipDetails");
                 commandStringBuilder.AppendLine(" with { sourceNode: s, outgoingRelationships: collect(relationshipDetails)} as nodeAndOutRelationshipsAndTheirInRelationships");
                 commandStringBuilder.AppendLine(" return nodeAndOutRelationshipsAndTheirInRelationships");
                 return new Query(commandStringBuilder.ToString());

@@ -1,4 +1,5 @@
 using System;
+using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using DFC.ServiceTaxonomy.GraphVisualiser.Drivers;
 using DFC.ServiceTaxonomy.GraphVisualiser.Models.Configuration;
 using DFC.ServiceTaxonomy.GraphVisualiser.Services;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Modules;
 using OrchardCore.Navigation;
+using YesSql.Indexes;
 
 namespace DFC.ServiceTaxonomy.GraphVisualiser
 {
@@ -28,6 +30,7 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
             services.AddTransient<IOrchardToOwlGeneratorService, OrchardToOwlGeneratorService>();
             services.AddScoped<INavigationProvider, AdminMenuService>();
             services.AddScoped<IContentDisplayDriver, ContentVisualiseDriver>();
+            services.AddSingleton<IIndexProvider, GraphSyncPartIndexProvider>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
@@ -36,15 +39,21 @@ namespace DFC.ServiceTaxonomy.GraphVisualiser
 
             routes.MapAreaControllerRoute(
                 name: "Visualise",
-                areaName: typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace,
+                areaName: typeof(Startup).Namespace,
                 pattern: $"Visualise/{nameof(Controllers.VisualiseController.Data)}",
                 defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.Data) }
             );
             routes.MapAreaControllerRoute(
                 name: "WebVOWL",
-                areaName: typeof(DFC.ServiceTaxonomy.GraphVisualiser.Startup).Namespace,
+                areaName: typeof(Startup).Namespace,
                 pattern: $"Visualise/{nameof(Controllers.VisualiseController.Viewer)}",
                 defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.Viewer) }
+            );
+            routes.MapAreaControllerRoute(
+                name: "VisualiserRedirect",
+                areaName: typeof(Startup).Namespace,
+                pattern: $"Visualise/{nameof(Controllers.VisualiseController.NodeLink)}",
+                defaults: new { controller = "Visualise", action = nameof(Controllers.VisualiseController.NodeLink) }
             );
         }
     }

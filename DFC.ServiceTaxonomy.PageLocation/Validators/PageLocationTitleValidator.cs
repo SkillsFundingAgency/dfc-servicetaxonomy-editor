@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using DFC.ServiceTaxonomy.Taxonomies.Validation;
 using Newtonsoft.Json.Linq;
@@ -38,7 +39,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Validators
             if (parent == null)
                 throw new InvalidOperationException($"Could not find parent taxonomy term for {term}");
 
-            return Task.FromResult(parent.ToObject<ContentItem>()?.ContentType == Constants.TaxonomyContentType);
+            return Task.FromResult(parent.ToObject<ContentItem>()?.ContentType == ContentTypes.Taxonomy);
         }
     }
 }
