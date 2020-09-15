@@ -46,10 +46,10 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             }
         }
 
-        public async Task UpdatedAsync(ContentItem term, ContentItem taxonomy)
+        public async Task<bool> UpdatedAsync(ContentItem term, ContentItem taxonomy)
         {
             if (term.ContentType != ContentTypes.PageLocation)
-                return;
+                return false;
 
             List<ContentItem> allPages = await _contentItemsService.GetActive(ContentTypes.Page);
             List<ContentItem> associatedPages = allPages.Where(x => x.Content.Page.PageLocations.TermContentItemIds[0] == term.ContentItemId).ToList();
@@ -104,8 +104,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                 catch (Exception)
                 {
                     _session.Cancel();
+                    return false;
                 }
             }
+
+            return true;
         }
     }
 }
