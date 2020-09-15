@@ -82,19 +82,32 @@ namespace GetJobProfiles.Importers
 
         public Dictionary<string, List<string>> GetSocToPersonalitySkillMappings(XSSFWorkbook mappingsWorkbook)
         {
-            var sheet = mappingsWorkbook.GetSheet("bla");
+            var sheet = mappingsWorkbook.GetSheet("JP Link");
+            var dictionaryToReturn = new Dictionary<string, List<string>> ();
 
-            for (int r = 0; r < sheet.PhysicalNumberOfRows; r++)
+            //Skip first two rows
+            for (int r = 2; r < sheet.PhysicalNumberOfRows; r++)
             {
                 var row = sheet.GetRow(r);
 
                 for (int c = 0; c < row.PhysicalNumberOfCells; c++)
                 {
-                    var socCode = row.GetCell(c).StringCellValue.Substring(0, 4);
+                    var socCode = row.Cells[c].StringCellValue.Substring(0, 5);
+                    var value = row.Cells[c].StringCellValue.Replace("Published", "").Replace($"{socCode}-", "");
+
+                    if (dictionaryToReturn.ContainsKey(socCode))
+                    {
+                        dictionaryToReturn[socCode].Add(value);
+                    }
+                    else
+                    {
+                        dictionaryToReturn.Add(socCode, new List<string> { value });
+                    }
+
                 }
             }
 
-            return new Dictionary<string, List<string>>();
+            return dictionaryToReturn;
         }
 
         private IEnumerable<PersonalityTrait> ReadTraitsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
