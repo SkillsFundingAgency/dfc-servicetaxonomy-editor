@@ -8,13 +8,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.EmbeddedContentI
 {
     public interface IEmbeddedContentItemsGraphSyncer
     {
-        Task AllowSync(JArray? contentItems, IGraphMergeContext context, IAllowSyncResult allowSyncResult);
+        Task AllowSync(JArray? contentItems, IGraphMergeContext context, IAllowSync allowSync);
         Task AddSyncComponents(JArray? contentItems, IGraphMergeContext context);
 
-        Task AllowSyncDetaching(IGraphMergeContext context, IAllowSyncResult allowSyncResult);
+        Task AllowSyncDetaching(IGraphMergeContext context, IAllowSync allowSync);
         Task AddSyncComponentsDetaching(IGraphMergeContext context);
 
-        Task AllowDelete(JArray? contentItems, IGraphDeleteContext context, IAllowSyncResult allowSyncResult);
+        Task AllowDelete(JArray? contentItems, IGraphDeleteContext context, IAllowSync allowSync);
         Task DeleteComponents(JArray? contentItems, IGraphDeleteContext context);
 
         Task<ContentItem[]> MutateOnClone(JArray? contentItems, ICloneContext context);

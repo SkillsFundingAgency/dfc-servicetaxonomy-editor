@@ -14,7 +14,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         Task AddBlocked(
             SyncOperation syncOperation,
             ContentItem contentItem,
-            IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers);
+            IEnumerable<(string GraphReplicaSetName, IAllowSync AllowSync)> graphBlockers);
 
         void Add(
             string userMessage,

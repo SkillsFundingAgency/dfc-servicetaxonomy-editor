@@ -31,8 +31,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
         public ContentItem ContentItem { get; set; }
         public IMergeGraphSyncer PreviewMergeGraphSyncer { get; set; }
         public IMergeGraphSyncer PublishedMergeGraphSyncer { get; set; }
-        public IAllowSyncResult PreviewAllowSyncResult { get; set; }
-        public IAllowSyncResult PublishedAllowSyncResult { get; set; }
+        public IAllowSync PreviewAllowSync { get; set; }
+        public IAllowSync PublishedAllowSync { get; set; }
         public IContentManager ContentManager { get; set; }
         public IGraphReplicaSet PreviewGraphReplicaSet { get; set; }
         public IGraphReplicaSet PublishedGraphReplicaSet { get; set; }
@@ -76,17 +76,17 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
             PreviewMergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
             PublishedMergeGraphSyncer = A.Fake<IMergeGraphSyncer>();
 
-            PreviewAllowSyncResult = A.Fake<IAllowSyncResult>();
+            PreviewAllowSync = A.Fake<IAllowSync>();
             A.CallTo(() => PreviewMergeGraphSyncer.SyncAllowed(
                     A<IGraphReplicaSet>.That.Matches(s => s.Name == GraphReplicaSetNames.Preview),
                     A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
-                .Returns(PreviewAllowSyncResult);
+                .Returns(PreviewAllowSync);
 
-            PublishedAllowSyncResult = A.Fake<IAllowSyncResult>();
+            PublishedAllowSync = A.Fake<IAllowSync>();
             A.CallTo(() => PublishedMergeGraphSyncer.SyncAllowed(
                     A<IGraphReplicaSet>.That.Matches(s => s.Name == GraphReplicaSetNames.Published),
                     A<ContentItem>._, A<IContentManager>._, A<IGraphMergeContext?>._))
-                .Returns(PublishedAllowSyncResult);
+                .Returns(PublishedAllowSync);
 
             EventGridPublishingHandler = A.Fake<IContentOrchestrationHandler>();
             A.CallTo(() => EventGridPublishingHandler.Published(A<ContentItem>.Ignored)).Returns(Task.CompletedTask);
