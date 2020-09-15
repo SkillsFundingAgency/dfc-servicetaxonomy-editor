@@ -127,7 +127,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
 
                 return View(model);
             }
-            
+
             if (taxonomyItemId == null)
             {
                 // Use the taxonomy as the parent if no target is specified
@@ -175,8 +175,11 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
-            //force publish the new term content item to trigger events etc
-            await _contentManager.PublishAsync(contentItem);
+            //Content item will get published as part of the taxonomy, handler ensure Event Grid is informed of Content Item change
+            foreach (var handler in _handlers)
+            {
+                await handler.PublishedAsync(contentItem);
+            }
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });
         }
@@ -297,12 +300,15 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Controllers
             taxonomy.Published = false;
             await _contentManager.PublishAsync(taxonomy);
 
-            //force publish the new term content item to trigger events etc
-            await _contentManager.PublishAsync(contentItem);
-
+            //Content item will get published as part of the taxonomy, handler ensure Event Grid is informed of Content Item change
             foreach (var handler in _handlers)
-            {
-                await handler.UpdatedAsync(contentItem, taxonomy);
+            {  
+                var updated = await handler.UpdatedAsync(contentItem, taxonomy);
+
+                if (updated)
+                {
+                    await handler.PublishedAsync(contentItem);
+                }
             }
 
             return RedirectToAction("Edit", "Admin", new { area = "OrchardCore.Contents", contentItemId = taxonomyContentItemId });

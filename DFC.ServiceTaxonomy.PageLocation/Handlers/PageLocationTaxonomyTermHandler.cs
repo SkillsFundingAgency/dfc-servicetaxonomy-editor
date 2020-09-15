@@ -22,23 +22,37 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         private readonly ITaxonomyHelper _taxonomyHelper;
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IContentItemsService _contentItemsService;
+        private readonly IEnumerable<IContentOrchestrationHandler> _contentOrchestrationHandlers;
 
         public PageLocationTaxonomyTermHandler(
             ISession session,
             ITaxonomyHelper taxonomyHelper,
             ISyncOrchestrator syncOrchestrator,
-            IContentItemsService contentItemsService)
+            IContentItemsService contentItemsService,
+            IEnumerable<IContentOrchestrationHandler> contentOrchestrationHandlers)
         {
             _session = session;
             _taxonomyHelper = taxonomyHelper;
             _syncOrchestrator = syncOrchestrator;
             _contentItemsService = contentItemsService;
+            _contentOrchestrationHandlers = contentOrchestrationHandlers;
         }
 
-        public async Task UpdatedAsync(ContentItem term, ContentItem taxonomy)
+        public async Task PublishedAsync(ContentItem term)
         {
             if (term.ContentType != ContentTypes.PageLocation)
                 return;
+
+            foreach (var orchestrator in _contentOrchestrationHandlers)
+            {
+                await orchestrator.Published(term);
+            }
+        }
+
+        public async Task<bool> UpdatedAsync(ContentItem term, ContentItem taxonomy)
+        {
+            if (term.ContentType != ContentTypes.PageLocation)
+                return true;
 
             List<ContentItem> allPages = await _contentItemsService.GetActive(ContentTypes.Page);
             List<ContentItem> associatedPages = allPages.Where(x => x.Content.Page.PageLocations.TermContentItemIds[0] == term.ContentItemId).ToList();
@@ -93,8 +107,11 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                 catch (Exception)
                 {
                     _session.Cancel();
+                    return false;
                 }
             }
+
+            return true;
         }
     }
 }
