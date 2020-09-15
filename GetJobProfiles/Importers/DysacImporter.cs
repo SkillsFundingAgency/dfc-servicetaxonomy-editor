@@ -19,8 +19,8 @@ namespace GetJobProfiles.Importers
         public IEnumerable<PersonalityShortQuestionContentItem> PersonalityShortQuestionContentItems { get; private set; }
 
         private Dictionary<string, string> _personalityTraitContentItemIdDictionary { get; set; }
-      
-        internal void ImportTraits(Dictionary<string,string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
+
+        internal void ImportTraits(Dictionary<string, string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
         {
             var traits = ReadTraitsFromFile("Trait", dysacWorkbook);
 
@@ -83,7 +83,7 @@ namespace GetJobProfiles.Importers
         public Dictionary<string, List<string>> GetSocToPersonalitySkillMappings(XSSFWorkbook mappingsWorkbook)
         {
             var sheet = mappingsWorkbook.GetSheet("JP Link");
-            var dictionaryToReturn = new Dictionary<string, List<string>> ();
+            var dictionaryToReturn = new Dictionary<string, List<string>>();
 
             //Skip first two rows
             for (int r = 2; r < sheet.PhysicalNumberOfRows; r++)
@@ -95,15 +95,19 @@ namespace GetJobProfiles.Importers
                     var socCode = row.Cells[c].StringCellValue.Substring(0, 5);
                     var value = row.Cells[c].StringCellValue.Replace("Published", "").Replace($"{socCode}-", "");
 
-                    if (dictionaryToReturn.ContainsKey(socCode))
+                    var nonPrefixedSocCode = socCode.Substring(0, 4);
+
+                    if (dictionaryToReturn.ContainsKey(nonPrefixedSocCode))
                     {
-                        dictionaryToReturn[socCode].Add(value);
+                        if (!dictionaryToReturn[nonPrefixedSocCode].Contains(value))
+                        {
+                            dictionaryToReturn[nonPrefixedSocCode].Add(value);
+                        }
                     }
                     else
                     {
-                        dictionaryToReturn.Add(socCode, new List<string> { value });
+                        dictionaryToReturn.Add(nonPrefixedSocCode, new List<string> { value });
                     }
-
                 }
             }
 

@@ -37,5 +37,13 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
                 ContentItemIds = sourceContent?.Select(ci => IdLookup[ci]) ?? new string[0]
             };
         }
+
+        public ContentPicker CreateContentPickerFromContent(string contentType, IEnumerable<string> displayTexts)
+        {
+            return new ContentPicker
+            {
+                ContentItemIds = displayTexts?.Select(it => $"«c#: await Content.GetContentItemIdByDisplayText(\"{contentType}\", \"{it}\")»")
+            };
+        }
     }
 }
