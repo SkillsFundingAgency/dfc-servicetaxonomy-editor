@@ -42,7 +42,7 @@ namespace GetJobProfiles.Models.Recipe.Fields.Factories
         {
             return new ContentPicker
             {
-                ContentItemIds = displayTexts?.Select(it => $"«c#: await Content.GetContentItemIdByDisplayText(\"{contentType}\", \"{it}\")»")
+                ContentItemIds = displayTexts.Select(it => $"«c#: await Content.GetContentItemIdByDisplayText(\"{contentType}\", \"{it}\")»")
             };
         }
     }
