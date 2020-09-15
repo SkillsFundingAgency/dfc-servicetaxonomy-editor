@@ -1,5 +1,4 @@
 ﻿@using OrchardCore.ContentManagement
-@using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 @using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
 @model TriggerSyncValidationViewModel
 
@@ -78,7 +77,7 @@
                     @foreach (ContentItem contentItem in graphResult.Validated)
                     {
                         <li href="#" class="list-group-item d-flex justify-content-between align-items-center">
-                            @{ ShowContentItem(contentItem); }
+                            @{ await ShowContentItem(contentItem); }
                         </li>
                     }
                 </ul>
@@ -92,7 +91,7 @@
                     {
                         <li href="#valfail-@validationFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                             @* todo: user id in results *@
-                            <span><i class="fas fa-chevron-right fa-fw"></i> @{ ShowContentItem(validationFailure.ContentItem); }</span>
+                            <span><i class="fas fa-chevron-right fa-fw"></i> @{ await ShowContentItem(validationFailure.ContentItem); }</span>
                         </li>
 
                         <ul class="list-group collapse" id="valfail-@validationFailure.ContentItem.ContentItemId">
@@ -108,7 +107,7 @@
                 <ul class="list-group collapse" id="repaired-@graphResult.EndpointName-@graphResult.GraphName">
                     @foreach (ContentItem contentItem in graphResult.Repaired)
                     {
-                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center"> @{ ShowContentItem(contentItem); }</li>
+                        <li href="#" class="list-group-item d-flex justify-content-between align-items-center"> @{ await ShowContentItem(contentItem); }</li>
                     }
                 </ul>
 
@@ -121,7 +120,7 @@
                     {
                         <li href="repfail-@repairFailure.ContentItem.ContentItemId" class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse">
                             @* todo: user id in results *@
-                            <span><i class="fas fa-chevron-right fa-fw"></i> @{ ShowContentItem(repairFailure.ContentItem); }</span>
+                            <span><i class="fas fa-chevron-right fa-fw"></i> @{ await ShowContentItem(repairFailure.ContentItem); }</span>
                         </li>
 
                         <ul class="list-group collapse" id="repfail-@repairFailure.ContentItem.ContentItemId">
@@ -136,6 +135,8 @@
 
 @functions
 {
+//https://github.com/dotnet/aspnetcore/issues/20055
+#pragma warning disable 1998
     private void ShowThumb(bool up)
     {
         if (up)
@@ -148,9 +149,9 @@
         }
     }
 
-    private void ShowContentItem(ContentItem contentItem)
+    private async Task ShowContentItem(ContentItem contentItem)
     {
-        <span><a href="/Admin/Contents/ContentItems/@(contentItem.ContentItemId)/Edit">
+        <span><a edit-for="@(contentItem)" target="_blank">
             <strong>
                 @if (string.IsNullOrWhiteSpace(contentItem.DisplayText))
                 {
@@ -163,4 +164,5 @@
             </strong>
         </a> (<strong>@contentItem.ContentType</strong>)</span>
     }
+#pragma warning restore 1998
 }

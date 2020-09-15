@@ -87,21 +87,21 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _incomingPreviewContentPickerRelationships = null;
         }
 
-        public async Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
+        public async Task<IAllowSync> SyncToGraphReplicaSetIfAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
             IGraphMergeContext? parentGraphMergeContext = null)
         {
-            IAllowSyncResult allowSyncResult = await SyncAllowed(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
+            IAllowSync allowSync = await SyncAllowed(graphReplicaSet, contentItem, contentManager, parentGraphMergeContext);
 
-            if (allowSyncResult.AllowSync == SyncStatus.Allowed)
+            if (allowSync.Result == AllowSyncResult.Allowed)
                 await SyncToGraphReplicaSet();
 
-            return allowSyncResult;
+            return allowSync;
         }
 
-        public async Task<IAllowSyncResult> SyncAllowed(
+        public async Task<IAllowSync> SyncAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
@@ -113,14 +113,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             // we use the existence of a GraphSync content part as a marker to indicate that the content item should be synced
             JObject? graphSyncPartContent = (JObject?)contentItem.Content[nameof(GraphSyncPart)];
             if (graphSyncPartContent == null)
-                return AllowSyncResult.NotRequired;
+                return AllowSync.NotRequired;
 
             string? disableSyncContentItemVersionId = _memoryCache.Get<string>($"DisableSync_{contentItem.ContentItemVersionId}");
             if (disableSyncContentItemVersionId != null)
             {
                 _logger.LogInformation("Not syncing {ContentType}:{ContentItemId}, version {ContentItemVersionId} as syncing has been disabled for it.",
                     contentItem.ContentType, contentItem.ContentItemId, disableSyncContentItemVersionId);
-                return AllowSyncResult.NotRequired;
+                return AllowSync.NotRequired;
             }
 
             //todo: ContentType belongs in the context, either combine helper & context, or supply context to helper?
@@ -166,20 +166,20 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             await _graphSyncPartGraphSyncer.AddSyncComponents(graphSyncPartContent, _graphMergeContext!);
         }
 
-        private async Task<IAllowSyncResult> SyncAllowed()
+        private async Task<IAllowSync> SyncAllowed()
         {
-            IAllowSyncResult syncAllowedResult = new AllowSyncResult();
+            IAllowSync syncAllowed = new AllowSync();
 
             foreach (IContentItemGraphSyncer itemSyncer in _itemSyncers)
             {
                 //todo: allow syncers to chain or not? probably not
                 if (itemSyncer.CanSync(_graphMergeContext!.ContentItem))
                 {
-                    await itemSyncer.AllowSync(_graphMergeContext, syncAllowedResult);
+                    await itemSyncer.AllowSync(_graphMergeContext, syncAllowed);
                 }
             }
 
-            return syncAllowedResult;
+            return syncAllowed;
         }
 
         public async Task<IMergeNodeCommand?> SyncToGraphReplicaSet()

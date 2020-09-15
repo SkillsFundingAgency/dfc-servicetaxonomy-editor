@@ -81,19 +81,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
                 GetDeleteGraphSyncerIfDeleteAllowed(
                     contentItem, _previewContentItemVersion, SyncOperation.Delete));
 
-            (IAllowSyncResult publishedAllowSyncResult, IDeleteGraphSyncer? publishedDeleteGraphSyncer) = deleteGraphSyncers[0];
-            (IAllowSyncResult previewAllowSyncResult, IDeleteGraphSyncer? previewDeleteGraphSyncer) = deleteGraphSyncers[1];
+            (IAllowSync publishedAllowSync, IDeleteGraphSyncer? publishedDeleteGraphSyncer) = deleteGraphSyncers[0];
+            (IAllowSync previewAllowSync, IDeleteGraphSyncer? previewDeleteGraphSyncer) = deleteGraphSyncers[1];
 
-            if (publishedAllowSyncResult.AllowSync == SyncStatus.Blocked || previewAllowSyncResult.AllowSync == SyncStatus.Blocked)
+            if (publishedAllowSync.Result == AllowSyncResult.Blocked || previewAllowSync.Result == AllowSyncResult.Blocked)
             {
-                var graphBlockers = new List<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)>();
-                if (publishedAllowSyncResult.AllowSync == SyncStatus.Blocked)
+                var graphBlockers = new List<(string GraphReplicaSetName, IAllowSync AllowSyncResult)>();
+                if (publishedAllowSync.Result == AllowSyncResult.Blocked)
                 {
-                    graphBlockers.Add((_publishedContentItemVersion.GraphReplicaSetName, publishedAllowSyncResult));
+                    graphBlockers.Add((_publishedContentItemVersion.GraphReplicaSetName, publishedAllowSync));
                 }
-                if (previewAllowSyncResult.AllowSync == SyncStatus.Blocked)
+                if (previewAllowSync.Result == AllowSyncResult.Blocked)
                 {
-                    graphBlockers.Add((_previewContentItemVersion.GraphReplicaSetName, previewAllowSyncResult));
+                    graphBlockers.Add((_previewContentItemVersion.GraphReplicaSetName, previewAllowSync));
                 }
 
                 await _notifier.AddBlocked(SyncOperation.Delete, contentItem, graphBlockers);
@@ -122,22 +122,22 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             IContentItemVersion contentItemVersion,
             SyncOperation syncOperation)
         {
-            (IAllowSyncResult allowSyncResult, IDeleteGraphSyncer? publishedDeleteGraphSyncer)
+            (IAllowSync allowSync, IDeleteGraphSyncer? publishedDeleteGraphSyncer)
                 = await GetDeleteGraphSyncerIfDeleteAllowed(
                     contentItem,
                     contentItemVersion,
                     syncOperation);
 
-            switch (allowSyncResult.AllowSync)
+            switch (allowSync.Result)
             {
-                case SyncStatus.Blocked:
+                case AllowSyncResult.Blocked:
                     await _notifier.AddBlocked(
                         syncOperation,
                         contentItem,
-                        new[] {(contentItemVersion.GraphReplicaSetName, allowSyncResult)});
+                        new[] {(contentItemVersion.GraphReplicaSetName, allowSync)});
                     return false;
 
-                case SyncStatus.Allowed:
+                case AllowSyncResult.Allowed:
                     await DeleteFromGraphReplicaSet(publishedDeleteGraphSyncer!, contentItem, syncOperation);
                     break;
             }
@@ -145,7 +145,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             return true;
         }
 
-        private async Task<(IAllowSyncResult, IDeleteGraphSyncer?)> GetDeleteGraphSyncerIfDeleteAllowed(
+        private async Task<(IAllowSync, IDeleteGraphSyncer?)> GetDeleteGraphSyncerIfDeleteAllowed(
             ContentItem contentItem,
             IContentItemVersion contentItemVersion,
             SyncOperation syncOperation)
@@ -154,12 +154,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
             {
                 IDeleteGraphSyncer deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
 
-                IAllowSyncResult allowSyncResult = await deleteGraphSyncer.DeleteAllowed(
+                IAllowSync allowSync = await deleteGraphSyncer.DeleteAllowed(
                     contentItem,
                     contentItemVersion,
                     syncOperation);
 
-                return (allowSyncResult, deleteGraphSyncer);
+                return (allowSync, deleteGraphSyncer);
             }
             catch (Exception exception)
             {

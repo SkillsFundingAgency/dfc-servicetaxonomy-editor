@@ -34,9 +34,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts
                 || contentPartDefinition.Fields.Any(f => _groupingFields.Contains(f.FieldDefinition.Name));
         }
 
-        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSyncResult allowSyncResult)
+        public override async Task AllowSync(JObject content, IGraphMergeContext context, IAllowSync allowSync)
         {
-            await _contentFieldsGraphSyncer.AllowSync(content, context, allowSyncResult);
+            await _contentFieldsGraphSyncer.AllowSync(content, context, allowSync);
         }
 
         public override async Task AddSyncComponents(JObject content, IGraphMergeContext context)

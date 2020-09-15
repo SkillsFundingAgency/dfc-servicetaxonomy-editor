@@ -53,15 +53,15 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Parts.Taxonomy
         public override async Task AllowSync(
             JArray? contentItems,
             IGraphMergeContext context,
-            IAllowSyncResult allowSyncResult)
+            IAllowSync allowSync)
         {
-            var baseAllowSyncResult = new AllowSyncResult();
-            await base.AllowSync(contentItems, context, baseAllowSyncResult);
+            IAllowSync baseAllowSync = new AllowSync();
+            await base.AllowSync(contentItems, context, baseAllowSync);
             var baseBlockersWithoutIncomingTaxonomyBlocker =
-                baseAllowSyncResult.SyncBlockers.Where(sb => sb.ContentType != "Taxonomy");
+                baseAllowSync.SyncBlockers.Where(sb => sb.ContentType != "Taxonomy");
             if (baseBlockersWithoutIncomingTaxonomyBlocker.Any())
             {
-                allowSyncResult.AddSyncBlockers(baseBlockersWithoutIncomingTaxonomyBlocker);
+                allowSync.AddSyncBlockers(baseBlockersWithoutIncomingTaxonomyBlocker);
             }
         }
     }

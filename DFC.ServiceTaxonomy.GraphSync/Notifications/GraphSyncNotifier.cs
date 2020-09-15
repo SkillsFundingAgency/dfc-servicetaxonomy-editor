@@ -54,7 +54,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
         public async Task AddBlocked(
             SyncOperation syncOperation,
             ContentItem contentItem,
-            IEnumerable<(string GraphReplicaSetName, IAllowSyncResult AllowSyncResult)> graphBlockers)
+            IEnumerable<(string GraphReplicaSetName, IAllowSync AllowSync)> graphBlockers)
         {
             string contentType = GetContentTypeDisplayName(contentItem);
 
@@ -69,8 +69,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             foreach (var graphBlocker in graphBlockers)
             {
-                _logger.LogWarning($"{graphBlocker.GraphReplicaSetName} graph blockers: {graphBlocker.AllowSyncResult}.");
-                await AddSyncBlockers(technicalMessage, technicalHtmlMessage, graphBlocker.GraphReplicaSetName, graphBlocker.AllowSyncResult);
+                _logger.LogWarning("{GraphReplicaSetName} graph blockers: {AllowSync}.",
+                    graphBlocker.GraphReplicaSetName, graphBlocker.AllowSync);
+                await AddSyncBlockers(technicalMessage, technicalHtmlMessage, graphBlocker.GraphReplicaSetName, graphBlocker.AllowSync);
             }
 
             //todo: need details of the content item with incoming relationships
@@ -79,12 +80,12 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
                 technicalHtmlMessage: new HtmlString(technicalHtmlMessage.ToString()));
         }
 
-        private async Task AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSyncResult allowSyncResult)
+        private async Task AddSyncBlockers(StringBuilder technicalMessage, StringBuilder technicalHtmlMessage, string graphReplicaSetName, IAllowSync allowSync)
         {
             technicalHtmlMessage.AppendLine($"<div class=\"card mt-3\"><div class=\"card-header\">{graphReplicaSetName} graph</div><div class=\"card-body\">");
 
             technicalHtmlMessage.AppendLine("<ul class=\"list-group list-group-flush\">");
-            foreach (var syncBlocker in allowSyncResult.SyncBlockers)
+            foreach (var syncBlocker in allowSync.SyncBlockers)
             {
                 string? contentItemId = await _nodeContentItemLookup.GetContentItemId((string)syncBlocker.Id, graphReplicaSetName);
 
@@ -108,7 +109,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Notifications
 
             technicalHtmlMessage.AppendLine("</ul></div></div>");
 
-            technicalMessage.AppendLine($"{graphReplicaSetName} graph: {allowSyncResult}");
+            technicalMessage.AppendLine($"{graphReplicaSetName} graph: {allowSync}");
         }
 
         private string GetContentTypeDisplayName(ContentItem contentItem)

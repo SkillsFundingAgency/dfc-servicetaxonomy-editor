@@ -18,15 +18,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         }
 
         [Theory]
-        [InlineData(SyncStatus.Allowed, true)]
-        [InlineData(SyncStatus.Blocked, false)]
-        [InlineData(SyncStatus.NotRequired, true)]
+        [InlineData(AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.NotRequired, true)]
         public async Task SaveDraft_SyncAllowedMatrix_ReturnsBool(
-            SyncStatus syncAllowedStatus,
+            AllowSyncResult allowSyncAllowedResult,
             bool expectedSuccess)
         {
-            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
-                .Returns(syncAllowedStatus);
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(allowSyncAllowedResult);
 
             bool success = await SyncOrchestrator.SaveDraft(ContentItem);
 
@@ -34,15 +34,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         }
 
         [Theory]
-        [InlineData(SyncStatus.Allowed, true)]
-        [InlineData(SyncStatus.Blocked, false)]
-        [InlineData(SyncStatus.NotRequired, false)]
+        [InlineData(AllowSyncResult.Allowed, true)]
+        [InlineData(AllowSyncResult.Blocked, false)]
+        [InlineData(AllowSyncResult.NotRequired, false)]
         public async Task SaveDraft_SyncAllowedMatrix_SyncCalled(
-            SyncStatus syncAllowedStatus,
+            AllowSyncResult allowSyncAllowedResult,
             bool expectedSyncCalled)
         {
-            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
-                .Returns(syncAllowedStatus);
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(allowSyncAllowedResult);
 
             await SyncOrchestrator.SaveDraft(ContentItem);
 
@@ -53,8 +53,8 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         [Fact]
         public async Task SaveDraft_MergeGraphSyncerThrows_ExceptionPropagates()
         {
-            A.CallTo(() => PreviewAllowSyncResult.AllowSync)
-                .Returns(SyncStatus.Allowed);
+            A.CallTo(() => PreviewAllowSync.Result)
+                .Returns(AllowSyncResult.Allowed);
 
             A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                 .Throws(() => new Exception());

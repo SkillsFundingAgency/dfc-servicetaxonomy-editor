@@ -4,9 +4,9 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync
 {
-    public interface IAllowSyncResult
+    public interface IAllowSync
     {
-        SyncStatus AllowSync { get; }
+        AllowSyncResult Result { get; }
 
         ConcurrentBag<ISyncBlocker> SyncBlockers { get; set; }
 
@@ -14,6 +14,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSyn
 
         void AddSyncBlockers(IEnumerable<ISyncBlocker> syncBlockers);
         // better name?
-        void AddRelated(IAllowSyncResult allowSyncResult);
+        void AddRelated(IAllowSync allowSync);
     }
 }
