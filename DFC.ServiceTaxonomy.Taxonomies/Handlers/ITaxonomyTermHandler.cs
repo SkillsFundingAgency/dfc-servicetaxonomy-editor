@@ -5,6 +5,9 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Handlers
 {
     public interface ITaxonomyTermHandler
     {
-        Task UpdatedAsync(ContentItem term, ContentItem taxonomy);
+        Task<bool> UpdatedAsync(ContentItem term, ContentItem taxonomy);
+
+        Task PublishedAsync(ContentItem term);
+
     }
 }
