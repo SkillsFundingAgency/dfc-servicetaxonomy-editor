@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -40,7 +41,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Activities
         {
             _logger.LogInformation($"{nameof(AuditSyncIssuesTask)} triggered.");
 
-            await _validateAndRepairGraph.ValidateGraph();
+            await _validateAndRepairGraph.ValidateGraph(ValidationScope.AllItems);
 
             return Outcomes("Done");
         }

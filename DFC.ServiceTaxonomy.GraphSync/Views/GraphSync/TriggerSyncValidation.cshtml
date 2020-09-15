@@ -1,5 +1,6 @@
 ﻿@using OrchardCore.ContentManagement
 @using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair
+@using System.Data.SqlTypes
 @model TriggerSyncValidationViewModel
 
 @* todo: loop through results and display each *@
@@ -14,8 +15,15 @@
 
     if (!validations && !validationFailures)
     {
-        <h3 class="text-center">No new or modified content items since</h3>
-        <h3 class="text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</h3>
+        if (Model.ValidateAndRepairResults.LastSync == SqlDateTime.MinValue.Value)
+        {
+            <h3 class="text-center">No content items</h3>
+        }
+        else
+        {
+            <h3 class="text-center">No content items created, modified or deleted since</h3>
+            <h3 class="text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</h3>
+        }
 
         ShowThumb(true);
     }
@@ -37,9 +45,16 @@
             });
         </script>
 
-        @*should be h1, but then ".ta-content h1" takes precedence over display-1*@
-        <h3 class="text-center">All new or modified content items since</h3>
-        <h3 class="text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</h3>
+        if (Model.ValidateAndRepairResults.LastSync == SqlDateTime.MinValue.Value)
+        {
+            <h3 class="text-center">All content items</h3>
+        }
+        else
+        {
+            @*should be h1, but then ".ta-content h1" takes precedence over display-1*@
+            <h3 class="text-center">All new, modified or deleted content items since</h3>
+            <h3 class="text-center">@Model.ValidateAndRepairResults.LastSync.ToString("f")</h3>
+        }
 
         <h1 class="display-1 text-center">Validated</h1>
         ShowThumb(!validationFailures);

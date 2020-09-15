@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
@@ -67,7 +68,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
 
 
         [Admin]
-        public async Task<IActionResult> TriggerSyncValidation()
+        public async Task<IActionResult> TriggerSyncValidation(ValidationScope scope)
         {
             if (!await _authorizationService.AuthorizeAsync(User, Permissions.AdministerGraphs))
             {
@@ -80,7 +81,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 //todo: display page straight away : show progress (log) in page
                 //todo: add name of user who triggered into logs (if not already sussable)
                 _logger.LogInformation("User sync validation triggered");
-                validateAndRepairResults = await _validateAndRepairGraph.ValidateGraph();
+                validateAndRepairResults = await _validateAndRepairGraph.ValidateGraph(scope);
             }
             catch (Exception e)
             {

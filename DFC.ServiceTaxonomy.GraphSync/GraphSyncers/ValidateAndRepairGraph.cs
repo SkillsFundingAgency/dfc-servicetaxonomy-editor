@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
+using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
@@ -20,11 +22,16 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Models;
-using OrchardCore.ContentManagement.Records;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 {
+    public enum ValidationScope
+    {
+        ModifiedSinceLastValidation,
+        AllItems
+    }
+
     public class ValidateAndRepairGraph : IValidateAndRepairGraph
     {
         private readonly IEnumerable<IContentItemGraphSyncer> _itemSyncers;
@@ -36,6 +43,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly ISyncNameProvider _syncNameProvider;
         private readonly IGraphValidationHelper _graphValidationHelper;
         private readonly IContentItemVersionFactory _contentItemVersionFactory;
+        private readonly IContentItemsService _contentItemsService;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
 
@@ -47,6 +55,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ISyncNameProvider syncNameProvider,
             IGraphValidationHelper graphValidationHelper,
             IContentItemVersionFactory contentItemVersionFactory,
+            IContentItemsService contentItemsService,
             ILogger<ValidateAndRepairGraph> logger)
         {
             _itemSyncers = itemSyncers.OrderByDescending(s => s.Priority);
@@ -57,27 +66,29 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _syncNameProvider = syncNameProvider;
             _graphValidationHelper = graphValidationHelper;
             _contentItemVersionFactory = contentItemVersionFactory;
+            _contentItemsService = contentItemsService;
             _logger = logger;
             _currentGraph = default;
 
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
         }
 
-        public async Task<ValidateAndRepairResults> ValidateGraph(params string[] graphReplicaSetNames)
+        public async Task<ValidateAndRepairResults> ValidateGraph(
+            ValidationScope validationScope,
+            params string[] graphReplicaSetNames)
         {
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
 
             DateTime timestamp = DateTime.UtcNow;
-            AuditSyncLog auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync() ??
-                                        new AuditSyncLog {LastSynced = SqlDateTime.MinValue.Value};
 
             IEnumerable<string> graphReplicaSetNamesToValidate = graphReplicaSetNames.Any()
                 ? graphReplicaSetNames
                 : _graphClusterLowLevel.GraphReplicaSetNames;
 
-            var results = new ValidateAndRepairResults(auditSyncLog.LastSynced);
+            DateTime validateFrom = await GetValidateFromTime(validationScope);
+            var results = new ValidateAndRepairResults(validateFrom);
 
             //todo: we could optimise to only get content items from the oc database once for each replica set,
             // rather than for each instance
@@ -105,7 +116,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                         List<ValidationFailure> syncFailures = await ValidateContentItemsOfContentType(
                             contentItemVersion,
                             contentTypeDefinition,
-                            auditSyncLog.LastSynced,
+                            validateFrom,
                             result);
                         if (syncFailures.Any())
                         {
@@ -120,11 +131,19 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _logger.LogInformation("Woohoo: graph passed validation or was successfully repaired.");
 
-            auditSyncLog.LastSynced = timestamp;
-            _session.Save(auditSyncLog);
+            _session.Save(new AuditSyncLog(timestamp));
             await _session.CommitAsync();
 
             return results;
+        }
+
+        private async Task<DateTime> GetValidateFromTime(ValidationScope validationScope)
+        {
+            if (validationScope == ValidationScope.AllItems)
+                return SqlDateTime.MinValue.Value;
+
+            var auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync();
+            return auditSyncLog?.LastSynced ?? SqlDateTime.MinValue.Value;
         }
 
         private async Task<List<ValidationFailure>> ValidateContentItemsOfContentType(
@@ -135,11 +154,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         {
             List<ValidationFailure> syncFailures = new List<ValidationFailure>();
 
-            //todo: do we want to batch up content items of type?
-            IEnumerable<ContentItem> contentTypeContentItems = await GetContentItems(
-                contentItemVersion, contentTypeDefinition, lastSynced);
+            (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
 
-            IEnumerable<ContentItem> deletedContentTypeContentItems = await GetDeletedContentItems(contentTypeDefinition, lastSynced);
+            //todo: do we want to batch up content items of type?
+            IEnumerable<ContentItem> contentTypeContentItems = await _contentItemsService
+                .Get(contentTypeDefinition.Name, lastSynced, latest: latest, published: published);
+
+            IEnumerable<ContentItem> deletedContentTypeContentItems = await _contentItemsService
+                .GetDeleted(contentTypeDefinition.Name, lastSynced);
 
             if (!contentTypeContentItems.Any() && !deletedContentTypeContentItems.Any())
             {
@@ -196,78 +218,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return syncFailures;
         }
 
-        private async Task<IEnumerable<ContentItem>> GetContentItems(
-            IContentItemVersion contentItemVersion,
-            ContentTypeDefinition contentTypeDefinition,
-            DateTime lastSynced)
-        {
-            (bool? latest, bool? published) = contentItemVersion.ContentItemIndexFilterTerms;
-
-            // this works when using sqlite, but it seems there's a bug in yessql when executing the query against azure sql
-
-            // return await _session
-            //     .Query<ContentItem, ContentItemIndex>(x =>
-            //         x.ContentType == contentTypeDefinition.Name
-            //         && (latest == null || x.Latest == latest)
-            //         && (published == null || x.Published == published)
-            //         && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-            //     .ListAsync();
-
-            // so instead we pick one of 4 different queries depending on whether latest or published is null
-
-            if (latest != null && published != null)
-            {
-                return await _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentTypeDefinition.Name
-                        && x.Latest == latest && x.Published == published
-                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                    .ListAsync();
-            }
-
-            if (latest == null && published != null)
-            {
-                return await _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentTypeDefinition.Name
-                        && x.Published == published
-                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                    .ListAsync();
-            }
-
-            if (latest != null && published == null)
-            {
-                return await _session
-                    .Query<ContentItem, ContentItemIndex>(x =>
-                        x.ContentType == contentTypeDefinition.Name
-                        && x.Latest == latest
-                        && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                    .ListAsync();
-            }
-
-            // latest == null && published == null
-
-            return await _session
-                .Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType == contentTypeDefinition.Name
-                    && (x.CreatedUtc >= lastSynced || x.ModifiedUtc >= lastSynced))
-                .ListAsync();
-        }
-
-        private async Task<IEnumerable<ContentItem>> GetDeletedContentItems(
-            ContentTypeDefinition contentTypeDefinition,
-            DateTime lastSynced)
-        {
-            return (await _session
-                .Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType == contentTypeDefinition.Name &&
-                    x.ModifiedUtc >= lastSynced)
-                .ListAsync())
-                .GroupBy(x => x.ContentItemId)
-                .Select(grp => grp.OrderByDescending(x => x.ModifiedUtc).First())
-                .Where(x => !x.Latest && !x.Published);
-        }
-
         //todo: ToString in Graph?
         private string GraphDescription(IGraph graph)
         {
@@ -285,74 +235,90 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
                 contentTypeDefinition.Name,
                 string.Join(", ", syncValidationFailures.Select(f => f.ContentItem.ToString())));
 
-            // if this throws should we carry on?
             foreach (var failure in syncValidationFailures)
             {
-
                 if (failure.Type == FailureType.Merge)
                 {
-                    var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
-                    IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
-
-                    try
-                    {
-                        await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogWarning(ex, "Repair of {ContentItem} in {GraphReplicaSet} failed.",
-                            failure.ContentItem, graphReplicaSet);
-                    }
-
-                    (bool validated, string? validationFailureReason) =
-                        await ValidateContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
-
-                    if (validated)
-                    {
-                        _logger.LogInformation("Repair was successful on {ContentType} {ContentItemId} in {CurrentGraph}.",
-                            failure.ContentItem.ContentType,
-                            failure.ContentItem.ContentItemId,
-                            GraphDescription(_currentGraph!));
-                        result.Repaired.Add(failure.ContentItem);
-                    }
-                    else
-                    {
-                        string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
-                        _logger.LogWarning(message, validationFailureReason);
-                        result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
-                    }
+                    await AttemptMergeRepair(contentTypeDefinition, contentItemVersion, result, failure);
                 }
                 else
                 {
-                    var deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
-
-                    try
-                    {
-                        await deleteGraphSyncer.DeleteIfAllowed(failure.ContentItem, contentItemVersion, SyncOperation.Delete);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogWarning(ex, "Repair of deleted {ContentItem} failed.", failure.ContentItem);
-                    }
-
-                    (bool validated, string? validationFailureReason) =
-                        await ValidateDeletedContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
-
-                    if (validated)
-                    {
-                        _logger.LogInformation("Repair was successful on deleted {ContentType} {ContentItemId} in {CurrentGraph}.",
-                            failure.ContentItem.ContentType,
-                            failure.ContentItem.ContentItemId,
-                            GraphDescription(_currentGraph!));
-                        result.Repaired.Add(failure.ContentItem);
-                    }
-                    else
-                    {
-                        string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
-                        _logger.LogWarning(message, validationFailureReason);
-                        result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
-                    }
+                    await AttemptDeleteRepair(contentTypeDefinition, contentItemVersion, result, failure);
                 }
+            }
+        }
+
+        private async Task AttemptMergeRepair(
+            ContentTypeDefinition contentTypeDefinition,
+            IContentItemVersion contentItemVersion,
+            ValidateAndRepairResult result,
+            ValidationFailure failure)
+        {
+            var mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
+            IGraphReplicaSet graphReplicaSet = _currentGraph!.GetReplicaSetLimitedToThisGraph();
+
+            try
+            {
+                await mergeGraphSyncer.SyncToGraphReplicaSetIfAllowed(graphReplicaSet, failure.ContentItem, _contentManager);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Repair of {ContentItem} in {GraphReplicaSet} failed.",
+                    failure.ContentItem, graphReplicaSet);
+            }
+
+            (bool validated, string? validationFailureReason) =
+                await ValidateContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
+
+            if (validated)
+            {
+                _logger.LogInformation("Repair was successful on {ContentType} {ContentItemId} in {CurrentGraph}.",
+                    failure.ContentItem.ContentType,
+                    failure.ContentItem.ContentItemId,
+                    GraphDescription(_currentGraph!));
+                result.Repaired.Add(failure.ContentItem);
+            }
+            else
+            {
+                string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
+                _logger.LogWarning(message, validationFailureReason);
+                result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
+            }
+        }
+
+        private async Task AttemptDeleteRepair(
+            ContentTypeDefinition contentTypeDefinition,
+            IContentItemVersion contentItemVersion,
+            ValidateAndRepairResult result,
+            ValidationFailure failure)
+        {
+            var deleteGraphSyncer = _serviceProvider.GetRequiredService<IDeleteGraphSyncer>();
+
+            try
+            {
+                await deleteGraphSyncer.DeleteIfAllowed(failure.ContentItem, contentItemVersion, SyncOperation.Delete);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Repair of deleted {ContentItem} failed.", failure.ContentItem);
+            }
+
+            (bool validated, string? validationFailureReason) =
+                await ValidateDeletedContentItem(failure.ContentItem, contentTypeDefinition, contentItemVersion);
+
+            if (validated)
+            {
+                _logger.LogInformation("Repair was successful on deleted {ContentType} {ContentItemId} in {CurrentGraph}.",
+                    failure.ContentItem.ContentType,
+                    failure.ContentItem.ContentItemId,
+                    GraphDescription(_currentGraph!));
+                result.Repaired.Add(failure.ContentItem);
+            }
+            else
+            {
+                string message = $"Repair was unsuccessful.{Environment.NewLine}{{ValidationFailureReason}}.";
+                _logger.LogWarning(message, validationFailureReason);
+                result.RepairFailures.Add(new RepairFailure(failure.ContentItem, validationFailureReason!));
             }
         }
 
@@ -427,7 +393,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             return (true, "");
         }
 
-        public async Task<(bool validated, string failureReason)> ValidateDeletedContentItem(
+        private async Task<(bool validated, string failureReason)> ValidateDeletedContentItem(
             ContentItem contentItem,
             ContentTypeDefinition contentTypeDefinition,
             IContentItemVersion contentItemVersion)
@@ -460,10 +426,5 @@ Content ----------------------------------------
           type: '{contentItem.ContentType}'
             ID: {contentItem.ContentItemId}";
         }
-    }
-
-    public class AuditSyncLog
-    {
-        public DateTime LastSynced { get; set; }
     }
 }
