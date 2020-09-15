@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using OrchardCore.ContentManagement;
 
-namespace DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces
+namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces
 {
     public interface ISyncOrchestrator
     {

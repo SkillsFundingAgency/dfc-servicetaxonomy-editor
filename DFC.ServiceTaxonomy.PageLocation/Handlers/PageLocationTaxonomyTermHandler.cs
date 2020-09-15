@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
+using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.PageLocation.Models;
 using DFC.ServiceTaxonomy.Taxonomies.Handlers;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Records;
 using YesSql;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Handlers
@@ -19,15 +20,17 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
     {
         private readonly ISession _session;
         private readonly ITaxonomyHelper _taxonomyHelper;
-        private readonly IContentManager _contentManager;
         private readonly ISyncOrchestrator _syncOrchestrator;
         private readonly IContentItemsService _contentItemsService;
 
-        public PageLocationTaxonomyTermHandler(ISession session, ITaxonomyHelper taxonomyHelper, IContentManager contentManager, ISyncOrchestrator syncOrchestrator, IContentItemsService contentItemsService)
+        public PageLocationTaxonomyTermHandler(
+            ISession session,
+            ITaxonomyHelper taxonomyHelper,
+            ISyncOrchestrator syncOrchestrator,
+            IContentItemsService contentItemsService)
         {
             _session = session;
             _taxonomyHelper = taxonomyHelper;
-            _contentManager = contentManager;
             _syncOrchestrator = syncOrchestrator;
             _contentItemsService = contentItemsService;
         }
@@ -61,29 +64,35 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
                     _session.Save(page);
                 }
 
-                if (pages.Count > 1)
+                try
                 {
-                    var publishedPage = pages.Single(x => x.Published);
-                    var draftPage = pages.Single(x => x.Latest);
-
-                    //TODO (CHECK) : will this also fire events to the event store?
-                    if (!await _syncOrchestrator.Update(publishedPage, draftPage))
+                    if (pages.Count > 1)
                     {
-                        _session.Cancel();
+                        var publishedPage = pages.Single(x => x.Published);
+                        var draftPage = pages.Single(x => x.Latest);
+
+                        if (!await _syncOrchestrator.Update(publishedPage, draftPage))
+                        {
+                            _session.Cancel();
+                        }
+                    }
+                    else
+                    {
+                        var page = pages.Single();
+
+                        if (page.Published && !await _syncOrchestrator.Publish(page))
+                        {
+                            _session.Cancel();
+                        }
+                        else if (!page.Published && !await _syncOrchestrator.SaveDraft(page))
+                        {
+                            _session.Cancel();
+                        }
                     }
                 }
-                else
+                catch (Exception)
                 {
-                    var page = pages.Single();
-
-                    if (page.Published && !await _syncOrchestrator.Publish(page))
-                    {
-                        _session.Cancel();
-                    }
-                    else if (!page.Published && !await _syncOrchestrator.SaveDraft(page))
-                    {
-                        _session.Cancel();
-                    }
+                    _session.Cancel();
                 }
             }
         }

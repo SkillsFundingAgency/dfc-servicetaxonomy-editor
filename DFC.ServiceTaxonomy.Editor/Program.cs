@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -16,7 +17,10 @@ namespace DFC.ServiceTaxonomy.Editor
     public static class Program
     {
         public static Task Main(string[] args)
-            => BuildHost(args).RunAsync();
+        {
+            Activity.DefaultIdFormat = ActivityIdFormat.W3C;
+            return BuildHost(args).RunAsync();
+        }
 
         public static IHost BuildHost(string[] args)
         {

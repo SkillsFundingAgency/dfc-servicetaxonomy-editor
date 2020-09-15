@@ -2,6 +2,7 @@
 
 namespace DFC.ServiceTaxonomy.GraphSync.Models
 {
+    //todo: probably doesn't belong here
     public class ContentItemRelationship
     {
         public ContentItemRelationship(IEnumerable<string> source, string relationship, IEnumerable<string> destination)

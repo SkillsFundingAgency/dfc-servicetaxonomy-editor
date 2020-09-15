@@ -105,7 +105,8 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, "Unable to sync '{contentItem.DisplayText}' Page to {GraphReplicaSetNames.Preview} graph(s).");
+                _logger.LogError(exception, "Unable to sync '{ContentItemDisplayText}' Page to {GraphReplicaSetName} graph(s).",
+                    contentItem.DisplayText, GraphReplicaSetNames.Preview);
             }
 
             if (syncStatus == SyncStatus.Blocked)

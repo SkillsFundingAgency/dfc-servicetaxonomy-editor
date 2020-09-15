@@ -5,6 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -20,14 +21,13 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
 
         public IDeleteGraphSyncer DeleteGraphSyncer { get; }
         public IDeleteNodeCommand DeleteNodeCommand { get; }
-        public DeleteOperation DeleteOperation { get; }
+        public SyncOperation SyncOperation { get; }
         public IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
 
-        public GraphDeleteContext(
-            ContentItem contentItem,
+        public GraphDeleteContext(ContentItem contentItem,
             IDeleteNodeCommand deleteNodeCommand,
             IDeleteGraphSyncer deleteGraphSyncer,
-            DeleteOperation deleteOperation,
+            SyncOperation syncOperation,
             ISyncNameProvider syncNameProvider,
             IContentManager contentManager,
             IContentItemVersion contentItemVersion,
@@ -44,7 +44,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts
         {
             DeleteGraphSyncer = deleteGraphSyncer;
             DeleteNodeCommand = deleteNodeCommand;
-            DeleteOperation = deleteOperation;
+            SyncOperation = syncOperation;
             DeleteIncomingRelationshipsProperties = deleteIncomingRelationshipsProperties;
         }
     }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
+using DFC.ServiceTaxonomy.GraphSync.Services;
 using DFC.ServiceTaxonomy.Neo4j.Commands.Interfaces;
 
 namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
@@ -11,7 +11,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts
 
         IDeleteGraphSyncer DeleteGraphSyncer { get; }
         IDeleteNodeCommand DeleteNodeCommand { get; }
-        DeleteOperation DeleteOperation { get; }
+        SyncOperation SyncOperation { get; }
         IEnumerable<KeyValuePair<string, object>>? DeleteIncomingRelationshipsProperties { get; }
     }
 }

@@ -120,9 +120,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                     allowSyncResult.AddSyncBlockers(
                         nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
-                            new SyncBlocker(
-                                context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
-                                (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
+                        {
+                            string contentType =
+                                context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels);
+                            return new SyncBlocker(
+                                contentType,
+                                r.DestinationNode.Properties[context.SyncNameProvider.IdPropertyName(contentType)],
+                                (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]);
+                        }));
                 }
             }
         }
@@ -248,9 +253,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
 
                         allowSyncResult.AddSyncBlockers(
                             nonTwoWayIncomingRelationshipsToEmbeddedItems.Select(r =>
-                                new SyncBlocker(
-                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels),
-                                    (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName])));
+                            {
+                                string contentType =
+                                    context.SyncNameProvider.GetContentTypeFromNodeLabels(r.DestinationNode.Labels);
+                                return new SyncBlocker(
+                                    contentType,
+                                    r.DestinationNode.Properties[context.SyncNameProvider.IdPropertyName(contentType)],
+                                    (string?)r.DestinationNode.Properties[TitlePartGraphSyncer.NodeTitlePropertyName]);
+                            }));
                 }
             }
         }
@@ -345,7 +355,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
                     IAllowSyncResult embeddedAllowSyncResult = await deleteGraphSyncer.DeleteAllowed(
                         contentItem,
                         context.ContentItemVersion,
-                        context.DeleteOperation,
+                        context.SyncOperation,
                         allDeleteIncomingRelationshipsProperties,
                         context);
 
