@@ -42,6 +42,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         {
            foreach(var orchestrator in _contentOrchestrationHandlers)
             {
+                if (term.ContentType != ContentTypes.PageLocation)
+                    return;
+
                 await orchestrator.Published(term);
             }
         }
@@ -49,7 +52,7 @@ namespace DFC.ServiceTaxonomy.PageLocation.Handlers
         public async Task<bool> UpdatedAsync(ContentItem term, ContentItem taxonomy)
         {
             if (term.ContentType != ContentTypes.PageLocation)
-                return false;
+                return true;
 
             List<ContentItem> allPages = await _contentItemsService.GetActive(ContentTypes.Page);
             List<ContentItem> associatedPages = allPages.Where(x => x.Content.Page.PageLocations.TermContentItemIds[0] == term.ContentItemId).ToList();
