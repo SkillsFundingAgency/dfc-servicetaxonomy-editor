@@ -494,6 +494,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers
             int relationshipOrdinal = 0;
             foreach (ContentItem embeddedContentItem in embeddedContentItems)
             {
+                // embedded item doesn't have a graph sync part, so doesn't get synced
+                if (!_contentTypes.ContainsKey(embeddedContentItem.ContentType))
+                    continue;
+
                 ContentTypeDefinition embeddedContentTypeDefinition = _contentTypes[embeddedContentItem.ContentType];
 
                 (bool validated, string failureReason) =
