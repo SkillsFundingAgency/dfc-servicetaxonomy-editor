@@ -136,9 +136,13 @@ namespace GetJobProfiles
             using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
             var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
 
+            using var dysacJobProfileReader = new StreamReader(@"SeedData\dysac_job_profile_mappings.xlsx");
+            var dysacJobProfileWorkbook = new XSSFWorkbook(dysacJobProfileReader.BaseStream);
+
             var dysacImporter = new DysacImporter();
             dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
             dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
+            dysacImporter.GetSocToPersonalitySkillMappings(dysacJobProfileWorkbook);
 
             const string cypherCommandRecipesPath = "CypherCommandRecipes";
 

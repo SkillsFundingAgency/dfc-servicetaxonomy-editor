@@ -80,6 +80,23 @@ namespace GetJobProfiles.Importers
             return listToReturn;
         }
 
+        public Dictionary<string, List<string>> GetSocToPersonalitySkillMappings(XSSFWorkbook mappingsWorkbook)
+        {
+            var sheet = mappingsWorkbook.GetSheet("bla");
+
+            for (int r = 0; r < sheet.PhysicalNumberOfRows; r++)
+            {
+                var row = sheet.GetRow(r);
+
+                for (int c = 0; c < row.PhysicalNumberOfCells; c++)
+                {
+                    var socCode = row.GetCell(c).StringCellValue.Substring(0, 4);
+                }
+            }
+
+            return new Dictionary<string, List<string>>();
+        }
+
         private IEnumerable<PersonalityTrait> ReadTraitsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
         {
             var listToReturn = new List<PersonalityTrait>();
