@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
 {
     public class SyncOrchestratorTestsBase : IDisposable
     {
