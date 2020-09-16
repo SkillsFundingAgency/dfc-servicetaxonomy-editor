@@ -4,15 +4,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.ValidateAndRepair;
+using DFC.ServiceTaxonomy.GraphSync.Notifications;
 using DFC.ServiceTaxonomy.GraphSync.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using OrchardCore.Admin;
-using OrchardCore.DisplayManagement.Notify;
 
 namespace DFC.ServiceTaxonomy.GraphSync.Controllers
 {
@@ -20,14 +19,14 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
     {
         private readonly IValidateAndRepairGraph _validateAndRepairGraph;
         private readonly IAuthorizationService _authorizationService;
-        private readonly INotifier _notifier;
+        private readonly IGraphSyncNotifier _notifier;
         private readonly ILogger<GraphSyncController> _logger;
         private readonly ISynonymService _synonymService;
 
         public GraphSyncController(
             IValidateAndRepairGraph validateAndRepairGraph,
             IAuthorizationService authorizationService,
-            INotifier notifier,
+            IGraphSyncNotifier notifier,
             ILogger<GraphSyncController> logger,
             ISynonymService synonymService)
         {
@@ -66,7 +65,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
         }
 
-
         [Admin]
         public async Task<IActionResult> TriggerSyncValidation(ValidationScope scope)
         {
@@ -75,7 +73,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
                 return Forbid();
             }
 
-            ValidateAndRepairResults? validateAndRepairResults = null;
+            IValidateAndRepairResults? validateAndRepairResults = null;
             try
             {
                 //todo: display page straight away : show progress (log) in page
@@ -85,8 +83,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogWarning(e, $"User triggered sync validation failed: {e}");
-                _notifier.Add(NotifyType.Error, new LocalizedHtmlString(nameof(GraphSyncController), $"Unable to validate graph sync."));
+                _logger.LogWarning(e, "User triggered sync validation failed.");
+                _notifier.Add("Unable to validate graph sync.", exception: e);
             }
             return View(new TriggerSyncValidationViewModel
             {

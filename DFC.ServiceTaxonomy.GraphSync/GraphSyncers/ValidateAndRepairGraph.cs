@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
@@ -10,6 +11,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
 using DFC.ServiceTaxonomy.GraphSync.Models;
 using DFC.ServiceTaxonomy.GraphSync.Neo4j.Queries;
@@ -46,6 +48,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentItemsService _contentItemsService;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
+        private static readonly SemaphoreSlim _serialValidation = new SemaphoreSlim(1, 1);
 
         public ValidateAndRepairGraph(IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IContentDefinitionManager contentDefinitionManager,
@@ -73,7 +76,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
         }
 
-        public async Task<ValidateAndRepairResults> ValidateGraph(
+        public async Task<IValidateAndRepairResults> ValidateGraph(
+            ValidationScope validationScope,
+            params string[] graphReplicaSetNames)
+        {
+            if (!await _serialValidation.WaitAsync(TimeSpan.Zero))
+                return ValidationAlreadyInProgressResult.Instance;
+
+            try
+            {
+                return await ValidateGraphImpl(validationScope, graphReplicaSetNames);
+            }
+            finally
+            {
+                _serialValidation.Release();
+            }
+        }
+
+        private async Task<IValidateAndRepairResults> ValidateGraphImpl(
             ValidationScope validationScope,
             params string[] graphReplicaSetNames)
         {
@@ -142,7 +162,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (validationScope == ValidationScope.AllItems)
                 return SqlDateTime.MinValue.Value;
 
-            var auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync();
+            var auditSyncLog = await _session
+                .Query<AuditSyncLog>()
+                .ToAsyncEnumerable()
+                .LastOrDefaultAsync();
             return auditSyncLog?.LastSynced ?? SqlDateTime.MinValue.Value;
         }
 

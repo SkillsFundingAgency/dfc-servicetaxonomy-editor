@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.ContentItemVersions;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.ValidateAndRepair;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.ValidateAndRepair;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata.Models;
 
@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IValidateAndRepairGraph
     {
-        Task<ValidateAndRepairResults> ValidateGraph(
+        Task<IValidateAndRepairResults> ValidateGraph(
             ValidationScope validationScope,
             params string[] graphReplicaSetNames);
 
