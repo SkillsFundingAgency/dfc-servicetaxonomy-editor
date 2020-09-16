@@ -46,6 +46,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentItemsService _contentItemsService;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
+        private static object _validationLock = new object();
 
         public ValidateAndRepairGraph(IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IContentDefinitionManager contentDefinitionManager,
@@ -72,6 +73,24 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
 
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
         }
+
+        // public async Task<ValidateAndRepairResults> ValidateGraph(
+        //     ValidationScope validationScope,
+        //     params string[] graphReplicaSetNames)
+        // {
+        //     if (!Monitor.TryEnter(_validationLock))
+        //         //todo: null time? blocked result?
+        //         return new ValidateAndRepairResults();
+        //
+        //     try
+        //     {
+        //         await ValidateGraphX(validationScope, graphReplicaSetNames);
+        //     }
+        //     finally
+        //     {
+        //         Monitor.Exit(_validationLock);
+        //     }
+        // }
 
         public async Task<ValidateAndRepairResults> ValidateGraph(
             ValidationScope validationScope,
@@ -142,7 +161,8 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (validationScope == ValidationScope.AllItems)
                 return SqlDateTime.MinValue.Value;
 
-            var auditSyncLog = await _session.Query<AuditSyncLog>().FirstOrDefaultAsync();
+            var auditSyncLogList = await _session.Query<AuditSyncLog>().ListAsync();
+            var auditSyncLog = auditSyncLogList.LastOrDefault();
             return auditSyncLog?.LastSynced ?? SqlDateTime.MinValue.Value;
         }
 
