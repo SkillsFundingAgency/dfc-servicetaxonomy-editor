@@ -161,8 +161,10 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             if (validationScope == ValidationScope.AllItems)
                 return SqlDateTime.MinValue.Value;
 
-            var auditSyncLogList = await _session.Query<AuditSyncLog>().ListAsync();
-            var auditSyncLog = auditSyncLogList.LastOrDefault();
+            var auditSyncLog = await _session
+                .Query<AuditSyncLog>()
+                .ToAsyncEnumerable()
+                .LastOrDefaultAsync();
             return auditSyncLog?.LastSynced ?? SqlDateTime.MinValue.Value;
         }
 
