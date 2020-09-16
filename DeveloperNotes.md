@@ -1,5 +1,7 @@
 #ToDo
 
+* separate out / show as a deleted item in validate results wwhen a deleted item is validates and don't make into a link that goes nowhere
+
 * use linkgenerator instead of hardcoding in visualiser and validate results, perhaps wrap in service
 
 * enhanced error notifications: publish to slack channel?

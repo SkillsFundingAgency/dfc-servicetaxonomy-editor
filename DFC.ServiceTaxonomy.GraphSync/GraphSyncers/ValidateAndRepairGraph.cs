@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DFC.ServiceTaxonomy.Content.Services.Interface;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Contexts;
@@ -46,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentItemsService _contentItemsService;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
-        private static object _validationLock = new object();
+        private readonly SemaphoreSlim _slimShady;
 
         public ValidateAndRepairGraph(IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IContentDefinitionManager contentDefinitionManager,
@@ -69,33 +70,35 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _contentItemVersionFactory = contentItemVersionFactory;
             _contentItemsService = contentItemsService;
             _logger = logger;
+            _slimShady = new SemaphoreSlim(1, 1);
             _currentGraph = default;
 
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
         }
 
-        // public async Task<ValidateAndRepairResults> ValidateGraph(
-        //     ValidationScope validationScope,
-        //     params string[] graphReplicaSetNames)
-        // {
-        //     if (!Monitor.TryEnter(_validationLock))
-        //         //todo: null time? blocked result?
-        //         return new ValidateAndRepairResults();
-        //
-        //     try
-        //     {
-        //         await ValidateGraphX(validationScope, graphReplicaSetNames);
-        //     }
-        //     finally
-        //     {
-        //         Monitor.Exit(_validationLock);
-        //     }
-        // }
-
-        public async Task<ValidateAndRepairResults> ValidateGraph(
+        public async Task<IValidateAndRepairResults> ValidateGraph(
             ValidationScope validationScope,
             params string[] graphReplicaSetNames)
         {
+            if (!await _slimShady.WaitAsync(TimeSpan.Zero))
+                return ValidationAlreadyInProgressResult.Instance;
+
+            try
+            {
+                return await ValidateGraphImpl(validationScope, graphReplicaSetNames);
+            }
+            finally
+            {
+                _slimShady.Release();
+            }
+        }
+
+        private async Task<IValidateAndRepairResults> ValidateGraphImpl(
+            ValidationScope validationScope,
+            params string[] graphReplicaSetNames)
+        {
+            Thread.Sleep(5000);
+
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));

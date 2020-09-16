@@ -8,7 +8,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
 {
     public interface IValidateAndRepairGraph
     {
-        Task<ValidateAndRepairResults> ValidateGraph(
+        Task<IValidateAndRepairResults> ValidateGraph(
             ValidationScope validationScope,
             params string[] graphReplicaSetNames);
 
