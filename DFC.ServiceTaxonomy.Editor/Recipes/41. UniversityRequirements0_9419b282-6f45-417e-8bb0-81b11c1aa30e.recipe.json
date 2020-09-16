@@ -1,0 +1,210 @@
+{
+  "name": "UniversityRequirements0_9419b282-6f45-417e-8bb0-81b11c1aa30e",
+  "displayName": "UniversityRequirements0_9419b282-6f45-417e-8bb0-81b11c1aa30e",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "5 GCSEs 9-4 incl E-M-S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E5 GCSEs at grades 9 to 4 (A* to C), or equivalent, including English, maths and science\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/d049daae-3f5e-4d59-aaaf-3013a8ef8911"
+    },
+    "ContentItemId": "4yqhtypq47jcr0329ytcr4xmxs",
+    "ContentItemVersionId": "4pvakxqc0vrr57rxntrdvd2nmg",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "5 GCSEs 9-4 incl E-M-S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Degree standard entry reqs"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 to 3 A levels, or equivalent, for a degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/a6cf8555-2c53-4ba3-afc8-b58c1f672f13"
+    },
+    "ContentItemId": "4xn9vx4x3heq7zdfwywc9wm9mg",
+    "ContentItemVersionId": "409nq5yvbt9g1sxb9v2t39az47",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Degree standard entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Postgraduate study - relevant degree needed"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea degree in a relevant subject for postgraduate study\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/beb88e65-4383-4b70-820f-aa44c7f84192"
+    },
+    "ContentItemId": "4nbn97k1efe9m1ar3ag3kd0h46",
+    "ContentItemVersionId": "4hydx18q7jydssstx3an7zs2mt",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Postgraduate study - relevant degree needed",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Audition"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Eto pass an audition\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/d6e8f9ed-275f-40db-8add-acdf6028510a"
+    },
+    "ContentItemId": "4hvyk5g04xh893s7eesy0ff2nt",
+    "ContentItemVersionId": "4ey7srr4x01eq37r0e46djgsx6",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Audition",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Foundation degree - standard entry reqs"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Eat least 1 A level, or equivalent, for a foundation degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/19356b9c-a800-4b6d-8144-7d46796d0ea3"
+    },
+    "ContentItemId": "4dq63wn846rxw2pv0zj1w7rccq",
+    "ContentItemVersionId": "4mx3xt949nxb4za3vfgesck8n4",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Foundation degree - standard entry reqs",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "2 or 3 A levels incl M-S"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E2 or 3 A levels, or equivalent, including maths and a science for a degree\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/cb022266-ac63-4b49-9437-6597990ac7a0"
+    },
+    "ContentItemId": "43t3zfs1azqprtb1f3cqttc34j",
+    "ContentItemVersionId": "4brxgzng0z6h3t79gzsjcwe5wf",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "2 or 3 A levels incl M-S",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Foundation degree or HND standard entry"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003E1 or 2 A levels, or equivalent, for a foundation degree or higher national diploma\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/51ad160b-036b-46ee-9f80-075a78cd9396"
+    },
+    "ContentItemId": "4n4ym0q0b9vzs7s0y1p46qnsmw",
+    "ContentItemVersionId": "4qmavdhbgsc3q3g7jm4wm4g9mm",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Foundation degree or HND standard entry",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Postgraduate entry reqs - any subject"
+    },
+    "UniversityRequirement": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea degree in any subject for a postgraduate course\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/universityrequirement/42ab1e40-ed18-4619-8031-6a3a8d8a2c76"
+    },
+    "ContentItemId": "4sf1mvdz2mb0j4g8ktmwjzn7mm",
+    "ContentItemVersionId": "49hkjaf0fx6md4xrtrsv445eww",
+    "ContentType": "UniversityRequirement",
+    "DisplayText": "Postgraduate entry reqs - any subject",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-16T08:22:18.8721289Z",
+    "PublishedUtc": "2020-09-16T08:22:18.8721289Z",
+    "CreatedUtc": "2020-09-16T08:22:18.8721289Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}

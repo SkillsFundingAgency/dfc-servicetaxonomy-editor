@@ -16,11 +16,16 @@ namespace GetJobProfiles.Importers
         private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
 
         public IEnumerable<PersonalityTraitContentItem> PersonalityTraitContentItems { get; private set; }
+
         public IEnumerable<PersonalityShortQuestionContentItem> PersonalityShortQuestionContentItems { get; private set; }
 
+        public IEnumerable<PersonalityQuestionSetContentItem> PersonalityQuestionSetContentItems { get; private set; }
+
         private Dictionary<string, string> _personalityTraitContentItemIdDictionary { get; set; }
-      
-        internal void ImportTraits(Dictionary<string,string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
+
+        private Dictionary<string, string> _personalityQuestionContentItemIdDictionary;
+
+        internal void ImportTraits(Dictionary<string, string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
         {
             var traits = ReadTraitsFromFile("Trait", dysacWorkbook);
 
@@ -43,7 +48,9 @@ namespace GetJobProfiles.Importers
         {
             var questions = ReadShortQuestionsFromFile("Shortquestion", dysacWorkbook);
 
-            PersonalityShortQuestionContentItems = questions.Select(x => new PersonalityShortQuestionContentItem(x.Title, timestamp)
+            _personalityQuestionContentItemIdDictionary = questions.Select(x => x.Title).Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
+
+            PersonalityShortQuestionContentItems = questions.Select(x => new PersonalityShortQuestionContentItem(x.Title, timestamp, _personalityQuestionContentItemIdDictionary[x.Title])
             {
                 EponymousPart = new PersonalityShortQuestionPart
                 {
@@ -54,6 +61,24 @@ namespace GetJobProfiles.Importers
                     }
                 }
             }).ToList();
+        }
+
+        internal void ImportQuestionSet(string timestamp)
+        {
+            PersonalityQuestionSetContentItems = new List<PersonalityQuestionSetContentItem>
+            {
+                new PersonalityQuestionSetContentItem("Short Question Set", timestamp)
+                {
+                    EponymousPart = new PersonalityQuestionSetPart
+                    {
+                        Type = new TextField("Short"),
+                        Questions = new ContentPicker
+                        {
+                            ContentItemIds = _personalityQuestionContentItemIdDictionary.Select(x=>x.Value)
+                        }
+                    }
+                }
+            };
         }
 
         private IEnumerable<PersonalityShortQuestion> ReadShortQuestionsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
