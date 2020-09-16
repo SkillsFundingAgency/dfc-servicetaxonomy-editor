@@ -155,7 +155,7 @@ stages:
 
 - stage: DeployToSit
   #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
-  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/dev'),eq(variables['Build.SourceBranch'], 'refs/heads/master')))
+  condition: and(eq(dependencies.Build.result,'Succeeded'), or(eq(variables['Build.SourceBranch'], 'refs/heads/dev'),eq(variables['Build.SourceBranch'], 'refs/heads/master')))
   displayName: Deploy to SIT_SERVICETAXONOMY
   variables:
   - group: dfc-shared-all
