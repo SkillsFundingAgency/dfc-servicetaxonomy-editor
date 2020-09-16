@@ -16,7 +16,7 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Drivers
         /// The list is ordered so that roots appear right before their child terms.
         public static void PopulateTermEntries(List<TermEntry> termEntries, TaxonomyField field, IEnumerable<ContentItem> contentItems, int level)
         {
-            foreach (var contentItem in contentItems)
+            foreach (var contentItem in contentItems.OrderBy(x => x.DisplayText))
             {
                 var children = Array.Empty<ContentItem>();
 
