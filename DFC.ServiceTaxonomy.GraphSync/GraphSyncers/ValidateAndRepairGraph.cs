@@ -47,7 +47,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
         private readonly IContentItemsService _contentItemsService;
         private readonly ILogger<ValidateAndRepairGraph> _logger;
         private IGraph? _currentGraph;
-        private readonly SemaphoreSlim _slimShady;
+        private static readonly SemaphoreSlim _serialValidation = new SemaphoreSlim(1, 1);
 
         public ValidateAndRepairGraph(IEnumerable<IContentItemGraphSyncer> itemSyncers,
             IContentDefinitionManager contentDefinitionManager,
@@ -70,7 +70,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             _contentItemVersionFactory = contentItemVersionFactory;
             _contentItemsService = contentItemsService;
             _logger = logger;
-            _slimShady = new SemaphoreSlim(1, 1);
             _currentGraph = default;
 
             _graphClusterLowLevel = _serviceProvider.GetRequiredService<IGraphClusterLowLevel>();
@@ -80,7 +79,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ValidationScope validationScope,
             params string[] graphReplicaSetNames)
         {
-            if (!await _slimShady.WaitAsync(TimeSpan.Zero))
+            if (!await _serialValidation.WaitAsync(TimeSpan.Zero))
                 return ValidationAlreadyInProgressResult.Instance;
 
             try
@@ -89,7 +88,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             }
             finally
             {
-                _slimShady.Release();
+                _serialValidation.Release();
             }
         }
 
@@ -97,8 +96,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers
             ValidationScope validationScope,
             params string[] graphReplicaSetNames)
         {
-            Thread.Sleep(5000);
-
             IEnumerable<ContentTypeDefinition> syncableContentTypeDefinitions = _contentDefinitionManager
                 .ListTypeDefinitions()
                 .Where(x => x.Parts.Any(p => p.Name == nameof(GraphSyncPart)));
