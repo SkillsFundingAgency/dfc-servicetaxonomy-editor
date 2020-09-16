@@ -9,7 +9,7 @@ namespace GetJobProfiles.Models.Recipe.ContentItems
           : base("PersonalityTrait", title, timestamp, contentItemId)
         {
             TitlePart = new TitlePart(title);
-            GraphSyncPart = new GraphSyncPart("PersonalTrait");
+            GraphSyncPart = new GraphSyncPart("PersonalityTrait");
             DisplayText = TitlePart.Title;
         }
 

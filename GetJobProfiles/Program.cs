@@ -139,6 +139,7 @@ namespace GetJobProfiles
             var dysacImporter = new DysacImporter();
             dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
             dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
+            dysacImporter.ImportQuestionSet(timestamp);
 
             const string cypherCommandRecipesPath = "CypherCommandRecipes";
 
@@ -241,6 +242,7 @@ namespace GetJobProfiles
            
             await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait");
             await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion");
+            await BatchSerializeToFiles(dysacImporter.PersonalityQuestionSetContentItems, batchSize, $"{filenamePrefix}PersonalityQuestionSet");
             await CopyRecipe(contentRecipesPath, "PersonalitySkill");
             await CopyRecipe(contentRecipesPath, "PersonalityFilteringQuestion");
 
