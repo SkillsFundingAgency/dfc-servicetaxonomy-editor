@@ -5,30 +5,46 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using FakeItEasy;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrchestratorTests
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestratorTests
 {
-    public class SyncOrchestrator_SaveDraftTests : SyncOrchestratorTestsBase
+    public class SyncOrchestrator_CloneTests : SyncOrchestratorTestsBase
     {
-        public SyncOrchestrator_SaveDraftTests()
+        public ICloneGraphSync CloneGraphSync { get; set; }
+
+        public SyncOrchestrator_CloneTests()
         {
+            CloneGraphSync = A.Fake<ICloneGraphSync>();
+            A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
+                    t => t.Name == (nameof(ICloneGraphSync)))))
+                .Returns(CloneGraphSync);
+
             A.CallTo(() => ServiceProvider.GetService(A<Type>.That.Matches(
                     t => t.Name == (nameof(IMergeGraphSyncer)))))
                 .Returns(PreviewMergeGraphSyncer)
                 .Once();
         }
 
+        [Fact]
+        public async Task Clone_CloneGraphSyncsMutateOnCloneCalled()
+        {
+            await SyncOrchestrator.Clone(ContentItem);
+
+            A.CallTo(() => CloneGraphSync.MutateOnClone(ContentItem, ContentManager, null))
+                .MustHaveHappened();
+        }
+
         [Theory]
         [InlineData(AllowSyncResult.Allowed, true)]
         [InlineData(AllowSyncResult.Blocked, false)]
         [InlineData(AllowSyncResult.NotRequired, true)]
-        public async Task SaveDraft_SyncAllowedMatrix_ReturnsBool(
+        public async Task Clone_SyncAllowedMatrix_ReturnsBool(
             AllowSyncResult allowSyncAllowedResult,
             bool expectedSuccess)
         {
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(allowSyncAllowedResult);
 
-            bool success = await SyncOrchestrator.SaveDraft(ContentItem);
+            bool success = await SyncOrchestrator.Clone(ContentItem);
 
             Assert.Equal(expectedSuccess, success);
         }
@@ -37,21 +53,21 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
         [InlineData(AllowSyncResult.Allowed, true)]
         [InlineData(AllowSyncResult.Blocked, false)]
         [InlineData(AllowSyncResult.NotRequired, false)]
-        public async Task SaveDraft_SyncAllowedMatrix_SyncCalled(
+        public async Task Clone_SyncAllowedMatrix_SyncCalled(
             AllowSyncResult allowSyncAllowedResult,
             bool expectedSyncCalled)
         {
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(allowSyncAllowedResult);
 
-            await SyncOrchestrator.SaveDraft(ContentItem);
+            await SyncOrchestrator.Clone(ContentItem);
 
             A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                 .MustHaveHappened(expectedSyncCalled?1:0, Times.Exactly);
         }
 
         [Fact]
-        public async Task SaveDraft_MergeGraphSyncerThrows_ExceptionPropagates()
+        public async Task Clone_MergeGraphSyncerThrows_ExceptionPropagates()
         {
             A.CallTo(() => PreviewAllowSync.Result)
                 .Returns(AllowSyncResult.Allowed);
@@ -59,15 +75,15 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrc
             A.CallTo(() => PreviewMergeGraphSyncer.SyncToGraphReplicaSet())
                 .Throws(() => new Exception());
 
-            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.SaveDraft(ContentItem));
+            await Assert.ThrowsAsync<Exception>(() => SyncOrchestrator.Clone(ContentItem));
         }
 
         [Fact]
-        public async Task SaveDraft_EventGridPublishingHandlerCalled()
+        public async Task Clone_EventGridPublishingHandlerCalled()
         {
-            await SyncOrchestrator.SaveDraft(ContentItem);
+            await SyncOrchestrator.Clone(ContentItem);
 
-            A.CallTo(() => EventGridPublishingHandler.DraftSaved(ContentItem)).MustHaveHappened();
+            A.CallTo(() => EventGridPublishingHandler.Cloned(ContentItem)).MustHaveHappened();
         }
     }
 }

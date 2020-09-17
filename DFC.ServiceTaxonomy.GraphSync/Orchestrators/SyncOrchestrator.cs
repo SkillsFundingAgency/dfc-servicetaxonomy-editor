@@ -274,8 +274,6 @@ namespace DFC.ServiceTaxonomy.GraphSync.Orchestrators
         {
             try
             {
-                // throw new GraphSyncException("Test esception");
-
                 IMergeGraphSyncer mergeGraphSyncer = _serviceProvider.GetRequiredService<IMergeGraphSyncer>();
 
                 IAllowSync allowSync = await mergeGraphSyncer.SyncAllowed(

@@ -25,6 +25,10 @@ using OrchardCore.ContentManagement.Metadata;
 // * need to set sensible maxdepth values on some (all?) types
 // * should we count embedded items (recursively) as part of max depth?
 // * move edit item and recenter functionality into display area (pop-outs like neo browser, or right click menu)
+// * when get incoming relationships on source node, if incoming node is an embedded item, also show containing item
+// that way instead of e.g. shared content showing incoming relationships from HTMLShared widgets
+// it shows the pages that use the shared content
+// * discriminate nodes with prefixes (so its clear what's actually esco)
 
 //todo: move visualisation into GraphSync module? then could add view graph button to sync part (along with id)
 //todo: maxLabelWidth to 180 : need to add options support to import json

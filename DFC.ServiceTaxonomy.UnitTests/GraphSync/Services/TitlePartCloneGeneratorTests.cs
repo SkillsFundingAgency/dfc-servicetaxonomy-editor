@@ -2,7 +2,7 @@
 using DFC.ServiceTaxonomy.GraphSync.Services;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.Title
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Services
 {
     public class TitlePartCloneGeneratorTests
     {

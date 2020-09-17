@@ -5,7 +5,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Results.AllowSync;
 using FakeItEasy;
 using Xunit;
 
-namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Handlers.Orchestrators.SyncOrchestratorTests
+namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators.SyncOrchestratorTests
 {
     public class SyncOrchestrator_UpdateTests : SyncOrchestratorTestsBase
     {
