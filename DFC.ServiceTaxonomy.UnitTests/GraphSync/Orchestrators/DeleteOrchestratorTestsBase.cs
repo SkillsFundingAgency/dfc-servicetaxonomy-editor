@@ -17,8 +17,10 @@ using OrchardCore.ContentManagement.Metadata;
 
 namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
 {
-    public class DeleteOrchestratorTestsBase : IDisposable
+    //todo: could have a common base class with Sync
+    public abstract class DeleteOrchestratorTestsBase : IDisposable
     {
+        protected abstract SyncOperation SyncOperation { get; }
         public DeleteOrchestrator DeleteOrchestrator { get; set; }
         public IContentDefinitionManager ContentDefinitionManager { get; set; }
         public IGraphSyncNotifier Notifier { get; set; }
@@ -36,7 +38,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
         public IContentOrchestrationHandler EventGridPublishingHandler { get; set; }
         public Activity TestActivity { get; set; }
 
-        public DeleteOrchestratorTestsBase()
+        protected DeleteOrchestratorTestsBase()
         {
             ContentDefinitionManager = A.Fake<IContentDefinitionManager>();
             Notifier = A.Fake<GraphSyncNotifier>();
@@ -66,7 +68,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
             A.CallTo(() => PreviewDeleteGraphSyncer.DeleteAllowed(
                     A<ContentItem>._,
                     A<IContentItemVersion>.That.Matches(v => v.GraphReplicaSetName == GraphReplicaSetNames.Preview),
-                    SyncOperation.Unpublish,
+                    SyncOperation,
                     null,
                     null))
                 .Returns(PreviewAllowSync);
@@ -75,7 +77,7 @@ namespace DFC.ServiceTaxonomy.UnitTests.GraphSync.Orchestrators
             A.CallTo(() => PublishedDeleteGraphSyncer.DeleteAllowed(
                     A<ContentItem>._,
                     A<IContentItemVersion>.That.Matches(v => v.GraphReplicaSetName == GraphReplicaSetNames.Published),
-                    SyncOperation.Unpublish,
+                    SyncOperation,
                     null,
                     null))
                 .Returns(PublishedAllowSync);
