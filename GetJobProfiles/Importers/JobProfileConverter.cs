@@ -29,6 +29,7 @@ namespace GetJobProfiles.Importers
         public readonly ContentPickerFactory WorkingEnvironments = new ContentPickerFactory();
         public readonly ContentPickerFactory WorkingLocations = new ContentPickerFactory();
         public readonly ContentPickerFactory WorkingUniforms = new ContentPickerFactory();
+        public readonly ContentPickerFactory PersonalitySkills = new ContentPickerFactory();
         public readonly ImportedAcademicRouteEqualityComparer ImportedAcademicRouteEqualityComparer;
         public readonly ImportedTitleHtmlDescriptionEqualityComparer ImportedTitleHtmlDescriptionEqualityComparer;
         public readonly ContentPickerContentItemFactory<AcademicEntryRouteContentItem> ApprenticeshipRoute;
@@ -50,6 +51,7 @@ namespace GetJobProfiles.Importers
         private readonly RestHttpClient.RestHttpClient _client;
         private readonly SocCodeContentPickerFactory _socCodeContentPickerFactory;
         private readonly Dictionary<string, string> _oNetDictionary;
+        private readonly Dictionary<string, List<string>> _dysacSkillSocLookup;
         private readonly TitleOptionsTextFieldFactory _titleOptionsFactory;
         private readonly DefaultIdGenerator _idGenerator;
 
@@ -73,11 +75,13 @@ namespace GetJobProfiles.Importers
             Dictionary<string, string> socCodeDictionary,
             Dictionary<string, string> oNetDictionary,
             Dictionary<string, string> titleOptionsLookup,
+            Dictionary<string, List<string>> dysacSkillSocLookup,
             string timestamp)
         {
             _client = client;
             _socCodeContentPickerFactory = new SocCodeContentPickerFactory(socCodeDictionary);
             _oNetDictionary = oNetDictionary;
+            _dysacSkillSocLookup = dysacSkillSocLookup;
             _titleOptionsFactory = new TitleOptionsTextFieldFactory(titleOptionsLookup);
             _idGenerator = new DefaultIdGenerator();
             Timestamp = timestamp;
@@ -107,13 +111,13 @@ namespace GetJobProfiles.Importers
                 summaries = (await _client.Get<JobProfileSummary[]>("summary"))
                     .Where(s => s.Title != null
                                 && jobProfilesToImport.Contains(s.Title.ToLowerInvariant())
-                                && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace(" ","-") ) );
+                                && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace(" ", "-")));
             }
             else
             {
                 summaries = (await _client.Get<JobProfileSummary[]>("summary"))
                     .Where(s => s.Title != null
-                             && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace(" ", "-")) );
+                             && !exclusionSource._exclusions.Contains(s.Title.ToLowerInvariant().Replace(" ", "-")));
             }
 
             if (skip > 0)
@@ -223,7 +227,8 @@ namespace GetJobProfiles.Importers
                 {
                     WitDigitalSkillsLevel = new HtmlField(jobProfile.WhatItTakes.DigitalSkillsLevel),
                     WitRestrictions = Restrictions.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.RelatedRestrictions),
-                    WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements)
+                    WitOtherRequirements = OtherRequirements.CreateContentPicker(jobProfile.WhatItTakes.RestrictionsAndRequirements.OtherRequirements),
+                    PersonalitySkill = PersonalitySkills.CreateContentPickerFromContent("PersonalitySkill", _dysacSkillSocLookup[jobProfile.Soc])
                 },
                 WhatYouWillDo = new WhatYouWillDoPart
                 {

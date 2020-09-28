@@ -16,14 +16,9 @@ namespace GetJobProfiles.Importers
         private static readonly DefaultIdGenerator _generator = new DefaultIdGenerator();
 
         public IEnumerable<PersonalityTraitContentItem> PersonalityTraitContentItems { get; private set; }
-
         public IEnumerable<PersonalityShortQuestionContentItem> PersonalityShortQuestionContentItems { get; private set; }
 
-        public IEnumerable<PersonalityQuestionSetContentItem> PersonalityQuestionSetContentItems { get; private set; }
-
         private Dictionary<string, string> _personalityTraitContentItemIdDictionary { get; set; }
-
-        private Dictionary<string, string> _personalityQuestionContentItemIdDictionary;
 
         internal void ImportTraits(Dictionary<string, string> jobCategoryDictionary, XSSFWorkbook dysacWorkbook, string timestamp)
         {
@@ -48,9 +43,7 @@ namespace GetJobProfiles.Importers
         {
             var questions = ReadShortQuestionsFromFile("Shortquestion", dysacWorkbook);
 
-            _personalityQuestionContentItemIdDictionary = questions.Select(x => x.Title).Select(jc => new { Id = _generator.GenerateUniqueId(), Title = jc }).ToDictionary(y => y.Title, y => y.Id);
-
-            PersonalityShortQuestionContentItems = questions.Select(x => new PersonalityShortQuestionContentItem(x.Title, timestamp, _personalityQuestionContentItemIdDictionary[x.Title])
+            PersonalityShortQuestionContentItems = questions.Select(x => new PersonalityShortQuestionContentItem(x.Title, timestamp)
             {
                 EponymousPart = new PersonalityShortQuestionPart
                 {
@@ -61,24 +54,6 @@ namespace GetJobProfiles.Importers
                     }
                 }
             }).ToList();
-        }
-
-        internal void ImportQuestionSet(string timestamp)
-        {
-            PersonalityQuestionSetContentItems = new List<PersonalityQuestionSetContentItem>
-            {
-                new PersonalityQuestionSetContentItem("Short Question Set", timestamp)
-                {
-                    EponymousPart = new PersonalityQuestionSetPart
-                    {
-                        Type = new TextField("Short"),
-                        Questions = new ContentPicker
-                        {
-                            ContentItemIds = _personalityQuestionContentItemIdDictionary.Select(x=>x.Value)
-                        }
-                    }
-                }
-            };
         }
 
         private IEnumerable<PersonalityShortQuestion> ReadShortQuestionsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
@@ -103,6 +78,40 @@ namespace GetJobProfiles.Importers
             }
 
             return listToReturn;
+        }
+
+        public Dictionary<string, List<string>> GetSocToPersonalitySkillMappings(XSSFWorkbook mappingsWorkbook)
+        {
+            var sheet = mappingsWorkbook.GetSheet("JP Link");
+            var dictionaryToReturn = new Dictionary<string, List<string>>();
+
+            //Skip first two rows
+            for (int r = 2; r < sheet.PhysicalNumberOfRows; r++)
+            {
+                var row = sheet.GetRow(r);
+
+                for (int c = 0; c < row.PhysicalNumberOfCells; c++)
+                {
+                    var socCode = row.Cells[c].StringCellValue.Substring(0, 5);
+                    var value = row.Cells[c].StringCellValue.Replace("Published", "").Replace($"{socCode}-", "");
+
+                    var nonPrefixedSocCode = socCode.Substring(0, 4);
+
+                    if (dictionaryToReturn.ContainsKey(nonPrefixedSocCode))
+                    {
+                        if (!dictionaryToReturn[nonPrefixedSocCode].Contains(value))
+                        {
+                            dictionaryToReturn[nonPrefixedSocCode].Add(value);
+                        }
+                    }
+                    else
+                    {
+                        dictionaryToReturn.Add(nonPrefixedSocCode, new List<string> { value });
+                    }
+                }
+            }
+
+            return dictionaryToReturn;
         }
 
         private IEnumerable<PersonalityTrait> ReadTraitsFromFile(string sheetName, XSSFWorkbook dysacWorkbook)
