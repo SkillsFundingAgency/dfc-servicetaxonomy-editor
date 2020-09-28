@@ -1,0 +1,66 @@
+{
+  "name": "WorkingUniforms0_9094598a-deda-4650-a9d8-f5fa36616f99",
+  "displayName": "WorkingUniforms0_9094598a-deda-4650-a9d8-f5fa36616f99",
+  "description": "",
+  "author": "",
+  "website": "",
+  "version": "",
+  "issetuprecipe": false,
+  "categories": "",
+  "tags": [],
+  "steps": [
+    {
+      "name": "ContentNoCache",
+      "data": [
+  {
+    "TitlePart": {
+      "Title": "Protective Clothing"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Eprotective clothing\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/ce33d382-b715-4662-8449-feaf8f1dedf6"
+    },
+    "ContentItemId": "4nmq818yhvrn2w8n3ryy37wh4g",
+    "ContentItemVersionId": "45dqvjaxv9cr2wcbd8prg017mh",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Protective Clothing",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-28T10:31:05.3155622Z",
+    "PublishedUtc": "2020-09-28T10:31:05.3155622Z",
+    "CreatedUtc": "2020-09-28T10:31:05.3155622Z",
+    "Owner": "admin",
+    "Author": "admin"
+  },
+  {
+    "TitlePart": {
+      "Title": "Uniform"
+    },
+    "WorkingUniform": {
+      "Description": {
+        "Html": "\u003Cp\u003Ea uniform\u003C/p\u003E"
+      }
+    },
+    "GraphSyncPart": {
+      "Text": "\u003C\u003Ccontentapiprefix\u003E\u003E/workinguniform/a2ad8338-5f02-4c5b-9194-eaea5f77d127"
+    },
+    "ContentItemId": "4ww4gcacbfzzjyh0ytw8nakrdn",
+    "ContentItemVersionId": "45pbccdsghmnhrnmgfn1f90pm6",
+    "ContentType": "WorkingUniform",
+    "DisplayText": "Uniform",
+    "Latest": true,
+    "Published": true,
+    "ModifiedUtc": "2020-09-28T10:31:05.3155622Z",
+    "PublishedUtc": "2020-09-28T10:31:05.3155622Z",
+    "CreatedUtc": "2020-09-28T10:31:05.3155622Z",
+    "Owner": "admin",
+    "Author": "admin"
+  }
+      ]
+    }
+  ]
+}
