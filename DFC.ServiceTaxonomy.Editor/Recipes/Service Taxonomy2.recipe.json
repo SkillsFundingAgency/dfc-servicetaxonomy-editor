@@ -116,6 +116,59 @@
             "name": "ContentDefinition",
             "ContentTypes": [
                 {
+                    "Name": "PersonalityQuestionSet",
+                    "DisplayName": "Personality Question Set",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "PersonalityQuestionSet",
+                            "Name": "PersonalityQuestionSet",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "GraphSyncPart",
+                            "Name": "GraphSyncPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "GraphSyncPartSettings": {
+                                    "NodeNameTransform": "ContentType",
+                                    "PropertyNameTransform": "Value",
+                                    "IdPropertyName": "uri",
+                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
+                                    "DisplayId": true
+                                },
+                                "ContentIndexSettings": {
+                                    "Template": "undefined"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "PersonalityFilteringQuestion",
                     "DisplayName": "Personality Filtering Question",
                     "Settings": {
@@ -258,59 +311,6 @@
                         }
                     ]
                 },
-                {
-                    "Name": "PersonalityQuestionSet",
-                    "DisplayName": "Personality Question Set",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        },
-                        "FullTextAspectSettings": {}
-                    },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "PersonalityQuestionSet",
-                            "Name": "PersonalityQuestionSet",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                },
-                                "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "ContentType",
-                                    "PropertyNameTransform": "Value",
-                                    "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
-                                },
-                                "ContentIndexSettings": {
-                                    "Template": "undefined"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        }
-                    ]
-                }
                 {
                     "Name": "PersonalityTrait",
                     "DisplayName": "Personality Trait",
@@ -2234,6 +2234,53 @@
             ],
             "ContentParts": [
                 {
+                    "Name": "PersonalityQuestionSet",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "Questions",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Questions",
+                                    "Position": "0"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "PersonalityShortQuestion"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Type",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Type",
+                                    "Editor": "PredefinedList",
+                                    "Position": "1"
+                                },
+                                "TextFieldSettings": {
+                                    "Required": true
+                                },
+                                "TextFieldPredefinedListEditorSettings": {
+                                    "Options": [
+                                        {
+                                            "name": "Short",
+                                            "value": "short"
+                                        }
+                                    ],
+                                    "DefaultValue": "short"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
                     "Name": "PersonalityFilteringQuestion",
                     "Settings": {},
                     "ContentPartFieldDefinitionRecords": [
@@ -2368,53 +2415,6 @@
                                         }
                                     ],
                                     "DefaultValue": "Positive"
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        }
-                    ]
-                },
-                {
-                    "Name": "PersonalityQuestionSet",
-                    "Settings": {},
-                    "ContentPartFieldDefinitionRecords": [
-                        {
-                            "FieldName": "ContentPickerField",
-                            "Name": "Questions",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Questions",
-                                    "Position": "0"
-                                },
-                                "ContentPickerFieldSettings": {
-                                    "Multiple": true,
-                                    "DisplayedContentTypes": [
-                                        "PersonalityShortQuestion"
-                                    ]
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "FieldName": "TextField",
-                            "Name": "Type",
-                            "Settings": {
-                                "ContentPartFieldSettings": {
-                                    "DisplayName": "Type",
-                                    "Editor": "PredefinedList",
-                                    "Position": "1"
-                                },
-                                "TextFieldSettings": {
-                                    "Required": true
-                                },
-                                "TextFieldPredefinedListEditorSettings": {
-                                    "Options": [
-                                        {
-                                            "name": "Short",
-                                            "value": "short"
-                                        }
-                                    ],
-                                    "DefaultValue": "short"
                                 },
                                 "ContentIndexSettings": {}
                             }
@@ -3952,7 +3952,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Restrictions",
-                                    "Position": "1"
+                                    "Position": "2"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:hasWitRestriction].",
@@ -3970,7 +3970,7 @@
                             "Settings": {
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Other Requirements",
-                                    "Position": "2"
+                                    "Position": "3"
                                 },
                                 "ContentPickerFieldSettings": {
                                     "Hint": "Creates relationships of [:hasWitOtherRequirement].",
@@ -3989,11 +3989,29 @@
                                 "ContentPartFieldSettings": {
                                     "DisplayName": "Digital Skills Level",
                                     "Editor": "Trumbowyg",
-                                    "Position": "3"
+                                    "Position": "4"
                                 },
                                 "HtmlFieldSettings": {},
                                 "HtmlFieldTrumbowygEditorSettings": {
                                     "Options": "{\r\n    semantic: {\r\n        'b': 'strong',\r\n        'i': 'em',\r\n        's': 'del',\r\n        'strike': 'del',\r\n        'div': 'div'\r\n    },\r\n    tagsToKeep: [\r\n      \"area\",\r\n      \"base\",\r\n      \"br\",\r\n      \"col\",\r\n      \"embed\",\r\n      \"hr\",\r\n      \"img\",\r\n      \"input\",\r\n      \"param\",\r\n      \"source\",\r\n      \"track\",\r\n      \"wbr\",\r\n\r\n      \"div\",\r\n      \"iframe\"\r\n    ],\r\n    autogrow: true,\r\n    btns: [\r\n        [\"viewHTML\"],\r\n        [\"undo\", \"redo\"],\r\n        [\"heading\", \"paragraph\", \"fontSize\"],\r\n        [\"fontWeight\"],\r\n        [\"foreColor\", \"backColor\"],\r\n        [\"links\"],\r\n        [\"image\"],\r\n        [\"align\"],\r\n        [\"list\", \"bulletList\", \"numberList\"],\r\n        [\"sectionBreak\"],\r\n        [\"removeformat\"],\r\n        [\"fullscreen\"],\r\n        [\"accordion\"],\r\n        [\"tabs\"]\r\n    ],\r\n    btnsDef: {\r\n        align: {\r\n            dropdown: [\"justifyLeft\", \"justifyCenter\", \"justifyRight\", \"justifyFull\"],\r\n            ico: \"justifyLeft\"\r\n        },\r\n        image: {\r\n            dropdown: [\"insertImage\", \"base64\", \"noembed\"],\r\n            ico: \"insertImage\"\r\n        }\r\n    },\r\n    plugins: {\r\n      colors: {\r\n          colorList: [\r\n            '0b0c0c',\r\n            '626a6e',\r\n            '1d70b8',\r\n            '003078',\r\n            '4c2c92',\r\n            'b1b4b6',\r\n            'ffdd00',\r\n            'd4351c',\r\n            \r\n            '003a69',\r\n            '347ca9',\r\n            \r\n            '00703c',\r\n            '5694ca',\r\n            'f3f2f1',\r\n            'ffffff',\r\n            '6f72af',\r\n            '912b88',\r\n            'd53880',\r\n            'f499be',\r\n            'f47738',\r\n            'b58840',\r\n            '85994b',\r\n            '28a197',\r\n          ]\r\n      }\r\n  }\r\n}"
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "PersonalitySkills",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Personality Skill",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "DYSaC Skill / ONet Skill\r\nCreates relationships of [:hasPersonalitySkill].",
+                                    "Multiple": true,
+                                    "DisplayedContentTypes": [
+                                        "PersonalitySkill"
+                                    ]
                                 },
                                 "ContentIndexSettings": {}
                             }

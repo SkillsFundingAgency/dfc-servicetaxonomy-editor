@@ -116,8 +116,12 @@ namespace GetJobProfiles
                 }
             };
 
+            var dysacImporter = new DysacImporter();
+            using var dysacJobProfileReader = new StreamReader(@"SeedData\dysac_job_profile_mappings.xlsx");
+            var dysacJobProfileWorkbook = new XSSFWorkbook(dysacJobProfileReader.BaseStream);
+
             var client = new RestHttpClient.RestHttpClient(httpClient);
-            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, titleOptionsLookup, timestamp);
+            var converter = new JobProfileConverter(client, socCodeDictionary, oNetDictionary, titleOptionsLookup, dysacImporter.GetSocToPersonalitySkillMappings(dysacJobProfileWorkbook), timestamp);
             await converter.Go(skip, take, napTimeMs, jobProfilesToImport);
 
             var jobProfiles = converter.JobProfiles.ToArray();
@@ -136,7 +140,6 @@ namespace GetJobProfiles
             using var dysacReader = new StreamReader(@"SeedData\dysac.xlsx");
             var dysacWorkbook = new XSSFWorkbook(dysacReader.BaseStream);
 
-            var dysacImporter = new DysacImporter();
             dysacImporter.ImportTraits(jobCategoryImporter.JobCategoryContentItemIdDictionary, dysacWorkbook, timestamp);
             dysacImporter.ImportShortQuestions(dysacWorkbook, timestamp);
             dysacImporter.ImportQuestionSet(timestamp);
@@ -200,11 +203,11 @@ namespace GetJobProfiles
 
             if (!createTestFiles)
             {
-            //    await CopyRecipe(contentRecipesPath, "SharedContent");
-            //    await CopyRecipe(contentRecipesPath, "ContentHelp");
-                  await CopyRecipe(contentRecipesPath, "EmailTemplates");
-                  await CopyRecipe(contentRecipesPath, "ContactUsPages");
-            //      await CopyRecipe(contentRecipesPath, "SkillsToolKit");
+                //    await CopyRecipe(contentRecipesPath, "SharedContent");
+                //    await CopyRecipe(contentRecipesPath, "ContentHelp");
+                await CopyRecipe(contentRecipesPath, "EmailTemplates");
+                await CopyRecipe(contentRecipesPath, "ContactUsPages");
+                //      await CopyRecipe(contentRecipesPath, "SkillsToolKit");
                 //    await CopyRecipe(contentRecipesPath, "Taxonomies");
                 //    await CopyRecipe(contentRecipesPath, "TestPages");
             }
@@ -237,13 +240,14 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(converter.VolunteeringRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}VolunteeringRoutes");
             await BatchSerializeToFiles(converter.WorkRoute.ItemToCompositeName.Keys, batchSize, $"{filenamePrefix}WorkRoutes");
 
+            await CopyRecipe(contentRecipesPath, "PersonalitySkill");
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
-           
+
             await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait");
             await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion");
             await BatchSerializeToFiles(dysacImporter.PersonalityQuestionSetContentItems, batchSize, $"{filenamePrefix}PersonalityQuestionSet");
-            await CopyRecipe(contentRecipesPath, "PersonalitySkill");
+
             await CopyRecipe(contentRecipesPath, "PersonalityFilteringQuestion");
 
             string masterRecipeName = config["MasterRecipeName"] ?? "master";
