@@ -1,5 +1,5 @@
 ﻿using System;
-using DFC.ServiceTaxonomy.GraphSync.GraphSyncers;
+using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Helpers;
 using DFC.ServiceTaxonomy.GraphSync.Indexes;
 using OrchardCore.ContentManagement.Metadata;
 using OrchardCore.ContentManagement.Metadata.Settings;
@@ -47,6 +47,13 @@ namespace DFC.ServiceTaxonomy.GraphSync
             );
 
             return 3;
+        }
+
+        public int UpdateFrom3()
+        {
+            SchemaBuilder.DropTable(nameof(AuditSyncLog));
+
+            return 4;
         }
     }
 }

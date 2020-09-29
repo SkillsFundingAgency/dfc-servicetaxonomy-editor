@@ -30,9 +30,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
                    && contentItem.ContentType != Terms;
         }
 
-        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSync allowSync)
         {
-            await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context, allowSyncResult);
+            await _taxonomyPartGraphSyncer.AllowSync(context.ContentItem.Content, context, allowSync);
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)
@@ -43,9 +43,9 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
             //await _termPartGraphSyncer.AddSyncComponents(context.ContentItem.Content[_termPartGraphSyncer.PartName], context);
         }
 
-        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSync allowSync)
         {
-            await _taxonomyPartGraphSyncer.AllowDelete(context.ContentItem.Content, context, allowSyncResult);
+            await _taxonomyPartGraphSyncer.AllowDelete(context.ContentItem.Content, context, allowSync);
         }
 
         public async Task DeleteComponents(IGraphDeleteItemSyncContext context)

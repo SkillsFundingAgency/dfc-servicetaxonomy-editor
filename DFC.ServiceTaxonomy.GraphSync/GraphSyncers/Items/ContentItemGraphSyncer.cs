@@ -6,7 +6,7 @@ using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Contexts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Items;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Parts;
 using DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces.Results.AllowSync;
-using DFC.ServiceTaxonomy.GraphSync.Handlers.Orchestrators;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using OrchardCore.ContentManagement;
@@ -34,17 +34,17 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Items
 
         public bool CanSync(ContentItem contentItem) => true;
 
-        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowSync(IGraphMergeItemSyncContext context, IAllowSync allowSync)
         {
             await IteratePartSyncers(context,
-                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSyncResult),
-                async (partSyncer, partContent) => await partSyncer.AllowSyncDetaching(context, allowSyncResult));
+                async (partSyncer, partContent) => await partSyncer.AllowSync(partContent, context, allowSync),
+                async (partSyncer, partContent) => await partSyncer.AllowSyncDetaching(context, allowSync));
         }
 
-        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSyncResult allowSyncResult)
+        public async Task AllowDelete(IGraphDeleteItemSyncContext context, IAllowSync allowSync)
         {
             await IteratePartSyncers(context,
-                async (partSyncer, partContent) => await partSyncer.AllowDelete(partContent, context, allowSyncResult));
+                async (partSyncer, partContent) => await partSyncer.AllowDelete(partContent, context, allowSync));
         }
 
         public async Task AddSyncComponents(IGraphMergeItemSyncContext context)

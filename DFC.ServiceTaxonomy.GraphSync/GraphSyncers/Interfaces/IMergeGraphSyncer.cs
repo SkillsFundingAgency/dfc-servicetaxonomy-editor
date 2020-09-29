@@ -12,7 +12,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         IMergeNodeCommand MergeNodeCommand { get; }
         IGraphMergeContext? GraphMergeContext { get; }
 
-        Task<IAllowSyncResult> SyncToGraphReplicaSetIfAllowed(
+        Task<IAllowSync> SyncToGraphReplicaSetIfAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,
@@ -45,7 +45,7 @@ namespace DFC.ServiceTaxonomy.GraphSync.GraphSyncers.Interfaces
         /// There is a small window between the check and sync phases, where other users
         /// could have changed the data, and then the db's could get out of sync, but it should mostly work.
         /// </summary>
-        Task<IAllowSyncResult> SyncAllowed(
+        Task<IAllowSync> SyncAllowed(
             IGraphReplicaSet graphReplicaSet,
             ContentItem contentItem,
             IContentManager contentManager,

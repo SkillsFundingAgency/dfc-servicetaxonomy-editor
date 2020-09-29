@@ -1,5 +1,5 @@
-﻿using DFC.ServiceTaxonomy.GraphSync.Handlers.Interfaces;
-using DFC.ServiceTaxonomy.GraphSync.Models;
+﻿using DFC.ServiceTaxonomy.GraphSync.Models;
+using DFC.ServiceTaxonomy.GraphSync.Orchestrators.Interfaces;
 using Microsoft.Extensions.Logging;
 using OrchardCore.ContentTypes.Events;
 

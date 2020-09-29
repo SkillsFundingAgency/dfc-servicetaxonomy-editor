@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using OrchardCore.ContentManagement.Records;
 using System;
+using DFC.ServiceTaxonomy.PageLocation.Constants;
 using DFC.ServiceTaxonomy.Taxonomies.Helper;
 using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace DFC.ServiceTaxonomy.PageLocation.Drivers
 {
@@ -132,8 +132,9 @@ namespace DFC.ServiceTaxonomy.PageLocation.Drivers
                     updater.ModelState.AddModelError(Prefix, nameof(pageLocation.FullUrl), "Another page is already using this URL as a redirect location");
                 }
 
+                //todo: would be better to use ContentType to lookup PageLocations
                 ContentItem? taxonomy = await _session.Query<ContentItem, ContentItemIndex>(x =>
-                    x.ContentType == Constants.TaxonomyContentType && x.DisplayText == Constants.PageLocationsDisplayText && x.Latest && x.Published).FirstOrDefaultAsync();
+                    x.ContentType == ContentTypes.Taxonomy && x.DisplayText == DisplayTexts.PageLocations && x.Latest && x.Published).FirstOrDefaultAsync();
 
                 if (taxonomy != null)
                 {

@@ -31,11 +31,12 @@
     <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc4" />
     <PackageReference Include="OrchardCore.Abstractions" Version="1.0.0-rc4" />
     <PackageReference Include="OrchardCore.Sitemaps" Version="1.0.0-rc4" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.8.0.18411">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.13.0.21683">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Linq.Async" Version="4.1.1" />
   </ItemGroup>
 
   <ItemGroup>
