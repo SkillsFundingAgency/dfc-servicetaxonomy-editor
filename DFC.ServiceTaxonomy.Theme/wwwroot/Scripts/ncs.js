@@ -20,4 +20,7 @@
             $(this).text($(this).text().split('##')[0]);
         }
     });
+
+    //hide the configuration -> SEO menu item as it can't be disabled any other way I don't think??
+    $('li.has-items span.title:contains("SEO")').closest('li').remove();
 });
