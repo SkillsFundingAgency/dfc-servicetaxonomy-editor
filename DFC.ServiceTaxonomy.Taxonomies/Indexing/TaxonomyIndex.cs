@@ -37,11 +37,6 @@ namespace DFC.ServiceTaxonomy.Taxonomies.Indexing
             context.For<TaxonomyIndex>()
                 .Map(contentItem =>
                 {
-                    if (!contentItem.IsPublished())
-                    {
-                        return null;
-                    }
-
                     // Can we safely ignore this content item?
                     if (_ignoredTypes.Contains(contentItem.ContentType))
                     {
