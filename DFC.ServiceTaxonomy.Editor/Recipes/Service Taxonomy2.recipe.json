@@ -365,57 +365,6 @@
                     ]
                 },
                 {
-                    "Name": "Email",
-                    "DisplayName": "Email",
-                    "Settings": {
-                        "ContentTypeSettings": {
-                            "Creatable": true,
-                            "Listable": true,
-                            "Draftable": true,
-                            "Versionable": true,
-                            "Securable": true
-                        },
-                        "FullTextAspectSettings": {}
-                    },
-                    "ContentTypePartDefinitionRecords": [
-                        {
-                            "PartName": "Email",
-                            "Name": "Email",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "1"
-                                }
-                            }
-                        },
-                        {
-                            "PartName": "GraphSyncPart",
-                            "Name": "GraphSyncPart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "2"
-                                },
-                                "GraphSyncPartSettings": {
-                                    "NodeNameTransform": "ContentType",
-                                    "PropertyNameTransform": "Value",
-                                    "IdPropertyName": "uri",
-                                    "GenerateIdPropertyValue": "$\"<<contentapiprefix>>/{ContentType}/{Value}\".ToLowerInvariant()",
-                                    "DisplayId": true
-                                },
-                                "ContentIndexSettings": {}
-                            }
-                        },
-                        {
-                            "PartName": "TitlePart",
-                            "Name": "TitlePart",
-                            "Settings": {
-                                "ContentTypePartSettings": {
-                                    "Position": "0"
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
                     "Name": "Occupation",
                     "DisplayName": "Occupation",
                     "Settings": {
