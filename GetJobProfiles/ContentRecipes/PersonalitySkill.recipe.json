@@ -232,7 +232,7 @@
                     "ContentItemId": "46yp2hq2g0kyw1y196sctz2smc",
                     "ContentItemVersionId": "4yqkm2bdgxcq11snsxg900r4wh",
                     "ContentType": "PersonalitySkill",
-                    "DisplayText": "Speaking-Verbal-Abilities",
+                    "DisplayText": "Speaking, Verbal Abilities",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2020-09-11T06:31:14.1610494Z",
@@ -249,14 +249,14 @@
                         "Text": "<<contentapiprefix>>/personalityskill/2ea36cb6-6f2f-454b-8a08-bd2944971fcd"
                     },
                     "TitlePart": {
-                        "Title": "Speaking-Verbal-Abilities"
+                        "Title": "Speaking, Verbal Abilities"
                     }
                 },
                 {
                     "ContentItemId": "4mdf6kcaz8f2s62gbhef1r46mv",
                     "ContentItemVersionId": "48k61q9dxv38pvhw7zjvs2ph5q",
                     "ContentType": "PersonalitySkill",
-                    "DisplayText": "Quantitative Abilities-Mathematics Knowledge",
+                    "DisplayText": "Quantitative Abilities, Mathematics Knowledge",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2020-09-11T06:31:26.3670733Z",
@@ -273,7 +273,7 @@
                         "Text": "<<contentapiprefix>>/personalityskill/2ed138bd-2dca-4a26-953c-8734550ac252"
                     },
                     "TitlePart": {
-                        "Title": "Quantitative Abilities-Mathematics Knowledge"
+                        "Title": "Quantitative Abilities, Mathematics Knowledge"
                     }
                 },
                 {

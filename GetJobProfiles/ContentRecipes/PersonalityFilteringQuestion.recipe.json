@@ -277,7 +277,7 @@
                     "ContentItemId": "4vf1xxm7zzdgc0hnkzkfhjr85j",
                     "ContentItemVersionId": "4qzp6gdfs6hhe20qethrr8d447",
                     "ContentType": "PersonalityFilteringQuestion",
-                    "DisplayText": "Speaking-Verbal-Abilities",
+                    "DisplayText": "Speaking, Verbal Abilities",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2020-09-11T13:56:39.8820068Z",
@@ -288,7 +288,7 @@
                     "PersonalityFilteringQuestion": {
                         "PersonalitySkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Speaking-Verbal-Abilities\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Speaking, Verbal Abilities\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -299,14 +299,14 @@
                         "Text": "<<contentapiprefix>>/personalityfilteringquestion/b975d255-ef37-45eb-8ffe-1c2c888a8ce0"
                     },
                     "TitlePart": {
-                        "Title": "Speaking-Verbal-Abilities"
+                        "Title": "Speaking, Verbal Abilities"
                     }
                 },
                 {
                     "ContentItemId": "4ecb4923b6bvmtehmeq4edxrn6",
                     "ContentItemVersionId": "4kbrkq0vpkfkpzcp352zyb7p53",
                     "ContentType": "PersonalityFilteringQuestion",
-                    "DisplayText": "Quantitative Abilities-Mathematics Knowledge",
+                    "DisplayText": "Quantitative Abilities, Mathematics Knowledge",
                     "Latest": true,
                     "Published": true,
                     "ModifiedUtc": "2020-09-11T13:57:10.7780015Z",
@@ -317,7 +317,7 @@
                     "PersonalityFilteringQuestion": {
                         "PersonalitySkill": {
                             "ContentItemIds": [
-                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Quantitative Abilities-Mathematics Knowledge\")\u00BB"
+                                "\u00ABc#: await Content.GetContentItemIdByDisplayText(\"PersonalitySkill\", \"Quantitative Abilities, Mathematics Knowledge\")\u00BB"
                             ]
                         },
                         "Text": {
@@ -328,7 +328,7 @@
                         "Text": "<<contentapiprefix>>/personalityfilteringquestion/e37caa7f-ed6b-4e18-8d7a-c02a82589738"
                     },
                     "TitlePart": {
-                        "Title": "Quantitative Abilities-Mathematics Knowledge"
+                        "Title": "Quantitative Abilities, Mathematics Knowledge"
                     }
                 },
                 {
