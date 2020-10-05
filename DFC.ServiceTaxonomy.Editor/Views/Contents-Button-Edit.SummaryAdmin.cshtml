@@ -26,10 +26,10 @@
         : contentItem.Content[nameof(PageLocationPart)][nameof(PageLocationPart.FullUrl)];
 
     <div class="btn-group">
-        <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="viewButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="@($"viewButton-{contentItem.ContentItemId}")" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             @T["View"]
         </button>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="viewButton">
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="@($"viewButton-{contentItem.ContentItemId}")">
             <a href="@($"{PageConfig.PreviewAppPrefix}{url}")"
                target="_blank"
                class="dropdown-item btn-sm">@T["View draft content"]</a>
