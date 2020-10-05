@@ -8,6 +8,6 @@ namespace GetJobProfiles.Models.Recipe.Parts
         public HtmlField WitDigitalSkillsLevel { get; set; }
         public ContentPicker WitRestrictions { get; set; }
         public ContentPicker WitOtherRequirements { get; set; }
-        public ContentPicker PersonalitySkill { get; set; }
+        public ContentPicker PersonalitySkills { get; set; }
     }
 }
