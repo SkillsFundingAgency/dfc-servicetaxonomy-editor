@@ -244,9 +244,9 @@ namespace GetJobProfiles
             await BatchSerializeToFiles(jobProfiles, jobProfileBatchSize, $"{filenamePrefix}JobProfiles", CSharpContentStep.StepName);
             await BatchSerializeToFiles(jobCategoryImporter.JobCategoryContentItems, batchSize, $"{filenamePrefix}JobCategories");
 
-            await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait");
-            await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion");
-            await BatchSerializeToFiles(dysacImporter.PersonalityQuestionSetContentItems, batchSize, $"{filenamePrefix}PersonalityQuestionSet");
+            await BatchSerializeToFiles(dysacImporter.PersonalityTraitContentItems, batchSize, $"{filenamePrefix}PersonalityTrait", CSharpContentStep.StepName);
+            await BatchSerializeToFiles(dysacImporter.PersonalityShortQuestionContentItems, batchSize, $"{filenamePrefix}PersonalityShortQuestion", CSharpContentStep.StepName);
+            await BatchSerializeToFiles(dysacImporter.PersonalityQuestionSetContentItems, batchSize, $"{filenamePrefix}PersonalityQuestionSet", CSharpContentStep.StepName);
 
             await CopyRecipe(contentRecipesPath, "PersonalityFilteringQuestion");
 
